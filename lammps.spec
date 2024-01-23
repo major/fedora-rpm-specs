@@ -25,7 +25,7 @@ Version:        20230802.1
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -364,6 +364,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230802.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 5 2023 Richard Berger <richard.berger@outlook.com> - 20230802.1-1
 - Version bump to 20230802.1
 - Disable potentials download during CMake (DOWNLOAD_POTENTIALS=OFF)

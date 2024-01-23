@@ -2,7 +2,7 @@
 
 Name:       perl-%{upstream_name}
 Version:    0.2.2
-Release:    9%{?dist}
+Release:    10%{?dist}
 
 Summary:    Tests that an external program is valgrind-clean
 License:    MIT
@@ -57,6 +57,9 @@ perl Build.PL --installdirs=vendor
 %perl_vendorlib/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

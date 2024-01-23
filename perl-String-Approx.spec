@@ -1,6 +1,6 @@
 Name:           perl-String-Approx
 Version:        3.28
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl extension for approximate (fuzzy) matching
 # Approx.pm:    Artistic-2.0 OR LGPL-2.0-only
 # apse.c:       LGPL-2.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

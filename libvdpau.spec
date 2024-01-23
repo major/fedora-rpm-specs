@@ -1,6 +1,6 @@
 Name:           libvdpau
 Version:        1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Wrapper library for the Video Decode and Presentation API
 # SPDX
 License:        MIT
@@ -97,6 +97,9 @@ mv %{_vpath_builddir}/doc/html html
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 20 2023 José Expósito <jexposit@redhat.com>
 - SPDX migration: license is already SPDX compatible
 

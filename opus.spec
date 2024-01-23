@@ -11,7 +11,7 @@
 
 Name:     opus
 Version:  1.4
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Release:  3%{?candidate:.%{candidate}}%{?dist}
 Summary:  An audio codec for use in low-delay speech and audio communication
 License:  BSD-3-Clause AND BSD-2-Clause
 URL:      https://www.opus-codec.org/
@@ -152,6 +152,9 @@ make -C build_native check %{?_smp_mflags} V=1
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.4-2
 - Make mingw subpackages noarch
 

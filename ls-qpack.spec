@@ -1,6 +1,6 @@
 Name:           ls-qpack
 Version:        2.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QPACK compression library for use with HTTP/3
 
 License:        MIT
@@ -95,5 +95,8 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/interop-encode
 %{_libdir}/libls-qpack.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 22 2023 Benson Muite <benson_muite@emailplus.org> - 2.5.3-1
 - Initial packaging

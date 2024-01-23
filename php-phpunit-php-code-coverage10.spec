@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        10.1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -199,6 +199,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Remi Collet <remi@remirepo.net> - 10.1.11-1
 - update to 10.1.11
 - raise dependency on nikic/php-parser 4.18 and allow 5.0

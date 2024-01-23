@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.02.00
-Release:         3%{?dist}
+Release:         5%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -24,12 +24,12 @@ Patch9:          netpbm-xwdfix.patch
 Patch10:         netpbm-multilib.patch
 Patch11:         netpbm-glibc.patch
 Patch12:         netpbm-docfix.patch
-Patch13:         netpbm-cmuwtopbm.patch
 Patch14:         netpbm-pamtojpeg2k.patch
 Patch15:         netpbm-manfix.patch
 Patch16:         netpbm-jasper.patch
 Patch17:         netpbm-libdir-so.patch
 Patch18:         netpbm-c99.patch
+Patch19: netpbm-c99-2.patch
 
 BuildRequires: make
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
@@ -230,6 +230,14 @@ popd
 %doc userguide/*
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 11.02.00-5
+- GCC 14 compatibility fixes:
+  Drop netpbm-cmuwtopbm.patch to fix an out-of-bounds stack write (#2259450)
+  Stub out unused converter/other/jpeg2000/libjasper_compat.c (#2259448)
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.02.00-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 11.02.00-3
 - Rebuild for jasper 4.1
 

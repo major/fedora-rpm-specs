@@ -4,7 +4,7 @@
 
 Name:          osgearth
 Version:       3.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPL-3.0-only
@@ -274,6 +274,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 3.5-2
 - Rebuild (gdal)
 

@@ -1,6 +1,6 @@
 Name:           libxkbcommon
 Version:        1.6.0
-Release:        1%{?gitdate:.%{gitdate}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
@@ -110,6 +110,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_datadir}/bash-completion/completions/xkbcli
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 09 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.0-1
 - libxkbcommon 1.6.0
 

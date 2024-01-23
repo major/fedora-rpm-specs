@@ -1,7 +1,7 @@
 # This file is lincensed under the terms of GPLv2+.
 Name:           perl-Fedora-Rebuild
 Version:        0.12.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Rebuilds Fedora packages from scratch
 License:        GPLv3+
 URL:            http://ppisar.fedorapeople.org/Fedora-Rebuild/
@@ -135,6 +135,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

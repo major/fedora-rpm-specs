@@ -29,7 +29,7 @@
 
 Name:           librepo
 Version:        1.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -124,6 +124,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 18 2023 Jan Kolarik <jkolarik@redhat.com> - 1.17.0-1
 - Update to 1.17.0
 - lr_gpg_check_signature: Forward PGP error messages from RPM

@@ -2,7 +2,7 @@
 Name:    ktp-contact-runner
 Summary: Plasma runner for KDE Telepathy
 Version: 23.04.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 URL:     https://invent.kde.org/network/%{name}
@@ -56,6 +56,9 @@ BuildRequires:  ktp-common-internals-devel >= %{majmin_ver}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

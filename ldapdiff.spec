@@ -1,6 +1,6 @@
 Name:           ldapdiff
 Version:        1.4.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Tool for incremental LDAP directory updates based on ldif files
 
 License:        GPLv3+
@@ -44,6 +44,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

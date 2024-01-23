@@ -45,7 +45,7 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -654,6 +654,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.22-1
 - Update to upstream version 2.03.22.
 - Allow snapshots of raid+integrity LV.

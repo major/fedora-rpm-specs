@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        8.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -457,6 +457,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6:8.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 6:8.4.0-2
 - Rebuilt for sundials-6.6.2 (fix RHBZ#2249025)
 

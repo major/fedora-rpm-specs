@@ -1,6 +1,6 @@
 Name:           perl-Test-Memory-Cycle
 Version:        1.06
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Check for memory leaks and circular memory references
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Memory-Cycle
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Test::Memory::Cycle.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:     libopusenc
 Version:  0.2.1
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary:  A library that provides an easy way to encode Ogg Opus files
 License:  BSD
 URL:      https://opus-codec.org/
@@ -54,6 +54,9 @@ make check %{?_smp_mflags} V=1
 %{_libdir}/pkgconfig/libopusenc.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

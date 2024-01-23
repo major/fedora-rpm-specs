@@ -1,6 +1,6 @@
 Name:           perl-Server-Starter
 Version:        0.35
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Superdaemon for hot-deploying server programs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Server-Starter
@@ -73,6 +73,9 @@ perl-Server-Starter's start_server script.
 %{_mandir}/man1/start_server.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

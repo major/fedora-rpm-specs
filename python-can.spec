@@ -4,7 +4,7 @@
 
 Name:      python-can
 Version:   4.3.1
-Release:   1%{?candidate:.%{candidate}}%{?dist}
+Release:   2%{?candidate:.%{candidate}}%{?dist}
 Summary:   Controller Area Network (CAN) support for Python
 License:   LGPLv3
 URL:       https://github.com/hardbyte/python-can
@@ -68,6 +68,9 @@ utilities for sending and receiving messages on a can bus.
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.1-1
 - Update to 4.3.1
 

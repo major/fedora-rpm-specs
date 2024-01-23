@@ -6,7 +6,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -190,6 +190,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-1
 - 2240389 - libppd-2.0.0 is available
 

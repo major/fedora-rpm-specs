@@ -4,7 +4,7 @@
 
 Name:           pyproj
 Version:        3.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -176,6 +176,9 @@ py.test-3 -m "not network"
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Jos de Kloe <josdekloe@gmail.com> 3.6.1-1
 - Update to 3.6.1; remove patch0
 

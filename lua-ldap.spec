@@ -3,7 +3,7 @@
 %{!?lua_libdir: %global lua_libdir %{_libdir}/lua/%{lua_version}}
 Name:           lua-ldap
 Version:        1.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LDAP client library for Lua, using OpenLDAP
 License:        MIT
 URL:            https://lualdap.github.io/lualdap/
@@ -48,6 +48,9 @@ lua -e \
 %{lua_libdir}/lualdap.so*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Christian Krause <chkr@fedoraproject.org> - 1.3.1-3
 - Disable C89 support to match the lua runtime (required on i686)
 

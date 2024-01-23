@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-menhir
 Version:        20231231
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -107,6 +107,9 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %{ocamldir}/menhirLib/menhirLib.ml
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231231-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Richard W.M. Jones <rjones@redhat.com> - 20231231-1
 - New upstream version 20231231 (RHBZ#2256337)
 - Add new menhirCST library, used for --unparsing option.

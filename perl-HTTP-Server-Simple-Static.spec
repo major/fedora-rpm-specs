@@ -1,6 +1,6 @@
 Name:		perl-HTTP-Server-Simple-Static
 Version:	0.14
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Serve static files with HTTP::Server::Simple
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/HTTP-Server-Simple-Static
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

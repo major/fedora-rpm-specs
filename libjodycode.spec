@@ -1,6 +1,6 @@
 Name:           libjodycode
 Version:        3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
@@ -58,6 +58,9 @@ rm -rf %{buildroot}%{_mandir}/man7
 %{_libdir}/libjodycode.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 David Cantrell <dcantrell@redhat.com> - 3.1-1
 - Upgrade to libjodycode-3.1
 - Drop the forge macros because the project moved to an unsupported site

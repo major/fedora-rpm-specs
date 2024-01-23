@@ -4,7 +4,7 @@
 
 Name:           libkrun
 Version:        1.7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 License:        Apache-2.0
@@ -163,6 +163,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Sergio Lopez <slp@redhat.com> - 1.7.2-2
 - Update versions of rust-vmm dependencies
 

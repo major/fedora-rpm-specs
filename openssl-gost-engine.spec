@@ -1,6 +1,6 @@
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: OpenSSL
@@ -63,6 +63,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 19 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 3.0.3-1
 - Update to version 3.0.3
 

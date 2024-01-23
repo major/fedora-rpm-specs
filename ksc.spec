@@ -8,7 +8,7 @@
 
 Name:		ksc
 Version:	1.7
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Kernel source code checker
 Group:		Development/Tools
 AutoReqProv:	no
@@ -49,6 +49,9 @@ install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
 %{python3_sitelib}/ksc-%{version}*.egg-info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jun 19 2023 Čestmír Kalina <ckalina@redhat.com> - 1.7-8
 - Migrate license to SPDX
 

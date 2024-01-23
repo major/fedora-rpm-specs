@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        1.0.0
-Release:        10%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        11%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Emulation of SCOPE_EXIT construct from C++
 
 License:        BSD
@@ -105,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

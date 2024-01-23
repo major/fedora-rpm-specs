@@ -1,7 +1,7 @@
 Summary:        A powerful declarative parser/builder for binary data
 Name:           python-construct
 Version:        2.10.70
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            http://construct.readthedocs.org
 Source0:        https://pypi.python.org/packages/source/c/construct/construct-%{version}.tar.gz
@@ -41,6 +41,9 @@ Requires:       python3-six
 %{python3_sitelib}/construct-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 02 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.10.70-1
 - 2.10.70
 

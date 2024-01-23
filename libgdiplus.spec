@@ -3,7 +3,7 @@
 
 Name:           libgdiplus
 Version:        6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An Open Source implementation of the GDI+ API
 License:        MIT
 URL:            http://www.mono-project.com/Main_Page
@@ -56,6 +56,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/lib*.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

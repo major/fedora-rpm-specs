@@ -2,7 +2,7 @@
 
 Name:           pre-commit
 Version:        3.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -192,6 +192,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-2
 - Assert that the .dist-info directory contains a license file
 - Simplify setting up the git repository required by the tests

@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Python library for Dockerfile manipulation
 License:        BSD
@@ -55,6 +55,9 @@ py.test-%{python3_version} -v tests
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Lukas Slebodnik <lslebodn@fedoraproject.org> - 2.0.1-1
 - Automatic commit of package [python-dockerfile-parse] release [2.0.1-1]. (mkosiarc)
 - fix(pylint): address broad-exception-raised (Martin Basti)

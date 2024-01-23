@@ -5,7 +5,7 @@
 
 Name: libipt
 Version: 2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
@@ -83,6 +83,9 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 18 2023 Keith Seitz <keiths@redhat.com> - 2.1-1
 - Update to v2.1.
 

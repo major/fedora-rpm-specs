@@ -1,6 +1,6 @@
 Name:           perl-WWW-Splunk
 Version:        2.09
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Client for Splunk log search engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Splunk
@@ -79,6 +79,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.09-2
 - Rename sc tool to splunk-client
 

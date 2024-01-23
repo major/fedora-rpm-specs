@@ -1,6 +1,6 @@
 Name:           libnftnl
 Version:        1.2.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Phil Sutter <psutter@redhat.com> - 1.2.6-3
 - Convert license to SPDX format
 

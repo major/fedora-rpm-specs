@@ -1,6 +1,6 @@
 Name:           perl-Net-Facebook-Oauth2
 Version:        0.12
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple Perl wrapper around Facebook OAuth 2.0 protocol
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/Net::Facebook::Oauth2/
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

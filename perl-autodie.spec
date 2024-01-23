@@ -3,7 +3,7 @@
 
 Name:           perl-autodie
 Version:        2.37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Replace functions with ones that succeed or die
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autodie
@@ -151,6 +151,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.37-1
 - 2.37 bump (rhbz#2256130)
 

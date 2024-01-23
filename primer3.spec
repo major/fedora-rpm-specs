@@ -1,6 +1,6 @@
 Name:           primer3
 Version:        2.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        PCR primer design tool
 License:        BSD and GPLv2+
 URL:            http://primer3.sourceforge.net
@@ -58,6 +58,9 @@ popd
 %{_sysconfdir}/primer3_config
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

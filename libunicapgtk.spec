@@ -1,7 +1,7 @@
 Summary:        Library to build graphical widgets for the unicap library
 Name:           libunicapgtk
 Version:        0.9.8
-Release:        30%{?dist}
+Release:        31%{?dist}
 License:        GPLv2+
 URL:            https://www.unicap-imaging.org/
 Source0:        https://www.unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.{a,la}
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

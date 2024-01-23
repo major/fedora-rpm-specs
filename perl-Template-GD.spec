@@ -1,6 +1,6 @@
 Name:           perl-Template-GD
 Version:        2.66
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        GD plugin(s) for the Template Toolkit
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Template-GD
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.66-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.66-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

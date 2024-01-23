@@ -2,7 +2,7 @@
 
 Name:           mingw-speex
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Voice compression format (codec)
 
 License:        BSD
@@ -148,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

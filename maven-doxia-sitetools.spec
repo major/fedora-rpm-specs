@@ -3,7 +3,7 @@
 
 Name:           %{parent}-%{subproj}
 Version:        1.11.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -111,6 +111,9 @@ rm -rf $(find -type d -name itext)
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 30 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-7
 - Enable markdown support
 - Adapt to recent versions of velocity

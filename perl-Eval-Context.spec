@@ -1,6 +1,6 @@
 Name:       perl-Eval-Context 
 Version:    0.09.11 
-Release:    33%{?dist}
+Release:    34%{?dist}
 # see lib/Eval/Context.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Evalute perl code in context wraper 
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Eval::Context*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09.11-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.09.11-33
 - Fix failing test t/012_safe.t (rhbz#2249049)
 

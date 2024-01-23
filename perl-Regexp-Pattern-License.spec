@@ -1,6 +1,6 @@
 Name:           perl-Regexp-Pattern-License
 Version:        3.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Regular expressions for legal licenses
 License:        GPL-3.0-or-later
 
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Sandro Mani <manisandro@gmail.com> - 3.11.1-1
 - Update to 3.11.1
 

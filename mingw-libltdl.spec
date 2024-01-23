@@ -14,7 +14,7 @@
 Summary:  Runtime libraries for GNU Libtool Dynamic Module Loader
 Name:     mingw-libltdl
 Version:  2.4.7
-Release:  3%{?dist}
+Release:  4%{?dist}
 # Even though the source package contains files under
 # "GPLv2+ and LGPLv2+ and GFDL", the binary RPM only ships LGPLv2+ code.
 License:  LGPLv2+
@@ -148,6 +148,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:		nextpnr
 Version:	1
-Release:	34.%{snapdate}git%{shortcommit}%{?dist}
+Release:	35.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-35.20240118git4220ce1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Gabriel Somlo <gsomlo@gmail.com> - 1-34.20240118git4220ce1
 - Update to newer snapshot
 

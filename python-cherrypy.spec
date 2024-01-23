@@ -10,7 +10,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -106,6 +106,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 18.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Dan Radez <dradez@redhat.com> - 18.9.0-2
 - reenabled static tests
 - removed dos2unix fix

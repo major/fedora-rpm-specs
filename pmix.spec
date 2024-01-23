@@ -1,10 +1,13 @@
 Name:           pmix
-Version:        4.2.7
+Version:        4.2.8
 Release:        1%{?dist}
 Summary:        Process Management Interface Exascale (PMIx)
 License:        BSD-3-Clause
 URL:            https://pmix.org/
 Source0:        https://github.com/openpmix/openpmix/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+# file missing from release
+Source1:        construct_event_strings.py
+Patch1:         https://github.com/openpmix/openpmix/pull/3245.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -17,6 +20,8 @@ BuildRequires:  make
 BuildRequires:  munge-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  zlib-devel
+
+ExcludeArch:    %{ix86}
 
 %description
 The Process Management Interface (PMI) has been used for quite some time as
@@ -57,7 +62,8 @@ based starters (e.g., mpirun).
 * pevent - inject an event into the system
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
+cp %{S:1} contrib/
 
 # touch lexer sources to recompile them
 find src -name \*.l -print -exec touch --no-create {} \;
@@ -115,6 +121,17 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_bindir}/*
 
 %changelog
+* Sun Jan 21 2024 Sérgio Basto <sergio@serjux.com> - 4.2.8-1
+- Update pmix to 4.2.8
+- Exclude ix86, configure: abort in 32-bit environments
+  https://github.com/openpmix/openpmix/pull/2892
+  and Open MPI v5.0.x does not support 32 bit
+  https://github.com/open-mpi/ompi/issues/11248
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Fix GCC-14 new errors (https://github.com/openpmix/openpmix/pull/3245)
+
 * Fri Oct 27 2023 Orion Poplawski <orion@nwra.com> - 4.2.7-1
 - Update to 4.2.7
 - Enable IPv6 support

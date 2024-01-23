@@ -2,7 +2,7 @@
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
 Version:        1.27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
@@ -56,6 +56,9 @@ syntax highlighting.
 %exclude %{python3_sitelib}/test/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.27.0-1
 - 1.27.0
 

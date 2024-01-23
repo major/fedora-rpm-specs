@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calculating the complexity of PHP code units, version 2
 
 License:        BSD-3-Clause
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Remi Collet <remi@remirepo.net> - 2.0.3-1
 - update to 2.0.3
 - raise dependency on nikic/php-parser 4.18 and allow 5.0

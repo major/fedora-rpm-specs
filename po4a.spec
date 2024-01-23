@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.69
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 
 # Note: source is imprecise about 2.0-only vs 2.0-or-later
@@ -135,6 +135,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.69-3
 - Fix path-based dependencies
 

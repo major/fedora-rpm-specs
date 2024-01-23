@@ -1,6 +1,6 @@
 Name:		perl-Rose-DateTime
 Version:	0.540
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	DateTime helper functions and objects
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Rose-DateTime
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Rose::DateTime*.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.540-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.540-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

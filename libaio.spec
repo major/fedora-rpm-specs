@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.111
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Linux-native asynchronous I/O access library
 License: LGPL-2.0-or-later
 Source: http://releases.pagure.org/libaio/libaio-0.3.111.tar.gz
@@ -74,6 +74,9 @@ find %{buildroot} -name '*.a' -delete
 %attr(0755,root,root) %{usrlibdir}/libaio.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.111-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 13 2023 Jeff Moyer <jmoyer@redhat.com> - 0.3.111-17
 - migrated to SPDX license (Jeff Moyer)
 

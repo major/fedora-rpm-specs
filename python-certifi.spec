@@ -1,6 +1,6 @@
 Name:           python-certifi
 Version:        2023.05.07
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python package for providing Mozilla's CA Bundle
 
 License:        MPL-2.0
@@ -79,6 +79,9 @@ diff --ignore-blank-lines /etc/pki/tls/certs/ca-bundle.crt contents
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.05.07-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.05.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

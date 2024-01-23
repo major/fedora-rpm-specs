@@ -1,6 +1,6 @@
 Name:           libnetfilter_acct
 Version:        1.0.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A library providing interface to extended accounting infrastructure
 
 License:        LGPLv2+
@@ -57,6 +57,9 @@ mv examples examples-%{_arch}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

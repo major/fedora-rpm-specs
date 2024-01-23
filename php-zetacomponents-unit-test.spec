@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zeta UnitTest Component
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ cp -pr src/*_autoload.php \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

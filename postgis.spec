@@ -17,7 +17,7 @@
 
 Name:          postgis
 Version:       3.4.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -449,6 +449,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-2
 - Re-enable upgrade package for previous postgres version only
 

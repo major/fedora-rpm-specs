@@ -1,6 +1,6 @@
 Name:		libindicator
 Version:	12.10.1
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Shared functions for Ayatana indicators
 
 # SPDX confirmed
@@ -222,6 +222,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_libexecdir}/indicator-loader3
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan  1 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 12.10.1-26
 - SPDX migration
 

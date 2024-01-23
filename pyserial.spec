@@ -1,7 +1,7 @@
 Summary: Python serial port access library
 Name: pyserial
 Version: 3.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: %pypi_source
 License: BSD-3-Clause
 URL: http://pypi.python.org/pypi/pyserial
@@ -50,6 +50,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{python3} test/run_all_tests.py
 %{_bindir}/pyserial-ports
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

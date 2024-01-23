@@ -1,6 +1,6 @@
 Name:           perl-Locale-Msgfmt
 Version:        0.15
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Compile .po files to .mo files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Msgfmt
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/Locale*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

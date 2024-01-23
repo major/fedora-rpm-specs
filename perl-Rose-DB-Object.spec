@@ -1,6 +1,6 @@
 Name:		perl-Rose-DB-Object
 Version:	0.820
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Extensible, high performance object-relational mapper (ORM)
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Rose-DB-Object
@@ -77,6 +77,9 @@ make test
 %{_mandir}/man3/Rose::DB::Object*.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.820-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.820-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

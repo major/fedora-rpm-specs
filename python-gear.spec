@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.16.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Pure Python Async Gear Protocol Library
 
 License: ASL 2.0
@@ -62,6 +62,9 @@ PYTHON=%{__python3} testr run
 %{python3_sitelib}/%{srcname}-*egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           mediawriter
 Version:        5.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_qt6_qmldir}/org/fedoraproject/AdwaitaTheme/qmldir
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 19 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.8-1
 - 5.0.8
 

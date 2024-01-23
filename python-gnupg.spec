@@ -1,6 +1,6 @@
 Name:           python-gnupg
 Version:        0.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A wrapper for the Gnu Privacy Guard (GPG or GnuPG)
 
 License:        BSD
@@ -51,6 +51,9 @@ cp %{SOURCE3} %{SOURCE4} .
 %license LICENSE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

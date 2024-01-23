@@ -17,7 +17,7 @@
 
 Name:           php-composer-ca-bundle
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Remi Collet <remi@remirepo.net> - 1.4.0-1
 - update to 1.4.0 (no change)
 - drop build dependencies on symfony/process and psr/log

@@ -1,7 +1,7 @@
 Summary: Name-indexed data processing tool
 Name: miller
 Version: 5.10.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 Source: https://github.com/johnkerl/miller/releases/download/v%{version}/mlr-%{version}.tar.gz
 URL: http://johnkerl.org/miller/doc
@@ -36,6 +36,9 @@ make check
 %{_mandir}/man1/mlr.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

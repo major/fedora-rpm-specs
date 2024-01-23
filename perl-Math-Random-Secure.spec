@@ -1,7 +1,7 @@
 %global cpan_version 0.080001
 Name:           perl-Math-Random-Secure
 Version:        0.08.0001
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Cryptographically-secure, cross-platform replacement for rand()
 License:        Artistic-2.0
 
@@ -58,6 +58,9 @@ for Perl's built-in rand function.
 %{_mandir}/man3/Math*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08.0001-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.08.0001-21
 - Migrated to SPDX license
 - Use /usr/bin/perl instead of %%{__perl}

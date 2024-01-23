@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Django Taggit serializer for Django REST Framework
 
 License:        BSD
@@ -43,6 +43,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/taggit_serializer/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

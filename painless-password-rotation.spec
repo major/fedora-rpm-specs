@@ -1,6 +1,6 @@
 Name: painless-password-rotation
 Version: 0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Manages root password rotation with Hashicorp Vault
 License: MIT
 URL: https://github.com/cn137/painless-password-rotation
@@ -61,6 +61,9 @@ install -Dpm 0644 docs/man/rotate-linux-password.1 %{buildroot}%{_mandir}/man1/r
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -523,6 +523,9 @@ mv QA.orig QA
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.2-2
 - Fix verbose mpich output truncation https://github.com/nwchemgit/nwchem/issues/895
 

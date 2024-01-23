@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.3.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -86,6 +86,9 @@ Development files for pygsl
 %doc testing tests
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep  1 2023 José Matos <jamatos@fedoraproject.org> - 2.3.3-1
 - Update to 2.3.3
 - Update license tag to SPDX license identifier

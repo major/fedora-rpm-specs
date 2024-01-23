@@ -1,8 +1,8 @@
-%global candidate rc1
+%global candidate rc2
 
 Name:           kicad
 Version:        8.0.0
-Release:        0.2.%{candidate}%{?dist}
+Release:        0.3.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -22,8 +22,6 @@ Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{v
 Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}-%{candidate}/kicad-symbols-%{version}-%{candidate}.tar.gz
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}-%{candidate}/kicad-footprints-%{version}-%{candidate}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}-%{candidate}/kicad-packages3D-%{version}-%{candidate}.tar.gz
-
-Patch1:         libgal_name.patch
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
@@ -98,7 +96,6 @@ Documentation for KiCad.
 # The -rc1 source tar has a root directory that includes the -rc1
 # name component, so we have to account for that.
 %setup -n kicad-%{version}-%{candidate} -q
-%patch 1 -p1
 
 # The doc repo will create a tar with -rc1 in the root dir name.  We
 # rename the dir to remove the -rc1 portion.  The remaining tars need
@@ -252,10 +249,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sun Jan 21 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-0.3.rc2
+- Update to 8.0.0-rc2
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.0-0.2.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Sat Jan 13 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-1
+* Sat Jan 13 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-0.1.rc1
 - Update to 8.0.0-rc1
 
 * Thu Dec 28 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.10-1

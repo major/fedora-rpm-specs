@@ -1,6 +1,6 @@
 Name:           perl-Sub-WrapPackages
 Version:        2.02
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Add wrappers around all the subroutines in packages
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ choice.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

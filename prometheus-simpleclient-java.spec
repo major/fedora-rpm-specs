@@ -3,7 +3,7 @@
 
 Name:          prometheus-simpleclient-java
 Version:       0.12.0
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Prometheus JVM Client
 
 License:       ASL 2.0 and CC0
@@ -100,6 +100,9 @@ rm -rf simpleclient_httpserver/src/test/java
 %doc NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

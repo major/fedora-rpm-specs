@@ -1,6 +1,6 @@
 Name:           perl-Color-RGB-Util
 Version:        0.607
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities related to RGB colors
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Color-RGB-Util/
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.607-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.607-1
 - 0.607 bump (rhbz#2254140)
 

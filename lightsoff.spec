@@ -2,7 +2,7 @@
 
 Name:           lightsoff
 Version:        40.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GNOME Lightsoff game
 
 License:        GPLv2+ and CC-BY-SA
@@ -55,6 +55,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

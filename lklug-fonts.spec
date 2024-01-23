@@ -6,7 +6,7 @@ BuildRequires: make
 # recent file as version.
 %global cvsdate 20090803
 Version: 0.6
-Release: 29.%{cvsdate}cvs%{?dist}
+Release: 30.%{cvsdate}cvs%{?dist}
 URL:    http://sinhala.sourceforge.net/
 
 %global fontlicense       GPL-2.0-only
@@ -50,6 +50,9 @@ make
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-30.20090803cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Fedora Release Engineering <sshil@redhat.com> - 0.6-29.20090803cvs
 - Un-retire this package
 - Convert to new fonts packaging guidelines

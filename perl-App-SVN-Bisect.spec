@@ -1,6 +1,6 @@
 Name:           perl-App-SVN-Bisect
 Version:        1.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Binary search through svn revisions
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/App-SVN-Bisect
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

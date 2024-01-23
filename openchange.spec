@@ -23,7 +23,7 @@
 
 Name: openchange
 Version: 2.3
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: Provides access to Microsoft Exchange servers using native protocols
 License: GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL: http://www.openchange.org/
@@ -336,6 +336,9 @@ cp -r apidocs/html/libmapi++/* $RPM_BUILD_ROOT%{_datadir}/devhelp/books/openchan
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Guenther Deschner <gdeschner@redhat.com> - 2.3-46
 - Rebuilt against new Samba 4.19.0rc2
 

@@ -1,6 +1,6 @@
 Name:           python-httmock
 Version:        1.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A mocking library for requests
 License:        Apache-2.0
 URL:            https://github.com/patrys/httmock
@@ -57,6 +57,9 @@ cp %{SOURCE1} .
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

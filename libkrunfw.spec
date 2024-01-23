@@ -6,7 +6,7 @@
 
 Name:           libkrunfw
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPLv2 and GPLv2
 URL:            https://github.com/containers/libkrunfw
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 24 2023 Sergio Lopez <slp@redhat.com> - 4.0.0-1
 - Update to 4.0.0 which bundles a 6.4.7 kernel
 

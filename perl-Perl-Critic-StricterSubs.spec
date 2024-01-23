@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-StricterSubs
 Version:        0.06
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl::Critic plugin for stricter subroutine checks
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-StricterSubs
@@ -89,6 +89,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

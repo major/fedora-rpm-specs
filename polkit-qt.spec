@@ -7,7 +7,7 @@
 
 Name:            polkit-qt
 Version:         0.112.0
-Release:         27%{?dist}
+Release:         28%{?dist}
 Summary:         Qt bindings for PolicyKit
 
 License:         GPLv2+
@@ -113,6 +113,9 @@ install -p -m644 -D %{SOURCE10} %{buildroot}%{rpm_macros_dir}/macros.polkit-qt
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.112.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.112.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

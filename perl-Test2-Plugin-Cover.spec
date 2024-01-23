@@ -1,7 +1,7 @@
 Name:           perl-Test2-Plugin-Cover
 %global cpan_version 0.000027
 Version:        0.0.27
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collect minimal file coverage data
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test2-Plugin-Cover
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.27-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.27-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

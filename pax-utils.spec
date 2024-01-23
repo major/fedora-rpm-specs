@@ -3,7 +3,7 @@
 Summary: ELF utils that can check files for security relevant properties
 Name: pax-utils
 Version: 1.3.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 # http://packages.gentoo.org/package/app-misc/pax-utils
 URL: https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities
 Source0: https://distfiles.gentoo.org/distfiles/%{name}-%{version}.tar.xz
@@ -70,6 +70,9 @@ export LD_LIBRARY_PATH=%{_libdir}
 %{_mandir}/man1/scanmacho.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.3.7-3
 - ship the bash version of lddtree to avoid dependency on python3-pyelftools
 - fix python shebang in pylint

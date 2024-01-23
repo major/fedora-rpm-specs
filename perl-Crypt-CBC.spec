@@ -1,7 +1,7 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
 Version:        3.04
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -106,6 +106,9 @@ PERL5LIB=%{buildroot}%{perl_vendorlib} perl %{SOURCE2}
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep  5 2023 Paul Howarth <paul@city-fan.org> - 3.04-13
 - Fix decryption of ciphertext created with 'header' => 'randomiv'
   https://bugzilla.redhat.com/show_bug.cgi?id=2235322

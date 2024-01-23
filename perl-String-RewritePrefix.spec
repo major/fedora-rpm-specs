@@ -1,7 +1,7 @@
 Name:           perl-String-RewritePrefix 
 Summary:        Rewrite strings based on a set of known prefixes 
 Version:        0.009
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-RewritePrefix
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/String-RewritePrefix-%{version}.tar.gz 
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

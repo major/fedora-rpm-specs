@@ -12,7 +12,7 @@ ase-3.16 requires numpy 1.9 or newer
 
 Name:			python-ase
 Version:		3.22.1
-Release:		9%{?dist}
+Release:		10%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -151,6 +151,9 @@ cd -
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 01 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 3.22.1-9
 - Remove tests failing on python-3.13
 

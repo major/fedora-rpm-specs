@@ -3,7 +3,7 @@
 
 Name:           polyml
 Version:        5.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -110,6 +110,9 @@ make check
 %{_libdir}/libpolyml.so.14*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 5.9.1-1
 - Version 5.9.1
 - Drop upstreamed patch to fix segfault in the bytecode interpreter

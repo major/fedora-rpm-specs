@@ -3,7 +3,7 @@
 
 Name:		libcue
 Version:	2.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Cue sheet parser library
 
 # Files libcue/rem.{c,h} contains a BSD header
@@ -74,6 +74,9 @@ Development files for %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 10 2023 Adam Williamson <awilliam@redhat.com> - 2.3.0-1
 - New release 2.3.0
 - Drop merged patch

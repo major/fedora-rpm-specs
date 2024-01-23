@@ -13,7 +13,7 @@
 
 Name:           minizip-ng
 Version:        3.0.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        Zlib
@@ -186,6 +186,9 @@ _EOF_
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.10-5
 - Fix unzLocateFile incompability (upstream commit)
 - Fix zip_fileinfo incompability (upstream commit)

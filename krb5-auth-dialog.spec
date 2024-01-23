@@ -4,7 +4,7 @@
 
 Name:    krb5-auth-dialog
 Version: 44.0~alpha1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Kerberos 5 authentication dialog
 
 License: GPL-2.0-or-later
@@ -56,6 +56,9 @@ tickets are about to expire and lets them renew them.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44.0~alpha1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0~alpha1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-ForceEnv
 Version:        0.02
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Force set environment variables for testing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Plack-Middleware-ForceEnv
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

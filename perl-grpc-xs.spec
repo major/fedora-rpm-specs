@@ -1,6 +1,6 @@
 Name:           perl-grpc-xs
 Version:        0.38
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl binding to a client part of the gRPC library
 # examples/route_guide/route_guide.proto:   BSD-3-Clause
 # LICENSE:      Apache-2.0 text
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 09 2023 Petr Pisar <ppisar@redhat.com> - 0.38-2
 - Update upstream URL
 

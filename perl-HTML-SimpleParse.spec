@@ -1,6 +1,6 @@
 Name:           perl-HTML-SimpleParse
 Version:        0.12
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Bare-bones HTML parser
 License:        GPL+ or Artistic
 
@@ -43,6 +43,9 @@ important ways.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

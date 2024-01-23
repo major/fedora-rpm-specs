@@ -4,7 +4,7 @@
 %global pgversion 15
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	1.7.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -90,6 +90,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Filip Janus <fjanus@redhat.com> - 1.7.0-7
 - Add macro postgresql_default to be able set up default version in distro
 - Add symbop pgaudit-any

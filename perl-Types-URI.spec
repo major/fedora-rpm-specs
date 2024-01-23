@@ -9,7 +9,7 @@
 
 Name:           perl-Types-URI
 Version:        0.007
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Type constraints and coercions for URIs
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

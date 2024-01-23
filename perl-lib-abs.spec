@@ -3,7 +3,7 @@
 
 Name:           perl-lib-abs
 Version:        0.95
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Module lib that makes relative path absolute to caller
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/lib-abs
@@ -121,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.95-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

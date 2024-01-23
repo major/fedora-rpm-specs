@@ -1,6 +1,6 @@
 Name:           perl-Number-WithError
 Version:        1.01
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Numbers with error propagation and scientific rounding
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Number-WithError
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

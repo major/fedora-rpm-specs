@@ -1,6 +1,6 @@
 Name:          neard
 Version:       0.19
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Near Field Communication (NFC) manager
 License:       GPLv2
 URL:           https://01.org/linux-nfc/
@@ -73,6 +73,9 @@ make check %{?_smp_mflags}
 %{_libdir}/pkgconfig/neard.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.19-1
 - Update to 0.19
 

@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20080210
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Chalky slab-serif fonts
 
 License:        OFL
@@ -59,6 +59,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20080210-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080210-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Name:		%{fontname}-fonts
 Summary:	Sans-serif Narrow fonts to replace commonly used Microsoft Arial Narrow
 Version:	1.07.6
-Release:	12%{?dist}
+Release:	13%{?dist}
 Epoch:		2
 # The license of the Liberation Fonts is a EULA that contains GPLv2 and two
 # exceptions:
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet \
 %{catalogue}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.07.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 2:1.07.6-12
 - Migrate to SPDX license expression
 

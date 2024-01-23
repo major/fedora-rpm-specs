@@ -1,6 +1,6 @@
 Name:           os-prober
 Version:        1.81
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
@@ -91,6 +91,9 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Nicolas Frayer <nfrayer@redhat.com>
 - Migrate to SPDX license
 - Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2

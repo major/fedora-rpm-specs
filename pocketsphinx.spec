@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD
@@ -120,6 +120,9 @@ mv $RPM_BUILD_ROOT/%{_prefix}/%{name}/* $RPM_BUILD_ROOT%{python3_sitearch}
 %{python3_sitearch}/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:5.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.3-1
 - Update to 5.0.3
 - Drop upstreamed patch

@@ -3,7 +3,7 @@
 
 Name:           perl-Plack-Test-Agent
 Version:        1.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Object-oriented interface for testing PSGI applications
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Plack-Test-Agent
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

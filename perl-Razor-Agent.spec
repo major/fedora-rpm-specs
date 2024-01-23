@@ -6,7 +6,7 @@
 Summary:        Collaborative, content-based spam filtering network agent
 Name:           perl-Razor-Agent
 Version:        2.86
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/%{pkgname}-%{version}.tar.gz
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man5/razor-whitelist.5*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.86-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.86-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

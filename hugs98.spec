@@ -2,7 +2,7 @@
 
 Name:		hugs98
 Version:	2006.09
-Release:	48%{?dist}
+Release:	49%{?dist}
 Summary:	Haskell Interpreter
 
 License:	BSD
@@ -10,6 +10,7 @@ URL:		http://www.haskell.org/hugs
 Source0:	http://cvs.haskell.org/Hugs/downloads/2006-09/%{name}-%{hugs_ver}.tar.gz
 Patch0:         hugs98-gnu.patch
 Patch1:		hugs98-config.patch
+Patch2: hugs98-machdep-bufsize.patch
 
 BuildRequires:	docbook-utils
 BuildRequires:	freeglut-devel
@@ -103,6 +104,7 @@ Demo files for Hugs98.
 # add undefined struct
 %patch0 -p1 -b .gnu
 %patch1 -p1 -b .config
+%patch -P 2 -p1
 # use inline keyword
 sed -i 's|extern inline|inline|' packages/base/include/HsBase.h packages/network/include/HsNet.h packages/unix/include/HsUnix.h hsc2hs/Main.hs
 # libalut needs libopenal
@@ -116,6 +118,8 @@ cp /usr/lib/rpm/redhat/config.* .
 %build
 # Work around C99 compatibility issues (bug 2160645).
 %global build_type_safety_c 0
+# Some configure probes do not use CFLAGS.
+export CC="gcc -fpermissive"
 %define __global_ldflags ""
 %configure --with-pthreads --enable-char-encoding=locale
 make %{?_smp_mflags}
@@ -194,6 +198,9 @@ sed -i "s|^bindir.*|bindir=\"%{_bindir}\"|
 
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2006.09-49
+- Build with CC="gcc -fpermissive", increase command line buffer size
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2006.09-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

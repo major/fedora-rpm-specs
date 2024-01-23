@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-sexplib
 Version:        0.16.0
 Epoch:          1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Automated S-expression conversion
 
 # The project as a whole is MIT, but code in the src subdirectory is BSD.
@@ -86,6 +86,9 @@ cp -p vim/syntax/sexplib.vim %{buildroot}%{vimfiles_root}/syntax
 %{vimfiles_root}/syntax/sexplib.vim
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.16.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1:0.16.0-8
 - Rebuild for ocaml-num
 

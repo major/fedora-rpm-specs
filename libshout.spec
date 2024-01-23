@@ -1,6 +1,6 @@
 Name:           libshout
 Version:        2.4.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Icecast source streaming library
 
 # COPYING:              GPLv2 text
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_datadir}/aclocal/shout.m4
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.4.6-4
 - Converted license tag to SPDX
 

@@ -7,7 +7,7 @@
 Name:           maven
 Epoch:          1
 Version:        3.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is Apache-2.0
 # bundled slf4j is MIT
@@ -315,6 +315,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven%{?maven_version_suffix}.conf-openjdk21
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.9.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.6-2
 - Make JDK bindings work with different Maven version suffixes
 

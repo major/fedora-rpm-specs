@@ -1,7 +1,7 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
 Version: 0.6.5
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Source: http://www.identicalsoftware.com/ostrichriders/%{name}-%{version}.tgz
@@ -44,6 +44,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 05 2023 Sérgio Basto <sergio@serjux.com> - 0.6.5-11
 - Rebuild for SFML-2.6.1
 

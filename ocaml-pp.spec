@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pp
 Version:        1.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pretty printing library for OCaml
 
 License:        MIT
@@ -159,6 +159,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-4
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

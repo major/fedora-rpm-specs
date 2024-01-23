@@ -7,7 +7,7 @@
 
 Name:           perl-Moose
 Summary:        Complete modern object system for Perl 5
-Version:        2.2206
+Version:        2.2207
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Moose
@@ -71,7 +71,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Builder::Tester)
-BuildRequires:  perl(Test::CleanNamespaces) >= 0.13
 BuildRequires:  perl(Test::Fatal) >= 0.001
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs) >= 0.002010
@@ -197,6 +196,9 @@ make test
 %{_mandir}/man3/Test::Moose*
 
 %changelog
+* Sun Jan 21 2024 Paul Howarth <paul@city-fan.org> - 2.2207-1
+- Update to 2.2207 (rhbz#2259389)
+
 * Sun Jul 23 2023 Paul Howarth <paul@city-fan.org> - 2.2206-1
 - Update to 2.2206 (rhbz#2224866)
 

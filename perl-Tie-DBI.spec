@@ -1,6 +1,6 @@
 Name:           perl-Tie-DBI
 Version:        1.08
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Tie hashes to DBI relational databases
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Tie-DBI
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

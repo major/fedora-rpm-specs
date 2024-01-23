@@ -4,7 +4,7 @@
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
-%global baserelease 7
+%global baserelease 8
 
 Name:           libvmi
 Version:        0.14.0
@@ -78,4 +78,7 @@ find %{buildroot}%{_libdir} -name '*.a' -delete -print
 %{_bindir}/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-8.20231220git8f37f07
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

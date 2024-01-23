@@ -2,7 +2,7 @@
 
 Name:           libxml++30
 Version:        3.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 
 License:        LGPL-2.1-or-later
@@ -73,6 +73,9 @@ This package contains the full API documentation for %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Kalev Lember <klember@redhat.com> - 3.2.5-1
 - Update to 3.2.5
 

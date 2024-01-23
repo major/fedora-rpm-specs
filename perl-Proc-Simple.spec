@@ -1,6 +1,6 @@
 Name:           perl-Proc-Simple
 Version:        1.32
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Launch and control background processes
 # README:           GPL-1.0-or-later OR Artistic-1.0-Perl
 # Simple.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Petr Pisar <ppisar@redhat.com> - 1.32-23
 - Convert a license tag to SPDX
 - Package the tests

@@ -1,6 +1,6 @@
 Name:           open-eid
 Version:        17.12
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Meta-package for Estonian Electronic Identity Software
 
 License:        LGPLv2+
@@ -31,6 +31,9 @@ dependencies for running ID-card utilities.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.12-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.12-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

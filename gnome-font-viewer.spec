@@ -3,12 +3,13 @@
 
 Name:           gnome-font-viewer
 Version:        45.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-font-viewer
 Source0:        https://download.gnome.org/sources/gnome-font-viewer/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Patch0: gnome-font-viewer-c89.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -57,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 45.0-3
+- Fix C89 compatibility issue
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Net-SMTP-SSL
 Version:        1.04
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SSL support for Net::SMTP
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-SMTP-SSL
@@ -73,6 +73,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.04-22
 - Package tests
 

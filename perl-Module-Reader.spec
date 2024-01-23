@@ -1,6 +1,6 @@
 Name:           perl-Module-Reader
 Version:        0.003003
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Read the source of a module like perl does
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Reader
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.003003-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Petr Pisar <ppisar@redhat.com> - 0.003003-20
 - Adjust an error message to perl 5.38 (bug #2222182)
 - Package the tests

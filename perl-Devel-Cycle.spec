@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cycle
 Version:        1.12
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Find memory cycles in objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cycle
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Devel::Cycle.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

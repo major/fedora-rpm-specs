@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
@@ -127,6 +127,9 @@ cd py/
 %files -n python3-nftables -f %{pyproject_files}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 19 2023 Phil Sutter <psutter@redhat.com> - 1:1.0.9-1
 - Fix devel sub-package description
 - Utilize pyproject-rpm-macros for the python sub-package

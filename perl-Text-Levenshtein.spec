@@ -1,6 +1,6 @@
 Name:           perl-Text-Levenshtein
 Version:        0.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Implementation of the Levenshtein edit distance
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Levenshtein
@@ -56,6 +56,9 @@ Levenshtein metric, have a look at the Wikipedia page
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

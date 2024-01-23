@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -177,6 +177,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 24 2023 Petr Pisar <ppisar@redhat.com> - 0.11.2-7
 - Adapt to changes in libxml2-2.12.0
 

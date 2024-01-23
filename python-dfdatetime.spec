@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.%{date}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python module for digital forensics date and time
 
 License:        ASL 2.0
@@ -46,6 +46,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/*
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20200824-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20200824-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

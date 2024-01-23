@@ -1,6 +1,6 @@
 Name:           perl-CatalystX-InjectComponent
 Version:        0.025
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Inject components into your Catalyst application
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CatalystX-InjectComponent
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.025-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.025-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

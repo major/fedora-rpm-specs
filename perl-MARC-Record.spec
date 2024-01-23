@@ -1,6 +1,6 @@
 Name:           perl-MARC-Record
 Version:        2.0.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Object-oriented abstraction of MARC record handling
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.0.7-19
 - Package tests
 - Update license to SPDX format

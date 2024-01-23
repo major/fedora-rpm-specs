@@ -1,6 +1,6 @@
 Name:		libzpc
 Version:	1.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
 License:	MIT
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.2.0
 - Support for get/set intermediate iv for CBC and XTS
 - Support for internal iv for GCM

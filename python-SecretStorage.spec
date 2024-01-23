@@ -2,7 +2,7 @@
 
 Name:			python-%{srcname}
 Version:		3.3.3
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Python bindings to FreeDesktop.org Secret Service API
 URL:			https://github.com/mitya57/secretstorage
 Source0:		%pypi_source
@@ -105,6 +105,9 @@ done
 %doc build/sphinx/html/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

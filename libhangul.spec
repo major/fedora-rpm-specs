@@ -1,6 +1,6 @@
 Name:		libhangul
 Version:	0.1.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 
 License:	LGPL-2.1-or-later
 URL:		https://github.com/libhangul/libhangul
@@ -59,6 +59,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}.la
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

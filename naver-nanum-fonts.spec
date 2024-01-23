@@ -5,7 +5,7 @@
 BuildArch: noarch
 
 Version: 3.020
-Release: 35.20140930%{?dist}
+Release: 36.20140930%{?dist}
 License: OFL-1.1
 URL:     http://hangeul.naver.com
 
@@ -148,6 +148,9 @@ cp %{SOURCE1} COPYING
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.020-36.20140930
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Mar  9 2023 Peng Wu <pwu@redhat.com> - 3.020-35.20140930
 - Drop Obsoletes and Provides for nhn-nanum-fonts
 - Update to follow New Fonts Packaging Guidelines

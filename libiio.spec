@@ -1,6 +1,6 @@
 Name:          libiio
 Version:       0.25
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Library for Industrial IO
 License:       LGPLv2
 URL:           https://analogdevicesinc.github.io/libiio/
@@ -102,6 +102,9 @@ find %{buildroot} -name '*.la' -delete
 %{python3_sitelib}/pylibiio*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.25-1
 - Update to 0.25
 

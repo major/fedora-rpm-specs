@@ -1,7 +1,7 @@
 Summary: C library for multiple-precision floating-point computations
 Name: mpfr
 Version: 4.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.mpfr.org/
 
 License: LGPL-3.0-or-later
@@ -95,6 +95,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_infodir}/mpfr.info*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 4.2.1-1
 - Update to MPFR 4.2.1
 

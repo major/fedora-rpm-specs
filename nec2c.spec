@@ -1,6 +1,6 @@
 Name:           nec2c
 Version:        1.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Translation of NEC2 antenna modeling tool from FORTRAN to C
 
 License:        Public Domain
@@ -54,6 +54,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

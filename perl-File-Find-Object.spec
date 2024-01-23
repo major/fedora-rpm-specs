@@ -1,6 +1,6 @@
 Name:           perl-File-Find-Object
 Version:        0.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object oriented File::Find replacement
 License:        GPL-2.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/File-Find-Object
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/File::Find::Object::Result.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Paul Howarth <paul@city-fan.org> - 0.3.8-1
 - Update to 0.3.8 (rhbz#2224699)
   - Fix use_ok() call (GH#3)

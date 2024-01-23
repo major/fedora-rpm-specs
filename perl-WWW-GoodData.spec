@@ -1,6 +1,6 @@
 Name:           perl-WWW-GoodData
 Version:        1.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Client library for GoodData REST-ful API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-GoodData
@@ -49,6 +49,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       pass-otp
 Version:    1.2.0
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    A pass extension for managing one-time-password (OTP) tokens
 License:    GPLv3+
 BuildArch:  noarch
@@ -42,6 +42,9 @@ otpauth:// scheme.
 %{_sysconfdir}/bash_completion.d/pass-otp
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

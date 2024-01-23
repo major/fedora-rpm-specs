@@ -12,7 +12,7 @@
 
 Name:		php-pecl-gearman
 Version:	2.1.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	PHP wrapper to libgearman
 
 License:	PHP-3.01
@@ -138,6 +138,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Remi Collet <remi@remirepo.net> - 2.1.0-12
 - rebuild for https://fedoraproject.org/wiki/Changes/php83
 

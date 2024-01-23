@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3446,6 +3446,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 17 2023 Nathan Scott <nathans@redhat.com> - 6.1.1-1
 - Resolves i686/x86_64 conflicts of PCP packages (BZ 2248841)
 - Additional selinux policy updates for pmproxy (BZ 2223568)

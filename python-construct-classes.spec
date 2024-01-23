@@ -1,6 +1,6 @@
 Name:      python-construct-classes
 Version:   0.1.2
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Parse your binary structs into dataclasses
 
 License:   MIT
@@ -59,6 +59,9 @@ Summary:       %{summary}
 %doc README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

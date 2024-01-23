@@ -7,7 +7,7 @@
 Summary:       Window manager for the Matchbox Desktop
 Name:          matchbox-window-manager
 Version:       1.2
-Release:       34.%{alphatag}%{?dist}
+Release:       35.%{alphatag}%{?dist}
 Url:           http://matchbox-project.org/
 # svn checkout http://svn.o-hand.com/repos/matchbox/trunk/matchbox-window-manager
 License:       GPL-2.0-or-later
@@ -61,6 +61,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/themes/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-35.20070628svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-34.20070628svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           nuget
 Version:        2.8.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Package manager for .Net/Mono development platform
 License:        ASL 2.0
 Url:            http://nuget.org/
@@ -68,6 +68,9 @@ sed -i -e 's/cli/mono/' %{buildroot}%{_bindir}/*
 %{_libdir}/pkgconfig/nuget-core.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.7-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

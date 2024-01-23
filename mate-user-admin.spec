@@ -5,7 +5,7 @@
 
 Name:          mate-user-admin
 Version:       1.7.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       User management tool
 License:       GPLv3+ 
 URL:           https://github.com/zhuyaliang/%{project_name}
@@ -65,6 +65,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

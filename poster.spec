@@ -1,7 +1,7 @@
 Summary:        Scales PostScript images to span multiple pages
 Name:           poster
 Version:        20060221
-Release:        33%{?dist}
+Release:        34%{?dist}
 License:        GPLv2
 Source:         ftp://ftp.kde.org/pub/kde/printing/%{name}.tar.bz2
 URL:            http://printing.kde.org/downloads/
@@ -36,6 +36,9 @@ larger media and/or tiles them to print on multiple sheets.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20060221-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20060221-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

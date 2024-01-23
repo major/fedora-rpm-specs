@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-tools
 Version:        3.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven Plugin Tools
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugin-tools/
@@ -158,6 +158,9 @@ rm maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/gen
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.9.0-2
 - Rebuild
 

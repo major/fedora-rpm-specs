@@ -12,7 +12,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 License:        LGPLv3
@@ -121,6 +121,9 @@ This is the Python 3 version of the package.
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-HTML-Entities-Interpolate
 Version:        1.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Call HTML::Entities::encode_entities via a hash within a string
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Entities-Interpolate
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

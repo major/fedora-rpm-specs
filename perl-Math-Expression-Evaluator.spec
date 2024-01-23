@@ -3,7 +3,7 @@
 
 Name:           perl-Math-Expression-Evaluator
 Version:        0.3.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Parses, compiles and evaluates mathematics expressions
 # lib/Math/Expression/Evaluator/Lexer.pm:   (GPL+ or Artistic) and Public Domain
 License:        (GPL+ or Artistic) and Public Domain
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

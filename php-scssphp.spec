@@ -29,7 +29,7 @@
 #-- PREAMBLE ------------------------------------------------------------------#
 Name:           php-scssphp
 Version:        1.10.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A compiler for SCSS written in PHP
 
 License:        MIT
@@ -183,6 +183,9 @@ EOF
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

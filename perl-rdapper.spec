@@ -1,6 +1,6 @@
 Name:           perl-rdapper
 Version:        0.08
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Command-line RDAP client
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/rdapper
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man1/rdapper.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

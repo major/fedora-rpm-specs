@@ -3,7 +3,7 @@
 
 Name:          parsec-tool
 Version:       0.4.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A PARSEC cli
 
 # ASL 2.0
@@ -47,6 +47,9 @@ A tool to communicate with the Parsec service on the command-line.
 %{_bindir}/parsec-tool
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

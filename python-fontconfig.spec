@@ -2,7 +2,7 @@
 
 Name:           python-fontconfig
 Version:        0.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python bindings for Fontconfig library
 
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ yes | %{python3} test/test.py
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

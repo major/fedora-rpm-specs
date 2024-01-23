@@ -23,7 +23,7 @@
 
 Name:           php-pear-PHP-CodeSniffer
 Version:        3.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD 3-Clause
@@ -142,6 +142,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Remi Collet <remi@remirepo.net> - 3.8.1-1
 - update to 3.8.1
 - add patch for test suite from

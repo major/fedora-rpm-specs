@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -97,6 +97,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.14.0-1
 - Update to 1.14.0 release ( resolves: rhbz#2249531 )
 

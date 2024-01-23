@@ -15,7 +15,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An etcd3 gateway Python client
 
 License:        ASL 2.0
@@ -126,6 +126,9 @@ py.test-3
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 John Eckersberg <jeckersb@redhat.com> - 2.3.0-1
 - New upstream version 2.3.0 (rhbz#2254543)
 

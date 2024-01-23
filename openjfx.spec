@@ -5,7 +5,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -166,6 +166,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.10.2-1
 - Bump to 17.0.10 and suppress ruby dependency
 

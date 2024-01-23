@@ -4,7 +4,7 @@
 
 Name:           perl-File-ExtAttr
 Version:        1.09
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Perl extension for accessing extended attributes of files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ExtAttr
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

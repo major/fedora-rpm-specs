@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-Size
 Version:        0.83
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl extension for finding the memory usage of Perl variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Size
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.83-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.83-17
 - Package tests
 

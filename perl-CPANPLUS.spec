@@ -1,7 +1,7 @@
 %global cpan_version 0.9914
 Name:           perl-CPANPLUS
 Version:        0.991.400
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Ameliorated interface to the Comprehensive Perl Archive Network
 # Other files:                              GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Unbundled, not used
@@ -115,6 +115,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.991.400-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.991.400-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

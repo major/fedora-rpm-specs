@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_project}%{major}
 Version:        6.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
 License:        LGPL-2.1-only
@@ -208,6 +208,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 Remi Collet <remi@remirepo.net> - 6.9.1-1
 - update to 6.9.1
 

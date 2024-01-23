@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Model-DBIC-Schema
 Summary:        DBIx::Class::Schema Model Class
 Version:        0.66
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBJK/Catalyst-Model-DBIC-Schema-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Model-DBIC-Schema
@@ -76,6 +76,9 @@ TEST_POD=1 C_M_DBIC_SCHEMA_TESTAPP=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 31 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.66-1
 - Update to 0.66
 

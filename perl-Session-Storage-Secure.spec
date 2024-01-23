@@ -1,6 +1,6 @@
 Name:           perl-Session-Storage-Secure
 Version:        1.000
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Encrypted, expiring, compressed, serialized session data with integrity
 License:        ASL 2.0
 URL:            https://metacpan.org/release/Session-Storage-Secure
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

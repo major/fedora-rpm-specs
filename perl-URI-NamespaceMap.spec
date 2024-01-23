@@ -12,7 +12,7 @@
 
 Name:           perl-URI-NamespaceMap
 Version:        1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object-oriented collection of name spaces
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -155,6 +155,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Petr Pisar <ppisar@redhat.com> - 1.12-1
 - 1.12 bump
 - Package the tests

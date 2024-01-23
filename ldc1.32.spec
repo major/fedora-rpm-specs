@@ -10,7 +10,7 @@
 
 Name:           ldc1.32
 Version:        1.32.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -110,5 +110,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/ldc2
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Kalev Lember <klember@redhat.com> - 1.32.2-1
 - Initial Fedora packaging

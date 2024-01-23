@@ -8,7 +8,7 @@
 Summary: PAM authorization checker and PAM Basic Authentication provider
 Name: mod_authnz_pam
 Version: 1.2.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: ASL 2.0
 URL: https://www.adelton.com/apache/mod_authnz_pam/
 Source0: https://www.adelton.com/apache/mod_authnz_pam/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ install -Dp -m 0644 authnz_pam.confx $RPM_BUILD_ROOT%{_httpd_confdir}/authnz_pam
 %{_httpd_moddir}/*.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

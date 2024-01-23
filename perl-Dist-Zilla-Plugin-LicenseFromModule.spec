@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-LicenseFromModule
 Version:        0.07
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Extract license and copyright from its main module file
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-LicenseFromModule
@@ -66,6 +66,9 @@ unset AUTHOR_TESTING
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

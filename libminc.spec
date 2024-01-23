@@ -2,7 +2,7 @@
 
 Name:           libminc
 Version:        2.4.03
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Core library and API of the MINC toolkit
 
 License:        MIT
@@ -74,6 +74,9 @@ sed -i -e '/CMAKE_INSTALL_RPATH/d' CMakeLists.txt
 %{_libdir}/%{name}*.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.03-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.03-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

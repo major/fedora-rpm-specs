@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Module to easily add health endpoints to a Flask application
 
 License:        BSD
@@ -47,6 +47,9 @@ that can be used as liveness and readiness probes.
 %{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

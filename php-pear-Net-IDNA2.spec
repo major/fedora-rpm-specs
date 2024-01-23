@@ -10,7 +10,7 @@
 Summary:         PHP library for punycode encoding and decoding
 Name:            php-pear-Net-IDNA2
 Version:         0.2.0
-Release:         18%{?dist}
+Release:         19%{?dist}
 License:         LGPLv2+
 URL:             http://pear.php.net/package/Net_IDNA2/
 Source0:         http://download.pear.php.net/package/Net_IDNA2-%{version}.tgz
@@ -75,6 +75,9 @@ fi
 %{pear_xmldir}/%{name}.xml
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 23 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.2.0-18
 - Skip tests for Fedora 39+
 

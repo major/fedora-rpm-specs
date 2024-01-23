@@ -1,6 +1,6 @@
 Name:           libmamba
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ API for mamba depsolving library
 
 License:        BSD-3-Clause
@@ -165,6 +165,9 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Orion Poplawski <orion@nwra.com> - 1.5.3-2
 - Generate man page with help2man
 

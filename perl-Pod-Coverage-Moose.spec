@@ -1,6 +1,6 @@
 Name:           perl-Pod-Coverage-Moose
 Version:        0.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pod::Coverage extension for Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Coverage-Moose
@@ -61,6 +61,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Pod::Coverage::Moose.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 26 2023 Paul Howarth <paul@city-fan.org> - 0.08-1
 - Update to 0.08
   - Fix "Attempt to call undefined import method with arguments" error on

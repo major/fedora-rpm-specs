@@ -4,7 +4,7 @@
 
 Name:           ninja-build
 Version:        1.11.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Small build system with a focus on speed
 License:        Apache-2.0
 URL:            https://ninja-build.org/
@@ -88,6 +88,9 @@ ln -s ninja %{buildroot}%{_bindir}/ninja-build
 %{_rpmmacrodir}/macros.ninja
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 23 2023 Ben Boeckel <fedora@me.benboeckel.net> - 1.11.1-5
 - Handle Python 3.13 removal of `pipes`, resolves rhbz#2245655
 

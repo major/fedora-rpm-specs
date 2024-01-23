@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-inline-test
 Version:        0.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Syntax extension for writing inline tests in OCaml code
 
 License:        MIT
@@ -60,6 +60,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 28 2023 Jerry James <loganjerry@gmail.com> - 0.16.1-1
 - Version 0.16.1
 

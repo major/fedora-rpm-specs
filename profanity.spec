@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPLv3
@@ -145,6 +145,9 @@ make check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 3 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.14.0-1
 - Update to 0.14.0
 - Improve file ownership in doc subpackage

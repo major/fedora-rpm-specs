@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-BloomFilter
 Version:        0.02
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A simple bloom filter data structure
 # lib/Algorithm/BloomFilter.pm
 License:        GPL+ or Artistic
@@ -46,6 +46,9 @@ This module implements a simple bloom filter in C/XS.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

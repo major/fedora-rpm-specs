@@ -1,6 +1,6 @@
 Name:           openal-soft
 Version:        1.23.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -129,6 +129,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.23.1-3
 - Drop libmysofa and qt5 from RHEL builds
 

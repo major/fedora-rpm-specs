@@ -3,7 +3,7 @@
 Name:           libgda
 Epoch:          1
 Version:        6.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.0-or-later
@@ -233,6 +233,9 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_libdir}/libgda-%{apiver}/providers/libgda-sqlcipher-%{apiver}.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Gwyn Ciesla <gwync@protonmail.com> -1:6.0.0-7
 - mariadb rebuild.
 

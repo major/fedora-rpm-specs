@@ -16,7 +16,7 @@
 
 Name:     %{package_name}
 Version:  0.6.4
-Release:  6%{?dist}
+Release:  7%{?dist}
 Summary:  Dynamically manage system resources on virtualization hosts
 
 License:  GPL-2.0-only
@@ -113,6 +113,9 @@ make check %{?_smp_mflags}
 %{python_sitelib}/mom/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-6
 - Resolves: fedora#2245825
 

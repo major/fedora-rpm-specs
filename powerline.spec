@@ -2,7 +2,7 @@
 
 Name:           powerline
 Version:        2.8.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        The ultimate status-line/prompt utility
 License:        MIT
@@ -335,6 +335,9 @@ install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_u
 %{_datadir}/tmux/powerline*.conf
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 07 2023 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-11
 - Review SPDX license identifier; `MIT` is correct
 - Make summary and description of `fonts` subpackage more precise (rhbz#2232553)

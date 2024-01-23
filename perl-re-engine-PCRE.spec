@@ -1,6 +1,6 @@
 Name:           perl-re-engine-PCRE
 Version:        0.17
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl-compatible regular expression engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/re-engine-PCRE
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Petr Pisar <ppisar@redhat.com> - 0.17-37
 - Convert a license tag to an SPDX format
 - Package the tests

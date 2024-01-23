@@ -21,7 +21,7 @@ Its features include:\
 
 Name: python-factory-boy
 Version: 3.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A versatile test fixtures replacement based on thoughtbot's factory_girl
 License: MIT
 URL: https://github.com/rbarrois/factory_boy
@@ -90,6 +90,9 @@ SKIP_MONGOENGINE=1 %pytest
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 22 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.3.0-1
 - Version 3.3.0 (#2223915)
 - Fix tests

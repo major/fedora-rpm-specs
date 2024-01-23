@@ -5,7 +5,7 @@ Version:        5.6.3
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python disk-backed cache
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ sed -i 's/==4.2.*//g' tox.ini
 %doc README.rst
  
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Benson Muite <benson_muite@emailplus.org> - 5.6.3-1
 - Update to new release 5.6.3
 

@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        0.0.7
-Release:        23%{?dist}
+Release:        24%{?dist}
 
 Summary:        Let's Encrypt Certificate Manager
 License:        ASL 2.0
@@ -64,6 +64,9 @@ install -p -m 0644 sample/*.conf %{buildroot}%{_datadir}/%{srcname}/sample/
 %config(noreplace) %{_sysconfdir}/cron.d/%{srcname}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

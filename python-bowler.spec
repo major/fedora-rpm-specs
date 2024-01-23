@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Safe code refactoring for modern Python projects
 License:        MIT
 URL:            https://pybowler.io
@@ -83,6 +83,9 @@ sed -i '/volatile/d' requirements.txt
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           mpdecimal
 Version:        2.5.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for general decimal arithmetic
 License:        BSD-2-Clause
 
@@ -105,6 +105,9 @@ fi
 %ldconfig_scriptlets
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

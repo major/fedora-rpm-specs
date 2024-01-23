@@ -5,7 +5,7 @@
 Summary:		MinGW Windows ANTLR C++ run-time library
 Name:			mingw-%{mingw_pkg_name}
 Version:		2.7.7
-Release:		32%{?dist}
+Release:		33%{?dist}
 License:		Public Domain
 URL:			http://www.antlr.org/
 Source0:		http://www.antlr2.org/download/%{mingw_pkg_name}-%{version}.tar.gz
@@ -129,6 +129,9 @@ ln -s %{mingw64_bindir}/antlr-config $RPM_BUILD_ROOT%{_bindir}/%{mingw64_target}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

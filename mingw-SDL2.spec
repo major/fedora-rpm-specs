@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL2
 Version:        2.28.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of SDL2 cross-platform multimedia library
 
 License:        LGPL-2.0-or-later
@@ -131,6 +131,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 07 2023 Sandro Mani <manisandro@gmail.com> - 2.28.5-1
 - Update to 2.28.5
 

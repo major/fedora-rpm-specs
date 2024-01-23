@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-testing
 Version:        3.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Maven Plugin Testing
 License:        Apache-2.0
 URL:            http://maven.apache.org/plugin-testing/
@@ -76,6 +76,9 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %doc LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.0-29
 - Convert License tag to SPDX format
 

@@ -1,6 +1,6 @@
 Name:           mingw-crossreport
 Version:        201406
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Analysis tool to help cross-compilation to Windows
 
 License:        GPLv2+
@@ -100,6 +100,9 @@ pod2man -c "CrossReport" -r "%{name}-%{version}" %{SOURCE0} \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 201406-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 201406-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

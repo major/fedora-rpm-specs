@@ -4,7 +4,7 @@
 
 Name:        %{fontname}-fonts
 Version:     6.0
-Release:     7%{?dist}
+Release:     8%{?dist}
 Summary:     Fonts for Arabic from PakType
 License:     GPL-2.0-only WITH Font-exception-2.0
 URL:	     https://sourceforge.net/projects/paktype/
@@ -53,6 +53,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}.conf \
 %doc PakType_Tehreer_License.txt PakTypeTehreerFeatures.pdf 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Parag Nemade <pnemade@fedoraproject.org> - 6.0-7
 - Convert to SPDX license expression
 

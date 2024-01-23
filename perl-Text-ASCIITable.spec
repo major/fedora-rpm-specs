@@ -1,6 +1,6 @@
 Name:           perl-Text-ASCIITable
 Version:        0.22
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Create a nice formatted table using ASCII characters
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-ASCIITable
@@ -42,6 +42,9 @@ done
 %{_mandir}/man3/Text*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

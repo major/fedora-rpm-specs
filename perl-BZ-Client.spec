@@ -1,6 +1,6 @@
 Name:           perl-BZ-Client
 Version:        4.4004
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A client for the Bugzilla web services API
 License:        GPL-1.0-or-later AND Artistic-1.0
 
@@ -69,6 +69,9 @@ chmod 644 Changes README LICENSE
 %{_mandir}/man3/BZ*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4004-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4004-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

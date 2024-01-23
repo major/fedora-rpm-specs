@@ -1,7 +1,7 @@
 %define		appname		kreetingkard
 
 %define		mainver		0.2.0
-%define		baserelease	5
+%define		baserelease	6
 %define		repoid		18013
 
 
@@ -55,6 +55,9 @@ echo "Nothing to do here"
 %{_datadir}/apps/%{appname}/templates/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.0-5
 - SPDX migration
 

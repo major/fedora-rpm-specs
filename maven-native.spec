@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.15%{dotreltag}%{?dist}
+Release:       0.16%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 License:       ASL 2.0 and MIT
 Url:           https://github.com/mojohaus/maven-native/
@@ -129,6 +129,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.16.alpha.11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1.0-0.15.alpha.11
 - Remove dependency plexus-component-api
 

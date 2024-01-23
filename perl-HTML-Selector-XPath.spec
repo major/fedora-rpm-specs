@@ -1,6 +1,6 @@
 Name:           perl-HTML-Selector-XPath
 Version:        0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CSS Selector to XPath compiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Selector-XPath
@@ -52,6 +52,9 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.28-1
 - Update to 0.28.
 

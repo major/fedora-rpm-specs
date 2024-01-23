@@ -2,7 +2,7 @@
 
 Name:           maven-antrun-plugin
 Version:        3.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Maven AntRun Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-antrun-plugin/
@@ -55,6 +55,9 @@ This package contains the API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-5
 - Convert License tag to SPDX format
 

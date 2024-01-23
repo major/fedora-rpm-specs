@@ -1,7 +1,7 @@
 Name:           perl-Hash-MultiValue
 Summary:        Store multiple values per key
 Version:        0.16
-Release:        27%{?dist}
+Release:        28%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/A/AR/ARISTOTLE/Hash-MultiValue-%{version}.tar.gz
 URL:            https://metacpan.org/release/Hash-MultiValue
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

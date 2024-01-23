@@ -12,7 +12,7 @@
 
 Name:           newtonsoft-json
 Version:        9.0.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Popular high-performance JSON framework
 
 # almost all files are licensed as MIT/X11, but BSD for LinqBridge.cs
@@ -151,6 +151,9 @@ nunit-console26 -labels bin/Release/Net40/*Tests.dll
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

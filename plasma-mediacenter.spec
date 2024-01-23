@@ -1,6 +1,6 @@
 Name:    plasma-mediacenter
 Version: 5.7.5
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: A mediacenter user interface written with the Plasma framework
 
 License: GPLv2
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/plasma-mediacente
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

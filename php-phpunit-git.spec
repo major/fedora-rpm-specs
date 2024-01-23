@@ -17,7 +17,7 @@
 
 Name:           php-phpunit-git
 Version:        2.1.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simple wrapper for Git
 
 License:        BSD
@@ -84,6 +84,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

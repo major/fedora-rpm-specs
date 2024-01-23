@@ -16,7 +16,7 @@
 
 Name:           libsodium
 Version:        1.0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            https://libsodium.org/
@@ -184,6 +184,9 @@ make -C build_native check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.19-2
 - Make mingw subpackages noarch
 

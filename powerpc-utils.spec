@@ -1,6 +1,6 @@
 Name:           powerpc-utils
 Version:        1.3.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPL-2.0-only
@@ -203,6 +203,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 01 2023 Than Ngo <than@redhat.com> - 1.3.11-4
 - Fix negative values seen while running lpar
 - Fix lparstat error with mixed SMT state

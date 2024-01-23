@@ -1,6 +1,6 @@
 Name:           plotdrop
 Version:        0.5.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A minimal GNOME front-end to Gnuplot
 
 License:        GPLv2
@@ -83,6 +83,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/plotdrop.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Florian Weimer <fweimer@redhat.com> - 0.5.3-33
 - Fix int-conversion error
 

@@ -1,6 +1,6 @@
 Name:           perl-UNIVERSAL-exports
 Version:        0.05
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Lightweight, universal exporting of variables
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/UNIVERSAL-exports
@@ -50,6 +50,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           priv_wrapper
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        A library to disable resource limits and other privilege dropping
 License:        GPL-3.0-or-later
@@ -65,6 +65,9 @@ development/testing.
 %{_mandir}/man1/priv_wrapper.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

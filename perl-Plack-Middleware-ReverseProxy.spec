@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-ReverseProxy
 Version:        0.16
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Supports app to run as a reverse proxy back-end
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Plack-Middleware-ReverseProxy
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Plack*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

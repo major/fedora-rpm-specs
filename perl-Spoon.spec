@@ -1,6 +1,6 @@
 Name:           perl-Spoon
 Version:        0.24
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Spiffy Application Building Framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Spoon
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

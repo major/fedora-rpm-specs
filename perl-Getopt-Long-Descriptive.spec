@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.113
+Version:        0.114
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
@@ -64,6 +64,10 @@ make test
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Sun Jan 21 2024 Paul Howarth <paul@city-fan.org> - 0.114-1
+- Update to 0.114 (rhbz#2259379)
+  - A switch with (required => 0) is no longer treated as required!
+
 * Sun Dec 17 2023 Paul Howarth <paul@city-fan.org> - 0.113-1
 - Update to 0.113 (rhbz#2254783)
   - Improve line wrapping so spacers (non-option text lines) can use more

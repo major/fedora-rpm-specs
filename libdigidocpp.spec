@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        3.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -120,6 +120,9 @@ rm -rf doc/sample_files.zip
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Germano Massullo <germano.massullo@gmail.com> - 3.16.0-3
 - adds BuildRequires: zlib-devel and Provides: bundled(minizip)
 

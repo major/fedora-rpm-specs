@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1099,6 +1099,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.52.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-5
 - Use curl instead of wget, since wget2 is broken
   (https://gitlab.com/gnuwget/wget2/-/issues/652)

@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
 # Base license is LGPLv3 or GPLv2
@@ -172,6 +172,9 @@ cp -a src/3rdparty/clipper/LICENSE LICENSE.clipper
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 6.6.1-1
 - Update to 6.6.1
 

@@ -16,7 +16,7 @@
 
 Name:           php-phpspec-prophecy
 Version:        1.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec  8 2023 Remi Collet <remi@remirepo.net> - 1.18.0-1
 - update to 1.18.0
 - run test suite with phpunit8, phpunit9 and phpunit10

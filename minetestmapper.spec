@@ -1,6 +1,6 @@
 Name:           minetestmapper
 Version:        20220221
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generates a overview image of a minetest map
 
 License:        BSD
@@ -47,6 +47,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/COPYING
 %doc AUTHORS README.rst
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220221-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220221-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    libcamera
 Version: 0.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -199,6 +199,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libexecdir}/libcamera/v4l2-compat.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Javier Martinez Canillas <javierm@redhat.com> - 0.2.0-1
 - Update to version 0.2.0
 - Resolves: rhbz#2257601

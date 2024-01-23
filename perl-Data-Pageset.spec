@@ -1,6 +1,6 @@
 Name:           perl-Data-Pageset
 Version:        1.06
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Page numbering and page sets
 # lib/Data/Pageset.pm
 License:        GPL+ or Artistic
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/Data*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

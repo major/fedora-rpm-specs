@@ -143,7 +143,7 @@
 
 Name:          php-%{composer_project}4
 Version:       %{github_version}
-Release:       5%{?github_prerelease:.%{github_prerelease}}%{?dist}
+Release:       6%{?github_prerelease:.%{github_prerelease}}%{?dist}
 Summary:       Symfony PHP framework (version 4)
 
 # MIT and CC-BY-SA:
@@ -3325,6 +3325,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.50-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 09 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 4.4.50-5
 - Obsolete "proxy-manager-bridge" sub-package as its dependency has been retired
   (addresses "F40FailsToInstall: php-symfony4-proxy-manager-bridge",

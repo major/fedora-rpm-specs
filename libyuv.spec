@@ -1,7 +1,7 @@
 Name:		libyuv
 Summary:	YUV conversion and scaling functionality library
 Version:	0
-Release:	0.46.20201024git19d71f6%{?dist}
+Release:	0.47.20201024git19d71f6%{?dist}
 License:	BSD
 Url:		https://chromium.googlesource.com/libyuv/libyuv
 VCS:		scm:git:https://chromium.googlesource.com/libyuv/libyuv
@@ -86,6 +86,9 @@ cp -a %{name}.pc %{buildroot}%{_libdir}/pkgconfig/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.47.20201024git19d71f6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.46.20201024git19d71f6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

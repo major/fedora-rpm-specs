@@ -1,6 +1,6 @@
 Name:           pstoedit
 Version:        4.00
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Translates PostScript and PDF graphics into other vector formats
 License:        GPLv2+
 URL:            http://www.pstoedit.net
@@ -86,6 +86,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.00-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.00-3
 - Fix C usage of pstoedit.h
 

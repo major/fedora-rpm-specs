@@ -3,7 +3,7 @@
 
 Name:           lpcnetfreedv
 Version:        0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LPCNet for FreeDV
 
 License:        BSD
@@ -64,6 +64,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 14 2023 Richard Shaw <hobbes1069@gmail.com> - 0.5-3
 - Add patch to link with math library.
 

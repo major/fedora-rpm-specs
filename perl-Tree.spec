@@ -3,7 +3,7 @@
 
 Name:           perl-Tree
 Version:        1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tree data structure
 # lib/Tree/Binary2.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Tree/DeepClone.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Petr Pisar <ppisar@redhat.com> - 1.16-1
 - 1.16 bump
 - Package the tests

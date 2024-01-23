@@ -1,7 +1,7 @@
 Name: libresample
 Version: 0.1.3
 Summary: A real-time library for audio sampling rate conversion
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: LGPLv2+
 URL: https://ccrma.stanford.edu/~jos/resample/Free_Resampling_Software.html
 Source0: http://ccrma.stanford.edu/~jos/gz/libresample-%{version}.tgz
@@ -85,6 +85,9 @@ make tests
 %{_libdir}/pkgconfig/libresample.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

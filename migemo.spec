@@ -8,7 +8,7 @@
 
 Name:		migemo
 Version:	%{migemover}
-Release:	41%{?dist}
+Release:	42%{?dist}
 Summary:	Japanese incremental search tool
 
 # migemo-dict	GPL-2.0-or-later
@@ -123,6 +123,9 @@ done
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan  7 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.40-41
 - SPDX migration
 

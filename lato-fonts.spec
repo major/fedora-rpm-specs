@@ -1,5 +1,5 @@
 Version: 2.015
-Release: 18%{?dist}
+Release: 19%{?dist}
 URL:     http://www.latofonts.com/
 
 %global fontlicense       OFL-1.1
@@ -63,6 +63,9 @@ chmod 0644 OFL.txt README.txt
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 28 2023 Akira TAGOH <tagoh@redhat.com> - 2.015-18
 - Convert License tag to SPDX.
 

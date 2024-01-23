@@ -2,7 +2,7 @@
 
 Name:           osgi-core
 Version:        8.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OSGi Core API
 
 License:        Apache-2.0
@@ -82,6 +82,9 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 %license LICENSE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 8.0.0-9
 - Convert License tag to SPDX format
 

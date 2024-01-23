@@ -1,6 +1,6 @@
 Name:           perl-Net-OpenSSH
 Version:        0.84
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl SSH client package implemented on top of OpenSSH
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OpenSSH
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.84-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.84-1
 - 0.84 bump (rhbz#2224551)
 - Update license to SPDX format

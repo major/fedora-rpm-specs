@@ -5,7 +5,7 @@
 
 Name:           mathicgb
 Version:        1.0
-Release:        36.%{gitdate}.git%{shorttag}%{?dist}
+Release:        37.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-37.20231121.git09ea46a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 1.0-36.20231121.git09ea46a
 - Rebuilt for TBB 2021.11
 

@@ -1,7 +1,7 @@
 Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.8.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
@@ -94,6 +94,9 @@ make check
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Steve Grubb <sgrubb@redhat.com> 0.8.4-2
 - Remove python bindings global exception handler
 

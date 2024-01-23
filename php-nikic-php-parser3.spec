@@ -26,7 +26,7 @@
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        3.1.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD
@@ -142,6 +142,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

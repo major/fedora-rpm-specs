@@ -1,6 +1,6 @@
 Name:           libpoly
 Version:        0.1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C library for manipulating polynomials
 
 License:        LGPL-3.0-or-later
@@ -91,6 +91,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-1
 - Version 0.1.13
 

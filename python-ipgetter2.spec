@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python library to fetch your external IP address
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ sed -i -e '/^#!\//, 1d' ipgetter2/*.py
 %{_bindir}/ipgetter2
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

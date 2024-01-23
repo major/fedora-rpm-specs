@@ -1,6 +1,6 @@
 Name:           perl-Authen-U2F
 Version:        0.003
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        FIDO U2F library
 # All but examples/demoserver/u2f-api.js is GPL-1.0-or-later OR Artistic-1.0-Perl
 # examples/demoserver/u2f-api.js is BSD-3-Clause
@@ -66,6 +66,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Xavier Bachelot <xavier@bachelot.org> 0.003-4
 - Add constraint to ExtUtils::MakeMaker
 - Trim ugly HTML license file

@@ -1,7 +1,7 @@
 Summary:	Perl extension to create simple calendars
 Name:		perl-Calendar-Simple
 Version:	2.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Calendar-Simple
@@ -53,6 +53,9 @@ chmod -x lib/*/Simple.pm
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.0.3-2
 - Fix bogus changelog entries.
 

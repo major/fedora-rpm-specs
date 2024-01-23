@@ -1,6 +1,6 @@
 Name:           new-session-manager
 Version:        1.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Music production session manager
 
 # Main program: GPL3+
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.linuxaudio.nsm-l
 %{_datadir}/applications/org.linuxaudio.nsm-legacy-gui.desktop
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

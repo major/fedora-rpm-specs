@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A powerful alternative to var_export
 
 License:        MIT
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep  4 2023 Remi Collet <remi@remirepo.net> - 0.4.0-1
 - update to 0.4.0
 - raise dependency on PHP 7.4

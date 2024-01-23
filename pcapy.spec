@@ -12,7 +12,7 @@
 
 Name:           pcapy
 Version:        0.11.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 License:        Apache-1.1
@@ -89,6 +89,9 @@ rm -rf %{buildroot}/usr/share/doc/pcapy
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-21
 - Patch for Python 3.13.
 

@@ -1,7 +1,7 @@
 Summary:       Perl module for SOAP with WSDL support
 Name:          perl-SOAP-WSDL
 Version:       3.004
-Release:       14%{?dist}
+Release:       15%{?dist}
 License:       GPL+ or Artistic
 URL:           https://metacpan.org/release/SOAP-WSDL
 Source:        https://cpan.metacpan.org/modules/by-module/SOAP/SOAP-WSDL-%{version}.tar.gz
@@ -133,6 +133,9 @@ chmod 0755 %{buildroot}%{_bindir}/wsdl2perl.pl
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.004-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.004-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:           polymake
 Version:        4.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -318,6 +318,9 @@ make test
 %doc doc/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 30 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.11-2
 - Rebuild for perl 5.38.2
 

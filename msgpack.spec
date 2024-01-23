@@ -2,7 +2,7 @@
 
 Name:		msgpack
 Version:	3.1.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Binary-based efficient object serialization library
 
 License:	Boost
@@ -78,6 +78,9 @@ make install/fast DESTDIR=$RPM_BUILD_ROOT -C obj
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.0-13
 - Upgrade from C++11 to C++14 for gtest 1.13.0
 

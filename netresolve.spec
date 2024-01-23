@@ -2,7 +2,7 @@
 
 Name: netresolve
 Version: 0.0.1
-Release: 0.37%{?snapshot_suffix}%{?dist}
+Release: 0.38%{?snapshot_suffix}%{?dist}
 Summary: Generic name resolution library
 License: BSD
 # https://github.com/crossdistro/netresolve , possibly?
@@ -233,6 +233,9 @@ make check || { cat ./test-suite.log; false; }
 %{_libdir}/libnss_netresolve.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.38.20160317git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.37.20160317git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	A unix pager optimized for psql
 Name:		pspg
 Version:	5.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD
 URL:		https://github.com/okbob/%{name}
 Source:		https://github.com/okbob/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -39,6 +39,9 @@ columns, and lot of color themes are included.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Pavel Raiskup <praiskup@redhat.com> - 5.8.1-1
 - https://github.com/okbob/pspg/releases/tag/5.8.1
 

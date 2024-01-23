@@ -1,6 +1,6 @@
 Name: libdaemon
 Version: 0.14
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Library for writing UNIX daemons
 License: LGPL-2.1-or-later
 URL: http://0pointer.de/lennart/projects/libdaemon/
@@ -60,6 +60,9 @@ rm $RPM_BUILD_ROOT/%{_datadir}/doc/libdaemon/style.css
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.14-27
 - migrate to SPDX license format
 

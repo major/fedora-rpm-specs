@@ -4,7 +4,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -131,6 +131,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 5 2023 Filip Janus <fjanus@redhat.com> - 16.1-1
 - Update to 16.1
 - Build with ICU by default - new upstream feature

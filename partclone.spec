@@ -4,7 +4,7 @@
 Summary:        Utility to clone and restore a partition
 Name:           partclone
 Version:        0.3.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -150,6 +150,9 @@ make check || (cat tests/test-suite.log; exit 1)
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.27-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 25 2023 Robert Scheck <robert@fedoraproject.org> 0.3.27-2
 - Build fail-mbr.bin on all architectures (using cross-compile)
 

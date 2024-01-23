@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-H2PM
 Version:        0.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automatically generate perl modules to wrap C header files
 License:        GPL+ or Artistic
 
@@ -63,6 +63,9 @@ The module then requires no XS module to be loaded at run time.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

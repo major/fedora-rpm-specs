@@ -15,7 +15,7 @@ and FAS2.\
 
 Name:           python-fedora
 Version:        1.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+
@@ -324,6 +324,9 @@ popd
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

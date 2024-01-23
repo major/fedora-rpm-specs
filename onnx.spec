@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -116,6 +116,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Diego Herrera C <dherrera@redhat.com> - 1.14.0-8
 - Fix onnxruntime patch
 

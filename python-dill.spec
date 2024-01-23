@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Serialize all of Python
 
 License: BSD
@@ -62,6 +62,9 @@ command.
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.3.7-1
 - New upstream source (0.3.7)
 

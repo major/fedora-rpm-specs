@@ -1,6 +1,6 @@
 Name:           python-PyMySQL
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -56,6 +56,9 @@ and Jython.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.1.0-4
 - Convert to pyproject macros
 

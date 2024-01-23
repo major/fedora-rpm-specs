@@ -2,7 +2,7 @@
 
 Name:           maven-common-artifact-filters
 Version:        3.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven Common Artifact Filters
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/
@@ -61,6 +61,9 @@ rm src/test/java/org/apache/maven/shared/artifact/filter/PatternFilterPerfTest.j
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.2-2
 - Rebuild
 

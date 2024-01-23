@@ -13,7 +13,7 @@ more information.}
 Name:           python-%{pypi_name}
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

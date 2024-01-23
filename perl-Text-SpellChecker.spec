@@ -1,7 +1,7 @@
 Summary:	OO interface for spell-checking a block of text 
 Name:		perl-Text-SpellChecker
 Version:	0.14
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Text-SpellChecker
 Source0:	https://cpan.metacpan.org/modules/by-module/Text/Text-SpellChecker-%{version}.tar.gz
@@ -64,6 +64,9 @@ LANG=en_US make test TEST_VERBOSE=1
 %{_mandir}/man3/Text::SpellChecker.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

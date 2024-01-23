@@ -1,6 +1,6 @@
 Name:           perl-SQL-Abstract-Limit
 Version:        0.143
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Portable LIMIT Emulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/SQL-Abstract-Limit
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/SQL::Abstract::Limit.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.143-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.143-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,7 +9,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 
 Name:		rubygem-%{gem_name}
 Version:	5.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -19,6 +19,10 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # %%{SOURCE2} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rmagick-create-full-tarball.sh
+# https://github.com/rmagick/rmagick/pull/1434
+Patch0:	rmagick-pr1434-fix-test-with-IM-6_9_13_4.patch
+# https://github.com/rmagick/rmagick/pull/1435
+Patch1:	rmagick-pr1435-fix-test-with-IM-7_1_1_26.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
@@ -30,11 +34,10 @@ BuildRequires:	rubygem(pry)
 # Due to test/RMagick/rmmain.c test_Magick_version(), for now
 # we specify the exact version for ImageMagick
 %if 0%{?fedora}
+%setIMver 41 1:7.1.1 1:7.1.2
 %setIMver 40 1:7.1.1 1:7.1.2
 %setIMver 39 1:7.1.1 1:7.1.2
 %setIMver 38 1:7.1.1 1:7.1.2
-%setIMver 37 1:6.9.12 1:6.9.13
-%setIMver 36 1:6.9.12 1:6.9.13
 %endif
 
 Obsoletes:	ruby-RMagick < 2.13.2
@@ -59,6 +62,9 @@ Documentation for %{name}.
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+
+%patch -P0 -p1
+%patch -P1 -p1
 
 # permission
 find . -name \*.rb -or -name \*.gif | xargs chmod ugo-x 
@@ -148,6 +154,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.0-3
+- Backport upstream patch to fix test with ImageMagick 7.1.1-26
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

@@ -5,7 +5,7 @@
 
 Name:    kasumi
 Version: 2.5
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://kasumi.sourceforge.jp/
@@ -22,6 +22,7 @@ Patch0: kasumi-853099-manpage.patch
 Patch1: kasumi-1928410-gtk3.patch
 Patch2: kasumi-check-anthy-pkg.patch
 Patch3: kasumi-1938091.patch
+Patch4: kasumi-c89.patch
 
 
 Summary: An anthy dictionary management tool
@@ -112,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2.5-44
+- Fix C89 compatibility issue (#2259428)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

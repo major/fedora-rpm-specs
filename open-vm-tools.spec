@@ -31,7 +31,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0 AND W3C AND LGPL-2.1 AND ICU AND ISC AND MIT
 URL:              https://github.com/vmware/%{name}
@@ -418,6 +418,9 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 8 2023 John Wolfe <jwolfe@vmware.com> - 12.3.5-1
 - Package new upstream version of open-vm-tools-12.3.5-22544099.
   . fix for CVE-2023-34058 - another SAML token signature bypass vulnerability.

@@ -2,7 +2,7 @@
 
 Name:           maven-bundle-plugin
 Version:        5.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven Bundle Plugin
 License:        Apache-2.0
 URL:            https://felix.apache.org
@@ -86,6 +86,9 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.1.9-2
 - Convert License tag to SPDX format
 

@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -277,6 +277,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.3.9-5
 - Enable opendbx for SQL probes only in Fedora
 

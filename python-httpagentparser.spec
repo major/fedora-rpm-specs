@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        1.9.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extracts OS Browser etc information from http user agent string
 
 License:        MIT
@@ -52,6 +52,9 @@ Extracts OS Browser etc information from http user agent string.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

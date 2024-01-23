@@ -1,6 +1,6 @@
 Name:    libsigsegv
 Version: 2.14
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library for handling page faults in user mode
 
 License: GPL-2.0-or-later
@@ -79,6 +79,9 @@ make check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.14-6
 - migrate to SPDX license format
 

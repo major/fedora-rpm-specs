@@ -14,7 +14,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        0.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Common interface for HTTP middleware
 
 License:        MIT
@@ -97,6 +97,9 @@ if (interface_exists("Interop\\Http\\Server\\MiddlewareInterface")) {
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

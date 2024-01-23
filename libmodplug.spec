@@ -1,6 +1,6 @@
 Name:           libmodplug
 Version:        0.8.9.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Epoch:          1
 Summary:        Modplug mod music file format library
 License:        Public Domain
@@ -56,6 +56,9 @@ make check
 %{_libdir}/pkgconfig/libmodplug.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.9.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.9.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

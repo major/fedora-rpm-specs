@@ -1,6 +1,6 @@
 Name:           perl-Date-Tiny
 Version:        1.07
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Date object with as little code as possible
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Date-Tiny
@@ -49,6 +49,9 @@ Date::Tiny is a member of the DateTime::Tiny suite of time modules.
 %{_mandir}/man3/Date*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

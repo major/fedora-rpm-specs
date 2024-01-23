@@ -4,7 +4,7 @@
 
 Name:       nodejs-generic-pool
 Version:    2.2.2
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Generic resource pooling for Node.js
 # License text is included in README.md.
 License:    MIT
@@ -54,6 +54,9 @@ cp -pr package.json lib/ \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

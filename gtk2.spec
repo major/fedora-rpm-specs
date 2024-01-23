@@ -20,7 +20,7 @@
 Summary: GTK+ graphical user interface library
 Name: gtk2
 Version: 2.24.33
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: LGPLv2+
 URL: http://www.gtk.org
 #VCS: git:git://git.gnome.org/gtk+#gtk-2-24
@@ -36,6 +36,12 @@ Patch8: tooltip-positioning.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=611313
 Patch15: window-dragging.patch
 Patch16: gtk2-c99.patch
+Patch17: gtk2-c89.patch
+Patch18: gtk2-c89-2.patch
+Patch19: gtk2-c89-3.patch
+Patch20: gtk2-c89-4.patch
+Patch21: gtk2-c89-5.patch
+Patch22: gtk2-c89-6.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
@@ -335,6 +341,9 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %doc tmpdocs/examples
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2.24.33-17
+- Fix C89 compatibility issues, mostly via backports
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.33-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

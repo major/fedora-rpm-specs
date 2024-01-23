@@ -1,6 +1,6 @@
 Name:           perl-Test-HexString
 Version:        0.03
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Test binary strings with hex dump diagnostics
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ the usual is() function provided by Test::More.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global srcname %(echo %{name} | sed 's/^python-//')
 Name:           python-fqdn
 Version:        1.5.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Validates fully-qualified domain names against RFC 1123
 BuildArch:      noarch
 License:        MPLv2.0
@@ -44,6 +44,9 @@ cp %{SOURCE1} tests/
 %{python3_sitelib}/%{srcname}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

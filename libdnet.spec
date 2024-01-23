@@ -7,7 +7,7 @@ Version:       1.17.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -94,6 +94,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 13 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.0-1
 - Rebase to 1.17.0 (RHBZ#2243862)
 

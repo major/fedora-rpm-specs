@@ -1,6 +1,6 @@
 Name:           perl-Proc-Guard
 Version:        0.07
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Process runner with RAII pattern
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Proc-Guard
@@ -55,6 +55,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

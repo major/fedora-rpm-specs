@@ -1,6 +1,6 @@
 Name:           perl-Config-Grammar
 Version:        1.13
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Grammar-based, user-friendly config parser
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Config-Grammar
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3//Config::Grammar*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

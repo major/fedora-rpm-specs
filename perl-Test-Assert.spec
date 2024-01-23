@@ -13,7 +13,7 @@
 
 Name:		perl-Test-Assert
 Version:	0.0504
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Assertion methods for those who like JUnit
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Assert
@@ -149,6 +149,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Test::Assert.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0504-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0504-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

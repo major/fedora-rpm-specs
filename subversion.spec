@@ -60,7 +60,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -288,6 +288,8 @@ export svn_cv_ruby_includes="-I%{_includedir}"
 #       -DSVN_SQLITE_MIN_VERSION=\\\"3.7.12\\\""
 export APACHE_LDFLAGS="-Wl,-z,relro,-z,now"
 export CC=gcc CXX=g++ JAVA_HOME=%{jdk_path}
+
+export CFLAGS="%{build_cflags} -Wno-error=incompatible-pointer-types"
 
 %configure --with-apr=%{_prefix} --with-apr-util=%{_prefix} \
         --disable-debug \
@@ -587,6 +589,13 @@ make check-javahl
 %endif
 
 %changelog
+* Sun Jan 21 2024 Tomas Korbar <tkorbar@redhat.com> - 1.14.3-3
+- Fix building with gcc 14
+- incompatible-pointer-types warnings became errors, but they've
+been present for a long time and posed no threat, thus revert
+the behaviour
+- Resolves: rhbz#2259155
+
 * Fri Jan 12 2024 Tomas Korbar <tkorbar@redhat.com> - 1.14.3-2
 - Fix testing of binary patch
 - Resolves: rhbz#2255746

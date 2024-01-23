@@ -1,6 +1,6 @@
 Name:           librhsm
 Version:        0.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Red Hat Subscription Manager library
 
 License:        LGPL-2.1-or-later
@@ -52,6 +52,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Petr Pisar <ppisar@redhat.com> - 0.0.3-11
 - Convert a license tag to SPDX
 

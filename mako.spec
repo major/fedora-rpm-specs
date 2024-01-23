@@ -1,6 +1,6 @@
 Name:       mako
 Version:    1.8.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Lightweight Wayland notification daemon
 Provides:   desktop-notification-daemon
 
@@ -82,6 +82,9 @@ install -m0644 -Dt %{buildroot}%{_userunitdir}/ contrib/systemd/mako.service
 %{_datadir}/fish/vendor_completions.d/mako*.fish
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

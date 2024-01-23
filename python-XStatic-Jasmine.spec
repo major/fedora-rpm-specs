@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.1.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Jasmine (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/jasmine/*.js
 %{_jsdir}/jasmine
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

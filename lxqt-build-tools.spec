@@ -2,7 +2,7 @@
 
 Name:           lxqt-build-tools
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD
@@ -68,6 +68,9 @@ cd build
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 28 2023 Zamir SUN <sztsian@gmail.com> - 0.13.0-1
 - Update version to 0.13.0
 

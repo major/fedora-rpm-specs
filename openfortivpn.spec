@@ -1,6 +1,6 @@
 Name:           openfortivpn
 Version:        1.21.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 Adrien Vergé <adrienverge@gmail.com> - 1.21.0-2
 - Add configure options for built-in resolvconf support, see https://github.com/adrienverge/openfortivpn/issues/1141#issuecomment-1806834236
 

@@ -2,7 +2,7 @@
 
 Name:           maven-remote-resources-plugin
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven Remote Resources Plugin
 License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-remote-resources-plugin/
@@ -70,6 +70,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.1.0-2
 - Convert License tag to SPDX format
 

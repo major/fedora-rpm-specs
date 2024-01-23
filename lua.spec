@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -211,6 +211,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug  1 2023 Tom Callaway <spot@fedoraproject.org> - 5.4.6-3
 - disable "corrupted binary dump" test that has issues on big-endian architectures
 - apply upstream fix for 5.4.6 bug 1

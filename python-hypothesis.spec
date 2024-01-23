@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-hypothesis
-Version:        6.82.0
+Version:        6.96.1
 Release:        %autorelease
 Summary:        Library for property based testing
 
@@ -31,6 +31,7 @@ BuildRequires:  %{py3_dist typing_extensions}
 %if %{with doc}
 BuildRequires:  %{_bindir}/sphinx-build
 BuildRequires:  %{py3_dist sphinx-hoverxref}
+BuildRequires:  %{py3_dist sphinx-jsonschema}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 BuildRequires:  %{py3_dist sphinx_selective_exclude}
 %endif

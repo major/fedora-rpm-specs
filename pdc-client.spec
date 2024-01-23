@@ -13,7 +13,7 @@
 
 Name:           pdc-client
 Version:        1.8.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Console client for interacting with Product Definition Center
 License:        MIT
 URL:            https://github.com/product-definition-center/pdc-client
@@ -141,6 +141,9 @@ EOF
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 1.8.0-31
 - Remove unused python3-mock dependency
 

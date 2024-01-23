@@ -1,6 +1,6 @@
 Name:           nsnake
 Version:        3.0.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The classic snake game with textual interface
 # the old homepage is down
 #URL:            http://nsnake.alexdantas.net/
@@ -39,6 +39,9 @@ make doc
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Daniel Milnes <daniel@daniel-milnes.uk> - 3.0.1-18
 - Migrate license to SPDX
 

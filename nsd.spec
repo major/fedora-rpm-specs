@@ -2,7 +2,7 @@
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
 Version: 4.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Url: http://www.nlnetlabs.nl/nsd/
 Source0: http://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?prever}.tar.gz
@@ -112,6 +112,9 @@ exit 0
 %systemd_postun_with_restart nsd.service
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 25 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.8.0-1
 - Update to 4.8.0
 - Resolves: rhbz#2252122

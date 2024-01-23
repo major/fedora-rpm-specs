@@ -1,6 +1,6 @@
 Name:		lis
 Version:	2.0.21
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A library for solving linear equations and eigenvalue problems
 License:	BSD
 URL:		http://www.ssisc.org/lis/index.en.html
@@ -118,6 +118,9 @@ rm -rf %{buildroot}%{_datadir}/examples
 %{_mandir}/man3/lis*.3f.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-Exporter
 Version:        5.78
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implements default import method for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.78-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.78-1
 - 5.78 bump (rhbz#2256294)
 

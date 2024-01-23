@@ -18,7 +18,7 @@
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
 Version:        6.6.5
-Release:        1%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
+Release:        2%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
 
 URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
@@ -317,6 +317,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep  8 2023 Remi Collet <remi@remirepo.net> - 6.6.5-1
 - update to 6.6.5 (no change)
 

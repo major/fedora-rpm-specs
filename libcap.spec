@@ -1,6 +1,6 @@
 Name: libcap
 Version: 2.69
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD-3-Clause OR GPL-2.0-only
@@ -112,6 +112,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.69-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 2.69-1
 - Update to 2.69 (with contribs from Yanko Kaneti <yaneti@declera.com>, and Andrew G. Morgan <morgan@kernel.org>)
 - Update license to SPDX (by Anderson Toshiyuki Sasaki <ansasaki@redhat.com>)

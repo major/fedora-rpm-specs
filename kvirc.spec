@@ -1,6 +1,6 @@
 Name:             kvirc
 Version:          5.0.0
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          Free portable IRC client
 License:          GPLv2+ with exceptions
 URL:              http://kvirc.net/
@@ -116,6 +116,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.0.0-22
 - Fix crash on startup when running wayland (rhbz#2250579)
 

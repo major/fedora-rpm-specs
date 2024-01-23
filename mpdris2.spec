@@ -2,7 +2,7 @@
 
 Name:           mpdris2
 Version:        0.9.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Provide MPRIS 2 support to mpd
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_prefix}/lib/systemd/user/mpDris2.service
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 12 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 0.9.1-7
 - Rename python3-mpd2 dependency to python3-mpd (see #2240352, #2240351)
 - Update spec formatting

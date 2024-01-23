@@ -1,6 +1,6 @@
 Name:           libzeitgeist
 Version:        0.3.18
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Client library for applications that want to interact with the Zeitgeist daemon
 
 # LGPL-2.1-or-later: Overall
@@ -96,6 +96,9 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.18-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.18-27
 - SPDX migration
 - List library name explicitly

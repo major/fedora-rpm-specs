@@ -1,6 +1,6 @@
 Name:           perl-Net-IPv6Addr
 Version:        1.02
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl module to check validity of IPv6 addresses
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

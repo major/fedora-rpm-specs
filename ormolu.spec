@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        0.5.3.0
 # can only be reset when all subpkgs bumped
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A formatter for Haskell source code
 
 License:        BSD-3-Clause
@@ -243,6 +243,9 @@ echo %{_bindir}/markdown-unlit >> %{markdownunlit}/ghc-markdown-unlit.files
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Jens Petersen <petersen@redhat.com> - 0.5.3.0-1
 - https://hackage.haskell.org/package/ormolu-0.5.3.0/changelog
 - subpackage th-env

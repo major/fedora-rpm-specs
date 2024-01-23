@@ -1,6 +1,6 @@
 Name: omping
 Version: 0.0.4
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Utility to test IP multicast functionality
 License: ISC
 URL: https://github.com/jfriesse/omping
@@ -30,6 +30,9 @@ primarily in local network.
 %{_mandir}/man8/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

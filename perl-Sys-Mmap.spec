@@ -1,6 +1,6 @@
 Name:           perl-Sys-Mmap
 Version:        0.20
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Use mmap to map in a file as a Perl variable
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sys-Mmap
@@ -63,6 +63,9 @@ find %{buildroot} -type d -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

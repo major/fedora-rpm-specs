@@ -1,7 +1,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -146,6 +146,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-2
 - Fix accidentally-introduced -Og; restore normal optimizations
 - Fix OpenCL support

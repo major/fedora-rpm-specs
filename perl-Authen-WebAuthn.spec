@@ -1,6 +1,6 @@
 Name:           perl-Authen-WebAuthn
 Version:        0.002
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to add Web Authentication support to server applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Authen-WebAuthn
@@ -69,6 +69,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Xavier Bachelot <xavier@bachelot.org> - 0.002-1
 - Update to 0.002
 - Convert License to SPDX

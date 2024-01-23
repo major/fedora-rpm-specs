@@ -5,7 +5,7 @@
 
 Name:       python-%{srcname}
 Version:    1.8.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Python module that converts text with ANSI color to HTML
 # While the project was previously licensed as GPLv3+, it is now LGPLv3.
 # See https://github.com/pycontribs/ansi2html/issues/72 for more info.
@@ -72,6 +72,9 @@ install -Dpm 644 man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

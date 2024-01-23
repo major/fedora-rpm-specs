@@ -1,6 +1,6 @@
 Name:       perl-Config-ApacheFormat
 Version:    1.2
-Release:    31%{?dist}
+Release:    32%{?dist}
 Summary:    Use Apache format config files
 License:    GPL+ or Artistic
 URL:        https://metacpan.org/release/Config-ApacheFormat
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

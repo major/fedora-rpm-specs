@@ -7,7 +7,7 @@
 
 Name:		perl-Test-Warnings
 Version:	0.032
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Warnings
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/Test::Warnings.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.032-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct  1 2023 Paul Howarth <paul@city-fan.org> - 0.032-1
 - Update to 0.032
   - New config variable, $ENV{PERL_TEST_WARNINGS_ONLY_REPORT_WARNINGS}, for

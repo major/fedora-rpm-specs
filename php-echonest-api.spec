@@ -3,7 +3,7 @@
 
 Name:       php-echonest-api
 Version:    0
-Release:    0.17.20131228git.%{short_commit}%{?dist}
+Release:    0.18.20131228git.%{short_commit}%{?dist}
 BuildArch:  noarch
 
 License:    MIT
@@ -58,6 +58,9 @@ phpunit --bootstrap=%{buildroot}/%{_datadir}/php/EchoNest/autoload.php
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18.20131228git.662d62a7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20131228git.662d62a7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:          libwebp
 Version:       1.3.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
@@ -287,6 +287,9 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Sandro Mani <manisandro@gmail.com> - 1.3.2-2
 - Backport upstream fix for CVE-2023-5129
 

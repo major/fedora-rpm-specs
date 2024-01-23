@@ -38,7 +38,7 @@ multiple cores.								\
 
 Name:			python-%{pypi_name}
 Version:		0.10.0
-Release:		35%{?gitrel}%{?dist}
+Release:		36%{?gitrel}%{?dist}
 Summary:		Python framework for fast Vector Space Modelling
 
 License:		LGPLv2
@@ -204,6 +204,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Unit
 Version:        0.25
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        The PerlUnit testing framework
 
 License:        GPL+ or Artistic
@@ -88,6 +88,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global fontname lohit-kannada
 
 Version:       2.5.4
-Release:       17%{?dist}
+Release:       18%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-kannada-fonts
 
 %global foundry           Lohit
@@ -43,6 +43,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.5.4-17
 - lowering priority of lohit-kannada-fonts
 

@@ -1,6 +1,6 @@
 Name:           ladspa-cmt-plugins
 Version:        1.16
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A collection of LADSPA plugins
 License:        GPLv2+
 URL:            http://www.ladspa.org/
@@ -58,6 +58,9 @@ mv doc/COPYING .
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

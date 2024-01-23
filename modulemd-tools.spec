@@ -1,6 +1,6 @@
 Name: modulemd-tools
 Version: 0.16
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Collection of tools for modular (in terms of Fedora Modularity origin) content creators
 License: MIT
 BuildArch: noarch
@@ -106,6 +106,9 @@ cp man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Jakub Kadlcik <frostyx@email.cz> - 0.16-4
 - createrepo_mod: fix RHBZ 2247292 caused by new compression
 

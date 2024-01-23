@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        9.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -77,6 +77,9 @@ sed -i -e '/^#!\//, 1d' cpuinfo/cpuinfo.py
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 9.0.0-5
 - Mark this as SPDX license expression converted
 

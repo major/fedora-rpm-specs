@@ -1,7 +1,7 @@
 Name:           perl-Test2-Plugin-DBIProfile
 %global cpan_version 0.002006
 Version:        0.2.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Test2 plugin to enable and display DBI profiling
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test2-Plugin-DBIProfile
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libeatmydata
 Version:        130
-Release:        8%{?dist}
+Release:        9%{?dist}
 Group:          Development/Tools
 License:        GPLv3
 Summary:        Library and utilities designed to disable fsync and friends
@@ -68,6 +68,9 @@ find %{buildroot} -name "*.la" -type f -delete
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 130-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 130-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           purple-facebook
 Version:        0.9.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Facebook protocol plugin for purple2
 
 License:        GPLv2+
@@ -73,6 +73,9 @@ find %{buildroot}%{_libdir} -name '*.*a' -print -delete
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

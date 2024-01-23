@@ -17,7 +17,7 @@
 
 Name:		lld13
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -114,6 +114,9 @@ rm %{buildroot}%{install_includedir}/mach-o/compact_unwind_encoding.h
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

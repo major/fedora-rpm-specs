@@ -1,5 +1,5 @@
 Version:        2.009
-Release:        8%{?dist}
+Release:        9%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 
 %global foundry           MarcSabatella
@@ -53,6 +53,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 2.009-8
 - Stop building for 32-bit x86
 

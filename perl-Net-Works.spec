@@ -1,6 +1,6 @@
 Name:           perl-Net-Works
 Version:        0.22
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        API for IP addresses and networks
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Works
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

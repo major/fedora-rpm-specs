@@ -1,9 +1,3 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 Name:           python-sure
 Version:        2.0.1
 Release:        %autorelease
@@ -38,16 +32,6 @@ BuildRequires:  python3-devel
 # development.txt: pytest==6.2.4
 BuildRequires:  python3dist(pytest)
 
-%if %{with doc_pdf}
-BuildRequires:  make
-# development.txt: Sphinx==2.3.1
-BuildRequires:  python3dist(sphinx)
-# development.txt: sphinx-rtd-theme==0.4.3
-BuildRequires:  python3dist(sphinx-rtd-theme)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
-
 %global common_description %{expand:
 An idiomatic testing library for python with powerful and flexible assertions
 created by Gabriel Falcão. Sure’s developer experience is inspired and modeled
@@ -59,24 +43,13 @@ after RSpec Expectations and should.js.}
 %package -n python3-sure
 Summary:        %{summary}
 
+Obsoletes:      python-sure-doc < 2.0.1-9
+
 %description -n python3-sure %{common_description}
-
-
-%if %{with doc_pdf}
-%package doc
-Summary:        Documentation for Sure
-
-%description doc %{common_description}
-%endif
 
 
 %prep
 %autosetup -p1 -n sure-%{version}
-
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
 # Do not generate a coverage report; this obviates the BR on pytest-cov
 sed -r -i 's/[[:blank:]]--cov=[^[:blank:]]+//' setup.cfg
@@ -88,11 +61,6 @@ sed -r -i 's/[[:blank:]]--cov=[^[:blank:]]+//' setup.cfg
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -110,19 +78,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files -n python3-sure -f %{pyproject_files}
-%if %{without doc_pdf}
 %doc CHANGELOG.md README.rst TODO.rst
-%endif
 %{_bindir}/sure
 %{_mandir}/man1/sure.1*
-
-
-%if %{with doc_pdf}
-%files doc
-%license COPYING
-%doc CHANGELOG.md README.rst TODO.rst
-%doc docs/build/latex/Sure.pdf
-%endif
 
 
 %changelog

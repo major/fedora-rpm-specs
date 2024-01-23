@@ -4,7 +4,7 @@ for aiohttp asyncio-powered asynchronous HTTP server.
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        CORS (Cross Origin Resource Sharing) support for aiohttp
 
 License:        ASL 2.0
@@ -87,6 +87,9 @@ rm tox.ini
 %{python3_sitelib}/aiohttp_cors-*.egg-info/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

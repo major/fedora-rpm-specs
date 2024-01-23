@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.13.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        smart-table (XStatic packaging standard)
 
 License:        MIT
@@ -85,6 +85,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_smart_table/smart-table.js
 %{_jsdir}/angular_smart_table
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

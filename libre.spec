@@ -1,7 +1,7 @@
 Summary:        Generic library for real-time communications
 Name:           libre
 Version:        3.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
@@ -117,6 +117,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 28 2023 Robert Scheck <robert@fedoraproject.org> 3.8.0-1
 - Upgrade to 3.8.0 (#2256017)
 

@@ -1,7 +1,7 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
 Version:	2023.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 # Bundled e57 is Boost-licensed
 # bundled glew is BSD-3-Clause
@@ -217,6 +217,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Tom Callaway <spot@fedoraproject.org> - 2023.12-1
 - update to 2023.12
 

@@ -1,6 +1,6 @@
 Name:		libeasyfc
 Version:	0.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Easy configuration generator interface for fontconfig
 
 License:	LGPL-3.0-or-later
@@ -94,6 +94,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gir-*/Easyfc-*.gir
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov  6 2023 Akira TAGOH <tagoh@redhat.com> - 0.14.1-1
 - New upstream release.
   Fix wrong behavior on parsing manual-updated config.

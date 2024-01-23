@@ -8,7 +8,7 @@
 
 Name:		python-%{modname}
 Version:	1.11.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Interrupt and signal handling for Cython
 License:	LGPL-3.0-or-later
 URL:		https://github.com/sagemath/cysignals
@@ -120,6 +120,9 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Jerry James <loganjerry@gmail.com> - 1.11.4-1
 - Version 1.11.4
 - Drop upstreamed fortify patch

@@ -4,7 +4,7 @@
 
 Name:           lib%{libname}
 Version:        %{current}.1.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Repack of the common code base of fido and siege as shared library
 
 License:        GPLv2+ and LGPLv2+
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

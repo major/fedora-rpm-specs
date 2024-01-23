@@ -2,7 +2,7 @@
 
 Name:           python-docopt
 Version:        0.6.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Pythonic argument parser, that will make you smile
 
 License:        MIT
@@ -67,6 +67,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/__pycache__/%{pypi_name}.*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

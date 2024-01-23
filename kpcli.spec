@@ -1,6 +1,6 @@
 Name:		kpcli	
 Version:	4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KeePass Command Line Interface (CLI) / interactive shell
 License:	GPL+ or Artistic
 BuildArch:	noarch
@@ -47,6 +47,9 @@ install -p -m0755 %{name}-%{version}.pl %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 15 2023 Charles R. Anderson <cra@alum.wpi.edu> - 4.0-1
 - Update to 4.0 which adds support for KDBX4 database files.
 

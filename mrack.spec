@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,6 +185,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 David Pascual Hernandez <davherna@redhat.com> - 1.18.0-1
 - c158474 feat: Add async_timeout dependency (David Pascual)
 

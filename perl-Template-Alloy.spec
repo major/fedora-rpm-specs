@@ -1,6 +1,6 @@
 Name:           perl-Template-Alloy
 Version:        1.022
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Templating tool supporting multiple markup formats 
 # see lib/Template/Alloy.pod
 License:        GPL+ or Artistic
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.022-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.022-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

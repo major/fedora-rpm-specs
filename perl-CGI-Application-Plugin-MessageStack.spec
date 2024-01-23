@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-MessageStack
 Version:        0.34
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Message stack for your CGI::Application
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

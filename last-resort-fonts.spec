@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 15.000
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     https://github.com/unicode-org/last-resort-font/
 
 %global fontlicense       OFL-1.1
@@ -38,6 +38,9 @@ install -m 644 -p %{SOURCE0} %{SOURCE1} .
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.000-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

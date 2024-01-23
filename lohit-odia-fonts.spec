@@ -1,7 +1,7 @@
 %global fontname lohit-odia
 
 Version:       2.91.2
-Release:       18%{?dist}
+Release:       19%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-odia-fonts
 
 %global foundry           Lohit
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.2-18
 - lowering priority of lohit-odia-fonts
 

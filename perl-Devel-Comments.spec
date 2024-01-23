@@ -1,6 +1,6 @@
 Name:           perl-Devel-Comments
 Version:        1.1.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Debug with executable smart comments to logs
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-Comments
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

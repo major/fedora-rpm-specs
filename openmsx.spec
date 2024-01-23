@@ -2,7 +2,7 @@
 
 Name:           openmsx
 Version:        19.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPLv2
 URL:            https://openmsx.org/
@@ -226,6 +226,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 02 2023 Andrea Musuruane <musuruan@gmail.com> - 19.1-1
 - New upstream version 19.1
 

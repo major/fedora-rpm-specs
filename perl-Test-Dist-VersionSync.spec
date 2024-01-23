@@ -1,6 +1,6 @@
 Name:           perl-Test-Dist-VersionSync
 Version:        1.2.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Verify that all the modules in a distribution have the same version number
 License:        GPL+ or Artistic
 
@@ -42,6 +42,9 @@ the modules in a distribution have the same version number.
 %{_mandir}/man3/Test*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       perl-Time-Interval
 Version:    1.234
-Release:    19%{?dist}
+Release:    20%{?dist}
 Summary:    Perl module that converts time intervals of days, hours, minutes, and seconds
 License:    GPL+ or Artistic
 URL:        https://metacpan.org/release/Time-Interval
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.234-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.234-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

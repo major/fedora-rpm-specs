@@ -1,6 +1,6 @@
 Name:           python-firehose
 Version:        0.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for working with output from static code analyzers
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Athos Ribeiro <athoscr@fedoraproject.org> - 0.5-25
 - Fix FTBFS and FTI issues (rhbz#2226189) (rhbz#2220223) (rhbz#2154946)
 - Remove deprecated patchN macro

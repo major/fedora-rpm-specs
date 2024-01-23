@@ -1,6 +1,6 @@
 Name:		perl-Unicode-EastAsianWidth
 Version:	12.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	East Asian Width properties
 License:	CC0-1.0
 URL:		https://metacpan.org/release/Unicode-EastAsianWidth
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Unicode::EastAsianWidth.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

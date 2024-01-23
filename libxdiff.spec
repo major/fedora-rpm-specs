@@ -4,7 +4,7 @@
 
 Name:		libxdiff
 Version:	1.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Basic functionality to create difference/patches in binary and text
 License:	LGPLv2+
 URL:		https://github.com/spotrh/libxdiff
@@ -58,6 +58,9 @@ rm -rf %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/libxdiff.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

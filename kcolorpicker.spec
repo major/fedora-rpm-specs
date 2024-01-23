@@ -2,8 +2,8 @@
 %global libname lib%{appname}
 
 Name: kcolorpicker
-Version: 0.2.0
-Release: 5%{?dist}
+Version: 0.3.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-or-later
 Summary: QToolButton control with color popup menu
@@ -12,6 +12,9 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Gui)
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -30,30 +33,74 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %description devel
 %{summary}.
 
+%package qt6
+Summary: QToolButton control with color popup menu (Qt6)
+%description qt6
+%{summary}.
+
+%package qt6-devel
+Summary: Qt6 Development files for %{name}
+Requires: %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description qt6-devel
+%{summary}.
+
 %prep
 %autosetup -n %{appname}-%{version} -p1
 
 %build
+mkdir qt5
+pushd qt5
 %cmake -G Ninja \
+     -S'..' \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTS:BOOL=OFF \
     -DBUILD_EXAMPLE:BOOL=OFF
 %cmake_build
+popd
+mkdir qt6
+pushd qt6
+%cmake -G Ninja \
+     -S'..' \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTS:BOOL=OFF \
+    -DBUILD_EXAMPLE:BOOL=OFF \
+    -DBUILD_WITH_QT6:BOOL=ON
+%cmake_build
+popd
 
 %install
+pushd qt5
 %cmake_install
+popd
+pushd qt6
+%cmake_install
+popd
 
 %files
 %doc README.md
 %license LICENSE
-%{_libdir}/%{libname}.so.0*
+%{_libdir}/%{libname}-Qt5.so.0*
 
 %files devel
-%{_includedir}/%{appname}/
-%{_libdir}/cmake/%{appname}/
-%{_libdir}/%{libname}.so
+%{_includedir}/%{appname}-Qt5/
+%{_libdir}/cmake/%{appname}-Qt5/
+%{_libdir}/%{libname}-Qt5.so
+
+%files qt6
+%doc README.md
+%license LICENSE
+%{_libdir}/%{libname}-Qt6.so.0*
+
+%files qt6-devel
+%{_includedir}/%{appname}-Qt6/
+%{_libdir}/cmake/%{appname}-Qt6/
+%{_libdir}/%{libname}-Qt6.so
 
 %changelog
+* Sat Jan 20 2024 Marie Loise Nolden <loise@kde.org> - 0.3.0-1
+- update to 0.3.0
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

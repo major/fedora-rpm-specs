@@ -3,7 +3,7 @@
 %endif
 
 Name:       proxychains-ng
-Version:    4.16
+Version:    4.17
 Release:    %autorelease
 Summary:    Redirect connections through proxy servers
 

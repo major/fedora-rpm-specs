@@ -1,6 +1,6 @@
 Name: libstorj
 Version: 1.0.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Client library and CLI for encrypted file transfer on the Storj network
 License: LGPL-2.1-or-later
 URL:     https://github.com/Storj/libstorj/
@@ -66,6 +66,9 @@ autoreconf -vif
 %{_libdir}/pkgconfig/libstorj.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

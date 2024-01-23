@@ -2,7 +2,7 @@
 
 Name:           plexus-classworlds
 Version:        2.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
 License:        Apache-2.0 AND Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
@@ -51,6 +51,9 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ src/test/java/o
 %license LICENSE.txt LICENSE-Codehaus.txt
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.0-3
 - Rebuild to regenerate auto-Requires on java
 

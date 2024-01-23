@@ -2,7 +2,7 @@
 
 Name:          libi2cd
 Version:       1.0.3
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Release:       5%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library for interacting with linux I2C devices
 
 License:       LGPL-2.1-or-later
@@ -55,6 +55,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/libi2cd.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

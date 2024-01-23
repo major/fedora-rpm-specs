@@ -4,7 +4,7 @@
 Summary:           Tool to generate PECL extensions from an XML description
 Name:              php-pear-CodeGen-PECL
 Version:           1.1.3
-Release:           29%{?dist}
+Release:           30%{?dist}
 License:           PHP
 URL:               https://pear.php.net/package/%{pear_name}
 Source0:           https://pear.php.net/get/%{pear_name}-%{version}.tgz
@@ -65,6 +65,9 @@ fi
 %{pear_phpdir}/CodeGen/PECL/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

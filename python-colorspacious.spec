@@ -4,7 +4,7 @@
 
 Name: python-%{pname}
 Version: 1.1.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Perform colorspace conversions accurately and easily
 License: MIT
 URL: https://github.com/njsmith/colorspacious
@@ -89,6 +89,9 @@ nosetests-3 --all-modules colorspacious
 %{python3_sitelib}/%{pname}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

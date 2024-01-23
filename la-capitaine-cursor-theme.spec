@@ -5,7 +5,7 @@
 
 Name:           la-capitaine-cursor-theme
 Version:        4
-Release:        5%{?commit:.%{date}git%{shortcommit}}%{?dist}
+Release:        6%{?commit:.%{date}git%{shortcommit}}%{?dist}
 Summary:        X-cursor theme inspired by macOS and based on KDE Breeze
 
 License:        LGPLv3
@@ -70,6 +70,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4-6.20210303git06c8843
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-5.20210303git06c8843
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

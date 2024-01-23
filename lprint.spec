@@ -3,7 +3,7 @@
 
 Name: lprint
 Version: 1.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A Label Printer Application
 
 License: Apache-2.0
@@ -98,6 +98,9 @@ export CC=%{__cc}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.0-4
 - SPDX migration and require filesystem instead of systemd
 

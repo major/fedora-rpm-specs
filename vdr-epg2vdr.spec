@@ -5,8 +5,8 @@
 %endif
 
 Name:           vdr-epg2vdr
-Version:        1.2.15
-Release:        2%{?dist}
+Version:        1.2.16
+Release:        1%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL+
@@ -62,6 +62,9 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Sun Jan 21 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.16-1
+- Update to 1.2.16
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-2
 - Rebuilt for new VDR API versionA
 - Add BR gettext for rawhide

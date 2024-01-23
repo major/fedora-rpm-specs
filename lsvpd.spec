@@ -1,6 +1,6 @@
 Name:		lsvpd
 Version:	1.7.15
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
@@ -68,6 +68,9 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Than Ngo <than@redhat.com> - 1.7.15-1
 - update to 1.7.15
 - drop -std=c++14 build flag

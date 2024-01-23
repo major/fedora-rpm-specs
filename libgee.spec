@@ -1,6 +1,6 @@
 Name:           libgee
 Version:        0.20.6
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        GObject collection library
 
 License:        LGPL-2.1-or-later
@@ -9,6 +9,7 @@ Source0:        https://download.gnome.org/sources/libgee/0.20/libgee-%{version}
 
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  vala
 BuildRequires:  make
 
 %description
@@ -61,10 +62,10 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
+find -name '*.vala' -exec touch {} \;
 
 %build
-%configure --disable-static
+%configure --disable-static --enable-vala
 %make_build
 
 
@@ -101,6 +102,12 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 0.20.6-5
+- Trigger Vala compilation during build, for GCC 14 compatibility
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

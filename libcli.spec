@@ -2,7 +2,7 @@
 
 Name: libcli
 Version: 1.10.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A shared library for a Cisco-like cli
 License: LGPL-2.1-or-later
 URL: http://sites.dparrish.com/libcli
@@ -55,6 +55,9 @@ ln -s %{_libdir}/libcli.so.1.10 %{buildroot}%{_libdir}/libcli.so
 %{_includedir}/*.h
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

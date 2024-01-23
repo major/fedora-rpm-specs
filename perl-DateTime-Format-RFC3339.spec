@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-RFC3339
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse and format RFC3339 datetime strings
 License:        CC0-1.0
 URL:            https://metacpan.org/release/DateTime-Format-RFC3339
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/DateTime::Format::RFC3339.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Xavier Bachelot <xavbier@bachelot.org> - 1.6.0-1
 - Update to 1.6.0 (RHBZ#2256485)
 

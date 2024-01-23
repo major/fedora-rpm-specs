@@ -8,7 +8,7 @@
 
 Name:           mod_qos
 Version:        11.74
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Quality of service module for Apache
 
 License:        GPLv2
@@ -92,6 +92,9 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.74-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 09 2023 Neil Hanlon <neil@shrug.pw> - 11.74-2
 - don't link against pcre-1
 - remove httpd conditionals (el6 cruft)

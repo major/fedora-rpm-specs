@@ -1,6 +1,6 @@
 Name:           perl-IPC-Signal
 Version:        1.00
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Utility functions dealing with signals for Perl 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -54,6 +54,9 @@ numbers and vice versa.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 04 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.00-39
 - Rework dependencies
 - migrated to SPDX license

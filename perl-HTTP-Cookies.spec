@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Cookies
 Version:        6.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP cookie jars
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Cookies
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 08 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.11-1
 - 6.11 bump
 

@@ -1,6 +1,6 @@
 Name:           perl-Text-Sprintf-Named
 Version:        0.0405
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sprintf-like function with named conversions
 License:        MIT
 URL:            https://metacpan.org/release/Text-Sprintf-Named
@@ -54,6 +54,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0405-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0405-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

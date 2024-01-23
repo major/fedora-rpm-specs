@@ -1,6 +1,6 @@
 Name:           netmask
 Version:        2.4.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Utility for determining network masks
 
 License:        GPLv2+
@@ -45,6 +45,9 @@ make check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           nicotine+
 Version:        3.2.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A graphical client for Soulseek
 
 # IP2Location Country Database (pynicotine/geoip/ipcountrydb.bin) is
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

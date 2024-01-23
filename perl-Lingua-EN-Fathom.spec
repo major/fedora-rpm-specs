@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Fathom
 Version:        1.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Measure readability of English text
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Fathom
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.27-1
 - 1.27 bump
 

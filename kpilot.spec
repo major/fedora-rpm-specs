@@ -1,7 +1,7 @@
 Name:    kpilot
 Summary: Sync PIM data with PalmOS devices
 Version: 5.3.0
-Release: 38%{?dist}
+Release: 39%{?dist}
 
 # no pilot-link on S/390
 ExcludeArch: s390 s390x
@@ -124,6 +124,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

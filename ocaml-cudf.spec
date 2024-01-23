@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-cudf
 Version:        0.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Format for describing upgrade scenarios
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -79,6 +79,9 @@ cp -a doc/cudf-check.1* %{buildroot}%{_mandir}/man1
 %license COPYING
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10-6
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

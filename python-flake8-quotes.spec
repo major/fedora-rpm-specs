@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flake8 extension for checking quotes in python
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

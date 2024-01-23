@@ -13,7 +13,7 @@
 Summary:	PoPToP Point to Point Tunneling Server
 Name:		pptpd
 Version:	1.4.0
-Release:	33%{?dist}
+Release:	34%{?dist}
 License:	GPLv2+ and LGPLv2+
 BuildRequires:	make
 BuildRequires:	gcc
@@ -139,6 +139,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.0-33
 - Fixed build with ppp-2.5.0
   Resolves: rhbz#2226121

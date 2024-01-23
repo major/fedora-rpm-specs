@@ -1,6 +1,6 @@
 Name:           perl-Class-CSV
 Version:        1.03
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Class based CSV parser/writer
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-CSV
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           obs-service-%{service}
 Version:        0.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An OBS source service: Update spec file version
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-service-%{service}
@@ -43,6 +43,9 @@ install -m 0644 set_version.service %{buildroot}%{_prefix}/lib/obs/service
 %{_prefix}/lib/obs/service
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep  1 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.6.2-1
 - New upstream release 0.6.2, fixes rhbz#1923237
 - Add patch to fix imp removal of Python 3.12, fixes rhbz#2226037

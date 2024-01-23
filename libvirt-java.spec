@@ -2,7 +2,7 @@ Summary:    Java bindings for the libvirt virtualization API
 Name:       libvirt-java
 Version:    0.4.9
 Prefix:     libvirt
-Release:    26%{?dist}%{?extra_release}
+Release:    27%{?dist}%{?extra_release}
 License:    MIT
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -86,6 +86,9 @@ ant test
 %{_javadocdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

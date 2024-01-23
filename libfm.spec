@@ -19,7 +19,7 @@
 %undefine       prever
 %global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
 
-%global         baserelease     5
+%global         baserelease     6
 
 %if 0%{?usegitbare} >= 1
 %global         gitcommit   54cd5fc0af2407a70717ed3e8577d3ae9ae1a849
@@ -469,6 +469,9 @@ fi
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2-5
 - Change -Wincompatible-pointer-types from error to warning
 

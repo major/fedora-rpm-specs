@@ -14,7 +14,7 @@ many of its ideas have influenced other libraries with similar functionality.}
 
 Name:           python-curio
 Version:        1.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Building blocks for performing concurrent I/O
 License:        BSD
 URL:            https://github.com/dabeaz/curio
@@ -62,6 +62,9 @@ BuildRequires:  %{py3_dist pytest}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Carl George <carl@george.computer> - 1.6-5
 - Add patch for Python 3.12 compatibility, resolves rhbz#2174408
 

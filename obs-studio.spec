@@ -39,7 +39,7 @@
 
 Name:           obs-studio
 Version:        30.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -376,6 +376,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 30.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 28 2023 Neal Gompa <ngompa@fedoraproject.org> - 30.0.0-6
 - Drop broken obsoletes+provides for vlc plugin
 - Drop redundant dependency on libvlc in main package

@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.18.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		CPL-1.0: src/services/acix/core/hashes.py
@@ -1765,6 +1765,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-2
 - Fix compilation with libxml2 2.12
 

@@ -1,6 +1,6 @@
 Name:           perl-String-Dirify
 Version:        1.03
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Convert a string into a directory name
 License:        GPL+ or Artistic
 
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/String*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

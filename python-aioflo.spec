@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python library for Flo by Moen Smart Water Detectors
 
 License:        MIT
@@ -50,6 +50,9 @@ An asyncio-friendly Python library for Flo Smart Water Detectors.
 %doc AUTHORS.md README.md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

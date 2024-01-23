@@ -1,7 +1,7 @@
 Summary:        Get number of occupied columns of a string on terminal
 Name:           perl-Text-CharWidth
 Version:        0.04
-Release:        51%{?dist}
+Release:        52%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Text-CharWidth
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Text::CharWidth.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.9.1
+%global	majorver		2.9.2
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		3
+%global	baserelease		1
 
 %global	gem_name		mechanize
 
@@ -23,10 +23,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # https://github.com/sparklemotion/mechanize/issues/282
 Patch0:	rubygem-mechanize-2.8.0-disable-ntlm-http.patch
 Patch1:	rubygem-mechanize-2.6.0-disable-ntlm-http-test.patch
-# https://github.com/sparklemotion/mechanize/pull/614
-Patch2:	mechanize-pr614-test-workaround-libxml2-version.patch
-# https://github.com/sparklemotion/mechanize/pull/622
-Patch3:	mechanize-pr622-test-workaround-libxml2-version.patch
 
 
 BuildRequires:	ruby(release)
@@ -84,8 +80,6 @@ find . -name \*.rb -print0 | xargs --null chmod 0644
 # Patches
 %patch -P0 -p1 -b .ntlm
 %patch -P1 -p1 -b .ntlmtest
-%patch -P2 -p1 -b .test_skip
-%patch -P3 -p1 -b .test_skip2
 
 sed -i -e '\@ntlm-http@d' %{gem_name}-%{version}.gemspec
 # Kill also this for now
@@ -146,6 +140,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.2-1
+- 2.9.2
+
 * Mon Aug 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.1-3
 - Apply upstream workaround for libxml2 2.11.5
 

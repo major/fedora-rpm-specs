@@ -10,7 +10,7 @@
 
 Name:		nordugrid-arc-nagios-plugins
 Version:	2.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
@@ -102,6 +102,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.1-1
 - Version 2.0.1
 

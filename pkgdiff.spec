@@ -1,6 +1,6 @@
 Name:           pkgdiff
 Version:        1.7.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A tool for analyzing changes in Linux software packages
 
 License:        GPLv2+
@@ -72,6 +72,9 @@ install -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

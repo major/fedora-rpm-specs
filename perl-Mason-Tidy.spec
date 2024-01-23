@@ -1,6 +1,6 @@
 Name:           perl-Mason-Tidy
 Version:        2.57
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Tidy HTML::Mason/Mason components
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mason-Tidy
@@ -69,6 +69,9 @@ make test
 %exclude %{perl_vendorlib}/Mason/Tidy/t
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.57-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.57-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

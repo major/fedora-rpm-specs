@@ -2,10 +2,13 @@ Name:           gtkterm
 Version:        1.2.1
 Release:        6%{?dist}
 Summary:        Serial port terminal
-License:        GPLv3+
+License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://github.com/Jeija/gtkterm
 Source0:        https://github.com/Jeija/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: gtkterm-c99.patch
+# https://github.com/Jeija/gtkterm/commit/8d56789a45ea38c2eb61b8f2ffb2ac2495ed1b1f
+Patch0:         gtkterm-c99.patch
+# https://github.com/Jeija/gtkterm/pull/61
+Patch1:         gtkterm-gcc14.patch
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(gtk+-3.0)

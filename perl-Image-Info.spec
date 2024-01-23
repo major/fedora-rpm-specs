@@ -1,6 +1,6 @@
 Name:           perl-Image-Info
 Version:        1.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image meta information extraction module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Info
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 20 2023 Xavier Bachelot <xavier@bachellot.org> - 1.44-1
 - Update to 1.44
 - Convert License to SPDX

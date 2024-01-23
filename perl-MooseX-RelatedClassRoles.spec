@@ -1,6 +1,6 @@
 Name:           perl-MooseX-RelatedClassRoles
 Version:        0.004
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Apply roles to a class related to yours
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-RelatedClassRoles
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

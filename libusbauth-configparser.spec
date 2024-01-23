@@ -26,7 +26,7 @@ Summary:        Library for USB Firewall including flex/bison parser
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/libusbauth-configparser
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPLv2
 
 BuildRequires:  pkgconfig(libudev)
@@ -79,6 +79,9 @@ popd
 %ldconfig_postun
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

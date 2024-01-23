@@ -16,7 +16,7 @@
 
 Name:           php-composer-spdx-licenses
 Version:        1.5.8
-Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        2%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        SPDX licenses list and validation library
 
 License:        MIT
@@ -131,6 +131,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Remi Collet <remi@remirepo.net> - 1.5.8-1
 - update to 1.5.8 (SPDX 3.22)
 - switch to phpunit9

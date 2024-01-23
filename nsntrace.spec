@@ -1,6 +1,6 @@
 Name:           nsntrace
 Version:        4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perform network trace of a program by using network namespaces
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ analyzed by for instance Wireshark.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

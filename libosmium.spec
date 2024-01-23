@@ -7,7 +7,7 @@
 
 Name:           libosmium
 Version:        2.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
 License:        BSL-1.0
@@ -106,6 +106,9 @@ cd libosmium
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Tom Hughes <tom@compton.nu> - 2.20.0-1
 - Update to 2.20.0 upstream release
 

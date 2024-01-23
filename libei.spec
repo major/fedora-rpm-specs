@@ -5,7 +5,7 @@
 
 Name:           libei
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for Emulated Input
 
 License:        MIT
@@ -123,6 +123,9 @@ Library for XDG RemoteDesktop Portal Setup Development Package
 %{_bindir}/ei-debug-events
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.0-2
 - Handle OEFFIS_DEVICE_ALL_DEVICES correctly
 

@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # SPDX
 License:        MIT
@@ -111,6 +111,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.7.1-1
 - Update to 1.7.1
 - Fixes: rhbz#2247814

@@ -1,6 +1,6 @@
 Name:		pari-galpol
 Version:	20180625
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois polynomials
 License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
@@ -37,6 +37,9 @@ cp -a data/galpol %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20180625-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20180625-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

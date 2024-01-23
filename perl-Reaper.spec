@@ -1,6 +1,6 @@
 Name:           perl-Reaper
 Version:        1.00
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Support for reaping child processes via $SIG{CHLD}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Reaper
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

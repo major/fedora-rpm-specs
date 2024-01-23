@@ -5,7 +5,7 @@
 Name: postgresql-odbc
 Summary: PostgreSQL ODBC driver
 Version: 16.00.0000
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://odbc.postgresql.org/
 
@@ -113,6 +113,9 @@ the PostgreSQL unixODBC driver.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.00.0000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 16.00.0000-1
 - Update to 16.00.0000
 

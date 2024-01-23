@@ -1,6 +1,6 @@
 Name:           nazghul
 Version:        0.7.1
-Release:        34.20120228gitb0a402a%{?dist}
+Release:        35.20120228gitb0a402a%{?dist}
 Summary:        A computer role-playing game (CRPG) engine
 
 License:        GPLv2+
@@ -134,6 +134,9 @@ EOF
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-35.20120228gitb0a402a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-34.20120228gitb0a402a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

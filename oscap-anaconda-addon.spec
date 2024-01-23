@@ -7,7 +7,7 @@
 
 Name:           oscap-anaconda-addon
 Version:        1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Anaconda addon integrating OpenSCAP to the installation process
 
 License:        GPL-2.0-or-later
@@ -58,6 +58,9 @@ make install DESTDIR=%{buildroot}
 %doc COPYING ChangeLog README.md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

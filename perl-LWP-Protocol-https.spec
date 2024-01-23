@@ -3,7 +3,7 @@
 
 Name:           perl-LWP-Protocol-https
 Version:        6.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-https
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.11-1
 - 6.11 bump
 

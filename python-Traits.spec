@@ -8,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        6.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
@@ -91,6 +91,9 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Orion Poplawski <orion@nwra.com> - 6.4.2-1
 - Disable bootstrap
 

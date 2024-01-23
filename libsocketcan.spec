@@ -1,6 +1,6 @@
 Name:           libsocketcan
 Version:        0.0.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for SocketCAN
 
 License:        LGPL-2.1-or-later
@@ -54,6 +54,9 @@ rm -rf "%buildroot/%_libdir"/*.la "%buildroot/%_docdir/%name"
 %_libdir/pkgconfig/libsocketcan.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 05 2023 Vasiliy Glazov <vascom2@gmail.com> - 0.0.12-3
 - Update spec
 

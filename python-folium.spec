@@ -1,6 +1,6 @@
 Name:           python-folium
 Version:        0.14.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library for visualizing data on a Leaflet map
 
 License:        MIT
@@ -69,6 +69,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

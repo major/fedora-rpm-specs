@@ -1,6 +1,6 @@
 Name:           perl-LV
 Version:        0.006
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl module to make lvalue subroutines easy and practical
 License:        GPL+ or Artistic
 
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/LV*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

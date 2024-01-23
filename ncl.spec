@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -361,6 +361,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Orion Poplawski <orion@nwra.com> - 6.6.2-39
 - Rebuild for jasper 4.1
 

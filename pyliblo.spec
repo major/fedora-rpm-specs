@@ -2,7 +2,7 @@
 
 Name:           pyliblo
 Version:        0.10.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ chmod -x examples/*
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 2 2023 Diego Herrera <dherrera@redhat.com> - 0.10.0-28
 - Fix inspect lib changes on python 3.8+
 - Fix Cython 3.0 compatibility

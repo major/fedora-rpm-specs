@@ -1,6 +1,6 @@
 Name:           perl-Net-Amazon-EC2-Metadata
 Version:        0.10
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Retrieves data from EC2 Metadata service
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Amazon-EC2-Metadata
@@ -55,6 +55,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

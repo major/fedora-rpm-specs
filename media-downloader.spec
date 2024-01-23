@@ -1,6 +1,6 @@
 Name:           media-downloader
 Version:        4.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
 URL:            https://github.com/mhogomchungu/media-downloader
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Martin Gansser <martinkg@fedoraproject.org> - 4.2.0-2
 - Remove RR youtube-dl
 

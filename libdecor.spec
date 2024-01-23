@@ -1,6 +1,6 @@
 Name:           libdecor
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland client side decoration library
 
 License:        MIT
@@ -61,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Jonas Ådahl <jadahl@redhat.com> - 0.2.2-1
 - Bump version to 0.2.2
 

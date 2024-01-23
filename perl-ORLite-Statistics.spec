@@ -1,6 +1,6 @@
 Name:           perl-ORLite-Statistics
 Version:        0.03
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Statistics enhancement package for ORLite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Statistics
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/ORLite*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

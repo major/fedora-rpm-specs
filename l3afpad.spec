@@ -1,6 +1,6 @@
 Name:           l3afpad
 Version:        0.8.18.1.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple text editor forked from Leafpad, supports GTK+ 3.x
 
 License:        GPLv2+
@@ -46,6 +46,9 @@ desktop-file-install %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18.1.10-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18.1.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

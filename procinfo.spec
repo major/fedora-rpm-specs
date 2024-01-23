@@ -1,7 +1,7 @@
 Summary: A tool for gathering and displaying system information
 Name: procinfo
 Version: 18
-Release: 53%{dist}
+Release: 54%{dist}
 License: GPL+
 Source: ftp://ftp.cistron.nl/pub/people/00-OLD/svm/%{name}-%{version}.tar.gz
 Patch0: procinfo-14-misc.patch
@@ -72,6 +72,9 @@ make install prefix=$RPM_BUILD_ROOT/usr mandir=$RPM_BUILD_ROOT/%{_mandir}
 %{_mandir}/man8/socklist.8*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 18-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.13.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -198,6 +198,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Remi Collet <remi@remirepo.net> - 0.13.2-1
 - update to 0.13.2 (no change)
 

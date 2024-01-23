@@ -4,7 +4,7 @@
 
 Name:           python-i3ipc
 Version:        2.2.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An improved Python library to control i3wm
 License:        BSD
 URL:            https://github.com/altdesktop/i3ipc-python
@@ -68,6 +68,9 @@ sed -i '/^#!/d' i3ipc/connection.py
 %{python3_sitelib}/i3ipc-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

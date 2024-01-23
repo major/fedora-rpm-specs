@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sexplib0
 Version:        0.16.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Definition of S-expressions and some base converters
 
 License:        MIT
@@ -44,6 +44,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-6
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

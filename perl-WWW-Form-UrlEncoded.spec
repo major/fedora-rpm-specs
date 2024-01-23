@@ -1,6 +1,6 @@
 Name:           perl-WWW-Form-UrlEncoded
 Version:        0.26
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Parser and builder for application/x-www-form-urlencoded
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Form-UrlEncoded
@@ -55,6 +55,9 @@ BREAK_BACKWARD_COMPAT=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

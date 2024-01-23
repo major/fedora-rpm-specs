@@ -12,7 +12,7 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 1
+%global baserelease 2
 
 Name:           osc
 Summary:        Open Build Service Commander
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-397.1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 07 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.5.1-397.1.1
 - New upstream release 1.5.1, fixes rhbz#2253104
 

@@ -1,6 +1,6 @@
 Name:           m4rie
 Version:        20200125
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Linear Algebra over F_2^e
 License:        GPL-2.0-or-later
 URL:            https://bitbucket.org/malb/%{name}
@@ -108,6 +108,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200125-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20200125-9
 - Stop building for 32-bit x86
 

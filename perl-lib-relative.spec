@@ -1,6 +1,6 @@
 Name:           perl-lib-relative
 Version:        1.002
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Add paths relative to the current file to @INC
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/lib-relative
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.002-1
 - 1.002 bump (rhbz#2224932)
 

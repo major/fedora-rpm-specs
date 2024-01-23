@@ -1,6 +1,6 @@
 Name:		  lxcfs
 Version:	  5.0.4
-Release:	  1%{?dist}
+Release:	  2%{?dist}
 Summary:	  FUSE based filesystem for LXC
 License:	  ASL 2.0
 URL:		  https://linuxcontainers.org/lxcfs
@@ -75,6 +75,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug  2 2023 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.4-1
 - Update to 5.0.4.
 

@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Tiny
 Version:        0.088
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.088-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.088-3
 - Update run-requires for changing the `verify_SSL` default parameter
   from 0 to 1

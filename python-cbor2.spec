@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python CBOR (de)serializer with extensive tag support
 
 License:        MIT
@@ -59,6 +59,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 30 2023 Carl George <carlwgeorge@fedoraproject.org> - 5.1.2-12
 - Convert to pyproject macros
 - Validated license as SPDX identifier

@@ -6,7 +6,7 @@
 %endif
 Name:           perl-DBIx-XHTML_Table
 Version:        1.49
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SQL query result set to XHTML table
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/DBIx-XHTML_Table
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

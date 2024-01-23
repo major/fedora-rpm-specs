@@ -1,6 +1,6 @@
 Name:           ladspa-amb-plugins
 Version:        0.8.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Ambisonics LADSPA plugins
 License:        GPLv2+
 URL:            http://www.kokkinizita.net/linuxaudio/
@@ -45,6 +45,9 @@ sed -i -e "s|/usr/lib/ladspa|\\$\(DESTDIR\)%{_libdir}/ladspa|g" \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

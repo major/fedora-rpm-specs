@@ -1,7 +1,7 @@
 Name:      perl-X10
 Summary:   Enables Perl to communicate with X10 devices
 Version:   0.04
-Release:   22%{?dist}
+Release:   23%{?dist}
 License:   GPLv3
 URL:       https://metacpan.org/release/X10
 Source:    https://cpan.metacpan.org/authors/id/R/RO/ROBF/X10-%{version}.tar.gz
@@ -60,6 +60,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{perl_vendorlib}/X10/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

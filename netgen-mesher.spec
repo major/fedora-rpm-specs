@@ -27,7 +27,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2202
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Automatic mesh generation tool
 
 License:        LGPLv2
@@ -388,6 +388,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2202-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 6.2.2202-8
 - Rebuild for openmpi 5.0.0, drops C++ API, i686 support
 

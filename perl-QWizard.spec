@@ -1,6 +1,6 @@
 Name:           perl-QWizard
 Version:        3.15
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        A very portable graphical question and answer wizard system
 License:        GPL+ or Artistic 
 URL:            https://metacpan.org/release/QWizard
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

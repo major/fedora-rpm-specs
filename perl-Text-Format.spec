@@ -1,6 +1,6 @@
 Name:           perl-Text-Format
 Version:        0.62
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Various subroutines to format text
 
 License:        GPL+ or Artistic
@@ -73,6 +73,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

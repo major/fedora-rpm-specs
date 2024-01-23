@@ -1,6 +1,6 @@
 Name:           lwtools
 Version:        4.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-development tool chain for Motorola 6809 and Hitachi 6309
 
 License:        GPLv3
@@ -54,6 +54,9 @@ cp -a 00README.txt %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

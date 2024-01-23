@@ -3,7 +3,7 @@
 Name: php-%{composer_vendor}-%{composer_project}
 
 Version: 1.8.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: RSS and Atom feed generator
 License: LGPL-2.1-or-later
@@ -76,6 +76,9 @@ phpunit --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

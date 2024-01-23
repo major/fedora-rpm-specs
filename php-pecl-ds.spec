@@ -33,7 +33,7 @@
 Summary:        Data Structures for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -185,6 +185,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Remi Collet <remi@remirepo.net> - 1.5.0-1
 - update to 1.5.0
 - raise dependency on PHP 7.4

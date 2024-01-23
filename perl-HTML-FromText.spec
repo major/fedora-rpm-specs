@@ -1,6 +1,6 @@
 Name:           perl-HTML-FromText
 Version:        2.07
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Convert plain text to HTML
 License:        GPL+ or Artistic
 
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

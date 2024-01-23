@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-Set-Object
 Version:        0.05
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Set::Object type with coercions and stuff
 License:        GPL+ or Artistic
 
@@ -43,6 +43,9 @@ Moose::Util::TypeConstraints, MooseX::Types).
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

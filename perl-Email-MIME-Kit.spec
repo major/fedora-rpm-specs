@@ -1,6 +1,6 @@
 Name:           perl-Email-MIME-Kit
 Version:        3.000008
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build e-mail messages from templates
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME-Kit
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.000008-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.000008-1
 - 3.000008 bump (rhbz#2237034)
 

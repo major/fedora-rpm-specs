@@ -2,7 +2,7 @@
 
 Name:           mingw-adwaita-icon-theme
 Version:        45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adwaita icon theme for MingGW
 
 License:        LGPL-3.0-or-later OR CC-BY-SA-3.0
@@ -83,6 +83,9 @@ the Adwaita icon theme.
 %ghost %{mingw64_datadir}/icons/Adwaita/icon-theme.cache
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Sandro Mani <manisandro@gmail.com> - 45.0-1
 - Update to 45.0
 

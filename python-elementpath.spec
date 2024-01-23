@@ -1,7 +1,7 @@
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
 Version:        4.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
 License:        MIT
@@ -71,6 +71,9 @@ export LANG=en_US.utf-8
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.1.5-2
 - Update to 4.1.5 - enable tests
 

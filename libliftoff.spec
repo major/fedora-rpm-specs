@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://gitlab.freedesktop.org/emersion/libliftoff
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+# GCC 14 Fix
+# https://gitlab.freedesktop.org/emersion/libliftoff/-/merge_requests/78
+Patch01:        78.patch
+
 BuildRequires:  meson >= 0.52.0
 BuildRequires:  ninja-build
 BuildRequires:  gcc

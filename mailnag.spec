@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Mail notification daemon
 
 License:        GPLv2
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 9 2023 Thorsten Leemhuis <fedora@leemhuis.info> - 2.2.0-13
 - Add patch to make ssl work with python 3.12
 

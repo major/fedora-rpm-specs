@@ -1,6 +1,6 @@
 Name:           perl-WWW-xkcd
 Version:        0.009
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Synchronous and asynchronous interfaces to xkcd comics
 
 License:        GPL+ or Artistic
@@ -60,6 +60,9 @@ declared as a prerequisite.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

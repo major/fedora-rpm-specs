@@ -1,6 +1,6 @@
 Name:     libuInputPlus
 Version:  0.1.4
-Release:  14%{?dist}
+Release:  15%{?dist}
 Summary:  A C++ wrapper around libuinput
 License:  MIT
 URL:      https://github.com/YukiWorkshop/libuInputPlus
@@ -46,6 +46,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

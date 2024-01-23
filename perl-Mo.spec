@@ -1,6 +1,6 @@
 Name:           perl-Mo
 Version:        0.40
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl micro-object system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mo
@@ -99,6 +99,9 @@ Requires:       perl(Mouse::Util::MetaRole)
 %{_mandir}/man3/Mo::Mouse.3pm.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

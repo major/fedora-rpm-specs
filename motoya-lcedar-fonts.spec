@@ -33,7 +33,7 @@
 %global	archivedate 20110406
 %global	download_root	http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob_plain;f=data/fonts/
 Version: 1.00
-Release: 0.30.%{archivedate}git%{?dist}
+Release: 0.31.%{archivedate}git%{?dist}
 URL:     http://android.git.kernel.org/?p=platform/frameworks/base.git;a=tree;f=data/fonts
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -100,6 +100,9 @@ cp %{SOURCE21} .
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-0.31.20110406git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-0.30.20110406git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

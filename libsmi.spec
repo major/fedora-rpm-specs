@@ -4,9 +4,15 @@
 # Leaving the version as is and using the gitlab source from the latest commit (2021)
 %global commit c5830721
 
+# One of the bison-generated parsers uses an int as a List *.  This
+# seems to be an actual bug.  However, the parser cannot be
+# regenerated with current bison in Fedora.
+# <https://bugzilla.redhat.com/show_bug.cgi?id=2256912>
+%global build_type_safety_c 1
+
 Name:		libsmi
 Version:	0.4.8
-Release:	35%{?dist}
+Release:	37%{?dist}
 Summary:	A library to access SMI MIB information
 License:	GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://www.ibr.cs.tu-bs.de/projects/libsmi/index.html
@@ -122,6 +128,12 @@ make check ||:
 
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 0.4.8-37
+- C type-safety level downgrade due to pointer/int conversion bugs (#2256912)
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan  5 2024 Tom Callaway <spot@fedoraproject.org> - 0.4.8-35
 - update to the latest available source tree, cleanup as much as we can
 

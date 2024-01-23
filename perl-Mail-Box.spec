@@ -1,6 +1,6 @@
 Name:           perl-Mail-Box
 Version:        3.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage a mailbox, a folder with messages
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Mail-Box
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.010-1
 - 3.010 bump (rhbz#2224548)
 

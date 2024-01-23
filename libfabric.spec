@@ -2,7 +2,7 @@
 
 Name:           libfabric
 Version:        1.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD-2-Clause OR GPL-2.0-only
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 04 2023 Orion Poplawski <orion@nwra.com> - 1.19.0-1
 - Update to 1.19.0
 

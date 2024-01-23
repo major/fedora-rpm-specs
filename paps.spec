@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -150,6 +150,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Akira TAGOH <tagoh@redhat.com> - 0.8.0-6
 - Fix C type error in paps 0.6.8.
   Resolves: rhbz#2256906

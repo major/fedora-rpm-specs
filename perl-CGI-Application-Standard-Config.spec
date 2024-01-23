@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Standard-Config
 Version:        1.01
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Defines a standard configuration API for CGI::Application
 License:        GPL+ or Artistic
 
@@ -44,6 +44,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           oct2spec
 Version:        1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python script to generate Octave package spec file
 
 License:        GPLv3+
@@ -42,6 +42,9 @@ oct2spec API.
 %{_mandir}/man1/oct2rpm.1.gz
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

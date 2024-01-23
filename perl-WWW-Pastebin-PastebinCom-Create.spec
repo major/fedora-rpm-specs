@@ -1,6 +1,6 @@
 Name:           perl-WWW-Pastebin-PastebinCom-Create
 Version:        1.003
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Paste to http://pastebin.com from Perl without API keys
 # Build.PL: Artistic-2.0
 # lib/WWW/Pastebin/PastebinCom/Create.pm:   Artistic-2.0
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

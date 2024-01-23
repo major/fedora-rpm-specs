@@ -6,7 +6,7 @@
 
 Name:		liblxqt
 Version:	1.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPLv2
 Summary:	Core shared library for LXQt desktop suite
 Url:		https://lxqt-project.org/
@@ -110,6 +110,9 @@ touch -r %{SOURCE1} %{buildroot}%{rpm_macros_dir}/macros.lxqt
 %dir %{_datadir}/lxqt/translations/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 24 2023 Zamir SUN <sztsian@gmail.com> - 1.4.0-1
 - Update version to 1.4.0
 

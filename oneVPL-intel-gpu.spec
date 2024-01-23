@@ -3,7 +3,7 @@
 
 Name:           oneVPL-intel-gpu
 Version:        23.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel oneVPL GPU Runtime
 
 License:        MIT
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 23.4.3-1
 - Update to 23.4.3
 

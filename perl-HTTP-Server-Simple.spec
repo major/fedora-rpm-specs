@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Server-Simple
 Version:        0.52
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Very simple standalone HTTP daemon
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Server-Simple
@@ -80,6 +80,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -23,7 +23,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtXmlPatterns component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -138,6 +138,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 14 2023 Sandro Mani <manisandro@gmail.com> - 5.15.11-1
 - Update to 5.15.11
 

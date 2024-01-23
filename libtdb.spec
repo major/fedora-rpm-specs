@@ -4,7 +4,7 @@
 
 Name: libtdb
 Version: 1.4.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The tdb library
 License: LGPL-3.0-or-later
 URL: http://tdb.samba.org/
@@ -100,6 +100,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Guenther Deschner <gdeschne@redhat.com> - 1.4.9-1
 - rhbz#2224331 - libtdb-1.4.9 is available
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Pond
 Version:        0.005
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl-based open notation for data
 License:        GPL+ or Artistic
 
@@ -58,6 +58,9 @@ JavaScript, but Pond represents fewer data types directly.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.005-23
 - Use uvchr_to_utf8_flags instead of uvuni_to_utf8_flags (removed in perl 5.38.0)
 - Use /usr/bin/perl instead of %%{__perl}

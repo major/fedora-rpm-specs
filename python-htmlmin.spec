@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.12
-Release:        22.git%{shortcommit}%{?dist}
+Release:        23.git%{shortcommit}%{?dist}
 Summary:        HTML Minifier
 
 License:        BSD
@@ -82,6 +82,9 @@ install -p -m0644 docs/_build/man/htmlmin.1 %{buildroot}%{_mandir}/man1
 %doc docs/_build/html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-23.git220b1d1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-22.git220b1d1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

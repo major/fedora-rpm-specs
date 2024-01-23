@@ -1,6 +1,6 @@
 Name: ksnip
 Version: 1.10.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-or-later
 Summary: Qt based cross-platform screenshot tool
@@ -10,8 +10,8 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Workaround to Wayland issues: https://github.com/ksnip/ksnip/pull/457
 Patch100: %{name}-wayland-workaround.patch
 
-BuildRequires: cmake(kColorPicker)
-BuildRequires: cmake(kImageAnnotator)
+BuildRequires: cmake(kColorPicker-Qt5)
+BuildRequires: cmake(kImageAnnotator-Qt5)
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5Gui)
@@ -38,6 +38,10 @@ many annotation features for your screenshots.
 
 %prep
 %autosetup -p1
+sed -i 's/find_package(kImageAnnotator/find_package(kImageAnnotator-Qt5/g' CMakeLists.txt
+sed -i 's/find_package(kColorPicker/find_package(kColorPicker-Qt5/g' CMakeLists.txt
+sed -i 's/kColorPicker::kColorPicker/kColorPicker::kColorPicker-Qt5/g' src/CMakeLists.txt
+
 
 %build
 %cmake -G Ninja \
@@ -62,6 +66,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Sun Jan 21 2024 Marie Loise Nolden <loise@kde.org> - 1.10.1-4
+- use kcolorpicker 0.3.0 and kimageannotator 0.7.0 as qt5 builds
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

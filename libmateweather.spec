@@ -15,9 +15,9 @@
 Name:          libmateweather
 Version:       %{branch}.3
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.16%{?git_rel}%{?dist}
+Release:       0.17%{?git_rel}%{?dist}
 %endif
 Summary:       Libraries to allow MATE Desktop to display weather information
 License:       GPLv2+ and LGPLv2+
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.a' -exec rm -fv {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 26 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
 - update to 1.26.3 release
 

@@ -1,6 +1,6 @@
 Name:           perl-POE-XS-Queue-Array
 Version:        0.006
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        XS implementation of POE::Queue::Array
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-XS-Queue-Array
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

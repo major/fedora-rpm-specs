@@ -1,7 +1,7 @@
 Name: pymol
 Summary: PyMOL Molecular Graphics System
 Version: 2.5.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # Which files use following license:
 # BSD: main license of open source PyMOL and some plugins
@@ -136,6 +136,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

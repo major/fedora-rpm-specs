@@ -1,6 +1,6 @@
 Name:           perl-POE-Loop-Event
 Version:        1.305
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Bridge that allows POE to be driven by Event.pm
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Loop-Event
@@ -70,6 +70,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.305-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.305-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

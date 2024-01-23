@@ -10,7 +10,7 @@
 
 Name: pygtk2
 Version: 2.24.0
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: LGPL-2.0-or-later
 Summary: Python bindings for GTK+
 URL: http://www.pygtk.org/
@@ -130,6 +130,9 @@ find %{buildroot} -name '*.la' -or -name '*.a' | xargs rm -f
 %{_datadir}/gtk-doc/html/pygtk/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MooX-File-ConfigDir
 Version:        0.008
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Moo eXtension for File::ConfigDir
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooX-File-ConfigDir
@@ -54,6 +54,9 @@ on the requirements.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

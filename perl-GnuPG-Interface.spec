@@ -1,6 +1,6 @@
 Name:           perl-GnuPG-Interface
 Version:        1.04
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl interface to GnuPG
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GnuPG-Interface
@@ -79,6 +79,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 17 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.04-2
 - Migrate to SPDX license
 

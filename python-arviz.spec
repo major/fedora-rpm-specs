@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Exploratory analysis of Bayesian models
 
 License:        Apache-2.0
@@ -51,6 +51,9 @@ Recommends:  python3dist(ujson)
 %doc README.md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.17.0-1
 - New upstream release (0.17.0)
 - Using SPDX license name

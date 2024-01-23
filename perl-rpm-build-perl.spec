@@ -1,6 +1,6 @@
 Name:       perl-rpm-build-perl 
 Version:    0.82
-Release:    43%{?dist}
+Release:    44%{?dist}
 # ConstOptree/ConstOptree.pm:   GPL-2.0-or-later
 # lib/B/Clobbers.pm:            GPL-2.0-or-later
 # lib/B/PerlReq.pm:             GPL-2.0-or-later
@@ -190,6 +190,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 01 2023 Petr Pisar <ppisar@redhat.com> - 0.82-43
 - Restore compatibility with Perl 5.38 (bug #2222640)
 - Convert a license tag to SPDX

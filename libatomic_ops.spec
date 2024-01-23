@@ -1,7 +1,7 @@
 Name:    libatomic_ops
 Summary: Atomic memory update operations
 Version: 7.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # libatomic_ops MIT, libatomic_ops_gpl GPLv2+
 License: GPL-2.0-or-later AND MIT
@@ -82,6 +82,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/src/.libs/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 17 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.8.2-1
 - Update to 7.8.2 (rhbz#2254881)
 

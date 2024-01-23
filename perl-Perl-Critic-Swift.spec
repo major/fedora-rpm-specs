@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Swift
 Version:        1.0.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Set of additional policies for Perl::Critic
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-Swift
@@ -69,6 +69,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

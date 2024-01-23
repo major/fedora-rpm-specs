@@ -3,7 +3,7 @@
 
 Name:       python-%{sname}
 Version:    0.8.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Asyncio client for Kafka
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -47,6 +47,9 @@ AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings\
 %doc README.rst
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Role-HasMessage
 Version:        0.007
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Thing with a message method
 License:        GPL+ or Artistic
 
@@ -55,6 +55,9 @@ RELEASE_TESTING=1 %{make_build} test
 %{_mandir}/man3/Role*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

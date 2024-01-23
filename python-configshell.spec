@@ -6,7 +6,7 @@ License:        ASL 2.0
 Summary:        A framework to implement simple but nice CLIs
 Epoch:          1
 Version:        1.1.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -42,6 +42,9 @@ sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
 %doc COPYING README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Time-Period
 Version:        1.25
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A Perl module to deal with time periods
 
 License:        GPL+ or Artistic
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Taxi
 Version:        0.96
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Taint-aware, XML-ish data serialization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Taxi
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Data::Taxi*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.96-37
 - Update license to SPDX format
 - Use %%{make_build} and %%{make_install}

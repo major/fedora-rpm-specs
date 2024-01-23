@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -186,6 +186,9 @@ cd -
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan  3 2024 Jerry James <loganjerry@gmail.com> - 3.28.0-1
 - Update to 3.28.0
 - Install internal.h for MuseScore

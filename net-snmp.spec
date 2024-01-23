@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -509,6 +509,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Josef Ridky <jridky@redhat.com> - 1:5.9.4-1
 - New upstream release 5.9.4 (#2184202)
 

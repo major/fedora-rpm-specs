@@ -1,6 +1,6 @@
 Name:           perl-SNMP-Simple
 Version:        0.02
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Shortcuts for SNMP
 
 License:        GPL+ or Artistic
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

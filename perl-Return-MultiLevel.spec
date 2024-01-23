@@ -1,6 +1,6 @@
 Name:           perl-Return-MultiLevel
 Version:        0.08
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Return across multiple call levels
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Return-MultiLevel
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Return::MultiLevel.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

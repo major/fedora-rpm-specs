@@ -1,6 +1,6 @@
 Name:		pari-seadata
 Version:	20090618
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	PARI/GP Computer Algebra System modular polynomials
 License:	GPL-2.0-or-later
 URL:		https://pari.math.u-bordeaux.fr/packages.html
@@ -71,6 +71,9 @@ cp -a data/seadata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/seadata/sea7*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20090618-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090618-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           netcdf
 Version:        4.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        NetCDF
@@ -408,6 +408,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Orion Poplawski <orion@nwra.com> - 4.9.2-2
 - Add upstream patch to fix octave-netcdf segfault on exit
 

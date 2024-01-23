@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-%{srcname}
 Version:        1.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Lightweight and colorful test framework for OCaml
 
 License:        ISC
@@ -107,6 +107,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-7
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

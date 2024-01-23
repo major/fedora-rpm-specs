@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-Perl
 Version:        0.101344
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Moose types that check against Perl syntax
 License:        GPL+ or Artistic
 
@@ -43,6 +43,9 @@ against syntax that is, or is a reasonable subset of, Perl syntax.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.101344-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101344-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

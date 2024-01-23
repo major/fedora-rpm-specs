@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 License:	(LGPLv2 or LGPLv3) and GPLv3+
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Leigh Scott <leigh123linux@gmail.com> - 1.32.0-6
 - Add suggests slick-greeter (rhbz#2208097)
 - Remove /bin path from env (rhbz#2257618)

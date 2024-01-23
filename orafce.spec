@@ -2,7 +2,7 @@
 
 Name:		orafce
 Version:	4.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	BSD
 URL:		http://github.com/orafce/orafce
@@ -44,6 +44,9 @@ for production work.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Ondrej Sloup <osloup@redhat.com> - 4.7.0-1
 - Rebase to the latest upstream version
 

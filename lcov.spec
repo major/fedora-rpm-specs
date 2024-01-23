@@ -1,6 +1,6 @@
 Name: lcov
 Version: 2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: LTP GCOV extension code coverage tool
 License: GPL-2.0-or-later
@@ -64,6 +64,9 @@ make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} \
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/lcovrc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.0-1
 - 2.0
 - Use explicit file listing

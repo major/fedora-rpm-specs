@@ -1,6 +1,6 @@
 Name:           libgexiv2
 Version:        0.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Gexiv2 is a GObject-based wrapper around the Exiv2 library
 
 License:        GPL-2.0-or-later
@@ -78,6 +78,9 @@ This package contains the python3 bindings for %{name}
 %pycached %{python3_sitelib}/gi/overrides/GExiv2.py
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Kalev Lember <klember@redhat.com> - 0.14.2-1
 - Update to 0.14.2
 

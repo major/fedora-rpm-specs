@@ -6,7 +6,7 @@
 
 Name:       libyaml
 Version:    0.2.5
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    YAML 1.1 parser and emitter written in C
 
 License:    MIT
@@ -140,6 +140,9 @@ popd
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.2.5-12
 - Add MinGW packages.
 

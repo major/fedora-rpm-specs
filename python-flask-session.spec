@@ -1,6 +1,6 @@
 Name:           python-flask-session
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Server side session extension for Flask
 
 License:        BSD-3-Clause
@@ -64,5 +64,8 @@ kill %1
 %license LICENSE.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.5.0-1
 - Release 0.5.0, Initial Packaging

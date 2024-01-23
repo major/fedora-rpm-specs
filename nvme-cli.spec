@@ -3,7 +3,7 @@
 
 Name:           nvme-cli
 Version:        2.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -78,6 +78,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 28 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.7.1-1
 - Update to 2.7.1
 

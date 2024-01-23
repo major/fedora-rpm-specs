@@ -1,7 +1,7 @@
 Summary: X.Org X11 ICE runtime library
 Name: libICE
 Version: 1.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT-open-group
 URL: http://www.x.org
 
@@ -68,6 +68,9 @@ done
 %{_libdir}/pkgconfig/ice.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.1-1
 - libICE 1.1.1
 

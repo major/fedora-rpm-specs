@@ -1,6 +1,6 @@
 Name:           perl-WWW-Salesforce
 Version:        0.304
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple abstraction layer between SOAP::Lite and Salesforce.com
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-Salesforce
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.304-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.304-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-hatch-jupyter-builder
 Version:        0.8.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A hatch plugin to help build Jupyter packages
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/hatch-jupyter-builder/
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Miro Hrončok <mhroncok@redhat.com> - 0.8.3-4
 - Avoid an unneeded dependency on python3-tomli
 - Use tomllib from the Python 3.11+ standard library instead

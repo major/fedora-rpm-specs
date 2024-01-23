@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{summary}
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ BuildRequires:  python3-setuptools
 %doc CHANGES.rst README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Sergio Pascual <sergiopr@fedoraproject.com> - 2.4.1-1
 - New upstream source 2.4.1
 - New style python macros

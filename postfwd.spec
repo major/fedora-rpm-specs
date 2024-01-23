@@ -1,7 +1,7 @@
 Summary:        Postfix policyd to combine complex restrictions in a ruleset
 Name:           postfwd
 Version:        2.03
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        BSD-3-Clause
 URL:            https://postfwd.org/
 Source0:        https://github.com/postfwd/postfwd/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -86,6 +86,9 @@ mv -f doc/postfwd3.CHANGELOG CHANGELOG
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

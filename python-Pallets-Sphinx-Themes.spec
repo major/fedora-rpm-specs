@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx themes for Pallets and related projects
 
 License:        BSD
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/Pallets_Sphinx_Themes-*.egg-info/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.1.1-1
 - Update to 2.1.1
 

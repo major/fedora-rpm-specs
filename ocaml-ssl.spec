@@ -8,7 +8,7 @@ Version:       0.7.0
 %forgemeta
 
 Name:           ocaml-ssl
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SSL bindings for OCaml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-6
 - Bump release and rebuild
 

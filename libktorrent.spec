@@ -1,7 +1,7 @@
 Name:           libktorrent
 Summary:        Torrent downloading library for KDE 6 applications
 Version:        24.01.90
-Release:        1%{?dist}
+Release:        2%{?dist}
 # CC0 is only for CI tooling, BSD3 for cmake macros, MIT for win32 support code
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/network/%{name}
@@ -73,6 +73,9 @@ Requires:       cmake(Qt6Network)
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

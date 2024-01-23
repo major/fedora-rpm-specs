@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fortran preprocessor
 License: BSD-2-Clause
 URL: https://github.com/aradi/fypp
@@ -52,6 +52,9 @@ test/runtests.sh %{__python3}
 %{python3_sitelib}/__pycache__/%{pname}.cpython-%{python3_version_nodots}.pyc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.2-1
 - update to 3.2 (resolves rhbz#2233442)
 - use SPDX identifier in License tag

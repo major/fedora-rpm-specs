@@ -22,9 +22,9 @@
 Name: nagios-plugins
 Version: 2.4.6
 %if 0%{?fromgit}
-Release: 2.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 3.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 2%{?dist}
+Release: 3%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -873,6 +873,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Michal Schorm <mschorm@redhat.com> - 2.4.6-2
 - Build against the mariadb-connector-c-devel package
 

@@ -1,6 +1,6 @@
 Name:		perl-Devel-CheckCompiler
 Version:	0.07
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Check the compiler's availability
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Devel-CheckCompiler
@@ -50,6 +50,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Devel::CheckCompiler.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

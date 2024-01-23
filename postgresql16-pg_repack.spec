@@ -4,7 +4,7 @@
 %global pgversion 16
 Name:           postgresql%{pgversion}-%{majorname}
 Version:        1.4.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
@@ -98,6 +98,9 @@ make
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 06 2023 Filip Janus <fjanus@redhat.com> - 1.4.8-5
 - Add postgresql_default macro to be able to decide which version of extension
   is the default one in the repository

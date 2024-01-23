@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.30.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -52,6 +52,9 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Martin Pitt <mpitt@redhat.com> - 0.30.2-1
 - bluez5: Fix invalid arguments to PairDevice (thanks Simon McVittie)
 

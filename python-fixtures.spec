@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -64,6 +64,9 @@ sed -e 's/import mock/import unittest.mock as mock/' -i fixtures/tests/_fixtures
 %doc README.rst GOALS NEWS
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 17 2023 Zane Bitter <zaneb@fedoraproject.org> - 4.0.1-6
 - Add streams extra
 

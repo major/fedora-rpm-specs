@@ -2,7 +2,7 @@
 
 Name:           maven-surefire
 Version:        3.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test framework project
 License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
@@ -173,6 +173,9 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Marian Koncek <mkoncek@redhat.com> - 3.2.2-1
 - Update to upstream version 3.2.2
 

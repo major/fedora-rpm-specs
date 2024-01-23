@@ -1,6 +1,6 @@
 Name:           perl-GDTextUtil
 Version:        0.86
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        Text utilities for use with GD
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GDTextUtil
@@ -61,6 +61,9 @@ provides some utility in aligning and wrapping your string.
 %{_mandir}/man3/GD::Text::Wrap.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

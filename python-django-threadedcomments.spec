@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A simple yet flexible threaded commenting system for Django
 
 License:        BSD
@@ -50,6 +50,9 @@ This package provides Python 3 build of %{pypi_name}.
 %doc README.rst LICENSE.txt CHANGELOG.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           mysql-selinux
 Version:        1.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
@@ -70,6 +70,9 @@ fi
 #   since we do not have any interface to be shared (and even then it is optional)
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 18 2023 Packit <hello@packit.dev> - 1.0.10-1
 - 2nd attempt to fix rhbz#2186996 rhbz#2221433 rhbz#2245705 (Michal Schorm)
 - Resolves rhbz#2250424

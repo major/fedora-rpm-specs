@@ -1,6 +1,6 @@
 Name:		libmacaroons
 Version:	0.3.0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	C library supporting generation and use of macaroons
 
 License:	BSD
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{python2_sitearch}/macaroons.la
 %{_includedir}/macaroons.h
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 0.3.0-15
 - rebuild for new libsodium
 

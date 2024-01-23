@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.6.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Input/Output in external formats
 License:        GPLv3+ and BSD
 URL:            http://octave.sourceforge.net/%{octpkg}/
@@ -51,6 +51,9 @@ Input/Output in external formats.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

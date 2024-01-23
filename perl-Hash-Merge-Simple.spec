@@ -1,6 +1,6 @@
 Name:           perl-Hash-Merge-Simple
 Version:        0.051
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Recursively merge two or more hashes, simply
 URL:            https://metacpan.org/release/Hash-Merge-Simple
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/Hash::Merge::Simple.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.051-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.051-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

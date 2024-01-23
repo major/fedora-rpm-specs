@@ -6,7 +6,7 @@
 
 Name:           perl-HTML-Tagset
 Version:        3.20
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        HTML::Tagset - data tables useful in parsing HTML
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Tagset
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.20-55
 - Package tests
 

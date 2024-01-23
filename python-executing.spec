@@ -4,7 +4,7 @@
 
 Name:           python-executing
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -Ei "/coverage-?/d" setup.cfg
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.1-1
 - Update to 2.0.1 (rhbz#2246826)
 

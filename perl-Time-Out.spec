@@ -3,7 +3,7 @@
 
 Name:           perl-Time-Out
 Version:        0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easily time out long running operations
 # lib/Time/Out.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Petr Pisar <ppisar@redhat.com> - 0.24-1
 - 0.24 bump
 

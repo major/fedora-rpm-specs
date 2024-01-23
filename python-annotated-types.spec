@@ -7,7 +7,7 @@
 
 Name:           python-annotated-types
 Version:        0.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reusable constraint types to use with typing.Annotated
 
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6.0-2
 - Assert %%pyproject_files contains a license file; don’t package a duplicate
 

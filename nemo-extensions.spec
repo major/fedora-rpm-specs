@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
@@ -326,6 +326,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-2
 - Fix compile error
 

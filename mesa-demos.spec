@@ -3,7 +3,7 @@
 Summary: Mesa demos
 Name: mesa-demos
 Version: 9.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # SPDX
 License: MIT
 URL: http://www.mesa3d.org
@@ -108,6 +108,9 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bin
 %{_bindir}/es2_info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Erico Nunes <ernunes@redhat.com> - 9.0.0-4
 - Split xdriinfo into its own package
 - Remove xdriinfo additional source build and autotools dependencies

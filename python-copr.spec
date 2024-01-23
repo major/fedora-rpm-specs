@@ -8,7 +8,7 @@
 
 Name:       python-copr
 Version:    1.130
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -229,6 +229,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.130-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.130-1
 - priority=X support added for copr project repositories
 - several forward/backward compat fixes with libs/tooling

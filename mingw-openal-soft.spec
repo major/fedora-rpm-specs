@@ -7,7 +7,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.23.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPLv2+
@@ -148,6 +148,9 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %{mingw64_datadir}/openal
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           overgod
 Version:        1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Another arcade-style shoot-em-up
 License:        GPLv2+
 URL:            http://www.allegro.cc/depot/Overgod
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.4.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -468,6 +468,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.14-1
 - Update to 4.4.14
 

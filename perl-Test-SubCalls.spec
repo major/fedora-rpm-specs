@@ -1,6 +1,6 @@
 Name:           perl-Test-SubCalls
 Version:        1.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Track the number of times subs are called
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-SubCalls
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Test::SubCalls.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

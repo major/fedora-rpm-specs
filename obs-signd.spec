@@ -5,7 +5,7 @@
 %global snapdate 20210907
 %global snapshotrel .%{snapdate}git%{shortcommit}
 # To make rpmdev-bumpspec work properly
-%global baserelease 6
+%global baserelease 7
 
 Name:             obs-signd
 Summary:          The OBS sign daemon
@@ -86,6 +86,9 @@ exit 0
 %doc %{_mandir}/man*/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

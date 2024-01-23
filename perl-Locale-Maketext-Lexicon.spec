@@ -1,6 +1,6 @@
 Name:           perl-Locale-Maketext-Lexicon
 Version:        1.00
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Extract translatable strings from source
 License:        MIT
 
@@ -100,6 +100,9 @@ chmod -R u+w ${RPM_BUILD_ROOT}/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

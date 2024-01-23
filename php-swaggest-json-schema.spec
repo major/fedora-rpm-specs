@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        0.12.42
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        High definition PHP structures with JSON-schema based validation
 
 License:        MIT
@@ -166,6 +166,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.42-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct  6 2023 Remi Collet <remi@remirepo.net> - 0.12.42-2
 - switch to phpunit9
 

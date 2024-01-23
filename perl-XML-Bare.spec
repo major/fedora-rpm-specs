@@ -1,6 +1,6 @@
 Name:           perl-XML-Bare
 Version:        0.53
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Minimal XML parser implemented via a C state engine
 License:        GPLv2+ or Artistic
 URL:            https://metacpan.org/release/XML-Bare
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/XML*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 0.53-35
 - Additional C compatibility fixes
 

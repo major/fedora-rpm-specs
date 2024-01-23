@@ -1,6 +1,6 @@
 Name:           python-httptools
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of framework independent HTTP protocol utils
 
 # httptools is MIT
@@ -85,6 +85,9 @@ mv _httptools httptools
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.6.0-1
 - Update to version 0.6.0, resolves rhbz#1953151
 

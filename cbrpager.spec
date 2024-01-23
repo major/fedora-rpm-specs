@@ -1,19 +1,22 @@
 Name:		cbrpager
 Version:	0.9.22
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Simple comic book pager for Linux
 
-License:	GPLv2+
+# Source itself:	GPL-2.0-or-later
+# metainfo:	CC0-1.0
+# SPDX confirmed
+License:	GPL-2.0-or-later AND CC0-1.0
 URL:		http://www.jcoppens.com/soft/cbrpager/index.en.php
 Source0:	http://downloads.sourceforge.net/cbrpager/%{name}-%{version}.tar.gz
 Source1:	http://downloads.sourceforge.net/cbrpager/%{name}-%{version}.md5
-Patch0: cbrpager-c99.patch
+Patch0:	cbrpager-c99.patch
 
 BuildRequires:  gcc
-BuildRequires:	libgnomeui-devel
+BuildRequires:	pkgconfig(libgnomeui-2.0)
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
-BuildRequires: make
+BuildRequires:	make
 Requires:	gnome-icon-theme
 
 %description
@@ -47,18 +50,13 @@ EOF
 
 %build
 %configure
-%{__make} %{?_smp_mflags}
+%make_build
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INSTALL="%{__install} -c -p"
+%make_install
 
 desktop-file-install \
-%if 0%{?fedora} < 19
-	--vendor fedora \
-%endif
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
 	%{name}.desktop
 
@@ -69,8 +67,8 @@ desktop-file-install \
 #
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
+mkdir -p $RPM_BUILD_ROOT%{_metainfodir}
+cat > $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Ryan Lerch <rlerch@redhat.com> -->
 <!--
@@ -101,18 +99,21 @@ EOF
 %defattr(-,root,root,-)
 %doc	AUTHORS
 %doc	CONTRIBUTORS
-%doc	COPYING
+%license	COPYING
 %doc	ChangeLog
 %doc	NEWS
 %doc	README
 %doc	TODO
 
 %{_bindir}/%{name}
-%{_datadir}/appdata/*%{name}.appdata.xml
+%{_metainfodir}/*%{name}.appdata.xml
 %{_datadir}/applications/*%{name}.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.22-30
+- SPDX migration
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.22-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

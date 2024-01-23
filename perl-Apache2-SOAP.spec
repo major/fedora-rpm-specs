@@ -1,6 +1,6 @@
 Name:          perl-Apache2-SOAP
 Version:       0.73
-Release:       43%{?dist}
+Release:       44%{?dist}
 Summary:       A replacement for Apache::SOAP designed to work with mod_perl 2
 
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -57,6 +57,9 @@ from SOAP::Transport::HTTP2::Apache component of SOAP::Lite module.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.73-43
 - Use /usr/bin/perl instead of %%{__perl}
 - Migrate to SPDX license

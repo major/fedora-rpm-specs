@@ -3,7 +3,7 @@
 
 Name:           perl-Test-NoBreakpoints
 Version:        0.17
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Test that files do not contain soft breakpoints
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-NoBreakpoints
@@ -108,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

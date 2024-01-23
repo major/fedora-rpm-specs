@@ -1,6 +1,6 @@
 Name:           pick
 Version:        4.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A fuzzy search tool for the command-line
 
 # The entire source code is MIT except for
@@ -42,6 +42,9 @@ export INSTALL_MAN="install -p -m 0644"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

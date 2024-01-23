@@ -1,6 +1,6 @@
 Name:           perl-Protocol-HTTP2
 Version:        1.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        HTTP/2 protocol implementation (RFC 7540)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Protocol-HTTP2
@@ -106,6 +106,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Petr Pisar <ppisar@redhat.com> - 1.10-13
 - Adapt tests to OpenSSL 3.1.0 (TLS 1.0 moved to security level 0)
   (upstream bug #16)

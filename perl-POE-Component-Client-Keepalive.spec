@@ -3,7 +3,7 @@ Name:           perl-POE-Component-Client-Keepalive
 # Keep four digits to stay above the unfortunate 0.0901,
 # so that epoch need not be changed.
 Version:        %{real_ver}0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Manages and keeps alive client connections
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Client-Keepalive
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2720-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2720-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

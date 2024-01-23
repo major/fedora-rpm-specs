@@ -1,6 +1,6 @@
 Name: libmbim
 Version: 1.30.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPL-2.1-or-later
 URL: https://gitlab.freedesktop.org/mobile-broadband/libmbim/
@@ -92,6 +92,9 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Dennis Gilmore <dennis@ausil.us> - 1.30.0-1
 - update to 1.30.0
 

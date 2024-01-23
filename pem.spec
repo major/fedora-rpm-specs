@@ -1,6 +1,6 @@
 Name:           pem
 Version:        0.7.9
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Personal Expenses Manager
 
 License:        GPLv2 
@@ -44,6 +44,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

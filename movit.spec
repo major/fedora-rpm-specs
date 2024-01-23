@@ -8,7 +8,7 @@
 
 Name:           movit
 Version:        1.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPU video filter library
 License:        GPLv2+
 Url:            https://movit.sesse.net
@@ -103,6 +103,9 @@ rm %{buildroot}%{_libdir}/libmovit.la
 %{_libdir}/pkgconfig/movit.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 23 2023 Sérgio Basto <sergio@serjux.com> - 1.7.1-1
 - Update movit to 1.7.1
 

@@ -1,6 +1,6 @@
 Name:		libmetal
 Version:	2023.10.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	An abstraction layer across user-space Linux, baremetal, and RTOS environments 
 
 License:	BSD
@@ -70,6 +70,9 @@ cd build
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.10.0-1
 - Update to 2023.10.0
 

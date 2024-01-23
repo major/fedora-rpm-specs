@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Pg
 Version:        0.09
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Class::DBI extension for PostgreSQL
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-Pg
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

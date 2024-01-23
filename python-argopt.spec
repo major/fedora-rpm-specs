@@ -8,7 +8,7 @@ in the rest of your program.
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Doc to argparse driven by docopt
 
 License:        MPL-2.0
@@ -47,6 +47,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Version:        0.4.8
 Name:           md4c
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Markdown for C
 
 License:        MIT
@@ -57,5 +57,8 @@ bash %{_builddir}/%{name}-release-%{version}/scripts/run-tests.sh
 %{_libdir}/pkgconfig/md4c-html.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 29 2023 Benson Muite <benson_muite@emailplus.org> - 0.4.8-1
 - Initial packaging

@@ -5,7 +5,7 @@ whose behavior is inconsistent across *NIX flavors.}
 Name:           libfixposix
 Summary:        Thin wrapper over POSIX syscalls
 Version:        0.4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        Boost
 
 URL:            https://github.com/sionescu/%{name}
@@ -64,6 +64,9 @@ find %{buildroot} -name "*.la" -print -delete
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

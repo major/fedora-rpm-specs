@@ -1,7 +1,7 @@
 Name: py-radix
 Summary: Radix tree data structure for Python
 Version: 0.10.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://github.com/mjschultz/py-radix
 Source0: https://github.com/mjschultz/py-radix/archive/v%{version}.tar.gz
@@ -67,6 +67,9 @@ touch inet_ntop.c strlcpy.c
 %{python3_sitearch}/radix*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Kevin Fenzi <kevin@scrye.com> - 0.10.0-7
 - Apply upstream patch to fix FTBFS. https://github.com/mjschultz/py-radix/pull/44
 

@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	5
+%define		baserelease	6
 
 Name:		mecab-java
 Version:	%{mainver}
@@ -72,6 +72,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-5
 - SPDX migration
 

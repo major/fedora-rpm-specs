@@ -22,7 +22,7 @@ stack.}
                         GOVERNANCE.md SECURITY.md
 
 Name:           open-policy-agent
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Open source, general-purpose policy engine
 
 # Upstream license specification: MIT and Apache-2.0
@@ -118,6 +118,9 @@ install -D -p -m 0644 _man/*            %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

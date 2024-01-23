@@ -1,6 +1,6 @@
 Name:           perl-IO-Compress-Zstd
 Version:        2.206
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write zstd files/buffers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Zstd/
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.206-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Xavier Bachelot <xavier@bachelot.org> 2.206-1
 - Update to 2.206 (RHBZ#2225677)
 

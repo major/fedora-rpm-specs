@@ -1,6 +1,6 @@
 Name:           mine_detector
 Version:        6.0
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Mine Detector, a mine-finding game
 Summary(sv):    Mine Detector, ett minröjningsspel
 
@@ -79,6 +79,9 @@ cp -p %{SOURCE8} %{buildroot}%{_mandir}/sv/man1/mine_detector.1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Björn Persson <Bjorn@Rombobjörn.se> - 6.0-47
 - Rebuilt with GCC 14 prerelease.
 

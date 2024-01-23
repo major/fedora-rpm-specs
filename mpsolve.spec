@@ -25,7 +25,7 @@ fi \
 
 Name:           mpsolve
 Version:        3.2.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Multiprecision polynomial solver
 
 License:        GPL-3.0-or-later
@@ -287,6 +287,9 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-18
 - Stop building for 32-bit x86
 

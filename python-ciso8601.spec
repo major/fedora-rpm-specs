@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast ISO8601 date time parser
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Fabian Affolter <mail@fabian-affolter.ch> - 2.3.1-1
 - Update to latest upstream release 2.3.1 (closes rhbz#2155669)
 

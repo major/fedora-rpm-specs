@@ -3,7 +3,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.9.1
-Release:        0.23.20210827hg%{hg_rev}%{?dist}
+Release:        0.24.20210827hg%{hg_rev}%{?dist}
 Summary:        A package for solving ordinary differential equations and more
 
 # Most source files are GPLv2+
@@ -71,6 +71,9 @@ iconv -f iso8859-1 -t utf-8 doc/odepkg.texi > doc/odepkg.texi.conv && mv -f doc/
 %license COPYING
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-0.24.20210827hg611
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-0.23.20210827hg611
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

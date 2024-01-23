@@ -7,7 +7,7 @@
 
 Name:           libheif
 Version:        1.17.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
@@ -166,6 +166,9 @@ rm -rf third-party/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.17.5-2
 - Rebuild for dav1d 1.3.0
 

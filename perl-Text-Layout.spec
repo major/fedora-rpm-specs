@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Pango style text formatting
 License: (GPL+ or Artistic) and Artistic 2.0
 Version: 0.032
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.032-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov  1 2023 Johan Vromans <jvromans@squirrel.nl> - 0.032-1
 - Upgrade to upstream 0.032.
 

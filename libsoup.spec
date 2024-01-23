@@ -5,7 +5,7 @@
 
 Name:    libsoup
 Version: 2.74.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Soup, an HTTP library implementation
 
 License: LGPL-2.0-only
@@ -114,6 +114,9 @@ This package contains developer documentation for %{name}.
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 David King <amigadave@amigadave.com> - 2.74.3-4
 - Fix building against libxml2 2.12.0
 

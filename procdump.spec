@@ -3,7 +3,7 @@
 
 Name:           procdump
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
@@ -51,6 +51,9 @@ make CFLAGS=""
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Julio Faracco <jfaracco@redhat.com> - 2.1-1
 - New upstream release 2.1
 - Fix issue with missing va_end() call inside GetClientDataHelper (#204).

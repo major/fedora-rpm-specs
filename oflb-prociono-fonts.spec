@@ -3,7 +3,7 @@
 
 Name:    %{fontname}-fonts
 Version: 20141125
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A text roman with standard and discretionary ligatures, class-based kerning
 License: OFL
 URL:     http://www.google.com/fonts/specimen/Prociono
@@ -52,6 +52,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20141125-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141125-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

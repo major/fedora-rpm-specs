@@ -3,7 +3,7 @@ Summary: Free Software LHA implementation
 License: ISC
 
 Version: 0.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://fragglet.github.io/lhasa/
 Source0: https://github.com/fragglet/lhasa/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -112,6 +112,9 @@ cp -a doc/html %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.4.0-2
 - Build documentation in a -doc subpackage
 

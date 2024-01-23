@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-Backend-Yaml
 Version:        2.134
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Read and write configuration as a YAML data structure
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/Config-Model-Backend-Yaml/
@@ -58,6 +58,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Config::Model::Backend::Yaml.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.134-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.134-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

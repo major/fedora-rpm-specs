@@ -3,7 +3,7 @@
 
 Name:           perl-BibTeX-Parser
 Version:        1.04
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure Perl BibTeX parser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BibTeX-Parser
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Petr Pisar <ppisar@redhat.com> - 1.04-1
 - 1.04 bump
 - Package the tests

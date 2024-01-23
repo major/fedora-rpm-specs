@@ -9,7 +9,7 @@
 
 Name:           firecracker
 Version:        1.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 License:        Apache-2.0 AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-3-Clause AND MIT AND (MIT OR Unlicense) AND Unicode-DFS-2016
@@ -20,7 +20,7 @@ Source0:        https://github.com/firecracker-microvm/firecracker/archive/v%{ve
 # Bundle forked versions of existing crates to avoid conflicts with upstreams.
 Source1:        https://github.com/firecracker-microvm/kvm-bindings/archive/93af344a93b83b39cdfea0d0a860b3b57d29d28b/kvm-bindings-93af344.tar.gz
 Source2:        https://github.com/firecracker-microvm/micro-http/archive/e75dfa1eeea23b69caa7407bc2c3a76d7b7262fb/micro_http-e75dfa1.tar.gz
-Provides:       bundled(crate(kvm-bindings)) = 0.6.0^git93af344
+Provides:       bundled(crate(kvm-bindings)) = 0.7.0^git93af344
 Provides:       bundled(crate(micro_http)) = 0.1.0^gite75dfa1
 
 # Edit crate dependencies to track what is packaged in Fedora.
@@ -28,6 +28,7 @@ Patch:          %{name}-1.6.0-remove-aws-lc-rs.patch
 Patch:          %{name}-1.6.0-remove-cargo_toml.patch
 Patch:          %{name}-1.6.0-remove-criterion.patch
 Patch:          %{name}-1.6.0-remove-device_tree.patch
+Patch:          %{name}-1.6.0-update-userfaultfd.patch
 Patch:          %{name}-1.6.0-update-vmm-sys-util.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -101,6 +102,9 @@ done
 
 
 %changelog
+* Fri Jan 19 2024 David Michael <fedora.dm0@gmail.com> - 1.6.0-4
+- Backport the userfaultfd update for its unrecognized ioctl fixes.
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

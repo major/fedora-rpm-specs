@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.13.28
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -47,11 +47,12 @@ sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\117/' \
 %build
 pushd cpp
 %ifarch %{java_arches}
-%cmake
+%cmake \
 %else
 touch src/phonenumbers/test_metadata.h
-%cmake -DREGENERATE_METADATA=OFF
+%cmake -DREGENERATE_METADATA=OFF \
 %endif
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 %cmake_build
 popd
 
@@ -79,6 +80,12 @@ popd
 
 
 %changelog
+* Sun Jan 21 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 8.13.28-5
+- Always build as position-independent code (PIC)
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.28-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Sérgio Basto <sergio@serjux.com> - 8.13.28-3
 - add support to protobuf 3.25.1
 

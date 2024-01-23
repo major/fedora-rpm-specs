@@ -2,7 +2,7 @@
 
 Name:           maven-dependency-plugin
 Version:        3.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plugin to manipulate, copy and unpack local and remote artifacts
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/%{name}
@@ -96,6 +96,9 @@ sed -i '/doSpecialTest( "analyze-report" );/d' src/test/java/org/apache/maven/pl
 %doc LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.0-2
 - Rebuild
 

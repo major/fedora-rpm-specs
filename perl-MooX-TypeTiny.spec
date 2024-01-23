@@ -1,6 +1,6 @@
 Name:           perl-MooX-TypeTiny
 Version:        0.002003
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Optimized type checks for Moo + Type::Tiny
 License:        GPL+ or Artistic
 
@@ -59,6 +59,9 @@ Type::Tiny. Non-Type::Tiny isa checks will work as normal.
 %{_mandir}/man3/MooX*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.002003-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002003-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

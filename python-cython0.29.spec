@@ -9,7 +9,7 @@
 
 Name:           python-cython0.29
 Version:        0.29.35
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cython 0.29.x for compatibility purposes
 
 License:        Apache-2.0
@@ -164,6 +164,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 19 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.35-3
 - Fork from the main Cython package
 - Disable emacs-cython-mode

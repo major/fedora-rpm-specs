@@ -1,6 +1,6 @@
 Name:           perl-Date-Handler
 Version:        1.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Easy but complete date object
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Handler
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 25 2023 Petr Pisar <ppisar@redhat.com> - 1.2-29
 - Require glibc-langpack-en to support a default en_US locale (bug #2240533)
 - Convert a license tag to SPDX

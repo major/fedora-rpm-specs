@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        40.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -168,6 +168,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Brian C. Lane <bcl@redhat.com> 40.3-1
 - runtime-install: Work around problem with conflicting packages (bcl@redhat.com)
 - ltmpl: Check for errors after running the transaction (bcl@redhat.com)

@@ -1,6 +1,6 @@
 Name:       libigloo
 Version:    0.9.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    C framework from Icecast
 # COPYING:                  LGPL-2.0 text
 # include/igloo/config.h:   LGPL-2.0-or-later
@@ -203,6 +203,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 17 2023 Petr Pisar <ppisar@redhat.com> - 0.9.2-3
 - Make time test robusts against CPU scheduler whims (upstream bug #9)
 

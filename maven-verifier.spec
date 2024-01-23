@@ -3,7 +3,7 @@
 
 Name:           maven-verifier
 Version:        2.0.0~M1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Apache Maven Verifier Component
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-verifier
@@ -59,6 +59,9 @@ rm src/test/java/org/apache/maven/shared/verifier/Embedded3xLauncherTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0~M1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.0~M1-3
 - Convert License tag to SPDX format
 

@@ -18,7 +18,7 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: BSD and LGPLv2+ and GPLv2+ and Public Domain
 URL:     http://www.samba.org/ppp
@@ -189,6 +189,9 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.5.0-3
 - Use bundled ATM in RHEL builds
 

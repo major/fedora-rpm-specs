@@ -1,6 +1,6 @@
 Name:       llconf
 Version:    0.4.6
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    Loss-less configuration file parser
 License:    LGPLv2+
 # The code.google.com home is dead. There is
@@ -90,6 +90,9 @@ find "$RPM_BUILD_ROOT" -name '*.la' -delete
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

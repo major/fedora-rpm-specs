@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1617,6 +1617,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Akira TAGOH <tagoh@redhat.com> - 4.0-9
 - Drop google-noto-naskh-arabic-vf-fonts from langpacks-fonts-pa.
   Resolves: rhbz#2225410

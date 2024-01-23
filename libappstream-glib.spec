@@ -5,7 +5,7 @@
 Summary:   Library for AppStream metadata
 Name:      libappstream-glib
 Version:   0.8.2
-Release:   4%{?dist}
+Release:   5%{?dist}
 License:   LGPL-2.1-or-later
 URL:       http://people.freedesktop.org/~hughsient/appstream-glib/
 Source0:   http://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-%{version}.tar.xz
@@ -129,6 +129,9 @@ from a directory of packages.
 %{_mandir}/man1/appstream-builder.1.gz
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

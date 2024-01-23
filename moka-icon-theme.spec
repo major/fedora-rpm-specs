@@ -6,7 +6,7 @@
 
 Name:           moka-icon-theme
 Version:        5.4.0
-Release:        10.%{date}git%{shortcommit}%{?dist}
+Release:        11.%{date}git%{shortcommit}%{?dist}
 Summary:        Moka Icon Theme
 
 License:        CC-BY-SA and GPLv3
@@ -59,6 +59,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/%{tname} &>/dev/null || :
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-11.20190530gitc0355ea
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-10.20190530gitc0355ea
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

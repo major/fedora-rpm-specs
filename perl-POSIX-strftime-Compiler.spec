@@ -1,6 +1,6 @@
 Name:           perl-POSIX-strftime-Compiler
 Version:        0.46
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU C library compatible strftime for loggers and servers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POSIX-strftime-Compiler
@@ -49,6 +49,9 @@ useful when you want to write loggers, servers and portable applications.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-1
 - Upstream update to 0.46.
 

@@ -1,7 +1,7 @@
 Summary: The lrz and lsz modem communications programs
 Name: lrzsz
 Version: 0.12.20
-Release: 62%{?dist}
+Release: 63%{?dist}
 License: GPL-2.0-or-later AND GPL-2.0-only
 Source: http://www.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch1: lrzsz-0.12.20-glibc21.patch
@@ -55,6 +55,9 @@ for m in sb sx; do ln -s sz.1 %{buildroot}%{_mandir}/man1/$m.1; done
 %{_mandir}/*/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.20-63
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 0.12.20-62
 - Fix socket length incompatibility (C compatibility issue)
 

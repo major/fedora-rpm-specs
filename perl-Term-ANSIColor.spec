@@ -7,7 +7,7 @@
 
 Name:           perl-Term-ANSIColor
 Version:        5.01
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Color screen output using ANSI escape sequences
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ANSIColor
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.01-503
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 5.01-502
 - Package tests
 

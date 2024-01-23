@@ -2,7 +2,7 @@ Name:    gwenview
 Summary: An image viewer
 Epoch:   1
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
@@ -12,6 +12,7 @@ URL:     https://www.kde.org/applications/graphics/gwenview/
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+Patch0:  gwenview-reenable-kimageannotator-qt6.patch 
 
 ## upstreamable patches
 
@@ -31,6 +32,8 @@ BuildRequires: cmake(KF6GuiAddons)
 BuildRequires: cmake(KF6DocTools)
 BuildRequires: cmake(KF6Purpose)
 BuildRequires: cmake(KDcrawQt6)
+BuildRequires: cmake(kColorPicker-Qt6)
+BuildRequires: cmake(kImageAnnotator-Qt6)
 BuildRequires: libappstream-glib
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(exiv2)
@@ -118,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Sun Jan 21 2024 Marie Loise Nolden <loise@kde.org> - 1:24.01.90-3
+- use kcolorpicker and kimageannotator qt6 builds
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

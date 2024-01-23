@@ -10,7 +10,7 @@
 
 Name:           perl-GD-Barcode
 Version:        2.00
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create barcode image with GD
 # see Barcode.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 11 2023 Petr Pisar <ppisar@redhat.com> - 2.00-2
 - Break a build cycle with perl-Business-ISBN on Perl bootstrap
 

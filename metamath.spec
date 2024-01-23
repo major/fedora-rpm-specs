@@ -1,6 +1,6 @@
 Name:           metamath
 Version:        0.198
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Construct mathematics from basic axioms
 
 License:        GPL-2.0-or-later
@@ -124,6 +124,9 @@ done
 %{_docdir}/metamath/metamath.pdf
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.198-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.198-5
 - Stop building for 32-bit x86
 

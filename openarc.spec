@@ -4,7 +4,7 @@
 %global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
 %global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
 
-%global baserelease 16
+%global baserelease 17
 %global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -231,6 +231,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.17.Beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 11 2023 Tim Landscheidt <tim@tim-landscheidt.de> - 1.0.0-0.16.Beta3
 - Use %%baserelease macro so that rpmdev-bumpspec can bump release properly
 

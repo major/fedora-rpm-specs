@@ -4,7 +4,7 @@
 Summary:        Pure-Python library for parsing and analyzing ELF files
 Name:           pyelftools
 Version:        0.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Public Domain
 URL:            https://github.com/eliben/pyelftools
 Source0:        https://github.com/eliben/pyelftools/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,9 @@ popd
 %{python3_sitelib}/pyelftools-*.egg-info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.30-1
 - 0.30
 

@@ -5,7 +5,7 @@
 
 Name:           mod_md
 Version:        2.4.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Certificate provisioning using ACME for the Apache HTTP Server
 License:        Apache-2.0
 URL:            https://icing.github.io/mod_md/
@@ -59,6 +59,9 @@ echo "LoadModule md_module modules/mod_md.so" > %{buildroot}%{_httpd_modconfdir}
 %dir %{_httpd_statedir}/md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Joe Orton <jorton@redhat.com> - 1:2.4.25-1
 - update to 2.4.25
 

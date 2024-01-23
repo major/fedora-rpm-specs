@@ -2,7 +2,7 @@
 
 Name:           lxinput
 Version:        0.3.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Keyboard and mouse settings dialog for LXDE
 
 # SPDX confirmed
@@ -66,6 +66,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-17
 - SPDX migration
 

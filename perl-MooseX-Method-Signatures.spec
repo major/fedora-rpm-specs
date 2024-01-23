@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Method-Signatures
 Version:        0.49
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Method declarations with type constraints and no source filter
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Method-Signatures
@@ -79,6 +79,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

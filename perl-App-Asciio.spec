@@ -1,6 +1,6 @@
 Name:       perl-App-Asciio 
 Version:    1.51.3
-Release:    24%{?dist}
+Release:    25%{?dist}
 # see lib/App/Asciio.pm
 License:    GPL+ or Artistic
 Summary:    Asciio back-end libraries 
@@ -142,6 +142,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications asciio.desktop
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

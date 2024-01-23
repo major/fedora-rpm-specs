@@ -2,7 +2,7 @@
 
 Name:           mingw-ftplib
 Version:        4.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        MinGW Library of FTP routines
 
 License:        Artistic 2.0
@@ -115,6 +115,9 @@ cp -p build_win64/ftplib.h $RPM_BUILD_ROOT/%{mingw64_includedir}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           perl-Net-Statsd-Server
 Version:        0.20
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library for the Perl port of Flickr/Etsy's statsd metrics daemon
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Statsd-Server
@@ -130,6 +130,9 @@ exit 0
 %attr(750, %{username}, %{groupname}) %{_localstatedir}/log/%{daemon}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           openconnect-gateway
 Version:        0 
-Release:        0.5.%{date0}git%{shortcommit0}%{?dist}
+Release:        0.6.%{date0}git%{shortcommit0}%{?dist}
 Summary:        Connect to a VPN without routing everything through the VPN
 
 License:        MIT
@@ -37,6 +37,9 @@ cp -av connect.sh %{buildroot}/%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6.20170903git627468b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.5.20170903git627468b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

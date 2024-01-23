@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 1
+%global baserelease 2
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -840,6 +840,9 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.13-2.3.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 04 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.13-1.3.9
 - Update to 7.3.13
 - Fixes: rhbz#2241298

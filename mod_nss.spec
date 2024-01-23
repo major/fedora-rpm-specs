@@ -6,7 +6,7 @@
 
 Name: mod_nss
 Version: 1.0.17
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: SSL/TLS module for the Apache HTTP server
 License: Apache-2.0
 URL: https://pagure.io/mod_nss/
@@ -169,6 +169,9 @@ fi
 %{_sbindir}/gencert
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 14 2023 Rob Crittenden <rcritten@redhat.com> - 1.0.17-19
 - Replace the file Requires on libnssckbi.so with the providing package
   because DNF5 does not support file requirements. (#2229934)

@@ -1,6 +1,6 @@
 Name:           perl-failures
 Version:        0.004
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Minimalist exception hierarchy generator
 License:        Apache-2.0
 URL:            https://metacpan.org/release/failures
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

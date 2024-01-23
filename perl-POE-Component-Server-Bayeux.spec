@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Server-Bayeux
 Version:        0.04
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Bayeux/cometd server implementation in POE
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Server-Bayeux
@@ -59,6 +59,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

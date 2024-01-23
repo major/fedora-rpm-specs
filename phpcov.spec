@@ -27,7 +27,7 @@
 
 Name:           %{pk_project}
 Version:        9.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
@@ -146,6 +146,9 @@ exit $ret;
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Remi Collet <remi@remirepo.net> - 9.0.2-1
 - update to 9.0.2
 - raise dependency on phpunit/php-code-coverage 10.1.5

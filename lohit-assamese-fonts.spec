@@ -1,7 +1,7 @@
 %global fontname lohit-assamese
 
 Version:       2.91.5 
-Release:       20%{?dist}
+Release:       21%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-assamese-fonts
  
 %global foundry           Lohit  
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-20
 - lowering priority of lohit-assamese-fonts
 

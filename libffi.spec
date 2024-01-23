@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A portable foreign function interface library
 License:	MIT
 URL:		http://sourceware.org/libffi
@@ -117,6 +117,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Florian Weimer <fweimer@redhat.com> - 3.4.4-5
 - Add missing declaration of open_temp_exec_file
 

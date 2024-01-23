@@ -1,6 +1,6 @@
 Name:           perl-Text-Markdown
 Version:        1.000031
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Convert Markdown syntax to (X)HTML
 
 License:        BSD-3-Clause
@@ -115,6 +115,9 @@ TEST_POD=1 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000031-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000031-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

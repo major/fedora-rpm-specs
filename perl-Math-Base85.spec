@@ -1,6 +1,6 @@
 Name:           perl-Math-Base85
 Version:        0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl extension for base 85 numbers, as referenced by RFC 1924
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Base85
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

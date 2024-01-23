@@ -1,6 +1,6 @@
 Name:       mkfontscale
 Version:    1.2.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Tool to generate legacy X11 font system index files
 
 License:    MIT-open-group AND X11 AND MIT AND HPND-sell-variant
@@ -45,6 +45,9 @@ distributed separately for compatibility with older X11 versions.
 %{_mandir}/man1/mkfontscale.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: update to SPDX-compatible identifiers
 

@@ -1,7 +1,7 @@
 Name:           python-impacket
 Summary:        Collection of Python classes providing access to network packets
 Version:        0.11.0
-%global         baserelease     1
+%global         baserelease     2
 
 License:        Apache-1.1 AND Zlib
 URL:            https://github.com/fortra/impacket
@@ -190,6 +190,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.11.0-1
 - bump to 0.11.0
 

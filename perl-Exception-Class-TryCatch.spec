@@ -1,6 +1,6 @@
 Name:           perl-Exception-Class-TryCatch
 Version:        1.13
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Syntactic try/catch sugar for use with Exception::Class
 License:        ASL 2.0
 URL:            https://metacpan.org/release/Exception-Class-TryCatch
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:       virtualbox-guest-additions
-Version:    7.0.12
+Version:    7.0.14
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
@@ -184,6 +184,9 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Tue Jan 16 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.0.14-1
+- Update to 7.0.14 (#2258642)
+
 * Tue Oct 17 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 7.0.12-1
 - Update to 7.0.12 (#2244635)
 

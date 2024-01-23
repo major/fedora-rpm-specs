@@ -1,6 +1,6 @@
 Name:           libglib-testing
 Version:        0.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GLib-based test library and harness
 
 License:        LGPLv2+
@@ -47,6 +47,9 @@ for %{name}.
 %{_libdir}/pkgconfig/glib-testing-0.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

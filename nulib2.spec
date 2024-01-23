@@ -1,6 +1,6 @@
 Name:		nulib2
 Version:	3.1.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Disk and file archive program for NuFX (.SDK, .BXY) archives
 License:	BSD
 URL:		http://nulib.com/
@@ -38,6 +38,9 @@ install -p -m0644 nulib2/nulib2.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/nulib2.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

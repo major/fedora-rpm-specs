@@ -1,6 +1,6 @@
 Name: libuser
 Version: 0.64
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -116,6 +116,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 22 2023 Tomas Halman <thalman@redhat.com> - 0.64-5
 - migrated to SPDX license
 

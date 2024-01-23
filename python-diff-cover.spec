@@ -10,7 +10,7 @@ diff.
 
 Name:           python-diff-cover
 Version:        7.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        ASL 2.0
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 7.3.2-4
 - Remove unused python3-mock test dependency
 

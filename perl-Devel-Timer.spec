@@ -1,6 +1,6 @@
 Name:           perl-Devel-Timer
 Version:        0.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Track and report execution time for parts of code
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-Timer
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		php-wikimedia-assert
 Version:	0.5.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	An alternative to PHP's assert
 
 License:	MIT
@@ -49,6 +49,9 @@ cp -rp src/* %{buildroot}%{_datadir}/php/Wikimedia/Assert
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

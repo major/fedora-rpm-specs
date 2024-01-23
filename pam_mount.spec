@@ -1,6 +1,6 @@
 Name:           pam_mount
 Version:        2.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A PAM module that can mount volumes for a user session
 
 # The library and binaries are LGPLv2+ with these Exceptions:
@@ -150,6 +150,9 @@ and transparent use of the OS's crypto layer.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		phoc
 Version:	0.32.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Display compositor designed for phones
 
 License:	GPLv3+
@@ -59,6 +59,9 @@ mv gmobile-%{libgmobile_commit} subprojects/gmobile
 %license COPYING
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-2

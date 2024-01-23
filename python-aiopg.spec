@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.4 
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Postgres integration with asyncio
 
 License:        BSD
@@ -59,6 +59,9 @@ sed -i -e 's/"psycopg2-binary>=2.8.4"/"psycopg2"/g' setup.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

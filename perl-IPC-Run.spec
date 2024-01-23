@@ -3,7 +3,7 @@
 
 Name:           perl-IPC-Run
 Version:        20231003.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -108,6 +108,9 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231003.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct  3 2023 Paul Howarth <paul@city-fan.org> - 20231003.0-1
 - Update to 20231003.0 (rhbz#2241845)
   - On Windows, avoid hang under IPCRUNDEBUG (GH#157)

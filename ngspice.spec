@@ -42,9 +42,10 @@
 
 Name:			ngspice
 Version:		%{fedoraver}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
+# ngspice-42-manual.pdf	CC-BY-SA-4.0 AND BSD-3-Clause
 License:		BSD
 URL:			http://ngspice.sourceforge.net
 
@@ -64,6 +65,8 @@ Source10:		create-ngspice-git-bare-tarball.sh
 # Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or
 # not (bug 1047056, debian bug 737279)
 Patch0:		ngspice-37-blt-linkage-workaround.patch
+# Fix compilation with C99 -Werror=incompatible-pointer-types
+Patch1:		ngspice-42-pointer-type-cast-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -196,6 +199,8 @@ popd
 
 %patch -P0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
+%patch -P1 -p1 -b .type
+git commit -m "Fix pointer cast for -Werror=incompatible-pointer-types" -a
 
 # make sure the examples are UTF-8...
 for nonUTF8 in \
@@ -469,6 +474,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 42-2
+- Fix compilation with -Werror=incompatible-pointer-types
+
 * Fri Dec 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 42-1
 - Update to 42
 - Kill --with-adms

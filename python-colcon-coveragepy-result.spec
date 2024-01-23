@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Extension for colcon to collect coverage.py results
 
 License:        ASL 2.0
@@ -58,6 +58,9 @@ A colcon extension for collecting coverage.py results.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           licensecheck
 Version:        3.3.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple license checker for source files
 
 License:        AGPL-3.0-or-later
@@ -80,6 +80,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Titanium
 Version:        1.04
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Strong, lightweight web application framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Titanium
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

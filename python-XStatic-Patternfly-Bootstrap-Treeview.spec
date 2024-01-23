@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.3.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Patternfly Bootstrap Treeview CSS/JS framework (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/patternfly_bootstrap_treeview/js/*.js
 %{_jsdir}/patternfly_bootstrap_treeview
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

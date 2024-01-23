@@ -1,7 +1,7 @@
 Summary: SELinux Translation Daemon
 Name: mcstrans
 Version: 3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Url: https://github.com/SELinuxProject/selinux/wiki
 Source: https://github.com/SELinuxProject/selinux/releases/download/3.6/mcstrans-3.6.tar.gz
@@ -88,6 +88,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_mandir}/man8/
 %{_usr}/share/mcstrans/util/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-1
 - SELinux userspace 3.6 release
 

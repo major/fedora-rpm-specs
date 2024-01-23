@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Traits
 Summary:        Automatically apply roles at object creation time
 Version:        0.13
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Traits-%{version}.tar.gz
@@ -60,6 +60,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

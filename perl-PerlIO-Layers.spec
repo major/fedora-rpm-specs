@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-Layers
 Version:        0.012
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Querying your file handle capabilities
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PerlIO-Layers
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

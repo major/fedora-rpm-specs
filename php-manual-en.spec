@@ -1,7 +1,7 @@
 Name:           php-manual-en
 Summary:        Documentation for the PHP programming language
 Version:        20221028
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        CC-BY-3.0
 URL:            https://www.php.net/download-docs.php
 Source0:        https://www.php.net/distributions/manual/php_manual_en.tar.gz
@@ -27,6 +27,9 @@ EOF
 %doc %{_defaultdocdir}/php-manual
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20221028-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221028-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

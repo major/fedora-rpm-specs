@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       16%{?github_release}%{?dist}
+Release:       17%{?github_release}%{?dist}
 Summary:       PHP-Unicode CLDR
 
 # Code is MIT, data is Unicode
@@ -153,6 +153,9 @@ exit $SCL_RETURN_CODE
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

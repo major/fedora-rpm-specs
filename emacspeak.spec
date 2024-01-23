@@ -1,11 +1,13 @@
+%global major_ver 59
+
 Summary: Emacs Speech interface
 Name: emacspeak
-Version: 54.0
-Release: 9%{?dist}
+Version: %{major_ver}.0
+Release: 1%{?dist}
 # main lisp files are GPL2+
 # lisp/atom-blogger and lisp/g-client are BSD
 License: GPLv2+ and BSD
-Source: https://github.com/tvraman/emacspeak/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Source: https://github.com/tvraman/emacspeak/releases/download/%{major_ver}/%{name}-%{version}.tar.bz2
 URL: http://emacspeak.sourceforge.net/
 BuildRequires: emacs
 BuildRequires: espeak-ng-devel
@@ -17,7 +19,6 @@ BuildRequires: tcl-devel
 BuildRequires: make
 Requires: emacs(bin) >= %{_emacs_version}
 Requires: tclx
-Patch5: emacspeak-38.0-update-FSF-address.patch
 
 %description
 Emacspeak is a speech interface that allows visually impaired users to
@@ -32,7 +33,6 @@ opens up the Internet to visually impaired users around the world.
 
 %prep
 %setup -q
-%patch5 -p0
 
 chmod a-x etc/COPYRIGHT
 
@@ -46,7 +46,7 @@ make espeak
 
 %install
 mkdir -p %{buildroot}%{_datadir}/emacs/site-lisp/emacspeak
-cp -pr bash-utils etc lisp media nyxttalk servers sounds stumpwm xsl %{buildroot}%{_datadir}/emacs/site-lisp/emacspeak/
+cp -pr bash-utils etc lisp media servers sounds stumpwm xsl %{buildroot}%{_datadir}/emacs/site-lisp/emacspeak/
 
 make -C servers/native-espeak install LIBPARENTDIR=%{buildroot}%{_libdir}
 ln -sf %{_libdir}/emacspeak/servers/native-espeak/tclespeak.so %{buildroot}%{_datadir}/emacs/site-lisp/emacspeak/servers/native-espeak/
@@ -80,6 +80,10 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Sun Jan 21 2024 Jens Petersen <petersen@redhat.com> - 59.0-1
+- update to 59.0
+- http://tvraman.github.io/emacspeak/blog/Announce-59.html
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 54.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

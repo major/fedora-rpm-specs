@@ -7,7 +7,7 @@
 
 Name:       mat2
 Version:    0.13.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Metadata removal tool, supporting a wide range of commonly used file formats
 
 # License file provided by Python module, see:
@@ -150,6 +150,9 @@ install -D -p -m 644 data/%{name}.svg -t \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 10 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 0.13.4-3
 - build: Conform Fedora packaging guidelines for official repo
 - build: Add 'dolphin' sub-package and split into app and library sub-package

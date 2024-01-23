@@ -1,6 +1,6 @@
 Name: kstart
 Version: 4.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Daemon version of kinit for Kerberos v5
 License: MIT
 URL: http://www.eyrie.org/~eagle/software/kstart/
@@ -60,6 +60,9 @@ make check
 %systemd_user_preun krenew.service
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Orion Poplawski <orion@nwra.com> - 4.3-6
 - Addition of k5start@.service system instance unit (bz#785925)
 - Run make check

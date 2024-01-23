@@ -1,6 +1,6 @@
 Name: libcdio-paranoia
 Version: 10.2+2.0.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: CD paranoia on top of libcdio
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
@@ -83,6 +83,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.2+2.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.2+2.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

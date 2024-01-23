@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Admin-TableInfo
 Version:        3.04
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Wrapper for DBI's table_info(), column_info(), *_key_info()
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBIx-Admin-TableInfo
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

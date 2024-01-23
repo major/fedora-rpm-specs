@@ -3,7 +3,7 @@
 
 Name:           python-deepdiff
 Version:        6.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -102,6 +102,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Miro Hrončok <mhroncok@redhat.com> - 6.3.1-3
 - Relax the required versions of some of the dependencies
 - Fixes: rhbz#2246614

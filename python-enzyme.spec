@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python module to parse video metadata
 License:        ASL 2.0
 URL:            https://github.com/Diaoul/enzyme
@@ -56,6 +56,9 @@ Summary:        %summary
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

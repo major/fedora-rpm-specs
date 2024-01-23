@@ -1,6 +1,6 @@
 Name:           perl-MooseX-OneArgNew
 Version:        0.007
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Teach ->new to accept single, non-hashref arguments
 License:        GPL+ or Artistic
 
@@ -47,6 +47,9 @@ role with two parameters:
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

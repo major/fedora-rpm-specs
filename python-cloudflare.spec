@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.12.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python wrapper for the Cloudflare Client API v4
 
 License:        MIT
@@ -69,6 +69,9 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 2.12.4-2
 - drop unnecessary patch to remove shebangs (rhbz #2247294)
 

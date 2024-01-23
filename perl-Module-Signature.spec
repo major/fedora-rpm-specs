@@ -3,7 +3,7 @@
 
 Name:           perl-Module-Signature
 Version:        0.88
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        CPAN signature management utilities and modules
 License:        CC0-1.0
 URL:            https://metacpan.org/release/Module-Signature
@@ -87,6 +87,9 @@ rm -rf %{buildroot} %{gnupghome}
 %{_mandir}/man3/Module::Signature.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.88-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 13 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.88-7
 - Drop redundant dependency of Digest::SHA1; implementation from Digest::SHA
   is used instead

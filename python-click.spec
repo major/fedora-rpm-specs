@@ -1,6 +1,6 @@
 Name:           python-click
 Version:        8.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Charalampos Stratakis <cstratak@redhat.com> - 8.1.7-1
 - Update to 8.1.7
 Resolves: rhbz#2220975

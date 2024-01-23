@@ -34,7 +34,7 @@
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 License:        LGPLv2+
@@ -366,6 +366,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.4-13
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

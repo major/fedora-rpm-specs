@@ -2,7 +2,7 @@
 Name:    lucene++
 Summary: A high-performance, full-featured text search engine written in C++
 Version: 3.0.7
-Release: 39%{?dist}
+Release: 40%{?dist}
 
 License: ASL 2.0 or LGPLv3+
 Url:     https://github.com/luceneplusplus/LucenePlusPlus
@@ -64,6 +64,9 @@ Development files for lucene++, a high-performance, full-featured text search en
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.0.7-39
 - Rebuilt for Boost 1.83
 

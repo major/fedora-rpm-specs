@@ -1,6 +1,6 @@
 Name:		nemiver
 Version:	0.9.6
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A GNOME C/C++ Debugger
 
 License:	GPLv2+
@@ -147,6 +147,9 @@ desktop-file-install                                    \
 %{_mandir}/man?/%{name}.*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

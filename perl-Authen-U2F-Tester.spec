@@ -1,6 +1,6 @@
 Name:           perl-Authen-U2F-Tester
 Version:        0.03
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        FIDO/U2F Authentication Test Client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Authen-U2F-Tester
@@ -72,6 +72,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Xavier Bachelot <xavier@bachelot.org> 0.03-4
 - Review fixes
 

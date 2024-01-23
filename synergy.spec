@@ -1,16 +1,15 @@
 %define __cmake_in_source_build 1
 
-%global release_date 2022-07-19
+%global release_date 2023-04-21
 %global icon_path %{_datadir}/icons/hicolor/scalable/apps/synergy.svg
 Summary: Share mouse and keyboard between multiple computers over the network
 Name: synergy
 Epoch: 1
-Version: 1.14.5.17
-Release: 2%{?dist}
+Version: 1.14.6.18
+Release: 1%{?dist}
 License: GPLv2
 URL: https://symless.com/synergy
-Source0: https://github.com/symless/synergy-core/archive/refs/tags/%{version}.tar.gz
-Patch0: synergy-1.14_fix-includes.patch
+Source0: https://github.com/symless/synergy-core/archive/refs/tags/%{version}-stable.tar.gz
 
 # Last built version of synergy-plus was 1.3.4-12.fc20
 Provides: synergy-plus = %{version}-%{release}
@@ -42,8 +41,7 @@ Windows, Mac OS X and Linux. Redirecting the mouse and keyboard is as simple
 as moving the mouse off the edge of your screen.
 
 %prep
-%setup -q -n %{name}-core-%{version}
-%patch0 -p1
+%setup -q -n %{name}-core-%{version}-stable
 #Remove the submodule pugixml
 sed -i.remove-sub-pugixml -e '/pugixml/ s/^/#/' src/lib/synergy/CMakeLists.txt
 
@@ -97,6 +95,7 @@ cat <<END> %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
     <binary>synergy</binary>
     <binary>synergyc</binary>
     <binary>synergys</binary>
+    <binary>synergy-core</binary>
     <binary>syntool</binary>
   </provides>
 
@@ -121,6 +120,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synergy.desktop
 %{_bindir}/synergys
 %{_bindir}/syntool
 %{_bindir}/synergy
+%{_bindir}/synergy-core
 %{icon_path}
 %{_datadir}/applications/synergy.desktop
 %{_datadir}/metainfo/%{name}.appdata.xml
@@ -128,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synergy.desktop
 %{_mandir}/man8/synergys.8.gz
 
 %changelog
+* Sun Jan 21 2024 David Kaufmann <astra@ionic.at> - 1:1.14.6.18-1
+- Update to v1.14.6.18-stable
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14.5.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

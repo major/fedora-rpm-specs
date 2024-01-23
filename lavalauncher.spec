@@ -2,7 +2,7 @@
 
 Name:     lavalauncher
 Version:  2.1.1
-Release:  6%{?dist}
+Release:  7%{?dist}
 Summary:  %{name} is a simple launcher for Wayland
 License:  GPLv3
 URL:      https://git.sr.ht/~leon_plickat/%{name}
@@ -71,6 +71,9 @@ river and hikari.
 %license LICENSE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

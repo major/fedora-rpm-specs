@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.9.1%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Version:        1.9.2%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -63,6 +63,9 @@ Source1550:     hatch-python-update.1
 
 # Fix test that fails for openSUSE and other re-distributors
 # https://github.com/pypa/hatch/pull/1177
+#
+# Missing patch for TestErrors.test_resolution_error in hatch 1.9.2
+# https://github.com/pypa/hatch/issues/1214
 Patch:          %{url}/pull/1177.patch
 
 BuildArch:      noarch

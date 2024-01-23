@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
 Version:	1.3.13
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -99,6 +99,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

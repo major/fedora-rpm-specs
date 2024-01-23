@@ -8,7 +8,7 @@
 
 Name:           python-BTrees
 Version:        5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable persistent object containers
 
 License:        ZPL-2.1
@@ -121,6 +121,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct  6 2023 Jerry James <loganjerry@gmail.com> - 5.1-1
 - Version 5.1
 

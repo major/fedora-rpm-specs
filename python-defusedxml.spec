@@ -4,7 +4,7 @@
 %global upstream_version %{base_version}%{?prerel}
 Name:           python-%{pypi_name}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        XML bomb protection for Python stdlib modules
 License:        Python
 URL:            https://github.com/tiran/defusedxml
@@ -62,6 +62,9 @@ module. This is the python%{python3_pkgversion} build.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-10
 - Run lxml tests during build, avoid deprecated unittest.makeSuite()
 

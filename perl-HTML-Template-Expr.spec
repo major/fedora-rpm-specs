@@ -1,6 +1,6 @@
 Name:           perl-HTML-Template-Expr
 Version:        0.07
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Expression support extension for HTML::Template
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Template-Expr
@@ -53,6 +53,9 @@ at runtime.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.07-47
 - Migrate to SPDX license
 - Use %%{make_build} and %%{make_install} where appropriate

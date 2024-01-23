@@ -2,7 +2,7 @@
 
 Name:		python-%{srcname}
 Version:	0.8.7
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Python support for the DjVu image format
 License:	GPLv2
 URL:		https://jwilk.net/software/python-djvulibre
@@ -79,6 +79,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html examples
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

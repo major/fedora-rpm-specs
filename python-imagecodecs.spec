@@ -4,7 +4,7 @@ Name:           python-imagecodecs
 # Imagecodecs 2023.3.16 requires libjpeg-turbo 3, which is currently in beta:
 # Imagecodecs 2023.1.23-2022.12.22 requires libtiff 4.5.0
 Version:        2022.9.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Image transformation, compression, and decompression codecs
 
 License:        BSD-3-Clause
@@ -169,6 +169,9 @@ export CPPFLAGS=-I%{_includedir}/cfitsio
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

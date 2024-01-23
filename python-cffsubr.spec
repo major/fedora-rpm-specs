@@ -1,6 +1,6 @@
 Name:           python-cffsubr
 Version:        0.2.9.post1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
 # The entire source is Apache-2.0, except:
@@ -26,8 +26,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools-scm)
 
 %global txbin /usr/bin/tx
-
-BuildRequires:  %{txbin}
+# For the unbundled “tx” executable:
+BuildRequires:  adobe-afdko
 BuildRequires:  symlinks
 
 %description
@@ -39,7 +39,8 @@ Standalone CFF subroutinizer based on the AFDKO tx tool.
 %package -n python3-cffsubr
 Summary:        %{summary}
 
-Requires:       %{txbin}
+# For the unbundled “tx” executable:
+Requires:       adobe-afdko
 
 %description -n python3-cffsubr
 Standalone CFF subroutinizer based on the AFDKO tx tool.
@@ -57,8 +58,6 @@ sed -r -i 's/(ext_modules=)/# \1/' setup.py
 # Remove bundled adobe-afdko:
 rm -rf external
 
-cp -p '%{SOURCE1}' .
-
 %build
 %pyproject_wheel
 
@@ -74,7 +73,7 @@ ln -s '%{txbin}' '%{buildroot}%{txbin}'
 ln -s '%{buildroot}%{txbin}' %{buildroot}/%{python3_sitelib}/cffsubr/tx
 symlinks -c -o %{buildroot}/%{python3_sitelib}/cffsubr/tx
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 'cffsubr.1'
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %check
 %pytest
@@ -94,6 +93,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 'cffsubr.1'
 %{_mandir}/man1/cffsubr.1*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.post1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.9.post1-9
 - Assert %%pyproject_files contains a license file
 - Remove an obsolete conditional

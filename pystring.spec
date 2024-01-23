@@ -2,7 +2,7 @@
 
 Name:           pystring
 Version:        1.1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collection of C++ functions emulating Python's string class methods
 License:        BSD
 URL:            https://github.com/imageworks/pystring
@@ -65,6 +65,9 @@ pushd %{__cmake_builddir}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,9 +1,6 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global         build_type_safety_c  2
-
 Name:           zeitgeist
 Version:        1.0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Framework providing Desktop activity awareness
 
 # data/ontology/*.trig	BSD-3-Clause OR CC-BY-SA-3.0 -> main
@@ -96,6 +93,8 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+# Regenerate C source from vala source
+find -name '*.vala' -exec touch {} \;
 
 ## nuke unwanted rpaths, see also
 ## https://fedoraproject.org/wiki/Packaging/Guidelines#Beware_of_Rpath
@@ -184,6 +183,11 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-13
+- Regenerate C source from Vala source and enable
+  -Werror=incompatible-pointer-types again
+  (Thanks to Florian Weimer <fweimer@redhat.com>)
+
 * Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-12
 - Change -Wincompatible-pointer-types from error to warning
 

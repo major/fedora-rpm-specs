@@ -19,7 +19,7 @@
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 License:        BSD-3-Clause
 
@@ -194,6 +194,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec  4 2023 Remi Collet <remi@remirepo.net> - 3.2.15-1
 - update to 3.2.15
 

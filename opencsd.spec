@@ -2,7 +2,7 @@
 
 Name:           opencsd
 Version:        1.4.1
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        An open source CoreSight(tm) Trace Decode library
 
 License:        BSD-3-Clause
@@ -58,6 +58,9 @@ PREFIX=%{buildroot}%{_prefix} LIB_PATH=%{_lib} make install DISABLE_STATIC=1 DEF
 
 #------------------------------------------------------------------------------
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Jeremy Linton <jeremy.linton@arm.com> - 1.4.1-0
 - Update to upstream 1.4.1
 

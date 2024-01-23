@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Library and utilities for automated guest OS installs
 License: LGPLv2
 URL:     http://github.com/clalancette/oz
@@ -87,6 +87,9 @@ fi
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Adam Williamson <awilliam@redhat.com> - 0.18.1-9
 - Drop the reversion of the kickstart patch, i-s should be fixed (#2015490)
 

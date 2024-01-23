@@ -1,6 +1,6 @@
 Name:           perl-CBOR-XS
 Version:        1.87
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Concise Binary Object Representation (CBOR)
 # COPYING:      GPL-3.0 text
 ## Replaced by system header-only package
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.87-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Petr Pisar <ppisar@redhat.com> - 1.87-1
 - 1.87 bump
 - License corrected to "GPL-1.0-or-later AND (BSD-2-Clause OR

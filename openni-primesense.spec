@@ -13,7 +13,7 @@
 
 Name:           openni-primesense
 Version:        5.1.6.6
-Release:        24%{?gitrev}%{?dist}
+Release:        25%{?gitrev}%{?dist}
 Summary:        PrimeSensor/Kinect Modules for OpenNI
 License:        ASL 2.0
 URL:            https://github.com/PrimeSense/Sensor
@@ -122,6 +122,9 @@ fi
 %{_bindir}/XnSensorServer
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-fastjsonschema
 Version:        2.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
 License:        BSD-3-Clause
@@ -44,6 +44,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.18.0-1
 - Update to 2.18.0
 - Fixes: rhbz#2128071

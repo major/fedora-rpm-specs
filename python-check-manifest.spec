@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.48
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Check MANIFEST.in in a Python source package
 
 License:        MIT
@@ -68,6 +68,9 @@ sed -i -e '/^#!\//, 1d' check_manifest.py
 %{_bindir}/check-manifest
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 0.48-9
 - Remove python3-mock test dependency
 

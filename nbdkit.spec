@@ -61,7 +61,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.37.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1326,6 +1326,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.5-1
 - New upstream development version 1.37.5
 

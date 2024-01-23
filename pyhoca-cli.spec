@@ -3,7 +3,7 @@
 
 Name:           pyhoca-cli
 Version:        0.6.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line X2Go client written in Python
 
 License:        AGPLv3+
@@ -59,6 +59,9 @@ cp -rp man/* %{buildroot}/%{_mandir}/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Orion Poplawski <orion@nwra.com> - 0.6.1.3-1
 - Update to 0.6.1.3
 

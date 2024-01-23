@@ -1,6 +1,6 @@
 Name: libglibutil
 Version: 1.0.74
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library of glib utilities
 License: BSD
 URL: https://github.com/sailfishos/libglibutil
@@ -43,6 +43,9 @@ This package contains the development library for %{name}.
 %{_includedir}/gutil
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.74-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 16 2023 Alessandro Astone <ales.astone@gmail.com> - 1.0.74-1
 - Update to 1.0.74
 

@@ -1,6 +1,6 @@
 Name:           nbtscan
 Version:        1.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to gather NetBIOS info from Windows networks
 License:        GPL-2.0-or-later
 URL:            https://github.com/resurrecting-open-source-projects/nbtscan
@@ -40,6 +40,9 @@ autoreconf -vif #BZ926202 - support aarch64
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 09 2023 Michal Ambroz <rebus _AT seznam.cz> - 1.7.2-1
 - change to new github fork
 - bump to latest release

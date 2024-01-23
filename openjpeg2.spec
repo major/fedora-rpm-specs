@@ -14,7 +14,7 @@
 
 Name:           openjpeg2
 Version:        2.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -444,6 +444,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 26 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-5
 - BR: liblerc-devel
 

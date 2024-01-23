@@ -64,7 +64,11 @@
   %global configure_args %{configure_args} --enable-wsf --with-sasl2=%{_prefix}/sasl2
 %endif
 
-%if !%{with_python}
+%if %{with_python}
+  %if 0%{?fedora} || 0%{?rhel} > 7
+BuildRequires: (python3-setuptools if python3 >= 3.12)
+  %endif
+%else
   %global configure_args %{configure_args} --disable-python
 %endif
 
@@ -72,13 +76,14 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 6%{?dist}
+Release: 8%{?dist}
 License: GPLv2+
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
 
 Patch01: fix-removed-xmlsec-deprecations.patch
 Patch02: fix-openssl-implicit-declarations.patch
+Patch3: lasso-libxml2.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -328,6 +333,13 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2.8.2-8
+- libxml2 2.12 fix for incompatible-pointer-types errors
+- Add conditional BuildRequires: on python3-setuptools for unbundled distutils
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

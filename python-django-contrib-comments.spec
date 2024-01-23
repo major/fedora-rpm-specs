@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The code formerly known as django.contrib.comments
 
 License:        BSD
@@ -60,6 +60,9 @@ rm -rf django_contrib_comments.egg-info
 %{python3_sitelib}/django_contrib_comments-%{version}-py*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

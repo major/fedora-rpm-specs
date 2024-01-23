@@ -30,7 +30,7 @@ developed to support the use of libcsa from NEST.}
 
 Name:           libneurosim
 Version:        1.2.0
-Release:        9.20210110.git%{shortcommit}%{?dist}
+Release:        10.20210110.git%{shortcommit}%{?dist}
 Summary:        Common interfaces for neuronal simulators
 
 License:        GPLv3+
@@ -274,6 +274,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10.20210110.gitafc003f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 1.2.0-9.20210110.gitafc003f
 - Rebuild for openmpi 5.0.0, drops support for i686
 

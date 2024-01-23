@@ -4,7 +4,7 @@
 
 Name:           %{pkgname}
 Version:        0.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{desc}
 
 License:        GPL-3.0-or-later
@@ -36,6 +36,9 @@ BuildRequires:  python3-devel
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 
 * Mon Dec 11 2023 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.2-1
 - Expanded the documentation to explain branch protection

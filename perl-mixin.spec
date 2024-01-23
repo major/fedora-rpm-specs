@@ -1,6 +1,6 @@
 Name:           perl-mixin
 Version:        0.08
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Mixin inheritance, an alternative to multiple inheritance
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/mixin
@@ -50,6 +50,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

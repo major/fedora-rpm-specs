@@ -6,7 +6,7 @@
 Summary: KDE Photo Album 
 Name:	 kphotoalbum
 Version: 5.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: (GPLv2 or GPLv3) and GFDL
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kphotoalb
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 27 2023 Marie Loise Nolden <loise@kde.org> - 5.12.0-1
 - Update to 5.12.0
 

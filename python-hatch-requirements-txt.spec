@@ -4,7 +4,7 @@
 Name:           python-hatch-requirements-txt
 Version:        0.4.0
 %forgemeta
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hatchling plugin to read project dependencies from requirements.txt
 
 License:        MIT
@@ -68,6 +68,9 @@ find hatch_requirements_txt/ -type f ! -executable -name '*.py' -print \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Maxwell G <maxwell@gtmx.me> - 0.4.0-2
 - Fix test failures with latest hatchling release
 

@@ -8,8 +8,8 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        3.4.6
-Release:        4%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -65,8 +65,6 @@ URL:            %{ansible_collection_url community docker}
 %global forgeurl https://github.com/ansible-collections/community.docker
 Source0:        %{forgeurl}/archive/%{version}/community.docker-%{version}.tar.gz
 Patch0:         build_ignore-unnecessary-files.patch
-Patch1:         tests-import-match_hostname-from-urllib3.patch
-Patch2:         tests-remove-usage-of-deprecated-TestCase-methods.patch
 
 BuildArch:      noarch
 
@@ -111,6 +109,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Sun Jan 21 2024 Maxwell G <maxwell@gtmx.me> - 3.5.0-1
+- Update to 3.5.0.
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

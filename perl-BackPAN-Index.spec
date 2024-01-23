@@ -1,6 +1,6 @@
 Name:           perl-BackPAN-Index
 Version:        0.42
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Interface to the BackPAN index
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/BackPAN-Index
@@ -67,6 +67,9 @@ BACKPAN_INDEX_TEST_NO_INTERNET=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

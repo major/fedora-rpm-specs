@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
 Version: 5.92.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -61,6 +61,15 @@ Requires:       qt6-qtquick3d%{?_isa}
 %description
 %{summary}.
 
+%package -n kate-krunner-plugin
+Summary: KRunner plugin for searching Kate sessions
+Requires: kate
+Supplements: kate
+# Before the split
+Conflicts: kdeplasma-addons < 5.92.0-3
+%description -n kate-krunner-plugin
+%{summary}.
+
 %package devel
 Summary:        Development files for %{name}
 # headers only: fixme: confirm need for dep on main pkg? -- rdieter
@@ -98,7 +107,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_datadir}/plasma/wallpapers/*
 %{_kf6_datadir}/qlogging-categories6/kdeplasma-addons.categories
 %{_kf6_qtplugindir}/plasma/applets/*.so
-%{_kf6_qtplugindir}/kf6/
+%{_kf6_plugindir}/krunner/kcms/kcm_krunner_charrunner.so
+%{_kf6_plugindir}/krunner/kcms/kcm_krunner_dictionary.so
+%{_kf6_plugindir}/krunner/kcms/kcm_krunner_spellcheck.so
+%{_kf6_plugindir}/krunner/krunner_charrunner.so
+%{_kf6_plugindir}/krunner/krunner_dictionary.so
+%{_kf6_plugindir}/krunner/krunner_konsoleprofiles.so
+%{_kf6_plugindir}/krunner/krunner_spellcheck.so
+%{_kf6_plugindir}/krunner/org.kde.datetime.so
+%{_kf6_plugindir}/krunner/unitconverter.so
+%{_kf6_plugindir}/packagestructure/*.so
 %{_kf6_qtplugindir}/plasmacalendarplugins/
 %{_kf6_qtplugindir}/kwin/effects/configs/kwin_cube_config.so
 %{_kf6_qtplugindir}/potd/
@@ -115,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_libdir}/qt6/qml/org/kde/plasmacalendar/astronomicaleventsconfig/*
 %{_libdir}/qt6/qml/org/kde/plasmacalendar/alternatecalendarconfig/*
 
+%files -n kate-krunner-plugin
+%{_kf6_plugindir}/krunner/krunner_katesessions.so
+
 %files devel
 %{_libdir}/cmake/PlasmaPotdProvider/
 %{_includedir}/plasma/potdprovider/
@@ -123,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Sun Jan 21 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
+- Split kate krunner plugin into its own package
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

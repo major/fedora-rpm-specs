@@ -15,7 +15,7 @@
 
 Name:           php-phpunit-Version
 Version:        2.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Managing the version number of Git-hosted PHP projects
 
 License:        BSD-3-Clause
@@ -79,6 +79,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

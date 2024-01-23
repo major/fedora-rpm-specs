@@ -1,6 +1,6 @@
 Name:           perl-Net-LDAP-Server
 Version:        0.43
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Net::LDAP::Server Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-LDAP-Server
@@ -57,6 +57,9 @@ connection with the client.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: log4cplus
 Version: 2.1.1
-Release: 1%{?prever:.%{prever}}%{?dist}
+Release: 2%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
 %define VER %(echo %{version} | tr . _)
@@ -86,6 +86,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Martin Osvald <mosvald@redhat.com> - 2.1.1-1
 - New version 2.1.1 (rhbz#2250290)
 - Fix incorrect upstream URL and SourceX (rhbz#2249526)

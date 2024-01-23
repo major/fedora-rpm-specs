@@ -16,7 +16,7 @@
 
 Name:           php-hamcrest2
 Version:        2.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        PHP port of Hamcrest Matchers
 
 License:        BSD
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

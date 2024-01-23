@@ -5,7 +5,7 @@
 
 Name:           lua-argparse
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Feature-rich command line parser for Lua
 
 License:        MIT
@@ -62,6 +62,9 @@ assert(#parser == 0)'
 %doc doc/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 18 2023 Jonny Heggheim <hegjon@gmail.com> - 0.7.1-1
 - Updated to version 0.7.1
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-RSS
 Version:        1.62
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl module for managing RDF Site Summary (RSS) files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-RSS
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/XML::RSS*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

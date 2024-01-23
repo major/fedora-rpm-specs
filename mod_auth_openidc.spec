@@ -15,7 +15,7 @@
 
 Name:		mod_auth_openidc
 Version:	2.4.14.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	Apache-2.0
@@ -96,6 +96,9 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 5 2023 Tomas Halman <thalman@redhat.com> - 2.4.14.3-1
   Rebase to 2.4.14.3 version
 - Resolves: rhbz#2204524 - mod_auth_openidc-2.4.14.3 is available

@@ -5,7 +5,7 @@
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 31
+%global baserelease 32
 
 Name:		lincity-ng
 Version:	2.9
@@ -135,6 +135,9 @@ EOF
 %{_datadir}/lincity-ng/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-0.32.20210424gitd35c3be
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Florian Weimer <fweimer@redhat.com> - 2.9-0.31.20210424gitd35c3be
 - Fix incompatible-pointer-types bug in configure script
 

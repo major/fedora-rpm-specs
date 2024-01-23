@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.1.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|Sha
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.10-2
 - Fix build for x86-64-v3
 - Run all tests on i686, ppc64le, x86_64

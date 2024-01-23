@@ -11,7 +11,7 @@
 
 Name:           netcdf-cxx4
 Version:        4.3.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        NetCDF-4 C++ library
 
 License:        NetCDF
@@ -249,6 +249,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.3.1-10
 - Rebuild for openmpi 5.0.0, drops i686 and C++ API
 

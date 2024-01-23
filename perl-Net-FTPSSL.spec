@@ -1,6 +1,6 @@
 Name:           perl-Net-FTPSSL
 Version:        0.42
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Perl module for FTP over SSL/TLS
 License:        GPL+ or Artistic
 
@@ -71,6 +71,9 @@ echo n |%{make_build} test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

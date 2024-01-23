@@ -3,7 +3,7 @@
 
 Name:           perl-Types-UUID
 Version:        0.004
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Type constraints for UUIDs
 # CONTRIBUTING: GPL+ or Artistic or CC-BY-SA
 # COPYRIGHT:    Public Domain
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

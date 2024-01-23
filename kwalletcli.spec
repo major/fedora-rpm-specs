@@ -1,6 +1,6 @@
 Name:           kwalletcli
 Version:        3.03
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        CLI for the KDE Wallet
 
 License:        MirOS
@@ -57,6 +57,9 @@ make install DESTDIR=%{buildroot} INSTALL_STRIP=
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.03-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.03-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

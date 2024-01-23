@@ -34,7 +34,7 @@
 
 Name:           menu-cache
 Version:        %{main_version}%{git_ver_rpm}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
 # SPDX confirmed
@@ -140,6 +140,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^20230724git4a82095c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0^20230724git4a82095c-1
 - Update to the latest git
 

@@ -7,7 +7,7 @@
 
 Name: libvirt-glib
 Version: 5.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: libvirt glib integration for events
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -294,6 +294,9 @@ MinGW Windows libvirt-gobject virtualization library.
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 30 2023 Daniel P. Berrangé <berrange@redhat.com> - 5.0.0-1
 - Rebased to 5.0.0 release
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-Forward
 Version:        0.100006
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Namespace Dispatch and Resolution
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.100006-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.100006-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

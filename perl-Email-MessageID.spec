@@ -1,6 +1,6 @@
 Name:           perl-Email-MessageID
 Version:        1.408
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generate world unique message-ids
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,6 +61,9 @@ make test
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.408-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.408-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

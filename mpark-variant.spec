@@ -5,7 +5,7 @@
 Name: mpark-variant
 Summary: C++17 std::variant for C++11/14/17
 Version: 1.4.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: BSL-1.0
 URL: https://github.com/mpark/variant
@@ -48,6 +48,9 @@ sed -i 's@lib/@%{_libdir}/@g' CMakeLists.txt
 %{_libdir}/cmake/mpark_variant
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Django application for allowing users to filter queryset dynamically
 
 License:        BSD
@@ -68,6 +68,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

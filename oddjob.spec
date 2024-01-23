@@ -22,7 +22,7 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
 Patch1: oddjob-override-mask-fix.patch
@@ -253,6 +253,9 @@ fi
 exit 0
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.34.7-10
 - Fix build with libxml2-2.12.0
 

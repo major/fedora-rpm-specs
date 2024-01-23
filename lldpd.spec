@@ -1,6 +1,6 @@
 Name:     lldpd
 Version:  1.0.16
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -114,6 +114,9 @@ exit 0
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Florian Weimer <fweimer@redhat.com> - 1.0.16-4
 - Reapply C99 compatibility fix
 

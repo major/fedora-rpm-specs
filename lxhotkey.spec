@@ -1,6 +1,6 @@
 Name:			lxhotkey
 Version:		0.1.1
-Release:		7%{?dist}
+Release:		8%{?dist}
 Summary:		Hotkeys management utility
 
 License:		GPL-2.0-or-later
@@ -76,6 +76,9 @@ desktop-file-install \
 %{_includedir}/%{name}/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  2 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.1-7
 - SPDX migration
 

@@ -4,7 +4,7 @@ operations required for synchronizing plain text.
 
 Name:          python-%{srcname}
 Version:       20230430
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Algorithms for synchronizing plain text
 
 License:       Apache-2.0
@@ -51,6 +51,9 @@ Summary:       %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230430-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230430-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

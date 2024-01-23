@@ -1,7 +1,7 @@
 %global oqs_version 0.5.2
 Name:       oqsprovider
 Version:    %{oqs_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    oqsprovider is an OpenSSL provider for quantum-safe algorithms based on liboqs
 
 License:    Apache-2.0 AND MIT
@@ -46,6 +46,9 @@ install %{_vpath_builddir}/lib/oqsprovider.so $RPM_BUILD_ROOT/%{_libdir}/ossl-mo
 %{_libdir}/ossl-modules/oqsprovider.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 27 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.5.2-1
 - Switch to 0.5.2 version
   Resolves: rhbz#2224598

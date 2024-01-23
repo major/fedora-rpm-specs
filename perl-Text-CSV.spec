@@ -1,6 +1,6 @@
 Name:       perl-Text-CSV
 Version:    2.03
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Comma-separated values manipulator
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Text-CSV
@@ -68,6 +68,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/Text::CSV*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.03-1
 - 2.03 bump (rhbz#2231263)
 

@@ -1,6 +1,6 @@
 Name:       perl-Test-Block
 Version:    0.13
-Release:    33%{?dist}
+Release:    34%{?dist}
 # see lib/Test/Block.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Specify fine granularity test plans
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

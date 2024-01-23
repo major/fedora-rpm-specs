@@ -1,6 +1,6 @@
 Name:           python-installer
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library for installing Python wheels
 
 # SPDX
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Karolina Surma <ksurma@redhat.com> - 0.7.0-4
 - Fix the build with Python 3.13
 Fixes: rhbz#2246052

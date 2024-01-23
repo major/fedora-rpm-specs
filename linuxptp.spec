@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Miroslav Lichvar <mlichvar@redhat.com> 4.2-1
 - update to 4.2
 - update default ptp4l.conf

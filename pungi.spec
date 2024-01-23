@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -142,6 +142,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Lubomír Sedlář <lsedlar@redhat.com> - 4.6.0-2
 - ostree_container: Use unique temporary directory
 

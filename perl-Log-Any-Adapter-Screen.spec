@@ -1,6 +1,6 @@
 Name:           perl-Log-Any-Adapter-Screen
 Version:        0.140
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Send logs to screen, with colors and some other features
 
 License:        GPL+ or Artistic
@@ -67,6 +67,9 @@ from some environment variables, add prefix/timestamps.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.140-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.140-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

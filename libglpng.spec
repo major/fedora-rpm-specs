@@ -1,6 +1,6 @@
 Name:           libglpng
 Version:        1.45
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Toolkit for loading PNG images as OpenGL textures
 License:        MIT
 URL:            https://admin.fedoraproject.org/pkgdb/packages/name/libglpng
@@ -61,6 +61,9 @@ make install DESTDIR=$RPM_BUILD_ROOT%{_prefix} LIB=%{_lib}
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

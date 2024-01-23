@@ -13,7 +13,7 @@
 
 Name:           perl-Software-License
 Version:        0.104005
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package that provides templated software licenses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Software-License
@@ -83,6 +83,9 @@ Software-License contains templates for common open source software licenses.
 %{_mandir}/man3/Software::LicenseUtils.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.104005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.104005-1
 - Update to 0.104005
 - Use %%{make_build} and %%{make_install} where appropriate

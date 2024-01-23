@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.20.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
 # va/x11/va_dri* are ICU
@@ -79,6 +79,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.20.0-2
 - Restore support for nvctrl
 

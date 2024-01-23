@@ -1,6 +1,6 @@
 Name:           perl-Hook-LexWrap
 Version:        0.26
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Lexically scoped subroutine wrappers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hook-LexWrap
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Hook::LexWrap.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

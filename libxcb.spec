@@ -2,7 +2,7 @@
 
 Name:       libxcb
 Version:    1.16
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A C binding to the X11 protocol
 License:    X11
 URL:        http://xcb.freedesktop.org/
@@ -118,6 +118,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_pkgdocdir}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.16-2
 - Add missing README.md and libxcb-dbe
 

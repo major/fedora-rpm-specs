@@ -1,6 +1,6 @@
 Name:           perl-PAR
 Version:        1.019
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl Archive Toolkit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.019-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.019-1
 - 1.019 bump (rhbz#2247483)
 

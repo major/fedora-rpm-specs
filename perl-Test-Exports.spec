@@ -1,6 +1,6 @@
 Name:           perl-Test-Exports
 Version:        1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Test that modules export the right symbols
 # 2-clause BSD with advertising
 # c.f. lib/Test/Exports.pm
@@ -51,6 +51,9 @@ been imported.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

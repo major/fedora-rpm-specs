@@ -18,7 +18,7 @@ Summary: Dependency injection, the Python way
 License: Apache-2.0
 
 Version: 5.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pypi_name}
 Source0: %pypi_source
@@ -67,6 +67,9 @@ BuildArch: noarch
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 5.2.0-1
 - Update to v5.2.0
 

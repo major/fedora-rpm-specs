@@ -2,7 +2,7 @@
 
 Name:           python-genshi
 Version:        0.7.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD
@@ -69,6 +69,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 09 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.7-8
 - add patch to replace "unittest.makeSuite()" (rhbz #2245863)
 

@@ -1,6 +1,6 @@
 Name:           libtexprintf
 Version:        1.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Formatted Output with tex-like syntax support
 
 License:        GPL-3.0-only
@@ -96,5 +96,8 @@ make check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 04 2023 Benson Muite <benson_muite@emailplus.org> - 1.25-1
 - Initial packaging

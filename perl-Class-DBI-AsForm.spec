@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-AsForm
 Version:        2.42
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Produce HTML form elements for database columns
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-AsForm
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 3
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -513,6 +513,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8b-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan  1 2024 Paul Howarth <paul@city-fan.org> - 1.3.8b-2
 - Use libsodium to provide ed25519 key support for mod_sftp (#2256340)
 - Update logrotate snippet to use try-reload-or-restart rather than reload

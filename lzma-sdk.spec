@@ -4,7 +4,7 @@
 
 Name:           lzma-sdk
 Version:        %{ver_maj}.%{ver_min}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SDK for lzma compression
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ rm -rv %{buildroot}/usr/include/lzma-sdk/CPP/Windows
 %{_libdir}/liblzmasdk.so
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 22.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 22.01-1
 - Rebase to 22.01 (based on Gwyn Ciesla's spec), resolves: rhbz#1546091
 - Use SPDX identifier in License: tag

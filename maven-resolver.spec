@@ -3,7 +3,7 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -119,6 +119,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.15-3
 - Rebuild to regenerate auto-Requires on java
 

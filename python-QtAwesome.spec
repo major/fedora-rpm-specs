@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	1.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
 # MIT: QtAwesome code and the bundled phosphor and remixicon fonts
@@ -109,6 +109,9 @@ ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
 %{_bindir}/qta-browser
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.0-2
 - Assert a license file is automatically handled; don’t package a duplicate
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-xerces-c
 Version:        3.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MingGW Windows validating XML parser
 
 License:        Apache-2.0
@@ -100,6 +100,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 3.2.5-1
 - Update to 3.2.5
 

@@ -1,6 +1,6 @@
 Name:           latexmk
 Version:        4.82a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A make-like utility for LaTeX files
 
 %global upstreamver %(sed 's/\\.//' <<< %{version})
@@ -59,6 +59,9 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.82a-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 4.82a-1
 - Version 4.82a
 

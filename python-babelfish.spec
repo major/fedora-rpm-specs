@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.6.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Python library to work with countries and languages
 License: BSD
 URL: https://babelfish.readthedocs.org/
@@ -56,6 +56,9 @@ can be extended to use custom converters and data.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

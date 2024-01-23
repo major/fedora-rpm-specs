@@ -1,6 +1,6 @@
 Name:           perl-Socket-GetAddrInfo
 Version:        0.22
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        RFC 2553's "getaddrinfo" and "getnameinfo" functions
 
 License:        GPL+ or Artistic
@@ -67,6 +67,9 @@ converts a socket address back into its host name/service name pair.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -33,7 +33,7 @@
 
 Name:			lxappearance-obconf
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Plugin to configure Openbox inside LXAppearance
 
 # SPDX confirmed
@@ -132,6 +132,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3^20231121gitf663dca5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3^20231121gitf663dca5-1
 - Update to the latest git
 

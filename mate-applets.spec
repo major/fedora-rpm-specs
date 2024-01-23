@@ -15,9 +15,9 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        6%{?dist}
+Release:        7%{?dist}
 %else
-Release:        0.7%{?git_rel}%{?dist}
+Release:        0.8%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop panel applets
 License:        GPLv2+ and LGPLv2+
@@ -141,6 +141,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-6
 - fix linking gtksourceview, rhbz (#2241946)
 

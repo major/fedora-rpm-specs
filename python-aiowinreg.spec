@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Windows registry file reader
 
 License:        MIT
@@ -43,6 +43,9 @@ cp -a %{SOURCE1} LICENSE
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

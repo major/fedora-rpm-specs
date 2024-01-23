@@ -1,6 +1,6 @@
 Name:           perl-VM-EC2
 Version:        1.28
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl interface to Amazon EC2
 # lib/VM/EC2.pm:    GPL+ or Artistic 2.0
 # LICENSE:          GPL+ or Artistic 2.0
@@ -133,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

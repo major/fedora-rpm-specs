@@ -6,7 +6,7 @@
 
 Name:		libappindicator
 Version:	12.10.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Application indicators library
 
 License:	LGPLv2 and LGPLv3
@@ -226,6 +226,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

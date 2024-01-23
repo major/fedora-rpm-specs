@@ -4,7 +4,7 @@
 Name:           python-coincidence
 Version:        0.6.5
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helper functions for pytest
 
 License:        MIT
@@ -67,5 +67,8 @@ find coincidence/ -type f ! -executable -name '*.py' -print \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 19 2023 Maxwell G <maxwell@gtmx.me> - 0.6.5-1
 - Initial package. Closes rhbz#2244975.

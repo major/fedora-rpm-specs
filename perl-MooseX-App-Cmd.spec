@@ -1,6 +1,6 @@
 Name:       perl-MooseX-App-Cmd
 Version:    0.34
-Release:    8%{?dist}
+Release:    9%{?dist}
 # see lib/MooseX/App/Cmd.pm
 License:    GPL+ or Artistic
 Summary:    Mashes up MooseX::Getopt and App::Cmd
@@ -99,6 +99,9 @@ returning a Getopt::Long::Descriptive spec.
 %{_mandir}/man3/MooseX::*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           php-pear-OLE
 Version:        1.0.0
-Release:        0.27.%{prever}%{?dist}
+Release:        0.28.%{prever}%{?dist}
 Summary:        Package for reading and writing OLE containers
 
 License:        PHP
@@ -71,6 +71,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.28.RC2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.27.RC2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

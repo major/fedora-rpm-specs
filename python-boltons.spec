@@ -1,6 +1,6 @@
 Name:           python-boltons
 Version:        23.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Functionality that should be in the standard library
 
 License:        BSD-3-Clause
@@ -68,6 +68,9 @@ install -m644 docs/_build/man/boltons.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Orion Poplawski <orion@nwra.com> - 23.1.1-2
 - Build man page
 

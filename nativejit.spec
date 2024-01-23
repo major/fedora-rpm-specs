@@ -9,7 +9,7 @@ ExclusiveArch: x86_64
 
 Name:    nativejit
 Version: 0.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Library for high-performance just-in-time compilation
 License: MIT
 URL:     https://github.com/copasi/copasi-dependencies/tree/master/src/NativeJIT
@@ -74,6 +74,9 @@ fi
 %{_libdir}/cmake/nativejit*.cmake
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

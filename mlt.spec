@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -245,6 +245,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.22.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Marie Loise Nolden <loise@kde.org> - 7.22.0-2
 - use Qt6 instead of Qt5, otherwise kdenlive won't work with Qt6/KF6
 

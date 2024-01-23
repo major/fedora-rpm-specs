@@ -1,6 +1,6 @@
 Name: liboauth2
 Version: 1.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
 URL: https://github.com/zmartzone/liboauth2
@@ -90,6 +90,9 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 7 2023 Packit <hello@packit.dev> - 1.6.0-1
 - 1.6.0: use libcurl version macro that works on older platforms (Hans Zandbelt)
 - 1.6.0: add support for the OAuth 2.0 Client Credentials grant type (Hans Zandbelt)

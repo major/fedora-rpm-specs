@@ -1,6 +1,6 @@
 Name:           libgtop2
 Version:        2.41.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LibGTop library (version 2)
 
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ find %{buildroot} -name '*.la' -delete
 %exclude %{_datadir}/info
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 21 2023 Kalev Lember <klember@redhat.com> - 2.41.2-1
 - Update to 2.41.2
 

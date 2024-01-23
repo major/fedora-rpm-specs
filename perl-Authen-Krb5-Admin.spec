@@ -1,6 +1,6 @@
 Name:           perl-Authen-Krb5-Admin
 Version:        0.17
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl extension for MIT Kerberos 5 admin interface
 # admin.h - MIT
 # ppport.h - GPL+ or Artisic (same as any version of Perl)
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

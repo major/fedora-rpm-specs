@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HashiCorp Vault API client for Python
 
 License:        Apache-2.0
@@ -42,6 +42,9 @@ find hvac -type f ! -executable -name '*.py' -print -exec sed -r -i -e '1{\@^#!/
 %doc README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 12 2023 Andrew Heath <aheath1992@gmail.com> - 1.2.1-1
 - Update to 1.2.1
 

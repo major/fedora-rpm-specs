@@ -1,5 +1,5 @@
 Name:           perl-Modern-Perl
-Version:        1.20240115
+Version:        1.20240120
 Release:        1%{?dist}
 Summary:        Enable all of the features of Modern Perl with one command
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,11 @@ make test
 %{_mandir}/man3/odern::Perl.3*
 
 %changelog
+* Sun Jan 21 2024 Paul Howarth <paul@city-fan.org> - 1.20240120-1
+- Update to 1.20240120
+  - Fix tests for Perl < 5.26.0 (CPAN RT#151198)
+  - Fix feature reset for Perl < 5.15 (CPAN RT#151190)
+
 * Mon Jan 15 2024 Paul Howarth <paul@city-fan.org> - 1.20240115-1
 - Update to 1.20240115 (rhbz#2258384)
   - Update for 2024 year bundle

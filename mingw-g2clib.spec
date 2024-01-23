@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.6.3
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       MinGW Windows g2clib library
 
 BuildArch:     noarch
@@ -103,6 +103,9 @@ cp -p %{SOURCE2} .
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 01 2023 Sandro Mani <manisandro@gmail.com> - 1.6.3-9
 - Rebuild (jasper)
 

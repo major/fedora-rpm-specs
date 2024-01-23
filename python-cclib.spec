@@ -33,7 +33,7 @@ from these programs and contained in output files, specifically:
 
 Name:           python-%{pname}
 Version:        1.7.1
-Release:        5%{date}%{shortcommit}%{?dist}
+Release:        6%{date}%{shortcommit}%{?dist}
 Summary:        Parsers for output files of computational chemistry packages
 License:        BSD and LGPLv2+
 URL:            https://cclib.github.io/
@@ -96,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m test.test_data
 %{_bindir}/cda
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-6.20220618git8e6892a5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-5.20220618git8e6892a5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

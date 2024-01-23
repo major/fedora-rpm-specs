@@ -1,6 +1,6 @@
 Name:           perl-Module-Versions-Report
 Version:        1.06
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Report versions of all modules in memory
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,9 @@ detailing the all modules in memory, and noting the version of each
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

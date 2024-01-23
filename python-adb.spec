@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python implementation of the Android ADB and Fastboot protocols
 
 License:        ASL 2.0
@@ -59,6 +59,9 @@ sed -i -e '/^#!\//, 1d' {adb/adb_debug.py,adb/fastboot_debug.py}
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           osgi-annotation
 Version:        8.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Annotations for use in compiling OSGi bundles
 License:        Apache-2.0
 URL:            https://www.osgi.org
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} pom.xml
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 8.1.0-2
 - Convert License tag to SPDX format
 

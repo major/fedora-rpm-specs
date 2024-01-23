@@ -4,7 +4,7 @@
 
 Name:           php-pear-Net-Curl
 Version:        1.2.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        OO interface to PHP's cURL extension
 
 License:        BSD
@@ -67,6 +67,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

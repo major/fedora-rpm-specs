@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.7.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -196,6 +196,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Haibo Lin <hlin@redhat.com> - 0.7.0-1
 - backend: Add odcs-credential-helper executable
 - backend: Add support for git credentials

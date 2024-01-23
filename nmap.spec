@@ -7,7 +7,7 @@ Name: nmap
 Epoch: 3
 Version: 7.93
 #global prerelease TEST5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Network exploration tool and security scanner
 URL: http://nmap.org/
 # Uses combination of licenses based on GPL license, but with extra modification
@@ -156,6 +156,9 @@ fi
 %{_mandir}/man1/ncat.1.gz
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:7.93-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3:7.93-4
 - Use pcre2 instead of deprecated pcre (rhbz#2128336)
 

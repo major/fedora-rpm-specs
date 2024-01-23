@@ -1,6 +1,6 @@
 Name: plug
 Version: 1.4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
 License: GPL-3.0-or-later
 Url: https://github.com/offa/plug
@@ -56,6 +56,9 @@ make unittest -C %__cmake_builddir
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Dan Horák <dan[at]danny.cz> - 1.4.5-1
 - Updated to 1.4.5 (rhbz#2253592)
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-Date
 Version:        1.1.17
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Class for easy date and time manipulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Date
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.17-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.17-19
 - Add dependency tzdata (rhbz#2243614)
 

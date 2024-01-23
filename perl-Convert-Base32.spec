@@ -1,6 +1,6 @@
 Name:           perl-Convert-Base32
 Version:        0.06
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Encoding and decoding of base32 strings
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/Convert::Base32
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

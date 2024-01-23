@@ -1,6 +1,6 @@
 Name:		mmv
 Version:	2.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Move/copy/link multiple files
 
 License:	GPL-3.0-or-later
@@ -42,6 +42,9 @@ make check
 %{_mandir}/man1/*.1*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 2.5.1-1
 - upgrade to release 2.5.1 based on fork from Reuben Thomas
 - Debian has moved as well and was used a upstream by the previous version of this package

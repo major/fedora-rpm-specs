@@ -1,6 +1,6 @@
 Name:    libkcompactdisc 
 Version: 24.01.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A KDE compact disc library
 
 # License for this library is very nebulous.
@@ -72,6 +72,9 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.90-1
 - 24.01.90
 

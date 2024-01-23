@@ -1,6 +1,6 @@
 Name:      perl-Apache-DBI
 Version:   1.12
-Release:   31%{?dist}
+Release:   32%{?dist}
 Summary:   Persistent database connections with Apache/mod_perl
 
 License:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -132,6 +132,9 @@ make test
 %{perl_vendorlib}/Apache/AuthDBI.pm
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Petr Pisar <ppisar@redhat.com> - 1.12-31
 - Convert the license tag to an SPDX format
 - Correct listing the dependencies

@@ -3,7 +3,7 @@
 
 Name:           lbrickbuster2
 Version:        2.6.5
-Release:        18%{?dist}
+Release:        20%{?dist}
 Summary:        Brickbuster arcade game
 License:        GPLv2+
 URL:            http://lgames.sourceforge.net/
@@ -12,10 +12,10 @@ Source0:        http://downloads.sourceforge.net/lgames/%{realname}-%{version}.t
 Source1:        %{name}-art.tar.gz
 Patch0:         lbrickbuster2-rebrand-images.patch  
 Patch1:         lbrickbuster2-default-fullscreen.patch
-BuildRequires:  gcc
+Patch2:         lbrickbuster2-fix-fortify-source.patch
+BuildRequires:  gcc make
 BuildRequires:  SDL_mixer-devel libpng-devel ImageMagick desktop-file-utils
 BuildRequires:  gettext
-BuildRequires: make
 Requires:       hicolor-icon-theme
 # obsolete non rebranded freshrpms version
 Obsoletes:      lbreakout2 <= %{version}-%{release}
@@ -31,9 +31,7 @@ the integrated level editor.
 
 
 %prep
-%setup -q -a 1 -n %{realname}-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1 -a 1 -n %{realname}-%{version}
 # fully automated rebrand to lbrickbuster
 for i in `find -type f -not -name "*.png" -not -name "*.wav"`; do
   touch -r $i $i.stamp
@@ -136,6 +134,13 @@ EOF
 
 
 %changelog
+* Sun Jan 21 2024 Thomas Huth <thuth@redhat.com> - 2.6.5-20
+- Fix crash due to bad buffersize caught by -D_FORTIFY_SOURCE=3
+- Resolves: rhbz#2249220
+
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

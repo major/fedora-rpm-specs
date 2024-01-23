@@ -1,6 +1,6 @@
 Name:           lxmusic
 Version:        0.4.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Lightweight XMMS2 client with simple user interface
 
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ EOF
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 12 2023 Tom Callaway <spot@fedoraproject.org> - 0.4.7-17
 - rebuild for new xmms2
 - SPDX license string

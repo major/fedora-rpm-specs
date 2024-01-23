@@ -11,11 +11,21 @@ URL:      https://elixir-lang.org/
 VCS:      scm:git:https://github.com/%{upstream}/%{realname}.git
 Source0:  https://github.com/%{upstream}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  https://github.com/%{upstream}/%{name}/releases/download/v%{version}/Docs.zip#/%{name}-%{version}-doc.zip
+%ifnarch %{java_arches}
+# erlang-doc is required for unit-testing but not strictly necessary for anything else
+# https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
+Patch1:   elixir-0001-Workaround-for-failed-tests-in-i686.patch
+%endif
 # See https://bugzilla.redhat.com/1470583
 #BuildArch:      noarch
 BuildRequires: erlang-compiler
 BuildRequires: erlang-crypto
 BuildRequires: erlang-dialyzer
+%ifarch %{java_arches}
+# Requires for unit-testing but not strictly necessary for anything else
+# https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
+BuildRequires: erlang-doc
+%endif
 BuildRequires: erlang-erts
 BuildRequires: erlang-eunit
 BuildRequires: erlang-inets
@@ -30,6 +40,11 @@ BuildRequires: erlang-xmerl
 BuildRequires: git
 BuildRequires: sed
 BuildRequires: make
+%ifarch %{java_arches}
+# Requires for unit-testing but not strictly necessary for anything else
+# https://gitlab.alpinelinux.org/alpine/aports/-/issues/15654
+Recommends: erlang-doc
+%endif
 
 
 %description

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Fuzzy Finder implemented in Python
 
 License:        BSD
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-3 -v
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

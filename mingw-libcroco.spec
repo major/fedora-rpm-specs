@@ -2,7 +2,7 @@
 
 Name:           mingw-libcroco
 Version:        0.6.12
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A CSS2 parsing library for MinGW
 
 License:        LGPLv2
@@ -105,6 +105,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/libcroco-0.6.a
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

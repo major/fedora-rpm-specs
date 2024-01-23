@@ -1,6 +1,6 @@
 Name:           mailcap
 Version:        2.1.54
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Helper application and MIME type associations for file types
 
 License:        LicenseRef-Fedora-Public-Domain AND MIT AND metamail
@@ -64,6 +64,9 @@ make check
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.54-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 31 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.54-3
 - Add additional SPDX licenses found by scancode tool
 

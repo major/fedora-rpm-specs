@@ -9,7 +9,7 @@
 
 Name:           libsecret
 Version:        0.21.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 # libsecret/mock/aes.py is Apache-2.0
@@ -108,6 +108,9 @@ rm -rf build/valgrind/
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 10 2023 Daiki Ueno <dueno@redhat.com> - 0.21.2-2
 - Use GnuTLS as the default crypto backend
 

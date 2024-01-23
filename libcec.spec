@@ -4,7 +4,7 @@
 
 Name:          libcec
 Version:       6.0.2
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
@@ -98,6 +98,9 @@ mv %{buildroot}/%{_bindir}/cecc-client-%{version} %{buildroot}/%{_bindir}/cecc-c
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.0.2-14
 - Fix RHBZ #2245791
 - Switch license tag to SPDX

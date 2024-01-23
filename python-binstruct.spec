@@ -11,7 +11,7 @@ with its fields.
 
 Name:		python-%{pypi_name}
 Version:	1.0.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Library for read/write access of binary data via structures
 
 License:	GPLv3+
@@ -67,6 +67,9 @@ BuildRequires:	python3-setuptools
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

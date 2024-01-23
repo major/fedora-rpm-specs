@@ -1,6 +1,6 @@
 Name:           perl-Math-BigInt-GMP
 Version:        1.7001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Use the GMP library for Math::BigInt routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-GMP
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.7001-1
 - 1.7001 bump (rhbz#2257057)
 

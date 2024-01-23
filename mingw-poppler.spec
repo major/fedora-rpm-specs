@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       23.08.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
@@ -242,6 +242,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 12 2023 Sandro Mani <manisandro@gmail.com> - 23.08.0-1
 - Update to 23.08.0
 

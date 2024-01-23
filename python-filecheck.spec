@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.23
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -75,6 +75,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Dominik Mierzejewski <dominik@greysector.net> 0.0.23-4
 - fix passing count as positional argument deprecated in Python 3.13 (resolves rhbz#2247032)
 

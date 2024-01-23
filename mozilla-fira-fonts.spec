@@ -9,7 +9,7 @@ new set of sans-serif fonts which focuses on legibility.
 
 Name:      %{fontname}-fonts
 Version:   4.202
-Release:   15%{?dist}
+Release:   16%{?dist}
 Summary:   Mozilla's Fira fonts
 License:   OFL
 URL:       https://www.mozilla.org/en-US/styleguide/products/firefox-os/typeface/
@@ -88,6 +88,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.202-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.202-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

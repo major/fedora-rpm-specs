@@ -1,6 +1,6 @@
 Name:           perl-Encode-ISO2022
 Version:        0.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        ISO/IEC 2022 character encoding scheme
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Encode-ISO2022
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

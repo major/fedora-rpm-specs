@@ -1,6 +1,6 @@
 Name:		perl-File-Remove
 Version:	1.61
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Convenience module for removing files and directories
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -54,6 +54,9 @@ BuildArch:	noarch
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

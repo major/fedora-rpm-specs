@@ -3,7 +3,7 @@
 
 Name:           py3c
 Version:        1.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Guide and compatibility macros for porting extensions to Python 3
 
 # Licences differ for subpackages
@@ -81,6 +81,9 @@ sed --in-place -e's!%{buildroot}!!' %{buildroot}%{_datadir}/pkgconfig/py3c.pc
 %doc %{_pkgdocdir}/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

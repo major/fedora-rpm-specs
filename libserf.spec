@@ -1,6 +1,6 @@
 Name:           libserf
 Version:        1.3.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            http://serf.apache.org/
@@ -77,6 +77,9 @@ true
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 07 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.10-3
 - Add linking of gssapi to support Kerberos authentication
 - Resolves: rhbz#2245095

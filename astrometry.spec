@@ -8,7 +8,7 @@
 
 Name:           astrometry
 Version:        0.94
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -58,6 +58,8 @@ Source5:        astrometry-data-4207.tar.xz
 Source6:        astrometry-data-4208-4219.tar.xz
 Source7:        astrometry-get-data.sh
 
+Patch:          numpy-distutils-removal.patch
+
 # Patches from Ole Streicher <olebole@debian.org> used on Debian
 Patch:          %{name}-0.89_Add-SONAME-to-libastrometry.so.patch
 Patch:          %{name}-0.89_Dynamically-link-to-libastrometry.so-when-possible.patch
@@ -72,6 +74,7 @@ BuildRequires:  netpbm-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-astropy
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  swig
 BuildRequires:  xorg-x11-proto-devel
 
@@ -333,6 +336,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Sun Jan 21 2024 Mattia Verga <mattia.verga@protonmail.com> - 0.94-4
+- Fix build failure due to removed numpy.distutils and deprecated distutils
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

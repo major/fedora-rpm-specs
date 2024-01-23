@@ -14,7 +14,7 @@
 
 Name:           php-andrewsville-php-token-reflection
 Version:        1.4.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Library emulating the PHP internal reflection
 
 License:        BSD
@@ -90,6 +90,9 @@ cp -pr TokenReflection %{buildroot}%{_datadir}/php/TokenReflection
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

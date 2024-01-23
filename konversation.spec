@@ -1,6 +1,6 @@
 Name:           konversation
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary:        A user friendly IRC client
 
 License:        BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -133,6 +133,9 @@ fi
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-2
 - Mangle python shebang with py3_shebang_fix macro
 - Mangle other shebangs automatically with brp-mangle-shebangs

@@ -20,9 +20,6 @@
 #      python-snakemake-interface-storage-plugins
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-%bcond doc_pdf 1
 
 %global _description %{expand:
 The Snakemake workflow management system is a tool to create reproducible and
@@ -33,7 +30,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        8.2.1
+Version:        8.2.3
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -50,10 +47,6 @@ Source:         https://github.com/snakemake/snakemake/archive/v%{version}/snake
 
 BuildArch:      noarch
 
-# Since we build the docs as a PDF, we can’t include an animated GIF demo.
-# Patch out the image reference and the text referring to it.
-Patch:          snakemake-7.11.0-docs-no-animated-demo.patch
-
 BuildRequires:  python3-devel
 
 BuildRequires:  help2man
@@ -66,6 +59,10 @@ Provides:       vim-snakemake = %{version}-%{release}
 # until F40 reaches EOL so we have a clean upgrade path.
 Obsoletes:      snakemake+azure < 8.1.0-1
 Obsoletes:      snakemake+google-cloud < 8.1.0-1
+# We no longer build Sphinx-generated PDF documentation. Beginning with 8.2.3,
+# this would require patching out sphinxawesome-theme from docs/conf.py. It’s
+# possible but tedious.
+Obsoletes:      snakemake-doc < 8.2.1-2
 
 %if %{with tests}
 # See test-environment.yml for a listing of test dependencies, along with a lot
@@ -83,23 +80,6 @@ BuildRequires:  %{py3_dist google-cloud-storage}
 
 %description %_description
 
-%package doc
-
-Summary:        %{summary}
-
-BuildArch:      noarch
-
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-BuildRequires:  tex-xetex-bin
-BuildRequires:  /usr/bin/xindy
-BuildRequires:  /usr/bin/rsvg-convert
-%endif
-
-%description doc %_description
-
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
 #   - python3-peppy
@@ -116,11 +96,6 @@ sed -r -i '1{/^#!/d}' \
 # Fix calls to unversioned Python interpreter
 sed -r -i 's@"python"@"%{python3}"@g' tests/test_linting.py
 sed -r -i 's@python -m@"%{python3} -m@g' tests/tests.py
-# The sphinxcontrib-napoleon extension is now part of Sphinx.
-# The lutra HTML theme is not needed since we do not generate HTML docs.
-sed -r -i 's/^(sphinxcontrib-napoleon|lutra)/# &/' docs/requirements.txt
-# Since pdflatex cannot handle Unicode inputs in general:
-echo "latex_engine = 'xelatex'" >> docs/conf.py
 # Copy and rename nano and vim extensions readmes for use in the main
 # documentation directory.
 for editor in nano vim
@@ -130,23 +105,10 @@ done
 
 %generate_buildrequires
 # Generate BR’s for all supported extras to ensure they do not FTI
-%pyproject_buildrequires -x reports,messaging,google-cloud,azure %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires -x reports,messaging,google-cloud,azure
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
-# Cannot use SVG images when building PDF documentation; convert to PDFs
-find docs -type f -name '*.svg' |
-  while read -r fn
-  do
-    rsvg-convert --format=pdf \
-        --output="$(dirname "${fn}")/$(basename "${fn}" .svg).pdf" "${fn}"
-  done
-find docs/executor_tutorial -type f -exec \
-    gawk '/\.svg/ { print FILENAME; nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i 's/(image::.*)\.svg/\1\.pdf/'
-PYTHONPATH="${PWD}" %make_build -C docs latexpdf SPHINXOPTS='%{?_smp_mflags}'
-%endif
 
 %install
 %pyproject_install
@@ -207,6 +169,11 @@ ignore="${ignore-} --ignore-glob=tests/test_conda_python_3_7_script/*"
 %endif
 
 %files -f %{pyproject_files}
+%doc CHANGELOG.md
+%doc README.md
+%doc README-nano.md
+%doc README-vim.md
+
 %{_bindir}/snakemake
 %{_mandir}/man1/snakemake.1*
 
@@ -218,17 +185,6 @@ ignore="${ignore-} --ignore-glob=tests/test_conda_python_3_7_script/*"
 %{_datadir}/vim/vimfiles/ftdetect/snakemake.vim
 %{_datadir}/vim/vimfiles/ftplugin/snakemake/
 %{_datadir}/vim/vimfiles/syntax/snakemake.vim
-
-%files doc
-%license LICENSE.md
-%doc CHANGELOG.md
-%doc CODE_OF_CONDUCT.md
-%doc README.md
-%doc README-nano.md
-%doc README-vim.md
-%if %{with doc_pdf}
-%doc docs/_build/latex/Snakemake.pdf
-%endif
 
 %changelog
 %autochangelog

@@ -7,7 +7,7 @@
 
 Name:           perl-Crypt-DES
 Version:        2.07
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Perl DES encryption module
 License:        BSD-Systemics
 URL:            https://metacpan.org/release/Crypt-DES
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Crypt::DES.3*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.07-35
 - Update license field to new BSD-Systemics SPDX license id
 

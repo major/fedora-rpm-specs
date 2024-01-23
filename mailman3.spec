@@ -5,7 +5,7 @@
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -219,6 +219,9 @@ done
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 29 2023 Michel Lind <salimma@fedoraproject.org> - 3.3.8-3
 - Restore the required versions of flufl.bounce and flufl.lock
 - Use SPDX license identifier; fix license to GPL-3.0-or-later

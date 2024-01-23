@@ -1,6 +1,6 @@
 Name:		perl-DateTime-Calendar-Julian
 Version:	0.107
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPL+ or Artistic
 Summary:	Julian Calendar support for DateTime.pm
 Url:		https://metacpan.org/release/DateTime-Calendar-Julian
@@ -38,6 +38,9 @@ make test
 %{_mandir}/man3/DateTime::Calendar::Julian.3pm*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.107-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.107-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

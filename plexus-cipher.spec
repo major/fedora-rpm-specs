@@ -2,7 +2,7 @@
 
 Name:           plexus-cipher
 Version:        2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 License:        Apache-2.0
 # project moved to GitHub and it looks like there is no official website anymore
@@ -43,6 +43,9 @@ Plexus Cipher: encryption/decryption Component
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-7
 - Rebuild to regenerate auto-Requires on java
 

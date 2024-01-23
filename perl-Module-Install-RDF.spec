@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-RDF
 Version:        0.009
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Advanced meta-data for your distribution
 # CONTRIBUTING: CC-BY-SA
 # Other files:  GPL+ or Artistic
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

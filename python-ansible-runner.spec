@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 License:        ASL 2.0
@@ -94,6 +94,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_datadir}/ansible-runner/utils
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Maxwell G <maxwell@gtmx.me> - 2.3.4-2
 - Remove unused python3-mock dependency
 

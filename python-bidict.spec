@@ -1,6 +1,6 @@
 Name:           python-bidict
 Version:        0.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bidirectional mapping library for Python
 
 License:        MPL-2.0
@@ -68,6 +68,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' \
 %doc CHANGELOG.rst README.rst
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.22.1-1
 - Update to 0.22.1 (fix RHBZ#2157231)
 - Run tests via the included run_tests.py script (including all doctests)

@@ -1,6 +1,6 @@
 Name:           perl-Config-MVP-Slicer
 Version:        0.303
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Extract embedded configuration from a parent configuration
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Config-MVP-Slicer
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.303-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.303-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

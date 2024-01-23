@@ -1,6 +1,6 @@
 Name:           perl-Nagios-NSCA
 Version:        0.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Nagios::NSCA Perl module
 License:        GPL+ 
 URL:            https://metacpan.org/release/Nagios-NSCA
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{perl_vendorlib}/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -27,7 +27,7 @@
 
 Name:           pkgconf
 Version:        1.9.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -226,6 +226,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

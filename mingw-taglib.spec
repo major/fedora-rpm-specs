@@ -7,7 +7,7 @@
 Name:       mingw-%{_basename}
 Summary:    Audio Meta-Data Library
 Version:    1.12
-Release:    8%{?dist}
+Release:    9%{?dist}
 
 License:    LGPLv2 or MPLv1.1
 URL:        https://taglib.github.io/
@@ -100,6 +100,9 @@ This is the MinGW version, built for the win64 target.
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

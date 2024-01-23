@@ -1,7 +1,7 @@
 %global fontname lohit-gujarati
 
 Version:       2.92.4
-Release:       19%{?dist}
+Release:       20%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-gujarati-fonts
 
 %global foundry           Lohit
@@ -42,6 +42,9 @@ make ttf %{?_smp_mflags}
 %fontfiles
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.92.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-19
 - lowering priority of lohit-gujarati-fonts
 

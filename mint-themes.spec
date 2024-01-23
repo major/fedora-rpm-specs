@@ -1,7 +1,7 @@
 Name:           mint-themes
 Epoch:          1
 Version:        2.1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mint themes
 
 License:        GPLv3+
@@ -104,6 +104,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Leigh Scott <leigh123linux@gmail.com> - 1:2.1.6-2
 - Use pysassc instead of sassc
 

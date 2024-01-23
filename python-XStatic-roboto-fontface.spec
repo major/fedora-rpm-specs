@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        roboto-fontface (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -106,6 +106,9 @@ popd
 %{python3_sitelib}/XStatic_roboto_fontface-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

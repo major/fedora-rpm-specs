@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Plugin-Sysdeps
 Version:        0.72
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Plugin-Sysdeps
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.72-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Petr Pisar <ppisar@redhat.com> - 0.72-1
 - 0.72 bump
 

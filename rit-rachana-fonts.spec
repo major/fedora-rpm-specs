@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.4.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry RIT
@@ -18,7 +18,7 @@ URL:        https://gitlab.com/rit-fonts/%{fontsource}
 %global fontappstreams meta/in.org.rachana.rit-rachana.metainfo.xml
 
 %global fontdescription %{expand:
-RIT Rachana is opetype font for Malayalam traditional script designed by Hussain K H.
+RIT Rachana is opentype font for Malayalam traditional script designed by Hussain K H.
 It covers Unicode 13.0 and entire character set in 'definitive character set' of Malayalam. 
 }
 
@@ -51,6 +51,9 @@ make otf
 
 
 %changelog
+* Sun Jan 21 2024 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.4.7-2
+- Fix typo: RHBZ #2258579
+
 * Sat Jan 06 2024 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.4.7-1
 - Bugfix update, version 1.4.7
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod-No404s
 Version:        0.02
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Checks POD for HTTP 404 links
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Pod-No404s
@@ -69,6 +69,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

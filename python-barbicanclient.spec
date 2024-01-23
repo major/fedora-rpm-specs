@@ -19,7 +19,7 @@ a command-line script (barbican).
 
 Name:           python-barbicanclient
 Version:        5.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client Library for OpenStack Barbican Key Management API
 
 License:        Apache-2.0
@@ -119,6 +119,9 @@ ln -s ./barbican %{buildroot}%{_bindir}/barbican-3
 %endif
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 5.6.1-1
 - Update to upstream version 5.6.1
 

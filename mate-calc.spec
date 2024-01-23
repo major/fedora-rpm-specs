@@ -1,6 +1,6 @@
 Name:          mate-calc
 Version:       1.26.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       MATE Desktop calculator
 License:       GPLv2+
 URL:           http://mate-desktop.org
@@ -55,6 +55,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-6
 - rebuild to fix mouse input mentioned in rhbz (#2250715)
 - fix building with libxml2-2.12.0

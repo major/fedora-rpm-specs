@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python package to help astronomers plan observations
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ BuildRequires:  %{py3_dist setuptools}
 %doc README.rst
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.9-1
 - New release 0.9
 - Migrated to SPDX

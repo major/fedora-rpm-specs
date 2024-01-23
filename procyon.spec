@@ -8,7 +8,7 @@
 
 Name:       procyon
 Version:    0.6.0
-Release:    0.3.%{commitdate}.git%{shortcommit}%{?dist}
+Release:    0.4.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:    procyon java decompiler and other tools
 License:    ASL 2.0 
 URL:        https://github.com/mstrobel/procyon
@@ -211,6 +211,9 @@ popd
 %doc README.md
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.4.20220221.git88a95fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.3.20220221.git88a95fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

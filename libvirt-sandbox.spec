@@ -12,7 +12,7 @@
 
 Name: libvirt-sandbox
 Version: 0.8.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: libvirt application sandbox framework
 License: LGPLv2+
 URL: http://libvirt.org/
@@ -111,6 +111,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-sandbox-1.0.la
 %{_datadir}/gtk-doc/html/Libvirt-sandbox
 
 %changelog
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

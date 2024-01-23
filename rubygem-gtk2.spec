@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	17%{?dist}
+Release:	18%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -20,6 +20,10 @@ Source0:	http://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # Assign non-zero unique ID to each string (especially for id_relative_callbacks),
 # especially for ruby 3.2
 Patch0:	rubygem-gtk2-3.4.3-assign-nonzero-ID-to-relative-callback.patch
+# Patches for C99 -Werror=incompatible-pointer-types
+Patch1:	gtk2-3.4.3-rb_rescue-func-prototype.patch
+Patch2:	gtk2-3.4.3-rb_define_method_arg_number.patch
+Patch3:	gtk2-3.4.3-pointer-type-extra-cast-c99.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -100,6 +104,9 @@ sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}-%{version}.gemspec
 
 # Patches and etc
 %patch -P0 -p1 -b .nonzero_id
+%patch -P1 -p1 -b .rb_rescue_2args
+%patch -P2 -p1 -b .method_arg_num
+%patch -P3 -p1 -b .pointer-cast
 
 # Fix wrong dir
 grep -rl /usr/local/bin sample | \
@@ -205,6 +212,9 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-18
+- Fix compilation with C99 -Werror=incompatible-pointer-types
+
 * Tue Jan 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-17
 - SPDX migration
 
