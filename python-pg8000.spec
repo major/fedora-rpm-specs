@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.26.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure Python PostgreSQL Driver
 
 License:        BSD
@@ -51,6 +51,9 @@ Frontend Protocol.
 %{python3_sitelib}/%{srcname}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

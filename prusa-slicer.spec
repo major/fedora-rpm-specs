@@ -51,6 +51,8 @@ Patch391:       prusa-slicer-pr8304-boost-1_79-fix.patch
 Patch392:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79.patch
 # https://github.com/prusa3d/PrusaSlicer/commit/926ae0471800abd1e5335e251a5934570eb8f6ff
 Patch393:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79-followup.patch
+# https://github.com/prusa3d/PrusaSlicer/pull/11769
+Patch394:       prusa-slicer-pr-11769.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le

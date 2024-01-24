@@ -6,7 +6,7 @@
 
 Name:           Cython
 Version:        3.0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -118,6 +118,9 @@ Provides:       bundled(python3dist(tempita))
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

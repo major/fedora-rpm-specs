@@ -12,7 +12,7 @@
 
 Name:           qcustomplot
 Version:        2.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
 License:        GPL-3.0-or-later
@@ -171,6 +171,9 @@ EOF
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Sandro Mani <manisandro@gmail.com> - 2.1.1-7
 - Conditionalize qt6 build
 

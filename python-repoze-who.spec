@@ -4,7 +4,7 @@
 
 Name:           python-repoze-who
 Version:        2.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 License:        BSD
@@ -72,6 +72,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

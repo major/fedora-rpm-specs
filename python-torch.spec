@@ -30,7 +30,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PyTorch AI/ML framework
 # See below for details
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Apache-2.0 AND MIT AND BSL-1.0 AND GPL-3.0-or-later AND Zlib
@@ -787,6 +787,9 @@ sed -i -f br.sed devel.files
 # aten/src/ATen/native/cpu/avx_mathfun.h
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 27 2023 Tom Rix <trix@redhat.com> - 2.1.2-1
 - Update to 2.1.2
 - Stop versioning *.so's - 2.1.2's version is wrong

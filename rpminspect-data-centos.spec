@@ -1,6 +1,6 @@
 Name:           rpminspect-data-centos
 Version:        1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
@@ -58,6 +58,9 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 22 2023 David Cantrell <dcantrell@redhat.com> - 1.4-2
 - Convert License tag to SPDX expression
 

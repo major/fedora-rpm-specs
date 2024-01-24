@@ -13,7 +13,7 @@
 Name:           python-niapy
 Version:        2.1.0
 %forgemeta
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Microframework for building nature-inspired algorithms
 
 License:        MIT
@@ -145,6 +145,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %doc CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-3
 - Add missing LICENSE file
 

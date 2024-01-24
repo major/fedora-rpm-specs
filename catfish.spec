@@ -9,7 +9,7 @@ BuildRequires:	%1 \
 %define		mainver		4.18.0
 %undefine		betaver		
 
-%define		baserelease		2
+%define		baserelease		3
 
 Name:		catfish
 Version:	%{mainver}
@@ -173,6 +173,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

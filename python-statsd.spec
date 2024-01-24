@@ -3,7 +3,7 @@
 
 Name:       python-%{srcname}
 Version:    3.2.1
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    A Python statsd client
 
 License:    MIT
@@ -66,6 +66,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           astrometry-tycho2
 Version:        2.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tycho-2 catalogue for astrometry.net
 
 License:        BSD
@@ -42,6 +42,9 @@ make install DESTDIR=%{buildroot}/usr
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

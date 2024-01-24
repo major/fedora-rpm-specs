@@ -3,7 +3,8 @@ Version:	1.94.2
 Release:	%autorelease
 Summary:	D-Bus service for Fingerprint reader access
 
-License:	GPLv2+
+# man page is GFDL-1.1-or-later
+License:	GPL-2.0-or-later AND GFDL-1.1-or-later
 Source0:	https://gitlab.freedesktop.org/libfprint/fprintd/-/archive/v%{version}/fprintd-v%{version}.tar.gz
 Url:		http://www.freedesktop.org/wiki/Software/fprint/fprintd
 ExcludeArch:    s390 s390x
@@ -37,7 +38,7 @@ Provides:	pam_fprint = %{version}-%{release}
 Obsoletes:	pam_fprint < 0.2-3
 Requires(postun): authselect >= 0.3
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 
 %description pam
 PAM module that uses the fprintd D-Bus service for fingerprint
@@ -46,7 +47,9 @@ authentication.
 %package devel
 Summary:	Development files for %{name}
 Requires:	%{name} = %{version}-%{release}
-License:	GFDL
+# dbus interfaces are GPL-2.0-or-later
+# documentation is GFDL-1.1-or-later
+License:	GPL-2.0-or-later AND GFDL-1.1-or-later
 BuildArch:	noarch
 
 %description devel

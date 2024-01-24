@@ -2,7 +2,7 @@
 
 Name:           qtbrowserplugin
 Version:        2.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Qt Solutions Component: Browser Plugin
 
 License:        BSD
@@ -57,6 +57,9 @@ cp -p src/*.h %{buildroot}%{_includedir}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

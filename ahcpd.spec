@@ -2,7 +2,7 @@
 
 Name:           ahcpd
 Version:        0.53
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Ad-hoc network configuration daemon
 
 License:        MIT
@@ -57,6 +57,9 @@ install -Dpm 755 ahcp-config.sh $RPM_BUILD_ROOT%{_sysconfdir}/ahcp/ahcp-config.s
 %config(noreplace) %{_sysconfdir}/ahcp/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

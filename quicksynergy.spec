@@ -1,6 +1,6 @@
 Name:		quicksynergy
 Version:	0.8.1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Share keyboard and mouse between computers
 
 License:	GPLv2+        
@@ -58,6 +58,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:	 qt5-qtstyleplugins
 Summary: Classic Qt widget styles
 Version: 5.0.0
-Release: 52%{?dist}
+Release: 53%{?dist}
 License: LGPLv2 or GPLv2
 URL:	 https://github.com/qtproject/qtstyleplugins
 Source0: http://download.qt.io/community_releases/additional_qt_src_pkgs/qtstyleplugins-src-%{version}.tar.gz
@@ -85,6 +85,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           rsibreak
 Summary:        A small utility which bothers you at certain intervals
 Version:        0.12.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        GPLv2+
 URL:            https://userbase.kde.org/RSIBreak
@@ -93,6 +93,9 @@ fi
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

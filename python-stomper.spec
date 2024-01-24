@@ -9,7 +9,7 @@
 
 Name:           python-stomper
 Version:        0.4.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A python client implementation of the STOMP protocol
 License:        ASL 2.0
 URL:            https://pypi.io/project/stomper
@@ -103,6 +103,9 @@ PYTHONPATH=. nosetests-%{python3_version} -q
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

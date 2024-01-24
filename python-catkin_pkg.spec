@@ -1,11 +1,11 @@
 %global srcname catkin_pkg
 
 Name:           python-%{srcname}
-Version:        0.5.2
-Release:        8%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Library for retrieving information about catkin packages
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ros-infrastructure/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -105,6 +105,10 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 1.0.0-1
+- Update to 1.0.0 (rhbz#2238988)
+- Switch to SPDX license identifier
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

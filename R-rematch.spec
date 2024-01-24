@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.1
-Release:          18%{?dist}
+Release:          19%{?dist}
 Summary:          Match Regular Expressions with a Nicer 'API'
 
 License:          MIT
@@ -66,6 +66,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/README.md
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-pytest-localserver
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        pytest plugin to test server connections locally
 
 License:        MIT
@@ -51,6 +51,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 29 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.0-1
 - Update to 0.8.0 (fedora#2223161)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Kerberos manipulation library in Python
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -i -e '/^#!\//, 1d' %{pypi_name}/{*.py,*/*.py,*/*/*.py}
 %{_bindir}/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

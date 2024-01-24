@@ -2,7 +2,7 @@
 
 Name:      python-%{srcname}
 Version:   0.25
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Support for running pylint against projects
 
 License:   GPL-2.0-or-later
@@ -51,6 +51,9 @@ make PYTHON=%{__python3} check
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Vojtech Trefny <vtrefny@redhat.com> - 0.25-1
 - Remove unneeded IAstroidChecker (bcl)
 - Replace check_messages decorator with only_required_for_messages (bcl)

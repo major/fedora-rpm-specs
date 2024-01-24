@@ -25,8 +25,8 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	3.10.9.1
-Release:	3%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.10.9.2
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -210,6 +210,10 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Jan 22 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.9.2-1
+- New version
+  Resolves: rhbz#2258885
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

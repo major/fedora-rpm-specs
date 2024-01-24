@@ -2,7 +2,7 @@
 
 Name:           apache-commons-compress
 Version:        1.25.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java API for working with compressed files and archivers
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-compress/
@@ -87,6 +87,9 @@ rm src/test/java/org/apache/commons/compress/archivers/tar/TarMemoryFileSystemTe
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

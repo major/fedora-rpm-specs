@@ -1,6 +1,6 @@
 Name: blitz
 Version: 1.0.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: C++ class library for matrix scientific computing
 
 License: LGPLv3+ or BSD or Artistic 2.0
@@ -88,6 +88,9 @@ ctest -V %{?_smp_mflags}
 %license COPYING COPYING.LESSER LICENSE
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

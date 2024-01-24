@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SciToken reference implementation library
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ export PYTHONPATH="%{buildroot}%{python3_sitelib}"
 %{_bindir}/scitokens-verify-token
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Derek Weitzel <dweitzel@unl.edu> - 1.8.1-1
 - Turn off tests that require networking
 

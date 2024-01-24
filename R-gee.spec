@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          4.13.23
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Generalized Estimation Equation Solver
 
 License:          GPLv2
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.23-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.23-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

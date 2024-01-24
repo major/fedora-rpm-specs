@@ -7,7 +7,7 @@
 
 Name:           ansible-bender
 Version:        0.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Build container images using Ansible playbooks
 
 License:        MIT
@@ -83,6 +83,9 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

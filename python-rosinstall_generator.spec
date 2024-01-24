@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generates rosinstall files
 
 License:        BSD
@@ -68,6 +68,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A wrapper around various text markups
 
 License:        BSD
@@ -75,6 +75,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

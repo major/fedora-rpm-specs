@@ -5,7 +5,7 @@ retry behavior to just about anything.}
 
 Name:           python-%{pypi_name}
 Version:        8.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Retry code until it succeeds
 License:        Apache-2.0
 URL:            https://github.com/jd/%{pypi_name}
@@ -46,6 +46,9 @@ sed -e '/typeguard/d' -i setup.cfg
 %doc README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 15 2023 Jonathan Wright <jonathan@almalinux.org> - 8.2.3-1
 - Update to 8.2.3 rhbz#2231911
 

@@ -1,6 +1,6 @@
 Name:           python-ujson
 Version:        5.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
 # The entire source is BSD-3-Clause, except:
@@ -73,6 +73,9 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 %doc README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.9.0-1
 - Update to 5.9.0 (close RHBZ#2253921)
 

@@ -1,5 +1,5 @@
 Version:        3.052
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            https://github.com/adobe-fonts/source-sans-pro/
 
 %global foundry adobe
@@ -45,6 +45,9 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.052-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

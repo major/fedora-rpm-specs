@@ -1,6 +1,6 @@
 Name:		quodlibet
 Version:	4.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A music management program
 
 License:	GPLv2+
@@ -155,6 +155,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 26 2023 LuK1337 <priv.luk@gmail.com> - 4.6.0-1
 - update to recent upstream version
 

@@ -1,7 +1,7 @@
 %global pypi_name nest_asyncio
 
 Name:           python-nest-asyncio
-Version:        1.5.9
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Patch asyncio to allow nested event loops
 

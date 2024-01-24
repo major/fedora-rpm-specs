@@ -3,7 +3,7 @@
 
 Name:           python-%{module_name}
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -52,6 +52,9 @@ rm -rf */*.egg-info
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 Dan Horák <dan[at]danny.cz> - 1.4.3-1
 - updated to 1.4.3 (rhbz#2215589)
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 License:        LGPLv2+
 URL:            http://myhdl.org
@@ -50,6 +50,9 @@ find -name '*.txt' | xargs chmod -x
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

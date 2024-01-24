@@ -3,7 +3,7 @@
 
 Name:           apache-commons-exec
 Version:        1.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        Apache-2.0
 URL:            http://commons.apache.org/exec/
@@ -73,6 +73,9 @@ chmod a+x src/test/scripts/*.sh
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

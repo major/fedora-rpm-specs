@@ -1,6 +1,6 @@
 Name:           python-nudatus
 Version:        0.0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Strip comments from Python scripts
 
 # SPDX
@@ -54,6 +54,9 @@ suitable for various environments with restricted storage.
 %{_bindir}/nudatus
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.16.0
-Release:        2%{?dist}
+Version:        2.16.1
+Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
 
@@ -173,6 +173,13 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
+- [maven-release-plugin] prepare release jackson-jaxrs-providers-2.16.1 (Tatu Saloranta)
+- Prepare for 2.16.1 release (Tatu Saloranta)
+- Fix #178: replace LRUMap with one from jackson-databind (#179) (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

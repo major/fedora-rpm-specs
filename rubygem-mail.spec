@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail provides a nice Ruby DSL for making, sending and reading emails
 License: MIT
 URL: https://github.com/mikel/mail
@@ -69,6 +69,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Pavel Valena <pvalena@redhat.com> - 2.8.1-1
 - Update to mail 2.8.1.
   Resolves: rhbz#2150476

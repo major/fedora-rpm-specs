@@ -1,6 +1,6 @@
 Name:           python-nbsphinx
 Version:        0.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jupyter Notebook Tools for Sphinx
 
 # SPDX
@@ -85,6 +85,9 @@ rm -rf html/{.doctrees,.buildinfo,conf.py,_sources}
 %doc html 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Lumír Balhar <lbalhar@redhat.com> - 0.9.3-1
 - Update to 0.9.3 (rhbz#2235169)
 

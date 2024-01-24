@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        45.0
-Release:        2%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
 License:        CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-backgrounds
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -51,43 +51,55 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/gnome-background-properties/adwaita.xml
 %{_datadir}/gnome-background-properties/blobs.xml
 %{_datadir}/gnome-background-properties/drool.xml
-%{_datadir}/gnome-background-properties/keys.xml
 %{_datadir}/gnome-background-properties/pills.xml
-%{_datadir}/gnome-background-properties/truchet.xml
-%{_datadir}/backgrounds/gnome/adwaita-d.jpg
-%{_datadir}/backgrounds/gnome/adwaita-l.jpg
+%{_datadir}/backgrounds/gnome/adwaita-d.jxl
+%{_datadir}/backgrounds/gnome/adwaita-l.jxl
 %{_datadir}/backgrounds/gnome/blobs-d.svg
 %{_datadir}/backgrounds/gnome/blobs-l.svg
 %{_datadir}/backgrounds/gnome/drool-d.svg
 %{_datadir}/backgrounds/gnome/drool-l.svg
-%{_datadir}/backgrounds/gnome/keys-d.jpg
-%{_datadir}/backgrounds/gnome/keys-l.jpg
-%{_datadir}/backgrounds/gnome/pills-d.jpg
-%{_datadir}/backgrounds/gnome/pills-l.jpg
-%{_datadir}/backgrounds/gnome/truchet-d.jpg
-%{_datadir}/backgrounds/gnome/truchet-l.jpg
+%{_datadir}/backgrounds/gnome/pills-d.jxl
+%{_datadir}/backgrounds/gnome/pills-l.jxl
 
 %files extras
-%{_datadir}/gnome-background-properties/design-is-rounded-rectangles.xml
+%{_datadir}/gnome-background-properties/amber.xml
 %{_datadir}/gnome-background-properties/fold.xml
+%{_datadir}/gnome-background-properties/geometrics.xml
+%{_datadir}/gnome-background-properties/glass-chip.xml
 %{_datadir}/gnome-background-properties/morphogenesis.xml
+%{_datadir}/gnome-background-properties/neogeo.xml
 %{_datadir}/gnome-background-properties/pixels.xml
+%{_datadir}/gnome-background-properties/ring.xml
 %{_datadir}/gnome-background-properties/symbolic.xml
+%{_datadir}/gnome-background-properties/tarka.xml
 %{_datadir}/gnome-background-properties/vnc.xml
-%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-d.jpg
-%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-l.jpg
-%{_datadir}/backgrounds/gnome/fold-d.jpg
-%{_datadir}/backgrounds/gnome/fold-l.jpg
+%{_datadir}/backgrounds/gnome/amber-d.jxl
+%{_datadir}/backgrounds/gnome/amber-l.jxl
+%{_datadir}/backgrounds/gnome/fold-d.jxl
+%{_datadir}/backgrounds/gnome/fold-l.jxl
+%{_datadir}/backgrounds/gnome/geometrics-d.jxl
+%{_datadir}/backgrounds/gnome/geometrics-l.jxl
+%{_datadir}/backgrounds/gnome/glass-chip-d.jxl
+%{_datadir}/backgrounds/gnome/glass-chip-l.jxl
 %{_datadir}/backgrounds/gnome/morphogenesis-d.svg
 %{_datadir}/backgrounds/gnome/morphogenesis-l.svg
+%{_datadir}/backgrounds/gnome/neogeo-d.jxl
+%{_datadir}/backgrounds/gnome/neogeo-l.jxl
 %{_datadir}/backgrounds/gnome/pixels-d.jpg
 %{_datadir}/backgrounds/gnome/pixels-l.jpg
+%{_datadir}/backgrounds/gnome/ring-d.jxl
+%{_datadir}/backgrounds/gnome/ring-l.jxl
 %{_datadir}/backgrounds/gnome/symbolic-d.png
 %{_datadir}/backgrounds/gnome/symbolic-l.png
+%{_datadir}/backgrounds/gnome/tarka-d.jxl
+%{_datadir}/backgrounds/gnome/tarka-l.jxl
 %{_datadir}/backgrounds/gnome/vnc-d.png
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

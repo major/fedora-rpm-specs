@@ -1,5 +1,5 @@
 %global nativever 2.3
-%global baserelease 4
+%global baserelease 5
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -247,6 +247,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

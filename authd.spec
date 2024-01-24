@@ -3,7 +3,7 @@
 Summary: A RFC 1413 ident protocol daemon
 Name: authd
 Version: 1.4.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPLv2+
 URL: https://github.com/InfrastructureServices/authd
 Obsoletes: pidentd < 3.2
@@ -73,6 +73,9 @@ chmod o-rw %{_sysconfdir}/ident.key
 %{_unitdir}/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

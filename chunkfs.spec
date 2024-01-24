@@ -1,6 +1,6 @@
 Name:           chunkfs
 Version:        0.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        FUSE based filesystem that allows you to mount an arbitrary file or block device
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ install %{SOURCE100} .
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

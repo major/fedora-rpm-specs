@@ -1,22 +1,24 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           lightsoff
-Version:        40.0.1
-Release:        7%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        GNOME Lightsoff game
 
-License:        GPLv2+ and CC-BY-SA
+# Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
+License:        GPL-2.0-or-later and CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Lightsoff
-Source0:        https://download.gnome.org/sources/%{name}/40/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/lightsoff/-/issues/13
+Patch:          lightsoff-46.alpha-exclude-icon-source.patch
 
-BuildRequires:  clutter-gtk-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
-BuildRequires:  gtk3-devel
 BuildRequires:  itstool
-BuildRequires:  librsvg2-devel
 BuildRequires:  meson
 BuildRequires:  vala
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(librsvg-2.0)
 
 %description
 A puzzle played on an 5X5 grid with the aim to turn off all the lights. Each
@@ -43,11 +45,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 %files -f %{name}.lang
 %license COPYING
+%doc NEWS
 %{_bindir}/lightsoff
 %{_datadir}/applications/org.gnome.LightsOff.desktop
 %{_datadir}/dbus-1/services/org.gnome.LightsOff.service
 %{_datadir}/glib-2.0/schemas/org.gnome.LightsOff.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.LightsOff.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.LightsOff.Devel.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.LightsOff-symbolic.svg
 %{_datadir}/lightsoff/
 %{_datadir}/metainfo/org.gnome.LightsOff.appdata.xml
@@ -55,6 +59,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 
 %changelog
+* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

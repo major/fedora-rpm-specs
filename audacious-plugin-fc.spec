@@ -9,7 +9,7 @@
 Summary: Future Composer input plugin for Audacious
 Name: audacious-plugin-fc
 Version: 0.8.3.6
-Release: 0.23%{?dist}
+Release: 0.24%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: http://xmms-fc.sourceforge.net/
 License: GPLv2+
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3.6-0.24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3.6-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

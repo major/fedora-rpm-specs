@@ -4,7 +4,7 @@
 
 Name:           python-%{realname}
 Version:        0.9.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A python library for doing approximate and phonetic matching of strings
 
 License:        BSD
@@ -65,6 +65,9 @@ PYTHONPATH=. pytest-3 jellyfish/test.py
 %{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

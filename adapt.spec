@@ -3,7 +3,7 @@
 
 Name:           adapt
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Mycroft's Adapt Intent Parser
 License:        ASL 2.0
 URL:            https://adapt.mycroft.ai/
@@ -54,6 +54,9 @@ rm -rf adapt-parser.egg-info
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

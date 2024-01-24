@@ -2,7 +2,7 @@
 
 Name:           ratpoison
 Version:        1.4.9
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Minimalistic window manager
 License:        GPLv2+
 URL:            http://www.nongnu.org/ratpoison/
@@ -52,6 +52,9 @@ chmod 755 ${RPM_BUILD_ROOT}/%{_datadir}/ratpoison/split.sh
 %{_emacs_sitelispdir}/*.el
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

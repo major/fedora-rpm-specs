@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source:           %{url}&version=%{ver}#/%{packname}_%{ver}.tar.gz
@@ -49,6 +49,9 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/help
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

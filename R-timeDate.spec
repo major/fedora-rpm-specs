@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          4022.108
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Rmetrics - chronological and calendar objects
 
 License:          GPLv2+
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4022.108-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4022.108-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

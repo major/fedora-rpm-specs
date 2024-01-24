@@ -11,7 +11,7 @@
 
 Name:           python-networkx
 Version:        3.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -175,6 +175,9 @@ done
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.1-2
 - Remove the upper bound on the version of python-nbconvert (fix RHBZ#2256372)
 

@@ -3,7 +3,7 @@
 Summary: File compression utility
 Name: bzip2
 Version: 1.0.8
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: BSD-4-Clause
 URL: https://sourceware.org/bzip2
 #Source0: http://www.bzip.org/%{version}/%{name}-%{version}.tar.gz
@@ -128,6 +128,9 @@ ln -s bzgrep.1 $RPM_BUILD_ROOT%{_mandir}/man1/bzfgrep.1
 %{_libdir}/pkgconfig/bzip2.pc
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

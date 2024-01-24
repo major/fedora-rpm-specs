@@ -9,7 +9,7 @@
 
 Name:           %{pkg_name}
 Version:        0.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Shell script analysis tool
 
 License:        GPL-3.0-or-later
@@ -172,6 +172,9 @@ install -Dpm 0644 shellcheck.1 %{buildroot}%{_mandir}/man1/shellcheck.1
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

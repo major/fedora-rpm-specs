@@ -3,7 +3,7 @@
 
 Name:           python-json-logger
 Version:        2.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A python library adding a json log formatter
 
 License:        BSD
@@ -51,6 +51,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest discover
 %{python3_sitelib}/python_json_logger-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

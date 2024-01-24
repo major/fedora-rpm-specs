@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: ReBulk is a python library that performs advanced searches in strings
 # Everything licensed as MIT, except:
 # rebulk/toposort.py: Apache (v2.0)
@@ -59,6 +59,9 @@ done
 %{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Juan Orti Alcaine <jortialc@redhat.com> - 3.3.0-1
 - Version 3.3.0 (rhbz#2254798)
 

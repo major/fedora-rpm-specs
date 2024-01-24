@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 0.14.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -113,6 +113,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.1-1
 - New upstream version
 

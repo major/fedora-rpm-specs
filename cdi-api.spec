@@ -2,7 +2,7 @@
 
 Name:           cdi-api
 Version:        2.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        CDI API
 License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/cdi
@@ -49,6 +49,9 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %license LICENSE.txt
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

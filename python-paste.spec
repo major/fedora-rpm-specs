@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -86,6 +86,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Oct 21 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.7.1-1
 - Update to upstream.
 

@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 1.002
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-mono/
 
 # The identifier of the entity, that released the font family.
@@ -98,6 +98,9 @@ cp %{SOURCE21} .
 %fontfiles
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

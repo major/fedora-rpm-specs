@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          5%{?dist}
+Release:          6%{?dist}
 Source0:          http://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              http://cran.r-project.org/web/packages/lmtest/index.html
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.40-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.40-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

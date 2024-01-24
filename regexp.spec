@@ -1,7 +1,7 @@
 Name:           regexp
 Epoch:          1
 Version:        1.5
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Simple regular expressions API
 License:        Apache-2.0
 URL:            http://jakarta.apache.org/%{name}/
@@ -72,6 +72,9 @@ mkdir lib
 %doc LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.5-43
 - Convert License tag to SPDX format
 

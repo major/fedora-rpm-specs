@@ -1,17 +1,17 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           swell-foop
-Version:        41.1
-Release:        4%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
-License:        GPLv2+ and GFDL
+License:        GPL-2.0-or-later and CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Swell%20Foop
-Source0:        https://download.gnome.org/sources/swell-foop/41/swell-foop-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
-BuildRequires:  pkgconfig(clutter-gtk-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(libgnome-games-support-1)
+BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libgnome-games-support-2)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext-devel
@@ -25,7 +25,7 @@ BuildRequires:  yelp-tools
 Clear the screen by removing groups of colored and shaped tiles
 
 %prep
-%autosetup -p1 -n swell-foop-%{tarball_version}
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson
@@ -51,10 +51,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SwellFoo
 %{_datadir}/glib-2.0/schemas/org.gnome.SwellFoop.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.SwellFoop*
 %{_datadir}/metainfo/org.gnome.SwellFoop.appdata.xml
-%{_datadir}/swell-foop
 
 
 %changelog
+* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

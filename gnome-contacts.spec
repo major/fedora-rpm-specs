@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        45.0
+Version:        46~alpha
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Contacts
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 Patch0:         216.patch
 
 BuildRequires:  desktop-file-utils
@@ -18,7 +18,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  vala
-BuildRequires:  /usr/bin/appstream-util
+BuildRequires:  /usr/bin/appstreamcli
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(folks-eds)
@@ -45,10 +45,11 @@ Requires:       hicolor-icon-theme
 
 %install
 %meson_install
+appstreamcli metainfo-to-news %{buildroot}/%{_metainfodir}/org.gnome.Contacts.appdata.xml NEWS
 %find_lang %{name}
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.gnome.Contacts.appdata.xml
+appstreamcli validate --no-net %{buildroot}/%{_metainfodir}/org.gnome.Contacts.appdata.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.desktop
 
 %files -f %{name}.lang
@@ -65,7 +66,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.d
 %dir %{_datadir}/gnome-shell/search-providers
 %{_datadir}/gnome-shell/search-providers/org.gnome.Contacts.search-provider.ini
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Contacts*.svg
-%{_datadir}/metainfo/org.gnome.Contacts.appdata.xml
+%{_metainfodir}/org.gnome.Contacts.appdata.xml
 %{_mandir}/man1/gnome-contacts.1*
 
 %changelog

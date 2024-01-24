@@ -5,7 +5,7 @@
 Name:    rofi-wayland
 %global  base_ver 1.7.5
 Version: %{base_ver}+wayland2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fork of rofi with Wayland support
 
 # lexer/theme-parser.[ch]:
@@ -141,6 +141,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5+wayland2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.5+wayland2-1
 - Update to 1.7.5+wayland2
 

@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -144,6 +144,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Vít Ondruch <vondruch@redhat.com> - 1:7.0.8-3
 - Add explicit dependencies to avoid Ruby 3.3 warnings.
 

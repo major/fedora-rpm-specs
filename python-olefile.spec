@@ -1,6 +1,6 @@
 Name:           python-olefile
 Version:        0.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python package to parse, read and write Microsoft OLE2 files
 
 %global         srcname         olefile
@@ -78,6 +78,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/test_olefile.py
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 03 2023 Sandro Mani <manisandro@gmail.com> - 0.47-1
 - Update to 0.47
 

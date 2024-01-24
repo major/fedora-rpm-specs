@@ -173,13 +173,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        121.0.1
-Release:        3%{?pre_tag}%{?dist}
+Version:        122.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20240112.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20240119.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -1158,11 +1158,8 @@ fi
 %{mozappdir}/fonts/TwemojiMozilla.ttf
 %ifarch aarch64
 %{mozappdir}/v4l2test
-%{mozappdir}/vaapitest
 %endif
-%ifarch x86_64
 %{mozappdir}/vaapitest
-%endif
 %if !%{?system_nss}
 %exclude %{mozappdir}/libnssckbi.so
 %endif
@@ -1173,6 +1170,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Jan 19 2024 Martin Stransky <stransky@redhat.com>- 122.0-1
+- Update to 122.0
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 121.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

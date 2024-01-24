@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.48.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -48,6 +48,9 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 08 2024 Packit <hello@packit.dev> - 0.48.1-1
 - Fix log level and wording when Pagure returns an error while retrieving Pagure PR diffstats.
 - Resolves rhbz#2257242

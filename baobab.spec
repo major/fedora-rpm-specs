@@ -5,7 +5,7 @@
 
 Name:           baobab
 Version:        45.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical directory tree analyzer
 
 License:        GPL-2.0-or-later AND GFDL-1.1-only
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

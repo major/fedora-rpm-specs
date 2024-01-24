@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.2
-Release: 5%{?dist}
+Release: 7%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -14,6 +14,15 @@ Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 # Official upstream patches
 # Patches are converted to apply with '-p1'
 Patch1: readline-8.2-patch-1.patch
+Patch2: readline-8.2-patch-2.patch
+Patch3: readline-8.2-patch-3.patch
+Patch4: readline-8.2-patch-4.patch
+Patch5: readline-8.2-patch-5.patch
+Patch6: readline-8.2-patch-6.patch
+Patch7: readline-8.2-patch-7.patch
+Patch8: readline-8.2-patch-8.patch
+Patch9: readline-8.2-patch-9.patch
+Patch10: readline-8.2-patch-10.patch
 
 # Other patches
 # Remove RPATH, use CFLAGS
@@ -88,6 +97,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Mon Jan 22 2024 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-7
+- Update to readline-8.2 patchlevel 10
+  Resolves: #2259635
+
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Lukáš Zaoral <lzaoral@redhat.com> - 8.2-5
 - migrate to SPDX license format
 

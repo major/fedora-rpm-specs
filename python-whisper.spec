@@ -4,7 +4,7 @@
 
 Name:           python-whisper
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -117,6 +117,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Jonathan Steffan <jsteffan@fedoraproject.org> - 1.1.10-1
 - Update to 1.1.10
 

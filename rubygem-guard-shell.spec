@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.7.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Guard gem for running shell commands
 License: MIT
 URL: http://github.com/hawx/guard-shell
@@ -73,6 +73,9 @@ popd
 %doc %{gem_instdir}/Readme.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

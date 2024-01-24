@@ -1,8 +1,8 @@
 Name:		SDL2_ttf
-Version:	2.20.2
-Release:	3%{?dist}
+Version:	2.22.0
+Release:	2%{?dist}
 Summary:	TrueType font rendering library for SDL2
-License:	zlib
+License:	Zlib
 URL:		https://github.com/libsdl-org/SDL_ttf
 Source0:	https://github.com/libsdl-org/SDL_ttf/releases/download/release-%{version}/SDL2_ttf-%{version}.tar.gz
 BuildRequires:  cmake
@@ -54,6 +54,13 @@ find %{buildroot} -type f -name '*.la' -delete -print
 %{_libdir}/cmake/SDL2_ttf/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Mon Jan 22 2024 Tom Callaway <spot@fedoraproject.org> - 2.22.0-1
+- update to 2.22.0
+- fix license tag to be SPDX
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

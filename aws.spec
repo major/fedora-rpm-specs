@@ -3,7 +3,7 @@
 %global with_gps 0
 Name:       aws 
 Version:    2020
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Ada Web Server
 
 License:    GPLv3+ with exceptions and GPLv2+ 
@@ -154,6 +154,9 @@ rm -rf %{buildroot}%{_GNAT_project_dir}/manifests
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

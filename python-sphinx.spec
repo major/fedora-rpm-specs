@@ -25,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -402,6 +402,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Karolina Surma <ksurma@redhat.com> - 1:7.2.6-4
 - Fix the tests run when building with Python 3.11.7, 3.12.1 and later
 

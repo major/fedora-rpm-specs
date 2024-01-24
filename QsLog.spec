@@ -4,7 +4,7 @@
 
 Name:           QsLog
 Version:        0
-Release:        26.%{shortcommit}git%{?dist}
+Release:        27.%{shortcommit}git%{?dist}
 Summary:        An easy to use logger that is based on Qt's QDebug class
 License:        BSD
 URL:            https://bitbucket.org/razvanpetru/qslog
@@ -71,6 +71,9 @@ make install INSTALL_ROOT=%{buildroot}
 %{_libdir}/libQsLog.so
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-27.2959cecgit
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-26.2959cecgit
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

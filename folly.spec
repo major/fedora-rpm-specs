@@ -55,13 +55,18 @@
 %endif
 
 Name:           folly
-Version:        2023.10.16.00
+Version:        2024.01.22.00
 Release:        %{autorelease}
 Summary:        An open-source C++ library developed and used at Facebook
 
 License:        Apache-2.0
 URL:            https://github.com/facebook/folly
 Source:         %{url}/archive/v%{version}/folly-%{version}.tar.gz
+# workaround in https://github.com/facebook/folly/issues/1991 no longer works with GCC 14.0.1
+# https://github.com/facebook/folly/issues/2129
+Patch:          folly-gcc14-fix-type-pack-element-again.diff
+# need to include algorithm header for std::count_if. Being upstreamed.
+Patch:          folly-gcc14-add-algorithm-for-count_if.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -253,17 +258,15 @@ make -C folly/docs
 cd "%{__cmake_builddir}"
 
 # flaky tests
-# from https://koji.fedoraproject.org/koji/taskinfo?taskID=89703014
-EXCLUDED_TESTS='-E glog_test\.LogEveryMs\.basic'
-# from https://koji.fedoraproject.org/koji/taskinfo?taskID=100358727
+EXCLUDED_TESTS='-E DISABLED'
+EXCLUDED_TESTS+='|glog_test\.LogEveryMs\.basic'
 EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
-# from https://koji.fedoraproject.org/koji/buildinfo?buildID=2192717
 EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.ReschedTest'
+EXCLUDED_TESTS+='|fbvector_test\.'
 
 %ifarch aarch64
-# from https://copr.fedorainfracloud.org/coprs/salimma/folly-testing/build/4642135/
 EXCLUDED_TESTS+='|cache_locality_test\.Getcpu\.VdsoGetcpu'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.FireOnce'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.DestroyTimeoutSet'
@@ -274,15 +277,11 @@ EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.GetTimeRemaining'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.Level1'
 EXCLUDED_TESTS+='|timeseries_histogram_test\.TimeseriesHistogram\.Percentile'
 EXCLUDED_TESTS+='|memcpy_test\.folly_memcpy\.overlap'
-# from https://copr.fedorainfracloud.org/coprs/salimma/folly-testing/build/4642161/
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.DeleteWheelInTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.NegativeTimeout'
-# from https://koji.fedoraproject.org/koji/taskinfo?taskID=89699745
 EXCLUDED_TESTS+='|cache_locality_test\.CacheLocality\.LinuxActual'
 EXCLUDED_TESTS+='|small_locks_test\.SmallLocks\.SpinLockCorrectness'
 EXCLUDED_TESTS+='|locks_test\.SpinLock\.Correctness'
-# flaky tests
-# from https://koji.fedoraproject.org/koji/taskinfo?taskID=89701407
 EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
 %endif
 

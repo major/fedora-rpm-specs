@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          6%{?dist}
 Source0:          %{url}&version=%{version}#/%{packname}_%{packver}.tar.gz
 License:          GPLv2
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -49,6 +49,9 @@ chmod +x %{buildroot}%{_libdir}/R/library/rjson/rpc_server/start_server
 %{_libdir}/R/library/%{packname}/unittests
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.21-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

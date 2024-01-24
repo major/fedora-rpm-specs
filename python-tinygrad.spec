@@ -4,7 +4,7 @@ Version:        0.7.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        You like pytorch? You like micrograd? You love tinygrad! 
 
 License:        MIT
@@ -75,5 +75,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Benson Muite <benson_muite@emailplus.org> - 0.7.0-1
 - Initial package

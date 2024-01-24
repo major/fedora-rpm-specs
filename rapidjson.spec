@@ -2,7 +2,7 @@
 
 Name:		rapidjson
 Version:	1.1.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Fast JSON parser and generator for C++
 
 # Most files are MIT, rapidjson/msinttypes/{stdint,inttypes}.h are BSD
@@ -130,6 +130,9 @@ find %{buildroot} -type f -name 'CMake*.txt' -delete
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Tom Hughes <tom@compton.nu> - 1.1.0-25
 - Add upstream patches for improved gcc 14 and C++20 support
 

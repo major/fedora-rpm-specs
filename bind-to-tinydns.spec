@@ -2,7 +2,7 @@
 
 Name:           bind-to-tinydns
 Version:        0.4.3
-Release:        35.%{gitsnap}%{?dist}
+Release:        36.%{gitsnap}%{?dist}
 Summary:        Convert DNS zone files in BIND format to tinydns format
 
 License:        BSD
@@ -38,6 +38,9 @@ install -Dp -m 755 bind-to-tinydns $RPM_BUILD_ROOT%{_bindir}/bind-to-tinydns
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-36.20140818gitdf0ddc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-35.20140818gitdf0ddc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

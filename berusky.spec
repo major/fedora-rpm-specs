@@ -4,7 +4,7 @@
 Summary:        Sokoban clone
 Name:           berusky
 Version:        1.7.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 License:        GPLv2+
 Source:         http://www.anakreon.cz/download/%{name}-%{version}.tar.gz
 Source1:        berusky.desktop
@@ -88,6 +88,9 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

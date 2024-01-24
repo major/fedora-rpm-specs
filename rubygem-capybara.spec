@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.39.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Capybara aims to simplify the process of integration testing Rack applications
 License: MIT
 URL: https://github.com/teamcapybara/capybara
@@ -96,6 +96,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.39.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Pavel Valena <pvalena@redhat.com> - 3.39.2-1
 - Update to capybara 3.39.2.
   Resolves: rhbz#2140002

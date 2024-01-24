@@ -47,15 +47,54 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
 
+# Allow testing with opentracing 2.x versions after 2.2.x
+# https://github.com/open-telemetry/opentelemetry-python/pull/3641
+#
+# Cherry-picked to v1.22.0
+Patch:          0001-Allow-testing-with-opentracing-2.x-versions-after-2..patch
+# Don’t pin an exact version of responses for testing
+# https://github.com/open-telemetry/opentelemetry-python/pull/3642
+Patch:          %{url}/pull/3642.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+# The requirements files pin exact dependency versions and contain many
+# unwanted dependencies (linters, coverage analysis tools, etc.), which  makes
+# them not very useful. Rather than massively patching or filtering these files
+# to generate BuildRequires, it’s easier to maintain a manual list. Besides,
+# almost everything that *is* wanted from dev-requirements.txt is brought in by
+# the test extras of the subpackages that require it.
+#
+# See also:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+
+# dev-requirements.txt
+# Also required via tox.ini
+BuildRequires:  %{py3_dist pytest}
+# Also required via tox.ini; easier to BR than to patch it out
+BuildRequires:  %{py3_dist pytest-benchmark}
+# Enables additional tests for opentelemetry-sdk, but is not one of its
+# test-extra dependencies:
+BuildRequires:  %{py3_dist psutil}
+# Test dependency for opentelemetry-sdk; also required via tox.ini
+BuildRequires:  %{py3_dist flaky}
 
 %if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
+
+# docs-requirements.txt
+BuildRequires:  %{py3_dist sphinx}
+# No need for sphinx-rtd-theme since we don’t build HTML
+BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
+# No need for sphinx-jekyll-builder since we don’t build HTML/website
+# Needed for examples (and for documentation about examples):
+BuildRequires:  %{py3_dist django}
 %endif
+
 
 %global stable_distinfo %(echo '%{stable_version}' | tr -d '~^').dist-info
 # See eachdist.ini:
@@ -423,25 +462,20 @@ project (github.com/open-telemetry/opentelemetry-python).
 
 
 %package doc
-Summary:        Documentation for python-opentelemetry
+Summary:        Documentation and examples for python-opentelemetry
 Version:        %{stable_version}
 
 %description doc
-This package provides documentation for python-opentelemetry.
+This package provides documentation and examples for python-opentelemetry.
 
 
 %prep
 %autosetup -n opentelemetry-python-%{stable_version} -p1
 
-# In “Bug fix: detect and adapt to backoff package version”,
-# https://github.com/open-telemetry/opentelemetry-python/pull/2980, upstream
-# pinned test dependency “responses == 0.22.0”. While this matches the packaged
-# version in Rawhide as of this writing, we won’t be able to respect this
-# requirement in the long term, so we loosen it preemptively.
-sed -r -i 's/(responses )== /\1>= /' \
-    exporter/opentelemetry-exporter-otlp-proto-http/pyproject.toml
-
-%py3_shebang_fix .
+# See also:
+# Non-executable files with shebangs in the repository
+# https://github.com/open-telemetry/opentelemetry-python/issues/3643
+%py3_shebang_fix docs/examples tests
 
 # Fix a test that shells out to the unversioned Python command. This is OK
 # upstream, but not in Fedora.
@@ -453,113 +487,15 @@ sed -r -i 's|shutil\.which\("python"\)|"%{python3}"|' \
 # documentation packages.
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
-(
-  # - We do not use formatters/linters/type-checkers/coverage.
-  #
-  # - Similarly, we do not run the “spellcheck” tox environment, so we do not
-  #   need codespell.
-  #
-  # - ddtrace is mentioned in a README but does not seem to actually be used
-  #   anywhere
-  # - we do not need sphinx_rtd_theme because we are not building the
-  #   documentation as HTML
-  # - we do not need sphinx-jekyll-builder because we will not build website
-  #   docs
-  # - now that instrumentation is moved to contrib, wrapt is no longer used
-  #   directly; it is a dependency for some examples, and is in the intersphinx
-  #   mapping, which we don’t use since the build is offline
-  # - grpcio-tools is needed only if we run scripts/proto_codegen.sh
-  # - httpretty does not seem to actually be used anywhere; it may be an
-  #   optional dependency for output from some linter
-  # - readme-renderer is needed only if we run
-  #   scripts/check_for_valid_readme.py; this is also the reason for the
-  #   version-pinned dependency on bleach, so we remove that too
-  #
-  # - we must allow Flask 2.x, as in opentelemetry-test-utils
-  #
-  # - we must allow whatever Sphinx and Sphinx extension versions we have and
-  #   build documentation on a best-effort basis
-  # - we must allow opentracing 2.3.x and 2.4.x
-  # - we must allow protobuf 3.19.x; furthermore, we are not generating the
-  #   bindings from the proto files, so we don’t have to respect the version
-  #   specification in dev-requirements.txt, only the ones in individual
-  #   packages
-  # - we must allow psutil 5.9.5 for now (wants 5.9.6); since it it is a test
-  #   dependency, we just remove the version bound and hope for the best
-  #
-  # - upstream pins markupsafe==2.0.1:
-  #     temporary fix. we should update the jinja, flask deps
-  #     See https://github.com/pallets/markupsafe/issues/282
-  #     breaking change introduced in markupsafe causes jinja, flask to break
-  #   but we have no such luxury
-  # - we must allow pytest 7.2+ (upstream pins pytest==7.1.3)
-  # - if we are not running the script to update the contrib repo SHA from
-  #   branch, we do not need requests or ruamel.yaml; if we did need them, we
-  #   would need to un-pin their versions; so we do both, unpinning and then
-  #   removing
-  #
-  # - if we are not building the documentation, then we should ignore
-  #   documentation dependencies duplicated in dev-requirements.txt
-  # - if we are not building the documentation, we do not need Django
-  sed -r \
-      -e '/\b(black|flake8|isort|mypy|mypy-protobuf|pylint|pytest-cov)\b/d' \
-      -e '/\b(codespell)\b/d' \
-      -e '/\b(ddtrace|sphinx-(rtd-theme|jekyll-builder)|wrapt)\b/d' \
-      -e '/\b(grpcio-tools|httpretty|readme-renderer|bleach)\b/d' \
-      -e 's/\b(flask~=)1\.[[:digit:]]\b/\12\.0/' \
-      -e 's/\b(sphinx.*)[=~]=.*/\1/' \
-      -e 's/\b(opentracing)~=/\1>=/' \
-      -e 's/\b(protobuf)[>~]=.*/\1/' \
-      -e 's/\b(psutil)[=~]=.*/\1/' \
-      -e 's/\b(markupsafe|pytest|requests|ruamel\.yaml)==.*/\1/' \
-      -e '/\b(requests|ruamel\.yaml)\b/d' \
-      %{?!with_doc_pdf:-e '/\b(sphinx|django)\b/d'} \
-      dev-requirements.txt %{?with_doc_pdf:docs-requirements.txt}
-
-  # We can’t easily use %%pyproject_buildrequires -t to read tox.ini, since
-  # it’s not associated with a particular package in the source archive, but we
-  # can read out the relevant dependencies and dump them into the requirements
-  # file for processing.
-  '%{python3}' -c '
-from configparser import ConfigParser
-
-toxfile = "tox.ini"
-cfg = ConfigParser()
-if toxfile not in cfg.read(toxfile):
-    raise SystemExit(f"Could not load {toxfile}")
-for dep in cfg.get("testenv", "deps").splitlines():
-    parts = dep.rstrip("\r\n").split(None, 2)
-    if not parts or parts[0].startswith("-"):
-        continue
-    elif not parts[0].endswith(":"):
-        raise ValueError(f"Confusing dependency: {dep!r}")
-    command = parts[0][:-1]
-    dep = parts[1]
-    skips = ["cov", "mypy"]
-    skips.append(
-%if %{with protobuf4}
-        "proto3"
-%else
-        "proto4"
-%endif
-    )
-    if any(what in command for what in skips):
-        continue
-    print(dep)
-' ) | sed -r -e '/^#/d' -e '/^(.*\/)?opentelemetry-/d' | sort -u |
-  tee requirements-filtered.txt
-
-# Loosen any dependency versions that are pinned too tightly in subpackages.
-# The find-then-modify pattern keeps us from discarding mtimes on sources that
-# do not need modification.
+# Upstream wanted to upper-bound the responses test dependency for
+# opentelemetry-exporter-otlp-proto-http:
 #
-# - we must allow opentracing 2.3.x and 2.4.x
-for dep in 'opentracing'
-do
-  find . -type f -name 'pyproject.toml' -exec gawk \
-      "/${dep}[[:blank:]]*~=/ { print FILENAME; nextfile }" '{}' '+' |
-    xargs -r -t sed -r -i "s/\b(${DEP}[[:blank:]]*)~=/\\1>=/"
-done
+# https://github.com/open-telemetry/opentelemetry-python/pull/3642#issuecomment-1904888401
+#
+# Since we must use the system-wide responses package, we remove the
+# upper-bound on the responses version.
+sed -r -i "s/(responses.*)(, <[^\"']+)/\1/" \
+    exporter/opentelemetry-exporter-otlp-proto-http/pyproject.toml
 
 
 %generate_buildrequires
@@ -567,15 +503,10 @@ done
 # built in this spec file. For easier inspection, we also reorder and
 # de-duplicate them.
 (
-  # Consolidated from dev-requirements.txt and docs-requirements.txt in %%prep,
-  # with quite a bit of well-justified filtering and adjusting. We will tack it
-  # onto each %%pyproject_buildrequires call.
-  reqs="${PWD}/requirements-filtered.txt"
-
   for pkgdir in %{?with_prerelease:%{prerel_pkgdirs}} %{stable_pkgdirs}
   do
     pushd "${pkgdir}" >/dev/null
-    %pyproject_buildrequires -x test "${reqs}"
+    %pyproject_buildrequires -x test
     popd >/dev/null
   done
 ) | grep -vE '\bopentelemetry-' | sort -u
@@ -950,6 +881,7 @@ done
 %doc CONTRIBUTING.md
 %doc rationale.md
 %doc README.md
+%doc docs/examples/
 %if %{with doc_pdf}
 %doc docs/_build/latex/opentelemetrypython.pdf
 %endif

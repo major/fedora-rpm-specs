@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: RightScale's robust HTTP/S connection module
 License: MIT
 URL: https://github.com/appoxy/http_connection
@@ -62,6 +62,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

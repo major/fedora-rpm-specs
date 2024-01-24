@@ -2,7 +2,7 @@
 
 Name:           python-send2trash
 Version:        1.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library to natively send files to Trash
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ from freedesktop.org.
 %{_bindir}/send2trash
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

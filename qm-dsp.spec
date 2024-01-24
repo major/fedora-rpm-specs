@@ -3,7 +3,7 @@
 
 Name:           qm-dsp
 Version:        1.7.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Library for DSP and Music Informatics purposes
 
 # some source files with different original licenses, see README.txt
@@ -95,6 +95,9 @@ LDFLAGS="%{?__global_ldflags}" \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

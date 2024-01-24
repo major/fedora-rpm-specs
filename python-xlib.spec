@@ -6,7 +6,7 @@
 
 Name:           python-xlib
 Version:        0.33
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        X client library for Python
 
 License:        LGPLv2+
@@ -136,6 +136,9 @@ cat xorg.log
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

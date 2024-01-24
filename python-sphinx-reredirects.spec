@@ -1,6 +1,6 @@
 Name:           python-sphinx-reredirects
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
 License:        BSD-3-Clause
@@ -89,6 +89,9 @@ rst2html --no-datestamp README.rst README.html
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov  3 2023 Jerry James <loganjerry@gmail.com> - 0.1.3-1
 - Version 0.1.3
 - New project URLs

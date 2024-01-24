@@ -1,6 +1,6 @@
 Name:           python-zeroconf
 Version:        0.118.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
@@ -59,6 +59,9 @@ export REQUIRE_CYTHON=1
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.118.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Miro Hrončok <mhroncok@redhat.com> - 0.118.0-3
 - Compile the optional Python extension modules
 

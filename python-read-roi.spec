@@ -1,6 +1,6 @@
 Name:           python-read-roi
 Version:        1.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Read ROI files .zip or .roi generated with imagej
 
 License:        BSD
@@ -59,6 +59,9 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' nose2
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

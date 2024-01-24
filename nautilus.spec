@@ -1,6 +1,6 @@
 %bcond cloudproviders %{undefined rhel}
 
-%global glib2_version 2.77.0
+%global glib2_version 2.79.0
 %global gnome_autoar_version 0.4.4
 %global gtk4_version 4.11.2
 %global libadwaita_version 1.4~alpha
@@ -8,13 +8,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        45.2.1
-Release:        2%{?dist}
+Version:        46~alpha.0
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Nautilus
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -144,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha.0-1
+- Update to 46.alpha.0
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

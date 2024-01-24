@@ -1,6 +1,6 @@
 Name:           python-spnego
 Version:        0.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Windows Negotiate Authentication Client and Server
 
 # SPDX License
@@ -59,6 +59,9 @@ BuildRequires:  python3dist(pytest-mock)
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.9.2-1
 - Update to version 0.9.2, resolves rhbz#2137695
 

@@ -4,13 +4,13 @@
 %global api_ver 5
 
 Name:           gtksourceview5
-Version:        5.10.0
-Release:        2%{?dist}
+Version:        5.11.0
+Release:        1%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GtkSourceView
-Source0:        https://download.gnome.org/sources/gtksourceview/5.10/gtksourceview-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtksourceview/5.11/gtksourceview-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -95,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Sat Jan 20 2024 David King <amigadave@amigadave.com> - 5.11.0-1
+- Update to 5.11.0
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-sphinx-sitemap
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sitemap generator for Sphinx
 
 License:        MIT
@@ -43,6 +43,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 18 2023 Jerry James <loganjerry@gmail.com> - 2.5.1-1
 - Version 2.5.1
 

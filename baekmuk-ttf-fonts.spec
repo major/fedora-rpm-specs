@@ -8,7 +8,7 @@ BuildRequires: mkfontdir
 BuildRequires: ttmkfdir >= 3.0.6
 
 Version: 2.2
-Release: 61%{?dist}
+Release: 62%{?dist}
 License: Baekmuk
 URL:     http://kldp.net/projects/baekmuk/
 
@@ -152,6 +152,9 @@ done
 %verify(not md5 size mtime) %{fontdir4}/fonts.scale
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

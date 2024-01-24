@@ -7,7 +7,7 @@ Documentation is available on Read the Docs: http://recommonmark.readthedocs.org
 
 Name:           python-recommonmark
 Version:        0.7.1
-Release:        6.git%{?dist}
+Release:        7.git%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -73,6 +73,9 @@ popd  # Leave buildroot bindir
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7.git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Miro Hrončok <mhroncok@redhat.com> - 0.7.1-6.git
 - Run at least some tests during the build
 - Remove duplicate manual runtime Requires

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest -v
 %doc README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.16.0-2
 - rewrite spec for pyproject macros
 

@@ -1,6 +1,6 @@
 Name:		rtlsdr-scanner
 Version:	1.3.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Frequency scanning GUI for RTL2832 based DVB-T dongles
 License:	GPLv3
 URL:		http://eartoearoak.com/software/rtlsdr-scanner
@@ -81,6 +81,9 @@ desktop-file-install --add-category="Utility" \
 %doc doc/Manual.pdf
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

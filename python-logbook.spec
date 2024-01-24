@@ -1,6 +1,6 @@
 Name:		python-logbook
 Version:	1.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -54,6 +54,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
 - 1.7.0
 

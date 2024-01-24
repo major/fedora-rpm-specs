@@ -4,11 +4,11 @@
 %endif
 
 Name:           bluechi
-Version:        0.6.0
+Version:        0.7.0
 Release:        2%{?dist}
 Summary:        A systemd service controller for multi-nodes environments
 License:        LGPL-2.1-or-later AND CC0-1.0
-URL:            https://github.com/containers/bluechi
+URL:            https://github.com/eclipse-bluechi/bluechi
 # When downloading from github - no longer works due to a git submodule
 #Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # To download the manually uploaded tarball
@@ -40,7 +40,7 @@ Provides:       bluechi = %{version}-%{release}
 Obsoletes:      bluechi < 0.7.0
 
 %description controller
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-node environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 
@@ -77,11 +77,12 @@ This package contains the controller service.
 %package agent
 Summary:        BlueChi service controller agent
 Requires:       systemd
+Recommends:     bluechi-selinux
 Provides:       hirte-agent = %{version}-%{release}
 Obsoletes:      hirte-agent < 0.4.0
 
 %description agent
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-node environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 
@@ -156,14 +157,14 @@ if [ $1 -eq 1 ]; then
 fi
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/bluechi.pp.bz2
 restorecon -R %{_bindir}/bluechi* &> /dev/null || :
-semanage port -a -t bluechi_port_t -p udp 842 || true
-semanage port -a -t bluechi_port_t -p tcp 842 || true
+semanage port -a -t bluechi_port_t -p udp 842 2>/dev/null || semanage port -m -t bluechi_port_t -p udp 842
+semanage port -a -t bluechi_port_t -p tcp 842 2>/dev/null || semanage port -m -t bluechi_port_t -p tcp 842
 
 %postun selinux
 if [ $1 -eq 0 ]; then
+   semanage port -d -p udp 842 2>/dev/null || true
+   semanage port -d -p tcp 842 2>/dev/null || true
    %selinux_modules_uninstall -s %{selinuxtype} bluechi
-   semanage port -d -p udp 842 || true
-   semanage port -d -p tcp 842 || true
    restorecon -R %{_bindir}/bluechi* &> /dev/null || :
 fi
 
@@ -248,6 +249,15 @@ popd
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Fri Jan 19 2024 Michael Engel <mengel@redhat.com> - 0.7.0-1
+- Update to 0.7.0
+- Updated URL to new eclipse-bluechi GitHub organization
+- Fixed typos in description
+- Aligned selinux policy according to GitHub repo
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

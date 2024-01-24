@@ -5,7 +5,7 @@
 
 Name:           c2hs
 Version:        0.28.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C->Haskell FFI tool that gives some cross-language type safety
 
 # Core code is GPL-2.0-or-later
@@ -68,6 +68,9 @@ correct Haskell types.
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

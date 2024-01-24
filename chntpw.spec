@@ -1,7 +1,7 @@
 Name:           chntpw
 # Version is taken from HISTORY.txt
 Version:        1.00
-Release:        14.140201%{?dist}
+Release:        15.140201%{?dist}
 Summary:        Change passwords in Windows SAM files
 License:        GPLv2
 URL:            http://pogostick.net/~pnh/ntpasswd/
@@ -87,6 +87,9 @@ cp -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-15.140201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-14.140201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

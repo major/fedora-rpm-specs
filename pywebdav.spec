@@ -3,7 +3,7 @@
 
 Name:           pywebdav
 Version:        0.9.12
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        WebDAV library
 
 License:        LGPLv2+
@@ -63,6 +63,9 @@ mv doc/LICENSE .
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

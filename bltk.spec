@@ -1,6 +1,6 @@
 Name:		bltk
 Version:	1.1.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	The BLTK measures notebook battery life under any workload
 
 License:	BSD
@@ -236,6 +236,9 @@ popd
 %{_libdir}/bltk/wl_reader/war_and_peace.html
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

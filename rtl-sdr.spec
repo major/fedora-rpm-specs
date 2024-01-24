@@ -13,7 +13,7 @@
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 Version:          0.6.0^%{git_suffix}
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv2+
 BuildRequires:    gcc
 BuildRequires:    cmake
@@ -80,6 +80,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230921git1261fbb2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 21 2023 Daniel Rusek <mail@asciiwolf.com> - 0.6.0^20230921git1261fbb2-1
 - Updated to latest commit adding rtl-sdr blog v4 support
 

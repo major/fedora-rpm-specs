@@ -78,7 +78,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 38%{?dist}
+Release: 39%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -1848,6 +1848,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.18-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Miro Hrončok <mhroncok@redhat.com> - 2.7.18-38
 - Fix a build failure with GCC 14
 - Fix errors in configure script with GCC 14

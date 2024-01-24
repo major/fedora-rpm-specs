@@ -3,7 +3,7 @@
 Summary:       An additive synthesizer using JACK
 Name:          Add64
 Version:       3.9.3
-Release:       12%{?dist}
+Release:       13%{?dist}
 URL:           http://sourceforge.net/projects/add64
 Source0:       http://downloads.sourceforge.net/project/add64/%{name}-%{version}.tar.bz2
 Source1:       %{name}.desktop
@@ -83,6 +83,9 @@ EOF
 %{_datadir}/pixmaps/add64.png
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

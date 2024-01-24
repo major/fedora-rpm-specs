@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python Client for interacting with the Volkszahler API
 
 License:        MIT
@@ -39,6 +39,9 @@ A Python client for interacting with the Volkszahler API.
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

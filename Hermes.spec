@@ -1,6 +1,6 @@
 Name:           Hermes
 Version:        1.3.3
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Pixel format conversion library
 License:        LGPLv2+
 # upstream is no more
@@ -73,6 +73,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

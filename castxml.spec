@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.6.2
+Version:	0.6.3
 Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
@@ -61,6 +61,12 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Fri Jan 19 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.3-1
+- Update to version 0.6.3
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

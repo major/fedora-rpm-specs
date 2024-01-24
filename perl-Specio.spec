@@ -90,7 +90,7 @@ values to that type.
 
 %package -n perl-Test-Specio
 Summary:	Test helpers for Specio
-License:	Artistic 2.0
+License:	Artistic-2.0
 Requires:	%{name} = %{version}-%{release}
 
 %description -n perl-Test-Specio

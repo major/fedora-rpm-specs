@@ -1,6 +1,6 @@
 Name:           python-memcached
 Version:        1.59
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Python memcached client library
 
 License:        Python
@@ -68,6 +68,9 @@ kill $(cat $pidfile)
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

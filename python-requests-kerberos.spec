@@ -1,6 +1,6 @@
 Name:           python-requests-kerberos
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Kerberos authentication handler for python-requests
 License:        ISC
 URL:            https://github.com/requests/requests-kerberos
@@ -53,6 +53,9 @@ sed -i '/pytest-cov/d' requirements-test.txt
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 13 2023 Carl George <carlwgeorge@fedoraproject.org> - 0.14.0-1
 - Update to version 0.14.0, resolves rhbz#2018834
 - Convert to pyproject macros

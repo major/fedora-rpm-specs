@@ -2,7 +2,7 @@
 
 Name:           python-zope-hookable
 Version:        5.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Efficient creation of hookable objects
 
 License:        ZPL-2.1
@@ -76,6 +76,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

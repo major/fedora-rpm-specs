@@ -22,7 +22,7 @@ framework called NiaPy.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
 # SPDX
@@ -107,6 +107,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{pypi_name}.1
 %doc interest_measures.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 
 * Mon Nov 13 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.5-4
 - Install additional doc file

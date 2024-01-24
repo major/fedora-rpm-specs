@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 4.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A py.test fixture for benchmarking code
 License: BSD
 URL: https://pytest-benchmark.readthedocs.io
@@ -62,6 +62,9 @@ Requires: python3-cpuinfo
 %{python3_sitelib}/pytest_benchmark-%{version}-py*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

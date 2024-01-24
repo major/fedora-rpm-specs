@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-amqp
 #
-# Copyright (c) 2012-2023 Remi Collet
+# Copyright (c) 2012-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -12,7 +12,7 @@
 %global pecl_name   amqp
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 2.1.1
+%global upstream_version 2.1.2
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -21,7 +21,7 @@
 Summary:       Communicate with any AMQP compliant server
 Name:          php-pecl-amqp
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       2%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/amqp
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -226,6 +226,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 22 2024 Remi Collet <remi@remirepo.net> - 2.1.2-1
+- update to 2.1.2
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

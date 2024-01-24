@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NTLM module for python requests (requires md4, thus legacy OpenSSL settings)
 
 License:        ISC
@@ -75,6 +75,9 @@ export OPENSSL_CONF=${PWD}/openssl.cnf
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 1.2.0-1
 - Update to 1.2.0
 

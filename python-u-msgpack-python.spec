@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A portable, lightweight MessagePack serializer and deserializer
 
 License:        MIT
@@ -54,6 +54,9 @@ application-defined ext types.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 2.8.0-1
 - Update to 2.8.0
 Resolves: rhbz#2140895

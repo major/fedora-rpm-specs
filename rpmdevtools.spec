@@ -1,6 +1,6 @@
 Name:           rpmdevtools
 Version:        9.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        RPM Development Tools
 
 # rpmdev-md5 and rpmdev-setuptree are GPL-2.0-only,
@@ -132,6 +132,9 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/rpmdevtools/
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 25 2023 Petr Pisar <ppisar@redhat.com> - 9.6-5
 - Convert a license tag to SPDX format
 

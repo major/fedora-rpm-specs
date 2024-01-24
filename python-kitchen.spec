@@ -1,6 +1,6 @@
 Name:           python-kitchen
 Version:        1.2.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Small, useful pieces of code to make python coding easier
 
 License:        LGPLv2+
@@ -92,6 +92,9 @@ rm -rf html/.buildinfo
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

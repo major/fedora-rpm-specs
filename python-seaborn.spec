@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Statistical data visualization in Python
 License: BSD
 
@@ -68,6 +68,9 @@ rm -rf seaborn/external/docscrape.py
 %doc README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Sergio Pascual <sergiopr@fedoraproject.com> - 0.13.0-1
 - New upstream source 0.13.0
 

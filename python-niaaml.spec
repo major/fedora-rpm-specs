@@ -24,7 +24,7 @@ classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python automated machine learning framework
 
 License:        MIT
@@ -115,6 +115,9 @@ find examples -type f -name '*.py' |
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md CITATION.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.12-4
 - F38+: Use %{py3_test_envvars} to set up environment for running examples
 

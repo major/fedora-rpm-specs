@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.43
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          3D Scatter Plot
 
 License:          GPLv2
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.43-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.43-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

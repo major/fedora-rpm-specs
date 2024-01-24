@@ -1,6 +1,6 @@
 Name:           python-scales
 Version:        1.0.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Stats for Python processes
 
 License:        ASL 2.0
@@ -63,6 +63,9 @@ sed -i "s/self.assertEquals/self.assertEqual/g" \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.0.9-17
 - Utilize pytest instead of the deprecated nose test runner
 - Remove python2 SPEC conditionals

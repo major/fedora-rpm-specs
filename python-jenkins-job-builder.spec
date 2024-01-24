@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
@@ -64,6 +64,9 @@ export PBR_VERSION=%{version}
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Christoph Erhardt <fedora@sicherha.de> - 1:5.0.4-2
 - Fix explicit `Requires:` line (rhbz#2232970, rhbz#2232983)
 

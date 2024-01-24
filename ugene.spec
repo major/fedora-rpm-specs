@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -70,6 +70,7 @@ Source1:	create-ugene-free-tarball.sh
 Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
+Patch1:	ugene-49.1-narrowing-for-unsigned-char.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
@@ -131,7 +132,8 @@ git checkout -b %{mainver}-fedora %{gitcommit_free}
 git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
-
+%patch -P1 -p1 -b .narrow
+	%GIT commit -m "Fix narrowing on arch where default char is unsigned" -a
 %patch -P102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
 %patch -P103 -p1 -b .unwind -Z
@@ -250,6 +252,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 49.1-2
+- Fix -Wnarrowing on non x86(-64) arch detected by gcc14
+
 * Tue Nov 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 49.1-1
 - 49.1
 

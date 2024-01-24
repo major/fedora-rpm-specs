@@ -9,7 +9,7 @@ to help with reporting results that conform to the conventions.
 
 Name:           resultsdb_conventions
 Version:        %{pagure_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %pycached %{python3_sitelib}/resultsdb_conventions/fedoracoreos.py
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 27 2023 Adam Williamson <awilliam@redhat.com> - 3.0.2-1
 - New release 3.0.2
 - Simplify and modernize spec

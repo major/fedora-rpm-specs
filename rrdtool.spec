@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 13%{?dist}
+Release: 15%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -33,6 +33,9 @@ Patch4: rrdtool-1.4.8-php-ppc-fix.patch
 # https://github.com/oetiker/rrdtool-1.x/commit/e59f703
 Patch5: rrdtool-1.8.0-BUILD_DATE-fix.patch
 Patch6: rrdtool-configure-c99.patch
+# gcc-14 fix
+# https://github.com/oetiker/rrdtool-1.x/commit/b76e3c578f1e9f582e9c28f50d82b1f569602075
+Patch7: rrdtool-1.8.0-const-argv.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -182,6 +185,7 @@ The %{name}-lua package includes RRDtool bindings for Lua.
 %patch4 -p1 -b .php-ppc-fix
 %patch5 -p1 -b .BUILD_DATE-fix
 %patch6 -p1 -b .configure-c99
+%patch7 -p1 -b .const-argv
 
 # Fix to find correct python dir on lib64
 perl -pi -e 's|get_python_lib\(0,0,prefix|get_python_lib\(1,0,prefix|g' \
@@ -410,6 +414,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Mon Jan 22 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.8.0-15
+- Fixed FTBFS with GCC 14
+
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.0-13
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

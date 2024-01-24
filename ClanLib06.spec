@@ -1,7 +1,7 @@
 Summary:        Version 0.6 of this Cross platform C++ game library
 Name:           ClanLib06
 Version:        0.6.5
-Release:        61%{?dist}
+Release:        62%{?dist}
 License:        LGPLv2
 URL:            http://www.clanlib.org/
 # No URL as this old version is no longer available on clanlib.org
@@ -105,6 +105,9 @@ chmod -x $RPM_BUILD_ROOT%{_mandir}/man1/clanlib-config.1*
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

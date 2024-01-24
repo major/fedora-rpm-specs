@@ -1,6 +1,6 @@
 Name:		rteval-loads
 Version:	1.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Source files for rteval loads
 Group:		Development/Tools
 License:	GPL-2.0-only
@@ -27,6 +27,9 @@ install -m 644 %{SOURCE0} %{buildroot}%{_datadir}/rteval/loadsource
 %{_datadir}/rteval/loadsource/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 01 2023 John Kacur <jkacur@redhat.com> - 1.6-5
 - Upgrade the kernel to linux-6.6.1
 

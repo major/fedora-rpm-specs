@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
 Version:        0.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -91,6 +91,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.5.0-2
 - Fix build with Sphinx 7.2.x (rhbz#2246941)
 

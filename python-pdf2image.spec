@@ -9,7 +9,7 @@
 
 Name:           python-pdf2image
 Version:        1.16.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert PDF to PIL Image object
 
 License:        MIT
@@ -93,6 +93,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

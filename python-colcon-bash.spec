@@ -1,8 +1,8 @@
 %global srcname colcon-bash
 
 Name:           python-%{srcname}
-Version:        0.4.2
-Release:        13%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Extension for colcon to provide Bash scripts
 
 License:        ASL 2.0
@@ -23,7 +23,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-colcon-core >= 0.4.0
+Requires:       python%{python3_pkgversion}-colcon-core >= 0.12.0
 %endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -57,6 +57,9 @@ An extension for colcon-core to provide Bash scripts.
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.5.0-1
+- Update to 0.5.0 (rhbz#2240871)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

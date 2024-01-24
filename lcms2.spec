@@ -1,12 +1,13 @@
 Name:           lcms2
-Version:        2.15
+Version:        2.16
 Release:        %autorelease
 Summary:        Color Management Engine
-License:        MIT
+# part of src/cmssm.c is softsurf (no SPDX yet) see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/469
+# utils/samples/mkcmy.c is libtiff - but it is not used
+# plugins/threaded/src/ is GPL-3.0-or-later
+License:        MIT AND GPL-3.0-or-later
 URL:            http://www.littlecms.com/
 Source0:        http://www.littlecms.com/lcms2-%{version}.tar.gz
-
-Patch1:         360.patch
 
 BuildRequires:  gcc
 BuildRequires:  libjpeg-devel
@@ -38,7 +39,7 @@ Development files for LittleCMS.
 %autosetup -p1
 
 %build
-%meson
+%meson -Dutils=true
 %meson_build
 
 %install
@@ -51,7 +52,7 @@ Development files for LittleCMS.
 %doc AUTHORS
 %doc ChangeLog
 %doc README*
-%license COPYING
+%license LICENSE
 %{_libdir}/liblcms2.so.2*
 
 %files utils

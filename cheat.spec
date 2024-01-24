@@ -17,7 +17,7 @@ commands that they use frequently, but not frequently enough to remember.}
 %global godocs          README.md CONTRIBUTING.md cmd/cheat/docopt.txt
 
 Name:           cheat
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Help for various commands and their use cases
 
 License:        MIT
@@ -140,6 +140,9 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_sysconfdir}/cheat/conf.yml
 %gopkgfiles
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

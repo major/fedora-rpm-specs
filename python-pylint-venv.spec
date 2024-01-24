@@ -1,6 +1,6 @@
 Name:           python-pylint-venv
 Version:        3.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make pylint respect virtualenvs
 
 License:        MIT
@@ -48,6 +48,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Sandro <devel@penguinpee.nl> - 3.0.2-1
 - Update to 3.0.2 (RHBZ#2214334)
 

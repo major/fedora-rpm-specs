@@ -1,6 +1,6 @@
 Name:		AcetoneISO
 Version:	6.7
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	CD/DVD Image Manipulator
 License:	GPLv2+
 URL:		http://www.acetoneteam.org/
@@ -94,6 +94,9 @@ desktop-file-install --vendor ""			\
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

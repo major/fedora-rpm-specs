@@ -57,7 +57,7 @@ Version: 9.8.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -413,16 +413,18 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 
 %build
-# patch5
-autoupdate
+# currently no autoconf patches
+#autoupdate
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
-# lld breaks build-id
+# note lld breaks build-id
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
 # https://bugzilla.redhat.com/show_bug.cgi?id=2116508
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
+%if 0%{fedora} < 40
 export LD=%{_bindir}/ld.gold
+%endif
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -434,6 +436,9 @@ export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
   --sharedstatedir=%{_sharedstatedir} --mandir=%{_mandir} \
   --docdir=%{_docdir}/%{name} \
   --with-system-libffi \
+%if 0%{fedora} >= 40
+  --disable-ld-override \
+%endif
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
@@ -488,7 +493,11 @@ cp -p LICENSE ../LICENSE.hadrian
 # https://gitlab.haskell.org/ghc/ghc/-/issues/20120#note_366872
 (
 cd _build/bindist/ghc-%{version}-*
-./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name}
+./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
+%if 0%{fedora} >= 40
+  --disable-ld-override
+%endif
+%{nil}
 make install
 )
 
@@ -832,6 +841,9 @@ make test
 
 
 %changelog
+* Mon Jan 22 2024 Jens Petersen <petersen@redhat.com> - 9.8.1-5
+- use gcc default ld (ie ld.bfd) for rawhide
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname colcon-ros
 
 Name:           python-%{srcname}
-Version:        0.3.23
-Release:        7%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Extension for colcon to support ROS packages
 
 License:        ASL 2.0
@@ -56,13 +56,9 @@ An extension for colcon-core to support ROS packages.
 
 
 %check
-# Workaround pkg_resources deprecation warning leaking from
-# python-colcon-core
-# https://github.com/colcon/colcon-core/issues/552
 %{__python3} -m pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
-    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     test
 
 
@@ -74,6 +70,9 @@ An extension for colcon-core to support ROS packages.
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.4.1-1
+- Update to 0.4.1 (rhbz#2240876)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

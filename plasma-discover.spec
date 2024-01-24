@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.92.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -26,15 +26,6 @@ Source10: discoverrc
 # This ensures that it is checked at least once during the work day.
 # It is double the time that Fedora repos are set to in DNF (6h).
 Patch200: discover-pk-refresh-timer.patch
-
-# Do not distro-upgrade to rawhide
-# Currently we have no way to distinguish rawhide from the beta releases.
-# In order to test upgrading to fedora beta releases, such as during Upgrade Test Day,
-# here we ignore rawhide completely.
-# This hack should be removed once https://github.com/ximion/appstream/pull/491 lands
-# and rawhide is marked as 'snapshot' rather than 'development'. Then discover could
-# handle upgrading to either release type with different toggles.
-Patch202: distro-upgrade-skip-rawhide.patch
 
 ## upstreamable patches
 
@@ -314,6 +305,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Mon Jan 22 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
+- Remove patch for disabling rawhide distro upgrade
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

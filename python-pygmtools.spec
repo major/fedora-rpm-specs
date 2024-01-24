@@ -5,7 +5,7 @@ Version:        0.4.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library of Python graph matching solvers
 
 License:        MulanPSL-2.0
@@ -81,5 +81,8 @@ rm -f %{pypi_name}/astar/priority_queue.hpp
 %doc examples
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 11 2023 Benson Muite <benson_muite@emailplus.org> - 0.4.0-1
 - Initial packaging

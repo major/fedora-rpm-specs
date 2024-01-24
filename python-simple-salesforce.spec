@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Salesforce is a basic Salesforce.com REST API client built for Python
 License:        ASL 2.0
 URL:            https://github.com/%{pypi_name}/%{pypi_name}
@@ -53,6 +53,9 @@ export TZ=UTC
 %license LICENSE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 07 2023 Roman Inflianskas <rominf@aiven.io> - 1.12.5-1
 - Update to 1.12.5 (fedora#2220501)
 - Use version tag instead of commit hash to make updates easier.

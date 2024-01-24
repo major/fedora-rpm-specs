@@ -4,7 +4,7 @@
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
 Version:        2020.3.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2+
 Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/flightgear-%{version}.tar.bz2
 Patch1:         0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
@@ -80,6 +80,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

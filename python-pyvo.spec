@@ -14,7 +14,7 @@ The pyvo module currently provides these main capabilities:              \
 
 Name:           python-%{srcname}
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -70,6 +70,9 @@ sed -i -e 's|mimeparse|python-mimeparse|' setup.cfg
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.5-1
 - Update to version 1.5
 - SPDX license

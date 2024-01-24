@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A comprehensive, fast, pure Python memcached client
 
 License:        ASL 2.0
@@ -65,6 +65,9 @@ py.test-3 ./pymemcache/test/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 
 * Mon Oct 16 2023 Priscila Gutierres <prgutier@redhat.com> - 4.0.0-2
 - Add automatic generated Python dependencies

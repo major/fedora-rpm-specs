@@ -8,7 +8,7 @@ Name:    arts
 Summary: aRts (analog realtime synthesizer) - the KDE sound system 
 Epoch:   8
 Version: 1.5.10
-Release: 60%{?dist}
+Release: 61%{?dist}
 
 License: LGPL-2.0-or-later
 Url: http://www.kde.org
@@ -220,6 +220,9 @@ test -z "$(chrpath --list %{buildroot}%{_bindir}/artsd 2>/dev/null | grep RPATH=
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8:1.5.10-61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8:1.5.10-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

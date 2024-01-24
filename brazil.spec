@@ -1,6 +1,6 @@
 Name:      brazil
 Version:   2.3
-Release:   34%{?dist}
+Release:   35%{?dist}
 Summary:   Extremely small footprint Java HTTP stack
 License:   SPL
 URL:       https://github.com/mbooth101/brazil
@@ -81,6 +81,9 @@ cp -pr samples %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

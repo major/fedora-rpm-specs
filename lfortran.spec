@@ -1,6 +1,6 @@
-Version:        0.30.0
+Version:        0.31.0
 Name:           lfortran
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -9,10 +9,14 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://lfortran.github.io/tarballs/release/lfortran-%{version}.tar.gz
-# fix missing symbols in runtime library
-Patch0:         https://github.com/lfortran/lfortran/pull/3043.patch
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
+
+%global with_jupyter 1
+%if 0%{?fedora} < 39
+# F38 has no jupyterlab
+%global with_jupyter 0
+%endif
 
 BuildRequires: binutils-devel
 BuildRequires: bison
@@ -23,13 +27,11 @@ BuildRequires: json-devel
 BuildRequires: libffi-devel
 BuildRequires: libunwind-devel
 BuildRequires: libuuid-devel
-%if 0%{?fedora} == 38
-BuildRequires: llvm-devel
-%else
+%if 0%{?fedora} > 38
 BuildRequires: llvm16-devel
+%else
+BuildRequires: llvm-devel
 %endif
-BuildRequires: libzstd-devel
-BuildRequires: libzstd-static
 BuildRequires: python3-devel
 BuildRequires: rapidjson-devel
 BuildRequires: re2c
@@ -40,6 +42,7 @@ BuildRequires: zlib-ng-compat-static
 BuildRequires: zlib-devel
 BuildRequires: zlib-static
 %endif
+%if %{with_jupyter}
 # Needed for Jupyter kernel
 BuildRequires: cppzmq-devel
 BuildRequires: json-devel
@@ -47,12 +50,14 @@ BuildRequires: openssl-devel
 BuildRequires: xeus-devel
 BuildRequires: xeus-zmq-devel
 BuildRequires: xtl-devel
-# For manpage, drop in next release
-BuildRequires: pandoc
-# For backend=cpp
+%endif
+
+%if 0%{?fedora}
+# Only on Fedora for backend=cpp
 BuildRequires: kokkos-devel
 # Not explicitly linked, hence listed here
 Requires: kokkos-devel
+%endif
 
 Requires: %{name}-shared%{?_isa} = %{version}-%{release}
 
@@ -91,8 +96,7 @@ Summary:   Shared runtime library for %{name}
 
 This package contains shared runtime library for %{name}.
 
-# F38 has no jupyterlab
-%if 0%{?fedora} > 38
+%if %{with_jupyter}
 %package jupyter
 Summary:   Jupyter kernel for %{name}
 Requires:  %{name}%{?_isa} = %{version}-%{release}
@@ -110,6 +114,8 @@ This package contains the jupyter kernel for %{name}.
 %autosetup -p1
 
 %build
+# WITH_ZSD is just used to fix static linking of llvm
+# not needed on Fedora
 %cmake -DCMAKE_PREFIX_PATH=%{_libdir}/llvm16/ \
        -DWITH_LLVM=ON \
        -DWITH_RUNTIME_LIBRARY=ON \
@@ -120,15 +126,13 @@ This package contains the jupyter kernel for %{name}.
        -DWITH_TARGET_WASM=ON \
        -DWITH_UNWIND=ON \
        -DWITH_WHEREAMI=OFF \
-       -DWITH_XEUS=ON \
+       -DWITH_ZSTD=OFF \
+       -DWITH_XEUS=%{with_jupyter} \
        -DWITH_ZLIB=ON
 %cmake_build
 
 %install
 %cmake_install
-%if 0%{?fedora} == 38
-%{__rm} -rfv %{buildroot}%{_datadir}/jupyter/kernels
-%endif
 
 %check
 %ctest
@@ -152,13 +156,16 @@ This package contains the jupyter kernel for %{name}.
 %files shared
 %{_libdir}/liblfortran_runtime.so.*
 
-%if 0%{?fedora} > 38
+%if %{with_jupyter}
 %files jupyter
 %dir %{_datadir}/jupyter/kernels/fortran
 %{_datadir}/jupyter/kernels/fortran/kernel.json
 %endif
 
 %changelog
+* Mon Jan 22 2024 Christoph Junghans <junghans@votca.org> - 0.31.0-1
+- Version bump to v0.31.0 (bug #2259671)
+
 * Fri Jan 19 2024 Christoph Junghans <junghans@votca.org> - 0.30.0-9
 - Drop jupyter package on F38
 

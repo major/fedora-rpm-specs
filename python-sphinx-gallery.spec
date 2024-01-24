@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension to automatically generate an examples gallery
 
 License:        BSD-3-Clause
@@ -71,6 +71,9 @@ rm -r %{buildroot}%{_bindir}/copy_sphinxgallery.sh
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Jerry James <loganjerry@gmail.com> - 0.15.0-2
 - Convert License tag to SPDX
 - Ship sphx_glr_python_to_jupyter.py

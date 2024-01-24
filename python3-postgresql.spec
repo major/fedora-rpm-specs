@@ -2,7 +2,7 @@
 
 Name:           python3-postgresql
 Version:        1.2.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Connect to PostgreSQL with Python 3
 
 License:        BSD
@@ -38,6 +38,9 @@ support a developer working with PostgreSQL databases.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Florian Weimer <fweimer@redhat.com> - 1.2.2-11
 - Backport upstream patches to fix C compatibility issues
 

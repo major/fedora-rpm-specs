@@ -17,7 +17,7 @@ than all other static analysis frameworks for Python.}
 
 Name:           python-jedi
 Version:        0.19.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
 # jedi is MIT
@@ -94,6 +94,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 04 2023 Lumír Balhar <lbalhar@redhat.com> - 0.19.1-1
 - Update to 0.19.1 (rhbz#2241718)
 

@@ -1,13 +1,15 @@
 Name:           pidgin-sipe
 Summary:        Pidgin protocol plugin to connect to MS Office Communicator
 Version:        1.25.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            http://sipe.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/project/sipe/sipe/pidgin-sipe-%{version}/pidgin-sipe-%{version}.tar.bz2
 Patch1:         pidgin-sipe-1.25.0-fix-false-negative-configure-checks.patch
 Patch2:         pidgin-sipe-1.25.0-fix-glib-2.68-build.patch
+Patch3:         pidgin-sipe-1.25.0-fix-libxml2-2.12-build.patch
+Patch4:         pidgin-sipe-1.25.0-add-appstreamcli-no-net.patch
 
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(farstream-0.2)
@@ -78,8 +80,10 @@ This package provides the protocol plugin for libpurple clients.
 
 %prep
 %setup -q
-%patch1 -p1 -b.fix-false-negative-configure-checks
-%patch2 -p1 -b.fix-glib-2.68-build
+%patch -P 1 -p1 -b.fix-false-negative-configure-checks
+%patch -P 2 -p1 -b.fix-glib-2.68-build
+%patch -P 3 -p1 -b.fix-libxml2-2.12-build
+%patch -P 4 -p1 -b.add-appstreamcli-no-net
 
 %build
 # steps copied from "autogen.sh" in upstream source tree
@@ -122,6 +126,10 @@ rm -f \
 
 
 %changelog
+* Mon Jan 22 2024 Stefan Becker <chemobejk@gmail.com> - 1.25.0-19
+- add upstream patch to fix build against libxml2 >= 2.12
+- add upstream patch to use appstreamcli --no-net option
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

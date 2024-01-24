@@ -1,6 +1,6 @@
 Name:           python-tokenize-rt
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrapper for Python's stdlib `tokenize` supporting roundtrips
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 31 2023 Roman Inflianskas <rominf@aiven.io> - 5.2.0-1
 - Update to 5.2.0 (fedora#2227583)
 

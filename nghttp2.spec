@@ -6,8 +6,8 @@
 
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.58.0
-Release: 2%{?dist}
+Version: 1.59.0
+Release: 1%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -215,6 +215,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Jan Macku <jamacku@redhat.com> 1.59.0-1
+- update to the latest upstream release
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.58.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

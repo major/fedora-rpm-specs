@@ -2,7 +2,7 @@
 
 Name:           python-testpath
 Version:        0.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Test utilities for code working with files and commands
 
 License:        BSD-3-Clause
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.6.0-8
 - Fix the License tag (from MIT to BSD-3-Clause)
 - The upstream project was relicensed in 0.4.2

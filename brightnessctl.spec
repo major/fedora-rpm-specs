@@ -1,6 +1,6 @@
 Name:		brightnessctl
 Version:	0.5.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Read and control device brightness
 
 License:	MIT
@@ -39,6 +39,9 @@ export ENABLE_SYSTEMD=1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

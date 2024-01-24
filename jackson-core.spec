@@ -1,6 +1,6 @@
 Name:           jackson-core
-Version:        2.16.0
-Release:        2%{?dist}
+Version:        2.16.1
+Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -55,6 +55,26 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
+- [maven-release-plugin] prepare release jackson-core-2.16.1 (Tatu Saloranta)
+- Prepare for 2.16.1 release (Tatu Saloranta)
+- Minor test improvements (Tatu Saloranta)
+- Minor tweaking post-merge wrt #1175 (Tatu Saloranta)
+- Add failing tests for #1173: parse error location (#1175) (Paul Bunyan)
+- Backport #1168 in 2.16(.1) (Tatu Saloranta)
+- Update release notes wrt #1161 backport (Tatu Saloranta)
+- fastdoubleparser 1.0.0 (#1163) (#1166) (PJ Fanning)
+- Update release notes wrt #1161 (Tatu Saloranta)
+- fastdoubleparser 1.0.0 (#1163) (#1165) (PJ Fanning)
+- Tiny import clean up (Tatu Saloranta)
+- update javadoc to highlight that this class is for internal jackson use (#1156) (PJ Fanning)
+- Test code clean up: pro-actively replace to-be-deprecated methods to non-deprecated ones (wrt 2.17) (Tatu Saloranta)
+- Fix #1146: add missing `JsonParserDelegate` overrides (#1147) (Tatu Saloranta)
+- Update version scorecard check runs for (Tatu Saloranta)
+- Fix #1141: prevent NPE in Version.equals() (#1142) (Tatu Saloranta)
+- Fix typo in VERSION-2.x (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

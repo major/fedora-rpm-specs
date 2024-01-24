@@ -52,7 +52,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -672,6 +672,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 22 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.5-2
 - Enforce BR: perl(DBIx::SearchBuilder) >= 1.77.
 - Minor packaging tweaks.

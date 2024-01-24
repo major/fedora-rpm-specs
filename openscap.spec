@@ -8,24 +8,73 @@ URL:            http://www.open-scap.org/
 VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
+%global         common_description %{expand:
+OpenSCAP is a set of open source libraries providing an easier path
+for integration of the SCAP line of standards. SCAP is a line of standards
+managed by NIST with the goal of providing a standard language
+for the expression of Computer Network Defense related information.}
+
+
+# By default build with checks (time consuming)
 %bcond_without  check
 
+# By default fedora package is built with apt
+%if 0%{?fedora}
+%bcond_without  apt
+%else
+# apt is missing in CentOS (ELN builds) and in EPEL available currently only in 9
+%bcond_with     apt
+%endif
+
+# By default fedora package is built with opendbx support
+%if 0%{?fedora}
+%bcond_without  opendbx
+%else
+# opendbx is missing in RHEL (ELN builds) without rest of the EPEL packages
+# conditional allows for example rebuild in COPR + EPEL
+%bcond_with  opendbx
+%endif
+
 # Fedora arched lib directories
-# https://github.com/OpenSCAP/openscap/pull/2056
-Patch1:         openscap-1.3.9-perlpath.patch
+# originally https://github.com/OpenSCAP/openscap/pull/2056
+# accepted was https://github.com/OpenSCAP/openscap/pull/2054
+Patch1:         https://github.com/OpenSCAP/openscap/pull/2054.patch#/openscap-1.3.9-perlpath.patch
 
 
 # Implicit declarations due to missing includes
 # reported in #PR2060, #PR2061, #PR2062
+# https://github.com/OpenSCAP/openscap/pull/2060
+# https://github.com/OpenSCAP/openscap/pull/2061
+# https://github.com/OpenSCAP/openscap/pull/2062
 Patch2:         openscap-1.3.9-includes.patch
 
 # Fix test test_sysctl_probe_all.sh
+# https://github.com/OpenSCAP/openscap/commit/f8366b395b977392d724c6cc84c7295590c39ee8
 Patch3: openscap-1.3.10-fix_sysctl_probe_tests-PR-2050.patch
-Patch4: openscap-c99.patch
-Patch5: openscap-c99-2.patch
+
+# Fix type of libxml2 error callback function
+# https://github.com/OpenSCAP/openscap/pull/2069
+Patch4:         openscap-1.3.9-c99-libxml2.patch
+
+# Python bindings: Do not reuse $result for pointer conversion result
+# https://github.com/OpenSCAP/openscap/pull/2069
+Patch5:         openscap-1.3.9-c99-python.patch
+
+%if 0%{?rhel} && ! 0%{?eln}
+BuildRequires:  epel-rpm-macros
+%endif
+
+BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  make
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  cmake >= 2.6
+BuildRequires:  cmake-rpm-macros
+%else
+BuildRequires:  cmake3
+%endif
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  swig
@@ -47,22 +96,28 @@ BuildRequires:  libyaml-devel
 BuildRequires:  xmlsec1-devel
 BuildRequires:  xmlsec1-openssl-devel
 
-%if 0%{?fedora}
+# Fedora has procps-ng-devel, which provides procps-devel
+BuildRequires:  procps-devel
+
+%if %{with apt}
 # apt-libs missing on Centos
 BuildRequires:  apt-devel
+%endif
+
+%if %{with opendbx}
 # opendbx is not available in RHEL
 BuildRequires:  opendbx-devel
 %endif
 
 # GConf2 not used on purpose as obsolete and blocking anaconda addon
 # BuildRequires:  GConf2-devel
-BuildRequires:  procps-ng-devel
+
 %if %{with check}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-XML-XPath
 BuildRequires:  bzip2
 %endif
-BuildRequires:  systemd-rpm-macros
+
 
 Requires:       bash
 Requires:       bzip2-libs
@@ -78,18 +133,13 @@ Requires:       popt
 Requires:       procps
 Requires:       xmlsec1 xmlsec1-openssl
 
+%if %{with apt}
 # apt-libs missing on Centos
-%if 0%{?fedora}
 Requires:       apt-libs
 %endif
 
+%description %{common_description}
 
-
-%description
-OpenSCAP is a set of open source libraries providing an easier path
-for integration of the SCAP line of standards. SCAP is a line of standards
-managed by NIST with the goal of providing a standard language
-for the expression of Computer Network Defense related information.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -101,18 +151,22 @@ BuildRequires:  doxygen
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
-
+%{common_description}
 
 %package        python3
 Summary:        Python 3 bindings for %{name}
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-openscap }
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+%if 0%{?fedora}
+BuildRequires:  python-rpm-macros
+%endif
 
 %description    python3
 The %{name}-python3 package contains the bindings so that %{name}
 libraries can be used by python3.
-
+%{common_description}
 
 %package        perl
 Summary:        Perl bindings for %{name}
@@ -128,7 +182,7 @@ BuildRequires:  perl-XML-Parser
 %description    perl
 The perl package contains the bindings so that %{name}
 libraries can be used by perl.
-
+%{common_description}
 
 %package        scanner
 Summary:        OpenSCAP Scanner Tool (oscap)
@@ -140,6 +194,7 @@ BuildRequires:  libcurl-devel >= 7.12.0
 The %{name}-scanner package contains oscap command-line tool. The oscap
 is configuration and vulnerability scanner, capable of performing
 compliance checking using SCAP content.
+%{common_description}
 
 %package        utils
 Summary:        OpenSCAP Utilities
@@ -151,6 +206,7 @@ Requires:       %{name}-scanner%{?_isa} = %{epoch}:%{version}-%{release}
 The %{name}-utils package contains command-line tools build on top
 of OpenSCAP library. Historically, openscap-utils included oscap
 tool which is now separated to %{name}-scanner sub-package.
+%{common_description}
 
 %package        engine-sce
 Summary:        Script Check Engine plug-in for OpenSCAP
@@ -160,6 +216,7 @@ Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 The Script Check Engine is non-standard extension to SCAP protocol. This
 engine allows content authors to avoid OVAL language and write their assessment
 commands using a scripting language (Bash, Perl, Python, Ruby, ...).
+%{common_description}
 
 %package        engine-sce-devel
 Summary:        Development files for %{name}-engine-sce
@@ -170,6 +227,7 @@ Requires:       pkgconfig
 %description    engine-sce-devel
 The %{name}-engine-sce-devel package contains libraries and header files
 for developing applications that use %{name}-engine-sce.
+%{common_description}
 
 %package        containers
 Summary:        Utils for scanning containers
@@ -179,11 +237,18 @@ BuildArch:      noarch
 
 %description    containers
 Tool for scanning Atomic containers.
+%{common_description}
 
 %prep
 %autosetup -p1
 
 %build
+
+# definition controlling to use out-of-source build by default
+# still needed for EPEL8 build
+# more info - https://bugzilla.redhat.com/show_bug.cgi?id=1861329
+%undefine __cmake_in_source_build
+
 # gconf is a legacy system not used any more, and it blocks testing of oscap-anaconda-addon
 # as gconf is no longer part of the installation medium
 %cmake \
@@ -205,12 +270,18 @@ ctest -V -E sce/test_sce_in_ds.sh
 %install
 %cmake_install
 
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # fix python shebangs
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n $RPM_BUILD_ROOT%{_bindir}/scap-as-rpm
+%if 0%{?fedora}
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
+%else
+pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
+%endif
+
 
 %ldconfig_scriptlets
+
 
 %files
 %doc AUTHORS NEWS README.md
@@ -232,7 +303,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %files perl
 %{perl_vendorarch}/openscap_pm.pm
-%{perl_vendorarch}/openscap_pm.so
+%{perl_vendorarch}/auto/openscap_pm/openscap_pm.so
 
 
 %files devel
@@ -277,6 +348,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Sun Jan 21 2024 Michal Ambroz <rebus _AT seznam.cz> - 1:1.3.9-7
+- add conditionals to be able to rebuild with opendbx/apt even on EPEL+RHEL
+- cosmetics: rename patches, add comments, use buildroot macro instead of env
+- add explicit build requirement to python3-setuptools, needed for 3.13+
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -448,10 +524,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 * Thu Jun 13 2019 Jan Černý <jcerny@redhat.com> - 1:1.3.1-1
 - upgrade to the latest upstream release
 
-* Mon Jun 10 22:13:21 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1:1.3.0-7
+* Mon Jun 10 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1:1.3.0-7
 - Rebuild for RPM 4.15
 
-* Mon Jun 10 15:42:04 CET 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1:1.3.0-6
+* Mon Jun 10 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1:1.3.0-6
 - Rebuild for RPM 4.15
 
 * Sat Jun 01 2019 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.3.0-5

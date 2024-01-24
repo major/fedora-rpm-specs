@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make %{modname} available for Python 3.12 onwards
 
 License:        Python-2.0.1
@@ -55,4 +55,7 @@ chmod ugo-x README.md LICENSE
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

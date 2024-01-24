@@ -2,7 +2,7 @@
 
 Name:           apache-commons-codec
 Version:        1.16.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementations of common encoders and decoders
 License:        Apache-2.0
 URL:            https://commons.apache.org/codec/
@@ -51,6 +51,9 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           python-requests
 Version:        2.31.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        Apache-2.0
@@ -87,6 +87,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 16 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.31.0-1
 - Update to 2.31.0
 - Fixes: rhbz#2189970

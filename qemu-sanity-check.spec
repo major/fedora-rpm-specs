@@ -8,7 +8,7 @@
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
 License:        GPLv2+
 
@@ -168,6 +168,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.6-11
 - Rebase with all latest upstream patches
 

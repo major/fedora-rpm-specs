@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for testing processes
 
 License:        BSD
@@ -45,6 +45,9 @@ Tools for testing processes for Python 3.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 02 2023 Orion Poplawski <orion@nwra.com> - 3.0.0-1
 - Update to 3.0.0
 

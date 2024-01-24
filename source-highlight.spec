@@ -1,7 +1,7 @@
 Summary: Produces a document with syntax highlighting
 Name: source-highlight
 Version: 3.1.9
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPL-3.0-or-later AND GFDL-1.1-or-later AND LicenseRef-Fedora-Public-Domain AND GPL-2.0-only AND GPL-3.0-only AND GPL-3.0-or-later WITH Bison-exception-2.2
 Source0: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz.sig
@@ -9,6 +9,7 @@ URL: http://www.gnu.org/software/src-highlite/
 # Taken from https://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=904949c9026cb772dc93fbe0947a252ef47127f4
 # and slightly adapted
 Patch0: 904949c9026cb772dc93fbe0947a252ef47127f4.patch
+Patch1: source-highlight-bz2256374-lesspipe_sh.patch
 BuildRequires: make
 BuildRequires: bison, flex, boost-devel
 BuildRequires: help2man, chrpath, pkgconfig(bash-completion)
@@ -94,6 +95,9 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 %{_includedir}/srchilite/*.h
 
 %changelog
+* Mon Jan 22 2024 Keith Seitz <keiths@redhat.com> - 3.1.9-21
+- Added upstream patch to fix BZ 2256374.
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 3.1.9-20
 - Rebuilt for Boost 1.83
 
@@ -106,7 +110,7 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.9-18
 - Rebuilt for Boost 1.81
 
-* Sat Oct 15 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.1.9-17
+* Sun Jan 29 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.1.9-17
 - Stop adding 'cxx' language mapping (fixed upstream)
 - Add 'rpm-spec' (used in asciidoc) mapping
 

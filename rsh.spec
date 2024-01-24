@@ -3,7 +3,7 @@
 Summary: Clients for remote access commands (rsh, rlogin, rcp)
 Name: rsh
 Version: 0.17
-Release: 107%{?dist}
+Release: 108%{?dist}
 License: BSD-4-Clause-UC
 
 BuildRequires: make
@@ -261,6 +261,9 @@ install -m644 %SOURCE10 %{buildroot}%{_unitdir}/rexec.socket
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-108
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Florian Weimer <fweimer@redhat.com> - 0.17-107
 - Further C compatibility fixes (#2165891)
 

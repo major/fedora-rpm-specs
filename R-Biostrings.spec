@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.64.1
-Release:          5%{dist}
+Release:          6%{dist}
 Summary:          String objects representing biological sequences
 License:          Artistic 2.0
 URL:              http://bioconductor.org/packages/release/bioc/html/Biostrings.html
@@ -70,6 +70,9 @@ rm -f %{buildroot}%{_libdir}/R/library/%{packname}/doc/GenomeSearching.R
 %{_libdir}/R/library/%{packname}/include
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.64.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.64.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

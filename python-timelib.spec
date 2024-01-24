@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parse english textual date descriptions
 
 License:        Zlib AND PHP-3.01
@@ -62,6 +62,9 @@ timelib.strtodatetime("29 feb 2008 -108...
 %{python3_sitearch}/timelib-%{version}.dist-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.3.0-2
 - Review fixes.
 

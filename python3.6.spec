@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -1912,6 +1912,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-22
 - Security fix for CVE-2023-27043 (rhbz#2196191)
 

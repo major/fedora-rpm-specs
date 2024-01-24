@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
 Version: 6.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global examples 1
 
@@ -202,6 +202,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.1-2
 - Use system assimp
 

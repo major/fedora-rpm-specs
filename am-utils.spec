@@ -2,7 +2,7 @@ Summary: Automount utilities including an updated version of Amd
 Name: am-utils
 Version: 6.2.0
 %define upstream_version 6.2
-Release: 55%{?dist}
+Release: 56%{?dist}
 License: BSD
 Epoch: 5
 URL: http://am-utils.org
@@ -285,6 +285,9 @@ fi
 %{_libdir}/libamu.so*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

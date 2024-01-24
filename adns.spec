@@ -1,6 +1,6 @@
 Name:		adns
 Version:	1.6.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 
 Summary:	Advanced, easy to use, asynchronous-capable DNS client library
 
@@ -105,6 +105,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libadns.a
 %attr(755,root,root) %{_bindir}/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

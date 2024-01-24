@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-devhelp
 Version:        1.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for Devhelp documents
 License:        BSD-2-Clause
 URL:            http://sphinx-doc.org/
@@ -69,6 +69,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-2
 - Remove a patch to drop the runtime dependency on Sphinx
 - It is no longer needed, python3-sphinx-7.2.6-2+ no longer Requires this

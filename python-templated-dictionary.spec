@@ -7,7 +7,7 @@
 
 Name:       python-%{srcname}
 Version:    1.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Dictionary with Jinja2 expansion
 
 License:    GPL-2.0-or-later
@@ -54,6 +54,9 @@ version=%version %py3_install
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Pavel Raiskup <praiskup@redhat.com>
 - make the TemplatedDictionary objects picklable
 - use a sandboxed jinja2 environment, fixes CVE-2023-6395

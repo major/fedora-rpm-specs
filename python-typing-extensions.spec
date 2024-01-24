@@ -1,6 +1,6 @@
 Name:      python-typing-extensions
 Version:   4.9.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
@@ -70,6 +70,9 @@ cd src
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 10 2023 Jonny Heggheim <hegjon@gmail.com> - 4.9.0-1
 - Updated to version 4.9.0
 

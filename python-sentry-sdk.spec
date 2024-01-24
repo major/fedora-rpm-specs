@@ -30,7 +30,7 @@
 
 Name:           python-sentry-sdk
 Version:        1.39.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        MIT
@@ -289,6 +289,9 @@ ignore="${ignore-} --ignore=tests/integrations/sqlalchemy"
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 20 2023 Roman Inflianskas <rominf@aiven.io> - 1.39.1-1
 - Update to 1.39.1 (fedora#2238739)
 - Use bcond for conditionally excluded integrations, sqlalchemy during

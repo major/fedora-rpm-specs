@@ -10,7 +10,7 @@
 Name:          cjs
 Epoch:         1
 Version:       6.0.0
-Release:       2%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
+Release:       3%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
@@ -116,6 +116,9 @@ the functionality of the installed cjs package.
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

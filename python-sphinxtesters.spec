@@ -1,6 +1,6 @@
 Name:           python-sphinxtesters
 Version:        0.2.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Utilities for testing Sphinx extensions
 
 # The code is BSD-2-Clause.
@@ -68,6 +68,9 @@ rm -fr build/sphinx/.{buildinfo,doctrees,nojekyll}
 %doc README.html build/sphinx
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

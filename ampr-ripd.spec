@@ -9,7 +9,7 @@
 Summary: Routing daemon for the ampr network
 Name: ampr-ripd
 Version: 2.4.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 URL: http://www.yo2loj.ro/hamprojects/
 BuildRequires: gcc, dos2unix, systemd
@@ -68,6 +68,9 @@ install -Dpm 644 -t %{buildroot}%{_datadir}/%{name}/examples examples/ampr-run.s
 %{_unitdir}/%{name}.service
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-slugify
 Version:        6.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module to deal with unicode slugs
 
 License:        BSD
@@ -45,6 +45,9 @@ A Python slugify application that handles Unicode.
 %{python3_sitelib}/python_slugify-%{version}-py*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

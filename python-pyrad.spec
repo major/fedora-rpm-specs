@@ -2,7 +2,7 @@
 
 Name:           python-pyrad
 Version:        2.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python RADIUS client
 License:        BSD
 URL:            https://github.com/wichert/pyrad
@@ -57,6 +57,9 @@ rm -f docs/_build/html/.buildinfo
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

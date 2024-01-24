@@ -10,7 +10,7 @@
 
 Name:  anthy-unicode
 Version: 1.0.0.20211224
-Release: 11%{?dist}
+Release: 12%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.0-or-later and GPL-2.0-or-later and LicenseRef-Fedora-Public-Domain
 URL:  https://github.com/fujiwarat/anthy-unicode/wiki
@@ -168,6 +168,9 @@ cd ..
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20211224-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20211224-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

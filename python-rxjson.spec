@@ -3,7 +3,7 @@
 Name:             python-%{srcname}
 Summary:          JSON RX Schema validation tool
 Version:          0.3
-Release:          18%{?dist}
+Release:          19%{?dist}
 
 License:          GPLv2+
 URL:              https://pypi.python.org/pypi/rxjson
@@ -40,6 +40,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

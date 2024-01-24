@@ -1,6 +1,6 @@
 Name:           raft
 Version:        0.18.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C implementation of the Raft consensus protocol
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/libraft.la
 %doc docs/_build/html/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.18.3-1
 - Switch upstream to https://github.com/cowsql/raft
 - Update to 0.18.3

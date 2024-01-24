@@ -4,7 +4,7 @@
 Summary:       Cryptographic library
 Name:          bee2
 Version:       2.1.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPL-3.0-only and GPL-3.0-or-later
 Url:           http://apmi.bsu.by/resources/tools.html
 Source0:       https://github.com/agievich/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -126,6 +126,9 @@ rm %{buildroot}%{_libdir}/libbee2_static.a
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global	mainver	1.0.19
 %undefine	prever
 
-%global	baserelease	3
+%global	baserelease	4
 
 Name:		bsfilter
 Version:	%{mainver}
@@ -59,6 +59,9 @@ ruby ./test.rb || :
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-4.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-3.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

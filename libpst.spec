@@ -15,12 +15,13 @@
 Summary:            Utilities to convert Outlook .pst files to other formats
 Name:               libpst
 Version:            0.6.76
-Release:            17%{?dist}
+Release:            18%{?dist}
 License:            GPL-2.0-or-later
 URL:                http://www.five-ten-sg.com/%{name}/
 Source:             %{url}/packages/%{name}-%{version}.tar.gz
 # https://github.com/autoconf-archive/autoconf-archive/pull/235
 Patch0:             m4-python310.patch
+Patch1:             0002-incompatible-pointer-i686.patch
 
 BuildRequires:      make
 BuildRequires:      libtool gcc-c++
@@ -73,7 +74,8 @@ utilities.
 %if 0%{?use_python3}
 %package -n python3-%{name}
 Requires:           python3
-Provides: %{name}-python = %{version}-%{release}
+BuildRequires:      (python3-setuptools if python3 >= 3.12)
+Provides:           %{name}-python = %{version}-%{release}
 %else
 %package python
 Requires:           python
@@ -131,8 +133,7 @@ libpst utilities.
 
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1 -S gendiff
 
 
 %build
@@ -216,6 +217,9 @@ rm %{buildroot}%{_mandir}/man1/pst2dii.1*
 
 
 %changelog
+* Mon Jan 22 2024 Milan Crha <mcrha@redhat.com> - 0.6.76-18
+- Resolves: #2259570 (Fails to build in rawhide)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.76-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

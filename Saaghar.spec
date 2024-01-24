@@ -1,6 +1,6 @@
 Name:           Saaghar
 Version:        3.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A Cross-Platform Persian Poetry Software
 
 License:        GPLv3+
@@ -25,7 +25,7 @@ http://ganjoor.net database. It has lots of features:
 
 %package        data
 Version:        67.92.11
-Release:        18.%{release}
+Release:        19.%{release}
 Summary:        Database for %{name}
 BuildArch:      noarch
 Source1:        http://downloads.sourceforge.net/saaghar/%{name}-data-%{version}.xz
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/saaghar/ganjoor.s3db
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

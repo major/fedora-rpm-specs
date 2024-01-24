@@ -1,6 +1,6 @@
 Name:           budgie-desktop-defaults
 Version:        0.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
 License:        CC-BY-SA-4.0
@@ -42,6 +42,9 @@ Budgie Desktop Defaults for Fedora.
 %{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

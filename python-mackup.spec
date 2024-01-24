@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.32
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Keep your application settings in sync
 
 License:        GPLv3
@@ -69,6 +69,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

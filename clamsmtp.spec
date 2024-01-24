@@ -1,7 +1,7 @@
 Summary:                A SMTP virus scanning system
 Name:                   clamsmtp
 Version:                1.10
-Release:                41%{?dist}
+Release:                42%{?dist}
 License:                BSD
 URL:                    http://memberwebs.com/stef/software/clamsmtp/
 
@@ -107,6 +107,9 @@ exit 0
 %{_mandir}/man8/clamsmtpd.8.gz
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

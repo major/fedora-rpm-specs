@@ -5,7 +5,7 @@
 Summary: Widget extension to the Tcl/Tk scripting language
 Name: blt
 Version: 2.4
-Release: 67.z%{?dist}
+Release: 68.z%{?dist}
 
 License: MIT
 URL: http://sourceforge.net/projects/blt/
@@ -130,6 +130,9 @@ rm -rf %{buildroot}%{_mandir}/
 %{_includedir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-68.z
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-67.z
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

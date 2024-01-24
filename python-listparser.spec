@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Parse OPML, FOAF, and iGoogle subscription lists
 
 License:        LGPL-3.0-or-later
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

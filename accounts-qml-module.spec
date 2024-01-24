@@ -5,7 +5,7 @@
 Name:    accounts-qml-module
 Summary: QML bindings for libaccounts-qt + libsignon-qt
 Version: 0.7^%{gitdate}.%{shortcommit0}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-2.1-only
 URL:     https://gitlab.com/accounts-sso/accounts-qml-module
@@ -104,6 +104,9 @@ rm -fv %{buildroot}/%{_datadir}/%{name}/doc/html/.gitignore
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7^20231216.05e79eb-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7^20231216.05e79eb-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

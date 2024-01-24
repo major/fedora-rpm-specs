@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python vSphere Client with a dialog interface
 License:        BSD
 URL:            https://github.com/dnaeon/%{srcname}
@@ -87,6 +87,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 30 2023 Raphael Groner <raphgro@fedoraproject.org> - 0.3.0-20
 - ignore dash in versioned dependency 
 

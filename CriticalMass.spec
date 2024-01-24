@@ -1,6 +1,6 @@
 Name:           CriticalMass
 Version:        1.5
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        SDL/OpenGL space shoot'em up game also known as critter
 License:        GPLv2+
 URL:            http://criticalmass.sourceforge.net/critter.php
@@ -105,6 +105,9 @@ EOF
 %{_datadir}/icons/hicolor/256x256/apps/critter.png
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

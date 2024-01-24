@@ -2,7 +2,7 @@
 
 Name:           python-queuelib
 Version:        1.5.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
 License:        BSD
@@ -46,6 +46,9 @@ nosetests-%{python3_version} queuelib/tests
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

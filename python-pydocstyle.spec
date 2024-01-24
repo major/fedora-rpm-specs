@@ -2,7 +2,7 @@
 
 Name: python-%{pypi_name}
 Version: 6.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Python docstring style checker
 
 License: MIT
@@ -90,6 +90,9 @@ sed -E -i 's|"python(2\|3)?( -m pydocstyle)|"%{__python3}\2|' \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 18 2023 Tadej Janež <tadej.j@nez.si> - 6.3.0-4
 - Temporarily disable tests failing with Python 3.12
 

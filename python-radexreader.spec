@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.2.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPLv2+
@@ -80,6 +80,9 @@ install -p -m 644 ../debian/udev %{buildroot}/lib/udev/rules.d/60-python3-radexr
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 10 2023 Fabrice Creuzot <code@luigifab.fr> - 1.2.3-1
 - New upstream release
 

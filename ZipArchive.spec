@@ -1,6 +1,6 @@
 Name:           ZipArchive
 Version:        4.1.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library for accessing zip files
 
 License:        GPLv2+
@@ -83,6 +83,9 @@ install -p -m 644 %{name}.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

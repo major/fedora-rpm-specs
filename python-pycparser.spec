@@ -3,7 +3,7 @@
 Name:           python-pycparser
 Summary:        C parser and AST generator written in Python
 Version:        2.20
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        BSD-3-Clause
 URL:            http://github.com/eliben/pycparser
 Source0:        %{url}/archive/release_v%{version}.tar.gz
@@ -71,6 +71,9 @@ popd
 %{python3_sitelib}/pycparser-*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 22 2023 Rob Crittenden <rcritten@redhat.com> - 2.20-12
 - migrated to SPDX license
 

@@ -4,7 +4,7 @@
 Name:           python-pydantic-extra-types
 Version:        2.1.0
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extra types for Pydantic
 
 License:        MIT
@@ -64,5 +64,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 12 2023 Maxwell G <maxwell@gtmx.me> - 2.1.0-1
 - Initial package. Closes rhbz#2249133.

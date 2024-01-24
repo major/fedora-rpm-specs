@@ -1,6 +1,6 @@
 Name:           arpwatch
 Epoch:          14
-Version:        3.5
+Version:        3.6
 Release:        %autorelease
 Summary:        Network monitoring tools for tracking IP addresses on a network
 
@@ -38,7 +38,7 @@ Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 # updated), we store the file directly in the repository with the spec file;
 # see the update-oui-csv script.
 #
-# File oui.csv last fetched 2024-01-02T17:47:36+00:00.
+# File oui.csv last fetched 2024-01-22T02:46:30+00:00.
 Source1:        oui.csv
 Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig

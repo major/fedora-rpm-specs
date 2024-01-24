@@ -2,7 +2,7 @@
 
 Name:           python-sphinxcontrib-zopeext
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ interfaces.
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 0.4.3-1
 - Version 0.4.3
 - Drop upstreamed Sphinx 7.2.x patch

@@ -11,7 +11,7 @@ Name: EekBoek
 Summary: Bookkeeping software for small and medium-size businesses
 License: GPL+ or Artistic
 Version: 2.051
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source: https://www.eekboek.nl/dl/%{name}-%{version}.tar.gz
 URL: https://www.eekboek.nl
 
@@ -198,6 +198,9 @@ env EB_SKIPDBTESTS=1 make test
 %{ebshare}/lib/EB/DB/Postgres.pm
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.051-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.051-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

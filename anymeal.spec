@@ -2,7 +2,7 @@ Summary:  A free and open source recipe management software
 Name:     anymeal
 License:  GPL-3.0-or-later
 Version:  1.21
-Release:  2%{?dist}
+Release:  3%{?dist}
 
 URL:      https://github.com/wedesoft/anymeal
 Source0:  %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/de.wedesoft.%{
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

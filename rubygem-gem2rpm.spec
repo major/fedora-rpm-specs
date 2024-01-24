@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Generate rpm specfiles from gems
 License: GPLv2+
 URL: https://github.com/fedora-ruby/gem2rpm
@@ -79,6 +79,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

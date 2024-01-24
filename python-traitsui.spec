@@ -1,7 +1,7 @@
 %global modname traitsui 
 Name:           python-%{modname}
 Version:        8.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        User interface tools designed to complement Traits
 
 # Images have different licenses. For image license breakdown check
@@ -102,6 +102,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
 - Build for Python 3.12
 - Drop BR on shiboken2

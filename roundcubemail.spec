@@ -11,7 +11,7 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.5
+%global upstream_version     1.6.6
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
@@ -145,20 +145,20 @@ Provides: bundled(php-pear-net-smtp) = 1.10.1
 Provides: bundled(php-pear-pear-exception) = v1.0.2
 # License BSD-3-Clause
 Provides: bundled(php-pear-mail-mime) = 1.10.11
-Provides: bundled(php-pear-pear-core-minimal) = v1.10.13
+Provides: bundled(php-pear-pear-core-minimal) = v1.10.14
 # License GPL-2.0
-Provides: bundled(php-roundcube-rtf-html-php) = v2.1
+Provides: bundled(php-roundcube-rtf-html-php) = v2.2
 # License GPL-3.0+
 Provides: bundled(php-kolab-net-ldap3) = v1.1.5
 Provides: bundled(php-roundcube-plugin-installer) = 0.3.2
 # License LGPL-2.1
-Provides: bundled(php-pear-crypt-gpg) = v1.6.7
+Provides: bundled(php-pear-crypt-gpg) = v1.6.8
 # License LGPL-3.0
 Provides: bundled(php-pear-net-ldap2) = v2.3.0
 # License MIT
-Provides: bundled(php-guzzlehttp-guzzle) = 7.8.0
-Provides: bundled(php-guzzlehttp-promises) = 2.0.1
-Provides: bundled(php-guzzlehttp-psr7) = 2.6.1
+Provides: bundled(php-guzzlehttp-guzzle) = 7.8.1
+Provides: bundled(php-guzzlehttp-promises) = 2.0.2
+Provides: bundled(php-guzzlehttp-psr7) = 2.6.2
 Provides: bundled(php-masterminds-html5) = 2.7.6
 Provides: bundled(php-pear-console-commandline) = v1.2.6
 Provides: bundled(php-psr-http-client) = 1.0.3
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Mon Jan 22 2024 Remi Collet <remi@remirepo.net> - 1.6.6-1
+- update to 1.6.6
+
 * Mon Nov  6 2023 Remi Collet <remi@remirepo.net> - 1.6.5-1
 - update to 1.6.5
 

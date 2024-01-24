@@ -1,8 +1,8 @@
 %global srcname colcon-cmake
 
 Name:           python-%{srcname}
-Version:        0.2.27
-Release:        5%{?dist}
+Version:        0.2.28
+Release:        1%{?dist}
 Summary:        Extension for colcon to support CMake packages
 
 License:        ASL 2.0
@@ -19,6 +19,7 @@ An extension for colcon-core to support CMake projects.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.5.6
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
@@ -27,6 +28,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 Requires:       python%{python3_pkgversion}-colcon-core >= 0.5.6
 Requires:       python%{python3_pkgversion}-colcon-library-path
 Requires:       python%{python3_pkgversion}-colcon-test-result >= 0.3.3
+Requires:       python%{python3_pkgversion}-packaging
 %endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -46,12 +48,9 @@ An extension for colcon-core to support CMake projects.
 
 
 %check
-# Workaround pkg_resources deprecation warning
-# https://github.com/colcon/colcon-cmake/issues/127
 %{__python3} -m pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
-    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     test
 
 
@@ -63,6 +62,9 @@ An extension for colcon-core to support CMake projects.
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.2.28-1
+- Update to 0.2.28 (rhbz#2242421)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.27-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

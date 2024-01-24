@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        ASL 2.0
@@ -90,6 +90,9 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.0.2-1
 - Update to 4.0.2
 Resolves: rhbz#2150064

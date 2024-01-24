@@ -3,7 +3,7 @@
 
 Name:           python-rustcfg
 Version:        0.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Rust cfg expression parser in python
 
 License:        MIT
@@ -58,6 +58,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/%{srcname}/test/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

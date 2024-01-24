@@ -1,7 +1,7 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        +MIT
 
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

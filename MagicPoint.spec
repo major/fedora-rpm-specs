@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           MagicPoint
 Version:        1.13a
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        X based presentation software
 License:        BSD
 URL:            http://member.wide.ad.jp/wg/mgp/
@@ -66,6 +66,9 @@ rm sample/.cvsignore sample/*akefile*
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

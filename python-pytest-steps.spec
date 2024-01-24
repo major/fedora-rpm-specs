@@ -1,6 +1,6 @@
 Name:		python-pytest-steps
 Version:	1.7.2
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Create step-wise / incremental tests in pytest
 
 License:	BSD
@@ -65,6 +65,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest -v "${args[@]}
 %{python3_sitelib}/pytest_steps-%{version}.dist-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

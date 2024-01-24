@@ -1,6 +1,6 @@
 Name:           catimg
 Version:        2.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Print images in a terminal with 256 colors support
 
 License:        MIT
@@ -36,6 +36,9 @@ install -D --preserve-timestamps --mode 644 completion/_catimg %{buildroot}%{_da
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

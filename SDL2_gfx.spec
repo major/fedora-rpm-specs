@@ -1,7 +1,7 @@
 Summary: SDL2 graphics drawing primitives and other support functions
 Name: SDL2_gfx
 Version: 1.0.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: Zlib
 URL: http://www.ferzkopp.net/Software/SDL2_gfx-2.0/
 Source: http://www.ferzkopp.net/Software/SDL2_gfx/%{name}-%{version}.tar.gz
@@ -93,6 +93,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_pkgdocdir}/html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

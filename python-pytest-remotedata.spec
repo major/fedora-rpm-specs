@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ Summary:        %{sum}
 %doc CHANGES.rst README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 31 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.4.1-1
 - New upstream source 0.4.1
 - SPDX migration, license is BSD-3-Clause

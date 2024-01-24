@@ -2,7 +2,7 @@
 
 Name:           Carla
 Version:        2.5.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -225,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.8-1
 - Update to 2.5.8
 

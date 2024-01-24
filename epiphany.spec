@@ -7,13 +7,13 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        45.2
+Version:        46~alpha
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Web
-Source0:        https://download.gnome.org/sources/epiphany/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/epiphany/46/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch
@@ -84,6 +84,7 @@ installing the epiphany application itself.
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Epiphany.appdata.xml
 
 %files -f %{name}.lang
 %{_datadir}/applications/org.gnome.Epiphany.desktop

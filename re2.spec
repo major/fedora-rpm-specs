@@ -4,7 +4,7 @@
 Name:           re2
 Version:        %{shortver}
 Epoch:          1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ fast alternative to backtracking RE engines
 License:        BSD
 URL:            http://github.com/google/%{name}/
@@ -80,6 +80,9 @@ install -m 0644 re2.pc %{buildroot}%{_libdir}/pkgconfig/
 %{_libdir}/cmake/re2/*.cmake
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:20220601-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:20220601-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

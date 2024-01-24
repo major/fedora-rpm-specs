@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Ruby/EventMachine library
 License: GPLv2 or Ruby
 URL: http://rubyeventmachine.com
@@ -156,6 +156,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 1.2.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

@@ -1,22 +1,27 @@
+%if 0%{?fedora} >= 40
+%global qt_ver    6
+%else
+%global qt_ver    5
+%endif
+
 Name:             kvirc
-Version:          5.0.0
-Release:          23%{?dist}
+Version:          5.2.0
+Release:          2%{?dist}
 Summary:          Free portable IRC client
 License:          GPLv2+ with exceptions
-URL:              http://kvirc.net/
-Source0:          ftp://ftp.kvirc.net/pub/kvirc/%{version}/source/KVIrc-%{version}.tar.bz2
+URL:              https://www.kvirc.net/
+%global forgeurl  https://github.com/kvirc/KVIrc
+Source:           %{forgeurl}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
-Patch0:           kvirc-5.0.0_enforce_system_crypto.patch
-Patch1:           kvirc-5.0.0_qt_5.15_fix.patch
-# https://github.com/kvirc/KVIrc/commit/c8a6812fc26d6c240d7b99b517835e7cb9607e68
-Patch2:           upstream-wayland-fixes.patch
+Patch:            kvirc-5.0.0_enforce_system_crypto.patch
+Patch:            %{forgeurl}/commit/a301aa4.patch#/kvirc-5.2.0-Fix-ability-to-select-Qt5-vs-Qt6.patch
 
 BuildRequires:    enchant2-devel
 BuildRequires:    audiofile-devel
 BuildRequires:    glib2-devel
 BuildRequires:    perl-devel
 BuildRequires:    perl-ExtUtils-Embed
-BuildRequires:    dbus-devel
+BuildRequires:    python3-devel
 BuildRequires:    cmake3
 BuildRequires:    ninja-build
 BuildRequires:    extra-cmake-modules
@@ -28,16 +33,39 @@ BuildRequires:    libtheora-devel
 BuildRequires:    libvorbis-devel
 BuildRequires:    zlib-devel
 BuildRequires:    openssl-devel
-BuildRequires:    qt5-qtwebkit-devel
-BuildRequires:    qt5-qtsvg-devel
-BuildRequires:    qt5-qtmultimedia-devel
-BuildRequires:    qt5-qtx11extras-devel
-BuildRequires:    phonon-qt5-devel
-BuildRequires:    kf5-ki18n-devel
-BuildRequires:    kf5-kxmlgui-devel
-BuildRequires:    kf5-kwindowsystem-devel
-BuildRequires:    kf5-knotifications-devel
-BuildRequires:    kf5-kservice-devel
+BuildRequires:    cmake(KF%{qt_ver}CoreAddons)
+BuildRequires:    cmake(KF%{qt_ver}I18n)
+BuildRequires:    cmake(KF%{qt_ver}KIO)
+BuildRequires:    cmake(KF%{qt_ver}Notifications)
+BuildRequires:    cmake(KF%{qt_ver}Parts)
+BuildRequires:    cmake(KF%{qt_ver}Service)
+%if %{qt_ver} >= 6
+BuildRequires:    cmake(KF%{qt_ver}StatusNotifierItem)
+%endif
+BuildRequires:    cmake(KF%{qt_ver}WindowSystem)
+BuildRequires:    cmake(KF%{qt_ver}XmlGui)
+BuildRequires:    cmake(Phonon4Qt%{qt_ver})
+BuildRequires:    cmake(Qt%{qt_ver}Concurrent)
+BuildRequires:    cmake(Qt%{qt_ver}Core)
+BuildRequires:    cmake(Qt%{qt_ver}DBus)
+BuildRequires:    cmake(Qt%{qt_ver}Multimedia)
+BuildRequires:    cmake(Qt%{qt_ver}Network)
+BuildRequires:    cmake(Qt%{qt_ver}PrintSupport)
+BuildRequires:    cmake(Qt%{qt_ver}Sql)
+BuildRequires:    cmake(Qt%{qt_ver}Svg)
+BuildRequires:    cmake(Qt%{qt_ver}Widgets)
+BuildRequires:    cmake(Qt%{qt_ver}Xml)
+%if %{qt_ver} < 6
+BuildRequires:    cmake(Qt5X11Extras)
+%ifarch %{?qt5_qtwebengine_arches}
+BuildRequires:    cmake(Qt5WebEngineWidgets)
+%endif
+%else
+BuildRequires:    cmake(Qt6Core5Compat)
+%ifarch %{?qt6_qtwebengine_arches}
+BuildRequires:    cmake(Qt6WebEngineWidgets)
+%endif
+%endif
 
 %description
 KVIrc is a free portable IRC client based on the excellent
@@ -52,8 +80,9 @@ many IRC addicted developers around the world.
 %{cmake3}  \
 -GNinja \
 -DCMAKE_SKIP_RPATH=ON \
+-DQT_VERSION_MAJOR=%{qt_ver} \
 -DWANT_ENV_FLAGS=ON \
--DWANT_DCC_VIDEO=ON \
+-DWANT_DCC_VIDEO=OFF \
 -DWANT_OGG_THEORA=ON \
 -DWANT_GTKSTYLE=ON \
 -DADDITIONAL_LINK_FLAGS='-Wl,--as-needed' \
@@ -65,14 +94,13 @@ many IRC addicted developers around the world.
 %install
 %cmake_install
 
-desktop-file-install \
-    --dir %{buildroot}%{_datadir}/applications/ \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate \
+    %{buildroot}%{_datadir}/applications/net.kvirc.KVIrc5.desktop
 
-ln -sf ../../%{name}/5.0/license/COPYING COPYING
+ln -sf ../../%{name}/5.2/license/COPYING COPYING
 
 # Delete zero length file
-rm %{buildroot}%{_datadir}/kvirc/5.0/help/en/_db_widget.idx
+rm %{buildroot}%{_datadir}/kvirc/5.2/help/en/_db_widget.idx
 
 rm %{buildroot}%{_bindir}/kvirc-config
 rm %{buildroot}%{_libdir}/libkvilib.so
@@ -86,20 +114,20 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %doc RELEASES
 %{_bindir}/%{name}
 %{_libdir}/libkvilib.so.5*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/net.kvirc.KVIrc5.desktop
 %{_libdir}/%{name}/
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/5.0
-%dir %{_datadir}/%{name}/5.0/locale
-%{_datadir}/%{name}/5.0/audio/
-%{_datadir}/%{name}/5.0/config/
-%{_datadir}/%{name}/5.0/defscript/
-%{_datadir}/%{name}/5.0/help/
-%{_datadir}/%{name}/5.0/modules/
-%{_datadir}/%{name}/5.0/msgcolors/
-%{_datadir}/%{name}/5.0/pics/
-%{_datadir}/%{name}/5.0/themes/
-%{_datadir}/%{name}/5.0/license/
+%dir %{_datadir}/%{name}/5.2
+%dir %{_datadir}/%{name}/5.2/locale
+%{_datadir}/%{name}/5.2/audio/
+%{_datadir}/%{name}/5.2/config/
+%{_datadir}/%{name}/5.2/defscript/
+%{_datadir}/%{name}/5.2/help/
+%{_datadir}/%{name}/5.2/modules/
+%{_datadir}/%{name}/5.2/msgcolors/
+%{_datadir}/%{name}/5.2/pics/
+%{_datadir}/%{name}/5.2/themes/
+%{_datadir}/%{name}/5.2/license/
 %{_datadir}/icons/hicolor/*/apps/kvirc.*
 %{_datadir}/icons/hicolor/*/mimetypes/application-x-kva.*
 %{_datadir}/icons/hicolor/*/mimetypes/application-x-kvt.*
@@ -116,6 +144,14 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Mon Jan 22 2024 Alexey Kurov <nucleo@fedoraproject.org> - 5.2.0-2
+- Require Qt6WebEngineWidgets for qt6_qtwebengine_arches
+
+* Sun Jan 21 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 5.2.0-1
+- Update to 5.2.0
+- Build with Qt6/KF6 on f40
+- Use cmake() for Qt and KF dependencies
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

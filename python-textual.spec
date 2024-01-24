@@ -1,6 +1,6 @@
 Name:           python-textual
 Version:        0.46.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -69,6 +69,9 @@ rm -rf tests/snapshot_tests
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.46.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Jonathan Wright <jonathan@almalinux.org> - 0.46.0-1
 - Update to 0.46.0 rhbz#2254910
 

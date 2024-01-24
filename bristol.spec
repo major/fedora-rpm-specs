@@ -1,6 +1,6 @@
 Name:       bristol
 Version:    0.60.11
-Release:    27%{dist}
+Release:    28%{dist}
 Summary:    Synthesizer emulator
 
 License:    GPL-2.0-or-later
@@ -83,6 +83,9 @@ desktop-file-install \
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

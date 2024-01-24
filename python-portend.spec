@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TCP port monitoring utilities
 
 License:        MIT
@@ -84,6 +84,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

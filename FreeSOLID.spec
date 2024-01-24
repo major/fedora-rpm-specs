@@ -1,6 +1,6 @@
 Name:           FreeSOLID
 Version:        2.1.1
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        3D collision detection C++ library
 License:        LGPLv2+
 URL:            http://sourceforge.net/projects/freesolid/
@@ -98,6 +98,9 @@ rm -rf sample/*.o sample/.libs $(find sample -type f -a -executable)
 %{_includedir}/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

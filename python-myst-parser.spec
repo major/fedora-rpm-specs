@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 # SPDX
@@ -75,6 +75,9 @@ Summary:        %{summary}
 %{_bindir}/myst-inv
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-3
 - Fix test failures with Sphinx 7+
 

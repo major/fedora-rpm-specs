@@ -1,6 +1,6 @@
 Name:           CTL
 Version:        1.5.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        The Color Transformation Language
 
 License:        AMPAS BSD
@@ -132,6 +132,9 @@ rm -rf %{buildroot}%{_prefix}/doc
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

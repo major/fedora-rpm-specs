@@ -1,6 +1,6 @@
 Name:           python-zombie-imp
 Version:        0.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A copy of the `imp` module that was removed in Python 3.12
 
 License:        Python-2.0.1
@@ -57,6 +57,9 @@ Provides:       deprecated()
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.0.2-3
 - Make the tests pass with Python 3.13.0a1+, 3.12.1+, 3.11.6+
 

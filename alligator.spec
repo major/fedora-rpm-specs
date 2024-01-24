@@ -1,6 +1,6 @@
 Name:           alligator 
 Version:        24.01.90
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2 or GPLv3
 Summary:        Kirigami-based RSS reader
 Url:            https://invent.kde.org/network/alligator
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

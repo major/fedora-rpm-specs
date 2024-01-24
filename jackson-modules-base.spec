@@ -1,8 +1,8 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.16.0
-Release:        2%{?dist}
+Version:        2.16.1
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -104,6 +104,13 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
+- [maven-release-plugin] prepare release jackson-modules-base-2.16.1 (Tatu Saloranta)
+- Prepare for 2.16.1 release (Tatu Saloranta)
+- Fix #231: change OSGi dep of "activation" package to jakarta (from javax) (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

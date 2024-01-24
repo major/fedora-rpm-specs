@@ -2,7 +2,7 @@
 Name:    bovo
 Summary: Five in a row game
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # code GPLv2+, docs GFDL
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

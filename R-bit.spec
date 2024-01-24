@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          4.0.4
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Classes and Methods for Fast Memory-Efficient Boolean Selections
 
 License:          GPLv2 or GPLv3
@@ -82,6 +82,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

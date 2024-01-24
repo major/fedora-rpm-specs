@@ -1,6 +1,6 @@
 Name:      arc
 Version:   5.21p
-Release:   24%{?dist}
+Release:   25%{?dist}
 Summary:   Arc archiver
 License:   GPL+
 URL:       http://arc.sourceforge.net/
@@ -51,6 +51,9 @@ install -m 0644 arc.1 marc.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.21p-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.21p-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

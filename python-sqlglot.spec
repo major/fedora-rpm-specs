@@ -2,7 +2,7 @@
 
 Name:           python-sqlglot
 Version:        5.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SQL Parser and Transpiler
 
 License:        MIT
@@ -66,6 +66,9 @@ Summary: %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

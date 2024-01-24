@@ -32,7 +32,7 @@ suitable for most developers.
 
 Name:           python-%{srcname}
 Version:        0.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A functional standard library for Python
 
 License:        BSD
@@ -107,6 +107,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v -k 'not t
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

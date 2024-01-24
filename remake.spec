@@ -1,6 +1,6 @@
 Name:           remake
 Version:        0.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Build system that bridges the gap between make and redo
 
 License:        GPL-3.0-or-later
@@ -90,6 +90,9 @@ cd testsuite
 %exclude %{_docdir}/%{name}/README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.14-8
 - Stop building for 32-bit x86
 

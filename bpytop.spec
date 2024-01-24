@@ -1,6 +1,6 @@
 Name:           bpytop
 Version:        1.0.68
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Linux/OSX/FreeBSD resource monitor 
 BuildArch:      noarch
 
@@ -60,6 +60,9 @@ rm %{buildroot}%{_datadir}/%{name}/doc/README.md
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.68-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.68-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

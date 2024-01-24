@@ -1,6 +1,6 @@
 Name:           2ping
 Version:        4.5.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Bi-directional ping utility
 License:        GPLv2+
 URL:            https://www.finnie.org/software/2ping
@@ -51,6 +51,9 @@ install -Dp -m 0644 doc/2ping.1 %{buildroot}/%{_mandir}/man1/2ping6.1
 %{_unitdir}/2ping.service
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

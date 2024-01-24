@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        6.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python wrapper around the MediaInfo library
 
 License:        MIT
@@ -54,6 +54,9 @@ PYTEST_ADDOPTS='-k "not test_parse_url"' %{__python3} setup.py test
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 07 2023 Vasiliy Glazov <vascom2@gmail.com> - 6.1.0-1
 - Update to 6.1.0
 

@@ -7,7 +7,7 @@
 
 Name:           python-pydantic-core
 Version:        2.14.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
@@ -108,6 +108,9 @@ export RUSTFLAGS="%{build_rustflags}"
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 23 2023 Maxwell G <maxwell@gtmx.me> - 2.14.6-1
 - Update to 2.14.6.
 

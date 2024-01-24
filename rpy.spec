@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.14
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -77,6 +77,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep  1 2023 José Matos <jamatos@fedoraproject.org> - 3.5.14-1
 - Update to 3.5.14
 

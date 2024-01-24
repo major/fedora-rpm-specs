@@ -3,7 +3,7 @@
 
 Name:           blaze
 Version:        3.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An high-performance C++ math library for dense and sparse arithmetic
 License:        BSD
 URL:            https://bitbucket.org/blaze-lib/blaze
@@ -66,6 +66,9 @@ rm -rf %{_includedir}/%{name}/CMakeFiles/FindOpenMP
 %dir %{_datadir}/%{name}/cmake
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

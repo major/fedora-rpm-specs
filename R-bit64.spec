@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          4.0.5
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          A S3 Class for Vectors of 64bit Integers
 
 License:          GPLv2 or GPLv3
@@ -76,6 +76,9 @@ rm -r %{buildroot}%{rlibdir}/%{packname}/exec
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

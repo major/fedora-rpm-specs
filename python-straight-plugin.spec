@@ -1,6 +1,6 @@
 Name:           python-straight-plugin
 Version:        1.5.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python plugin loader
 
 License:        BSD
@@ -70,6 +70,9 @@ the plugins in it for some particular purpose or intent.
 %{python3_sitelib}/straight*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 12 2023 Miro Hrončok <mhroncok@redhat.com> - 1.5.0-23
 - Fix a ModuleNotFoundError when this package was imported on Python 3.12+
 - Fixes: rhbz#2238632

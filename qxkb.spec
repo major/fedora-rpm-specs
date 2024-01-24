@@ -5,7 +5,7 @@
 
 Name:		qxkb
 Version:	0.5.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPLv2
 Url:		https://github.com/disels/qxkb
 Source0:	https://github.com/disels/qxkb/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           avrdude
 Version:        7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
 License:        GPL-2.0-or-later AND GPL-3.0-only AND (WTFPL OR MIT)
@@ -157,6 +157,9 @@ install -p -m 644 -t $RPM_BUILD_ROOT%{_pkgdocdir} AUTHORS NEWS README.md
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Hans Ulrich Niedermann <hun@n-dimensional.de> - 7.2-1
 - Updated to upstream avrdude-7.2 release from github.com (rhbz#2251649)
 - Filter upstream release tarball to remove pdf docs due to licensing

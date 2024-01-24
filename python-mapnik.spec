@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.23
-Release:        26.20200224git%{shortcommit}%{?dist}
+Release:        27.20200224git%{shortcommit}%{?dist}
 Summary:        Python bindings for Mapnik
 
 License:        LGPL-2.1-only
@@ -105,6 +105,9 @@ PGHOST="$PWD" LANG="C.UTF-8" BOOST_PYTHON_LIB=boost_python%{python3_version_nodo
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23-27.20200224git7da019c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.23-26.20200224git7da019c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

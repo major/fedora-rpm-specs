@@ -2,7 +2,7 @@
 
 Name:           python-pydantic
 Version:        2.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Data validation using Python type hinting
 
 License:        MIT
@@ -72,6 +72,9 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 %pyproject_extras_subpkg email -n python3-pydantic
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 24 2023 Maxwell G <maxwell@gtmx.me> - 2.5.3-1
 - Update to 2.5.3. Fixes rhbz#2255709.
 

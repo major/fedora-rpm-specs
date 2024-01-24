@@ -3,7 +3,7 @@ Name:		sfsexp
 Version:	1.4.1
 %global soname	1
 %global sominor	0.0
-Release:	2%{?dist}
+Release:	%autorelease
 Summary:	Small Fast S-Expression Library
 
 License:	LGPL-2.1-or-later
@@ -54,26 +54,4 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Mar 25 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.4.1-1
-- Update to 1.4.1 (rhbz#2181691)
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.4.0-4
-- SPDX migration
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Jun 19 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.4.0-2
-- take into account review issues
-
-* Fri Jun 10 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.4.0-1
-- rebase with upstream 1.4.0
-
-* Wed Jan 12 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.3.1-1
-- initial test package
+%autochangelog

@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 1.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -72,6 +72,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
 %{python3_sitelib}/%{srcname}*egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Jos de Kloe <josdekloe@gmail.com> 1.11.0-1
 - new upstream version 1.11.0
 

@@ -1,24 +1,28 @@
+%global gtk4_version 4.12
+%global libadwaita_version 1.4.0
 %global libgtop2_version 2.37.2
-%global libhandy_version 1.5.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        45.0.2
-Release:        2%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-system-monitor/-/merge_requests/121
+Patch:          gnome-system-monitor-46.alpha-pointer-type-error.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
+BuildRequires:  pkgconfig(giomm-2.68)
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
+BuildRequires:  pkgconfig(gtkmm-4.0)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libgtop-2.0) >= %{libgtop2_version}
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gtkmm-3.0)
-BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libxml-2.0)
@@ -27,8 +31,9 @@ BuildRequires:  gettext
 BuildRequires:  itstool
 
 Requires:       hicolor-icon-theme
+Requires:       gtk4%{?_isa} >= %{gtk4_version}
+Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libgtop2%{?_isa} >= %{libgtop2_version}
-Requires:       libhandy%{?_isa} >= %{libhandy_version}
 
 %description
 gnome-system-monitor allows to graphically view and manipulate the running
@@ -48,14 +53,14 @@ such as CPU and memory.
 %find_lang %{name} --with-gnome
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monitor.desktop
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SystemMonitor.desktop
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monitor-kde.desktop
 
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS NEWS README.md
 %{_bindir}/gnome-system-monitor
-%{_datadir}/applications/gnome-system-monitor.desktop
+%{_datadir}/applications/org.gnome.SystemMonitor.desktop
 %{_datadir}/applications/gnome-system-monitor-kde.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.gschema.xml
@@ -68,6 +73,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

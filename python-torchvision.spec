@@ -16,7 +16,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Image and video datasets for torch deep learning
 
 License:        BSD-3-Clause AND BSD-2-Clause AND MIT
@@ -141,6 +141,9 @@ done
 # - this has been remediated by removing the the torchvision/models/ dir in prep
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 16 2023 Tom Rix <trix@redhat.com> - 0.16.0-5
 - Remove pretrained models
 - Remove autogeneration of dirs

@@ -2,7 +2,7 @@
 
 Name:           python-mock
 Version:        4.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Deprecated, use unittest.mock from the standard library instead
 
 License:        BSD-2-Clause
@@ -73,6 +73,9 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

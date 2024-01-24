@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
 Version:	4.2.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -147,6 +147,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-3
 - Patch to support GLib 2.79.0 gi change
 

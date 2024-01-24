@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A PyTorch module for data loading
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ rm -rf third_party/*
 %{python3_sitelib}/%{pypi_name}-*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Tom Rix <trix@redhat.com> - 0.7.0-3
 - Remove dir generation
 

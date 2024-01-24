@@ -3,7 +3,7 @@ Name:           python-sphinx-inline-tabs
 # https://github.com/pradyunsg/sphinx-inline-tabs/issues/7
 Version:        2022.01.02~b11
 %global tag     2022.01.02.beta11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Add inline tabbed content to your Sphinx documentation
 # SPDX
 License:        MIT
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.01.02~b11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.01.02~b11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

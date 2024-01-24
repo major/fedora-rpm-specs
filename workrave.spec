@@ -1,8 +1,18 @@
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond	gnome		1
+%bcond	gnome40		1
 %bcond	gnome45		%[0%{?fedora} >= 39 || 0%{?rhel} >= 10]
 %bcond	gnome_flashback	1
 %bcond	mate		1
 %bcond	xfce		1
+%else
+%bcond_without	gnome
+%bcond_with	gnome40
+%bcond_with	gnome45
+%bcond_with	gnome_flashback
+%bcond_without	mate
+%bcond_without	xfce
+%endif
 
 Name:          workrave
 Version:       1.10.52
@@ -23,6 +33,7 @@ BuildRequires: libX11-devel
 BuildRequires: libXScrnSaver-devel
 BuildRequires: pkgconfig(ice)
 BuildRequires: pkgconfig(sm)
+BuildRequires: pkgconfig(xtst)
 BuildRequires: pkgconfig(glib-2.0) >= 2.28.0
 BuildRequires: pkgconfig(gio-2.0) >= 2.26.0
 BuildRequires: pkgconfig(gtk+-3.0) >= 3.0.0
@@ -45,7 +56,7 @@ BuildRequires: desktop-file-utils
 %if %{with gnome_flashback}
 BuildRequires: pkgconfig(libgnome-panel)
 %endif
-%if %{with gnome}
+%if %{with gnome40}
 BuildRequires: pkgconfig(gtk4)
 %endif
 %if %{with xfce}
@@ -205,8 +216,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %if %{with gnome}
 %files gnome
+%if %{with gnome40}
 %{_libdir}/girepository-1.0/Workrave-2.0.typelib
 %{_libdir}/libworkrave-gtk4-private-1.0.so.*
+%endif
 %dir %{_datadir}/gnome-shell/
 %dir %{_datadir}/gnome-shell/extensions/
 %{_datadir}/gnome-shell/extensions/workrave@workrave.org/

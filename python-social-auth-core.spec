@@ -38,7 +38,7 @@ the version 4.7.1 that is available in Fedora repositories already since f36.
 
 Name:           python-%{pypi_name}
 Version:        4.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{summary}
 License:        BSD-3-Clause
 URL:            https://github.com/python-social-auth/social-core/
@@ -147,6 +147,9 @@ rm -r %{buildroot}%{python3_sitelib}/%{module_name}/tests/
 %ghost %{python3_sitelib}/*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2019.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Compiler for finite element variational forms
 
 License:        LGPLv3+
@@ -79,6 +79,9 @@ chmod +x %{buildroot}%{python3_sitelib}/%{srcname}/demo/clean.sh
 %{python3_sitelib}/%{srcname}/test/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

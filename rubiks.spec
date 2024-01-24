@@ -1,6 +1,6 @@
 Name:           rubiks
 Version:        20070912
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Rubiks cube solvers
 
 # See the description for the licensing breakdown
@@ -118,6 +118,9 @@ done
 %{_mandir}/man1/rubiks_optimal.1*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20070912-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 20070912-7
 - Stop building for 32-bit x86
 

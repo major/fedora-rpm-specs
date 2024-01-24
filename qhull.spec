@@ -5,7 +5,7 @@ Version: 8.0.2
 # - Older releases used year.month
 # - Newer releases use x.y.z
 Epoch: 1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Qhull
 Source0: https://github.com/qhull/qhull/archive/v%{version}.tar.gz#/qhull-%{version}.tar.gz
 
@@ -126,6 +126,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 %{_libdir}/pkgconfig/qhullstatic*.pc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 10 2023 Tom Callaway <spot@fedoraproject.org> - 1:8.0.2-2
 - make the static_r library pic
 

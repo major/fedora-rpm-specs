@@ -6,7 +6,7 @@
 
 Name:		robodoc
 Version:	4.99.44
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Extract documentation from source code
 License:	GPLv3+
 Source0:	http://rfsber.home.xs4all.nl/Robo/archives/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ rm -rf "${RPM_BUILD_ROOT}%{_docdir}/robodoc"
 
 #-------------------------------------------------------------------------------
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.44-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.44-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

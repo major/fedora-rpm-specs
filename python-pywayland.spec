@@ -1,6 +1,6 @@
 Name:           python-pywayland
 Version:        0.4.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for the libwayland library written in pure Python
 
 # The python-pywayland project is licensed under the Apache-2.0 license,
@@ -71,6 +71,9 @@ export XDG_RUNTIME_DIR="$PWD/tmp"
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Jakub Kadlcik <frostyx@email.cz> - 0.4.15-3
 - License breakdown
 - Run unit tests

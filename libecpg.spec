@@ -1,9 +1,9 @@
-%global majorversion 15
+%global majorversion 16
 
 Summary: ECPG - Embedded SQL in C
 Name: libecpg
-Version: %majorversion.4
-Release: 2%{?dist}
+Version: %majorversion.1
+Release: 1%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -29,6 +29,7 @@ BuildRequires: libpq-devel
 BuildRequires: gettext
 BuildRequires: multilib-rpm-config
 BuildRequires: make
+BuildRequires: libicu-devel
 
 Requires: libpgtypes = %{version}-%{release}
 
@@ -131,6 +132,9 @@ find_lang_bins %name-devel.lst  ecpg
 
 
 %changelog
+* Sun Jan 21 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1-1
+- Update to 16.1
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

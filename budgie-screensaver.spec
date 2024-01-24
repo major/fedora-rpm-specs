@@ -4,7 +4,7 @@
 
 Name:           budgie-screensaver
 Version:        5.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A fork of gnome-screensaver intended for use with Budgie Desktop
 
 License:        GPLv2
@@ -58,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/budgie-screensaver.de
 %{_sysconfdir}/pam.d/budgie-screensaver
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Version:        1.000
-Release:        19%{?dist}
+Release:        20%{?dist}
 URL:            http://www.astigmatic.com/
 
 %global foundry           Astigmatic
@@ -38,6 +38,9 @@ Source1:        61-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.02.1
-Release:          6%{?dist}
+Release:          7%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -54,8 +54,8 @@ Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases
 
 Requires:         libgs%{?_isa} = %{version}-%{release}
 Requires:         jbig2dec-libs = %{jbig2dec_version}
-Requires:         %{name}-tools-fonts%{?_isa} = %{version}-%{release}
-Requires:         %{name}-tools-printing%{?_isa} = %{version}-%{release}
+Requires:         %{name}-tools-fonts = %{version}-%{release}
+Requires:         %{name}-tools-printing = %{version}-%{release}
 
 Provides:         ghostscript-core = %{version}-%{release}
 Obsoletes:        ghostscript-core < 9.53.3-6
@@ -76,6 +76,8 @@ BuildRequires:    urw-base35-fonts-devel
 # Already packaged software -- needed for debundling of Ghostscript:
 BuildRequires:    cups-devel
 BuildRequires:    dbus-devel
+# we use fc-list in generating macros at the top of SPEC file
+BuildRequires:    fontconfig
 BuildRequires:    fontconfig-devel
 BuildRequires:    freetype-devel
 BuildRequires:    jbig2dec-devel = %{jbig2dec_version}
@@ -109,6 +111,8 @@ Patch: ghostscript-10.02.1-txtwrite-device-needs-to-countdown-the-device-on-tex.
 Patch: ghostscript-10.02.1-PostScript-Fix-selectdevice.patch
 # https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=b7beb19ad06e
 Patch: 0001-Bug-707130-Cast-to-void-to-avoid-compiler-warning.patch
+# https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=8f5c77af6c0b
+Patch: 0001-X-device-fix-compiler-warning.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -178,7 +182,8 @@ against Ghostscript's library, which provides Ghostscript's core functionality.
 #       executable instead of package.
 %package tools-dvipdf
 Summary:          Ghostscript's 'dvipdf' utility
-Requires:         %{name}%{?_isa} = %{version}-%{release}
+BuildArch:        noarch
+Requires:         %{name} = %{version}-%{release}
 Requires:         %{_bindir}/dvips
 
 %description tools-dvipdf
@@ -189,7 +194,8 @@ PDF files using Ghostscript and dvips.
 
 %package tools-fonts
 Summary:          Ghostscript's font utilities
-Requires:         %{name}%{?_isa} = %{version}-%{release}
+BuildArch:        noarch
+Requires:         %{name} = %{version}-%{release}
 
 %description tools-fonts
 This package provides utilities which are useful when you are working with AFM,
@@ -199,7 +205,8 @@ PFB or PFA files, mostly for conversion purposes.
 
 %package tools-printing
 Summary:          Ghostscript's printing utilities
-Requires:         %{name}%{?_isa} = %{version}-%{release}
+BuildArch:        noarch
+Requires:         %{name} = %{version}-%{release}
 
 %description tools-printing
 This package provides utilities for formatting and printing text files using
@@ -422,6 +429,12 @@ done
 # =============================================================================
 
 %changelog
+* Mon Jan 22 2024 Zdenek Dohnal <zdohnal@redhat.com> - 10.02.1-7
+- fix rpmlint errors
+
+* Sat Jan 20 2024 Michael J Gruber <mjg@fedoraproject.org> - 10.02.1-7
+- fix another FTBFS with GCC 14
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.02.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

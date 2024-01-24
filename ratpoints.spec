@@ -8,7 +8,7 @@
 
 Name:		ratpoints
 Version:	2.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Find rational points on hyperelliptic curves
 License:	GPL-2.0-or-later
 URL:		https://www.mathe2.uni-bayreuth.de/stoll/programs/
@@ -70,6 +70,9 @@ LD_LIBRARY_PATH=$PWD: make test
 %{_libdir}/libratpoints.so
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

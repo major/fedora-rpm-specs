@@ -1,6 +1,6 @@
 Name:    python-mako
 Version: 1.2.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Mako template library for Python
 
 # Mostly MIT, but _ast_util.py is Python-2.0 licensed
@@ -79,6 +79,9 @@ pytest-3
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

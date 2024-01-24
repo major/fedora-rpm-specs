@@ -15,7 +15,7 @@
 
 Name:           GAPDoc
 Version:        1.6.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GAP documentation tool
 
 License:        GPL-2.0-or-later
@@ -215,6 +215,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{name}/example/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

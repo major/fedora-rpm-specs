@@ -2,7 +2,7 @@
 
 Name:           python-more-itertools
 Version:        10.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
 URL:            https://github.com/more-itertools/more-itertools
@@ -46,6 +46,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Maxwell G <maxwell@gtmx.me> - 10.1.0-1
 - Update to 10.1.0. Fixes rhbz#2133312.
 - Use canonical upstream URL.

@@ -16,7 +16,7 @@ new clients.
 
 Name:       python-%{pypi_name}
 Version:    5.3.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0
 URL:        https://pypi.io/pypi/%{pypi_name}
@@ -126,6 +126,9 @@ rm -rf doc/build/html/.buildinfo
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 5.3.0-1
 - Update to upstream version 5.3.0
 

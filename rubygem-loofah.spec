@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.22.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -68,6 +68,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Vít Ondruch <vondruch@redhat.com> - 2.22.0-1
 - Update to Loofah 2.22.0.
   Resolves: rhbz#2126896

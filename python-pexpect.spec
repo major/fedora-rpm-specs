@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # All the files have ISC license except the
 # following two that have BSD license:
@@ -97,6 +97,9 @@ CI=true py.test-3 --verbose
 %{python3_sitelib}/%{modname}-*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Scott Talbert <swt@techie.net> - 4.9.0-2
 - Fix tests when running in CI-like environments (#2251910)
 

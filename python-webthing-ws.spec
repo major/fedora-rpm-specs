@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        WebThing WebSocket consumer and API client
 
 License:        MIT
@@ -39,6 +39,9 @@ A WebThing WebSocket consumer and API client.
 %{python3_sitelib}/webthing_ws*.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

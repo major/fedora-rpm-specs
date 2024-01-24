@@ -1,6 +1,6 @@
 Name:           aggregate
 Version:        1.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        IPv4 CIDR prefix aggregator
 
 License:        ISC
@@ -54,6 +54,9 @@ chmod -x LICENSE
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

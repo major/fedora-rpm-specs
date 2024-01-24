@@ -1,6 +1,6 @@
 Name:           btrfs-heatmap
 Version:        9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Visualize the layout of data on your btrfs filesystem over time
 
 License:        MIT
@@ -45,6 +45,9 @@ install -D -p -m 0644 man/btrfs-heatmap.1 %{buildroot}%{_mandir}/man1/btrfs-heat
 %license COPYING
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

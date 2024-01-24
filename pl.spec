@@ -155,6 +155,8 @@ Patch0:     swipl-8.2.1-Fix-JNI.patch
 Patch1:     swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 # Unbundle libstemmer
 Patch2:     swipl-8.2.0-unbundle-libstemmer.patch
+# Fix the bundled minizip for zlib-ng
+Patch3:     swipl-9.0.4-zlib.patch
 
 BuildRequires:  cmake
 BuildRequires:  findutils
@@ -602,6 +604,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Mon Jan 22 2024 Jerry James <loganjerry@gmail.com> - 9.0.4-4
+- Add patch for zlib-ng
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

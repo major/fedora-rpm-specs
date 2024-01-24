@@ -1,6 +1,6 @@
 Name:           ballz
 Version:        1.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        B.A.L.L.Z. - platform/puzzle game where you control a rolling ball
 License:        BSD
 URL:            https://gitlab.com/groups/ballz
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: booksorg
 Version: 0.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv3
 Summary: Books Organizer
 URL: https://github.com/%{owner}/%{name}
@@ -48,6 +48,9 @@ chmod 644 %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

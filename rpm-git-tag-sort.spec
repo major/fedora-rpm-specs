@@ -2,7 +2,7 @@
 
 Name:       rpm-git-tag-sort
 Version:    1.0.git.5.0b8afd62
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Sorts merged git annotated tags according to topology and rpm version sorting.
 License:    GPLv2+
 URL:        https://pagure.io/rpm-git-tag-sort
@@ -57,6 +57,9 @@ mv ../rpm-git-tag-sort-c-vector/* c-vector/
 /usr/bin/rpm-git-tag-sort
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.git.5.0b8afd62-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 1.0.git.5.0b8afd62-2
 - Rebuild for libgit2 1.7.x
 

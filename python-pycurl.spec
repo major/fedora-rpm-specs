@@ -23,7 +23,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.2
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -32,8 +32,6 @@ Source0:        https://files.pythonhosted.org/packages/a8/af/24d3acfa76b867dbd8
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
-# disable test_http_version_3 since curl in Fedora does not support it (#2175216)
-Patch2:         0002-python-pycurl-7.45.2-disable-test_http_version_3.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -138,7 +136,10 @@ export OPENSSL_CONF=
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 export PYCURL_SSL_LIBRARY=openssl
 export PYCURL_VSFTPD_PATH=vsftpd
-export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
+
+# disable test_http_version_3 since curl in Fedora does not support it (#2175216)
+# disable tests incompatible with curl 8.4.0 and newer
+export PYTEST_ADDOPTS="--ignore examples -m 'not online' -k 'not (test_http_version_3 or test_multi_socket_action or test_multi_socket_select or test_easy_pause_unpause)'"
 make test PYTHON=%{__python3} PYTEST=%{pytest} PYFLAKES=true
 %endif
 
@@ -161,6 +162,12 @@ make test PYTHON=%{__python3} PYTEST=%{pytest} PYFLAKES=true
 %endif
 
 %changelog
+* Mon Jan 22 2024 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-9
+- fix FTBFS on Rawhide
+
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-7
 - do not package tests as documentation
 

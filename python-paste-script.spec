@@ -10,7 +10,7 @@ Built-in features:\
 
 Name:           python-paste-script
 Version:        3.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 # paste/script/wsgiserver/ is BSD licensed from CherryPy
@@ -70,6 +70,9 @@ ln -s ./paster-%{python3_version} %{buildroot}%{_bindir}/paster-3
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 04 2023 Jonathan Wright <jonathan@almalinux.org> - 3.3.0-1
 - Update to 3.3.0 rhbz#2157959
 - Modernize spec file, drop python2 support

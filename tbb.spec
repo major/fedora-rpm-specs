@@ -5,7 +5,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2021.11.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     http://threadingbuildingblocks.org/
 
@@ -149,6 +149,12 @@ for file in %{SOURCE7} %{SOURCE8}; do
     touch -r $file $target
 done
 
+# Upstream installs tbb32.pc on 32-bit but it's already in a separate directory
+# because %_libdir is different for 32-bit and 64-bit, so rename it to tbb.pc.
+if [ -f %{buildroot}/%{_libdir}/pkgconfig/%{name}32.pc ]; then
+    mv %{buildroot}/%{_libdir}/pkgconfig/%{name}32.pc %{buildroot}/%{_libdir}/pkgconfig/%{name}.pc
+fi
+
 rm -fr %{buildroot}%{_datadir}/doc
 
 %check
@@ -184,6 +190,9 @@ ctest --output-on-failure --force-new-ctest-process
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Mon Jan 22 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 2021.11.0-4
+- Rename 32-bit arch /usr/lib/pkgconfig/tbb32.pc to tbb.pc
+
 * Fri Jan 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2021.11.0-3
 - Avoid python3-docs dependency on RHEL
 

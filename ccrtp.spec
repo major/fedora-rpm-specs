@@ -1,7 +1,7 @@
 Name:          ccrtp
 Summary:       Common C++ class framework for RTP/RTCP
 Version:       2.1.2
-Release:       12%{?dist}
+Release:       13%{?dist}
 
 License:       GPLv2+
 URL:           http://www.gnu.org/software/commoncpp/
@@ -67,6 +67,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} \;
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

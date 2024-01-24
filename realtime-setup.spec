@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
@@ -73,6 +73,9 @@ Neither the slub script or realtime-entsk are active by default.
 %{_unitdir}/realtime-entsk.service
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 05 2023 Clark Williams <williams@redhat.com> - 2.4-1
 - Makefile cleanups and added .gitignore
 - remove Red Hat Makefile targets and specfile

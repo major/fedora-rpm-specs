@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        13.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -51,6 +51,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 13.6.0-1
 - 13.6.0
 

@@ -3,7 +3,7 @@
 
 Name:           %{srcname}
 Version:        1.15.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        GPLv2 or GPLv3
@@ -50,6 +50,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

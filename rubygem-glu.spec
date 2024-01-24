@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 # SPDX confirmed
@@ -104,6 +104,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 8.3.0-27
 - Fix C compatibility issues
 

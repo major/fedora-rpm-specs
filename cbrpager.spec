@@ -1,6 +1,6 @@
 Name:		cbrpager
 Version:	0.9.22
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Simple comic book pager for Linux
 
 # Source itself:	GPL-2.0-or-later
@@ -111,6 +111,9 @@ EOF
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.22-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.22-30
 - SPDX migration
 

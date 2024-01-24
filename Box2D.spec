@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name: Box2D
 Version:  2.4.1
-Release:  13%{?dist}
+Release:  14%{?dist}
 Summary: A 2D Physics Engine for Games
 
 License: Zlib
@@ -54,6 +54,9 @@ rm -r extern
 %{_libdir}/cmake/box2d/*.cmake
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

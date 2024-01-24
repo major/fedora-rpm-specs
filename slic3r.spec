@@ -152,6 +152,12 @@ for more information.
 %patch10 -p1
 %patch11 -p1
 
+# To avoid "error: exponent has no digits" on GCC 14+
+# https://bugzilla.redhat.com/2259542
+# https://bugzilla.redhat.com/1321986
+# Simplified from https://github.com/slic3r/Slic3r/commit/c8ccc1a38eded78256dd89faee1f82bc9c0888a8
+sed -i 's/-std=c++11/-std=gnu++11/' xs/Build.PL
+
 # Optional removals
 %if %{use_system_admesh}
 rm -rf xs/src/admesh

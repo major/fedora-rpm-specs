@@ -9,7 +9,7 @@
 
 Name:           qstars
 Version:        0.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A screensaver simulating planets and asteroids in space
 License:        GPL+
 URL:            http://qt.osdn.org.ua/qstars.html
@@ -122,6 +122,9 @@ fi
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Tools to support ATM networking under Linux
 Name: linux-atm
 Version: 2.5.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 # The licensing here is a mess. This is as close to accurate as possible.
 License: BSD and GPLv2 and GPLv2+ and LGPLv2+ and MIT
 URL: http://linux-atm.sourceforge.net/
@@ -31,6 +31,7 @@ Patch8: siocgstamp.patch
 # See: https://github.com/torvalds/linux/commit/052e1f01bfae8be6f31b61ed3a2356edfca855dc
 Patch9: linux-atm-2.5.1-disable-zntune.patch
 Patch10: linux-atm-c99.patch
+Patch11: linux-atm-use_socklen_t.patch
 
 %description
 Tools to support ATM networking under Linux.
@@ -110,6 +111,9 @@ rm -rf _doc/init-redhat/{CVS,.cvsignore}
 %{_libdir}/libatm.so
 
 %changelog
+* Mon Jan 22 2024 Frantisek Sumsal <frantisek@sumsal.cz> - 2.5.1-38
+- Fix FTBFS with gcc-14
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

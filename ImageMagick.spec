@@ -20,7 +20,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.26
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -430,6 +430,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.1.26-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.1.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

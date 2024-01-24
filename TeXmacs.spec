@@ -1,6 +1,6 @@
 Name:           TeXmacs
 Version:        2.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Structured WYSIWYG scientific text editor
 License:        GPLv2+
 URL:            http://www.texmacs.org
@@ -157,6 +157,9 @@ fi
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

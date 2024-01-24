@@ -5,7 +5,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	4.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Ruby binding of cairo-gobject
 
 # SPDX confirmed
@@ -113,6 +113,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

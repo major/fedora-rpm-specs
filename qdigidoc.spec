@@ -9,7 +9,7 @@
 
 Name:           qdigidoc
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
@@ -156,6 +156,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 23 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.4.0-2
 - Exclude x86 architecture from builds due to dependencies (flatbuffers) being unavailable on x86
 

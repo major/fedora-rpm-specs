@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.7
-Release:        43%{?dist}
+Release:        44%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+ and Public Domain
@@ -105,6 +105,9 @@ ln -sf nosetests-3.1 %{buildroot}%{_mandir}/man1/nosetests.1
 %{python3_sitelib}/nose/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 18 2023 Miro Hrončok <mhroncok@redhat.com> - 1.3.7-43
 - Don't run 2to3 during package build
 

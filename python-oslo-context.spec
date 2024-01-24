@@ -15,7 +15,7 @@ WSGI pipeline and used by various modules such as logging.
 
 Name:           python-%{pkg_name}
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Oslo Context library
 
 License:        ASL 2.0
@@ -118,6 +118,9 @@ python3 setup.py test
 %{python3_sitelib}/oslo_context/tests
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 5.2.0-1
 - Update to upstream version 5.2.0
 

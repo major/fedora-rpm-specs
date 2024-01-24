@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Tools for Units of Measurement
 # No copy of the license is present and upstream only indicates license in one place "GPL-3", so we have to assume only.
 License:          GPL-3.0-only
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

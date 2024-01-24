@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.11.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 20 2023 Karolina Surma <ksurma@redhat.com> - 5.11.1-5
 - When boostrapping the package switch off the tests
 

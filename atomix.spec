@@ -2,7 +2,7 @@
 
 Name:           atomix
 Version:        44.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Puzzle game: Build molecules out of isolated atoms
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/atomix.desktop
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

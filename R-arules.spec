@@ -14,7 +14,7 @@ Apriori and Eclat. Hahsler, Gruen and Hornik (2005)
 
 Name:             R-%{packname}
 Version:          1.7.7
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Mining Association Rules and Frequent Itemsets
 
 License:          GPL-3.0-only
@@ -69,6 +69,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 %{rlibdir}/%{packname}/libs
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

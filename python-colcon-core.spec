@@ -1,8 +1,8 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.12.1
-Release:        4%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        ASL 2.0
@@ -26,14 +26,22 @@ and sets up the environment to use the packages.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-distlib >= 0.2.5
-BuildRequires:  python%{python3_pkgversion}-empy
+BuildRequires:  python%{python3_pkgversion}-empy < 4
+%if 0%{?rhel} && 0%{?rhel} < 9
+BuildRequires:  python%{python3_pkgversion}-importlib-metadata
+%endif
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
 Requires:       python%{python3_pkgversion}-distlib >= 0.2.5
-Requires:       python%{python3_pkgversion}-empy
+Requires:       python%{python3_pkgversion}-empy < 4
+%if 0%{?rhel} && 0%{?rhel} < 9
+Requires:       python%{python3_pkgversion}-importlib-metadata
+%endif
+Requires:       python%{python3_pkgversion}-packaging
 Requires:       python%{python3_pkgversion}-setuptools
 %endif
 
@@ -72,13 +80,7 @@ and sets up the environment to use the packages.
 
 
 %check
-# Workaround of pkg_resources deprecation warning
-# https://github.com/colcon/colcon-core/pull/553
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
-    test
+%{__python3} -m pytest -m 'not linter' test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -91,6 +93,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.15.2-1
+- Update to 0.15.2 (rhbz#2240872)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

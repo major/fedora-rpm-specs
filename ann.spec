@@ -1,6 +1,6 @@
 Name:           ann
 Version:        1.1.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Library for searching Approximate Nearest Neighbors
 
 License:        LGPLv2+
@@ -94,6 +94,9 @@ EOF
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

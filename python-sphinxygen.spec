@@ -1,6 +1,6 @@
 Name:           python-sphinxygen
 Version:        1.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A script to read Doxygen XML output and emit ReST for Sphinx
 
 # All files under ISC, though some tests and
@@ -66,6 +66,9 @@ install -Dpm 0644 doc/sphinxygen.1 -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/sphinxygen.1*
  
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 08 2023 Benson Muite <benson_muite@emailplus.org> - 1.0.2-2
 - Add patch to for change in behavior of Doxygen 1.9.7
 

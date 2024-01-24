@@ -15,7 +15,7 @@
 
 Name:           rawstudio
 Version:        2.1
-Release:        0.35.20210527.git%{shortcommit1}%{?dist}
+Release:        0.36.20210527.git%{shortcommit1}%{?dist}
 Summary:        Read, manipulate and convert digital camera raw images
 
 # GPL-2.0-or-later: main program
@@ -181,6 +181,9 @@ desktop-file-install \
 %{_libdir}/pkgconfig/rawstudio-%{version}.pc
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.36.20210527.gitc140a5e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 13 2023 Sérgio Basto <sergio@serjux.com> - 2.1-0.35.20210527.gitc140a5e
 - Add https://github.com/rawstudio/rawstudio/pull/81 to fix bug No thumbnails in
   priorities https://github.com/rawstudio/rawstudio/issues/80

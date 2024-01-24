@@ -2,7 +2,7 @@
 
 Name:      python-%{srcname}
 Version:   0.14.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python data validation library
 
 License:   BSD-3-Clause
@@ -46,6 +46,9 @@ BuildRequires: %{py3_dist pytest}
 %license COPYING
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 26 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.1-1
 - New upstream source 0.14.1
 - Updated license to SPDX

@@ -1,7 +1,7 @@
 Summary: Generate a readout of the current bandwidth use
 Name: bwbar
 Version: 1.2.3
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: GPLv2+
 Source0: http://www.kernel.org/pub/software/web/bwbar/bwbar-1.2.3.tar.bz2
 Source1: bwbar.systemd
@@ -71,6 +71,9 @@ END
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

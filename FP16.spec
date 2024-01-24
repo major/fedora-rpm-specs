@@ -8,7 +8,7 @@ Summary:        Conversion to/from half-precision floating point format
 Name:           FP16
 License:        MIT
 Version:        1.0^git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Only a header
 BuildArch:      noarch
@@ -88,6 +88,9 @@ Header-only library for conversion to/from half-precision floating point formats
 %exclude %{_includedir}/fp16/psimd.h
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20210317.0a92994-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20210317.0a92994-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

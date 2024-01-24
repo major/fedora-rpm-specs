@@ -18,7 +18,7 @@
 
 Name:           rpcsvc-proto
 Version:        1.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        RPC protocol definitions
 License:        BSD and LGPLv2+
 Url:            https://github.com/thkukuk/rpcsvc-proto
@@ -75,6 +75,9 @@ rm -f $RPM_BUILD_ROOT%{_prefix}/include/rpcsvc/rquota.[hx]
 %{_mandir}/man1/rpcgen.1*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

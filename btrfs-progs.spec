@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.6.2
-Release:        2%{?dist}
+Version:        6.7
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -11,13 +11,6 @@ URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
 Source2:        gpgkey-F2B41200C54EFB30380C1756C565D5F9D76D583B.gpg
-
-# Upstreamable changes
-## From: https://lore.kernel.org/linux-btrfs/20230322221714.2702819-1-neal@gompa.dev/T/#t
-Patch0101:      0001-btrfs-progs-mkfs-Enforce-4k-sectorsize-by-default.patch
-## Fedora specific doc change stacked on top
-Patch0102:      0002-btrfs-progs-mkfs-doc-Drop-version-change-for-4k-sect.patch
-
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc, autoconf, automake, make
@@ -31,6 +24,7 @@ BuildRequires:  pkgconfig(libgcrypt) >= 1.8.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libzstd) >= 1.0.0
 BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  systemd
 BuildRequires:  python3-devel >= 3.4
 BuildRequires:  python3-setuptools
@@ -154,6 +148,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.7-1
+- Update to 6.7
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

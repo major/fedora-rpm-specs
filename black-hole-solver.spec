@@ -6,7 +6,7 @@
 
 Name: %{basen}
 Version: 1.12.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # The entire source code is MIT except xxHash-0.6.5/ which is BSD
 License: MIT and BSD
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{basen}-%{version}.tar.xz
@@ -113,6 +113,9 @@ perl "$src"/run-tests.pl
 %__rm -f %{buildroot}/%{_libdir}/*.a
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

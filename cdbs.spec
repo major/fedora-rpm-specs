@@ -1,6 +1,6 @@
 Name:           cdbs
 Version:        0.4.166
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
 
@@ -46,6 +46,9 @@ can build; any or all rules may be overridden as needed.
 %{_mandir}/man1/cdbs-edit-patch.1*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.166-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.166-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

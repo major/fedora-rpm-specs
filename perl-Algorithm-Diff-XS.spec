@@ -1,29 +1,27 @@
 Name:           perl-Algorithm-Diff-XS
 Version:        0.04
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Algorithm::Diff with XS core loop
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Diff-XS
 Source0:        https://cpan.metacpan.org/authors/id/A/AU/AUDREYT/Algorithm-Diff-XS-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-BuildRequires:  perl(Config)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(ExtUtils::MM_Unix)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(FindBin)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(Module::Install::Can)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 # Runtime
+BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(Algorithm::Diff) >= 1.19
+BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests only
@@ -38,28 +36,60 @@ Requires:       perl(XSLoader)
 Drop-in replacement to Algorithm::Diff, but "compact_diff" and "LCSidx"
 will run much faster for large data sets.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Algorithm-Diff-XS-%{version}
+# Unbundle inc::Module::Install
+rm -rf ./inc
+perl -i -ne 'print $_ unless m{\Ainc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Algorithm*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Algorithm
+%dir %{perl_vendorarch}/auto/Algorithm/Diff
+%{perl_vendorarch}/auto/Algorithm/Diff/XS
+%dir %{perl_vendorarch}/Algorithm
+%dir %{perl_vendorarch}/Algorithm/Diff
+%{perl_vendorarch}/Algorithm/Diff/XS.pm
+%{_mandir}/man3/Algorithm::Diff::XS.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 22 2024 Petr Pisar <ppisar@redhat.com> - 0.04-28
+- Modernize a spec file
+- Package the tests
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

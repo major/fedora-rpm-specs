@@ -2,7 +2,7 @@
 
 Name:           python-primecountpy
 Version:        0.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python Primecount wrapper
 
 # GPL-3.0-only: setup.py
@@ -100,6 +100,9 @@ ln -s ../$(find build -name \*.so) primecountpy
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.1.0-11
 - Stop building for 32-bit x86
 

@@ -5,7 +5,7 @@ Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
 #Release: %%{devrel}.1%%{?dist}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 
 Source0: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -28,6 +28,7 @@ Patch2: lynx-CVE-2008-4690.patch
 
 Provides: webclient
 Provides: text-www-browser
+BuildRequires: brotli-devel
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gettext
@@ -63,6 +64,20 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
 %endif
 
 %build
+# These options are specified explicitly below but are also defaults in 2.9.0:
+#   --enable-addrlist-page
+#   --enable-cjk
+#   --enable-file-upload
+#   --enable-japanese-utf8
+#   --enable-justify-elts
+#   --enable-locale-charset
+#   --enable-persistent-cookies
+#   --enable-prettysrc
+#   --enable-read-eta
+#   --enable-scrollbar
+#   --enable-source-cache
+#   --with-brotli
+#   --with-zlib
 %configure --libdir=/etc            \
     --disable-font-switch           \
     --disable-rpath-hack            \
@@ -92,28 +107,24 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
     --enable-warnings               \
     --with-screen=ncursesw          \
     --with-ssl=%{_libdir}           \
+    --with-brotli                   \
     --with-zlib                     \
+    --without-bzlib                 \
     ac_cv_path_RLOGIN=/usr/bin/rlogin
 
 %make_build
-
-# remove zero-length tests files to silence rpmlint
-rm -fv test/X test/nobody
 
 %install
 chmod -x samples/mailto-form.pl
 %make_install
 
-# remove unneeded files with incompatible encoding
+# remove unneeded files
 rm -f docs/{OS-390.announce,README.jp}
 rm -f samples/*.bat
 
 # convert line endings
 dos2unix samples/lynx-demo.cfg
 dos2unix samples/midnight.lss
-
-# Install Lang dependent resources
-mkdir -p $RPM_BUILD_ROOT/usr/share/locale/ja/LC_MESSAGES/
 
 cat >$RPM_BUILD_ROOT%{_sysconfdir}/lynx-site.cfg <<EOF
 # Place any local lynx configuration options (proxies etc.) here.
@@ -132,6 +143,11 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Mon Jan 22 2024 Thomas E. Dickey <dickey@invisible-island.net> - 2.9.0-3
+- add brotli build-dependency
+- restore formerly-empty sample files
+- remove a couple of obsolete workarounds for installing
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -392,7 +408,7 @@ EOF
 - Rebuild for openssl bump
 
 * Wed Dec  5 2007 Ivana Varekova <varekova@redhat.com> - 2.8.6-8
-- rebuild 
+- rebuild
 
 * Fri Oct 12 2007 Ivana Varekova <varekova@redhat.com> - 2.8.6-7
 - add provides:text-www-browser flag
@@ -636,7 +652,7 @@ EOF
 - apply some update patches from the lynx folks
 - set user's TEMP dir to their home dir to avoid /tmp races
 
-* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com> 
+* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com>
 - auto rebuild in the new build environment (release 10)
 
 * Wed Feb 24 1999 Bill Nottingham <notting@redhat.com>

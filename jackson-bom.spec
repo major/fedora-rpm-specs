@@ -1,6 +1,6 @@
 Name:           jackson-bom
-Version:        2.16.0
-Release:        2%{?dist}
+Version:        2.16.1
+Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
 
@@ -40,6 +40,12 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
+- [maven-release-plugin] prepare release jackson-bom-2.16.1 (Tatu Saloranta)
+- Prepare for 2.16.1 release (Tatu Saloranta)
+- back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

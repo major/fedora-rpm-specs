@@ -1,64 +1,71 @@
 %global srcname pytest-repeat
 
 Name:           python-%{srcname}
-Version:        0.9.1
-Release:        10%{?dist}
+Version:        0.9.3
+Release:        1%{?dist}
 Summary:        A pytest plugin for repeating test execution
 
-License:        MPLv2.0
-URL:            https://github.com/pytest-dev/%{srcname}
-Source0:        https://github.com/pytest-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+License:        MPL-2.0
+URL:            https://github.com/pytest-dev/pytest-repeat
+Source0:        https://github.com/pytest-dev/pytest-repeat/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 pytest-repeat is a plugin for py.test that makes it easy to repeat a single
 test, or multiple tests, a specific number of times.
+}
+
+%description %_description
 
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-pytest >= 3.6
-BuildRequires:  python%{python3_pkgversion}-setuptools_scm
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-pytest >= 3.6
-%endif
-
-%description -n python%{python3_pkgversion}-%{srcname}
-pytest-repeat is a plugin for py.test that makes it easy to repeat a single
-test, or multiple tests, a specific number of times.
+%description -n python%{python3_pkgversion}-%{srcname} %_description
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
+%pyproject_buildrequires
 
 
 %build
-SETUPTOOLS_SCM_PRETEND_VERSION=%{version} %py3_build
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
+%pyproject_wheel
 
 
 %install
-SETUPTOOLS_SCM_PRETEND_VERSION=%{version} %py3_install
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version}; export SETUPTOOLS_SCM_PRETEND_VERSION
+%pyproject_install
+%pyproject_save_files pytest_repeat
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} \
-  py.test-%{python3_version} test_repeat.py
+%pytest test_repeat.py
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/pytest_repeat.py
-%{python3_sitelib}/__pycache__/pytest_repeat.cpython-*
-%{python3_sitelib}/pytest_repeat-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.9.3-1
+- Update to 0.9.3 (rhbz#2241970)
+- Define _description variable to reduce duplication
+- Drop macro from URL to improve ergonomics
+- Use modern Python packaging macros
+- Switch to SPDX license identifier
+
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

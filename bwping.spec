@@ -3,7 +3,7 @@
 
 Name:           bwping
 Version:        2.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Measure bandwidth and response times using ICMP
 License:        BSD
@@ -51,6 +51,9 @@ make check
 %{_mandir}/man8/bwping*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

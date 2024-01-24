@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -151,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 31 2023 Karel Volný <kvolny@redhat.com> 2.1.5-1
 - new version 2.1.5 (rhbz#2235874)
 - enabled MMS support (rhbz#2235608)

@@ -2,7 +2,7 @@
 
 Name:           assertj-core
 Version:        3.24.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library of assertions similar to fest-assert
 License:        Apache-2.0
 URL:            https://joel-costigliola.github.io/assertj/
@@ -80,6 +80,9 @@ This package provides API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A menu system for the Cinnamon project
 Name:    cinnamon-menus
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     https://github.com/linuxmint/%{name} 
 Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ writing applications that use the Cinnamon menu system.
 %{_datadir}/gir-1.0/CMenu-3.0.gir
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

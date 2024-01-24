@@ -1,6 +1,6 @@
 Name:           bkhive
 Version:        1.1.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Dump the syskey bootkey from a Windows system hive
 
 License:        GPLv2+
@@ -51,6 +51,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir} MANDIR=%{_mandir}/man1/ OWNE
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           python-%{srcname}
 Version:        10.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -295,6 +295,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Sandro Mani <manisandro@gmail.com> - 10.2.0-1
 - Update to 10.2.0
 

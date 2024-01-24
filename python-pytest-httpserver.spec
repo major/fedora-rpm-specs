@@ -8,7 +8,7 @@ http requests and their responses.}
 
 Name:		python-%{srcname}
 Version:	1.0.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	HTTP server for pytest
 
 License:	MIT
@@ -60,6 +60,9 @@ sed -i '/types-requests/d' pyproject.toml
 %doc README.md CHANGES.rst CONTRIBUTION.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 07 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.8-1
 - pytest-httpserver 1.0.8
 

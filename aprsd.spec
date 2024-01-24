@@ -2,7 +2,7 @@
 Name: aprsd
 Summary: Internet gateway and client access to amateur radio APRS packet data
 Version: 2.2.5
-Release: %{uprel}.6%{?dist}.33
+Release: %{uprel}.6%{?dist}.34
 License: GPLv2+
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}-%{uprel}.tar.gz
 Source1: aprsd.conf
@@ -119,6 +119,9 @@ fi
 %doc doc/qalgorithm.html
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-15.6.34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-15.6.33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

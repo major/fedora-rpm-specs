@@ -16,7 +16,7 @@
 
 Name:		Singular
 Version:	%{downstreamver}%{?patchver}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Computer Algebra System for polynomial computations
 # License analysis:
 # - The project as a whole is GPL-2.0-only OR GPL-3.0-only
@@ -458,6 +458,9 @@ make check
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1p1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1p1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

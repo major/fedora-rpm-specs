@@ -1,6 +1,6 @@
 Name:           racket
 Version:        7.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
@@ -231,6 +231,9 @@ A local installation of the Racket documentation system.
 %{_datadir}/doc/racket
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 31 2023 Jens Petersen <petersen@redhat.com> - 7.9-2
 - re-enable ppc64le for epel
 

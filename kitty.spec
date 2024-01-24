@@ -59,6 +59,9 @@ Source5:        https://calibre-ebook.com/signatures/kovid.gpg
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 
+# https://github.com/kovidgoyal/kitty/commit/828f4f312ab25e0edc68987231ea339b96e027c2
+Patch:          kitty-%{version}-fix-nvidia.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

@@ -1,7 +1,7 @@
 %global pypi_name lazr.restfulclient
 Name:           python-lazr-restfulclient
 Version:        0.14.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Programmable client library for lazr.restful web services
 
 License:        LGPL-3.0-only
@@ -55,6 +55,9 @@ BuildRequires:  python3dist(wadllib) >= 1.1.4
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Ondřej Pohořelský <opohorel@redhat.com> - 0.14.6-1
 - Update to 0.14.6
 - Resolves: rhbz#2257346

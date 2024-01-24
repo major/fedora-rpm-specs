@@ -2,7 +2,7 @@
 
 Name:          rosegarden4
 Version:       %{major}
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MIDI, audio and notation editor
 License:       GPLv2+
 URL:           https://www.rosegardenmusic.com/
@@ -80,6 +80,9 @@ desktop-file-install \
 %{_datadir}/metainfo/rosegarden.appdata.xml
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 21.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

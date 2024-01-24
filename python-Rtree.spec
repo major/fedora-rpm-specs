@@ -1,5 +1,5 @@
 Name:           python-Rtree
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        R-Tree spatial index for Python GIS
 
@@ -43,23 +43,13 @@ Source:         %{pypi_source Rtree}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2050010
 Patch:          0001-Treat-as-pure-Python-since-libspatialindex-is-not-bu.patch
 
-# Fix test failure with built library.
-# https://github.com/Toblerity/rtree/pull/291
-#
-# Fixes “TypeError: 'NoneType' object is not iterable” from rtree.finder
-Patch:          %{url}/pull/291.patch
-
-# Skip test failing on i386.
-# https://github.com/Toblerity/rtree/pull/290
-Patch:          %{url}/pull/290.patch
-
 BuildRequires:  spatialindex-devel
 
 BuildRequires:  python3-devel
 
 # For testing:
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(numpy)
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist numpy}
 
 %description %{_description}
 

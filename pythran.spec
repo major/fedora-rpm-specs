@@ -1,6 +1,6 @@
 Name:           pythran
 Version:        0.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -170,6 +170,9 @@ k="$k and not test_setup_sdist_install3"
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.0-2
 - Fix FTBFS: skip tests that need numpy.distutils
 - On 32-bit, run tests in serial and skip those that exhaust memory

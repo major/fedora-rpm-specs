@@ -11,7 +11,7 @@ your test program.
 
 Name:           python-%{pypi_name}
 Version:        1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        wsgi_intercept installs a WSGI application in place of a real URI for testing
 
 License:        MIT
@@ -75,6 +75,9 @@ rm -rf build/sphinx/.{doctrees,buildinfo}
 %doc build/sphinx
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

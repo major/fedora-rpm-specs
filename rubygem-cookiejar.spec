@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Parsing and returning cookies in Ruby
 License: BSD	
 URL: https://github.com/dwaite/cookiejar
@@ -72,6 +72,9 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/Gemfile
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-12
 - Fix for Regexp.new 3rd argument deprecation (needed for ruby 3.3)
 

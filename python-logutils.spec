@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            24%{?dist}
+Release:            25%{?dist}
 Summary:            Logging utilities
 
 License:            BSD
@@ -66,6 +66,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 02 2023 Justin Caratzas <jcaratzas@ibm.com> - 0.3.5-24
 - Use setuptools instead of distutils, fix unit tests
 

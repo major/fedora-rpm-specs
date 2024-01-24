@@ -1,7 +1,7 @@
 Summary: Rename multiple files
 Name: ren
 Version: 1.0
-Release: 38%{?dist}.2.1
+Release: 39%{?dist}.2.1
 License: Public Domain
 Source: ftp://sunsite.unc.edu/pub/Linux/utils/file/ren-1.0.tar.gz
 Patch0: ren-1.0.Wall.patch
@@ -37,6 +37,9 @@ install -m 644 -p ren.1 %{buildroot}/%{_mandir}/man1/
 %{_bindir}/ren
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-39.2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-38.2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

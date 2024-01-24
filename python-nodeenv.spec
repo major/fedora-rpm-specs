@@ -1,6 +1,6 @@
 Name:           python-nodeenv
 Version:        1.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
@@ -103,6 +103,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.0-4
 - Assert that the .dist-info directory contains a license file
 

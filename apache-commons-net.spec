@@ -1,6 +1,6 @@
 Name:           apache-commons-net
 Version:        3.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0
 URL:            https://commons.apache.org/net/
@@ -62,6 +62,9 @@ src/test/java/org/apache/commons/net/ftp/NoProtocolSslConfigurationProxy.java \
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 License: GPLv2+ AND BSD
 URL: https://www.valgrind.org/
@@ -89,6 +89,11 @@ Patch6: valgrind-3.22.0-rodata.patch
 # Add fchmodat2 syscall on linux
 # https://bugs.kde.org/show_bug.cgi?id=477198
 Patch7: valgrind-3.22.0-fchmodat2.patch
+
+# Valgrind incompatibility with binutils-2.42 on x86 with new nop patterns
+# (unhandled instruction bytes: 0x2E 0x8D 0xB4 0x26)
+# https://bugs.kde.org/show_bug.cgi?id=478624
+Patch8: valgrind-3.22.0-x86-nop.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -226,6 +231,7 @@ Valgrind User Manual for details.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
+%patch -P8 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -442,6 +448,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Jan 22 2024 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-5
+- Add valgrind-3.22.0-x86-nop.patch
+
 * Sat Dec  9 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.22.0-4
 - Add valgrind-3.22.0-fchmodat2.patch
 - Prep for migration to SPDX identifiers

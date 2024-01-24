@@ -66,9 +66,11 @@ BuildRequires:  proj-devel => 5.2.0
 BuildRequires:  readline-devel
 BuildRequires:  swig
 BuildRequires:  zlib-devel
+#Get
+#/usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf
+#/usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf
 # See %%prep below
-BuildRequires:  /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf
-BuildRequires:  /usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf
+BuildRequires:  dejavu-sans-fonts
 
 
 %description

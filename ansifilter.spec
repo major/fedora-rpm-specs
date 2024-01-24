@@ -3,7 +3,7 @@
 
 Name:           ansifilter
 Version:        2.20
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ANSI terminal escape code converter
 License:        GPLv3+
 URL:            http://www.andre-simon.de/doku/ansifilter/ansifilter.php
@@ -90,6 +90,9 @@ rm -frv %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

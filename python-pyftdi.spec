@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.55.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python support for FTDI devices
 
 License:        BSD
@@ -40,6 +40,9 @@ PyFtdi aims at providing a user-space driver for modern FTDI devices.
 %{python3_sitelib}/%{pypi_name}*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.55.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 07 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.55.0-1
 - Update to latest upstream release 0.55.0 (closes rhbz#2231618)
 

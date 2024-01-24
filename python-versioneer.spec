@@ -5,7 +5,7 @@ version-control system about the current tree.}
 
 Name:           python-versioneer
 Version:        0.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Easy VCS-based management of project version strings
 
 License:        Unlicense
@@ -57,6 +57,9 @@ sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/versioneer.py
 %{_bindir}/versioneer
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

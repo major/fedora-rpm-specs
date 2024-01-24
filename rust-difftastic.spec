@@ -4,7 +4,7 @@
 %global crate difftastic
 
 Name:           rust-difftastic
-Version:        0.53.1
+Version:        0.54.0
 Release:        %autorelease
 Summary:        Structural diff that understands syntax
 
@@ -17,7 +17,6 @@ Source:         %{crates_source}
 #   * aho-corasick
 #   * assert_cmd
 #   * ignore
-#   * is-terminal
 #   * memchr
 #   * predicates
 #   * regex
@@ -41,7 +40,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 # Zlib
-License:        ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain) AND (Unlicense OR MIT) AND Zlib
+License:        MIT AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain) AND (Unlicense OR MIT) AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

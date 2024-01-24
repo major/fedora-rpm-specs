@@ -552,7 +552,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -710,7 +710,6 @@ BuildRequires: devtoolset-%{dtsversion}-gcc-c++
 %else
 BuildRequires: gcc
 # gcc-c++ is already needed
-BuildRequires: java-%{buildjdkver}-openjdk-devel
 %endif
 BuildRequires: gcc-c++
 BuildRequires: gdb
@@ -742,6 +741,7 @@ BuildRequires: javapackages-tools
 BuildRequires: java-%{buildjdkver}-%{origin}%{?pkgos:-%{pkgos}}-devel
 %else
 BuildRequires: javapackages-filesystem
+#BuildRequires: java-%{buildjdkver}-openjdk-devel
 BuildRequires: java-latest-openjdk-devel
 %endif
 # Zero-assembler build requirement
@@ -1770,9 +1770,6 @@ done
 %endif
 
 %changelog
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:21.0.2.0.13-1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 * Tue Jan 09 2024 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.2.0.13-1
 - Update to jdk-21.0.2+13 (GA)
 - Update release notes to 21.0.2+13

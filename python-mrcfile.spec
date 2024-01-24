@@ -19,7 +19,7 @@ larger software packages to provide basic MRC file I/O functions.
 
 Name: python-%{pname}
 Version: 1.4.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: MRC2014 file format used in structural biology to store image and volume data
 License: BSD
 URL: https://github.com/ccpem/mrcfile
@@ -71,6 +71,9 @@ python3 -m unittest tests
 %{python3_sitelib}/%{pname}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

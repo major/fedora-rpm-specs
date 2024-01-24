@@ -1,5 +1,5 @@
 Version:        4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://rsms.me/inter/
 
 %global common_description %{expand:Inter is a typeface specially designed for user interfaces with focus on high
@@ -59,6 +59,9 @@ Source11:       63-rsms-inter-vf.conf
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.0-1
 - Update to 4.0
 - Add subpackage for variable fonts

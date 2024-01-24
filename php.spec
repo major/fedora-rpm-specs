@@ -106,6 +106,7 @@ Patch1: php-7.4.0-httpd.patch
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-8.0.0-embed.patch
 Patch8: php-8.1.0-libdb.patch
+Patch9: php-gcc14.patch
 
 # Functional changes
 # Use system nikic/php-parser
@@ -718,6 +719,7 @@ in pure PHP.
 %patch -P5 -p1 -b .includedir
 %patch -P6 -p1 -b .embed
 %patch -P8 -p1 -b .libdb
+%patch -P9 -p1 -b .gcc14
 
 %patch -P41 -p1 -b .syslib
 %patch -P42 -p1 -b .systzdata
@@ -1552,6 +1554,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Mon Jan 22 2024 Remi Collet <remi@remirepo.net> - 8.3.2-2
+- add temporary patch for GCC 14
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

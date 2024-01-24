@@ -1,7 +1,7 @@
 Name:    qt6-doc
 Summary: Qt6 - Complete documentation
 Version: 6.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -58,6 +58,9 @@ tar xf %{SOURCE0} -C %{buildroot}
 %{_qt6_docdir}/*/*.tags
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 02 2024 Marie Loise Nolden <loise@kde.org> - 6.6.1-1
 - Initial import based on qt5-doc. Simplify and split into qt6-doc,
   qt6-doc-devel (QCH) and qt6-doc-html (only HTML files)

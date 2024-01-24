@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        6.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -123,6 +123,9 @@ install -Dm644 completions/zsh/_%{srcname} $RPM_BUILD_ROOT%{_datadir}/zsh/site-f
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 6.4.2-1
 - Update to 6.4.2
 

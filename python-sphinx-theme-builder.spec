@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.11.%{prerel}%{?dist}
+Release:        0.12.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -63,6 +63,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.12.b2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.11.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.17
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     http://arkandis.tuxfamily.org/adffonts.html
 
 %global foundry           ADF
@@ -77,6 +77,9 @@ install -m 0644 -p %{SOURCE1} .
 %doc *.pdf
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

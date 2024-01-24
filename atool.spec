@@ -1,6 +1,6 @@
 Name:		atool
 Version:	0.39.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A perl script for managing file archives of various types
 
 License:	GPLv2+
@@ -49,6 +49,9 @@ chmod 0644 NEWS
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

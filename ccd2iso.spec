@@ -1,6 +1,6 @@
 Name:           ccd2iso
 Version:        0.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        CloneCD image to ISO image file converter
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/ccd2iso.1
 
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

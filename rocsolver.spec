@@ -30,7 +30,7 @@
 
 Name:           rocsolver
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCmSoftwarePlatform/rocSOLVER
 
@@ -196,6 +196,9 @@ strip %{buildroot}%{_libdir}/rocm/gfx9/lib/librocsolver.so.0.*
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 13 2024 Tom Rix <trix@redhat.com> - 6.0.0-2
 - fix url
 - comment on multiple licenses

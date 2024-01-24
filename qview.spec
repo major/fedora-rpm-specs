@@ -3,7 +3,7 @@
 
 Name:           qview
 Version:        6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 Summary:        Practical and minimal image viewer
 URL:            https://interversehq.com/qview/
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 17 2023 Justin Zobel <justin.zobel@gmail.com> - 6.1-2
 - Update to 6.1
 

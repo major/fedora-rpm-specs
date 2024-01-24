@@ -1,6 +1,6 @@
 Name:           raylib
 Version:        5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple and easy-to-use library to enjoy videogames programming
 
 License:        Zlib AND MIT
@@ -97,5 +97,8 @@ The %{name}-devel package contains header files for developing with %{name}.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 29 2023 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 5.0-1
 - initial package

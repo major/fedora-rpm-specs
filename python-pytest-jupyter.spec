@@ -1,6 +1,6 @@
 Name:           python-pytest-jupyter
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pytest plugin for testing Jupyter libraries and extensions
 # BSD for pytest-jupyter itself and
 # MIT is for bundled parts of tornasync package
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-pytest-jupyter client
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 05 2023 Lumír Balhar <lbalhar@redhat.com> - 0.8.0-1
 - Update to 0.8.0 (rhbz#2253027)
 

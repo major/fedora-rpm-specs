@@ -13,6 +13,8 @@ Patch:  0001-fmt10.patch
 
 Patch:  0002-sphinx.patch
 
+Patch:  test-timeout.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
@@ -64,7 +66,7 @@ BuildRequires:  fmt-devel
 BuildRequires:  chrpath
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python%{python3_pkgversion}-numpy
-BuildRequires:  python%{python3_pkgversion}-Cython
+BuildRequires:  python%{python3_pkgversion}-cython
 BuildRequires:  python%{python3_pkgversion}-netcdf4
 BuildRequires:  python%{python3_pkgversion}-scipy
 BuildRequires:  python%{python3_pkgversion}-boututils
@@ -118,7 +120,7 @@ BuildRequires:  mpich-devel
 %endif
 %if %{with openmpi}
 BuildRequires:  openmpi-devel
-%global mpi_list %{?mpi_list} openmpi
+%global mpi_list openmpi %{?mpi_list}
 %endif
 
 %description
@@ -408,6 +410,7 @@ do
       -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/$mpi-%{_arch}/bout++/ \
       -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir} \
       -DCMAKE_INSTALL_PYTHON_SITEARCH=${MPI_PYTHON3_SITEARCH} \
+      -DBOUT_TEST_TIMEOUT=900 \
 %if %{with manual}
       -DBOUT_BUILD_DOCS=ON \
 %endif
@@ -499,19 +502,18 @@ done
 %check
 
 # Ignore errors on some architectures
-# armv7: https://bugzilla.redhat.com/show_bug.cgi?id=1998836
 # s390x: https://bugzilla.redhat.com/show_bug.cgi?id=1998838
-fail=0
-%ifarch armv7hl s390x
-fail=0
-%endif
-
+# s390x: https://bugzilla.redhat.com/show_bug.cgi?id=2259532
 
 %if %{with test}
 for mpi in %{mpi_list}
 do
+    fail=1
     if [ $mpi = mpich ] ; then
         %_mpich_load
+	%ifarch s390x
+	fail=0
+	%endif
     else
         %_openmpi_load
     fi
@@ -521,11 +523,12 @@ do
     # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1997717
     export HDF5_USE_FILE_LOCKING=FALSE
     # Increase timeout for copr / s390x
-    export BOUT_TEST_TIMEOUT=15m
     sed 's/ 3s / 30s /' tests/integrated/test-coordinates-initialization/runtest
 
     make %{?_smp_mflags} build-check
-    SEGFAULT_SIGNALS="segv" make check || $(exit $fail)
+    SEGFAULT_SIGNALS="segv" make check-unit-tests || $(exit $fail)
+    SEGFAULT_SIGNALS="segv" make check-mms-tests || $(exit $fail)
+    SEGFAULT_SIGNALS="segv" make check-integrated-tests || $(exit $fail)
 
     popd
     if [ $mpi = mpich ] ; then

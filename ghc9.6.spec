@@ -55,7 +55,7 @@ Version: 9.6.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -88,6 +88,9 @@ Patch12: ghc-armv7-VFPv3D16--NEON.patch
 # https://github.com/haskell/text/issues/396
 # reverts https://github.com/haskell/text/pull/405
 Patch13: text2-allow-ghc8-arm.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24348
+Patch14: https://gitlab.haskell.org/ghc/ghc/-/commit/1e48c43483693398001bfb0ae644a3558bf6a9f3.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
@@ -389,6 +392,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P8 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 %patch -P11 -p1 -b .orig
+%patch -P14 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -825,6 +829,9 @@ make test
 
 
 %changelog
+* Mon Jan 22 2024 Jens Petersen <petersen@redhat.com> - 9.6.4-15
+- upstream rts warnings fix from 9.8 needed for gcc14 (#2259420)
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

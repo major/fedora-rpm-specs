@@ -1,6 +1,6 @@
 Name:           rkward
 Version:        0.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 09 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.7.5-1
 - update to 0.7.5
 - switch to SPDX

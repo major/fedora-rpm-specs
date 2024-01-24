@@ -2,7 +2,7 @@
 
 Name:       Panini
 Version:    0.73.0
-Release:    15%{?dist}
+Release:    16%{?dist}
 Summary:    A tool for creating perspective views from panoramic and wide angle images
 License:    GPLv3+
 URL:        https://lazarus-pkgs.github.io/lazarus-pkgs/%{src_name}.html
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.73.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.73.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

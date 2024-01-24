@@ -15,7 +15,7 @@
 
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
@@ -67,6 +67,9 @@ libraries in the form of bit code. Specifically:
 %clang_resource_dir/amdgcn
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 17.2-1
 - Update to 17.2
 

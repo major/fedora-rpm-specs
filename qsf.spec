@@ -4,7 +4,7 @@
 
 Name:           qsf
 Version:        1.2.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Quick Spam Filter
 
 License:        Artistic-2.0
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man1/qsf.1*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

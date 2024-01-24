@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -285,6 +285,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.66-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Ondřej Nosek <onosek@redhat.com> - 1.66-15
 - Patch: Add option to mockbuild use default resultdir of mock (v3)
 - Patch: mockbuild`: new argument --extra-pkgs

@@ -2,8 +2,13 @@
 %bcond_with mpich
 %bcond_with openmpi
 %else
-%bcond_without mpich
+# TODO check later if we can enable mpich on s390x
 %ifarch s390 s390x
+%bcond_with mpich
+%else
+%bcond_without mpich
+%endif
+%ifarch s390 s390x %{ix86}
 %bcond_with openmpi
 %else
 %bcond_without openmpi
@@ -24,6 +29,7 @@ Summary:        A Fast Fourier Transform library
 License:        GPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            http://www.fftw.org
 Source0:        http://www.fftw.org/fftw-%{version}.tar.gz
+Patch1:         fix_autotools_build.patch
 
 BuildRequires:  gcc-gfortran
 
@@ -280,7 +286,7 @@ This package contains the manual for the FFTW fast Fourier transform
 library.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %if %{with mpich} || %{with openmpi}
@@ -539,6 +545,10 @@ done
 %changelog
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Fix i686 build by disabling openmpi
+- Fix "The file FFTW3LibraryDepends.cmake is missing" in autotools build
+  https://github.com/FFTW/fftw3/issues/130#issuecomment-1902748460 (#2193075)
+- Disable mpich on s390x to fix the build
 
 * Thu Jul 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.3.10-9
 - migrate to SPDX license format

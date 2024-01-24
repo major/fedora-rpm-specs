@@ -1,6 +1,6 @@
 Name:           RBTools
 Version:        4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for use with ReviewBoard
 
 License:        MIT
@@ -79,6 +79,9 @@ cp rbtools/commands/conf/_rbt-zsh-completion \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

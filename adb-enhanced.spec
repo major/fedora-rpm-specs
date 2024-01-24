@@ -2,7 +2,7 @@
 
 Name:           adb-enhanced
 Version:        2.5.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for Android testing and development
 
 License:        ASL 2.0
@@ -44,6 +44,9 @@ battery saver mode, data saver mode, doze mode, permission grant/revocation.
 %{python3_sitelib}/adb_enhanced*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%bcond blender 1
+%bcond blender 0
 %bcond skimage 1
 
 Name:           python-trimesh

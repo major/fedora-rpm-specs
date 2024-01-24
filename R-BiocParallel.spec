@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.30.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Bioconductor facilities for parallel evaluation
 License:          GPLv2 or GPLv3
 URL:              http://www.bioconductor.org/packages/release/bioc/html/BiocParallel.html
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/snow/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

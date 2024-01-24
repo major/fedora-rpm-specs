@@ -19,7 +19,7 @@ implements 100% (or less ;) ) of the Trove API.
 
 Name:           python-troveclient
 Version:        8.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client library for OpenStack DBaaS API
 
 License:        Apache-2.0
@@ -128,6 +128,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 8.2.1-1
 - Update to upstream version 8.2.1
 

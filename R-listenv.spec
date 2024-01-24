@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.8.0
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Environments Behaving (Almost) as Lists
 
 License:          LGPLv2+
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

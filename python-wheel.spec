@@ -15,7 +15,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.41.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
@@ -150,6 +150,9 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.41.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1:0.41.2-1
 - Update to 0.41.2
 - Fixes: rhbz#2224712

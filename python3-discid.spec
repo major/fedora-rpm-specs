@@ -1,6 +1,6 @@
 Name:    python3-discid
 Version: 1.2.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Libdiscid Python bindings
 URL:     https://github.com/JonnyJD/python-discid
 License: LGPL-3.0-or-later
@@ -43,6 +43,9 @@ Python-discid implements Python bindings for MusicBrainz libdiscid.
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

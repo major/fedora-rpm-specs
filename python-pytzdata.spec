@@ -8,7 +8,7 @@ the tzdata package as installed (version %{version} or later).}
 
 Name: python-%{pypi_name}
 Version: 2020.1
-Release: 14%{?dist}
+Release: %autorelease
 
 License: MIT
 Summary: Timezone database for Python
@@ -58,53 +58,4 @@ sed -i "s|os.path.dirname(__file__)|'%{_datadir}'|" pytzdata/__init__.py
 %doc README.rst
 
 %changelog
-* Thu Jan 04 2024 Michael J Gruber <mjg@fedoraproject.org> - 2020.1-14
-- Unbundle tzdata
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2020.1-12
-- Rebuilt for Python 3.12
-
-* Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2020.1-11
-- Backport upstream patch to add support for cleo 2.0.0+
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Oct 10 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 2020.1-9
-- Add patch to fix cleo imports
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 2020.1-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 12 2021 Vitaly Zaitsev <vitaly@easycoding.org> - 2020.1-5
-- Converted SPEC to 201x-era guidelines.
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2020.1-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 14 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 2020.1-1
-- Updated to version 2020.1.
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2019.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun 24 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 2019.3-2
-- Added python3-setuptools to build requirements.
-
-* Thu Jun 18 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 2019.3-1
-- Initial SPEC release.
+%autochangelog

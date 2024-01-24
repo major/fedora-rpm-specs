@@ -7,7 +7,7 @@ numbers.\
 
 Name:           python-%{pypi_name}
 Version:        8.12.53
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python port of Google's libphonenumber
 
 License:        ASL 2.0
@@ -59,6 +59,9 @@ cd python
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.12.53-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.12.53-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

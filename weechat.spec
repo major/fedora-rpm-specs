@@ -29,7 +29,7 @@
 %endif
 
 Name:      weechat
-Version:   4.1.2
+Version:   4.2.1
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications

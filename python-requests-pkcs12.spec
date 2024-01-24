@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/requests_pkcs12-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

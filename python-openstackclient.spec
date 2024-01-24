@@ -23,7 +23,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          6.3.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
@@ -181,6 +181,9 @@ export PYTHON=%{__python3}
 %license LICENSE
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 6.3.0-1
 - Update to upstream version 6.3.0
 

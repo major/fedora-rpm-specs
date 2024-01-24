@@ -1,7 +1,7 @@
 Name:           qperf
 Summary:        Measure socket and RDMA performance
 Version:        0.4.9
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        GPLv2 or BSD
 Source:         http://www.openfabrics.org/downloads/%{name}/%{name}-%{version}.tar.gz
 Url:            http://www.openfabrics.org
@@ -35,6 +35,9 @@ export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %_mandir/man1/qperf.1*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

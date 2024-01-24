@@ -7,7 +7,7 @@
 # Cannot use . in name
 Name:             R-TH-data
 Version:          %{packver}.%{packrel}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Data for other R packages
 
 License:          GPL-3.0-only
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

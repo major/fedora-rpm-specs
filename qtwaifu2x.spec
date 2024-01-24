@@ -4,7 +4,7 @@
 
 Name:           qtwaifu2x
 Version:        0
-Release:        0.14.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        0.15.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Frontend for waifu2x-converter-cpp
 
 License:        GPLv2
@@ -53,6 +53,9 @@ desktop-file-install                                        \
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15.20200709git2973f6f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20200709git2973f6f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

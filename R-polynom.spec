@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.4.1
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          A Class for Univariate Polynomial Manipulations
 
 License:          GPLv2
@@ -70,6 +70,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

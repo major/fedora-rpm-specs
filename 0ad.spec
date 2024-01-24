@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	17%{?dist}
+Release:	18%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -140,6 +140,9 @@ Patch2:		%{name}-check.patch
 Patch3:		%{name}-python311.patch
 Patch4:		0001-Fix-the-removal-of-implicit-conversions-in-libfmt-10.patch
 Patch5:		0001-Fix-compilation-with-GCC-13.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2255223
+Patch6:		0ad-gcc-14.patch
+Patch7:		0001-Fix-build-with-libxml2-v2.12.1.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -171,6 +174,8 @@ sed -e 's|__SOURCE3__|%{SOURCE3}|' \
 
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -278,6 +283,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

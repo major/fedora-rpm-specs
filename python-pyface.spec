@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        8.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generic User Interface objects
 
 # Images have different licenses. For image license breakdown check
@@ -137,6 +137,9 @@ exit $status
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-2
 - Disable bootstrap
 

@@ -4,7 +4,7 @@
 
 Name:           python-pivy
 Version:        0.6.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python binding for Coin
 
 License:        ISC
@@ -77,6 +77,9 @@ find %{buildroot}%{python3_sitearch} -name "*.py" -exec sed -i "s|#!/usr/bin/env
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Richard Shaw <hobbes1069@gmail.com> - 0.6.8-5
 - Rebuild for Coin4.
 

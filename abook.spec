@@ -1,6 +1,6 @@
 Name: abook
 Version: 0.6.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPLv2+
 URL: http://abook.sourceforge.net/
 Summary: Text-based addressbook program for mutt
@@ -51,6 +51,9 @@ autoreconf -vif
 %{_mandir}/man5/abookrc.*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

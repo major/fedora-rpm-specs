@@ -1,6 +1,6 @@
 Name:           spacebar
 Version:        23.01.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -43,7 +43,6 @@ BuildRequires:  cmake(Qt5Quick)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Sql)
 BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(TelepathyQt5)
 
 BuildRequires:  pkgconfig(libcares)
 BuildRequires:  pkgconfig(libcurl)
@@ -83,6 +82,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Mon Jan 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.01.0-6
+- Remove spurious TelepathQt5 BuldRequires; fix FTBFS
+
 * Wed Aug 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 23.01.0-5
 - Rebuilt for abseil-cpp 20230802.0
 

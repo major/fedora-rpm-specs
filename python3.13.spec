@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -141,9 +141,9 @@ Provides: bundled(python3dist(packaging)) = 23
 
 # Extra build without GIL, the freethreading PEP 703 provisional way
 # (the -freethreading subpackage)
-# support for the excluded arches is being added upstream and is expected to land in 3.13.0a3
-# https://github.com/python/cpython/issues/112535
-%ifnarch ppc64le s390x
+# support for s390x is pending investigation in
+# https://github.com/python/cpython/issues/114331
+%ifnarch s390x
 %bcond_without freethreading_build
 %else
 %bcond_with freethreading_build
@@ -1678,6 +1678,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Fri Jan 19 2024 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a3-2
+- Enable python3.13-freethreading and python3.13-freethreading-debug on ppc64le
+
 * Thu Jan 18 2024 Karolina Surma <ksurma@redhat.com> - 3.13.0~a3-1
 - Update to Python 3.13.0a3
 

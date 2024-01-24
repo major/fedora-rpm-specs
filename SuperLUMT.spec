@@ -20,7 +20,7 @@
 
 Name: SuperLUMT
 Version: 3.1.0
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Single precision real SuperLU routines for shared memory parallel machines
 License: BSD
 URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
@@ -469,6 +469,9 @@ done
 %doc DOC README
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

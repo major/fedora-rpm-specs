@@ -13,7 +13,7 @@ formatters.}
 
 Name:           python-%{pypi_name}
 Version:        0.6.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A small, safe import sorter
 
 License:        MIT
@@ -101,6 +101,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

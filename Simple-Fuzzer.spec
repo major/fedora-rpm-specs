@@ -1,7 +1,7 @@
 Summary: A simple fuzz test-case builder
 Name: Simple-Fuzzer
 Version: 0.7.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: BSD
 URL: http://aconole.bytheb.org/programs/sfuzz.html
 Source: http://aaron.bytheb.org/files/sfuzz-0.7-dist/sfuzz-%{version}.tar.bz2
@@ -64,6 +64,9 @@ mv %{buildroot}%{_datadir}/sfuzz-db/*.so %{buildroot}%{_libdir}/simple-fuzzer/
 %license LICENSING
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

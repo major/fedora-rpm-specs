@@ -9,7 +9,7 @@ work tcxparser and gpxpy.}
 
 Name:           python-tcx2gpx
 Version:        0.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert Garmin TPX to GPX
 
 License:        GPL-3.0-only
@@ -65,6 +65,9 @@ BuildRequires:  python3dist(pytest)
 %doc README.md
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

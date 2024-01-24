@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.19
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Interface to Unidata netCDF (Version 4 or Earlier) Format Data Files
 
 License:          GPLv3+
@@ -70,6 +70,9 @@ chrpath -d %{buildroot}%{rlibdir}/%{packname}/libs/%{packname}.so
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

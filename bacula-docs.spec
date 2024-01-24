@@ -2,7 +2,7 @@
 
 Name:           bacula-docs
 Version:        9.6.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Bacula documentation
 License:        AGPLv3 with exceptions
 URL:            http://www.bacula.org
@@ -53,6 +53,9 @@ cp -fra manuals/en/pdf-and-html/images result/.
 %doc result/*
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Ordered set implementation in Cython
 
 License:        BSD-3-Clause AND MIT AND PSF-2.0
@@ -67,6 +67,9 @@ PYTHONPATH=$PWD %{__python3} setup.py test
 %{python3_sitearch}/%{srcname}*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

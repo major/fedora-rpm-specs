@@ -2,7 +2,7 @@
 Name:           qoauth
 Summary:        Qt library OAuth authorization scheme
 Version:        2.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 License:        LGPLv2+
 URL:            https://github.com/ayoy/qoauth
@@ -165,6 +165,9 @@ make check -C %{_target_platform}-qt4 || :
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

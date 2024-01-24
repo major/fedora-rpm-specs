@@ -1,7 +1,7 @@
 Summary: Bluetooth HCI protocol analyser
 Name: bluez-hcidump
 Version: 2.5
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPLv2+
 Source: http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.gz
 URL: http://www.bluez.org/
@@ -37,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man8/hcidump.8.gz
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

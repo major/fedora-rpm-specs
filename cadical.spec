@@ -1,7 +1,7 @@
 Name:           cadical
 Epoch:          1
 Version:        1.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simplified SAT solver
 
 License:        MIT
@@ -107,6 +107,9 @@ make -C test
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

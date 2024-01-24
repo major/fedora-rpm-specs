@@ -22,7 +22,7 @@ clouds - test files
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        Apache-2.0
@@ -121,6 +121,9 @@ rm -f ./openstack/tests/unit/test_hacking.py
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Alfredo Moralejo <amoralej@gmail.com> 1.5.0-1
 - Update to upstream version 1.5.0
 

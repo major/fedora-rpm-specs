@@ -2,7 +2,7 @@
 
 Name:               python-kajiki
 Version:            0.9.2
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Really fast well-formed xml templates
 
 License:            MIT
@@ -57,6 +57,9 @@ speed! Don't delay! Pick up your copy of Kajiki today!
 %{python3_sitelib}/kajiki-%{version}-*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

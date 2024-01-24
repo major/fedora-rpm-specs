@@ -3,14 +3,13 @@
 #
 Summary: An authorization framework
 Name: polkit
-Version: 123
-Release: 5%{?dist}
+Version: 124
+Release: 1%{?dist}
 License: LGPL-2.0-or-later
-URL: http://www.freedesktop.org/wiki/Software/polkit
-Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
+URL: https://github.com/polkit-org/polkit
+Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
 Source1: polkit.sysusers
 
-Patch1: remove-IPAddressDeny.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -132,7 +131,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/polkit-1/rules.d/50-default.rules
 %attr(0750,root,polkitd) %dir %{_sysconfdir}/polkit-1/rules.d
 %{_sysusersdir}/polkit.conf
-%{_sysconfdir}/pam.d/polkit-1
+%{_prefix}/lib/pam.d/polkit-1
 %{_bindir}/pkaction
 %{_bindir}/pkcheck
 %{_bindir}/pkttyagent
@@ -161,6 +160,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Mon Jan 22 2024 Jan Rybar <jrybar@redhat.com> - 124-1
+- rebase to polkit-124
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 123-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

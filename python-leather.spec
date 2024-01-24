@@ -16,7 +16,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.3.4
-Release:        5.git%{?dist}
+Release:        6.git%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -94,6 +94,9 @@ nosetests-%{python3_version} tests -v
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-6.git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-5.git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

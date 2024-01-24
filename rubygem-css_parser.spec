@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ruby CSS parser
 License: MIT
 URL: https://github.com/premailer/css_parser
@@ -52,6 +52,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 06 2023 Sergi Jimenez <tripledes@fedoraproject.org> - 1.16.0-1
 - Bump version to 1.16.0
 

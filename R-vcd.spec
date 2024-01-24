@@ -14,7 +14,7 @@ by Michael Friendly and David Meyer (2015).}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.r-project.org/web/packages/vcd/index.html
@@ -64,6 +64,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

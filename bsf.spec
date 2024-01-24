@@ -1,6 +1,6 @@
 Name:           bsf
 Version:        2.4.0
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Bean Scripting Framework
 License:        Apache-2.0
 URL:            http://commons.apache.org/bsf/
@@ -68,6 +68,9 @@ ant -Dsource.level=1.7 -Dant.build.javac.target=1.7 jar
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,6 +12,9 @@ License:        LGPL-3.0-or-later
 URL:            https://github.com/Lucretiel/%{projname}
 Source0:        %{pypi_source %{projname}}
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2259644
+Patch:          %{url}/pull/31.patch#/001-setuptools-fix.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

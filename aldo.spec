@@ -1,6 +1,6 @@
 Name:           aldo
 Version:        0.7.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A morse tutor
 
 License:        GPL-2.0-or-later AND GPL-3.0
@@ -45,6 +45,9 @@ four type of training methods:
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

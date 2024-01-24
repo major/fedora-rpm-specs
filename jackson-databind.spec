@@ -1,6 +1,6 @@
 Name:           jackson-databind
-Version:        2.16.0
-Release:        3%{?dist}
+Version:        2.16.1
+Release:        2%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -34,6 +34,10 @@ Jackson Annotations for configuration.
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_xpath_set "//pom:javac.src.version" "11"
+%pom_xpath_set "//pom:javac.target.version" "11"
+%pom_xpath_inject "//pom:properties" " <maven.compiler.source>11</maven.compiler.source>"
+%pom_xpath_inject "//pom:properties" " <maven.compiler.target>1.6</maven.compiler.target>"
 
 %pom_change_dep org.junit:junit-bom junit:junit
 
@@ -69,6 +73,27 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-2
+- Force the java bytecode version to java11
+
+* Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
+- [maven-release-plugin] prepare release jackson-databind-2.16.1 (Tatu Saloranta)
+- Prepare for 2.16.1 release (Tatu Saloranta)
+- Add passing test to close #3277 (#4259) (Kim, Joo Hyuk)
+- Add failing test for #4218 (Tatu Saloranta)
+- Post-merge clean up for #4229 (Tatu Saloranta)
+- Fix regression from #4008,  optimize `ObjectNode.findValue(s)` and `findParent(s)` (#4230) (Kim, Joo Hyuk)
+- Minor update to release notes wrt #3133 (Tatu Saloranta)
+- Update release notes wrt #3133 fix (Tatu Saloranta)
+- Add now-passing test for #3133 (#4231) (Kim, Joo Hyuk)
+- Fix #4200: use annotations for delegating `@JsonCreator` (#4228) (Tatu Saloranta)
+- Tiny cleanup to eliminate bit of dead code (Tatu Saloranta)
+- Minor tweak post #4216 (Tatu Saloranta)
+- Allow primitive array deserializer to be captured by `DeserializerModifier` (#4219) (Kim, Joo Hyuk)
+- typo fix (release notes) (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

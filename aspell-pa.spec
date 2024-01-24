@@ -4,7 +4,7 @@
 
 Name:           aspell-pa
 Version:        0.01
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        GNU Aspell Punjabi Dictionary Package
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

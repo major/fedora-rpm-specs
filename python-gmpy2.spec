@@ -11,6 +11,10 @@ Source0:        %pypi_source gmpy2
 # to version 2.1.5:
 # https://github.com/aleaxit/gmpy/commit/b2236fc26fe48572acdae2c6598be8b02a78edee
 Patch0:         %{name}-python3.12.patch
+# Adapt to MPFR 4.2.1, which prints signs on NaN values.
+# This issue has been addressed in upstream git, so we can drop this patch
+# when 2.2.0 is released.
+Patch1:         %{name}-mpfr421.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -60,8 +64,9 @@ This package contains API documentation for gmpy2.
 %prep
 %autosetup -N -n gmpy2-%{version}
 %if 0%{?python3_version_nodots} > 311
-%autopatch -p1
+%autopatch -p1 -M0
 %endif
+%autopatch -p1 -m1
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -89,6 +94,9 @@ make -C docs html
 %doc docs/_build/html/*
 
 %changelog
+* Mon Jan 22 2024 Jerry James <loganjerry@gmail.com> - 2.1.5-5
+- Add patch for MPFR 4.2.1
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

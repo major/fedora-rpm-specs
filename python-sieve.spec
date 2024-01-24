@@ -2,7 +2,7 @@
 
 Name:             python-sieve
 Version:          0.1.9
-Release:          30%{?dist}
+Release:          31%{?dist}
 Summary:          XML Comparison Utils
 
 License:          MIT
@@ -99,6 +99,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

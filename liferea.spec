@@ -1,12 +1,18 @@
 Name:           liferea
 Epoch:          1
 Version:        1.15.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
 URL:            https://lzone.de/liferea/
 Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
+
+# https://github.com/lwindolf/liferea/pull/1329
+Patch1: 0001-src-node_type.h-add-include-libxml-tree.h-for-xmlNod.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -93,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Mon Jan 22 2024 Yanko Kaneti <yaneti@declera.com> - 1:1.15.4-4
+- Pick an upstream fix for FTBFS with recent rawhide changes
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.15.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

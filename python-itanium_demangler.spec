@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python parser for mangled itanium symbols
 
 License:        BSD
@@ -48,6 +48,9 @@ cp -a %{SOURCE1} LICENSE-0BSD.txt
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

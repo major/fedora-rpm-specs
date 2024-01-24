@@ -3,7 +3,7 @@
 Summary: Message Identifiers for internationalization
 Name: python-zope-i18nmessageid
 Version: 4.0.3
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source0: http://pypi.python.org/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
 License: ZPLv2.1
 URL: http://pypi.python.org/pypi/zope.i18nmessageid
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -name '*.c' -type f -print0 | xargs -0 rm -fv
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -15,7 +15,7 @@ Stompest is a full-featured STOMP 1.0, 1.1 and 1.2 implementation for Python \
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        14.20191018git%{commit_short}%{?dist}
+Release:        15.20191018git%{commit_short}%{?dist}
 Summary:        STOMP library for Python including a synchronous client
 
 License:        ASL 2.0
@@ -159,6 +159,9 @@ popd
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-15.20191018git715f358
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14.20191018git715f358
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

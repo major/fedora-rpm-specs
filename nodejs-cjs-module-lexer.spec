@@ -20,7 +20,14 @@ Patch:      0001-parametrize-wasm-compilation-process.patch
 # Binary files in this package are aimed at the wasm32-wasi "architecture".
 %global     _binaries_in_noarch_packages_terminate_build 0
 BuildArch:  noarch
+# change this conditional to the fedora and rhel releases containing lld
+# versions which include support for s390x:
+# https://github.com/llvm/llvm-project/issues/57097
+%if 0
 ExclusiveArch: %{nodejs_arches} noarch
+%else
+ExclusiveArch: %{ix86} x86_64 aarch64 ppc64le riscv64 noarch
+%endif
 
 BuildRequires: clang lld make wasi-libc-devel
 BuildRequires: nodejs-devel npm

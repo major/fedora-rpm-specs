@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.12.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A library to filter SQLAlchemy queries
 
 License:        ASL 2.0
@@ -48,6 +48,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sqlalchemy_filters-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           relaxng-datatype-java
 Version:        2011.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The relaxng datatype library for Java
 # License file is not present in the source repository, the file was retrieved
 # from SourceForge where the previous version is hosted
@@ -47,5 +47,8 @@ cp %{SOURCE1} .
 %license copying.txt
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2011.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Marian Koncek <mkoncek@redhat.com> - 2011.1-1
 - Initial build

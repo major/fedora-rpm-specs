@@ -1,6 +1,6 @@
 Name:           NearTree
 Version:        5.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        An API for finding nearest neighbors
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ find %{buildroot} -name '*.a' -delete
 %{_libdir}/libCNearTree.so
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

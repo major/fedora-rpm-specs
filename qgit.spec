@@ -1,6 +1,6 @@
 Name:           qgit
 Version:        2.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GUI browser for git repositories
 
 License:        GPLv2
@@ -42,6 +42,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

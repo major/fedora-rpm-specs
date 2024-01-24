@@ -1,7 +1,7 @@
 Summary: RPM local_generator support
 Name: rpm-local-generator-support
 Version: 1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # It is not really clear if the one empty file shipped by this package is even
 # copyrightable. But let's go with GPLv2+ which is the license used by RPM,
@@ -41,5 +41,8 @@ touch %{buildroot}%{_fileattrsdir}/local_generator.attr
 
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 06 2023 Vít Ondruch <vondruch@redhat.com> - 1-1
 - Initial version.

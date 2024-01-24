@@ -5,7 +5,7 @@
 
 Name:           python-pydata-sphinx-theme
 Version:        0.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
@@ -127,6 +127,9 @@ cd -
 %endif
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jerry James <loganjerry@gmail.com> - 0.15.2-1
 - Version 0.15.2
 

@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{majorver}.%{minorver}.%{patchver}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A high-level cross-protocol url-grabber
 
 License:        LGPLv2+
@@ -71,6 +71,9 @@ export URLGRABBER_EXT_DOWN="%{buildroot}%{_libexecdir}/urlgrabber-ext-down"
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
