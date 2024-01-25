@@ -1,8 +1,6 @@
-%global _hardened_build 1
-
 Name:           wesnoth
-Version:        1.17.24
-Release:        2%{?dist}
+Version:        1.17.25
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -11,6 +9,8 @@ Source0:        http://www.%{name}.org/files/%{name}-%{version}.tar.bz2
 Source1:        wesnothd.service
 Source2:        %{name}.sysconfig
 Patch0:         scons-env.patch
+# https://github.com/wesnoth/wesnoth/pull/8280
+Patch1:         systemd-paths.patch
 
 Requires:       wesnoth-data = %{version}
 BuildRequires:  gcc-c++
@@ -96,20 +96,24 @@ scons wesnoth wesnothd campaignd prefix=%{_prefix} \
           extra_flags_release="$RPM_OPT_FLAGS $RPM_LD_FLAGS" \
           luadir=%{_includedir} \
           fifodir=/run/wesnothd \
+          systemd=True \
           %{?_smp_mflags}
 
 %install
 scons install install-pytools destdir=$RPM_BUILD_ROOT
 
 #Workaround for BZ 1981728
-sed -i "s|@FIFO_DIR@|\/run\/wesnothd|g" $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.conf
+sed -i "s|@FIFO_DIR@|\/run\/wesnothd|g" $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.tmpfiles.conf
+
+#Correct user/group
+sed -i "s/_wesnoth/wesnothd/g" $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.tmpfiles.conf
 
 %if 0%{?flatpak}
 # Fix install paths for flatpak builds where systemd prefix differs from wesnoth prefix
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mv $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system/wesnothd.service $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_tmpfilesdir}
-mv $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.conf $RPM_BUILD_ROOT%{_tmpfilesdir}
+mv $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.tmpfiles.conf $RPM_BUILD_ROOT%{_tmpfilesdir}
 %endif
 
 # extra files we provide
@@ -169,7 +173,8 @@ done
 %attr(0700,wesnothd,wesnothd) %dir /run/wesnothd/
 %ghost /run/wesnothd/socket
 %{_unitdir}/wesnothd.service
-%{_tmpfilesdir}/wesnothd.conf
+%{_tmpfilesdir}/wesnothd.tmpfiles.conf
+%exclude %{_prefix}/lib/sysusers.d/wesnothd.sysusers.conf
 
 %files data -f LANGFILES
 %{_datadir}/applications/org.wesnoth.Wesnoth.desktop
@@ -181,6 +186,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon Jan 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.17.25-1
+- 1.17.25
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.17.24-2
 - Rebuilt for Boost 1.83
 

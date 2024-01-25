@@ -52,14 +52,14 @@
 # A subpackage needs scikit-learn ~= 0.24.0; F40 has 1.3.0
 %bcond sklearn 0
 
-# A subpackage needs starlette ~= 0.13.0; F40 has 0.27.0
+# A subpackage needs starlette ~= 0.13.0; F40 has 0.35.1
 %bcond starlette 0
 
 # A subpackage needs tortoise-orm >= 0.17.0; python-tortoise-orm is not
 # packaged
 %bcond tortoise_orm 0
 
-# Some tests need werkzeug == 0.16.1, or at least < 2.2.0; F40 has 2.2.3
+# Some tests need werkzeug == 0.16.1, or at least < 2.2.0; F40 has 3.0.1
 #
 # We unpinned the werkzeug version in the pyramid instrumentation test
 # dependencies (it was pinned to == 0.16.1), but it’s not immediately obvious
@@ -112,6 +112,14 @@ Patch:          0001-Feature-support-for-flask-3.0.0-2013.patch
 # we carry a small downstream-only patch until the next release.
 Patch:          0001-Allow-Werkzeug-3.patch
 
+# Drop obsolete parameterized test dependency
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2134
+# Rebased on v0.43b0.
+Patch:          0001-Drop-obsolete-parameterized-test-dependency.patch
+# Remove useless shebangs
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2135
+Patch:          %{url}/pull/2135.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # While this package is noarch, excluding i686 unblocks many dependent packages
@@ -119,6 +127,22 @@ BuildArch:      noarch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+
+# The requirements files pin exact dependency versions and contain many
+# unwanted dependencies (linters, coverage analysis tools, etc.), which  makes
+# them not very useful. Rather than massively patching or filtering these files
+# to generate BuildRequires, it’s easier to maintain a manual list. Besides,
+# almost everything that *is* wanted from dev-requirements.txt is brought in by
+# the test extras of the subpackages that require it.
+#
+# See also:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+
+# dev-requirements.txt
+# Also required via tox.ini
+BuildRequires:  %{py3_dist pytest}
+# Also required via tox.ini; easier to BR than to patch it out
+BuildRequires:  %{py3_dist pytest-benchmark}
 
 %global stable_distinfo %(echo '%{stable_version}' | tr -d '~^').dist-info
 %global prerel_distinfo %(echo '%{prerel_version}' | tr -d '~^').dist-info
@@ -192,6 +216,11 @@ Version:        %{stable_version}
 BuildRequires:  make
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
+
+# docs-requirements.txt
+BuildRequires:  %{py3_dist sphinx}
+# No need for sphinx-rtd-theme since we don’t build HTML
+BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
 %endif
 
 %description doc
@@ -226,7 +255,7 @@ Version:        %{prerel_version}
 License:        Apache-2.0
 
 # From python-opentelemetry:
-BuildRequires:  python3dist(opentelemetry-test-utils)
+BuildRequires:  %{py3_dist opentelemetry-test-utils}
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Recommends:     python3-opentelemetry-distro = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -273,7 +302,7 @@ License:        Apache-2.0
 # Test dependency (covered upstream by dependencies in
 # opentelemetry-instrumentation-fastapi and
 # opentelemetry-exporter-prometheus-remote-write).
-BuildRequires:  python3dist(requests)
+BuildRequires:  %{py3_dist requests}
 
 %description -n python3-opentelemetry-propagator-aws-xray
 This library provides the propagator necessary to inject or extract a tracing
@@ -946,7 +975,7 @@ License:        Apache-2.0
 
 # This is in the top-level tox.ini, but only for an environment specific to a
 # version of httpx that we don’t have.
-BuildRequires:  python3dist(respx)
+BuildRequires:  %{py3_dist respx}
 
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
@@ -1438,7 +1467,9 @@ License:        Apache-2.0
 
 # This is needed on s390x only, but it doesn’t hurt to have it on the other
 # architectures.
-BuildRequires:  python3dist(greenlet)
+BuildRequires:  %{py3_dist greenlet}
+# tox.ini (sqlachemy14 environment):
+BuildRequires:  %{py3_dist aiosqlite}
 
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
@@ -1837,9 +1868,6 @@ that could not be satisfied.
 # Un-pin test dependencies that were pinned to exact versions but perhaps
 # habitually rather than for some concrete reason.
 #
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1277
-sed -r -i 's/("parameterized)[[:blank:]]*==[^"]+/\1/' \
-    instrumentation/opentelemetry-instrumentation-falcon/pyproject.toml
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1291
 # Unpinning is not good enough; see the werkzeug build conditonal
 sed -r -i 's/("werkzeug)[[:blank:]]*==[^"]+/\1/' \
@@ -1874,12 +1902,6 @@ find . -type f \( -name '*.txt' -o -name '*.toml' -o -name '*.py' \) -exec \
   xargs -r -t sed -r -i \
       's/(fastapi)[[:blank:]]*<=?[[:blank:]]*[[:digit:].]+/\1/'
 
-# Remove shebangs from non-script sources. The find-then-modify pattern
-# preserves mtimes on sources that did not need to be modified.
-find */src */*/src -type f -name '*.py' \
-    -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
-  xargs -r sed -r -i '1{/^#!/d}'
-
 # The python3-opentelemetry-contrib-instrumentations subpackage will depend on
 # *all* instrumentation subpackages; patch out the dependencies on those that
 # we were not able to build due to dependency issues.
@@ -1905,116 +1927,12 @@ done
 # documentation packages.
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
-(
-  # - We do not use formatters/linters/type-checkers/coverage.
-  #
-  # - Unpin exact-version dependencies, converting them to lower bounds
-  #
-  # - Similarly, we do not run the “spellcheck” tox environment, so we do not
-  #   need codespell.
-  # - readme-renderer is needed only if we run
-  #   scripts/check_for_valid_readme.py; this is also the reason for the
-  #   version-pinned dependency on bleach, so we remove that too
-  #
-  # - we do not need any of the sphinx packages because we are not building the
-  #   documentation
-  # - grpcio-tools is not needed since we are not generating any proto bindings
-  #
-  # - if we are not making GitHub releases, we do not need requests or
-  #   ruamel.yaml; if we did need them, we would need to un-pin their versions;
-  #   so we do both, unpinning and then removing
-  sed -r \
-      -e '/\b(black|flake8|isort|mypy|mypy-protobuf|pylint|pytest-cov)\b/d' \
-      -e '/==/>=/' \
-      -e '/\b(codespell|readme-renderer|bleach)\b/d' \
-      -e '/\b(sphinx)/d' \
-      -e '/\b(grpcio-tools)\b/d' \
-      -e 's/\b(requests|ruamel\.yaml)==.*/\1/' \
-      -e '/\b(requests|ruamel\.yaml)\b/d' \
-      dev-requirements.txt | tee dev-requirements-prefiltered.txt
-
-%if %{with doc_pdf}
-  awk '
-      /^[[:blank:]]*$/ { suppress = 0; print; next }
-      # Un-pin indirect dependencies, especially those of our subpackages;
-      # the versions of these will just end up overspecified.
-      /^#[[:blank:]]+Required by ((opentelemetry-)?instrumentation)/ {
-        suppress = 1
-      }
-      /^#[[:blank:]]+[Ii]ndirect/ { suppress = 1 }
-      suppress { next }
-      # No URIs, no relative paths
-      /^(-e|\.\/)/ { next }
-      {
-        # Unpin exact-version dependencies, converting them to lower bounds
-        sub(/==/, ">=")
-        # Loosen the bound on sphinx-rtd-theme
-        sub(/sphinx-rtd-theme~=/, "sphinx-rtd-theme>=")
-        # Remove the bound on sphinx-autodoc-typehints
-        sub(/sphinx-autodoc-typehints[>~=]=.*/, "sphinx-autodoc-typehints")
-        print
-      }' docs-requirements.txt | tee docs-requirements-prefiltered.txt
-%endif
-
-  # We can’t easily use %%pyproject_buildrequires -t to read tox.ini, since
-  # it’s not associated with a particular package in the source archive, but we
-  # can read out the relevant dependencies and dump them into the requirements
-  # file for processing.
-  '%{python3}' -c '
-from configparser import ConfigParser
-
-toxfile = "tox.ini"
-cfg = ConfigParser()
-if toxfile not in cfg.read(toxfile):
-    raise SystemExit(f"Could not load {toxfile}")
-for dep in cfg.get("testenv", "deps").splitlines():
-    parts = dep.rstrip("\r\n").split(None, 2)
-    if not parts or parts[0].startswith("-"):
-        continue
-    elif not parts[0].endswith(":"):
-        raise ValueError(f"Confusing dependency: {dep!r}")
-    command = parts[0][:-1]
-    dep = parts[1]
-    # Exclude coverage, linters, typecheckers, etc.
-    excludes = {"coverage", "mypy"}
-    # dev-requirements.txt handles pytest, and we do not want pytest-benchmark
-    excludes.add("test")
-    # We cannot test obsolete or future versions
-    excludes.update({"django1", "django2", "django3"})
-    excludes.update({"elasticsearch2", "elasticsearch5", "elasticsearch6"})
-    excludes.update({"falcon1", "falcon2", "falcon3"})
-    excludes.update({"flask213", "flask220"})
-    excludes.update({"sqlalchemy11", "sqlalchemy12"})
-    excludes.add("pika0")
-    excludes.update({"pymemcache135", "pymemcache200", "pymemcache300"})
-    excludes.update({"pymemcache342", "pymemcache400"})
-    excludes.update({"httpx18"})
-%if %{without aio_pika}
-    excludes.update({"aio-pika7", "aio-pika8", "aio-pika9"})
-%endif
-%if %{without grpc}
-    excludes.add("grpc")
-%endif
-    if any(what in command for what in excludes):
-        continue
-    print(dep)
-' | tee tox-requirements-prefiltered.txt) |
-  sed -r -e '/^#/d' |
-  sed -r -e 's/(protobuf[[:blank:]]*)~(=[[:blank:]]*3)/\1>\2/' |
-  sort -u |
-  tee all-requirements-filtered.txt
-
 
 %generate_buildrequires
 # We filter generated BR’s to avoid listing those that are provided by packages
 # built in this spec file. For easier inspection, we also reorder and
 # de-duplicate them.
 (
-  # Consolidated from dev-requirements.txt and tox.ini in %%prep, with quite a
-  # bit of well-justified filtering and adjusting. We will tack it onto each
-  # %%pyproject_buildrequires call.
-  reqs="${PWD}/all-requirements-filtered.txt"
-
   for pkgdir in %{prerel_pkgdirs}
   do
     pushd "${pkgdir}" >/dev/null
@@ -2046,7 +1964,7 @@ for dep in cfg.get("testenv", "deps").splitlines():
       ;;
 %endif
     esac
-    %pyproject_buildrequires -x "${extras}" "${reqs}"
+    %pyproject_buildrequires -x "${extras}"
     popd >/dev/null
   done
 ) | sed -r \

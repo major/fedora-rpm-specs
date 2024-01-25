@@ -57,8 +57,8 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.1.1
-Release: 15%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -69,19 +69,20 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
-Patch0: swig-configure-c99.patch
-# Octave 8.1 support
-# https://patch-diff.githubusercontent.com/raw/swig/swig/pull/2512.patch
-Patch1: swig-octave-8.1.patch
 # OCaml 5.0 support
 # https://github.com/swig/swig/pull/2649
-Patch2: swig-ocaml-5.0.patch
-# Fix a test that is broken with python 3.12
-Patch3: swig-python-3.12.patch
-# Fix a test that is broken with PHP 8.3
-Patch4: swig-PHP-Fix-testcase-director_finalizer-with-PHP-8.3.patch
-# Fix director_classes testcase failures on x86
-Patch5: swig-PHP-Fix-director_classes-testcase-failures-on-x86.patch
+Patch0: swig-ocaml-5.0.patch
+# Fix missing fragment dependency, in upstream since 4.2.1
+# https://github.com/swig/swig/pull/2744
+Patch1: swig-Python-Regression-fix-add-in-missing-SwigPyIterator_.patch
+# Fix -external-runtime output, in upstream since 4.2.1
+# https://github.com/swig/swig/pull/2751
+Patch2: swig-Ruby-Tcl-Fix-external-runtime-output.patch
+Patch3: swig-Ruby-Adjust-external-runtime-fix.patch
+# Fix seg fault handling friend constructor/destructor declarations
+# https://github.com/swig/swig/issues/2749
+Patch4: swig-Fix-seg-fault-handling-friend-constructor-destructor.patch
+Patch5: swig-Friends-testcase-fix.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -365,6 +366,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Jan 23 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.0-1
+- 4.2.0 bump
+
 * Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.1-15
 - OCaml 5.1.1 + s390x code gen fix for Fedora 40
 

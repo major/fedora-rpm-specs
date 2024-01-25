@@ -1,14 +1,9 @@
 Name:           ckb-next
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
-# ckb-next is GPLv2.
-#
-# The kissfft library (src/libs/kissfft) is BSD.
-# This library is un-bundled by Patch1, but since it's statically linked,
-# its license is still included here.
-License:        GPL-2.0-only and BSD-3-Clause
+License:        GPL-2.0-only
 
 URL:            https://github.com/ckb-next/ckb-next
 Source0:        %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -140,6 +135,10 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Tue Jan 23 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0-5
+- Fix FTBFS
+- Replace kissfft static linking with dynamic linking
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

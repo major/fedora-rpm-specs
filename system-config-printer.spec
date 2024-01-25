@@ -9,7 +9,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -42,7 +42,8 @@ BuildRequires: make
 BuildRequires: pkgconfig(glib-2.0)
 # for python3 API
 BuildRequires: python3-devel
-#BuildRequires: python3-setuptools
+# uses distutils
+BuildRequires: python3-setuptools
 # for automatic USB printer setup tool - udev-configure-printer
 BuildRequires: systemd
 BuildRequires: systemd-devel
@@ -294,6 +295,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 23 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-7
+- 2259526 - FTBFS s-c-p due missing distutils
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-6
 - SPDX migration
 

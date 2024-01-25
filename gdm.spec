@@ -287,12 +287,18 @@ fi
 %dir %{_includedir}/gdm
 %{_includedir}/gdm/*.h
 %exclude %{_includedir}/gdm/gdm-pam-extensions.h
+%exclude %{_includedir}/gdm/gdm-choice-list-pam-extension.h
+%exclude %{_includedir}/gdm/gdm-custom-json-pam-extension.h
+%exclude %{_includedir}/gdm/gdm-pam-extensions-common.h
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Gdm-1.0.gir
 %{_libdir}/pkgconfig/gdm.pc
 
 %files pam-extensions-devel
 %{_includedir}/gdm/gdm-pam-extensions.h
+%{_includedir}/gdm/gdm-choice-list-pam-extension.h
+%{_includedir}/gdm/gdm-custom-json-pam-extension.h
+%{_includedir}/gdm/gdm-pam-extensions-common.h
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog

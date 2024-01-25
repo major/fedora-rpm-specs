@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Test-Warnings
-Version:	0.032
-Release:	2%{?dist}
+Version:	0.033
+Release:	1%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Warnings
@@ -91,6 +91,12 @@ make test
 %{_mandir}/man3/Test::Warnings.3*
 
 %changelog
+* Tue Jan 23 2024 Paul Howarth <paul@city-fan.org> - 0.033-1
+- Update to 0.033
+  - Add Test2 compatibility in the test triggered by done_testing()
+  - New long-awaited feature (!!!) "allow_patterns", to either
+    temporarily or globally exempt particular warning patterns
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.032-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

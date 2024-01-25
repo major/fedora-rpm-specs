@@ -1,6 +1,6 @@
 Name:           perl-Image-PNG-Libpng
 Version:        0.57
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl interface to the libpng library
 # lib/Image/PNG/Const.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Image/PNG/Libpng.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,6 +24,9 @@ Source1:        repackage.sh
 # Adapt tests to the stripped source archive. Not suitable for an upstream.
 # <https://github.com/benkasminbullock/image-png-libpng/issues/36>.
 Patch0:         Image-PNG-Libpng-0.57-Remove-tests-depending-on-proprietary-files.patch
+# Adapt tests to zlib-ng, bug #2259160, proposed the the upstream,
+# <https://github.com/benkasminbullock/image-png-libpng/issues/40>
+Patch1:         Image-PNG-Libpng-0.57-Remove-size-tests-from-t-compress-level.t.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -153,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Petr Pisar <ppisar@redhat.com> - 0.57-12
+- Adapt tests to zlib-ng (bug #2259160)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

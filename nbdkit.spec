@@ -25,6 +25,11 @@
 # but somehow "fixed itself", keep an eye on it.
 %global have_blkio 1
 
+# Enable mingw subpackage on Fedora only.
+%if 0%{?fedora}
+%global have_mingw 1
+%endif
+
 # Enable nbdkit-selinux package.
 %global with_selinux 1
 %global modulename nbdkit
@@ -42,26 +47,18 @@
 # it as a bug and add it to this list.
 %global broken_test_arches NONE
 
-%if 0%{?rhel} == 7
-# On RHEL 7, nothing in the virt stack is shipped on aarch64 and
-# libguestfs was not shipped on POWER (fixed in 7.5).  We could in
-# theory make all of this work by having lots more conditionals, but
-# for now limit this package to x86_64 on RHEL.
-ExclusiveArch:  x86_64
-%endif
-
 # If we should verify tarball signature with GPGv2.
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.37-development
 
 Name:           nbdkit
 Version:        1.37.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -91,6 +88,11 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Upstream patches to fix srcdir != builddir
+Patch:          0001-common-bitmaps-Fix-tests-when-srcdir-builddir.patch
+Patch:          0002-tests-Fix-tests-to-work-with-srcdir-builddir.patch
+Patch:          0003-common-replacements-win32-Only-build-nbdkit-cat.mc-d.patch
 
 BuildRequires: make
 %if 0%{patches_touch_autotools}
@@ -171,6 +173,25 @@ BuildRequires:  %{_bindir}/stat
 # nbdkit plugins and filters.  This means nbdkit build depends on
 # itself, but it's a simple noarch package so easy to install.
 BuildRequires:  nbdkit-srpm-macros >= 1.30.0
+
+%if 0%{?have_mingw}
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw32-dlfcn
+BuildRequires:  mingw64-dlfcn
+BuildRequires:  mingw32-gnutls
+BuildRequires:  mingw64-gnutls
+BuildRequires:  mingw32-winpthreads
+BuildRequires:  mingw64-winpthreads
+BuildRequires:  mingw32-xz
+BuildRequires:  mingw64-xz
+BuildRequires:  mingw32-zlib
+BuildRequires:  mingw64-zlib
+%endif
 
 # nbdkit is a metapackage pulling the server and a useful subset
 # of the plugins and filters.
@@ -693,6 +714,43 @@ BuildRequires: selinux-policy-devel
 %endif
 
 
+%if 0%{?have_mingw}
+%package -n mingw32-%{name}
+Summary:       nbdkit binary, plugins, filters, development files for Windows
+BuildArch:     noarch
+Requires:      mingw32-filesystem
+Requires:      pkgconfig
+
+%description -n mingw32-%{name}
+NBD is a protocol for accessing block devices (hard disks and
+disk-like things) over the network.
+
+nbdkit is a toolkit for creating NBD servers.
+
+This package contains the nbdkit binary, plugins, filters and
+development kit for 32 bit versions of Windows.
+
+
+%package -n mingw64-%{name}
+Summary:       nbdkit binary, plugins, filters, development files for Windows
+BuildArch:     noarch
+Requires:      mingw64-filesystem
+Requires:      pkgconfig
+
+%description -n mingw64-%{name}
+NBD is a protocol for accessing block devices (hard disks and
+disk-like things) over the network.
+
+nbdkit is a toolkit for creating NBD servers.
+
+This package contains the nbdkit binary, plugins, filters and
+development kit for 64 bit versions of Windows.
+
+
+%{?mingw_debug_package}
+%endif
+
+
 %prep
 %if 0%{verify_tarball_signature}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -704,6 +762,10 @@ autoreconf -i
 
 
 %build
+mkdir build_native
+pushd build_native
+%global _configure ../configure
+
 # Golang bindings are not enabled in the build since they don't
 # need to be.  Most people would use them by copying the upstream
 # package into their vendor/ directory.
@@ -795,8 +857,49 @@ make -f %{_datadir}/selinux/devel/Makefile %{modulename}.pp
 bzip2 -9 %{modulename}.pp
 %endif
 
+popd
+
+%if 0%{?have_mingw}
+%mingw_configure \
+    --disable-static \
+    --enable-shared \
+    --with-extra='%{name}-%{version}-%{release}' \
+    --with-tls-priority=@NBDKIT,SYSTEM \
+    --disable-golang \
+    --disable-libguestfs-tests \
+    --disable-linuxdisk \
+    --disable-lua \
+    --disable-ocaml \
+    --disable-perl \
+    --disable-python \
+    --disable-ruby \
+    --disable-rust \
+    --disable-tcl \
+    --disable-torrent \
+    --disable-valgrind \
+    --disable-vddk \
+    --without-bash-completions \
+    --without-curl \
+    --without-ext2 \
+    --with-gnutls \
+    --without-iso \
+    --without-libblkio \
+    --without-libguestfs \
+    --without-libnbd \
+    --without-libvirt \
+    --with-liblzma \
+    --without-manpages \
+    --without-selinux \
+    --without-ssh \
+    --with-zlib \
+    %{nil}
+
+%mingw_make %{?_smp_mflags}
+%endif
+
 
 %install
+pushd build_native
 %make_install
 
 # Delete libtool crap.
@@ -827,10 +930,30 @@ install -m 0755 %{SOURCE5} $RPM_BUILD_ROOT%{_rpmconfigdir}/
 install -D -m 0644 %{modulename}.pp.bz2 $RPM_BUILD_ROOT%{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.bz2
 install -D -p -m 0644 selinux/%{modulename}.if $RPM_BUILD_ROOT%{_datadir}/selinux/devel/include/distributed/%{modulename}.if
 %endif
+popd
+
+%if 0%{?have_mingw}
+%mingw_make_install
+
+# Remove .la files
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/*.la
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/*.la
+
+# The .def files aren't interesting for other binaries
+rm -f $RPM_BUILD_ROOT%{mingw32_bindir}/*.def
+rm -f $RPM_BUILD_ROOT%{mingw64_bindir}/*.def
+
+# Remove man pages which duplicate stuff in Fedora already.
+rm -rf $RPM_BUILD_ROOT%{mingw32_mandir}
+rm -rf $RPM_BUILD_ROOT%{mingw64_mandir}
+
+%mingw_debug_install_post
+%endif
 
 
 %check
 %ifnarch %{broken_test_arches}
+pushd build_native
 function skip_test ()
 {
     for f in "$@"; do
@@ -875,6 +998,7 @@ export LIBGUESTFS_TRACE=1
     cat tests/test-suite.log
     exit 1
   }
+popd
 %endif
 
 
@@ -1277,7 +1401,7 @@ fi
 # Include the source of the example plugins in the documentation.
 %doc plugins/example*/*.c
 %if !0%{?rhel}
-%doc plugins/example4/nbdkit-example4-plugin
+%doc build_native/plugins/example4/nbdkit-example4-plugin
 %doc plugins/lua/example.lua
 %endif
 %if !0%{?rhel} && 0%{?have_ocaml}
@@ -1325,7 +1449,30 @@ fi
 %endif
 
 
+%if 0%{?have_mingw}
+%files -n mingw32-%{name}
+%license LICENSE
+%{mingw32_sbindir}/nbdkit.exe
+%{mingw32_libdir}/%{name}/
+%{mingw32_libdir}/libnbdkit.a
+%{mingw32_libdir}/pkgconfig/%{name}.pc
+%{mingw32_includedir}/*.h
+
+
+%files -n mingw64-%{name}
+%license LICENSE
+%{mingw64_sbindir}/nbdkit.exe
+%{mingw64_libdir}/%{name}/
+%{mingw64_libdir}/libnbdkit.a
+%{mingw64_libdir}/pkgconfig/%{name}.pc
+%{mingw64_includedir}/*.h
+%endif
+
+
 %changelog
+* Tue Jan 23 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.5-3
+- Add mingw{32,64}-nbdkit subpackages
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

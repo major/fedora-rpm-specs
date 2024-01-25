@@ -1,7 +1,13 @@
 %bcond_without  tests
 
-Name:           moolticute
+%global forgeurl    https://github.com/mooltipass/%{name}
+%global tag         v1.03.2-testing
+
 Version:        1.03.0
+
+%forgemeta
+
+Name:           moolticute
 Release:        %autorelease
 Summary:        Companion GUI application for Mooltipass password manager devices
 
@@ -18,14 +24,12 @@ Summary:        Companion GUI application for Mooltipass password manager device
 # Note: src/qwinoverlappedionotifier.[cpp|h] is not compiled, and thus ignored.
 # Note: Missing license files are being added: https://github.com/mooltipass/moolticute/pull/1098
 License:        GPL-3.0-or-later AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AND BSD-2-Clause AND BSD-3-Clause AND MIT AND OFL-1.1 AND CC-BY-3.0
-URL:            https://github.com/mooltipass/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 # QSimpleUpdater is licensed under DBAD, which isn't approved. The updater isn't used anyway, so this patch removes it
 # until it is fixed upstream: https://github.com/alex-spataru/QSimpleUpdater/issues/28
 Patch0:         0001-remove-updater.patch
-# https://github.com/mooltipass/moolticute/pull/1134
-Patch1:         0002-fix-qmake-install.patch
 
 Requires:       systemd
 Requires:       hicolor-icon-theme
@@ -33,14 +37,21 @@ Requires:       mooltipass-udev
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebsockets-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5WebSockets)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  qt5-linguist
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
+%if %{with tests}
+BuildRequires:  pkgconfig(Qt5Test)
+%endif
 
 %description
 Moolticute is an easy to use companion app to your Mooltipass device and extends
@@ -53,7 +64,7 @@ app to control your Mooltipass. Other clients can also connect and talk to the
 daemon (it uses a WebSocket connection and simple JSON messages).
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 # Change the version from git to the specific release version.
 # Also set the APP_TYPE to deb to disable the update checker. This isn't

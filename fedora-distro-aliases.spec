@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
-Version:        1.1
-Release:        2%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -55,8 +55,10 @@ Summary:        %{summary}
 
 
 %changelog
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Tue Jan 23 2024 Jakub Kadlcik <frostyx@email.cz> 1.2-1
+- Drop bodhi-client dependency (frostyx@email.cz)
+- Add installation instructions (frostyx@email.cz)
+- Show how to get only version numbers (frostyx@email.cz)
 
 * Sat Jan 13 2024 Jakub Kadlcik <frostyx@email.cz> 1.1-1
 - Fix Source URL (frostyx@email.cz)

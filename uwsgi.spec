@@ -174,6 +174,19 @@
 %else
 %bcond_without gridfs
 %endif
+
+# EL9 has multiple python3 versions, but does not provide the
+# convenience macros that EL7 has. Set those ourselves.
+#
+# This needs some serious rework after EL7 is gone.
+%bcond_without python3_other
+%if %{with python3_other}
+%global python3_other_pkgversion 3.11
+%global __python3_other python3.11
+%global python3_other_sitelib %(RPM_BUILD_ROOT= %{__python3_other} -Ic "import sysconfig; print(sysconfig.get_path('purelib', vars={'platbase': '%{_prefix}', 'base': '%{_prefix}'}))")}
+%global python3_other_version 3.11
+%global python3_other_version_nodots 311
+%endif
 #EL9 endif
 %endif
 
@@ -202,7 +215,7 @@
 
 Name:           uwsgi
 Version:        2.0.23
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -230,6 +243,7 @@ Patch7:         uwsgi_fix_mono.patch
 # https://github.com/unbit/uwsgi/issues/2283
 Patch12:        uwsgi_fix_php8.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
+Patch14:        uwsgi_python312-2.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1253,6 +1267,7 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch -P12 -p1
 %patch -P13 -p1
+%patch -P14 -p1
 
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
@@ -1843,6 +1858,10 @@ exit 0
 
 
 %changelog
+* Tue Jan 23 2024 Ralf Ertzinger <ralf@skytale.net> - 2.0.23-2
+- Add reworked patch for python3.12
+- Build plugin for python3.11 under EPEL9
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.23-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

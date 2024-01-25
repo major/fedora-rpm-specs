@@ -1,8 +1,8 @@
 %global	gem_name	image_size
 
 Name:		rubygem-%{gem_name}
-Version:	3.3.0
-Release:	3%{?dist}
+Version:	3.4.0
+Release:	1%{?dist}
 
 Summary:	Measure image size using pure Ruby
 # SPDX confirmed
@@ -84,6 +84,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.markdown
 
 %changelog
+* Tue Jan 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.0-1
+- 3.4.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: kernelshark
 Version: 2.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -32,7 +32,7 @@ BuildRequires: cmake(Qt6Widgets)
 BuildRequires: libtracecmd-devel
 BuildRequires: libtraceevent-devel
 BuildRequires: libtracefs-devel
-BuildRequires: libtracecmd >= 1.3.0
+BuildRequires: libtracecmd >= 1.5.0
 BuildRequires: trace-cmd
 BuildRequires: xmlto
 BuildRequires: make
@@ -57,6 +57,8 @@ view of its data.
 
 %build
 cd build
+# To fix error: ‘for_each’ is not a member of ‘std’
+sed -i '/iostream/a #include <algorithm>' ../src/plugins/LatencyPlot.cpp
 cmake ..  -DCMAKE_BUILD_TYPE=Package -D_INSTALL_PREFIX=%{_prefix} -D_LIBDIR=%{_libdir} -DCMAKE_C_FLAGS_PACKAGE="%{optflags}" -DCMAKE_EXE_LINKER_FLAGS="%{build_ldflags}" -D_DOXYGEN_DOC=1
 make V=1 all doc
 
@@ -86,15 +88,18 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_datadir}/icons/kernelshark/*
 %{_datadir}/polkit-1/actions/org.freedesktop.kshark-record.policy
 %{_metainfodir}/%{name}.appdata.xml
-%{_libdir}/libkshark-gui.so.%{version}
-%{_libdir}/libkshark-plot.so.%{version}
+%{_libdir}/libkshark-gui.so.2.3.0
+%{_libdir}/libkshark-plot.so.2.3.0
 %{_libdir}/libkshark.so
 %{_libdir}/libkshark.so.2
-%{_libdir}/libkshark.so.%{version}
+%{_libdir}/libkshark.so.2.3.0
 %{_libdir}/pkgconfig/libkshark.pc
 %{_includedir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Zamir SUN <sztsian@gmail.com> - 1:2.3.0-3
+- Rebuild for libtrace* update
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

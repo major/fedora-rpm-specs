@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -33,7 +33,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-pybind11
-BuildRequires:  protobuf-lite-devel
+BuildRequires:  protobuf-devel
 
 %global _description %{expand:
 %{name} provides an open source format for AI models, both deep learning and
@@ -116,6 +116,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Tue Jan 23 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-10
+- Build using protobuf-devel
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

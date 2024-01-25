@@ -47,8 +47,6 @@ BuildRequires: keyutils-libs-devel
 BuildRequires: make
 
 Requires: %{name}-common = %{version}-%{release}
-# For gvfs-open
-Requires: gvfs
 
 Patch3: gnome-vfs-2.9.90-modules-conf.patch
 
@@ -103,7 +101,7 @@ http, ftp, and others. It provides a URI-based API, backend
 supporting asynchronous file operations, a MIME type manipulation
 library, and other features.
 
-DEPRECATED in favor of gvfs.
+DEPRECATED in favor of GIO.
 
 %package common
 Summary: Common files for %{name}

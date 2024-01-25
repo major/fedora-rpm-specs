@@ -1,6 +1,6 @@
 Name: libtracecmd
-Version: 1.3.1
-Release: 4%{?dist}
+Version: 1.5.1
+Release: 1%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A library for reading tracing instances stored in a trace file
 
@@ -19,8 +19,8 @@ BuildRequires: libxml2-devel
 BuildRequires: gcc-c++
 BuildRequires: freeglut-devel
 BuildRequires: json-c-devel
-BuildRequires: libtraceevent-devel >= 1.6.3
-BuildRequires: libtracefs-devel >= 1.5.0
+BuildRequires: libtraceevent-devel >= 1.8.0
+BuildRequires: libtracefs-devel >= 1.8.0
 BuildRequires: chrpath
 BuildRequires: libzstd-devel
 
@@ -58,7 +58,7 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %license COPYING COPYING.LIB
 %doc README
 %{_libdir}/libtracecmd.so.1
-%{_libdir}/libtracecmd.so.1.3.1
+%{_libdir}/libtracecmd.so.1.5.1
 %{_docdir}/libtracecmd-doc
 %{_mandir}/man3/libtracecmd*
 %{_mandir}/man3/tracecmd*
@@ -69,6 +69,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Tue Jan 23 2024 Zamir SUN <sztsian@gmail.com> - 1.5.1-1
+- Update to 1.5.1
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

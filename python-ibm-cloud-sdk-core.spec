@@ -1,6 +1,6 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.18.2
-Release:        2%{?dist}
+Version:        3.19.0
+Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
 License:        Apache-2.0
@@ -54,6 +54,12 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Mon Jan 22 2024 Packit <hello@packit.dev> - 3.19.0-1
+- chore(release): 3.19.0 release notes (semantic-release-bot)
+- Bump version: 3.18.2 → 3.19.0 (semantic-release-bot)
+- feat: rename `ApiException.code` to `ApiException.status_code` (#185) (Norbert Biczo)
+- Resolves rhbz#2259660
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

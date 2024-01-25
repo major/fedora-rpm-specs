@@ -2,8 +2,8 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: Apache-2.0
 
-Version: 20230918
-Release: 2%{?dist}
+Version: 20240116
+Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
 Source0: %{url}archive/%{version}/%{name}-%{version}.tar.gz
@@ -29,14 +29,14 @@ Requires: python3dist(ssdeep) >= 3.1
 Requires: python3dist(tld) >= 0.9.1
 Requires: python3dist(tlsh) >= 4.5
 
-Requires: ((python3dist(pillow) >= 7.0.0) if chromedriver)
+Requires: ((python3dist(pillow) >= 7.0.0-0) if chromedriver)
 # FIXME: Upstream claims that dnstwist requires python3-selenium >= 4.0.0,
 #        but the version currently available in Fedora is 3.141.0.
 #        Since selenium support is an optional feature in dnstwist,
 #        allow users to install and use the old version
 #        while we wait for an update to the python-selenium package.
 #        See: https://bugzilla.redhat.com/show_bug.cgi?id=1814799
-Requires: ((python3dist(selenium) >= 3.141.0) if chromedriver)
+Requires: ((python3dist(selenium) >= 3.141.0-0) if chromedriver)
 
 %{?python_enable_dependency_generator}
 
@@ -78,6 +78,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue Jan 23 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20240116-1
+- Update to v20240116
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230918-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

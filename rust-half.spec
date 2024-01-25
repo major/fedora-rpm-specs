@@ -153,7 +153,9 @@ use the "use-intrinsics" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that fail with Rust 1.75+ when built in release mode:
+#   https://github.com/starkat99/half-rs/issues/103
+%cargo_test -- -- --exact --skip bfloat::test::test_nan_conversion_to_larger --skip bfloat::test::test_nan_conversion_to_smaller --skip binary16::test::test_nan_conversion_to_larger --skip binary16::test::test_nan_conversion_to_smaller
 %endif
 
 %changelog

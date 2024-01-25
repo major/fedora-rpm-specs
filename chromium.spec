@@ -186,6 +186,12 @@
 %global use_qt6 0
 %endif
 
+# disable due to gcc-14 bug
+%if 0%{?fedora} > 39
+%global use_qt6 0
+%global use_qt 0
+%endif
+
 # enable gtk3 by default
 %global gtk3 1
 
@@ -285,8 +291,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 120.0.6099.224
-Release: 2%{?dist}
+Version: 121.0.6167.71
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -354,6 +360,10 @@ Patch100: chromium-116-el7-include-fcntl-memfd.patch
 # add define HAVE_STRNDUP on epel7
 Patch101: chromium-108-el7-wayland-strndup-error.patch
 
+# Workaround for old clang
+# error: defaulting this default constructor would delete it after its first declaration
+Patch102: chromium-121-el7-default-constructor-involving-anonymous-union.patch
+
 # Work around old and missing headers on EPEL7
 Patch103: chromium-110-epel7-old-headers-workarounds.patch
 
@@ -378,36 +388,37 @@ Patch108: chromium-118-el7_v4l2_quantization.patch
 Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-116-constexpr.patch
-Patch112: chromium-117-el7-default_constructor.patch
 # old clang on el7
 
-Patch113: chromium-120-el7-clang-version-warning.patch
+Patch113: chromium-121-el7-clang-version-warning.patch
 Patch114: chromium-120-el7-clang-build-failure.patch
 
 # system ffmpeg
-# need for old ffmpeg 5.x on epel9 and fedora 37
+# need for old ffmpeg 5.x on epel9
 Patch115: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch116: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch117: chromium-118-sigtrap_system_ffmpeg.patch
+# need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
+Patch118: chromium-121-system-old-ffmpeg.patch
 
 # revert AV1 VAAPI video encode due to old libva on el9
-Patch130: chromium-119-revert-av1enc-el9.patch
+Patch130: chromium-121-revert-av1enc-el9.patch
 
 # file conflict with old kernel on el8/el9
 Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fixes for old clang version in fedora < 38 end epel < 8 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-120-no_matching_constructor.patch
+Patch300: chromium-121-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-120-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-121-workaround_clang_bug-structured_binding.patch
 
 # missing typename
-Patch303: chromium-120-typename.patch
+Patch303: chromium-121-typename.patch
 
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
@@ -416,10 +427,14 @@ Patch306: chromium-119-assert.patch
 
 # disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
 # not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-120-arm64-memory_tagging.patch
+Patch307: chromium-121-arm64-memory_tagging.patch
+
+# compiler errors on epel
+Patch308: chromium-121-v8-c++20.patch
+Patch309: chromium-121-constexpr.patch
 
 # missing include header files
-Patch310: chromium-120-missing-header-files.patch
+Patch310: chromium-121-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
@@ -428,23 +443,30 @@ Patch311: chromium-115-clang-warnings.patch
 Patch312: chromium-119-fstack-protector-strong.patch
 
 # build error
-Patch351: chromium-117-mnemonic-error.patch
+Patch351: chromium-121-mnemonic-error.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
 # Disable BTI until this is fixed upstream.
 Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 
-# gn workaround for the error: Assignment had no effect
-Patch353: chromium-120-gn-workaround-atspi.patch
 # remove flag split-threshold-for-reg-with-hint, it' not supported in clang <= 17
 Patch354: chromium-120-split-threshold-for-reg-with-hint.patch
+
 # error: unknown type name 'nullptr_t'
-Patch355: chromium-120-nullptr_t-without-namespace-std.patch
+Patch355: chromium-121-nullptr_t-without-namespace-std.patch
+
 # disable FFmpegAllowLists by default to allow external ffmpeg
 patch356: chromium-120-disable-FFmpegAllowLists.patch
+
 # remove ldflags -Wl,-mllvm,-disable-auto-upgrade-debug-info which is not supported
 Patch357: chromium-120-clang16-disable-auto-upgrade-debug-info.patch
+
+# set clang_lib path
+Patch358: chromium-121-rust-clang_lib.patch
+
+# python3-invalid-escape-sequence
+Patch359: chromium-121-python3-invalid-escape-sequence.patch
 
 # upstream patches
 
@@ -509,6 +531,8 @@ BuildRequires: gcc
 BuildRequires: binutils
 %endif
 %endif
+
+BuildRequires: rustc
 
 # build with system ffmpeg-free
 %if ! %{bundleffmpegfree}
@@ -999,12 +1023,14 @@ udev.
 %endif
 %patch -P116 -p1 -b .prop-codecs
 %patch -P117 -p1 -b .sigtrap_system_ffmpeg
+%patch -P118 -p1 -b .system-old-ffmpeg
 %endif
 
 # EPEL specific patches
 %if 0%{?rhel} == 7
 %patch -P100 -p1 -b .el7-memfd-fcntl-include
 %patch -P101 -p1 -b .wayland-strndup-error
+%patch -P102 -p1 -b .default-constructor-involving-anonymous-union
 %patch -P103 -p1 -b .epel7-header-workarounds
 %patch -P104 -p1 -b .el7cups
 %patch -P105 -p1 -b .el7-old-libdrm
@@ -1014,9 +1040,14 @@ udev.
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
 %patch -P111 -p1 -b .constexpr
-%patch -P112 -p1 -b .default_constructor
 %patch -P113 -p1 -b .el7-clang-version-warning
 %patch -P114 -p1 -R -b .clang-build-failure
+%patch -P300 -p1 -b .no_matching_constructor
+%patch -P301 -p1 -b .workaround_clang-SkColor4f
+%patch -P302 -p1 -b .workaround_clang_bug-structured_binding
+%patch -P303 -p1 -b .typename
+%patch -P304 -p1 -b .string-convert
+%patch -P306 -p1 -b .assert
 %endif
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
@@ -1027,21 +1058,15 @@ udev.
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
-%if %{clang}
-%if 0%{?rhel} < 8 || 0%{?fedora} < 38
-%patch -P300 -p1 -b .no_matching_constructor
-%patch -P301 -p1 -b .workaround_clang-SkColor4f
-%patch -P302 -p1 -b .workaround_clang_bug-structured_binding
-%patch -P303 -p1 -b .typename
-%patch -P304 -p1 -b .string-convert
-%patch -P306 -p1 -b .assert
-%endif
-%endif
-
 %ifarch aarch64
 %if 0%{?rhel} <= 8
 %patch -P307 -p1 -b .memory_tagging
 %endif
+%endif
+
+%if 0%{?rhel} || 0%{?fedora} < 39
+%patch -P308 -p1 -R -b .v8-c++20
+%patch -P309 -p1 -b .constexpr
 %endif
 
 %patch -P310 -p1 -b .missing-header-files
@@ -1054,13 +1079,14 @@ udev.
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
 %endif
 
-%patch -P353 -p1 -b .gn-workaround-atspi
 %patch -P354 -p1 -b .revert-split-threshold-for-reg-with-hint
 %if ! %{use_custom_libcxx}
 %patch -P355 -p1 -b .nullptr_t-without-namespace-std
 %endif
 %patch -P356 -p1 -b .disable-FFmpegAllowLists
 %patch -P357 -p1 -b .clang16-disable-auto-upgrade-debug-info
+%patch -P358 -p1 -b .rust-clang_lib
+%patch -P359 -p1 -b .python3-invalid-escape-sequence
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1177,6 +1203,16 @@ export CXXFLAGS
 . /opt/rh/%{toolset}-%{dts_version}/enable
 %endif
 
+# need for error: the option `Z` is only accepted on the nightly compiler
+export RUSTC_BOOTSTRAP=1
+
+# set rustc version
+rustc_version="$(rustc --version)"
+
+# set clang version
+clang_version="$(clang --version | sed -n 's/clang version //p' | cut -d. -f1)"
+clang_base_path="$(clang --version | grep InstalledDir | cut -d' ' -f2 | sed 's#/bin##')"
+
 # Core defines are flags that are true for both the browser and headless.
 CHROMIUM_CORE_GN_DEFINES=""
 # using system toolchain
@@ -1192,9 +1228,7 @@ CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
 %endif
 
-%if 0%{?rhel} || 0%{?fedora} < 39
 CHROMIUM_CORE_GN_DEFINES+=' chrome_pgo_phase=0'
-%endif
 
 %if %{cfi}
 CHROMIUM_CORE_GN_DEFINES+=' is_cfi=true'
@@ -1213,7 +1247,8 @@ CHROMIUM_CORE_GN_DEFINES+=' google_default_client_secret="%{default_client_secre
 
 %if %{clang}
 CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
-CHROMIUM_CORE_GN_DEFINES+=' clang_base_path="%{_prefix}"'
+CHROMIUM_CORE_GN_DEFINES+=" clang_base_path=\"$clang_base_path\""
+CHROMIUM_CORE_GN_DEFINES+=" clang_version=\"$clang_version\""
 CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 %else
@@ -1221,8 +1256,9 @@ CHROMIUM_CORE_GN_DEFINES+=' is_clang=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 %endif
 
-# disable rust, it's only using for testing
-CHROMIUM_CORE_GN_DEFINES+=' enable_rust=false'
+# enable system rust
+CHROMIUM_CORE_GN_DEFINES+=' rust_sysroot_absolute="%{_prefix}"'
+CHROMIUM_CORE_GN_DEFINES+=" rustc_version=\"$rustc_version\""
 
 CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true'
 
@@ -1766,6 +1802,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Jan 23 2024 Than Ngo <than@redhat.com> - 121.0.6167.71-1
+- update to 121.0.6167.71
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 120.0.6099.224-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

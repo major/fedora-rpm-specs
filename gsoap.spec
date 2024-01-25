@@ -1,7 +1,7 @@
 Summary: Generator Tools for Coding SOAP/XML Web Services in C and C++
 Name: gsoap
-Version: 2.8.124
-Release: 4%{?dist}
+Version: 2.8.132
+Release: 1%{?dist}
 
 # gsoap is licensed both under the gSOAP public license and under GPL version
 # 2 or later with an OpenSSL linking exception.
@@ -16,9 +16,9 @@ Release: 4%{?dist}
 # 3.2. Availability of Source Code.
 # Any Modification created by You will be provided to the Initial Developer in
 # Source Code form and are subject to the terms of the License.
-License: GPLv2+ with exceptions
-URL: http://gsoap2.sourceforge.net/
-Source0: http://downloads.sourceforge.net/gsoap2/%{name}_%{version}.zip
+License: GPL-2.0-or-later
+URL: https://gsoap2.sourceforge.net/
+Source0: https://downloads.sourceforge.net/gsoap2/%{name}_%{version}.zip
 Source1: soapcpp2.1
 Source2: wsdl2h.1
 # Replace top level index.html in the doc package with a version without
@@ -64,8 +64,8 @@ gSOAP documentation in html.
 
 %prep
 %setup -q -n gsoap-2.8
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 # XML files non-executable
 find gsoap/samples/autotest/databinding/examples -name '*.xml' \
@@ -129,6 +129,7 @@ install -m 644 -p %{SOURCE3} gsoap/doc-build
 rm -f %{buildroot}/%{_libdir}/*.la
 rm %{buildroot}/%{_datadir}/gsoap/plugin/testmsgr-httpda.o
 rm %{buildroot}/%{_datadir}/gsoap/plugin/testmsgr-smdevp.o
+rm %{buildroot}/%{_datadir}/gsoap/plugin/testmsgr-threads.o
 
 mkdir -p %{buildroot}/%{_mandir}/man1
 install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
@@ -373,6 +374,9 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %license LICENSE.txt GPLv2_license.txt
 
 %changelog
+* Mon Jan 22 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.132-1
+- Update to 2.8.132
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.124-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

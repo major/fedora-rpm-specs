@@ -1,9 +1,9 @@
 Name:		CGSI-gSOAP
 Version:	1.3.11
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	GSI plugin for gSOAP
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://dmc-docs.web.cern.ch/dmc-docs/cgsi-gsoap.html
 Source0:	https://gitlab.cern.ch/dmc/cgsi-gsoap/-/archive/v1.3.11/cgsi-gsoap-v%{version}.tar.gz
 #		Patches from:
@@ -93,6 +93,9 @@ rm %{buildroot}%{_libdir}/*.a
 %doc %{_mandir}/man*/*
 
 %changelog
+* Tue Jan 23 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.3.11-23
+- Rebuilt for gsoap 2.8.132 (Fedora 40)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

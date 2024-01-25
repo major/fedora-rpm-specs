@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.1
-Release:        7%{?dist}
+Release:        10%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -21,6 +21,12 @@ Patch1:         %{name}-tracers.patch
 # fix for GCC compiler warning -Warray-bounds
 # https://github.com/espressomd/espresso/pull/4715
 Patch2:         %{name}-array-bounds.patch
+# fix API change in unittest from Python 3.12
+# https://github.com/espressomd/espresso/pull/4852
+Patch3:         %{name}-unittest.patch
+# skip unit test with numerical instabilities
+# https://github.com/espressomd/espresso/issues/4853
+Patch4:         %{name}-numerical.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -114,6 +120,8 @@ This package contains %{name} compiled against MPICH2.
 %patch 0 -p1
 %patch 1 -p1
 %patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 %build
 %global defopts \\\
@@ -135,7 +143,7 @@ for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
    old_LDFLAGS="${LDFLAGS}"
    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${MPI_PYTHON3_SITEARCH}/%{name}md"
-   %{cmake3} %{defopts} -DPYTHON_INSTDIR=${MPI_PYTHON3_SITEARCH} -DWITH_CUDA=OFF -DWITH_HDF5=ON -DWITH_GSL=ON
+   %{cmake3} %{defopts} -DPYTHON_INSTDIR=${MPI_PYTHON3_SITEARCH} -DWITH_CUDA=OFF -DWITH_HDF5=OFF -DWITH_GSL=ON
    export LD_LIBRARY_PATH=$PWD/${mpi:-serial}/src/config
    %cmake3_build
    export LDFLAGS="${old_LDFLAGS}"
@@ -171,6 +179,15 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Tue Jan 23 2024 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-10
+- Skip unit test with numerical instabilities
+
+* Mon Jan 22 2024 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-9
+- Remove support for hdf5
+
+* Mon Jan 22 2024 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-8
+- Fix for API change in unittest from Python 3.12
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

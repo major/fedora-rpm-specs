@@ -6,7 +6,7 @@ Version: 22.0.0
 Release: 6%{?dist}
 Summary: Fast Gherkin lexer/parser
 License: MIT
-URL: https://github.com/cucumber/gherkin-ruby
+URL: https://github.com/cucumber/gherkin
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/cucumber/gherkin-ruby
 # git -C gherkin-ruby archive -v -o rubygem-gherkin-22.0.0-testdata.txz v22.0.0 testdata/

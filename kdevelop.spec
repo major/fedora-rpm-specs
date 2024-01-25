@@ -3,7 +3,7 @@ Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
 Version:        24.01.90
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 
@@ -98,6 +98,7 @@ Suggests: clazy
 Requires: cppcheck
 Requires: git
 Requires: meson
+Requires: konsole5-part
 
 %description
 The KDevelop Integrated Development Environment provides many features
@@ -228,6 +229,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Tue Jan 23 2024 Nicolas Fella <nicolas.fella@gmx.de> - 9:24.01.90-3
+- Add missing konsolepart dependency
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9:24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

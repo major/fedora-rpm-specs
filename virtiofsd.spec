@@ -1,5 +1,5 @@
 Name:           virtiofsd
-Version:        1.9.0
+Version:        1.10.0
 Release:        1%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
@@ -47,6 +47,9 @@ install -D -p -m 0644 50-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-user/
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Tue Jan 23 2024 Sergio Lopez <slp@redhat.com> - 1.10.0-1
+- Update to version 1.10.0
+
 * Sun Dec 24 2023 Sergio Lopez <slp@redhat.com> - 1.9.0-1
 - Update to version 1.9.0
 

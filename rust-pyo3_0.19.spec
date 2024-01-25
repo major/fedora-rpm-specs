@@ -18,6 +18,8 @@ Source:         %{crates_source}
 Patch:          pyo3-fix-metadata.diff
 # * skip the single doctest that depends on send_wrapper
 Patch:          0001-ignore-doctests-with-missing-send_wrapper-dependency.patch
+# * skip a doctest that does not compile with Rust 1.74+
+Patch:          0002-Skip-a-doctest-that-does-not-compile-with-Rust-1.74.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

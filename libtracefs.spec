@@ -10,8 +10,8 @@
 %global _lto_cflags %nil
 
 Name: libtracefs
-Version: 1.6.4
-Release: 4%{?dist}
+Version: 1.8.0
+Release: 1%{?dist}
 License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-2.0-only
 Summary: Library for access kernel tracefs
 
@@ -25,7 +25,7 @@ URL: https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/
 Source0: https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/libtracefs-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  pkgconfig(libtraceevent) >= 1.7.0
+BuildRequires:  pkgconfig(libtraceevent) >= 1.8.0
 # The libtracefs is meant to be used by perf, trace-cmd etc. in the future, before it's ready in perf, let's add a conflict
 Conflicts: trace-cmd < 2.9.1-6
 
@@ -55,7 +55,7 @@ rm -rf %{buildroot}/%{_libdir}/libtracefs.a
 %license LICENSES/LGPL-2.1
 %license LICENSES/GPL-2.0
 %{_libdir}/%{name}.so.1
-%{_libdir}/%{name}.so.1.6.4
+%{_libdir}/%{name}.so.1.8.0
 
 %files devel
 %{_includedir}/tracefs/tracefs.h
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{_libdir}/libtracefs.a
 %{_libdir}/%{name}.so
 
 %changelog
+* Tue Jan 23 2024 Zamir SUN <sztsian@gmail.com> - 1.8.0-1
+- Update to 1.8.0 (RHBZ#2213357)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

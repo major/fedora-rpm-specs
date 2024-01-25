@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.37
-Release: 3%{?dist}
+Version: 12.38
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -534,6 +534,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 23 2024 Nick Clifron  <nickc@redhat.com> - 12.38-1
+- Annocheck: Also skip the entry point test for i686 binaries. (#2258571)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.37-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -543,19 +546,19 @@ make check
 * Wed Jan 17 2024 Nick Clifron  <nickc@redhat.com> - 12.37-1
 - GCC Plugin: DO not use section groups with string format notes.
 
-* Tue Jan 16 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.36-2
+* Tue Jan 16 2024 Nick Clifron  <nickc@redhat.com> - 12.36-2
 - Spec File: NVR bump in order to allow building in side tag.
 
-* Tue Jan 16 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.36-1
+* Tue Jan 16 2024 Nick Clifron  <nickc@redhat.com> - 12.36-1
 - Annocheck: Disable cf-protection test for i686 architecture. (#2258571)
 
-* Mon Jan 15 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-4
+* Mon Jan 15 2024 Nick Clifron  <nickc@redhat.com> - 12.35-4
 - Spec File: NVR bump in order to allow building in side tag.
 
-* Mon Jan 15 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-3
+* Mon Jan 15 2024 Nick Clifron  <nickc@redhat.com> - 12.35-3
 - Spec File: Disable hard gcc check in order to allow builds with new version of gcc.
 
-* Thu Jan 11 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 12.35-2
+* Thu Jan 11 2024 Songsong Zhang  <U2FsdGVkX1@gmail.com> - 12.35-2
 - Spec File: Do not install annocheck.1.gz when annocheck is disabled.
 
 * Thu Jan 04 2024 Nick Clifron  <nickc@redhat.com> - 12.35-1

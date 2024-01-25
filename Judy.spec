@@ -1,6 +1,6 @@
 Name:		Judy
 Version:	1.0.5
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	General purpose dynamic array
 License:	LGPL-2.0-or-later
 URL:		http://sourceforge.net/projects/judy/
@@ -12,6 +12,7 @@ Patch2:		04_fix_undefined_behavior_during_aggressive_loop_optimizations.patch
 BuildRequires:	coreutils
 BuildRequires:	gawk
 BuildRequires:	gcc >= 4.1
+BuildRequires:	hardlink
 BuildRequires:	make
 BuildRequires:	sed
 
@@ -61,13 +62,18 @@ make
 
 %install
 %make_install
+
 # get rid of static libs and libtool archives
 rm -f %{buildroot}%{_libdir}/*.{a,la}
+
 # clean out zero length and generated files from doc tree
 rm -rf doc/man
 rm -f doc/Makefile* doc/ext/README_deliver
 [ -s doc/ext/COPYRIGHT ] || rm -f doc/ext/COPYRIGHT
 [ -s doc/ext/LICENSE ] || rm -f doc/ext/LICENSE
+
+# hardlink identical manpages together
+hardlink -cv %{buildroot}%{_mandir}/man3/J*.3*
 
 %check
 cd test
@@ -87,6 +93,9 @@ cd -
 %{_mandir}/man3/J*.3*
 
 %changelog
+* Tue Jan 23 2024 Paul Howarth <paul@city-fan.org> - 1.0.5-36
+- Hard link manpages to avoid duplication
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

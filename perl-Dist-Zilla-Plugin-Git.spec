@@ -2,10 +2,10 @@
 %bcond_without perl_Dist_Zilla_Plugin_Git_enables_optional_test
 
 Name:           perl-Dist-Zilla-Plugin-Git
-Version:        2.048
-Release:        8%{?dist}
+Version:        2.049
+Release:        1%{?dist}
 Summary:        Update your git repository after release
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Dist-Zilla-Plugin-Git-%{version}.tar.gz
 BuildArch:      noarch
@@ -166,13 +166,27 @@ make test
 %files
 %license LICENCE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Dist
+%dir %{perl_vendorlib}/Dist/Zilla
+%dir %{perl_vendorlib}/Dist/Zilla/Plugin
+%{perl_vendorlib}/Dist/Zilla/Plugin/Git
+%{perl_vendorlib}/Dist/Zilla/Plugin/Git.pm
+%dir %{perl_vendorlib}/Dist/Zilla/PluginBundle
+%{perl_vendorlib}/Dist/Zilla/PluginBundle/Git.pm
+%dir %{perl_vendorlib}/Dist/Zilla/Role
+%{perl_vendorlib}/Dist/Zilla/Role/Git
+%{_mandir}/man3/Dist::Zilla::Plugin::Git.*
+%{_mandir}/man3/Dist::Zilla::Plugin::Git::*
+%{_mandir}/man3/Dist::Zilla::PluginBundle::Git.*
+%{_mandir}/man3/Dist::Zilla::Role::Git::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Petr Pisar <ppisar@redhat.com> - 2.049-1
+- 2.049 bump
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.048-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

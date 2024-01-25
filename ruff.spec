@@ -4,9 +4,9 @@
 %constrain_build -m 4096
 
 Name:           ruff
-Version:        0.1.11
+Version:        0.1.14
 Release:        %autorelease
-Summary:        Extremely fast Python linter
+Summary:        Extremely fast Python linter and code formatter
 
 SourceLicense:  MIT
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
@@ -50,14 +50,14 @@ BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
 
 %description
-An extremely fast Python linter, written in Rust.
+An extremely fast Python linter and code formatter, written in Rust.
 
 Ruff aims to be orders of magnitude faster than alternative tools while
 integrating more functionality behind a single, common interface.
 
-Ruff can be used to replace Flake8 (plus dozens of plugins), isort,
-pydocstyle, yesqa, eradicate, pyupgrade, and autoflake, all while
-executing tens or hundreds of times faster than any individual tool.
+Ruff can be used to replace Flake8 (plus dozens of plugins), Black,
+isort, pydocstyle, pyupgrade, autoflake, and more, all while executing
+tens or hundreds of times faster than any individual tool.
 
 %prep
 %autosetup -n ruff-%{version} -p1

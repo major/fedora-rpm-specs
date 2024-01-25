@@ -3,7 +3,7 @@ Version:	0.4.6
 Release:	33%{?dist}
 Summary:	ARC Graphical Clients
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		http://sourceforge.net/projects/arc-gui-clients/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}-Source.tar.gz
 #		Fixes for ARC version 4
@@ -20,13 +20,13 @@ Patch4:		%{name}-arc6.patch
 Patch5:		%{name}-qt5.patch
 
 BuildRequires:	cmake
+BuildRequires:	make
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtwebkit-devel
 BuildRequires:	glibmm24-devel
 BuildRequires:	nss-devel
 BuildRequires:	nordugrid-arc-devel
 BuildRequires:	desktop-file-utils
-BuildRequires: make
 
 %description
 Provides graphical clients to the NorduGrid ARC middleware.

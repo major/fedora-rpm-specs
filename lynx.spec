@@ -5,7 +5,7 @@ Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
 #Release: %%{devrel}.1%%{?dist}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-only
 
 Source0: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -29,6 +29,7 @@ Patch2: lynx-CVE-2008-4690.patch
 Provides: webclient
 Provides: text-www-browser
 BuildRequires: brotli-devel
+BuildRequires: bzip2-devel
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gettext
@@ -77,6 +78,7 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
 #   --enable-scrollbar
 #   --enable-source-cache
 #   --with-brotli
+#   --with-bzlib
 #   --with-zlib
 %configure --libdir=/etc            \
     --disable-font-switch           \
@@ -108,8 +110,8 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
     --with-screen=ncursesw          \
     --with-ssl=%{_libdir}           \
     --with-brotli                   \
+    --with-bzlib                    \
     --with-zlib                     \
-    --without-bzlib                 \
     ac_cv_path_RLOGIN=/usr/bin/rlogin
 
 %make_build
@@ -143,6 +145,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Tue Jan 23 2024 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-4
+- enable bzip2 support
+
 * Mon Jan 22 2024 Thomas E. Dickey <dickey@invisible-island.net> - 2.9.0-3
 - add brotli build-dependency
 - restore formerly-empty sample files

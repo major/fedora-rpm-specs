@@ -1,5 +1,3 @@
-%global pypi_name cleo
-
 %global common_description %{expand:
 Create beautiful and testable command-line interfaces.
 
@@ -8,53 +6,63 @@ components and utilities comes from it. Refer to its documentation for
 more information.}
 
 #global prerel ...
-%global base_version 2.0.1
+%global base_version 2.1.0
 
-Name:           python-%{pypi_name}
+Name:           python-cleo
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo
-Source0:        %{pypi_source}
+Source0:        %{pypi_source cleo}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
 
 %description %{common_description}
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-cleo
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name} %{common_description}
+%description -n python3-cleo %{common_description}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{base_version}%{?prerel} -p1
+%autosetup -n cleo-%{base_version}%{?prerel} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files cleo
 
 
-%files -n python3-%{pypi_name}
+%check
+%pytest
+
+
+%files -n python3-cleo -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{base_version}%{?prerel}-py%{python3_version}.egg-info/
-
 
 %changelog
+* Tue Jan 23 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.1.0-1
+- Update to 2.1.0
+- Fixes: rhbz#2247125
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

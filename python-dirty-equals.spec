@@ -1,3 +1,6 @@
+# Break a circular build dependency with python-pydantic
+%bcond bootstrap 0
+
 Name:           python-dirty-equals
 Version:        0.7.1
 Release:        %autorelease
@@ -29,7 +32,9 @@ Summary:        %{summary}
 %description -n python3-dirty-equals %{common_description}
 
 
+%if %{without bootstrap}
 %pyproject_extras_subpkg -n python3-dirty-equals pydantic
+%endif
 
 
 %prep
@@ -56,7 +61,7 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x pydantic requirements/tests-filtered.txt
+%pyproject_buildrequires %{?!with_bootstrap:-x pydantic} requirements/tests-filtered.txt
 
 
 %build
@@ -71,6 +76,10 @@ sed -r -i 's/^filterwarnings = "error"$/# &/' pyproject.toml
 %check
 # Tests in this module require pytest-examples; see %%prep for notes on this.
 ignore="${ignore-} --ignore=tests/test_docs.py"
+%if %{with bootstrap}
+# Imports in this module require Pydantic.
+ignore="${ignore-} --ignore=tests/test_other.py"
+%endif
 
 # Some tests require TZ == UTC; see the “test” target in the Makefile
 TZ=UTC %pytest -v ${ignore-}

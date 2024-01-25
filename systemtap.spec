@@ -1,3 +1,5 @@
+# work around flakey gcc warnings
+%{!?with_Werror: %global with_Werror 0}
 %{!?with_sqlite: %global with_sqlite 0%{?fedora} >= 17 || 0%{?rhel} >= 7}
 # prefer prebuilt docs
 %{!?with_docs: %global with_docs 0}
@@ -115,7 +117,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.1~pre17059382g67086c54
+Version: 5.1~pre17060399gb6abf4bd
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -588,6 +590,13 @@ or within a container.
 %global dyninst_config --without-dyninst
 %endif
 
+# Enable/disable the dyninst pure-userspace backend
+%if %{with_Werror}
+%global Werror_config --enable-Werror
+%else
+%global Werror_config --disable-Werror
+%endif
+
 # Enable/disable the sqlite coverage testing support
 %if %{with_sqlite}
 %global sqlite_config --enable-sqlite
@@ -675,7 +684,7 @@ or within a container.
 # We don't ship compileworthy python code, just oddball samples
 %global py_auto_byte_compile 0
 
-%configure %{dyninst_config} %{sqlite_config} %{crash_config} %{docs_config} %{rpm_config} %{java_config} %{virt_config} %{dracut_config} %{python3_config} %{python2_probes_config} %{python3_probes_config} %{httpd_config} %{bpf_config} %{debuginfod_config} --disable-silent-rules --with-extra-version="rpm %{version}-%{release}"
+%configure %{Werror_config} %{dyninst_config} %{sqlite_config} %{crash_config} %{docs_config} %{rpm_config} %{java_config} %{virt_config} %{dracut_config} %{python3_config} %{python2_probes_config} %{python3_probes_config} %{httpd_config} %{bpf_config} %{debuginfod_config} --disable-silent-rules --with-extra-version="rpm %{version}-%{release}"
 make %{?_smp_mflags} V=1
 
 
@@ -1295,6 +1304,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Jan 23 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17060399gb6abf4bd
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Mon Jan 22 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17059382g67086c54
 - Automated weekly rawhide release
 - Applied spec changes from upstream git

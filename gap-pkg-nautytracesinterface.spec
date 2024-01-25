@@ -15,7 +15,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        30.%{gitdate}git%{shorttag}%{?dist}
+Release:        31.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
@@ -98,6 +98,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Jan 23 2024 Jerry James <loganjerry@gmail.com> - 0.2-31.20221102gitd54d393
+- Rebuild for nauty 2.8.8
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-30.20221102gitd54d393
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

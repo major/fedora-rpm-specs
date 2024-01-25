@@ -1,6 +1,6 @@
 Name:           perl-XML-DifferenceMarkup
 Version:        1.05
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        XML diff and merge
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -11,6 +11,9 @@ Source0:        https://cpan.metacpan.org/authors/id/V/VB/VBAR/XML-DifferenceMar
 Patch0:         XML-DifferenceMarkup-1.05-Do-not-override-CCFLAGS.patch
 # Adapt to GCC 13, proposed to an upstream, CPAN RT#145911
 Patch1:         perl-XML-DifferenceMarkup-configure-c99.patch
+# Adapt to libxml2 2.12.0 and GCC 14, proposed to the upstream, CPAN RT#151218
+Patch2:         XML-DifferenceMarkup-1.05-Adapt-to-libxml2-2.12.0-and-gcc-14.patch
+BuildRequires:  coreutils
 BuildRequires:  diffmark-devel
 BuildRequires:  findutils
 # Makefile.PL generates a temporary Makefile.PL distribution with an XS
@@ -90,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 23 2024 Petr Pisar <ppisar@redhat.com> - 1.05-35
+- Adapt to libxml2 2.12.0 and GCC 14 (CPAN RT#151218)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

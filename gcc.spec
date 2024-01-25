@@ -114,6 +114,11 @@
 %else
 %global build_offload_nvptx 0
 %endif
+%ifarch x86_64
+%global build_offload_amdgcn 1
+%else
+%global build_offload_amdgcn 0
+%endif
 %if 0%{?fedora} < 32 && 0%{?rhel} < 8
 %ifarch s390x
 %global multilib_32_arch s390
@@ -228,6 +233,9 @@ BuildRequires: libunwind >= 0.98
 %if %{build_libstdcxx_docs}
 BuildRequires: doxygen >= 1.7.1
 BuildRequires: graphviz, dblatex, texlive-collection-latex, docbook5-style-xsl
+%endif
+%if %{build_offload_amdgcn}
+BuildRequires: llvm, lld
 %endif
 Requires: cpp = %{version}-%{release}
 # Need .eh_frame ld optimizations
@@ -552,6 +560,15 @@ This package contains libgomp plugin for offloading to NVidia
 PTX.  The plugin needs libcuda.so.1 shared library that has to be
 installed separately.
 
+%package -n libgomp-offload-amdgcn
+Summary: GCC OpenMP v4.5 plugin for offloading to AMD GCN
+Requires: libgomp = %{version}-%{release}
+Requires: rocm-runtime >= 6.0.0
+
+%description -n libgomp-offload-amdgcn
+This package contains libgomp plugin for offloading to AMD ROCm capable
+devices.
+
 %package gdb-plugin
 Summary: GCC plugin for GDB
 Requires: gcc = %{version}-%{release}
@@ -834,6 +851,18 @@ NVidia PTX.  OpenMP and OpenACC programs linked with -fopenmp will
 by default add PTX code into the binaries, which can be offloaded
 to NVidia PTX capable devices if available.
 
+%package offload-amdgcn
+Summary: Offloading compiler to AMD GCN
+Requires: gcc = %{version}-%{release}
+Requires: libgomp-offload-amdgcn = %{version}-%{release}
+Requires: llvm, lld
+
+%description offload-amdgcn
+The gcc-offload-amdgcn package provides offloading support for
+AMD GCN.  OpenMP and OpenACC programs linked with -fopenmp will
+by default add GCN code into the binaries, which can be offloaded
+to AMD ROCm capable devices if available.
+
 %package plugin-annobin
 Summary: The annobin plugin for gcc, built by the installed version of gcc
 Requires: gcc = %{version}-%{release}
@@ -976,6 +1005,42 @@ cd ..
 rm -f newlib
 %endif
 
+%if %{build_offload_amdgcn}
+mkdir -p objia%{_prefix}/bin objia%{_prefix}/amdgcn-amdhsa/bin
+IAROOT=`pwd`/objia
+ln -sf %{_prefix}/bin/llvm-ar ${IAROOT}%{_prefix}/bin/amdgcn-amdhsa-ar
+ln -sf %{_prefix}/bin/llvm-ar ${IAROOT}%{_prefix}/bin/amdgcn-amdhsa-ranlib
+ln -sf %{_prefix}/bin/llvm-mc ${IAROOT}%{_prefix}/bin/amdgcn-amdhsa-as
+ln -sf %{_prefix}/bin/llvm-nm ${IAROOT}%{_prefix}/bin/amdgcn-amdhsa-nm
+ln -sf %{_prefix}/bin/lld ${IAROOT}%{_prefix}/bin/amdgcn-amdhsa-ld
+ln -sf ../../bin/amdgcn-amdhsa-ar ${IAROOT}%{_prefix}/amdgcn-amdhsa/bin/ar
+ln -sf ../../bin/amdgcn-amdhsa-ranlib ${IAROOT}%{_prefix}/amdgcn-amdhsa/bin/ranlib
+ln -sf ../../bin/amdgcn-amdhsa-as ${IAROOT}%{_prefix}/amdgcn-amdhsa/bin/as
+ln -sf ../../bin/amdgcn-amdhsa-nm ${IAROOT}%{_prefix}/amdgcn-amdhsa/bin/nm
+ln -sf ../../bin/amdgcn-amdhsa-ld ${IAROOT}%{_prefix}/amdgcn-amdhsa/bin/ld
+
+ln -sf newlib-cygwin-%{newlib_cygwin_gitrev}/newlib newlib
+rm -rf obj-offload-amdgcn-amdhsa
+mkdir obj-offload-amdgcn-amdhsa
+
+cd obj-offload-amdgcn-amdhsa
+CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
+	CXXFLAGS="`echo " $OPT_FLAGS " | sed 's/ -Wall / /g;s/ -fexceptions / /g' \
+		  | sed 's/ -Wformat-security / -Wformat -Wformat-security /'`" \
+	XCFLAGS="$OPT_FLAGS" TCFLAGS="$OPT_FLAGS" \
+	../configure --disable-bootstrap --disable-sjlj-exceptions \
+	--with-build-time-tools=${IAROOT}%{_prefix}/amdgcn-amdhsa/bin \
+	--target amdgcn-amdhsa --enable-as-accelerator-for=%{gcc_target_platform} \
+	--enable-languages=c,c++,fortran,lto \
+	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
+	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
+	--enable-checking=release --with-system-zlib \
+	--with-gcc-major-version-only --without-isl --disable-libquadmath
+make %{?_smp_mflags}
+cd ..
+rm -f newlib
+%endif
+
 rm -rf obj-%{gcc_target_platform}
 mkdir obj-%{gcc_target_platform}
 cd obj-%{gcc_target_platform}
@@ -1021,6 +1086,13 @@ enableld=,d
 %if %{build_m2}
 enablelm2=,m2
 %endif
+offloadtgts=
+%if %{build_offload_nvptx}
+offloadtgts=nvptx-none
+%endif
+%if %{build_offload_amdgcn}
+offloadtgts=${offloadtgts:+${offloadtgts},}amdgcn-amdhsa
+%endif
 CONFIGURE_OPTS="\
 	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
 	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
@@ -1053,9 +1125,11 @@ CONFIGURE_OPTS="\
 %else
 	--without-isl \
 %endif
+%if %{build_offload_nvptx} || %{build_offload_amdgcn}
+	--enable-offload-targets=$offloadtgts --enable-offload-defaulted \
+%endif
 %if %{build_offload_nvptx}
-	--enable-offload-targets=nvptx-none \
-	--without-cuda-driver --enable-offload-defaulted \
+	--without-cuda-driver \
 %endif
 %if 0%{?fedora} >= 21 || 0%{?rhel} >= 7
 %if %{attr_ifunc}
@@ -1355,6 +1429,43 @@ mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/mptx-3.1/*.a %{buil
 mv -f %{buildroot}%{_prefix}/lib/gcc/nvptx-none/%{gcc_major}/mgomp/mptx-3.1/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none/mgomp/mptx-3.1/
 find %{buildroot}%{_prefix}/lib/gcc/nvptx-none %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/nvptx-none \
      %{buildroot}%{_prefix}/nvptx-none/lib -name \*.la | xargs rm
+cd ..
+rm -f newlib
+%endif
+
+%if %{build_offload_amdgcn}
+mkdir -p %{buildroot}%{_prefix}/bin %{buildroot}%{_prefix}/amdgcn-amdhsa/bin
+ln -sf llvm-ar %{buildroot}%{_prefix}/bin/amdgcn-amdhsa-ar
+ln -sf llvm-ar %{buildroot}%{_prefix}/bin/amdgcn-amdhsa-ranlib
+ln -sf llvm-mc %{buildroot}%{_prefix}/bin/amdgcn-amdhsa-as
+ln -sf llvm-nm %{buildroot}%{_prefix}/bin/amdgcn-amdhsa-nm
+ln -sf lld %{buildroot}%{_prefix}/bin/amdgcn-amdhsa-ld
+ln -sf ../../bin/amdgcn-amdhsa-ar %{buildroot}%{_prefix}/amdgcn-amdhsa/bin/ar
+ln -sf ../../bin/amdgcn-amdhsa-ranlib %{buildroot}%{_prefix}/amdgcn-amdhsa/bin/ranlib
+ln -sf ../../bin/amdgcn-amdhsa-as %{buildroot}%{_prefix}/amdgcn-amdhsa/bin/as
+ln -sf ../../bin/amdgcn-amdhsa-nm %{buildroot}%{_prefix}/amdgcn-amdhsa/bin/nm
+ln -sf ../../bin/amdgcn-amdhsa-ld %{buildroot}%{_prefix}/amdgcn-amdhsa/bin/ld
+
+ln -sf newlib-cygwin-%{newlib_cygwin_gitrev}/newlib newlib
+cd obj-offload-amdgcn-amdhsa
+make prefix=%{buildroot}%{_prefix} mandir=%{buildroot}%{_mandir} \
+  infodir=%{buildroot}%{_infodir} install
+rm -rf %{buildroot}%{_prefix}/libexec/gcc/amdgcn-amdhsa/%{gcc_major}/install-tools
+rm -rf %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/{install-tools,plugin,cc1,cc1plus,f951}
+rm -rf %{buildroot}%{_infodir} %{buildroot}%{_mandir}/man7 %{buildroot}%{_prefix}/share/locale
+rm -rf %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/{install-tools,plugin}
+rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/{install-tools,plugin,include-fixed}
+rm -rf %{buildroot}%{_prefix}/%{_lib}/libc[cp]1*
+mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/
+mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx906/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx906/
+mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx908/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx908/
+mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx90a/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx90a/
+mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/
+mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx906/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx906/
+mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx908/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx908/
+mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx90a/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx90a/
+find %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa \
+     %{buildroot}%{_prefix}/amdgcn-amdhsa/lib -name \*.la | xargs rm
 cd ..
 rm -f newlib
 %endif
@@ -3444,6 +3555,30 @@ end
 
 %files -n libgomp-offload-nvptx
 %{_prefix}/%{_lib}/libgomp-plugin-nvptx.so.*
+%endif
+
+%if %{build_offload_amdgcn}
+%files offload-amdgcn
+%{_prefix}/bin/amdgcn-amdhsa-*
+%{_prefix}/bin/%{gcc_target_platform}-accel-amdgcn-amdhsa-gcc
+%{_prefix}/bin/%{gcc_target_platform}-accel-amdgcn-amdhsa-lto-dump
+%dir %{_prefix}/lib/gcc
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
+%dir %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel
+%dir %{_prefix}/libexec/gcc
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
+%dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/accel
+%{_prefix}/lib/gcc/amdgcn-amdhsa
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa
+%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa
+%dir %{_prefix}/amdgcn-amdhsa
+%{_prefix}/amdgcn-amdhsa/bin
+%{_prefix}/amdgcn-amdhsa/include
+
+%files -n libgomp-offload-amdgcn
+%{_prefix}/%{_lib}/libgomp-plugin-gcn.so.*
 %endif
 
 %if %{build_annobin_plugin}

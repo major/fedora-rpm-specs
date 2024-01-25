@@ -17,8 +17,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    08f4fa74d5fbfff1ef22abffee47aaedcaea227e
-%global gh_date      2024-01-19
+%global gh_commit    0bd663704f0165c9e76fe4f06ffa6a1ca727fdbe
+%global gh_date      2024-01-22
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -31,12 +31,12 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.8
+%global upstream_version 10.5.9
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -266,6 +266,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 23 2024 Remi Collet <remi@remirepo.net> - 10.5.9-1
+- update to 10.5.9
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

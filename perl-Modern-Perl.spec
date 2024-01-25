@@ -57,7 +57,7 @@ make test
 %changelog
 * Sun Jan 21 2024 Paul Howarth <paul@city-fan.org> - 1.20240120-1
 - Update to 1.20240120
-  - Fix tests for Perl < 5.26.0 (CPAN RT#151198)
+  - Fix tests for Perl < 5.26.0 (CPAN RT#151189)
   - Fix feature reset for Perl < 5.15 (CPAN RT#151190)
 
 * Mon Jan 15 2024 Paul Howarth <paul@city-fan.org> - 1.20240115-1

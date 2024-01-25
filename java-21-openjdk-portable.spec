@@ -388,7 +388,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        13
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -741,8 +741,7 @@ BuildRequires: javapackages-tools
 BuildRequires: java-%{buildjdkver}-%{origin}%{?pkgos:-%{pkgos}}-devel
 %else
 BuildRequires: javapackages-filesystem
-#BuildRequires: java-%{buildjdkver}-openjdk-devel
-BuildRequires: java-latest-openjdk-devel
+BuildRequires: java-%{buildjdkver}-openjdk-devel
 %endif
 # Zero-assembler build requirement
 %ifarch %{zero_arches}
@@ -1770,6 +1769,9 @@ done
 %endif
 
 %changelog
+* Tue Jan 23 2024 Jiri Vanek <jvanek@redhat.com> - 1:21.0.2.0.13-2
+- built by itself, java-21-openjdk, rather then by java-latest-openjdk which will become jdk22 soon
+
 * Tue Jan 09 2024 Andrew Hughes <gnu.andrew@redhat.com> - 1:21.0.2.0.13-1
 - Update to jdk-21.0.2+13 (GA)
 - Update release notes to 21.0.2+13

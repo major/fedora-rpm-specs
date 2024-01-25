@@ -16,6 +16,10 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.16
 BuildRequires:  hwloc-devel
+%if 0%{?rhel} == 9
+%global gts_version 13
+BuildRequires: gcc-toolset-%{gts_version}
+%endif
 
 %global kokkos_desc \
 Kokkos Core implements a programming model in C++ for writing performance \
@@ -41,6 +45,7 @@ This package contains the development files of %{name}.
 %autosetup -p1
 
 %build
+%{?el9:. /opt/rh/gcc-toolset-%{gts_version}/enable}
 %cmake \
   -DKokkos_ENABLE_TESTS=On \
 %ifarch ppc64le

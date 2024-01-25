@@ -153,7 +153,8 @@ GNU Radio examples
 %{?mfpu_neon}
 #-DENABLE_DOXYGEN=FALSE \
 
-%cmake_build
+# -j1 workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2259912
+%cmake_build -j1
 
 %install
 %cmake_install

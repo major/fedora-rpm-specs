@@ -8,13 +8,13 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.12.2
+Version:        3.13.1
 Release:        %autorelease
 Summary:        A platform independent file lock
 
 License:        Unlicense
-URL:            https://github.com/tox-dev/py-filelock
-Source0:        https://github.com/tox-dev/py-filelock/archive/%{version}/py-%{srcname}-%{version}.tar.gz
+URL:            https://github.com/tox-dev/filelock
+Source0:        https://github.com/tox-dev/filelock/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -64,7 +64,7 @@ Summary:        Documentation for %{srcname}, %{summary}
 %endif
 
 %prep
-%autosetup -p1 -n py-%{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 %if %{with docs}
 # furo theme is not available in Fedora
 sed -i "/html_theme =.*/d" docs/conf.py
