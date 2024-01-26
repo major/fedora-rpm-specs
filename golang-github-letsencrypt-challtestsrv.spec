@@ -14,7 +14,7 @@ ALPN-01 ACME challenges.}
 %global godocs          CODE_OF_CONDUCT.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Small TEST-ONLY server for mock ACME challenges
 
 # Upstream license specification: MPL-2.0
@@ -43,6 +43,9 @@ BuildRequires:  golang(github.com/miekg/dns)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

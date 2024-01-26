@@ -19,7 +19,7 @@ and usage), allocates no memory.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Alternative JSON parser for Go that does not require schema
 
 License:        MIT
@@ -47,6 +47,9 @@ rm benchmark/benchmark_{codecgen,easyjson,ffjson,{large,medium,small}_payload_te
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pkgname grpconst
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.6.4
-Release:        3%{?dist}
+Version:        2.6.5
+Release:        1%{?dist}
 Summary:        Constructing groups of a given order
 
 License:        GPL-2.0-or-later
@@ -97,6 +97,12 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Wed Jan 24 2024 Jerry James <loganjerry@gmail.com> - 2.6.5-1
+- Version 2.6.5
+
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

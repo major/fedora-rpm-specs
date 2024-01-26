@@ -3,7 +3,7 @@
 
 Name:           fldigi
 Version:        4.2.04
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Digital modem program for Linux
 
 License:        GPL-3.0-or-later GPL-2.0-or-later LGPL-2.0-or-later LGPL-3.0-or-later GPL-3.0 LGPL-2.0 GPL-2.0 BSL-1.0 MIT-0 LGPL-3 GPL Apache-2.0
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.04-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: KDE Wallpapers
 Name:    kde-wallpapers
 Version: 15.08.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 License: LGPLv3
 URL:     http://www.kde.org/
@@ -72,6 +72,9 @@ rm -rfv %{buildroot}%{_kde4_datadir}/wallpapers/Elarun/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.08.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.08.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           gtkgreet
 Version:        0.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK based greeter for greetd
 
 License:        GPL-3.0-only
@@ -90,6 +90,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

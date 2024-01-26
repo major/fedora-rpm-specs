@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        32
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        On the fly syntax checking for GNU Emacs
 
 License:        GPLv3+
@@ -49,6 +49,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 32-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 32-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

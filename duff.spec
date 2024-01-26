@@ -1,6 +1,6 @@
 Name:		duff
 Version:	0.5.2
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Quickly find duplicate files
 
 License:	zlib
@@ -52,6 +52,9 @@ find %{buildroot} -name 'join-duplicates.sh' | xargs chmod 0755
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

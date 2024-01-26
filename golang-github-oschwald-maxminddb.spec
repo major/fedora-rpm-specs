@@ -18,7 +18,7 @@ GeoLite2 and GeoIP2 databases, geoip2 provides a higher-level API for doing so.}
 %global godocs          README.md test-data/MaxMind-DB-spec.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        MaxMind DB Reader for Go
 
 # Code: ISC; Test data: CC-BY-SA 3.0
@@ -61,6 +61,9 @@ mv test-data/LICENSE LICENSE-test-data
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

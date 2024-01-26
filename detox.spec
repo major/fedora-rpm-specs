@@ -1,6 +1,6 @@
 Name:		detox
 Version:	1.4.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Utility to replace problematic characters in file names
 
 License:	BSD
@@ -38,6 +38,9 @@ rm %{buildroot}/etc/detoxrc.sample
 %{_mandir}/man1/detox*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

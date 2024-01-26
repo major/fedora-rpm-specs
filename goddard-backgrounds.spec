@@ -1,6 +1,6 @@
 Name:           goddard-backgrounds
 Version:        13.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Goddard desktop backgrounds
 
 License:        CC-BY-SA
@@ -87,6 +87,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

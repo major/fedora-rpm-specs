@@ -15,7 +15,7 @@
 
 Name:           gambit-c
 Version:        4.9.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Scheme programming system
 
 License:        ASL 2.0 or LGPLv2
@@ -157,6 +157,9 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

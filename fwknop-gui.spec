@@ -3,7 +3,7 @@
 Summary: GUI client for Fwknop
 Name: fwknop-gui
 Version: 1.3.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv3+
 URL: https://incomsystems.biz/fwknop-gui/
 Source: %{url}/downloads/%{name}-%{version}.tar.gz
@@ -48,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

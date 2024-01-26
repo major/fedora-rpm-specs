@@ -2,7 +2,7 @@
 
 Name:		gimp-%{addon}
 Version:	0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Decomposing image plug-in for Gimp
 License:	GPLv3+
 URL:		http://registry.gimp.org/node/13549
@@ -40,6 +40,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

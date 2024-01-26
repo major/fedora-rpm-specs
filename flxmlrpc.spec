@@ -1,6 +1,6 @@
 Name:           flxmlrpc
 Version:        1.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An xmlrpc library for the NBEMS suite of programs
 
 License:        LGPLv3+
@@ -64,6 +64,9 @@ find %{buildroot}%{_libdir} -name "*.la" -exec rm -f {} \;
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

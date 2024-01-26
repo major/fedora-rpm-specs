@@ -57,7 +57,7 @@ Version: 9.8.1
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -77,6 +77,8 @@ ExcludeArch: armv7hl
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/24355
+Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10518.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
@@ -384,7 +386,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %patch -P1 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-
+%patch -P4 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 
@@ -413,8 +415,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 
 %build
-# currently no autoconf patches
-#autoupdate
+# patch4
+autoupdate
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
@@ -841,6 +843,9 @@ make test
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Jens Petersen <petersen@redhat.com> - 9.8.1-5
 - use gcc default ld (ie ld.bfd) for rawhide
 

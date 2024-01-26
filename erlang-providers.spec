@@ -3,7 +3,7 @@
 
 Name:     erlang-%{realname}
 Version:  1.9.0
-Release:  6%{?dist}
+Release:  7%{?dist}
 Summary:  An Erlang providers library
 License:  LGPLv3
 URL:      https://github.com/%{upstream}/%{realname}
@@ -33,6 +33,9 @@ BuildRequires:  erlang-rebar3
 %{erlang_appdir}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

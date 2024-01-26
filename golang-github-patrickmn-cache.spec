@@ -30,7 +30,7 @@ to recover from downtime quickly. (See the docs for NewFrom() for caveats.)}
 %global godocs          CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        In-memory key:value store/cache library for Go
 
 License:        MIT
@@ -56,6 +56,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

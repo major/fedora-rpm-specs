@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Name:           diffpdf
 Version:        2.1.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        PDF files comparator
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ desktop-file-install                                    \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

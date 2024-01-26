@@ -4,7 +4,7 @@
 
 Name:           gcovr
 Version:        6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

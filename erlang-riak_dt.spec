@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1.4
-Release:	19%{?dist}
+Release:	20%{?dist}
 BuildArch:	noarch
 Summary:	Convergent replicated data types in Erlang
 License:	ASL 2.0
@@ -46,6 +46,9 @@ A set of state based CRDTs implemented in Erlang.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

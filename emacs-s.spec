@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The long lost Emacs string manipulation library
 
 License:        GPLv3+
@@ -41,6 +41,9 @@ install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

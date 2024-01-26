@@ -1,7 +1,7 @@
 Name:		gt5
 Summary:	A diff-capable 'du-browser'
 Version:	1.4.0
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	GPL+
 URL:		http://gt5.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ install -p gt5.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/gt5.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

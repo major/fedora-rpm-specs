@@ -1,6 +1,6 @@
 Name:           keychecker
 Version:        1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Generate list of installed packages sorted by GPG key
 License:        GPLv2+
 URL:            https://github.com/jds2001/keychecker
@@ -39,6 +39,9 @@ install -Dpm 0755 key_checker.py %{buildroot}%{_bindir}/keychecker
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

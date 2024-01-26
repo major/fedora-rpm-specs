@@ -5,7 +5,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.10
-Release:    8%{?dist}
+Release:    9%{?dist}
 
 # c_src/uthash.h is unspecified BSD
 License:    ASL 2.0 and BSD
@@ -52,6 +52,9 @@ install -pm755 priv/lib/* %{buildroot}%{_erllibdir}/%{srcname}-%{version}/priv/l
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

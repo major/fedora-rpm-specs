@@ -1,7 +1,7 @@
 Summary:	High-level API for X Keyboard Extension
 Name:		libxklavier
 Version:	5.4
-Release: 	24%{?dist}
+Release: 	25%{?dist}
 License:	LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/LibXklavier
 BuildRequires: make
@@ -16,6 +16,10 @@ BuildRequires: gobject-introspection-devel
 Requires: iso-codes
 #Source: http://download.gnome.org/sources/libxklavier/5.3/%{name}-%{version}.tar.xz
 Source: http://people.freedesktop.org/~svu/libxklavier-5.4.tar.bz2
+
+Patch01: 0001-props-fix-the-max-lengths-for-set_name-description-s.patch
+Patch02: 0002-config-use-our-name-description-setter-functions.patch
+Patch03: 0003-props-validate-name-and-descriptions-for-valid-UTF-8.patch
 
 %description
 libxklavier is a library providing a high-level API for the X Keyboard
@@ -33,7 +37,7 @@ This package contains libraries, header files and developer documentation
 needed to develop libxklavier applications.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure \
@@ -68,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_datadir}/gir-1.0/Xkl-1.0.gir
 
 %changelog
+* Mon Jan 22 2024 Peter Hutterer <peter.hutterer@redhat.com> - 5.4-25
+- Fix invalid UTF-8 truncations in XKB descriptions and names
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

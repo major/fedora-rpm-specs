@@ -1,6 +1,6 @@
 Name:           gnet2
 Version:        2.0.8
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A simple network library built upon glib
 
 License:        LGPL-2.0-or-later
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

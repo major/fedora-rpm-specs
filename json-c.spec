@@ -26,7 +26,7 @@
 
 Name:           json-c
 Version:        0.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JSON implementation in C
 
 License:        MIT
@@ -138,6 +138,9 @@ unset USE_VALGRIND
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

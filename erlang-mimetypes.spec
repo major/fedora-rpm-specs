@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 BuildArch:	noarch
 Summary:	Erlang MIME types library
 License:	BSD
@@ -48,6 +48,9 @@ install -D -p -m 0644 priv/mime.types %{buildroot}%{erlang_appdir}/priv/mime.typ
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

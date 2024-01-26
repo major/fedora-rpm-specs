@@ -3,7 +3,7 @@
 
 Name:		grafx2
 Version:	2.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A bitmap paint program specialized in 256 color drawing
 URL:		http://grafx2.chez.com/
 # recoil is GPLv2+, grafX2 is GPLv2 only
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/grafx2.desktop
 %{_datadir}/icons/hicolor/scalable/apps/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

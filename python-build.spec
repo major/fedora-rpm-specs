@@ -8,6 +8,10 @@ Summary:        A simple, correct PEP517 package builder
 License:        MIT
 URL:            https://github.com/pypa/build
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+
+# Fix the build with setuptools 69.0.3
+Patch:          https://github.com/pypa/build/commit/9f6e34228a0da7e5.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

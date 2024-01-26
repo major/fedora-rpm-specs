@@ -1,7 +1,7 @@
 Name:		devtodo
 Version:	0.1.20
 Summary:	Manage a prioritised list of todo items organized by directory
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	GPLv2
 URL:		http://swapoff.org/DevTodo
 Source0:	http://swapoff.org/files/%{name}/%{name}-%{version}.tar.gz
@@ -64,6 +64,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/profile.d
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.20-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.20-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           keyring-ima-signer
 Version:        0.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An IMA file signing tool using the kernel keyring
 
 License:        EUPL 1.2
@@ -49,6 +49,9 @@ stored in the kernel keyring to ensure they're not recoverable.
 %{_bindir}/keyring-ima-signer
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

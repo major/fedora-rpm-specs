@@ -2,7 +2,7 @@
 
 Name:       ibus-pinyin
 Version:    1.5.0
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    The Chinese Pinyin and Bopomofo engines for IBus input platform
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus
@@ -72,6 +72,9 @@ make DESTDIR=${RPM_BUILD_ROOT} install
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

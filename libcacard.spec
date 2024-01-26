@@ -1,6 +1,6 @@
 Name:           libcacard
 Version:        2.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        CAC (Common Access Card) library
 License:        LGPLv2+
 URL:            https://gitlab.freedesktop.org/spice/libcacard
@@ -73,6 +73,9 @@ cp %{SOURCE3} tests/
 %{_libdir}/pkgconfig/libcacard.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

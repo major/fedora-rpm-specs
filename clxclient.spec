@@ -4,7 +4,7 @@
 Summary:       C++ X Windows Library
 Name:          clxclient
 Version:       3.9.2
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       LGPLv2+
 URL:           http://kokkinizita.linuxaudio.org/
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -56,6 +56,9 @@ CXXFLAGS="${CXXFLAGS} -I."
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

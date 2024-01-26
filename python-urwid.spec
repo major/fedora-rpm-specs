@@ -3,7 +3,7 @@
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.4.4
+Version:       2.4.6
 Release:       %autorelease
 Summary:       Console user interface library
 

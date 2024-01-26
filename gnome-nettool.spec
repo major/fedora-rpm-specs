@@ -3,7 +3,7 @@
 
 Name:           gnome-nettool
 Version:        3.8.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Network information tool for GNOME
 
 License:        GPLv2+ and GFDL
@@ -106,6 +106,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-nettool.desk
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

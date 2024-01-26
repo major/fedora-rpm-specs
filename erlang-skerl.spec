@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.1.0
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Skein hash function for Erlang, via NIFs
 # Original skein sources are in Public Domain
 # c_src/brg_*.h files are licensed under BSD or GPL (w/o explicit GPL version)
@@ -44,6 +44,9 @@ Skein hash function for Erlang, via NIFs.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

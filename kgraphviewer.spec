@@ -1,7 +1,7 @@
 Name:           kgraphviewer
 Summary:        Graphviz dot graph file viewer
 Version:        2.4.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Bit of a mess. README states it's GPLv2+, however the source files
 # indicate it's GPLv2. FDL is included in COPYING.DOC, but does not
 # apply to anything.
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/*.appdata.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

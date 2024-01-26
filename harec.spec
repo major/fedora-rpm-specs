@@ -7,7 +7,7 @@ Name:           harec
 License:        GPL-3.0-only
 
 Version:        0^%{date}git%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://git.sr.ht/~sircmpwn/harec
 Source0:        %{url}/archive/%{shortcommit}.tar.gz
@@ -53,6 +53,9 @@ make check
 %{_bindir}/harec
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0^20230610git174aef48-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0^20230610git174aef48-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

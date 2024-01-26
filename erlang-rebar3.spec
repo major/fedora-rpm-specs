@@ -6,7 +6,7 @@
 
 Name:     erlang-%{realname}
 Version:  3.22.0
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Tool for working with Erlang projects
 License:  ASL 2.0 and MIT
 URL:      https://github.com/erlang/%{realname}
@@ -99,6 +99,9 @@ install -p -m644 manpages/%{realname}.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/%{realname}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

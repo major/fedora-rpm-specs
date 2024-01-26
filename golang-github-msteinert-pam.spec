@@ -18,7 +18,7 @@ Go wrapper module for the Pluggable Authentication Modules (PAM) API.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Go wrapper module for the Pluggable Authentication Modules (PAM) API
 
 # Upstream license specification: BSD-2-Clause
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/bgentry/speakeasy)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

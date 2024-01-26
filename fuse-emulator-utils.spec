@@ -1,6 +1,6 @@
 Name:           fuse-emulator-utils
 Version:        1.4.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Additional utils for the Fuse spectrum emulator
 License:        GPLv2+
 URL:            http://fuse-emulator.sourceforge.net
@@ -40,6 +40,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

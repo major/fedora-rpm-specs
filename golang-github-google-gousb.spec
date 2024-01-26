@@ -19,7 +19,7 @@ Go-like binding.}
 Requires:       pkgconfig(libusb)}
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Idiomatic Go bindings for libusb-1.0
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ BuildRequires:  pkgconfig(libusb)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

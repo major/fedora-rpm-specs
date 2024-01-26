@@ -23,7 +23,7 @@ Package Pargzip contains a parallel gzip writer implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        %autorelease -p.1
+Release:        %autorelease -p.2
 Summary:        Parallel gzip writer implementation
 
 # Upstream license specification: BSD-3-Clause
@@ -50,6 +50,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

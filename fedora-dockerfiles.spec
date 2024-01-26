@@ -4,7 +4,7 @@
 
 Name:           fedora-dockerfiles
 Version:        0
-Release:        0.35.git%{shortcommit}%{?dist}
+Release:        0.36.git%{shortcommit}%{?dist}
 Summary:        Example dockerfiles to assist standing up containers quickly
 License:        GPLv2
 URL:            https://github.com/fedora-cloud/Fedora-Dockerfiles.git
@@ -45,6 +45,9 @@ done
 %{_datadir}/%{name}/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.36.giteab04ff
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.35.giteab04ff
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

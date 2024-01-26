@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.00
-Release: 16%{?dist}
+Release: 17%{?dist}
 %global  projectname clear-sans
 URL:     https://01.org/%{projectname}
 
@@ -42,6 +42,9 @@ Source10: 60-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

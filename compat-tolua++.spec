@@ -2,7 +2,7 @@
 
 Name:           compat-tolua++
 Version:        1.0.93
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Lua-5.1 compatible version of tolua++ (C++ Lua integration)
 License:        MIT
 # Upstream is defunct, so no URL
@@ -78,6 +78,9 @@ install -p -m 644 include/tolua++.h $RPM_BUILD_ROOT%{_includedir}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.93-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.93-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

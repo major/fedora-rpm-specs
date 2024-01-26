@@ -2,7 +2,7 @@
 
 Name:           ephemeral
 Version:        7.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Private-by-default, always-incognito browser
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

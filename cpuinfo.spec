@@ -10,7 +10,7 @@ License:        BSD-2-Clause
 # The project has no version, this is the last git commit date YY.M.D
 Version:        23.2.14
 %define patch_level 3
-Release:        %{patch_level}.git%{?shortcommit0}%{?dist}.1
+Release:        %{patch_level}.git%{?shortcommit0}%{?dist}.2
 
 URL:            https://github.com/pytorch/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -106,6 +106,9 @@ for cpuinfo.
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.14-3.giteb4a667.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.14-3.giteb4a667.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

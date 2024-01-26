@@ -1,6 +1,6 @@
 Name:           cups-x2go
 Version:        3.0.1.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        CUPS backend for printing from X2Go
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ cp -p VERSION.cups-x2go %{buildroot}%{_datadir}/x2go/versions/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

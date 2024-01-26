@@ -33,7 +33,7 @@
 %global archivever 00401
 
 Version: 004.01
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL:     https://moji.or.jp/ipafont/
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -103,6 +103,9 @@ sed -ie 's/\r//g' Readme_ipaexm%{archivever}.txt
 %fontfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 004.01-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 004.01-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

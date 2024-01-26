@@ -9,7 +9,7 @@
 
 Name:   kf5-attica
 Version: 5.113.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -91,6 +91,9 @@ BuildArch: noarch
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

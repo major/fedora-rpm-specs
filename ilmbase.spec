@@ -3,7 +3,7 @@
 Name:    ilmbase
 Summary: Abstraction/convenience libraries
 Version: 2.3.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: BSD
 URL:	 http://www.openexr.com/
@@ -115,6 +115,9 @@ test "$(pkg-config --modversion IlmBase)" = "%{version}"
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

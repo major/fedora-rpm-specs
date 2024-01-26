@@ -1,7 +1,7 @@
 Summary: Hierarchical Notebook
 Name: hnb
 Version: 1.9.19
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPLv2+
 URL: https://github.com/liskin/lhnb
 Source0: https://nomi.cz/download/releases/lhnb/lhnb-%{version}.tar.gz
@@ -46,6 +46,9 @@ install -D -pm644 doc/hnb.1 $RPM_BUILD_ROOT%{_mandir}/man1/hnb.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.19-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.19-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

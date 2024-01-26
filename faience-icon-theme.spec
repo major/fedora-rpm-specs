@@ -2,7 +2,7 @@
 
 Name:           faience-icon-theme
 Version:        0.5
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Faience icon theme
 
 License:        GPLv3
@@ -82,6 +82,9 @@ done
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

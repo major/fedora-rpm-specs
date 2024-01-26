@@ -1,7 +1,7 @@
 Summary: Utility for creating romfs file systems
 Name: genromfs
 Version: 0.5.2
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPLv2+
 URL: http://romfs.sourceforge.net/
 Source: http://downloads.sourceforge.net/romfs/%{name}-%{version}.tar.gz
@@ -37,6 +37,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

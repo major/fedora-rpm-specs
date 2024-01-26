@@ -7,7 +7,7 @@
 
 Name:           gnurobbo
 Version:        0.68
-Release:        22.%{date}svn%{rev}%{?dist}
+Release:        23.%{date}svn%{rev}%{?dist}
 Summary:        Port of an once famous game named Robbo from 1989
 
 License:        GPLv2+
@@ -164,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-23.20151113svn415
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-22.20151113svn415
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

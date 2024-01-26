@@ -1,6 +1,6 @@
 Name:		ipmctl
 Version:	03.00.00.0468
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Utility for managing Intel Optane DC persistent memory modules
 License:	BSD
 URL:		https://github.com/intel/ipmctl
@@ -107,6 +107,9 @@ API for development of Intel Optane DC persistent memory management utilities.
 %{_libdir}/pkgconfig/libipmctl.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 03.00.00.0468-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 03.00.00.0468-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

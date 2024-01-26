@@ -1,7 +1,7 @@
 %define tag_name LatestBuild
 Name:           jtc
 Version:        1.76a
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        JSON processing utility
 
 License:        MIT
@@ -37,6 +37,9 @@ install -Dpm 0755 %{name} %{buildroot}/%{_bindir}/%{name}
 %doc "Walk-path tutorial.md"
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.76a-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.76a-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

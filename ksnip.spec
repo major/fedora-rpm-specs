@@ -1,6 +1,6 @@
 Name: ksnip
 Version: 1.10.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPL-2.0-or-later
 Summary: Qt based cross-platform screenshot tool
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Marie Loise Nolden <loise@kde.org> - 1.10.1-4
 - use kcolorpicker 0.3.0 and kimageannotator 0.7.0 as qt5 builds
 

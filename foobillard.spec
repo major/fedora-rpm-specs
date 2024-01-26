@@ -1,6 +1,6 @@
 Name:           foobillard
 Version:        3.0a
-Release:        47%{?dist}
+Release:        48%{?dist}
 
 Summary:        OpenGL billard game
 
@@ -76,6 +76,9 @@ install -p -m 644 foobillard-256x256.png \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0a-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0a-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

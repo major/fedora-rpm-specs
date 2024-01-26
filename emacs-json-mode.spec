@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Major mode for editing JSON files with Emacs
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

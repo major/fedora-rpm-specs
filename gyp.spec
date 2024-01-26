@@ -12,7 +12,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.51%{?revision:.%{revision}git}%{?dist}
+Release:	0.52%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD-3-Clause
@@ -91,6 +91,9 @@ done
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.52.fcd686f1git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.51.fcd686f1git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,8 +8,6 @@ License:    Apache-2.0
 
 URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
-# Need to patch the generated headers
-Source1:    add-export-protobuf-headers.patch
 # Build shared libraries and fix install location 
 Patch0:     onnx-install.patch
 # Add what is missing to run tox, disable tests that require network
@@ -67,7 +65,7 @@ Requires:   %{name}-libs = %{version}-%{release}
 
 %build
 %cmake \
-    -DONNX_USE_LITE_PROTO=ON \
+    -DONNX_USE_LITE_PROTO=OFF \
     -DONNX_USE_PROTOBUF_SHARED_LIBS=ON \
     -DBUILD_ONNX_PYTHON=ON \
     -DPYTHON_EXECUTABLE=%{python3} \
@@ -76,8 +74,6 @@ Requires:   %{name}-libs = %{version}-%{release}
     -DCMAKE_SKIP_RPATH:BOOL=ON
 # Generate protobuf header and source files
 %cmake_build -- gen_onnx_proto
-# Add missing ONNX_API
-(cd "%__cmake_builddir"; patch -p1 < "%{_sourcedir}/add-export-protobuf-headers.patch")
 # Build 
 %cmake_build
 # Build python libs

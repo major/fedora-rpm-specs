@@ -2,7 +2,7 @@
 
 Name:           hxtools
 Version:        20150304
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A collection of several tools
 # fd0ssh: LGPLv2 or LGPLv3
 # git-forest: GPLv2+
@@ -214,6 +214,9 @@ rm "%{buildroot}%{_mandir}/man8/xfs_irecover.8"*
 %{_mandir}/man1/peicon.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20150304-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20150304-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

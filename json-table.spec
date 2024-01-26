@@ -1,6 +1,6 @@
 Name:           json-table
 Version:        4.3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command-line tool to transform nested JSON into tabular data
 
 License:        EPL-1.0
@@ -37,6 +37,9 @@ make test
 %{_mandir}/man1/jt.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

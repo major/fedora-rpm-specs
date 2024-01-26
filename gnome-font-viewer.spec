@@ -3,7 +3,7 @@
 
 Name:           gnome-font-viewer
 Version:        45.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
 License:        GPL-2.0-or-later
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 45.0-3
 - Fix C89 compatibility issue
 

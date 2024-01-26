@@ -78,7 +78,7 @@
 
 Name:        libblockdev
 Version:     3.1.0
-Release:     1%{?dist}
+Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -851,6 +851,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.1.0-1
 - tests: Skip some checks for btrfs errors with btrfs-progs 6.6.3 (vtrefny)
 - Fix missing progress initialization in bd_crypto_luks_add_key (vtrefny)

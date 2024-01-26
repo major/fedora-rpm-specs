@@ -6,7 +6,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0
-Release:        0.12.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.13.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Python Black for Emacs
 
 License:        GPLv3+
@@ -52,6 +52,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20210406git880cf50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12.20210406git880cf50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

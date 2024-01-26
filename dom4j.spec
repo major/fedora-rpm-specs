@@ -30,7 +30,7 @@
 
 Name:           dom4j
 Version:        2.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          0
 Summary:        Open Source XML framework for Java
 License:        BSD
@@ -114,6 +114,9 @@ rm src/test/java/org/dom4j/util/PerThreadSingletonTest.java
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

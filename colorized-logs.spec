@@ -1,6 +1,6 @@
 Name:		colorized-logs
 Version:	2.6
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tools for logs with ANSI color
 License:	MIT
 URL:		https://github.com/kilobyte/colorized-logs
@@ -54,6 +54,9 @@ this package gives you:
 %doc ChangeLog README
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

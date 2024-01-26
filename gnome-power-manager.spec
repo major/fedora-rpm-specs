@@ -1,6 +1,6 @@
 Name:           gnome-power-manager
 Version:        43.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNOME power management service
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ appstream-util --nonet validate-relax %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_mandir}/man1/gnome-power-statistics.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -89,6 +89,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.0-1
 - Update to version 2.31.0
 - Drop EPEL 7 support

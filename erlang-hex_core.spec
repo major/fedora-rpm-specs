@@ -3,7 +3,7 @@
 
 Name:     erlang-%{realname}
 Version:  0.7.1
-Release:  8%{?dist}
+Release:  9%{?dist}
 Summary:  Reference implementation of Hex specifications
 License:  ASL 2.0
 URL:      https://github.com/%{upstream}/%{realname}
@@ -33,6 +33,9 @@ BuildRequires: erlang-proper
 %{erlang_appdir}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

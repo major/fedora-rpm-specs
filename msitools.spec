@@ -35,6 +35,9 @@ License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/msitools/-/merge_requests/70
+Patch0:         wixl-data.patch
+
 Requires:       libgsf >= 1.14.24-2
 
 BuildRequires:  git-core

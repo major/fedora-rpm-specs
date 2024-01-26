@@ -5,7 +5,7 @@
 Name:    epix
 Summary: Utilities for mathematically accurate figures
 Version: 1.2.22
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL:     https://mathcs.holycross.edu/~ahwang/current/ePiX.html
 Source0: https://mathcs.holycross.edu/~ahwang/epix/epix-%{version}_withpdf.tar.bz2
@@ -174,6 +174,9 @@ rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}/config
 %{_emacs_sitestartdir}/*.el
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool to check generic rules/best-practices for containers/images/dockerfiles.
 
 License:        GPLv3+
@@ -77,6 +77,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

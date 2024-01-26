@@ -1,7 +1,7 @@
 #global commit  f44636f00666b8eb869417960926d01690ff4f42
 #global shortcommit #(c=#{commit}; echo ${c:0:7})
 #global checkout_date 2023094
-%global upstream_version  1.5.1
+%global upstream_version  1.6.1
 
 # setup.py does not list all requirements, and we also unbundle quite a few
 # from the externals folder, so we can't only rely on the automatic generator
@@ -26,7 +26,8 @@ Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) da
 # https://github.com/fieldtrip/fieldtrip/blob/master/realtime/src/buffer/python/FieldTrip.py
 # Not possible to package because it is matlab package with some plugins
 
-License:        BSD
+# SPDX
+License:        BSD-3-Clause
 URL:            http://martinos.org/mne/
 
 
@@ -37,17 +38,6 @@ Source0:        https://github.com/mne-tools/mne-python/archive/v%{version}/%{na
 %endif
 
 #Source1:        https://s3.amazonaws.com/mne-python/datasets/MNE-sample-data-processed.tar.gz
-
-# BUG: Fix bug with clip box setting
-# https://github.com/mne-tools/mne-python/pull/11999
-# Backported to v1.5.1
-Patch:          0001-BUG-Fix-bug-with-clip-box-setting-11999.patch
-
-# MAINT: Ignore SciPy using deprecated API
-# https://github.com/mne-tools/mne-python/pull/12115
-# Merged as 4beb8dde7588c3153ee0a240b5e363dc987c95f1
-# Backported to v1.5.1
-Patch:          0001-MAINT-Ignore-SciPy-using-deprecated-API-12115.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -192,6 +182,12 @@ mkdir subjects
 
 # Hangs:
 k="${k-}${k+ and }not test_thresholds[NumPy]"
+# FileNotFoundError (file 'test_eyelink.asc' not in repo):
+k="${k-}${k+ and }not test_annotations_without_offset"
+%ifarch s390x || ppc64le
+# Test fails on s390x and ppc64le.
+k="${k-}${k+ and }not test_spectrum_complex[welch-False]"
+%endif
 
 # https://github.com/mne-tools/mne-python/blob/v1.0.3/tools/github_actions_test.sh#L7
 # skip tests that require network

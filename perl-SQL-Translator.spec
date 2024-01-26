@@ -3,8 +3,8 @@
 
 Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
-Version:        1.64
-Release:        2%{?dist}
+Version:        1.65
+Release:        1%{?dist}
 # script/sqlt*: GPL-2.0-only
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND GPL-2.0-only
@@ -46,7 +46,7 @@ BuildRequires:  perl(GraphViz)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(JSON::MaybeXS) >= 1.003003
-BuildRequires:  perl(List::Util)
+BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Moo) >= 1.000003
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(overload)
@@ -76,7 +76,7 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Differences)
-BuildRequires:  perl(Test::Exception) >= 0.31
+BuildRequires:  perl(Test::Exception) >= 0.42
 BuildRequires:  perl(XML::Parser)
 # Optional tests:
 # DBD::Pg not needed because it requires preconfigures PostgreSQL database
@@ -240,6 +240,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.65-1
+- 1.65 bump (rhbz#2258649)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

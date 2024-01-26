@@ -1,7 +1,7 @@
 Summary:        Tools for network auditing and penetration testing
 Name:           dsniff
 Version:        2.4
-Release:        0.43.b1%{?dist}
+Release:        0.44.b1%{?dist}
 License:        BSD
 URL:            https://www.monkey.org/~dugsong/%{name}/
 Source0:        https://www.monkey.org/~dugsong/%{name}/beta/%{name}-%{version}b1.tar.gz
@@ -160,6 +160,9 @@ sed \
 %{_mandir}/man8/webspy.8*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.44.b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.43.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

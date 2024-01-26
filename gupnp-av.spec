@@ -1,6 +1,6 @@
 Name:          gupnp-av
 Version:       0.14.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 
 License:       LGPLv2+
@@ -74,6 +74,9 @@ This package contains developer documentation for %{name}.
 %{_datadir}/gtk-doc/html/gupnp-av/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

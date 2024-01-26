@@ -3,7 +3,7 @@
 Summary: CMPI Utility Library
 Name: libcmpiutil
 Version: 0.5.7
-Release: 23%{?dist}%{?extra_release}
+Release: 24%{?dist}%{?extra_release}
 License: LGPLv2+
 Source: ftp://libvirt.org/libvirt-cim/libcmpiutil-%{version}.tar.gz
 Patch0: libcmpiutil-0.5.6-cast-align.patch
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %doc doc/SubmittingPatches
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

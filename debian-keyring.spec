@@ -2,7 +2,7 @@
 
 Name:           debian-keyring
 Version:        2023.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -41,6 +41,9 @@ make
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

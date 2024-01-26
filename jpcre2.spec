@@ -4,7 +4,7 @@
 
 Name:          jpcre2
 Version:       10.32.01
-Release:       8%{?dist}
+Release:       9%{?dist}
 
 Summary:       C++ wrapper for PCRE2 library
 License:       BSD
@@ -82,6 +82,9 @@ popd
 %{_includedir}/jpcre2.hpp
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.32.01-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.32.01-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

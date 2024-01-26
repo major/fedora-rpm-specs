@@ -10,6 +10,8 @@ Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
 # File caching by default (#2000626)
 Patch8:         %{name}-0.22.0-file-cache.patch
+# https://github.com/OpenSC/OpenSC/pull/2996
+Patch9:         opensc-0.24.0-gcc14.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -49,6 +51,7 @@ every software/card that does so, too.
 %setup -q
 %patch1 -p1 -b .pinpad
 %patch8 -p1 -b .file-cache
+%patch -P9 -p1 -b .gcc14
 
 # The test-pkcs11-tool-allowed-mechanisms already works in Fedora
 sed -i -e '/XFAIL_TESTS/,$ {

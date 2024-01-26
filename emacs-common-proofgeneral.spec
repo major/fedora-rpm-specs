@@ -2,7 +2,7 @@
 
 Name:           emacs-common-%{pkg}
 Version:        4.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Emacs mode for standard interaction interface for proof assistants
 
 # The code is GPL-3.0-or-later.
@@ -149,6 +149,9 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

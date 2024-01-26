@@ -1,6 +1,6 @@
 Name:           httpie
 Version:        3.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Curl-like tool for humans
 
 License:        BSD-3-Clause
@@ -85,6 +85,9 @@ cp -a extras/man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

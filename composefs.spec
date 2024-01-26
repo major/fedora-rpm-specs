@@ -4,7 +4,7 @@
 
 Name:           composefs
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 
 License:        GPL-3.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
@@ -79,6 +79,9 @@ rm -rf %{buildroot}%{_libdir}/libcomposefs.la
 %endif
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           fuse-emulator
 Version:        1.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Free UNIX Spectrum Emulator
 License:        GPLv2+
 URL:            http://fuse-emulator.sourceforge.net
@@ -80,6 +80,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

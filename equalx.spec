@@ -1,6 +1,6 @@
 Name:           equalx
 Version:        0.7.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A graphical editor for writing LaTeX equations
 
 License:        GPLv3+
@@ -55,6 +55,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

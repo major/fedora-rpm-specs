@@ -18,8 +18,13 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 15%{?dist}
-License: GPLv2+ with exceptions
+Release: 16%{?dist}
+# gd license in php bindings isn't by default built-in
+# Add licenses:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/448
+#   gpl-2.0-or-later WITH rrdtool-floss-exception-2.0
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/449
+License: gpl-1.0-or-later AND gpl-2.0-or-later AND mit AND lgpl-2.0-or-later AND lgpl-2.1-or-later AND bsd-source-code AND snprintf AND bsd-3-clause AND gpl-2.0-only AND licenseref-fedora-public-domain
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1: php4-%{svnrev}.tar.gz
@@ -414,6 +419,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Wed Jan 24 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.8.0-16
+- Converted license to SPDX
+
 * Mon Jan 22 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.8.0-15
 - Fixed FTBFS with GCC 14
 

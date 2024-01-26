@@ -5,7 +5,7 @@
 Name:		erlang-%{realname}
 Summary:	Support for XML Schema in Erlang
 Version:	1.5.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 BuildArch:	noarch
 URL:		https://github.com/%{upstream}/%{realname}
 VCS:		scm:git:https://github.com/%{upstream}/%{realname}.git
@@ -49,6 +49,9 @@ to an XML document.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

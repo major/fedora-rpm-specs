@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: compat-readline6
 Version: 6.3
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPLv3+
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{_mandir}
 %{_libdir}/readline6/libhistory.a
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:             kvirc
 Version:          5.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Free portable IRC client
 License:          GPLv2+ with exceptions
 URL:              https://www.kvirc.net/
@@ -144,6 +144,9 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Alexey Kurov <nucleo@fedoraproject.org> - 5.2.0-2
 - Require Qt6WebEngineWidgets for qt6_qtwebengine_arches
 

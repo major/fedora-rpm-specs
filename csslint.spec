@@ -5,7 +5,7 @@ Version:        1.0.5
 %forgemeta
 
 Name:           %{npm_name}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Detecting potential problems in CSS code
 
 License:        MIT
@@ -71,6 +71,9 @@ node_modules_dev/.bin/grunt test
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           itk
 Version:        4.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Object oriented extensions to Tk
 
 License:        TCL
@@ -59,6 +59,9 @@ Development headers and libraries for linking against itk.
 # What happened to itk's stub library and itkConfig.sh?
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

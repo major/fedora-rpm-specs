@@ -6,7 +6,7 @@
 
 Name:           lfsc
 Version:        0.20230523
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SMT proof checker
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20230523-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20230523-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

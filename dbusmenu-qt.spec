@@ -14,7 +14,7 @@
 Summary: A Qt implementation of the DBusMenu protocol 
 Name:    dbusmenu-qt
 Version: 0.9.3
-Release: 0.33.%{snapshot}%{?dist}
+Release: 0.34.%{snapshot}%{?dist}
 
 License: LGPL-2.0-or-later
 URL: https://launchpad.net/libdbusmenu-qt/
@@ -170,6 +170,9 @@ xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform} check AR
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-0.34.20160218
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-0.33.20160218
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

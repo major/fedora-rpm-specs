@@ -21,7 +21,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.30
 # can only be reset when all subpkgs bumped
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A reusable library providing the core functionality of hledger
 
 License:        GPL-3.0-or-later
@@ -317,6 +317,9 @@ cd %{pager}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

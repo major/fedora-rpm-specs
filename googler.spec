@@ -1,6 +1,6 @@
 Name:       googler
 Version:    4.3.2
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Access google search, google site search, google news from the terminal
 
 License:    GPLv3+
@@ -62,6 +62,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

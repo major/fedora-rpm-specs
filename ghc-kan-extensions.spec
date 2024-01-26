@@ -10,7 +10,7 @@
 Name:           ghc-%{pkg_name}
 Version:        5.2.5
 # can only be reset when all subpkgs bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads
 
 License:        BSD-3-Clause
@@ -167,6 +167,9 @@ cabal-tweak-dep-ver template-haskell '< 2.19' '< 2.20'
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

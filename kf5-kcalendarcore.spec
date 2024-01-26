@@ -10,7 +10,7 @@
 Name:    kf5-kcalendarcore
 Epoch:   1
 Version: 5.113.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 1 KCalendarCore Library
 
 License: BSD-3-Clause, CC0-1.0, LGPL-2.0-or-later, LGPL-3.0-or-later
@@ -99,6 +99,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.113.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.113.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:    1.9.11
+Version:   1.9.12
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -375,6 +375,9 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %{_datadir}/installed-tests/fwupd/fwupd-tests.xml
 %{_datadir}/installed-tests/fwupd/*.test
 %{_datadir}/installed-tests/fwupd/*.cab
+%{_datadir}/installed-tests/fwupd/fakedevice124.jcat
+%{_datadir}/installed-tests/fwupd/fakedevice124.bin
+%{_datadir}/installed-tests/fwupd/fakedevice124.metainfo.xml
 %{_datadir}/installed-tests/fwupd/*.sh
 %{_datadir}/installed-tests/fwupd/*.zip
 %if 0%{?have_uefi}

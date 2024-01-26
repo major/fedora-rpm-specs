@@ -4,7 +4,7 @@
 
 Name:            libbinio
 Version:         %{gittag}
-Release:         5%{?dist}
+Release:         6%{?dist}
 Summary:         A software library for binary I/O classes in C++
 URL:             http://adplug.github.io/libbinio
 Source0:         https://github.com/adplug/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
@@ -77,6 +77,9 @@ fi
 %{_infodir}/libbinio.info*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

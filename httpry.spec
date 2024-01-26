@@ -3,7 +3,7 @@
 Summary:    A specialized packet sniffer designed for displaying and logging HTTP traffic
 Name:       %{srcname}
 Version:    0.1.8
-Release:    22%{?dist}
+Release:    23%{?dist}
 License:    GPL-2.0-only and BSD-3-Clause
 URL:        http://dumpsterventures.com/jason/%{srcname}/
 Source:     http://dumpsterventures.com/jason/%{srcname}/%{srcname}-%{version}.tar.gz
@@ -40,6 +40,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

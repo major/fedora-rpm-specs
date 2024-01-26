@@ -1,6 +1,6 @@
 Name:		git-ftp		
 Version:	1.6.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Git powered FTP client written as shell script
 License:	GPLv3	
 URL:		https://github.com/git-ftp
@@ -37,6 +37,9 @@ make install-all  bindir=%{buildroot}%{_bindir} mandir=%{buildroot}%{_mandir}/ma
 %exclude %{_mandir}/man1/CACHEDIR.TAG.gz
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

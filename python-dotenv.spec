@@ -1,5 +1,5 @@
 Name:           python-dotenv
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 

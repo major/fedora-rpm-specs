@@ -1,6 +1,6 @@
 Name:           glaxium
 Version:        0.5
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        An OpenGL space shooter
 License:        GPLv2+
 URL:            http://xhosxe.free.fr/glaxium/
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

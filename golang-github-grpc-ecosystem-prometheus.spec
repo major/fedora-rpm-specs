@@ -17,7 +17,7 @@ Prometheus monitoring for your gRPC Go servers and clients.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Prometheus monitoring for your gRPC Go servers and clients
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  golang(github.com/stretchr/testify/suite)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

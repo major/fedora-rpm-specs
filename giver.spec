@@ -4,7 +4,7 @@
 Name:		giver
 Summary: 	A simple file sharing desktop application
 Version:	0.1.8
-Release:	37%{?dist}
+Release:	38%{?dist}
 License:	MIT
 Source0:	http://giver.googlecode.com/files/%{name}-%{version}.tar.gz
 Source1:	Giver.exe.config
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

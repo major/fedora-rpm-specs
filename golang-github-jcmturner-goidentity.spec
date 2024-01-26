@@ -14,7 +14,7 @@ Standard interface for holding authenticated identities and their attributes.}
 %global godocs          v6/README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Standard interface for holding authenticated identities and their attributes
 
 # Upstream license specification: Apache-2.0
@@ -49,6 +49,9 @@ sed -i 's|github.com/jcmturner/goidentity|github.com/jcmturner/goidentity/v6|' $
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

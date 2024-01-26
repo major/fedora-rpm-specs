@@ -1,6 +1,6 @@
 Name:           deepin-gtk-theme
 Version:        17.10.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Deepin GTK Theme
 License:        GPLv3
 URL:            https://github.com/linuxdeepin/deepin-gtk-theme
@@ -26,6 +26,9 @@ BuildRequires:  make
 %{_datadir}/themes/deepin-dark/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.10.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.10.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -18,7 +18,7 @@ split off to make maintenance of both the core library and the client easier.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Graphite client for the go-metrics
 
 # Upstream license specification: BSD-2-Clause
@@ -47,6 +47,9 @@ BuildRequires:  golang(github.com/rcrowley/go-metrics)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

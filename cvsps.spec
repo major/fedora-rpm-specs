@@ -2,7 +2,7 @@
 
 Name:           cvsps
 Version:        2.2
-Release:        0.34.%{prever}%{?dist}
+Release:        0.35.%{prever}%{?dist}
 Summary:        Patchset tool for CVS
 
 License:        GPL+
@@ -53,6 +53,9 @@ make install prefix=$RPM_BUILD_ROOT%{_prefix}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.35.b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.34.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

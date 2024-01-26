@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -266,6 +266,9 @@ fi
 %{_bindir}/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

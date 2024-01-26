@@ -1,6 +1,6 @@
 Name:           fruit
 Version:        2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        UCI chess engine
 
 License:        GPLv2
@@ -66,6 +66,9 @@ cp -P %SOURCE2 %{buildroot}/%{_mandir}/man6
 %{_datadir}/%{name}/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:			fcitx-sunpinyin
 Version:		0.4.2
-Release:		18%{?dist}
+Release:		19%{?dist}
 Summary:		Sunpinyin Wrapper for Fcitx
 License:		GPLv2+
 URL:			http://fcitx-im.org/wiki/Fcitx
@@ -60,6 +60,9 @@ trigram language model.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

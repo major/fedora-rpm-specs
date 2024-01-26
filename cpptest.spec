@@ -1,6 +1,6 @@
 Name:           cpptest
 Version:        1.1.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A portable and powerful and simple unit testing framework for C++
 
 License:        LGPLv2+
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

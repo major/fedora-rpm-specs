@@ -27,7 +27,7 @@ Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
 Version:          5.4.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -162,6 +162,9 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

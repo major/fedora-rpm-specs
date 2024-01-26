@@ -3,7 +3,7 @@
 Name:    kronometer
 Summary: A stopwatch application by KDE
 Version: 2.3.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # code is GPLv2, appdata file is CC0
 License: GPL-2.0-or-later AND CC0-1.0
@@ -87,6 +87,9 @@ export QT_QPA_PLATFORM=offscreen
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

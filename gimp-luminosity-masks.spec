@@ -2,7 +2,7 @@
 
 Name:		gimp-%{addon}
 Version:	0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Luminosity mask channels plug-in for Gimp
 License:	GPLv2+
 URL:		http://registry.gimp.org/node/28644
@@ -49,6 +49,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.
 %endif
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

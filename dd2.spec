@@ -1,6 +1,6 @@
 Name:           dd2
 Version:        0.2.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Dodgin' Diamond 2 - Shoot'em up arcade game
 License:        GPLv2+
 URL:            http://www.usebox.net/jjm/dd2/
@@ -65,6 +65,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

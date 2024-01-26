@@ -2,7 +2,7 @@
 
 Name:             gtksourceviewmm
 Version:          2.10.3
-Release:          26%{?dist}
+Release:          27%{?dist}
 Summary:          A C++ wrapper for the gtksourceview widget library
 
 License:          LGPLv2+
@@ -89,6 +89,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %define		prerelease 493svn
 Name:		conmux
 Version:	0.0
-Release:	50.%{prerelease}%{?dist}
+Release:	51.%{prerelease}%{?dist}
 Summary:	ConMux - The Console Multiplexor
 
 License:	GPLv2
@@ -102,6 +102,9 @@ fi
 %doc COPYING README
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-51.493svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-50.493svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           emacs-iedit
 Version:        0.9.9.9.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Edit multiple regions simultaneously in Emacs
 
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ mv %{buildroot}/%{_emacs_sitelispdir}/iedit/iedit-autoloads.el \
 %{_emacs_sitestartdir}/iedit-autoloads.el
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.9.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.9.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

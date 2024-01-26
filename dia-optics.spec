@@ -3,7 +3,7 @@
 
 Name:           dia-optics
 Version:        0.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Dia Optics shapes
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ cp -pr shapes %{buildroot}%{dia_datadir}
 %{dia_datadir}/shapes/%{shapes}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

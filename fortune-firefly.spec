@@ -1,6 +1,6 @@
 Name:		fortune-firefly
 Version:	2.1.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:	Quotes from the TV series "Firefly"
 
 # No version specified, only attribution is spec file, but maintainer is upstream.
@@ -43,6 +43,9 @@ install -m644 firefly.dat $RPM_BUILD_ROOT%{_datadir}/games/fortune/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

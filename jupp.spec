@@ -1,7 +1,7 @@
 Summary:        Compact and feature-rich WordStar-compatible editor
 Name:           jupp
 Version:        41
-Release:        5%{?dist}
+Release:        6%{?dist}
 # jupp itself is GPL-1.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: popen.inc
 # ISC: strlfun.inc
@@ -56,6 +56,9 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/{joe,%{name}}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 41-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 41-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

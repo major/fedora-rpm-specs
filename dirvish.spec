@@ -1,6 +1,6 @@
 Name:           dirvish
 Version:        1.2.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Fast, disk based, rotating network backup system
 
 License:        OSL 2.0
@@ -41,6 +41,9 @@ PREFIX=$RPM_BUILD_ROOT%{_prefix} ./install.sh
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

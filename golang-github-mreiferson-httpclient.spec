@@ -25,7 +25,7 @@ Go's internal timer scheduler to call the Go 1.1+ CancelRequest() API.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.28%{?dist}
+Release:        0.29%{?dist}
 Summary:        Go HTTP client with timeouts
 
 License:        MIT
@@ -55,6 +55,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

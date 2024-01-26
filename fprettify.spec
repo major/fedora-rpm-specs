@@ -1,6 +1,6 @@
 Name:           fprettify
 Version:        0.3.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Auto-formatter for modern Fortran source code
 License:        GPLv3
 URL:            https://github.com/pseewald/fprettify
@@ -57,6 +57,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/fprettify-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

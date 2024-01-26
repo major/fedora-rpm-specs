@@ -27,7 +27,7 @@ HAProxy Data Plane API.}
                         support/CHANGELOG.md e2e/libs/bats-support/README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        HAProxy Data Plane API
 
 Group:          System Environment/Daemons
@@ -191,6 +191,9 @@ install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/haproxy/%{gorepo}.yaml
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

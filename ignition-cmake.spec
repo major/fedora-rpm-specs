@@ -4,7 +4,7 @@
 
 Name:           ignition-cmake
 Version:        0.6.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        CMake modules to be used by the Ignition projects
 Epoch:          1
 
@@ -48,6 +48,9 @@ ignition projects to link against.
 %{_datadir}/ignition
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.6.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.6.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

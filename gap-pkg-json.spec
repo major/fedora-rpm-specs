@@ -1,8 +1,8 @@
 %global pkgname  json
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.1.1
-Release:        5%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        JSON reading and writing for GAP
 
 License:        BSD-2-Clause
@@ -89,6 +89,12 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jan 24 2024 Jerry James <loganjerry@gmail.com> - 2.2.0-1
+- Version 2.2.0
+
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

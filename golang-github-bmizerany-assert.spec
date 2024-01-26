@@ -17,7 +17,7 @@ Assertions for Go tests.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.29%{?dist}
+Release:        0.30%{?dist}
 Summary:        Assertions for Go tests
 
 License:        MIT
@@ -50,6 +50,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

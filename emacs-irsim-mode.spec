@@ -14,7 +14,7 @@
 
 Name:		emacs-%{pkg}
 Version:	0.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Irsim mode for emacs
 
 License:	MIT
@@ -71,6 +71,9 @@ cd %{name}-%{version}
 %{emacs_lispdir}/%{pkg}/*.el
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

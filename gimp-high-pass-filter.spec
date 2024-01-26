@@ -1,6 +1,6 @@
 Name:		gimp-high-pass-filter
 Version:	1.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	High-pass filter script for the GIMP
 
 License:	GPLv2+
@@ -38,6 +38,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

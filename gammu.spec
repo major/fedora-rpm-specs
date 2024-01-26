@@ -3,7 +3,7 @@
 
 Name:           gammu
 Version:        1.42.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Command Line utility to work with mobile phones
 
 License:        GPLv2+
@@ -181,6 +181,9 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

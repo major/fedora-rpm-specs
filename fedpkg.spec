@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.44
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 License:        GPLv2+
@@ -149,6 +149,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

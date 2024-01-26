@@ -23,7 +23,7 @@ consistency and interoperability for the different implementations.}
 %global godocs          AUTHORS CONTRIBUTING.md README.md RELEASING.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Language Independent Interface Types For OpenCensus
 
 # Upstream license specification: Apache-2.0
@@ -64,6 +64,9 @@ sed -i 's|github.com/census-instrumentation/opencensus-proto|github.com/census-i
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

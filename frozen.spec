@@ -3,7 +3,7 @@
 
 Name:           frozen
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A header-only, constexpr alternative to gperf for C++14 users
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ Development files for %{name}.
 %{_datadir}/cmake/%{name}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

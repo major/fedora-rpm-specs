@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.9
-Release:    8%{?dist}
+Release:    9%{?dist}
 
 Summary:    Library for ejabberd for PAM authentication support
 License:    ASL 2.0
@@ -51,6 +51,9 @@ install -pm755 priv/bin/%{srcname} $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{ver
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

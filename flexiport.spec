@@ -4,7 +4,7 @@
 
 Name:           flexiport
 Version:        2.0.0
-Release:        27.20120701git1b6103d%{?dist}
+Release:        28.20120701git1b6103d%{?dist}
 Summary:        Flexible communications library
 
 License:        LGPLv3
@@ -64,6 +64,9 @@ sed -i 's/\"lib\"/\"%{_lib}\"/' CMakeLists.txt
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-28.20120701git1b6103d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-27.20120701git1b6103d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

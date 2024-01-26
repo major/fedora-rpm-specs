@@ -4,7 +4,7 @@
 
 Name:		ebook-tools
 Version:	0.2.2
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Tools for accessing and converting various ebook file formats
 
 License:	MIT
@@ -78,6 +78,9 @@ rm -f %{buildroot}%{_bindir}/lit2epub
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

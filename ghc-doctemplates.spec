@@ -15,7 +15,7 @@
 Name:           ghc-%{pkg_name}
 Version:        0.11
 # can only be reset when all subpkgs bumped
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Pandoc-style document templates
 
 License:        BSD-3-Clause
@@ -181,6 +181,9 @@ rm %{buildroot}%{_datadir}/%{doclayout}/{README.md,changelog.md}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

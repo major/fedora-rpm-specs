@@ -4,7 +4,7 @@
 
 Name:    dbus-glib
 Version: 0.112
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: GLib bindings for D-Bus
 
 License: AFL and GPLv2+
@@ -86,6 +86,9 @@ chmod -x $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/dbus-bash-completion.sh
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

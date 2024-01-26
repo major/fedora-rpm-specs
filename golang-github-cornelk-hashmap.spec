@@ -15,7 +15,7 @@ A Golang lock-free thread-safe HashMap optimized for fastest read access.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A Golang lock-free thread-safe HashMap optimized for fastest read access
 
 # Upstream license specification: Apache-2.0
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/dchest/siphash)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

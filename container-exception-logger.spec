@@ -2,7 +2,7 @@
 
 Name: container-exception-logger
 Version: 1.0.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Logging from a container to a host
 
 License: GPLv3+
@@ -40,6 +40,9 @@ cp man/container-exception-logger.1 %{buildroot}/%{_mandir}/man1/container-excep
 %license COPYING
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

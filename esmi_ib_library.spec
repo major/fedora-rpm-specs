@@ -1,23 +1,21 @@
-%global date 20220622
-%global commit f4ce8713f3ed5cc4d20a9238d2be7405e7bbd583
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global major_version 1
-%global minor_version 5
-%global full_version %{major_version}.%{minor_version}.0
+%global major_version 3
+%global minor_version 0
+%global full_version %{major_version}.%{minor_version}
 %global soversion %{full_version}.0
+%global srcversion esmi_pkg_ver-%{full_version}
 
 # The documentation doesn't build at the moment, use the prebuilt one instead
 %bcond_with doc
 
 Name:           esmi_ib_library
-Version:        %{full_version}^%{date}git%{shortcommit}
+Version:        %{full_version}
 Release:        %autorelease
 Summary:        E-SMI: EPYC System management Interface In-band Library
 
 License:        NCSA
 URL:            https://github.com/amd/esmi_ib_library
-Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-Patch0:         esmi-amd_hsmp-include.patch
+Source:         %{url}/archive/%{srcversion}/%{name}-%{srcversion}.tar.gz
+Patch:          esmi-amd_hsmp-include.patch
 
 # This is a hardware enablement package for AMD x86_64 platforms
 ExclusiveArch:  x86_64
@@ -62,7 +60,7 @@ This package contains E-SMI tool, a program based on the E-SMI In-band library
 that provides options to Monitor and Control System Management functionality.
 
 %prep
-%setup -q -n %{name}-%{commit}
+%setup -q -n %{name}-%{srcversion}
 
 # The kernel on el8 and el9 is missing some includes we need so patch them in
 %if 0%{?el8} || 0%{?el9}

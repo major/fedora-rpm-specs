@@ -11,7 +11,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.6.4
-Release:	23%{?dist}
+Release:	24%{?dist}
 BuildArch:	noarch
 Summary:	Erlang Build Tools
 License:	MIT
@@ -159,6 +159,9 @@ sed -i -e "s,-noshell -noinput,-noshell -noinput -pa .,g" ./rebar
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

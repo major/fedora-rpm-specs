@@ -8,7 +8,7 @@
 Name:    kdiagram2
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
 Version: 2.8.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: GPLv2+
 Url:     https://invent.kde.org/graphics/kdiagram
@@ -91,6 +91,9 @@ xvfb-run -a ./rpm-check.sh
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

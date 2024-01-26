@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        98
+Version:        99
 
 %gometa
 
@@ -22,7 +22,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -54,7 +54,11 @@ Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.5
 Provides: bundled(golang(cloud.google.com/go/storage)) = 1.36.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.9.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azidentity)) = 1.4.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.5.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5)) = 5.3.0
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources)) = 1.2.0
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)) = 1.5.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.2.1
 Provides: bundled(golang(github.com/Azure/go-autorest)) = 14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest)) = 0.11.29
@@ -66,6 +70,7 @@ Provides: bundled(golang(github.com/Azure/go-autorest/autorest/to)) = 0.4.0
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest/validation)) = 0.3.1
 Provides: bundled(golang(github.com/Azure/go-autorest/logger)) = 0.2.1
 Provides: bundled(golang(github.com/Azure/go-autorest/tracing)) = 0.6.0
+Provides: bundled(golang(github.com/AzureAD/microsoft-authentication-library-for-go)) = 1.1.1
 Provides: bundled(golang(github.com/BurntSushi/toml)) = 1.3.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
@@ -112,6 +117,7 @@ Provides: bundled(golang(github.com/go-openapi/validate)) = 0.22.1
 Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
 Provides: bundled(golang(github.com/golang-jwt/jwt)) = 3.2.2+incompatible
 Provides: bundled(golang(github.com/golang-jwt/jwt/v4)) = 4.5.0
+Provides: bundled(golang(github.com/golang-jwt/jwt/v5)) = 5.0.0
 Provides: bundled(golang(github.com/golang/glog)) = 1.1.2
 Provides: bundled(golang(github.com/golang/groupcache)) = 41bb18b
 Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.3
@@ -147,6 +153,7 @@ Provides: bundled(golang(github.com/klauspost/compress)) = 1.17.3
 Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
 Provides: bundled(golang(github.com/kolo/xmlrpc)) = 38db28d
 Provides: bundled(golang(github.com/kr/text)) = 0.2.0
+Provides: bundled(golang(github.com/kylelemons/godebug)) = 1.1.0
 Provides: bundled(golang(github.com/labstack/echo/v4)) = 4.11.4
 Provides: bundled(golang(github.com/labstack/gommon)) = 0.4.2
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = fdfea0d
@@ -173,6 +180,7 @@ Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/images)) = 0.28.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = e969a9d
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
+Provides: bundled(golang(github.com/pkg/browser)) = 681adbf
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 1.0.0
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.3
@@ -606,6 +614,35 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jan 24 2024 Packit <hello@packit.dev> - 99-1
+Changes with 99
+----------------
+  * Add a tool script to help check for unused runners (#3614)
+    * Author: Brian C. Lane, Reviewers: Tomáš Hozza
+  * Bump azure (#3853)
+    * Author: Sanne Raymaekers, Reviewers: Ondřej Budai
+  * COMPOSER-2096: Add blueprint support to cloudapi & local access to cloudapi service (#3757)
+    * Author: Brian C. Lane, Reviewers: Sanne Raymaekers
+  * Fedora worker images (#3902)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * Invert wrong boolean condition in filesystem test (#3889)
+    * Author: Alexander Todorov, Reviewers: Tomáš Hozza
+  * Remove oscap.sh firewalld rules workaround (#3905)
+    * Author: Alexander Todorov, Reviewers: Tomáš Hozza
+  * Update test runners to Fedora 39 (#3820)
+    * Author: Alexander Todorov, Reviewers: Achilleas Koutsou, Michael Vogt, Ondřej Budai, Tomáš Hozza
+  * edge: add iot-simplified-installer image type (#3900)
+    * Author: djach7, Reviewers: Achilleas Koutsou
+  * image-info: update for new "partition" option in mounts.Mount (#3883)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * tools/build-rpms: fix getting the osbuild commit from Schutzfile (#3897)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  * tools/fedora-worker-packer: fix packer only/except (#3910)
+    * Author: Sanne Raymaekers, Reviewers: Tomáš Hozza
+
+— Somewhere on the Internet, 2024-01-24
+
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 98-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

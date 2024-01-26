@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        2.19.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A modern list library for Emacs
 
 License:        GPLv3+
@@ -41,6 +41,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

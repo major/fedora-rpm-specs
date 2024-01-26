@@ -1,17 +1,13 @@
 %global srcname switchtec-user
 
 Name:           switchtec
-Version:        4.1
+Version:        4.2
 Release:        %autorelease
 Summary:        Userspace code for the Microsemi PCIe switch
 
 License:        MIT
 URL:            https://github.com/Microsemi/switchtec-user
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# cli: Fix format security warning
-Patch0:         %{url}/pull/316.patch
-# cli/progress: Fix int overflow with progress bar
-Patch1:         %{url}/pull/329.patch
+Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  doxygen
 BuildRequires:  graphviz

@@ -1,6 +1,6 @@
 Name:           gnome-klotski
 Version:        3.38.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GNOME Klotski game
 
 License:        GPLv2+ and CC-BY-SA
@@ -56,6 +56,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           %{artifactId}
 Version:        1.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -72,6 +72,9 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

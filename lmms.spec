@@ -1,3 +1,10 @@
+
+%ifarch %ix86
+%bcond_with  wine
+%else
+%bcond_with  wine
+%endif
+
 Name:           lmms
 Version:        1.2.2
 Release:        15%{?dist}
@@ -79,7 +86,7 @@ BuildRequires:  libappstream-glib
 Requires:  shared-mime-info
 Requires:  hicolor-icon-theme
 
-%ifarch %ix86
+%if %{with wine}
 BuildRequires:  wine-devel 
 %endif
 
@@ -94,7 +101,8 @@ Requires:       ladspa-calf-plugins
 
 # the -vst subpackage can only be built on ix86, but is also usable
 # (and thus should be installed) on x86_64.
-%ifarch %ix86 x86_64
+#ifarch #ix86 x86_64
+%if %{with wine}
 Requires:       %{name}-vst = %{version}-%{release}
 %endif
 
@@ -206,7 +214,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_includedir}/%{name}
 
 
-%ifarch %ix86
+%if %{with wine}
 
 %package vst
 Summary:        VST hosting plugin for %{name}
@@ -224,6 +232,9 @@ This package contains the necessary files to host VST plugins.
 %changelog
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Disable wine vst due to libwine.so.1 being removed in wine version 8.3
+  see https://bugs.winehq.org/show_bug.cgi?id=54635 and https://github.com/LMMS/lmms/issues/6672
+  (copied from https://build.opensuse.org/package/view_file/openSUSE:Backports:SLE-15-SP6/lmms/)
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

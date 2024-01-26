@@ -2,7 +2,7 @@
 
 Name:           libcint
 Version:        5.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General Gaussian-type orbitals integrals for quantum chemistry
 License:        BSD
 URL:            https://github.com/sunqm/libcint
@@ -73,6 +73,9 @@ make -C %{_host} test ARGS=-V
 %{_libdir}/libcint.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

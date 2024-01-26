@@ -17,7 +17,7 @@ alternate progress bar writers can be supplied for alternate environments.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Go package for progress bars around io.Reader/Writers
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  golang(golang.org/x/crypto/ssh/terminal)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

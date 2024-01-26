@@ -20,7 +20,7 @@ database/sql that offers better performance and more features.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        PostgreSQL driver and toolkit for Go
 
 License:        MIT
@@ -59,6 +59,9 @@ BuildRequires:  golang(gopkg.in/inconshreveable/log15.v2)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

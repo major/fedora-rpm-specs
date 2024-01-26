@@ -1,6 +1,6 @@
 Name:       directory-maven-plugin
 Version:    0.3.1
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Establish locations for files in multi-module builds
 
 License:    ASL 2.0
@@ -54,6 +54,9 @@ Summary:  Javadoc for %{name}
 %license LICENSE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

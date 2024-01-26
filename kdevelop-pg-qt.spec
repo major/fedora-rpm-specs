@@ -1,17 +1,11 @@
-%undefine __cmake_in_source_build
-
-%define src_ver 2.2.1
-
 Name:           kdevelop-pg-qt
 Summary:        A parser generator
-Version:        2.2.1
-Release:        10%{?dist}
-# All LGPLv2+, except for bison-generated kdev-pg-parser.{cc.h} which are GPLv2+
-License:        LGPLv2+ and GPLv2+ with exception
+Version:        2.2.2
+Release:        1%{?dist}
+# All LGPLv2+, except for bison-generated kdev-pg-parser.{cc,hh} which are and GPLv3+
+License:        LGPL-2.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2)
 URL:            http://techbase.kde.org/Development/KDevelop-PG-Qt_Introduction
-Source0:        http://download.kde.org/stable/kdevelop-pg-qt/%{version}/src/kdevelop-pg-qt-%{src_ver}.tar.xz
-# upstream fix https://invent.kde.org/kdevelop/kdevelop-pg-qt/-/commit/0f830b2abc7763f6598f7f1a84f5af403d402a02
-Patch0:         upstream_Fix-linking-on-s390x.patch
+Source0:        http://download.kde.org/stable/kdevelop-pg-qt/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -21,6 +15,7 @@ BuildRequires:  qt5-qtbase-devel
 
 # For AutoReq cmake-filesystem
 BuildRequires:  cmake
+BuildRequires:  gcc-c++
 
 %description
 KDevelop-PG-Qt is a parser generator written in readable source-code and
@@ -39,7 +34,7 @@ Obsoletes: kdevelop-pg-qt-devel < 1.0.0-1
 
 
 %prep
-%autosetup -p1 -n %{name}-%{src_ver}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -62,6 +57,9 @@ Obsoletes: kdevelop-pg-qt-devel < 1.0.0-1
 
 
 %changelog
+* Wed Jan 24 2024 Alessandro Astone <ales.astone@gmail.com> - 2.2.2-1
+- 2.2.2
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

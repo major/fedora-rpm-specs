@@ -1,7 +1,7 @@
 Summary: Git commit message linting tool
 Name: gitlint
 Version: 0.15.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: MIT
 Source: %pypi_source
 Patch0: strict-dependencies.patch
@@ -43,6 +43,9 @@ rm -rf %{buildroot}%{python3_sitelib}/qa
 %{_bindir}/gitlint
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

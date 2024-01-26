@@ -4,7 +4,7 @@ Name:           lcd4linux
 Version:        0.11
 # We package an svn snapshot of what will become 0.11 since upstream has
 # neglected to do a new release for ages
-Release:        0.31.svn%{svn_rev}%{?dist}
+Release:        0.32.svn%{svn_rev}%{?dist}
 Summary:        Display system state on an external LCD display
 License:        GPLv2+
 URL:            http://ssl.bulix.org/projects/lcd4linux/
@@ -74,6 +74,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE3}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.32.svn1200
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-0.31.svn1200
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

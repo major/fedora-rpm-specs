@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    0.6.11
-Release:    4%{?dist}
+Release:    5%{?dist}
 BuildArch:  noarch
 License:    MIT
 Summary:    An Oauth2 implementation for Erlang
@@ -42,6 +42,9 @@ OAuth2. It is a fork of erlang-oauth2 by processone, and is needed by ejabberd.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

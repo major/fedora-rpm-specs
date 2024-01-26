@@ -23,7 +23,7 @@ A Golang log library, supports tracking and level, wrap by standard log lib.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Log library, supports tracking and level, wrap by standard log lib
 
 License:        MIT
@@ -51,6 +51,9 @@ cp %{S:1} .
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

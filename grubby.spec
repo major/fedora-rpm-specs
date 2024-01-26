@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 74%{?dist}
+Release: 75%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPL-2.0-or-later
 Source1: grubby-bls
@@ -74,6 +74,9 @@ fi
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-75
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-74
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

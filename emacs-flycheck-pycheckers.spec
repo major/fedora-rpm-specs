@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multiple syntax checker for Python in Emacs, using Flycheck
 
 License:        GPL-3.0-or-later
@@ -70,6 +70,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

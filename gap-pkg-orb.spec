@@ -4,7 +4,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        4.9.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Methods to enumerate orbits in GAP
 
 License:        GPL-3.0-or-later
@@ -101,6 +101,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

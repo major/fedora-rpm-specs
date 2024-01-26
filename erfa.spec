@@ -1,6 +1,6 @@
 Name: erfa
 Version: 2.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Essential Routines for Fundamental Astronomy
 
 License: BSD-3-Clause
@@ -49,6 +49,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/erfa.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

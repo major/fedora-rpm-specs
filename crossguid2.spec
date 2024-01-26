@@ -4,7 +4,7 @@
 
 Name: crossguid2
 Version: 0.2.2
-Release: 16.%{date}git%{short_commit}%{?dist}
+Release: 17.%{date}git%{short_commit}%{?dist}
 Summary: Lightweight cross platform C++ GUID/UUID library
 License: MIT
 URL: https://github.com/graeme-hill/crossguid/
@@ -68,6 +68,9 @@ pushd build
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-17.20190529gitca1bf4b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16.20190529gitca1bf4b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

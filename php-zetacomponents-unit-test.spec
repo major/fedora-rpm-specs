@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-zetacomponents-unit-test
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2024 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    cbcd611c1cbf9f019d2dfd6ac6d6cbd086afb558
+%global gh_commit    ba9fd9e050d822c590a87f6c3cf31d60f556209e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zetacomponents
 %global gh_project   UnitTest
@@ -15,11 +15,11 @@
 %global ezcdir       %{_datadir}/php/ezc
 
 Name:           php-%{gh_owner}-%{cname}
-Version:        1.2.4
-Release:        5%{?dist}
+Version:        1.2.5
+Release:        1%{?dist}
 Summary:        Zeta UnitTest Component
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://zetacomponents.org/
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -83,6 +83,9 @@ cp -pr src/*_autoload.php \
 
 
 %changelog
+* Tue Jan 23 2024 Remi Collet <remi@remirepo.net> - 1.2.5-1
+- update to 1.2.5
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           gnome-keyring
 Version:        42.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Framework for managing passwords and other secrets
 
 License:        GPLv2+ and LGPLv2+
@@ -131,6 +131,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

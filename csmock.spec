@@ -3,8 +3,8 @@
 %undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.5.0
-Release:    2%{?dist}
+Version:    3.5.1
+Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -52,7 +52,7 @@ Tool for plugging static analyzers into the build process, free of mock.
 
 %package -n csmock-common
 Summary: Core of csmock (a mock wrapper for Static Analysis tools)
-Requires: csdiff > 3.0.4
+Requires: csdiff > 3.1.0
 Requires: csgcca
 Requires: cswrap
 Requires: mock
@@ -290,6 +290,12 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Wed Jan 24 2024 Kamil Dudka <kdudka@redhat.com> 3.5.1-1
+- update to latest upstream
+
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		erlang-%{realname}
 Version:	0
-Release:	0.31.20110224git%{short_tag}%{?dist}
+Release:	0.32.20110224git%{short_tag}%{?dist}
 BuildArch:	noarch
 Summary:	Erlang Action Message Format Library
 License:	BSD
@@ -43,6 +43,9 @@ Erlang Action Message Format Library.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.32.20110224git8fea004
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.20110224git8fea004
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

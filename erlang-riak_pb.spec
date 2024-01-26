@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.3.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 BuildArch:	noarch
 Summary:	Riak Protocol Buffers Messages
 License:	ASL 2.0
@@ -46,6 +46,9 @@ various Erlang-specific utility modules for the message types.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -38,6 +38,7 @@ URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
 Patch0001:	0001-python-pyproject.toml.patch
+Patch0002:	0002-cpp-src-arrow-filesystem-util_internal.cc.orig
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -868,6 +869,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Jan 24 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.2-2
+- Fedora_40_Mass_Rebuild, again
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

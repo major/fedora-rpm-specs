@@ -1,6 +1,6 @@
 Name:           ethstatus
 Version:        0.4.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Console-based ethernet statistics monitor
 
 License:        GPLv2+
@@ -34,6 +34,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

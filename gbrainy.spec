@@ -4,7 +4,7 @@
 Name:       gbrainy
 Version:    2.4.6
 Epoch:      1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A brain teaser game and trainer to keep your brain trained
 
 License:    GPLv2
@@ -88,6 +88,9 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/%{name}/%{name}.exe.config
 %files devel
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

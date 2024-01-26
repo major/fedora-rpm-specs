@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    6%{?dist}
+Release:    7%{?dist}
 # COPYING:                      GPL-3.0 text
 # doc/indent.texi:              Latex2e-translated-notice
 #                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
@@ -116,6 +116,10 @@ Patch1:     indent-2.2.13-Fix-an-out-of-buffer-read-in-search_brace-lexi-on-an.p
 # Fix CVE-2023-40305 (a heap buffer overwrite in search_brace), bug #2231919,
 # in upstream after 2.2.13, <https://savannah.gnu.org/bugs/index.php?64503>
 Patch2:     indent-2.2.13-Fix-a-heap-buffer-overwrite-in-search_brace-CVE-2023.patch
+# Fix a heap buffer underread in set_buf_break(), bug #2259883,
+# in upstream after 2.2.13,
+# <https://lists.gnu.org/archive/html/bug-indent/2024-01/msg00000.html>
+Patch3:     indent-2.2.13-Fix-a-heap-buffer-underread-in-set_buf_break.patch
 BuildRequires:  autoconf >= 2.71
 # autoconf-archive for unbundled ax_cc_for_build.m4
 BuildRequires:  autoconf-archive
@@ -179,6 +183,9 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Wed Jan 24 2024 Petr Pisar <ppisar@redhat.com> - 2.2.13-7
+- Fix a heap buffer underread in set_buf_break() (bug #2259883)
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

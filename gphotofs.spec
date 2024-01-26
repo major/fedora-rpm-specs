@@ -1,7 +1,7 @@
 Summary: A FUSE filesystem module to mount your camera as a filesystem
 Name: gphotofs
 Version: 0.5
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPL+
 URL: http://www.gphoto.org/proj/gphotofs/
 BuildRequires:  gcc
@@ -33,6 +33,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/gphotofs
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

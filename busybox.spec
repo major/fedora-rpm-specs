@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.36.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -324,10 +324,14 @@ ln -s ./busybox.petitboot.1 %{buildroot}%{_mandir}/man1/busybox.%{default_type}.
 %endif
 install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.1
 
+# Create symlink for udhcpc so cloud-init can use it. rhbz#2247055
+ln -s ./busybox %{buildroot}%{_sbindir}/udhcpc
+
 %files
 %doc LICENSE README
 %{_sbindir}/busybox
 %{_sbindir}/busybox*.static
+%{_sbindir}/udhcpc
 %{_mandir}/man1/busybox*.static.1.gz
 
 %if 0%{?build_petitboot}
@@ -343,6 +347,9 @@ install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Wed Jan 24 2024 Major Hayden <major@redhat.com> - 1:1.36.1-6
+- Add symlink for udhcpc so cloud-init can use it rhbz#2247055
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.36.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

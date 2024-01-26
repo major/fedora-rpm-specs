@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.2.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 BuildArch:	noarch
 Summary:	Rate-limiting system_monitor event handler for Riak
 License:	ASL 2.0
@@ -46,6 +46,9 @@ cp -arv priv/ %{buildroot}%{erlang_appdir}/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

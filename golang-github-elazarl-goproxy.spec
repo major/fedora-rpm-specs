@@ -18,7 +18,7 @@ connection using "Man in the Middle" style attack.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        HTTP proxy library for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -53,6 +53,9 @@ BuildRequires:  golang(github.com/rogpeppe/go-charset/data)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

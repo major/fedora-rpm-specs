@@ -1,6 +1,6 @@
 Name:    libcryptui
 Version: 3.12.2
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Interface components for OpenPGP
 
 License: LGPLv2+
@@ -75,6 +75,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

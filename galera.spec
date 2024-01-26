@@ -1,6 +1,6 @@
 Name:           galera
 Version:        26.4.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -16,6 +16,7 @@ Source1:        garbd.service
 Source2:        garbd-wrapper
 
 Patch0:         cmake_paths.patch
+Patch1:         4e214d612359a294312943271abaf40685115fda.patch
 
 BuildRequires:  boost-devel check-devel openssl-devel cmake systemd gcc-c++ asio-devel
 Requires(pre):  /usr/sbin/useradd
@@ -35,6 +36,7 @@ description of Galera replication engine see https://www.galeracluster.com web.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{set_build_flags}
@@ -152,6 +154,9 @@ sed -i 's/User=nobody/User=garb/g' %{buildroot}/usr/lib/systemd/system/garbd.ser
 
 
 %changelog
+* Wed Jan 24 2024 Michal Schorm <mschorm@redhat.com> - 26.4.16-4
+- Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           ell
 Version:        0
-Release:        0.24.20130617svn%{?dist}
+Release:        0.25.20130617svn%{?dist}
 Summary:        Header-only C++ library to write EBNF grammars
 
 License:        LGPLv3+
@@ -50,6 +50,9 @@ cp -pr libELL/Include/ell/*.h %{buildroot}%{_includedir}/ell
 %{_includedir}/ell/*.h
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20130617svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24.20130617svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

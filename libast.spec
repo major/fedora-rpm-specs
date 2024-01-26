@@ -3,7 +3,7 @@
 Summary:       Library of Assorted Spiffy Things
 Name:          libast
 Version:       0.7.1
-Release:       0.40.%{cvs}cvs%{?dist}
+Release:       0.41.%{cvs}cvs%{?dist}
 License:       BSD
 URL:           http://www.eterm.org/
 # Sources are pulled from cvs:
@@ -78,6 +78,9 @@ touch -r ChangeLog %{buildroot}%{_bindir}/libast-config
 %exclude %{_libdir}/*.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-0.41.20080502cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-0.40.20080502cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

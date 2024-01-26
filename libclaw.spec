@@ -1,6 +1,6 @@
 Name:           libclaw
 Version:        1.7.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        C++ Library of various utility functions
 License:        LGPLv2
 URL:            http://libclaw.sourceforge.net/
@@ -98,6 +98,9 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

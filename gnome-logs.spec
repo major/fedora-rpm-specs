@@ -2,7 +2,7 @@
 
 Name:           gnome-logs
 Version:        45~beta
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Log viewer for the systemd journal
 
 # data/org.gnome.Logs.appdata.xml.in is CC0-1.0
@@ -59,6 +59,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45~beta-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45~beta-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

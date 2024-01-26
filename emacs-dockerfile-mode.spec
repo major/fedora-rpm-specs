@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An emacs mode for handling Dockerfiles
 
 License:        ASL 2.0
@@ -45,6 +45,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

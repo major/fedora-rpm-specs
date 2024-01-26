@@ -1,8 +1,8 @@
 %global snapshot 0
 
 Name:       ibus-libzhuyin
-Version:    1.10.2
-Release:    5%{?dist}
+Version:    1.10.3
+Release:    1%{?dist}
 Summary:    New Zhuyin engine based on libzhuyin for IBus
 License:    GPL-2.0-or-later
 URL:        https://github.com/libzhuyin/ibus-libzhuyin
@@ -57,7 +57,7 @@ based on libzhuyin for IBus.
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING README ChangeLog INSTALL NEWS
-%{_datadir}/appdata/*.appdata.xml
+%{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
 %{_datadir}/applications/ibus-setup-libzhuyin.desktop
 %{_libexecdir}/ibus-engine-libzhuyin
@@ -71,6 +71,10 @@ based on libzhuyin for IBus.
 
 
 %changelog
+* Wed Jan 24 2024 Peng Wu <pwu@redhat.com> - 1.10.3-1
+- Update to 1.10.3
+- bug fixes
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

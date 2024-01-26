@@ -6,7 +6,7 @@
 
 Name:          jackson-dataformats-binary
 Version:       2.9.8
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       Jackson standard binary data format backends
 # One file is BSD licensed: protobuf/src/main/resources/descriptor.proto
 License:       ASL 2.0 and BSD
@@ -137,6 +137,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

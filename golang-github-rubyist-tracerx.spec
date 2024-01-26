@@ -20,7 +20,7 @@ default can by changed by setting the DefaultKey. }
 
 Name:           %{goname}
 Version:        0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Output tracing information in your Go app based on environment variables
 
 License:        MIT
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

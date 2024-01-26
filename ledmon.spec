@@ -22,6 +22,9 @@ BuildRequires: systemd-rpm-macros
 Obsoletes: ledctl = 0.1-1
 Provides: ledctl = %{version}-%{release}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 The ledmon and ledctl are user space applications design to control LED
 associated with each slot in an enclosure or a drive bay. There are two

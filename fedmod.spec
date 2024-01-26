@@ -2,7 +2,7 @@
 
 Name:           fedmod
 Version:        0.6.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utilities for generating & maintaining modulemd files
 
 License:        GPLv2+ and GPLv3+ and MIT
@@ -76,6 +76,9 @@ fi
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

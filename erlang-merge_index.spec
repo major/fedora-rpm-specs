@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1
-Release:	20%{?dist}
+Release:	21%{?dist}
 BuildArch:	noarch
 Summary:	An Erlang library for storing ordered sets on disk
 License:	ASL 2.0
@@ -45,6 +45,9 @@ similar to an SSTable (in Google's Bigtable) or an HFile (in Hadoop).
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

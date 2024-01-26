@@ -1,7 +1,7 @@
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
 Version: 24.01.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://apps.kde.org/kbreakout/
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.k
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.80-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

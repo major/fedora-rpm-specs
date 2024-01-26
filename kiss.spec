@@ -7,7 +7,7 @@
 
 Name:           kiss
 Version:        0~%{date}git%{shortcommit0}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Initial setup for systems using Plasma
 License:        GPLv3
 URL:            https://invent.kde.org/system/%{name}
@@ -48,6 +48,9 @@ BuildRequires:  systemd-rpm-macros
 %{_unitdir}/org.kde.initialsystemsetup.service
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~20211207git22cf331-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~20211207git22cf331-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

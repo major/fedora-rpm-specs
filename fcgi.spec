@@ -1,6 +1,6 @@
 Name:           fcgi
 Version:        2.4.0
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        FastCGI development kit
 
 License:        OML
@@ -79,6 +79,9 @@ rm -f -- doc/*.3
 %doc doc/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:     erlang-%{realname}
 Version:  1.6.0
-Release:  5%{?dist}
+Release:  6%{?dist}
 Summary:  Extension to Erlang's standard library
 License:  MIT
 URL:      https://github.com/%{upstream}/%{realname}
@@ -37,6 +37,9 @@ cp -arv priv/ %{buildroot}%{erlang_appdir}/
 %{erlang_appdir}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:      erlang-%{srcname}
 Version:   1.11.2
-Release:   11%{?dist}
+Release:   12%{?dist}
 BuildArch: noarch
 
 License: MIT
@@ -47,6 +47,9 @@ BuildRequires: erlang-triq
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

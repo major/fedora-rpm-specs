@@ -1,7 +1,7 @@
 Summary: Utilities for use with dual head setups using independent screens
 Name: dualscreen-mouse-utils
 Version: 0.5
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPLv2
 URL: http://digamma.cs.unm.edu/trac.dmohr/wiki/DualscreenMouseUtils
 Source0: http://dsp.mcbf.net/releases/dualscreen-mouse-utils-%{version}.tar.gz
@@ -39,6 +39,9 @@ install -m 755 mouse-wrapscreen mouse-switchscreen %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

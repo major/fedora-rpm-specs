@@ -15,7 +15,7 @@ ABAC in Golang.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An authorization library for ACL, RBAC and ABAC
 
 License:        ASL 2.0
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/golang/mock/gomock)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.63.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.63.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

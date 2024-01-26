@@ -1,6 +1,6 @@
 Name:           diff-pdf
 Version:        0.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple tool for visually comparing two PDF files
 
 License:        GPLv2+ and LGPLv2+
@@ -38,6 +38,9 @@ automake --add-missing --copy --foreign
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

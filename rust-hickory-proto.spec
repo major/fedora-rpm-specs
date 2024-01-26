@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/hickory-proto
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump ring dependency from 0.16 to 0.17
+# * bump h3 dependency from 0.0.2 to 0.0.3
+# * bump h3-quinn dependency from 0.0.3 to 0.0.4
 # * remove unused tracing-subscriber dev-dependency
 # * add missing "tokio/io-util" dependency for the "tokio-runtime" feature
 Patch:          hickory-proto-fix-metadata.diff

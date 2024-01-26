@@ -19,15 +19,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
 Name:    gtk3
-Version: 3.24.40
+Version: 3.24.41
 Release: 1%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk+/3.24/gtk+-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6782
-Patch:   gtk-3.24.40-cast-fixes.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
@@ -51,7 +49,6 @@ BuildRequires: pkgconfig(wayland-egl) >= %{wayland_version}
 BuildRequires: pkgconfig(wayland-protocols) >= %{wayland_protocols_version}
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xrandr) >= %{xrandr_version}
-BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xfixes)
@@ -307,6 +304,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Wed Jan 24 2024 David King <amigadave@amigadave.com> - 3.24.41-1
+- Update to 3.24.41
+
 * Fri Jan 19 2024 David King <amigadave@amigadave.com> - 3.24.40-1
 - Update to 3.24.40
 

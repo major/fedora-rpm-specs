@@ -5,16 +5,13 @@
 %global crate fend-core
 
 Name:           rust-fend-core
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Arbitrary-precision unit-aware calculator
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/fend-core
 Source:         %{crates_source}
-
-# Upstream PR at https://github.com/printfn/fend/pull/260 (merged but not released yet)
-Source1:        https://raw.githubusercontent.com/printfn/fend/main/LICENSE.md
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,7 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -p %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

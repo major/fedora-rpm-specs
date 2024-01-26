@@ -19,7 +19,7 @@ Goavro is a library that encodes and decodes Avro data.}
 %global godocs          examples AUTHORS README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library that encodes and decodes Avro data
 
 # Upstream license specification: Apache-2.0
@@ -48,6 +48,9 @@ BuildRequires:  golang(github.com/golang/snappy)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:           kjots
 Summary:        KDE Notes application
 Version:        5.1.1^%{gitdate}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2
 URL:            https://userbase.kde.org/KJots
 
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/org.kde.k
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1^20231210.013931.1d19021-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1^20231210.013931.1d19021-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

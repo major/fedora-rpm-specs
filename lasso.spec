@@ -76,7 +76,7 @@ BuildRequires: (python3-setuptools if python3 >= 3.12)
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2+
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -333,6 +333,9 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2.8.2-8
 - libxml2 2.12 fix for incompatible-pointer-types errors
 - Add conditional BuildRequires: on python3-setuptools for unbundled distutils

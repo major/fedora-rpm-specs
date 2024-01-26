@@ -5,16 +5,19 @@
 %global module_name skmisc
 
 # Enable tests
-%bcond_without tests
+%bcond tests 1
 
 %global _description %{expand:
 Miscellaneous tools for data analysis and scientific computing.}
 
+
 Name:           python-%{pypi_name}
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Miscellaneous tools for data analysis and scientific computing
+
 %forgemeta
+
 # MIT License applies to doc/theme/static/bootstrap-3.4.1
 # Python-2.0.1 license applies to doc/_static/copybutton.js
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
@@ -25,6 +28,7 @@ Source0:        %forgesource
 Patch:          use_flexiblas.patch
 
 %description %_description
+
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
@@ -82,6 +86,7 @@ sed -r -i 's/(numpy)==/\1>=/' pyproject.toml
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
+
 
 %changelog
 %autochangelog

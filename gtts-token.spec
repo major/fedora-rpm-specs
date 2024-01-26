@@ -5,7 +5,7 @@
 
 Name:           gtts-token
 Version:        1.1.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Calculates a token to run the Google Translate text to speech
 License:        MIT
 URL:            https://github.com/boudewijn26/gTTS-token
@@ -53,6 +53,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/gtts_token/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

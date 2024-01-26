@@ -2,7 +2,7 @@
 
 Name: gyazo
 Version: 1.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Screen capture (screenshot) tool
 License: GPLv3+
 BuildArch: noarch
@@ -50,6 +50,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

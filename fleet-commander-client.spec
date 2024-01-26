@@ -1,6 +1,6 @@
 Name:           fleet-commander-client
 Version:        0.15.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fleet Commander Client
 
 BuildArch: noarch
@@ -103,6 +103,9 @@ network of users and workstations/laptops.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %define		mainver		0.7.1
-%define		baserelease	13
+%define		baserelease	14
 %define		repoid		18105
 
 
@@ -115,6 +115,9 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

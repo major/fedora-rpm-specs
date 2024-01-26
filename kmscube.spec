@@ -4,7 +4,7 @@
 
 Name: kmscube
 Version: 0
-Release: 6.%{commitdate}.git%{shortcommit}%{?dist}
+Release: 7.%{commitdate}.git%{shortcommit}%{?dist}
 Summary: Example KMS/GBM/EGL application
 License: MIT
 URL: https://gitlab.freedesktop.org/mesa/kmscube/
@@ -36,6 +36,9 @@ for rendering content using OpenGL or OpenGL ES.
 %{_bindir}/texturator
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-7.20230609.git0be1681
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-6.20230609.git0be1681
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

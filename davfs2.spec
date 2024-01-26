@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A filesystem driver for WebDAV
 License:        GPLv3+
 URL:            https://savannah.nongnu.org/projects/davfs2
@@ -91,6 +91,9 @@ exit 0
 %ghost %dir %attr(01775,root,%{groupname}) %{piddir}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

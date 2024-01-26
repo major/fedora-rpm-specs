@@ -3,7 +3,7 @@
 
 Name:           disk-utilities
 Version:        2021.03.20
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utilities for ripping, dumping, analysing, and modifying disk images
 
 License:        Unlicense
@@ -68,6 +68,9 @@ export caps=y
 %{_libdir}/libdisk.so
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2021.03.20-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2021.03.20-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

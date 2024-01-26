@@ -4,7 +4,7 @@
 
 Name:           libbtbb
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Bluetooth baseband decoding library
 License:        GPLv2
 URL:            https://github.com/greatscottgadgets/libbtbb
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

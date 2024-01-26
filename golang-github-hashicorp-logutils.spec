@@ -16,7 +16,7 @@ Utilities for slightly better logging in go (golang).}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Utilities for slightly better logging in go (golang)
 
 # Upstream license specification: MPL-2.0
@@ -55,6 +55,9 @@ end
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

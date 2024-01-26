@@ -14,7 +14,7 @@ Godirwalk is a library for traversing a directory tree on a file system..}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fast directory traversal for Golang
 
 # Upstream license specification: BSD-2-Clause
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/mattn/go-isatty)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

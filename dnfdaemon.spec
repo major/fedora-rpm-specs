@@ -3,7 +3,7 @@
 
 Name:           dnfdaemon
 Version:        0.3.20
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        DBus daemon for dnf package actions
 
 License:        GPLv2+
@@ -119,6 +119,9 @@ fi
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.20-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.20-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

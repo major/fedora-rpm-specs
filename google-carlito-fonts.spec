@@ -1,7 +1,7 @@
 %global archivename crosextrafonts-carlito-20130920
 
 Version:        1.103
-Release:        0.23.20130920%{?dist}
+Release:        0.24.20130920%{?dist}
 URL:            https://bugs.chromium.org/p/chromium/issues/detail?id=280557
 
 %global foundry           google
@@ -45,6 +45,9 @@ Source2:        62-%{fontpkgname}.conf
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.103-0.24.20130920
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.103-0.23.20130920
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

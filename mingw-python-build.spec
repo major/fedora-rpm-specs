@@ -9,8 +9,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        0.10.0
-Release:        3%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -129,6 +129,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Wed Jan 24 2024 Sandro Mani <manisandro@gmail.com> - 1.0.3-1
+- Update to 1.0.3
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

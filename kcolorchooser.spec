@@ -1,7 +1,7 @@
 Name:    kcolorchooser
 Summary: A color chooser 
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD 
 URL:     https://apps.kde.org/kcolorchooser/
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

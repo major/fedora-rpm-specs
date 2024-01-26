@@ -1,7 +1,7 @@
 Summary: Access control list utilities
 Name: acl
-Version: 2.3.1
-Release: 13%{?dist}
+Version: 2.3.2
+Release: 1%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -14,21 +14,12 @@ Requires: libacl%{?_isa} = %{version}-%{release}
 Source0: https://download-mirror.savannah.gnu.org/releases/acl/acl-%{version}.tar.gz
 Source1: https://download-mirror.savannah.gnu.org/releases/acl/acl-%{version}.tar.gz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
-Source2: agruen-key.gpg
+# Source2: agruen-key.gpg
+# Retrieved from https://savannah.nongnu.org/people/viewgpg.php?user_id=42032
+Source2: vapier-key.gpg
 
 # avoid permission denied problem with LD_PRELOAD in the test-suite
 Patch1: 0001-acl-2.2.53-test-runwrapper.patch
-
-# add georgian translation
-Patch2: 0002-add-georgian.patch
-
-# preserve failed setfacl return code (RHEL-3909)
-# https://git.savannah.nongnu.org/cgit/acl.git/commit/?id=7ce89c695e76ec41fcebd83f8b728f63b0361a2d
-Patch3: 0003-acl-2.3.1-setfacl-preserve-failed-status.patch
-
-# make acl compatible with -D_FORTIFY_SOURCE=3 (rhbz#2249839)
-# https://git.savannah.nongnu.org/cgit/acl.git/commit/?id=6f9b9246ee91eaf09c3774ff95950624ef818476
-Patch4: 0004-acl-2.3.1-libobj-declare-s_str-directly-in-string_obj_tag.patch
 
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://savannah.nongnu.org/projects/acl
@@ -67,9 +58,6 @@ defined in POSIX 1003.1e draft standard 17.
 # uncomment to turn on optimizations
 # sed -i 's/-O2/-O0/' libtool include/builddefs
 # unset CFLAGS
-
-# TODO: Remove when updating to a new upstream release
-%make_build -C po ka.gmo
 
 %make_build
 
@@ -138,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Wed Jan 24 2024 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.2-1
+- rebase to latest version (rhbz#2260000)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

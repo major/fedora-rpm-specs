@@ -1,6 +1,6 @@
 Name:		fex
 Version:	2.0.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Field split/extraction like cut/awk
 
 License:	BSD
@@ -37,6 +37,9 @@ make install DESTDIR=%{buildroot}  PREFIX=%{_prefix}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

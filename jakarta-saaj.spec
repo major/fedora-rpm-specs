@@ -2,7 +2,7 @@
 
 Name:           jakarta-saaj
 Version:        3.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SOAP with Attachments API for Java
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/saaj-api
@@ -64,6 +64,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

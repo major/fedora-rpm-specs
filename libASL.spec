@@ -5,7 +5,7 @@
 
 Name:           lib%{upstream}
 Version:        0.1.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Advanced Simulation Library hardware accelerated multiphysics simulation platform
 
 License:        AGPLv3 and BSD and MIT
@@ -206,6 +206,9 @@ mv %{buildroot}%{_datadir}/%{upstream}/input %{buildroot}%{_docdir}/%{name}-exam
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

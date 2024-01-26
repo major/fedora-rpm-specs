@@ -1,6 +1,6 @@
 Name:           gom
 Version:        0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        GObject to SQLite object mapper library
 
 License:        LGPLv2+
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.17
-Release: 3%{?dist}
+Version: 40.18
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -35,7 +35,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
 %define libreportanacondaver 2.0.21-1
-%define libtimezonemapver 0.4.1-2
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
@@ -70,7 +69,6 @@ BuildRequires: libarchive-devel >= %{libarchivever}
 %ifarch s390 s390x
 BuildRequires: s390utils-devel
 %endif
-BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
 
 # Tools used by the widgets resource bundle generation
 BuildRequires: gdk-pixbuf2-devel
@@ -278,7 +276,6 @@ Requires: adwaita-icon-theme
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
-Requires: libtimezonemap >= %{libtimezonemapver}
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
@@ -465,6 +462,17 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 24 2024 Jiri Konecny <jkonecny@redhat.com> - 40.18-1
+- Use flag file to signal backend is ready (jkonecny)
+- Start Firefox before Anaconda on Live (jkonecny)
+- Update translations from Weblate for master (github-actions)
+- Evaluate live keyboard sources safely (vslavik)
+- rescue: Don't allow to mount systems without a root device (vponcova)
+- gui: Redesign the Time & Date spoke (vponcova)
+- gui: Update the glade file of the Time & Date spoke (vponcova)
+- gui: Remove the timezone map from the Time & Date spoke (vponcova)
+- Update translations from Weblate for master (github-actions)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

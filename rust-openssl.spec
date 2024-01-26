@@ -5,7 +5,7 @@
 %global crate openssl
 
 Name:           rust-openssl
-Version:        0.10.62
+Version:        0.10.63
 Release:        %autorelease
 Summary:        OpenSSL bindings
 
@@ -17,6 +17,9 @@ Source:         %{crates_source}
 # * drop feature and dependencies for building against vendored OpenSSL sources
 # * bump hex dev-dependency from 0.3 to 0.4
 Patch:          openssl-fix-metadata.diff
+# * set "PROFILE=SYSTEM" as default argument for SSL_CTX_set_cipher_list
+#   so applications that use the "default" context follow system crypto policy
+Patch:          0001-set-PROFILE-SYSTEM-as-default-cipher-list.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

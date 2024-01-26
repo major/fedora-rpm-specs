@@ -1,6 +1,6 @@
 Name: flameshot
 Version: 12.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Main code: GPL-3.0-or-later
 # Logo: LAL-1.3
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

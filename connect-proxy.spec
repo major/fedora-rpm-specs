@@ -1,6 +1,6 @@
 Name:           connect-proxy
 Version:        1.100
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        SSH Proxy command helper
 
 License:        GPLv2+
@@ -52,6 +52,9 @@ cp -p %{name}.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

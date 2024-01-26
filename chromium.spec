@@ -291,7 +291,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 121.0.6167.71
+Version: 121.0.6167.85
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1802,6 +1802,20 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 24 2024 Than Ngo <than@redhat.com> - 121.0.6167.85-1
+- update to 121.0.6167.85
+  * High CVE-2024-0807: Use after free in WebAudio
+  * High CVE-2024-0812: Inappropriate implementation in Accessibility
+  * High CVE-2024-0808: Integer underflow in WebUI
+  * Medium CVE-2024-0810: Insufficient policy enforcement in DevTools
+  * Medium CVE-2024-0814: Incorrect security UI in Payments
+  * Medium CVE-2024-0813: Use after free in Reading Mode
+  * Medium CVE-2024-0806: Use after free in Passwords
+  * Medium CVE-2024-0805: Inappropriate implementation in Downloads
+  * Medium CVE-2024-0804: Insufficient policy enforcement in iOS Security UI
+  * Low CVE-2024-0811: Inappropriate implementation in Extensions API
+  * Low CVE-2024-0809: Inappropriate implementation in Autofill
+
 * Tue Jan 23 2024 Than Ngo <than@redhat.com> - 121.0.6167.71-1
 - update to 121.0.6167.71
 

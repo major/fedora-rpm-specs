@@ -1,6 +1,6 @@
 Name:           gsim85
 Version:        0.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        An 8085 microprocessor simulator
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           kchmviewer
 Version:        8.0
 %global _tag RELEASE_%(echo %{version} | sed 's/\\./_/g')
 %global _appid net.%{name}.%{name}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        CHM viewer
 
 License:        GPLv3+
@@ -70,6 +70,9 @@ install -Dpm 644 packages/%{name}.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/1
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

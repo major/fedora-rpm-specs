@@ -5,7 +5,7 @@
 
 Name:           clutter-gtk
 Version:        1.8.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A basic GTK clutter widget
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ make check %{?_smp_mflags} V=1
 %{_datadir}/gtk-doc/html/clutter-gtk-1.0
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

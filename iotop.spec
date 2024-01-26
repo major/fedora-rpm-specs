@@ -1,6 +1,6 @@
 Name: iotop
 Version: 0.6^20240108git4b2e1aa2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Top like utility for I/O       
 License: GPL-2.0-or-later
 URL: http://guichaz.free.fr/iotop/            
@@ -44,6 +44,9 @@ show of behalf of which process is the I/O going on.
 %{_mandir}/man8/iotop.*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6^20240108git4b2e1aa2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6^20240108git4b2e1aa2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

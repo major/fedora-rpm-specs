@@ -18,7 +18,7 @@ and maintained by Oracle Corp.}
 %global godocs          example CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Go SDK for Oracle Cloud Infrastructure
 
 License:        UPL or ASL 2.0
@@ -53,6 +53,9 @@ sed -i "s|github.com/oracle/oci-go-sdk|github.com/oracle/oci-go-sdk-24|" $(find 
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

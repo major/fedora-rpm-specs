@@ -15,7 +15,7 @@ Remote Procedure Call libraries
 %global godocs          v2/examples v2/README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Remote Procedure Call libraries
 
 # Upstream license specification: Apache-2.0
@@ -50,6 +50,9 @@ sed -i 's|github.com/jcmturner/rpc|github.com/jcmturner/rpc/v2|' $(find .  -maxd
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ibus-rime
 Version:        1.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Rime Input Method Engine for IBus
 Summary(zh):    中州韻輸入法引擎
 
@@ -55,6 +55,9 @@ Rime 預設輸入方案有：朙月拼音、語句流、倉頡、速成、五筆
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

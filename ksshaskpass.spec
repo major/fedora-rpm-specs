@@ -1,6 +1,6 @@
 Name:    ksshaskpass
 Version: 5.92.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
 License: GPLv2
@@ -53,6 +53,9 @@ EOF
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

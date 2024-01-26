@@ -15,7 +15,7 @@ Gopher-luar simplifies data passing to and from gopher-lua.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simplifies data passing to and from gopher-lua
 
 # Upstream license specification: MPL-2.0
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/yuin/gopher-lua)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

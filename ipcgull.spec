@@ -3,7 +3,7 @@
 
 Name:    ipcgull
 Version: 0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A GDBus-based IPC library for modern C++
 %forgemeta
 
@@ -61,6 +61,9 @@ install -D -pm 755 redhat-linux-build/libipcgull_shared.so.%{proj_epoc} %{buildr
 %{_includedir}/ipcgull/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

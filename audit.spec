@@ -2,12 +2,12 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.0
-Release: 3%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
-
+Patch1: audit-4.0-attributes.patch
 BuildRequires: make gcc
 BuildRequires: kernel-headers >= 5.0
 BuildRequires: systemd
@@ -96,6 +96,7 @@ The audit rules package contains the rules and utilities to load audit rules.
 
 %prep
 %setup -q
+%patch 1 -p1
 cp %{SOURCE1} .
 
 # Remove the ids code, its not ready
@@ -137,8 +138,20 @@ rm -f rules/Makefile*
 
 %post
 %systemd_post auditd.service
+# If an upgrade, restart it if it's running
+if [ $1 -eq 2 ]; then
+    state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
+    if [ $state = "active" ] ; then
+        auditctl --signal stop || true
+        systemctl start auditd
+    fi
+# if an install, start it since preset says we should be running
+elif [ $1 -eq 1 ]; then
+        systemctl start auditd
+fi
 
 %post rules
+%systemd_post audit-rules.service
 # Copy default rules into place on new installation
 files=`ls /etc/audit/rules.d/ 2>/dev/null | wc -w`
 if [ "$files" -eq 0 ] ; then
@@ -154,29 +167,24 @@ if [ "$files" -eq 0 ] ; then
 	else
 		touch /etc/audit/rules.d/audit.rules
 	fi
+	# Fix up permissions
 	chmod 0600 /etc/audit/rules.d/audit.rules
+	# Make the new rules active
+	augenrules --load || true
 fi
-%systemd_post audit-rules.service
 
 %preun
 %systemd_preun auditd.service
+# If uninstalling, stop it
 if [ $1 -eq 0 ]; then
-    auditctl --signal stop
+    auditctl --signal stop || true
 fi
 
 %preun rules
 %systemd_preun audit-rules.service
+# If uninstalling, delete the rules loaded in the kernel
 if [ $1 -eq 0 ]; then
-    auditctl -D > /dev/null 2>&1
-fi
-
-%postun
-if [ $1 -ge 1 ]; then
-    state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
-    if [ $state = "active" ] ; then
-        auditctl --signal stop
-        systemctl start auditd
-    fi
+    auditctl -D > /dev/null 2>&1 || true
 fi
 
 %files libs
@@ -278,6 +286,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Wed Jan 24 2024 Steve Grubb <sgrubb@redhat.com> 4.0-5
+- Auditd is stopping during upgrade (bz 2259610)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

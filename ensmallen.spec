@@ -1,6 +1,6 @@
 Name:           ensmallen
 Version:        2.19.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Header-only C++ library for efficient mathematical optimization
 
 License:        BSD
@@ -80,6 +80,9 @@ gradient-free optimizers, and constrained optimization.
 %{_libdir}/cmake/ensmallen/ensmallen-targets.cmake
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

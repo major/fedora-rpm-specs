@@ -6,7 +6,7 @@
 
 Name:           dconf-editor
 Version:        45.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Configuration editor for dconf
 
 License:        GPLv3+ and CC0
@@ -72,6 +72,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ca.desrt.dconf-edi
 %{_mandir}/man1/dconf-editor.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

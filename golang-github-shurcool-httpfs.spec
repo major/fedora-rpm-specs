@@ -15,7 +15,7 @@ Collection of Go packages for working with the http.FileSystem interface.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Collection of Go packages for working with the http.FileSystem interface
 
 License:        MIT
@@ -43,6 +43,9 @@ BuildRequires:  golang(github.com/shurcooL/httpgzip)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

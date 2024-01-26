@@ -1,6 +1,6 @@
 Name:       fedora-jam-kde-theme
 Version:    3.0.6
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Fedora Jam KDE Theme and Configs
 
 License:    MIT
@@ -53,6 +53,9 @@ cp -p %{SOURCE1} .
 %config(noreplace) %{_sysconfdir}/sysctl.d/50-fedora-jam.conf
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -208,8 +208,9 @@ Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
 Patch0035:	0035-src-CMakeLists.txt.patch
 Patch0036:	0036-18.2.1.release.patch
-Patch37: ceph-c99-1.patch
-Patch38: ceph-c99-2.patch
+Patch0037:	ceph-c99-1.patch
+Patch0038:	ceph-c99-2.patch
+Patch0039:	0039-src-common-dout.h.patch
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
 %if 0%{?suse_version}
@@ -2638,6 +2639,10 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Wed Jan 24 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-7
+- rebuild for Fedora_40_Mass_Rebuild, gcc-14, and rocksdb-8.10.0,
+  libarrow-14.0.2
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:18.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

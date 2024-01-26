@@ -1,5 +1,5 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.19.0
+Version:        3.19.1
 Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -54,6 +54,12 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Wed Jan 24 2024 Packit <hello@packit.dev> - 3.19.1-1
+- chore(release): 3.19.1 release notes (semantic-release-bot)
+- Bump version: 3.19.0 → 3.19.1 (semantic-release-bot)
+- fix: use the correct SSL config if cert verification is disabled (#187) (Norbert Biczo)
+- Resolves rhbz#2259660
+
 * Mon Jan 22 2024 Packit <hello@packit.dev> - 3.19.0-1
 - chore(release): 3.19.0 release notes (semantic-release-bot)
 - Bump version: 3.18.2 → 3.19.0 (semantic-release-bot)

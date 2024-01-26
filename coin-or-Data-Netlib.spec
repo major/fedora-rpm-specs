@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	COIN-OR Netlib models
 Version:	1.2.9
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		https://www.coin-or.org/download/pkgsource/Data
 Source0:	%{url}/%{module}-%{version}.tgz
@@ -38,6 +38,9 @@ sed -i '/ctype\.h/i#include <stdlib.h>' configure
 %{_datadir}/pkgconfig/coindatanetlib.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

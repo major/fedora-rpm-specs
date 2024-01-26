@@ -1,6 +1,6 @@
 Name: daemonize
 Version: 1.7.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Run a command as a Unix daemon
 
 License: BSD
@@ -53,6 +53,9 @@ make DESTDIR=%{buildroot} INSTALL="install -p" install
 %{_mandir}/man1/daemonize.1.gz
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 %{!?dnf_lowest_compatible: %global dnf_lowest_compatible 4.4.3}
 %global dnf_plugins_extra_obsolete 2.0.0
+%global rpmconf_lowest_compatible 1.1.3
 
 %undefine __cmake_in_source_build
 
 Name:           dnf-plugins-extras
-Version:        4.1.1
-Release:        2%{?dist}
+Version:        4.1.2
+Release:        1%{?dist}
 Summary:        Extras Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
@@ -55,10 +56,10 @@ Kickstart file.
 
 %package -n python3-dnf-plugin-rpmconf
 Summary:        RpmConf Plugin for DNF
-BuildRequires:  python3-rpmconf
+BuildRequires:  python3-rpmconf >= %{rpmconf_lowest_compatible}
 Requires:       python3-%{name}-common = %{version}-%{release}
 %{?python_provide:%python_provide python3-%{name}-rpmconf}
-Requires:       python3-rpmconf
+Requires:       python3-rpmconf >= %{rpmconf_lowest_compatible}
 Provides:       %{name}-rpmconf = %{version}-%{release}
 Provides:       dnf-plugin-rpmconf = %{version}-%{release}
 Provides:       python3-%{name}-rpmconf = %{version}-%{release}
@@ -158,6 +159,7 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-rpmconf.*
 
 %files -n python3-dnf-plugin-snapper
+%config(noreplace) %{_sysconfdir}/dnf/plugins/snapper.conf
 %{python3_sitelib}/dnf-plugins/snapper.*
 %{python3_sitelib}/dnf-plugins/__pycache__/snapper.*
 %{_mandir}/man8/dnf-snapper.*
@@ -179,6 +181,11 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Wed Jan 24 2024 Jan Kolarik <jkolarik@redhat.com> - 4.1.2-1
+- Update to 4.1.2
+- snapper: Add support for specifying snapper config name (RhBug:2089544)
+- rpmconf: Implement unattended config option
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

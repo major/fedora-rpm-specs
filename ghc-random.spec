@@ -12,7 +12,7 @@
 Name:           ghc-%{pkg_name}
 Version:        1.2.1.1
 # can only be reset when all subpkgs bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pseudo-random number generation
 
 License:        BSD-3-Clause
@@ -176,6 +176,9 @@ dos2unix -k -n %{SOURCE2} %{splitmix}/splitmix.cabal
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

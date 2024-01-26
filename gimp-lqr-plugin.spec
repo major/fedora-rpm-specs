@@ -1,6 +1,6 @@
 Name:           gimp-lqr-plugin
 Version:        0.7.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Content-aware resizing plug-in for the GIMP
 License:        GPLv2+
 URL:            http://liquidrescale.wikidot.com/
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.me
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

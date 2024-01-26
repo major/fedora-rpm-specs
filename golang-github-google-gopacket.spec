@@ -17,11 +17,10 @@ Package Gopacket provides packet decoding for the Go language.}
 %global godocs          examples AUTHORS CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Provides packet processing capabilities for Go
 
-# Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -42,12 +41,24 @@ BuildRequires:  libpcap-devel
 
 %if %{with check}
 %check
+# TestBPFInstruction fails with libpcap >= 1.10.2
+# https://github.com/google/gopacket/issues/1088
+%if 0%{?fedora} || 0%{?rhel} > 9
+rm pcap/pcap_test.go
+%endif
 %gocheck -d pfring
 %endif
 
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Michel Lind <salimma@fedoraproject.org> - 1.1.19-10
+- Don't run TestBPFInstruction on releases with too-new libpcap
+- Use SPDX license identifier
+
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

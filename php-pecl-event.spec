@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-event
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -15,7 +15,7 @@
 %global with_zts    0%{?__ztsphp:1}
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 3.1.1
+%global upstream_version 3.1.2
 #global upstream_prever  RC3
 #global upstream_postver r1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -24,7 +24,7 @@
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       2%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/event
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -190,6 +190,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Jan 24 2024 Remi Collet <remi@remirepo.net> - 3.1.2-1
+- update to 3.1.2
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

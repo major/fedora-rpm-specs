@@ -11,7 +11,7 @@
 
 Name:    genders
 Version: %{majorver}.%{minorver}.%{patchver}
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Static cluster configuration database
 License: GPLv2
 URL: https://github.com/chaos/genders
@@ -209,6 +209,9 @@ mv %{buildroot}/%{_datarootdir}/java/Genders.jar %{buildroot}/%{_jnidir}/
 %{_usr}/lib/genders/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

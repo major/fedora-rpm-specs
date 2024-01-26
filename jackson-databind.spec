@@ -1,6 +1,6 @@
 Name:           jackson-databind
 Version:        2.16.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -73,6 +73,9 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-2
 - Force the java bytecode version to java11
 

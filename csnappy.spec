@@ -11,7 +11,7 @@
 
 Name:       csnappy 
 Version:    0
-Release:    28.20211216git%{shortcommit}%{?dist}
+Release:    29.20211216git%{shortcommit}%{?dist}
 Summary:    Snappy compression library ported to C 
 License:    BSD-3-Clause
 URL:        https://github.com/zeevt/%{name}
@@ -76,6 +76,9 @@ make %{?_smp_mflags} 'OPT_FLAGS=%{optflags}' 'LDFLAGS=%{?__global_ldflags}' chec
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-29.20211216git6c10c30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-28.20211216git6c10c30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

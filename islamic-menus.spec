@@ -3,7 +3,7 @@
 
 Name:			islamic-menus
 Version:		1.0.6
-Release:		21%{?dist}
+Release:		22%{?dist}
 Summary:		Islamic menus for desktops conforming with XDG standards
 License:		GPLv3+
 URL:			https://github.com/ojuba-org/islamic-menus
@@ -34,6 +34,9 @@ rm %{buildroot}%{_sysconfdir}/xdg/menus/applications-gnome-merged/islamic.menu
 %{_datadir}/icons/hicolor/scalable/categories/*.svg
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

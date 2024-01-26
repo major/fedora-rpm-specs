@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.1.8
-Release:        2%{?dist}
+Version:        1.1.9
+Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
@@ -70,7 +70,6 @@ Common files for Double Commander GTK2 and Qt.
 
 %prep
 %autosetup -p0
-chmod +x install/linux/install-help.sh
 # Sure to not use libbz2 and libssh2 bundling
 rm -rf libraries
 
@@ -131,6 +130,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.sourceforge
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Wed Jan 24 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.9-1
+- Update to 1.1.9
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

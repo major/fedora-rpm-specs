@@ -16,10 +16,10 @@
 Name:           guayadeque
 %if 0%{?usesnapshot}
 Version:        0.4.8
-Release:        0.3.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.4.%{gitdate}git%{shortcommit0}%{?dist}
 %else
 Version:        0.4.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        Music player
 # The entire source code is GPLv3+ except hmac/ which is BSD
@@ -147,6 +147,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-0.4.20230319git1ae725a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-0.3.20230319git1ae725a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.13
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Fast encoding conversion library for Erlang / Elixir
 License:    ASL 2.0
 URL:        https://github.com/processone/iconv/
@@ -54,6 +54,9 @@ install -pm755 priv/lib/iconv.so $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{versi
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

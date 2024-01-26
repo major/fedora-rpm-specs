@@ -1,6 +1,6 @@
 Name:           iio-sensor-proxy
 Version:        3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        IIO accelerometer sensor to input device proxy
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ This package contains the documentation for %{name}.
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

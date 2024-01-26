@@ -4,7 +4,7 @@
 
 Name:           felix-utils
 Version:        1.11.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Utility classes for OSGi
 License:        Apache-2.0
 URL:            https://felix.apache.org
@@ -60,6 +60,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

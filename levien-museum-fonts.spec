@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Based on historical metal Centaur fonts
 
 License:        OFL
@@ -47,6 +47,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

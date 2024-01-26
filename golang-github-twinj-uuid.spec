@@ -25,7 +25,7 @@ generating version 1, 2, 3, 4 and 5 Uuid's.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Go RFC4122 UUID implementation
 
 License:        MIT
@@ -57,6 +57,9 @@ find . -name "*.go" -exec sed -i "s|github.com/myesui/uuid|github.com/twinj/uuid
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

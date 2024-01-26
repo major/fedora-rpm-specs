@@ -4,7 +4,7 @@
 
 Name:           gedit-color-schemes
 Version:        0
-Release:        13.%{date}git%{shortcommit}%{?dist}
+Release:        14.%{date}git%{shortcommit}%{?dist}
 Summary:        Color schemes for Gedit and apps to render the syntax highlight
 
 License:        GPLv3+
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-14.20191019git4f62aae
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-13.20191019git4f62aae
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           hiera
 Version:        3.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A simple hierarchical database supporting plugin data sources
 
 License:        ASL 2.0
@@ -53,6 +53,9 @@ rspec -Ilib spec
 %license LICENSE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

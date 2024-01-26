@@ -1,6 +1,6 @@
 Name:           glava
 Version:        1.6.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        OpenGL audio spectrum visualizer
 
 # See license note in README.md
@@ -59,6 +59,9 @@ make PYTHON=%{python3} glad
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.33.1
-Release: 3%{?dist}
+Version: 1.34.0
+Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -348,6 +348,12 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Thu Jan 25 2024 Kevin Fenzi <kevin@scrye.com> - 1.34.0-1
+- Update to 1.34.0. Fixes rhbz#2260055
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

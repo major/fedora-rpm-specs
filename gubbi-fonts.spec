@@ -2,7 +2,7 @@ BuildRequires:  fontforge
 BuildRequires:  make
 
 Version:        1.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 URL:            https://github.com/aravindavk/Gubbi
 
 %global fontlicense       GPL-3.0-or-later WITH Font-exception-2.0
@@ -39,6 +39,9 @@ make
 %fontfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

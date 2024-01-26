@@ -1,7 +1,7 @@
 Summary:   GTK+ 3 support library for colord
 Name:      colord-gtk
 Version:   0.3.0
-Release:   5%{?dist}
+Release:   6%{?dist}
 License:   LGPL-2.1-or-later
 URL:       http://www.freedesktop.org/software/colord/
 Source0:   http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
@@ -90,6 +90,9 @@ Files for GTK 4 development with %{name}4.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

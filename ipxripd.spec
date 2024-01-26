@@ -1,7 +1,7 @@
 Summary: IPX RIP/SAP daemon - routing for IPX networks
 Name: ipxripd
 Version: 0.8
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: GPLv2+
 URL: ftp://ftp.ibiblio.org/pub/Linux/system/filesystems/ncpfs/
 Source0: ftp://ftp.ibiblio.org/pub/Linux/system/filesystems/ncpfs/ipxripd-%{version}.tar.gz
@@ -81,6 +81,9 @@ install -p -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_unitdir}/ipxd.service
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

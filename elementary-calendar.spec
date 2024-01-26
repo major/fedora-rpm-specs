@@ -10,7 +10,7 @@ calendars in one place, like Google Calendar, Outlook and CalDAV.}
 Name:           elementary-calendar
 Summary:        Desktop calendar app designed for elementary
 Version:        7.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 
 URL:            https://github.com/elementary/calendar
@@ -113,6 +113,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

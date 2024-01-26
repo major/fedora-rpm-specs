@@ -3,7 +3,7 @@ Name:    kdepim
 Summary: KDE Personal Information Metapackage
 Epoch:   7
 Version: 17.12.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: GPLv2
 URL:     https://community.kde.org/KDE_PIM
@@ -59,6 +59,9 @@ Obsoletes:      kdepim-libs < 7:16.12
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7:17.12.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7:17.12.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

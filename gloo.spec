@@ -10,7 +10,7 @@ Summary:        Communications library for AI/ML
 Name:           gloo
 License:        BSD-3-Clause
 Version:        0.5.0^git%{date0}.%{shortcommit0}
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 URL:            https://github.com/facebookincubator/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -180,6 +180,9 @@ PREFIX=test1 SIZE=1 RANK=0 ./%{__cmake_builddir}/gloo/examples/example1
 %{_libdir}/openmpi/include/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0^git20230824.01a0c81-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0^git20230824.01a0c81-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

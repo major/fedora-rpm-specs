@@ -21,7 +21,7 @@ into a fast and inexpensive unit test.}
 %global godocs          CONTRIBUTING.md README.md examples
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Go Tools for Recording and Replaying RPCs
 
 # Upstream license specification: Apache-2.0
@@ -78,6 +78,9 @@ sed -i 's|github.com/google/martian|github.com/google/martian/v3|' $(find -iname
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

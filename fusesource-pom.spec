@@ -2,7 +2,7 @@
 
 Name:             fusesource-pom
 Version:          1.12
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Parent POM for FuseSource Maven projects
 License:          Apache-2.0
 URL:              http://fusesource.com/
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

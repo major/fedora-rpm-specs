@@ -12,7 +12,7 @@
 Name:           %{pkg_name}
 Version:        1.30
 # can only be reset when all subpkgs bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Web-based user interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -258,6 +258,9 @@ This package provides the Haskell %{name} profiling library.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

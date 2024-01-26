@@ -1,6 +1,6 @@
 Name:           iagno
 Version:        3.38.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GNOME Reversi game
 
 License:        GPLv3+ and CC-BY-SA
@@ -61,6 +61,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Reversi.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

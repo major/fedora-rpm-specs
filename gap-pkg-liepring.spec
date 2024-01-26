@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Database and algorithms for Lie p-rings
 
 License:        GPL-2.0-or-later
@@ -94,6 +94,9 @@ gap -l "%{buildroot}%{gap_libdir};%{gap_libdir}" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

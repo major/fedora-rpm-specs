@@ -1,7 +1,7 @@
 Summary: Examines C/C++ source code for security flaws
 Name: flawfinder
 Version: 2.0.11
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL: http://www.dwheeler.com/flawfinder/
@@ -37,6 +37,9 @@ install -p -m644 -D flawfinder.1 %{buildroot}%{_mandir}/man1/flawfinder.1
 %{_mandir}/man1/flawfinder.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

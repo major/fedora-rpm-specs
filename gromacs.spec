@@ -30,8 +30,8 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2023.3
-Release:	2%{?dist}
+Version:	2023.4
+Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 License:	GPLv2+
 URL:		http://www.gromacs.org
@@ -42,7 +42,6 @@ Source2:	https://ftp.gromacs.org/regressiontests/regressiontests-%{version}%{?_r
 Source3:	gromacs-README.fedora
 # increase some test tolerances: https://gitlab.com/gromacs/gromacs/-/merge_requests/3900
 # drop in v2023.4
-Patch0:         3900.patch
 BuildRequires:	gcc-c++
 BuildRequires:  cmake3 >= 3.4.3
 BuildRequires:	%{blaslib}-devel
@@ -226,8 +225,7 @@ This package single and double precision binaries and libraries.
 
 
 %prep
-%setup -q %{?SOURCE2:-a 2} -n gromacs-%{version}%{?_rc}
-%patch 0 -p1
+%autosetup -p1 %{?SOURCE2:-a 2} -n gromacs-%{version}%{?_rc}
 install -Dpm644 %{SOURCE1} ./serial/docs/manual/gromacs.pdf
 # Delete bundled stuff so that it doesn't get used accidentally
 # Don't remove tinyxml2 as gromacs needs an old version to build
@@ -379,6 +377,12 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Wed Jan 24 2024 Christoph Junghans <junghans@votca.org> - 2023.4-1
+- Version bump to v2023.4 (bug#2260114)
+
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

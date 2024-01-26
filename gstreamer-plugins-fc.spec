@@ -1,6 +1,6 @@
 Name: gstreamer-plugins-fc
 Version: 0.2
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Future Composer input plugin for GStreamer
 License: GPLv2+
 URL: http://xmms-fc.sourceforge.net
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

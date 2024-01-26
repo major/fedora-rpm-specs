@@ -40,7 +40,7 @@
 
 %global        shortver              1.16
 %global        fullver               %{shortver}.1
-%global        baserelease           3
+%global        baserelease           4
 
 %if 0%{?use_release} >= 1
 %global        fedorarel             %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -284,6 +284,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.16.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

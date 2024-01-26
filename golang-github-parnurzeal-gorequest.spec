@@ -14,7 +14,7 @@ GoRequest is a simplified HTTP client.}
 %global godocs          CONTRIBUTING.md README.md CHANGELOG
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simplified HTTP client
 
 License:        MIT
@@ -49,6 +49,9 @@ BuildRequires:  golang(github.com/elazarl/goproxy)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.16-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

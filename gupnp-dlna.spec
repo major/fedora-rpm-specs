@@ -1,6 +1,6 @@
 Name:          gupnp-dlna
 Version:       0.12.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 License:       LGPLv2+
 URL:           http://www.gupnp.org/
@@ -89,6 +89,9 @@ Contains developer documentation for %{name}.
 %{_datadir}/gtk-doc/html/gupnp-dlna-metadata
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

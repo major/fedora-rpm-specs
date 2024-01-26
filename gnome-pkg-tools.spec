@@ -1,6 +1,6 @@
 Name:           gnome-pkg-tools
 Version:        0.22.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for the Debian GNOME Packaging Team
 
 BuildArch:      noarch
@@ -55,6 +55,9 @@ install -Dpm 0644 debian/desktop-check-mime-types.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

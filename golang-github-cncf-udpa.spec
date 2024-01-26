@@ -17,7 +17,7 @@ Universal Data Plane API Working Group (UDPA-WG).}
 %global godocs          DEVELOPER.md README.md
 
 Name:           golang-github-cncf-udpa
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Universal Data Plane API Working Group (UDPA-WG)
 
 License:        Apache-2.0
@@ -46,6 +46,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

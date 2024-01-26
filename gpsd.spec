@@ -9,7 +9,7 @@
 
 Name:           gpsd
 Version:        3.25
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -349,6 +349,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %files compat
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

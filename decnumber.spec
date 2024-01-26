@@ -22,7 +22,7 @@ fixed-size representations are supported.}
 
 Name:           decnumber
 Version:        3.68.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ANSI C General Decimal Arithmetic Library
 
 License:        MIT
@@ -81,6 +81,9 @@ mv %{buildroot}%{_docdir}/%{name}-doc/decnumber.ICU-license.html .
 %doc examples
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.68.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

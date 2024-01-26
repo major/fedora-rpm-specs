@@ -16,7 +16,7 @@ Golang package to read and parse /etc/os-release}
 Name:           %{goname}
 # Package was incorrectly versioned 0.0.1
 Epoch:          1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Golang package to read and parse /etc/os-release
 
 # Upstream license specification: BSD-3-Clause
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

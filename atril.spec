@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          atril
-Version:       %{branch}.1
+Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       5%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.21%{?git_rel}%{?dist}
 %endif
@@ -29,23 +29,20 @@ URL:           http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# from upstream
-Patch1:        atril_0001-use-webkit2gtk-4.1.patch
-Patch2:        atril_0002-support-webkit2-4.0-and-4.1.patch
-
+BuildRequires: cairo-gobject-devel
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: gobject-introspection-devel
 BuildRequires: gtk3-devel
-BuildRequires: poppler-glib-devel
-BuildRequires: libXt-devel
+BuildRequires: libarchive-devel
 BuildRequires: libsecret-devel
 BuildRequires: libtiff-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libspectre-devel
-BuildRequires: desktop-file-utils
-BuildRequires: gobject-introspection-devel
+BuildRequires: libXt-devel
 BuildRequires: make
 BuildRequires: mate-common
-BuildRequires: cairo-gobject-devel
+BuildRequires: poppler-glib-devel
 BuildRequires: yelp-tools
 
 # for the xps back-end
@@ -123,9 +120,6 @@ caja file manager.
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
-# Patch1+2
-NOCONFIGURE=1 ./autogen.sh
-
 %build
 %configure \
         --disable-static \
@@ -201,6 +195,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

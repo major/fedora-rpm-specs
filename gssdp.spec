@@ -1,6 +1,6 @@
 Name:          gssdp
 Version:       1.6.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Resource discovery and announcement over SSDP
 
 License:       LGPLv2+
@@ -82,6 +82,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gssdp-1.6/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 02 2023 Kalev Lember <klember@redhat.com> - 1.6.3-1
 - Update to 1.6.3
 

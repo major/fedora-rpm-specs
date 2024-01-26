@@ -10,7 +10,7 @@ used fonts on Microsoft systems: Times New Roman, Arial, and Courier New.
 Name:             %{fontname}-fonts
 Summary:          Fonts to replace commonly used Microsoft Windows fonts
 Version:          2.1.5
-Release:          8%{?dist}
+Release:          9%{?dist}
 Epoch:            1
 License:          OFL-1.1-RFN
 URL:              https://github.com/liberationfonts/liberation-fonts
@@ -185,6 +185,9 @@ appstream-util validate-relax --nonet \
 %files
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

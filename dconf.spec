@@ -2,7 +2,7 @@
 
 Name:           dconf
 Version:        0.40.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A configuration system
 
 License:        LGPLv2+ and GPLv2+ and GPLv3+
@@ -104,6 +104,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dconf/db/distro.d/locks
 %{_datadir}/vala
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

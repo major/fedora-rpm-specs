@@ -9,7 +9,7 @@
 
 Name:           cocoalib
 Version:        0.99818
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
@@ -141,6 +141,9 @@ make check
 %doc examples
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99818-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99818-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

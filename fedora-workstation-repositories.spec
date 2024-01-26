@@ -1,6 +1,6 @@
 Name:		fedora-workstation-repositories
 Version:	38
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Repository files for searchable repositories
 
 License:	MIT
@@ -73,6 +73,9 @@ cp fedora-workstation.conf $RPM_BUILD_ROOT%{_prefix}/lib/fedora-third-party/conf
 %{_prefix}/lib/fedora-third-party/conf.d/*.conf
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 38-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 38-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

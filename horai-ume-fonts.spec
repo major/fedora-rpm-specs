@@ -20,7 +20,7 @@ and CJK. These fonts are suitable for easy on-screen legibility.
 
 Name:           %{fontname}-fonts
 Version:        670
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Gothic and Mincho fonts designed for easy on-screen legibility
 
 License:        mplus
@@ -181,6 +181,9 @@ done
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 670-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 670-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           gedit-latex
 Version:        3.20.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        gedit plugin for composing and compiling LaTeX documents
 
 License:        GPLv2+ and GPLv3+
@@ -66,6 +66,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.latex.gschema.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary:     Access I/O ports
 Name:        ioport
 Version:     1.2
-Release:     29%{?dist}
+Release:     30%{?dist}
 License:     GPLv2+
 
 URL:         http://et.redhat.com/~rjones/ioport/
@@ -63,6 +63,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

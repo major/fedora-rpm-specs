@@ -18,9 +18,17 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The Point-to-Point Protocol daemon
-License: BSD and LGPLv2+ and GPLv2+ and Public Domain
+# Add licenses:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/441
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/442
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/443
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/444
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/445
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/446
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/447
+License: bsd-3-clause AND zlib AND licenseref-fedora-public-domain AND bsd-attribution-hpnd-disclaimer AND bsd-4.3tahoe AND bsd-4-clause-uc AND apache-2.0 AND lgpl-2.0-or-later AND (gpl-2.0-or-later OR bsd-2-clause OR bsd-3-clause OR bsd-4-clause) AND gpl-2.0-or-later AND xlock AND gpl-1.0-or-later
 URL:     http://www.samba.org/ppp
 
 Source0: https://github.com/paulusmack/ppp/archive/ppp-%{version}.tar.gz
@@ -189,6 +197,9 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Wed Jan 24 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.0-5
+- Converted license to SPDX
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

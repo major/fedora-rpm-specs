@@ -1,6 +1,6 @@
 Name:           jchardet
 Version:        1.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Java port of Mozilla's automatic character set detection algorithm
 
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -61,6 +61,9 @@ mv src/*java src/main/java/org/mozilla/intl/chardet
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

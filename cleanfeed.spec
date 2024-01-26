@@ -1,7 +1,7 @@
 Summary: A spam filter for Usenet news servers
 Name: cleanfeed
 Version: 20020501
-Release: 30%{?dist}
+Release: 31%{?dist}
 # Confirmed with upstream, website
 License: Artistic 2.0
 URL: http://www.bofh.it/~md/cleanfeed/
@@ -56,6 +56,9 @@ install -m 0755 filter_innd.pl \
 %attr(-,news,news) %{_datadir}/news/bin/filter/filter_innd.pl
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20020501-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20020501-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

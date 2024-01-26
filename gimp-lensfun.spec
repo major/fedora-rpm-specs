@@ -1,6 +1,6 @@
 Name:           gimp-lensfun
 Version:        0.2.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Gimp plugin to correct lens distortion
 
 License:        GPLv3+
@@ -44,6 +44,9 @@ install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/appdata
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

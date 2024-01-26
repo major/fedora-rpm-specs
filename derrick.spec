@@ -1,6 +1,6 @@
 Name:           derrick
 Version:        0.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A Simple Network Stream Recorder
 
 License:        BSD
@@ -54,6 +54,9 @@ make check
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

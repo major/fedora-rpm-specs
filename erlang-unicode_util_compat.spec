@@ -2,7 +2,7 @@
 
 Name:       erlang-%{srcname}
 Version:    0.7.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 BuildArch:  noarch
 License:    ASL 2.0
 Summary:    A unicode_util compatibility library for Erlang < 20
@@ -39,6 +39,9 @@ older erlang >= R18.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

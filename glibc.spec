@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-493-ge2803cfd8b
+%global glibcsrcdir glibc-2.38.9000-522-g486452affb
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 34
+%global baserelease 35
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -611,7 +611,7 @@ local locales =  {
   { code="chr", name="Cherokee", regions={ "US" } },
   { code="ckb", name="Central Kurdish", regions={ "IQ" } },
   { code="cmn", name="Mandarin Chinese", regions={ "TW" } },
-  { code="crh", name="Crimean Turkish", regions={ "UA" } },
+  { code="crh", name="Crimean Turkish", regions={ "RU", "UA" } },
   { code="cs", name="Czech", regions={ "CZ" } },
   { code="csb", name="Kashubian", regions={ "PL" } },
   { code="cv", name="Chuvash", regions={ "RU" } },
@@ -691,6 +691,7 @@ local locales =  {
   { code="fur", name="Friulian", regions={ "IT" } },
   { code="fy", name="Western Frisian", regions={ "DE", "NL" } },
   { code="ga", name="Irish", regions={ "IE" } },
+  { code="gbm", name="Garhwali", regions={ "IN" } },
   { code="gd", name="Scottish Gaelic", regions={ "GB" } },
   { code="gez", name="Geez", regions={ "ER", "ET" } },
   { code="gl", name="Galician", regions={ "ES" } },
@@ -797,6 +798,7 @@ local locales =  {
   { code="sq", name="Albanian", regions={ "AL", "MK" } },
   { code="sr", name="Serbian", regions={ "ME", "RS" } },
   { code="ss", name="Swati", regions={ "ZA" } },
+  { code="ssy", name="Saho", regions={ "ER" } },
   { code="st", name="Southern Sotho", regions={ "ZA" } },
   { code="su", name="Sudanese", regions={ "ID" } },
   { code="sv", name="Swedish", regions={ "FI", "SE" } },
@@ -2216,6 +2218,27 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jan 24 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-35
+- Add crh_RU, gbm_IN, ssy_ER locales.
+- Auto-sync with upstream branch master,
+  commit 486452affbac684db739b7fcca1e84e8a7ce33d1:
+- manual, NEWS: Document malloc side effect of dynamic TLS changes
+- NEWS: Update temporary files ignored by ldconfig
+- po: Incorporate translations (sr)
+- string: Disable stack protector for memset in early static initialization
+- qsort: Fix a typo causing unnecessary malloc/free (BZ 31276)
+- riscv: add support for static PIE
+- localedata: renamed:    aa_ER@saaho -> ssy_ER
+- Define ISO 639-3 "ssy" (Saho)
+- localedata: add crh_RU, Crimean Tartar language in the Cyrillic script as used in Russia.
+- localedata: tr_TR, ku_TR: Sync with CLDR: “Turkey” -> “Türkiye”
+- localedata: miq_NI: Shorten month names in abmon
+- Update kernel version to 6.7 in header constant tests
+- localedata: add gbm_IN locale
+- Define ISO 639-3 "gbm" (Garhwali)
+- Update syscall lists for Linux 6.7
+- stdlib: Remove unused is_aligned function from qsort.c
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.9000-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

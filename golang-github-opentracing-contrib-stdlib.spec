@@ -15,7 +15,7 @@ standard library.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OpenTracing instrumentation for packages in the Go stdlib
 
 # Upstream license specification: Apache-2.0
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/opentracing/opentracing-go/mocktracer)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

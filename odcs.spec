@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.7.0
-Release:    2%{?dist}
+Version:    0.8.0
+Release:    1%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -21,11 +21,13 @@ BuildRequires:    python3-devel
 BuildRequires:    python3-requests-gssapi
 BuildRequires:    python3-fedora
 BuildRequires:    python3-productmd
+BuildRequires:    python3-filelock
 BuildRequires:    python3-funcsigs
 BuildRequires:    python3-openidc-client
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-flask-sqlalchemy
 BuildRequires:    python3-flask-migrate
+BuildRequires:    python3-jwt
 BuildRequires:    python3-nose
 BuildRequires:    python3-mock
 BuildRequires:    python3-tabulate
@@ -45,6 +47,7 @@ BuildRequires:    python3-flufl-lock
 BuildRequires:    python3-celery
 BuildRequires:    python3-kobo
 BuildRequires:    python3-prometheus_client
+BuildRequires:    python3-tomli
 
 %{?systemd_requires}
 
@@ -95,7 +98,8 @@ ODCS subpackage providing code shared between server and client.
 Summary:        ODCS client module
 %{?python_provide:%python_provide python3-odcs-client}
 
-Requires:       python3-six
+Requires:       python3-filelock
+Requires:       python3-jwt
 Requires:       python3-requests
 Requires:       python3-requests-gssapi
 Requires:       python3-odcs-common = %{version}-%{release}
@@ -105,7 +109,6 @@ Client library for sending requests to On Demand Compose Service (ODCS).
 
 %package -n odcs-client
 Summary:        ODCS command line client
-Requires:       python3-openidc-client
 Requires:       python3-odcs-client = %{version}-%{release}
 
 %description -n odcs-client
@@ -196,6 +199,43 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Wed Jan 24 2024 Haibo Lin <hlin@redhat.com> - 0.8.0-1
+- client: Add --env option
+- client: Add arg for extending compose's life
+- client: Avoid waiting for finished compose
+- client: Convert client script to entry point
+- client: Enable OpenTelemetry tracing for client
+- client: Fix wait command failed with error: KeyError: 'state_name'
+- client: Improve token expiration checking
+- client: Move server config to a file
+- client: Replace openidc_client with TokenManager
+- client: Support OIDC authentication
+- client: Use NO_OIDC_AUTHZ_CODE to disalbe authz code flow
+- docker: Add healthchecks to docker-compose.yml
+- docker: Install mod_auth_openidc
+- docker: Pass extra args to start_odcs_from_here
+- docker: Update Dockerfile to install opentelemetry
+- docker: Update base image to fedora 38
+- docker: Use post release for container
+- docker: download cacert securely
+- docker: new RH IT Root CA location
+- docs: Update docs configuration
+- server/client: Renew compose with new label
+- server: Add oidc_or_kerberos auth backend
+- server: Add retry to clone_repo
+- server: Add souce and debuginfo configurations
+- server: Enable OpenTelemetry tracing on server side
+- server: Fix compatibility with Python 3.6
+- server: Flask 2.3 compatibility
+- server: Improve raw_config_composes metric
+- server: Load ODCS_CELERY_BROKER_URL in config file
+- server: Make raw_config_composes_total a Gauge
+- server: Rework handling Pulp content sets
+- server: Update example config with OIDC options
+- server: metrics: Avoid decrementing counter
+- tests: Run backend tests with py36
+- tests: Set flask.g._login_user for tests
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,7 +13,7 @@ Ed25519 for Go.}
 %global golicenses      LICENSE
 Name:           %{goname}
 Version:        0
-Release:        0.26%{?dist}
+Release:        0.27%{?dist}
 Summary:        Ed25519 for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -45,6 +45,9 @@ BuildRequires:  golang(golang.org/x/crypto/curve25519)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

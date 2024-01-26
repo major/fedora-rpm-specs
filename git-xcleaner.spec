@@ -1,6 +1,6 @@
 Name:           git-xcleaner
 Version:        1.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 Summary:        Interactive git branch removal TUI
 
@@ -51,6 +51,9 @@ install -Dp %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 %endif
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          ed25519-java
 Version:       0.3.0
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       Implementation of EdDSA (Ed25519) in Java
 License:       CC0
 URL:           https://github.com/str4d/ed25519-java
@@ -70,6 +70,9 @@ This package contains javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

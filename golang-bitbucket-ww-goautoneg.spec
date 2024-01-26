@@ -18,7 +18,7 @@ HTTP Content-Type Autonegotiation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.32%{?dist}
+Release:        0.33%{?dist}
 Summary:        HTTP Content-Type Autonegotiation
 
 License:        BSD
@@ -49,6 +49,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

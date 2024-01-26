@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	4.4.2
-Release:	9%{?dist}
+Release:	10%{?dist}
 BuildArch:	noarch
 Summary:	Erlang HTTP client
 License:	BSD or LGPLv2+
@@ -44,6 +44,9 @@ install -D -p -m 0644 priv/%{realname}.conf %{buildroot}%{erlang_appdir}/priv/%{
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

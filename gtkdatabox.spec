@@ -1,6 +1,6 @@
 Name:           gtkdatabox
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GTK+ widget for fast data display
 License:        LGPLv2+
 URL:            http://sourceforge.net/projects/gtkdatabox
@@ -81,6 +81,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/glade/catalogs/gtkdatabox.xml
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

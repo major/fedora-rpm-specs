@@ -4,7 +4,7 @@
 
 Name: erlang-%{srcname}
 Version: 1.1.15
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: ASL 2.0
 Summary: TLS / SSL native driver for Erlang / Elixir
@@ -65,6 +65,9 @@ install -pm755 priv/lib/* $RPM_BUILD_ROOT%{_erllibdir}/%{srcname}-%{version}/pri
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

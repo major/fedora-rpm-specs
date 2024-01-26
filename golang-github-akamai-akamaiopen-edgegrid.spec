@@ -15,7 +15,7 @@ Akamai OPEN Edgegrid Authentication scheme.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Authentication handler for the Akamai OPEN EdgeGrid Authentication scheme
 
 # Upstream license specification: Apache-2.0
@@ -58,6 +58,9 @@ BuildRequires:  golang(gopkg.in/h2non/gock.v1)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

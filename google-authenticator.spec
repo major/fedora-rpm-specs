@@ -1,6 +1,6 @@
 Name:           google-authenticator
 Version:        1.09
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        One-time pass-code support using open standards
 
 License:        ASL 2.0
@@ -50,6 +50,9 @@ make check
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

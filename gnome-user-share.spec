@@ -2,7 +2,7 @@
 
 Name: gnome-user-share
 Version: 43.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Gnome user file sharing
 
 License: GPLv2+
@@ -62,6 +62,9 @@ up in the Network location in GNOME.
 %{_userunitdir}/gnome-user-share-webdav.service
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

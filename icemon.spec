@@ -1,6 +1,6 @@
 Name:           icemon
 Version:        3.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Icecream GUI monitor
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ install -m644 -D %{SOURCE1} %{buildroot}/%{_metainfodir}/%{name}.metainfo.xml
 %doc CHANGELOG.md README.md
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

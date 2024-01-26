@@ -1,6 +1,6 @@
 Name:		expatpp
 Version:	0
-Release:	27.20121019gitd8c1bf8%{?dist}
+Release:	28.20121019gitd8c1bf8%{?dist}
 Summary:	C++ layer for expat
 License:	MPLv1.1
 URL:		http://sourceforge.net/projects/expatpp/
@@ -75,6 +75,9 @@ develop code based on expatpp.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-28.20121019gitd8c1bf8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-27.20121019gitd8c1bf8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

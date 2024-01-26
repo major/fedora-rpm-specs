@@ -1,6 +1,6 @@
 Name:      gnome-packagekit
 Version:   43.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Session applications to manage packages
 License:   GPL-2.0-or-later
 URL:       https://www.freedesktop.org/software/PackageKit/
@@ -112,6 +112,9 @@ without rebooting.
 %{_mandir}/man1/gpk-update-viewer.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

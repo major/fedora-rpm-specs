@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPLv2
@@ -123,6 +123,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

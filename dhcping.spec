@@ -1,6 +1,6 @@
 Name:           dhcping
 Version:        1.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        DHCP daemon ping program
 
 License:        MIT
@@ -35,6 +35,9 @@ server is still functioning.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

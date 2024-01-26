@@ -11,7 +11,7 @@
 
 Name:           freeipa-%{plugin_name}
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora Account System extension for FreeIPA
 
 License:        GPLv3+
@@ -103,6 +103,9 @@ fi
 %{_bindir}/ipa-create-agreement
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

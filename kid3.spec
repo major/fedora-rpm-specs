@@ -8,7 +8,7 @@
 
 Name:           kid3
 Version:        3.9.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Efficient KDE ID3 tag editor
 
 License:        GPLv2+
@@ -157,6 +157,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

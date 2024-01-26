@@ -1,6 +1,6 @@
 Name: ding-libs
 Version: 0.6.2
-Release: 55%{?dist}
+Release: 56%{?dist}
 Summary: "Ding is not GLib" assorted utility libraries
 License: LGPL-3.0-or-later
 URL: https://pagure.io/SSSD/ding-libs
@@ -331,6 +331,9 @@ rm -f \
 rm -f */doc/html/installdox
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

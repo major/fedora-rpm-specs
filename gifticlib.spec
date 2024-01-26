@@ -1,6 +1,6 @@
 Name:           gifticlib
 Version:        1.0.9
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        IO library for the GIFTI cortical surface data format
 License:        Public Domain
 URL:            http://www.nitrc.org/projects/gifti/
@@ -67,6 +67,9 @@ install -p -m0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 %{_libdir}/libgifti*.so
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

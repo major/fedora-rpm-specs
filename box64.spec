@@ -1,6 +1,9 @@
 # Tests are disabled as they require x86_64 libraries to run
 %bcond_with tests
 
+# Disable -Werror=implicit-function-declaration as it breaks the build
+%global build_type_safety_c 0
+
 %global forgeurl https://github.com/ptitSeb/box64
 
 %global common_description %{expand:
@@ -8,7 +11,7 @@ Box64 lets you run x86_64 Linux programs (such as games) on non-x86_64 Linux
 systems, like ARM (host system needs to be 64-bit little-endian).}
 
 Name:           box64
-Version:        0.2.4
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Linux userspace x86_64 emulator with a twist, targeted at ARM64
 
@@ -19,10 +22,11 @@ Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  perl-podlators
 BuildRequires:  systemd-rpm-macros
 
 # box64 only supports these architectures
-ExclusiveArch:  aarch64 ppc64le x86_64
+ExclusiveArch:  aarch64 riscv64 ppc64le x86_64
 
 Requires:       %{name}-data = %{version}-%{release}
 %ifarch aarch64
@@ -39,6 +43,17 @@ BuildArch:      noarch
 %description    data %{common_description}
 
 %ifarch aarch64
+%package        adlink
+Summary:        %{summary}
+
+Requires:       %{name}-data = %{version}-%{release}
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
+
+%description    adlink %{common_description}
+
+This package contains a version of box64 targeting ADLink AmpereAltra systems.
+
 %package        asahi
 Summary:        Apple Silicon version of box64
 
@@ -129,6 +144,17 @@ Requires(postun): %{_sbindir}/update-alternatives
 
 This package contains a version of box64 targeting Raspberry Pi 4 systems.
 
+%package        rpi5
+Summary:        %{summary}
+
+Requires:       %{name}-data = %{version}-%{release}
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
+
+%description    rpi5 %{common_description}
+
+This package contains a version of box64 targeting Raspberry Pi 5 systems.
+
 %package        sd845
 Summary:        %{summary}
 
@@ -153,6 +179,18 @@ Requires(postun): %{_sbindir}/update-alternatives
 This package contains a version of box64 targeting Qualcomm Snapdragon 888
 systems.
 
+%package        sd8g2
+Summary:        %{summary}
+
+Requires:       %{name}-data = %{version}-%{release}
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
+
+%description    sd8g2 %{common_description}
+
+This package contains a version of box64 targeting Qualcomm Snapdragon 8 Gen 2
+systems.
+
 %package        tegrax1
 Summary:        %{summary}
 
@@ -171,8 +209,7 @@ This package contains a version of box64 targeting Nvidia Tegra X1 systems.
 # Remove prebuilt libraries
 rm -r x64lib
 
-# Fix permissions and encoding
-chmod -x docs/*.md docs/img/*.png
+# Fix encoding
 sed -i 's/\r$//' docs/*.md
 
 # Fix install paths
@@ -181,6 +218,12 @@ sed -i 's:/etc/binfmt.d:%{_binfmtdir}:g' CMakeLists.txt
 %build
 %global common_flags -DNOGIT=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %ifarch aarch64
+# ADLink AmpereAltra
+%cmake %{common_flags} -DADLINK=ON
+%cmake_build
+cp -p %{__cmake_builddir}/%{name} %{name}.adlink
+rm -r %{__cmake_builddir}
+
 # Apple Silicon
 %cmake %{common_flags} -DM1=ON
 %cmake_build
@@ -223,10 +266,16 @@ rm -r %{__cmake_builddir}
 cp -p %{__cmake_builddir}/%{name} %{name}.rpi3
 rm -r %{__cmake_builddir}
 
-# Raspberry PI 3
+# Raspberry PI 4
 %cmake %{common_flags} -DRPI4ARM64=ON
 %cmake_build
 cp -p %{__cmake_builddir}/%{name} %{name}.rpi4
+rm -r %{__cmake_builddir}
+
+# Raspberry PI 5
+%cmake %{common_flags} -DRPI5ARM64=ON
+%cmake_build
+cp -p %{__cmake_builddir}/%{name} %{name}.rpi5
 rm -r %{__cmake_builddir}
 
 # Qualcomm Snapdragon 845
@@ -241,6 +290,12 @@ rm -r %{__cmake_builddir}
 cp -p %{__cmake_builddir}/%{name} %{name}.sd888
 rm -r %{__cmake_builddir}
 
+# Qualcomm Snapdragon 8 Gen 2
+%cmake %{common_flags} -DSD8G2=ON
+%cmake_build
+cp -p %{__cmake_builddir}/%{name} %{name}.sd8g2
+rm -r %{__cmake_builddir}
+
 # Nvidia Tegra X1
 %cmake %{common_flags} -DTEGRAX1=ON
 %cmake_build
@@ -252,6 +307,9 @@ rm -r %{__cmake_builddir}
 %ifarch aarch64
   -DARM_DYNAREC=ON
 %endif
+%ifarch riscv64
+  -DRV64=ON
+%endif
 %ifarch ppc64le
   -DPPC64LE=ON
 %endif
@@ -260,6 +318,9 @@ rm -r %{__cmake_builddir}
   -DNOALIGN=ON
 %endif
 %cmake_build
+
+# Build manpage
+pod2man --stderr docs/%{name}.pod > docs/%{name}.1
 
 %install
 %ifarch x86_64
@@ -274,11 +335,15 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir} system/box64.box64rc
 %cmake_install
 %endif
 
+# Install manpage
+install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/%{name}.1
+
 %ifarch aarch64
 mv %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}.aarch64
 touch %{buildroot}%{_bindir}/%{name}
 chmod +x %{buildroot}%{_bindir}/%{name}
 install -Dpm0755 -t %{buildroot}%{_bindir} \
+  %{name}.adlink \
   %{name}.asahi \
   %{name}.lx2160a \
   %{name}.odroidn2 \
@@ -287,8 +352,10 @@ install -Dpm0755 -t %{buildroot}%{_bindir} \
   %{name}.rk3588 \
   %{name}.rpi3 \
   %{name}.rpi4 \
+  %{name}.rpi5 \
   %{name}.sd845 \
   %{name}.sd888 \
+  %{name}.sd8g2 \
   %{name}.tegrax1
 
 %post
@@ -298,6 +365,15 @@ install -Dpm0755 -t %{buildroot}%{_bindir} \
 %postun
 if [ $1 -eq 0 ] ; then
   %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.aarch64
+fi
+
+%post adlink
+%{_sbindir}/update-alternatives --install %{_bindir}/%{name} \
+  %{name} %{_bindir}/%{name}.adlink 10
+
+%postun adlink
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.adlink
 fi
 
 %post asahi
@@ -372,6 +448,15 @@ if [ $1 -eq 0 ] ; then
   %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.rpi4
 fi
 
+%post rpi5
+%{_sbindir}/update-alternatives --install %{_bindir}/%{name} \
+  %{name} %{_bindir}/%{name}.rpi5 10
+
+%postun rpi5
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.rpi5
+fi
+
 %post sd845
 %{_sbindir}/update-alternatives --install %{_bindir}/%{name} \
   %{name} %{_bindir}/%{name}.sd845 10
@@ -388,6 +473,15 @@ fi
 %postun sd888
 if [ $1 -eq 0 ] ; then
   %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.sd888
+fi
+
+%post sd8g2
+%{_sbindir}/update-alternatives --install %{_bindir}/%{name} \
+  %{name} %{_bindir}/%{name}.sd8g2 10
+
+%postun sd8g2
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --remove %{name} %{_bindir}/%{name}.sd8g2
 fi
 
 %post tegrax1
@@ -414,6 +508,10 @@ fi
 %endif
 
 %ifarch aarch64
+%files adlink
+%ghost %{_bindir}/%{name}
+%{_bindir}/%{name}.adlink
+
 %files asahi
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}.asahi
@@ -446,6 +544,10 @@ fi
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}.rpi4
 
+%files rpi5
+%ghost %{_bindir}/%{name}
+%{_bindir}/%{name}.rpi5
+
 %files sd845
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}.sd845
@@ -454,6 +556,10 @@ fi
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}.sd888
 
+%files sd8g2
+%ghost %{_bindir}/%{name}
+%{_bindir}/%{name}.sd8g2
+
 %files tegrax1
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}.tegrax1
@@ -461,8 +567,12 @@ fi
 
 %files data
 %license LICENSE
+%doc README.md
+%doc %lang(cn) README_CN.md
+%doc %lang(uk) README_UK.md
 %doc docs/*.md docs/img
 %{_binfmtdir}/box64.conf
+%{_mandir}/man1/box64.1*
 %config(noreplace) %{_sysconfdir}/box64.box64rc
 
 %changelog

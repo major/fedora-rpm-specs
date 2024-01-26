@@ -18,7 +18,7 @@ Versatile HTTP mocking made easy in Go for net/http stdlib package.}
 %global godocs          _examples History.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Expressive HTTP traffic mocking and testing made easy in Go
 
 License:        MIT
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/nbio/st)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

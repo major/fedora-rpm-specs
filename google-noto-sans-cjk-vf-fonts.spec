@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 %global foundry           Google
@@ -105,6 +105,9 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles -a
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.004-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

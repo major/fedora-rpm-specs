@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20050515
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        OpenType Kannada fonts
 License:        GPLv2
 URL:            http://sourceforge.net/projects/brahmi/
@@ -46,6 +46,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc ../readme.txt ../gpl.txt
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20050515-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20050515-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:          jolokia-jvm-agent
 Version:       1.6.2
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       Jolokia JVM Agent
 
 License:       ASL 2.0
@@ -73,6 +73,9 @@ Jolokia JVM Agent.
 %doc NOTICE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

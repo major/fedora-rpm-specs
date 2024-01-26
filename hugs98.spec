@@ -2,7 +2,7 @@
 
 Name:		hugs98
 Version:	2006.09
-Release:	49%{?dist}
+Release:	50%{?dist}
 Summary:	Haskell Interpreter
 
 License:	BSD
@@ -198,6 +198,9 @@ sed -i "s|^bindir.*|bindir=\"%{_bindir}\"|
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2006.09-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2006.09-49
 - Build with CC="gcc -fpermissive", increase command line buffer size
 

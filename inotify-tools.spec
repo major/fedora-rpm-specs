@@ -1,6 +1,6 @@
 Name:           inotify-tools
 Version:        3.22.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command line utilities for inotify
 
 License:        GPLv2
@@ -75,6 +75,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

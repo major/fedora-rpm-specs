@@ -17,7 +17,7 @@ A pre-built SASLprep (RFC-4013) profile is provided as well.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Go implementation of rfc-3454 stringprep and rfc-4013 saslprep
 
 # Upstream license specification: Apache-2.0
@@ -46,6 +46,9 @@ BuildRequires:  golang(golang.org/x/text/unicode/norm)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

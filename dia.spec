@@ -1,6 +1,6 @@
 Name:           dia
 Version:        0.97.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Epoch:          1
 Summary:        Diagram drawing program
 License:        GPLv2+
@@ -140,6 +140,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.97.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.97.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

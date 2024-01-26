@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Ansible minor mode
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

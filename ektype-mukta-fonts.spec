@@ -6,7 +6,7 @@ seven weights, supporting Devanagari, Gujarati, Tamil and Latin scripts.
 
 Name:			%{fontname}-fonts
 Version:			2.538
-Release:			14%{?dist}
+Release:			15%{?dist}
 Summary:		Free Indian truetype/open type fonts
 License:			OFL
 URL:			https://github.com/EkType/Mukta
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet \
 %license OFL.txt Copyright.txt 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.538-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.538-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -24,7 +24,7 @@ Go client package for VinylDNS.}
                         PULL_REQUEST_TEMPLATE.md README.md
 
 Name:           %{goname}
-Release:        %autorelease.1
+Release:        %autorelease.2
 Summary:        Go client package for VinylDNS
 
 # Upstream license specification: Apache-2.0
@@ -58,6 +58,9 @@ BuildRequires:  golang(github.com/gobs/pretty)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

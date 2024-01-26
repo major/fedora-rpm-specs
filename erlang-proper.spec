@@ -4,7 +4,7 @@
 
 Name:       erlang-%{realname}
 Version:    1.4
-Release:    4%{?dist}
+Release:    5%{?dist}
 BuildArch:  noarch
 License:    GPLv3+
 Summary:    A QuickCheck-inspired property-based testing tool for Erlang
@@ -51,6 +51,9 @@ ln -s _build/default/lib/proper/ebin .
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -24,7 +24,7 @@ It's easy to use: simply build your HTTP request and call awsauth.Sign(req)}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Signs requests to Amazon Web Services
 
 License:        MIT
@@ -57,6 +57,9 @@ BuildRequires:  golang(github.com/smartystreets/gunit)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

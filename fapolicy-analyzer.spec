@@ -3,7 +3,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.2.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # Apache-2.0
@@ -128,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %ghost %attr(640,root,root) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}/%{name}.log
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

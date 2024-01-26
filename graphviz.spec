@@ -104,8 +104,10 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		8%{?dist}
-License:		EPL-1.0
+Release:		9%{?dist}
+# Add license:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/439
+License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
 Source0:		https://gitlab.com/api/v4/projects/%{name}%2F%{name}/packages/generic/%{name}-releases/%{version}/%{name}-%{version}.tar.xz
@@ -730,6 +732,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Jan 24 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 9.0.0-9
+- Converted license to SPDX
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

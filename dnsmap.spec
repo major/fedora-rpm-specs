@@ -1,6 +1,6 @@
 Name:           dnsmap
 Version:        0.36
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sub-domains bruteforcer
 License:        GPL-2.0-or-later
 URL:            https://github.com/resurrecting-open-source-projects/dnsmap
@@ -45,6 +45,9 @@ autoreconf -v -i
 %{_mandir}/man1/dnsmap.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

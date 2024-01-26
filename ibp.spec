@@ -1,6 +1,6 @@
 Name:		ibp
 Version:	0.21
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	A tool to show which IBP beacons are transmitting
 
 License:	GPLv2
@@ -56,6 +56,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

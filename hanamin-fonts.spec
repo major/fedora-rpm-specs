@@ -1,5 +1,5 @@
 Version:	20170904
-Release:	18%{?dist}
+Release:	19%{?dist}
 URL:		http://fonts.jp/hanazono/
 
 %global	foundry		hanamin
@@ -61,6 +61,9 @@ done
 %fontfiles -a
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20170904-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20170904-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

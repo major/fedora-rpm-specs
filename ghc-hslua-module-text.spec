@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lua module for text
 
 License:        MIT
@@ -117,6 +117,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -92,13 +92,18 @@ Source8:        %{modulename}.fc
 # Upstream patches to fix srcdir != builddir
 Patch:          0001-common-bitmaps-Fix-tests-when-srcdir-builddir.patch
 Patch:          0002-tests-Fix-tests-to-work-with-srcdir-builddir.patch
+# Upstream patches to fix mingw builds
 Patch:          0003-common-replacements-win32-Only-build-nbdkit-cat.mc-d.patch
+Patch:          0004-common-replacements-win32-Make-windmc-tool-optional.patch
 
-BuildRequires: make
+# For applying the patches:
+BuildRequires:  git
+
 %if 0%{patches_touch_autotools}
 BuildRequires:  autoconf, automake, libtool
 %endif
 
+BuildRequires:  make
 BuildRequires:  gcc, gcc-c++
 BuildRequires:  %{_bindir}/pod2man
 BuildRequires:  gnutls-devel
@@ -755,7 +760,7 @@ development kit for 64 bit versions of Windows.
 %if 0%{verify_tarball_signature}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-%autosetup -p1
+%autosetup -p1 -S git
 %if 0%{patches_touch_autotools}
 autoreconf -i
 %endif
@@ -860,7 +865,10 @@ bzip2 -9 %{modulename}.pp
 popd
 
 %if 0%{?have_mingw}
+# MC=no is a temporary hack until this bug is fixed in binutils:
+# https://sourceware.org/bugzilla/show_bug.cgi?id=31283
 %mingw_configure \
+    MC=no \
     --disable-static \
     --enable-shared \
     --with-extra='%{name}-%{version}-%{release}' \

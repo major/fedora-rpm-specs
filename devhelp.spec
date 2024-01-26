@@ -3,7 +3,7 @@
 Name: devhelp
 Epoch: 1
 Version: 43.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: API documentation browser
 
 License: GPLv3+
@@ -102,6 +102,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Devhelp*
 %{_datadir}/gir-1.0/Devhelp-3.0.gir
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

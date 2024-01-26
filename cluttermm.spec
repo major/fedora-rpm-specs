@@ -1,7 +1,7 @@
 Summary:	C++ interface for Clutter
 Name:		cluttermm
 Version:	1.17.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 License:	LGPLv2+
 URL:		http://www.gtkmm.org/
 Source0:	http://download.gnome.org/sources/cluttermm/1.17/%{name}-%{version}.tar.xz
@@ -68,6 +68,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %doc %{_datadir}/devhelp/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

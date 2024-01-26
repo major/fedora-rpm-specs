@@ -1,6 +1,6 @@
 Name:           fswebcam
 Version:        20200725
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tiny and flexible webcam program
 
 License:        GPLv2
@@ -31,6 +31,9 @@ device, and overlaying a caption or image.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200725-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200725-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

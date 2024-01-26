@@ -11,7 +11,7 @@
 Summary:           Open Source implementation of JSR-56 better known as Java Web Start
 Name:              icedtea-web
 Version:           1.8.8
-Release:           3%{?dist}
+Release:           4%{?dist}
 # Run the following command after removing applet/unused sources in %%prep:
 # licensecheck -r --shortname-scheme=spdx . | sed -e 's/.*: //' | sort -u
 License:           GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Classpath-exception-2.0 AND LGPL-2.1-or-later AND Zlib
@@ -221,6 +221,9 @@ exit 0
 %{_datadir}/%{name}/javaws.src.zip
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

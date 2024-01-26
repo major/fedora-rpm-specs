@@ -1,9 +1,8 @@
 Name:		9wm
 Summary:	Emulation of the Plan 9 window manager 8 1/2
-Version:	1.4.1
-Release:	16%{?dist}
+Version:	1.4.2
+Release:	1%{?dist}
 License:	MIT
-# Source0:	https://woozle.org/neale/g.cgi/x11/9wm/snapshot/9wm-%{version}.tar.gz
 Source0:	https://github.com/9wm/9wm/archive/%{version}.tar.gz
 Source1:	9wm.desktop
 URL:		https://woozle.org/neale/src/9wm/
@@ -40,6 +39,9 @@ desktop-file-install					\
 %{_mandir}/man1/9wm.*
 
 %changelog
+* Wed Jan 24 2024 Tom Callaway <spot@fedoraproject.org> - 1.4.2-1
+- update to 1.4.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

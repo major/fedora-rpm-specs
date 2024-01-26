@@ -23,7 +23,7 @@ and subsections.}
 %global godocs          README
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Read ini-style configuration files into go structs
 
 # Upstream license specification: BSD-3-Clause
@@ -53,6 +53,9 @@ BuildRequires:  golang(gopkg.in/warnings.v0)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

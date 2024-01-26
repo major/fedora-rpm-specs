@@ -1,7 +1,7 @@
 Name:           jemalloc
 Version:        5.3.0
 
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 License:        BSD
@@ -105,6 +105,9 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

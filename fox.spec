@@ -2,7 +2,7 @@ Name:		fox
 # http://www.fox-toolkit.org/faq.html#VERSION
 # For now, use stable one
 Version:	1.6.57
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	C++ based Toolkit for developing Graphical User Interfaces
 
 # GPL-2.0-or-later:	adie
@@ -220,6 +220,9 @@ exit 0
 %doc	doc-files/html
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.57-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.57-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

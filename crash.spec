@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 8.0.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -33,6 +33,12 @@ Patch12: 0011-RISCV64-Fix-bt-output-when-no-ra-on-the-stack-top.patch
 Patch13: 0012-arm64-rewrite-the-arm64_get_vmcoreinfo_ul-to-arm64_g.patch
 Patch14: 0013-help.c-Remove-kmem-l-help-messages.patch
 Patch15: 0014-x86_64-check-bt-bptr-before-calculate-framesize.patch
+Patch16: 0001-arm64-support-HW-Tag-Based-KASAN-MTE-mode.patch
+Patch17: 0002-RISCV64-Add-support-for-bt-e-option.patch
+Patch18: 0003-RISCV64-Add-per-cpu-IRQ-stacks-support.patch
+Patch19: 0004-RISCV64-Add-per-cpu-overflow-stacks-support.patch
+Patch20: 0005-x86_64-Fix-bt-command-not-printing-stack-trace-enoug.patch
+Patch21: 0006-symbols-skip-the-module-if-the-given-address-is-not-.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -68,6 +74,12 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 13 -p1
 %patch -P 14 -p1
 %patch -P 15 -p1
+%patch -P 16 -p1
+%patch -P 17 -p1
+%patch -P 18 -p1
+%patch -P 19 -p1
+%patch -P 20 -p1
+%patch -P 21 -p1
 
 %build
 
@@ -93,6 +105,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

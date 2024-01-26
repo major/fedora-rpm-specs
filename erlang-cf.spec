@@ -3,7 +3,7 @@
 
 Name:     erlang-%{realname}
 Version:  0.3.1
-Release:  13%{?dist}
+Release:  14%{?dist}
 BuildArch:noarch
 Summary:  Terminal color helper
 License:  BSD
@@ -32,6 +32,9 @@ BuildRequires:  erlang-rebar3
 %{erlang_appdir}/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ibus-engine-gui-ci
 Version:        1.0.0.20220118
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GUI CI for IBus engines
 License:        LGPL-2.0-or-later
 URL:            https://github.com/fujiwarat/ibus-engine-gui-ci
@@ -40,6 +40,9 @@ focus events with the window manager.
 %{_libexecdir}/installed-tests/%{name}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20220118-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20220118-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

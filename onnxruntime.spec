@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.15.1
-Release:    6%{?dist}
+Release:    7%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -40,6 +40,8 @@ Patch12:    fix_forward_decl_flatbuffers.patch
 Patch13:    system-cpuinfo.patch
 # Trigger onnx fix for onnxruntime_providers_shared
 Patch14:    onnx_onnxruntime_fix.patch
+# Use the system python version
+Patch15:    system-python.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -65,7 +67,7 @@ BuildRequires:  gsl-devel
 BuildRequires:  gtest-devel
 BuildRequires:  guidelines-support-library-devel
 BuildRequires:  json-devel
-BuildRequires:  protobuf-lite-devel
+BuildRequires:  protobuf-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools
@@ -125,6 +127,8 @@ rm -v onnxruntime/test/optimizer/nhwc_transformer_test.cc
     -Donnxruntime_INSTALL_UNIT_TESTS=OFF \
     -Donnxruntime_BUILD_BENCHMARKS=OFF \
     -Donnxruntime_USE_PREINSTALLED_EIGEN=ON \
+    -Donnxruntime_USE_FULL_PROTOBUF=ON \
+    -DPYTHON_VERSION=%{python3_version} \
 %ifarch ppc64le
     -Donnxruntime_ENABLE_CPUINFO=OFF \
 %else
@@ -152,6 +156,7 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 %pyproject_save_files onnxruntime
 
 %check
+export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %ctest
 
 %files
@@ -174,6 +179,9 @@ cp --preserve=timestamps -r "./docs/" "%{buildroot}/%{_docdir}/%{name}"
 %{_docdir}/%{name}
 
 %changelog
+* Wed Jan 24 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.15.1-7
+- Build using protobuf-devel
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

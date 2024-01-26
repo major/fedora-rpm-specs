@@ -21,7 +21,7 @@ https://github.com/lib/pq.}
 %global godocs          CHANGELOG.md README.md pgxtype/README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Go types for over 70 PostgreSQL types
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  golang(golang.org/x/xerrors)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: intel-cm-compiler
 Version: 1.0.144
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Intel C for Metal compiler
 
 License: MIT
@@ -114,6 +114,9 @@ rm -f %{buildroot}/usr/share/man/man1/scan-build.1
 %{_libdir}/libclangFEWrapper.so
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.144-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.144-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

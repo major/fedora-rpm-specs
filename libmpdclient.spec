@@ -1,8 +1,8 @@
 Summary:       Library for interfacing Music Player Daemon
 Name:          libmpdclient
-Version:       2.20
-Release:       6%{?dist}
-License:       BSD
+Version:       2.22
+Release:       1%{?dist}
+License:       BSD-2-Clause OR BSD-3-Clause
 URL:           https://www.musicpd.org/
 Source0:       %{url}download/libmpdclient/2/libmpdclient-%{version}.tar.xz
 
@@ -34,22 +34,23 @@ libraries for developing programs with %{name}.
 # move the API documentation to the devel package
 mkdir -p %{buildroot}%{_defaultdocdir}/%{name}-devel
 mv %{buildroot}%{_defaultdocdir}/%{name}/html %{buildroot}%{_defaultdocdir}/%{name}-devel
-# COPYING is handled by the license tag
-rm %{buildroot}%{_defaultdocdir}/%{name}/COPYING
+rm %{buildroot}%{_defaultdocdir}/%{name}/BSD-[23]-Clause.txt
 
 %files
-%license COPYING
+%license LICENSES/BSD-2-Clause.txt LICENSES/BSD-3-Clause.txt
 %doc AUTHORS README.rst NEWS
 %{_libdir}/libmpdclient.so.2*
 
 %files devel
 %{_defaultdocdir}/%{name}-devel
-%{_datadir}/vala/vapi/libmpdclient.vapi
 %{_libdir}/libmpdclient.so
 %{_libdir}/pkgconfig/libmpdclient.pc
 %{_includedir}/mpd/
 
 %changelog
+* Wed Jan 24 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 2.22-1
+- Update to 2.22
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

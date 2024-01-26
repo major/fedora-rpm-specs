@@ -33,7 +33,7 @@
 
 Name:           javacc
 Version:        7.0.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 
@@ -152,6 +152,9 @@ ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %doc examples
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

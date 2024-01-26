@@ -14,7 +14,7 @@
 Summary:	Convert buffer text and decorations to HTML
 Name:		emacs-%{pkg}
 Version:	1.34
-Release:	27%{?dist}
+Release:	28%{?dist}
 License:	GPLv2+
 URL:		http://www.emacswiki.org/emacs-en/Htmlize
 Source0:	http://fly.srk.fer.hr/~hniksic/emacs/%{pkg}.el
@@ -69,6 +69,9 @@ install -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{emacs_startdir}
 %{emacs_lispdir}/%{pkg}/%{pkg}.el
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

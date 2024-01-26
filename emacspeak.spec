@@ -3,7 +3,7 @@
 Summary: Emacs Speech interface
 Name: emacspeak
 Version: %{major_ver}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # main lisp files are GPL2+
 # lisp/atom-blogger and lisp/g-client are BSD
 License: GPLv2+ and BSD
@@ -80,6 +80,9 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 59.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Jens Petersen <petersen@redhat.com> - 59.0-1
 - update to 59.0
 - http://tvraman.github.io/emacspeak/blog/Announce-59.html

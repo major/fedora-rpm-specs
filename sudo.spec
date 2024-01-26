@@ -1,9 +1,9 @@
 # comment out if no extra version
-%global extraver p3
+%global extraver p5
 
 Summary: Allows restricted root access for specified users
 Name: sudo
-Version: 1.9.14
+Version: 1.9.15
 # remove -b 3 after rebase !!!
 # use "-p -e % {?extraver}" when beta
 # use "-e % {?extraver}"" when patch version

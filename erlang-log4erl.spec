@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.9.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 BuildArch:	noarch
 Summary:	A logger for erlang in the spirit of Log4J
 # Dual licensing (MPL or BSD) is explicitly stated at project's web-page
@@ -50,6 +50,9 @@ install -D -p -m 0644 priv/log4erl.conf %{buildroot}%{erlang_appdir}/priv/log4er
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

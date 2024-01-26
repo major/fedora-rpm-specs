@@ -2,7 +2,7 @@
 
 Name:             knemo
 Version:          0.7.7
-Release:          23.20170520git%{?dist}
+Release:          24.20170520git%{?dist}
 Summary:          A KDE network monitoring tool
 License:          GPLv2+
 URL:              http://extragear.kde.org/apps/knemo/
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{name}.desktop
 %{_kf5_datadir}/icons/oxygen/scalable/status/%{name}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-24.20170520git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-23.20170520git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

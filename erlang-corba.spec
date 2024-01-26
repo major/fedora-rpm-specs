@@ -18,7 +18,7 @@
 Name:		erlang-%{realname}
 Version:	5.1
 Epoch:		1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Erlang CORBA libraries
 License:	ASL 2.0
 URL:		https://github.com/%{upstream}/%{realname}
@@ -381,6 +381,9 @@ find %{buildroot}%{_libdir}/erlang -type f -name info -exec rm -f {} \;
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

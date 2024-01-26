@@ -1,6 +1,6 @@
 Name:           hexer
 Version:        1.0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Interactive binary editor
 
 License:        BSD
@@ -41,6 +41,9 @@ cp -p hexer.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/hexer.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

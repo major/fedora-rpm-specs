@@ -1,6 +1,6 @@
 Name:           jdependency
 Version:        2.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Class dependency analysis library for Java
 License:        ASL 2.0
 URL:            http://github.com/tcurdt/%{name}
@@ -53,6 +53,9 @@ Summary:        API documentation for %{name}
 %license LICENSE.txt
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -43,13 +43,14 @@
 
 Name: sssd
 Version: 2.9.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
 Source0: https://github.com/SSSD/sssd/releases/download/2.9.4/sssd-2.9.4.tar.gz
 
 ### Patches ###
+Patch0001: 0001-ENUMERATION-conditional-build-of-enumeration-support.patch
 
 ### Dependencies ###
 
@@ -1063,6 +1064,13 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Jan 18 2024 Alexey Tikhonov <atikhono@redhat.com> - 2.9.4-3
+- Disable enumeration support for IPA and AD providers.
+  Deprecation was announced in F39 release notes:
+  https://docs.fedoraproject.org/en-US/fedora/latest/release-notes/sysadmin/Security/#_support_for_the_enumeration_feature_has_been_deprecated_for_ad_and_ipa_backends
+  This is a backport of upstream patch:
+  https://github.com/SSSD/sssd/commit/9240bca7dcc28371ae5dce31c01e85d28409cd04
+
 * Mon Jan 15 2024 Colin Walters <walters@verbum.org> - 2.9.4-2
 - Scope ExcludeArch: ix86 to RHEL10+
 

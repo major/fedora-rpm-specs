@@ -1,6 +1,6 @@
 Name:           dcm2niix
 Version:        1.0.20220720
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        DICOM to NIfTI converter
 
 License:        BSD
@@ -56,6 +56,9 @@ mkdir build/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20220720-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20220720-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

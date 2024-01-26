@@ -1,6 +1,6 @@
 Name:           laszip
 Version:        3.4.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Quickly turns bulky LAS files into compant LAZ files
 License:        Apache-2.0
 Source0:        https://github.com/LASzip/LASzip/releases/download/%{version}/%{name}-src-%{version}.tar.gz
@@ -54,6 +54,9 @@ Development headers and libraries for laszip
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

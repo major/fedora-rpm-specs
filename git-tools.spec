@@ -1,6 +1,6 @@
 Name:           git-tools
 Version:        2022.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Assorted git-related scripts and tools
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ cp -p man1/git-* %{buildroot}%{_mandir}/man1/.
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

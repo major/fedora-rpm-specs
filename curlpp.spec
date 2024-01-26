@@ -1,6 +1,6 @@
 Name: curlpp
 Version: 0.8.1
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: A C++ wrapper for libcURL
 
 License: MIT
@@ -88,6 +88,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           jakarta-activation
 Version:        2.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta Activation API
 # the whole project is licensed under (EPL-2.0 or BSD)
 # the source code additionally can be licensed under GPLv2 with exceptions
@@ -67,6 +67,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

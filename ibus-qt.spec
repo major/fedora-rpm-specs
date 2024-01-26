@@ -1,6 +1,6 @@
 Name:       ibus-qt
 Version:    1.3.4
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Qt IBus library and Qt input method plugin
 License:    GPL-2.0-or-later
 URL:        https://github.com/ibus/ibus/wiki
@@ -64,6 +64,9 @@ The ibus-qt-docs package contains developer documentation for ibus qt library.
 %doc %__cmake_builddir/docs/html
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

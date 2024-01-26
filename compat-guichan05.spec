@@ -1,6 +1,6 @@
 Name:           compat-guichan05
 Version:        0.5.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Compatibility libraries for older guichan versions
 
 License:        BSD-3-Clause
@@ -79,6 +79,9 @@ done
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

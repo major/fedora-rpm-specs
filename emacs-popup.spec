@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.5.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Visual Popup Interface Library for Emacs
 
 License:        GPLv3+
@@ -37,6 +37,9 @@ install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

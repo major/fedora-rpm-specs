@@ -2,7 +2,7 @@ Name:		fontawesome-fonts
 Summary:	Support files for the FontAwesome fonts
 Epoch:		1
 Version:	6.5.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 License:	MIT
 URL:		https://fontawesome.com/
@@ -129,6 +129,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %{_datadir}/fontawesome/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

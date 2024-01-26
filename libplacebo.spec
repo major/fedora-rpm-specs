@@ -12,12 +12,12 @@ Source0:        %{url}/archive/v%{version}%{?prerelease}/%{name}-%{version}%{?pr
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
-BuildRequires:  glad2 >= 2.0.0
+BuildRequires:  glad2
 BuildRequires:  lcms2-devel
 BuildRequires:  libdovi-devel
 BuildRequires:  libepoxy-devel
 BuildRequires:  libunwind-devel
-BuildRequires:  libshaderc-devel >= 2018.0-1
+BuildRequires:  libshaderc-devel
 BuildRequires:  python3-mako
 BuildRequires:  spirv-tools-devel
 BuildRequires:  vulkan-devel

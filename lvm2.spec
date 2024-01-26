@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.196
+%global device_mapper_version 1.02.197
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -38,17 +38,23 @@
 
 # Do not reset Release to 1 unless both lvm2 and device-mapper
 # versions are increased together.
+#
+# NOTE: At the moment it is better to increase DM version together with lvm.
+# This siplifies life for other packagers as well.
 
 Summary: Userland logical volume management tools
 Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.22
-Release: 2%{?dist}
+Version: 2.03.23
+Release: %autorelease
 License: GPLv2
-URL: https://sourceware.org/lvm2/
+URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
+Patch0: 0001-spec-Install-and-package-etc-lvm-devices.patch
+Patch1: 0002-man-add-inte-g-rity-to-man-lvs.patch
+Patch2: 0003-archiving-Fix-doubled-filename-in-vgcfgrestore.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -165,14 +171,15 @@ or more physical volumes and creating one or more logical volumes
   --enable-editline \
   --disable-readline
 
-%make_build
+V=1 %make_build
 
 %install
-%make_install
-make install_system_dirs DESTDIR=$RPM_BUILD_ROOT
-make install_systemd_units DESTDIR=$RPM_BUILD_ROOT
-make install_systemd_generators DESTDIR=$RPM_BUILD_ROOT
-make install_tmpfiles_configuration DESTDIR=$RPM_BUILD_ROOT
+V=1 %make_install
+V=1 make install_system_dirs DESTDIR=$RPM_BUILD_ROOT
+V=1 make install_systemd_units DESTDIR=$RPM_BUILD_ROOT
+V=1 make install_systemd_generators DESTDIR=$RPM_BUILD_ROOT
+V=1 make install_tmpfiles_configuration DESTDIR=$RPM_BUILD_ROOT
+#install -d ${RPM_BUILD_ROOT}%{_sysconfdir}/lvm/devices
 %if %{enable_testsuite}
 %make_install -C test
 %endif
@@ -360,6 +367,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %dir %{_sysconfdir}/lvm/backup
 %dir %{_sysconfdir}/lvm/cache
 %dir %{_sysconfdir}/lvm/archive
+%dir %{_sysconfdir}/lvm/devices
 %dir %{_default_locking_dir}
 %dir %{_default_run_dir}
 %{_tmpfilesdir}/%{name}.conf
@@ -654,6 +662,10 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Wed Jan 24 2024 Marian Csontos <mcsontos@redhat.com> - 2.03.23-1
+- Update to upstream version 2.03.23.
+- See WHATS_NEW and WHATS_NEW_DM for more information.
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

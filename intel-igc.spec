@@ -10,7 +10,7 @@
 
 Name: intel-igc
 Version: 1.0.15313.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
@@ -127,6 +127,9 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15313.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15313.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

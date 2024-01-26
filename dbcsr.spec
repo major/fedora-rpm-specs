@@ -23,7 +23,7 @@ Name: dbcsr
 # SONAME is based on major.minor version
 %global sover 2.6
 Version: %{sover}.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Distributed Block Compressed Sparse Row matrix library
 License: GPL-2.0-or-later
 URL: https://cp2k.github.io/dbcsr/develop/
@@ -221,6 +221,9 @@ done
 %{_libdir}/mpich/lib/libdbcsr_c.so
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

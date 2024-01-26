@@ -1,6 +1,6 @@
 Name:           hiredis
 Version:        1.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Minimalistic C client library for Redis
 License:        BSD
 URL:            https://github.com/redis/hiredis
@@ -50,6 +50,9 @@ make check || true
 %{_libdir}/pkgconfig/hiredis.pc
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

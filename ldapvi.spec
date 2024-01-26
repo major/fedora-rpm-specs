@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.7
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        An interactive LDAP client
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

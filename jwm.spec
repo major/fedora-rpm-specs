@@ -1,6 +1,6 @@
 Name:           jwm
 Version:        2.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Joe's Window Manager
 
 License:        MIT
@@ -75,6 +75,9 @@ install -Dpm0644 %{SOURCE1} %{buildroot}%{_datadir}/xsessions/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

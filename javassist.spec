@@ -1,6 +1,6 @@
 Name:           javassist
 Version:        3.30.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java Programming Assistant for Java bytecode manipulation
 License:        MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0
 
@@ -74,6 +74,9 @@ find src/test -name "*.class" -print -delete
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.30.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.30.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

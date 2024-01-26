@@ -16,8 +16,7 @@ Another System Definition Facility (asdf) is a package format for
 Common Lisp libraries.
 
 %prep
-%setup -q -n asdf
-%patch0 -p1
+%autosetup -p1 -n asdf
 
 %install
 mkdir -m 755 -p %{buildroot}%{_datadir}/common-lisp/source/cl-asdf
@@ -29,12 +28,15 @@ cd doc
 make
 
 %files
-%doc README doc/asdf
-%dir %{_datadir}/common-lisp
-%dir %{_datadir}/common-lisp/source
-%{_datadir}/common-lisp/source/cl-asdf
+%doc README doc/asdf_html
+%{_datadir}/common-lisp/
 
 %changelog
+* Wed Jan 24 2024 Jerry James <loganjerry@gmail.com> - 20101028-26
+- Fix FTBFS
+- Verify that license is valid SPDX
+- Minor spec file cleanups
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20101028-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

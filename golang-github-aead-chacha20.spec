@@ -34,7 +34,7 @@ versions use 12 or 8 rounds inste -d of 20. But it's recommended to use ChaCha20
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        ChaCha20 and XChaCha20 stream ciphers
 
 License:        MIT
@@ -62,6 +62,9 @@ BuildRequires:  golang(golang.org/x/sys/cpu)
 %gopkgfiles
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

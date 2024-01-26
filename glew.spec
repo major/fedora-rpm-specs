@@ -1,6 +1,6 @@
 Name:           glew
 Version:        2.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        The OpenGL Extension Wrangler Library
 License:        BSD and MIT
 URL:            https://github.com/nigels-com/glew
@@ -77,6 +77,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_libdir}/*.so*
 %doc doc/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

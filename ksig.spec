@@ -5,7 +5,7 @@
 
 Name:           ksig
 Version:        1.1
-Release:        0.35.%{svn_date}%{?dist}
+Release:        0.36.%{svn_date}%{?dist}
 Summary:        A graphical application to manage multiple email signatures
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ desktop-file-install --vendor ""                          \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.36.20080213
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.35.20080213
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           jackson-annotations
 Version:        2.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
 
@@ -56,6 +56,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Marco Fargetta <mfargett@redhat.com> - 2.16.1-1
 - [maven-release-plugin] prepare release jackson-annotations-2.16.1 (Tatu Saloranta)
 - [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)

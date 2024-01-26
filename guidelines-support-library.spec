@@ -2,7 +2,7 @@
 
 Name: guidelines-support-library
 Version: 4.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 URL: https://github.com/Microsoft/GSL
@@ -62,6 +62,9 @@ sed -e '/-Werror/d' -i tests/CMakeLists.txt
 %{_includedir}/gsl/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

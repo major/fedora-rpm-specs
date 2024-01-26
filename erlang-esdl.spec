@@ -4,7 +4,7 @@
 
 Name:           erlang-%{realname}
 Version:        1.3.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Erlang OpenGL/SDL API and utilities
 License:        MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -57,6 +57,9 @@ install -p -m 0644 src/*.hrl %{buildroot}%{_libdir}/erlang/lib/%{realname}-%{ver
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

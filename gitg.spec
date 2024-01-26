@@ -3,7 +3,7 @@
 
 Name:           gitg
 Version:        44
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 License:        GPLv2+
@@ -136,6 +136,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:             gawkextlib
 Summary:          Library providing common infrastructure for gawk extension libraries
 Version:          1.0.4
-Release:          17%{?dist}
+Release:          18%{?dist}
 License:          GPLv3+
 
 URL:              https://sourceforge.net/projects/gawkextlib
@@ -67,6 +67,9 @@ make check
 # =============================================================================
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

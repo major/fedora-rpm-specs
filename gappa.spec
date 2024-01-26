@@ -2,7 +2,7 @@
 
 Name:		gappa
 Version:	1.4.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Prove programs with floating-point or fixed-point arithmetic
 
 License:	GPL-3.0-only OR CECILL-2.1
@@ -86,6 +86,9 @@ remake check
 %doc AUTHORS doc/html
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

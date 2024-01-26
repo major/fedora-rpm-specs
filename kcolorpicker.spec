@@ -3,7 +3,7 @@
 
 Name: kcolorpicker
 Version: 0.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-or-later
 Summary: QToolButton control with color popup menu
@@ -98,6 +98,9 @@ popd
 %{_libdir}/%{libname}-Qt6.so
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Marie Loise Nolden <loise@kde.org> - 0.3.0-1
 - update to 0.3.0
 

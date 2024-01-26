@@ -1,6 +1,6 @@
 Name:           jack-mixer
 Version:        14
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        JACK Audio Mixer
 
 # nsmclient.py is expat, everything else is GPLv2
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/jack_mixer.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

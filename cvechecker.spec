@@ -5,7 +5,7 @@
 
 Name:           cvechecker
 Version:        4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tool for compare packages installed in your system with CVE database
 License:        GPLv3
 URL:            https://github.com/sjvermeu/cvechecker
@@ -71,6 +71,9 @@ make check
 %{_sharedstatedir}/cvechecker/*
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

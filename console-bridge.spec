@@ -4,7 +4,7 @@
 
 Name:       console-bridge
 Version:    1.0.1
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Lightweight set of macros used for reporting information in libraries
 
 License:    BSD
@@ -53,6 +53,9 @@ developing applications that use %{name}.
 %{_libdir}/%{realname}
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

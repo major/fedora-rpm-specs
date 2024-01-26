@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.0.25
-Release:    4%{?dist}
+Release:    5%{?dist}
 BuildArch:  noarch
 
 License:    ASL 2.0
@@ -42,6 +42,9 @@ leveraged in other development projects.
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.25-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

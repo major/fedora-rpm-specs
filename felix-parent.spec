@@ -2,7 +2,7 @@
 
 Name:           felix-parent
 Version:        8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parent POM file for Apache Felix Specs
 License:        Apache-2.0
 URL:            https://felix.apache.org/
@@ -44,6 +44,9 @@ Parent POM file for Apache Felix Specs.
 %doc LICENSE NOTICE
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

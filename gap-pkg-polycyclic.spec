@@ -11,7 +11,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.16
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Algorithms on polycylic groups for GAP
 
 License:        GPL-2.0-or-later
@@ -103,6 +103,9 @@ cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

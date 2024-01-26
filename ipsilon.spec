@@ -8,7 +8,7 @@
 #%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 12
+%global baserelease 13
 
 Name:       ipsilon
 Version:    3.0.4
@@ -467,6 +467,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 21 2023 Adam Williamson <awilliam@redhat.com> - 3.0.4-12
 - Backport PR #400 to add needed features for Bodhi dev environment
 

@@ -1,6 +1,6 @@
 Name:     libevdevPlus
 Version:  0.1.1
-Release:  15%{?dist}
+Release:  16%{?dist}
 Summary:  A C++ wrapper around libevdev
 License:  MIT
 URL:      https://github.com/YukiWorkshop/libevdevPlus
@@ -46,6 +46,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

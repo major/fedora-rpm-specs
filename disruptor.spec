@@ -2,7 +2,7 @@
 
 Name:          disruptor
 Version:       3.4.4
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Concurrent Programming Framework
 License:       Apache-2.0
 URL:           https://lmax-exchange.github.io/disruptor/
@@ -83,6 +83,9 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
