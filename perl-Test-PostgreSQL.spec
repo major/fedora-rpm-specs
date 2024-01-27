@@ -1,6 +1,6 @@
 Name:           perl-Test-PostgreSQL
 Version:        1.29
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PostgreSQL runner for Perl tests
 # lib/Test/PostgreSQL.pm:   Artistic 2.0
 License:        Artistic 2.0
@@ -95,6 +95,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

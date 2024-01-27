@@ -1,6 +1,6 @@
 Name:           perl-WebService-Dropbox
 Version:        2.09
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl interface to Dropbox API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WebService-Dropbox
@@ -93,6 +93,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -15,9 +15,9 @@
 Name:           mate-icon-theme
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        6%{?dist}
+Release:        7%{?dist}
 %else
-Release:        0.21%{?git_rel}%{?dist}
+Release:        0.22%{?git_rel}%{?dist}
 %endif
 Summary:        Icon theme for MATE Desktop
 License:        GPLv2+ and LGPLv2+
@@ -71,6 +71,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

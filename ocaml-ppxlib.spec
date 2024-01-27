@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 Name:           ocaml-ppxlib
 Epoch:          1
 Version:        0.31.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Base library and tools for ppx rewriters
 
 License:        MIT
@@ -70,6 +70,9 @@ signature files for developing applications that use
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.31.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -16,7 +16,7 @@ instead of HTTP with a list of DNS resolvers and multi-threading.}
 
 Name:           mass3
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Buckets enumerator
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

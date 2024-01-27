@@ -8,7 +8,7 @@
 
 Name:           sphinxbase
 Version:        5
-Release:        0.17.%{extraver}%{?dist}
+Release:        0.18.%{extraver}%{?dist}
 Epoch:          1
 Summary:        Common library for CMU Sphinx voice recognition products
 
@@ -21,6 +21,9 @@ Patch0:         sphinxbase-5prealpha-fix-doxy2swig.patch
 
 # https://github.com/cmusphinx/sphinxbase/pull/90
 Patch1:         sphinxbase-5prealpha-stdbool.patch
+
+# Fix code for SWIG 4.2.0
+Patch2:         sphinxbase-swig-4.2.0-array-typemap-fix.patch
 
 BuildRequires: make
 BuildRequires:  autoconf-archive
@@ -97,6 +100,7 @@ done
 
 %patch0 -p1 -b .fix-doxy2swig
 %patch1 -p1 -b .stdbool
+%patch2 -p1 -b .swig420
 
 %build
 export CPPFLAGS="-I %{_includedir}/%{blaslib}"
@@ -163,6 +167,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{python3_sitearch}/sphinxbase
 
 %changelog
+* Thu Jan 25 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1:5-0.18.prealpha
+- Fix for SWIG 4.2.0 update (BZ #2260324)
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.17.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

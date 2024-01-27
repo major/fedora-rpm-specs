@@ -1,6 +1,6 @@
 Name:           perl-MouseX-Types-Common
 Version:        0.001000
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Set of commonly-used type constraints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://metacpan.org/dist/MouseX-Types-Common/
@@ -56,6 +56,9 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001000-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001000-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

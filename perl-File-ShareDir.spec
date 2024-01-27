@@ -3,7 +3,7 @@
 
 Name:           perl-File-ShareDir
 Version:        1.118
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Locate per-dist and per-module shared files
 # other files:              GPL+ or Artistic
 ## not in binary packages
@@ -85,6 +85,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.118-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.118-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

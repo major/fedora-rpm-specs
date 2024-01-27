@@ -1,6 +1,6 @@
 Name:           perl-Applify
 Version:        0.23
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Write object oriented perl scripts with ease
 License:        Artistic 2.0
 
@@ -54,6 +54,9 @@ directly in the script file and not in a module.
 %{_mandir}/man3/Applify*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

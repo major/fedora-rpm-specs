@@ -28,7 +28,7 @@
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD
@@ -249,6 +249,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.20-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.20-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

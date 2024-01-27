@@ -28,8 +28,8 @@
 %global import_path %{provider_prefix}
 
 Name: cri-tools
-Version: 1.24.2
-Release: 5%{?dist}
+Version: 1.29.0
+Release: 1%{?dist}
 Summary: CLI and validation tools for Container Runtime Interface
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -46,93 +46,132 @@ Provides: crictl = %{version}-%{release}
 # fedpkg prep
 # ./vendor2provides.py cri-tools-%%{version}/vendor/modules.txt
 Provides:       bundled(golang(github.com/Azure/go-ansiterm)) = d185dfc
-Provides:       bundled(golang(github.com/Microsoft/go-winio)) = 0.4.17
-Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.1
-Provides:       bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.2.3
+Provides:       bundled(golang(github.com/Microsoft/go-winio)) = 0.6.0
+Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
+Provides:       bundled(golang(github.com/blang/semver/v4)) = 4.0.0
+Provides:       bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
+Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = 2.2.0
+Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.2
+Provides:       bundled(golang(github.com/cyphar/filepath-securejoin)) = 0.2.4
 Provides:       bundled(golang(github.com/davecgh/go-spew)) = 1.1.1
-Provides:       bundled(golang(github.com/docker/distribution)) = 2.8.1+incompatible
-Provides:       bundled(golang(github.com/docker/docker)) = 20.10.16+incompatible
-Provides:       bundled(golang(github.com/docker/go-units)) = 0.4.0
-Provides:       bundled(golang(github.com/fsnotify/fsnotify)) = 1.4.9
-Provides:       bundled(golang(github.com/go-logr/logr)) = 1.2.0
-Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 348f09d
+Provides:       bundled(golang(github.com/distribution/reference)) = 0.5.0
+Provides:       bundled(golang(github.com/docker/docker)) = 24.0.7+incompatible
+Provides:       bundled(golang(github.com/docker/go-units)) = 0.5.0
+Provides:       bundled(golang(github.com/emicklei/go-restful/v3)) = 3.11.0
+Provides:       bundled(golang(github.com/felixge/httpsnoop)) = 1.0.3
+Provides:       bundled(golang(github.com/fsnotify/fsnotify)) = 1.7.0
+Provides:       bundled(golang(github.com/go-logr/logr)) = 1.3.0
+Provides:       bundled(golang(github.com/go-logr/stdr)) = 1.2.2
+Provides:       bundled(golang(github.com/go-openapi/jsonpointer)) = 0.19.6
+Provides:       bundled(golang(github.com/go-openapi/jsonreference)) = 0.20.2
+Provides:       bundled(golang(github.com/go-openapi/swag)) = 0.22.3
+Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 52ccab3
 Provides:       bundled(golang(github.com/gogo/protobuf)) = 1.3.2
-Provides:       bundled(golang(github.com/golang/glog)) = 1.0.0
-Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.2
-Provides:       bundled(golang(github.com/google/gofuzz)) = 1.1.0
-Provides:       bundled(golang(github.com/google/pprof)) = 94a9f03
-Provides:       bundled(golang(github.com/google/uuid)) = 1.1.2
+Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.3
+Provides:       bundled(golang(github.com/google/gnostic-models)) = 0.6.8
+Provides:       bundled(golang(github.com/google/go-cmp)) = 0.6.0
+Provides:       bundled(golang(github.com/google/gofuzz)) = 1.2.0
+Provides:       bundled(golang(github.com/google/pprof)) = 4bb14d4
+Provides:       bundled(golang(github.com/google/uuid)) = 1.4.0
+Provides:       bundled(golang(github.com/gorilla/websocket)) = 1.5.0
+Provides:       bundled(golang(github.com/grpc-ecosystem/grpc-gateway/v2)) = 2.16.0
+Provides:       bundled(golang(github.com/josharian/intern)) = 1.0.0
 Provides:       bundled(golang(github.com/json-iterator/go)) = 1.1.12
-Provides:       bundled(golang(github.com/mitchellh/go-wordwrap)) = 1.0.0
+Provides:       bundled(golang(github.com/liggitt/tabwriter)) = 89fcab3
+Provides:       bundled(golang(github.com/mailru/easyjson)) = 0.7.7
+Provides:       bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.4
+Provides:       bundled(golang(github.com/mitchellh/go-wordwrap)) = 1.0.1
 Provides:       bundled(golang(github.com/moby/spdystream)) = 0.2.0
-Provides:       bundled(golang(github.com/moby/term)) = 3f7ff69
+Provides:       bundled(golang(github.com/moby/term)) = 0.5.0
 Provides:       bundled(golang(github.com/modern-go/concurrent)) = bacd9c7
 Provides:       bundled(golang(github.com/modern-go/reflect2)) = 1.0.2
-Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.1.4
-Provides:       bundled(golang(github.com/onsi/gomega)) = 1.19.0
+Provides:       bundled(golang(github.com/munnerz/goautoneg)) = a7dc8b6
+Provides:       bundled(golang(github.com/mxk/go-flowrate)) = cca7078
+Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.13.2
+Provides:       bundled(golang(github.com/onsi/gomega)) = 1.30.0
 Provides:       bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
-Provides:       bundled(golang(github.com/opencontainers/runc)) = 1.1.2
-Provides:       bundled(golang(github.com/opencontainers/selinux)) = 1.10.1
-Provides:       bundled(golang(github.com/pborman/uuid)) = 1.2.1
-Provides:       bundled(golang(github.com/pkg/errors)) = 0.9.1
+Provides:       bundled(golang(github.com/opencontainers/runc)) = 1.1.10
+Provides:       bundled(golang(github.com/opencontainers/selinux)) = 1.11.0
+Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.16.0
+Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.4.0
+Provides:       bundled(golang(github.com/prometheus/common)) = 0.44.0
+Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.10.1
 Provides:       bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
-Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.8.1
+Provides:       bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
 Provides:       bundled(golang(github.com/spf13/pflag)) = 1.0.5
-Provides:       bundled(golang(github.com/urfave/cli/v2)) = 2.8.1
+Provides:       bundled(golang(github.com/urfave/cli/v2)) = 2.26.0
 Provides:       bundled(golang(github.com/xrash/smetrics)) = 039620a
-Provides:       bundled(golang(golang.org/x/net)) = 27dd868
-Provides:       bundled(golang(golang.org/x/oauth2)) = d3ed0bb
-Provides:       bundled(golang(golang.org/x/sys)) = a9b59b0
-Provides:       bundled(golang(golang.org/x/term)) = 03fcf44
-Provides:       bundled(golang(golang.org/x/text)) = 0.3.7
-Provides:       bundled(golang(golang.org/x/time)) = 90d013b
-Provides:       bundled(golang(golang.org/x/tools)) = 0.1.10
+Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = 0.42.0
+Provides:       bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.44.0
+Provides:       bundled(golang(go.opentelemetry.io/otel)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/metric)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/otel/trace)) = 1.19.0
+Provides:       bundled(golang(go.opentelemetry.io/proto/otlp)) = 1.0.0
+Provides:       bundled(golang(golang.org/x/mod)) = 0.13.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.19.0
+Provides:       bundled(golang(golang.org/x/oauth2)) = 0.10.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.15.0
+Provides:       bundled(golang(golang.org/x/term)) = 0.15.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.14.0
+Provides:       bundled(golang(golang.org/x/time)) = 0.3.0
+Provides:       bundled(golang(golang.org/x/tools)) = 0.14.0
 Provides:       bundled(golang(google.golang.org/appengine)) = 1.6.7
-Provides:       bundled(golang(google.golang.org/genproto)) = 42d7afd
-Provides:       bundled(golang(google.golang.org/grpc)) = 1.45.0
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.27.1
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/api)) = 23370e0
+Provides:       bundled(golang(google.golang.org/genproto/googleapis/rpc)) = b8732ec
+Provides:       bundled(golang(google.golang.org/grpc)) = 1.58.3
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.31.0
 Provides:       bundled(golang(gopkg.in/inf.v0)) = 0.9.1
 Provides:       bundled(golang(gopkg.in/yaml.v2)) = 2.4.0
-Provides:       bundled(golang(gopkg.in/yaml.v3)) = 496545a
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/api)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apimachinery)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiserver)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/client-go)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-base)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cri-api)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/klog/v2)) = 2.60.1
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubectl)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes)) = 1.24.0
-Provides:       bundled(golang(k8s.io/utils)) = 3a6ce19
-Provides:       bundled(golang(sigs.k8s.io/json)) = 9f7c6b3
-Provides:       bundled(golang(sigs.k8s.io/structured-merge-diff/v4)) = 4.2.1
-Provides:       bundled(golang(sigs.k8s.io/yaml)) = 1.3.0
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/api)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apimachinery)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiserver)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cli-runtime)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/client-go)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cloud-provider)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cluster-bootstrap)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/code-generator)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-base)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-helpers)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/controller-manager)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cri-api)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/csi-translation-lib)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-aggregator)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-controller-manager)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-proxy)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-scheduler)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubectl)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubelet)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes)) = 1.24.0
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/legacy-cloud-providers)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/metrics)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/mount-utils)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/pod-security-admission)) = 4ce5a89
-Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/sample-apiserver)) = 4ce5a89
+Provides:       bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/api)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apimachinery)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiserver)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cli-runtime)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/client-go)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-base)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cri-api)) = e4636d0
+Provides:       bundled(golang(k8s.io/klog/v2)) = 2.110.1
+Provides:       bundled(golang(k8s.io/kube-openapi)) = 2dd684a
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubectl)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubelet)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes)) = 1.29.0-rc.2
+Provides:       bundled(golang(k8s.io/utils)) = 3b25d92
+Provides:       bundled(golang(sigs.k8s.io/json)) = bc3834c
+Provides:       bundled(golang(sigs.k8s.io/structured-merge-diff/v4)) = 4.4.1
+Provides:       bundled(golang(sigs.k8s.io/yaml)) = 1.4.0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/api)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apimachinery)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/apiserver)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cli-runtime)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/client-go)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cloud-provider)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cluster-bootstrap)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/code-generator)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-base)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/component-helpers)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/controller-manager)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/cri-api)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/csi-translation-lib)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/dynamic-resource-allocation)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/endpointslice)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kms)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-aggregator)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-controller-manager)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-proxy)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kube-scheduler)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubectl)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/kubelet)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes)) = 1.29.0-rc.2
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/legacy-cloud-providers)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/metrics)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/mount-utils)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/pod-security-admission)) = e4636d0
+Provides:       bundled(golang(k8s.io/kubernetes/staging/src/k8s.io/sample-apiserver)) = e4636d0
 
 %description
 %{summary}.
@@ -172,6 +211,8 @@ install -p -m 644 docs/crictl.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/crictl*.1*
 
 %changelog
+* Thu Jan 25 2024 Bradley G Smith <bradley.g.smith@gmail.com> - 1.29.0-1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

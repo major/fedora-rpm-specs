@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-DOAPChangeSets
 Version:        0.206
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Write your distribution change log in RDF
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.206-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.206-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

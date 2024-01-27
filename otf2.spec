@@ -6,7 +6,7 @@
 
 Name:           otf2
 Version:        3.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -171,6 +171,9 @@ make check
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

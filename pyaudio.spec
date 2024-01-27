@@ -3,7 +3,7 @@
 
 Name:		%{srcname}
 Version:	0.2.13
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	MIT
 Url:		http://people.csail.mit.edu/hubert/pyaudio/
 Source0:	https://files.pythonhosted.org/packages/91/a0/f439da954d78a987298cb8d1ca1b141c53b1d1d1c7a50e17198ed061b9ac/PyAudio-0.2.13.tar.gz
@@ -49,6 +49,9 @@ sed -i 's/setuptools<=65.1.1/setuptools/' pyproject.toml
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

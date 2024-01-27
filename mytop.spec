@@ -2,7 +2,7 @@
 Summary:        A top clone for MySQL
 Name:           mytop
 Version:        1.7
-Release:        27.%{git}%{?dist}
+Release:        28.%{git}%{?dist}
 License:        GPLv2
 URL:            http://jeremy.zawodny.com/mysql/mytop
 # Tarball created by
@@ -51,6 +51,9 @@ familiar top application.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-28.b737f60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-27.b737f60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

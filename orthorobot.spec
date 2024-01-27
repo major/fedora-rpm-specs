@@ -1,6 +1,6 @@
 Name:           orthorobot
 Version:        1.1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A perspective based puzzle game
 
 License:        WTFPL
@@ -72,6 +72,9 @@ install -p -D -m 0644 helpplayer.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

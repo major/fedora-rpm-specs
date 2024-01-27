@@ -1,6 +1,6 @@
 Name:          opus-tools
 Version:       0.2
-Release:       13%{?dist}
+Release:       14%{?dist}
 Summary:       A set of tools for the opus audio codec
 License:       BSD and GPLv2
 URL:           http://www.opus-codec.org/
@@ -44,6 +44,9 @@ make check %{?_smp_mflags} V=1
 %{_datadir}/man/man1/opus*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

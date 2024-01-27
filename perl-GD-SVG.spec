@@ -1,6 +1,6 @@
 Name:           perl-GD-SVG
 Version:        0.33
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        GD::SVG enables SVG output from scripts written using GD
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

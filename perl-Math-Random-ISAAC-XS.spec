@@ -1,6 +1,6 @@
 Name:           perl-Math-Random-ISAAC-XS
 Version:        1.004
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        C implementation of the ISAAC PRNG algorithm
 License:        MIT or GPL+ or Artistic
 URL:            https://metacpan.org/release/Math-Random-ISAAC-XS
@@ -48,6 +48,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

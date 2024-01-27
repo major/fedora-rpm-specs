@@ -1,6 +1,6 @@
 Name:           perl-XML-Smart
 Version:        1.79
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Smart, easy and powerful way to access/create XML files/data
 License:        GPL+ or Artistic
 
@@ -75,6 +75,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.79-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.79-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

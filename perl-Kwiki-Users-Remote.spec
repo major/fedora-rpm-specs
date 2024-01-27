@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Users-Remote
 Version:        0.04
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Automatically set Kwiki user name from HTTP authentication
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-Users-Remote
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

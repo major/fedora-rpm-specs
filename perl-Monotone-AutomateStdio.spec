@@ -1,6 +1,6 @@
 Name:           perl-Monotone-AutomateStdio
 Version:        1.10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl interface to Monotone via automate stdio
 License:        GPLv3+
 URL:            https://metacpan.org/release/Monotone-AutomateStdio
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

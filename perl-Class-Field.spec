@@ -1,6 +1,6 @@
 Name:           perl-Class-Field
 Version:        0.24
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Class Field Accessor Generator
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Field
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Class*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

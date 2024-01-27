@@ -2,7 +2,7 @@
 
 Name:           mysql-connector-net
 Version:        6.9.9
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Mono ADO.NET driver for MySQL
 
 # The entire source code is GPLv2 except Source/MySql.Data/zlib/ which is BSD
@@ -59,6 +59,9 @@ gacutil -i %{buildroot}%{_monodir}/mysql-connector-net/MySql.Data.dll -f -packag
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.9-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.9-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

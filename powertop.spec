@@ -1,6 +1,6 @@
 Name:             powertop
 Version:          2.15
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Power consumption monitor
 
 License:          gpl-2.0-only AND lgpl-2.1-only AND isc
@@ -75,6 +75,9 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

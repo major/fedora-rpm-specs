@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI
 Version:        3.0.17
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Simple Database Abstraction
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.17-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.17-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

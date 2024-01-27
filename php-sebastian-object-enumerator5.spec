@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Traverses array and object to enumerate all referenced objects, version %{major}
 
 License:        BSD-3-Clause
@@ -116,6 +116,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

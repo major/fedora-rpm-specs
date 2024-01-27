@@ -1,5 +1,5 @@
 Version: 0.4.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Define the directory where the OpenSSL engines are installed
 %global enginesdir %{_libdir}/engines-3
@@ -119,6 +119,9 @@ make check %{?_smp_mflags} || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Able-Runner
 Version:        1.002
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Use Test::Able without a bunch of boilerplate
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Able-Runner
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

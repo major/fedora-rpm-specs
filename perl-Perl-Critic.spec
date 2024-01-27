@@ -7,7 +7,7 @@
 
 Name:		perl-Perl-Critic
 Version:	1.152
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
@@ -158,6 +158,9 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.152-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.152-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

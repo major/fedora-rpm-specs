@@ -2,7 +2,7 @@
 
 Name:           mojo-parent
 Version:        77
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Codehaus MOJO parent project pom file
 License:        Apache-2.0
 URL:            https://www.mojohaus.org/mojo-parent/
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 77-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 77-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

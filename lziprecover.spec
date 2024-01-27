@@ -1,6 +1,6 @@
 Name:           lziprecover
 Version:        1.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Data recovery tool and decompressor for files in the lzip compressed format
 
 License:        GPL-3.0-or-later
@@ -55,6 +55,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24-1
 - 1.24
 

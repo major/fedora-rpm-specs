@@ -1,7 +1,7 @@
 Summary: Programs for accessing MS-DOS disks without mounting the disks
 Name: mtools
 Version: 4.0.43
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later
 Source0: ftp://ftp.gnu.org/gnu/mtools/mtools-%{version}.tar.gz
 Url: https://www.gnu.org/software/mtools/
@@ -62,6 +62,9 @@ ln -s mtools.5.gz %{buildroot}%{_mandir}/man5/mtools.conf.5.gz
 %{_infodir}/mtools.info*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.43-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

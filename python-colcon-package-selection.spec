@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Extension for colcon to select the packages to process
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to select a subset of packages for processing.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

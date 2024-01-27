@@ -55,6 +55,14 @@ Patch:          0001-Allow-testing-with-opentracing-2.x-versions-after-2..patch
 # Don’t pin an exact version of responses for testing
 # https://github.com/open-telemetry/opentelemetry-python/pull/3642
 Patch:          %{url}/pull/3642.patch
+# Remove useless shebang lines
+# https://github.com/open-telemetry/opentelemetry-python/pull/3650
+#
+# Fixes:
+#
+# Non-executable files with shebangs in the repository
+# https://github.com/open-telemetry/opentelemetry-python/issues/3643
+Patch:          %{url}/pull/3650.patch
 
 BuildArch:      noarch
 
@@ -472,9 +480,6 @@ This package provides documentation and examples for python-opentelemetry.
 %prep
 %autosetup -n opentelemetry-python-%{stable_version} -p1
 
-# See also:
-# Non-executable files with shebangs in the repository
-# https://github.com/open-telemetry/opentelemetry-python/issues/3643
 %py3_shebang_fix docs/examples tests
 
 # Fix a test that shells out to the unversioned Python command. This is OK

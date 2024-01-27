@@ -1,6 +1,6 @@
 Name:           perl-DBM-Deep
 Version:        2.0019
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBM-Deep
@@ -92,6 +92,9 @@ LONG_TESTS=1 TEST_SQLITE=1 ./Build test
 %{_mandir}/man3/DBM::Deep::Storage::File.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0019-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0019-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 %global min_ver 0
 %global patch_ver 1
 #%%global rc_ver 4
-%global baserelease 6
+%global baserelease 7
 
 
 %if %{with compat_build}
@@ -477,6 +477,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

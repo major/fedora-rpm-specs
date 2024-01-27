@@ -1,6 +1,6 @@
 Name:           nfs4-acl-tools
 Version:        0.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The nfs4 ACL tools
 License:        LGPL-2.1-or-later
 URL:            http://git.linux-nfs.org/?p=bfields/nfs4-acl-tools.git;a=summary
@@ -37,6 +37,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Secrets dumper
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i -e '/^#!\//, 1d' aiosecretsdump/__init__.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

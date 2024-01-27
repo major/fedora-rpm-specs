@@ -1,7 +1,7 @@
 Name:           libxslt
 Summary:        Library providing the Gnome XSLT engine
 Version:        1.1.39
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
@@ -126,6 +126,9 @@ rm -vrf %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.39-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

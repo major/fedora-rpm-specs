@@ -21,16 +21,16 @@ files, it is designed for "patching" ldap directories using ldif files.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fs
-make clean
+%patch -P 0 -p1 -b .fs
+%make clean
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 
 
 %files

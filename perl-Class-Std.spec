@@ -1,6 +1,6 @@
 Name:           perl-Class-Std
 Version:        0.013
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Support for creating standard "inside-out" classes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Std
@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 %{_mandir}/man3/Class::Std.3pm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           prrte
 Version:        3.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PMIx Reference RunTime Environment (PRRTE)
 # src/mca/prtereachable/netlink/reachable_netlink_utils_common.c is BSD-2-Clause
 # -devel related licenses:
@@ -115,6 +115,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

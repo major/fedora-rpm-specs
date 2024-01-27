@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_vendor}-random-compat
 Version:       %{github_version}
-Release:       11%{?github_release}%{?dist}
+Release:       12%{?github_release}%{?dist}
 Summary:       PHP 5.x polyfill for random_bytes() and random_int() from PHP 7
 
 License:       MIT
@@ -118,6 +118,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

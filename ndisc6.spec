@@ -1,6 +1,6 @@
 Name:		ndisc6
 Version:	1.0.7
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	IPv6 diagnostic tools
 
 License:	GPL-2.0-only OR GPL-3.0-only
@@ -65,6 +65,9 @@ This package gathers a few diagnostic tools for IPv6 networks:
 %doc %{_mandir}/man8/tracert6.8.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

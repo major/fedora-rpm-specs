@@ -8,7 +8,7 @@ Version:         3.4.9
 
 %forgemeta
 
-Release:         2%{?dist}
+Release:         3%{?dist}
 Summary:         Configuration and diagnostic tool for Mesa Electronics boards
 License:         GPLv2+
 Url:             %{forgeurl}
@@ -62,6 +62,9 @@ CFLAGS='%{build_cflags} -DVERSION=\"%{version}-%{release}\"'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

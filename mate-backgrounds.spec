@@ -1,6 +1,6 @@
 Name:          mate-backgrounds
 Version:       1.26.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       MATE Desktop backgrounds
 License:       GPLv2+
 URL:           http://mate-desktop.org
@@ -35,6 +35,9 @@ cp -f %{SOURCE1} %{buildroot}%{_datadir}/backgrounds/mate/default-mate.xml
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

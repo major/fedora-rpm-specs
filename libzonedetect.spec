@@ -4,7 +4,7 @@
 
 Name:          libzonedetect
 Version:       0~git%{shortcommit}
-Release:       6%{?snap}%{?dist}
+Release:       7%{?snap}%{?dist}
 Summary:       Find the timezone for a given latitude and longitude
 
 # The library is BSD-3, timezone-boundary-builder is MIT, the built database is ODbL-1.0
@@ -133,6 +133,9 @@ cp -a %{SOURCE4} %{buildroot}%{_datadir}/ZoneDetect/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~git88e927d-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~git88e927d-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

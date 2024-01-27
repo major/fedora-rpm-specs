@@ -1,6 +1,6 @@
 Name:           perl-Test-LectroTest
 Version:        0.5001
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Easy, automatic, specification-based tests
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-LectroTest
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5001-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5001-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

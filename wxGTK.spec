@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -318,6 +318,9 @@ fi
 %doc html
 
 %changelog
+* Fri Jan 26 2024 Scott Talbert <swt@techie.net> - 3.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 10 2023 Scott Talbert <swt@techie.net> - 3.2.4-2
 - Rebuild wxMediaCtrl with gstplayer for Wayland support
 

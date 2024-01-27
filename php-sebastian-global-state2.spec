@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Snapshotting of global state
 
 License:        BSD
@@ -123,6 +123,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

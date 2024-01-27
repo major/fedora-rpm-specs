@@ -2,7 +2,7 @@
 
 Name:           lxlauncher
 Version:        0.2.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
 # src/exo-wrap-table.c	LGPL-2.0-or-later
@@ -65,6 +65,9 @@ mkdir -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/icons
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

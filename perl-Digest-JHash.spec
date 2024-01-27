@@ -1,6 +1,6 @@
 Name:           perl-Digest-JHash
 Version:        0.10
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Perl extension for 32 bit Jenkins Hashing Algorithm
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Digest-JHash
@@ -57,6 +57,9 @@ input a message of arbitrary length and produces as output a 32-bit
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

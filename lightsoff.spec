@@ -2,7 +2,7 @@
 
 Name:           lightsoff
 Version:        46~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
@@ -59,6 +59,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
 - Update to 46.alpha
 

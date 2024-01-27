@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Making animating in Matplotlib easy
 
 License:        MIT
@@ -100,6 +100,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

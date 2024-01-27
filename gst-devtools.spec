@@ -1,8 +1,8 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.22.8
-Release:        3%{?dist}
+Version:        1.22.9
+Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPL-2.0-or-later
@@ -84,6 +84,9 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
 
 %changelog
+* Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
+- 1.22.9
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

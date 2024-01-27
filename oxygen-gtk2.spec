@@ -4,7 +4,7 @@
 Name:    oxygen-gtk2
 Summary: Oxygen GTK+2 theme
 Version: 1.4.6
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 License: LGPLv2+
 URL:     https://cgit.kde.org/oxygen-gtk.git/
@@ -56,6 +56,9 @@ otherwise breaks every time some setting is changed in KDE.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

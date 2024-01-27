@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.5.28
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -120,6 +120,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw64_bindir}/*.exe
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.28-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.28-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

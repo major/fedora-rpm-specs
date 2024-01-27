@@ -1,6 +1,6 @@
 Name:           perl-Object-MultiType
 Version:        0.05
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Perl Objects as Hash, Array, Scalar, Code and Glob at the same time
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Object-MultiType
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

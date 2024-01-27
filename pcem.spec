@@ -2,6 +2,9 @@
 %global metadata_forgeurl https://github.com/X-m7/flathub
 %global metadata_commit ad9aafaaf2f3c1faccc3a99c11d62daca8520d02
 
+# Relax due to incompatible pointer issues
+%global build_type_safety_c 2
+
 Name:           pcem
 Version:        17
 Release:        %autorelease
@@ -12,10 +15,16 @@ License:        GPL-2.0-or-later and MIT and BSD-3-Clause
 URL:            https://pcem-emulator.co.uk
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source:         %{metadata_forgeurl}/archive/%{metadata_commit}/flathub-%{metadata_commit}.tar.gz
-Patch0: pcem-c99.patch
+# Define HAVE_UNISTD_H in config.h for the benefit of slrip/debug.c
+# Already fixed upstream with the switch to CMake
+Patch:          pcem-c99.patch
+# Workaround Wayland issues by forcing X11 for now
+# Backport of https://github.com/sarah-walker-pcem/pcem/pull/222
+Patch:          pcem-wayland-hack.patch
 
 # checking for cpu... configure: error: Unsupported CPU.
-ExcludeArch:    armv7hl ppc64le s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    armv7hl i686 ppc64le s390x
 
 BuildRequires:  autoconf
 BuildRequires:  automake

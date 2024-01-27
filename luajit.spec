@@ -9,7 +9,7 @@
 Name:           luajit
 Version:        %{luajit_version}
 %global apiver %(v=%{version}; echo ${v%.${v#[0-9].[0-9].}})
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Just-In-Time Compiler for Lua
 License:        MIT
 URL:            http://luajit.org
@@ -100,6 +100,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1692716794-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1692716794-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

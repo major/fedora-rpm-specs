@@ -5,14 +5,15 @@ Version:        1.7~pre0
 Release:        %autorelease
 Summary:        Set of command line tools to access hardware device registers
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 # Original upstream at https://github.com/adurbin/iotools is no longer
 # developed, so use a maintained fork instead
 URL:            https://github.com/aaron-sierra/iotools
-Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
+Source:         %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  sed
 
 %description
 The iotools package provides a set of simple command line tools which allow
@@ -23,6 +24,9 @@ utilities which allow for simple arithmetic, logical, and other operations.
 
 %prep
 %autosetup -n %{name}-%{tag}
+
+# Do not abort on warnings
+sed -i 's/-Werror//' Makefile
 
 %build
 %set_build_flags

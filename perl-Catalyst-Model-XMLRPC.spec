@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Model-XMLRPC
 Version:        0.04
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        XMLRPC model class for Catalyst
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Model-XMLRPC
@@ -55,6 +55,9 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:			ndesk-dbus
 Version:		0.6.1a
-Release:		38%{?dist}
+Release:		39%{?dist}
 Summary:		Managed C# implementation of DBus
 
 License:		MIT
@@ -61,6 +61,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT%{_prefix}/lib/pkgconf
 %{_libdir}/pkgconfig/ndesk-dbus-1.0.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1a-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1a-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

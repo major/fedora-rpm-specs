@@ -1,8 +1,10 @@
+%{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}}
+
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
-Version: 0.18.1
-Release: 5%{?dist}
-Source0: https://github.com/latchset/mod_auth_mellon/archive/refs/tags/v0.18.1.tar.gz
+Version: 0.19.0
+Release: 1%{?dist}
+Source0: https://github.com/latchset/mod_auth_mellon/releases/download/v%{version}/mod_auth_mellon-%{version}.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
 Source3: mod_auth_mellon.conf
@@ -107,13 +109,19 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Tue Jan 25 2024  Tomas Halman <thalman@redhat.com> - 0.19.0-1
+- Resolves: rhbz#2258342 - new version is available
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Thu Mar 7 2023 Tomas Halman <thalman@redhat.com> - 0.18.1-3
+* Tue Mar 7 2023 Tomas Halman <thalman@redhat.com> - 0.18.1-3
 - migrated to SPDX license
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-2
@@ -155,7 +163,7 @@ in the doc directory for instructions on using the diagnostics build.
 - New upstream version 0.17.0
 
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild 
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Thu Feb 13 2020 Tom Stellard <tstellar@redhat.com> - 0.16.0-2
 - Use make_build macro instead of just make

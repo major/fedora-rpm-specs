@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

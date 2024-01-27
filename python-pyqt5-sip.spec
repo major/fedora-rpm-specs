@@ -6,12 +6,13 @@
 
 Name:           python-%{pkg_name}
 Version:        12.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
 URL:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
+Patch0:         afc99fa84d0d.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -51,6 +52,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Thu Jan 25 2024 Scott Talbert <swt@techie.net> - 12.13.0-3
+- Fix FTBFS with GCC 14
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

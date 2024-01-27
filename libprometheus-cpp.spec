@@ -7,7 +7,7 @@
 Name:           libprometheus-cpp
 Summary:        Prometheus Client Library for Modern C++
 Version:        1.2.1
-Release:        1%{?dev:%{dev}}%{?dist}
+Release:        2%{?dev:%{dev}}%{?dist}
 License:        MIT AND 0BSD
 Url:            https://github.com/jupp0r/%{githubname}
 Source:         %{url}/archive/v%{version}/%{tarball}-%{version}.tar.gz
@@ -63,6 +63,9 @@ export GCC_COLORS=
 %{_libdir}/pkgconfig/%{githubname}-*.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.2.1-1
 - prometheus-cpp 1.2.1 GA
 

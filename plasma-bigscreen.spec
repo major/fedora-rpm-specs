@@ -7,7 +7,7 @@
 
 Name:          plasma-bigscreen
 Version:       5.27.9
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -126,6 +126,9 @@ chmod +x %{buildroot}%{_kf5_bindir}/mycroft-skill-launcher.py
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

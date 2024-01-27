@@ -5,7 +5,7 @@
 Name:           libtheora
 Epoch:          1
 Version:        1.1.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Theora Video Compression Codec
 License:        BSD
 URL:            http://www.theora.org
@@ -124,6 +124,9 @@ install -m 755 examples/.libs/png2theora $RPM_BUILD_ROOT/%{_bindir}/png2theora
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.92.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -305,6 +305,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
 - Remove patch for disabling rawhide distro upgrade
 

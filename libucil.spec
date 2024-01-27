@@ -1,7 +1,7 @@
 Summary:        Library to render text and graphic overlays onto video images
 Name:           libucil
 Version:        0.9.10
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        GPLv2+
 URL:            https://www.unicap-imaging.org/
 Source0:        https://www.unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
@@ -76,6 +76,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.{a,la}
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

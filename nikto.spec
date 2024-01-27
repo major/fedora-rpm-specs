@@ -1,6 +1,6 @@
 Name:           nikto
 Version:        2.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Web server scanner
 URL:            https://www.cirt.net/Nikto2
@@ -126,6 +126,9 @@ install -m 0644 -pD program/nikto.conf.default %{buildroot}%{_sysconfdir}/nikto/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

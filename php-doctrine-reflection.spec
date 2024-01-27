@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Additional reflection functionality
 
 License:        MIT
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

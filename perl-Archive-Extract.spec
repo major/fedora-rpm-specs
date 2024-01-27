@@ -9,7 +9,7 @@ Name:           perl-Archive-Extract
 # Epoch to compete with core module from perl.spec
 Epoch:          1
 Version:        0.88
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Generic archive extracting mechanism
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Extract
@@ -331,6 +331,9 @@ make test
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.88-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.88-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

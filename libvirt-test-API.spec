@@ -25,7 +25,7 @@
 Summary: Python based regression tests for libvirt API
 Name: libvirt-test-API
 Version: 1.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv2
 URL: https://github.com/libvirt/libvirt-test-API
 Source0: %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -110,6 +110,9 @@ This package installs the detailed documentation of libvirt-test-API
 %doc docs/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

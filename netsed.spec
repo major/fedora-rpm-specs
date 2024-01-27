@@ -1,6 +1,6 @@
 Name:           netsed
 Version:        1.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A tool to modify network packets
 
 License:        GPLv2+
@@ -46,6 +46,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

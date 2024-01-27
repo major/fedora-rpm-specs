@@ -8,7 +8,7 @@
 
 Name:           podofo
 Version:        0.10.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        LGPL-2.0-or-later
@@ -210,6 +210,9 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

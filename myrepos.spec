@@ -1,6 +1,6 @@
 Name:           myrepos
 Version:        1.20180726
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A multiple SCM repository management tool
 
 License:        GPLv2+
@@ -52,6 +52,9 @@ done
 %{_datadir}/mr/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20180726-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20180726-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

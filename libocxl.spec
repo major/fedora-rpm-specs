@@ -1,6 +1,6 @@
 Name:           libocxl
 Version:        1.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Allows to implement a user-space driver for an OpenCAPI accelerator
 
 License:        Apache-2.0
@@ -68,6 +68,9 @@ make testobj/unittests V=1
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

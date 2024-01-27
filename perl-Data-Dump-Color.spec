@@ -1,6 +1,6 @@
 Name:           perl-Data-Dump-Color
 Version:        0.249
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Like Data::Dump, but with color
 License:        GPL+ or Artistic
 
@@ -75,6 +75,9 @@ what's different between this module and Data::Dump.
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.249-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.249-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

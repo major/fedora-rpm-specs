@@ -16,7 +16,7 @@
 Summary: An HTTP and WebDAV client library
 Name: neon
 Version: 0.32.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later
 URL: https://notroj.github.io/neon/
 Source0: https://notroj.github.io/neon/neon-%{version}.tar.gz
@@ -100,6 +100,9 @@ make %{?_smp_mflags} check
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

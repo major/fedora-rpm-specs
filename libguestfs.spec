@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -761,7 +761,7 @@ fi
 
 # 'INSTALLDIRS' ensures that Perl and Ruby libs are installed in the
 # vendor dir not the site dir.
-make V=1 INSTALLDIRS=vendor %{?_smp_mflags}
+%make_build INSTALLDIRS=vendor
 
 
 %check
@@ -787,7 +787,7 @@ fi
 %install
 # 'INSTALLDIRS' ensures that Perl and Ruby libs are installed in the
 # vendor dir not the site dir.
-make DESTDIR=$RPM_BUILD_ROOT INSTALLDIRS=vendor install
+%make_install INSTALLDIRS=vendor
 
 # Delete static libraries.
 rm $( find $RPM_BUILD_ROOT -name '*.a' | grep -v /ocaml/ )
@@ -1099,6 +1099,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.52.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.52.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

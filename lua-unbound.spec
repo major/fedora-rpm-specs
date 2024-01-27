@@ -6,7 +6,7 @@
 Summary:        Binding to libunbound for Lua
 Name:           lua-unbound
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        MIT
 URL:            https://www.zash.se/luaunbound.html
 Source0:        https://code.zash.se/dl/luaunbound/luaunbound-%{version}.tar.gz
@@ -52,6 +52,9 @@ lua -e \
 %{lua_libdir}/lunbound.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MIME-Lite
 Version:        3.033
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        MIME::Lite - low-calorie MIME generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Lite
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.033-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.033-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

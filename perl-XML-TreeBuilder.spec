@@ -1,7 +1,7 @@
 Summary:	Parser that builds a tree of XML::Element objects
 Name:		perl-XML-TreeBuilder
 Version:	5.4
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/XML-TreeBuilder
 # have to:
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{perl_vendorlib}/XML/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

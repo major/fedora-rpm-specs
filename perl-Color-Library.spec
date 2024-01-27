@@ -1,6 +1,6 @@
 Name:           perl-Color-Library
 Version:        0.021
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Easy-to-use and comprehensive named-color library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Color-Library
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.021-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.021-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

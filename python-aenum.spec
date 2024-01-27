@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD
@@ -71,6 +71,9 @@ Enum capabilities, however.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

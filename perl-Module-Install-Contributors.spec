@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-Contributors
 Version:        0.001
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Add an x_contributors section to your META.yml
 # CONTRIBUTING: CC-SA-BY
 # COPYRIGHT:    Public Domain
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

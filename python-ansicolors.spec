@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.1.8
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        ANSI colors for Python
 
 License:        ISC
@@ -50,6 +50,9 @@ PYTHONPATH=$(pwd) py.test-3 -v test
 %{python3_sitelib}/colors
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

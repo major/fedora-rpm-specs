@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Types-Path-Class 
 Summary:        A Path::Class type library for Moose 
 Version:        0.09
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Types-Path-Class
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Path-Class-%{version}.tar.gz
@@ -65,6 +65,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX::Types::Path::Class.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

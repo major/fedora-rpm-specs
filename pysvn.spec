@@ -1,6 +1,6 @@
 Name:           pysvn
 Version:        1.9.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pythonic style bindings for Subversion
 License:        ASL 1.1
 URL:            https://pysvn.sourceforge.io/
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

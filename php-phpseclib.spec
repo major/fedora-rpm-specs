@@ -9,7 +9,7 @@
 
 Name:       php-%{composer_vendor}
 Version:    2.0.44
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
 URL:        https://github.com/%{github_owner}/%{github_name}
@@ -131,6 +131,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.44-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.44-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

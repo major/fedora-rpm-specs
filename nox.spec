@@ -1,6 +1,6 @@
 Name:           nox
 Version:        2023.04.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flexible test automation
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_t
 %{_bindir}/tox-to-nox
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.04.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.04.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

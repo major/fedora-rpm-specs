@@ -1,7 +1,7 @@
 Name:		mongoose
 Summary:	An easy-to-use self-sufficient web server
 Version:	3.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	MIT
 URL:		http://code.google.com/p/mongoose
 Source0:	http://mongoose.googlecode.com/files/mongoose-%{version}.tgz
@@ -85,6 +85,9 @@ ln -s %{_libdir}/lib%{name}.so.$VERSION \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-CLI-Osprey
 Version:        0.08
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        MooX::Options + MooX::Cmd + Sanity
 License:        GPL+ or Artistic
 
@@ -66,6 +66,9 @@ as modules (with options of their own) or as simple code-refs.
 %{_mandir}/man3/CLI*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

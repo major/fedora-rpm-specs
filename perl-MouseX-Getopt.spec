@@ -1,7 +1,7 @@
 Name:		perl-MouseX-Getopt
 Summary:	Mouse role for processing command line options
 Version:	0.38
-Release:	24%{?dist}
+Release:	25%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Getopt
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Getopt-%{version}.tar.gz
@@ -81,6 +81,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MouseX::Getopt::Strict.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

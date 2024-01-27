@@ -3,7 +3,7 @@ Name:           perl-File-Temp
 Epoch:          1
 # Normalized version, compete with perl.spec
 Version:        0.231.100
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Return name and handle of a temporary file safely
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Temp
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.231.100-503
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.231.100-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

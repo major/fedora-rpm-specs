@@ -1,6 +1,6 @@
 Name:           perl-Alien-Font-Uni
 Version:        0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Access to Unifont TrueType file
 # lib/Alien/Font/Uni.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl (OFL-1.1
 #                           refers to font files)
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

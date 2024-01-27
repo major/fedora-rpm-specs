@@ -1,6 +1,6 @@
 Name:           perl-Image-Xbm
 Version:        1.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Load, create, manipulate and save xbm image files in Perl
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Image-Xbm
@@ -39,6 +39,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

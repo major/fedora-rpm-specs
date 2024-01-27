@@ -3,7 +3,7 @@
 
 Name:           perl-DateTime-Format-Atom
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse and format Atom date-time strings
 License:        CC0-1.0
 URL:            https://metacpan.org/release/DateTime-Format-Atom
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Petr Pisar <ppisar@redhat.com> - 1.6.0-1
 - 1.6.0 bump
 - Package the tests

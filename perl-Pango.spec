@@ -2,7 +2,7 @@
 
 Name:           perl-Pango
 Version:        1.227
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Perl interface to the pango library
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Pango
@@ -83,6 +83,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.227-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.227-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           lterm
 Version:        1.5.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Terminal and multi protocol client
 License:        GPLv2
 URL:            http://%{name}.sourceforge.net/
@@ -54,6 +54,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

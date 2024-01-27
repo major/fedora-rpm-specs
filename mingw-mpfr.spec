@@ -5,7 +5,7 @@
 Summary:        MinGW C library for multiple-precision floating-point computations
 Name:           mingw-%{name1}
 Version:        4.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 URL:            http://www.mpfr.org/
 Source0:        http://www.mpfr.org/mpfr-%{version}/%{name1}-%{version}.tar.xz
 
@@ -118,6 +118,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_libdir}/*.la
 %{mingw64_libdir}/pkgconfig/mpfr.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

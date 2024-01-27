@@ -8,7 +8,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        %{veryear}%{vermon}%{verday}
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        MinGW Windows C++ Wrapper for the SQLite3 embeddable SQL database engine
 
 License:        zlib
@@ -133,6 +133,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{mingw64_libdir}/pkgconfig/libsq3.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20071018-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20071018-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

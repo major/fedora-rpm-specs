@@ -40,7 +40,7 @@ It provides: \
 
 Name:       python-%{pypi_name}
 Version:    1.19.1
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    %{summary}
 
 License:    MIT
@@ -204,6 +204,9 @@ export TERM=xterm-256color
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

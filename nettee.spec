@@ -1,6 +1,6 @@
 Name:           nettee
 Version:        0.1.9.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Network "tee" program
 
 License:        GPLv2
@@ -42,6 +42,9 @@ chmod 644 *.sh
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

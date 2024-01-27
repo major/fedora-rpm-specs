@@ -8,7 +8,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        HTTP library for Lua
 
 License:        MIT
@@ -109,6 +109,9 @@ install -p -m 0644 %{luapkgname}/compat/*.lua -t "%{buildroot}%{luacompatpkgdir}
 %doc %{_pkgdocdir}/index.html
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

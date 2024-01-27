@@ -16,7 +16,7 @@
 Summary:        Code coverage driver
 Name:           php-pecl-%{pecl_name}
 Version:        1.0.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -165,6 +165,9 @@ TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

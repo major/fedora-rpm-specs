@@ -1,6 +1,6 @@
 Name:           perl-Alien-cmake3
 Version:        0.08
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Find or download or build cmake 3 or better
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-cmake3
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

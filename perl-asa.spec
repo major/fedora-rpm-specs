@@ -1,6 +1,6 @@
 Name:       perl-asa 
 Version:    1.04
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Lets your class/object say it works like something else
 # see lib/asa.pm
 License:    GPL+ or Artistic
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

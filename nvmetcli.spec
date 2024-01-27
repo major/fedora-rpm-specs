@@ -2,7 +2,7 @@ Name:           nvmetcli
 License:        ASL 2.0
 Summary:        An adminstration shell for NVMe storage targets
 Version:        0.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 URL:            ftp://ftp.infradead.org/pub/nvmetcli/
 Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
 Patch00:        0001-nvmetcli-don-t-remove-ANA-Group-1-on-clear.patch
@@ -66,6 +66,9 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/nvmetcli.8.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

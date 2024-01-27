@@ -4,7 +4,7 @@
 
 Name:           prelude-manager
 Version:        5.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Bus communicator for Prelude modules and other IDMEF agents
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -220,6 +220,9 @@ make check
 %doc %{_docdir}/%{name}/snmp/PRELUDE-SIEM-MIB.mib
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

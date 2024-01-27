@@ -1,6 +1,6 @@
 Name:           openhpi-subagent
 Version:        2.3.4
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        NetSNMP subagent for OpenHPI
 
 License:        BSD
@@ -87,6 +87,9 @@ fi
 %{_datadir}/snmp/mibs/*.mib
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

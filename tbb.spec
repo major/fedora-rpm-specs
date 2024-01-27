@@ -5,7 +5,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2021.11.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     http://threadingbuildingblocks.org/
 
@@ -68,9 +68,6 @@ Blocks (TBB) C++ libraries.
 
 %package doc
 Summary: The Threading Building Blocks documentation
-%if %{with py3docs}
-Requires: python3-docs
-%endif
 %ifarch %{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2174300
 Conflicts: %{name}-doc.x86_64
@@ -190,6 +187,9 @@ ctest --output-on-failure --force-new-ctest-process
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Thu Jan 25 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 2021.11.0-5
+- Remove Requires:python3-docs for tbb-doc subpackage
+
 * Mon Jan 22 2024 Jonathan Wakely <jwakely@fedoraproject.org> - 2021.11.0-4
 - Rename 32-bit arch /usr/lib/pkgconfig/tbb32.pc to tbb.pc
 

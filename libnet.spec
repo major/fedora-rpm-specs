@@ -1,7 +1,7 @@
 Summary:        C library for portable packet creation and injection
 Name:           libnet
 Version:        1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-2-Clause and BSD-3-Clause
 URL:            https://github.com/libnet/libnet
 Source0:        https://github.com/libnet/libnet/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -96,6 +96,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

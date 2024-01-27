@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Inflect
 Version:        1.905
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Convert singular to plural, select "a" or "an"
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Inflect
@@ -47,6 +47,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.905-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.905-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

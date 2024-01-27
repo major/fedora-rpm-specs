@@ -117,7 +117,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 # PRERELEASE
-Version: 5.1~pre17060399gb6abf4bd
+Version: 5.1~pre17062192g5fd8daba
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -1304,6 +1304,14 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Jan 25 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17062192g5fd8daba
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Thu Jan 25 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17062114g2604d135
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Tue Jan 23 2024 Frank Ch. Eigler <fche@redhat.com> - 5.1-17060399gb6abf4bd
 - Automated weekly rawhide release
 - Applied spec changes from upstream git
@@ -1332,7 +1340,8 @@ exit 0
 * Sat Nov 04 2023 Frank Ch. Eigler <fche@redhat.com> - 5.0-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
-
+- migrated to SPDX license
+  
 * Fri Apr 28 2023 Frank Ch. Eigler <fche@redhat.com> - 4.9-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

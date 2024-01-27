@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Setenv
 Version:        0.03
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Catalyst::Plugin::Setenv Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-Setenv
@@ -41,6 +41,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

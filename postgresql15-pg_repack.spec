@@ -4,7 +4,7 @@
 %global pgversion 15
 Name:           postgresql%{pgversion}-%{majorname}
 Version:        1.4.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
@@ -98,6 +98,9 @@ make
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

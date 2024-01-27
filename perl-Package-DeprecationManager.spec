@@ -1,6 +1,6 @@
 Name:		perl-Package-DeprecationManager
 Version:	0.18
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Manage deprecation warnings for your distribution
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Package-DeprecationManager
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Package::DeprecationManager.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

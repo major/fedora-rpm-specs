@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-SNMP
 Version:        1.1006
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        POE interface to Net::SNMP 
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-SNMP
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1006-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1006-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

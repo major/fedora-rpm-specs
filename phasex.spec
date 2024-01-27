@@ -4,7 +4,7 @@
 
 Name:  phasex
 Version: 0.14.97
-Release: %{prerel}.20150304git%{shortcommit}%{?dist}.3
+Release: %{prerel}.20150304git%{shortcommit}%{?dist}.4
 Summary: PHASEX -- Phase Harmonic Advanced Synthesis EXperiment
 License: GPLv3+
 URL:     https://github.com/williamweston/phasex
@@ -88,6 +88,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/scalable/apps/%{name}-icon.svg
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.97-9.20150304git4942467.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.97-9.20150304git4942467.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

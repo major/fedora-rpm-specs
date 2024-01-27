@@ -1,6 +1,6 @@
 Name:           perl-Authen-SASL-SASLprep
 Version:        1.100
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Stringprep profile for user names and passwords (RFC 4013)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Authen-SASL-SASLprep
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

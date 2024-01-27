@@ -1,6 +1,6 @@
 Name:           perl-Perl-Version
 Version:        1.016
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Perl::Version*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.016-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.016-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

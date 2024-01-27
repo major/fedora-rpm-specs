@@ -1,6 +1,6 @@
 Name:		luabind
 Version:	0.9.1
-Release:	45%{?dist}
+Release:	46%{?dist}
 Summary:	A library that helps create bindings between C++ and Lua
 License:	MIT
 URL:		http://www.rasterbar.com/products/luabind.html
@@ -79,6 +79,9 @@ b2 -d2 --prefix=%{buildroot}%{_prefix} --libdir=%{buildroot}%{_libdir} release i
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

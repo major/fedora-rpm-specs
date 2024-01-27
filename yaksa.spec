@@ -1,5 +1,7 @@
+%bcond tests 1
+
 Name:           yaksa
-Version:        0.2
+Version:        0.3
 Release:        %autorelease
 Summary:        High-performance library for noncontiguous data
 
@@ -51,9 +53,10 @@ ln -fvs /usr/include/utlist.h src/external/yutlist.h
 
 rm %{buildroot}%{_libdir}/libyaksa.la
 
+%if %{with tests}
 %check
-timeout -v 2h \
-    %make_build testing
+timeout -v 2h make -j%{_smp_build_ncpus} testing
+%endif
 
 %files
 %license COPYRIGHT

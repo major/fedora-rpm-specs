@@ -11,6 +11,10 @@
 %global base_vulkan ,amd
 %endif
 
+%if 0%{?with_vulkan_hw}
+%global with_nvk 1
+%endif
+
 %ifarch %{ix86} x86_64
 %global with_crocus 1
 %global with_i915   1
@@ -57,7 +61,7 @@
 %bcond_with valgrind
 %endif
 
-%global vulkan_drivers swrast%{?base_vulkan}%{?intel_platform_vulkan}%{?extra_platform_vulkan}
+%global vulkan_drivers swrast%{?base_vulkan}%{?intel_platform_vulkan}%{?extra_platform_vulkan}%{?with_nvk:,nouveau-experimental}
 
 Name:           mesa
 Summary:        Mesa graphics libraries
@@ -77,7 +81,7 @@ Patch10:        gnome-shell-glthread-disable.patch
 # Workaround for llvm/clang bug: https://github.com/llvm/llvm-project/issues/78691
 Patch11:        gallium-Undef-__arm_streaming-macro-to-workaround-cl.patch
 
-BuildRequires:  meson >= 1.2.0
+BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -135,13 +139,19 @@ BuildRequires:  pkgconfig(libomxil-bellagio)
 BuildRequires:  pkgconfig(libelf)
 BuildRequires:  pkgconfig(libglvnd) >= 1.3.2
 BuildRequires:  llvm-devel >= 7.0.0
-%if 0%{?with_opencl}
+%if 0%{?with_opencl} || 0%{?with_nvk}
 BuildRequires:  clang-devel
 BuildRequires:  bindgen
 BuildRequires:  rust-packaging
 BuildRequires:  pkgconfig(libclc)
 BuildRequires:  pkgconfig(SPIRV-Tools)
 BuildRequires:  pkgconfig(LLVMSPIRVLib)
+%endif
+%if 0%{?with_nvk}
+BuildRequires:  (crate(proc-macro2) >= 1.0.56 with crate(proc-macro2) < 2)
+BuildRequires:  (crate(quote) >= 1.0.25 with crate(quote) < 2)
+BuildRequires:  (crate(syn/clone-impls) >= 2.0.15 with crate(syn/clone-impls) < 3)
+BuildRequires:  (crate(unicode-ident) >= 1.0.6 with crate(unicode-ident) < 2)
 %endif
 %if %{with valgrind}
 BuildRequires:  pkgconfig(valgrind)
@@ -365,6 +375,18 @@ cp %{SOURCE1} docs/
 %build
 # ensure standard Rust compiler flags are set
 export RUSTFLAGS="%build_rustflags"
+
+%if 0%{?with_nvk}
+export MESON_PACKAGE_CACHE_DIR="%{cargo_registry}/"
+# So... Meson can't actually find them without tweaks
+%define inst_crate_nameversion() %(basename %{cargo_registry}/%{1}-*)
+%define rewrite_wrap_file() sed -e "/source.*/d" -e "s/%{1}-.*/%{inst_crate_nameversion %{1}}/" -i subprojects/%{1}.wrap
+
+%rewrite_wrap_file proc-macro2
+%rewrite_wrap_file quote
+%rewrite_wrap_file syn
+%rewrite_wrap_file unicode-ident
+%endif
 
 # We've gotten a report that enabling LTO for mesa breaks some games. See
 # https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
@@ -659,6 +681,10 @@ popd
 %{_libdir}/libvulkan_radeon.so
 %{_datadir}/drirc.d/00-radv-defaults.conf
 %{_datadir}/vulkan/icd.d/radeon_icd.*.json
+%if 0%{?with_nvk}
+%{_libdir}/libvulkan_nouveau.so
+%{_datadir}/vulkan/icd.d/nouveau_icd.*.json
+%endif
 %ifarch %{ix86} x86_64
 %{_libdir}/libvulkan_intel.so
 %{_datadir}/vulkan/icd.d/intel_icd.*.json

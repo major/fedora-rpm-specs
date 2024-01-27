@@ -2,7 +2,7 @@
 
 Name:           moditect
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tooling for the Java Module System
 License:        Apache-2.0
 URL:            https://github.com/moditect/moditect
@@ -72,6 +72,9 @@ rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 %license LICENSE.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

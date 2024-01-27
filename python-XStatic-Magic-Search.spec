@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.5.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Magic-Search (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -64,6 +64,9 @@ mv %{buildroot}/%{python3_sitelib}/xstatic/pkg/magic_search/data/magic_search.* 
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

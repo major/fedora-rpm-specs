@@ -1,6 +1,6 @@
 Name:           perl-Data-JavaScript
 Version:        1.15
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Dump perl data structures into JavaScript code
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-JavaScript
@@ -54,6 +54,9 @@ structures created on the server.
 %{_mandir}/man3/Data*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

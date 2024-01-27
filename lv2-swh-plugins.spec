@@ -3,7 +3,7 @@
 
 Name:		lv2-swh-plugins
 Version:	1.0.15
-Release:	19.20150723.%{gitver}git%{?dist}
+Release:	20.20150723.%{gitver}git%{?dist}
 Summary:	LV2 ports of LADSPA swh plugins
 License:	GPLv3
 URL:		http://lv2plug.in/
@@ -51,6 +51,9 @@ make install-system INSTALL_DIR="$RPM_BUILD_ROOT%{_libdir}/lv2"
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-20.20150723.5098e09git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-19.20150723.5098e09git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

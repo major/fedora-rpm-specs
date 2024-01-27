@@ -1,7 +1,7 @@
 Summary:    C++ wrapper for the MySQL C API
 Name:       mysql++
 Version:    3.3.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 License:    LGPL-2.1-or-later
 URL:        https://tangentsoft.com/mysqlpp/home
 
@@ -134,6 +134,9 @@ cp --preserve=timestamps doc/userman/LICENSE.txt %{buildroot}%{_licensedir}/%{na
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

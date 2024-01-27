@@ -1,6 +1,6 @@
 Name:          mate-sensors-applet
 Version:       1.26.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       MATE panel applet for hardware sensors
 License:       GPLv2+
 URL:           http://mate-desktop.org
@@ -79,6 +79,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm -rf {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

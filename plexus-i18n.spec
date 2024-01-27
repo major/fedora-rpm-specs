@@ -1,6 +1,6 @@
 Name:           plexus-i18n
 Version:        1.0
-Release:        0.28.b10.4%{?dist}
+Release:        0.29.b10.4%{?dist}
 Summary:        Plexus I18N Component
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-i18n
@@ -47,6 +47,9 @@ is like a J2EE application server, without all the baggage.
 %files -f .mfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.29.b10.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.28.b10.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

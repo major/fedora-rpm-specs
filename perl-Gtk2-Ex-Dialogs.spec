@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-Dialogs
 Version:        0.11
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Useful tools for GNOME2/GTK2 Perl GUI design
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Dialogs
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

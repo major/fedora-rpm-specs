@@ -2,7 +2,7 @@
 
 Name:    plasma-breeze
 Version: 5.92.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -150,6 +150,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Alessandro Astone <ales.astone@gmail.com> - 5.92.0-3
 - Install translation files in the main package
 - Install the qt6 build last; in case any files overlap we want the qt6 ones

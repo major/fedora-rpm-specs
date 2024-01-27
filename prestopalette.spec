@@ -1,7 +1,7 @@
 
 Name:		prestopalette
 Version:	0.1.31
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	An artist's tool for creating harmonious color palettes
 
 License:	MIT
@@ -58,6 +58,9 @@ install -Dp -m 644 %{SOURCE2} %{buildroot}/%{_datadir}/pixmaps/
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.31-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.31-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

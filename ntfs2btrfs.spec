@@ -1,5 +1,5 @@
 Name:           ntfs2btrfs
-Version:        20230501
+Version:        20240115
 Release:        %autorelease
 Summary:        Conversion tool from NTFS to Btrfs
 

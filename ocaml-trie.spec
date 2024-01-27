@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-trie
 Version:        1.0.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Strict impure trie tree
 
 License:        MIT
@@ -43,6 +43,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

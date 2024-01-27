@@ -1,6 +1,6 @@
 Name:		opencl-filesystem
 Version:	1.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	OpenCL filesystem layout
 
 License:	LicenseRef-Not-Copyrightable
@@ -27,6 +27,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/OpenCL/vendors/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

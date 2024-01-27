@@ -1,6 +1,6 @@
 Name:           ftgl
 Version:        2.1.3
-Release:        0.31.rc5%{?dist}
+Release:        0.32.rc5%{?dist}
 Summary:        OpenGL frontend to Freetype 2
 
 License:        LGPLv2
@@ -8,6 +8,7 @@ URL:            http://ftgl.wiki.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/ftgl/ftgl-%{version}-rc5.tar.bz2
 Patch0:         ftgl-2.1.3-rc5-ttf_font.patch
 Patch1:         ftgl-2.1.3-rc5-ldflags.patch
+Patch2:         fix-double-float-narrowing.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -51,8 +52,9 @@ This package contains documentation files for %{name}.
 
 %prep
 %setup -q -n ftgl-%{version}~rc5
-%patch0 -p1 -b .destdir
-%patch1 -p1 -b .ldflags
+%patch -P 0 -p1 -b .destdir
+%patch -P 1 -p1 -b .ldflags
+%patch -P 2 -p1 -b .narrowing
 
 
 
@@ -71,24 +73,25 @@ This package contains documentation files for %{name}.
 # Which breaks installing ftgl-devel into a koji buildroot (rhbz#843460)
 sed -i 's/2\.1\.3~rc5/2.1.3/' ftgl.pc
 
-make all %{?_smp_mflags}
+%make_build
 
 
 %install
-make install INSTALL="%{__install} -p" DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%make_install
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Doc fixes
 mkdir -p __doc/html
-install -pm 0644 $RPM_BUILD_ROOT%{_datadir}/doc/ftgl/html/* __doc/html
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
+install -pm 0644 %{buildroot}%{_datadir}/doc/ftgl/html/* __doc/html
+rm -rf %{buildroot}%{_datadir}/doc
 
 
 %ldconfig_scriptlets
 
 
 %files
-%doc AUTHORS BUGS ChangeLog COPYING NEWS README TODO
+%doc AUTHORS BUGS ChangeLog NEWS README TODO
+%license COPYING
 %{_libdir}/*.so.*
 
 %files devel
@@ -101,6 +104,11 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
 
 
 %changelog
+* Thu Jan 25 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.1.3-0.32.rc5
+- Fix a narrowing warning - tbaeder
+  https://src.fedoraproject.org/rpms/ftgl/pull-request/1
+- Modernize spec file
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-0.31.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

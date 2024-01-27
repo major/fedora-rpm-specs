@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-ECDSA
 Version:        0.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl extension for OpenSSL ECDSA (Elliptic Curve Digital Signature Algorithm)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-OpenSSL-ECDSA
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: mythes-ca
 Summary: Catalan thesaurus
 Version: 2.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://github.com/Softcatala/sinonims-cat/releases/latest/download/thesaurus-ca.oxt
 URL: http://www.softcatala.org/wiki/Projectes/Openthesaurus-ca
 License: CC-BY-4.0
@@ -40,6 +40,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

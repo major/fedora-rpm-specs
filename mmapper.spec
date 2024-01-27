@@ -1,6 +1,6 @@
 Name:           mmapper
 Version:        23.05.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graphical MUME mapper
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.05.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.05.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

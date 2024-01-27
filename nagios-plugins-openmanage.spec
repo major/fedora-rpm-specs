@@ -6,7 +6,7 @@
 
 Name:          nagios-plugins-openmanage
 Version:       3.7.12
-Release:       21%{?dist}
+Release:       22%{?dist}
 Summary:       Nagios plugin to monitor hardware health on Dell servers
 
 License:       GPLv3+
@@ -66,6 +66,9 @@ install -Dp -m 0644 man/%{plugin}.conf.5 %{buildroot}%{_mandir}/man5/%{plugin}.c
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.12-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.12-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

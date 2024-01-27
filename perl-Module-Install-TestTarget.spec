@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-TestTarget
 Version:        0.19
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Assembles custom test targets for make
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Module-Install-TestTarget
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.1.9
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD
@@ -74,6 +74,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

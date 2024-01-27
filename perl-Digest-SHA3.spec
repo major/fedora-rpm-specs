@@ -1,6 +1,6 @@
 Name:           perl-Digest-SHA3
 Version:        1.05
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl extension for SHA-3
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Digest-SHA3
@@ -106,6 +106,9 @@ This script will compute and check the SHA3 message digest of a file
 %{_bindir}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

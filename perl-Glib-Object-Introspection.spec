@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.050
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -137,6 +137,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

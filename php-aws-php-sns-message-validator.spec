@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       9%{?github_release}%{?dist}
+Release:       10%{?github_release}%{?dist}
 Summary:       Amazon SNS message validation
 
 License:       ASL 2.0
@@ -171,6 +171,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libnetfilter_cttimeout
 Version:        1.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Timeout policy tuning for Netfilter/conntrack
 License:        GPL-2.0-or-later
 URL:            http://netfilter.org
@@ -58,6 +58,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/libnetfilter_cttimeout/*.h
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Curses
 Version:        1.44
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl bindings for ncurses
 
 License:        GPL+ or Artistic
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

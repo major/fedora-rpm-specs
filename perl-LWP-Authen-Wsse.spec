@@ -1,6 +1,6 @@
 Name:           perl-LWP-Authen-Wsse
 Version:        0.05
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Library for enabling X-WSSE authentication in LWP
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

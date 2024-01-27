@@ -1,6 +1,6 @@
 Name:		php-liuggio-statsd-php-client
 Version:	1.0.18
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Object Oriented Client for etsy/statsd written in php
 
 License:	MIT
@@ -52,6 +52,9 @@ phpunit -v \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

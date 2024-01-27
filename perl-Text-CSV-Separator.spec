@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV-Separator
 Version:        0.20
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Determine the field separator of a CSV file
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-CSV-Separator
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

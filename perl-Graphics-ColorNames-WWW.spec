@@ -1,6 +1,6 @@
 Name:           perl-Graphics-ColorNames-WWW
 Version:        1.14
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        WWW color names and equivalent RGB values
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Graphics-ColorNames-WWW
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -250,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

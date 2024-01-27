@@ -1,6 +1,6 @@
 Name:           perl-Class-ISA
 Version:        0.36
-Release:        1040%{?dist}
+Release:        1041%{?dist}
 Summary:        Report the search path for a class's ISA tree
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-ISA
@@ -48,6 +48,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-1041
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-1040
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

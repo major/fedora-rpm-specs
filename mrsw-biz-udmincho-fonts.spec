@@ -1,5 +1,5 @@
 Version:	1.06
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		https://github.com/googlefonts/morisawa-biz-ud-mincho
 
 %global	foundry		MRSW
@@ -68,6 +68,9 @@ BuildRequires:	libappstream-glib
 %fontfiles -a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

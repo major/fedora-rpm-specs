@@ -17,7 +17,7 @@ Name:          nbd-runner
 Summary:       A daemon that handles the NBD device's IO requests in server side
 License:       GPLv2 or LGPLv3+
 Version:       0.5.3
-Release:       14%{?dist}
+Release:       15%{?dist}
 URL:           https://github.com/nbd-runner/nbd-runner
 
 Source0:       https://github.com/nbd-runner/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -164,6 +164,9 @@ azblk-handler provide a library for processing the Azure storage stuff.
 ######## End ########
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

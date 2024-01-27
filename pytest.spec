@@ -2,7 +2,7 @@ Name:           pytest
 %global base_version 7.4.3
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -182,6 +182,9 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

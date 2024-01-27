@@ -1,6 +1,6 @@
 Name:           perl-Test-LoadAllModules
 Version:        0.022
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Do use_ok for the modules in a search path
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-LoadAllModules
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

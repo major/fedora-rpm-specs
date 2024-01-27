@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -318,6 +318,10 @@ Patch35: binutils-demangler-updates.patch
 # Purpose:  Add support for Intel's APX extensions (part 1)
 # Lifetime: Fixed in 2.42
 Patch36: binutils-Intel-APX-part-1.patch
+
+# Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
+# Lifetime: TEMPORARY
+Patch99: binutils-suppress-ld-align-tests.patch
 
 #----------------------------------------------------------------------------
 
@@ -1354,6 +1358,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Jan 24 2024 Nick Clifton  <nickc@redhat.com> - 2.41-32
+- Suppress the x86 linker's p_align-1 tests in order to cope with a CentOS-10 kernel bug.  (RHEL-22466)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

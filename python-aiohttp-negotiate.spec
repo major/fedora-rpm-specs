@@ -3,7 +3,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.11
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Add-on for Python aiohttp library to support Negotiate authentication
 License:        BSD
 URL:            https://github.com/ox-it/aiohttp-negotiate
@@ -81,6 +81,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A collection of LPEG patterns
 
 License:        MIT
@@ -57,6 +57,9 @@ install -p -m 0644 lpeg_patterns/* -t %{buildroot}%{luacompatpkgdir}/lpeg_patter
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

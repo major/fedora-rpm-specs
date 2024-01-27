@@ -4,11 +4,15 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.5.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
 Source1:	xca-2.5.0-README.IMPORTANT
+
+Patch1:		xca-2.5-pastekey.patch
+Patch2:		xca-2.5-revokedel.patch
+Patch3:		xca-2.5-delete_after_revoke.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -113,6 +117,15 @@ desktop-file-install --mode 0644					\
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+
+* Mon Jan 22 2024 Patrick Monnerat <patrick@monnerat.net> 2.5.0-3
+- Patch "pastekey" fixes a crash pasting an encrypted private key.
+  https://github.com/chris2511/xca/commit/d29d55a
+- Patch "revokedel" fixes a freeze when deleting a certificate.
+  https://github.com/chris2511/xca/commit/43e1b33
+- Patch "delete_after_revoke" fixes a crash deleting+revoking a certificate.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2259477
+
 * Tue Nov 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2.5.0-2
 - Explicitly BuildRequire python3-sphinxcontrib-qthelp
 

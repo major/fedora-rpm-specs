@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Loads the contents of a text file into an array of lines
 License: GPL+ or Artistic
 Version: 1.040
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -65,6 +65,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.040-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.040-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

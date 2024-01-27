@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        2.0.1
-Release:        6%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        7%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Check Symfony requirements and give recommendations
 
 License:        MIT
@@ -106,6 +106,9 @@ exit(class_exists("Symfony\\Requirements\\Requirement") ? 0 : 1);
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

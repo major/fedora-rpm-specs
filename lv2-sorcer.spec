@@ -4,7 +4,7 @@
 
 Name:           lv2-sorcer
 Version:        1.1.3
-Release:        0.7.%{prerelease}git%{shortcommit}%{?dist}
+Release:        0.8.%{prerelease}git%{shortcommit}%{?dist}
 Summary:        An audio compressor for JACK
 
 License:        GPLv3+
@@ -59,6 +59,9 @@ sed -i -e 's|-msse2 -mfpmath=sse||g' CMakeLists.txt
 %{_libdir}/lv2/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.8.20171126git0a8cef4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.7.20171126git0a8cef4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

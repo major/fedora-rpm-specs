@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.39
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
 License:        BSD
@@ -43,6 +43,9 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.39-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

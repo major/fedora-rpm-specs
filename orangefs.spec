@@ -1,6 +1,6 @@
 Name: orangefs
 Version: 2.9.8
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Parallel network file system client
 URL: https://www.orangefs.org/
 # BSD (2 clause) maint/config/ssl.m4
@@ -295,6 +295,9 @@ This package contains the FUSE client.
 %{_bindir}/pvfs2fuse
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

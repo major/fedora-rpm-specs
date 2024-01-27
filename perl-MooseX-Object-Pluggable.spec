@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Object-Pluggable
 Version:        0.0014
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Make your Moose classes pluggable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

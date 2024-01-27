@@ -7,7 +7,7 @@
 
 Name:           perl-indirect
 Version:        0.39
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Lexically warn about using the indirect object syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/indirect
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/indirect.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

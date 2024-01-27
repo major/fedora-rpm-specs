@@ -1,6 +1,6 @@
 Name:		perl-Test-XML
 Version:	0.08
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Compare XML in perl tests
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-XML
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Test::XML::XPath.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

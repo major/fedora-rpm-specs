@@ -1,6 +1,6 @@
 Name:           ncmpcpp
 Version:        0.9.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Featureful ncurses based MPD client inspired by ncmpc
 License:        GPLv2+
 URL:            http://ncmpcpp.rybczak.net/
@@ -57,6 +57,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

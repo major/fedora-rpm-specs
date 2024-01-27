@@ -6,7 +6,7 @@
 Summary: Library for accessing MusicBrainz servers
 Name: libmusicbrainz5
 Version: 5.1.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: LGPLv2
 URL: http://www.musicbrainz.org/
 Source0: https://github.com/metabrainz/libmusicbrainz/releases/download/release-5.1.0/libmusicbrainz-%{version}.tar.gz
@@ -76,6 +76,9 @@ rm -f docs/installdox
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

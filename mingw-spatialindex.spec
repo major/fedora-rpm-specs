@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.9.3
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 BuildArch:     noarch
 
@@ -75,6 +75,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

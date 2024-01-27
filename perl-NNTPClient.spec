@@ -1,6 +1,6 @@
 Name:           perl-NNTPClient
 Version:        0.37
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl 5 module to talk to NNTP (RFC977) server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/NNTPClient
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

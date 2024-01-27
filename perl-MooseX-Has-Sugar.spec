@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Has-Sugar
 Version:        1.000006
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Sugar syntax for moose 'has' fields
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Has-Sugar
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000006-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000006-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:          parsec
 Version:       1.1.0
-Release:       6%{?candidate:.%{candidate}}%{?dist}
+Release:       7%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -89,6 +89,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

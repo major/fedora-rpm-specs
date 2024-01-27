@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -43,7 +43,7 @@ BuildRequires:  hokuyoaist-devel
 BuildRequires:  geos-devel
 BuildRequires:  gsl-devel
 BuildRequires:  gtk2-devel, libgnomecanvas-devel
-BuildRequires:  compat-guile18-devel
+BuildRequires:  guile22-devel
 %ifnarch s390 s390x
 BuildRequires:  libdc1394-devel, libraw1394-devel
 %endif
@@ -126,19 +126,19 @@ are experimental.
 
 %prep
 %setup -q -n %{name}-%{releasetag}
-%patch0 -p1 -b .cmake3
-%patch1 -p1 -b .cmake-find-python-version
-%patch2 -p1 -b .cpp11
-%patch3 -p1 -b .tirpc
-%patch4 -p1 -b .python3
-%patch5 -p1 -b .opencv3
-%patch6 -p1 -b .opencv4
+%patch -P 0 -p1 -b .cmake3
+%patch -P 1 -p1 -b .cmake-find-python-version
+%patch -P 2 -p1 -b .cpp11
+%patch -P 3 -p1 -b .tirpc
+%patch -P 4 -p1 -b .python3
+%patch -P 5 -p1 -b .opencv3
+%patch -P 6 -p1 -b .opencv4
 
 # Filter out the 'build' folder from doxygen generation
 sed -i 's|EXCLUDE                =|EXCLUDE                = ../%{_vpath_builddir}|' doc/player.dox.in
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+export CXXFLAGS="-std=c++14 %{optflags}"
 export LDFLAGS="%{?__global_ldflags} -lpthread"
 %cmake %{?_cmake_skip_rpath} \
   -DCMAKE_BUILD_TYPE=Release \
@@ -175,21 +175,21 @@ desktop-file-install \
 %if 0%{?fedora} && 0%{?fedora} < 19
 --vendor="fedora"               \
 %endif
---dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
+--dir=%{buildroot}%{_datadir}/applications         \
 %{SOURCE1}
 
 desktop-file-install \
 %if 0%{?fedora} && 0%{?fedora} < 19
 --vendor="fedora"               \
 %endif
---dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
+--dir=%{buildroot}%{_datadir}/applications         \
 %{SOURCE2}
 
 desktop-file-install \
 %if 0%{?fedora} && 0%{?fedora} < 19
 --vendor="fedora"               \
 %endif
---dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
+--dir=%{buildroot}%{_datadir}/applications         \
 %{SOURCE3}
 
 %ldconfig_scriptlets
@@ -225,6 +225,10 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Thu Jan 25 2024 Tomas Korbar <tkorbar@redhat.com> - 3.1.0-55
+- Changed required guile version to 2.2
+  https://src.fedoraproject.org/rpms/player/pull-request/6
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

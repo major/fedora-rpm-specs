@@ -1,6 +1,6 @@
 Name: netrate
 Version: 0.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Network interface traffic meter
 License: GPL-2.0-only
 URL: https://github.com/mindbit/netrate
@@ -27,6 +27,9 @@ count rate of network interfaces in Linux systems.
 %doc README.md
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

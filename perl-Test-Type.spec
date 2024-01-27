@@ -1,6 +1,6 @@
 Name:           perl-Test-Type
 Version:        1.3.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Functions to validate data types in test files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Type
@@ -46,6 +46,9 @@ in test files.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

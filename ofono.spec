@@ -1,7 +1,7 @@
 Name:    ofono
 Summary: Open Source Telephony
 Version: 1.34
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPLv2
 URL:     http://www.ofono.org/
@@ -84,6 +84,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

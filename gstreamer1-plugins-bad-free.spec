@@ -10,8 +10,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.8
-Release:        5%{?dist}
+Version:        1.22.9
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -27,9 +27,6 @@ URL:            http://gstreamer.freedesktop.org/
 %endif
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
-
-# Backport of "va: fixes for Mesa driver" into 1.22 (rhbz#2256693)
-Patch0:         https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5778.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -714,6 +711,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
+- 1.22.9
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

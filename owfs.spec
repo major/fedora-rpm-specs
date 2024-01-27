@@ -3,7 +3,7 @@
 
 Name:		owfs
 Version:	3.2p4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -356,6 +356,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

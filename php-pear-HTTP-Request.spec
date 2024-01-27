@@ -4,7 +4,7 @@
 
 Name:           php-pear-HTTP-Request
 Version:        1.4.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Provides an easy way to perform HTTP requests
 
 License:        BSD
@@ -76,6 +76,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

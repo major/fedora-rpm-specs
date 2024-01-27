@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.8
-Release: 32%{?dist}
+Release: %autorelease
 URL:     http://arkandis.tuxfamily.org/adffonts.html
 
 %global foundry           ADF
@@ -91,64 +91,4 @@ install -m 0644 -p %{SOURCE1} .
 %doc *.pdf
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-32
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-31
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-30
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-29
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.8-28
-- SPDX migration
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-27
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 22 2021 Michael J Gruber <mjg@fedoraproject.org> - 1.8-24
-- fix FTBFS due to premature spec update
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org>
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org>
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Apr 27 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-21
-🐞 Workaround Fedora problems created by rpm commit 93604e2
-
-* Thu Apr 02 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-20
-💥 Actually rebuild with fonts-rpm-macros 2.0.4 to make sure fontconfig files are
-  valid
-
-* Thu Apr 02 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-19
-👻 Rebuild with fonts-rpm-macros 2.0.4 to make sure fontconfig files are valid
-
-* Mon Mar 02 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-18
-✅ Lint, lint, lint and lint again
-
-* Sat Feb 22 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-17
-✅ Rebuild with fonts-rpm-macros 2.0.2
-
-* Sat Feb 15 2020 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.8-16
-✅ Convert to fonts-rpm-macros use
-
-* Sun Jul 12 2009 Nicolas Mailhot <nim@fedoraproject.org>
-- 1.6-1
-✅ Initial packaging
+%autochangelog

@@ -3,7 +3,7 @@
 
 Name:           pixman
 Version:        0.43.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pixel manipulation library
 
 # SPDX
@@ -65,6 +65,9 @@ sed -i 's/120/600/' test/meson.build
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.43.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

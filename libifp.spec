@@ -1,3 +1,6 @@
+# Relax due to incompatible pointer issues
+%global build_type_safety_c 2
+
 Name:           libifp
 Version:        1.0.0.2
 Release:        %autorelease

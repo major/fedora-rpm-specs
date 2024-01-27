@@ -5,7 +5,7 @@ online radio Pandora.}
 
 Name:           pianobar
 Version:        2022.04.01
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Console-based client for Pandora
 
 License:        MIT
@@ -96,6 +96,9 @@ rm %{buildroot}%{_libdir}/libpiano.a
 %{_libdir}/libpiano.so.0{,.*}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.04.01-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.04.01-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

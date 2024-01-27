@@ -1,6 +1,6 @@
 Name:		polkit-pkla-compat
 Version:	0.1
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Rules for polkit to add compatibility with pklocalauthority
 # GPLv2-licensed ltmain.sh and Apache-licensed mocklibc are not shipped in
 # the binary package.
@@ -50,6 +50,9 @@ make check
 %dir %{_localstatedir}/lib/polkit-1/localauthority/*.d
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

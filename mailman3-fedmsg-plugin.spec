@@ -8,7 +8,7 @@
 
 Name:               mailman3-fedmsg-plugin
 Version:            0.5
-Release:            26%{?dist}
+Release:            27%{?dist}
 Summary:            Emit fedmsg messages from mailman3
 
 License:            LGPLv2+
@@ -58,6 +58,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

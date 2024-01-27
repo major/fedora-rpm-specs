@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-Client-Ident
 Version:        1.16
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A component that provides non-blocking Ident lookups to your sessions
 # FSF address issue, CPAN RT #85675
 # lib/POE/Component/Client/Ident.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

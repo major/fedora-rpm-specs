@@ -9,7 +9,7 @@
 
 Name:           omniORB
 Version:        4.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -239,6 +239,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

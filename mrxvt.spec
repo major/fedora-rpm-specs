@@ -1,7 +1,7 @@
 Summary: A lightweight multi-tabbed terminal emulator for X
 Name: mrxvt 
 Version: 0.5.3
-Release: 36%{?dist}
+Release: 37%{?dist}
 URL: http://materm.sourceforge.net/wiki/Main/HomePage
 License: GPLv2+
 BuildRequires: make
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc
 %{_datadir}/pixmaps/%{name}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

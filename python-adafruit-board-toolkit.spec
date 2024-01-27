@@ -1,6 +1,6 @@
 Name:           python-adafruit-board-toolkit
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CircuitPython board identification and information
 License:        MIT
 URL:            https://github.com/adafruit/Adafruit_Board_Toolkit
@@ -48,6 +48,9 @@ rm adafruit_board_toolkit/_list_ports_{osx,windows}.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

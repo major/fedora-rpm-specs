@@ -2,7 +2,7 @@
 
 Name:           pre-commit
 Version:        3.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -192,6 +192,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

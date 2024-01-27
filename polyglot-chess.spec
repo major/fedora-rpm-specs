@@ -7,7 +7,7 @@
 
 Name:           %{srcname}-chess
 Version:        1.4
-Release:        24.%{commitdate}git%(c=%{commit0}; echo ${c:0:7})%{?dist}
+Release:        25.%{commitdate}git%(c=%{commit0}; echo ${c:0:7})%{?dist}
 Summary:        Polyglot chess opening book program
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ install -p -m0644 %{name}.6 -D %{buildroot}%{_mandir}/man6/%{name}.6
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-25.20140902gitf46ee06
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-24.20140902gitf46ee06
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

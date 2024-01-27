@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-ReadmeAnyFromPod
 Version:        0.163250
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Automatically convert POD to a README in any format for Dist::Zilla
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-ReadmeAnyFromPod
@@ -100,6 +100,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.163250-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.163250-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

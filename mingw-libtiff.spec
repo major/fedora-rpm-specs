@@ -3,7 +3,7 @@
 Summary:        MinGW Windows port of the LibTIFF library
 Name:           mingw-libtiff
 Version:        4.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        libtiff
 URL:            http://www.simplesystems.org/libtiff/
 Source:         https://download.osgeo.org/libtiff/tiff-%{version}.tar.xz
@@ -138,6 +138,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

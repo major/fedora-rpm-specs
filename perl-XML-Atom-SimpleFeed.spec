@@ -1,6 +1,6 @@
 Name:           perl-XML-Atom-SimpleFeed
 Version:        0.905
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        No-fuss generation of Atom syndication feeds
 License:        GPL+ or Artistic
 
@@ -61,6 +61,9 @@ no provisions for generating feeds with extension elements.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.905-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.905-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

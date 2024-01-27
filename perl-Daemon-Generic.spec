@@ -1,6 +1,6 @@
 Name:           perl-Daemon-Generic
 Version:        0.85
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Framework to provide start/stop/reload for a daemon
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Daemon*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.85-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.85-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

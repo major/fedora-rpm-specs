@@ -2,7 +2,7 @@
 
 Name:           libnetfilter_log
 Version:        1.0.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Netfilter logging userspace library
 License:        GPLv2
 URL:            http://netfilter.org
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

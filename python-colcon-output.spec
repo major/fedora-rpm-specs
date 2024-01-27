@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extension for colcon to customize the output in various ways
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to customize the output in various ways.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

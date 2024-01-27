@@ -6,7 +6,7 @@ Summary:        C++ header for FFT
 Name:           pocketfft
 License:        BSD-3-Clause
 Version:        1.0^git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Only a header
 BuildArch:      noarch
@@ -86,6 +86,9 @@ install -p -m 644 pocketfft_hdronly.h %{buildroot}%{_includedir}
 %{_includedir}/pocketfft_hdronly.h
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20230214.076cb3d-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20230214.076cb3d-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

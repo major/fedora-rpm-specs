@@ -1,7 +1,7 @@
 Name:           givaro
 Version:        4.2.0
 %global so_version 9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
@@ -14,6 +14,14 @@ Source0:        https://github.com/linbox-team/%{name}/releases/download/v%{vers
 # Fixes failure to compile on GCC 13.
 # https://github.com/linbox-team/givaro/pull/218
 Patch:          https://github.com/linbox-team/%{name}/pull/218.patch
+# Temporary GCC 14 workaround
+#
+# Fixes https://github.com/linbox-team/givaro/issues/226 “GCC 14: No match
+# for operator= for Givaro::ZRing<Givaro::Integer>”
+#
+# Recommended in
+# https://github.com/linbox-team/givaro/issues/226#issuecomment-1908853755
+Patch:          0001-Temporary-GCC-14-workaround.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript
@@ -119,6 +127,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Thu Jan 25 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2.0-4
+- Work around failure to build with GCC 14
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

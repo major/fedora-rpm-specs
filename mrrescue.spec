@@ -1,6 +1,6 @@
 Name:           mrrescue
 Version:        1.02e
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Arcade-style fire fighting game
 
 #See LICENSE file in source for details
@@ -80,6 +80,9 @@ install -p -D -m 0644 %{name}.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02e-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02e-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

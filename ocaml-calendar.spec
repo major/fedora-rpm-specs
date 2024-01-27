@@ -16,7 +16,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-calendar
 Version:        3.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Objective Caml library for managing dates and times
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

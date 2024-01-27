@@ -1,6 +1,6 @@
 Name:           perl-Time-ParseDate
 Version:        2015.103
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Perl modules for parsing dates and times
 # See https://fedoraproject.org/wiki/Licensing/TPDL
 License:        TPDL and Public Domain
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2015.103-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2015.103-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

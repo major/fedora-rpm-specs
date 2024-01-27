@@ -31,7 +31,7 @@
 
 Name:           php-%{composer_vendor}-%{composer_project}
 Version:        %{github_version}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Efficient JavaScript minification
 
 License:        ASL 2.0 or GPLv2
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Text-Bidi
 Version:        2.18
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # t/MirrorTest.txt: Unicode-DFS-2016 (a copy of
@@ -167,6 +167,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

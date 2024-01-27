@@ -1,6 +1,6 @@
 Name:           perl-Text-Template-Simple
 Version:        0.91
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Simple text template engine
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Template-Simple
@@ -88,6 +88,9 @@ make test
 %{perl_vendorlib}/Text*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

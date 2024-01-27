@@ -1,6 +1,6 @@
 Name:           pmix
 Version:        4.2.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Process Management Interface Exascale (PMIx)
 License:        BSD-3-Clause
 URL:            https://pmix.org/
@@ -121,6 +121,9 @@ find %{buildroot} -name '*.la' | xargs rm -f
 %{_bindir}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Sérgio Basto <sergio@serjux.com> - 4.2.8-1
 - Update pmix to 4.2.8
 - Exclude ix86, configure: abort in 32-bit environments

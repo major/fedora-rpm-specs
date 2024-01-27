@@ -2,7 +2,7 @@
 
 Name:           openstack-java-sdk
 Version:        3.2.9
-Release:        16%{?git_hash}%{?dist}
+Release:        17%{?git_hash}%{?dist}
 Summary:        OpenStack Java SDK
 
 License:        ASL 2.0
@@ -263,6 +263,9 @@ This package contains the %{summary}.
 %dir %{_javadir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

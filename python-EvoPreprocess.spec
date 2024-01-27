@@ -10,7 +10,7 @@ implementation of nature-inspired algorithms.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python Toolkit for Data Preprocessing
 # We conservatively interpret “GPLv3” as GPL-3.0-only, but have requested
 # explicit clarification from upstream in:
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

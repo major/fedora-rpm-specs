@@ -1,6 +1,6 @@
 Name:           perl-Retry
 Version:        1.03
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl function wrapper providing exponential back-off and callbacks on failure
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Retry
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

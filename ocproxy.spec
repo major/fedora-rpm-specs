@@ -4,7 +4,7 @@
 
 Name:           ocproxy
 Version:        1.60
-Release:        10.%{date0}git%{scommit}%{?dist}
+Release:        11.%{date0}git%{scommit}%{?dist}
 Summary:        OpenConnect Proxy
 
 # BSD for both ocproxy and bundled lwip
@@ -53,6 +53,9 @@ all network traffic on the host.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-11.20190728gitc98f06d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-10.20190728gitc98f06d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

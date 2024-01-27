@@ -1,6 +1,6 @@
 Name:           perl-HTML-Table
 Version:        2.08a
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Create HTML tables using simple interface
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Table
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.08a-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.08a-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

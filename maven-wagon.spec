@@ -2,7 +2,7 @@
 
 Name:           maven-wagon
 Version:        3.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools to manage artifacts and deployment
 License:        Apache-2.0
 URL:            https://maven.apache.org/wagon
@@ -86,6 +86,9 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

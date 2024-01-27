@@ -1,6 +1,6 @@
 Name:           progman
 Version:        1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple X11 window manager modeled after Program Manager
 
 License:        MIT
@@ -41,6 +41,9 @@ export PREFIX="%{buildroot}%{_prefix}"
 %{_bindir}/progman
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

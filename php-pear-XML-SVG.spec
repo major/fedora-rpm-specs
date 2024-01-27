@@ -4,7 +4,7 @@
 
 Name:           php-pear-XML-SVG
 Version:        1.1.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        API for building SVG documents
 
 # https://pear.php.net/bugs/19690 - Please Provides LICENSE file
@@ -74,6 +74,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

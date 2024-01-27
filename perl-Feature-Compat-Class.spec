@@ -1,6 +1,6 @@
 Name:           perl-Feature-Compat-Class
 Version:        0.06
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Make class syntax available
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -56,6 +56,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

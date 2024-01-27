@@ -2,7 +2,7 @@
 
 Name:           mingw-readline
 Version:        8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW port of readline for editing typed command lines
 
 License:        GPL-2.0-or-later
@@ -148,6 +148,9 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

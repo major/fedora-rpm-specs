@@ -3,7 +3,7 @@
 
 Name:           py3c
 Version:        1.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Guide and compatibility macros for porting extensions to Python 3
 
 # Licences differ for subpackages
@@ -53,13 +53,12 @@ py3c macros.
 %setup -q
 
 %build
-make %{?_smp_mflags} py3c.pc includedir=%{_includedir}
+%make_build py3c.pc includedir=%{_includedir}
 
-make %{?_smp_mflags} doc SPHINXBUILD=sphinx-build-3
+%make_build doc SPHINXBUILD=sphinx-build-3
 
 %check
-export CFLAGS="%{optflags}"
-make %{?_smp_mflags} test-python3
+%make_build test-python3
 
 %install
 make install prefix=%{buildroot}%{_prefix} includedir=%{buildroot}%{_includedir}
@@ -81,6 +80,9 @@ sed --in-place -e's!%{buildroot}!!' %{buildroot}%{_datadir}/pkgconfig/py3c.pc
 %doc %{_pkgdocdir}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

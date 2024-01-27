@@ -3,7 +3,7 @@
 Summary:        Optimizer for PNG (Portable Network Graphics) files
 Name:           pngcrush
 Version:        1.8.13
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        Zlib
 URL:            http://pmt.sourceforge.net/%{name}/
 Source0:        http://downloads.sourceforge.net/pmt/%{name}-%{version}-nolib.tar.xz
@@ -43,6 +43,9 @@ docbook2man %{name}.sgml
 %doc %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.13-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.13-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

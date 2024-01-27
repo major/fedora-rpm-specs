@@ -3,9 +3,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit 3b52ef573129fb799319630bd438717761111f57
+%global commit f0c332447174ae5ca22b02ee07eded32c6b0599a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230711
+%global date 20240115
 
 Name:           wdt
 Version:        1.32.1910230^%{?date}git%{?shortcommit}
@@ -14,7 +14,7 @@ Summary:        Warp speed Data Transfer
 
 License:        BSD-3-Clause
 URL:            https://www.facebook.com/WdtOpenSource
-Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{date}git%{shortcommit}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

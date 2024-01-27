@@ -1,17 +1,16 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.7.12
+Version:        6.8.2
 Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
-# code_generator/parser.{c.h} is GPLv2+ with exceptions (bison)
-License:        (GPLv2 or GPLv3) and (GPLv2+ with exceptions)
+License:        GPL-2.0-only or GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/sip
 Source0:        %{pypi_source}
+BuildArch:      noarch
 
-BuildRequires:  gcc
 BuildRequires:  python3-devel
 
 %global _description %{expand:
@@ -43,10 +42,13 @@ Python bindings for wxWidgets.}
 %doc README
 %license LICENSE LICENSE-GPL2 LICENSE-GPL3
 %{_bindir}/sip*
-%{python3_sitearch}/sip-*
-%{python3_sitearch}/sipbuild/
+%{python3_sitelib}/sip-*
+%{python3_sitelib}/sipbuild/
 
 %changelog
+* Thu Jan 25 2024 Scott Talbert <swt@techie.net> - 6.8.2-1
+- Update to new upstream release 6.8.2 (#2252260)
+
 * Mon Oct 16 2023 Jan Grulich <jgrulich@redhat.com> - 6.7.12-1
 - 6.7.12
 

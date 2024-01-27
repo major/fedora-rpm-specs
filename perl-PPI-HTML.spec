@@ -1,6 +1,6 @@
 Name:           perl-PPI-HTML
 Version:        1.08
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Generate syntax-highlighted HTML for Perl using PPI
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PPI-HTML
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/PPI::HTML.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

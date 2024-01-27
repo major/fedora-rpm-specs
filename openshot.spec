@@ -5,7 +5,7 @@
 
 Name:           openshot
 Version:        3.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Create and edit videos and movies
 License:        GPL-3.0-or-later and Apache-2.0 and MIT and CC-BY-SA-4.0
 URL:            http://www.openshot.org
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

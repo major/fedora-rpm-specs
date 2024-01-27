@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Role-FileWatcher
 Version:        0.006
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Receive notification when something changes a file's contents
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Role-FileWatcher
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

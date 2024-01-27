@@ -1,6 +1,6 @@
 Name:       perl-Catalyst-Helper-FastCGI-ExternalServer 
 Version:    0.05 
-Release:    41%{?dist}
+Release:    42%{?dist}
 # lib/Catalyst/Helper/FastCGI/ExternalServer.pm -> GPL+ or Artistic
 License:    GPL+ or Artistic 
 Summary:    FastCGI daemon start/stop script for using FastCgiExternalServer 
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

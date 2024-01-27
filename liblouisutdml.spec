@@ -1,6 +1,6 @@
 Name:           liblouisutdml
 Version:        2.11.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Braille transcription library for UTDML documents
 License:        LGPLv3+
 URL:            http://liblouis.org
@@ -112,6 +112,9 @@ rm -rf %{buildroot}/%{_defaultdocdir}/liblouisutdml
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MooseX-CascadeClearing
 Version:        0.05
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Cascade clearer actions across attributes
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/MooseX-CascadeClearing
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

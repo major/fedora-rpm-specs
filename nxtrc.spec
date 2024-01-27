@@ -1,7 +1,7 @@
 Summary: Program to interact with LEGO NXT via BlueTooth
 Name: nxtrc
 Version: 2.3
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPLv2
 Source0: http://www.scienzaludica.it/files/%{name}-%{version}.tar.gz
 URL: http://www.scienzaludica.it/index.php?page=88
@@ -41,6 +41,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

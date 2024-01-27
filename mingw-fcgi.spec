@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.4.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
@@ -88,6 +88,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

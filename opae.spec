@@ -6,7 +6,7 @@ License:        BSD
 Version:        2.2.0
 %define opae_release 1
 %define patch_level 1
-Release:        %{opae_release}.%{patch_level}%{?dist}.7
+Release:        %{opae_release}.%{patch_level}%{?dist}.8
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/releases/download/%{version}-%{opae_release}/%{name}-%{version}-%{opae_release}.tar.gz
@@ -336,6 +336,9 @@ done
 %{python3_sitelib}/uio*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-1.1.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-1.1.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

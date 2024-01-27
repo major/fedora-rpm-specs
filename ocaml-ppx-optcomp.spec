@@ -12,7 +12,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-optcomp
 Version:        0.16.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Optional compilation for OCaml
 
 License:        MIT
@@ -67,6 +67,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

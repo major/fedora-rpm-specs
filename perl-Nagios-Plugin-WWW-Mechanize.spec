@@ -1,6 +1,6 @@
 Name:           perl-Nagios-Plugin-WWW-Mechanize
 Version:        0.13
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Login to a web page as a user and get data as a Nagios plugin
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Nagios-Plugin-WWW-Mechanize
@@ -58,6 +58,9 @@ mv t/lib/Nagios t/lib/Monitoring
 %{_mandir}/man3/Nagios*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

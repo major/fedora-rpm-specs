@@ -2,7 +2,7 @@
 
 Name:           plexus-utils
 Version:        3.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -52,6 +52,9 @@ is like a J2EE application server, without all the baggage.
 %license NOTICE.txt LICENSE.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Common interface for HTTP server-side request handler
 
 License:        MIT
@@ -100,6 +100,9 @@ exit (interface_exists("%{ns_vendor}\\%{ns_project}\\%{ns_sub}\\RequestHandlerIn
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

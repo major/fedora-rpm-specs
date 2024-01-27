@@ -1,6 +1,6 @@
 Name:           libsigrokdecode
 Version:        0.5.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Basic API for running protocol decoders
 # Combined GPLv3+ and GPLv2+
 License:        GPLv3+
@@ -81,6 +81,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %doc doxy/html-api/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

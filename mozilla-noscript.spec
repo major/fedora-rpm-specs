@@ -13,7 +13,7 @@
 
 Name:           mozilla-noscript
 Version:        11.4.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
 License:        GPL-3.0-or-later AND MIT AND MPL-2.0 AND CC-BY-SA-3.0
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.28-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

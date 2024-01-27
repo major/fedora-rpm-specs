@@ -2,7 +2,7 @@
 
 Name: mypaint2-brushes
 Version: 2.0.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Collections of brushes for MyPaint
 License: CC0
 URL: https://github.com/mypaint/mypaint-brushes
@@ -43,6 +43,9 @@ make check
 %{_datadir}/pkgconfig/mypaint-brushes-2.0.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

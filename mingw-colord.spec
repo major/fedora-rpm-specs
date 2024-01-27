@@ -2,7 +2,7 @@
 
 Name:           mingw-colord
 Version:        1.2.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Color libraries and data files for MinGW
 
 License:        GPLv2+ and LGPLv2+
@@ -174,6 +174,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/bin/*-private.dll
 %{mingw64_libdir}/libcolorhug.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

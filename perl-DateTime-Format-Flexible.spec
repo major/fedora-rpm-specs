@@ -3,7 +3,7 @@
 
 Name:       perl-DateTime-Format-Flexible
 Version:    0.34
-Release:    9%{?dist}
+Release:    10%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Flexibly parse strings and turn them into DateTime objects
 Source:     https://cpan.metacpan.org/authors/id/T/TH/THINC/DateTime-Format-Flexible-%{version}.tar.gz
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

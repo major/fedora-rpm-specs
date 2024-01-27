@@ -1,6 +1,6 @@
 Name:           perl-Git-Repository
 Version:        1.325
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl interface to Git repositories
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-Repository
@@ -80,6 +80,9 @@ make test
 %{perl_vendorlib}/Test
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

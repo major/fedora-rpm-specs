@@ -1,6 +1,6 @@
 Name:           maven-reporting-impl
 Version:        3.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Abstract classes to manage report generation
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-impl/
@@ -61,6 +61,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

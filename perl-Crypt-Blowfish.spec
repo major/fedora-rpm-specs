@@ -1,7 +1,7 @@
 Summary:        XS Blowfish implementation for Perl
 Name:           perl-Crypt-Blowfish
 Version:        2.14
-Release:        29%{?dist}
+Release:        30%{?dist}
 # _blowfish.c:  Copyright only
 # COPYRIGHT:    BSD with advertisment clause
 License:        BSD and Copyright only
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Crypt::Blowfish.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

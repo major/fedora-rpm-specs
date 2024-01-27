@@ -1,6 +1,6 @@
 Name:           perl-Gtk2-Ex-CalendarButton
 Version:        0.01
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Gtk2::Ex::CalendarButton Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Gtk2-Ex-CalendarButton
@@ -55,6 +55,9 @@ xvfb-run -a make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

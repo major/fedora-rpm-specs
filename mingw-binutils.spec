@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.41
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -450,6 +450,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

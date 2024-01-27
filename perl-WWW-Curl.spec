@@ -1,6 +1,6 @@
 Name:           perl-WWW-Curl
 Version:        4.17
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl extension interface for libcurl
 License:        MIT
 URL:            https://metacpan.org/release/WWW-Curl
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

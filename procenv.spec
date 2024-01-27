@@ -4,7 +4,7 @@
 
 Name:           procenv
 Version:        0.60
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Utility to show process environment
 
 License:        GPL-3.0-or-later
@@ -45,6 +45,9 @@ make check
 %license COPYING
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

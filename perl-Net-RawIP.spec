@@ -5,7 +5,7 @@
 
 Name:           perl-Net-RawIP
 Version:        0.25
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Perl extension for manipulating raw IP packets using libpcap
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-RawIP
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

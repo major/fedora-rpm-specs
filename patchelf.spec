@@ -3,7 +3,7 @@
 
 Name:           patchelf
 Version:        0.18.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A utility for patching ELF binaries
 
 License:        GPLv3+
@@ -54,6 +54,9 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

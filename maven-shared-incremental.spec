@@ -2,7 +2,7 @@
 
 Name:           maven-shared-incremental
 Version:        1.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Maven Incremental Build support utilities
 License:        Apache-2.0
 URL:            http://maven.apache.org/shared/maven-shared-incremental/
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

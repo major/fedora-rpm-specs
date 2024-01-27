@@ -4,7 +4,7 @@
 Summary: DNSSEC key and zone management software
 Name: opendnssec
 Version: 2.1.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD-2-Clause
 Url: http://www.opendnssec.org/
 Source0: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
@@ -191,6 +191,9 @@ ods-enforcer update all >/dev/null 2>/dev/null ||:
 %systemd_postun_with_restart ods-signerd.service
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

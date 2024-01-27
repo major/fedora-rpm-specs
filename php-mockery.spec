@@ -17,7 +17,7 @@
 
 Name:           php-mockery
 Version:        1.6.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
 License:        BSD-3-Clause
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

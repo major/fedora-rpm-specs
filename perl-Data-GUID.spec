@@ -1,6 +1,6 @@
 Name:           perl-Data-GUID
 Version:        0.051
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Globally unique identifiers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-GUID
@@ -50,6 +50,9 @@ unique identifiers.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.051-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.051-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

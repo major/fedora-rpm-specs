@@ -1,7 +1,7 @@
 %global upstream_version 0.54_05
 Name:           perl-TestML
 Version:        %(echo '%{upstream_version}' | tr _ .)
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Generic software Testing Meta Language
 # src/perl5/pkg/doc/TestML.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
 # src/perl5/pkg/dist.ini:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -155,6 +155,9 @@ PATH=../../bin:$PATH TESTML_ROOT=../.. TESTML_RUN=perl5-tap make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.05-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.05-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

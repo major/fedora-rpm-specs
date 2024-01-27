@@ -18,7 +18,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        8.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PHPUnit Legacy Versions Adapter
 
 License:        Apache-2.0
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

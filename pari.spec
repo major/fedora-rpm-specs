@@ -1,6 +1,6 @@
 Name:           pari
 Version:        2.15.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -189,6 +189,9 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

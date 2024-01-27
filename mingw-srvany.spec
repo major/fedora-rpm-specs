@@ -6,7 +6,7 @@
 
 Name:	        mingw-srvany
 Version:        1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utility for creating services for Windows
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ make DESTDIR=$RPM_BUILD_ROOT install bindir=%{_datadir}/virt-tools
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

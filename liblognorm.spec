@@ -2,7 +2,7 @@
 
 Name:		liblognorm
 Version:	2.0.6
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Fast samples-based log normalization library
 License:	LGPL-2.1-or-later AND Apache-2.0
 URL:		http://www.liblognorm.com
@@ -102,6 +102,9 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

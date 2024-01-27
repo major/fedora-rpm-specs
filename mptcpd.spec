@@ -1,7 +1,7 @@
 Summary: Multipath TCP daemon
 Name: mptcpd
 Version: 0.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND BSD-3-Clause
 URL: https://multipath-tcp.org
 Requires(post): systemd
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/mptcpd.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

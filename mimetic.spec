@@ -1,6 +1,6 @@
 Name:           mimetic
 Version:        0.9.8
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A full featured C++ MIME library
 License:        MIT
 URL:            http://www.codesink.org/mimetic_mime_library.html
@@ -67,6 +67,9 @@ make check
 %{_libdir}/libmimetic.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

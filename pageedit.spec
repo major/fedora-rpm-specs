@@ -1,6 +1,6 @@
 Name:           pageedit
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ePub visual XHTML editor
 
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

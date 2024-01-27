@@ -1,6 +1,6 @@
 Name:           office-runner
 Version:        1.0.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Office game for laptop owners
 
 License:        GPLv3
@@ -76,6 +76,9 @@ EOF
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

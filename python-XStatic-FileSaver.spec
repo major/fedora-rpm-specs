@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        FilseSaver (XStatic packaging standard)
 
 License:        MIT
@@ -91,6 +91,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/filesaver/data/
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

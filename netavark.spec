@@ -24,7 +24,7 @@ Name: netavark
 %if %{defined copr_username}
 Epoch: 102
 %endif
-Version: 1.9.0
+Version: 1.10.1
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT

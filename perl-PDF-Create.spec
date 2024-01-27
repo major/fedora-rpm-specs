@@ -1,6 +1,6 @@
 Name:           perl-PDF-Create
 Version:        1.46
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Create PDF files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PDF-Create
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

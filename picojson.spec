@@ -4,7 +4,7 @@
 Name:           picojson
 Summary:        A header-file-only, JSON parser / serializer in C++
 Version:        1.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 License:        BSD
 # http://opensource.org/licenses/BSD-2-Clause
@@ -45,6 +45,9 @@ install -p -m 0644 picojson.h %{buildroot}%{_includedir}/picojson.h
 %doc LICENSE README.mkdn examples
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

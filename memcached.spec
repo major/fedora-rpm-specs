@@ -12,7 +12,7 @@
 
 Name:           memcached
 Version:        1.6.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
 
@@ -174,6 +174,9 @@ fi
 %license ../%{selinuxmoduledir}/COPYING
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.6.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.23-1
 - Update to 1.6.23
 - Resolves: rhbz#2257644

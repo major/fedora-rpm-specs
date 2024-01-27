@@ -5,7 +5,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        3.3.8
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        MinGW Fast Fourier Transform library
 License:        GPLv2+
 URL:            http://www.fftw.org
@@ -215,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_libdir}/libfftw3q.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

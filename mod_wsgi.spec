@@ -1,10 +1,4 @@
-%{!?_httpd_apxs: %{expand: %%global _httpd_apxs %%{_sbindir}/apxs}}
-
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}}
-%{!?_httpd_confdir:    %{expand: %%global _httpd_confdir    %%{_sysconfdir}/httpd/conf.d}}
-# /etc/httpd/conf.d with httpd < 2.4 and defined as /etc/httpd/conf.modules.d with httpd >= 2.4
-%{!?_httpd_modconfdir: %{expand: %%global _httpd_modconfdir %%{_sysconfdir}/httpd/conf.d}}
-%{!?_httpd_moddir:    %{expand: %%global _httpd_moddir    %%{_libdir}/httpd/modules}}
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 %bcond_without python3
@@ -15,8 +9,8 @@
 %endif
 
 Name:           mod_wsgi
-Version:        4.9.4
-Release:        7%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
@@ -159,6 +153,13 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Thu Jan 25 2024 Joe Orton <jorton@redhat.com> - 5.0.0-1
+- update to 5.0.0 (#2250905)
+- remove redundant _httpd_ macro definitions
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

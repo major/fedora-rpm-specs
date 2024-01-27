@@ -1,6 +1,6 @@
 Name:		mdk
 Version:	1.2.10
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	GNU MIX Development Kit
 
 License:	GPLv3+ and GFDL
@@ -77,6 +77,9 @@ desktop-file-install \
 %doc samples doc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

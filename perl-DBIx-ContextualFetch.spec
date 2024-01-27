@@ -1,6 +1,6 @@
 Name:           perl-DBIx-ContextualFetch
 Version:        1.03
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Add contextual fetches to DBI
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBIx-ContextualFetch
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/DBIx::ContextualFetch.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

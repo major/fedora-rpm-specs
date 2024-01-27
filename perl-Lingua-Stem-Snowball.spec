@@ -1,6 +1,6 @@
 Name:           perl-Lingua-Stem-Snowball
 Version:        0.952
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl interface to Snowball stemmers
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND BSD-3-Clause
 URL:            https://metacpan.org/release/Lingua-Stem-Snowball
@@ -60,6 +60,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/Lingua*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.952-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.952-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

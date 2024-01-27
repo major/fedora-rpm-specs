@@ -1,6 +1,6 @@
 Name:		lzma-sdk457
 Version:	4.57
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	SDK for lzma compression
 License:	LGPLv2+
 URL:		http://sourceforge.net/projects/sevenzip/
@@ -95,6 +95,9 @@ find -iname '*.h' | xargs -I {} install -m0644 -D {} %{buildroot}/%{_includedir}
 %{_libdir}/liblzmasdk457.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.57-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.57-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Module-Build-WithXSpp
 Version:        0.14
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        XS++ enhanced flavor of Module::Build
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Module-Build-WithXSpp
@@ -51,6 +51,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Module::Build::WithXSpp*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

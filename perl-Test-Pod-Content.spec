@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod-Content
 Version:        0.0.6
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Test a Pod's content
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod-Content
@@ -58,6 +58,9 @@ RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Test::Pod::Content.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

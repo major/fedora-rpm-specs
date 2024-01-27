@@ -10,7 +10,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        20200603
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Stackable Continuation Queues for the Lua Programming Language
 
 License:        MIT
@@ -126,6 +126,9 @@ sed -i '1 s|^#!/.*$|#!/usr/bin/lua|' %{buildroot}%{_pkgdocdir}/examples/*
 %license LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200603-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200603-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

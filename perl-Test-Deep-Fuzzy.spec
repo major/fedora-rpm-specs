@@ -1,6 +1,6 @@
 Name:           perl-Test-Deep-Fuzzy
 Version:        0.01
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fuzzy number comparison with Test::Deep
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Deep-Fuzzy
@@ -48,6 +48,9 @@ perl ./Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

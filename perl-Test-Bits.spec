@@ -1,6 +1,6 @@
 Name:           perl-Test-Bits
 Version:        0.02
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Provides a bits_is() subroutine for testing binary data
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Test-Bits
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-IO-Prompter
 Version:        0.005001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Prompt for input, read it, clean it, return it
 
 License:        GPL+ or Artistic
@@ -61,6 +61,9 @@ an object representing that text.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.005001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Björn Esser <besser82@fedoraproject.org> - 0.005001-1
 - New upstream release
   Fixes rhbz#2224546

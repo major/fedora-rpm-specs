@@ -4,7 +4,7 @@ Version:        2.0.0
 %global prerel  rc8
 %global uver    %{version}%{?prerel}
 %global tag     %{name}-%{uver}
-Release:        0.29.%{prerel}%{?dist}
+Release:        0.30.%{prerel}%{?dist}
 
 Summary:        RepRap printer interface and tools
 # Only AppData is FSFAP
@@ -194,6 +194,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-0.30.rc8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-0.29.rc8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

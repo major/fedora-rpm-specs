@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.28.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -186,6 +186,9 @@ cd -
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Carp-Always
 Version:        0.16
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Warn and die in Perl noisily with stack backtraces
 License:        GPL+ or Artistic
 
@@ -68,6 +68,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

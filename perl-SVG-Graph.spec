@@ -1,6 +1,6 @@
 Name:           perl-SVG-Graph
 Version:        0.04
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Visualize your data in Scalable Vector Graphics (SVG) format
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/SVG-Graph
@@ -62,6 +62,9 @@ find eg -type f -exec chmod -x {} 2>/dev/null ';'
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

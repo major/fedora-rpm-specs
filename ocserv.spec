@@ -49,30 +49,19 @@ BuildRequires:	gnutls30-devel
 %else
 BuildRequires:	gnutls-devel
 %endif
-BuildRequires:	pam-devel
-BuildRequires:	iproute
-BuildRequires:	openconnect
-BuildRequires:  gnutls-utils
+BuildRequires:	pam-devel, iproute, ipcalc, openconnect, gnutls-utils
 
 %if (0%{?use_local_protobuf} == 0)
 BuildRequires:	protobuf-c-devel
 %endif
 
-BuildRequires:	libnl3-devel
-BuildRequires:	krb5-devel
-BuildRequires:	libtasn1-devel
-BuildRequires:	gperf
-BuildRequires:	libtalloc-devel
-BuildRequires:	libev-devel
-BuildRequires:	http-parser-devel
+BuildRequires:	libnl3-devel, krb5-devel, libtasn1-devel, gperf, libtalloc-devel
+BuildRequires:	libev-devel, http-parser-devel, radcli-devel, lz4-devel, readline-devel
+BuildRequires:	automake, autoconf
 
 %if %{use_libwrap}
 BuildRequires:	tcp_wrappers-devel
 %endif
-BuildRequires:	automake, autoconf
-BuildRequires:	radcli-devel
-BuildRequires:	lz4-devel
-BuildRequires:	readline-devel
 %if %{use_geoip}
 BuildRequires:	GeoIP-devel
 %else
@@ -256,7 +245,7 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 
 %{_bindir}/ocpasswd
 %{_bindir}/occtl
-%{_bindir}/ocserv-fw
+%{_libexecdir}/ocserv-fw
 %{_bindir}/ocserv-script
 %{_sbindir}/ocserv
 %{_sbindir}/ocserv-worker

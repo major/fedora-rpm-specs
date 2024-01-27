@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Search
 Version:        0.12
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Kwiki Search Plugin
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-Search
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

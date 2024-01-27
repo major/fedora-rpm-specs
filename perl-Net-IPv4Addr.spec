@@ -1,6 +1,6 @@
 Name:           perl-Net-IPv4Addr
 Version:        0.10
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Perl extension for manipulating IPv4 addresses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IPv4Addr
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

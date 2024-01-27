@@ -23,7 +23,7 @@
 Summary: SELinux binding for PHP scripting language
 Name:    php-pecl-selinux
 Version: 0.6.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: PHP-3.01
 URL:     https://pecl.php.net/package/%{pecl_name}
 Source:  https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -160,6 +160,9 @@ REPORT_EXIT_STATUS=0 \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

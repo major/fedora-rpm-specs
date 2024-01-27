@@ -1,7 +1,7 @@
 Summary: FUSE filesystem to transcode FLAC to MP3 on the fly
 Name: mp3fs
 Version: 1.1.1
-Release: 9%{dist}
+Release: 10%{dist}
 License: GPLv3+ and GFDL
 Source0: https://github.com/khenriks/mp3fs/releases/download/v%{version}/mp3fs-%{version}.tar.gz
 URL: https://khenriks.github.io/mp3fs/
@@ -43,6 +43,9 @@ them somewhere!
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

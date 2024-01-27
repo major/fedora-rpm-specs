@@ -1,7 +1,7 @@
 Summary:        SAX parser access API for Perl
 Name:           perl-XML-SAX
 Version:        1.02
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-SAX
@@ -118,6 +118,9 @@ rm -rf "%{perl_vendorlib}/XML/SAX/ParserDetails.ini.backup" || :
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

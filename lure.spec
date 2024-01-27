@@ -1,6 +1,6 @@
 Name:           lure
 Version:        1.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Lure of the Temptress - Adventure Game
 # For further discussion on distribution rights see:
 # http://www.redhat.com/archives/fedora-extras-list/2006-November/msg00030.html
@@ -54,6 +54,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

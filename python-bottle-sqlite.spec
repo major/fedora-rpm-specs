@@ -1,7 +1,7 @@
 %global srcname bottle-sqlite
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SQLite3 integration for Bottle WSGI framework
 
 License:        MIT
@@ -57,6 +57,9 @@ need a database connection.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       PAM module for auth UNIX users using MySQL data base
 Name:          pam_mysql
 Version:       1.0.0~beta1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Epoch:         1
 License:       GPLv2+
 Source0:       https://github.com/NigelCunningham/pam-MySQL/archive/refs/tags/1.0.0-beta1.tar.gz
@@ -37,6 +37,9 @@ iconv -f latin1 -t utf-8 -o AUTHORS AUTHORS.lame
 %{_libdir}/security/pam_mysql.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0~beta1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0~beta1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

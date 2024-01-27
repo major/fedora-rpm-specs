@@ -1,6 +1,6 @@
 Name:           pbuilder
 Version:        0.231
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
@@ -107,6 +107,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.231-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.231-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

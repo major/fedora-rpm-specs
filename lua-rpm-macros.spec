@@ -21,7 +21,7 @@
 
 Name:           lua-rpm-macros
 Version:        1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The common Lua RPM macros
 
 License:        MIT
@@ -94,6 +94,9 @@ install -Dpm 0644 lua.attr %{buildroot}/%{_fileattrsdir}/lua.attr
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

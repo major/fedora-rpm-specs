@@ -17,7 +17,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/autopage
@@ -91,6 +91,9 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

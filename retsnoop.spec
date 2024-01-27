@@ -18,7 +18,7 @@
 %global libbpf_version 1.2.2^%{libbpf_date}git%{libbpf_shortcommit}
 
 Name:           retsnoop
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 Summary:        A tool for investigating kernel error call stacks
 
@@ -40,20 +40,15 @@ Source1:        %{bpftool_url}/archive/%{bpftool_commit}/bpftool-%{bpftool_versi
 Source2:        %{libbpf_url}/archive/%{libbpf_commit}/libbpf-%{libbpf_version}.tar.gz
 Source3:        README.Fedora
 
-# bump addr2line, gimli, and object dependencies to the latest versions
-Patch:          0001-bump-addr2line-gimli-and-object-to-latest-versions.patch
-# fix regression in 32-bit compilation in 0.9.7
-Patch:          retsnoop-fix-32bit-alignment.diff
-
 # has a Rust component
 ExclusiveArch:  %{rust_arches}
 # rust syn crate not compiling on 32-bit ARM
 ExcludeArch:    armv7hl
 
+BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang
 BuildRequires:  llvm
 BuildRequires:  make
-BuildRequires:  rust-packaging >= 21
 # libbpf deps
 BuildRequires:  elfutils-libelf-devel
 

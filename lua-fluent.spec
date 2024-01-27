@@ -3,7 +3,7 @@
 
 Name:      lua-fluent
 Version:   0.2.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Lua implementation of Project Fluent
 License:   MIT
 URL:       %{forgeurl}
@@ -70,6 +70,9 @@ print(bundle:format("hello", { name = "World" }))
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

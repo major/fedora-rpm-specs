@@ -1,6 +1,6 @@
 Name:           python-ZODB3
 Version:        3.11.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Zope Object Database: Object Database and Persistence
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
@@ -50,6 +50,9 @@ done
 %{python3_sitelib}/ZODB3*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

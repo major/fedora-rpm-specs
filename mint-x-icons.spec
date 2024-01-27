@@ -3,7 +3,7 @@
 
 Name:           mint-x-icons
 Version:        1.6.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Icon theme for Linux Mint
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

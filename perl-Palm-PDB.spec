@@ -1,6 +1,6 @@
 Name:           perl-Palm-PDB
 Version:        1.400
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Parse Palm database files
 License:        GPL+ or Artistic
 
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/Palm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.400-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.400-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		mupen64plus
 Version:	2.5
-Release:	21%{?dist}
+Release:	22%{?dist}
 
 Summary:	Nintendo 64 Emulator
 License:	GPLv2+ and CC-BY-SA
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 %{_libdir}/libmupen64plus.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

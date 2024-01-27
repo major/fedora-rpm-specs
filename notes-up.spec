@@ -2,7 +2,7 @@
 
 Name:           notes-up
 Version:        2.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Markdown notes editor & manager
 
 # The entire source code is GPLv2+ except:
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

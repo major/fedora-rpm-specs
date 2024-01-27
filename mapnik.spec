@@ -1,6 +1,6 @@
 Name:      mapnik
 Version:   3.1.0
-Release:   32%{?dist}
+Release:   33%{?dist}
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
 URL:       http://mapnik.org/
@@ -267,6 +267,9 @@ LANG="C.UTF-8" make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           nethack-vultures
 Version:        2.1.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        NetHack - Vulture's Eye and Vulture's Claw
 
 License:        NGPL
@@ -199,6 +199,9 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

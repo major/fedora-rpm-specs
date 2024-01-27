@@ -1,6 +1,6 @@
 Name:				libraqm
 Version:			0.8.0
-Release:			6%{?dist}
+Release:			7%{?dist}
 License:			MIT
 Summary:			Complex Textlayout Library
 Summary(ar):		مكتبة رقم للنّصوص المركّبة
@@ -86,6 +86,9 @@ rm -f %{buildroot}%{_libdir}/*.{la,a}
 %{_datadir}/gtk-doc/html/raqm
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 %bcond_without check
 
 Name:           fb303
-Version:        2023.10.16.00
+Version:        2024.01.22.00
 Release:        %autorelease
 Summary:        Base Thrift service and a common set of functionality
 
@@ -29,12 +29,12 @@ BuildRequires:  clang
 %else
 BuildRequires:  gcc-c++
 %endif
-BuildRequires:  fbthrift-devel
-BuildRequires:  fizz-devel
-BuildRequires:  folly-devel
+BuildRequires:  fbthrift-devel = %{version}
+BuildRequires:  fizz-devel = %{version}
+BuildRequires:  folly-devel = %{version}
+BuildRequires:  mvfst-devel = %{version}
 BuildRequires:  gflags-devel
 BuildRequires:  glog-devel
-BuildRequires:  mvfst-devel
 %if %{with python}
 BuildRequires:  python3-devel
 BuildRequires:  python3-fbthrift-devel

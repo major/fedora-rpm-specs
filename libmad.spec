@@ -1,6 +1,6 @@
 Name:		libmad
 Version:	0.16.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	MPEG audio decoder library
 
 License:	GPL-2.0-or-later
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Language-Prolog-Types
 Version:        0.10
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Prolog types in Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Language-Prolog-Types
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

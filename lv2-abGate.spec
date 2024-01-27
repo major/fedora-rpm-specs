@@ -1,7 +1,7 @@
 %global pname abGate
 Name:           lv2-abGate
 Version:        1.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An LV2 Noise Gate
 
 License:        GPLv3+
@@ -43,6 +43,9 @@ sed -i -e "s|/usr/lib/lv2|%{_libdir}/lv2|g" plugin_configuration.h
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

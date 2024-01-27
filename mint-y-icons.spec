@@ -1,6 +1,6 @@
 Name:           mint-y-icons
 Version:        1.7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Mint-Y icon theme
 
 License:        CC-BY-SA
@@ -52,6 +52,9 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

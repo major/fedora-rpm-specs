@@ -1,6 +1,6 @@
 Name:       pure-ftpd
 Version:    1.0.51
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Lightweight, fast and secure FTP server
 License:    BSD
 URL:        http://www.pureftpd.org
@@ -218,6 +218,9 @@ fi
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.51-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.51-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

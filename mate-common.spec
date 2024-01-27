@@ -1,7 +1,7 @@
 Name:           mate-common
 Summary:        mate common build files
 Version:        1.26.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv3+
 URL:            http://mate-desktop.org
 Source0:        http://pub.mate-desktop.org/releases/1.26/mate-common-%{version}.tar.xz
@@ -44,6 +44,9 @@ make %{?_smp_mflags} V=1
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

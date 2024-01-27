@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	3
+%define		baserelease	4
 %define		srcname		mecab-perl
 
 Name:		perl-mecab
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -depth -type d | xargs rmdir 2>/dev/null || :
 %{perl_vendorarch}/auto/MeCab/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

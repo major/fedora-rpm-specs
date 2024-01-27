@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
 Version:        1.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -102,6 +102,9 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

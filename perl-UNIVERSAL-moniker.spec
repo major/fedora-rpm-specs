@@ -1,6 +1,6 @@
 Name:           perl-UNIVERSAL-moniker
 Version:        0.08
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Real world naming for classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/UNIVERSAL-moniker
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/UNIVERSAL::moniker.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

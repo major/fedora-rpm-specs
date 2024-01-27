@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A fully automated high-quality brain tetrahedral mesh generation toolbox
 License:        GPLv2+
 URL:            http://mcx.space/brain2mesh
@@ -92,6 +92,9 @@ mv *.m inst/
 %doc examples
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          maliit-framework
 Version:       2.3.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Input method framework
 
 License:       LGPLv2
@@ -126,6 +126,9 @@ This package contains tests and examples for %{name}.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

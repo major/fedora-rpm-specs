@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Meta package aggregating colcon-core and common extensions
 
 License:        ASL 2.0
@@ -72,6 +72,9 @@ A meta package aggregating colcon-core as well as a set of common extensions.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

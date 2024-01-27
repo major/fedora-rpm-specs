@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Devel
 Summary:        Catalyst Development Tools
 Version:        1.42
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Devel-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Devel
@@ -80,6 +80,9 @@ Catalyst are now known as Catalyst::Runtime.
 %exclude %{perl_vendorlib}/Catalyst/Restarter/Win32.pm
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

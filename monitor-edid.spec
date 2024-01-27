@@ -5,7 +5,7 @@ License:        GPLv3+
 Url:            http://gitweb.mageia.org/software/monitor-edid/
 
 Version:        3.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Source0:        https://gitweb.mageia.org/software/monitor-edid/snapshot/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -81,6 +81,9 @@ make all
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

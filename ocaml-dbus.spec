@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-dbus
 Version:        0.30
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        OCaml library for using D-Bus
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 
@@ -80,6 +80,9 @@ make OCAMLDESTDIR=$OCAMLFIND_DESTDIR install-byte
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

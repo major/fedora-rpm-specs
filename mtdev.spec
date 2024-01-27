@@ -3,7 +3,7 @@
 
 Name:           mtdev
 Version:        1.1.6
-Release:        7%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        8%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Multitouch Protocol Translation Library
 
 # SPDX
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_bindir}/mtdev-test
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

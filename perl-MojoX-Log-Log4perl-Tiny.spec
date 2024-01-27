@@ -1,6 +1,6 @@
 Name:           perl-MojoX-Log-Log4perl-Tiny
 Version:        0.01
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Minimalistic Log4perl adapter for Mojolicious
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ logging Mojo::Log with your existing Log::Log4perl::Logger instance.
 %{_mandir}/man3/MojoX*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

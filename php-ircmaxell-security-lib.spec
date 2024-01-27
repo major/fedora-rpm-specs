@@ -14,7 +14,7 @@
 
 Name:           php-ircmaxell-security-lib
 Version:        1.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A Base Security Library
 
 License:        MIT
@@ -111,6 +111,9 @@ EOF
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

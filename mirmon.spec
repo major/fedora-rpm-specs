@@ -1,6 +1,6 @@
 Name:           mirmon
 Version:        2.11
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Monitor the status of mirrors
 License:        MIT
 URL:            http://www.staff.science.uu.nl/~penni101/mirmon/
@@ -54,6 +54,9 @@ cp -pa countries.list icons %{buildroot}%{_datadir}/%{name}/
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

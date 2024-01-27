@@ -12,7 +12,7 @@
 
 Name:         php-pear-XML-Parser
 Version:      1.3.8
-Release:      11%{?dist}
+Release:      12%{?dist}
 Summary:      XML parsing class based on PHP's bundled expat
 Summary(fr):  Une classe d'analyse XML utilisant l'extension expat de PHP
 License:      BSD
@@ -124,6 +124,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

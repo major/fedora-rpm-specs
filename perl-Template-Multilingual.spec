@@ -1,6 +1,6 @@
 Name:           perl-Template-Multilingual
 Version:        1.00
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Multilingual templates for Template Toolkit
 License:        GPL+ or Artistic
 
@@ -46,6 +46,9 @@ templates: templates that contain text in several languages.
 %{_mandir}/man3/Template*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

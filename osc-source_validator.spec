@@ -5,7 +5,7 @@
 
 Name:           osc-source_validator
 Version:        0.19
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPL-2.0-or-later
 Summary:        OBS source service to validate sources
 URL:            https://github.com/openSUSE/obs-service-source_validator
@@ -44,6 +44,9 @@ used via project wide defined services.
 %{obssvcroot}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

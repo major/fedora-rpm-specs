@@ -19,7 +19,7 @@
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcache
 Version:      8.2
-Release:      4%{?dist}
+Release:      5%{?dist}
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 License:      PHP-3.01
 Group:        Development/Languages
@@ -226,6 +226,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

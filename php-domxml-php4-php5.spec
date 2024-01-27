@@ -2,7 +2,7 @@
 
 Name:           php-%{libname}
 Version:        1.21.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        XML transition from PHP4 domxml to PHP5 dom module
 Summary(fr):    Transition du XML de PHP4 domxml à PHP5 dom
 
@@ -45,6 +45,9 @@ Transition du XML de PHP4 domxml à PHP5 dom.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 %bcond_with check
 
 %global forgeurl https://github.com/facebook/CacheLib
-%global tag 2023.10.16.00
+%global tag 2024.01.22.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 # disable forge macro snapinfo generation
 # https://pagure.io/fedora-infra/rpmautospec/issue/240
@@ -41,9 +41,10 @@ BuildRequires:  clang
 %else
 BuildRequires:  gcc-c++
 %endif
-BuildRequires:  fbthrift-devel
-BuildRequires:  fizz-devel
-BuildRequires:  folly-devel
+BuildRequires:  fbthrift-devel = %{tag}
+BuildRequires:  fizz-devel = %{tag}
+BuildRequires:  folly-devel = %{tag}
+BuildRequires:  mvfst-devel = %{tag}
 %if %{with build_tests}
 BuildRequires:  gmock-devel
 %endif
@@ -52,7 +53,6 @@ BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 BuildRequires:  libdwarf-devel
 BuildRequires:  libzstd-devel
-BuildRequires:  mvfst-devel
 BuildRequires:  numactl-devel
 BuildRequires:  wangle-devel
 BuildRequires:  zlib-devel

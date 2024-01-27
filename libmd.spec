@@ -1,7 +1,7 @@
 Summary:        Library that provides message digest functions from BSD systems
 Name:           libmd
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Breakdown in COPYING file of libmd release tarball
 License:        BSD-2-Clause AND BSD-3-Clause AND ISC AND Beerware AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.hadrons.org/software/libmd/
@@ -80,6 +80,9 @@ make check
 %{_mandir}/man3/sha2.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

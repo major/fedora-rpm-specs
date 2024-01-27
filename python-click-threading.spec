@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -44,6 +44,9 @@ Multithreaded support for python 3 click (CLI creation kit) applications.
 %{python3_sitelib}/%{pyname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

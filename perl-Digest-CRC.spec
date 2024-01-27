@@ -1,6 +1,6 @@
 Name:           perl-Digest-CRC
 Version:        0.24
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Generic CRC functions
 License:        LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Digest-CRC
@@ -55,6 +55,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/Digest::CRC.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

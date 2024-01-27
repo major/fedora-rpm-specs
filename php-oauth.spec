@@ -3,7 +3,7 @@
 
 Name:           php-oauth
 Version:        1.0
-Release:        0.31.%{svnrevision}%{?dist}
+Release:        0.32.%{svnrevision}%{?dist}
 Summary:        PHP Authentication library for desktop to web applications
 
 License:        MIT
@@ -49,6 +49,9 @@ install -p -m 644 OAuth.php %{buildroot}%{_datadir}/php/%{realname}/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.32.svn1271
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.31.svn1271
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

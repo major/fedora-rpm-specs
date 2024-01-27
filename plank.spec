@@ -15,7 +15,7 @@ to add fancier things like Docklets, painters, settings dialogs, etc.}
 Name:           plank
 Summary:        Stupidly simple Dock
 Version:        0.11.89
-Release:        14.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        15.%{commitdate}.git%{shortcommit}%{?dist}
 License:        GPLv3+
 
 URL:            https://launchpad.net/%{name}
@@ -146,6 +146,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.89-15.20210202.git013d051
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.89-14.20210202.git013d051
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

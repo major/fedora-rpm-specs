@@ -15,9 +15,9 @@
 Name:           mate-panel
 Version:        %{branch}.4
 %if 0%{?rel_build}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %else
-Release:        0.19%{?git_rel}%{?dist}
+Release:        0.20%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop panel and applets
 #libs are LGPLv2+ applications GPLv2+
@@ -158,6 +158,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

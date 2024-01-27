@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Precise
 Version:        1.05
-Release:        49%{?dist}
+Release:        50%{?dist}
 
 Summary:        Perform common time and date operations with additional GPS operations
 
@@ -68,6 +68,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

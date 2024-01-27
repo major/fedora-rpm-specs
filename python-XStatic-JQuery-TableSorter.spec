@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        2.14.5.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        JQuery.TableSorter (XStatic packaging standard)
 
 License:        MIT
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/jquery_tablesorter/jquery.tablesorter.js
 %{_jsdir}/jquery_tablesorter
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.5.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.5.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

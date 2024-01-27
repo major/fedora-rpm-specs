@@ -5,7 +5,7 @@
 Summary:	Test file attributes through Test::Builder
 Name:		perl-Test-File
 Version:	%{rpm_version}
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-File
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-File-%{cpan_version}.tar.gz
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Test::File.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

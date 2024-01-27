@@ -1,6 +1,6 @@
 Name:           perl-App-Daemon
 Version:        0.22
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Start an Application as a Daemon
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-Daemon
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

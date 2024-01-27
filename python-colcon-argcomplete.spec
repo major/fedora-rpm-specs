@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Completion for colcon command lines using argcomplete
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

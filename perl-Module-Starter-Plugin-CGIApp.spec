@@ -1,6 +1,6 @@
 Name:           perl-Module-Starter-Plugin-CGIApp
 Version:        0.44
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Template based module starter for CGI apps
 License:        GPL+ or Artistic
 
@@ -80,6 +80,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.44-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

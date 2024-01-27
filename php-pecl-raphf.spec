@@ -20,7 +20,7 @@
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
 Version:        2.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        BSD-2-Clause
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -191,6 +191,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

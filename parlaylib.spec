@@ -9,7 +9,7 @@ Name:     parlaylib
 License:  MIT
 #Version obtained from cmake config, but no tags upstream
 Version:  2.1.5^20230215git%{shortcommit}
-Release:  4%{?dist}
+Release:  5%{?dist}
 
 URL:      https://github.com/cmuparlay/parlaylib
 Source0:  %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -104,6 +104,9 @@ BuildArch:  noarch
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5^20230215git137076b-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5^20230215git137076b-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

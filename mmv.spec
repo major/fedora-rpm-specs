@@ -1,6 +1,6 @@
 Name:		mmv
 Version:	2.5.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Move/copy/link multiple files
 
 License:	GPL-3.0-or-later
@@ -42,6 +42,9 @@ make check
 %{_mandir}/man1/*.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

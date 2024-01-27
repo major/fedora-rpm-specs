@@ -1,6 +1,6 @@
 Name:           perl-Spreadsheet-ParseXLSX
 Version:        0.27
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Parse XLSX files
 License:        MIT
 URL:            https://github.com/doy/spreadsheet-parsexlsx
@@ -69,6 +69,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

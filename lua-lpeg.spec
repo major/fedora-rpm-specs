@@ -11,7 +11,7 @@
 
 Name:           lua-%{lua_pkg_name}
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Parsing Expression Grammars for Lua
 
 License:        MIT
@@ -90,6 +90,9 @@ lua test.lua
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

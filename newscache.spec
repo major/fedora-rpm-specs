@@ -4,7 +4,7 @@
 Name: 		newscache
 Summary: 	Free cache server for USENET News
 Version: 	1.2
-Release: 	0.45.rc6%{?dist}
+Release: 	0.46.rc6%{?dist}
 License:	GPLv2+
 URL:		http://www.linuxhacker.at/newscache/
 Source0: 	http://src.linuxhacker.at/NewsCache/%{srcnamever}.tar.gz
@@ -157,6 +157,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.46.rc6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.45.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -412,6 +412,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

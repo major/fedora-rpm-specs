@@ -13,7 +13,7 @@ Name:           libnest2d
 %global commit  da4782500da4eb8cb6e38e5e3f10164ec5a59778
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 Version:        0.4^20200805git%{shortcommit}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library for the 2D bin packaging problem
 License:        LGPLv3
 URL:            https://github.com/tamasmeszaros/libnest2d
@@ -68,6 +68,9 @@ sed -i -e "s/ lib\([^n]\)/ "%{_lib}"\1/" CMakeLists.txt
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20200805gitda47825-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20200805gitda47825-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Simple
 Version:        0.06
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Encrypt stuff simply 
 
 License:        GPLv2+
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

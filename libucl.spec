@@ -1,6 +1,6 @@
 Name:           libucl
 Version:        0.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Universal configuration library parser
 
 License:        BSD and MIT
@@ -97,6 +97,9 @@ rm %{buildroot}%{_libdir}/%{name}.la
 %{python3_sitearch}/ucl*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

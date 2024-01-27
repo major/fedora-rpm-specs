@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        4.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        XML-based template compiler
 
 License:        BSD
@@ -60,6 +60,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

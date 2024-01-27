@@ -1,6 +1,6 @@
 Name:		perl-GPS-OID
 Version:	0.07
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Package for PRN - Object ID conversions
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/GPS-OID
@@ -40,6 +40,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

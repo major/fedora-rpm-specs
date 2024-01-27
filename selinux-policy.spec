@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 369ff9260dcf3c57165813d89b89f42462909123
+%global commit 210bb812c1d727318cf8d977b5440437135f02a0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.9
+Version: 40.10
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,25 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan 24 2024 Zdenek Pytela <zpytela@redhat.com> - 40.10-1
+- Allow chronyd-restricted read chronyd key files
+- Allow conntrackd_t to use bpf capability2
+- Allow systemd-networkd manage its runtime socket files
+- Allow init_t nnp domain transition to colord_t
+- Allow polkit status systemd services
+- nova: Fix duplicate declarations
+- Allow httpd work with PrivateTmp
+- Add interfaces for watching and reading ifconfig_var_run_t
+- Allow collectd read raw fixed disk device
+- Allow collectd read udev pid files
+- Set correct label on /etc/pki/pki-tomcat/kra
+- Allow systemd domains watch system dbus pid socket files
+- Allow certmonger read network sysctls
+- Allow mdadm list stratisd data directories
+- Allow syslog to run unconfined scripts conditionally
+- Allow syslogd_t nnp_transition to syslogd_unconfined_script_t
+- Allow qatlib set attributes of vfio device files
+
 * Tue Jan 09 2024 Zdenek Pytela <zpytela@redhat.com> - 40.9-1
 - Allow systemd-sleep set attributes of efivarfs files
 - Allow samba-dcerpcd read public files

@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.5.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -166,6 +166,9 @@ LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

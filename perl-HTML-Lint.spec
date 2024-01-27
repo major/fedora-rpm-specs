@@ -1,6 +1,6 @@
 Name:           perl-HTML-Lint
 Version:        2.32
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        HTML::Lint Perl module
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/HTML-Lint
@@ -54,6 +54,9 @@ legitmacy.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.32-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.32-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

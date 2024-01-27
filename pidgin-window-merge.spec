@@ -1,6 +1,6 @@
 Name:		pidgin-window-merge
 Version:	0.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Pidgin plugin for single window mode
 
 License:	GPLv3+
@@ -51,6 +51,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/pidgin-win
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Manage IO on many file handles
 Name:		perl-IO-Multiplex
 Version:	1.16
-Release:	26%{?dist}
+Release:	27%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-Multiplex
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Multiplex-%{version}.tar.gz
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/IO::Multiplex.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

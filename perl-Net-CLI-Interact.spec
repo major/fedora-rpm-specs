@@ -1,6 +1,6 @@
 Name:           perl-Net-CLI-Interact
 Version:        2.400002
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for CLI Automation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CLI-Interact
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Net::CLI::Interact*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.400002-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.400002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

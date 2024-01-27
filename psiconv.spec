@@ -1,6 +1,6 @@
 Name:		psiconv
 Version:	0.9.8
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	A conversion utility for Psion files
 License:	GPLv2+
 URL:		http://software.frodo.looijaard.name/psiconv/
@@ -68,6 +68,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/%{name} _doc
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

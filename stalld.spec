@@ -11,12 +11,16 @@ BuildRequires:	glibc-devel
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	systemd-rpm-macros
+
+Requires:	systemd
+
+%ifnarch i686 s390x
 BuildRequires:	bpftool
 BuildRequires:	clang
 BuildRequires:	libbpf-devel
 
-Requires:	systemd
 Requires:	libbpf
+%endif
 
 %description
 The stalld program monitors the set of system threads,

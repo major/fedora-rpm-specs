@@ -1,6 +1,6 @@
 Name:           libserialport
 Version:        0.1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Library for accessing serial ports
 License:        LGPLv3+
 URL:            http://sigrok.org/wiki/%{name}
@@ -82,6 +82,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

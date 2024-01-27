@@ -4,7 +4,7 @@
 
 Name:           pcb
 Version:        %{pcbver}
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 Summary:        An interactive printed circuit board editor
 License:        GPLv2+
@@ -176,6 +176,9 @@ mv %{buildroot}%{_pkgdocdir}/refcard.pdf %{buildroot}%{_pkgdocdir}/pcb-reference
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

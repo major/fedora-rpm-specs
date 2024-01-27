@@ -2,7 +2,7 @@
 
 Name:		pinta
 Version:	1.7.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	An easy to use drawing and image editing program
 
 # the code is licensed under the MIT license while the icons are licensed as CC-BY
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/pixmaps/%{name}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

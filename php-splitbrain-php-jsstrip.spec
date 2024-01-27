@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Summary: PHP-based JavaScript compressor
 License: BSD-3-Clause
@@ -96,6 +96,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

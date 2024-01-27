@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -150,6 +150,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

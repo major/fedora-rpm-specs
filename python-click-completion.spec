@@ -2,7 +2,7 @@
 
 Name:           python-click-completion
 Version:        0.5.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Add automatic completion support for fish, Zsh, Bash and PowerShell to Click
 License:        MIT
 URL:            https://github.com/click-contrib/click-completion
@@ -59,6 +59,9 @@ chmod -x examples/click-completion-*
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

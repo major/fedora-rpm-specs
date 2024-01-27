@@ -1,6 +1,6 @@
 Name:           perl-Devel-Pragma
 Version:        1.1.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Helper functions for developers of lexical pragmas
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-Pragma
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

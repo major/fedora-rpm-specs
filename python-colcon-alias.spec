@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extension for colcon to create and modify command aliases
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ invocations.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

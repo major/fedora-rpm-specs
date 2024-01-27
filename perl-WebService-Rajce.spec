@@ -3,7 +3,7 @@
 Name:           perl-WebService-Rajce
 # Normalize version to dotted format
 Version:        %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl interface for www.rajce.idnes.cz
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WebService-Rajce
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202.830-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202.830-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

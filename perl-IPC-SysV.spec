@@ -7,7 +7,7 @@
 
 Name:           perl-IPC-SysV
 Version:        2.09
-Release:        504%{?dist}
+Release:        505%{?dist}
 Summary:        Object interface to System V IPC
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-SysV
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-505
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.09-504
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

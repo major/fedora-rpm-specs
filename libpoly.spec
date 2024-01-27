@@ -1,11 +1,14 @@
 Name:           libpoly
 Version:        0.1.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for manipulating polynomials
 
 License:        LGPL-3.0-or-later
 URL:            https://sri-csl.github.io/libpoly/
 Source0:        https://github.com/SRI-CSL/libpoly/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix incompatible pointer type, an error with GCC 14
+# See https://github.com/SRI-CSL/libpoly/pull/76
+Patch0:         %{name}-gcc14.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -91,6 +94,12 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Thu Jan 25 2024 Jerry James <loganjerry@gmail.com> - 0.1.13-3
+- Add patch to fix incompatible pointer type
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

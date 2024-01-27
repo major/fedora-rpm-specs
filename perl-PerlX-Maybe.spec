@@ -3,7 +3,7 @@
 
 Name:           perl-PerlX-Maybe
 Version:        1.202
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Return a pair only if they are both defined
 # LICENSE:      GPL+ or Artistic
 # COPYRIGHT:    Public Domain
@@ -104,6 +104,9 @@ PERLX_MAYBE_IMPLEMENTATION=PP make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

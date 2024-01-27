@@ -1,6 +1,6 @@
 Name:          python-appdirs
 Version:       1.4.4
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Python module for determining platform-specific directories
 
 # https://spdx.org/licenses/MIT.html
@@ -54,6 +54,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' appdirs.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

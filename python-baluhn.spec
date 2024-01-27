@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A base-independent implementation of the Luhn algorithm for Python
 
 License:        Unlicense
@@ -43,6 +43,9 @@ bases.
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

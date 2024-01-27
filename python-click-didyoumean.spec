@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Enable git-like did-you-mean feature in click
 
 License:        MIT
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

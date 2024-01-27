@@ -2,7 +2,7 @@
 
 Name:           pycolumnize
 Version:        0.3.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python module to align in columns a simple list
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i /nose/d setup.py
 %{python3_sitelib}/%{pypi_name}.py*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

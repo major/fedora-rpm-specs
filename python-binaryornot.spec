@@ -5,7 +5,7 @@
 
 Name:               python-binaryornot
 Version:            0.4.4
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            %{sum}
 
 License:            BSD
@@ -92,6 +92,9 @@ rm -rf docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

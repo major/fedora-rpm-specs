@@ -1,19 +1,17 @@
-# 5674 is the svn tag for the 7.71.2 release
-%global svnver 5674
-
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
-Version:	7.71.2
-Release:	11%{?dist}
-License:	GPLv2+
+Version:	7.71.6
+Release:	1%{?dist}
+License:	GPL-2.0-or-later AND Zlib
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
-# svn co svn://svn.icculus.org/alienarena/trunk
-# cd trunk
-# rm -rf *.exe *.dll
+# svn co svn://svn.icculus.org/alienarena/tags/7.71.6
+# cd 7.71.6
+# find . -name "*.dll" -type f -delete
+# find . -name "*.exe" -type f -delete
 # cd ..
-# mv trunk alienarena-7.71.2-svn5674
-# tar --exclude-vcs -cJf alienarena-7.71.2-svn5674.tar.xz alienarena-7.71.2-svn5674
-Source0:	alienarena-%{version}-svn%{svnver}.tar.xz
+# mv 7.71.6 alienarena-7.71.6
+# tar --exclude-vcs -cJf alienarena-7.71.6.tar.xz alienarena-7.71.6
+Source0:	alienarena-%{version}.tar.xz
 Source1:	%{name}.desktop
 Source2:	GPL.acebot.txt
 Source3:	alienarena.appdata.xml
@@ -22,13 +20,19 @@ Patch5:		alienarena-7.71.2-svn5674-system-ode-double.patch
 # I started to clean this up properly
 # ... but there are a lot of misused globals here. A LOT.
 # So I just added -fcommon.
-Patch6:		alienarena-7.71.1-gcc10.patch
+Patch6:		alienarena-7.71.4-gcc10.patch
 Patch7:		alienarena-c99.patch
+Patch8:		alienarena-7.71.6-fix-missing-stat-header.patch
+Patch9:		alienarena-7.71.6-fix-incompatible-pointer.patch
+Patch10:	alienarena-7.71.6-zlib-for-uLong.patch
+Patch11:	alienarena-7.71.6-fix-bad-sprintf-use.patch
+Patch12:	alienarena-7.71.6-fix-CL_GetLatestGameVersion.patch
 URL:		http://red.planetarena.org/
 BuildRequires:  gcc
 BuildRequires:	libX11-devel, libXext-devel, libXxf86vm-devel, libjpeg-devel
 BuildRequires:	mesa-libGL-devel, mesa-libGLU-devel, curl-devel, libpng-devel
 BuildRequires:	libvorbis-devel, ode-devel, openal-soft-devel, freetype-devel
+BuildRequires:	zlib-devel, minizip-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:  make
 Requires:	%{name}-data = 1:%{version}
@@ -76,12 +80,17 @@ your liking.
 This is the game data.
 
 %prep
-%setup -q -n %{name}-%{version}-svn%{svnver}
+%setup -q -n %{name}-%{version}
 
-%patch3 -p1 -b .no-qglBlitFramebufferEXT
-%patch5 -p1 -b .ode-double
-%patch6 -p1 -b .gcc10
-%patch7 -p1 -b .c99
+%patch -P3 -p1 -b .no-qglBlitFramebufferEXT
+%patch -P5 -p1 -b .ode-double
+%patch -P6 -p1 -b .gcc10
+%patch -P7 -p1 -b .c99
+%patch -P8 -p1 -b .fix-missing-stat-header
+%patch -P9 -p1 -b .fix-incompatible-pointer
+%patch -P10 -p1 -b .zlib-for-uLong
+%patch -P11 -p1 -b .fix-bad-sprintf-use
+%patch -P12 -p1 -b .fix-CL_GetLatestGameVersion
 
 # We don't want the bundled ode code.
 rm -rf source/unix/ode
@@ -139,6 +148,9 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Tom Callaway <spot@fedoraproject.org> - 7.71.6-1
+- update to 7.71.6
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.71.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

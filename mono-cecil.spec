@@ -9,7 +9,7 @@
 
 Name:           mono-cecil
 Version:        0.10.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Library to generate and inspect programs and libraries in the ECMA CIL form
 License:        MIT
 URL:            http://www.mono-project.com/Cecil
@@ -71,6 +71,9 @@ mkdir -p %{buildroot}/%{_libdir}/pkgconfig/
 %{_libdir}/pkgconfig/cecil.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

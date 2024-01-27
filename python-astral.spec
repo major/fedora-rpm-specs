@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Calculations for the position of the sun and moon
 
 License:        ASL 2.0
@@ -56,6 +56,9 @@ astral is a Python module which calculates including:
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

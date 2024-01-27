@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-topkg
 Version:        1.0.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        The transitory OCaml software packager
 
 License:        ISC
@@ -127,6 +127,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

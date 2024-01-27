@@ -7,7 +7,7 @@
 Name:           perl-%{cpan_name}
 # Normalize version to dotted format
 Version:        %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Look up the country of an IPv4 Address
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.160.000-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.160.000-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

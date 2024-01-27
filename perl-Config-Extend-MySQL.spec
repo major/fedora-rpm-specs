@@ -1,6 +1,6 @@
 Name:           perl-Config-Extend-MySQL
 Version:        0.05
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Extend your favorite .INI parser module to read MySQL configuration file
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Config-Extend-MySQL
@@ -46,6 +46,9 @@ sed -i -e '1s~#!.*~#!%{__perl}~' eg/*
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

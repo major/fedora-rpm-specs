@@ -1,6 +1,6 @@
 Name:		php-LightweightPicasaAPI
 Version:	3.3
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	A lightweight API for Picasa in PHP
 
 License:	GPLv3+
@@ -37,6 +37,9 @@ cp -pr Picasa.php Picasa/* $RPM_BUILD_ROOT%{_datadir}/php/LightweightPicasaAPI
 %{_datadir}/php/LightweightPicasaAPI
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

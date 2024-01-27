@@ -1,6 +1,6 @@
 Name:           nogravity
 Version:        2.00
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Space shooter in 3D
 License:        GPLv2+
 URL:            http://www.realtech-vr.com/nogravity/
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

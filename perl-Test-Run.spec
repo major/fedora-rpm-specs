@@ -1,6 +1,6 @@
 Name:           perl-Test-Run
 Version:        0.0305
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extensible and object-oriented test harness for TAP scripts
 # lib and other code:               MIT
 # lib/Test/Run/Straps_GplArt.pm:    GPLv2+ or Artistic
@@ -90,6 +90,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0305-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0305-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

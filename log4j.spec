@@ -3,7 +3,7 @@
 
 Name:           log4j
 Version:        2.20.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -309,6 +309,9 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadCo
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

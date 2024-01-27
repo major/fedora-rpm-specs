@@ -3,7 +3,7 @@
 
 Name:           perl-Unix-Syslog
 Version:        1.1
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Unix-Syslog
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/Unix::Syslog.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

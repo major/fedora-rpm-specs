@@ -1,6 +1,6 @@
 Name:		libmcrypt
 Version:	2.5.8
-Release:	37%{?dist}
+Release:	38%{?dist}
 License:	LGPLv2+
 Summary:	Encryption algorithms library
 URL:		http://mcrypt.sourceforge.net/
@@ -69,6 +69,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/libmcrypt-config
 %{_datadir}/aclocal/libmcrypt.m4
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

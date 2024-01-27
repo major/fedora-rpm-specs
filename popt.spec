@@ -6,7 +6,7 @@
 Summary:        C library for parsing command line parameters
 Name:           popt
 Version:        %{ver}%{?snap:~%{snap}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 # COPYING:      MIT text
 # po/eo.po:     LicenseRef-Fedora-Public-Domain
 # po/fi.po:     MIT AND LicenseRef-Fedora-Public-Domain
@@ -86,6 +86,9 @@ make check || (cat tests/*.log; exit 1)
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:    php-%{composer_vendor}-%{composer_project}
 Version: 0.6.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 Summary: A compiler for LESS written in PHP
 License: MIT or GPLv3
@@ -95,6 +95,9 @@ phpunit9 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

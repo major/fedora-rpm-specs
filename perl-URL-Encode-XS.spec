@@ -1,6 +1,6 @@
 Name:           perl-URL-Encode-XS
 Version:        0.03
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        XS implementation of URL::Encode
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/URL-Encode-XS
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/URL::Encode::XS.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

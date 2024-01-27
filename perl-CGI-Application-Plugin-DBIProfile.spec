@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-DBIProfile
 Version:        0.07
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        DBI profiling plugin
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-DBIProfile
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

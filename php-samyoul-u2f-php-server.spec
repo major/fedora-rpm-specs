@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.1.4
-Release:        12%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        13%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Server side handling class for FIDO U2F registration and authentication
 
 License:        BSD
@@ -113,6 +113,9 @@ php -r '
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

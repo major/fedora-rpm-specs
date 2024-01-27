@@ -5,7 +5,7 @@
 
 Name:           opencl-headers
 Version:        3.0
-Release:        20%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        21%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ sed -e 's|@CMAKE_INSTALL_PREFIX@|%{_prefix}|' -e 's|@OPENCLHPP_INCLUDEDIR_PC@|%{
 %{_datadir}/pkgconfig/OpenCL-CLHPP.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-21.20231212git2368105
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-20.20231212git2368105
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

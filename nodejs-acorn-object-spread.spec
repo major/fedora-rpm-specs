@@ -7,7 +7,7 @@
 
 Name:		nodejs-acorn-object-spread
 Version:	1.0.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Support object spread in acorn
 
 License:	MIT
@@ -61,6 +61,9 @@ NODE_ENV=test %{_bindir}/mocha -R spec
 %{nodejs_sitelib}/%{packagename}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

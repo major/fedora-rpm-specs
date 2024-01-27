@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-Prereqs-FromCPANfile
 Version:        0.08
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Parse cpanfile for Dist::Zilla prerequisites
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Prereqs-FromCPANfile
@@ -59,6 +59,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

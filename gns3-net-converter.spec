@@ -1,7 +1,10 @@
 Name:           gns3-net-converter
 Version:        1.3.0
-Release:        27%{?dist}
+Release:        29%{?dist}
 Summary:        Convert old ini-style GNS3 topologies to v1+ JSON format
+
+# This project is archived by upstream, thus downstream patch
+Patch1:         0001-Explicitly-require-setuptools-utils-get_resource.py-.patch
 
 License:        GPLv3
 URL:            https://pypi.org/project/gns3-net-converter/
@@ -43,6 +46,9 @@ to the newer version v1+ JSON format for use in GNS3 v1+.
 
 
 %changelog
+* Thu Jan 25 2024 Tomas Hrnciar <thrnciar@redhat.com> - 1.3.0-29
+- Explicitly require setuptools, utils/get_resource.py imports pkg_resources
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

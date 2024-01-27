@@ -12,7 +12,7 @@ agate was previously known as journalism.
 
 Name:           python-%{pypi_name}
 Version:        1.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
@@ -105,6 +105,9 @@ nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclud
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

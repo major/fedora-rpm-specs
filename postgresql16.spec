@@ -95,6 +95,8 @@ Patch9: postgresql-server-pg_config.patch
 # rhbz#1940964
 Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
+Patch13: postgresql-libxml2.patch
+Patch14: postgresql15-libxml2.patch
 
 # This macro is used for package names in the files section
 %if %?postgresql_default
@@ -533,6 +535,7 @@ goal of accelerating analytics queries.
 %endif
 %patch 9 -p1
 %patch 10 -p1
+%patch 13 -p1
 
 
 %if ! %external_libpq
@@ -548,6 +551,8 @@ tar xfj %{SOURCE3}
 %if ! %external_libpq
 find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\)/SO_MAJOR_VERSION= %{private_soname}-\1/" {} \;
 %endif
+
+%patch 14 -p1 -d postgresql-%{prevversion}
 
 # apply once SOURCE3 is extracted
 %endif

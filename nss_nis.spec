@@ -1,6 +1,6 @@
 Name:           nss_nis
 Version:        3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Name Service Switch (NSS) module using NIS
 License:        LGPLv2+
 Url:            https://github.com/thkukuk/libnss_nis
@@ -59,6 +59,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

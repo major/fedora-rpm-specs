@@ -13,7 +13,7 @@ Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
 Version:        1.302198
-Release:        2%{?dist}
+Release:        3%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -201,6 +201,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302198-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302198-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

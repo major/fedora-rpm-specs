@@ -3,7 +3,7 @@
 
 Name:           mingw-dirac
 Version:        1.0.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Dirac is an open source video codec
 
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/doc
 %{mingw32_libdir}/libdirac_encoder.dll.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

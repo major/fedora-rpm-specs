@@ -2,7 +2,7 @@
 
 Name:       lifeograph
 Version:    2.0.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    A diary program
 
 License:    GPLv3+
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/mime/packages/*%{name}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

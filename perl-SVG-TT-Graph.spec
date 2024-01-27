@@ -1,6 +1,6 @@
 Name:           perl-SVG-TT-Graph
 Version:        1.04
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Base object for generating SVG Graphs
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ sed -i '1s,#!.*perl,#!/usr/bin/perl,' script/timeseries.pl
 %{_mandir}/man3/SVG*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

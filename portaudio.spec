@@ -1,6 +1,6 @@
 Name:           portaudio
 Version:        19
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Free, cross platform, open-source, audio I/O library
 License:        MIT
 URL:            http://www.portaudio.com/
@@ -83,6 +83,9 @@ doxygen
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           mingw-wine-gecko
 Version:        2.47.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Gecko library required for Wine
 
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -139,6 +139,9 @@ install -p -m 0644 wine-gecko-%{version}-x86_64/dist/wine-gecko-%{version}-x86_6
 %{_datadir}/wine/gecko/wine-gecko-%{version}-x86_64.msi
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

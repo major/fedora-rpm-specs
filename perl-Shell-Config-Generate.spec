@@ -1,6 +1,6 @@
 Name:           perl-Shell-Config-Generate
 Version:        0.34
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Portably generate configuration for any shell
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Shell-Config-Generate
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

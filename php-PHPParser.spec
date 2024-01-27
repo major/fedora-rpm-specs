@@ -25,7 +25,7 @@
 
 Name:          php-%{lib_name_old}
 Version:       %{github_version}
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       A PHP parser written in PHP - version 1
 
 License:       BSD
@@ -117,6 +117,9 @@ ln -s ../%{lib_name}/Autoloader.php \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

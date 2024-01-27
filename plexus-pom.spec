@@ -2,7 +2,7 @@
 
 Name:          plexus-pom
 Version:       15
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Root Plexus Projects POM
 License:       Apache-2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

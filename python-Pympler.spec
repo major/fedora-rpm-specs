@@ -16,7 +16,7 @@ the lifetime of selected Python objects.
 
 Name: python-%{pname}
 Version: 1.0.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Measure, monitor and analyze the memory behavior of Python objects
 License: Apache-2.0 and BSD-3-Clause and MIT
 # bundled stuff
@@ -85,6 +85,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %{python3_sitelib}/pympler
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-9
 - Fix patch macros, update python macros, SPDX license tags.
 

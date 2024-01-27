@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.6.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -60,6 +60,9 @@ sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.026
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -197,6 +197,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.026-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.026-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

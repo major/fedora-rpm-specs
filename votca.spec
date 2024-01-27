@@ -1,27 +1,22 @@
 Name:           votca
-Version:        2023
+Version:        2024
 %global         uversion %{version}
-%global         sover 2023
-Release:        2%{?dist}
+%global         sover 2024
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
-Patch0:         1093.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global with_xtp 1
-# libint2 used by xtp is broken on 32-bit archs
-# https://github.com/evaleev/libint/issues/196
-# https://github.com/votca/xtp/issues/652
-%ifarch %ix86 %arm
-%global with_xtp 0
-%endif
 
 %global with_gmx 1
-# no gromacs package on 32-bit archs
-# and since gmx-2023 also s390x
+# no gromacs package on s390x
 # same for espressomd
-%ifarch %ix86 %arm s390x
+%ifarch s390x
 %global with_gmx 0
 %endif
 
@@ -189,8 +184,7 @@ Provides:   votca-csg-bash = %version-%release
 This package contains bash completion support for the VOTCA package.
 
 %prep
-%setup -q -n %{name}-%{uversion}
-%patch 0 -p1
+%autosetup -p1 -n %{name}-%{uversion}
 
 # we don't have an espressopp package in Fedora yet
 rm -rf csg-tutorials/spce/ibi_espressopp
@@ -257,6 +251,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Wed Jan 24 2024 Christoph Junghans <junghans@votca.org> - 2024-1
+- Version bump to v2024 (bug#2260025)
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2023-2
 - Rebuilt for Boost 1.83
 

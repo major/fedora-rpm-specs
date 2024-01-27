@@ -15,10 +15,6 @@ URL:            https://github.com/rpm-software-management/%{name}
 Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
 
-# add workaround for gcc7 on ppc64le temporary before it's fixed in gcc
-# https://bugzilla.redhat.com/show_bug.cgi?id=1420350
-Patch1:         drpm-0.3.0-workaround-ppc64le-gcc.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.8.5
 BuildRequires:  gcc

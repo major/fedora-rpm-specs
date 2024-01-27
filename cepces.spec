@@ -4,8 +4,8 @@
 %global selinux_package_dir %{_datadir}/selinux/packages
 
 Name:           cepces
-Version:        0.3.7
-Release:        5%{?dist}
+Version:        0.3.8
+Release:        1%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
@@ -179,6 +179,10 @@ fi
 %files selinux -f selinux-files.txt
 
 %changelog
+* Tue Jan 23 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-1
+- Update to version 0.3.8
+  * https://github.com/openSUSE/cepces/releases/tag/v0.3.8
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

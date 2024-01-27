@@ -1,6 +1,6 @@
 Name:		libvidcap
 Version:	0.2.1
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Cross-platform video capture library
 License:	LGPLv2+
 URL:		http://libvidcap.sourceforge.net/
@@ -46,6 +46,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_includedir}/vidcap/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -105,10 +105,10 @@ sed -i 's/ ids / /' audisp/plugins/Makefile.in
 
 %build
 %configure --with-python=no \
-	   --with-python3=yes \
-	   --enable-gssapi-krb5=yes --with-arm --with-aarch64 \
-	   --with-libcap-ng=yes --without-golang --enable-zos-remote \
-	   --enable-systemd --enable-experimental --with-io_uring
+           --with-python3=yes \
+           --enable-gssapi-krb5=yes --with-arm --with-aarch64 \
+           --with-libcap-ng=yes --without-golang --enable-zos-remote \
+           --enable-systemd --enable-experimental --with-io_uring
 
 make CFLAGS="%{optflags}" %{?_smp_mflags}
 
@@ -138,6 +138,10 @@ rm -f rules/Makefile*
 
 %post
 %systemd_post auditd.service
+# Do not perform service start/restart when running during an rpm-ostree compose
+if [[ -f /run/ostree-booted ]]: then
+    exit 0
+fi
 # If an upgrade, restart it if it's running
 if [ $1 -eq 2 ]; then
     state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
@@ -155,22 +159,23 @@ fi
 # Copy default rules into place on new installation
 files=`ls /etc/audit/rules.d/ 2>/dev/null | wc -w`
 if [ "$files" -eq 0 ] ; then
-	echo "No rules detected, adding default"
+    echo "No rules detected, adding default"
 %if 0%{?rhel}
-	if [ -e %{_datadir}/%{name}-rules/10-base-config.rules ] ; then
-		cp %{_datadir}/%{name}-rules/10-base-config.rules /etc/audit/rules.d/audit.rules
+    if [ -e %{_datadir}/%{name}-rules/10-base-config.rules ] ; then
+        install -m 0600 -u 0 -g 0 -p %{_datadir}/%{name}-rules/10-base-config.rules /etc/audit/rules.d/audit.rules
 %else
-	# FESCO asked for audit to be off by default. #1117953
-	if [ -e %{_datadir}/%{name}-rules/10-no-audit.rules ] ; then
-	        cp %{_datadir}/%{name}-rules/10-no-audit.rules /etc/audit/rules.d/audit.rules
+    # FESCO asked for audit to be off by default. #1117953
+    if [ -e %{_datadir}/%{name}-rules/10-no-audit.rules ] ; then
+        install -m 0600 -u 0 -g 0 -p %{_datadir}/%{name}-rules/10-no-audit.rules /etc/audit/rules.d/audit.rules
 %endif
-	else
-		touch /etc/audit/rules.d/audit.rules
-	fi
-	# Fix up permissions
-	chmod 0600 /etc/audit/rules.d/audit.rules
-	# Make the new rules active
-	augenrules --load || true
+    else
+        install -m 0600 -u 0 -g 0 /dev/null /etc/audit/rules.d/audit.rules
+    fi
+    # Only load the new rules if not running during an rpm-ostree compose
+    if [[ ! -f /run/ostree-booted ]]: then
+        # Make the new rules active
+        augenrules --load || true
+    fi
 fi
 
 %preun
@@ -286,6 +291,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Jan 25 2024 Steve Grubb <sgrubb@redhat.com> 4.0-6
+- Don't do "live" operations during rpm-ostree composes
+
 * Wed Jan 24 2024 Steve Grubb <sgrubb@redhat.com> 4.0-5
 - Auditd is stopping during upgrade (bz 2259610)
 

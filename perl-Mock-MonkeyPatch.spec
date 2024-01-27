@@ -1,6 +1,6 @@
 Name:           perl-Mock-MonkeyPatch
 Version:        1.02
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Monkey patching with test mocking in mind
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ is replaced.
 %{_mandir}/man3/Mock*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

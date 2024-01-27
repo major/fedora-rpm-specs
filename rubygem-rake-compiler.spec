@@ -4,7 +4,7 @@
 
 Summary:	Rake-based Ruby C Extension task generator
 Name:		rubygem-%{gem_name}
-Version:	1.2.5
+Version:	1.2.6
 Release:	1%{?dist}
 # SPDX confirmed
 License:	MIT
@@ -124,6 +124,9 @@ popd
 
 
 %changelog
+* Thu Jan 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.6-1
+- 1.2.6
+
 * Thu Aug  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.5-1
 - 1.2.5
 

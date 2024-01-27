@@ -3,7 +3,7 @@
 Name:		nanosvg
 # This thing has no version so we'll use the last commit date
 Version:	20221221
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	Zlib
 # Technically, this is a fork, but the upstream is unmaintained and this one has some fixes
 URL:		https://github.com/fltk/nanosvg
@@ -69,6 +69,9 @@ popd
 %{_libdir}/libnanosvgrast.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20221221-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20221221-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

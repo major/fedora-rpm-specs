@@ -10,7 +10,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 5.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -289,6 +289,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

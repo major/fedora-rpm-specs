@@ -1,6 +1,6 @@
 Name:           perl-re-engine-PCRE
 Version:        0.17
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Perl-compatible regular expression engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/re-engine-PCRE
@@ -10,6 +10,9 @@ Patch0:         re-engine-PCRE-0.17-Do-not-use-global-in-my.patch
 # Fix 1-basic.t for v5.29.9 Variable length lookbehind support (CPAN RT#129403)
 # Backported from re-engine-PCRE2 version 0.15
 Patch1:         re-engine-PCRE-0.17-Fix-1-basic.t-for-v5.29.9-Variable-length.patch
+# Fix building with GCC 14, bug #2259168, posted to the upstream,
+# <https://github.com/avar/re-engine-pcre/pull/6>
+Patch2:         re-engine-PCRE-0.17-Fix-prototypes-of-struct-regexp_engine-members.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -98,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Petr Pisar <ppisar@redhat.com> - 0.17-39
+- Fix building with GCC 14 (bug #2259168)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        XStatic base package with minimal support code
 
 License:        MIT
@@ -56,6 +56,9 @@ mkdir %{buildroot}/%{python3_sitelib}/xstatic/pkg
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

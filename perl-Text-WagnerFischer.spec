@@ -1,6 +1,6 @@
 Name:           perl-Text-WagnerFischer
 Version:        0.04
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Implementation of the Wagner-Fischer edit distance
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-WagnerFischer
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

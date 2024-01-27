@@ -1,7 +1,7 @@
 Summary: Library for manipulating panoramic images
 Name: libpano13
 Version: 2.9.22
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: http://panotools.sourceforge.net/
 Source: http://downloads.sourceforge.net/panotools/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ rm -rf %{buildroot}/usr/share/pano13
 %{_libdir}/pkgconfig/libpano13.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

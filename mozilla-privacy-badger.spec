@@ -9,7 +9,7 @@
 
 Name:           mozilla-privacy-badger
 Version:        2023.10.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
 License:        ASL 2.0 and GPLv3+ and MPLv2.0 and MIT and OFL and Public Domain
@@ -111,6 +111,9 @@ install -Dpm644 pkg/privacybadger-%{version}.zip %{buildroot}%{firefox_inst_dir}
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.10.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.10.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

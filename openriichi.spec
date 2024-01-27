@@ -1,6 +1,6 @@
 Name:             openriichi
 Version:          0.2.1.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Japanese Mahjong 3D game
 License:          GPLv3
 
@@ -95,6 +95,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %license LICENSE ENGINE_LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

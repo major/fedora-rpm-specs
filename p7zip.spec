@@ -7,7 +7,7 @@
 Summary: Very high compression ratio file archiver
 Name: p7zip
 Version: 16.02
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Files under C/Compress/Lzma/ are dual LGPL or CPL
 License: LGPLv2 and (LGPLv2+ or CPL)
 URL: http://p7zip.sourceforge.net/
@@ -33,16 +33,11 @@ Patch13: 0001-fix-data-null-pointer.patch
 Patch14: 0001-fix-out-of-mem.patch
 
 BuildRequires: make
-BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
 %if %{with gui}
 # for 7zG GUI
-%if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires: wxGTK-devel
-%else
-BuildRequires: wxGTK-devel
-%endif
 BuildRequires: kde-filesystem
 %endif
 %ifarch %{ix86}
@@ -128,10 +123,10 @@ mv %{buildroot}%{_docdir}/p7zip/DOC/* %{buildroot}%{_docdir}/p7zip
 rmdir %{buildroot}%{_docdir}/p7zip/DOC/
 
 %if %{with gui}
-mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
+mkdir -p %{buildroot}%{_datadir}/kservices5/
 # remove a duplicated of p7zip_compress.desktop
 rm GUI/kde4/p7zip_compress2.desktop
-cp GUI/kde4/*.desktop %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
+cp GUI/kde4/*.desktop %{buildroot}%{_datadir}/kservices5/
 #fix non-executable-in-bin
 chmod +x %{buildroot}%{_bindir}/p7zipForFilemanager
 %endif
@@ -171,7 +166,7 @@ make test
 %{_bindir}/p7zipForFilemanager
 %{_libexecdir}/p7zip/7zG
 %{_libexecdir}/p7zip/Lang
-%{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
+%{_datadir}/kservices5/*.desktop
 %endif
 
 %files doc
@@ -180,6 +175,10 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Fix the build by moving desktop files from kde4/services/ServiceMenus/ to kservices5
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.02-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

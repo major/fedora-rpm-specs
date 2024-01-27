@@ -2,7 +2,7 @@
 
 Name:		magic
 Version:	8.3.456
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A very capable VLSI layout tool
 
 # SPDX confirmed
@@ -172,6 +172,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.456-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.456-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

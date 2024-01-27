@@ -1,6 +1,6 @@
 Name:		purple-telegram
 Version:	1.4.6
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Libpurple protocol plugin for Telegram support
 License:	GPLv2+ and LGPLv2+
 URL:		https://github.com/majn/telegram-purple
@@ -52,6 +52,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/telegram-purpl
 %{_metainfodir}/telegram-purple.metainfo.xml
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

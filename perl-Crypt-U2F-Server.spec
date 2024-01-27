@@ -1,6 +1,6 @@
 Name:           perl-Crypt-U2F-Server
 Version:        0.45
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low level wrapper around the U2F C library (server side)
 License:        BSD-2-Clause AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/dist/Crypt-U2F-Server
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

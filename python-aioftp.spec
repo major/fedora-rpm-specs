@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.21.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FTP client/server for asyncio
 
 License:        ASL 2.0
@@ -54,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    libsecp256k1
 Version: 0.25.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Optimized C library for EC operations on curve secp256k1
 
 %forgemeta
@@ -77,6 +77,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

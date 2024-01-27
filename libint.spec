@@ -20,7 +20,7 @@
 
 Name:           libint
 Version:        1.2.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A library for computing electron repulsion integrals efficiently
 # Libint is two things: a code generator, and a generated
 # library. This package builds and runs the compiler (GPLv3), and
@@ -170,6 +170,9 @@ EOF
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

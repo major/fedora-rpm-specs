@@ -2,7 +2,7 @@
 
 Name:           mono-bouncycastle
 Version:        1.8.10
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Bouncy Castle Crypto Package for Mono
 
 # Files in crypto/bzip2/ are ASL 2.0 licensed,
@@ -51,6 +51,9 @@ gacutil -i crypto/api/bin/release/BouncyCastle.Crypto.dll -f -package bouncycast
 %{_prefix}/lib/mono/bouncycastle/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    pjproject
 Summary: Libraries for building embedded/non-embedded VoIP applications
 Version: 2.13.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # main source code is GPL-2.0-or-later
 # third_party/srtp is BSD-3-Clause
 # third_party/webrtc is BSD-3-Clause
@@ -188,6 +188,9 @@ find %{buildroot} -type f -name "*.a" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

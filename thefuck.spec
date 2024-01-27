@@ -9,8 +9,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 # https://github.com/nvbn/thefuck/issues/1381
-%if 0%{?fedora} >= 39
+%if v"0%{?python3_version}" >= v"3.12"
 BuildRequires:  python3-zombie-imp
+Requires:       python3-zombie-imp
 %endif
 
 %description

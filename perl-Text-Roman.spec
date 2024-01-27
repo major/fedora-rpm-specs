@@ -1,6 +1,6 @@
 Name:           perl-Text-Roman
 Version:        3.5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Conversion between Roman algorisms and Arabic numerals
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Roman
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

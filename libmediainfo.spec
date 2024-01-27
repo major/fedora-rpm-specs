@@ -2,7 +2,7 @@
 
 Name:           libmediainfo
 Version:        23.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 
 License:        BSD-2-Clause
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

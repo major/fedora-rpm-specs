@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Role-Strict
 Version:        0.05
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Use strict 'roles' in Moose
 License:        GPL+ or Artistic
 
@@ -52,6 +52,9 @@ failure.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

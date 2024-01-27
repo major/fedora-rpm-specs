@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -307,6 +307,9 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %{_includedir}/pfs
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

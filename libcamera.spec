@@ -6,7 +6,7 @@ Summary: A library to support complex camera ISPs
 License: LGPL-2.1-or-later
 URL:     http://libcamera.org/
 
-# libcamera is not expected to be used in these architectures
+# libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
 
 # Upstream is still under development and does not release tarballs,

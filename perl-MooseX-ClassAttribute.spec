@@ -1,7 +1,7 @@
 Name:           perl-MooseX-ClassAttribute
 Summary:        Declare class attributes Moose-style
 Version:        0.29
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        Artistic 2.0
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-ClassAttribute-%{version}.tar.gz 
 URL:            https://metacpan.org/release/MooseX-ClassAttribute
@@ -69,6 +69,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

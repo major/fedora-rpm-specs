@@ -1,6 +1,6 @@
 Name: profile-cleaner
 Version: 2.41
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Script to vacuum and reindex sqlite databases used by Firefox and by Chrome
 BuildArch: noarch
 
@@ -45,6 +45,9 @@ clients and newsreaders too.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

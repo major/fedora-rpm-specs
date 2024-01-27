@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.29
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.29-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.29-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

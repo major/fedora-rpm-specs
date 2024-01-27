@@ -6,7 +6,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        4.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Opam file for caml-mode
 
 # GPL-2.0-or-later: the project as a whole
@@ -75,6 +75,9 @@ cd -
 %{_emacs_sitestartdir}/caml-mode-site-file.el
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -35,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -298,6 +298,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5^20230917gite0fffa66-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230917gite0fffa66-2
 - Change -Wincompatible-pointer-types from error to warning
 

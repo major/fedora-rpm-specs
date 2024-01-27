@@ -2,7 +2,7 @@ BuildRequires:  fontforge
 BuildRequires: make
 
 Version:        1.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 URL:            https://github.com/aravindavk/Navilu
 
 %global fontlicense       OFL-1.1
@@ -39,6 +39,9 @@ make
 %fontfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

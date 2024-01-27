@@ -1,6 +1,6 @@
 Name:		megaglest-data
 Version:	3.13.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Mega Glest data files
 License:	CC-BY-SA
 Url:		http://megaglest.org/
@@ -62,6 +62,9 @@ rm %{buildroot}/%{_datadir}/menu/megaglest
 %{_datadir}/megaglest/tutorials/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-App-GitHooks
 Version:        1.9.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Extensible plugins system for git hooks
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-GitHooks
@@ -87,6 +87,9 @@ export LC_ALL=C.UTF-8
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

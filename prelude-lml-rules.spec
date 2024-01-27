@@ -1,6 +1,6 @@
 Name:           prelude-lml-rules
 Version:        5.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Prelude LML community ruleset
 License:        GPLv2+
 URL:            https://www.prelude-siem.org/
@@ -39,6 +39,9 @@ test -z "`%{buildroot}%{_bindir}/%{name}-check %{buildroot}%{_sysconfdir}/prelud
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 License: GPLv2
 URL: http://mysql-mmm.org
@@ -173,6 +173,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

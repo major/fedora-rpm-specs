@@ -1,6 +1,6 @@
 Name:           perl-String-Escape
 Version:        2010.002
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        String::Escape Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/String-Escape
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2010.002-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2010.002-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

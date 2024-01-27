@@ -1,6 +1,6 @@
 Name:           perl-Config-GitLike
 Version:        1.18
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Git-compatible config file parsing
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ sed -i -e '/^inc\// d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

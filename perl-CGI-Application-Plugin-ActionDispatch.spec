@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ActionDispatch
 Version:        0.99
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Adds attribute based support for parsing the PATH_INFO of an HTTP request
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-ActionDispatch
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

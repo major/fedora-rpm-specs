@@ -3,7 +3,7 @@
 %global gitdate 20220920
 Name:           mairix
 Version:        0.24
-Release:        18.%{gitdate}git%{gitrel}%{?dist}
+Release:        19.%{gitdate}git%{gitrel}%{?dist}
 Summary:        A program for indexing and searching email messages
 
 License:        GPL-2.0-only
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/zsh
 %{_mandir}/man5/mairixrc.5*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-19.20220920git1cc06f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-18.20220920git1cc06f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

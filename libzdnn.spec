@@ -1,6 +1,6 @@
 Name:		libzdnn
 Version:	1.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
 License:	Apache-2.0
@@ -76,6 +76,9 @@ ln -s -r $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version} $RPM_BUILD_ROOT%{_libdi
 %{_libdir}/libzdnn.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

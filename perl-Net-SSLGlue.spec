@@ -1,6 +1,6 @@
 Name:           perl-Net-SSLGlue
 Version:        1.058
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Add/extend SSL support for common perl modules
 License:        GPL+ or Artistic
 
@@ -74,6 +74,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.058-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.058-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

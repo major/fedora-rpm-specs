@@ -1,6 +1,6 @@
 Name:         liblo
 Version:      0.31
-Release:      11%{?dist}
+Release:      12%{?dist}
 Summary:      Open Sound Control library
 License:      LGPLv2+
 URL:          http://liblo.sourceforge.net
@@ -69,6 +69,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

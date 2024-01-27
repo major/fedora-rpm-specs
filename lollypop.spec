@@ -4,7 +4,7 @@
 
 Name:           lollypop
 Version:        1.4.37
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Music player for GNOME
 License:        GPLv3+
 URL:            https://gitlab.gnome.org/World/lollypop
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.37-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.37-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

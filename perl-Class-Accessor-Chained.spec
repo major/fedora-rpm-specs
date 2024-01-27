@@ -1,6 +1,6 @@
 Name:           perl-Class-Accessor-Chained
 Version:        0.01
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Make chained accessors
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Accessor-Chained
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Class::Accessor::Chained::Fast.3pm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

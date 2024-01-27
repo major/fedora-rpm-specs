@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Easily capture stdout/stderr of the current process and subprocesses
 
 License:        MIT
@@ -82,6 +82,9 @@ PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

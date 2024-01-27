@@ -6,7 +6,7 @@
 
 Name:           mingw-libjpeg-turbo
 Version:        2.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows Libjpeg-turbo library
 
 License:        wxWidgets
@@ -197,6 +197,9 @@ chmod -x README.md
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: more, less, most
 Name: most
 Version: 5.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: http://www.jedsoft.org/releases/most/
 Source: http://www.jedsoft.org/releases/most/most-%{version}.tar.gz
@@ -41,6 +41,9 @@ mkdir -p src/objs
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

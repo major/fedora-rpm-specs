@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-Syck
 Version:        1.34
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
 # *:      MIT
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

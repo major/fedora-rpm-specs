@@ -1,6 +1,6 @@
 Name:           perl-Gtk3-ImageView
 Version:        10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Image viewer widget for GTK 3
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Gtk3-ImageView
@@ -105,6 +105,9 @@ xvfb-run -d make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global base_version 1.26
 Name:           perl-Unicode-Normalize
 Version:        1.32
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Unicode Normalization Forms
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-Normalize
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-502
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           perl-Test-SharedFork
 Summary:        Fork test
 Version:        0.35
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-SharedFork-%{version}.tar.gz
 URL:            https://metacpan.org/release/Test-SharedFork
@@ -60,6 +60,9 @@ by keeping the test count consistent between parent and child processes.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

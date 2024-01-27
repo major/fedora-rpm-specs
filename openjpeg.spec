@@ -9,7 +9,7 @@
 
 Name:    openjpeg
 Version: 1.5.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: JPEG 2000 command line tools
 
 License: BSD
@@ -210,6 +210,9 @@ test -f %{buildroot}%{_includedir}/openjpeg.h
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

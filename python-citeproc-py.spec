@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Citations and bibliography formatter
 
 License:        BSD
@@ -53,6 +53,9 @@ sed -i -e '1s|^.*$|#!%{__python3}|' %{buildroot}%{_bindir}/csl_unsorted
 %{_bindir}/csl_unsorted
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

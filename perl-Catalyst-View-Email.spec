@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-View-Email
 Version:        0.36
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Send Email from Catalyst
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-View-Email
@@ -79,6 +79,9 @@ TEST_POD=yep make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

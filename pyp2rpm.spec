@@ -1,6 +1,6 @@
 Name:           pyp2rpm
 Version:        3.3.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Convert Python packages to RPM SPECFILES
 
 License:        MIT
@@ -60,6 +60,9 @@ PYTHONPATH="." py.test-3 -vv -m "not webtest" -k "not TestMetadataExtractor"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

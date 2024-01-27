@@ -107,12 +107,12 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   2
-Version: 115.6.0
+Version: 115.7.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
-License: (MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later) and GPL-3.0-or-later and MIT and BSD and ISC and Apache-2.0 and MPL-2.0
+License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD AND ISC AND Apache-2.0 AND MPL-2.0
 URL:   http://www.gnu.org/software/gnuzilla/
 
 ## Source archive created by scripts based on Gnuzilla files.
@@ -315,10 +315,13 @@ Extensions included to this version of IceCat:
  * LibreJS
    GNU LibreJS aims to address the JavaScript problem described in the article
    "The JavaScript Trap" of Richard Stallman.
-
- * HTTPS Everywhere
-   HTTPS Everywhere is an extension that encrypts your communications with
-   many major websites, making your browsing more secure.
+   
+ * JShelter: Mitigates potential threats from JavaScript, including fingerprinting,
+   tracking, and data collection. Slightly modifies the results of API calls,
+   differently on different domains, so that the cross-site fingerprint is not
+   stable. Applies security counter-measures that are likely not to break web pages.
+   Allows fine-grained control over the restrictions and counter-measures applied
+   to each domain. 
 
  * A set of companion extensions for LibreJS by Nathan Nichols
    are pre-installed, and provide workarounds to use some services at USPS,

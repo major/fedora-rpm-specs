@@ -15,9 +15,9 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        7%{?dist}
+Release:        9%{?dist}
 %else
-Release:        0.8%{?git_rel}%{?dist}
+Release:        0.9%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop panel applets
 License:        GPLv2+ and LGPLv2+
@@ -28,6 +28,9 @@ URL:            http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# fix build with gcc14
+Patch1:        mate-applets_0001-command-fix-Wincompatible-pointer-types-warning-1.26.patch
 
 BuildRequires: gucharmap-devel
 BuildRequires: libgtop2-devel
@@ -141,6 +144,12 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-9
+- fix building with gcc14
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-libarchive
 Version:        3.5.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        MinGW package for handling streaming archive formats
 
 License:        BSD
@@ -207,6 +207,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           perl-IO-Pager
 Version:        2.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Select a pager and pipe text to it if destination is a TTY
 # The license is something home-made or "the same terms as Perl itself".
 License:        GPL+ or Artistic
@@ -96,6 +96,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

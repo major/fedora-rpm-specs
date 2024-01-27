@@ -2,7 +2,7 @@
 
 Name:           lua-%{pkgname}
 Version:        0.5.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A little language that compiles to Lua
 
 # license text part of README.md
@@ -72,6 +72,9 @@ cp -pr moon moonscript $RPM_BUILD_ROOT%{lua_pkgdir}/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

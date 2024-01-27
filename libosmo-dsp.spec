@@ -1,7 +1,7 @@
 Name:             libosmo-dsp
 URL:              http://osmocom.org/projects/libosmo-dsp
 Version:          0.3
-Release:          21%{?dist}
+Release:          22%{?dist}
 License:          GPLv2+
 BuildRequires:    autoconf, automake, libtool, fftw-devel, doxygen, graphviz
 BuildRequires: make
@@ -64,6 +64,9 @@ mv %{buildroot}%{_datadir}/doc/libosmodsp %{buildroot}%{_docdir}/%{name}/html
 %{_docdir}/%{name}/html
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

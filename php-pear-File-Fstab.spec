@@ -4,7 +4,7 @@
 
 Name:           php-pear-File-Fstab
 Version:        2.0.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Read and write fstab files
 
 License:        PHP
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

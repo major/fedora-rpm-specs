@@ -16,7 +16,7 @@
 
 Name:           perl-Log-Dispatch
 Version:        2.71
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Dispatches messages to one or more outputs
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Log-Dispatch
@@ -158,6 +158,9 @@ represented by the Apache::Log class.
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MIME-Base64
 Version:        3.16
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Encoding and decoding of Base64 and quoted-printable strings
 # Base.xs:      (GPL-1.0-or-later OR Artistic-1.0-Perl) AND metamail
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-503
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

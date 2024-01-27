@@ -17,7 +17,7 @@
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
 Version:      2.0.3
-Release:      11%{?dist}
+Release:      12%{?dist}
 License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
@@ -159,6 +159,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

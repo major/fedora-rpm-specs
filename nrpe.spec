@@ -8,9 +8,9 @@
 Name: nrpe
 Version: 4.1.0
 %if 0%{?fromgit}
-Release: 6%{?fromgit:.%{commdate}git%{shortcommit}}%{?dist}
+Release: 7%{?fromgit:.%{commdate}git%{shortcommit}}%{?dist}
 %else
-Release: 6%{?dist}
+Release: 7%{?dist}
 %endif
 Summary: Host/service/network monitoring agent for Nagios
 
@@ -208,6 +208,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

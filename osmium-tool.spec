@@ -5,7 +5,7 @@
 
 Name:           osmium-tool
 Version:        1.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -67,6 +67,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Tom Hughes <tom@compton.nu> - 1.16.0-3
 - Patch test results for zlib-ng
 

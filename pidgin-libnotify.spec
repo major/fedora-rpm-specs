@@ -2,7 +2,7 @@
 
 Name:		pidgin-libnotify
 Version:	0.14
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Libnotify Pidgin plugin 
 
 License:	GPLv2+
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.metainf
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

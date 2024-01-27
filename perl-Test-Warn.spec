@@ -1,6 +1,6 @@
 Name:           perl-Test-Warn
 Version:        0.37
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl extension to test methods for warnings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Warn
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Test::Warn.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

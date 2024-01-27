@@ -1,6 +1,6 @@
 Name:           perl-Unicode-MapUTF8
 Version:        1.14
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Conversions to and from arbitrary character sets and UTF8
 License:        MIT
 URL:            https://metacpan.org/release/Unicode-MapUTF8
@@ -72,6 +72,9 @@ a standardized and simple API.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

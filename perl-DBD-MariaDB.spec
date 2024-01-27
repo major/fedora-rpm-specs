@@ -9,7 +9,7 @@
 
 Name:           perl-DBD-MariaDB
 Version:        1.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MariaDB and MySQL driver for the Perl5 Database Interface (DBI)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-MariaDB/
@@ -169,6 +169,9 @@ make test %{?with_perl_DBD_MariaDB_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

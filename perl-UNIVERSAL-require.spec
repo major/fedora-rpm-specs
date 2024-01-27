@@ -1,6 +1,6 @@
 Name:           perl-UNIVERSAL-require
 Version:        0.19
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Require() modules from a variable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/UNIVERSAL-require
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/UNIVERSAL::require.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

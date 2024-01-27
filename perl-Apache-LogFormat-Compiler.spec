@@ -1,6 +1,6 @@
 Name:           perl-Apache-LogFormat-Compiler
 Version:        0.36
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Compile a log format string to perl-code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-LogFormat-Compiler
@@ -50,6 +50,9 @@ access_log lines.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

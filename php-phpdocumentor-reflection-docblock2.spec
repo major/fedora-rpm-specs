@@ -17,7 +17,7 @@
 
 Name:           php-phpdocumentor-reflection-docblock2
 Version:        2.0.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        DocBlock parser (Version 2)
 
 License:        MIT
@@ -116,6 +116,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

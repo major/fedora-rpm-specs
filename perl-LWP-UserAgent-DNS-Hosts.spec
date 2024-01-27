@@ -1,6 +1,6 @@
 Name:           perl-LWP-UserAgent-DNS-Hosts
 Version:        0.14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Override LWP HTTP/HTTPS request's host like /etc/hosts
 
 License:        GPL+ or Artistic
@@ -63,6 +63,9 @@ LWP::Protocol::PSGI.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

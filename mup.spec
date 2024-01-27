@@ -3,7 +3,7 @@
 Name:           mup
 Version:        7.0
 
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A music notation program that can also generate MIDI files
 License:        Mup
 URL:            http://www.arkkra.com/doc/overview.html
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupmate.desktop
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-FillInForm
 Version:        1.15
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Integrate CGI::Application with HTML::FillInForm
 License:        GPL+ or Artistic
 
@@ -45,6 +45,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

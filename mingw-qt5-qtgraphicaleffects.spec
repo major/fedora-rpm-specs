@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt5 for Windows - QtGraphicalEffects component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -119,6 +119,9 @@ mkdir .git
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

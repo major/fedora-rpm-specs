@@ -3,7 +3,7 @@
 
 Name:           perl-Test2-Tools-Process
 Version:        0.07
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unit tests for code that calls exit, exec, system or qx()
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Tools-Process
@@ -137,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

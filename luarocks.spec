@@ -1,6 +1,6 @@
 Name:           luarocks
 Version:        3.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A deployment and management system for Lua modules
 
 License:        MIT
@@ -78,6 +78,9 @@ mkdir -p %{buildroot}%{_prefix}/lib/luarocks/rocks-%{lua_version}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: mingw-libunistring
 Version: 0.9.10
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: MinGW port of GNU Unicode string library
 License: GPLV2+ or LGPLv3+
 Url: http://www.gnu.org/software/libunistring/
@@ -89,6 +89,9 @@ mv $RPM_BUILD_ROOT%{mingw64_datadir}/doc/libunistring __doc
 %{mingw64_libdir}/libunistring.dll.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

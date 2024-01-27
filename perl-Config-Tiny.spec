@@ -7,7 +7,7 @@
 
 Name:		perl-Config-Tiny
 Version:	2.30
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Perl module for reading and writing .ini style configuration files
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Config-Tiny
@@ -71,6 +71,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))" AUTOMATED_TESTING=1
 %{_mandir}/man3/Config::Tiny.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

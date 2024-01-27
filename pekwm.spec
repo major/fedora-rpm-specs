@@ -1,6 +1,6 @@
 Name:           pekwm
 Version:        0.1.17
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A small and flexible window manager
 
 License:        GPLv2+
@@ -88,6 +88,9 @@ find contrib/pekwm_menu_config.pl -type f | xargs chmod 0644 || true
 %{_datadir}/xsessions/%{name}.desktop
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.17-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.17-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

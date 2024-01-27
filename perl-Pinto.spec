@@ -1,7 +1,7 @@
 Name:           perl-Pinto
 Epoch:          1
 Version:        0.14
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Curate a repository of Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pinto
@@ -203,6 +203,9 @@ make test
 %config(noreplace) %{_sysconfdir}/sysconfig/pintod
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.14-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.14-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

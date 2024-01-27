@@ -10,7 +10,7 @@
 
 Name: preproc
 Version: 0.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Simple text preprocessor
 License: GPLv2+
 URL: https://pagure.io/rpkg-util.git
@@ -71,6 +71,9 @@ install -p -m 0644 man/preproc.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/preproc.1*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

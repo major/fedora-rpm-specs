@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        0.89.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.89.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Packit <hello@packit.dev> - 0.89.0-1
 - We have fixed a bug in handling chroot-specific configuration once the chroots themselves are updated. (#2194)
 

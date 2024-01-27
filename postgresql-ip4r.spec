@@ -3,7 +3,7 @@
 Summary:	IPv4/v6 type and IPv4/v6 range index type for PostgreSQL
 Name:		postgresql-%{sname}
 Version:	2.4.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	BSD
 # Note that the URL is generated, needs to be changed.
 Source0:	https://github.com/RhodiumToad/%sname/archive/%version/%name-%version.tar.gz
@@ -49,6 +49,9 @@ be used as a more flexible, indexable version of the cidr type.
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

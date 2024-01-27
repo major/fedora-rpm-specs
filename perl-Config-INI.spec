@@ -1,6 +1,6 @@
 Name:           perl-Config-INI
 Version:        0.029
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Config::INI Perl module
 License:        GPL+ or Artistic
 
@@ -42,6 +42,9 @@ Config::INI - simple .ini-file format.
 %{_mandir}/man3/Config*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.029-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.029-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

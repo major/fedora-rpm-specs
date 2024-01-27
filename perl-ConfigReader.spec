@@ -1,6 +1,6 @@
 Name:           perl-ConfigReader
 Version:        0.5
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Read directives from a configuration file
 License:        LGPLv2+
 URL:            https://metacpan.org/release/ConfigReader
@@ -45,6 +45,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

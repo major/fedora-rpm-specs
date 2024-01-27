@@ -1,6 +1,6 @@
 Name:           perl-Color-Calc
 Version:        1.074
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Simple calculations with RGB colors
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Color-Calc
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.074-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.074-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

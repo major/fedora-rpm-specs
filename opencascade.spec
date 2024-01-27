@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        %{major}.%{minor}.%{patch}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 License:        LGPLv2+ with exception
@@ -307,6 +307,9 @@ chmod 0755 %{buildroot}%{_bindir}/*.sh
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

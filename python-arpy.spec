@@ -6,7 +6,7 @@ License:       BSD
 URL:           https://github.com/viraptor/arpy
 
 Version:       2.3.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:     noarch
@@ -56,6 +56,9 @@ This package allows using arpy in Python 3 applications.
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

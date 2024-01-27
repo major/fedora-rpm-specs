@@ -5,7 +5,7 @@ Version:        46~alpha
 Release:        1%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
-License:        GPL-2.0-or-later and CC-BY-SA-4.0
+License:        GPL-2.0-or-later AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Swell%20Foop
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 

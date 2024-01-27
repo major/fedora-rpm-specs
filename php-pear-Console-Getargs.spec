@@ -12,7 +12,7 @@
 
 Name:           php-pear-Console-Getargs
 Version:        1.4.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Command-line arguments and parameters parser
 Summary(fr):    Analyseur des arguments et paramètres en ligne de commande
 
@@ -102,6 +102,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

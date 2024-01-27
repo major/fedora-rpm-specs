@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.6/selinux-3.6.tar.gz
@@ -422,6 +422,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

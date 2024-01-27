@@ -15,7 +15,7 @@
 Summary:            Utilities to convert Outlook .pst files to other formats
 Name:               libpst
 Version:            0.6.76
-Release:            18%{?dist}
+Release:            19%{?dist}
 License:            GPL-2.0-or-later
 URL:                http://www.five-ten-sg.com/%{name}/
 Source:             %{url}/packages/%{name}-%{version}.tar.gz
@@ -217,6 +217,9 @@ rm %{buildroot}%{_mandir}/man1/pst2dii.1*
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.76-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Milan Crha <mcrha@redhat.com> - 0.6.76-18
 - Resolves: #2259570 (Fails to build in rawhide)
 

@@ -32,7 +32,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       6%{?github_release}%{?dist}
+Release:       7%{?github_release}%{?dist}
 Summary:       A fast and intuitive dependency injection container version %{major}
 
 License:       MIT
@@ -153,6 +153,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

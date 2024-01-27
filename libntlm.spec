@@ -1,6 +1,6 @@
 Name:           libntlm
 Version:        1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        NTLMv1 authentication library
 License:        LGPLv2+
 URL:            http://nongnu.org/libntlm
@@ -45,6 +45,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:       perl-Net-UPnP
 Version:    1.4.6
 Epoch:      1
-Release:    16%{?dist}
+Release:    17%{?dist}
 Summary:    Perl extension for UPnP
 License:    BSD
 URL:        https://metacpan.org/release/Net-UPnP
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Net::UPnP*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

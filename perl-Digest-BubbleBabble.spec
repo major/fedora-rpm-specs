@@ -1,7 +1,7 @@
 Summary:	Create bubble-babble fingerprints
 Name:		perl-Digest-BubbleBabble
 Version:	0.02
-Release:	38%{?dist}
+Release:	39%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-BubbleBabble
 Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-BubbleBabble-%{version}.tar.gz
@@ -74,6 +74,9 @@ make test TEST_FILES="xt/*.t"
 %{_mandir}/man3/Digest::BubbleBabble.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

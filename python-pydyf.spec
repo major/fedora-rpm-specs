@@ -3,7 +3,7 @@
 
 Name:           python-pydyf
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
@@ -20,7 +20,7 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 # used as "build-backend" in pyproject.toml but not detected by Fedora's
 # macros to generate build requirements
-BuildRequires:  python3-flit
+BuildRequires:  python3dist(flit-core)
 # test suite calls the "gs" binary to verify outputs, not detectable by
 # Fedora's macros
 BuildRequires:  ghostscript
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Thu Jan 25 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.8.0-3
+- use just flit-core as build dependency
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

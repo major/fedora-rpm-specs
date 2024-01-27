@@ -1,6 +1,6 @@
 Name:           perl-Net-SNPP
 Version:        1.17
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Perl modules for the Simple Network Pager Protocol
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

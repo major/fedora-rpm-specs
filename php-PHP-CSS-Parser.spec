@@ -14,7 +14,7 @@
 Name:           php-%{gh_project}
 Summary:        A Parser for CSS Files
 Version:        7.0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        MIT
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -73,6 +73,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

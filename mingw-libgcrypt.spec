@@ -4,7 +4,7 @@
 
 Name:           mingw-libgcrypt
 Version:        1.8.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MinGW Windows gcrypt encryption library
 
 License:        LGPLv2+ and GPLv2+
@@ -213,6 +213,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libgcrypt.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

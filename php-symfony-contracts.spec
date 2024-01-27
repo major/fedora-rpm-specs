@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.1.13
-Release:        5%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        6%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A set of abstractions extracted out of the Symfony
 
 License:        MIT
@@ -159,6 +159,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

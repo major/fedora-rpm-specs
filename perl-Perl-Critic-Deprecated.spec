@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Deprecated
 Version:        1.119
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Perl::Critic policies that have been superseded by others
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Deprecated
@@ -67,6 +67,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Perl::Critic::Utils::PPIRegexp.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.119-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.119-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

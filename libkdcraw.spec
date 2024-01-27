@@ -1,7 +1,7 @@
 Name:    libkdcraw
 Summary: A C++ interface around LibRaw library
 Version: 24.01.90
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{name}
@@ -61,6 +61,9 @@ Requires: cmake(Qt6Gui)
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

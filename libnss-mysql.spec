@@ -1,7 +1,7 @@
 Summary:   NSS library for MySQL
 Name:      libnss-mysql
 Version:   1.5
-Release:   48%{?dist}
+Release:   49%{?dist}
 Source0:   http://prdownloads.sourceforge.net/libnss-mysql/libnss-mysql-%{version}.tar.gz
 Source1:   README
 Source2:   nsswitch.conf
@@ -77,6 +77,9 @@ cp -af %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{authselect_vendor}/
 %{_datadir}/authselect/vendor/%{name}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

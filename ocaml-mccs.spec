@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mccs
 Version:        1.1
-Release:        48.%{extraver}%{?dist}
+Release:        49.%{extraver}%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -71,6 +71,9 @@ cp -p src/glpk/dune-shared src/glpk/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-49.17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-48.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

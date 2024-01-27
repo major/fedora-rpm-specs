@@ -6,7 +6,7 @@
 Summary: Multilib packaging helpers
 Name: multilib-rpm-config
 Version: 1
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: GPL-2.0-or-later
 
 # TODO: resolve directly in rpm/redhat-rpm-config (instead of this hack).
@@ -119,6 +119,9 @@ test `$capable --arch ppc64p7` = true
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

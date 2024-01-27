@@ -1,6 +1,6 @@
 Name:           perl-Module-ExtractUse
 Version:        0.345
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Find out which modules are used
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-ExtractUse
@@ -59,6 +59,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Module::ExtractUse::Grammar.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.345-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.345-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

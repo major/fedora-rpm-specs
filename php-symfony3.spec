@@ -118,7 +118,7 @@
 
 Name:          php-%{composer_project}3
 Version:       %{github_version}
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Symfony PHP framework (version 3)
 
 # MIT and CC-BY-SA:
@@ -2840,6 +2840,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.49-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.49-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

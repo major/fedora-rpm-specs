@@ -1,6 +1,6 @@
 Name:           perl-Devel-SimpleTrace
 Version:        0.08
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        See where you code warns and dies using stack traces
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-SimpleTrace
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

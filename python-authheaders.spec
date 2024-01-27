@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.15.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
@@ -56,6 +56,9 @@ PYTHONPATH=. %{__python3} %{pypi_name}/test/test_authentication.py -v
 %{_bindir}/dmarc-policy-find
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

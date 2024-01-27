@@ -2,7 +2,7 @@
 
 Name:           mmc
 Version:        1.7.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPLv3+
 URL:            http://mcx.space/mmc
 Source0:        https://github.com/fangq/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -222,6 +222,9 @@ mv %{buildroot}/%{octpkgdir}/*.mex %{buildroot}/%{octpkglibdir}/%{octave_host}-%
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

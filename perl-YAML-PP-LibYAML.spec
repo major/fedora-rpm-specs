@@ -1,6 +1,6 @@
 Name:           perl-YAML-PP-LibYAML
 Version:        0.005
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Faster parsing for YAML::PP
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/YAML-PP-LibYAML
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

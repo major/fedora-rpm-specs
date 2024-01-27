@@ -1,21 +1,31 @@
-%global tarname calc
+%global forgeurl https://github.com/mvvik/CalC-complex-buffer
+
+# Build with FreeGLUT
+%bcond freeglut 1
 
 Name:       calcium-calculator
-Version:    7.9.5
-Release:    13%{?dist}
+Version:    7.10.6
+Release:    %autorelease
 Summary:    The Calcium Calculator
-
-License:    GPLv3+
+%global tag v%{version}
+%forgemeta
+# SPDX
+License:    GPL-3.0-only
 URL:        https://web.njit.edu/~matveev/calc.html
-Source0:    https://web.njit.edu/~matveev/calc/versions/calc_unix_%{version}.tgz
-# Sent upstream
-Patch0:     0002-Fix-invalid-conversion-from-char-to-char.patch
-Patch1:     0003-Include-build-flags.patch
-Patch2:     0004-Fix-format-security-issues.patch
+Source0:    %forgesource
+# Use Makefile from v7.10.7 release
+# Makefile in v7.10.6 uses Mac specific flags
+Patch:      Makefile_v7.10.7.patch
+# Use our build flags, which work on all arches.
+# Most of the options set by upstream are included, except '-m64' and '-mtune'.
+Patch:      include_local_CXXFLAGS.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires: make
+BuildRequires:  make
+%if %{with freeglut}
+BuildRequires:  freeglut-devel
+%endif
 
 %description
 CalC ("Calcium Calculator") is a free (GNU copyleft) modeling tool for
@@ -26,65 +36,30 @@ calcium receptors.
 
 
 %prep
-%autosetup -c -n %{name}-%{version} -S git
-
-sed -i 's/\r$//' README.txt
-# Remove executable bits
-chmod 0644 README.txt
+%forgeautosetup -p1 -S git
 
 find . -name "*" -type f -exec chmod 0644 '{}' \;
 find . -name "*" -type f -exec sed -i 's/\r$//' '{}' \;
 
 %build
 %{set_build_flags}
+%if %{with freeglut}
 %make_build
+%else
+%make_build noGraphs
+%endif
 
 %install
 # Rename to prevent conflict
-mv -v calc %{name}
+mv -v CalC %{name}
 install -p -m 755 -D -t $RPM_BUILD_ROOT/%{_bindir} %{name}
 
 
 %files
-%doc README.txt examples
+%doc README.* examples
 %{_bindir}/%{name}
+# Yes, that's a typo, but not mine.
+%license LIcense_gpl-3.0.txt
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Dec 09 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 7.9.5-3
-- Rename binary to prevent conflict with calc: 1781235
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jul 19 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 7.9.5-1
-- Initial package
+%autochangelog

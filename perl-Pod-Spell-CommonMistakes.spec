@@ -1,6 +1,6 @@
 Name:           perl-Pod-Spell-CommonMistakes
 Version:        1.002
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Catches common typos in POD
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Pod-Spell-CommonMistakes
@@ -51,6 +51,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

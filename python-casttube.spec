@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A python library to interact with the Youtube Chromecast api
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -f %{buildroot}/usr/LICENSE
 %{python3_sitelib}/casttube-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

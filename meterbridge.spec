@@ -1,7 +1,7 @@
 Name:          meterbridge
 Summary:       Meter Bridge for JACK
 Version:       0.9.2
-Release:       32%{?dist}
+Release:       33%{?dist}
 URL:           http://plugin.org.uk/meterbridge/
 Source0:       http://plugin.org.uk/%{name}/%{name}-%{version}.tar.gz
 # Patch sent upstream via email (there is no bugtracker)
@@ -45,6 +45,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

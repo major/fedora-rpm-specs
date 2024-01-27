@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Extended
 Version:        0.35
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extend Moose with safe defaults and useful features
 License:        Artistic-2.0
 URL:            https://metacpan.org/dist/MooseX-Extended/
@@ -93,6 +93,9 @@ read-only attributes and is easier to read and write.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Math-Cartesian-Product
 Version:        1.009
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Generate the Cartesian product of zero or more lists
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Math-Cartesian-Product
@@ -42,6 +42,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

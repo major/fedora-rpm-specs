@@ -1,6 +1,6 @@
 Name:       perl-Archive-RPM
 Version:    0.07
-Release:    35%{?dist}
+Release:    36%{?dist}
 Summary:    Work with a RPM
 # lib/Archive/RPM.pm -> LGPL-2.1-or-later
 # lib/Archive/RPM/ChangeLogEntry.pm -> LGPL-2.1-or-later
@@ -90,6 +90,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

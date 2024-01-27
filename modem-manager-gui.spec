@@ -4,7 +4,7 @@ Summary(de):   Grafische Oberfläche für ModemManager
 Summary(ru):   Графический интерфейс для демона ModemManager
 
 Version:       0.0.20
-Release:       12%{?dist}
+Release:       13%{?dist}
 License:       GPLv3
 
 URL:           https://linuxonly.ru/page/modem-manager-gui
@@ -242,6 +242,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

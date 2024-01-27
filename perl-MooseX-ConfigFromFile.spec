@@ -1,6 +1,6 @@
 Name:           perl-MooseX-ConfigFromFile
 Version:        0.14
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        An abstract Moose role for setting attributes from a configfile
 URL:            https://metacpan.org/release/MooseX-ConfigFromFile
@@ -77,6 +77,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX::ConfigFromFile.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

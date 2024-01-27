@@ -1,6 +1,6 @@
 Name:           perl-Test-HTTP-Server-Simple-StashWarnings
 Version:        0.04
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Catch your forked server's warnings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HTTP-Server-Simple-StashWarnings
@@ -47,6 +47,9 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

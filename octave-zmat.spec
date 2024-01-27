@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.9.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A portable data compression/decompression toolbox for MATLAB/Octave
 License:        GPLv3+ or BSD
 URL:            https://github.com/fangq/zmat
@@ -96,6 +96,9 @@ rm -rf src
 %{octpkgdir}/packinfo
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

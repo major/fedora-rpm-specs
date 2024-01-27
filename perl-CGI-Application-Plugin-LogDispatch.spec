@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-LogDispatch
 Version:        1.02
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Add Log::Dispatch support to CGI::Application
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

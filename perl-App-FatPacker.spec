@@ -1,6 +1,6 @@
 Name:           perl-App-FatPacker
 Version:        0.010008
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Pack dependencies onto a script file
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-FatPacker
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010008-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010008-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

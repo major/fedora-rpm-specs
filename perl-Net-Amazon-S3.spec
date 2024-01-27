@@ -1,6 +1,6 @@
 Name:       perl-Net-Amazon-S3
 Version:    0.991
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Use the Amazon Simple Storage Service (S3)
 # README.md reports the code is derived from an ADSL-licensed code.
 License:    (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ADSL
@@ -195,6 +195,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

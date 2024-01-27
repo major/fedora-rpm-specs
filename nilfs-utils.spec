@@ -3,7 +3,7 @@
 
 Name:		nilfs-utils
 Version:	2.2.9
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Utilities for managing NILFS v2 filesystems
 
 License:	GPLv2+
@@ -88,6 +88,9 @@ rm -f $RPM_BUILD_ROOT/%{_root_libdir}/libnilfs*.la
 %{_includedir}/nilfs_cleaner.h
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

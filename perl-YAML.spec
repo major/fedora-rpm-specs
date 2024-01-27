@@ -13,7 +13,7 @@
 
 Name:           perl-YAML
 Version:        1.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        YAML Ain't Markup Language (tm)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML
@@ -143,6 +143,9 @@ make test AUTHOR_TESTING=%{with perl_YAML_enables_extra_test}
 %{_mandir}/man3/YAML::Types.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

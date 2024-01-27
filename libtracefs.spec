@@ -11,7 +11,7 @@
 
 Name: libtracefs
 Version: 1.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-2.0-only
 Summary: Library for access kernel tracefs
 
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{_libdir}/libtracefs.a
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 23 2024 Zamir SUN <sztsian@gmail.com> - 1.8.0-1
 - Update to 1.8.0 (RHBZ#2213357)
 

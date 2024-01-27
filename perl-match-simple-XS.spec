@@ -1,6 +1,6 @@
 Name:           perl-match-simple-XS
 Version:        0.002
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XS backend for match::simple
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/match-simple-XS/
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Extension for colcon to support ROS2 Bazel packages
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ An extension for colcon-core to support ROS2 Bazel projects.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

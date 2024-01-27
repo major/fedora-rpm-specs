@@ -24,7 +24,7 @@
 
 Name:           libnbd
 Version:        1.19.5
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -265,13 +265,6 @@ rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-golang.3*
 rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-ocaml.3*
 %endif
 
-# Remove this section in libnbd >= 1.20, since upstream was fixed to
-# not install nbdublk completion if nbdublk was not built.
-%if !0%{?have_ublk}
-# Delete nbdublk on RHEL.
-rm $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/nbdublk
-%endif
-
 
 %check
 function skip_test ()
@@ -392,6 +385,12 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Jan 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.5-3
+- Bump and rebuild for ELN
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.5-1
 - New upstream development version 1.19.5
 

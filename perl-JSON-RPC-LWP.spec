@@ -1,6 +1,6 @@
 Name:           perl-JSON-RPC-LWP
 Version:        0.007
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        JSON RPC over any libwww supported protocol
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/JSON-RPC-LWP
@@ -57,6 +57,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

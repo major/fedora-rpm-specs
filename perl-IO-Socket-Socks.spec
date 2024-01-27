@@ -1,6 +1,6 @@
 Name:		perl-IO-Socket-Socks
 Version:	0.74
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Provides a way to create socks (4 or 5) client or server
 # See https://rt.cpan.org/Public/Bug/Display.html?id=44047 for license discussion
 License:	LGPL-2.0-or-later
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/IO::Socket::Socks.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.74-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.74-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

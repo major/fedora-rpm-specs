@@ -2,7 +2,7 @@
 
 Name:       mingw-gmp
 Version:    6.1.2
-Release:    17%{?dist}
+Release:    18%{?dist}
 
 Summary:    Cross-compiled GNU arbitrary precision library
 License:    LGPLv3+ or GPLv2+
@@ -128,6 +128,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

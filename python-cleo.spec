@@ -11,7 +11,7 @@ more information.}
 Name:           python-cleo
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 23 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.1.0-1
 - Update to 2.1.0
 - Fixes: rhbz#2247125

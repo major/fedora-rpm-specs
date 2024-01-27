@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Authentication Results Header Module
 License:        ASL 2.0
 URL:            https://launchpad.net/authentication-results-python
@@ -51,6 +51,9 @@ BuildRequires: python3-devel python3-setuptools
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

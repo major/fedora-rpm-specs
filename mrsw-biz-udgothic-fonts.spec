@@ -1,5 +1,5 @@
 Version:	1.051
-Release:	3%{?dist}
+Release:	4%{?dist}
 URL:		https://github.com/googlefonts/morisawa-biz-ud-gothic
 
 %global	foundry		MRSW
@@ -67,6 +67,9 @@ BuildRequires:	libappstream-glib
 %fontfiles -a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.051-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.051-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

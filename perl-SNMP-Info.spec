@@ -1,6 +1,6 @@
 Name:           perl-SNMP-Info
 Version:        3.95
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/SNMP-Info
@@ -66,6 +66,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/SNMP::Info*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.95-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.95-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

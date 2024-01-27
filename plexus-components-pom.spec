@@ -2,7 +2,7 @@
 
 Name:           plexus-components-pom
 Version:        14.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Components POM
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -39,6 +39,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

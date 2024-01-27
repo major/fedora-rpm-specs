@@ -1,7 +1,7 @@
 
 Name: pymilia
 Version: 1.0.0
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: Python wrappers for milia
 License: GPLv3+
 
@@ -50,6 +50,9 @@ Friedmann-Lemaître-Robertson-Walker metric.
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

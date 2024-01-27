@@ -1,7 +1,7 @@
 Summary:	Load modules and create objects on demand
 Name:		perl-Class-Loader
 Version:	2.03
-Release:	48%{?dist}
+Release:	49%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Loader
 Source0:	https://cpan.metacpan.org/modules/by-module/Class/Class-Loader-%{version}.tar.gz
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Class::Loader.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

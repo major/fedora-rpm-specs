@@ -2,7 +2,7 @@
 
 Name:		libsrtp
 Version:	2.3.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	An implementation of the Secure Real-time Transport Protocol (SRTP)
 License:	BSD-3-Clause
 URL:		https://github.com/cisco/libsrtp
@@ -96,6 +96,9 @@ make runtest
 %{_bindir}/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

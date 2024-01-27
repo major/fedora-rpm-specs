@@ -1,7 +1,7 @@
 Summary:        List SCSI devices (or hosts) and associated information
 Name:           lsscsi
 Version:        0.32
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        GPLv2+
 # official git repository: https://github.com/doug-gilbert/lsscsi
 Source0:        http://sg.danny.cz/scsi/%{name}-%{version}.tgz
@@ -39,6 +39,9 @@ Author:
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

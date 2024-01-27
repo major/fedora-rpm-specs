@@ -1,6 +1,6 @@
 Name:           perl-File-Find-Rule-Perl
 Version:        1.16
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Common rules for searching for Perl things
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Rule-Perl
@@ -47,6 +47,9 @@ Common rules for searching for Perl things.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

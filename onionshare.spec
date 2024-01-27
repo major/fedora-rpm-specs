@@ -2,7 +2,7 @@
 
 Name:           onionshare
 Version:        2.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Securely and anonymously share files of any size
 
 License:        GPLv3
@@ -72,6 +72,9 @@ user just needs to use Tor Browser to download a file from you.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

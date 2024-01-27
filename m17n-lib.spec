@@ -7,7 +7,7 @@
 
 Name:           m17n-lib
 Version:        1.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multilingual text library
 
 License:        LGPL-2.1-or-later
@@ -125,6 +125,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

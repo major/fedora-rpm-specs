@@ -1,6 +1,6 @@
 Name:           pwsafe
 Version:        0.2.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        A unix commandline program that manages encrypted password databases
 
 License:        GPLv2+
@@ -52,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -32,7 +32,7 @@
 
 Name:		nvml
 Version:	%{upstreamversion}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Persistent Memory Development Kit (formerly NVML)
 License:	BSD-3-Clause
 URL:		http://pmem.io/pmdk
@@ -503,6 +503,9 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

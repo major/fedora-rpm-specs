@@ -1,7 +1,7 @@
 Summary: An NFS traffic monitoring tool
 Name: nfswatch
 Version: 4.99.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD
 URL: http://nfswatch.sourceforge.net
@@ -34,6 +34,9 @@ make STRIP= MANSUF=8 DESTDIR=${RPM_BUILD_ROOT} install
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

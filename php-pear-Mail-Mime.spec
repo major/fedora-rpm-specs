@@ -13,7 +13,7 @@
 
 Name:           php-pear-Mail-Mime
 Version:        1.10.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Classes to create MIME messages
 
 License:        BSD-3-Clause
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

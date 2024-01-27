@@ -1,6 +1,6 @@
 Name:           perl-Starman
 Version:        0.4017
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -86,6 +86,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4017-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4017-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

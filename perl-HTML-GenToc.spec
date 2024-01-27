@@ -1,6 +1,6 @@
 Name:           perl-HTML-GenToc
 Version:        3.20
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Generate a Table of Contents for HTML documents
 License:        GPLv2+
 
@@ -46,6 +46,9 @@ output to a string, a separate file or STDOUT.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

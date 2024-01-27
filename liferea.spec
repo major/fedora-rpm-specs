@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
 Version:        1.15.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.15.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Yanko Kaneti <yaneti@declera.com> - 1:1.15.4-4
 - Pick an upstream fix for FTBFS with recent rawhide changes
 

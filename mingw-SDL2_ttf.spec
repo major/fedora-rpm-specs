@@ -4,7 +4,7 @@ Name:           mingw-SDL2_ttf
 License:        Zlib
 
 Version:        2.20.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 %global  pkg_summary  MinGW Windows port of the TrueType font handling library for SDL2
 Summary: %{pkg_summary}
@@ -110,6 +110,9 @@ sed -i 's/\r$//' README.txt CHANGES.txt LICENSE.txt
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

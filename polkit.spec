@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 124
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
@@ -160,6 +160,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 124-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Jan Rybar <jrybar@redhat.com> - 124-1
 - rebase to polkit-124
 

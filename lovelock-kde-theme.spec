@@ -2,7 +2,7 @@
 
 Name:		lovelock-kde-theme
 Version:	14.92.1
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Lovelock KDE Theme
 
 License:	GPLv2+ and CC-BY-SA
@@ -80,6 +80,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 %{_kde4_appsdir}/ksplash/Themes/Lovelock/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.92.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.92.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

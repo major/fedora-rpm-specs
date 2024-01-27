@@ -2,7 +2,7 @@
 
 Name:           perl-%{module}
 Version:        1.4.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Hacker friendly static blog generator
 
 License:        GPLv3+
@@ -129,6 +129,9 @@ LC_ALL=C.UTF-8 make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

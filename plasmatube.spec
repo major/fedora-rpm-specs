@@ -1,6 +1,6 @@
 Name:           plasmatube
 Version:        24.01.90
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
 Url:            https://apps.kde.org/plasmatube/
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

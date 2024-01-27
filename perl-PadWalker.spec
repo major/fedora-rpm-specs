@@ -1,6 +1,6 @@
 Name:           perl-PadWalker
 Version:        2.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Play with other people's lexical variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PadWalker
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/PadWalker.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

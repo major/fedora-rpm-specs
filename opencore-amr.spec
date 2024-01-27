@@ -2,7 +2,7 @@
 
 Name:           opencore-amr
 Version:        0.1.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OpenCORE Adaptive Multi Rate Narrowband and Wideband speech lib
 License:        Apache-2.0
 URL:            http://sourceforge.net/projects/opencore-amr/
@@ -55,6 +55,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libopencore-amr??.la
 %{_libdir}/pkgconfig/opencore-amr??.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global pgversion 16
 Name:		postgresql%{pgversion}-%{majorname}
 Version:	16.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -34,7 +34,7 @@ Provides: postgresql-%{majorname} = %precise_version
 %endif
 Provides: %{pkgname}%{?_isa} = %precise_version
 Provides: %{majorname}-any
-Conflicts: %{pkgname}
+Conflicts: %{majorname}-any
 
 %description
 The PostgreSQL Audit extension (pgaudit) provides detailed session
@@ -89,6 +89,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

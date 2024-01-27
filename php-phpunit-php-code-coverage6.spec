@@ -32,7 +32,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        PHP code coverage information
 
 # Main license is BSD
@@ -184,6 +184,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-CheckManifest
 Version:        1.43
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Check if your Manifest matches your distro
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-CheckManifest
@@ -73,6 +73,9 @@ cd ..
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

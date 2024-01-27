@@ -5,7 +5,7 @@
 Name: postgresql-odbc
 Summary: PostgreSQL ODBC driver
 Version: 16.00.0000
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://odbc.postgresql.org/
 
@@ -13,6 +13,7 @@ Source0: https://ftp.postgresql.org/pub/odbc/versions/src/%{upstream_name}-%{ver
 
 Patch0: postgresql-odbc-09.06.0200-revert-money-fix.patch
 Patch1: postgresql-odbc-09.05.0400-revert-money-testsuite-fix.patch
+Patch2: postgresql-odbc-endianity-test-fix.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -67,13 +68,11 @@ popd
 %check
 %postgresql_tests_run
 
-# GCC 10 defaults to -fno-common
-# https://gcc.gnu.org/gcc-10/changes.html (see C section)
-# Test wchar-char failing on s390x (only)
-# Reported: https://bugzilla.redhat.com/show_bug.cgi?id=2256986
-%ifarch s390x
-sed -i '/wchar-char-test/d' test/tests
-%endif
+# make sure that we are testing aginst expected output "utf8" case
+mv test/expected/wchar-char_1.out test/expected/wchar-char.out
+rm -rf test/expected/wchar-char_2.out
+rm -rf test/expected/wchar-char_3.out
+
 cd test && make installcheck %{_smp_mflags} CFLAGS="%{optflags} -fcommon" || {
 	echo "=== trying to find all regression.diffs files in build directory ==="
 	find -name regression.diffs | while read line; do
@@ -113,6 +112,9 @@ the PostgreSQL unixODBC driver.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.00.0000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.00.0000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

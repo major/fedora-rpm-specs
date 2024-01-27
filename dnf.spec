@@ -74,6 +74,10 @@ Summary:        %{pkg_summary}
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/Drop_Delta_RPMs
+Patch:          0001-disable-deltarpm-support-in-default-configuration.patch
+
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext

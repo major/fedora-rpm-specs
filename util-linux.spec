@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39.3
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -97,6 +97,8 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
+# 2258501 - dnf5 unusable with libsmartcols
+Patch2: libsmartcols-fix-columns-reduction.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -422,7 +424,7 @@ rm -f $RPM_BUILD_ROOT%{compldir}/{mount,umount}
 # remove unvanted translations (conflicts with shadow-utils)
 rm -f $RPM_BUILD_ROOT%{_mandir}/*/man1/newgrp.*
 rm -f $RPM_BUILD_ROOT%{_mandir}/*/man8/vigr.*
-rm -f $RPM_BUILD_ROOT%{_mandir}/*/man8/vigw.*
+rm -f $RPM_BUILD_ROOT%{_mandir}/*/man8/vipw.*
 
 
 # find MO files
@@ -930,6 +932,12 @@ fi
 %files -n util-linux-i18n -f %{name}.lang
 
 %changelog
+* Thu Jan 25 2024 Karel Zak <kzak@redhat.com> - 2.39.3-4
+- improve fix for #2256391 (util-linux-i18n conflicts)
+
+* Thu Jan 25 2024 Karel Zak <kzak@redhat.com> - 2.39.3-3
+- fix #2258501 - dnf5 unusable with libsmartcols
+
 * Thu Jan 11 2024 Karel Zak <kzak@redhat.com> - 2.39.3-2
 - fix #2256391 util-linux-i18n conflicts with file from package shadow-utils
 

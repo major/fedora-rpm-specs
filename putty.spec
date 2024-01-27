@@ -1,6 +1,6 @@
 Name:		putty
 Version:	0.80
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
@@ -65,6 +65,9 @@ install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiar
 %{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

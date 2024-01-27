@@ -1,6 +1,6 @@
 Name:           perl-Template-Plugin-HTML-Strip
 Version:        0.01
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        HTML::Strip filter for Template Toolkit
 # lib/Template/Plugin/HTML/Strip.pm
 License:        GPL+ or Artistic
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Template*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global fontname paktype-naskh-basic
 
 Version:       6.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 URL:           https://sourceforge.net/projects/paktype/
 
 %global foundry           paktype
@@ -46,6 +46,9 @@ mv PakType\ Naskh\ Basic\ Features.pdf PakTypeNaskhBasicFeatures.pdf
 %fontfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

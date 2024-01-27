@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-CHI
 Version:        0.20
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Use CHI Caches in Mojolicious
 License:        Artistic 2.0
 
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

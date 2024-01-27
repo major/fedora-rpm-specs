@@ -9,7 +9,7 @@
 
 Name:           ocaml-dune
 Version:        3.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -573,6 +573,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Jerry James <loganjerry@gmail.com> - 3.13.0-1
 - Version 3.13.0
 

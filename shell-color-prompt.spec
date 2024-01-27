@@ -1,5 +1,5 @@
 Name:           shell-color-prompt
-Version:        0.4
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        Color prompt for bash shell
 
@@ -41,6 +41,9 @@ install -m 644 -D -t %{buildroot}%{profiledir} bash-color-prompt.sh
 
 
 %changelog
+* Thu Jan 25 2024 Jens Petersen <petersen@redhat.com> - 0.4.1-1
+- also enable for Linux console (TERM=linux)
+
 * Mon Nov 13 2023 Jens Petersen <petersen@redhat.com> - 0.4-1
 - define PROMPT_COLOR
 - add PROMPT_USERHOST default variable

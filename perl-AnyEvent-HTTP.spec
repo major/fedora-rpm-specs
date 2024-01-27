@@ -1,6 +1,6 @@
 Name:      perl-AnyEvent-HTTP
 Version:   2.25
-Release:   12%{?dist}
+Release:   13%{?dist}
 Summary:   Simple but non-blocking HTTP/HTTPS client  
 
 License:   GPL+ or Artistic
@@ -78,6 +78,9 @@ limited support.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

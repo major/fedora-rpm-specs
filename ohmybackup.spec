@@ -16,7 +16,7 @@ Scan for backup directories and backup files.}
 
 Name:           ohmybackup
 Version:        0
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Scan for backup directories and backup files
 
 License:        GPLv2
@@ -52,6 +52,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

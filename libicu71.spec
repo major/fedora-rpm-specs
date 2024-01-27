@@ -8,7 +8,7 @@
 
 Name:      libicu71
 Version:   71.1
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Compat package with icu libraries
 
 License:   MIT and UCD and Public Domain
@@ -116,6 +116,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

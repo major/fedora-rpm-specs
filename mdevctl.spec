@@ -4,7 +4,7 @@
 
 Name:           mdevctl
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -64,6 +64,9 @@ vfio-mdev for assignment to virtual machines.
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

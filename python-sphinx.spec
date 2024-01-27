@@ -25,7 +25,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    5%{?dist}
+Release:    6%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -52,8 +52,9 @@ Patch:      sphinx-test_theming.diff
 # By removing the dependencies, we minimize the stuff that's pulled into
 # the buildroots of 700+ of packages.
 #
-# The change is proposed upstream.
-Patch:      https://github.com/sphinx-doc/sphinx/pull/11747.patch
+# This is a downstream-only change - rejected upstream.
+# https://github.com/sphinx-doc/sphinx/pull/11747
+Patch:      Make-the-first-party-extensions-optional.patch
 
 # Fix the expected test docstring to match output in Python 3.11.7, 3.12.1 and later
 # Proposed upstream.
@@ -402,6 +403,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Wed Jan 24 2024 Karolina Surma <ksurma@redhat.com> - 1:7.2.6-6
+- Suppress traceback when importing the weakened sphinxcontrib* dependencies
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

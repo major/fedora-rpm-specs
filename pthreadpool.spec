@@ -6,7 +6,7 @@ Summary:        Portable thread pool
 Name:           pthreadpool
 License:        BSD-2-Clause
 Version:        0.0^git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://github.com/Maratyszcza/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -82,6 +82,9 @@ Features:
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0^git20230829.4fe0e1e-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0^git20230829.4fe0e1e-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Cmd
 Version:        1.09
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl module for portable testing of commands and scripts
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Cmd
@@ -69,6 +69,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

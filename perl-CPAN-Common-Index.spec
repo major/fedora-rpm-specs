@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Common-Index
 Version:        0.010
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Common library for searching CPAN modules, authors and distributions
 License:        Apache-2.0
 URL:            https://metacpan.org/release/CPAN-Common-Index
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

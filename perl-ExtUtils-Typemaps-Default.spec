@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Typemaps-Default
 Version:        1.05
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Set of useful typemaps
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/ExtUtils-Typemaps-Default
@@ -54,6 +54,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/ExtUtils::Typemap*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

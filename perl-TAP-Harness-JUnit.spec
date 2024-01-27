@@ -1,6 +1,6 @@
 Name:           perl-TAP-Harness-JUnit
 Version:        0.42
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Generate JUnit compatible output from TAP results
 License:        GPL+ or Artistic
 
@@ -58,6 +58,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

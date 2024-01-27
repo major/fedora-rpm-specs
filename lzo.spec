@@ -1,6 +1,6 @@
 Name:           lzo
 Version:        2.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Data compression library with very fast (de)compression
 License:        gpl-2.0-or-later
 URL:            http://www.oberhumer.com/opensource/lzo/
@@ -95,6 +95,9 @@ make check test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.10-11
 - Converted license tag to SPDX
 

@@ -1,6 +1,6 @@
 Name:           python-beniget
 Version:        0.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Extract semantic information about static Python code
 License:        BSD-3-Clause
 URL:            https://github.com/serge-sans-paille/beniget/
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

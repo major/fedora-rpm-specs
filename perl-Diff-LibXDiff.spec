@@ -1,6 +1,6 @@
 Name:           perl-Diff-LibXDiff
 Version:        0.05
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Calculate a diff with LibXDiff (via XS)
 # License describes: libxdiff and (Diff-LibXDiff)
 License:        LGPLv2+ and (GPL+ or Artistic)
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

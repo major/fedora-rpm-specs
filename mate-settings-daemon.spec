@@ -19,9 +19,9 @@
 Name:           mate-settings-daemon
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        5%{?dist}
 %else
-Release:        0.18%{?git_rel}%{?dist}
+Release:        0.19%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop settings daemon
 License:        GPLv2+
@@ -40,7 +40,9 @@ Patch0:         mate-settings-daemon_fix-xrdb-plugin-for-rhel.patch
 
 # from upstream
 # https://github.com/mate-desktop/mate-settings-daemon/commit/babfbd3
-Patch3:        mate-settings-daemon_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
+Patch1:        mate-settings-daemon_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
+# https://github.com/mate-desktop/mate-settings-daemon/commit/fa8a4d4
+Patch2:        mate-settings-daemon_0001-a11y-keyboard-atspi-Fix-memory-leak.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: dconf-devel
@@ -147,6 +149,12 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-settings-dae
 
 
 %changelog
+* Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
+- add upstream patch to fix building with gcc14
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

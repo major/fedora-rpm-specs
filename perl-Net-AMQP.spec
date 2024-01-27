@@ -1,6 +1,6 @@
 Name:           perl-Net-AMQP
 Version:        0.06
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Advanced Message Queue Protocol (de)serialization and representation
 License:        GPL+ or Artistic
 
@@ -64,6 +64,9 @@ TCP/IP communication.
 %{_mandir}/man3/Net*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

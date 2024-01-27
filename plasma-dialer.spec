@@ -2,7 +2,7 @@
 
 Name:           plasma-dialer
 Version:        23.01.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{kde_name}.deskt
 %{_kf5_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

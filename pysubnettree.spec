@@ -2,7 +2,7 @@
 
 Name:           pysubnettree
 Version:        0.35
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python Module for CIDR Lookups
 
 License:        BSD
@@ -36,6 +36,9 @@ Python objects. Lookups are performed by longest-prefix matching.
 %{python3_sitearch}/%{name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

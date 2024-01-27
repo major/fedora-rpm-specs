@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.15
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Async Python UPnP Client
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/async_upnp_client-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.15-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

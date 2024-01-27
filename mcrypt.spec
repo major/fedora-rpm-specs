@@ -1,6 +1,6 @@
 Name:		mcrypt
 Version:	2.6.8
-Release:	32%{?dist}
+Release:	33%{?dist}
 License:	GPLv3+
 Summary:	Replacement for crypt()
 URL:		http://mcrypt.sourceforge.net/
@@ -66,6 +66,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

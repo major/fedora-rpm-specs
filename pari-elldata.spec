@@ -1,6 +1,6 @@
 Name:		pari-elldata
 Version:	20210301
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	PARI/GP Computer Algebra System elliptic curves
 License:	GPL-2.0-or-later
 URL:		https://pari.math.u-bordeaux.fr/packages.html
@@ -42,6 +42,9 @@ cp -a data/elldata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20210301-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20210301-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

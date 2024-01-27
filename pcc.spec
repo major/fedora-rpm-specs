@@ -23,9 +23,9 @@ Name:           pcc
 Version:        1.1.0
 
 %if %{with pcc}
-Release:        %{rel}_pcc%{?dist}.8
+Release:        %{rel}_pcc%{?dist}.9
 %else
-Release:        %{rel}%{?dist}.8
+Release:        %{rel}%{?dist}.9
 %endif
 
 Summary:        The Portable C Compiler
@@ -148,6 +148,9 @@ fi
 %{_mandir}/man1/pcpp.1.*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-1.1.20200203cvs.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-1.1.20200203cvs.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

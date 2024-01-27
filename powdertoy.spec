@@ -10,7 +10,7 @@ URL: https://powdertoy.co.uk
 License: GPLv3 and MIT and ASL 2.0
 
 Version: 97.0.352
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 97.0.352-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 97.0.352-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-DBD-Mock
 Version:        1.59
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Mock database driver for testing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBD-Mock
@@ -111,6 +111,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

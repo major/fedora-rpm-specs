@@ -8,7 +8,7 @@
 Summary: Mail processing program
 Name: procmail
 Version: 3.24
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Dual licensed "gpl-2.0-or-later OR artistic-perl-1.0", but
 # artistic-perl-1.0 is not allowed, thus dropped from the license
 # tag as per: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/423
@@ -66,6 +66,9 @@ cp -p %{SOURCE2} telsas_procmailrc
 %{_mandir}/man[15]/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.24-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

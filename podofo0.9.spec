@@ -1,6 +1,6 @@
 Name:           podofo0.9
 Version:        0.9.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Podofo 0.9.x compatibility library
 
 # The library is licensed under the LGPL.
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_bindir}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

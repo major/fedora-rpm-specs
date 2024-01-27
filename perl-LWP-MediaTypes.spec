@@ -3,7 +3,7 @@
 
 Name:           perl-LWP-MediaTypes
 Version:        6.04
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Guess media type for a file or a URL
 # lib/LWP/media.types:      CC0-1.0
 # lib/LWP/MediaTypes.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

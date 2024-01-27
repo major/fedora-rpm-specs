@@ -3,7 +3,7 @@
 
 Name:		manafirewall
 Version:	0.0.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	ManaTools FirewallD configuration tool
 License:	GPLv2+
 URL:		https://github.com/manatools/%{name}
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet		\
 %{_metainfodir}/*%{name}.metainfo.xml
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

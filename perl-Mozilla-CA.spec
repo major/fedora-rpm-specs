@@ -3,7 +3,7 @@ Name:           perl-Mozilla-CA
 # certificates. They are taken from ca-certificates package instead
 # per bug #738383.
 Version:        20231213
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mozilla's CA certificate bundle in PEM format
 # README:                       MPL-2.0
 ## Unbundled
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231213-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231213-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

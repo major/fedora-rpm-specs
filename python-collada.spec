@@ -2,7 +2,7 @@
 
 Name:           python-collada
 Version:        0.7.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A python module for creating, editing and loading COLLADA
 
 License:        BSD
@@ -71,6 +71,9 @@ as well as in-place editing.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

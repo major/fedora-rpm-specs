@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.11
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		libhid
 Version:	0.2.17
-Release:	47%{?dist}
+Release:	48%{?dist}
 Summary:	User space USB HID access library
 License:	GPLv2
 URL:		http://libhid.alioth.debian.org
@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

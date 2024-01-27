@@ -6,7 +6,7 @@
 
 Name:           perl-Spreadsheet-ParseExcel
 Version:        0.6600
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extract information from an Excel file
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spreadsheet-ParseExcel
@@ -98,6 +98,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/Spreadsheet::ParseExcel::Worksheet.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6600-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6600-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Summary:  Text editor for the MATE desktop
 Name:     pluma
 Version:  %{branch}.1
 %if 0%{?rel_build}
-Release:  3%{?dist}
+Release:  4%{?dist}
 %else
 Release:  0.17%{?git_rel}%{?dist}
 %endif
@@ -29,9 +29,12 @@ URL:      http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
+# fix build for gcc14
+Patch1:        pluma_0001-filebrowser-fix-warning-Wincompatible-pointer-types-1.26.patch
+
 BuildRequires: desktop-file-utils
 BuildRequires: enchant-devel
-BuildRequires: libpeas-devel
+BuildRequires: libpeas1-devel
 BuildRequires: gtk3-devel
 BuildRequires: gtksourceview4-devel
 BuildRequires: iso-codes-devel
@@ -149,6 +152,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-4
+- fix building with gcc14
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

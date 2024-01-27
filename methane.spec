@@ -1,6 +1,6 @@
 Name:           methane
 Version:        1.5.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Super Methane Brothers
 License:        GPLv2+
 URL:            http://methane.sourceforge.net/
@@ -96,6 +96,9 @@ EOF
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

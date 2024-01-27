@@ -3,7 +3,7 @@
 Summary:        High quality system independent, open source libm
 Name:           openlibm
 Version:        0.7.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        BSD and MIT and ISC and Public Domain
 Source0:        https://github.com/JuliaLang/openlibm/archive/v%{version}.tar.gz
 URL:            https://github.com/JuliaLang/openlibm/
@@ -81,6 +81,9 @@ rm %{buildroot}/%{_libdir}/libopenlibm.a
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Name: python-bitmath
 Summary: Aids representing and manipulating file sizes in various prefix notations
 Version: 1.3.1
-Release: %{_short_release}%{?dist}.26
+Release: %{_short_release}%{?dist}.27
 
 License: BSD
 Source0: https://github.com/tbielawa/bitmath/archive/%{version}.%{_short_release}.tar.gz
@@ -102,6 +102,9 @@ rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/docs/NEWS.rst
 
 ######################################################################
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-1.27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-1.26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

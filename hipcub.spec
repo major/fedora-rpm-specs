@@ -37,8 +37,8 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocprim-static
 BuildRequires:  rocm-runtime-devel
 
-# Only headers, cmake infra
-BuildArch: noarch
+# Only headers, cmake infra but noarch confuses the libdir
+# BuildArch: noarch
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
@@ -57,22 +57,24 @@ The %{upstreamname} development package.
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+#
+# The ROCMExportTargetsHeaderOnly.cmake file
+# generates a files that reference the install location of other files
+# Make this change so they match
+sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
+
 %build
 %cmake \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
 %if %{with check}
     -DBUILD_TEST=ON \
 %endif
-    -DCMAKE_INSTALL_LIBDIR=share \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DROCM_SYMLINK_LIBS=OFF
 %cmake_build
 
 %install
 %cmake_install
-
-mkdir -p %{buildroot}%{_datadir}
-mv %{buildroot}/usr/lib/cmake %{buildroot}%{_datadir}
 
 %check
 %if %{with check}
@@ -83,7 +85,7 @@ mv %{buildroot}/usr/lib/cmake %{buildroot}%{_datadir}
 %doc README.md
 %license %{_docdir}/%{name}/LICENSE.txt
 %{_includedir}/%{name}
-%{_datadir}/cmake/%{name}
+%{_libdir}/cmake/%{name}
 
 %changelog
 %autochangelog

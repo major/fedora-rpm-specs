@@ -10,7 +10,7 @@ License: CC-BY-SA
 
 # Version number taken from 'debian/changelog' file
 Version: 0.6.0^%{git_date}.%{git_commit_short}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://github.com/Nitrux/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -98,6 +98,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Luv &>/dev/null || :
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230826.abffcdc-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230826.abffcdc-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

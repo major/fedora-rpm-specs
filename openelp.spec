@@ -1,6 +1,6 @@
 Name:           openelp
 Version:        0.9.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Open Source EchoLink Proxy
 
 License:        BSD
@@ -112,6 +112,9 @@ getent passwd openelp >/dev/null || \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

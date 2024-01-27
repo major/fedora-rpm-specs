@@ -1,5 +1,5 @@
-%global DATE 20240118
-%global gitrev f284ad3cd92c6b23c50d039ad3b6ed1bf4d97c4d
+%global DATE 20240125
+%global gitrev f3118f3f56f589a21b94106c4e210e5ba9a60898
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.2%{?dist}.2
+Release: %{gcc_release}.3%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -1457,13 +1457,13 @@ rm -rf %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/{install-tools,
 rm -rf %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/{install-tools,plugin,include-fixed}
 rm -rf %{buildroot}%{_prefix}/%{_lib}/libc[cp]1*
 mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/
-mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx906/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx906/
-mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx908/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx908/
-mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/gfx90a/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx90a/
 mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/
-mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx906/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx906/
-mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx908/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx908/
-mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/gfx90a/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/gfx90a/
+pushd %{buildroot}%{_prefix}/amdgcn-amdhsa/lib
+for i in gfx*; do
+mv -f %{buildroot}%{_prefix}/amdgcn-amdhsa/lib/$i/*.{a,spec} %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/$i/
+mv -f %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa/%{gcc_major}/$i/*.a %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa/$i/
+done
+popd
 find %{buildroot}%{_prefix}/lib/gcc/amdgcn-amdhsa %{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/accel/amdgcn-amdhsa \
      %{buildroot}%{_prefix}/amdgcn-amdhsa/lib -name \*.la | xargs rm
 cd ..
@@ -3593,11 +3593,33 @@ end
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.1-0.2.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.1-0.2.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Thu Jan 25 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.3
+- update from trunk
+  - PRs analyzer/111361, analyzer/112705, analyzer/112811, analyzer/112927,
+	analyzer/112977, bootstrap/113554, c++/67898, c++/90463, c++/90464,
+	c++/100707, c++/102607, c++/104594, c++/109640, c++/109642,
+	c++/111357, c++/111410, c++/111607, c++/112594, c++/112632,
+	c++/112820, c++/113256, c++/113347, c++/113405, c++/113498,
+	c++/113529, c/102998, c/107942, c/109708, c/110029, c/113492,
+	c/113518, debug/107058, debug/112718, debug/113382, debug/113488,
+	fortran/48776, fortran/111291, fortran/113377, fortran/113471,
+	ipa/108007, ipa/108470, ipa/110705, ipa/112616, ipa/113490,
+	libstdc++/113500, libstdc++/113512, middle-end/88345,
+	middle-end/112684, middle-end/113574, modula2/113559, other/111966,
+	rtl-optimization/111267, rtl-optimization/113255, target/82420,
+	target/100942, target/108521, target/108640, target/109092,
+	target/109636, target/110934, target/111279, target/112989,
+	target/113030, target/113070, target/113089, target/113095,
+	target/113114, target/113356, target/113420, target/113485,
+	target/113486, target/113495, target/113550, target/113556,
+	target/113572, testsuite/113437, testsuite/113548,
+	tree-optimization/69807, tree-optimization/113364,
+	tree-optimization/113373, tree-optimization/113459,
+	tree-optimization/113462, tree-optimization/113463,
+	tree-optimization/113464, tree-optimization/113491,
+	tree-optimization/113494, tree-optimization/113552,
+	tree-optimization/113576
+- add offloading support for AMD GCN ROCm capable devices
 
 * Thu Jan 18 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.2
 - update from trunk

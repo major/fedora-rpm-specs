@@ -1,28 +1,37 @@
+# Use forge macros for pulling from GitHub
+%global forgeurl https://github.com/fzenke/auryn
+
 # Upstream only provides static libraries
 # https://github.com/fzenke/auryn/issues/4
 
-# Switch them off if you want
-# Best to start with the serial version
-%bcond_without mpich
-%bcond_without openmpi
+# Three flavors of the app are provided by default.
+# Make sure at least one of below options is turned on or the build will
+# fail (empty package).
+%bcond serial 1
+%bcond mpich 1
+%bcond openmpi 1
 
-%bcond_without doc
-# Doxygen crashes on aarch64. Temporarily disabling dev docs
-%bcond_with dev_doc
-
-%bcond_without tests
+%bcond tests 1
 
 Name:           auryn
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Plastic Recurrent Network Simulator
 
-License:        GPLv3
-URL:            http://www.fzenke.net/auryn/
-Source0:        https://github.com/fzenke/%{name}/archive/v%{version}m/%{name}-%{version}.tar.gz
+%forgemeta
 
-# Upstream added an m prefix to the directory structure for some reason
-%global _version %{version}m
+# SPDX
+License:        GPL-3.0-only
+URL:            http://www.fzenke.net/auryn/
+Source0:        %forgesource
+# Fix broken OpenMPI build.
+# https://github.com/fzenke/auryn/issues/42
+Patch:          remove_mpi_cxx_bindings.patch
+
+# This used in various places and was needed before since
+# upstream added an m suffix to the 0.8.2 release.
+# I'll keep this for now for convenience, should we need it again.
+%global _version %{version}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -31,30 +40,42 @@ BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
-%description
+%global _description %{expand:
 Auryn is a source package used to create highly specialized and optimized code
 to simulate recurrent spiking neural networks with spike timing dependent
-plasticity (STDP)
+plasticity (STDP).
 
 Detailed documentation and a forum for support/discussion are available at
-https://fzenke.net/auryn.
+https://fzenke.net/auryn}
+
+%description %_description
+
+
+%if %{with serial}
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       %{name}-static = %{version}-%{release}
+
+%description devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+%endif
+
 
 %if %{with doc}
 %package        doc
-Summary:        Documentation for %{name}
-BuildRequires:  doxygen
-BuildRequires:  /usr/bin/dot
+Summary:        Examples for %{name}
 BuildArch:      noarch
 
-
 %description    doc
-This package contains the doxygen generated documentation for %{name}
+This package contains examples for %{name}
 %endif
 
 
 %if %{with mpich}
 %package mpich
-Summary:        %{name} built with mpich
+Summary:        %summary (MPICH)
 BuildRequires:  mpich-devel
 BuildRequires:  boost-mpich-devel
 BuildRequires:  boost-mpich
@@ -62,7 +83,8 @@ BuildRequires:  rpm-mpi-hooks
 Requires:       mpich
 
 %description mpich
-%{description}
+%_description
+
 
 %package mpich-devel
 Summary:        Development files for %{name}-mpich
@@ -76,9 +98,10 @@ developing applications that use %{name}-mpich.
 %endif
 # mpich
 
+
 %if %{with openmpi}
 %package openmpi
-Summary:        %{name} built with openmpi
+Summary:        %summary (OpenMPI)
 BuildRequires:  openmpi-devel
 BuildRequires:  boost-openmpi-devel
 BuildRequires:  boost-openmpi
@@ -87,7 +110,8 @@ BuildRequires:  make
 Requires:       openmpi
 
 %description openmpi
-%{description}
+%_description
+
 
 %package openmpi-devel
 Summary:        Development files for %{name}-openmpi
@@ -101,31 +125,35 @@ developing applications that use %{name}-openmpi.
 %endif
 # openmpi
 
+
 %prep
-%autosetup -c -n %{name}-%{_version}
+%forgeautosetup -p1
 
 # Tweaks for all versions
-pushd %{name}-%{_version}
-    # Don't let it set its own optimisation flags
-    sed -i '/SET(CMAKE_CXX_FLAGS/ d' CMakeLists.txt
-    sed -i '/^BUILDDIR/ d' test/*.sh
-    sed -i 's|^.BUILDDIR/test/||' test/*.sh
+# Don't let it set its own optimisation flags
+sed -i '/SET(CMAKE_CXX_FLAGS/ d' CMakeLists.txt
+# Don't make MPI mandatory. It's not needed for the serial build.
+sed -i 's/MPI REQUIRED/MPI/' CMakeLists.txt
+# Modify test scripts for easier use in the sub builds
+sed -i '/^BUILDDIR/ d' test/*.sh
+sed -i 's|^.BUILDDIR/test/||' test/*.sh
 
 # Need to disable vector intrinsics on these architectures
 %ifarch %{arm} s390x aarch64 %{power64}
     sed -i 's|^\(#define CODE_USE_SIMD_INSTRUCTIONS_EXPLICITLY\)|//\1|' src/auryn/auryn_definitions.h
 %endif
-popd
+
+%if %{with serial}
+    mkdir build-serial
+%endif
 
 %if %{with mpich}
-    cp -a %{name}-%{_version} %{name}-%{_version}-mpich
+    mkdir build-mpich
 %endif
-# mpich
 
 %if %{with openmpi}
-    cp -a %{name}-%{_version} %{name}-%{_version}-openmpi
+    mkdir build-openmpi
 %endif
-# openmpi
 
 
 %build
@@ -135,8 +163,8 @@ echo
 echo "*** BUILDING %{name}-%{_version}$MPI_COMPILE_TYPE ***"
 echo
 %set_build_flags
-pushd %{name}-%{_version}$MPI_COMPILE_TYPE  &&
-    cmake . \\\
+pushd build$MPI_COMPILE_TYPE  &&
+    cmake \\\
         -DCMAKE_FIND_NO_INSTALL_PREFIX:BOOL=TRUE \\\
         -DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS -DBOOST_TIMER_ENABLE_DEPRECATED" \\\
         -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
@@ -151,25 +179,33 @@ pushd %{name}-%{_version}$MPI_COMPILE_TYPE  &&
         -DCMAKE_SKIP_RPATH:BOOL=ON \\\
         -DBUILD_SHARED_LIBS:BOOL=ON \\\
 %if "%{_lib}" == "lib64"
-        -DLIB_SUFFIX=64 &&
+        -DLIB_SUFFIX=64 .. &&
 %else
-        -DLIB_SUFFIX="" &&
+        -DLIB_SUFFIX="" .. &&
 %endif
 popd || exit -1;
 }
 
 %global do_make_build %{expand: \
-    make %{?_smp_mflags} -C %{name}-%{_version}$MPI_COMPILE_TYPE || exit -1
+    make %{?_smp_mflags} -C build$MPI_COMPILE_TYPE || exit -1
 }
 
-
-%if %{with dev_doc}
-# Does not permit non MPI versions
-# Only build docs
-pushd %{name}-%{_version}/doc
-    doxygen Doxyfile
-popd
+# Build serial version
+%if %{with serial}
+export MPI_COMPILE_TYPE="-serial"
+export MPI_HOME=%{_prefix}
+# Undefine AURYN_CODE_USE_MPI for serial build.
+# See: https://www.fzenke.net/auryn/doku.php?id=manual:compileauryn
+sed -i.mpi '/#define AURYN_CODE_USE_MPI/d' src/auryn/auryn_definitions.h
+%{do_cmake_config}
+%{do_make_build}
+# Restore auryn_definitions.h
+mv -v src/auryn/auryn_definitions.h.mpi src/auryn/auryn_definitions.h
+# Fix install location for `libauryn.a`
+sed -r -i 's|(\{CMAKE_INSTALL_PREFIX\}/lib)"|\164"|' \
+    build$MPI_COMPILE_TYPE/src/cmake_install.cmake
 %endif
+# serial
 
 # Build mpich version
 %if %{with mpich}
@@ -193,13 +229,19 @@ export MPI_COMPILE_TYPE="-openmpi"
 %endif
 # openmpi
 
+
 %install
 %global do_install %{expand:
 echo
 echo "*** INSTALLING %{name}-%{_version}$MPI_COMPILE_TYPE ***"
 echo
-    make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p" -C %{name}-%{_version}$MPI_COMPILE_TYPE || exit -1
+    make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p" -C build$MPI_COMPILE_TYPE || exit -1
+}
 
+%global do_rename %{expand:
+echo
+echo "*** RENAMING binaries for %{name}-%{_version}$MPI_COMPILE_TYPE ***"
+echo
     # Add suffix
     pushd $RPM_BUILD_ROOT/$MPI_BIN/
         mv -v aube{,$MPI_SUFFIX}
@@ -207,14 +249,19 @@ echo
     popd
 }
 
-# No serial version, skip
+# Install serial version
+%if %{with serial}
+export MPI_COMPILE_TYPE="-serial"
+%{do_install}
+%endif
+# serial
 
 # Install MPICH version
 %if %{with mpich}
 %{_mpich_load}
 export MPI_COMPILE_TYPE="-mpich"
 %{do_install}
-
+%{do_rename}
 %{_mpich_unload}
 %endif
 # mpich
@@ -224,7 +271,7 @@ export MPI_COMPILE_TYPE="-mpich"
 %{_openmpi_load}
 export MPI_COMPILE_TYPE="-openmpi"
 %{do_install}
-
+%{do_rename}
 %{_openmpi_unload}
 %endif
 # openmpi
@@ -235,10 +282,16 @@ export MPI_COMPILE_TYPE="-openmpi"
 echo
 echo "*** TESTING %{name}-%{_version}$MPI_COMPILE_TYPE ***"
 echo
-    pushd %{name}-%{_version}$MPI_COMPILE_TYPE/test
-        ./run_unit_tests.sh || exit -1
+    pushd build$MPI_COMPILE_TYPE/test
+        ../../test/run_unit_tests.sh || exit -1
     popd
 }
+
+%if %{with serial}
+export MPI_COMPILE_TYPE="-serial"
+%{do_tests}
+%endif
+# tests
 
 %if %{with mpich}
 %{_mpich_load}
@@ -257,22 +310,33 @@ export MPI_COMPILE_TYPE="-openmpi"
 %endif
 # tests
 
+
 %if %{with doc}
 %files doc
-%license %{name}-%{_version}/COPYING
-%doc %{name}-%{_version}/AUTHORS
-%doc %{name}-%{_version}/README.md
-%doc %{name}-%{_version}/examples/
-%if %{with dev_doc}
-%doc %{name}-%{_version}/doc/html/
-%endif
-# dev_doc
+%license COPYING
+%doc README.* AUTHORS
+%doc examples/
 %endif
 # doc
 
+%if %{with serial}
+%files
+%license COPYING
+%doc README.* AUTHORS
+%{_bindir}/aube
+%{_bindir}/aubs
+
+%files devel
+%{_includedir}/%{name}
+%{_includedir}/%{name}.h
+%{_libdir}/libauryn.a
+%endif
+# serial
+
 %if %{with mpich}
 %files mpich
-%license %{name}-%{_version}/COPYING
+%license COPYING
+%doc README.* AUTHORS
 %{_libdir}/mpich/bin/aube_mpich
 %{_libdir}/mpich/bin/aubs_mpich
 
@@ -285,7 +349,8 @@ export MPI_COMPILE_TYPE="-openmpi"
 
 %if %{with openmpi}
 %files openmpi
-%license %{name}-%{_version}/COPYING
+%license COPYING
+%doc README.* AUTHORS
 %{_libdir}/openmpi/bin/aube_openmpi
 %{_libdir}/openmpi/bin/aubs_openmpi
 
@@ -295,6 +360,7 @@ export MPI_COMPILE_TYPE="-openmpi"
 %{_libdir}/openmpi/lib/libauryn.a
 %endif
 # openmpi
+
 
 %changelog
 %autochangelog

@@ -1,7 +1,7 @@
 Name:           perl-URI-Find
 Summary:        Find URIs in plain text
 Version:        20160806
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHWERN/URI-Find-%{version}.tar.gz 
 URL:            https://metacpan.org/release/URI-Find
@@ -72,6 +72,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20160806-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20160806-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

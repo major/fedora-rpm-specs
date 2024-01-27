@@ -1,6 +1,6 @@
 Name:           perl-LWP-Protocol-connect
 Version:        6.09
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Provides HTTP CONNECT proxy support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-connect
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        56%{?dist}
+Release:        57%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            http://www.mpqc.org/
 Source0:        http://downloads.sourceforge.net/mpqc/%{name}-%{version}.tar.bz2
@@ -190,6 +190,9 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-57
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

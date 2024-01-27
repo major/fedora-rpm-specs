@@ -1,6 +1,6 @@
 Name:           perl-Version-Next
 Version:        1.000
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Increment module version numbers simply and correctly
 License:        ASL 2.0
 URL:            https://metacpan.org/release/Version-Next
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

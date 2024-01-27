@@ -1,6 +1,6 @@
 Name:           perl-Symbol-Util
 Version:        0.0203
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Additional utilities for Perl symbols manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Symbol-Util
@@ -52,6 +52,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Symbol::Util.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0203-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0203-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

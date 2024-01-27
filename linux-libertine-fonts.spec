@@ -16,7 +16,7 @@
 %global posttag 2012_07_02
 
 Version: 5.3.0
-Release: 27.%{posttag}%{?dist}
+Release: 28.%{posttag}%{?dist}
 URL:     http://linuxlibertine.sf.net
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -140,6 +140,9 @@ Source13: 29-linux-libertine-fonts-metrics-alias.conf
 %fontfiles -a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-28.2012_07_02
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-27.2012_07_02
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

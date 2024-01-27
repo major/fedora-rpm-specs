@@ -2,7 +2,7 @@
 
 Name:           pgp-tools
 Version:        2.10
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Collection of several utilities related to OpenPGP
 License:        BSD and GPLv2+
 URL:            https://salsa.debian.org/stappers/pgp-tools
@@ -100,6 +100,9 @@ popd
 %{_mandir}/man1/*.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

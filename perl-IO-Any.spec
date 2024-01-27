@@ -1,6 +1,6 @@
 Name:           perl-IO-Any
 Version:        0.09
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Read or write files, folders, or strings, guessing the correct object type
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-Any
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

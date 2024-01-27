@@ -1,6 +1,6 @@
 Name:       barman
-Version:    3.9.0
-Release:    3%{?dist}
+Version:    3.10.0
+Release:    1%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
 URL:        http://www.pgbarman.org/
@@ -121,6 +121,9 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Thu Jan 25 2024 Simone Caronni <negativo17@gmail.com> - 3.10.0-1
+- Update to 3.10.0.
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

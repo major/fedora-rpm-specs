@@ -3,14 +3,18 @@
 
 %global		upstream_version 3_5_0
 #%%global       prerelease RC1
-%global		documentation 1
 
 Name:           opensubdiv
 Version:        3.5.0
 Release:        %autorelease
 Summary:        High performance subdivision surface libraries
 
-License:        Apache-2.0
+# The entire source is Pixar except:
+#
+# MIT:
+#   - glLoader/khrplatform.h
+#   - documentation/tipuesearch/
+License:        Pixar AND MIT
 #URL:            http://graphics.pixar.com/%%{name}
 Url:		https://github.com/PixarAnimationStudios/OpenSubdiv
 Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{upstream_version}%{?prerelease}/%{name}-%{version}%{?prerelease}.tar.gz
@@ -22,10 +26,6 @@ Patch:         	%{name}-rpath.patch
 Patch:          opensubdiv-3.5.0-reproducible-docs.patch
 
 BuildRequires:  cmake
-%if 0%{?documentation}
-BuildRequires:  doxygen
-BuildRequires:	python3dist(docutils)
-%endif
 BuildRequires:  gcc-c++
 BuildRequires:  graphviz-devel
 BuildRequires:  pkgconfig(glew)
@@ -38,6 +38,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:	python3dist(pygments)
 # Drop libs subpackage
 Obsoletes:	%{name}-libs < %{version}-%{release}
+# Doxygen-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+Obsoletes:      %{name}-doc < 3.5.0-10
 
 %description
 OpenSubdiv is a set of open source libraries that implement high performance
@@ -54,30 +57,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-%if 0%{?documentation}
-%package doc
-Summary:	High performance subdivision surface libraries
-BuildArch:	noarch
-
-
-%description doc
-OpenSubdiv is a set of open source libraries that implement high
-performance subdivision surface (subdiv) evaluation on massively
-parallel CPU and GPU architectures. 
-This code path is optimized for
-drawing deforming surfaces with static topology at interactive
-frame rates.
-
-This package includes the documentation of OpenSubdiv.
-%endif
-
 %prep
 %autosetup -p1 -n OpenSubdiv-%{upstream_version}%{?prerelease}
 
 # work around linking glitch
 # https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1196
 sed -i 's|${PLATFORM_GPU_LIBRARIES}|${PLATFORM_GPU_LIBRARIES} ${CMAKE_DL_LIBS}|' opensubdiv/CMakeLists.txt
-	
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/JavaScript/#_compilationminification
+find . -type f -name '*.min.js' -print -delete
+
 %build
 %cmake \
        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -86,11 +75,7 @@ sed -i 's|${PLATFORM_GPU_LIBRARIES}|${PLATFORM_GPU_LIBRARIES} ${CMAKE_DL_LIBS}|'
        -DGLFW_LOCATION=%{_libdir} \
        -DNO_CLEW=1 \
        -DNO_CUDA=1 \
-%if 0%{?documentation}
-       -DNO_DOC=0 \
-%else
        -DNO_DOC=1\
-%endif
        -DNO_EXAMPLES=1 \
        -DNO_GLFW_X11=1 \
        -DNO_OPENCL=1 \
@@ -123,11 +108,6 @@ find %{buildroot} -name '*.a' -delete
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/cmake/OpenSubdiv/
-
-%if 0%{?documentation}
-%files doc
-%{_docdir}/%{name}/
-%endif
 
 %changelog
 %autochangelog

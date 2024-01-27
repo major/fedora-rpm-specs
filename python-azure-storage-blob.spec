@@ -12,7 +12,7 @@
 Name:           python-%{srcname}
 Version:        12.14.1
 %global         pypi_version    12.14.1
-Release:        %autorelease.1
+Release:        %autorelease.2
 Summary:        Azure Storage Blobs client library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.14.1-4.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.14.1-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

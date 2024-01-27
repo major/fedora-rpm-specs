@@ -1,5 +1,5 @@
 Version:        2.009
-Release:        9%{?dist}
+Release:        10%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 
 %global foundry           MarcSabatella
@@ -53,6 +53,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libnetfilter_cthelper
 Version:        1.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        User-space infrastructure for connection tracking helpers
 License:        GPL-2.0-only
 URL:            http://www.netfilter.org/projects/libnetfilter_cthelper/index.html
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -type f -name '*.la' -exec rm -f {} ';'
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

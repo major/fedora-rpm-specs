@@ -1,6 +1,6 @@
 Name:           libkdtree++
 Version:        0.7.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        C++ template container implementation of kd-tree sorting
 URL:            http://libkdtree.alioth.debian.org/
 License:        Artistic 2.0
@@ -113,6 +113,9 @@ install -pm 0644 python-bindings/kdtree.py %{buildroot}%{python3_sitelib}/
 %doc examples/test*.cpp
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

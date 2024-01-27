@@ -1,6 +1,6 @@
 Name:		libvpd
 Version:	2.2.9
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	VPD Database access library for lsvpd
 
 License:	LGPL-2.0-or-later
@@ -56,6 +56,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/libvpd_cxx-2.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

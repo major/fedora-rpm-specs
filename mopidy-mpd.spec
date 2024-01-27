@@ -2,7 +2,7 @@
 
 Name:           mopidy-mpd
 Version:        3.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        ASL 2.0
@@ -44,6 +44,9 @@ rm MANIFEST.in
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

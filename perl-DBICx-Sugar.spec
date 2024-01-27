@@ -1,6 +1,6 @@
 Name:           perl-DBICx-Sugar
 Version:        0.0200
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Just some syntax sugar for DBIx::Class
 License:        GPL+ or Artistic
 
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/DBICx*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0200-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0200-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

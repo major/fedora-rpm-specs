@@ -4,7 +4,7 @@
 Name:           lua-inotify
 Epoch:          1
 Version:        0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Inotify bindings for Lua
 
 License:        MIT
@@ -45,6 +45,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL_PATH=%{lualibdir}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

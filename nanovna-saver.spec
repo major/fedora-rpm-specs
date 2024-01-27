@@ -1,6 +1,6 @@
 Name:		nanovna-saver
 Version:	0.6.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
 URL:		https://github.com/NanoVNA-Saver/%{name}
@@ -68,6 +68,9 @@ install -Dpm 0644 icon_48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/app
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

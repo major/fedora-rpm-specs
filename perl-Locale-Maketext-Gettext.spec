@@ -3,7 +3,7 @@
 
 Name:           perl-Locale-Maketext-Gettext
 Version:        1.32
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Joins the gettext and Maketext frameworks
 # README.md:            GPL+ or Artistic
 # t/02-big-endian.t:    "the same terms as Perl" and "the same license as the commonlib package"
@@ -130,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

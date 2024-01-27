@@ -1,6 +1,6 @@
 Name:		lxsplit
 Version:	0.2.4
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	File split / merge utility
 
 License:	GPLv2+
@@ -33,6 +33,9 @@ HJSplit utility which is available for other operating systems.
 %{_bindir}/lxsplit
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

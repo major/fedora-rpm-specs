@@ -4,7 +4,7 @@
 
 Name:       mock-core-configs
 Version:    39.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -151,6 +151,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Gnome2-GConf
 Version:        1.047
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl wrappers for the GConf configuration engine (deprecated)
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Gnome2-GConf
@@ -73,6 +73,9 @@ xvfb-run -d make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.047-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.047-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global fontname lohit-marathi
 
 Version:       2.94.2
-Release:       20%{?dist}
+Release:       21%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-marathi-fonts 
 
 %global foundry           Lohit
@@ -43,6 +43,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.94.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.94.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

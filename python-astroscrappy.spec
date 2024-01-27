@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -61,6 +61,9 @@ echo "cython_version = 'unknown'" > astroscrappy/cython_version.py
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

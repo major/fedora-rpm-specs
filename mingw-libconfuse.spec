@@ -3,7 +3,7 @@
 %global name1 libconfuse
 Name:           mingw-%{name1}
 Version:        3.2.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        MinGW configuration file parser library
 
 License:        LGPLv2
@@ -109,6 +109,9 @@ rm -rf $RPM_BUILD_ROOT/doc/html
 %{mingw64_libdir}/pkgconfig/libconfuse.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

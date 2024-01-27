@@ -3,7 +3,7 @@
 
 Name:      python-%{srcname}
 Version:   0.22.1
-Release:   7%{?dist}
+Release:   8%{?dist}
 Summary:   Generic async RPC implementation
 
 # https://github.com/kyuupichan/aiorpcX/issues/11
@@ -46,6 +46,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

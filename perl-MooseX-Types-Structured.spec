@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-Structured
 Version:        0.36
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Structured Type Constraints for Moose
 License:        GPL+ or Artistic
 
@@ -74,6 +74,9 @@ explicitly name all the allowed type constraints inside the structure.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

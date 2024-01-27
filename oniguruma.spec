@@ -21,7 +21,7 @@
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	baserelease	2
+%global	baserelease	3
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}%{?gitversion:^%{?gitversion}}
@@ -124,6 +124,9 @@ autoreconf -fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

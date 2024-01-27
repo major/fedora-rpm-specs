@@ -3,7 +3,7 @@
 
 Name:       nss-pem
 Version:    1.1.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    PEM file reader for Network Security Services (NSS)
 
 License:    MPLv1.1
@@ -47,6 +47,9 @@ module.
 %license COPYING.{GPL,MPL}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

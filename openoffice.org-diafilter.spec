@@ -4,7 +4,7 @@
 
 Name:          openoffice.org-diafilter
 Version:       1.7.6
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       DIA diagram shape importer and gallery extension for LibreOffice
 License:       GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:           http://fedorahosted.org/openoffice.org-diafilter
@@ -48,6 +48,9 @@ install -p -m 644 openoffice.org-diafilter.metainfo.xml $RPM_BUILD_ROOT/%{_datad
 %license gpl-3.0.txt lgpl-3.0.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

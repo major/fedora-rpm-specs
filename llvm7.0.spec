@@ -56,7 +56,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}
-Release:	7%{?rc_ver:.rc%{rc_ver}}%{?dist}.9
+Release:	7%{?rc_ver:.rc%{rc_ver}}%{?dist}.10
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -460,6 +460,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-7.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-7.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

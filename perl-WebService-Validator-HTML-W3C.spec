@@ -1,6 +1,6 @@
 Name:           perl-WebService-Validator-HTML-W3C
 Version:        0.28
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Access the W3Cs online HTML validator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WebService-Validator-HTML-W3C
@@ -50,6 +50,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

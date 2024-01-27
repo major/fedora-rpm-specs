@@ -3,7 +3,7 @@
 
 Name:           pyosmium
 Version:        3.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for libosmium
 
 License:        BSD-2-Clause
@@ -67,6 +67,9 @@ make -C doc html SPHINXBUILD=sphinx-build-3
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

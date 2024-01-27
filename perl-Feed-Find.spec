@@ -1,6 +1,6 @@
 Name:           perl-Feed-Find
 Version:        0.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Syndication feed auto-discovery
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -109,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

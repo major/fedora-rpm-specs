@@ -1,6 +1,6 @@
 Name:           perl-Term-Animation
 Version:        2.6
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        ASCII sprite animation framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Term-Animation
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

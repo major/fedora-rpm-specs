@@ -4,7 +4,7 @@
 Name:           perl-CGI-Compile
 Summary:        Compile .cgi scripts to a code reference like ModPerl::Registry
 Version:        0.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/CGI-Compile-%{version}.tar.gz 
@@ -82,6 +82,9 @@ unset AUTHOR_TESTING AUTOMATED_TESTING
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

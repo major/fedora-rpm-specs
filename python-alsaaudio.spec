@@ -1,6 +1,6 @@
 Name:		python-alsaaudio
 Version:	0.10.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Python Alsa Bindings
 License:	Python
 URL:		http://larsimmisch.github.io/pyalsaaudio/
@@ -37,6 +37,9 @@ The python3-AlsaAudio package contains python3 bindings for the ALSA sound API.
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

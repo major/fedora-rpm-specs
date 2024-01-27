@@ -2,7 +2,7 @@
 
 Name:       perl-Data-TreeDumper-Renderer-GTK
 Version:    0.03
-Release:    2%{?dist}
+Release:    3%{?dist}
 # see GTK.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Gtk3::TreeView renderer for Data::TreeDumper
@@ -72,6 +72,9 @@ find %{buildroot} -type f -name '*.pl' -delete
 %{_mandir}/man3/Data::TreeDumper*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

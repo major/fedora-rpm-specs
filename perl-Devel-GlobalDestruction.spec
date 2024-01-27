@@ -1,6 +1,6 @@
 Name:		perl-Devel-GlobalDestruction
 Version:	0.14
-Release:	23%{?dist}
+Release:	24%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Expose PL_dirty, the flag that marks global destruction
 URL:		https://metacpan.org/release/Devel-GlobalDestruction
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/Devel::GlobalDestruction.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

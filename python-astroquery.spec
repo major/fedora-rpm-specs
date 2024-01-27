@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -59,6 +59,9 @@ to access online Astronomical data.
 %exclude %{python3_sitelib}/%{srcname}/cosmosim/tests/test_cosmosim.py
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

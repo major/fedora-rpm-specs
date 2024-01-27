@@ -38,7 +38,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	2
+%global		baserelease	3
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -184,6 +184,9 @@ cd ..
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0^20230917git9b4299c2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230917git9b4299c2-2
 - Change -Wincompatible-pointer-types from error to warning
 

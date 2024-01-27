@@ -9,7 +9,7 @@
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
 Version:        1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        LGPLv2
 URL:            https://github.com/awslabs/%{name}
@@ -131,6 +131,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

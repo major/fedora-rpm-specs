@@ -6,7 +6,7 @@
 
 Name:          nagios-plugins-check-updates
 Version:       2.0.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A Nagios plugin to check if Red Hat or Fedora system is up-to-date
 
 License:       GPLv3+
@@ -84,6 +84,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: libopenmpt
 Version: 0.7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_root %{name}-%{version}+release.autotools
 
@@ -101,6 +101,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/openmpt123
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

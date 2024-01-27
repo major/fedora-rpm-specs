@@ -3,7 +3,7 @@ Version:	1.6.2
 
 %global tarball_version %(echo %version|sed 's/\\./_/g')
 
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Lossless MP3 volume adjustment tool
 
 License:	LGPLv2+
@@ -53,6 +53,9 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

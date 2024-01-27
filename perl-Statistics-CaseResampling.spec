@@ -1,6 +1,6 @@
 Name:           perl-Statistics-CaseResampling
 Version:        0.15
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Resampling and calculation of medians with confidence intervals
 # Mersenne Twister is somewhat bundled, CPAN RT#85284
 # _mt.c, mt.h:  Copyright only
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

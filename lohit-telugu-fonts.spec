@@ -1,7 +1,7 @@
 %global fontname lohit-telugu
 
 Version:       2.5.5
-Release:       18%{?dist}
+Release:       19%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-odia-fonts
 
 %global foundry           Lohit
@@ -44,6 +44,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

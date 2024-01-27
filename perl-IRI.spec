@@ -1,6 +1,6 @@
 Name:           perl-IRI
 Version:        0.011
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Internationalized Resource Identifiers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IRI
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

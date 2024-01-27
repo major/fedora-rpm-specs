@@ -1,6 +1,6 @@
 Name:           perl-Sub-HandlesVia
 Version:        0.050000
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Alternative handles_via implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -77,6 +77,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.050000-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.050000-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

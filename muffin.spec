@@ -5,7 +5,7 @@
 
 Name:          muffin
 Version:       6.0.1
-Release:       3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:       4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -143,6 +143,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-3
 - Fix compile issue
 

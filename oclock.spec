@@ -1,6 +1,6 @@
 Name:       oclock
 Version:    1.0.4
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    A simple analog clock
 
 License:    MIT
@@ -44,6 +44,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/Clock-color
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

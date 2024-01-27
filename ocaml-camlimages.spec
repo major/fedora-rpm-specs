@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlimages
 Version:        5.0.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        OCaml image processing library
 License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 
@@ -74,6 +74,9 @@ Includes documentation provided by odoc.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test2-Tools-PerlCritic
 Version:        0.04
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Testing tools to enforce Perl::Critic policies
 License:        GPL+ or Artistic
 
@@ -63,6 +63,9 @@ the configuration of the policy as he is addressing violations.
 %{_mandir}/man3/Test2*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Graphics-Toolkit-Color
 Version:        1.71
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

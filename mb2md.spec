@@ -1,6 +1,6 @@
 Name:		mb2md
 Version:	3.20
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Mailbox to maildir converter
 License:	Public Domain
 URL:		http://batleth.sapienti-sat.org/projects/mb2md
@@ -61,6 +61,9 @@ install -D -p -m 755 mb2md.pl %{buildroot}%{_bindir}/mb2md
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

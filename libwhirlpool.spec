@@ -3,7 +3,7 @@
 Summary:	Whirlpool cryptographic hash function library
 Name:		libwhirlpool
 Version:	1.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 
 License:	Public Domain
 URL:		https://github.com/dfateyev/libwhirlpool
@@ -57,6 +57,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

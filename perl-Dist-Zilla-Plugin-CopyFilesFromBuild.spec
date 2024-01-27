@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Plugin-CopyFilesFromBuild
 Version:        0.170880
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Copy specific files after building for SCM inclusion
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-CopyFilesFromBuild
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.170880-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.170880-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

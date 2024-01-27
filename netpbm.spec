@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.02.00
-Release:         5%{?dist}
+Release:         6%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -230,6 +230,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.02.00-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 11.02.00-5
 - GCC 14 compatibility fixes:
   Drop netpbm-cmuwtopbm.patch to fix an out-of-bounds stack write (#2259450)

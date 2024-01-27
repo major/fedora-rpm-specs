@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-URI
-Version:        5.21
-Release:        2%{?dist}
+Version:        5.22
+Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Paul Howarth <paul@city-fan.org> - 5.22-1
+- 5.22 bump (rhbz#2260363)
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

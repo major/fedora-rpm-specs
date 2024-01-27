@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.9.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Chirpstack Python API
 
 License:        MIT
@@ -39,6 +39,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/chirpstack_api-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

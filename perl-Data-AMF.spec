@@ -1,6 +1,6 @@
 Name:           perl-Data-AMF
 Version:        0.09
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Serialize/deserialize Adobe's AMF (ActionMessageFormat) data
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/release/TYPESTER/Data-AMF-0.09/lib/Data/AMF.pm
@@ -76,6 +76,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

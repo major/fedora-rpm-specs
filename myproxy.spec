@@ -10,7 +10,7 @@
 
 Name:           myproxy
 Version:        6.2.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -366,6 +366,9 @@ fi
 %license LICENSE*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

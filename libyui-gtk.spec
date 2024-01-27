@@ -4,7 +4,7 @@
 
 Name:		libyui-gtk
 Version:	2.52.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Gtk3 User Interface for libyui
 
 License:	LGPLv2 or LGPLv3
@@ -67,6 +67,9 @@ for %{name} which is not covered within the UI-plugin.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.52.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.52.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

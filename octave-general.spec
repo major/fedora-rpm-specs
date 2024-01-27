@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        General tools for Octave, string dictionary, parallel computing
 License:        GPLv3+ and BSD and Public Domain
 URL:            http://octave.sourceforge.net/general/
@@ -59,6 +59,9 @@ install -p -m 0644 %SOURCE1 %{buildroot}%{_metainfodir}/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

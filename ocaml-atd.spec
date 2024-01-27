@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-atd
 Version:        2.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Adaptable Type Definitions for cross-language data types
 
 License:        BSD-3-Clause
@@ -283,6 +283,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{d,j,py,s,ts}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

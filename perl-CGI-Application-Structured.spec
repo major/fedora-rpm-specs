@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Structured
 Version:        0.007
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Medium-weight, MVC, DB web framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Structured
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

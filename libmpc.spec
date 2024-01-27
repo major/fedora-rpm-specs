@@ -5,7 +5,7 @@
 Summary: C library for multiple precision complex arithmetic
 Name: libmpc
 Version: 1.3.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 # LGPL-3.0-or-later: the library
 # FSFAP: README and NEWS
 License: LGPL-3.0-or-later AND FSFAP
@@ -121,6 +121,9 @@ make check
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

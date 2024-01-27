@@ -1,6 +1,6 @@
 Name:           perl-Dancer2-Plugin-REST
 Version:        1.02
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Plugin for writing RESTful apps with Dancer2
 License:        GPL+ or Artistic
 
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Dancer2*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

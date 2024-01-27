@@ -1,6 +1,6 @@
 Name:           perl-LockFile-Simple
 Version:        0.208
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simple file locking scheme
 License:        GPLv2+ or Artistic
 URL:            https://metacpan.org/release/LockFile-Simple
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/LockFile::Simple.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.208-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.208-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

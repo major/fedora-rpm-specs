@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Server-SOAP
 Version:        1.14
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Publish POE event handlers via SOAP over HTTP
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Server-SOAP
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

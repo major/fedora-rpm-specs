@@ -3,7 +3,7 @@
 
 Name:           perl-Bytes-Random-Secure
 Version:        0.29
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl extension to generate cryptographically-secure random bytes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Bytes-Random-Secure
@@ -84,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -41,18 +41,12 @@
 %endif
 
 %ifarch x86_64
-%if 0%{?rhel} >= 8
-%bcond_with psm
-%else
-%bcond_without psm
-%endif
 %if 0%{?rhel} >= 10
 %bcond_with psm2
 %else
 %bcond_without psm2
 %endif
 %else
-%bcond_with psm
 %bcond_with psm2
 %endif
 
@@ -64,7 +58,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -124,9 +118,6 @@ BuildRequires:  pmix-devel >= 4.2.7
 BuildRequires:  prrte
 BuildRequires:  prrte-devel
 BuildRequires:  python%{python3_pkgversion}-devel
-%if %{with psm}
-BuildRequires:  infinipath-psm-devel
-%endif
 %if %{with psm2}
 BuildRequires:  libpsm2-devel
 %endif
@@ -449,6 +440,9 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 
 
 %changelog
+* Wed Jan 24 2024 Orion Poplawski <orion@nwra.com> - 5.0.1-3
+- Drop unused BR on infinipath-psm
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

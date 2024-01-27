@@ -2,7 +2,7 @@
 
 Name:           librttopo
 Version:        1.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Create and manage SQL/MM topologies
 
 License:        GPL-2.0-or-later
@@ -131,6 +131,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

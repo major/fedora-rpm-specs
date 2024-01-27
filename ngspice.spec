@@ -42,7 +42,7 @@
 
 Name:			ngspice
 Version:		%{fedoraver}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 # ngspice-42-manual.pdf	CC-BY-SA-4.0 AND BSD-3-Clause
@@ -474,6 +474,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 42-2
 - Fix compilation with -Werror=incompatible-pointer-types
 

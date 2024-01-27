@@ -6,7 +6,7 @@ SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
 Version:        2.14.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
@@ -80,6 +80,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

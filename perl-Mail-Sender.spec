@@ -3,7 +3,7 @@ Version:        0.903
 # I really wish CPAN maintainers would stop fscking around with versions.
 # we went from 0.900003 to 0.901
 Epoch:          1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Module for sending mails with attachments through an SMTP server
 
 # There is also a clause which says that it may not be used for SPAM.
@@ -78,6 +78,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.903-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.903-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

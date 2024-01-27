@@ -1,6 +1,6 @@
 Name:           perl-Perl6-Slurp
 Version:        0.051005
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Implementation of the Perl 6 'slurp' built-in
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Slurp
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Perl6::Slurp.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.051005-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.051005-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

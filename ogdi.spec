@@ -2,7 +2,7 @@
 
 Name:		ogdi
 Version:	4.1.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Open Geographic Datastore Interface
 License:	BSD
 URL:		http://ogdi.sourceforge.net/
@@ -174,6 +174,9 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 
 Name:           php-%{gh_project}%{major}
 Version:        6.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Free Feature-rich PHP Mailer
 
 License:        MIT
@@ -176,6 +176,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

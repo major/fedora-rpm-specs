@@ -11,7 +11,7 @@
 
 Name:           mingw-angleproject
 Version:        3280
-Release:        9.git%{shortcommit}%{?dist}
+Release:        10.git%{shortcommit}%{?dist}
 Summary:        Almost Native Graphics Layer Engine
 
 License:        BSD
@@ -321,6 +321,9 @@ rmdir %{buildroot}%{mingw64_includedir}/KHR/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3280-10.git57ea533
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3280-9.git57ea533
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

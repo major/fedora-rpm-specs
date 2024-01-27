@@ -3,7 +3,7 @@
 
 Name:           pmount
 Version:        0.9.23
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Enable normal user mount
 
 # realpath.c is GPLv2+. Others are GPL+;
@@ -62,6 +62,9 @@ Be warned that pmount is installed setuid root.
 %{_mandir}/man1/p*mount*.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

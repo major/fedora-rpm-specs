@@ -10,7 +10,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        20200709
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Most comprehensive OpenSSL module in the Lua universe
 
 License:        MIT
@@ -97,6 +97,9 @@ make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} install%{luacompat
 %{_pkgdocdir}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200709-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20200709-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

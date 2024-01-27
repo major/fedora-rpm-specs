@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.21.0.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Patternfly CSS/JS framework (XStatic packaging standard)
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/patternfly/js/*.js
 %{_jsdir}/patternfly
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

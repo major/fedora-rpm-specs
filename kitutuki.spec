@@ -1,10 +1,11 @@
 Name:		kitutuki
 Version:	0.9.6
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Shell script language
 Summary(ja):	シェルスクリプティング言語 
 
-License:	GPL+
+# SPDX confirmed
+License:	GPL-1.0-or-later
 URL:		http://ab25cq.web.fc2.com/
 Source0:	http://ab25cq.web.fc2.com/%{name}-%{version}.tgz
 ## Not sent to the upstream, must do later
@@ -26,7 +27,7 @@ BuildRequires:	readline-devel
 
 # Patch2
 BuildRequires:	autoconf
-BuildRequires: make
+BuildRequires:	make
 
 %description
 Kitutuki is a shell script language.
@@ -36,7 +37,7 @@ Kitutukiはシェルスクリプト言語です
 
 %package	devel
 Summary:	Development files for %{name}
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
 %{name}-devel package contains libraries and header files for
@@ -47,16 +48,16 @@ developing applications that use %{name}.
 %setup -q
 
 # Makefile
-%patch0 -p1 -b .mk
+%patch -P0 -p1 -b .mk
 sed -i.strip -e '/install/s| -s | |' Makefile.in
 sed -i.stamp -e 's|\([ \t][ \t]*install \)|\1 -p |' Makefile.in
 
 # Other patches
-%patch1 -p1 -b .help
-%patch3 -p1 -b .gcc10
+%patch -P1 -p1 -b .help
+%patch -P3 -p1 -b .gcc10
 
 # configure
-%patch2 -p1 -b .cf
+%patch -P2 -p1 -b .cf
 autoconf
 sed -i.cflags -e '/CFLAGS=/s|-fPIC|-fPIC %{optflags}|' configure
 
@@ -70,14 +71,11 @@ mv -f README.ja.txt{.utf8,}
 	--sysconfdir=%{_libdir}/%{name} \
 	--includedir=%{_includedir}/%{name} \
 	--with-migemo \
-	--with-system-migemodir=%{_datadir}/cmigemo
+	--with-system-migemodir=%{_datadir}/cmigemo \
+	%{nil}
 
 make %{?_smp_mflags} \
-%if 0%{?fedora} >= 20
 	docdir=%{_defaultdocdir}/%{name}/
-%else
-	docdir=%{_defaultdocdir}/%{name}-%{version}/
-%endif
 
 
 %install
@@ -88,7 +86,8 @@ rm -rf ./Trash
 %makeinstall \
 	sysconfdir=%{buildroot}%{_libdir}/%{name}/ \
 	includedir=%{buildroot}%{_includedir}/%{name}/ \
-	docdir=$(pwd)/Trash/
+	docdir=$(pwd)/Trash/ \
+	%{nil}
 
 # Move kitutuki.ksh to %%{_sysconfdir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
@@ -101,7 +100,7 @@ ln -sf ../../../%{_sysconfdir}/%{name}/kitutuki.ksh \
 
 %files
 %doc	AUTHORS
-%doc	GPL
+%license	GPL
 %lang(ja)	%doc	README.ja.txt
 %doc	usage.en.txt
 %lang(ja)	%doc	usage.ja.txt
@@ -111,7 +110,7 @@ ln -sf ../../../%{_sysconfdir}/%{name}/kitutuki.ksh \
 # new package, rather mark this as no-noreplace
 %config	%{_sysconfdir}/%{name}/kitutuki.ksh
 %{_bindir}/%{name}
-%{_libdir}/libkitutuki.so.*
+%{_libdir}/libkitutuki.so.1{,.*}
 %{_libdir}/%{name}/
 
 %files	devel
@@ -120,6 +119,9 @@ ln -sf ../../../%{_sysconfdir}/%{name}/kitutuki.ksh \
 
 
 %changelog
+* Thu Jan 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.6-35
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

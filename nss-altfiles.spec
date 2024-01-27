@@ -1,7 +1,7 @@
 Summary: NSS module to look up from files in /usr/lib as well
 Name: nss-altfiles
 Version: 2.23.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/flatcar/nss-altfiles/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch1: 0001-build-sys-Inherit-LDFLAGS.patch
 # From https://github.com/flatcar/nss-altfiles/commit/de2b32289bf701ce3c8167a1b58436866922085e
@@ -35,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

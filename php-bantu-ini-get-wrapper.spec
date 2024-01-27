@@ -12,7 +12,7 @@
 
 Name:          php-%{packagist_owner}-%{packagist_name}
 Version:       %{github_version}
-Release:       18%{?dist}
+Release:       19%{?dist}
 Summary:       Convenience wrapper around PHP's ini_get() function
 
 License:       MIT
@@ -65,6 +65,9 @@ cp -pr src/* %{buildroot}%{_datadir}/php/%{psr4_prefix}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

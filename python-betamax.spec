@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        VCR imitation for python-requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

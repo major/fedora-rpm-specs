@@ -5,7 +5,7 @@ started in context of the Linux-Kernel documentation, you can use these
 extensions in common Sphinx-doc projects.}
 
 Name:           python-linuxdoc
-Version:        20230827
+Version:        20231020
 Release:        %{autorelease}
 Summary:        Sphinx-doc extensions for sophisticated C developer
 

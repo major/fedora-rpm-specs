@@ -1,6 +1,6 @@
 Name:       miniupnpd
 Version:    2.3.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Daemon to offer UPnP-IGD and NAT-PMP support
 
 License:    BSD
@@ -89,6 +89,9 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

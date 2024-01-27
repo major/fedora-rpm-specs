@@ -1,6 +1,6 @@
 Name:           porcupine
 Version:        0.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Web browser to copy URL to clipboard
 
 License:        GPLv3
@@ -46,6 +46,9 @@ share/porcupine.desktop
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

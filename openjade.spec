@@ -1,7 +1,7 @@
 Summary: A DSSSL implementation
 Name: openjade
 Version: 1.3.2
-Release: 79%{?dist}
+Release: 80%{?dist}
 Requires: sgml-common
 URL: http://openjade.sourceforge.net/
 Source: http://download.sourceforge.net/openjade/openjade-%{version}.tar.gz
@@ -117,6 +117,9 @@ touch %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
 %{_datadir}/sgml/%{name}-%{version}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-80
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-79
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

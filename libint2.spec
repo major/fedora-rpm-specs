@@ -19,7 +19,7 @@
 
 Name:		libint2
 Version:	2.6.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	A library for efficient evaluation of electron repulsion integrals
 License:	GPLv2+
 URL:		https://github.com/evaleev/libint
@@ -136,6 +136,9 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_fmoddir}/libint_f.mod
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

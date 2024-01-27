@@ -1,6 +1,6 @@
 name:           pysysbot
 Version:        0.3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A simple python jabber bot for getting system information
 
 License:        BSD
@@ -57,6 +57,9 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

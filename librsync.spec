@@ -1,7 +1,7 @@
 Summary:        Rsync remote-delta algorithm library
 Name:           librsync
 Version:        2.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://librsync.github.io/
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/librsync-%{version}.tar.gz
@@ -98,6 +98,9 @@ use librsync.
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

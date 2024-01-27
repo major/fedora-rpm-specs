@@ -50,7 +50,7 @@
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
 Version: 1.4.73
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -606,6 +606,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.73-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.73-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

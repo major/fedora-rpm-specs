@@ -2,7 +2,7 @@
 
 Name:           python-PyLink
 Version:        0.3.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Universal communication interface using File-Like API
 
 License:        BSD
@@ -57,6 +57,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/pylink/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

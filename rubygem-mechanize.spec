@@ -1,6 +1,6 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.9.2
+%global	majorver		2.10.0
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
@@ -84,6 +84,9 @@ find . -name \*.rb -print0 | xargs --null chmod 0644
 sed -i -e '\@ntlm-http@d' %{gem_name}-%{version}.gemspec
 # Kill also this for now
 sed -i -e '\@rubyntlm@d' %{gem_name}-%{version}.gemspec
+# Remove runtime dependency currently in ruby main lib
+sed -i -e '\@nkf@d' %{gem_name}-%{version}.gemspec
+sed -i -e '\@base64@d' %{gem_name}-%{version}.gemspec
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -140,6 +143,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Thu Jan 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.0-1
+- 2.10.0
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.2-1
 - 2.9.2
 

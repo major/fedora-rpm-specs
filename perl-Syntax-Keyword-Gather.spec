@@ -1,6 +1,6 @@
 Name:           perl-Syntax-Keyword-Gather
 Version:        1.003002
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Implements the Perl 6 'gather/take' control structure in Perl 5
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Syntax*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.003002-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.003002-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

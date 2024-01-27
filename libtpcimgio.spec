@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcimgio
 Version:        1.5.10
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Turku PET Centre for image file input and output procedures
 
 License:        LGPLv2+
@@ -99,6 +99,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-ConfigLoader
 Summary:        Load config files of various types
 Version:        0.35
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Plugin-ConfigLoader-%{version}.tar.gz
@@ -68,6 +68,9 @@ various types. Currently it supports YAML, JSON, XML, INI and Perl formats.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

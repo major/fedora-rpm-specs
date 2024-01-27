@@ -1,6 +1,6 @@
 Name:         prwd
 Version:      1.9.1
-Release:      11%{?dist}
+Release:      12%{?dist}
 Summary:      A tool to print a reduced working directory
 License:      ISC
 URL:          http://tamentis.com/projects/prwd
@@ -41,6 +41,9 @@ make test
 %{_mandir}/man5/%{name}rc.5*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

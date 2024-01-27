@@ -2,7 +2,7 @@
 
 Name:           perl-HTML-Format
 Version:        2.16
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        HTML formatter modules
 
 %if "%{version}" > "2.12"
@@ -107,6 +107,9 @@ A collection of modules that formats HTML as plaintext, PostScript or RTF.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

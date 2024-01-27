@@ -1,6 +1,6 @@
 Name:           libitl
 Version:        0.7.0 
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Libraries for The Islamic Tools and Libraries Project
 
 License:        LGPLv2+
@@ -69,6 +69,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

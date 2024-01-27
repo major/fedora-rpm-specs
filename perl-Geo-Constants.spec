@@ -1,6 +1,6 @@
 Name:           perl-Geo-Constants
 Version:        0.06
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Standard Geo:: constants
 
 License:        GPL+ or Artistic
@@ -45,6 +45,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

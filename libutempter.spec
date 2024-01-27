@@ -3,7 +3,7 @@
 Summary: A privileged helper for utmp/wtmp updates
 Name: libutempter
 Version: 1.2.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-2-Clause
 URL: ftp://ftp.altlinux.org/pub/people/ldv/utempter
 
@@ -62,6 +62,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

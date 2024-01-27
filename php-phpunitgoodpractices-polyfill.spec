@@ -37,7 +37,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lacking future-compat polyfills for PHPUnit
 
 License:        MIT
@@ -190,6 +190,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: PAM module for use with SSH keys and ssh-agent
 Name: pam_ssh
 Version: 2.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: BSD
 URL: http://sourceforge.net/projects/pam-ssh/
 Source0: http://downloads.sourceforge.net/pam-ssh/pam_ssh-%{version}.tar.xz
@@ -74,6 +74,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_rundir}/pam_ssh
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

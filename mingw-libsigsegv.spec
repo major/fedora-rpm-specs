@@ -4,7 +4,7 @@
 Summary: MinGW library for handling page faults in user mode
 Name:    mingw-libsigsegv
 Version: 2.6
-Release: 27%{?dist}
+Release: 28%{?dist}
 
 License: GPLv2+
 URL:     http://libsigsegv.sourceforge.net/
@@ -61,6 +61,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: OpenSSL provider for IBMCA
 Name: openssl-ibmca
 Version: 2.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Apache-2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

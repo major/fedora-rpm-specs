@@ -1,6 +1,6 @@
 Name:           libvdpau-va-gl
 Version:        0.4.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        VDPAU driver with OpenGL/VAAPI back-end
 
 License:        MIT
@@ -49,6 +49,9 @@ VDPAU driver with OpenGL/VAAPI back-end.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

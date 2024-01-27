@@ -1,6 +1,6 @@
 Name:           onednn
 Version:        3.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

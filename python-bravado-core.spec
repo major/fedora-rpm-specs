@@ -1,6 +1,6 @@
 Name:           python-bravado-core
 Version:        5.17.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for adding Swagger support to clients and servers
 
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

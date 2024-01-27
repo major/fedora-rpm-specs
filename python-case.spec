@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python unittest Utilities
 
 License:        BSD
@@ -78,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

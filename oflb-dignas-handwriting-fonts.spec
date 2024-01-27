@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20031109
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Handwriting font
 
 License:        OFL
@@ -51,6 +51,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20031109-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20031109-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

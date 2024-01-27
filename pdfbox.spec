@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.29
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -256,6 +256,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.29-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

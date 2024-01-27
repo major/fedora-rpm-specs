@@ -1,6 +1,6 @@
 Name:           perl-Data-Properties
 Version:        1.07
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Flexible properties handling 
 License:        ASL 2.0
 
@@ -46,6 +46,9 @@ format-compatible with that class.
 %{_mandir}/man3/Data*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

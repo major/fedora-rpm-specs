@@ -11,7 +11,7 @@
 
 Name:           mingw-%{name1}
 Version:        3.45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of sqlite embeddable SQL database engine
 
 License:        blessing
@@ -211,6 +211,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Sandro Mani <manisandro@gmail.com> - 3.45.0-1
 - Update to 3.45.0
 

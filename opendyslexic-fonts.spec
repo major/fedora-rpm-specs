@@ -6,7 +6,7 @@
 Name:		%{fontname}-fonts
 # This is the version from the compiled fonts (thanks fontforge)
 Version:	0.940
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Font designed for dyslexics and high readability
 License:	OFL
 URL:		http://dyslexicfonts.com/
@@ -55,6 +55,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %license OFL.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.940-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.940-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

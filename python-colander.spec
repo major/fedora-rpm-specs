@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple schema-based serialization and deserialization library
 
 License:        BSD
@@ -57,6 +57,9 @@ Python 3 version.
 %doc README.rst CONTRIBUTORS.txt CHANGES.rst docs
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:       pygrib
 Version:    2.1.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -158,6 +158,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

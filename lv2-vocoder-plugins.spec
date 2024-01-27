@@ -2,7 +2,7 @@
 
 Name:		lv2-vocoder-plugins
 Version:	1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Add a robotic effect to vocals
 License:	GPLv2
 URL:		http://download.gna.org/lv2vocoder/
@@ -42,6 +42,9 @@ make install LV2_INSTALL_PATH="$RPM_BUILD_ROOT%{_libdir}/lv2"
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

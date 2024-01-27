@@ -7,7 +7,7 @@
 
 Name:		milter-regex
 Version:	2.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Milter plug-in for regular expression filtering
 License:	BSD-2-Clause
 URL:		http://www.benzedrine.ch/milter-regex.html
@@ -90,6 +90,9 @@ exit 0
 %{_mandir}/man8/milter-regex.8*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

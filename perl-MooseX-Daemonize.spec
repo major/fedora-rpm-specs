@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Daemonize
 Version:        0.22
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Role for daemonizing your Moose based application
 License:        GPL+ or Artistic
 
@@ -50,6 +50,9 @@ roles as an infrastructure to do that.
 %{_mandir}/man3/Test*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

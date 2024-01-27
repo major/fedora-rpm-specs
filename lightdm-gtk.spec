@@ -1,7 +1,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPLv3+
 URL:            https://github.com/Xubuntu/lightdm-gtk-greeter
 Source0:        https://github.com/Xubuntu/lightdm-gtk-greeter/archive/lightdm-gtk-greeter-%{version}.tar.gz
@@ -107,6 +107,9 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

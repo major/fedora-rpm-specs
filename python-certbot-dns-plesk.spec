@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Plesk DNS Authenticator plugin for Certbot
 
 License:        GPLv3+
@@ -54,6 +54,9 @@ Recommends:     certbot
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

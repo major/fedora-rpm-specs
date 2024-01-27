@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -20,7 +20,7 @@ BuildRequires:  ocaml-bos-devel
 BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0
 BuildRequires:  ocaml-cppo >= 1.1.0
-BuildRequires:  ocaml-crunch-devel
+BuildRequires:  ocaml-crunch-devel > 1.1.0
 BuildRequires:  ocaml-dune >= 3.7.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-fmt-devel
@@ -127,6 +127,12 @@ rm -fr %{buildroot}%{ocamldir}/odoc-bench
 %license LICENSE
 
 %changelog
+* Thu Jan 25 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-1
+- Version 2.4.1
+
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

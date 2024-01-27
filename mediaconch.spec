@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        23.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        BSD
@@ -179,6 +179,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

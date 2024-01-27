@@ -1,6 +1,6 @@
 Name:           perl-Array-Utils
 Version:        0.5
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Small utils for array manipulation
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

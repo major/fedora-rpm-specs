@@ -1,6 +1,6 @@
 Name:           nekovm
 Version:        2.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
 License:        LGPLv2+
@@ -105,6 +105,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

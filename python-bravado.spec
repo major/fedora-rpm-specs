@@ -1,6 +1,6 @@
 Name:           python-bravado
 Version:        11.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for accessing Swagger-enabled API's
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

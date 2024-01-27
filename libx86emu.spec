@@ -11,7 +11,7 @@
 
 Name:           libx86emu
 Version:        3.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        x86 emulation library
 
 License:        BSD
@@ -64,6 +64,9 @@ library.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

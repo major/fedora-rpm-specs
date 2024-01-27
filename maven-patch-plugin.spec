@@ -1,6 +1,6 @@
 Name:           maven-patch-plugin
 Version:        1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Maven Patch Plugin
 
 License:        ASL 2.0
@@ -42,6 +42,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

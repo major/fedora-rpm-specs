@@ -6,7 +6,7 @@
 
 Name:           lua-term
 Version:        0.08
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminal functions for Lua
 
 License:        MIT
@@ -61,6 +61,9 @@ cp -p core.so %{buildroot}%{lualibdir}/term/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

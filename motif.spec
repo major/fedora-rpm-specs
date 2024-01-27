@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.4
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
 Source1: xmbind
@@ -139,6 +139,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Florian Weimer <fweimer@redhat.com> - 2.3.4-32
 - Backport upstream patch to fix incompatible-pointer-types issues
 

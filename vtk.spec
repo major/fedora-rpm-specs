@@ -146,7 +146,9 @@ BuildRequires:  gnuplot
 BuildRequires:  wget
 %if %{with mpich}
 BuildRequires:  mpich-devel
+%ifnarch %{ix86}
 BuildRequires:  python%{?python3_pkgversion}-mpi4py-mpich
+%endif
 BuildRequires:  netcdf-mpich-devel
 %endif
 %if %{with openmpi}
@@ -842,6 +844,9 @@ cat xorg.log
 
 
 %changelog
+* Wed Jan 24 2024 Orion Poplawski <orion@nwra.com> - 9.2.6-12
+- Drop mpi4py-mpich BR on i686 (bz#2259594)
+
 * Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 9.2.6-12
 - Rebuilt for Boost 1.83
 

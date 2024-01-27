@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Itch
 Version:        0.07
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Collection of Perl::Critic policies to solve some itches
 License:        GPLv3+ or Artistic 2.0
 URL:            https://metacpan.org/release/Perl-Critic-Itch
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

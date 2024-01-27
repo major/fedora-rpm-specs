@@ -1,6 +1,6 @@
 Name:           perl-Devel-OverrideGlobalRequire
 Version:        0.001
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Override CORE::GLOBAL::require safely
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-OverrideGlobalRequire
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

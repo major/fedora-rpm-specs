@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-RateLimit
 Version:        1.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Limits runmode call rate per user
 License:        GPL+ or Artistic
 
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

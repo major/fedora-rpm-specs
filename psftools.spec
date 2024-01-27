@@ -1,6 +1,6 @@
 Name:		psftools
 Version:	1.0.10
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Conversion tools for .PSF fonts
 
 License:	GPLv2+
@@ -40,6 +40,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

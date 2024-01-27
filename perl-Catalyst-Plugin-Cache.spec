@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Cache
 Version:        0.12
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Flexible caching support for Catalyst
 License:        (GPL+ or Artistic) or MIT
 URL:            https://metacpan.org/release/Catalyst-Plugin-Cache
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

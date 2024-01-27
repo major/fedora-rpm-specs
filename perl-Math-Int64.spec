@@ -1,6 +1,6 @@
 Name:           perl-Math-Int64
-Version:        0.54
-Release:        26%{?dist}
+Version:        0.57
+Release:        1%{?dist}
 Summary:        Manipulate 64 bits integers in Perl
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 URL:            https://metacpan.org/release/Math-Int64
@@ -17,8 +17,8 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::CBuilder)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
@@ -39,8 +39,23 @@ Requires:       perl(XSLoader)
 %description
 This module adds support for 64 bit integers, signed and unsigned, to Perl.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Math-Int64-%{version}
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" \
@@ -49,8 +64,17 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" \
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -60,9 +84,16 @@ make test
 %doc Changes README.md examples
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Math*
-%{_mandir}/man3/*
+%{_mandir}/man3/Math::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.57-1
+- 0.57 bump (rhbz#2259452)
+- Package tests
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           mac-encheez
 Version:        0.1
-Release:        0.14.20170314git%{shortcommit0}%{?dist}
+Release:        0.15.20170314git%{shortcommit0}%{?dist}
 Summary:        Run a program with a modified view of network MAC addresses
 License:        GPLv3
 URL:            https://github.com/%{user0}/%{name}
@@ -47,6 +47,9 @@ make install PREFIX="%{_prefix}" LIBDIR="%{_libdir}" DESTDIR="%{buildroot}"
 # environment.
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.15.20170314git8f11e8a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.14.20170314git8f11e8a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

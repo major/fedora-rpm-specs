@@ -5,7 +5,7 @@
 #global commitdate 20191121
 
 # for rpmdev-bumpspec to handle properly...
-%global baserelease 14
+%global baserelease 15
 
 Name:           perl-BSSolv
 Version:        0.17
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

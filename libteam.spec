@@ -1,6 +1,6 @@
 Name: libteam
 Version: 1.32
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library for controlling team network device
 License: LGPL-2.0-or-later
 URL: http://www.libteam.org
@@ -131,6 +131,9 @@ install -p -m 755 utils/bond2team $RPM_BUILD_ROOT%{_bindir}/bond2team
 %{_sysconfdir}/sysconfig/network-scripts/ifdown-TeamPort
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           mockito
 Version:        5.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tasty mocking framework for unit tests in Java
 License:        MIT
 URL:            https://site.mockito.org/
@@ -142,6 +142,9 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %license LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

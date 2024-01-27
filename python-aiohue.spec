@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python module to talk to Philips Hue
 
 License:        ASL 2.0
@@ -41,6 +41,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

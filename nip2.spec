@@ -1,6 +1,6 @@
 Name:		nip2
 Version:	8.7.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Interactive tool for working with large images
 
 License:	GPLv2+
@@ -85,6 +85,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nip2.desktop
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

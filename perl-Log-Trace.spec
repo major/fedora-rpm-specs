@@ -1,6 +1,6 @@
 Name:           perl-Log-Trace
 Version:        1.070
-Release:        43%{?dist}
+Release:        44%{?dist}
 License:        GPL-2.0-or-later
 Summary:        A unified approach to tracing
 Source:         https://cpan.metacpan.org/authors/id/B/BB/BBC/Log-Trace-%{version}.tar.gz
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Log::Trace*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.070-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.070-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

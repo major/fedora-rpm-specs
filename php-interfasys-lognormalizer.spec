@@ -18,7 +18,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Parses variables and converts them to string
 
 License:        AGPLv3+
@@ -92,6 +92,9 @@ cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

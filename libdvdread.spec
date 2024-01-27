@@ -4,7 +4,10 @@ Name:           libdvdread
 Version:        6.1.3
 Release:        6%{?dist}
 Summary:        A library for reading DVD video discs based on Ogle code
-License:        GPLv2+
+# msvc/contrib/dirent/dirent.c is HPND-Kevlin-Henney
+# src/logger.c and few other are LGPL-2.1-or-later
+# part of src/md5.c is LicenseRef-Fedora-Public-Domain
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND HPND-Kevlin-Henney AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.videolan.org/developers/libdvdnav.html
 Source0:        https://download.videolan.org/pub/videolan/libdvdread/%{version}/libdvdread-%{version}.tar.bz2
 Source1:        https://download.videolan.org/pub/videolan/libdvdread/%{version}/libdvdread-%{version}.tar.bz2.asc

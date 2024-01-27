@@ -1,6 +1,6 @@
 Name:           perl-Alien-wxWidgets
 Version:        0.69
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Building, finding and using wxWidgets binaries
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-wxWidgets
@@ -62,6 +62,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

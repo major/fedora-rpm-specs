@@ -2,7 +2,7 @@
 Name:           perl-XML-Grove
 Epoch:          1
 Version:        0.46
-Release:        0.21.alpha%{?dist}
+Release:        0.22.alpha%{?dist}
 Summary:        Simple access to infoset of parsed XML, HTML, or SGML instances
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.46-0.22.alpha
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.46-0.21.alpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

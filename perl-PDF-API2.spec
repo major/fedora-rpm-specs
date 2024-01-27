@@ -1,6 +1,6 @@
 Name:           perl-PDF-API2
 Version:        2.045
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl module for creation and modification of PDF files
 # lib/PDF/API2.pm:  LGPL-2.1-or-later
 # lib/PDF/API2/Resource/XObject/Image/PNM.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -162,6 +162,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.045-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.045-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

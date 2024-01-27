@@ -1,7 +1,7 @@
 Summary: A text-based modem control and terminal emulation program
 Name: minicom
 Version: 2.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://salsa.debian.org/minicom-team/minicom
 # Some files are built from Public Domain files in addition to GPLv2+ files
 # (/usr/bin/minicom). Some LGPLv2+ files *may* be used in building of certain
@@ -66,6 +66,9 @@ mkdir -p %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           mysqltuner
 Version:        2.2.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
@@ -43,6 +43,9 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

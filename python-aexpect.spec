@@ -23,7 +23,7 @@
 
 Name: python-aexpect
 Version: 1.6.2
-Release: 9%{?gitrel}%{?dist}
+Release: 10%{?gitrel}%{?dist}
 Summary: A python library to control interactive applications
 
 License: GPLv2+
@@ -80,6 +80,9 @@ selftests/checkall
 %{_bindir}/aexpect_helper*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

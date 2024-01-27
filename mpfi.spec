@@ -1,6 +1,6 @@
 Name:           mpfi
 Version:        1.5.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An interval arithmetic library based on MPFR
 
 # Most files have an LGPL-2.1-or-later notice.  Exceptions:
@@ -101,6 +101,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

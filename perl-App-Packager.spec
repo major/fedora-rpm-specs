@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Abstract interface to a number of common packagers
 License: GPL+ or Artistic
 Version: 1.440
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -58,6 +58,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.440-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.440-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

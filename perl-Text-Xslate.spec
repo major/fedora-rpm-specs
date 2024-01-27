@@ -2,7 +2,7 @@
 
 Name:           perl-%{pkgname}
 Version:        3.5.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Scalable template engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://xslate.org/
@@ -123,6 +123,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

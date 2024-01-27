@@ -1,6 +1,6 @@
 Name:           perl-RDF-NS-Curated
 Version:        1.006
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Curated set of RDF prefixes
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -70,6 +70,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           lpf
 Version:        0.3
-Release:        7%{?rel}%{?dist}
+Release:        8%{?rel}%{?dist}
 Summary:        Local package factory - build non-redistributable rpms
 
 # Icon from iconarchive.com
@@ -90,6 +90,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

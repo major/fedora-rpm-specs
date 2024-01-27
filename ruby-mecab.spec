@@ -1,18 +1,8 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	8
+%define		baserelease	9
 %define		srcname		mecab-ruby
 
-
-%if 0%{?fedora} >= 17
-%if 0%{?fedora} < 19
-%define		rubyver		1.9.1
-%endif
-%else
-%define		rubyver		1.8
-%{!?ruby_sitearch:	%global ruby_sitearch	%(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitearchdir"]')}
-%{!?ruby_sitelib:	%global ruby_sitelib	%(ruby -rrbconfig -e 'puts RbConfig::CONFIG["sitelibdir"]')}
-%endif
 
 Name:		ruby-mecab
 Version:	%{mainver}
@@ -20,11 +10,12 @@ Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	Ruby binding for MeCab
 
 # License is the same as MeCab
-License:	BSD or LGPLv2+ or GPL+ 
+# SPDX confirmed
+License:	BSD-3-Clause OR LGPL-2.1-or-later OR GPL-2.0-or-later
 URL:		http://mecab.sourceforge.net/
 Source0:	http://mecab.googlecode.com/files/%{srcname}-%{mainver}%{?betaver}.tar.gz
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 # This is not release number specific
 BuildRequires:	mecab-devel = %{version}
@@ -35,11 +26,7 @@ BuildRequires:	ruby-devel
 BuildRequires:	mecab-jumandic
 
 Requires:	mecab = %{version}
-%if 0%{?fedora} >= 19
 Requires:	ruby
-%else
-Requires:	ruby(abi) = %{rubyver}
-%endif
 
 Provides:	ruby(mecab) = %{version}-%{release}
 
@@ -59,9 +46,6 @@ ruby extconf.rb
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	INSTALL="%{__install} -c -p" \
-%if 0%{?fedora} < 21
-	ruby_headers= \
-%endif
 	RUBYARCHDIR=${RPM_BUILD_ROOT}%{ruby_vendorarchdir}
  
 %check
@@ -69,15 +53,18 @@ ruby -I. test.rb
 
 %files
 %doc bindings.html
-%doc AUTHORS COPYING BSD GPL LGPL
+%doc AUTHORS
+%license	COPYING
+%license	BSD
+%license	GPL
+%license	LGPL
 
-%if 0%{?fedora} >= 17
 %{ruby_vendorarchdir}/*MeCab*
-%else
-%{ruby_sitearch}/*MeCab*
-%endif
 
 %changelog
+* Thu Jan 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-9
+- SPDX migration
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

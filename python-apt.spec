@@ -3,7 +3,7 @@
 
 Name:           python-apt
 Version:        2.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python bindings for APT
 License:        GPLv2+
 URL:            https://tracker.debian.org/pkg/python-apt
@@ -72,6 +72,9 @@ rm -rf %{buildroot}%{python3_sitelib}/apt_*-stubs*
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

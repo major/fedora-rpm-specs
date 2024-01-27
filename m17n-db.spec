@@ -1,7 +1,7 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
 Version:    1.8.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
@@ -116,6 +116,9 @@ rm %{buildroot}%{_datadir}/m17n/ispell.mim
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

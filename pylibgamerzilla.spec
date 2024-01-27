@@ -3,7 +3,7 @@
 Summary: Python Integration with Gamerzilla Library
 Name: pylibgamerzilla
 Version: 0.0.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: MIT
 URL: https://github.com/dulsi/pylibgamerzilla
 Source0: http://www.identicalsoftware.com/gamerzilla/%{name}-%{version}.tgz
@@ -38,6 +38,9 @@ cp %{_builddir}/%{name}-%{version}/gamerzilla.py %{buildroot}/%{python3_sitelib}
 %{python3_sitelib}/__pycache__/gamerzilla.cpython-%{python3_version_nodots}{,.opt-?}.pyc
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

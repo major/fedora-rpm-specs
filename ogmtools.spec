@@ -1,6 +1,6 @@
 Name:           ogmtools
 Version:        1.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Tools for Ogg media streams
 
 License:        GPL-2.0-or-later
@@ -57,6 +57,9 @@ export CXXFLAGS="-std=c++14 %{optflags}"
 %{_mandir}/man1/ogmsplit.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

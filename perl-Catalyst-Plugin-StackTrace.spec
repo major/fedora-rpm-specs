@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-StackTrace
 Version:        0.12
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Display a stack trace on the debug screen
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-StackTrace
@@ -73,6 +73,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

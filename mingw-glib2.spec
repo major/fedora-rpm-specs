@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.79.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -285,6 +285,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.79.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.79.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

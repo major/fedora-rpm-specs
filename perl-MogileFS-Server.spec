@@ -1,7 +1,7 @@
 %global cpan_name MogileFS-Server
 Name:       perl-%{cpan_name}
 Version:    2.73
-Release:    21%{?dist}
+Release:    22%{?dist}
 Summary:    Server part of the MogileFS distributed file system
 # LICENSE:      GPL+ or Artistic
 # mogautomount: GPL+ or Artistic
@@ -330,6 +330,9 @@ exit 0
 %{perl_vendorlib}/Mogstored/HTTPServer/Perlbal.pm
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

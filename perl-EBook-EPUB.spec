@@ -1,6 +1,6 @@
 Name:           perl-EBook-EPUB
 Version:        0.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Perl module for generating EPUB documents
 License:        BSD
 URL:            https://metacpan.org/release/EBook-EPUB
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

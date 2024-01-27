@@ -1,6 +1,6 @@
 Name:           perl-Test-TempDir-Tiny
 Version:        0.018
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Temporary directories that stick around when tests fail
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Test-TempDir-Tiny
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.018-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.018-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

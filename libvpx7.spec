@@ -6,7 +6,7 @@
 Name:			libvpx7
 Summary:		Compat package with libvpx libraries
 Version:		1.12.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 License:		BSD
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
@@ -210,6 +210,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/
 %{_libdir}/libvpx.so.%{somajor}*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

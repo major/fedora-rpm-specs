@@ -2,7 +2,7 @@
 
 Name:           maven-artifact-transfer
 Version:        0.13.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        Apache Maven Artifact Transfer
 License:        Apache-2.0
@@ -73,6 +73,9 @@ find -name Maven30\*.java -delete
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

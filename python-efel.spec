@@ -2,7 +2,7 @@
 
 %global forgeurl  https://github.com/BlueBrain/eFEL
 # Use github commit tar instead of pypi which does not include tests
-%global commit d7a7e70daf905489d1cd0d91c3f158e7bae56828
+%global commit cc9a2b71c14a507fabf509ba73cb053bae14a53c
 
 
 %global desc %{expand: \
@@ -19,7 +19,7 @@ the moment we provide a way to automatically compile and install the library as
 a Python module.}
 
 Name:           python-efel
-Version:        5.0.5
+Version:        5.4.0
 Release:        %autorelease
 Summary:        Electrophys Feature Extraction Library
 %forgemeta
@@ -28,7 +28,9 @@ Summary:        Electrophys Feature Extraction Library
 # https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec$
 ExcludeArch:    s390x
 
-License:        LGPLv3
+# spdx
+# pyfeatures/* and tests/* are BSD 3-Clause, the rest are LGPLv3
+License:        LGPL-3.0-only and BSD-3-Clause
 URL:            http://efel.readthedocs.io/
 Source0:        %{forgesource}
 # Use the _version.py from pypi
@@ -54,7 +56,6 @@ BuildRequires:  python3-scipy
 
 %prep
 %forgesetup
-%autopatch -p1
 rm -rf efel.egg-info
 
 # Install the version file
@@ -70,7 +71,7 @@ cp %{SOURCE1} efel/_version.py -v
 # Remove headers. We won't provide them here.
 rm -rf %{buildroot}/%{python3_sitearch}/efel/cppcore/
 %pyproject_install
-%pyproject_save_files efel
+%pyproject_save_files -l efel
 
 
 %check

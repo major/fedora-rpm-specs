@@ -1,6 +1,6 @@
 Name:           perl-XML-Handler-YAWriter
 Version:        0.23
-Release:        47%{?dist}
+Release:        48%{?dist}
 
 Summary:        Yet another Perl SAX XML Writer
 
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

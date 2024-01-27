@@ -1,6 +1,6 @@
 Name:		perl-Want
 Version:	0.29
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Perl module implementing a generalisation of wantarray
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Want
@@ -52,6 +52,9 @@ how its return value is going to be immediately used.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

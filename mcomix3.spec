@@ -15,7 +15,7 @@ It has been forked from the original MComix project and ported to python3.
 Name:			mcomix3
 # For now, choose version 0
 Version:		0
-Release:		0.30.D%{gitdate}git%{shortcommit}%{?dist}
+Release:		0.31.D%{gitdate}git%{shortcommit}%{?dist}
 Summary:		%base_summary
 # GPL version info is from mcomix/mcomixstarter.py
 License:		GPLv2+
@@ -226,6 +226,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.D20211016git483f4b3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.30.D20211016git483f4b3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

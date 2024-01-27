@@ -1,7 +1,7 @@
 Name:           liboglappth
 Summary:        An OpenGL wrapper library
 Version:        1.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 
 # SPDX confirmed
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Server-Simple-Authen
 Version:        0.04
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Authentication plugin for HTTP::Server::Simple
 # https://rt.cpan.org/Public/Bug/Display.html?id=71033
 # You can redistribute it and/or modify it under the same terms as Perl itself.
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

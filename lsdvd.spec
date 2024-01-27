@@ -1,7 +1,7 @@
 Summary: Small application for listing the contents of DVDs
 Name: lsdvd
 Version: 0.17
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2
 URL: http://sourceforge.net/projects/lsdvd/
 Source: http://downloads.sf.net/lsdvd/lsdvd-%{version}.tar.gz
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

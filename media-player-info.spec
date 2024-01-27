@@ -1,6 +1,6 @@
 Name:           media-player-info
 Version:        23
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Data files describing media player capabilities
 
 License:        BSD
@@ -45,6 +45,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

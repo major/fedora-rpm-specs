@@ -1,6 +1,6 @@
 Name:           perl-Test-Net-LDAP
 Version:        0.07
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Net::LDAP subclass for testing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Net-LDAP/
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

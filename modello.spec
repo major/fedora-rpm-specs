@@ -2,7 +2,7 @@
 
 Name:           modello
 Version:        2.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Modello Data Model toolkit
 # The majority of files are under MIT license, but some of them are ASL 2.0.
 # Some parts of the project are derived from the Exolab project,
@@ -97,6 +97,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

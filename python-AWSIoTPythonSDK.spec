@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.9
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SDK for connecting to AWS IoT using Python
 
 # ASL 2.0: main library
@@ -52,6 +52,9 @@ chmod -x {LICENSE.txt,README.rst,samples/*/*.py}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

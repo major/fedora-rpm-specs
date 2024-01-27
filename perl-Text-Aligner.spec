@@ -1,6 +1,6 @@
 Name:           perl-Text-Aligner
 Version:        0.16
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Text::Aligner Perl module
 License:        ISC
 URL:            https://metacpan.org/release/Text-Aligner
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libgxps
 Version:        0.3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GObject based library for handling and rendering XPS documents
 
 License:        LGPL-2.1-or-later
@@ -80,6 +80,9 @@ documents using the %{name} library.
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

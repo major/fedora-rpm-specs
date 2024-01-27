@@ -1,6 +1,6 @@
 Name:           perl-Gnome2
 Version:        1.048
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl interface to the 2.x series of the GNOME libraries (deprecated)
 # Gnome2.pm:    LGPLv2+
 # gnome2perl.h: LGPLv2+
@@ -121,6 +121,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.048-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.048-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

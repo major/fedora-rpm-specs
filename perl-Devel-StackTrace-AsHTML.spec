@@ -1,7 +1,7 @@
 Name:           perl-Devel-StackTrace-AsHTML
 Summary:        Displays a stack trace in HTML
 Version:        0.15
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Devel-StackTrace-AsHTML-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Devel-StackTrace-AsHTML
@@ -55,6 +55,9 @@ variables of each stack frame.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

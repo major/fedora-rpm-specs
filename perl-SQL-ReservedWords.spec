@@ -1,6 +1,6 @@
 Name:		perl-SQL-ReservedWords
 Version:	0.8
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Determine if words are reserved by ANSI/ISO SQL standard
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/SQL-ReservedWords
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

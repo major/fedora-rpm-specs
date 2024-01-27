@@ -41,7 +41,7 @@
 
 Name:      php-Monolog
 Version:   %{github_version}
-Release:   5%{?dist}
+Release:   6%{?dist}
 Summary:   Sends your logs to files, sockets, inboxes, databases and various web services
 
 License:   MIT
@@ -233,6 +233,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

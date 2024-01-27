@@ -1,6 +1,6 @@
 Name:           libspiro
 Version:        20221101
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library to simplify the drawing of beautiful curves
 
 # The files that are used to compile this library are all in GPLv3+
@@ -51,6 +51,9 @@ make check
 %{_mandir}/man3/libspiro.3.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20221101-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20221101-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

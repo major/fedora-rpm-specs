@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The Swiss Army Knife of the Bitcoin protocol
 
 License:        LGPLv3+
@@ -51,6 +51,9 @@ a focus on providing tools to manipulate the internals of how Bitcoin works.
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

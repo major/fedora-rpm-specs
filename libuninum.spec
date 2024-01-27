@@ -1,7 +1,7 @@
 Summary:       Library for converting unicode strings to numbers
 Name:          libuninum
 Version:       2.7
-Release:       35%{?dist}
+Release:       36%{?dist}
 # numconv is GPLv2, lib is LGPLv2
 License:       GPLv2 and LGPLv2
 URL:           http://billposer.org/Software/libuninum.html
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{_libdir}/libuninum.la
 %{_libdir}/libuninum.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

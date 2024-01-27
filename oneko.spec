@@ -1,7 +1,7 @@
 Name:           oneko
 Summary:        Cat chases the cursor
 Version:        1.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        Public Domain
 # Modified Source to remove BSD images, due to copyright.
 # Source0:      http://www.daidouji.com/oneko/distfiles/oneko-1.2.sakura.5.tar.gz
@@ -56,6 +56,9 @@ mv README-SUPP README-SUPP.jp
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

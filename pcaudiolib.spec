@@ -1,6 +1,6 @@
 Name:           pcaudiolib
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Portable C Audio Library
 
 # pcaudiolib bundles TPCircularBuffer with Cube license, which is only used
@@ -51,6 +51,9 @@ rm -vf %{buildroot}%{_libdir}/*.{a,la}
 %{_includedir}/%{name}/audio.h
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

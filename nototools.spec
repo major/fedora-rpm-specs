@@ -14,7 +14,7 @@ including the google.com/get/noto website.
 
 Name:		nototools
 Version:	0.2.17
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -175,6 +175,9 @@ popd
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

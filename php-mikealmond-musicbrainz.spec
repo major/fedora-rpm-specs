@@ -1,6 +1,6 @@
 Name:       php-mikealmond-musicbrainz
 Version:    0.2.2
-Release:    15%{?dist}
+Release:    16%{?dist}
 BuildArch:  noarch
 
 License:    MIT
@@ -65,6 +65,9 @@ phpunit --no-coverage --bootstrap %{buildroot}/%{_datadir}/php/MusicBrainz/autol
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

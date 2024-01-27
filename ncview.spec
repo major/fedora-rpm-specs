@@ -1,6 +1,6 @@
 Name:           ncview
 Version:        2.1.8
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A visual browser for netCDF format files
 License:        GPLv3
 URL:            http://meteora.ucsd.edu/~pierce/ncview_home_page.html
@@ -61,6 +61,9 @@ chrpath -l -d %{buildroot}%{_bindir}/ncview
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

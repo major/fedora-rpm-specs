@@ -2,7 +2,7 @@
 
 Name:           lib%{libname}
 Version:        0.2.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        MIDI to WAVE converter library
 License:        LGPLv2+ or Artistic
 URL:            http://libtimidity.sourceforge.net/
@@ -56,6 +56,9 @@ rm -vf %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

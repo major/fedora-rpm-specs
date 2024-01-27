@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	5.0
-Release:	3%{?dev:%{dev}}%{?dist}
+Release:	4%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -83,6 +83,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 29 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> 5.0-3
 - rebuild with gcc-14
 

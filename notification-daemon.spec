@@ -3,7 +3,7 @@
 Summary: Desktop Notification Daemon
 Name: notification-daemon
 Version: 3.20.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 URL: https://wiki.gnome.org/Projects/GnomeFlashback
 License: GPLv2+
 Provides: desktop-notification-daemon
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

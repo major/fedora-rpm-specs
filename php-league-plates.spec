@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        3.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Native PHP template system
 
 Group:          Development/Libraries
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

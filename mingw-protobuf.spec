@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.19.6
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows protobuf library
 
 BuildArch:     noarch
@@ -146,6 +146,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

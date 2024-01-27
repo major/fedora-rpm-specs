@@ -2,7 +2,7 @@
 
 Name:           mosquitto
 Version:        2.0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -117,6 +117,9 @@ exit 0
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

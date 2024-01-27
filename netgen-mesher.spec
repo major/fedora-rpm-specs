@@ -27,7 +27,7 @@
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
 Version:        6.2.2202
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Automatic mesh generation tool
 
 License:        LGPLv2
@@ -388,6 +388,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2202-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2202-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

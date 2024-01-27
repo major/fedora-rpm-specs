@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        2.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        FSHL: fast syntax highlighter
 
 License:        GPLv2+
@@ -101,6 +101,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Path-Iterator-Rule
 Version:        1.015
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Iterative, recursive file finder
 License:        Apache-2.0
 
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.015-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.015-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

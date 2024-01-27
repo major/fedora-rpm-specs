@@ -1,6 +1,6 @@
 Name:           perl-Boulder
 Version:        1.30
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        An API for hierarchical tag/value structures
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Boulder
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

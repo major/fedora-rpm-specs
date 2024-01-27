@@ -1,6 +1,6 @@
 Name:           mokutil
 Version:        0.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Epoch:          2
 Summary:        Tool to manage UEFI Secure Boot MoK Keys
 License:        GPL-3.0-or-later
@@ -47,6 +47,9 @@ mokutil provides a tool to manage keys for Secure Boot through the MoK
 %{_datadir}/bash-completion/completions/mokutil
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

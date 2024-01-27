@@ -1,6 +1,6 @@
 Name:		proxyfuzz	
 Version:	20190404
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Man-in-the-middle non-deterministic network fuzzer
 
 License:	GPLv3+
@@ -44,6 +44,9 @@ install -m 755 -p proxyfuzz.py ${RPM_BUILD_ROOT}/%{_sbindir}/proxyfuzz
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190404-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20190404-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

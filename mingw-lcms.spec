@@ -4,7 +4,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        1.19
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        MinGW Color Management System
 License:        MIT
 URL:            http://www.littlecms.com/
@@ -124,6 +124,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{mingw64_mandir}
 %{mingw64_libdir}/liblcms.a
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

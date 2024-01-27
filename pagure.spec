@@ -13,7 +13,7 @@
 
 Name:               pagure
 Version:            5.13.3
-Release:            9%{?dist}
+Release:            10%{?dist}
 Summary:            A git-centered forge
 
 License:            GPLv2+
@@ -25,6 +25,12 @@ Source10:           pagure-README.Fedora
 # Backports from upstream
 ## From: https://pagure.io/pagure/c/512f23f5cd1f965276969747792edeb1215cba68
 Patch0001:          fas_nosshcookie.patch
+## From:
+## https://pagure.io/pagure/c/f9a2d7d3fb7084374063b70b455f93ba5a421fd1
+## https://pagure.io/pagure/c/9be5b2dc8c057778262700251584ce38b8338d16
+Patch0002:          push_notification_changed_files.patch
+## From: https://pagure.io/pagure/c/133da07764314a73452487603f6f509b05f96204
+Patch0003:          user_token_pr_update_acl.patch
 
 
 BuildArch:          noarch
@@ -604,6 +610,13 @@ done
 
 
 %changelog
+* Mon Jan 22 2024 Nikola Forró <nforro@redhat.com> - 5.13.3-10
+- Backport patch: push_notification_changed_files.patch from upstream commits:
+    - f9a2d7d3fb7084374063b70b455f93ba5a421fd1
+    - 9be5b2dc8c057778262700251584ce38b8338d16
+- Backport patch: user_token_pr_update_acl.patch from upstream commit:
+    - 133da07764314a73452487603f6f509b05f96204
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

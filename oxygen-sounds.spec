@@ -1,6 +1,6 @@
 Name:           oxygen-sounds
 Version:        5.92.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Oxygen Sound Theme
 
 License:        LGPL-3.0-or-later AND CC0-1.0 AND CC-BY-3.0 AND BSD-2-Clause
@@ -40,6 +40,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.92.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           lxc
 Version:        4.0.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Linux Resource Containers
 License:        LGPLv2+ and GPLv2
 URL:            https://linuxcontainers.org/lxc
@@ -259,6 +259,9 @@ make check
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

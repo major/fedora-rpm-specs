@@ -2,7 +2,7 @@ Name:           perl-Smart-Comments
 Summary:        Comments that do more than just sit there
 Epoch:          1
 Version:        1.06
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Smart-Comments-%{version}.tar.gz
 URL:            https://metacpan.org/release/Smart-Comments
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.06-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.06-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

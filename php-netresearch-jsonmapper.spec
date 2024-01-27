@@ -19,7 +19,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        4.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Map nested JSON structures onto PHP classes
 
 License:        OSL-3.0
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

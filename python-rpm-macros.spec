@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Thu Jan 25 2024 Miro Hrončok <mhroncok@redhat.com> - 3.12-7
+- %%py3_test_envvars: Only set $PYTEST_XDIST_AUTO_NUM_WORKERS if not already set
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

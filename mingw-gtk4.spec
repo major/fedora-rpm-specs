@@ -6,7 +6,7 @@
 
 Name:           mingw-gtk4
 Version:        4.11.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPLv2+
@@ -215,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

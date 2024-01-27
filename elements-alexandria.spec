@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.31.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/Alexandria
 Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{name}-%{version}.tar.gz
@@ -10,6 +10,7 @@ Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{nam
 # https://upload.cppreference.com/w/File:cppreference-doxygen-web.tag.xml
 Source1:        cppreference-doxygen-web.tag.xml
 Patch0:         drop-isEqual.patch
+Patch1:         clear-python-error.patch
 
 %global elements_version 6.2.3
 
@@ -190,6 +191,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Thu Jan 25 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 2.31.0-5
+- Fix tests for python 3.13
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

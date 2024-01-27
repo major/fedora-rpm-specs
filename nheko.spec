@@ -1,6 +1,6 @@
 Name: nheko
 Version: 0.11.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -129,6 +129,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           notify-sharp
 Version:        0.4.1
-Release:        0.18.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.19.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        A C# implementation for Desktop Notifications
 License:        MIT
 URL:            https://github.com/hyperair/notify-sharp
@@ -76,6 +76,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT%{_prefix}/lib/pkgconf
 %files doc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-0.19.20130131git28d2f65
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-0.18.20130131git28d2f65
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

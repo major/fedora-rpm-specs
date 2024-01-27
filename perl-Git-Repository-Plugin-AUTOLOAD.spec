@@ -1,6 +1,6 @@
 Name:           perl-Git-Repository-Plugin-AUTOLOAD
 Version:        1.003
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Git subcommands as Git::Repository methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Git-Repository-Plugin-AUTOLOAD
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Petr Pisar <ppisar@redhat.com> - 1.003-25
 - Modernize a spec file
 - Package the tests

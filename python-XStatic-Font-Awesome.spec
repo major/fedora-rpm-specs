@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.2.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Font-Awesome (XStatic packaging standard)
 
 # The license is "same as Font-Awesome", which is OFL-1.1-RFN
@@ -70,6 +70,9 @@ ln -s %{_datadir}/fontawesome %{buildroot}%{python3_sitelib}/xstatic/pkg/font_aw
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

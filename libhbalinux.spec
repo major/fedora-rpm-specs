@@ -1,6 +1,6 @@
 Name:               libhbalinux
 Version:            1.0.17
-Release:            19%{?dist}
+Release:            20%{?dist}
 Summary:            FC-HBAAPI implementation using scsi_transport_fc interfaces
 License:            LGPL-2.1-only
 URL:                http://www.open-fcoe.org
@@ -68,6 +68,9 @@ fi
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

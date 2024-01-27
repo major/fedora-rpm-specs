@@ -18,7 +18,7 @@
 Summary:        Always Populate Form Data
 Name:           php-pecl-%{pecl_name}
 Version:        1.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}%{?prever}.tgz
@@ -157,6 +157,9 @@ TEST_PHP_ARGS="-n -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Tie-Cache
 Version:        0.21
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        LRU Cache in Memory
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Tie-Cache
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

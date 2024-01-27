@@ -1,6 +1,6 @@
 Name:           logcheck
 Version:        1.3.18
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Analyzes log files and sends noticeable events as email
 
 License:        GPLv2
@@ -115,6 +115,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

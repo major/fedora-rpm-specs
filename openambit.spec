@@ -3,7 +3,7 @@
 
 Name:           openambit
 Version:        0.5
-Release:        10%{?commit:.git%shortcommit}%{?dist}
+Release:        11%{?commit:.git%shortcommit}%{?dist}
 Summary:        Open software for the Suunto Ambit(2)
 
 License:        GPLv3+
@@ -131,6 +131,9 @@ rm -rf src/libambit/hidapi
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

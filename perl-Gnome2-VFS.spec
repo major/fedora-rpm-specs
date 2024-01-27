@@ -1,6 +1,6 @@
 Name:           perl-Gnome2-VFS
 Version:        1.084
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl interface to the 2.x series of the GNOME VFS library (deprecated)
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gnome2-VFS
@@ -67,6 +67,9 @@ rm -rf "$TMPHOME"
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.084-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.084-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

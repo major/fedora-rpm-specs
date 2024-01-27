@@ -6,7 +6,7 @@
 %endif
 Name:           perl-Sys-Syslog
 Version:        0.36
-Release:        503%{?dist}
+Release:        504%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-504
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-503
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

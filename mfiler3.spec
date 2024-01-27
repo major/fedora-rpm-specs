@@ -4,7 +4,7 @@
 
 Name:		mfiler3
 Version:	4.4.9
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Two pane file manager under UNIX console
 
 License:	GPL+
@@ -97,6 +97,9 @@ rm -rf ./Trash
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

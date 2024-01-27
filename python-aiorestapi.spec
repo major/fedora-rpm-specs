@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Rapid rest resources for aiohttp
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

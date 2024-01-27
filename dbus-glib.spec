@@ -7,7 +7,9 @@ Version: 0.112
 Release: 8%{?dist}
 Summary: GLib bindings for D-Bus
 
-License: AFL and GPLv2+
+# dbus/dbus-bash-completion-helper.c is GPL-2.0-or-later
+# some tests are (LGPL-2.1-or-later OR MIT) AND MIT, but not included in rpm
+License: (AFL-2.1 OR GPL-2.0-or-later) AND GPL-2.0-or-later
 URL:     https://www.freedesktop.org/software/dbus/
 #VCS:    git:https://gitlab.freedesktop.org/dbus/dbus-glib.git
 Source0: https://dbus.freedesktop.org/releases/dbus-glib/%{name}-%{version}.tar.gz

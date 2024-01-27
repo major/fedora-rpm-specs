@@ -1,6 +1,6 @@
 Name:           perl-WWW-Search
 Version:        2.519
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Virtual base class for WWW searches
 License:        BSD
 URL:            https://metacpan.org/release/WWW-Search
@@ -103,6 +103,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.519-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.519-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

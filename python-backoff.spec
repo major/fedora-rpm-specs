@@ -8,7 +8,7 @@ polling resources for externally generated content.
 
 Name:      python-%{srcname}
 Version:   2.2.1
-Release:   5%{?dist}
+Release:   6%{?dist}
 BuildArch: noarch
 
 License: MIT
@@ -47,6 +47,9 @@ Summary: %{summary}
 %{python3_sitelib}/%{srcname}-*.dist-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

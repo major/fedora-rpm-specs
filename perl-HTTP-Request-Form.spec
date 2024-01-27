@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Request-Form
 Version:        0.952
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Construct HTTP::Request objects for form processing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Request-Form
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.952-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.952-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

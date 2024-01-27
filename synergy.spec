@@ -5,7 +5,7 @@
 Summary: Share mouse and keyboard between multiple computers over the network
 Name: synergy
 Epoch: 1
-Version: 1.14.6.18
+Version: 1.14.6.19
 Release: 1%{?dist}
 License: GPLv2
 URL: https://symless.com/synergy
@@ -128,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synergy.desktop
 %{_mandir}/man8/synergys.8.gz
 
 %changelog
+* Thu Jan 25 2024 Ding-Yi Chen <dchen@redhat.com> - 1:1.14.6.19-1
+- Update to v1.14.6.19-stable
+
 * Sun Jan 21 2024 David Kaufmann <astra@ionic.at> - 1:1.14.6.18-1
 - Update to v1.14.6.18-stable
 

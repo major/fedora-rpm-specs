@@ -2,7 +2,7 @@
 
 Name:           mingw-plotmm
 Version:        0.1.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        MinGW GTKmm plot widget for scientific applications
 License:        LGPLv2
 URL:            http://plotmm.sourceforge.net/
@@ -126,6 +126,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Hijk
 Version:        0.28
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Specialized HTTP client
 License:        MIT
 
@@ -60,6 +60,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/Hijk*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

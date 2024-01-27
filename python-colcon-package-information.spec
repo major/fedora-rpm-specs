@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Extension for colcon to output package information
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to provide information about the packages.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           normaliz
 Version:        3.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for discrete convex geometry
 
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
@@ -144,6 +144,9 @@ LD_LIBRARY_PATH=$PWD/source/.libs make check
 %{_includedir}/libnormaliz/
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

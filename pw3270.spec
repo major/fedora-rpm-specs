@@ -1,6 +1,6 @@
 Name:           pw3270
 Version:        5.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        IBM 3270 Terminal emulator for GTK
 
 License:        LGPLv3
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

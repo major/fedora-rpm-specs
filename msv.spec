@@ -1,6 +1,6 @@
 Name:           msv
 Version:        2022.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-Schema Validator Toolkit
 # License breakdown
 # Apache-1.1
@@ -87,6 +87,9 @@ rm xsdlib/src/main/java/com/sun/msv/datatype/xsd/regex/XercesImpl.java
 %license Apache-LICENSE-1.1.txt license.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.17
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
@@ -279,6 +279,9 @@ make check %{?_smp_mflags}
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

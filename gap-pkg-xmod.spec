@@ -1,8 +1,8 @@
 %global pkgname XMod
 
 Name:           gap-pkg-xmod
-Version:        2.91
-Release:        4%{?dist}
+Version:        2.92
+Release:        1%{?dist}
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
 License:        GPL-2.0-or-later
@@ -10,9 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/xmod/
 Source0:        https://github.com/gap-packages/xmod/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Fix documentation errors
-# https://github.com/gap-packages/xmod/pull/136
-Patch0:         %{name}-double-doc.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -87,6 +84,10 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Jan 25 2024 Jerry James <loganjerry@gmail.com> - 2.92-1
+- Version 2.92
+- Drop upstreamed double-doc patch
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.91-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -200,6 +200,9 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		libs3
 Version:	4.1
-Release:	0.18.20190408git%{shortcommit}%{?dist}
+Release:	0.19.20190408git%{shortcommit}%{?dist}
 Summary:	C Library and Tools for Amazon S3 Access
 
 License:	LGPLv3+ or GPLv2+
@@ -65,6 +65,9 @@ make %{?_smp_mflags} test VERBOSE=1
 %{_libdir}/libs3.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-0.19.20190408git287e4be
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-0.18.20190408git287e4be
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -21,29 +21,30 @@
 
 # Disable support for missing codecs in RHEL
 %{!?rhel:%global _with_soxr 1}
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global _with_lame 1
-%endif
+
+# Disable support for AAD WebView popup since it uses webkit2gtk-4.0
+#global _with_webview 1
+
+# FIXME: GCC 14.x says there's lots of incompatible pointer casts going on...
+%global build_type_safety_c 2
 
 Name:           freerdp
-Version:        2.11.4
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.freerdp.com/
 
 Source0:        https://github.com/FreeRDP/FreeRDP/archive/%{version}/FreeRDP-%{version}.tar.gz
 
-Patch:          channels-rdpsnd-fix-missing-include.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
-BuildRequires:  cmake >= 2.8
+BuildRequires:  cmake >= 3.13
 BuildRequires:  cups-devel
 BuildRequires:  gsm-devel
-%{?_with_lame:BuildRequires:  lame-devel}
+BuildRequires:  lame-devel
 BuildRequires:  libicu-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libX11-devel
@@ -61,25 +62,37 @@ BuildRequires:  libXv-devel
 %{?_with_openh264:BuildRequires:  openh264-devel}
 %{?_with_x264:BuildRequires:  x264-devel}
 %{?_with_server:BuildRequires:  pam-devel}
+BuildRequires:  pkcs11-helper-devel
 BuildRequires:  xmlto
 BuildRequires:  zlib-devel
 BuildRequires:  multilib-rpm-config
 
+BuildRequires:  cmake(cJSON)
+# Packaging error led to cmake files in the wrong place
+# Fixed in https://src.fedoraproject.org/rpms/uriparser/c/1b07302bfc80983fbf84283783370e8338d36429
+BuildRequires:  (cmake(uriparser) and uriparser-devel)
+
 BuildRequires:  pkgconfig(cairo)
 %{?_with_gss:BuildRequires:  pkgconfig(krb5) >= 1.13}
+BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(libpcsclite)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(opus)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(SDL2_ttf)
 %{?_with_soxr:BuildRequires:  pkgconfig(soxr)}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
+%{?_with_webview:BuildRequires:  pkgconfig(webkit2gtk-4.0)}
 BuildRequires:  pkgconfig(xkbcommon)
 
 %{?_with_ffmpeg:
 BuildRequires:  pkgconfig(libavcodec) >= 57.48.101
 BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
 }
 
 Provides:       xfreerdp = %{?epoch}:%{version}-%{release}
@@ -110,7 +123,7 @@ libfreerdp-core can be extended with plugins handling RDP channels.
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       pkgconfig
-Requires:       cmake >= 2.8
+Requires:       cmake >= 3.13
 
 %description    devel
 The %{name}-devel package contains libraries and header files for developing
@@ -141,7 +154,7 @@ the equivalent WinPR implementation, without having to modify the code using it.
 Summary:        Windows Portable Runtime development files
 Requires:       libwinpr%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       pkgconfig
-Requires:       cmake >= 2.8
+Requires:       cmake >= 3.13
 
 %description -n libwinpr-devel
 The %{name}-libwinpr-devel package contains libraries and header files for
@@ -158,31 +171,40 @@ find . -name "*.c" -exec chmod 664 {} \;
 %cmake %{?_cmake_skip_rpath} \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
+    -DWITH_AAD=ON \
     -DWITH_CAIRO=ON \
     -DWITH_CUPS=ON \
     -DWITH_CHANNELS=ON -DBUILTIN_CHANNELS=OFF \
     -DWITH_CLIENT=ON \
+    -DWITH_CLIENT_SDL=ON \
     -DWITH_DIRECTFB=OFF \
     -DWITH_DSP_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
+    -DWITH_FUSE=ON \
     -DWITH_GSM=ON \
     -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
     -DWITH_ICU=ON \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
-    -DWITH_LAME=%{?_with_lame:ON}%{?!_with_lame:OFF} \
+    -DWITH_LAME=ON \
     -DWITH_MANPAGES=ON \
     -DWITH_OPENCL=%{?_with_opencl:ON}%{?!_with_opencl:OFF} \
     -DWITH_OPENH264=%{?_with_openh264:ON}%{?!_with_openh264:OFF} \
     -DWITH_OPENSSL=ON \
+    -DWITH_OPUS=ON \
     -DWITH_PCSC=ON \
     -DWITH_PULSE=ON \
+    -DWITH_SAMPLE=OFF \
     -DWITH_SERVER=%{?_with_server:ON}%{?!_with_server:OFF} \
     -DWITH_SERVER_INTERFACE=%{?_with_server:ON}%{?!_with_server:OFF} \
     -DWITH_SHADOW_X11=%{?_with_server:ON}%{?!_with_server:OFF} \
     -DWITH_SHADOW_MAC=%{?_with_server:ON}%{?!_with_server:OFF} \
     -DWITH_SOXR=%{?_with_soxr:ON}%{?!_with_soxr:OFF} \
+    -DWITH_SWSCALE=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
+    -DWITH_URIPARSER=ON \
+    -DWITH_VIDEO_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_WAYLAND=ON \
+    -DWITH_WEBVIEW=%{?_with_webview:ON}%{?!_with_webview:OFF} \
     -DWITH_X11=ON \
     -DWITH_XCURSOR=ON \
     -DWITH_XEXT=ON \
@@ -220,13 +242,15 @@ find . -name "*.c" -exec chmod 664 {} \;
 
 find %{buildroot} -name "*.a" -delete
 
-%multilib_fix_c_header --file %{_includedir}/freerdp2/freerdp/build-config.h
+%multilib_fix_c_header --file %{_includedir}/freerdp3/freerdp/build-config.h
 
 %files
+%{_bindir}/sdl-freerdp
 %{_bindir}/winpr-hash
 %{_bindir}/winpr-makecert
 %{_bindir}/wlfreerdp
 %{_bindir}/xfreerdp
+%{_mandir}/man1/sdl-freerdp.1*
 %{_mandir}/man1/winpr-hash.1*
 %{_mandir}/man1/winpr-makecert.1*
 %{_mandir}/man1/wlfreerdp.1*
@@ -235,65 +259,79 @@ find %{buildroot} -name "*.a" -delete
 %files libs
 %license LICENSE
 %doc README.md ChangeLog
-%{_libdir}/freerdp2/
-%{_libdir}/libfreerdp-client2.so.*
+%{_libdir}/freerdp3/
+%{_libdir}/libfreerdp-client3.so.*
 %{?_with_server:
-%{_libdir}/libfreerdp-server2.so.*
-%{_libdir}/libfreerdp-shadow2.so.*
-%{_libdir}/libfreerdp-shadow-subsystem2.so.*
+%{_libdir}/libfreerdp-server3.so.*
+%{_libdir}/libfreerdp-server-proxy3.so.*
+%{_libdir}/libfreerdp-shadow3.so.*
+%{_libdir}/libfreerdp-shadow-subsystem3.so.*
 }
-%{_libdir}/libfreerdp2.so.*
+%{_libdir}/libfreerdp3.so.*
 %{_libdir}/libuwac0.so.*
+%{_libdir}/librdtk0.so.*
 %{_mandir}/man7/wlog.*
 
 %files devel
-%{_includedir}/freerdp2
-%{_includedir}/uwac0
-%{_libdir}/cmake/FreeRDP2
-%{_libdir}/cmake/FreeRDP-Client2
+%{_includedir}/freerdp3/
+%{_includedir}/uwac0/
+%{_includedir}/rdtk0/
+%{_libdir}/cmake/FreeRDP3/
+%{_libdir}/cmake/FreeRDP-Client3/
 %{?_with_server:
-%{_libdir}/cmake/FreeRDP-Server2
-%{_libdir}/cmake/FreeRDP-Shadow2
+%{_libdir}/cmake/FreeRDP-Proxy3/
+%{_libdir}/cmake/FreeRDP-Server3/
+%{_libdir}/cmake/FreeRDP-Shadow3/
 }
-%{_libdir}/cmake/uwac0
-%{_libdir}/libfreerdp-client2.so
+%{_libdir}/cmake/uwac0/
+%{_libdir}/cmake/rdtk0/
+%{_libdir}/libfreerdp-client3.so
 %{?_with_server:
-%{_libdir}/libfreerdp-server2.so
-%{_libdir}/libfreerdp-shadow2.so
-%{_libdir}/libfreerdp-shadow-subsystem2.so
+%{_libdir}/libfreerdp-server3.so
+%{_libdir}/libfreerdp-server-proxy3.so
+%{_libdir}/libfreerdp-shadow3.so
+%{_libdir}/libfreerdp-shadow-subsystem3.so
 }
-%{_libdir}/libfreerdp2.so
+%{_libdir}/libfreerdp3.so
 %{_libdir}/libuwac0.so
-%{_libdir}/pkgconfig/freerdp2.pc
-%{_libdir}/pkgconfig/freerdp-client2.pc
+%{_libdir}/librdtk0.so
+%{_libdir}/pkgconfig/freerdp3.pc
+%{_libdir}/pkgconfig/freerdp-client3.pc
 %{?_with_server:
-%{_libdir}/pkgconfig/freerdp-server2.pc
-%{_libdir}/pkgconfig/freerdp-shadow2.pc
+%{_libdir}/pkgconfig/freerdp-server3.pc
+%{_libdir}/pkgconfig/freerdp-server-proxy3.pc
+%{_libdir}/pkgconfig/freerdp-shadow3.pc
 }
 %{_libdir}/pkgconfig/uwac0.pc
+%{_libdir}/pkgconfig/rdtk0.pc
 
 %{?_with_server:
 %files server
 %{_bindir}/freerdp-proxy
 %{_bindir}/freerdp-shadow-cli
+%{_mandir}/man1/freerdp-proxy.1*
 %{_mandir}/man1/freerdp-shadow-cli.1*
 }
 
 %files -n libwinpr
 %license LICENSE
 %doc README.md ChangeLog
-%{_libdir}/libwinpr2.so.*
-%{_libdir}/libwinpr-tools2.so.*
+%{_libdir}/libwinpr3.so.*
+%{_libdir}/libwinpr-tools3.so.*
 
 %files -n libwinpr-devel
-%{_libdir}/cmake/WinPR2
-%{_includedir}/winpr2
-%{_libdir}/libwinpr2.so
-%{_libdir}/libwinpr-tools2.so
-%{_libdir}/pkgconfig/winpr2.pc
-%{_libdir}/pkgconfig/winpr-tools2.pc
+%{_libdir}/cmake/WinPR3/
+%{_libdir}/cmake/WinPR-tools3/
+%{_includedir}/winpr3/
+%{_libdir}/libwinpr3.so
+%{_libdir}/libwinpr-tools3.so
+%{_libdir}/pkgconfig/winpr3.pc
+%{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Jan 24 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.2.0-1
+- Rebase to 3.2.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.11.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

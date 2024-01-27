@@ -1,7 +1,7 @@
 Name:           ltunify
 URL:            https://lekensteyn.nl/logitech-unifying.html
 Version:        0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPLv3+
 Summary:        Command line utility for Logitech Unifying Receiver
 Source:         https://git.lekensteyn.nl/ltunify/snapshot/ltunify-0.1.tar.gz
@@ -36,6 +36,9 @@ install -p -m0755 usbmon.awk %{buildroot}%{_bindir}
 %{_bindir}/usbmon.awk
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

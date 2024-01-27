@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 Name:		poppler-sharp
 Version:	0.0.3
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	C sharp Bindings for Poppler
 Summary(es):	Enlaces C# para Poppler
 License:	GPLv2+
@@ -64,6 +64,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

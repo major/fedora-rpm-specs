@@ -1,7 +1,7 @@
 Summary:            Perl extension for generating XML
 Name:               perl-XML-Generator
 Version:            1.13
-Release:            3%{?dist}
+Release:            4%{?dist}
 License:            GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:                https://metacpan.org/release/XML-Generator
 Source0:            https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/XML-Generator-%{version}.tar.gz
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pam_yubico
 Version:        2.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Pluggable Authentication Module for yubikeys
 
 License:        BSD
@@ -43,6 +43,9 @@ rm $RPM_BUILD_ROOT/%{_lib}/security/pam_yubico.la
 %{_mandir}/man8/pam_yubico.8.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.27-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

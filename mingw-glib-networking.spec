@@ -5,7 +5,7 @@
 
 Name:           mingw-glib-networking
 Version:        2.78.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows glib-networking library
 
 License:        LGPL-2.1-or-later
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.78.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.78.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Dumbbench
 Version:        0.503
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        More reliable bench-marking with the least amount of thinking
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dumbbench
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.503-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.503-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

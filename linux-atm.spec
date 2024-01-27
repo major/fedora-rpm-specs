@@ -1,7 +1,7 @@
 Summary: Tools to support ATM networking under Linux
 Name: linux-atm
 Version: 2.5.1
-Release: 38%{?dist}
+Release: 39%{?dist}
 # The licensing here is a mess. This is as close to accurate as possible.
 License: BSD and GPLv2 and GPLv2+ and LGPLv2+ and MIT
 URL: http://linux-atm.sourceforge.net/
@@ -111,6 +111,9 @@ rm -rf _doc/init-redhat/{CVS,.cvsignore}
 %{_libdir}/libatm.so
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Frantisek Sumsal <frantisek@sumsal.cz> - 2.5.1-38
 - Fix FTBFS with gcc-14
 

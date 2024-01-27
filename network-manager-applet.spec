@@ -20,7 +20,7 @@
 Name: network-manager-applet
 Summary: A network control and status applet for NetworkManager
 Version: 1.36.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnome.org/projects/NetworkManager/
 Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
@@ -28,7 +28,9 @@ Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
 Source: https://download.gnome.org/sources/network-manager-applet/1.36/%{name}-%{version}.tar.xz
 Patch1: 0001-nm-applet-no-notifications.patch
 
+%if ! 0%{?flatpak}
 Requires: NetworkManager >= %{nm_version}
+%endif
 Requires: nm-connection-editor%{?_isa} = %{version}-%{release}
 Requires: libnma%{?_isa} >= %{libnma_version}
 
@@ -150,6 +152,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nm-connection-edit
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.36.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Íñigo Huguet <ihuguet@redhat.com> - 1.36.0-1
 - Update to 1.36.0 release
 

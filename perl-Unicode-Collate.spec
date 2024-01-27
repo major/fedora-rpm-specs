@@ -1,6 +1,6 @@
 Name:           perl-Unicode-Collate
 Version:        1.31
-Release:        501%{?dist}
+Release:        502%{?dist}
 Summary:        Unicode Collation Algorithm
 # Collate/allkeys.txt:  Unicode-DFS-2016 (the file contains a link to
 #                       <http://www.unicode.org/terms_of_use.html>)
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-502
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-501
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

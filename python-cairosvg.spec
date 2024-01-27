@@ -4,7 +4,7 @@
 
 Name:               python-cairosvg
 Version:            2.7.0
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            A Simple SVG Converter for Cairo
 
 License:            LGPLv3+
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{python3_sitelib}/%{modname}/test_api.py
 %{_bindir}/cairosvg
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

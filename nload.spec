@@ -1,6 +1,6 @@
 Name:           nload
 Version:        0.7.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A tool can monitor network traffic and bandwidth usage in real time
 License:        GPLv2+
 URL:            http://www.roland-riegel.de/nload/
@@ -34,6 +34,9 @@ network usage.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:   perl-MIME-Lite-TT-HTML
 Version:        0.04
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        MIME::Lite::TT::HTML - Create html mail with MIME::Lite and TT
 
 License:        GPL+ or Artistic
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

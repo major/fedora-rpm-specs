@@ -1,6 +1,6 @@
 Name:           perl-SGML-Parser-OpenSP
 Version:        0.994
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Perl interface to the OpenSP SGML and XML parser
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ make test
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.994-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.994-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

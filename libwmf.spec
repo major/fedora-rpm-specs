@@ -1,7 +1,7 @@
 Summary: Windows MetaFile Library
 Name: libwmf
 Version: 0.2.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 #libwmf is under the LGPLv2+, however...
 #1. The tarball contains an old version of the urw-fonts under GPL+.
 #   Those fonts are not installed
@@ -94,6 +94,9 @@ sed -i $RPM_BUILD_ROOT%{_datadir}/libwmf/fonts/fontmap -e 's#libwmf/fonts#fonts/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

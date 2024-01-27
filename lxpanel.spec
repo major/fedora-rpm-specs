@@ -33,7 +33,7 @@
 #%%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.10.1
-%global		baserelease	2
+%global		baserelease	3
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -240,6 +240,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1^20230918git633a2d46-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1^20230918git633a2d46-2
 - Change -Wincompatible-pointer-types from error to warning
 

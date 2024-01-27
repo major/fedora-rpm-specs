@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.3.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Doctrine Persistence abstractions
 
 License:        MIT
@@ -163,6 +163,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate imagequant
 
 Name:           rust-imagequant
-Version:        4.2.2
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Convert 24/32-bit images to 8-bit palette with alpha channel
 

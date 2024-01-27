@@ -5,7 +5,7 @@
 
 Name:           migrationtools
 Version:        %{version}
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Migration scripts for LDAP
 
 License:        BSD
@@ -59,6 +59,9 @@ install -m 755 migrate_* $RPM_BUILD_ROOT/%{_datadir}/%{name}
 %doc migration-tools.txt
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

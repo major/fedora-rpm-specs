@@ -11,7 +11,7 @@ specific configurations on the fly, without asking the user to manually
 write a configuration file.}
 
 Name:           python-%{pypi_name}
-Version:        3.1.1.post1
+Version:        3.1.1.post2
 Release:        %{autorelease}
 Summary:        Command line interface for vkBasalt
 BuildArch:      noarch

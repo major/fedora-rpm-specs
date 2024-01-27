@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-parsexp
 Version:        0.16.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        S-expression parsing library
 
 License:        MIT
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

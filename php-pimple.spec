@@ -36,7 +36,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       A simple dependency injection container for PHP
 
 License:       MIT
@@ -151,6 +151,9 @@ EOF
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

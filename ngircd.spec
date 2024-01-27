@@ -1,6 +1,6 @@
 Name:           ngircd
 Version:        26.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Next Generation IRC Daemon
 License:        GPLv2+
 URL:            http://ngircd.barton.de/
@@ -158,6 +158,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 26.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 26.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

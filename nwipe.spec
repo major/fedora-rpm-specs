@@ -1,6 +1,6 @@
 Name:           nwipe
 Version:        0.35
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Securely erase disks using a variety of recognized methods
 
 
@@ -97,6 +97,9 @@ autoreconf -vif
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

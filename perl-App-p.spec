@@ -1,6 +1,6 @@
 Name:           perl-App-p
 Version:        0.0400
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Steroids for your perl one-liners
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-p
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0400-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0400-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

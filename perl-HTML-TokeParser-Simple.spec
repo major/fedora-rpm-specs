@@ -1,6 +1,6 @@
 Name:           perl-HTML-TokeParser-Simple
 Version:        3.16
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Easy to use HTML::TokeParser interface
 License:        GPL+ or Artistic
 
@@ -54,6 +54,9 @@ self-documenting) questions about the tokens returned.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

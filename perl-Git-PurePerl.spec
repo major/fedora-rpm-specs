@@ -1,6 +1,6 @@
 Name:           perl-Git-PurePerl
 Version:        0.53
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Pure Perl interface to Git repositories
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-PurePerl
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

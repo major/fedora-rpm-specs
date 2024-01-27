@@ -12,7 +12,7 @@
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
 Version:          0.9.6
-Release:          21.%{git_suffix}%{?dist}
+Release:          22.%{git_suffix}%{?dist}
 License:          GPLv2+ and GPLv3+ and AGPLv3+
 BuildRequires:    autoconf, automake, libtool, pcsc-lite-devel, doxygen
 BuildRequires:    libtalloc-devel, findutils, sed, python3
@@ -97,6 +97,9 @@ make check
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-22.20170220git32ee5af8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-21.20170220git32ee5af8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

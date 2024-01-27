@@ -1,5 +1,5 @@
 Version: 1.002
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://astralinux.ru/en/information/#section-fonts-astra
 
@@ -47,6 +47,9 @@ unzip -n %{SOURCE0} -d %{name}-%{version}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

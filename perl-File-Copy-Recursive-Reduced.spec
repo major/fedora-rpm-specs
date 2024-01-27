@@ -1,6 +1,6 @@
 Name:		perl-File-Copy-Recursive-Reduced
 Version:	0.007
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Recursive copying of files and directories within Perl 5 toolchain
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-Copy-Recursive-Reduced
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/File::Copy::Recursive::Reduced.3*
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

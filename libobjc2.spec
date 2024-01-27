@@ -7,7 +7,7 @@
 
 Name:           libobjc2
 Version:        2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GNUstep Objective-C runtime library
 License:        GPLv2
 URL:            https://github.com/gnustep/libobjc2
@@ -99,6 +99,9 @@ mv %{buildroot}%{_includedir}/Block.h %{buildroot}%{_includedir}/Block-libobjc.h
 %{_libdir}/pkgconfig/libobjc.pc
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

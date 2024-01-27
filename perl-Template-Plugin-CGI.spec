@@ -1,7 +1,7 @@
 Summary:       Simple Template Toolkit plugin interfacing to the CGI module
 Name:          perl-Template-Plugin-CGI
 Version:       3.101
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:           https://metacpan.org/release/Template-Plugin-CGI
 Source:        https://cpan.metacpan.org/modules/by-module/Template/Template-Plugin-CGI-%{version}.tar.gz
@@ -61,6 +61,9 @@ unset AUTHOR_TESTING
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.101-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.101-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

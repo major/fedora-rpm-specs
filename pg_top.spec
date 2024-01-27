@@ -1,7 +1,7 @@
 Summary:	'top' for PostgreSQL process
 Name:		pg_top
 Version:	4.0.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	BSD
 Source0:	https://pg_top.gitlab.io/source/pg_top-4.0.0.tar.xz
 URL:		https://pg_top.gitlab.io/
@@ -36,6 +36,9 @@ query plans, issued locks, and table and index statistics.
 %license LICENSE
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -64,9 +64,10 @@ URL:            https://github.com/facebook/folly
 Source:         %{url}/archive/v%{version}/folly-%{version}.tar.gz
 # workaround in https://github.com/facebook/folly/issues/1991 no longer works with GCC 14.0.1
 # https://github.com/facebook/folly/issues/2129
-Patch:          folly-gcc14-fix-type-pack-element-again.diff
+Patch:          %{url}/commit/445e9bca80e8c4d4fa3fba8df30d1016f56b3b53.diff#/folly-gcc14-type-pack-element-detail.diff
+Patch:          %{url}/commit/d016a2782a00d984f204358fb88a4a22cb46c4fd.diff#/folly-gcc14-type-pack-element-no_mangling.diff
 # need to include algorithm header for std::count_if. Being upstreamed.
-Patch:          folly-gcc14-add-algorithm-for-count_if.diff
+Patch:          %{url}/commit/24364f4ba03cfd71b715ed7852ee85d5813b7f43.diff#/folly-gcc14-add-algorithm-for-count_if.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 

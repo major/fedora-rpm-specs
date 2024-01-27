@@ -8,7 +8,7 @@ and references to other objects.
 
 Name: python-btrfs
 Version: 13
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Python module to inspect btrfs filesystems
 License: LGPLv3+ and MIT
 URL: https://github.com/knorrie/python-btrfs
@@ -73,6 +73,9 @@ install -m 0644 man/* %{buildroot}%{_mandir}/man1
 %license COPYING.LESSER
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

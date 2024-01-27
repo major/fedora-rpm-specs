@@ -4,7 +4,7 @@
 
 Name:           postsrsd
 Version:        2.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sender Rewriting Scheme (SRS) provider
 
 License:        GPLv2+
@@ -109,6 +109,9 @@ fi
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
