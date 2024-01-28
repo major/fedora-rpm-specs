@@ -7,18 +7,19 @@
 %global __provides_exclude_from ^%{tb_plugindir}/.*\\.so$
 
 Name:           rust-sequoia-octopus-librnp
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Reimplementation of RNP's interface using Sequoia for use with Thunderbird
 
 License:        LGPL-2.0-or-later
 URL:            https://crates.io/crates/sequoia-octopus-librnp
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          sequoia-octopus-librnp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * enable default features in rand and rand_distr dependencies:
 #   fixes undefined references to rand::thread_rng
 # * exclude files only useful for upstream development
-# * do not use bundled sqlite in rusqlite
 # * drop build script and build-dependencies:
 #   git repository is not available when building from published crates
 Patch:          sequoia-octopus-librnp-fix-metadata.diff

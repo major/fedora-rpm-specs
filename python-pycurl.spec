@@ -23,7 +23,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -162,6 +162,9 @@ make test PYTHON=%{__python3} PYTEST=%{pytest} PYFLAKES=true
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-9
 - fix FTBFS on Rawhide
 

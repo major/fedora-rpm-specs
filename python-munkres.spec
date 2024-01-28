@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A Munkres algorithm for Python
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ the matrix, such that no row and no column are used more than once.
 %{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

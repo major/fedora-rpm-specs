@@ -6,7 +6,7 @@
 
 Name:           scalpel
 Version:        2.1
-Release:        0.rc2.%{shortcommit}%{?dist}.2
+Release:        0.rc2.%{shortcommit}%{?dist}.3
 Summary:        Fast file carver working on disk images
 
 License:        GPLv2+
@@ -77,6 +77,9 @@ rm -f  %{buildroot}/%{_libdir}/libscalpel*.la
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.rc2.35e1367.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.rc2.35e1367.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

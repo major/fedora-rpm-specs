@@ -6,7 +6,7 @@
 
 Name:		perl-Test-Mojibake
 Version:	1.3
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Check your source for encoding misbehavior
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Mojibake
@@ -63,7 +63,9 @@ BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Synopsis)
+%if 0%{?fedora} < 39 && 0%{?rhel} < 10
 BuildRequires:	perl(Test::Vars)
+%endif
 BuildRequires:	perl(Test::Version)
 # Modules only available from EL-8
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -133,6 +135,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1 RELEASE_TESTING=1} \
 %{_mandir}/man3/Test::Mojibake.3*
 
 %changelog
+* Fri Jan 26 2024 Paul Howarth <paul@city-fan.org> - 1.3-31
+- Drop BR: perl(Test::Vars) from Fedora 39 onwards as Test::Vars is FTBFS with
+  Perl 5.38
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

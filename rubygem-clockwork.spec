@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A scheduler process to replace cron
 License: MIT
 URL: http://github.com/Rykian/clockwork
@@ -97,6 +97,9 @@ popd
 %{gem_instdir}/example.rb
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-numpydoc
 Version:        1.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension to support docstrings in NumPy format
 
 # Replace ast.NameConstant deprecated in Python 3.12 with ast.Constant
@@ -56,6 +56,9 @@ sed -i '\,#!/usr/bin/env python,d' numpydoc/validate.py
 %{_bindir}/validate-docstrings
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,7 +12,7 @@ colorsys module in the Python standard library):
 
 Name:           python-webcolors
 Version:        1.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library for working with HTML and CSS color names and value formats
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:               python-twiggy
 Version:            0.5.1
-Release:            10%{?dist}
+Release:            11%{?dist}
 Summary:            A Pythonic logger
 
 License:            BSD
@@ -67,6 +67,9 @@ rm -rf %{distname}.egg-info
 %{python3_sitelib}/%{distname}-%{version}-*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

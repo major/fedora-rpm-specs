@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Additional libraries for Rake
 License: MIT
 URL: https://github.com/ruby/rake-contrib
@@ -72,6 +72,9 @@ popd
 %{gem_instdir}/rake-contrib.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

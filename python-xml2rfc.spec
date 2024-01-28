@@ -2,7 +2,7 @@
 
 Name:           python-xml2rfc
 Version:        3.9.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Convert IETF RFC-7749 XML into txt format
 
 License:        BSD with advertising
@@ -60,6 +60,9 @@ sed -i "s/jinja2>=2.11,<3.0/jinja2>=2.11/" requirements.txt
 %{_bindir}/xml2rfc
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

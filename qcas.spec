@@ -5,7 +5,7 @@ ExcludeArch: aarch64 %{power64} s390x
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
 Version:       0.5.3
-Release:       22%{?dist}
+Release:       23%{?dist}
 License:       GPLv3+
 URL:           http://webusers.imj-prg.fr/~frederic.han/qcas
 Source0:       https://git.tuxfamily.org/qcas/qcas.git/snapshot/%{name}-%{version}.zip
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

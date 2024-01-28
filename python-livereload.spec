@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.6.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Utility for starting a server in a directory
 
 License:        BSD
@@ -74,6 +74,9 @@ LiveReload documentation and examples.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

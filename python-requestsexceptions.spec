@@ -8,7 +8,7 @@ requests library regardless of whether they are bundled.
 
 Name:           python-%{pypi_name}
 Version:        1.4.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Import exceptions from potentially bundled packages in requests
 
 License:        ASL 2.0
@@ -45,6 +45,9 @@ BuildRequires:  python3-pbr
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

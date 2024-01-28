@@ -3,7 +3,7 @@
 
 Name:           python-musicbrainzngs
 Version:        0.7.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python bindings for MusicBrainz NGS webservice
 
 License:        BSD and ISC
@@ -58,6 +58,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} nosetests-%{python3_version}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

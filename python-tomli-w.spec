@@ -2,7 +2,7 @@
 
 Name:           python-tomli-w
 Version:        1.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python library for writing TOML
 
 # SPDX
@@ -72,6 +72,9 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

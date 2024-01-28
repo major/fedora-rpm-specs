@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A few useful extensions to core Ruby classes
 
 License:        MIT
@@ -62,6 +62,9 @@ rspec -Ilib spec
 %exclude %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 30 2023 Ilia Gradina <ilgrad@fedoraproject.org> - 0.1.3-1
 - Update to 0.1.3-1
 

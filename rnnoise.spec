@@ -4,7 +4,7 @@
 
 Name:       rnnoise
 Version:    0
-Release:    0.9.%{date}git%{shortcommit}%{?dist}
+Release:    0.10.%{date}git%{shortcommit}%{?dist}
 Summary:    Recurrent neural network for audio noise reduction
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/HB2GPMVKMTNP5WDGIRNU5NZUO4JWQPII/
@@ -75,6 +75,9 @@ rm %{buildroot}%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10.20210312git7f449bf
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9.20210312git7f449bf
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

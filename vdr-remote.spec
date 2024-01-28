@@ -3,12 +3,12 @@
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Extended remote control plugin for VDR
 
 License:        GPL+
@@ -71,6 +71,9 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-29
+- Rebuilt for new VDR API version
+
 * Thu Jan 04 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-28
 - Rebuilt for new VDR API version
 

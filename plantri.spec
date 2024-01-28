@@ -1,6 +1,6 @@
 Name:           plantri
-Version:        5.3
-Release:        4%{?dist}
+Version:        5.4
+Release:        1%{?dist}
 Summary:        Generate certain types of planar graphs
 
 %global upstreamver %(sed 's/\\.//g' <<< %{version})
@@ -8,6 +8,8 @@ Summary:        Generate certain types of planar graphs
 License:        Apache-2.0
 URL:            https://users.cecs.anu.edu.au/~bdm/plantri/
 Source0:        %{url}plantri%{upstreamver}.tar.gz
+# Eliminate many warnings about use of uninitialized variables
+Patch0:         %{name}-uninitialized.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -26,7 +28,7 @@ speed of generation is more than 2,000,000 graphs per second in many
 cases, so extremely large classes of graph can be exhaustively listed.
 
 %prep
-%autosetup -n %{name}%{upstreamver}
+%autosetup -n %{name}%{upstreamver} -p1
 
 %build
 %make_build CFLAGS='%{build_cflags}' LDFLAGS='%{build_ldflags}'
@@ -37,10 +39,14 @@ cp -p plantri fullgen %{buildroot}%{_bindir}
 
 %files
 %doc fullgen-guide.txt more-counts.txt plantri-guide.txt
+%license LICENSE-2.0.txt
 %{_bindir}/plantri
 %{_bindir}/fullgen
 
 %changelog
+* Fri Jan 26 2024 Jerry James <loganjerry@gmail.com> - 5.4-1
+- Version 5.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

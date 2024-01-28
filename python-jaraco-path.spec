@@ -1,6 +1,6 @@
 Name:           python-jaraco-path
 Version:        3.3.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Miscellaneous path functions
 
 License:        MIT
@@ -54,6 +54,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pycached %exclude %{python3_sitelib}/jaraco/__init__.py
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

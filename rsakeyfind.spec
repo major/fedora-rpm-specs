@@ -1,6 +1,6 @@
 Name:           rsakeyfind
 Version:        1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 # 3-clause BSD license
 License:        BSD
 Summary:        Locate BER-encoded RSA private and public keys in memory images
@@ -79,6 +79,9 @@ install -p -m644 %{SOURCE3} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

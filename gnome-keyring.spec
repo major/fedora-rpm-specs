@@ -6,7 +6,7 @@
 
 Name:           gnome-keyring
 Version:        42.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Framework for managing passwords and other secrets
 
 License:        GPLv2+ and LGPLv2+
@@ -14,6 +14,7 @@ URL:            https://wiki.gnome.org/Projects/GnomeKeyring
 Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/52
 Patch0:         gnome-keyring-42.0-fix-strncpy.patch
+Patch1: gnome-keyring-c89.patch
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -131,6 +132,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Fri Jan 26 2024 Florian Weimer <fweimer@redhat.com> - 42.1-10
+- Fix C compatibility issue
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

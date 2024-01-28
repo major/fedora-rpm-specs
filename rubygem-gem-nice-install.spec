@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A RubyGems plugin that improves gem installation user experience
 License: MIT
 URL: https://github.com/voxik/gem-nice-install
@@ -62,6 +62,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

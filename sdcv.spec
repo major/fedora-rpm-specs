@@ -2,7 +2,7 @@
 
 Name:           sdcv
 Version:        0.5.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Console version of StarDict program
 License:        GPLv2+
 URL:            http://sdcv.sourceforge.net/
@@ -42,6 +42,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/uk/man1/sdcv.1.gz
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

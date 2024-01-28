@@ -1,6 +1,6 @@
 Name:		scrub
 Version:	2.6.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Disk scrubbing program
 License:	GPL-2.0-or-later
 URL:		https://github.com/chaos/scrub/
@@ -51,6 +51,9 @@ autoreconf -ifv --include=config
 %{_mandir}/man1/scrub.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

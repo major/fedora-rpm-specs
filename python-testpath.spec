@@ -2,7 +2,7 @@
 
 Name:           python-testpath
 Version:        0.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Test utilities for code working with files and commands
 
 License:        BSD-3-Clause
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

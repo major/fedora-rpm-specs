@@ -1,6 +1,6 @@
 Name: python2-cairo
 Version: 1.18.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Python 2 bindings for the cairo library
 
 License: MPLv1.1 or LGPLv2
@@ -84,6 +84,9 @@ test -f %{buildroot}%{python2_egg_path}
 %{_libdir}/pkgconfig/pycairo.pc
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

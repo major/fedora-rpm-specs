@@ -6,7 +6,7 @@
 
 Name:           rust-devicemapper-sys
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low level bindings for devicemapper
 
 License:        MPL-2.0
@@ -66,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.0-1
 - Update to version 0.2.0
 

@@ -2,7 +2,7 @@
 %global		qt_module qthttpserver
 Name:		qt6-qthttpserver
 Version:	6.6.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Library to facilitate the creation of an http server with Qt
 
 License:	BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -80,6 +80,9 @@ to the usage of %{name}.
 %{_qt6_libdir}/qt6/examples/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

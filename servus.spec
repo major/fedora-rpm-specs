@@ -15,7 +15,7 @@ Version:       1.5.2
 %global version_major 1
 %global version_minor 6
 %global version_patch 0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Zeroconf discovery in C++
 
 # RSA license for the MD5 code which is based on the RSA licensed code
@@ -112,6 +112,9 @@ make test
 %{_datadir}/Servus
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

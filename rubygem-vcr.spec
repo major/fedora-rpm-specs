@@ -4,7 +4,7 @@
 Summary: Record test suite HTTP interactions and replay during future test runs
 Name: rubygem-%{gem_name}
 Version: 2.3.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: MIT
 URL: http://github.com/myronmarston/vcr
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -40,6 +40,9 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

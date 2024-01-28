@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.4
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Ruby Modelling and Generator Framework
 License: MIT
 URL: https://github.com/mthiede/rgen
@@ -81,6 +81,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.4-11
 - Adjust gem_install macro change for ruby33
 - Adjust to recent Minitest 5.19+

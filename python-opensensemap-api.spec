@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python Client for interacting with the openSenseMap API
 
 License:        MIT
@@ -39,6 +39,9 @@ A Python client for interacting with the openSenseMap API.
 %{python3_sitelib}/opensensemap_api*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

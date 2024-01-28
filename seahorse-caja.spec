@@ -2,7 +2,7 @@ Summary:        PGP encryption and signing for caja
 Name:           seahorse-caja
 License:        GPLv2+
 Version:        1.18.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/darkshram/%{name}
 Source0:        https://github.com/darkshram/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mate-seahorse-pgp-sig
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

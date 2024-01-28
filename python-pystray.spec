@@ -9,7 +9,7 @@
 
 Name:		python-%{upname}
 Version:	0.17.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	%{common_sum}
 
 License:	LGPLv3+
@@ -89,6 +89,9 @@ done
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

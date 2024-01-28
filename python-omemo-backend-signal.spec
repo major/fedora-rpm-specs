@@ -1,6 +1,6 @@
 Name:           python-omemo-backend-signal
 Version:        0.3.1~beta
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A backend for python-omemo offering compatibility with libsignal
 
 License:        GPLv3
@@ -69,6 +69,9 @@ extension of XMPP protocol.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1~beta-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1~beta-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

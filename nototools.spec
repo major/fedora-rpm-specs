@@ -13,8 +13,8 @@ used to maintain the Noto Fonts project, \
 including the google.com/get/noto website.
 
 Name:		nototools
-Version:	0.2.17
-Release:	7%{?dist}
+Version:	0.2.19
+Release:	1%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -148,7 +148,6 @@ popd
 %{_bindir}/fix_khmer_and_lao_coverage.py
 %{_bindir}/fix_noto_cjk_thin.py
 %{_bindir}/generate_sample_text.py
-%{_bindir}/generate_website_2_data.py
 %{_bindir}/merge_fonts.py
 %{_bindir}/merge_noto.py
 %{_bindir}/noto_lint.py
@@ -175,6 +174,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Peng Wu <pwu@redhat.com> - 0.2.19-1
+- Update to 0.2.19
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

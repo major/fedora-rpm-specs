@@ -1,6 +1,6 @@
 Name:           spglib
 Summary:        C library for finding and handling crystal symmetries
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 License:        BSD
 URL:            https://spglib.readthedocs.io/

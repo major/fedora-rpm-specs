@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Memoize your methods
 License: MIT
 URL: https://github.com/wegowise/memoizer
@@ -63,6 +63,9 @@ rspec spec
 %exclude %{gem_docdir}/rdoc
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,20 +1,13 @@
-%undefine __cmake_in_source_build
 %global base_name libkipi
 
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
@@ -79,6 +72,9 @@ Requires: cmake(KF5XmlGui)
 
 
 %changelog
+* Fri Jan 26 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
+- 24.01.90
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

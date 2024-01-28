@@ -7,12 +7,12 @@
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 Name:           vdr-skinelchihd
 Version:        1.2.4
-Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.2.%{gitdate}git%{shortcommit0}%{?dist}
 # Release:        2%%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 
@@ -72,6 +72,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-0.2.20231222git53f8c87
+- Rebuilt for new VDR API version
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-0.1.20231222git53f8c87
 - Rebuilt for new VDR API version
 - Add BR gettext for rawhide

@@ -1,9 +1,8 @@
 Name:    lksctp-tools
 Summary: User-space access to Linux Kernel SCTP
 Version: 1.0.19
-Release: 6%{?dist}
-# src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
-License: GPLv2 and GPLv2+ and LGPLv2 and MIT
+Release: 7%{?dist}
+License: GPL-2.0-or-later and LGPL-2.0-only and MIT
 Group:   System Environment/Libraries
 URL:     http://lksctp.sourceforge.net
 
@@ -78,6 +77,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %doc doc/*.txt
 
 %changelog
+* Fri Jan 26 2024 Xin Long <lxin@redhat.com> - 1.0.19-7
+- Use SDPX license IDs
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

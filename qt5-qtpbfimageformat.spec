@@ -4,7 +4,7 @@
 
 Name:           qt5-qtpbfimageformat
 Version:        3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt image plugin for displaying Mapbox vector tiles
 
 License:        GPLv3
@@ -55,6 +55,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.8.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: This library provides a simple way to write new native resources for puppet
 License: Apache-2.0
 URL: https://github.com/puppetlabs/puppet-resource_api
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{gem_instdir}/{.gitignore,.rubocop.yml,.travis.yml,appveyor.
 %{gem_instdir}/puppet-resource_api.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 1.8.18-1
 - Update to 1.8.18 (fixes rhbz#2224646)
 

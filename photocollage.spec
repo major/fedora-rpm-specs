@@ -1,9 +1,10 @@
 Summary:        Graphical tool to make photo collage posters
 Name:           photocollage
-Version:        1.4.5
+Version:        1.4.6
 Release:        %autorelease
 Url:            https://github.com/adrienverge/PhotoCollage
-License:        GPLv2+
+# SPDX
+License:        GPL-2.0-only
 
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch

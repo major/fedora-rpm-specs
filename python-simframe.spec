@@ -18,7 +18,7 @@ and which can read and write data files.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python framework for setting up and running scientific simulations
 License:        BSD-3-Clause
 URL:            https://github.com/stammler/%{pypi_name}
@@ -95,6 +95,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %doc examples/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           ddrescue
-Version:        1.27
-Release:        4%{?dist}
+Version:        1.28
+Release:        1%{?dist}
 Summary:        Data recovery tool trying hard to rescue data in case of read errors
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/ddrescue/ddrescue.html
 Source0:        http://ftpmirror.gnu.org/ddrescue/ddrescue-%{version}.tar.lz
 Source1:        http://ftpmirror.gnu.org/ddrescue/ddrescue-%{version}.tar.lz.sig
@@ -50,6 +50,9 @@ make check
 %{_infodir}/%{name}.info*
 
 %changelog
+* Fri Jan 26 2024 Michal Ambroz <rebus AT_ seznam.cz> - 1.28-1
+- Update to 1.28
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

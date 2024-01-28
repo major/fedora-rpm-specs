@@ -4,7 +4,7 @@
 
 Name:		ruby-taglib
 Version:	1.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Ruby library wrapping the Taglib library
 
 License:	MIT
@@ -62,6 +62,9 @@ ruby setup.rb install \
 %{ruby_vendorlibdir}/taglib.rb
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

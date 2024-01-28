@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	0.7
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Python module to parse Erlang BEAM files
 License:	MIT
 URL:		https://github.com/matwey/%{srcname}
@@ -52,6 +52,9 @@ Python module to parse Erlang BEAM files.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

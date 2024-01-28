@@ -6,7 +6,7 @@
 
 Name:           python-%{modname}
 Version:        6.25.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        IPython Kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/ipython/%{modname}
@@ -133,6 +133,9 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.25.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.25.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

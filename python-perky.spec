@@ -1,6 +1,6 @@
 Name:           python-perky
 Version:        0.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A simple, Pythonic file format
 
 License:        MIT
@@ -57,6 +57,9 @@ cd tests
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

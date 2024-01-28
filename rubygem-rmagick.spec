@@ -9,7 +9,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 
 Name:		rubygem-%{gem_name}
 Version:	5.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -154,6 +154,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.3.0-3
 - Backport upstream patch to fix test with ImageMagick 7.1.1-26
 

@@ -1,6 +1,6 @@
 Name:       rgb
 Version:    1.0.6
-Release:    47%{?dist}
+Release:    48%{?dist}
 Summary:    X color name database
 
 License:    MIT-open-group
@@ -36,6 +36,9 @@ autoreconf -v --install
 %{_mandir}/man1/showrgb.1*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

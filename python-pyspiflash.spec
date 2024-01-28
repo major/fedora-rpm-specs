@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python SPI data flash device drivers
 
 License:        MIT
@@ -46,6 +46,9 @@ products, to store firmware, microcode or configuration parameters.
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

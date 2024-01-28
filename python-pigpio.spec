@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.78
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Raspberry Pi GPIO module
 
 License:        Unlicense
@@ -39,6 +39,9 @@ Raspberry Pi Python module to access the pigpio daemon.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

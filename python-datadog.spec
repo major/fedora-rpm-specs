@@ -2,7 +2,7 @@
 
 Name:           python-datadog
 Version:        0.44.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python wrapper for the Datadog API
 License:        BSD
 
@@ -56,6 +56,9 @@ rm %{buildroot}/%{_bindir}/dog{,wrap}
 %{_bindir}/dogshellwrap
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

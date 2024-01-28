@@ -9,21 +9,29 @@
 
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{short_name}
-Version:		4.4.5
-Release:		3%{?dist}
+Version:		4.5.0
+Release:		2%{?dist}
 License:		BSD
+
 URL:			http://pgpool.net
 Source0:		http://www.pgpool.net/mediawiki/images/%{short_name}-%{version}.tar.gz
 Source1:		pgpool.service
 Source2:		pgpool.sysconfig
 Source3:		pgpool.init
+
+# Temporarily stop building i686 architecture as the build fails
+# This is a temporary workaround
+ExcludeArch: i686
+
 BuildRequires:		make
 BuildRequires:		gcc
 BuildRequires:		clang-devel llvm-devel
 BuildRequires:		postgresql-server-devel
 BuildRequires:		pam-devel, libmemcached-devel, openssl-devel
+
 %if %{systemd_enabled}
 BuildRequires:		systemd
+
 # We require this to be present for %%{_prefix}/lib/tmpfiles.d
 Requires:		systemd
 Requires(post):		systemd-sysv
@@ -240,16 +248,22 @@ fi
 
 
 %changelog
+* Fri Jan 26 2024 Ondrej Sloup <osloup@redhat.com> - 4.5.0-2
+- Temporarily stop building i686
+
+* Fri Jan 26 2024 Ondrej Sloup <osloup@redhat.com> - 4.5.0-1
+- Rebase to the latest upstream version (rhbz#2252211)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.5-1
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.5-1
 - Update to 4.4.5
 
-* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.4-2
+* Tue Dec 05 2023 Filip Janus <fjanus@redhat.com> - 4.4.4-2
 - Rebuild for demodularized version of postgresql
 - remove postgresq-_module_compat since it is not working with demodularized packages
 

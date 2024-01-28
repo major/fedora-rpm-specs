@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Simple HTTP and REST client for Ruby
 License: MIT
 URL: https://github.com/rest-client/rest-client
@@ -115,6 +115,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

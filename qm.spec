@@ -44,7 +44,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.6.1
+Version: 0.6.2
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -59,7 +59,6 @@ BuildArch: noarch
 BuildRequires: golang-github-cpuguy83-md2man
 BuildRequires: container-selinux
 BuildRequires: make
-BuildRequires: vsomeip3-selinux
 BuildRequires: git-core
 BuildRequires: pkgconfig(systemd)
 BuildRequires: selinux-policy >= %_selinux_policy_version

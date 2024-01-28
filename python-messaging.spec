@@ -3,7 +3,7 @@
 
 Name:		python-messaging
 Version:	1.2
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Python abstraction of a "message"
 License:	ASL 2.0
 URL:		https://github.com/cern-mig/%{name}
@@ -61,6 +61,9 @@ rm -f test/*.pyc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

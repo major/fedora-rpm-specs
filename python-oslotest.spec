@@ -15,7 +15,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OpenStack test framework
 
 License:        ASL 2.0
@@ -117,6 +117,9 @@ python3 setup.py test
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Slim is a template language
 License: MIT
 URL: http://github.com/slim-template/slim/
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 5.1.1-1
 - Update to Slim 5.1.1.
   Resolves: rhbz#2163510

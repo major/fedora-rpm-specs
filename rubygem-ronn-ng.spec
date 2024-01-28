@@ -3,7 +3,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Builds man pages from Markdown
 License:        MIT
 URL:            https://github.com/apjanke/ronn-ng
@@ -106,6 +106,9 @@ popd
 %{gem_instdir}/ronn-ng.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 08 2024 Vít Ondruch <vondruch@redhat.com> - 0.10.1-1
 - Update to Ronn-NG 0.10.1
 

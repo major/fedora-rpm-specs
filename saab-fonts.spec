@@ -1,5 +1,5 @@
 Version: 0.91
-Release: 29%{?dist}
+Release: 30%{?dist}
 URL:     http://guca.sourceforge.net/typography/fonts/saab/
 
 %global fontlicense       GPLv2+ with exceptions
@@ -38,6 +38,9 @@ cp -p %{SOURCE20} .
 %fontfiles
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 09 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.91-29
 - Convert SPEC to follow new packaging guidelines
 - Use SPDX license expression

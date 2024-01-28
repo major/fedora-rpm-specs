@@ -7,7 +7,7 @@
 Name:		perl-MouseX-SimpleConfig
 Summary:	A Mouse role for setting attributes from a simple configfile
 Version:	0.11
-Release:	34%{?dist}
+Release:	35%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-SimpleConfig
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-SimpleConfig-%{version}.tar.gz
@@ -56,7 +56,8 @@ BuildRequires:	perl(Test::NoTabs)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
-BuildRequires:	perl(Test::Vars)
+# Note: Test::Vars not used since it is FTBFS with Perl 5.38
+#BuildRequires:	perl(Test::Vars)
 # Dependencies
 # (none)
 
@@ -93,6 +94,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/MouseX::SimpleConfig.3*
 
 %changelog
+* Fri Jan 26 2024 Paul Howarth <paul@city-fan.org> - 0.11-35
+- Drop BR: perl(Test::Vars), which is FTBFS with Perl 5.38
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

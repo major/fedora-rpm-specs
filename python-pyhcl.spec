@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HCL configuration parser for Python
 
 License:        MPL-2.0
@@ -55,6 +55,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest tests
 %{python3_sitelib}/pyhcl-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

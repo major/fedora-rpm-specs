@@ -27,7 +27,7 @@
 
 Name:           freerdp2
 Version:        2.11.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
 URL:            http://www.freerdp.com/
@@ -90,7 +90,7 @@ machines, xrdp and VirtualBox.
 
 %package        libs
 Summary:        Core libraries implementing the RDP protocol
-Requires:       libwinpr%{?_isa} = %{version}-%{release}
+Requires:       libwinpr2%{?_isa} = %{version}-%{release}
 %description    libs
 libfreerdp-core can be embedded in applications.
 
@@ -262,6 +262,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Fri Jan 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.11.4-4
+- Fix dependency in libs subpackage
+
 * Wed Jan 24 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.11.4-3
 - Split out as a compatibility package
 

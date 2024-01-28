@@ -19,7 +19,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.11.1
+Version:        4.12.1
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -95,8 +95,6 @@ Recommends:     python3-devel
 # https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/NVVUXSVSPFQOWIGBE2JNI67HEO7R63ZQ/
 
 %py_provides    python3-tox
-# Remove this once Fedora 36 goes EOL:
-Obsoletes:      python3-tox < 3.24.4-2
 
 %description -n tox %_description
 
@@ -106,7 +104,7 @@ Obsoletes:      python3-tox < 3.24.4-2
 
 # Upstream updates dependencies too aggressively
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
-sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|diff-cover|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|pluggy|distlib|cachetools)>=.*/"\1",/g' \
+sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|diff-cover|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|pluggy|distlib|cachetools|build\[virtualenv\])>=.*/"\1",/g' \
         -e "s/'(time-machine)>=[^;']+/'\1/" \
         -e 's/"(virtualenv)>=.*/"\1>=20",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
@@ -150,6 +148,7 @@ k="${k-}${k+ and }not test_call_as_exe"
 # unknown reason, reported: https://github.com/tox-dev/tox/issues/2841
 k="${k-}${k+ and }not test_local_execute_basic_pass_show_on_standard_newline_flush"
 k="${k-}${k+ and }not test_local_execute_write_a_lot"
+k="${k-}${k+ and }not test_run_installpkg_targz"
 %endif
 
 %pytest -v -n auto -k "${k-}" --run-integration

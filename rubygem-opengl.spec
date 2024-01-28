@@ -17,7 +17,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -160,6 +160,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-27
 - Change -Wincompatible-pointer-types from error to warning
 

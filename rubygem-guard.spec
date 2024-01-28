@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.18.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Guard keeps an eye on your file modifications
 License: MIT
 URL: http://guardgem.org
@@ -124,6 +124,9 @@ popd
 %doc %{gem_instdir}/man/guard.1.html
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

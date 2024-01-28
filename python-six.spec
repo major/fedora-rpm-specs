@@ -3,7 +3,7 @@
 
 Name:           python-six
 Version:        1.16.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python 2 and 3 compatibility utilities
 
 # SPDX
@@ -68,6 +68,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

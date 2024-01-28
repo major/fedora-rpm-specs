@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.3.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        UUID generator based on RFC 4122
 
 License:        MIT or CC-BY-SA
@@ -107,6 +107,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-19
 - Apply upstream PR for mocha 2.0 compatibility
 

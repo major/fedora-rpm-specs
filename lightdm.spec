@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 License:	(LGPLv2 or LGPLv3) and GPLv3+
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Fri Jan 26 2024 Christoph Junghans <junghans@votca.org> - 1.32.0-9
+- Fix start order with systemd-hostnamed.service in lightdm.service (bug #2167386)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

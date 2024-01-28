@@ -1,6 +1,6 @@
 Name:           rpmrebuild
 Version:        2.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool to build rpm file from rpm database
 
 License:        GPLv2+
@@ -110,6 +110,9 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		rejson
 Version:	1.0.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	JSON data type for Redis
 
 # Commit ID for latest goodform fix (not released)
@@ -49,6 +49,9 @@ install -pDm755 src/%{name}.so %{buildroot}%{redis_modules_dir}/%{name}.so
 %{redis_modules_dir}/%{name}.so
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

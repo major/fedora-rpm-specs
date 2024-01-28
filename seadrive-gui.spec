@@ -2,7 +2,7 @@
 
 Name:           seadrive-gui
 Version:        2.0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI part of Seafile Drive client
 
 # main source:  Apache-2.0
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.0.28-1
 - Update to 2.0.28 (#2232277)
 - Convert License tag to SPDX

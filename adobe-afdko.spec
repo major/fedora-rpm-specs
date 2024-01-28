@@ -2,13 +2,13 @@
 
 Name:		adobe-afdko
 Version:	3.6.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 # ExternalAntlr4Cpp.cmake is BSD-3-clause
 # c/makeotf/makeotf_lib/build/hotpccts/pccts/* is ANTLR-PD
 # afdko-3.6.1/python/afdko/pdflib/pdfgen.py is Python-2.0.1
 # python/afdko/resources/ is BSD-3-Clause
-License:	Apache-2.0 AND BSD-3-clause AND ANTLR-PD AND Python-2.0.1
+License:	Apache-2.0 AND BSD-3-Clause AND ANTLR-PD AND Python-2.0.1
 URL:		https://github.com/adobe-type-tools/afdko
 Source0:	https://github.com/adobe-type-tools/%{archivename}/releases/download/%{version}/%{archivename}-%{version}.tar.gz
 Patch0: adobe-afdko-c99-1.patch
@@ -26,6 +26,7 @@ from PostScript and TrueType font data.
 
 %build
 %set_build_flags
+export XFLAGS="${CFLAGS} ${LDFLAGS}"
 pushd c
 sh buildalllinux.sh release
 popd
@@ -42,6 +43,11 @@ find ./ -type f -executable -exec install -p -m 0755 "{}" \
 %{_bindir}/*
 
 %changelog
+* Thu Jan 25 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.1-10
+- Fix a typo in the License expression
+- Fix build not respecting distribution compiler flags; this means executables
+  are now PIE, and the debuginfo package is now useful
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pure python IPMI library
 
 License:        LGPLv2+
@@ -61,6 +61,9 @@ export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
 %{python3_sitelib}/*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

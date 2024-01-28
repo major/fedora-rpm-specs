@@ -2,7 +2,7 @@
 
 Name:       scap-workbench
 Version:    1.2.1
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Scanning, tailoring, editing and validation tool for SCAP content
 
 License:    GPL-3.0-or-later
@@ -70,6 +70,9 @@ sed -i -e 's/-Werror//' CMakeLists.txt
 %doc %{_pkgdocdir}/README.md
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

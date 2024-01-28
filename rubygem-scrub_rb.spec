@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.0.1
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Pure-ruby polyfill of MRI 2.1 String#scrub
 
 License:	MIT
@@ -93,6 +93,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

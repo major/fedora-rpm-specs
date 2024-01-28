@@ -14,7 +14,7 @@ io operations appear blocking at the source code level.}
 
 Name:           python-%{srcname}
 Version:        0.33.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
@@ -79,6 +79,9 @@ nosetests-%{python3_version} -v -e greendns_test -e socket_test -e test_patcher_
 %doc doc/_build/html
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

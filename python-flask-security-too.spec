@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        5.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -72,6 +72,9 @@ rm -rf Flask_Security_Too.egg-info
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -1678,6 +1678,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0~a3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a3-2
 - Enable python3.13-freethreading and python3.13-freethreading-debug on ppc64le
 

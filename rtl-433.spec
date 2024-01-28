@@ -4,7 +4,7 @@
 
 Name: rtl-433
 Version: 23.11
-Release: 2.%{commit_date}git%{commit_short}%{dist}
+Release: 3.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 License: GPLv2
@@ -94,6 +94,9 @@ rm -rf %{buildroot}%{_usr}%{_sysconfdir}
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-3.20231218git60bdd62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-2.20231218git60bdd62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

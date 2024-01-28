@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	4
+%global	baserelease	5
 
 %global	gem_name	rspec-expectations
 
@@ -112,6 +112,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 06 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.3-4
 - Remove unneeded conditionals for new MiniTest support
 

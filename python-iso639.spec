@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.1.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        ISO639-2 support for Python
 
 License:        MIT
@@ -41,6 +41,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

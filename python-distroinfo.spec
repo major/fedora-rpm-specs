@@ -10,7 +10,7 @@ friendly way. If you consider code reviews human friendly, that is.\
 
 Name:             python-distroinfo
 Version:          0.6.2
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          %{summary}
 License:          ASL 2.0
 URL:              https://github.com/softwarefactory-project/distroinfo
@@ -62,6 +62,9 @@ rm -f {test-,}requirements.txt
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

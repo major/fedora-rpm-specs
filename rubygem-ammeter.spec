@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Write specs for your Rails 3+ generators
 License: MIT
 URL: https://github.com/alexrothenberg/%{gem_name}
@@ -71,6 +71,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

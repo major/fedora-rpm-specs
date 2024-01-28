@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        2.8.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python interface to Debian's Bug Tracking System
 
 License:        MIT
@@ -61,6 +61,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/python_debianbts-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

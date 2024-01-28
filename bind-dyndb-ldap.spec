@@ -12,10 +12,10 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://releases.pagure.org/bind-dyndb-ldap
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2
 Source1:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2.asc
@@ -130,6 +130,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Fri Jan 26 2024 Rafael Jeffman <rjeffman@redhat.com> - 11.10-26
+- Migrated to SPDX license.
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.10-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

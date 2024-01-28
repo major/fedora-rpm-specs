@@ -19,6 +19,10 @@
 %global _with_server 1
 %endif
 
+# Force uwac to be static to avoid conflicts with freerdp2
+# FIXME: Disable this once all freerdp2 consumers are ported to freerdp3
+%global _with_static_uwac 1
+
 # Disable support for missing codecs in RHEL
 %{!?rhel:%global _with_soxr 1}
 
@@ -30,7 +34,7 @@
 
 Name:           freerdp
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
@@ -233,6 +237,7 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DARM_FP_ABI=soft \
     -DWITH_NEON=OFF \
 %endif
+    -DUWAC_FORCE_STATIC_BUILD=%{?_with_static_uwac:ON}%{?!_with_static_uwac:OFF} \
     %{nil}
 
 %cmake_build
@@ -268,13 +273,17 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libfreerdp-shadow-subsystem3.so.*
 }
 %{_libdir}/libfreerdp3.so.*
+%{?!_with_static_uwac:
 %{_libdir}/libuwac0.so.*
+}
 %{_libdir}/librdtk0.so.*
 %{_mandir}/man7/wlog.*
 
 %files devel
 %{_includedir}/freerdp3/
+%{?!_with_static_uwac:
 %{_includedir}/uwac0/
+}
 %{_includedir}/rdtk0/
 %{_libdir}/cmake/FreeRDP3/
 %{_libdir}/cmake/FreeRDP-Client3/
@@ -283,7 +292,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/cmake/FreeRDP-Server3/
 %{_libdir}/cmake/FreeRDP-Shadow3/
 }
+%{?!_with_static_uwac:
 %{_libdir}/cmake/uwac0/
+}
 %{_libdir}/cmake/rdtk0/
 %{_libdir}/libfreerdp-client3.so
 %{?_with_server:
@@ -293,7 +304,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libfreerdp-shadow-subsystem3.so
 }
 %{_libdir}/libfreerdp3.so
+%{?!_with_static_uwac:
 %{_libdir}/libuwac0.so
+}
 %{_libdir}/librdtk0.so
 %{_libdir}/pkgconfig/freerdp3.pc
 %{_libdir}/pkgconfig/freerdp-client3.pc
@@ -302,7 +315,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/freerdp-server-proxy3.pc
 %{_libdir}/pkgconfig/freerdp-shadow3.pc
 }
+%{?!_with_static_uwac:
 %{_libdir}/pkgconfig/uwac0.pc
+}
 %{_libdir}/pkgconfig/rdtk0.pc
 
 %{?_with_server:
@@ -329,6 +344,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Sat Jan 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.2.0-2
+- Force static libuwac to deconflict with freerdp2
+
 * Wed Jan 24 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.2.0-1
 - Rebase to 3.2.0
 

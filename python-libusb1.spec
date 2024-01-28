@@ -1,6 +1,6 @@
 Name:           python-libusb1
 Version:        3.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Pure-python wrapper for libusb-1.0
 
 License:        LGPLv2+
@@ -61,6 +61,9 @@ rm -rf libusb1.egg-info
 %{python3_sitelib}/libusb1-*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

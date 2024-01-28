@@ -1,6 +1,6 @@
 Name:           rpl
 Version:        1.5.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Intelligent recursive search/replace utility
 
 License:        GPLv2+
@@ -47,6 +47,9 @@ sed -i s/1\.5\.6/%{version}/ setup.py
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

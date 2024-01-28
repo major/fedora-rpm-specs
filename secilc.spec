@@ -2,7 +2,7 @@
 
 Name:           secilc
 Version:        3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
@@ -66,6 +66,9 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.6-1
 - SELinux userspace 3.6 release
 

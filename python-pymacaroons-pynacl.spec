@@ -14,7 +14,7 @@ enforcement of that policy.\
 
 Name:           python-%{pkgname}
 Version:        0.13.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Library providing non-opaque cookies for authorization
 
 License:        MIT
@@ -80,6 +80,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

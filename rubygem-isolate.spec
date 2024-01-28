@@ -3,7 +3,7 @@ Summary:	Very simple RubyGems sandbox
 
 Name:		rubygem-%{gem_name}
 Version:	3.5.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	MIT
 URL:		http://github.com/jbarnette/isolate
 Source0:	https://rubygems.org/downloads/%{gem_name}-%{version}.gem
@@ -73,6 +73,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

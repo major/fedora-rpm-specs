@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-SQLite
 Version:        0.11
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Extension to Class::DBI for sqlite
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-SQLite
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

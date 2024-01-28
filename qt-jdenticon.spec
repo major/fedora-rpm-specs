@@ -2,7 +2,7 @@
 
 Name: qt-jdenticon
 Version: 0.3.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 Summary: Jdenticon Qt5 plugin
@@ -41,6 +41,9 @@ mv %{buildroot}/usr %{buildroot}/app
 %{_qt5_plugindir}/libqtjdenticon.so
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

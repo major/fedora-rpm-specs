@@ -22,7 +22,7 @@ libxs features and adds some nice Pythonic sugar on top.}
 
 Name:           python-%{pkgname}
 Version:        0.4.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pure Python bindings to XenStore
 License:        GPLv3
 URL:            https://github.com/selectel/pyxs
@@ -109,6 +109,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest >= 2.4
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

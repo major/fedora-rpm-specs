@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 
 Summary:	Glut bindings for the OpenGL gem
 # SPDX confirmed
@@ -82,6 +82,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-25
 - Fix module method function definition argument
   detected by c99 -Werror=incompatible-pointer-types

@@ -2,7 +2,7 @@
 
 Name:           python-django-database-url
 Version:        0.5.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Use Database URLs in your Django Application
 License:        BSD
 URL:            https://github.com/kennethreitz/dj-database-url
@@ -48,6 +48,9 @@ DATABASE_URL environment variable to configure your Django application.
 %{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

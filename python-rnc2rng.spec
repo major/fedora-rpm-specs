@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.6.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        RELAX NG Compact to regular syntax conversion library
 
 License:        Public Domain
@@ -47,6 +47,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

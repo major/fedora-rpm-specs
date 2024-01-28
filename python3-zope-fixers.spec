@@ -3,7 +3,7 @@
 Summary: 2to3 fixers for Zope
 Name: python3-%(echo %{modname} | sed -r 's|\.|-|g')
 Version: 1.1.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 Source0: http://pypi.python.org/packages/source/%(echo %{modname} | sed -r 's|^(.).*|\1|')/%{modname}/%{modname}-%{version}.zip
 License: ZPLv2.1
 BuildArch: noarch
@@ -43,6 +43,9 @@ zope.interfaces implements statements.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

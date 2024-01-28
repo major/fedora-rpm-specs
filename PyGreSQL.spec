@@ -1,11 +1,11 @@
 %global srcname	PyGreSQL
+%global uversion 6.0
 
-%{!?runselftest:%global runselftest 0}
+%{!?runselftest:%global runselftest 1}
 
 Name:		%{srcname}
-Version:	6.0~b1
-%global uversion 6.0b1
-Release:	3%{?dist}
+Version:	6.0
+Release:	1%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -94,6 +94,10 @@ EOF
 
 
 %changelog
+* Fri Jan 26 2024 Ondrej Sloup <osloup@redhat.com> - 6.0-1
+- Rebase to the latest upstream version
+- Enable testsuite
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0~b1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

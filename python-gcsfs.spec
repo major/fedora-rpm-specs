@@ -6,7 +6,7 @@
 
 Name:           python-gcsfs
 Version:        2023.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Convenient Filesystem interface over GCS
 
 License:        BSD-3-Clause
@@ -99,6 +99,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

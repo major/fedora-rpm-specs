@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.0.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Ruby client for Elasticsearch
 License: ASL 2.0
 URL: https://github.com/elasticsearch/elasticsearch-ruby/tree/master/elasticsearch-transport
@@ -73,6 +73,9 @@ cp -a .%{gem_dir}/* \
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

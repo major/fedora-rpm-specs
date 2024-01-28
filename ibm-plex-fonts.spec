@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 
 Name:    ibm-plex-fonts
-Version: 6.3.0
-Release: 3%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 Summary: IBM Plex, the new IBM set of coordinated grotesque corporate fonts
 
 License: OFL
@@ -119,6 +119,9 @@ Source18: 59-%{fontpkgname8}.xml
 %fontfiles -a
 
 %changelog
+* Fri Jan 26 2024 Michael Kuhn <suraia@fedoraproject.org> - 6.4.0-1
+- Update to 6.4.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

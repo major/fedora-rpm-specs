@@ -10,7 +10,7 @@
 Summary:       Raptor RDF Parser Toolkit for Redland
 Name:          raptor
 Version:       1.4.21
-Release:       42%{?dist}
+Release:       43%{?dist}
 
 License:       LGPLv2+ or ASL 2.0
 URL:           http://librdf.org/raptor/
@@ -104,6 +104,9 @@ make test
 %{_bindir}/raptor-config
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.21-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.21-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

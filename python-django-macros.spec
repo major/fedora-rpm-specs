@@ -4,7 +4,7 @@
 
 Name:           python-%srcname
 Version:        0.4.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        %sum
 Summary(sv):    %sum_sv
 
@@ -86,6 +86,9 @@ dos2unix -- README.rst
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

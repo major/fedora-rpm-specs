@@ -1,6 +1,6 @@
 Name: rlottie
 Version: 0.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 # Main source: MIT
 # rapidjson (base) - MIT
@@ -74,6 +74,9 @@ sed -e "s/, 'optimization=s'//" -i meson.build
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

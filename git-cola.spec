@@ -1,13 +1,11 @@
 Name:           git-cola
-Version:        4.4.0
+Version:        4.5.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
 License:        GPL-2.0-or-later
 URL:            https://git-cola.github.io
 Source0:        https://github.com/git-cola/git-cola/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         0001-Unvendorize-polib.py.patch
 
 BuildArch:      noarch
 

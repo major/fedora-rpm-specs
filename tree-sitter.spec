@@ -1,8 +1,8 @@
 %global treesitter_so_version 0
 
 Name:           tree-sitter
-Version:        0.20.8
-Release:        2%{?dist}
+Version:        0.20.9
+Release:        1%{?dist}
 Summary:        An incremental parsing system for programming tools
 
 License:        MIT
@@ -72,6 +72,10 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 
 
 %changelog
+* Fri Jan 26 2024 Andreas Schneider <asn@redhat.com> - 0.20.9-1
+- Update to version 0.20.9
+  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.20.9
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

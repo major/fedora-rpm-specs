@@ -1,6 +1,6 @@
 Name:           s-nail
 Version:        14.9.24
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Environment for sending and receiving mail, providing functionality of POSIX mailx
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
@@ -118,6 +118,9 @@ make test
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.9.24-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Nikola Forró <nforro@redhat.com> - 14.9.24-8
 - Replace and obsolete mailx
 

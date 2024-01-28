@@ -5,7 +5,7 @@ codes and the corresponding country name.
 
 Name:           python-%{srcname}
 Version:        2.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Self-contained ISO 3166-1 country definitions
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

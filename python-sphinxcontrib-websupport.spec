@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Sphinx API for Web Apps
 
 License:        BSD
@@ -69,6 +69,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinxcontrib_websupport-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

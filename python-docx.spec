@@ -98,12 +98,6 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 
 
 %check
-%if 0%{?fedora} > 39
-# Test failure with libxml2 2.12.0 in Fedora Rawhide
-# https://github.com/python-openxml/python-docx/issues/1302
-k="${k-}${k+ and }not (DescribeParseXml and it_accepts_unicode_providing_there_is_no_encoding_declaration)"
-%endif
-
 # Rather than using the %%tox macro, we run test commands from tox.ini manually
 # so that we can pass extra arguments. We can’t reasonably ask upstream to add
 # {posargs} to tox.ini because there are two different test executors (pytest

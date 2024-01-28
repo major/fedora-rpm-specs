@@ -6,7 +6,7 @@
 
 Name:           rust-sev
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for AMD SEV
 
 License:        Apache-2.0
@@ -105,6 +105,9 @@ use the "snp" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 20 2023 Tyler Fanelli <tfanelli@redhat.com> - 1.2.1-1
 - Remove mmarinus dependency
 - Use older version of serde-big-array

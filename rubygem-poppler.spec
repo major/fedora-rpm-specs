@@ -10,7 +10,7 @@
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
 Version:	4.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -142,6 +142,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-1
 - 4.2.0
 

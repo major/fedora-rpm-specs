@@ -2,7 +2,7 @@
 
 Name:           python-snappy
 Version:        0.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library for the snappy compression library from Google
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -54,6 +54,9 @@ sed -i '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitearch}/snappy/sn
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-hatchling
-Version:        1.21.0
+Version:        1.21.1
 Release:        %autorelease
 Summary:        The build backend used by Hatch
 
@@ -56,8 +56,8 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %check
-# It’s not yet clear how, or if, we can run the upstream tests.
-# https://github.com/pypa/hatch/issues/120
+# We cannot run the “downstream integration tests” included with the PyPI sdist
+# in an offline build. The primary tests are Hatch’s “backend” tests.
 %pyproject_check_import
 
 

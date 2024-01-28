@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        6.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OpenNebula Client API
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

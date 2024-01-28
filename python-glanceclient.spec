@@ -19,7 +19,7 @@ glanceclient module), and a command-line script (glance). Each implements \
 Name:             python-glanceclient
 Epoch:            1
 Version:          4.4.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python API and CLI for OpenStack Glance
 
 License:          Apache-2.0
@@ -143,6 +143,9 @@ unset https_proxy
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,12 +10,12 @@ Name:           sayonara
 
 %if 0%{?stable}
 Version:        1.7.0
-Release:        8.%{stable_ver}%{?dist}
+Release:        9.%{stable_ver}%{?dist}
 #Release:        3%%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{stable_ver}/sayonara-player-%{version}-%{stable_ver}.tar.bz2
 %else
 Version:        1.9.0
-Release:        0.1.%{prerel}%{?dist}
+Release:        0.2.%{prerel}%{?dist}
 Source0:        https://gitlab.com/luciocarreras/sayonara-player/-/archive/%{version}-%{prerel}/sayonara-player-%{version}-%{prerel}.tar.bz2
 %endif
 
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/doc/%{name}/doxygen/html
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-0.2.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.9.0-0.1.beta1
 - Update to 1.9.0 beta1
 

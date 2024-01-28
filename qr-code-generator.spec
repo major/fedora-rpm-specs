@@ -4,7 +4,7 @@
 
 Name: qr-code-generator
 Version: 1.8.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 License: MIT
 Summary: High-quality QR Code generator library
@@ -138,6 +138,9 @@ ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
 %{python3_sitelib}/qrcodegen-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

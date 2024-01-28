@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-autobuild
 Version:        2021.3.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Autobuild a Sphinx directory when a change is detected
 
 License:        MIT
@@ -86,6 +86,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %doc html
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

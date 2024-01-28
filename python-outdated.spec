@@ -10,7 +10,7 @@ Check if a version of a PyPI package is outdated.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Check if a version of a PyPI package is outdated
 
 License:        MIT
@@ -71,6 +71,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

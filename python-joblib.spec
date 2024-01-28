@@ -4,7 +4,7 @@
 
 Name:  python-%{srcname}
 Version: 1.3.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
 License: BSD-3-Clause
@@ -79,6 +79,9 @@ rm -rf joblib/externals/cloudpickle/
 %doc README.rst
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

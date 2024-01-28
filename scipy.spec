@@ -23,7 +23,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.11.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -306,6 +306,9 @@ popd
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 30 2023 Karolina Surma <ksurma@redhat.com> - 1.11.3-3
 - Fix the build without pythran
 

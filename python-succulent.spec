@@ -18,7 +18,7 @@ via POST requests. }
 
 Name:           python-%{pypi_name}
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -94,6 +94,9 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 0.3.2-1
 - Update to 0.3.2
 

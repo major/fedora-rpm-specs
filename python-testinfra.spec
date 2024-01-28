@@ -2,7 +2,7 @@
 
 Name:    python-%{srcname}
 Version: 5.3.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Unit testing for config-managed server state
 
 License: ASL 2.0
@@ -90,6 +90,9 @@ rm -vr html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

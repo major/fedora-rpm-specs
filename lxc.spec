@@ -1,17 +1,19 @@
 %if 0%{?fedora}
-%global with_seccomp 1
-%global with_static_init 1
+%bcond_without seccomp
+%bcond_without static_init
 %endif
 
 %if 0%{?rhel} >= 7
 %ifarch %{ix86} x86_64 %{arm} aarch64
-%global with_seccomp 1
+%bcond_without seccomp
 %endif
 %endif
 
+%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
+
 Name:           lxc
-Version:        4.0.12
-Release:        6%{?dist}
+Version:        5.0.3
+Release:        1%{?dist}
 Summary:        Linux Resource Containers
 License:        LGPLv2+ and GPLv2
 URL:            https://linuxcontainers.org/lxc
@@ -19,32 +21,30 @@ Source0:        https://linuxcontainers.org/downloads/%{name}/%{name}-%{version}
 Source1:        lxc-net
 Patch0:         lxc-2.0.7-fix-init.patch
 Patch1:         lxc-4.0.1-fix-lxc-net.patch
-BuildRequires:  make
+
+BuildRequires:  cmake
 BuildRequires:  docbook2X
 BuildRequires:  doxygen
+BuildRequires:  gcc-c++
 BuildRequires:  kernel-headers
-BuildRequires:  libselinux-devel
-%if 0%{?with_seccomp}
-BuildRequires:  pkgconfig(libseccomp)
-%endif # with_seccomp
 BuildRequires:  libcap-devel
-BuildRequires:  pam-devel
+%if %{?with_seccomp}
+BuildRequires:  pkgconfig(libseccomp)
+%endif
+BuildRequires:  libselinux-devel
+BuildRequires:  meson >= 0.61
 BuildRequires:  openssl-devel
-BuildRequires:  libtool
-BuildRequires:  systemd
-BuildRequires:  pkgconfig(bash-completion)
-%if 0%{?with_static_init}
+BuildRequires:  pam-devel
+BuildRequires:  pkg-config
+BuildRequires:  systemd-devel
+%if %{?with_static_init}
 BuildRequires:  libcap-static
 BuildRequires:  glibc-static
-%endif # with_static_init
-# we are patching configure.ac
-BuildRequires:  autoconf automake libtool
+%endif
 # lxc-extra subpackage not needed anymore, lxc-ls has been rewriten in
 # C and does not depend on the Python3 binding anymore
 Provides:       lxc-extra = %{version}-%{release}
 Obsoletes:      lxc-extra < 1.1.5-3
-
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 %description
 Linux Resource Containers provide process and resource isolation without the
@@ -114,70 +114,70 @@ This package contains documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 
 %build
-autoreconf -vif
-%configure --with-distro=fedora \
-           --enable-doc \
-           --enable-api-docs \
-           --disable-silent-rules \
-           --docdir=%{_pkgdocdir} \
-           --disable-rpath \
-           --disable-static \
-           --disable-apparmor \
-           --enable-selinux \
-           --enable-capabilities \
-           --enable-pam \
-           --enable-openssl \
+%meson \
+	-D examples=true \
+	-D man=true \
+	-D tools=true \
+	-D commands=true \
+	-D capabilities=true \
+	-D openssl=true \
+	-D selinux=true \
 %if 0%{?with_seccomp}
-           --enable-seccomp \
-%endif # with_seccomp
-           --with-init-script=systemd \
-           --disable-werror \
-# intentionally blank line
+	-D seccomp=true \
+%endif
+	-D memfd-rexec=true \
+    -D thread-safety=true \
+	-D sd-bus=auto \
+	-D tests=false \
+	-D init-script=systemd \
+	-D systemd-unitdir=%{_unitdir} \
+	-D distrosysconfdir=sysconfig \
+	-D pam-cgroup=true \
+	-D runtime-path=%{_rundir} \
+	%{nil}
+%meson_build
 
-%{make_build}
+cd doc/api/ && doxygen
 
 
 %install
-%{make_install}
+%meson_install
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 # docs
 mkdir -p %{buildroot}%{_pkgdocdir}/api
-cp -a AUTHORS README %{buildroot}%{_pkgdocdir}
+cp -a AUTHORS README.md %{buildroot}%{_pkgdocdir}
 cp -a doc/api/html/* %{buildroot}%{_pkgdocdir}/api/
 
 # cache dir
 mkdir -p %{buildroot}%{_localstatedir}/cache/%{name}
 
-# remove libtool .la file
-rm -rf %{buildroot}%{_libdir}/liblxc.la
+# remove libtool .a file
+rm -r %{buildroot}%{_libdir}/liblxc.a
 
 # lxc-net config file
 cp -a %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-net
 
-%check
-make check
-
 
 %post libs
-%{?ldconfig}
 %systemd_post %{name}-net.service
 %systemd_post %{name}.service
-
+%systemd_post lxc-monitord.service
 
 %preun libs
 %systemd_preun %{name}-net.service
 %systemd_preun %{name}.service
+%systemd_preun lxc-monitord.service
 
 
 %postun libs
-%{?ldconfig}
 %systemd_postun %{name}-net.service
 %systemd_postun %{name}.service
+%systemd_postun lxc-monitord.service
 
 
 %files
@@ -193,7 +193,7 @@ make check
 %{_datadir}/%{name}/%{name}.functions
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/bash-completion/completions/_%{name}
 %{_datadir}/bash-completion/completions/%{name}-*
 
 
@@ -209,9 +209,9 @@ make check
 %{_libexecdir}/%{name}
 # fixme: should be in libexecdir?
 %{_sbindir}/init.%{name}
-%if 0%{?with_static_init}
+%if %{?with_static_init}
 %{_sbindir}/init.%{name}.static
-%endif # with_static_init
+%endif
 %{_bindir}/%{name}-autostart
 %{_sharedstatedir}/%{name}
 %dir %{_sysconfdir}/%{name}
@@ -230,13 +230,15 @@ make check
 %{_mandir}/*/man8/pam_cgfs*
 %dir %{_pkgdocdir}
 %{_pkgdocdir}/AUTHORS
-%{_pkgdocdir}/README
+%{_pkgdocdir}/README.md
+%{_pkgdocdir}/examples
 %license COPYING
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
 %{_unitdir}/%{name}-net.service
+%{_unitdir}/%{name}-monitord.service
 %dir %{_localstatedir}/cache/%{name}
-/%{_lib}/security/pam_cgfs.so
+%{_libdir}/security/pam_cgfs.so
 
 
 %files templates
@@ -259,6 +261,9 @@ make check
 
 
 %changelog
+* Fri Jan 26 2024 Sérgio Basto <sergio@serjux.com> - 5.0.3-1
+- Update lxc to 5.0.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

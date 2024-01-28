@@ -21,7 +21,7 @@ sensor data with other researchers while mantaining people's privacy.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Python package for reading, timeshifting and writing sensor data
 
 License:        MIT
@@ -104,6 +104,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pythran
 Version:        0.14.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -21,6 +21,10 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 
 URL:            https://github.com/serge-sans-paille/pythran
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Get rid of numpy.distutils
+# https://github.com/serge-sans-paille/pythran/pull/2149
+Patch:          %{url}/pull/2149.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures
@@ -142,11 +146,6 @@ k="$k and not test_setup_bdist_install3"
 # this test needs ipython
 k="$k and not test_loadext_and_run"
 %endif
-# Some tests still want numpy.distutils
-# https://github.com/serge-sans-paille/pythran/issues/2148
-k="$k and not test_setup_bdist_install3"
-k="$k and not test_setup_build3"
-k="$k and not test_setup_sdist_install3"
 
 # Don’t run tests in parallel on 32-bit architecutres. RRunning tests in serial
 # makes memory errors, which occur in some tests on 32-bit architectures, more
@@ -170,122 +169,4 @@ k="$k and not test_setup_sdist_install3"
 
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Oct 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.0-2
-- Fix FTBFS: skip tests that need numpy.distutils
-- On 32-bit, run tests in serial and skip those that exhaust memory
-- Drop obsolete conditionals for 32-bit ARM
-
-* Thu Sep 07 2023 Miro Hrončok <mhroncok@redhat.com> - 0.14.0-1
-- Update to 0.14.0
-- Fixes: rhbz#2237784
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Miro Hrončok <mhroncok@redhat.com> - 0.13.1-1
-- Update to 0.13.1
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.12.1-4
-- Rebuilt for Python 3.12
-
-* Wed Jan 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.12.1-3
-- Avoid ipython test dependency in RHEL builds
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Jan 15 2023 Serge Guelton <serge.guelton@telecom-bretagne.eu> - 0.12.1-1
-- Update to 0.12.1
-
-* Wed Sep 28 2022 Miro Hrončok <mhroncok@redhat.com> - 0.12.0-1
-- Update to 0.12.0
-- Fixes: rhbz#2130464
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.11.0-5
-- Rebuilt for Python 3.11
-
-* Tue Mar 15 2022 Miro Hrončok <mhroncok@redhat.com> - 0.11.0-4
-- Add a workaround for setuptools 60+,
-  use distutils from the standard library during the tests
-
-* Mon Mar 14 2022 Serge Guelton - 0.11.0-3
-- Fix gcc12 build
-- Fixes: rhbz#2046923
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 14 2021 Miro Hrončok <mhroncok@redhat.com> - 0.11.0-1
-- Update to 0.11.0
-- Fixes: rhbz#2032254
-
-* Fri Sep 17 2021 Miro Hrončok <mhroncok@redhat.com> - 0.10.0-1
-- Update to 0.10.0
-- Fixes: rhbz#2003905
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12.post1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 14 2021 Miro Hrončok <mhroncok@redhat.com> - 0.9.12.post1-1
-- Update to 0.9.12.post1
-- Fixes: rhbz#1982196
-
-* Wed Jul 14 2021 Miro Hrončok <mhroncok@redhat.com> - 0.9.12-1
-- Update to 0.9.12
-- Fixes: rhbz#1981981
-- Fixes: rhbz#1927172
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.9.11-2
-- Rebuilt for Python 3.10
-
-* Sun May 23 2021 sguelton@redhat.com - 0.9.11-1
-- Update to 0.9.11
-
-* Sun May 9 2021 sguelton@redhat.com - 0.9.10-1
-- Update to 0.9.10
-
-* Wed Mar 31 2021 sguelton@redhat.com - 0.9.9-1
-- Update to 0.9.9
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8^post3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jan 18 2021 Serge Guelton - 0.9.8^post3-2
-- Apply compatibility patch with numpy 1.20
-
-* Sun Dec 13 2020 sguelton@redhat.com - 0.9.8^post3-1
-- Update to 0.9.8post3
-- No longer recommend SciPy
-
-* Wed Sep 23 2020 Miro Hrončok <mhroncok@redhat.com> - 0.9.7-1
-- Update to 0.9.7
-- Rebuilt for Python 3.9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-- https://fedoraproject.org/wiki/Changes/FlexiBLAS_as_BLAS/LAPACK_manager
-- Fixes: rhbz#1818006
-- Fixes: rhbz#1787813
-
-* Fri Mar 13 2020 Miro Hrončok <mhroncok@redhat.com> - 0.9.5-2
-- Fix tests with ipython 7.12+ (#1813075)
-
-* Fri Jan 31 2020 Miro Hrončok <mhroncok@redhat.com> - 0.9.5-1
-- Update to 0.9.5 (#1787813)
-
-* Tue Dec 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.9.4post1-1
-- Update to 0.9.4post1 (#1747029)
-
-* Tue Aug 20 2019 Miro Hrončok <mhroncok@redhat.com> - 0.9.3-1
-- Update to 0.9.3 (#1743187)
-- Allow 32bit architectures
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jun 26 2019 Miro Hrončok <mhroncok@redhat.com> - 0.9.2-1
-- Initial package
+%autochangelog

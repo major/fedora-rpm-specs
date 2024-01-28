@@ -1,6 +1,6 @@
 Name:           python-pytest-subprocess
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A plugin to fake subprocess for pytest
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -Ei '/\bcoverage\b/d' setup.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

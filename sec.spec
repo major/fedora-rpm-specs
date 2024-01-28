@@ -1,6 +1,6 @@
 Name:           sec
 Version:        2.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple Event Correlator script to filter log file entries
 License:        GPLv2+
 URL:            https://simple-evcorr.github.io/
@@ -67,6 +67,9 @@ chmod 0644 contrib/convert.pl contrib/swatch2sec.pl
 %{_unitdir}/sec@.service
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

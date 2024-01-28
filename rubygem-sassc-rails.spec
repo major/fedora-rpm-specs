@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Integrate SassC-Ruby into Rails
 # SIL license found in
 # test/dummy/app/assets/stylesheets/erb_render_with_context.css.erb
@@ -105,6 +105,9 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.2-9
 - Fix FTBFS due to incompatibility with Minitest 5.19+.
 

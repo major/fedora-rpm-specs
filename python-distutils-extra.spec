@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.39
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -43,6 +43,9 @@ scrollkeeper based documentation into Python's distutils.
 %{python3_sitelib}/python_distutils_extra*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        2
-Release:        3%{?dist}
+Version:        3
+Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -19,24 +19,25 @@ Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
 # Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
 # it can often fall back to a diferent browser. This does not work in the limited installer
-# environment, so we need to make sure Firefox is available.
+# environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
+%if ! 0%{?rhel}
 Requires: firefox
+%endif
 %if 0%{?fedora}
 Requires: fedora-logos
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0-prerelease.5
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-core)) = 5.2.0-prerelease.21
-Provides: bundled(npm(@patternfly/react-core)) = 5.2.0-prerelease.32
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0-prerelease.8
+Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0-prerelease.7
+Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-core)) = 5.2.0-prerelease.48
+Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0-prerelease.10
 Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.1.0-prerelease.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0-prerelease.5
-Provides: bundled(npm(@patternfly/react-table)) = 5.2.0-prerelease.31
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0-prerelease.6
+Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0-prerelease.6
+Provides: bundled(npm(@patternfly/react-table)) = 5.2.0-prerelease.48
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0-prerelease.7
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
@@ -78,6 +79,7 @@ exit 0
 %doc README.rst
 %license LICENSE dist/index.js.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/logo.svg
+%{_datadir}/cockpit/anaconda-webui/qr-code-feedback.svg
 %{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/index.html
 %{_datadir}/cockpit/anaconda-webui/index.js.gz
@@ -101,6 +103,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jan 23 2024 Packit <hello@packit.dev> - 3-1
+- Accounts: allow to set root password
+- Add feedback section in the installation screen
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           remake
 Version:        0.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Build system that bridges the gap between make and redo
 
 License:        GPL-3.0-or-later
@@ -90,6 +90,9 @@ cd testsuite
 %exclude %{_docdir}/%{name}/README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

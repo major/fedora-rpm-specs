@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.3.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A ruby module for reading and writing zip files
 License: Ruby or BSD
 URL: http://github.com/rubyzip/rubyzip
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Vít Ondruch <vondruch@redhat.com> - 2.3.2-7
 - Fix test failures due to zlib-ng providing slightly different output.
 

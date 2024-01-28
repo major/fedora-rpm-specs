@@ -1,6 +1,6 @@
 Name:           python-ogr
 Version:        0.48.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -48,6 +48,9 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

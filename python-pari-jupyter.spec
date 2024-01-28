@@ -1,6 +1,6 @@
 Name:           python-pari-jupyter
 Version:        1.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Jupyter kernel for PARI/GP
 
 License:        GPL-3.0-or-later
@@ -74,6 +74,9 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

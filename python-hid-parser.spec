@@ -6,7 +6,7 @@
 
 Name:           python-hid-parser
 Version:        0.0.3
-Release:        6.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        7.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Parse HID report descriptors
 License:        MIT
 URL:            https://github.com/usb-tools/python-hid-parser
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-7.20210228git7d94740
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-6.20210228git7d94740
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

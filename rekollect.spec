@@ -2,7 +2,7 @@
 Summary: A note taking and note management application
 Name:    rekollect
 Version: 0.3.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 License: GPLv2+
 URL:     http://sourceforge.net/projects/rekollect/
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kde4/rekollect.deskto
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

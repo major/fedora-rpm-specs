@@ -5,7 +5,7 @@ wildcards.
 
 Name:           python-%{pkg_name}
 Version:        0.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Glob module recursive wildcards support
 
 License:        BSD
@@ -52,6 +52,9 @@ Requires:       python3-setuptools
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

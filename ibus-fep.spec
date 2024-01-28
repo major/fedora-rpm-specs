@@ -1,6 +1,6 @@
 Name:		ibus-fep
 Version:	1.4.4
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	IBus client for text terminals (non frame buffer)
 
 License:	GPLv3+
@@ -41,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

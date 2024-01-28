@@ -21,7 +21,7 @@ storable formats.
 
 Name:           python-%{pkg_name}
 Version:        5.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack oslo.serialization library
 
 License:        Apache-2.0
@@ -150,6 +150,9 @@ export OS_TEST_PATH="./oslo_serialization/tests"
 %{python3_sitelib}/oslo_serialization/tests
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

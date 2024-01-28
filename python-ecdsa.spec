@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.18.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ECDSA cryptographic signature library
 
 License:        MIT
@@ -89,6 +89,9 @@ and not test_to_openssl_secp256k1"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

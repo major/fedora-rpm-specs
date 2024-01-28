@@ -2,7 +2,7 @@
 
 Name:           rebase-helper
 Version:        0.28.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The tool that helps you to rebase your package to the latest version
 
 License:        GPLv2+
@@ -84,6 +84,9 @@ install -p -m 0644 %{name}.bash %{buildroot}%{_datadir}/bash-completion/completi
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

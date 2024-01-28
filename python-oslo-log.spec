@@ -23,7 +23,7 @@ Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        5.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        Apache-2.0
@@ -168,6 +168,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_log/locale %{buildroot}%{_datadir}/locale
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

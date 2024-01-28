@@ -13,7 +13,7 @@
 Summary:	Ruby binding of pango-1.x
 Name:		rubygem-%{gem_name}
 Version:	4.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -173,6 +173,9 @@ ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb \
 %exclude	%{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

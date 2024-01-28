@@ -1,21 +1,14 @@
-%undefine __cmake_in_source_build
 %global base_name kipi-plugins
 
 Name:    kf5-%{base_name}
 Summary: Plugins to use with kf5-libkipi applications
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 24.01.90
+Release: 1%{?dist}
 
-License: GPLv2+
-URL:     http://www.digikam.org/
+License: GPL-2.0-or-later
+URL:     https://apps.kde.org/kipi_plugins/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -103,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kipiplugins.deskt
 
 
 %changelog
+* Fri Jan 26 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
+- 24.01.90
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

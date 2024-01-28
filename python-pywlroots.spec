@@ -1,6 +1,6 @@
 Name:           python-pywlroots
 Version:        0.16.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python binding to the wlroots library using cffi
 License:        NCSA
 
@@ -56,6 +56,9 @@ python3 wlroots/ffi_build.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

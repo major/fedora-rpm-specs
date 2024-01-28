@@ -36,7 +36,7 @@
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
 Version: 3.3.25
-Release: 203%{?dist}
+Release: 204%{?dist}
 # BSD-2-Clause: lib/rubygems/tsort/
 # BSD-2-Clause OR RUBY: lib/rubygems/optparse/
 # MIT: lib/rubygems/resolver/molinillo
@@ -236,6 +236,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.25-204
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.25-203
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

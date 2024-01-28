@@ -18,7 +18,7 @@ total ascent, total descent and many others.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
 # SPDX
@@ -124,6 +124,9 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 %doc examples/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

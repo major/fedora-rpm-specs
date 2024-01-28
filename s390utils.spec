@@ -16,7 +16,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.30.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -65,6 +65,11 @@ Requires:       s390utils-cpuplugd = %{epoch}:%{version}-%{release}
 Requires:       s390utils-mon_statd = %{epoch}:%{version}-%{release}
 Requires:       s390utils-iucvterm = %{epoch}:%{version}-%{release}
 Requires:       s390utils-ziomon = %{epoch}:%{version}-%{release}
+%else
+#
+# multiarch package structure
+#
+Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 %endif
 
 BuildRequires:  make
@@ -374,6 +379,7 @@ Requires:       ethtool
 Requires:       tar
 Requires:       file
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
+Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 %{?systemd_requires}
 BuildRequires:  perl-generators
 BuildRequires:  ncurses-devel
@@ -671,7 +677,6 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_mandir}/man8/znetconf.8*
 %{_mandir}/man8/zpcictl.8*
 %dir %{_datadir}/s390-tools
-%{_datadir}/s390-tools/genprotimg/
 %{_datadir}/s390-tools/netboot/
 %dir %attr(0770,root,zkeyadm) %{_sysconfdir}/zkey
 %dir %attr(0770,root,zkeyadm) %{_sysconfdir}/zkey/kmip
@@ -682,6 +687,18 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 
 # Additional Fedora/RHEL specific stuff
 /boot/tape0
+
+%package se-data
+License:        MIT
+Summary:        Data for Secure Execution
+BuildArch:      noarch
+
+%description se-data
+%{summary}.
+
+%files se-data
+%dir %{_datadir}/s390-tools
+%{_datadir}/s390-tools/genprotimg/
 
 #
 # *********************** s390-tools osasnmpd package  ***********************
@@ -1026,6 +1043,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Jan 25 2024 Dan Horák <dan[at]danny.cz> - 2:2.30.0-2
+- add s390utils-se-data as a noarch subpackage with Secure Execution data files
+
 * Tue Jan 02 2024 Dan Horák <dan[at]danny.cz> - 2:2.30.0-1
 - rebased to 2.30.0 (rhbz#2252519)
 

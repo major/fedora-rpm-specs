@@ -1,20 +1,18 @@
 # https://github.com/horchi/scraper2vdr/commit/d9f6cb454ebbc951af5d1a4aa7fcc31e772f3bca
 %global commit0 d9f6cb454ebbc951af5d1a4aa7fcc31e772f3bca
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 %global pname   scraper2vdr
 %global gitdate 20190128
-
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 Name:           vdr-scraper2vdr
 Version:        1.1.2
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL+
 URL:            https://github.com/horchi/scraper2vdr
@@ -74,6 +72,9 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.1.2-4
+- Rebuilt for new VDR API version
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.1.2-3
 - Rebuilt for new VDR API version
 - Add BR gettext for rawhide

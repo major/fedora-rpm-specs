@@ -1,6 +1,6 @@
 Name:       setxkbmap
 Version:    1.3.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    X11 keymap client
 
 License:    HPND
@@ -35,6 +35,9 @@ on the command line.
 %{_mandir}/man1/setxkbmap.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: switch to HPND license identifier
 

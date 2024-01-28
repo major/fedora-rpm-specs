@@ -8,7 +8,7 @@
 %endif
 
 Name:           perl-URI
-Version:        5.22
+Version:        5.24
 Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -144,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 26 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.24-1
+- 5.24 bump (rhbz#2260409)
+
 * Thu Jan 25 2024 Paul Howarth <paul@city-fan.org> - 5.22-1
 - 5.22 bump (rhbz#2260363)
 

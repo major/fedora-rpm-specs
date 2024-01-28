@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A cross-platform clipboard module for Python
 
 License:        BSD-3-Clause
@@ -154,6 +154,9 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

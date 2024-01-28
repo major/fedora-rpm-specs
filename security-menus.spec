@@ -1,6 +1,6 @@
 Name:           security-menus
 Version:        38
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Menu Structure for the Fedora Security Lab
 
 License:        GPLv2
@@ -40,6 +40,9 @@ done
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

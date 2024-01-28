@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Context managers for advisory locks for PostgreSQL
 
 # https://github.com/Xof/django-pglocks/issues/28
@@ -46,6 +46,9 @@ sed -i -e "s/from distutils.core import setup/from setuptools import setup/" set
 %{python3_sitelib}/django_pglocks/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

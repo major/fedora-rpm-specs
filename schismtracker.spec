@@ -1,6 +1,6 @@
 Name:      schismtracker
 Version:   20231029
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Sound module composer/player
 License:   GPLv2
 URL:       http://schismtracker.org/
@@ -63,6 +63,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231029-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 30 2023 josef radinger <cheese@nosuchhost.net> - 20231029-1
 - bump version
 

@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.14.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
 URL: http://pry.github.io
@@ -98,6 +98,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Oct 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.14.1-5
 - Backport upstream fix to make testsuite work with ruby3.3 wrt
   ruby3.3 Reline implementation of readline

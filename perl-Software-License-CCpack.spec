@@ -15,7 +15,7 @@
 
 Name:		perl-Software-License-CCpack
 Version:	1.11
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	Software::License pack for Creative Commons' licenses
 License:	LGPL-3.0-only
 URL:		https://metacpan.org/release/Software-License-CCpack
@@ -56,7 +56,9 @@ BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Synopsis)
+%if 0%{?fedora} < 39 && 0%{?rhel} < 10
 BuildRequires:	perl(Test::Vars)
+%endif
 %endif
 # Dependencies
 # (none)
@@ -120,6 +122,10 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))" RELEASE_TESTING=1
 %{_mandir}/man3/Software::License::CC_PDM_1_0.3*
 
 %changelog
+* Fri Jan 26 2024 Paul Howarth <paul@city-fan.org> - 1.11-38
+- Drop test dependency Test::Vars from Fedora 39 onwards since Test::Vars is
+  FTBFS with Perl 5.38
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

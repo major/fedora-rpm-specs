@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 1.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 07 2023 Derek Weitzel <dweitzel@unl.edu> - 1.1.0-1
 - Allow the scitokens library user to setup a custom CA file
 - Fix typecast errors in scitoken_status_get_*() that caused async queries to fail

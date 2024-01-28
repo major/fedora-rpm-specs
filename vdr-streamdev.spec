@@ -8,7 +8,7 @@
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 %if 0%{?gitver:0}
@@ -27,9 +27,9 @@
 Name:           vdr-%{pname}
 Version:        0.6.3
 %if 0%{?gitver:0}
-Release:        0.38%{?gitver:.git%{gitshort}}%{?dist}
+Release:        0.39%{?gitver:.git%{gitshort}}%{?dist}
 %else
-Release:        7%{?dist}
+Release:        8%{?dist}
 %endif
 Summary:        Streaming plug-in for VDR
 License:        GPL+ and GPLv2+
@@ -111,6 +111,9 @@ install -Dpm 644 %{SOURCE2} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.6.3-8
+- Rebuilt for new VDR API version
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 0.6.3-7
 - Rebuilt for new VDR API version
 - Add BR gettext for rawhide

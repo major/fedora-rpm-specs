@@ -3,7 +3,7 @@
 Name:           rubygem-%{gem_name}
 Summary:        Kramdown parser for GitHub-flavored markdown
 Version:        1.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 # SPDX confirmed
 License:        MIT
@@ -88,6 +88,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

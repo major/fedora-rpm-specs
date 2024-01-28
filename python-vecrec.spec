@@ -1,8 +1,3 @@
-# We do not build Sphinx documentation because current versions of
-# python-autoclasstoc bring in a large tree of unpackaged dependencies via the
-# python-parametrized-from-file test dependency, so we have elected to retire
-# rather than upgrade python-autoclasstoc.
-
 Name:           python-vecrec
 Version:        0.3.1
 Release:        %autorelease
@@ -13,11 +8,16 @@ License:        MIT
 URL:            https://github.com/kxgames/vecrec
 Source:         %{pypi_source vecrec}
 
+# Use flit_core as the build backend
+#
+# Don’t require all of flit to build a wheel.
+Patch:          %{url}/pull/2.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-BuildRequires:  python3dist(pytest)
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 This package provides 2D vector and rectangle classes. These classes were
@@ -36,15 +36,16 @@ Obsoletes:      python-vecrec-doc < 0.3.1-3
 
 
 %prep
-%autosetup -n vecrec-%{version}
+%autosetup -n vecrec-%{version} -p1
 
 # Remove HTML coverage directory with bundled JavaScript and other cruft
-rm -rvf tests/htmlcov
+rm -rv tests/htmlcov
 # Patch out coverage dependencies
 sed -r -i '/\b(pytest-cov|coveralls)\b/d' pyproject.toml
 sed -r -i \
     -e 's/[[:blank:]]--cov[^=[:blank:]]*[= ][^[:blank:]]+//g' \
-    -e 's/--no-cov[^[:blank:]]*//g' tests/pytest.ini
+    -e 's/--no-cov[^[:blank:]]*//g' \
+    tests/pytest.ini
 
 # Remove shebangs from modules. These are not script-like, so shebangs are
 # useless. The find-then-modify pattern keeps us from discarding mtimes on

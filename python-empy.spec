@@ -3,7 +3,7 @@
 
 Name:           python-empy
 Version:        3.3.4a
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 License:        LGPLv2+
 URL:            http://www.alcyone.com/software/empy/
@@ -42,6 +42,9 @@ text; it takes an EmPy source file, processes it, and produces output.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4a-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4a-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

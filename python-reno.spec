@@ -17,7 +17,7 @@ helps automate the hard parts.
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Release NOtes manager
 
 License:        ASL 2.0
@@ -100,6 +100,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

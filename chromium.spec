@@ -186,12 +186,6 @@
 %global use_qt6 0
 %endif
 
-# disable due to gcc-14 bug
-%if 0%{?fedora} > 39
-%global use_qt6 0
-%global use_qt 0
-%endif
-
 # enable gtk3 by default
 %global gtk3 1
 

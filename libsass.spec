@@ -1,19 +1,19 @@
 Name:           libsass
-Version:        3.6.5
-Release:        4%{?dist}
+Version:        3.6.6
+%global soname_version 1
+Release:        1%{?dist}
 Summary:        C/C++ port of the Sass CSS precompiler
 
 # src/ast.hpp, src/utf8* is BSL-1.0
 License:        MIT AND BSL-1.0
-URL:            http://sass-lang.com/libsass
+URL:            https://sass-lang.com/libsass
 Source0:        https://github.com/sass/libsass/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  libtool
-BuildRequires:  pkgconfig
 BuildRequires:  gcc-c++
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Libsass is a C/C++ port of the Sass CSS precompiler. The original version was
@@ -43,30 +43,35 @@ autoreconf --force --install
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
+%make_install
+find $RPM_BUILD_ROOT -name '*.la' -print -delete
 
 
 %files
 %license LICENSE
 %doc Readme.md SECURITY.md
-%{_libdir}/*.so.*
+%{_libdir}/libsass.so.%{soname_version}{,.*}
+
 
 %files devel
-%license LICENSE
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/sass.h
+%{_includedir}/sass2scss.h
+%{_includedir}/sass/
+%{_libdir}/libsass.so
+%{_libdir}/pkgconfig/libsass.pc
 
 
 %changelog
+* Fri Jan 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.6-1
+- Update to 3.6.6 (close RHBZ#1963228)
+
+* Fri Jan 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.5-5
+- Assorted minor packaging enhancements
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Test-TinyMocker
 Version:        0.05
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A very simple tool to mock external modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-TinyMocker
@@ -26,12 +26,12 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More) >= 0.88
 # Release Tests
+# Note: Test::Vars FTBFS with Perl 5.38 so dropped as buildreq
 BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Pod::Coverage::TrustPod)
 BuildRequires:  perl(Test::CheckManifest) >= 0.9
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-BuildRequires:  perl(Test::Vars)
 # Dependencies
 # (none)
 
@@ -61,6 +61,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/Test::TinyMocker.3*
 
 %changelog
+* Fri Jan 26 2024 Paul Howarth <paul@city-fan.org> - 0.05-31
+- Test::Vars FTBFS with Perl 5.38 so dropped as buildreq
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

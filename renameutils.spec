@@ -1,6 +1,6 @@
 Name:           renameutils
 Version:        0.12.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A set of programs to make renaming and copying of files easier
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

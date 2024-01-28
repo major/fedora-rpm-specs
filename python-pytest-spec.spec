@@ -10,7 +10,7 @@ Available features:\
 
 Name:           python-%{pypi_name}
 Version:        3.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ rm -rf setup.cfg
 %exclude %{python3_sitelib}/LICENSE.txt
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

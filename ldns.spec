@@ -37,7 +37,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -50,6 +50,10 @@ Patch1: ldns-1.7.0-multilib.patch
 Patch2: ldns-1.8-python-dirs.patch
 # https://github.com/NLnetLabs/ldns/pull/230
 Patch3: ldns-1.8-root-servers.net.patch
+# https://github.com/NLnetLabs/ldns/pull/232
+Patch4: ldns-swig-4.2.patch
+# https://github.com/NLnetLabs/ldns/pull/233
+Patch5: ldns-swig-32bit.patch
 
 BuildRequires: libtool
 BuildRequires: autoconf
@@ -357,6 +361,9 @@ rm -rf doc/man
 %doc doc
 
 %changelog
+* Fri Jan 26 2024 Florian Weimer <fweimer@redhat.com> - 1.8.3-13
+- SWIG 4.2 and i686 compatibility
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

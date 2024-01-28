@@ -1,6 +1,6 @@
 Name:               python-jira
 Version:            3.5.2
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD-2-Clause
@@ -64,6 +64,9 @@ grep    -w 'jirashell' "%{pyproject_files}" >jirashell.files
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

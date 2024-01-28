@@ -25,10 +25,10 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    2.6.5
+%global apiver    2.6.6
 
 Name:           vdr
-Version:        2.6.5
+Version:        2.6.6
 Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
@@ -545,6 +545,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.6.6-1
+- Update to 2.6.6
+
 * Wed Jan 03 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.6.5-1
 - Update to 2.6.5
 - vdr-devel does not require any translation management tools (BZ#2119032)

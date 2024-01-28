@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for searching dictionaries using XPath-like expressions
 
 License:        MIT
@@ -50,6 +50,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{python3_sitelib}/%{pypi_name}*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

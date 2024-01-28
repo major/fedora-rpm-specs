@@ -335,9 +335,12 @@
 %global stapinstall %{nil}
 %endif
 
-# always off for portable builds
 %ifarch %{systemtap_arches}
+%if (0%{?rhel} > 0)
+%global with_systemtap 1
+%else
 %global with_systemtap 0
+%endif
 %else
 %global with_systemtap 0
 %endif
@@ -345,7 +348,7 @@
 # New Version-String scheme-style defines
 %global featurever 11
 %global interimver 0
-%global updatever 21
+%global updatever 22
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -409,8 +412,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        9
-%global rpmrelease      3
+%global buildver        7
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -431,11 +434,13 @@
 # - N%%{?extraver}{?dist} for GA releases
 %global is_ga           1
 %if %{is_ga}
+%global build_type GA
 %global ea_designator ""
 %global ea_designator_zip %{nil}
 %global extraver %{nil}
 %global eaprefix %{nil}
 %else
+%global build_type EA
 %global ea_designator ea
 %global ea_designator_zip -%{ea_designator}
 %global extraver .%{ea_designator}
@@ -572,7 +577,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.2
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -608,7 +613,7 @@ License:  ASL 1.1 and ASL 2.0 and BSD and BSD with advertising and GPL+ and GPLv
 URL:      http://openjdk.java.net/
 
 # The source tarball, generated using generate_source_tarball.sh
-Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/openjdk-jdk%{featurever}u-%{vcstag}.tar.xz
+Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/open%{vcstag}%{ea_designator_zip}.tar.xz
 
 # Use 'icedtea_sync.sh' to update the following
 # They are based on code contained in the IcedTea project (6.x).
@@ -716,31 +721,23 @@ Patch2002: jdk8242332-rh2108712-sha3-sunpkcs11.patch
 
 #############################################
 #
-# Patches appearing in 11.0.21
-#
-# This section includes patches which are present
-# in the listed OpenJDK 11u release and should be
-# able to be removed once that release is out
-# and used by this RPM.
-#############################################
-
-#############################################
-#
-# Patches appearing in 11.0.22
+# Patches appearing in 11.0.23
 #
 # This section includes patches which are present
 # in the listed OpenJDK 8u release and should be
 # able to be removed once that release is out
 # and used by this RPM.
 #############################################
-# JDK-8312489, OJ2095: Increase jdk.jar.maxSignatureFileSize default which is too low for JARs such as WhiteSource/Mend unified agent jar
-Patch2000: jdk8312489-max_sig_default_increase.patch
+
+# Currently empty
 
 #############################################
 #
 # Portable build specific patches
 #
 #############################################
+
+# Currently empty
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -759,7 +756,6 @@ BuildRequires: devtoolset-%{dtsversion}-gcc-c++
 %else
 BuildRequires: gcc
 # gcc-c++ is already needed
-BuildRequires: java-%{buildjdkver}-openjdk-devel
 %endif
 BuildRequires: gcc-c++
 BuildRequires: gdb
@@ -779,7 +775,6 @@ BuildRequires: libXtst-devel
 BuildRequires: nss-devel
 # Requirement for system security property test
 # N/A for portable. RHEL7 doesn't provide them
-# and policy support is turned off
 #BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: xorg-x11-proto-devel
@@ -1033,21 +1028,21 @@ sh %{SOURCE12} %{top_level_dir_name}
 %endif
 
 # Patch the JDK
+# -P N: apply patch number N, same as passing N as a positional argument on rpm >= 4.18
+# -p N: strip N leading slashes from paths
 pushd %{top_level_dir_name}
-%patch1 -p1
-%patch3 -p1
+%patch -P1 -p1
+%patch -P3 -p1
 # Add crypto policy and FIPS support
-%patch1001 -p1
+%patch -P1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
-%patch1000 -p1
-# JDK-8312489 backport, coming in 11.0.22
-%patch2000 -p1
+%patch -P1000 -p1
 # PKCS11 SHA3 backport
-%patch2002 -p1
+%patch -P2002 -p1
 # alt-java support
-%patch600 -p1
+%patch -P600 -p1
 # RSA default
-%patch1003 -p1
+%patch -P1003 -p1
 popd # openjdk
 
 
@@ -1096,6 +1091,8 @@ EXTRA_CPP_FLAGS="$(echo ${EXTRA_CPP_FLAGS} | sed -e 's|-mstackrealign|-mincoming
 # Fixes annocheck warnings in assembler files due to missing build notes
 EXTRA_ASFLAGS="${EXTRA_CFLAGS} -Wa,--generate-missing-build-notes=yes"
 export EXTRA_CFLAGS EXTRA_CPP_FLAGS EXTRA_ASFLAGS
+
+echo "Building %{newjavaver}-%{buildver}, pre=%{ea_designator}, opt=%{lts_designator}"
 
 function buildjdk() {
     local outputdir=${1}
@@ -1175,7 +1172,7 @@ function buildjdk() {
 
     cat spec.gmk
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-    scl enable devtoolset-%{dtsversion}  -- make \
+    scl enable devtoolset-%{dtsversion} -- make \
 %else
     make \
 %endif
@@ -1779,11 +1776,12 @@ done
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.0.21.0.9-3.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.0.21.0.9-3.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Jan 10 2024 Andrew Hughes <gnu.andrew@redhat.com> - 1:11.0.22.0.7-1
+- Update to jdk-11.0.22+7 (GA)
+- Update release notes to 11.0.22+7
+- Switch to GA mode for release
+- ** This tarball is embargoed until 2024-01-16 @ 1pm PT. **
+- Drop local copy of JDK-8312489 which is now included upstream
 
 * Wed Dec 13 2023 Jiri Vanek <jvanek@redhat.com> - 1:11.0.21.0.9-1
 - packing generated sources

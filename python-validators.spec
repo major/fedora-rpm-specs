@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.20.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Data validation in Python for humans
 
 License:        BSD
@@ -51,6 +51,9 @@ pytest-%{python3_version}
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

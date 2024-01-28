@@ -4,7 +4,7 @@
 Summary: A toolkit to create and control daemons in different ways
 Name: rubygem-%{gem_name}
 Version: 1.1.9
-Release: 20%{?dist}
+Release: 21%{?dist}
 # The entire source code is MIT except daemonize.rb (GPLv2+ or Ruby)
 License: MIT and (GPLv2+ or Ruby)
 URL: http://daemons.rubyforge.org
@@ -62,6 +62,9 @@ cp -pa .%{gem_dir}/* \
 %doc %{gem_instdir}/TODO
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

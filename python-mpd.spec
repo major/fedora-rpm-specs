@@ -1,6 +1,6 @@
 Name:           python-mpd
 Version:        0.2.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Python MPD client library
 License:        GPLv3+
 URL:            http://pypi.python.org/pypi/python-mpd/
@@ -43,6 +43,9 @@ An MPD (Music Player Daemon) client library written in pure Python.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

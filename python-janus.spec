@@ -1,6 +1,6 @@
 Name:           python-janus
 Version:        1.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Thread-safe asyncio-aware queue for Python
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ sed -i 's/LICENSE.txt/LICENSE/' setup.cfg
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

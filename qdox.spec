@@ -4,7 +4,7 @@
 
 Name:           qdox
 Version:        2.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extract class/interface/method definitions from sources
 License:        Apache-2.0
 URL:            https://github.com/paul-hammant/qdox
@@ -86,6 +86,9 @@ jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

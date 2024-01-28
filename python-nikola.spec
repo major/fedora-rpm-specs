@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.2.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 License:        MIT and CC0 and BSD
@@ -165,6 +165,9 @@ pytest
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A py.test plugin that re-runs failed tests to eliminate flakey failures
 
 License:        MPL-2.0
@@ -56,6 +56,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

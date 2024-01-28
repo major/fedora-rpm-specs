@@ -6,7 +6,7 @@
 
 Name:           rust-libcryptsetup-rs-sys
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low level bindings for libcryptsetup
 
 License:        MPL-2.0
@@ -67,6 +67,9 @@ echo 'pkgconfig(libcryptsetup)'
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Bryan Gurney <bgurney@redhat.com> - 0.3.0-1
 - Update to version 0.3.0
 

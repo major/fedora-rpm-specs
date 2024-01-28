@@ -7,8 +7,8 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        7%{?dist}
-License:        GPLv2+
+Release:        8%{?dist}
+License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
 Url:            https://github.com/sddm/sddm
@@ -70,16 +70,22 @@ Provides: service(graphical-login) = sddm
 
 BuildRequires:  cmake >= 2.8.8
 BuildRequires:  extra-cmake-modules
-BuildRequires:  libxcb-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(xcb-xkb)
 # sometimes python-docutils, sometimes python2-docutils, sometimes python3-docutils.
 # use path then for sanity
 BuildRequires:  /usr/bin/rst2man
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qttools-devel
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6QuickTest)
 BuildRequires:  cmake(LayerShellQt)
 # verify presence to pull defaults from /etc/login.defs
 BuildRequires:  shadow-utils
@@ -277,6 +283,9 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
 
 %changelog
+* Sat Jan 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-8
+- Switch to SPDX license identifiers
+
 * Thu Nov 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-7
 - Disable X11 subpackage in RHEL 10+
 - Drop unneeded scriptlets

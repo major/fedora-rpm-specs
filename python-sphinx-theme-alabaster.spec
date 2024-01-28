@@ -1,6 +1,6 @@
 Name:           python-sphinx-theme-alabaster
 Version:        0.7.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Configurable sidebar-enabled Sphinx theme
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

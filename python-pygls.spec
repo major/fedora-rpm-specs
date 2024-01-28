@@ -30,6 +30,9 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n pygls-%{version}
 
+# relax version requirements of websockets
+sed -i 's/\^11\.0\.3/>=11.0.3/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -x ws
 

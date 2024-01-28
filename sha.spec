@@ -2,7 +2,7 @@ Name:		sha
 #Upstream will continue in the next version 
 #with the behavior of shared libraries (specifically version 1.2)
 Version:	1.0.4b
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	File hashing utility
 License:	BSD
 URL:		http://hg.saddi.com/sha-asaddi
@@ -60,6 +60,9 @@ install -pm 644 *.h %{buildroot}/%{_includedir}/sha
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4b-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4b-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

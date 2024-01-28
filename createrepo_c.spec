@@ -34,12 +34,11 @@
 
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
-Version:        1.0.2
-Release:        5%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-build-Restore-compatiblity-with-libxml2-2.12.0.patch
 
 %global epoch_dep %{?epoch:%{epoch}:}
 
@@ -52,7 +51,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  rpm-devel >= 4.8.0-28
-BuildRequires:  sqlite-devel
+BuildRequires:  sqlite-devel >= 3.6.18
 BuildRequires:  xz
 BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
@@ -203,6 +202,17 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Jan Kolarik <jkolarik@redhat.com> - 1.0.3-1
+- Update to 1.0.3
+- Set compression level 10 for zstd and zck
+- Introduce new --no-pretty option to reduce metadata size
+- Use gzip compression by default when --compatibility is specified
+- Default changelog limit restored for --compatibility
+- Use epoch-friendly sub-package interdependencies
+- Enable sqlite shared cache on connection level
+- Fix const-correctness with libxml2-2.12.0
+- Allow specifying zck compression only
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

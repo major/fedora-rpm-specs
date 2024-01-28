@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        21.20220119git%{shortcommit}%{?dist}
+Release:        22.20220119git%{shortcommit}%{?dist}
 Summary:        Python OpenID Connect client with token caching and management
 
 License:        MIT
@@ -53,6 +53,9 @@ Python 3 version.
 %{python3_sitelib}/%{pkgname}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-22.20220119git0e2ed81
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-21.20220119git0e2ed81
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

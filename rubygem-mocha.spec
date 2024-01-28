@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mocking and stubbing library
 License: Ruby OR BSD-2-Clause OR MIT
 URL: https://mocha.jamesmead.org
@@ -78,6 +78,9 @@ popd
 %{gem_instdir}/gemfiles/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 02 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.0-1
 - Update to Mocha 2.1.0.
   Resolves: rhbz#2135833

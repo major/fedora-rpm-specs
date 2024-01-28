@@ -1,6 +1,6 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	61%{?dist}
+Release:	62%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 
@@ -375,6 +375,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-62
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

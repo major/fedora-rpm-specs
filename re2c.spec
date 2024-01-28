@@ -1,14 +1,15 @@
 Summary: Tool for generating C, C++, and go recognizers from regular expressions
 Name: re2c
-Version: 2.1.1
-Release: 7%{?dist}
+Version: 3.1
+Release: 2%{?dist}
 License: Public Domain
 URL: https://re2c.org/
 Source: https://github.com/skvadrik/re2c/releases/download/%{version}/re2c-%{version}.tar.xz
 
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires: python3
 
 %description
 re2c is a tool for writing very fast and very flexible scanners. Unlike any
@@ -41,12 +42,20 @@ make tests
 %doc CHANGELOG README.md examples/ doc/*
 %{_bindir}/re2c
 %{_bindir}/re2go
+%{_bindir}/re2rust
 %{_datadir}/re2c/
 %{_mandir}/man1/re2c.1*
 %{_mandir}/man1/re2go.1*
+%{_mandir}/man1/re2rust.1*
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Fri Jan 26 2024 Orion Poplawski <orion@nwra.com> - 3.1-1
+- Update to 3.1
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

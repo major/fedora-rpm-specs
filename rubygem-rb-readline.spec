@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.5
-Release:	14%{?dist}
+Release:	15%{?dist}
 
 Summary:	Pure-Ruby Readline Implementation
 # SPDX confirmed
@@ -96,6 +96,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 10 2023 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 0.5.5-14
 - Use recent gem2spec spec style
 - SPDX migration

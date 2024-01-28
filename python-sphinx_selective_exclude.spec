@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Sphinx eager ".. only::" directive and other selective rendition extensions
 
 License:        BSD
@@ -66,6 +66,9 @@ Requires:       python3-sphinx
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

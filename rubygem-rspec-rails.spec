@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
@@ -101,6 +101,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 22 2023 Vít Ondruch <vondruch@redhat.com> - 6.0.3-1
 - Update to rspec-rails 6.0.3.
   Resolves: rhbz#2078184

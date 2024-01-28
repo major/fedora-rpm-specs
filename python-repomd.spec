@@ -16,7 +16,7 @@ dnf/yum repositories.
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library for reading dnf/yum repositories
 License:        MIT
 URL:            https://github.com/carlwgeorge/repomd
@@ -72,6 +72,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} --verbose t
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

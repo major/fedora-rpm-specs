@@ -30,15 +30,14 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	14.0.2
-Release:	2%{?dist}
+Version:	15.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
 Patch0001:	0001-python-pyproject.toml.patch
-Patch0002:	0002-cpp-src-arrow-filesystem-util_internal.cc.orig
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -156,6 +155,7 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_libdir}/cmake/Arrow/FindBrotliAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/Findlz4Alt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindORC.cmake
+%exclude %{_libdir}/cmake/Arrow/FindorcAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindSnappyAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindgRPCAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/Findre2Alt.cmake
@@ -820,8 +820,8 @@ export \
   PYARROW_WITH_DATASET=1 \
   PYARROW_WITH_FLIGHT=1 \
   PYARROW_WITH_PARQUET=1 \
-  %{?with_use_plasma:PYARROW_WITH_PLASMA=1} \
   PYARROW_WITH_PARQUET_ENCRYPTION=1 \
+  %{?with_use_plasma:PYARROW_WITH_PLASMA=1} \
   %{?with_use_gandiva:PYARROW_WITH_GANDIVA=1} \
   PYARROW_PARALLEL=%{_smp_build_ncpus} \
   PYARROW_INSTALL_TESTS=0 \
@@ -864,13 +864,16 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
     -e 'pyarrow.substrait' -e 'pyarrow._substrait' \
     -e 'pyarrow.cuda' \
     -e 'pyarrow.libarrow_python' -e 'pyarrow._libarrow_python' \
-    -e 'pyarrow.libarrow_python_flight' -e 'pyarrow._libarrow_python_flight'}
+    -e 'pyarrow.libarrow_python_flight' -e 'pyarrow._libarrow_python_flight' \
+    -e 'pyarrow.libarrow_python_parquet_encryption'}
+
+
 
 #--------------------------------------------------------------------
 
 %changelog
-* Wed Jan 24 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 14.0.2-2
-- Fedora_40_Mass_Rebuild, again
+* Thu Jan 25 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.0-1
+- Arrow 15.0.0 GA
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

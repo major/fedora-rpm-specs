@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.6.5
+Version:	5.6.6
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
@@ -708,6 +708,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jan 26 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.6-1
+- Update to version 5.6.6
+
 * Mon Jan 22 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.5-1
 - Update to version 5.6.5
 - Drop patches accepted upstream

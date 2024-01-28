@@ -3,7 +3,7 @@
 
 Name:       python-%{srcname}
 Version:    1.6.1
-Release:    15%{?dist}
+Release:    16%{?dist}
 Summary:    Pure-Python implementation of AES block-cipher and common modes of operation
 License:    MIT
 
@@ -60,6 +60,9 @@ modes of operation (CBC, CFB, CTR, ECB and OFB).
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

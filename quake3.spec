@@ -1,6 +1,6 @@
 Name:           quake3
 Version:        1.36
-Release:        45.svn2102%{?dist}
+Release:        46.svn2102%{?dist}
 Summary:        Quake 3 Arena engine (ioquake3 version)
 License:        GPLv2+
 URL:            http://ioquake3.org/
@@ -245,6 +245,9 @@ install -p -m 644 %{SOURCE20} \
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-46.svn2102
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-45.svn2102
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

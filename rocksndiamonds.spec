@@ -1,6 +1,6 @@
 Name:		rocksndiamonds
 Version:	4.3.2.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPL+
 Summary:	Underground digging game
 URL:		http://www.artsoft.org/rocksndiamonds/
@@ -102,6 +102,9 @@ EOF
 %{_localstatedir}/games/%{name}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

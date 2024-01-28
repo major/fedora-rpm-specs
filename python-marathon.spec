@@ -2,7 +2,7 @@
 
 Name:           python-marathon
 Version:        0.13.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python client library/interface to the Mesos Marathon REST API
 
 License:        MIT
@@ -56,6 +56,9 @@ done
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           quadrapassel
 Version:        40.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GNOME Quadrapassel game
 
 License:        GPLv2+ and CC-BY-SA
@@ -55,6 +55,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Quadrapa
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

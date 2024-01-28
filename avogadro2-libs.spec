@@ -20,6 +20,7 @@ Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/1.98.0/crys
 # Set installation path of Python files
 Patch0: %{name}-set_pythonpath.patch
 Patch1: %{name}-1.94.0-do_not_download_external_files.patch
+Patch2: %{name}-1.98.1-use_upstream_cmake_config.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -96,6 +97,7 @@ mv molecules/LICENSE molecules/LICENSE-molecules
 
 %patch -P 0 -p0 -b .backup
 %patch -P 1 -p0 -b .backup
+%patch -P 2 -p1 -b .backup
 
 # Make avogadro generators source code available for CMake
 mv avogenerators-1.98.0 avogadrogenerators
@@ -134,7 +136,6 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DUSE_VTK:BOOL=OFF \
  -DUSE_HDF5:BOOL=ON \
  -DUSE_SPGLIB:BOOL=ON \
- -DSPGLIB_LIBRARY:FILEPATH=%{_libdir}/libsymspg.so -DSPGLIB_INCLUDE_DIR:PATH=%{_includedir}/spglib \
  -DBUILD_GPL_PLUGINS:BOOL=ON \
  -DBUILD_STATIC_PLUGINS:BOOL=ON \
  -DBUILD_DOCUMENTATION:BOOL=ON \

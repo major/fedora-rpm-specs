@@ -4,7 +4,7 @@
 
 %define name    safekeep
 %define version 1.5.1
-%define release 1
+%define release 2
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -107,6 +107,9 @@ id %{name} >/dev/null 2>&1 || \
 %doc samples/sample.backup
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1^20230910git75e66fe-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 10 2023 Frank Crawford <frank@crawford.emu.id.au> - 1.5.1^20230910git75e66fe-1
 - Update with latest patches for rdiff-backup 2.2
 - Pull latest git version

@@ -1,12 +1,12 @@
 %global sys_name s_tui
 
 Name:       s-tui
-Version:    1.1.4
+Version:    1.1.5
 Release:    %autorelease
 Summary:    Terminal-based CPU stress and monitoring utility
 BuildArch:  noarch
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/amanusk/s-tui
 Source0:    %{pypi_source}
 
@@ -24,7 +24,7 @@ What it does
   * Monitoring your CPU temperature/utilization/frequency/power
   * Shows performance dips caused by thermal throttling
   * Requires no X-server
-  * Built in options for stressing the CPU (stress/stress-ng/FIRESTARTER)}
+  * Built in options for stressing the CPU (stress/stress-ng/FIRESTARTER)
 
 
 %prep

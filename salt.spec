@@ -11,7 +11,7 @@
 
 Name:    salt
 Version: 3006.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: Apache-2.0
@@ -333,6 +333,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3006.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.5-1
 - 3006.5
 

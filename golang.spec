@@ -96,7 +96,7 @@
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.22
-%global go_prerelease rc1
+%global go_prerelease rc2
 #global go_patch 6
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}

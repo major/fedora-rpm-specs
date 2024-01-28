@@ -1,6 +1,6 @@
 Name:		qvge
 Version:	0.6.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	MIT and LGPLv3 and BSD
 Summary:	Graph editor
 URL:		https://arsmasiuk.github.io/qvge/
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

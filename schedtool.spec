@@ -1,6 +1,6 @@
 Name: schedtool       
 Version:  1.3.0   
-Release:  29%{?dist}
+Release:  30%{?dist}
 Summary:  Tool to query or alter process scheduling policy      
 
 License:  GPLv2      
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/INSTALL
 %doc %{_docdir}/%{name}/SCHED_DESIGN
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Florian Weimer <fweimer@redhat.com> - 1.3.0-29
 - Fix C compatibility issue (#2256596)
 

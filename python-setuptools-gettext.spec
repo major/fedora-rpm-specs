@@ -1,6 +1,6 @@
 Name:           python-setuptools-gettext
 Version:        0.1.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Setuptools gettext extension plugin
 
 License:        GPL-2.0-or-later
@@ -40,6 +40,9 @@ rm -rf ./setuptools_gettext.egg-info
 %{python3_sitelib}/setuptools_gettext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

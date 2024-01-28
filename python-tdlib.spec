@@ -5,7 +5,7 @@
 
 Name:           python-tdlib
 Version:        0.9.2
-Release:        11.%{gitdate}.%{shorttag}%{?dist}
+Release:        12.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Tree decomposition algorithms
 
 # Project files are a mix of GPL-3.0-or-later and GPL-2.0-or-later.
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{python3_sitearch}/tdlib/*.la
 %{_includedir}/treedec/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-12.20210929.e8ec911
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-11.20210929.e8ec911
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

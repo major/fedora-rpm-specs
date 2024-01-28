@@ -3,7 +3,7 @@
 Summary: HTTP Accept* for Ruby/Rack
 Name: rubygem-%{gem_name}
 Version: 0.4.5
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: MIT
 URL: https://github.com/mjackson/rack-accept
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -55,6 +55,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.5-18
 - Use test-unit instead of minitest
 

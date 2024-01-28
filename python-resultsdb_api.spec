@@ -1,7 +1,7 @@
 Name:           python-resultsdb_api
 # NOTE: if you update version, *make sure* to also update `setup.py`
 Version:        2.1.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Interface api to ResultsDB
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ Python3 interface to resultsdb.
 %{python3_sitelib}/resultsdb_api-%{version}*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

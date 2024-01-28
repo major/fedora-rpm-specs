@@ -1,6 +1,6 @@
 Name:       qstardict
 Version:    1.4.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    StarDict clone written using Qt
 License:    GPL-3.0-or-later
 URL:        https://qstardict.ylsoftware.com/
@@ -63,6 +63,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Vojtech Trefny <vtrefny@redhat.com> - 1.4.1-1
 - Update to the latest upstream release 1.4.1
 

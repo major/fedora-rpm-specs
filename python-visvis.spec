@@ -1,7 +1,7 @@
 %global srcname visvis
 Name:             python-%{srcname}
 Version:          1.14.0
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Python library for visualization of 1D to 4D data in an object oriented way
 License:          BSD
 URL:              https://github.com/almarklein/%{srcname}
@@ -54,6 +54,9 @@ popd
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

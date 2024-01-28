@@ -23,7 +23,7 @@ Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
 Version:        5.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
 License:        Apache-2.0
@@ -166,6 +166,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

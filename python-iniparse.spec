@@ -3,7 +3,7 @@
 
 Name:           python-iniparse
 Version:        0.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Accessing and Modifying INI files
 
 # From LICENSE:
@@ -60,6 +60,9 @@ rm -vfr %{buildroot}%{_docdir}/*
 %doc README.md Changelog html/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Transport adapter for using file:// URLs with python-requests
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ rm -rf requests_file.egg-info
 %{python3_sitelib}/requests_file*.egg-info*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

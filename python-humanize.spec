@@ -2,7 +2,7 @@
 
 Name:           python-humanize
 Version:        3.13.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Turns dates in to human readable format, e.g '3 minutes ago'
 
 License:        MIT
@@ -62,6 +62,9 @@ sed -Ei 's/ ?--cov(-[^ ]+)? +[^ ]+//g' tox.ini
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

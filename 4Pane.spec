@@ -8,10 +8,15 @@
 
 Name:			4Pane
 Version:		8.0
-Release:		7%{?dist}
+Release:		8%{?dist}
 Summary:		Multi-pane, detailed-list file manager
 
-License:		GPLv3
+# Overall		GPL-3.0-only
+# 4Pane.appdata.xml	CC0-1.0
+# Accelerators.cpp and etc		LGPL-2.0-or-later (wxWindows)
+# sdk/bzip/LICENSE	bzip2-1.0.6 (unused)
+# SPDX confirmed
+License:		GPL-3.0-only AND LGPL-2.0-or-later AND CC0-1.0
 URL:			http://www.4pane.co.uk/
 Source0:		http://downloads.sourceforge.net/fourpane/4pane-%{version}.tar.gz
 # https://sourceforge.net/p/fourpane/git4pane/ci/66ae9a6f2ac526d80559967cda428cd48e5859ee/
@@ -21,8 +26,8 @@ BuildRequires:	gcc-c++
 BuildRequires:	bzip2-devel
 BuildRequires:	xz-devel
 BuildRequires:	wxGTK-devel
-BuildRequires:  %{_bindir}/desktop-file-install
-BuildRequires:  %{_bindir}/appstream-util
+BuildRequires:  /usr/bin/desktop-file-install
+BuildRequires:  /usr/bin/appstream-util
 BuildRequires:	gettext
 BuildRequires:	git
 BuildRequires:	make
@@ -50,7 +55,7 @@ config.h.in
 EOF
 
 git init
-git config user.email "4Pane-owner@fedoraproject.org"
+git config user.email "4Pane-maintainers@fedoraproject.org"
 git config user.name "4Pane owners"
 git add .
 git commit -m "base" -q
@@ -68,11 +73,10 @@ export EXTRA_CXXFLAGS="%{optflags}"
 	--disable-desktop \
 	--without-builtin_bzip2 || \
 	{ sleep 5 ; cat config.log ; sleep 10 ; exit 1; }
-make %{?_smp_mflags}
+%make_build
 
 %install
-%make_install \
-	INSTALL="install -p"
+%make_install
 
 # Some manual installation
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -85,14 +89,15 @@ install -cpm 644 bitmaps/%{name}Icon48.png %{buildroot}%{_datadir}/icons/hicolor
 mkdir -p %{buildroot}%{_mandir}/man1
 install -cpm 644 4Pane.1 %{buildroot}%{_mandir}/man1/
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet \
-        %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
-
 %find_lang %{name}
 
 # Once remove document and let %%doc re-install them
 rm -rf %{buildroot}%{_docdir}/%{name}
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet \
+        %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
 
 %files -f %{name}.lang
 %license	LICENCE
@@ -111,6 +116,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 
 %changelog
+* Fri Jan 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0-8
+- SPDX migration
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

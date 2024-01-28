@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Unicode to 8-bit charset transliteration codec
 
 License:        MIT
@@ -47,6 +47,9 @@ Best-effort representations using smaller coded character sets
 %{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

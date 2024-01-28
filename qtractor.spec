@@ -1,7 +1,7 @@
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
 Version:       0.9.34
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPLv2+
 URL:           http://qtractor.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.rncbc.qtractor.de
 %{_datadir}/metainfo/org.rncbc.qtractor.metainfo.xml
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

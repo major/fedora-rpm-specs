@@ -1,6 +1,6 @@
 Name:           ripmime
 Version:        1.4.0.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Extract attachments out of a MIME encoded email packages
 
 License:        BSD
@@ -30,6 +30,9 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.10-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

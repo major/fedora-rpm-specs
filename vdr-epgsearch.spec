@@ -9,13 +9,13 @@
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.4.2
 #Release:        5%%{?dist}
-Release:        0.8.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.9.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
 License:        GPLv2+
@@ -90,6 +90,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.4.2-0.9.20220201git76d2b10
+- Rebuilt for new VDR API version
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.4.2-0.8.20220201git76d2b10
 - Rebuilt for new VDR API version
 - Add BR gettext for rawhide

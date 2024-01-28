@@ -1,6 +1,6 @@
 Name: python-nitrate
 Version: 1.8.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 Summary: Python API for the Nitrate test case management system
 License: LGPLv2+
@@ -126,6 +126,9 @@ install -pm 644 docs/*.1.gz %{buildroot}%{_mandir}/man1
 %license LICENSE
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

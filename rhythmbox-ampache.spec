@@ -6,7 +6,7 @@
 
 Name:           rhythmbox-ampache
 Version:        0
-Release:        37.%{date}git%{shortcommit}%{?dist}
+Release:        38.%{date}git%{shortcommit}%{?dist}
 Summary:        Ampache plugin for Rhythmbox
 License:        GPLv2+
 URL:            https://github.com/lotan/rhythmbox-ampache
@@ -43,6 +43,9 @@ sed -i "33i packages=[]," setup.py
 %{python3_sitelib}/rhythmbox_ampache-*-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-38.20200822gited4b082
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-37.20200822gited4b082
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

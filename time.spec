@@ -1,7 +1,7 @@
 Summary:    A GNU utility for monitoring a program's use of system resources
 Name:       time
 Version:    1.9
-Release:    22%{?dist}
+Release:    23%{?dist}
 # src/time.c:               GPL-3.0-or-later
 # COPYING:                  GPL-3.0 text
 # doc/time.texi:            GFDL-1.3-no-invariants-or-later
@@ -16,8 +16,6 @@ Release:    22%{?dist}
 # configure:                FSFUL
 # build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic
 # build-aux/install-sh:     X11 AND LicenseRef-Fedora-Public-Domain
-#                           (Waiting for an identifier
-#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/241>)
 # build-aux/config.rpath:   FSFULLR
 # build-aux/test-driver:    GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/update-copyright:   GPL-3.0-or-later
@@ -28,7 +26,7 @@ Release:    22%{?dist}
 # build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic
 # build-aux/gitlog-to-changelog:    GPL-3.0-or-later
 # build-aux/git-version-gen:        GPL-3.0-or-later
-# build-aux/texinfo.tex:    GPL-3.0-or-later WITH "an Texinfo exception" AND GPL-1.0-or-later
+# build-aux/texinfo.tex:    GPL-3.0-or-later WITH Texinfo-exception AND GPL-1.0-or-later
 # build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/mdate-sh:       GPL-2.0-or-later WITH Autoconf-exception-generic
 # GNUmakefile:              GPL-3.0-or-later
@@ -41,6 +39,7 @@ Release:    22%{?dist}
 # maint.mk:                 GPL-3.0-or-later
 # tests/time-posix-quiet.sh:    GPL-3.0-or-later
 License:    GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later
+SourceLicense: %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Texinfo-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-1.0-or-later AND X11 AND FSFAP AND FSFUL AND FSFULLR AND LicenseRef-Fedora-Public-Domain
 Url:        https://www.gnu.org/software/%{name}/
 Source0:    https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:    https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
@@ -62,6 +61,9 @@ Patch3:     time-1.9-Close-outfp-before-exec.patch
 # to increase RSS in 5 MB). In addition there is regression in ppc64le kernel
 # (bug #2212765) which always fails.
 Patch4:     time-1.9-drop-flawed-rss-test.patch
+# Fix formatting a trailing backslash, proposed to the upstream,
+# <https://lists.gnu.org/archive/html/bug-time/2024-01/msg00000.html>
+Patch5:     time-1.9-Fix-formatting-a-trailing-backslash-and-a-percent-si.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bash
@@ -87,6 +89,7 @@ the results.
 touch -d "$(sed -n -e '/^Date: /{s/^[^:]*: //;p}' %{PATCH2})" doc/time.texi
 %patch -P3 -p1
 %patch -P4 -p1
+%patch -P5 -p1
 # Correct version VERSION flag for doc/time.texi
 # <https://lists.gnu.org/archive/html/bug-time/2021-01/msg00000.html>
 printf '%{version}\n' > .tarball-version
@@ -112,6 +115,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 # time(1) manual page lives in man-pages package, bug #1612294.
 
 %changelog
+* Fri Jan 26 2024 Petr Pisar <ppisar@redhat.com> - 1.9-23
+- Fix formatting a trailing backslash
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

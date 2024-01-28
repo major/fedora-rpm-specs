@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A pytest plugin to create a 'tmpdir' containing predefined content
 
 License:        MIT
@@ -54,6 +54,9 @@ rm -rf %{buildroot}%{python3_sitelib}/__pycache__/pytest_datafiles.cpython-*-PYT
 %{python3_sitelib}/pytest_datafiles-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

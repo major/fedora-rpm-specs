@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.10.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Template compilation framework in Ruby
 License: MIT
 URL: https://github.com/judofyr/temple
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/temple.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 03 2023 Vít Ondruch <vondruch@redhat.com> - 0.10.2-1
 - Update to Temple 0.10.2.
   Resolves: rhbz#2137494

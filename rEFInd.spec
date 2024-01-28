@@ -31,7 +31,7 @@ Linux kernels that provide EFI stub support.
 
 Name:		rEFInd
 Version:	0.13.3.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	User friendly EFI boot manager
 License:	GPL-3.0-or-later
 
@@ -174,6 +174,9 @@ echo "no need to install this update in the ESP."                       >> READM
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

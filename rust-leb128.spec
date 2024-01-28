@@ -5,7 +5,7 @@
 
 Name:           rust-leb128
 Version:        0.2.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        DWARF's LEB128 encoding library and REPL
 
 # Upstream license specification: Apache-2.0/MIT
@@ -93,6 +93,9 @@ use the "nightly" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

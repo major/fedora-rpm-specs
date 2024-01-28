@@ -3,7 +3,7 @@
 Summary: Zope 3 schemas
 Name: python-zope-schema
 Version: 7.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: ZPLv2.1
 BuildArch: noarch
 URL: http://pypi.python.org/pypi/zope.schema
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

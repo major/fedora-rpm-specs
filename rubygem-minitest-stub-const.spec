@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Stub constants for the duration of a block in MiniTest
 License: MIT
 URL: https://github.com/adammck/minitest-stub-const
@@ -61,6 +61,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 31 2023 Vít Ondruch <vondruch@redhat.com> - 0.6-9
 - Fix FTBFS caused by Minitest 5.19+ incompatibility.
 

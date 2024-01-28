@@ -80,7 +80,6 @@ BuildRequires:  perl(Gtk2)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Math::Trig)
-BuildRequires:  perl(MongoDB)
 BuildRequires:  perl(SVG)
 BuildRequires:  perl(Term::ReadKey)
 BuildRequires:  perl(Term::ReadLine::Gnu)
@@ -260,7 +259,7 @@ export Arch=%{_arch}
 
 # No, really, we can't have the hardening flags on, and we do not want to
 # specify -lpthread before -Wl,--as-needed
-sed -e 's| -Wl,-z,now -specs=.*redhat-hardened-ld||g' \
+sed -e 's|-Wl,-z,now|-Wl,-z,lazy|g' \
     -e 's/-lpthread -shared/-shared/g' \
     -i build.%{_arch}/config.ninja
 
@@ -318,6 +317,10 @@ make test
 %doc doc/*
 
 %changelog
+* Fri Jan 26 2024 Jerry James <loganjerry@gmail.com> - 4.11-4
+- Adjust sed expressions to fix FTBFS
+- Drop unused perl::MongoDB BR
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,8 +13,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.11.0
-Release:        3%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -171,6 +171,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Jan 26 2024 Miro Hrončok <miro@hroncok.cz> - 1.12.0-1
+- Namespace pyproject-rpm-macros generated text files with %%{python3_pkgversion}
+- That way, a single-spec can be used to build packages for multiple Python versions
+- Fixes: rhbz#2209055
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -27,7 +27,7 @@
 
 Name:       python-%{library}
 Version:    0.13.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python client for the OpenShift API
 License:    ASL 2.0
 URL:        https://github.com/openshift/openshift-restclient-python
@@ -178,6 +178,9 @@ py.test test/unit -c /dev/null -v -r s
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 License:        GPLv3+
@@ -66,6 +66,9 @@ mv -f %{buildroot}%{_bindir}/pyprinttags{3,}
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.21
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -230,6 +230,9 @@ rm %{buildroot}/usr/setup_requirements.txt
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

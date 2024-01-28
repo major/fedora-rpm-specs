@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i 's/0.0.0/%{pypi_version}/g' setup.py
 %{python3_sitelib}/uri_template-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,13 +6,13 @@
 %global with_libproxy 1
 
 Name:           glib-networking
-Version:        2.78.0
+Version:        2.80~alpha
 Release:        %autorelease
 Summary:        Networking support for GLib
 
 License:        LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://gitlab.gnome.org/GNOME/glib-networking
-Source0:        https://download.gnome.org/sources/glib-networking/2.78/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/glib-networking/2.80/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  ca-certificates
 BuildRequires:  gcc

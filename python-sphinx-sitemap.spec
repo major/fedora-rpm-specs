@@ -1,11 +1,14 @@
 Name:           python-sphinx-sitemap
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Sitemap generator for Sphinx
 
 License:        MIT
 URL:            https://github.com/jdillard/sphinx-sitemap
 Source0:        %{url}/archive/v%{version}/sphinx-sitemap-%{version}.tar.gz
+# Fix pyproject.toml for setuptools >= 69
+# https://github.com/jdillard/sphinx-sitemap/pull/84
+Patch:          %{url}/pull/84.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -23,7 +26,7 @@ Summary:        Sitemap generator for Sphinx
 %description -n python3-sphinx-sitemap %_description
 
 %prep
-%autosetup -n sphinx-sitemap-%{version}
+%autosetup -p1 -n sphinx-sitemap-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -43,6 +46,12 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Jan 26 2024 Sandro <devel@penguinpee.nl> - 2.5.1-4
+- Fix for setuptools >= 69 (RHBZ#2259652)
+
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

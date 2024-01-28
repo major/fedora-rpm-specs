@@ -1,6 +1,6 @@
 Name:           python-svg
 Version:        0.2.2b
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Python wrapper for svg
 
 License:        BSD-2-Clause-Views
@@ -80,6 +80,9 @@ find $RPM_BUILD_ROOT -name '*.egg-info' | xargs rm -rf
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2b-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2b-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

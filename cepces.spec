@@ -12,6 +12,8 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         cepces-0.3.8-fix-version.patch
+
 BuildArch:      noarch
 
 Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}

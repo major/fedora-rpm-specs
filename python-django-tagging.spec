@@ -1,7 +1,7 @@
 %global pkgname django-tagging
 Name:           python-django-tagging
 Version:        0.4.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A generic tagging application for Django projects
 
 License:        MIT
@@ -50,6 +50,9 @@ simple.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

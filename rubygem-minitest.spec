@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.21.1
-Release: 200%{?dist}
+Release: 201%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.21.1-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.21.1-200
 - 5.21.1
 

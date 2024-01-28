@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 # setup.py mentions BSD license
@@ -125,6 +125,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

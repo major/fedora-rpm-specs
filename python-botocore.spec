@@ -3,8 +3,8 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.34.28
-Release:        2%{?dist}
+Version:        1.34.29
+Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
@@ -66,6 +66,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.34.29-1
+- 1.34.29
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

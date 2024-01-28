@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Testscenarios, a pyunit extension for dependency injection
 
 License:        ASL 2.0 and BSD
@@ -51,6 +51,9 @@ sed -i '/^catch = 1$/d' setup.cfg
 %doc GOALS HACKING NEWS README doc/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

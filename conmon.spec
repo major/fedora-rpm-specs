@@ -13,19 +13,15 @@
 %bcond_without docs
 %endif
 
-%global built_tag v2.1.8
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
 Name: conmon
 Epoch: 2
-Version: %{gen_version}
+Version: 2.1.10
 License: Apache-2.0
 Release: %autorelease
 Summary: OCI container runtime monitor
 URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
-Source0: %{url}/archive/%{built_tag}.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz
 %if %{with docs}
 ExclusiveArch: %{golang_arches_future}
 BuildRequires: go-md2man
@@ -45,7 +41,7 @@ Requires: libseccomp
 %{summary}.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit %{name}-%{version}
 sed -i 's/install.bin: bin\/conmon/install.bin:/' Makefile
 sed -i 's/install.crio: bin\/conmon/install.crio:/' Makefile
 

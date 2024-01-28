@@ -16,7 +16,7 @@ provides your test with the URL in the fixture.
 
 Name:           python-%{github_name}
 Version:        2.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 # License is included in-line in README.md
@@ -80,6 +80,9 @@ PYTHONPATH=./ py.test-3 -p "no:unraisableexception"
 
 #################################################################################
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

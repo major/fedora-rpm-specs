@@ -1,6 +1,6 @@
 Name: restmbmaster
 Version: 5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Rest API gateway to Modbus slaves
 License: GPLv2+
 URL: https://github.com/jpirko/%{name}/
@@ -41,6 +41,9 @@ mkdir -p %{buildroot}/%{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

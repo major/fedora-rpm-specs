@@ -4,7 +4,7 @@
 
 Name:		ruby-bsearch
 Version:	1.5
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Binary search library for Ruby
 License:	Ruby
 URL:		http://0xcc.net/ruby-bsearch/
@@ -50,6 +50,9 @@ cd ..
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

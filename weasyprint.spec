@@ -3,7 +3,7 @@
 
 Name:           weasyprint
 Version:        60.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -16,7 +16,7 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 # used as "build-backend" in pyproject.toml but not detected by Fedora's
 # macros to generate build requirements
-BuildRequires:  python3-flit
+BuildRequires:  python3dist(flit-core)
 # requirements for testing
 BuildRequires:  dejavu-fonts-all
 BuildRequires:  ghostscript
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Thu Jan 25 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 60.2-2
+- use just flit-core as build dependency
+
 * Tue Dec 12 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 60.2-1
 - update to 60.2
 

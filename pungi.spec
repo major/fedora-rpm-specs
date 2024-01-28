@@ -2,13 +2,14 @@
 
 Name:           pungi
 Version:        4.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
 Patch1:         https://pagure.io/pungi/pull-request/1711.patch
+Patch2:         0001-Replace-deprecated-mock-with-unittest.mock.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -142,6 +143,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Jan 26 2024 Maxwell G <maxwell@gtmx.me> - 4.6.0-5
+- Remove python3-mock dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

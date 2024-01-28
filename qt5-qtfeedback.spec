@@ -6,7 +6,7 @@
 Summary: Qt5 Tactile Feedback
 Name:    qt5-qtfeedback
 Version: 20180903gita14bd0b
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 License: GPLv2+ and LGPLv3 and FDL
 Url:     https://code.qt.io/cgit/qt/qtfeedback.git/
@@ -69,6 +69,9 @@ sed -i -e "\|^[^\#]|s|/usr|%{_prefix}|" %{buildroot}%{_qt5_libdir}/cmake/*/*.cma
 %{_qt5_libdir}/cmake/Qt5Feedback/*.cmake
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20180903gita14bd0b-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20180903gita14bd0b-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

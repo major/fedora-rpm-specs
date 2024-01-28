@@ -1,6 +1,6 @@
 Name:           python-zopeundo
 Version:        6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ZODB undo support for Zope
 License:        ZPL-2.1
 URL:            https://github.com/zopefoundation/ZopeUndo
@@ -52,6 +52,9 @@ rst2html --no-datestamp README.rst README.html
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

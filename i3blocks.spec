@@ -1,6 +1,6 @@
 Name:     i3blocks
 Version:  1.5
-Release:  8%{?dist}
+Release:  9%{?dist}
 Summary:  A feed generator for text based status bars
 License:  GPLv3+
 URL:      https://github.com/vivien/%{name}
@@ -46,6 +46,9 @@ rm -rf %{buildroot}/usr/share/bash-completion
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           netcdf-fortran
-Version:        4.6.0
-Release:        4%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        Fortran libraries for NetCDF-4
 
-License:        NetCDF and ASL 2.0
+License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.unidata.ucar.edu/software/netcdf/
-Source0:        https://github.com/Unidata/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Unidata/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use pkgconfig in nf-config to avoid multi-lib issues and remove FFLAGS
 Patch1:         netcdf-fortran-pkgconfig.patch
 %if 0%{?fedora} >= 38
@@ -256,6 +256,10 @@ done
 
 
 %changelog
+* Thu Jan 25 2024 Orion Poplawski <orion@nwra.com> - 4.6.1-1
+- Update to 4.6.1
+- SPDX License
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

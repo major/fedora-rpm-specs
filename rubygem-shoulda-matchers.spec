@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -181,6 +181,9 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-5
 - Use upstream patch for ruby3.1+ Psych::BadAlias: Unknown alias: default issue
 - Backport upstream patch for RoR 7.0 support which seems to be needed

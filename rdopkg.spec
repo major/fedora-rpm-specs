@@ -9,7 +9,7 @@ described in the rdopkg manual.
 
 Name:             rdopkg
 Version:          1.7.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          RPM packaging automation tool CLI
 
 License:          ASL 2.0
@@ -79,6 +79,9 @@ install -p -m 644 doc/man/*.7 %{buildroot}%{_mandir}/man7/
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

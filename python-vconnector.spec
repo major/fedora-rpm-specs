@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 # setup.py mentions BSD license
@@ -79,6 +79,9 @@ src/%{srcname}-cli -v
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

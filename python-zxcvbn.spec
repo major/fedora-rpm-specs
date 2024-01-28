@@ -3,7 +3,7 @@
 Name: python-zxcvbn
 Summary: Realistic password strength estimator python module
 Version: 4.4.28
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: MIT
 URL: https://github.com/dwolfhub/zxcvbn-python
 Source: https://github.com/dwolfhub/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -50,6 +50,9 @@ Summary: Realistic password strength estimator python3 module
 %{python3_sitelib}/zxcvbn
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.28-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.28-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

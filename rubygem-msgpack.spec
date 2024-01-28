@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: MessagePack, a binary-based efficient data interchange format
 License: ASL 2.0
 URL: http://msgpack.org/
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Vít Ondruch <vondruch@redhat.com> - 1.4.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.3
 

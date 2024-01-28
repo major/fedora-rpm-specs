@@ -1,5 +1,5 @@
 %define gnome_online_accounts_version 3.25.3
-%define glib2_version 2.75.0
+%define glib2_version 2.76.6
 %define gnome_desktop_version 44.0-7
 %define gsd_version 41.0
 %define gsettings_desktop_schemas_version 42~alpha
@@ -15,16 +15,13 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        45.2
+Version:        46~alpha
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
-Patch0: gnome-control-center-c99.patch
-
-Patch:          0001-keyboard-Use-new-gnome-desktop-api-for-getting-defau.patch
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt
@@ -56,6 +53,7 @@ BuildRequires:  pkgconfig(libnma-gtk4)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 %if %{with malcontent}
 BuildRequires:  pkgconfig(malcontent-0)

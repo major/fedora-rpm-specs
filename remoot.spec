@@ -1,6 +1,6 @@
 Name:		remoot
 Version:	0.9
-Release:	48%{?dist}
+Release:	49%{?dist}
 Summary:	Pseudo-universal remote control wrapper
 
 License:	Artistic 2.0
@@ -37,6 +37,9 @@ mv README.conv README
 %{_bindir}/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

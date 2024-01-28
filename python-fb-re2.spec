@@ -9,7 +9,7 @@ module with compatible interfaces.}
 
 Name:               python-%{srcname}
 Version:            1.0.7
-Release:            14%{?dist}
+Release:            15%{?dist}
 Summary:            Python wrapper for Google's RE2 library
 
 License:            BSD
@@ -44,6 +44,9 @@ BuildRequires:      gcc-c++
 %{python3_sitearch}/fb_re2-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

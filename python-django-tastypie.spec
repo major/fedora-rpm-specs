@@ -2,7 +2,7 @@
 %global sum A flexible and capable API layer for Django
 Name:           python-%{pypi_name}
 Version:        0.13.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -75,6 +75,9 @@ rm -rf docs/_build/html/.??*
 %doc docs/_build/html
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

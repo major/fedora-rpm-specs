@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	7%{?dist}
+Release:	9%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -2807,6 +2807,16 @@ test-stressgraphics"
 %endif
 %endif
 
+%if %{?fedora}%{!?fedora:0} >= 40
+%ifarch aarch64 %{power64} s390x
+# Fails with gcc 14 on aarch64, ppc64le and s390x
+# https://github.com/root-project/root/issues/14446
+# - gtest-math-matrix-test-testMatrixTSparse
+excluded="${excluded}|\
+gtest-math-matrix-test-testMatrixTSparse"
+%endif
+%endif
+
 # Filter out parts of tests that require remote network access
 # RNTuple.TClassEBO seg fault
 # https://github.com/root-project/root/issues/12428
@@ -3733,6 +3743,13 @@ fi
 %endif
 
 %changelog
+* Fri Jan 26 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-9
+- Rebuilt for libarrow.so.1500
+
+* Fri Jan 26 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-8
+- Exclude failing gtest-math-matrix-test-testMatrixTSparse on Fedora 40
+  (aarch64, ppc64le and s390x)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.30.02-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

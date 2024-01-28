@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.1.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: PySignals is a signal dispatcher for Python
 
 License: BSD
@@ -51,6 +51,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

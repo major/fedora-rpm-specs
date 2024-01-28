@@ -5,7 +5,7 @@
 Summary:	Wrapper library to bring Unicode Normalization Form support to Ruby/JRuby
 Name:		rubygem-%{gem_name}
 Version:	0.1.4
-Release:	23%{?dist}
+Release:	24%{?dist}
 
 # SPDX confirmed
 License:	BSD-2-Clause
@@ -91,6 +91,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.4-23
 - Massive spec file cleanup
 - SPDX migration

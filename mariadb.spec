@@ -14,16 +14,9 @@
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
-# Aditional SELinux rules
-%global require_mysql_selinux 1
-
-# In f20+ use unversioned docdirs, otherwise the old versioned one
-%global _pkgdocdirname %{pkg_name}%{!?_pkgdocdir:-%{version}}
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{pkg_name}-%{version}}
-
-# By default, patch(1) creates backup files when chunks apply with offsets.
-# Turn that off to ensure such files don't get included in RPMs (cf bz#884755).
-%global _default_patch_flags --no-backup-if-mismatch
+# Filtering: https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/
+%global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::|wsrep)
+%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/%{pkg_name}/plugin/.*\\.so)$
 
 # Temporary workaround to fix the "internal compiler error" described in https://bugzilla.redhat.com/show_bug.cgi?id=2239498
 # TODO: Remove when the issue is resolved
@@ -32,6 +25,54 @@
 %endif
 
 
+
+# For some use cases we do not need some parts of the package. Set to "...with" to exclude
+%bcond_with    clibrary
+%bcond_with    config
+%bcond_without embedded
+%bcond_without devel
+%bcond_without client
+%bcond_without common
+%bcond_without errmsg
+%bcond_without galera
+%bcond_without backup
+%if !0%{?flatpak}
+%bcond_without test
+%endif
+
+# Page compression algorithms for InnoDB & XtraDB
+%bcond_without lz4
+
+# Aditional SELinux rules from a standalone package 'mysql-selinux' (that holds rules shared between MariaDB and MySQL)
+%bcond_without require_mysql_selinux
+
+# For deep debugging we need to build binaries with extra debug info
+%bcond_with    debug
+
+%bcond_without gssapi
+# PAM authentication plugin
+%if !0%{?flatpak}
+%bcond_without pam
+%endif
+
+# The Open Query GRAPH engine (OQGRAPH) is a computation engine allowing
+# hierarchies and more complex graph structures to be handled in a relational fashion
+%bcond_without oqgraph
+
+# Other plugins
+# S3 storage engine
+#   https://mariadb.com/kb/en/s3-storage-engine/
+%if 0%{?fedora}
+%bcond_without cracklib
+%bcond_without connect
+%bcond_without sphinx
+%bcond_without s3
+%else
+%bcond_with cracklib
+%bcond_with connect
+%bcond_with sphinx
+%bcond_with s3
+%endif
 
 # Mroonga engine
 #   https://mariadb.com/kb/en/mariadb/about-mroonga/
@@ -51,99 +92,31 @@
 %endif
 %endif
 
-# The Open Query GRAPH engine (OQGRAPH) is a computation engine allowing
-# hierarchies and more complex graph structures to be handled in a relational fashion
-%bcond_without oqgraph
-
-# PAM authentication plugin
-%if !0%{?flatpak}
-%bcond_without pam
-%endif
-
-# Other plugins
-# S3 storage engine
-#   https://mariadb.com/kb/en/s3-storage-engine/
-%if 0%{?fedora}
-%bcond_without cracklib
-%bcond_without connect
-%bcond_without sphinx
-%bcond_without s3
-%else
-%bcond_with cracklib
-%bcond_with connect
-%bcond_with sphinx
-%bcond_with s3
-%endif
-
-%bcond_without gssapi
-
-# For some use cases we do not need some parts of the package. Set to "...with" to exclude
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with    clibrary
-%else
-%bcond_without clibrary
-%endif
-%bcond_without embedded
-%bcond_without devel
-%bcond_without client
-%bcond_without common
-%bcond_without errmsg
-%if !0%{?flatpak}
-%bcond_without test
-%endif
-%bcond_without galera
-%bcond_without backup
-
-# When there is already another package that ships /etc/my.cnf,
-# rather include it than ship the file again, since conflicts between
-# those files may create issues
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with config
-%else
-%bcond_without config
-%endif
-
-# For deep debugging we need to build binaries with extra debug info
-%bcond_with    debug
-
-# Page compression algorithms for InnoDB & XtraDB
-%bcond_without lz4
-
 
 
 # MariaDB 10.0 and later requires pcre >= 10.34, otherwise we need to use
 # the bundled library, since the package cannot be build with older version
 #   https://mariadb.com/kb/en/pcre/
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 8
 %bcond_without unbundled_pcre
 %else
 %bcond_with unbundled_pcre
 %global pcre_bundled_version 10.42
 %endif
 
-# Use main python interpretter version
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global python_path /usr/bin/python3
-%else
-%global python_path /usr/bin/python2
-%endif
-
 # Include systemd files
-%global daemon_name %{pkg_name}
+%global daemon_name      %{pkg_name}
 %global daemon_no_prefix %{pkg_name}
-%global mysqld_pid_dir %{pkg_name}
 
 # We define some system's well known locations here so we can use them easily
 # later when building to another location (like SCL)
-%global logrotateddir %{_sysconfdir}/logrotate.d
-%global logfiledir %{_localstatedir}/log/%{daemon_name}
-%global logfile %{logfiledir}/%{daemon_name}.log
+%global logrotateddir    %{_sysconfdir}/logrotate.d
+%global logfiledir       %{_localstatedir}/log/%{daemon_name}
+%global logfile          %{logfiledir}/%{daemon_name}.log
 # Directory for storing pid file
-%global pidfiledir %{_rundir}/%{mysqld_pid_dir}
+%global pidfiledir       %{_rundir}/%{daemon_name}
 # Defining where database data live
-%global dbdatadir %{_localstatedir}/lib/mysql
-# Home directory of mysql user should be same for all packages that create it
-%global mysqluserhome /var/lib/mysql
+%global dbdatadir        %{_localstatedir}/lib/mysql
 
 
 
@@ -159,7 +132,7 @@
 
 Name:             mariadb
 Version:          10.5.23
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          10%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -220,8 +193,7 @@ Patch9:           %{pkg_name}-ownsetup.patch
 Patch10:          %{pkg_name}-ssl-cipher-tests.patch
 Patch12:          rocksdb-6.8-gcc13.patch
 
-BuildRequires:    make
-BuildRequires:    cmake gcc-c++
+BuildRequires:    make cmake gcc-c++
 BuildRequires:    multilib-rpm-config
 BuildRequires:    selinux-policy-devel
 BuildRequires:    systemd systemd-devel
@@ -247,10 +219,8 @@ BuildRequires:    bison bison-devel
 %{?with_unbundled_pcre:BuildRequires: pcre2-devel >= 10.34 pkgconf}
 %{!?with_unbundled_pcre:Provides: bundled(pcre2) = %{pcre_bundled_version}}
 # Few utilities needs Perl
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:    perl-interpreter
 BuildRequires:    perl-generators
-%endif
 # Some tests requires python
 BuildRequires:    python3
 # Tests requires time and ps and some perl modules
@@ -292,13 +262,9 @@ BuildRequires:    perl(warnings)
 # for running some openssl tests rhbz#1189180
 BuildRequires:    openssl openssl-devel
 
-%if %{with debug}
-BuildRequires:    valgrind-devel
-%endif
-
 Requires:         bash coreutils grep
 
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
 
 %if %{with clibrary}
 # Explicit EVR requirement for -libs is needed for RHBZ#1406320
@@ -319,13 +285,6 @@ Suggests:         %{name}-server%{?_isa} = %{sameevr}
 
 Conflicts:        %{?fedora:community-}mysql
 
-# Filtering: https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/
-%global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::|wsrep)
-%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/%{pkg_name}/plugin/.*\\.so)$
-
-# Define license macro if not present
-%{!?_licensedir:%global license %doc}
-
 %description
 MariaDB is a community developed fork from MySQL - a multi-user, multi-threaded
 SQL database server. It is a client/server implementation consisting of
@@ -337,7 +296,7 @@ utilities.
 %if %{with clibrary}
 %package          libs
 Summary:          The shared libraries required for MariaDB/MySQL clients
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
 %if %{with mysql_names}
 Provides:         mysql-libs = %{sameevr}
 Provides:         mysql-libs%{?_isa} = %{sameevr}
@@ -375,6 +334,7 @@ package itself.
 %if %{with common}
 %package          common
 Summary:          The shared files required by server and client
+BuildArch:        noarch
 Requires:         %{_sysconfdir}/my.cnf
 
 
@@ -391,7 +351,8 @@ You will need to install this package to use any other MariaDB package.
 %if %{with errmsg}
 %package          errmsg
 Summary:          The error messages files required by server and embedded
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+BuildArch:        noarch
+Requires:         %{name}-common = %{sameevr}
 
 %description      errmsg
 The package provides error messages files for the MariaDB daemon and the
@@ -403,7 +364,7 @@ MariaDB packages.
 %if %{with galera}
 %package          server-galera
 Summary:          The configuration files and scripts for galera replication
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
 Requires:         %{name}-server%{?_isa} = %{sameevr}
 Requires:         galera >= 26.4.3
 BuildRequires:    selinux-policy-devel
@@ -435,8 +396,8 @@ Recommends:       %{name}%{?_isa}
 %else
 Requires:         %{name}%{?_isa}
 %endif
-Requires:         %{name}-common%{?_isa} = %{sameevr}
-Requires:         %{name}-errmsg%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
+Requires:         %{name}-errmsg = %{sameevr}
 Recommends:       %{name}-server-utils%{?_isa} = %{sameevr}
 Recommends:       %{name}-backup%{?_isa} = %{sameevr}
 %{?with_cracklib:Recommends:   %{name}-cracklib-password-check%{?_isa} = %{sameevr}}
@@ -455,15 +416,12 @@ Requires:         %{_sysconfdir}/my.cnf.d
 
 # Additional SELinux rules (common for MariaDB & MySQL) shipped in a separate package
 # For cases, where we want to fix a SELinux issues in MariaDB sooner than patched selinux-policy-targeted package is released
-%if %require_mysql_selinux
+%if %{with require_mysql_selinux}
 # The *-selinux package should only be required on SELinux enabled systems. Therefore the following rich dependency syntax should be used:
 Requires:         (mysql-selinux if selinux-policy-targeted)
 # This ensures that the *-selinux package and all its dependencies are not pulled into containers and other systems that do not use SELinux.
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Adding_dependency_to_the_spec_file_of_corresponding_package
 %endif
-
-# for fuser in mysql-check-socket
-Requires:         psmisc
 
 Requires:         coreutils
 Requires(pre):    /usr/sbin/useradd
@@ -480,11 +438,6 @@ Provides:         mysql-compat-server = %{sameevr}
 Provides:         mysql-compat-server%{?_isa} = %{sameevr}
 %endif
 Conflicts:        %{?fedora:community-}mysql-server
-
-# Bench subpackage has been deprecated in F32
-Obsoletes: %{name}-bench <= %{sameevr}
-
-Obsoletes:      %{name}-tokudb-engine <= %{sameevr}
 
 %description      server
 MariaDB is a multi-user, multi-threaded SQL database server. It is a
@@ -672,8 +625,8 @@ mariadb-connector-c package.
 %if %{with embedded}
 %package          embedded
 Summary:          MariaDB as an embeddable library
-Requires:         %{name}-common%{?_isa} = %{sameevr}
-Requires:         %{name}-errmsg%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
+Requires:         %{name}-errmsg = %{sameevr}
 %if %{with mysql_names}
 Provides:         mysql-embedded = %{sameevr}
 Provides:         mysql-embedded%{?_isa} = %{sameevr}
@@ -710,7 +663,7 @@ the embedded version of the MariaDB server.
 %package          test
 Summary:          The test suite distributed with MariaDB
 Requires:         %{name}%{?_isa} = %{sameevr}
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{name}-common = %{sameevr}
 Requires:         %{name}-server%{?_isa} = %{sameevr}
 Requires:         patch
 Requires:         perl(Env)
@@ -836,8 +789,8 @@ fi
          -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
          -DINSTALL_SYSCONFDIR="%{_sysconfdir}" \
          -DINSTALL_SYSCONF2DIR="%{_sysconfdir}/my.cnf.d" \
-         -DINSTALL_DOCDIR="share/doc/%{_pkgdocdirname}" \
-         -DINSTALL_DOCREADMEDIR="share/doc/%{_pkgdocdirname}" \
+         -DINSTALL_DOCDIR="share/doc/%{pkg_name}" \
+         -DINSTALL_DOCREADMEDIR="share/doc/%{pkg_name}" \
          -DINSTALL_INCLUDEDIR=include/mysql \
          -DINSTALL_INFODIR=share/info \
          -DINSTALL_LIBDIR="%{_lib}" \
@@ -864,7 +817,6 @@ fi
          -DCONC_WITH_SSL=%{?with_clibrary:ON}%{!?with_clibrary:NO} \
          -DWITH_SSL=system \
          -DWITH_ZLIB=system \
-         -DLZ4_LIBS=/usr/%{_lib}/liblz4.so \
          -DLZ4_LIBS=%{?with_lz4:/usr/%{_lib}/liblz4.so}%{!?with_lz4:} \
          -DWITH_INNODB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
          -DWITH_ROCKSDB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
@@ -879,7 +831,6 @@ fi
          -DPLUGIN_AUTH_PAM_V1=%{?with_pam:DYNAMIC}%{!?with_pam:NO} \
          -DPLUGIN_COLUMNSTORE=NO \
          -DPLUGIN_CLIENT_ED25519=OFF \
-         -DPYTHON_SHEBANG=%{python_path} \
          -DPLUGIN_CACHING_SHA2_PASSWORD=%{?with_clibrary:DYNAMIC}%{!?with_clibrary:OFF} \
          -DPLUGIN_AWS_KEY_MANAGEMENT=NO \
          -DCONNECT_WITH_MONGO=OFF \
@@ -948,16 +899,11 @@ install -p -m 0755 %{_vpath_builddir}/scripts/mysql_config_multilib %{buildroot}
 ln -s mysql_config.1 %{buildroot}%{_mandir}/man1/mysql_config-%{__isa_bits}.1
 fi
 
-%if %{without clibrary}
-# Client part should be included in package 'mariadb-connector-c'
-rm %{buildroot}%{_libdir}/pkgconfig/libmariadb.pc
-%endif
-
 # install INFO_SRC, INFO_BIN into libdir (upstream thinks these are doc files,
 # but that's pretty wacko --- see also %%{pkg_name}-file-contents.patch)
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{pkg_name}/
 install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{pkg_name}/
-rm -r %{buildroot}%{_datadir}/doc/%{_pkgdocdirname}/MariaDB-server-%{version}/
+rm -r %{buildroot}%{_datadir}/doc/%{pkg_name}/MariaDB-server-%{version}
 
 # Logfile creation
 mkdir -p %{buildroot}%{logfiledir}
@@ -974,6 +920,7 @@ install -p -m 0755 -d %{buildroot}%{dbdatadir}
 install -D -p -m 0644 %{_vpath_builddir}/scripts/my.cnf %{buildroot}%{_sysconfdir}/my.cnf
 %else
 rm %{_vpath_builddir}/scripts/my.cnf
+rm %{buildroot}%{_sysconfdir}/my.cnf
 %endif
 
 # use different config file name for each variant of server (mariadb / mysql)
@@ -999,17 +946,11 @@ install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}
 
 # Install downstream version of tmpfiles
 install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
-%if 0%{?mysqld_pid_dir:1}
 echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
-%endif
-
-# install additional galera selinux policy
-%if %{with galera}
-install -p -m 644 -D selinux/%{pkg_name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
-%endif
 
 # Install additional cracklib selinux policy
 %if %{with cracklib}
+mkdir -p %{buildroot}%{_datadir}/selinux/packages/targeted/
 mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
 rm %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.te
 %endif
@@ -1066,11 +1007,25 @@ install -p -m 0644 %{SOURCE6} %{basename:%{SOURCE6}}
 install -p -m 0644 %{SOURCE16} %{basename:%{SOURCE16}}
 install -p -m 0644 %{SOURCE71} %{basename:%{SOURCE71}}
 
-# install galera config file
 %if %{with galera}
+# install galera config file
 sed -i -r 's|^wsrep_provider=none|wsrep_provider=%{_libdir}/galera/libgalera_smm.so|' %{_vpath_builddir}/support-files/wsrep.cnf
 install -p -m 0644 %{_vpath_builddir}/support-files/wsrep.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cnf
+
+# install additional galera selinux policy
+install -p -m 644 -D selinux/%{pkg_name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
+
+# Fix Galera Replication config file
+#   The replication requires cluster address upon startup (which is end-user specific).
+#   Disable it entirely, rather than have it failing out-of-the-box.
+sed -i 's/^wsrep_on=1/wsrep_on=0/' %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cnf
+%else
+rm %{buildroot}%{_sysconfdir}/sysconfig/clustercheck
+rm %{buildroot}%{_bindir}/{clustercheck,galera_new_cluster}
+rm %{buildroot}%{_bindir}/galera_recovery
 %endif
+
+
 # install the clustercheck script
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 touch %{buildroot}%{_sysconfdir}/sysconfig/clustercheck
@@ -1094,13 +1049,6 @@ sed -i 's/^plugin-load-add/#plugin-load-add/' %{buildroot}%{_sysconfdir}/my.cnf.
 sed -i 's/^plugin-load-add/#plugin-load-add/' %{buildroot}%{_sysconfdir}/my.cnf.d/cracklib_password_check.cnf
 %endif
 
-# Fix Galera Replication config file
-#   The replication requires cluster address upon startup (which is end-user specific).
-#   Disable it entirely, rather than have it failing out-of-the-box.
-%if %{with galera}
-sed -i 's/^wsrep_on=1/wsrep_on=0/' %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cnf
-%endif
-
 %if %{without embedded}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test_embedded,mysqltest_embedded}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedded}.1*
@@ -1108,6 +1056,9 @@ rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedd
 
 
 %if %{without clibrary}
+# Client part should be included in package 'mariadb-connector-c'
+rm %{buildroot}%{_libdir}/pkgconfig/libmariadb.pc
+
 rm %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 # Client library and links
 rm %{buildroot}%{_libdir}/libmariadb.so.*
@@ -1161,10 +1112,6 @@ rm %{buildroot}%{_mandir}/man1/mariadb-{access,admin,binlog,check,dump,find-rows
 rm %{buildroot}%{_sysconfdir}/my.cnf.d/mysql-clients.cnf
 %endif
 
-%if %{without config}
-rm %{buildroot}%{_sysconfdir}/my.cnf
-%endif
-
 %if %{without common}
 rm -r %{buildroot}%{_datadir}/%{pkg_name}/charsets
 %endif
@@ -1194,12 +1141,6 @@ rm %{buildroot}%{_bindir}/{mariadb-client-test,mariadb-test}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test,mysqltest,my_safe_process}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test,mariadb-test}.1*
 rm %{buildroot}%{_mandir}/man1/{mysql-test-run,mysql-stress-test}.pl.1*
-%endif
-
-%if %{without galera}
-rm %{buildroot}%{_sysconfdir}/sysconfig/clustercheck
-rm %{buildroot}%{_bindir}/{clustercheck,galera_new_cluster}
-rm %{buildroot}%{_bindir}/galera_recovery
 %endif
 
 %if %{without rocksdb}
@@ -1291,7 +1232,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
 
 %pre server
 /usr/sbin/groupadd -g 27 -o -r mysql >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g mysql -o -r -d %{mysqluserhome} -s /sbin/nologin \
+/usr/sbin/useradd -M -N -g mysql -o -r -d %{dbdatadir} -s /sbin/nologin \
   -c "MySQL Server" -u 27 mysql >/dev/null 2>&1 || :
 
 %post server
@@ -1377,7 +1318,7 @@ fi
 
 %if %{with common}
 %files common
-%doc %{_datadir}/doc/%{_pkgdocdirname}
+%doc %{_datadir}/doc/%{pkg_name}
 %dir %{_datadir}/%{pkg_name}
 %{_datadir}/%{pkg_name}/charsets
 %if %{with clibrary}

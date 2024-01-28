@@ -1,6 +1,6 @@
 Name:           perl-Net-Twitter-Lite
 Version:        0.12008
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl interface to the Twitter API
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Twitter-Lite
@@ -74,6 +74,9 @@ This module provides a perl interface to the Twitter API v1.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12008-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12008-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

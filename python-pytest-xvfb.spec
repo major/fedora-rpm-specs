@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A pytest plugin to run Xvfb for tests
 
 License:        MIT
@@ -59,6 +59,9 @@ rm tests/test_xvfb_windows.py
 %{python3_sitelib}/pytest_xvfb-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@ checkout" (e.g, created by running setup.py develop).}
 Name:           python-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
 Version:        1.9.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        MIT
 
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -84,6 +84,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

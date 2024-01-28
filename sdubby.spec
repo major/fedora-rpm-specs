@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -76,6 +76,9 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec  4 2023 Jeremy Linton <jeremy.linton@arm.com> - 1.0-5
 - BZ 2250498 Add hacky grubby = 8.41 line to assure that anaconda-core, as used by initial-setup-gui, for xfce/etc is satisfied
 

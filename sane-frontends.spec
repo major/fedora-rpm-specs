@@ -1,6 +1,6 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
 
@@ -70,6 +70,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-49
 - applied accepted license exception
 

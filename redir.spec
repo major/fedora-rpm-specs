@@ -1,6 +1,6 @@
 Name:           redir
 Version:        3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A TCP port redirector for UNIX
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

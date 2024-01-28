@@ -4,7 +4,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Colin Walters <walters@verbum.org> - 0.2.17-2
 - https://github.com/coreos/bootupd/releases/tag/v0.2.17
 

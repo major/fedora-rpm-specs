@@ -8,7 +8,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.6.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        JMESPath - Ruby Edition
 
 License:        Apache-2.0
@@ -102,6 +102,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

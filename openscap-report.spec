@@ -1,8 +1,8 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.6
-Release:        3%{?dist}
+Version:        0.2.7
+Release:        1%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -60,6 +60,27 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Fri Jan 26 2024 Packit <hello@packit.dev> - 0.2.7-1
+- 0.2.7 (Jan Rodak)
+- Add tool tip to search bar (Jan Rodak)
+- Enable search by reference (Jan Rodak)
+- Add generation search infromation (Jan Rodak)
+- Use macro for generation of list items (Jan Rodak)
+- Create two-tier display of Evaluation Characteristics (Jan Rodak)
+- Add title (Jan Rodak)
+- Reduce complexity of function generate_referenced_endpoints (Jan Rodak)
+- Use default dict (Jan Rodak)
+- Fix JSON schema (Jan Rodak)
+- Use correct orthography of addresses types acronyms (Jan Rodak)
+- Add function to update known references (Jan Rodak)
+- Change the presentation of referenced endpoints (Jan Rodak)
+- Add new elements (Jan Rodak)
+- Add onclick function (Jan Rodak)
+- Add map of OVAL endpoints (Jan Rodak)
+- Add target addresses to report (Jan Rodak)
+- Add target addresses to model (Jan Rodak)
+- Fix width of pre element (Jan Rodak)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

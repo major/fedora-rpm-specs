@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Simple low-level client for Redis 6+
 License: MIT
 URL: https://github.com/redis-rb/redis-client
@@ -102,6 +102,9 @@ popd
 %{gem_instdir}/redis-client.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 0.15.0-1
 - Update to RedisClient 0.15.0.
   Resolves: rhbz#2170659

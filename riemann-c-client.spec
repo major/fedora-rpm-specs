@@ -8,7 +8,7 @@
 
 Name:		riemann-c-client
 Version:	1.10.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The riemann C client
 License:	GPLv2
 Url:		https://github.com/algernon/riemann-c-client
@@ -66,6 +66,9 @@ rm %{buildroot}%{_libdir}/libriemann-client.la
 %{_libdir}/pkgconfig/riemann-client.pc
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

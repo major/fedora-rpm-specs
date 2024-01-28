@@ -6,7 +6,7 @@
 
 Name:           sway
 Version:        1.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -216,6 +216,9 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Sun Jan 14 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-4
+- Use gnome-keyring for Secret portal implementation
+
 * Thu Sep 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-3
 - Add sway-portals.conf for xdg-desktop-portal >= 1.17
 

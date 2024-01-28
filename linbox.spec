@@ -1,7 +1,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -20,6 +20,11 @@ Patch:          https://github.com/linbox-team/%{name}/pull/307.patch
 
 # Fixes an attempt to return a void value in the OpenCL code
 Patch:          https://github.com/linbox-team/%{name}/pull/308.patch
+
+# const_cast missing; faster empty init
+# https://github.com/linbox-team/linbox/commit/b8f2d4ccdc0af4418d14f72caf6c4d01969092a3
+# Fixes FTBFS with GCC 14. Cherry-picked to v1.7.0.
+Patch:          0001-const_cast-missing.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # The sole dependent package, sagemath, is already not built on i686.
@@ -146,6 +151,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Fri Jan 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-5
+- Backport a commit to fix building with GCC 14 (fix RHBZ#2260378)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

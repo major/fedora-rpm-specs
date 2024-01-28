@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -150,7 +150,7 @@ exit 0
 %post master
 for master in $(systemctl list-units 'buildbot-master@*.service' --all --plain --no-legend | cut -d '@' -f 2 | cut -d '.' -f 1); do
   systemctl stop buildbot-master@"$master".service
-  su - buildbot-master -c "buildbot upgrade-master /var/lib/buildbot/master/$master"
+  su - buildbot-master -s /bin/bash -c "buildbot upgrade-master /var/lib/buildbot/master/$master"
   systemctl start buildbot-master@"$master".service
 done
 
@@ -410,6 +410,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Fri Jan 26 2024 Orion Poplawski <orion@nwra.com> - 3.11.0-2
+- Fix database upgrade action
+
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.11.0-1
 - 3.11.0
 

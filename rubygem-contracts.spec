@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.17
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 Summary:	Contracts for Ruby
 # SPDX confirmed
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

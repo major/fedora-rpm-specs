@@ -3,7 +3,7 @@
 Summary: Manage child processes and their IO handles easily
 Name: rubygem-%{gem_name}
 Version: 1.3.4
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: BSD or Ruby
 URL: http://github.com/ahoward/open4/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -64,6 +64,9 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.4-18
 - Use recent gem2rpm spec style
 - Apply the upstream PR to support minitest 5.19+

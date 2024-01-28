@@ -1,6 +1,6 @@
 Name:		 rumor
 Version:	 1.0.5
-Release:	 30%{?dist}
+Release:	 31%{?dist}
 Summary:	 Really Unintelligent Music transcriptOR 
 License:	 GPL-2.0-or-later
 URL:		 http://launchpad.net/rumor
@@ -45,6 +45,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_infodir}/%{name}.info*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

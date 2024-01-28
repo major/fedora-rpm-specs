@@ -1,6 +1,6 @@
 Name:           python-fastjsonschema
 Version:        2.18.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
 License:        BSD-3-Clause
@@ -9,6 +9,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 BuildRequires:  pyproject-rpm-macros
 
 %global _description %{expand:
@@ -27,7 +28,7 @@ Summary:        %{summary}
 %autosetup -p1 -n %{name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -37,13 +38,19 @@ Summary:        %{summary}
 %pyproject_save_files fastjsonschema
 
 %check
-%tox
+%pytest -m "not benchmark"
 
 %files -n python3-fastjsonschema -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
 %changelog
+* Fri Jan 26 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.18.0-4
+- Avoid tox dependency
+
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

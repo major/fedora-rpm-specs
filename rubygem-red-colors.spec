@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.3.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 Summary:	Red Colors provides a wide array of features for dealing with colors
 License:	MIT
@@ -88,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

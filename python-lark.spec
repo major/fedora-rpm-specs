@@ -1,6 +1,6 @@
 Name:           python-lark
 Version:        1.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lark is a modern general-purpose parsing library for Python
 # License breakdown:
 # lark/tools/standalone.py - MPL-2.0
@@ -107,6 +107,9 @@ cp -a %{legacy_distinfo} %{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

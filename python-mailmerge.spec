@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       2.2.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Simple command line mail merge tool
 
 License:       MIT
@@ -41,6 +41,9 @@ BuildRequires: python3-setuptools
 %{python3_sitelib}/mailmerge-*.egg-info/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

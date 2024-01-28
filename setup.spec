@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.14.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 Group: System Environment/Base
 URL: https://pagure.io/setup/
@@ -131,6 +131,9 @@ end
 /etc/dnf/protected.d/%{name}.conf
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 29 2023 Martin Osvald <mosvald@redhat.com> - 2.14.5-1
 - bashrc: switch PROMPT_COMMAND to be an array (rhbz#2097525)
 - profile: don't overwrite the HISTSIZE environment variable

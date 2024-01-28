@@ -18,6 +18,10 @@ Source:         %{pypi_source signature_dispatch}
 # Rebased on the PyPI sdist, which has different whitespace in pyproject.toml,
 # and version specification loosened to allow rc3 or later.
 Patch:          typeguard-v4.patch
+# Use flit_core as the build backend
+#
+# Don’t require all of flit to build a wheel.
+Patch:          %{url}/pull/6.patch
 
 BuildArch:      noarch
 

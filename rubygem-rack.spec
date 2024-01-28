@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 2.2.4
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT and BSD
@@ -98,6 +98,9 @@ popd
 %doc %{gem_instdir}/example
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:2.2.4-4
 - Backport upstream patch for Regexp.new 3rd argument deprecation
   (needed for ruby 3.3)

@@ -2,7 +2,7 @@
 
 Name:           python-%{pkgname}
 Version:        7.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        NFS-safe file locking with timeouts for POSIX systems
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ rm -f conftest.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

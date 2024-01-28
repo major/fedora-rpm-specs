@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A library to identify devices
 
 License:        MIT
@@ -54,6 +54,9 @@ parsing browser user agent strings.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

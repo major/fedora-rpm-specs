@@ -7,7 +7,7 @@
 Name:    qca-qt4
 Summary: Qt4 Cryptographic Architecture
 Version: 2.2.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 
 License: LGPLv2+
 URL:     https://userbase.kde.org/QCA
@@ -209,6 +209,9 @@ Requires: qca%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

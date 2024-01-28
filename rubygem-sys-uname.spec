@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: An interface for returning uname (platform) information
 License: ASL 2.0
 URL: http://github.com/djberg96/sys-uname
@@ -69,6 +69,9 @@ popd
 %{gem_instdir}/sys-uname.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: {OPEN} client authentication protocol for python-requests
 Name: python-edgegrid
 Version: 1.2.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: %{pypi_source}
 License: ASL 2.0
 BuildArch: noarch
@@ -60,6 +60,9 @@ find akamai -name '*.py' -exec sed -r -e 's|^#!/usr/bin/env.*|#|' -i '{}' ';'
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

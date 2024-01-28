@@ -1,6 +1,6 @@
 Name: rednotebook
 Version: 2.29.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Daily journal with calendar, templates and keyword searching
 License: GPL-2.0-or-later
 
@@ -72,6 +72,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

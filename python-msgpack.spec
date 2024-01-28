@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ rm -rf test/test_timestamp.py
 %{python3_sitearch}/%{srcname}*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

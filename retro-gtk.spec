@@ -3,7 +3,7 @@
 
 Name:       retro-gtk
 Version:    1.0.2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    The GTK+ Libretro frontend framework
 
 License:    GPLv3+
@@ -106,6 +106,9 @@ This subpackage contains the headers to make use of the libretro-gtk library.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

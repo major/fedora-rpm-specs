@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.22.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD
@@ -215,6 +215,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest test \
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

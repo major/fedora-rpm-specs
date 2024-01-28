@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Measure the readability of a given text using surface characteristics
 
 License:        Apache-2.0 
@@ -50,6 +50,9 @@ number of words, syllables, and sentences.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

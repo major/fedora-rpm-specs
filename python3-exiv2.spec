@@ -2,7 +2,7 @@
 
 Name:           python3-exiv2
 Version:        0.9.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPLv2+ and GPLv3+
 Summary:        Python3 bindings for the exiv2 library
 Url:            https://launchpad.net/py3exiv2
@@ -43,6 +43,9 @@ sed -i 's|boost_python3|boost_python%{python3_version_nodots}|' setup.py
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

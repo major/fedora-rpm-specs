@@ -4,7 +4,7 @@
 
 Name:           qt-virt-manager
 Version:        0.72.99
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Qt Virtual Machine Manager
 
 License:        GPLv2+
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qt5-remote-viewer.de
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.72.99-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.72.99-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

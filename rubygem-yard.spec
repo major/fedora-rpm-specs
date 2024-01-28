@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.9.34
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -120,6 +120,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.34-4
 - Testsuite: remove invalid yield usage from spec (for ruby3.3)
 

@@ -1,26 +1,24 @@
 %bcond tests 1
-
-# Use this to package a pre-release
-#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#global snapdate yyyymmdd
+# These tests are really for python-hatchling; they are more likely than other
+# tests to fail when the version of hatchling is compatible but does not
+# exactly match the version of hatchling that existed in the shared git
+# repository at the time of this Hatch release. Furthermore, it may be
+# redundant to run these here if we run them in the python-hatchling build.
+%bcond backend_tests 1
 
 Name:           hatch
-Version:        1.9.2%{?commit:^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")}
+Version:        1.9.3
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
 %global tag hatch-v%{version}
-%global ref %{?commit:%{commit}}%{?!commit:%{tag}}
-%global archivename hatch-%{ref}
+%global archivename hatch-%{tag}
 
 # The entire source is (SPDX) MIT. Apache-2.0 license text in the tests is used
 # as a sample license text, not as a license for the source.
 License:        MIT
 URL:            https://github.com/pypa/hatch
-Source0:        %{url}/archive/%{ref}/%{archivename}.tar.gz
-# For now, we need a helper script to access environments defined with
-# hatch/hatchling (https://hatch.pypa.io/latest/config/environment/).
-Source1:        extract-hatchling-environments
+Source0:        %{url}/archive/%{tag}/hatch-%{tag}.tar.gz
 
 # Written for Fedora in groff_man(7) format based on --help output
 Source100:      hatch.1
@@ -73,8 +71,12 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %if %{with tests}
-# As of 1.8.0, a number of tests in TestBuildBootstrap require cargo.
+# For extracting the list of test dependencies from hatch.toml:
+BuildRequires:  tomcli
+%if %{with backend_tests}
+# A number of tests in TestBuildBootstrap require cargo.
 BuildRequires:  cargo
+%endif
 %endif
 
 BuildRequires:  git-core
@@ -96,14 +98,18 @@ Features:
 %prep
 %autosetup -n %{archivename} -p1
 
-# Extract environment dependencies from hatch.toml
-'%{SOURCE1}' -v
+# https://hatch.pypa.io/latest/config/environment/
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^(pytest-cov|cover)/# &/' _req/env.test.txt
+tomcli get hatch.toml -F newline-list envs.default.dependencies |
+  sed -r 's/^(pytest-cov|cover)/# &/' | tee _env.default.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:_req/env.test.txt}
+%if %{with tests}
+%pyproject_buildrequires _env.default.txt
+%else
+%pyproject_buildrequires
+%endif
 
 
 %build
@@ -144,22 +150,14 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 %check
 %if %{with tests}
-# There is no need to deselect mark “requires_internet” manually because it
-# happens automagically via a runtime connectivity check.
+%if %{with backend_tests}
+# Without this, we end up with several test failures related to zip timestamps.
+unset SOURCE_DATE_EPOCH
+%else
+ignore="${ignore-} --ignore=tests/backend/"
+%endif
 
-# TODO: What is  happening here?
-# >           assert zip_info.date_time == (2020, 2, 2, 0, 0, 0)
-# E           assert (2022, 5, 18, 0, 0, 0) == (2020, 2, 2, 0, 0, 0)
-# E             At index 0 diff: 2022 != 2020
-# E             Full diff:
-# E             - (2020, 2, 2, 0, 0, 0)
-# E             + (2022, 5, 18, 0, 0, 0)
-k="${k-}${k+ and }not (TestBuildStandard and test_editable_)"
-k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
-k="${k-}${k+ and }not test_explicit_path"
-k="${k-}${k+ and }not test_default"
-
-%pytest -k "${k-}" -vv
+%pytest -k "${k-}" ${ignore-} -v
 %else
 %pyproject_check_import
 %endif

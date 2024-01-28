@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.0.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Ruby client library for Redis
 License: MIT
 URL: https://github.com/redis/redis-rb
@@ -111,6 +111,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 04 2023 Vít Ondruch <vondruch@redhat.com> - 5.0.6-3
 - Disable tests failing with Redis 7.2 and redis-client 0.15.0.
   Resolves: rhbz#2226404

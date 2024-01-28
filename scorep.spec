@@ -20,7 +20,7 @@
 
 Name:           scorep
 Version:        8.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -466,6 +466,9 @@ make -C serial check V=1
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Florian Weimer <fweimer@redhat.com> - 8.1-5
 - Fix C compatibility issue in the configure script
 

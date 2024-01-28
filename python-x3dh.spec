@@ -1,6 +1,6 @@
 Name:           python-x3dh
 Version:        0.5.9~beta
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python implementation of the X3DH key agreement protocol
 
 License:        MIT
@@ -74,6 +74,9 @@ secrecy and cryptographic deniability.
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9~beta-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9~beta-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

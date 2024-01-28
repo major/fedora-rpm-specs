@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A set of objects for performing math operations on font data
 
 License:        MIT 
@@ -49,6 +49,9 @@ export LC_ALL=C.UTF-8
 %{python3_sitelib}/%{srcname}-%{version}*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

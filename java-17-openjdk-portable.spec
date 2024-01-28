@@ -29,6 +29,8 @@
 %bcond_without release
 # Enable static library builds by default.
 %bcond_without staticlibs
+# Remove build artifacts by default
+%bcond_with artifacts
 # Build a fresh libjvm.so for use in a copy of the bootstrap JDK
 %bcond_with fresh_libjvm
 # Build with system libraries

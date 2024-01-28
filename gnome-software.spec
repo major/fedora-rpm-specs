@@ -24,7 +24,7 @@
 
 Name:      gnome-software
 Version:   46~alpha
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -90,6 +90,7 @@ Requires: librsvg2%{?_isa}
 Requires: libxmlb%{?_isa} >= %{libxmlb_version}
 
 Recommends: PackageKit%{?_isa} >= %{packagekit_version}
+Recommends: %{name}-fedora-langpacks
 
 Obsoletes: gnome-software-snap < 3.33.1
 Obsoletes: gnome-software-editor < 3.35.1
@@ -105,6 +106,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 These development files are for building gnome-software plugins outside
 the source tree. Most users do not need this subpackage installed.
+
+%package fedora-langpacks
+Summary: Contains fedora-langpacks plugin
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description fedora-langpacks
+The fedora-langpacks plugin ensures langpacks packages are installed
+for the current locale.
 
 %if %{with rpmostree}
 %package rpm-ostree
@@ -205,7 +214,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %if %{with webapps}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_epiphany.so
 %endif
-%{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-langpacks.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-pkgdb-collections.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_flatpak.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fwupd.so
@@ -237,6 +245,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/gnome-software-cmd
 %{_libexecdir}/gnome-software-restarter
 
+%files fedora-langpacks
+%{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-langpacks.so
+
 %if %{with rpmostree}
 %files rpm-ostree
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_rpm-ostree.so
@@ -252,6 +263,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Jan 26 2024 Milan Crha <mcrha@redhat.com> - 46~alpha-4
+- Resolves: #2260294 (Split fedora-langpacks plugin into a subpackage)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

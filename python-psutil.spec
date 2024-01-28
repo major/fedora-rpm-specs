@@ -1,6 +1,6 @@
 Name:           python-psutil
 Version:        5.9.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
@@ -103,6 +103,9 @@ APPVEYOR=1 %{py3_test_envvars} %{python3} psutil/tests/runner.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

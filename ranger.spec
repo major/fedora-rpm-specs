@@ -1,6 +1,6 @@
 Name:           ranger
 Version:        1.9.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A vim-like file manager
 License:        GPLv3+
 URL:            https://ranger.github.io/
@@ -48,6 +48,9 @@ find _doc -type f -exec chmod -R -x '{}' \;
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: libabigail
 Version: 2.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -11,6 +11,7 @@ URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
 Patch1: 0001-Bug-31045-Don-t-try-setting-translation-unit-for-uni.patch
 Patch2: 0002-suppression-Add-has_strict_flexible_array_data_membe.patch 
+Patch3: 0003-Replace-deprecated-mock-with-unittest.mock.patch
 
 BuildRequires: git
 BuildRequires: libbpf-devel
@@ -70,7 +71,6 @@ format.
 Summary: Utility to compare the ABI of Fedora packages
 BuildRequires: python3-devel
 BuildRequires: python3-koji
-BuildRequires: python3-mock
 BuildRequires: python3-rpm
 BuildRequires: python3-pyxdg
 #For x-rpm mimetype definition!
@@ -162,6 +162,10 @@ fi
 %endif
 
 %changelog
+* Fri Jan 26 2024 Maxwell G <maxwell@gtmx.me> - 2.4-7
+- Remove python3-mock dependency
+- Apply patch 0003-Replace-deprecated-mock-with-unittest.mock.patch
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

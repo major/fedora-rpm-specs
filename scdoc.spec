@@ -1,6 +1,6 @@
 Name:     scdoc
 Version:  1.11.2
-Release:  5%{?dist}
+Release:  6%{?dist}
 Summary:  Tool for generating roff manual pages
 
 License:  MIT
@@ -49,6 +49,9 @@ make check
 %{_datarootdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

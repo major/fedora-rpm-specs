@@ -1,6 +1,6 @@
 Name:           samurai
 Version:        1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ninja-compatible build tool written in C
 
 License:        ASL 2.0
@@ -31,6 +31,9 @@ with a focus on simplicity, speed, and portability.
 %{_mandir}/man1/samu.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

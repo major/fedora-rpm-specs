@@ -1,6 +1,6 @@
 Name:           python-scripttester
 Version:        0.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Utility for testing command line scripts
 
 # BSD-2-Clause: All files with the following exception.
@@ -94,6 +94,9 @@ rm -f doc/_build/html/.{buildinfo,nojekyll}
 %doc doc/_build/html
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

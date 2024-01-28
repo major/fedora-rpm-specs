@@ -17,7 +17,7 @@
 
 Name:       python-copr-common
 Version:    0.21
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -119,6 +119,9 @@ version=%version %py2_install
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

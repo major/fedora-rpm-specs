@@ -3,12 +3,12 @@
 # version we want build against
 %global vdr_version 2.6.3
 %if 0%{?fedora} >= 40
-%global vdr_version 2.6.5
+%global vdr_version 2.6.6
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.3.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OSD teletext plugin for VDR
 
 License:        GPLv2+
@@ -62,6 +62,9 @@ install -Dpm 644 teletext2.ttf \
 %attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
 
 %changelog
+* Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.3.1-11
+- Rebuilt for new VDR API version
+
 * Fri Jan 05 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.3.1-10
 - Rebuilt for new VDR API version
 - Add BR gettext for rawhide

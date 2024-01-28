@@ -3,7 +3,7 @@
 
 Name:           python-%{dist_name}
 Version:        2.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python wrapper for Xvfb, Xephyr and Xvnc
 
 License:        BSD
@@ -57,6 +57,9 @@ rm tests/test_xvnc.py
 %{python3_sitelib}/%{dist_name}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

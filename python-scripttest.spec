@@ -1,6 +1,6 @@
 Name:           python-scripttest
 Version:        1.3.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Helper to test command-line scripts
 
 License:        MIT
@@ -58,6 +58,9 @@ sphinx-build -b html docs/ docs/html
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

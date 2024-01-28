@@ -4,7 +4,7 @@
 Name:           python-pydantic-settings
 Version:        2.0.3
 %forgemeta
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Settings management using pydantic
 
 License:        MIT
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary:	Ruby library to help write robots.txt compliant web robots
 Name:		rubygem-%{gem_name}
 Version:	0.1.2
-Release:	17%{?dist}
+Release:	18%{?dist}
 
 # SPDX confirmed
 License:	BSD-2-Clause
@@ -96,6 +96,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-17
 - Massive spec file cleanup
 - SPDX migration

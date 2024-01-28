@@ -6,7 +6,7 @@
 
 Name: recap
 Version: 2.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Generates reports of various system information
 License: GPLv2
 URL: https://github.com/rackerlabs/recap
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

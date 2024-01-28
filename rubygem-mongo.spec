@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.14.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Ruby driver for MongoDB
 License: ASL 2.0
 URL: https://docs.mongodb.com/ruby-driver/current/
@@ -152,6 +152,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

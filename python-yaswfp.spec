@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Yet Another SWF Parser in Python
 
 License:        GPLv3+
@@ -40,6 +40,9 @@ Yet Another SWF Parser that can help you to identify SWF objects.
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

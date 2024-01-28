@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        40.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,10 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+
+# https://github.com/weldr/lorax/pull/1370
+# wget replaced by wget2-wget
+Patch:          0001-runtime-install-wget2-wget-has-replaced-wget.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -168,6 +172,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Fri Jan 26 2024 Adam Williamson <awilliam@redhat.com> - 40.3-4
+- Backport PR #1370 to handle wget being replaced by wget2-wget
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

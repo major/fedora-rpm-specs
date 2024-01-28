@@ -1,6 +1,6 @@
 Name:           python-qemu-qmp
 Version:        0.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        QEMU Monitor Protocol library
 
 License:        GPL-2.0-only AND LGPL-2.0-or-later
@@ -94,6 +94,9 @@ avocado --config avocado.cfg run tests/*.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

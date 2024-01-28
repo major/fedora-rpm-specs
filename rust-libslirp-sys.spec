@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        4.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        FFI bindings for libslirp
 
 # Upstream license specification: None
@@ -72,6 +72,9 @@ echo 'pkgconfig(slirp) >= 4.2.0'
 %endif
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

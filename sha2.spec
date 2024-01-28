@@ -1,6 +1,6 @@
 Name:		sha2
 Version:	1.0.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	SHA Implementation Library
 License:	BSD
 URL:		http://www.aarongifford.com/computers/sha.html
@@ -65,6 +65,9 @@ LD_PRELOAD=./libsha2.so ./sha2test.pl
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.3.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 Summary: Elegant Persistance in Ruby for MongoDB
 License: MIT
@@ -63,6 +63,9 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

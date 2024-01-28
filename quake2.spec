@@ -2,7 +2,7 @@
 
 Name:           quake2
 Version:        8.30
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Quake II (Yamagi version)
 
 License:        GPL-2.0-or-later
@@ -130,6 +130,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.30-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

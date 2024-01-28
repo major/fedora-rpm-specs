@@ -1,6 +1,6 @@
 Name:          sailcut
 Version:       1.4.1
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       A sail design and plotting software
 
 License:       GPL-2.0-only
@@ -64,6 +64,9 @@ install -p -D -m 644 icons/%{name}-file.svg %{buildroot}%{_datadir}/icons/hicolo
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

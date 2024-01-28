@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Ruby gem that protects against typical web attacks
 License: MIT
 URL: http://sinatrarb.com/protection/
@@ -71,6 +71,9 @@ popd
 %{gem_instdir}/rack-protection.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

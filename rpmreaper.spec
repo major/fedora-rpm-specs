@@ -1,6 +1,6 @@
 Name:           rpmreaper
 Version:        0.2.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A tool for removing packages from system
 
 License:        GPL-2.0-or-later
@@ -34,6 +34,9 @@ make %{?_smp_mflags} EXTRA_CFLAGS="$RPM_OPT_FLAGS"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

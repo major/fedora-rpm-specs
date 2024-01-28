@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A shared storage lock manager
 
 License:        GPLv2 and GPLv2+ and LGPLv2+
@@ -157,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 David Teigland <teigland@redhat.com> - 3.9.0-1
 - rebase to new upstream release
 

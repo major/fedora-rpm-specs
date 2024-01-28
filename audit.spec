@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -139,18 +139,18 @@ rm -f rules/Makefile*
 %post
 %systemd_post auditd.service
 # Do not perform service start/restart when running during an rpm-ostree compose
-if [[ -f /run/ostree-booted ]]: then
+if [ -f /run/ostree-booted ] ; then
     exit 0
 fi
 # If an upgrade, restart it if it's running
-if [ $1 -eq 2 ]; then
+if [ $1 -eq 2 ] ; then
     state=$(systemctl status auditd | awk '/Active:/ { print $2 }')
     if [ $state = "active" ] ; then
         auditctl --signal stop || true
         systemctl start auditd
     fi
 # if an install, start it since preset says we should be running
-elif [ $1 -eq 1 ]; then
+elif [ $1 -eq 1 ] ; then
         systemctl start auditd
 fi
 
@@ -172,7 +172,7 @@ if [ "$files" -eq 0 ] ; then
         install -m 0600 -u 0 -g 0 /dev/null /etc/audit/rules.d/audit.rules
     fi
     # Only load the new rules if not running during an rpm-ostree compose
-    if [[ ! -f /run/ostree-booted ]]: then
+    if [ ! -f /run/ostree-booted ] ; then
         # Make the new rules active
         augenrules --load || true
     fi
@@ -181,14 +181,14 @@ fi
 %preun
 %systemd_preun auditd.service
 # If uninstalling, stop it
-if [ $1 -eq 0 ]; then
+if [ $1 -eq 0 ] ; then
     auditctl --signal stop || true
 fi
 
 %preun rules
 %systemd_preun audit-rules.service
 # If uninstalling, delete the rules loaded in the kernel
-if [ $1 -eq 0 ]; then
+if [ $1 -eq 0 ] ; then
     auditctl -D > /dev/null 2>&1 || true
 fi
 
@@ -291,7 +291,7 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
-* Thu Jan 25 2024 Steve Grubb <sgrubb@redhat.com> 4.0-6
+* Thu Jan 25 2024 Steve Grubb <sgrubb@redhat.com> 4.0-7
 - Don't do "live" operations during rpm-ostree composes
 
 * Wed Jan 24 2024 Steve Grubb <sgrubb@redhat.com> 4.0-5

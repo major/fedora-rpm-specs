@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.9
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A gem that provides a simple mixin for log functionality
 License: ASL 2.0
 URL: https://github.com/chef/mixlib-log
@@ -65,6 +65,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.9-7
 - Apply upstream PR to support ruby3.3 Logger
 

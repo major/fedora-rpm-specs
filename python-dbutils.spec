@@ -2,7 +2,7 @@
 
 Name:           python-dbutils
 Version:        3.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools providing solid, persistent and pooled connections to a database
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -73,6 +73,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

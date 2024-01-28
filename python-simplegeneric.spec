@@ -2,7 +2,7 @@
 
 Name:           python-simplegeneric
 Version:        0.8.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Simple generic functions (similar to Python's own len(), pickle.dump(), etc.)
 
 License:        Python or ZPLv2.1
@@ -60,6 +60,9 @@ PYTHONPATH=$(pwd) %{__python3} setup.py test
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

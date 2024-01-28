@@ -111,6 +111,9 @@ rm -rf $(find -type d -name itext)
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 26 2024 Jerry James <loganjerry@gmail.com> - 1.11.1-9
+- Adapt to plexus-velocity 2.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

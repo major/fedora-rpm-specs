@@ -5,7 +5,7 @@ Small collection of Python utilities.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Small collection of Python utilities
 
 License:        MIT
@@ -51,6 +51,9 @@ cp %{SOURCE1} . -vp
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

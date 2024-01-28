@@ -1,6 +1,6 @@
 Name:           python-pyzolib
 Version:        0.3.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Utilities for the Pyzo environment
 
 License:        BSD
@@ -44,6 +44,9 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

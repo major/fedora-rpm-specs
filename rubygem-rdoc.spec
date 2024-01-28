@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.0
-Release: 204%{?dist}
+Release: 205%{?dist}
 Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
@@ -124,6 +124,9 @@ popd
 %{gem_instdir}/rdoc.gemspec
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-205
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-204
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

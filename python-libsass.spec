@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-libsass
-Version:        0.22.0
+Version:        0.23.0
 Release:        %autorelease
 Summary:        Sass for Python: A straightforward binding of libsass for Python
 
@@ -20,12 +20,6 @@ Source:         %{url}/archive/%{version}/libsass-python-%{version}.tar.gz
 # doc: support sphinx 6.0 ext.extlinks
 # https://github.com/sass/libsass-python/pull/433
 Patch:          %{url}/pull/433.patch
-# Add a missing word “to” in the description
-# https://github.com/sass/libsass-python/pull/442
-Patch:          %{url}/pull/442.patch
-# Replace deprecated license_file with license_files in setup.cfg
-# https://github.com/sass/libsass-python/pull/441
-Patch:          %{url}/pull/441.patch
 
 BuildRequires:  python3-devel
 
@@ -37,7 +31,7 @@ BuildRequires:  (%{py3_dist werkzeug} with %{py3_dist werkzeug} >= 0.9)
 BuildRequires:  make
 BuildRequires:  gcc-c++
 
-BuildRequires:  libsass-devel >= 3.6.5
+BuildRequires:  libsass-devel >= 3.6.6
 
 BuildRequires:  help2man
 %if %{with doc}

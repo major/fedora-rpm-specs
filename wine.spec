@@ -41,7 +41,7 @@
 
 Name:           wine
 Version:        9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -169,7 +169,6 @@ BuildRequires:  mpg123-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  vulkan-devel
 BuildRequires:  libappstream-glib
-BuildRequires:  pcsc-lite-devel
 
 # Silverlight DRM-stuff needs XATTR enabled.
 %if 0%{?wine_staging}
@@ -214,7 +213,6 @@ Requires:       wine-fonts = %{version}-%{release}
 Requires:       wine-core(x86-32) = %{version}-%{release}
 Requires:       wine-cms(x86-32) = %{version}-%{release}
 Requires:       wine-ldap(x86-32) = %{version}-%{release}
-Requires:       wine-smartcard(x86-32) = %{version}-%{release}
 Requires:       wine-twain(x86-32) = %{version}-%{release}
 Requires:       wine-pulseaudio(x86-32) = %{version}-%{release}
 %if 0%{?fedora}
@@ -240,7 +238,6 @@ Recommends:     gstreamer1-plugins-good(x86-32)
 Requires:       wine-core(x86-64) = %{version}-%{release}
 Requires:       wine-cms(x86-64) = %{version}-%{release}
 Requires:       wine-ldap(x86-64) = %{version}-%{release}
-Requires:       wine-smartcard(x86-64) = %{version}-%{release}
 Requires:       wine-twain(x86-64) = %{version}-%{release}
 Requires:       wine-pulseaudio(x86-64) = %{version}-%{release}
 %if 0%{?fedora}
@@ -263,7 +260,6 @@ Recommends:     gstreamer1-plugins-good(x86-64)
 Requires:       wine-core = %{version}-%{release}
 Requires:       wine-cms = %{version}-%{release}
 Requires:       wine-ldap = %{version}-%{release}
-Requires:       wine-smartcard = %{version}-%{release}
 Requires:       wine-twain = %{version}-%{release}
 Requires:       wine-pulseaudio = %{version}-%{release}
 %if 0%{?fedora}
@@ -278,7 +274,6 @@ Requires:       samba-winbind-clients
 Requires:       wine-core(aarch-64) = %{version}-%{release}
 Requires:       wine-cms(aarch-64) = %{version}-%{release}
 Requires:       wine-ldap(aarch-64) = %{version}-%{release}
-Requires:       wine-smartcard(aarch-64) = %{version}-%{release}
 Requires:       wine-twain(aarch-64) = %{version}-%{release}
 Requires:       wine-pulseaudio(aarch-64) = %{version}-%{release}
 Requires:       wine-opencl(aarch-64) = %{version}-%{release}
@@ -634,13 +629,6 @@ Requires: wine-core = %{version}-%{release}
 
 %description cms
 Color Management for wine
-
-%package smartcard
-Summary: Smart card support for wine
-Requires: wine-core = %{version}-%{release}
-
-%description smartcard
-Smart card support for wine
 
 %package twain
 Summary: Twain support for wine
@@ -2762,14 +2750,6 @@ fi
 %{_libdir}/wine/%{winesodir}/mscms.dll.so
 %endif
 
-# smartcard subpackage
-%files smartcard
-%{_libdir}/wine/%{winesodir}/winscard.so
-%{_libdir}/wine/%{winepedir}/winscard.dll
-%ifarch %{arm}
-%{_libdir}/wine/%{winesodir}/winscard.dll.so
-%endif
-
 # twain subpackage
 %files twain
 %{_libdir}/wine/%{winepedir}/twain_32.dll
@@ -2839,6 +2819,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Michael Cronenworth <mike@cchtml.com> - 9.0-3
+- Revert smartcard subpackage (RHBZ#2259936)
+
 * Fri Jan 19 2024 Michael Cronenworth <mike@cchtml.com> - 9.0-2
 - Add smartcard subpackage (RHBZ#2259198)
 

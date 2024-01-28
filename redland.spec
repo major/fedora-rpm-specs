@@ -1,7 +1,7 @@
 
 Name:           redland
 Version:        1.0.17
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        RDF Application Framework
 
 License:        LGPL-2.1-or-later OR Apache-2.0
@@ -154,6 +154,9 @@ make check
 %{_mandir}/man1/redland-config.1*
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

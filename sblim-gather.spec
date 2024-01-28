@@ -3,7 +3,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -292,6 +292,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jul 24 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-31
 - Fix tmpfiles path
 

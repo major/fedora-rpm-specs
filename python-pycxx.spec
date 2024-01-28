@@ -13,7 +13,7 @@
 
 Name:           python-%{modname}
 Version:        7.1.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Write Python extensions in C++
 
 License:        BSD
@@ -131,6 +131,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

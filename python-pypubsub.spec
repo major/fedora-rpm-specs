@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD
@@ -59,6 +59,9 @@ popd
 %{python3_sitelib}/pubsub/
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

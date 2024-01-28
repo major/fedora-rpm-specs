@@ -5,7 +5,7 @@
 %global crate sequoia-openpgp
 
 Name:           rust-sequoia-openpgp
-Version:        1.17.0
+Version:        1.18.0
 Release:        %autorelease
 Summary:        OpenPGP data types and associated machinery
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * drop sha1collisiondetection features from unused crypto-rust feature
 Patch:          sequoia-openpgp-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -88,18 +87,6 @@ use the "allow-variable-time-crypto" feature of the "%{crate}" crate.
 %files       -n %{name}+allow-variable-time-crypto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bzip2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bzip2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bzip2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bzip2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+compression-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -158,54 +145,6 @@ This package contains library source intended for building other packages which
 use the "crypto-openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+flate2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+flate2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "flate2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+flate2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+nettle-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+nettle-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "nettle" feature of the "%{crate}" crate.
-
-%files       -n %{name}+nettle-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+openssl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+openssl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "openssl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+openssl-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+openssl-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "openssl-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+openssl-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

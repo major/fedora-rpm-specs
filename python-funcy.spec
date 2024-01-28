@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.17
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fancy and practical functional tools
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

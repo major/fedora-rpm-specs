@@ -1,6 +1,6 @@
 Name:           python-firehose
 Version:        0.5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Library for working with output from static code analyzers
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ chmod +x %{buildroot}/%{python3_sitelib}/firehose/parsers/gcc.py
 
 
 %changelog
+* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

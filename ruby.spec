@@ -167,7 +167,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 3%{?dist}
+Release: 4%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -243,6 +243,18 @@ Patch11: ruby-3.4.0-ruby-net-http-Renew-test-certificates.patch
 # See related upstream report: https://bugs.ruby-lang.org/issues/20085
 # https://bugs.ruby-lang.org/issues/20154
 Patch12: ruby-3.4.0-fix-branch-protection-compilation-for-arm.patch
+# Revert adding AI_ADDRCONFIG flag to getaddrinfo(3) calls.
+# It is causing problems when network is in certain, valid, configuration.
+# When loopback interface is IPv6 capable, but no regular network interface
+# is IPv6 capable, in some situations (such as in TestNetHTTPLocalBind)
+# this might result in creating IPv4 socket and then binding it
+# to IPv6 family connection.
+# That is incorrect behavior and such operation will result in
+# Errno::EAFNOSUPPORT exception.
+# The point of the upstream change is to workaround a glibc bug
+# that is not present for us. Therefore we can safely revert the change.
+# https://bugs.ruby-lang.org/issues/20208
+Patch13: ruby-3.4.0-Revert-Set-AI_ADDRCONFIG-when-making-getaddrinfo.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -715,6 +727,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 10 -p1
 %patch 11 -p1
 %patch 12 -p1
+%patch 13 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1568,9 +1581,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 %files -n rubygem-rbs
 %{_bindir}/rbs
-%dir %{_libdir}/gems/%{name}/rbs-%{rbs_version}
-%{_libdir}/gems/%{name}/rbs-%{rbs_version}/gem.build_complete
-%{_libdir}/gems/%{name}/rbs-%{rbs_version}/rbs_extension.so
+%dir %{gem_extdir_mri rbs}
+%{gem_extdir_mri rbs}/gem.build_complete
+%{gem_extdir_mri rbs}/rbs_extension.so
 %dir %{gem_instdir rbs}
 %exclude %{gem_instdir rbs}/.*
 %license %{gem_instdir rbs}/BSDL
@@ -1650,6 +1663,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Fri Jan 26 2024 Jarek Prokop <jprokop@redhat.com> - 3.3.0-4
+- Do not set AI_ADDRCONFIG by default when calling getaddrinfo(3).
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
