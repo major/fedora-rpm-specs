@@ -2,7 +2,7 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20240104
 
-%define          baserelease 4
+%define          baserelease 5
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -337,6 +337,9 @@ exit 0
 %{_datadir}/man/man8/xttpd.8*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan  6 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-4
 - harmonics data update (20240104)
 

@@ -10,7 +10,7 @@
 Name: xsane
 Summary: X Window System front-end for the SANE scanner interface
 Version: 0.999
-Release: 49%{?dist}
+Release: 50%{?dist}
 Source0: http://www.xsane.org/download/%{name}-%{version}.tar.gz
 Source1: xsane-256x256.png
 # use "xdg-open" instead of "netscape" to launch help browser
@@ -272,6 +272,9 @@ fi
 %{_datadir}/sane/xsane
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.999-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.999-49
 - add license for gimp library - used in plugin which we build it in Fedora because
 

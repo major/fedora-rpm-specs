@@ -1,6 +1,6 @@
 Name:           sjinn
 Version:        1.01
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simple tool for sending & receiving data from RS-232 devices
 
 License:        GPLv2+
@@ -114,6 +114,9 @@ make INSTALL="install -cDp" DESTDIR=%{buildroot} prefix=%{_prefix} \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

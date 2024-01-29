@@ -1,7 +1,7 @@
 Summary: Collection of performance monitoring tools for Linux
 Name: sysstat
 Version: 12.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 
 URL: http://sebastien.godard.pagesperso-orange.fr
@@ -110,6 +110,9 @@ fi
 %{_localstatedir}/log/sa
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.5-1
 - rebase to latest upstream release (rhbz#2254956)
 

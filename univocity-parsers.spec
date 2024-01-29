@@ -2,7 +2,7 @@
 
 Name:           univocity-parsers
 Version:        2.9.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Collection of parsers for Java
 License:        Apache-2.0
 URL:            https://github.com/uniVocity/univocity-parsers
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE-2.0.html
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.1-10
 - Convert License tag to SPDX format
 

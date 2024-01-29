@@ -1,6 +1,6 @@
 Name:           tini
 Version:        0.19.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A tiny but valid init for containers
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i CMakeLists.txt -e 's/ -Wl,-s//'
 %{_bindir}/tini-static
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

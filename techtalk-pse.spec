@@ -1,6 +1,6 @@
 Name:           techtalk-pse
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Presentation software designed for technical people
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

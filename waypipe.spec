@@ -1,6 +1,6 @@
 Name:		waypipe
 Version:	0.8.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Wayland forwarding proxy
 
 License:	MIT
@@ -64,6 +64,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.8.6-4
 - Enable video support for non-RHEL (#2241572)
 

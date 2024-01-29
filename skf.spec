@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	5
+%global	baserelease	6
 
 %undefine        _changelog_trimtime
 
@@ -356,6 +356,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan  5 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-5
 - rubyext: type check for argument (ref: bug 2256789)
 

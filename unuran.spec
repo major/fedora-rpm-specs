@@ -1,6 +1,6 @@
 Name:		unuran
 Version:	1.9.0
-Release: 	5%{?dist}
+Release: 	6%{?dist}
 Summary:	Universal Non-Uniform Random number generator
 
 License:	GPLv2+
@@ -86,6 +86,9 @@ fi
 SEED=2742664 make check
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

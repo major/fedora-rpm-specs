@@ -2,7 +2,7 @@
 Name:    termy-server
 Summary: TermySequence terminal multiplexer server
 Version: 1.1.4
-Release: 16%{?dist}
+Release: 17%{?dist}
 
 License: GPLv2
 URL:     https://termysequence.io
@@ -56,6 +56,9 @@ ctest -V
 %{_mandir}/man1/termy*.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,14 +1,16 @@
 Name:		php-email-address-validation
 Summary:	PHP class for validating email addresses
-License:	BSD
+License:	BSD-2-Clause
 
 Version:	2.0.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 
 %global repo_owner	aziraphale
 %global repo_name	email-address-validator
 URL:		https://github.com/%{repo_owner}/%{repo_name}
 Source0:	%{URL}/archive/%{version}/%{repo_name}-%{version}.tar.gz
+
+Patch0:	0000-update-tests-for-phpunit10.patch
 
 BuildArch:	noarch
 
@@ -25,7 +27,7 @@ This PHP class is used to check email addresses for technical validity.
 
 
 %prep
-%setup -q -n %{repo_name}-%{version}
+%autosetup -n %{repo_name}-%{version} -p1
 # Replace \r\n endlines with \n
 sed -i 's/\r$//g' ./EmailAddressValidator.php tests/EmailAddressValidatorTest.php
 
@@ -40,7 +42,7 @@ install -m 644 -p EmailAddressValidator.php %{buildroot}%{_datadir}/php/%{name}/
 
 
 %check
-phpunit --verbose --bootstrap %{buildroot}%{_datadir}/php/%{name}/EmailAddressValidator.php
+phpunit --bootstrap %{buildroot}%{_datadir}/php/%{name}/EmailAddressValidator.php
 
 
 %files
@@ -50,6 +52,10 @@ phpunit --verbose --bootstrap %{buildroot}%{_datadir}/php/%{name}/EmailAddressVa
 
 
 %changelog
+* Sat Jan 27 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.1-11
+- Fix FTBFS - update tests for PHPUnit10
+- Migrate License tag to SPDX
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

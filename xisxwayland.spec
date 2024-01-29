@@ -1,6 +1,6 @@
 Name:       xisxwayland
 Version:    2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Tool to check if the X server is XWayland
 
 License:    MIT
@@ -34,6 +34,9 @@ Xwayland server and 1 otherwise.
 %{_mandir}/man1/xisxwayland.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: MIT, nothing to do
 

@@ -1,6 +1,6 @@
 Name:           sugar-xoirc
 Version:        14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        IRC client for Sugar
 License:        GPLv2+
 URL:            https://github.com/sugarlabs/irc-activity/
@@ -41,6 +41,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/IRC.activity/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -32,7 +32,7 @@
 
 Name:           suitesparse
 Version:        5.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 # See LICENSE.txt for a breakdown of all licenses:
@@ -519,6 +519,9 @@ done
 %doc SuiteSparse-%{version}/Doc/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 15 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.13.0-4
 - migrate to SPDX license format
 

@@ -1,6 +1,6 @@
 Name:           tcalc
 Version:        2.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The terminal calculator
 
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ mv test test2 examples/
 %{_infodir}/%{name}.info*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 19 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 2.1-19
 - Rework spec to comply with the latest guidelines
 - Convert license tag to SPDX

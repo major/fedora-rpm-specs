@@ -2,7 +2,7 @@
 
 Name:		tcl-pgtcl
 Version:	2.1.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	A Tcl client library for PostgreSQL
 
 URL:		http://sourceforge.net/projects/pgtclng/
@@ -69,6 +69,9 @@ rm -f $RPM_BUILD_ROOT%{_includedir}/libpgtcl.h
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

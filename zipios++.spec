@@ -4,7 +4,7 @@
 
 Name:           zipios++
 Version:        0.1.5.9
-Release:        31%{dist}
+Release:        32%{dist}
 License:        LGPLv2+
 Summary:        C++ library for reading and writing Zip files
 Summary(pl.UTF-8): Biblioteka C++ do odczytu i zapisu plików Zip
@@ -100,6 +100,9 @@ rm -f %{buildroot}%{_libdir}/*.{a,la}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

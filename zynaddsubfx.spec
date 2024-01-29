@@ -1,7 +1,7 @@
 Summary:        Real-time software synthesizer
 Name:           zynaddsubfx
 Version:        3.0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Source is a collective work, distributed by
 License:        GPLv2 and GPLv2+
 URL:            http://zynaddsubfx.sourceforge.net
@@ -163,6 +163,9 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_libdir}/vst/*.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jul 23 2023 Guido Aulisi <guido.aulisi@gmail.com> - 3.0.6-4
 - Fix FTBFS in Fedora rawhide: missing cstdint
 

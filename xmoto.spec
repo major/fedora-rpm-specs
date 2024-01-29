@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:		xmoto
 Version:	0.6.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Challenging 2D Motocross Platform Game
 
 License:	GPL-2.0-or-later
@@ -132,6 +132,9 @@ ln -s ../../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}
 %{_datadir}/pixmaps/xmoto.png
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

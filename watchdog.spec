@@ -1,7 +1,7 @@
 Summary:          Software and/or Hardware watchdog daemon
 Name:             watchdog
 Version:          5.16
-Release:          7%{?dist}
+Release:          8%{?dist}
 License:          GPL-2.0-or-later
 
 URL:              http://sourceforge.net/projects/watchdog/
@@ -127,6 +127,9 @@ rm %{name}.sysconfig
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

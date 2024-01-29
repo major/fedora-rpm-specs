@@ -6,7 +6,7 @@
 
 Name:           vim-go
 Version:        1.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Go development plugin for Vim
 
 License:        BSD 
@@ -89,6 +89,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c ":q" &> /dev/null || :
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

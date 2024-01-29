@@ -1,6 +1,6 @@
 Name:      yad
 Version:   9.3
-Release:   7%{?dist}
+Release:   8%{?dist}
 Summary:   Display graphical dialogs from shell scripts or command line
 
 Group:     Applications/System
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 20 2023 Dmitry Butskoy <Dmitry@Butskoy.name> - 9.3-7
 - build with webkit2gtk4.1 (#2232981)
 

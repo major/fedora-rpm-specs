@@ -71,7 +71,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD
@@ -360,6 +360,9 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.2.0-1
 - Release 8.2.0
 

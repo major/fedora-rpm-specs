@@ -11,7 +11,7 @@ ExcludeArch:    s390x
 
 Name:           vkmark
 Version:        2017.08
-Release:        0.19.%{codate}git%{shortcommit0}%{?dist}
+Release:        0.20.%{codate}git%{shortcommit0}%{?dist}
 Summary:        Vulkan benchmarking suite
 
 License:        LGPL-2.1-or-later
@@ -63,6 +63,9 @@ configurable scenes.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2017.08-0.20.20230412gitab6e6f3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2017.08-0.19.20230412gitab6e6f3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

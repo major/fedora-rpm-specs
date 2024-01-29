@@ -11,7 +11,7 @@
 
 Name:		slapi-nis
 Version:	0.60.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	NIS Server and Schema Compatibility plugins for Directory Server
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/slapi-nis/
@@ -85,6 +85,9 @@ make check
 %{_sbindir}/nisserver-plugin-defs
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 07 2023 Alexander Bokovoy <abokovoy@redhat.com> - 0.60.0-4
 - Ignore updates from non-tracked subtrees during modify/modrdn/update
   to avoid deadlocks with retro changelog

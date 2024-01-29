@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	2.2.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Epoch:		1
 Summary:	Open Type Fonts for Malayalam script 
 License:	GPLv2+
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

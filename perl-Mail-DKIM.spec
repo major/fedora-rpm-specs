@@ -1,6 +1,6 @@
 Name:           perl-Mail-DKIM
-Version:        1.20230911
-Release:        3%{?dist}
+Version:        1.20240124
+Release:        1%{?dist}
 Summary:        Sign and verify Internet mail with DKIM/DomainKey signatures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dkimproxy.sourceforge.net/
@@ -71,6 +71,9 @@ chmod -x scripts/*.pl
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.20240124-1
+- Update to 1.20240124
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20230911-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

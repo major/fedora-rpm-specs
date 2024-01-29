@@ -1,5 +1,5 @@
-%global DATE 20240125
-%global gitrev f3118f3f56f589a21b94106c4e210e5ba9a60898
+%global DATE 20240127
+%global gitrev 97a1e216faf8ad55b025f07bed4940c016a982c3
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}
+Release: %{gcc_release}.4%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -235,7 +235,7 @@ BuildRequires: doxygen >= 1.7.1
 BuildRequires: graphviz, dblatex, texlive-collection-latex, docbook5-style-xsl
 %endif
 %if %{build_offload_amdgcn}
-BuildRequires: llvm, lld
+BuildRequires: llvm >= 15, lld >= 15
 %endif
 Requires: cpp = %{version}-%{release}
 # Need .eh_frame ld optimizations
@@ -340,11 +340,11 @@ chmod 755 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 %endif
 
 %description
-The gcc package contains the GNU Compiler Collection version 14.
+The gcc package contains the GNU Compiler Collection version %{gcc_major}.
 You'll need this package in order to compile C code.
 
 %package -n libgcc
-Summary: GCC version 14 shared support library
+Summary: GCC version %{gcc_major} shared support library
 Autoreq: false
 %if !%{build_ada}
 Obsoletes: libgnat < %{version}-%{release}
@@ -855,7 +855,7 @@ to NVidia PTX capable devices if available.
 Summary: Offloading compiler to AMD GCN
 Requires: gcc = %{version}-%{release}
 Requires: libgomp-offload-amdgcn = %{version}-%{release}
-Requires: llvm, lld
+Requires: llvm >= 15, lld >= 15
 
 %description offload-amdgcn
 The gcc-offload-amdgcn package provides offloading support for
@@ -915,6 +915,8 @@ cp -a libstdc++-v3/config/cpu/i{4,3}86/atomicity.h
 ./contrib/gcc_update --touch
 
 LC_ALL=C sed -i -e 's/\xa0/ /' gcc/doc/options.texi
+
+sed -i -e '/ldp_fusion/s/Init(1)/Init(0)/' gcc/config/aarch64/aarch64.opt
 
 sed -i -e 's/Common Driver Var(flag_report_bug)/& Init(1)/' gcc/common.opt
 sed -i -e 's/context->report_bug = false;/context->report_bug = true;/' gcc/diagnostic.cc
@@ -1053,7 +1055,7 @@ ISL_FLAG_PIC=-fPIC
 ISL_FLAG_PIC=-fpic
 %endif
 cd isl-build
-sed -i 's|libisl\([^-]\)|libgcc14privateisl\1|g' \
+sed -i 's|libisl\([^-]\)|libgcc%{gcc_major}privateisl\1|g' \
   ../../isl-%{isl_version}/Makefile.{am,in}
 ../../isl-%{isl_version}/configure \
   CC=/usr/bin/gcc CXX=/usr/bin/g++ \
@@ -1061,8 +1063,8 @@ sed -i 's|libisl\([^-]\)|libgcc14privateisl\1|g' \
 make %{?_smp_mflags} CFLAGS="${CFLAGS:-%optflags} $ISL_FLAG_PIC"
 make install
 cd ../isl-install/lib
-rm libgcc14privateisl.so{,.23}
-mv libgcc14privateisl.so.23.1.0 libisl.so.23
+rm libgcc%{gcc_major}privateisl.so{,.23}
+mv libgcc%{gcc_major}privateisl.so.23.1.0 libisl.so.23
 ln -sf libisl.so.23 libisl.so
 cd ../..
 %endif
@@ -1824,28 +1826,28 @@ mv -f $FULLPATH/ada{include,lib} $FULLLPATH/
 pushd $FULLLPATH/adalib
 if [ "%{_lib}" = "lib" ]; then
 ln -sf ../../../../../libgnarl-*.so libgnarl.so
-ln -sf ../../../../../libgnarl-*.so libgnarl-14.so
+ln -sf ../../../../../libgnarl-*.so libgnarl-%{gcc_major}.so
 ln -sf ../../../../../libgnat-*.so libgnat.so
-ln -sf ../../../../../libgnat-*.so libgnat-14.so
+ln -sf ../../../../../libgnat-*.so libgnat-%{gcc_major}.so
 else
 ln -sf ../../../../../../%{_lib}/libgnarl-*.so libgnarl.so
-ln -sf ../../../../../../%{_lib}/libgnarl-*.so libgnarl-14.so
+ln -sf ../../../../../../%{_lib}/libgnarl-*.so libgnarl-%{gcc_major}.so
 ln -sf ../../../../../../%{_lib}/libgnat-*.so libgnat.so
-ln -sf ../../../../../../%{_lib}/libgnat-*.so libgnat-14.so
+ln -sf ../../../../../../%{_lib}/libgnat-*.so libgnat-%{gcc_major}.so
 fi
 popd
 else
 pushd $FULLPATH/adalib
 if [ "%{_lib}" = "lib" ]; then
 ln -sf ../../../../libgnarl-*.so libgnarl.so
-ln -sf ../../../../libgnarl-*.so libgnarl-14.so
+ln -sf ../../../../libgnarl-*.so libgnarl-%{gcc_major}.so
 ln -sf ../../../../libgnat-*.so libgnat.so
-ln -sf ../../../../libgnat-*.so libgnat-14.so
+ln -sf ../../../../libgnat-*.so libgnat-%{gcc_major}.so
 else
 ln -sf ../../../../../%{_lib}/libgnarl-*.so libgnarl.so
-ln -sf ../../../../../%{_lib}/libgnarl-*.so libgnarl-14.so
+ln -sf ../../../../../%{_lib}/libgnarl-*.so libgnarl-%{gcc_major}.so
 ln -sf ../../../../../%{_lib}/libgnat-*.so libgnat.so
-ln -sf ../../../../../%{_lib}/libgnat-*.so libgnat-14.so
+ln -sf ../../../../../%{_lib}/libgnat-*.so libgnat-%{gcc_major}.so
 fi
 popd
 fi
@@ -3593,6 +3595,19 @@ end
 %endif
 
 %changelog
+* Sat Jan 27 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.4
+- update from trunk
+  - PRs analyzer/112969, c++/109227, c++/112899, c++/113580, c++/113598,
+	c++/113599, middle-end/112971, other/113575, preprocessor/105608,
+	target/100204, target/100212, target/112987, target/113469,
+	target/113526, target/113538, target/113601, testsuite/113558,
+	tree-optimization/113602
+- temporarily disable -mearly-ldp-fusion -mlate-ldp-fusion on aarch64 again
+  (#2260449, #2260560, #2260562)
+- use gcc_major macro in the spec some more
+- require llvm >= 15 and lld >= 15 for the amdgcn offloading
+  where they are used as assembler and linker
+
 * Thu Jan 25 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.3
 - update from trunk
   - PRs analyzer/111361, analyzer/112705, analyzer/112811, analyzer/112927,

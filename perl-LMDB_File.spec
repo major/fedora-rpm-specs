@@ -1,15 +1,10 @@
 Name:           perl-LMDB_File
-Version:        0.12
-Release:        30%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Perl5 wrapper around the OpenLDAP's LMDB
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) OR Artistic-2.0
 URL:            https://metacpan.org/release/LMDB_File
-Source0:        https://cpan.metacpan.org/authors/id/S/SO/SORTIZ/LMDB_File-0.12.tar.gz
-Patch0:         0001-Fix-tests-on-ppc64-le-architecture.patch
-# Fix building with Perl 5.28.0, CPAN RT#125707
-Patch1:         LMDB_File-0.12-Fix-passing-mdb_strerror-value-to-croak.patch
-# Fix building with Perl 5.38.0, CPAN RT#148421
-Patch2:         LMDB_File-0.12-Lift-vecget-function-from-Perl-core-for-5.38-compati.patch
+Source0:        https://cpan.metacpan.org/authors/id/S/SO/SORTIZ/LMDB_File-%{version}.tar.gz
 
 # BZ1524377
 ExcludeArch:    armv7hl i686
@@ -78,7 +73,7 @@ compatible with others DBMs.
 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 
@@ -88,7 +83,7 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_P
 
 
 %check
-make test
+%{make_build} test
 
 
 %files
@@ -100,6 +95,10 @@ make test
 
 
 %changelog
+* Sat Jan 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.13-1
+- Update to 0.13
+- Drop all patches, upstreamed
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

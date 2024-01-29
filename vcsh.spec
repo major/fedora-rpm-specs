@@ -1,6 +1,6 @@
 Name:           vcsh
 Version:        2.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Version Control System for $HOME
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ configs you want to use on which machine.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

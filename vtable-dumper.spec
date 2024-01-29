@@ -1,6 +1,6 @@
 Name:           vtable-dumper
 Version:        1.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tool to list content of virtual tables in a C++ shared library
 
 License:        GPL+ or LGPLv2+
@@ -39,6 +39,9 @@ install -pm 0755 %{name} %{buildroot}%{_bindir}/
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

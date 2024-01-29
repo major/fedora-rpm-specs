@@ -1,6 +1,6 @@
 Name:           vrq
 Version:        1.0.134
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Verilog tool framework with plugins for manipulating source code
 
 License:        GPLv2+
@@ -91,6 +91,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}-%{version}
 %{_includedir}/%{name}-%{version}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.134-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.134-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

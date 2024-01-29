@@ -7,7 +7,7 @@
 
 Name:       zeromq-ada
 Version:    4.1.5
-Release:    11.git%{?dist}
+Release:    12.git%{?dist}
 Summary:    Ada binding for zeromq
 License:    GPLv2+
 URL:        http://zeromq.org
@@ -76,6 +76,9 @@ chrpath --delete %{buildroot}%{_libdir}/zmq/relocatable/libzmqAda.so.%{version}
 %{_datadir}/zmq/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-12.git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Remi Collet <remi@remirepo.net> - 4.1.5-11.git
 - rebuild for new libsodium
 

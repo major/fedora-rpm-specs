@@ -2,7 +2,7 @@
 
 Name:           woff2
 Version:        1.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Web Open Font Format 2.0 library
 
 License:        MIT
@@ -78,6 +78,9 @@ cd -
 %{_libdir}/pkgconfig/libwoff2enc.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           weston
 Version:        %{apiver}.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -195,6 +195,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 07 2023 Erico Nunes <ernunes@redhat.com> - 13.0.0-1
 - Update to 13.0.0
 - Remove LDFLAGS which interfered with meson lcms2 function check

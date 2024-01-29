@@ -37,7 +37,7 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -304,6 +304,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 08 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.4.2-1
 - New upstream release. A security release
 - Includes fix for CVE-2023-44487 aka VSV00013, rhbz#2243328, HTTP/2 Rapid Reset Attack

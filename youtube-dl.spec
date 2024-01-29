@@ -3,7 +3,7 @@
 %forgemeta
 Name:           youtube-dl
 Version:        2023.08.04.git%(c=%{commit}; echo ${c:0:7})
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small command-line program to download online videos
 License:        Unlicense
 URL:	        %{forgeurl}
@@ -81,6 +81,9 @@ install -Dpm644 youtube-dl.fish %{buildroot}%{_datadir}/fish/vendor_functions.d/
 %{_datadir}/fish/vendor_functions.d/youtube-dl.fish
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.08.04.git86e3cf5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 David Bold <davidsch@fedoraproject.org> - 2023.08.04.git286e3cf-1.20230815git286e3cf
 - Update to latest git snapshot
 

@@ -4,7 +4,7 @@
 
 Name:           sysprof
 Version:        45.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system-wide Linux profiler
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-2-Clause-Patent
@@ -166,6 +166,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Kalev Lember <klember@redhat.com> - 45.1-1
 - Update to 45.1
 

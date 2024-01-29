@@ -1,6 +1,6 @@
 Name:           sopwith
 Version:        1.8.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        SDL port of the sopwith game
 
 License:        GPLv2+
@@ -63,6 +63,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

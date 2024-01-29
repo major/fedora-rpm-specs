@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A sans serif gothic typeface
 
 License:        OFL
@@ -54,6 +54,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

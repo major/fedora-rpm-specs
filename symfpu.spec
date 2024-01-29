@@ -5,7 +5,7 @@
 
 Name:           symfpu
 Version:        0
-Release:        0.15.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.16.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
@@ -96,6 +96,9 @@ export LD_LIBRARY_PATH=$PWD
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20190517gitc3acaf6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0-0.15.20190517gitc3acaf6
 - Stop building for 32-bit x86
 

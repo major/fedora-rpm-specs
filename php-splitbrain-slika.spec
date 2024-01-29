@@ -2,8 +2,8 @@
 %global project  slika
 Name: php-%{author}-%{project}
 
-Version: 1.0.5
-Release: 7%{?dist}
+Version: 1.0.6
+Release: 1%{?dist}
 
 Summary: Image handling library for PHP
 License: MIT
@@ -19,11 +19,13 @@ URL: https://github.com/%{author}/%{project}
 Source0: %{project}-%{version}.zip
 Source99: slika-get-archive.sh
 
+Patch0: 0000-php-8.3.0-compat.patch
+
 BuildArch: noarch
 
 %global with_tests 1
 
-BuildRequires: php(language) >= 5.5.0
+BuildRequires: php(language) >= 7.0.0
 BuildRequires: php-fedora-autoloader-devel
 
 %if 0%{with_tests}
@@ -33,7 +35,7 @@ BuildRequires: php-pcre
 BuildRequires: phpunit8
 %endif
 
-Requires: php(language) >= 5.5.0
+Requires: php(language) >= 7.0.0
 Requires: php-pcre
 
 Requires: php-composer(fedora/autoloader)
@@ -59,7 +61,7 @@ Autoloader: %{pkgdir}/autoload.php
 
 
 %prep
-%setup -q -n %{project}-%{version}
+%autosetup -p1 -n %{project}-%{version}
 
 # Exclude the tests from the composer file
 sed -e '/"splitbrain\\\\slika\\\\tests\\\\":/d' -i composer.json
@@ -103,6 +105,9 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Sat Jan 27 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6-1
+- Update to v1.0.6
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

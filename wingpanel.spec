@@ -10,7 +10,7 @@ launcher.}
 
 Name:           wingpanel
 Version:        3.0.5
-Release:        3.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        4.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        Stylish top panel
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later
 
@@ -121,6 +121,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-4.20231206.git0fb4a14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 14 2023 Fabio Valentini <decathorpe@gmail.com> - 3.0.5-3.20231206.git0fb4a14
 - Bump to commit 0fb4a14.
 

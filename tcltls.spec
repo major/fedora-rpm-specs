@@ -3,7 +3,7 @@
 
 Name:           tcltls
 Version:        1.7.22
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OpenSSL extension for Tcl
 
 License:        BSD
@@ -73,6 +73,9 @@ make test
 %{_includedir}/tls.h
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.22-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

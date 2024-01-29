@@ -1,7 +1,7 @@
 Name:           xdotool
 Version:        3.20211022.1
 Epoch:          1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fake keyboard/mouse input
 License:        BSD
 URL:            https://github.com/jordansissel/xdotool
@@ -62,6 +62,9 @@ chmod 0644 examples/ffsp.sh
 %doc examples
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.20211022.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Olivier Fourdan <ofourdan@redhat.com> - 1:3.20211022.1-4
 - Use XTEST instead of XWarpPointer with a single screen
   https://github.com/jordansissel/xdotool/pull/435

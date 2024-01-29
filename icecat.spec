@@ -316,7 +316,8 @@ Extensions included to this version of IceCat:
    GNU LibreJS aims to address the JavaScript problem described in the article
    "The JavaScript Trap" of Richard Stallman.
    
- * JShelter: Mitigates potential threats from JavaScript, including fingerprinting,
+ * JShelter
+   Mitigates potential threats from JavaScript, including fingerprinting,
    tracking, and data collection. Slightly modifies the results of API calls,
    differently on different domains, so that the cross-site fingerprint is not
    stable. Applies security counter-measures that are likely not to break web pages.

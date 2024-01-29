@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.9.19
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -127,6 +127,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jul 26 2023 Bojan Smojver <bojan@rexursive.com> - 0.9.19-7
 - run autoreconf before build, to avoid problems on F39
 

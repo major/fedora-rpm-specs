@@ -1,6 +1,6 @@
 Name:           uudeview
 Version:        0.5.20
-Release:        53%{?dist}
+Release:        54%{?dist}
 
 License:        GPLv2+
 Source:         http://www.fpx.de/fp/Software/UUDeview/download/uudeview-0.5.20.tar.gz
@@ -84,6 +84,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

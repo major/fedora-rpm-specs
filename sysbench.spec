@@ -1,7 +1,7 @@
 Summary:       System performance benchmark
 Name:          sysbench
 Version:       1.0.20
-Release:       12%{?dist}
+Release:       13%{?dist}
 License:       GPLv2+
 Source0:       https://github.com/akopytov/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 URL:           https://github.com/akopytov/sysbench/
@@ -119,6 +119,9 @@ rm t/opt_report_interval.t
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

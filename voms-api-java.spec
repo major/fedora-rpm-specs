@@ -4,7 +4,7 @@
 
 Name:		voms-api-java
 Version:	3.3.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -97,6 +97,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-14
 - Adjust to removed deprecaded API in Mockito
 

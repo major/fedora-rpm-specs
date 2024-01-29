@@ -1,6 +1,6 @@
 Name:       vnc-reflector
 Version:    1.2.4 
-Release:    36%{?dist}
+Release:    37%{?dist}
 Summary:    A specialized, multiplexing vnc proxy server
 License:    BSD 
 URL:        http://sourceforge.net/projects/vnc-reflector
@@ -47,6 +47,9 @@ install -D -t %{buildroot}%{_bindir} vncreflector
 %{_bindir}/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           swell-foop
 Version:        46~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME colored tiles puzzle game
 
 License:        GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SwellFoo
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 David King <amigadave@amigadave.com> - 46~alpha-1
 - Update to 46.alpha
 

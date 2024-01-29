@@ -2,7 +2,7 @@
 
 Name:           shellinabox
 Version:        2.20
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Web based AJAX terminal emulator
 License:        GPLv2
 URL:            https://github.com/%{name}/%{name}
@@ -135,6 +135,9 @@ fi
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

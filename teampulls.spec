@@ -1,6 +1,6 @@
 Name:           teampulls
 Version:        0.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        CLI tool that lists pull requests from GitHub
 
 License:        GPLv3
@@ -37,6 +37,9 @@ install -Dpm 0644 teampulls.toml %{buildroot}%{_sysconfdir}/teampulls.toml
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

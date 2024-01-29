@@ -5,7 +5,7 @@
 Name:          yelp
 Epoch:         2
 Version:       42.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 License:       LGPLv2+ and ASL 2.0 and GPLv2+
@@ -95,6 +95,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:42.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:42.2-4
 - Drop unused libunwind dependencies
 

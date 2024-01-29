@@ -1,6 +1,6 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Framework providing Desktop activity awareness
 
 # data/ontology/*.trig	BSD-3-Clause OR CC-BY-SA-3.0 -> main
@@ -183,6 +183,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-13
 - Regenerate C source from Vala source and enable
   -Werror=incompatible-pointer-types again

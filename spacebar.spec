@@ -1,6 +1,6 @@
 Name:           spacebar
 Version:        23.01.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -71,7 +71,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENSES/{GPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
+%license LICENSES/{GPL-2.0-or-later,(GPL-2.0-only OR GPL-3.0-only)}.txt
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.01.0-6
 - Remove spurious TelepathQt5 BuldRequires; fix FTBFS
 

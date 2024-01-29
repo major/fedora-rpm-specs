@@ -32,7 +32,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        9%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        10%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -345,6 +345,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Fabio Valentini <decathorpe@gmail.com> - 1.2.13-9
 - Rebuild for dav1d 1.3.0
 

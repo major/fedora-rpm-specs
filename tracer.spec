@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -199,6 +199,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Jakub Kadlcik <frostyx@email.cz> 1.1-1
 - Fix parameters for specifying the target user (frostyx@email.cz)
 

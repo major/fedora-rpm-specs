@@ -4,7 +4,7 @@
 
 Name:           xfce4-datetime-plugin
 Version:        0.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Date/time plugin for the Xfce panel
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

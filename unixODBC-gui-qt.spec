@@ -7,7 +7,7 @@ Name: unixODBC-gui-qt
 # There has not been a formal upstream release yet and we're not
 # sure what the first formal release version number will be, so using 0
 Version: 0
-Release: 0.32.%{checkout}%{?dist}
+Release: 0.33.%{checkout}%{?dist}
 URL: http://sourceforge.net/projects/unixodbc-gui-qt/
 # Programs are GPL, libraries are LGPL
 License: GPLv3 and LGPLv3
@@ -89,6 +89,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libodbcinstQ*so*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.33.20190111svn132
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.32.20190111svn132
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

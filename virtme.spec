@@ -1,6 +1,6 @@
 Name:           virtme
 Version:        0.1.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Virtualize the running distro or a simple rootfs
 
 License:        GPLv2
@@ -57,6 +57,9 @@ disk image.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           testng
 Version:        7.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java-based testing framework
 License:        Apache-2.0
 URL:            https://testng.org/doc/
@@ -90,6 +90,9 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7.8.0-2
 - Rebuild
 

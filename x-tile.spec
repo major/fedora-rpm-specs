@@ -1,6 +1,6 @@
 Name:           x-tile
 Version:        3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A GTK application to tile windows in different ways
 
 License:        GPLv2+
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

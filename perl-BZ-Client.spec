@@ -1,8 +1,8 @@
 Name:           perl-BZ-Client
 Version:        4.4004
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A client for the Bugzilla web services API
-License:        GPL-1.0-or-later AND Artistic-1.0
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/BZ-Client
 Source0:        https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/BZ-Client-%{version}.tar.gz
@@ -30,13 +30,8 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::Socket::SSL)
-BuildRequires:  perl(Test::CPAN::Meta)
-BuildRequires:  perl(Test::EOL)
-BuildRequires:  perl(Test::Kwalitee)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::RequiresInternet)
-BuildRequires:  perl(Test::Vars)
 BuildRequires:  perl(Text::Password::Pronounceable)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
@@ -69,6 +64,10 @@ chmod 644 Changes README LICENSE
 %{_mandir}/man3/BZ*
 
 %changelog
+* Sat Jan 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 4.4004-13
+- Remove not-needed BuildRequires (#2260475)
+- Fix SPDX notation (#2260475)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4004-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

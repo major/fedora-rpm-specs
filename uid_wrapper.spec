@@ -1,6 +1,6 @@
 Name:           uid_wrapper
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        A wrapper for privilege separation
 License:        GPL-3.0-or-later
@@ -64,6 +64,9 @@ development/testing.
 %{_mandir}/man1/uid_wrapper.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

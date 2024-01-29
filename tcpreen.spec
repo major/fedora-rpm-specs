@@ -1,6 +1,6 @@
 Name:           tcpreen
 Version:        1.4.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A TCP/IP re-engineering and monitoring program
 
 License:        GPLv2
@@ -38,6 +38,9 @@ protocol as packet sniffers do.
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

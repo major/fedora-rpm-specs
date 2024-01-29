@@ -1,6 +1,6 @@
 Name:           tang
 Version:        14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Network Presence Binding Daemon
 
 License:        GPL-3.0-or-later
@@ -101,6 +101,9 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Sergio Correia <scorreia@redhat.com> - 14.3
 - Use llhttp instead of http-parser
 

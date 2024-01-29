@@ -1,7 +1,7 @@
 Summary: A chat program for multiple users
 Name: ytalk
 Version: 3.3.0
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: GPLv2+
 URL: http://www.impul.se/ytalk/
 Source: http://www.impul.se/ytalk/%{name}-%{version}.tar.bz2
@@ -35,6 +35,9 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) /etc/ytalkrc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           signon
 Version:        8.60^%{gitdate}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -169,6 +169,9 @@ mkdir -p %{buildroot}%{_libdir}/extensions/
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.60^20231015.171500.011bd15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 26 2023 Alessandro Astone <ales.astone@gmail.com> - 8.60^20231015.171500.011bd15-3
 - Split libsignon-qt in subpackages
 

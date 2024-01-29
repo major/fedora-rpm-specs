@@ -1,6 +1,6 @@
 Name:           xbg
 Version:        0.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tiny XCB root window color setter
 
 License:        MIT
@@ -34,6 +34,9 @@ background to a specified X11 color name.
 %{_bindir}/xbg
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

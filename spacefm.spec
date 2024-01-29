@@ -3,7 +3,7 @@
 
 Name:		spacefm
 Version:	1.0.6
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 License:	GPLv3+
@@ -110,6 +110,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Mamoru TASAKA <mtasaka@tbz.t-com.ne.jp> - 1.0.6-15
 - Change -Wincompatible-pointer-types from error to warning
 

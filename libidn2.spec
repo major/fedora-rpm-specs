@@ -1,7 +1,7 @@
 Summary:          Library to support IDNA2008 internationalized domain names
 Name:             libidn2
-Version:          2.3.4
-Release:          5%{?dist}
+Version:          2.3.7
+Release:          1%{?dist}
 License:          (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
 URL:              https://www.gnu.org/software/libidn/#libidn2
 
@@ -49,12 +49,11 @@ IDNA2008 conversions.
 
 %build
 %configure --disable-static
-# Avoid (unnecessary) full autoreconf
-%make_build AUTOMAKE=true
-%make_build AUTOMAKE=true -C doc html
+%make_build
+%make_build -C doc html
 
 %install
-%make_install AUTOMAKE=true
+%make_install
 
 # Clean-up examples for documentation
 %make_build -C examples distclean
@@ -102,6 +101,15 @@ fi
 %{_infodir}/%{name}.info*
 
 %changelog
+* Sat Jan 27 2024 Robert Scheck <robert@fedoraproject.org> 2.3.7-1
+- Upgrade to 2.3.7 (#2260623)
+
+* Sat Jan 27 2024 Robert Scheck <robert@fedoraproject.org> 2.3.6-1
+- Upgrade to 2.3.6
+
+* Sat Jan 27 2024 Robert Scheck <robert@fedoraproject.org> 2.3.5-1
+- Upgrade to 2.3.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

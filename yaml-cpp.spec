@@ -2,7 +2,7 @@
 
 Name:           yaml-cpp
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        MIT
 Summary:        A YAML parser and emitter for C++
@@ -87,6 +87,9 @@ mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
 %{_libdir}/pkgconfig/%{name}-static.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

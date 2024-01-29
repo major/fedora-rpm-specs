@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 License:        BSD
@@ -145,6 +145,9 @@ EOF
 %dir /var/www
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

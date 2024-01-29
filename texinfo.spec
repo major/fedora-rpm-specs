@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -148,6 +148,9 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 24 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.1-1
 - Update to texinfo-7.1
   Resolves: #2244846

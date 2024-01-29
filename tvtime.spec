@@ -1,7 +1,7 @@
 Summary: A high quality TV viewer
 Name: tvtime
 Version: 1.0.10
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2+
 URL: http://tvtime.sourceforge.net
 Source0: http://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           shigofumi
 Version:        0.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Command line client for accessing the Czech Data Boxes
 # COPYING:          GPLv3 text
 # README:           GPLv3+
@@ -96,6 +96,9 @@ autoreconf -fi
 %{_mandir}/*/man5/shigofumirc.*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 24 2023 Petr Pisar <ppisar@redhat.com> - 0.9-8
 - Adapt to changes in libxml2-2.12.0
 

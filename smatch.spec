@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.73
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -72,6 +72,9 @@ grep "test.c:1 main() error: uninitialized symbol 'a'." out
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Lukáš Zaoral <lzaoral@redhat.com> - 1.73-3
 - fix compilation with GCC 14 (rhbz#2259190)
 

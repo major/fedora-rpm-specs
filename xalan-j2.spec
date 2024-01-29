@@ -2,7 +2,7 @@
 
 Name:           xalan-j2
 Version:        2.7.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        Apache-2.0 AND W3C
@@ -139,6 +139,9 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.2-16
 - Convert License tag to SPDX format
 

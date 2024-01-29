@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    1
+%define baserelease    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1189,6 +1189,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.08-1
 - Update to 6.08
 

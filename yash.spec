@@ -8,7 +8,7 @@
 
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
 
-%global		baserelease	1
+%global		baserelease	2
 %undefine		minorver
 %undefine       _changelog_trimtime
 
@@ -138,6 +138,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.55-1
 - 2.55
 

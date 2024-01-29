@@ -1,6 +1,6 @@
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -16,6 +16,8 @@ Patch0:         %{name}-aether.patch
 # Tell javadoc about maven mojo tags
 # https://github.com/kevinbirch/string-template-maven-plugin/pull/13
 Patch1:         %{name}-javadoc.patch
+# Work around https://issues.apache.org/jira/browse/MNG-5346
+Patch2:         %{name}-descriptor.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.antlr:ST4)
@@ -74,6 +76,12 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sat Jan 27 2024 Jerry James <loganjerry@gmail.com> - 1.1-12
+- Add descriptor patch to fix FTBFS
+
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

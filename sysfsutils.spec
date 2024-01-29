@@ -4,7 +4,7 @@
 
 Name:           sysfsutils
 Version:        2.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Utilities for interfacing with sysfs
 URL:            https://github.com/linux-ras/sysfsutils
 License:        GPLv2
@@ -71,6 +71,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

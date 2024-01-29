@@ -1,6 +1,6 @@
 Name: usrsctp
 Version: 0.9.5.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 1
 
 License: BSD-3-Clause
@@ -67,6 +67,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

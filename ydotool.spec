@@ -6,7 +6,7 @@
 
 Name:     ydotool
 Version:  1.0.4
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Generic command-line automation tool (no X!)
 License:  AGPLv3
 URL:      https://github.com/ReimuNotMoe/%{name}
@@ -68,6 +68,9 @@ scdoc < manpage/%{name}d.8.scd > %{buildroot}/%{_mandir}/man8/%{name}d.8
 %{_mandir}/man8/%{name}d.8.*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

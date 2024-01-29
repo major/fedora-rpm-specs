@@ -5,7 +5,7 @@ Version: 5.113.0
 Release: 3%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module with icon themes
 
-License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-GPL AND LicenseRef-KDE-Accepted-LGPL
+License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://api.kde.org/frameworks/kiconthemes/
 
 %global majmin %majmin_ver_kf5

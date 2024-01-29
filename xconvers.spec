@@ -1,6 +1,6 @@
 Name:		xconvers
 Version:	0.8.3
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Ham radio convers client similar to IRC for X/GTK
 
 License:	GPLv2+
@@ -56,6 +56,9 @@ desktop-file-install	\
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

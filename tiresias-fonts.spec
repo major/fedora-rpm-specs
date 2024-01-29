@@ -11,7 +11,7 @@ signs.
 Name:		%{fontname}-fonts
 Summary: 	Low vision fonts
 Version:	1.0
-Release:	34%{?dist}
+Release:	35%{?dist}
 # Font exception
 License:	GPL-3.0-or-later WITH Font-exception-2.0
 Source0:	http://www.tiresias.org/fonts/infofont.zip
@@ -228,6 +228,9 @@ install -Dm 0644 -p %{SOURCE27} \
 %dir %{_fontdir}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.0-34
 - fix license tag
 

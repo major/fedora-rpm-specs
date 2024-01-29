@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
@@ -82,6 +82,9 @@ rm -r ${workdir}
 %{_mandir}/man5/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 27 2023 Dominik Mierzejewski <dominik@greysector.net> 2.6.3-1
 - update to 2.6.3 (#2255732)
 - drop obsolete patch

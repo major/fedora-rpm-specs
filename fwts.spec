@@ -1,6 +1,6 @@
 Name:    fwts
-Version: 21.03.00
-Release: 8%{?dist}
+Version: 24.01.00
+Release: 1%{?dist}
 Summary: Firmware Test Suite
 
 # The ACPICA code is licensed under both GPLv2 and Intel ACPI, a few
@@ -47,7 +47,8 @@ firmware troubleshooting tool.
 
 autoreconf -ivf
 %configure
-%make_build
+# Doesn't currently parallel build, numerous reports across distros
+%make_build -j1
 
 %check
 %make_build check
@@ -71,6 +72,9 @@ find %{buildroot} -type f -name "*.so" -delete
 %{_mandir}/man1/fwts*
 
 %changelog
+* Sat Jan 27 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 24.01.00-1
+- Update to 24.01.00
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 21.03.00-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

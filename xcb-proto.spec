@@ -1,6 +1,6 @@
 Name:           xcb-proto
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XCB protocol descriptions
 
 License:        X11-distribute-modifications-variant
@@ -51,6 +51,9 @@ autoreconf -fiv
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.16.0-1
 - xcb-proto 1.16.0
 

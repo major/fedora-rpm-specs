@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        Apache-2.0
@@ -129,6 +129,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-6
 - Convert License tag to SPDX format
 

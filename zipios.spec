@@ -5,7 +5,7 @@
 
 Name:           zipios
 Version:        2.2.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Most of the project is under LGPLv2+ but two source filesa are GPLv2+ so the
 # combined work is GPLv2+.
 License:        GPLv2+
@@ -116,6 +116,9 @@ done
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.07
-Release: 18%{?dist}
+Release: 19%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           weiweihuanghuang
@@ -58,6 +58,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %doc documentation/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

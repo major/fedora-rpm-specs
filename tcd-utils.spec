@@ -3,7 +3,7 @@
 
 Name:		tcd-utils
 Version:	20120115
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	TCD (Tide Constituent Database) Utils
 
 License:	Public Domain
@@ -39,6 +39,9 @@ TCD Utils includes:
 %{_bindir}/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20120115-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 20120115-24
 - Change -Wincompatible-pointer-types from error to warning
 

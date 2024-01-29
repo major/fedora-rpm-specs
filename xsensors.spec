@@ -1,6 +1,6 @@
 Name:           xsensors
 Version:        0.80
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        An X11 interface to lm_sensors
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.200
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL:     http://scripts.sil.org/SILYi_home
 
 %global foundry           SIL
@@ -39,6 +39,9 @@ Source10: 66-sil-nuosu-fonts.conf
 %fontfiles
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

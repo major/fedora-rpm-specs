@@ -19,13 +19,13 @@
 %global canonicalname %{py_dist_name %{srcname}}
 
 Name: python-%{canonicalname}
-Version: 0.5.1
+Version: 0.6.0
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT
 URL: https://github.com/fedora-infra/%{canonicalname}
 Source0: https://github.com/fedora-infra/%{canonicalname}/releases/download/%{version}/%{canonicalname}-%{version}.tar.gz
-Patch100: rpmautospec-0.4.1-old-poetry.patch
+Patch100: python-rpmautospec-0.6.0-old-poetry.patch
 
 BuildArch: noarch
 BuildRequires: git

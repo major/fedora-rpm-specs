@@ -1,6 +1,6 @@
 Name:       xmodmap
 Version:    1.0.11
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Edit and display the X11 core keyboard map
 
 License:    MIT AND MIT-open-group
@@ -36,6 +36,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.11-5
 - SPDX migration
 

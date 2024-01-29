@@ -1,6 +1,6 @@
 Name:           snoopy
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A preload library to send shell commands to syslog
 License:        GPL-2.0-or-later
 URL:            https://github.com/a2o/snoopy
@@ -103,6 +103,9 @@ rm %{buildroot}%{_libdir}/libsnoopy.la
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

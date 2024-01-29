@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.000
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	A display sans-serif font 
 
 License:	OFL
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{fontnam
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Name:           ufraw
 Summary:        Raw image data retrieval tool for digital cameras
 Version:        0.23
-Release:        0.18.20210425%{?dist}
+Release:        0.19.20210425%{?dist}
 
 # GPL-2.0-or-later: main program
 # GPL-2.0-only:
@@ -111,6 +111,9 @@ install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbn
 %{gimpplugindir}/%{name}-gimp
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.19.20210425
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23-0.18.20210425
 - Drop GConf2 schemas
 - Register freedesktop thumbnailer

@@ -1,7 +1,7 @@
 Summary:       Library for performing syntax highlighting in Qt documents
 Name:          source-highlight-qt
 Version:       0.2.3
-Release:       42%{?dist}
+Release:       43%{?dist}
 License:       GPLv3
 URL:           http://srchiliteqt.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/project/srchiliteqt/source-highlight-qt/source-highlight-qt-%{version}.tar.gz
@@ -65,6 +65,9 @@ make check
 %{_libdir}/pkgconfig/source-highlight-qt4.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.2.3-42
 - Rebuilt for Boost 1.83
 

@@ -2,7 +2,7 @@
 
 Name:           vym
 Version:        2.9.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        View your mind
 
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.26-1
 - 2.9.26
 

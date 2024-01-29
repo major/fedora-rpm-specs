@@ -4,7 +4,7 @@ Name:    kf5-%{framework}
 Version: 5.113.0
 Release: 4%{?dist}
 Summary: KDE Frameworks 5 Tier 4 workspace and cross-framework integration plugins
-License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

@@ -1,6 +1,6 @@
 Name:          sugar-log
 Version:       42
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Log activity for Sugar
 
 License:       GPLv2+
@@ -45,6 +45,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 42-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

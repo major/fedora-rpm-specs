@@ -1,6 +1,6 @@
 Name:           toilet
 Version:        0.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Display large colorful characters in text mode
 
 License:        WTFPL
@@ -39,6 +39,9 @@ FIGlet's "Frank, Ian and Glen’s letters".
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

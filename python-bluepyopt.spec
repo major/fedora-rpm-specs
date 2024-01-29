@@ -62,7 +62,6 @@ BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist future}
 BuildRequires:  python3-jupyter-client
 BuildRequires:  python3-nbconvert
-BuildRequires:  %{py3_dist mock}
 BuildRequires:  python3-neuron
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist lfpy}

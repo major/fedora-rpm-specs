@@ -2,7 +2,7 @@
 Name: yubikey-manager-qt
 Summary: Application for configuring any YubiKey over all USB interfaces
 Version: 1.2.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://developers.yubico.com/yubikey-manager-qt/
 Source0: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
@@ -54,6 +54,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications resources/%{bnam
 %{_datadir}/pixmaps/ykman.png
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

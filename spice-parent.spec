@@ -1,6 +1,6 @@
 Name:           spice-parent
 Version:        26
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Sonatype Spice Components
 License:        ASL 2.0
 URL:            http://github.com/sonatype/oss-parents
@@ -37,6 +37,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 26-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

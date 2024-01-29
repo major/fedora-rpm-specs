@@ -1,7 +1,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
 Version: 4.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -90,6 +90,9 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Sandro Bonazzola <sbonazzo@redhat.com> - 4.6.1-1
 - Update to 4.6.1
 - Resolves: fedora#2257777

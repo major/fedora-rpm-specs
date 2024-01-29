@@ -1,7 +1,7 @@
 Summary:	C++ Implementation of W3C security standards for XML
 Name:		xml-security-c
 Version:	2.0.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	ASL 2.0
 URL:		http://santuario.apache.org/cindex.html
 Source0:	https://www.apache.org/dist/santuario/c-library/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ autoreconf -fiv
 %exclude %{_bindir}/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

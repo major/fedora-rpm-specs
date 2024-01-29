@@ -26,7 +26,7 @@ locally.}
                         suseconnect/connectUsage.txt
 
 Name:           suseconnect-ng
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Utility to register a system with the SUSE Customer Center
 
 License:        LGPL-2.1-or-later
@@ -142,6 +142,9 @@ install -m 0644 -vp *.service *.timer     %{buildroot}%{_unitdir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 16 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.0-2
 - Fix compiled in soname for library
 

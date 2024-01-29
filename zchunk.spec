@@ -1,6 +1,6 @@
 Name:           zchunk
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compressed file format that allows easy deltas
 License:        BSD-2-Clause AND MIT
 URL:            https://github.com/zchunk/zchunk
@@ -84,6 +84,9 @@ install contrib/gen_xml_dictionary %{buildroot}%{_libexecdir}/zck_gen_xml_dictio
 %{_includedir}/zck.h
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Jonathan Dieter <jdieter@gmail.com> - 1.4.0-1
 - Add native OpenSSL 3 compatibility
 - Add new function for getting zchunk context from chunk

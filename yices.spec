@@ -1,6 +1,6 @@
 Name:           yices
 Version:        2.6.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        SMT solver
 
 # The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
@@ -185,6 +185,9 @@ make check MODE=debug
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 10 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-8
 - Rebuild for cadical 1.9.4
 - Update font licenses from LPPL-1.0 to LPPL-1.3a

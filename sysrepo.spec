@@ -1,6 +1,6 @@
 Name: sysrepo
 Version: 2.2.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -127,6 +127,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

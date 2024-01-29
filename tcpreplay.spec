@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Replay captured network traffic
 
 License:        GPLv3
@@ -65,6 +65,9 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

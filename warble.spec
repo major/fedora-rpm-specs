@@ -2,7 +2,7 @@
 
 Name:		warble
 Version:	1.5.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The word-guessing game
 
 License:	GPLv3+
@@ -49,6 +49,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_datadir}/metainfo/%{appname}.appdata.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

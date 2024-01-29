@@ -1,6 +1,6 @@
 Name:		xerces-c
 Version:	3.2.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Validating XML Parser
 
 License:	ASL 2.0
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc README NOTICE CREDITS doc _docs/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Dec 22 2023 Kalev Lember <klember@redhat.com> - 3.2.5-1
 - Update to 3.2.5, fixing CVE-2018-1311 and CVE-2023-37536
 

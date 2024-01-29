@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	1.4.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Image support library for Tk
 # The core tkimg code is TCL
 # tiff/ is libtiff
@@ -82,6 +82,9 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan  5 2024 Tom Callaway <spot@fedoraproject.org> - 1.4.16-1
 - update to 1.4.16
 - apply upstream (libtiff) fix for CVE-2023-6277

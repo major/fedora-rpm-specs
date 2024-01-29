@@ -1,6 +1,6 @@
 Name: ustreamer
 Version: 5.41
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
 URL: https://github.com/pikvm/ustreamer
@@ -59,6 +59,9 @@ Python 3 bindings for %{name}.
 %{python3_sitearch}/%{name}*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.41-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Tao Jin <tao-j@outlook.com> - 5.41-1
 - Update to 5.41
 - Remove libgpiod interface due to incompatiable 2.0 API

@@ -5,7 +5,7 @@
 
 Name:           x11vnc
 Version:        0.9.16^%{gitdate}git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -157,6 +157,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16^20230801gita61f364-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Nov 17 2023 Sérgio Basto <sergio@serjux.com> - 0.9.16^20230801gita61f364-1
 - Update to a61f364e385d98677c04070a994397b287385219 git snapshot from
   2023-08-01 (a support for acquiring a DRM framebuffer with a drm schema

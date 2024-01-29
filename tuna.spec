@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.19
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -103,6 +103,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 02 2023 John Kacur <jkacur@redhat.com> - 0.19-5
 - Convert to SPDX licenses and use this in the specfile too
 

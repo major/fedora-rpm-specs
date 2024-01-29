@@ -10,7 +10,7 @@
 Summary:	Dictionaries for SKK (Simple Kana-Kanji conversion program)
 Name:		skkdic
 Version:	%{gitdate_num}
-Release:	4.git%{shorthash}%{?dist}
+Release:	5.git%{shorthash}%{?dist}
 # See Source2
 License:	GPLv2+ and CC-BY-SA and Unicode and Public Domain and MIT
 
@@ -76,6 +76,9 @@ popd
 %{_datadir}/skk/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20210919-5.gitc6e6a8822b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20210919-4.gitc6e6a8822b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

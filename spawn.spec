@@ -1,6 +1,6 @@
 Name:           spawn
 Version:        0.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Simple tool to run several Linux command-lines in parallel
 
 License:        GPLv3+
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

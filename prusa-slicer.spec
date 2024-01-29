@@ -7,8 +7,8 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.4.2
-Release:        14%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -53,6 +53,10 @@ Patch392:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79.patch
 Patch393:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79-followup.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/11769
 Patch394:       prusa-slicer-pr-11769.patch
+# Work with OpenCASCADE 7.6.3 which is in Fedora 39
+Patch395:       prusa-slicer-opencascade-7.6.3.patch
+# https://github.com/prusa3d/PrusaSlicer/issues/9128
+Patch396:       prusa-slicer-issue-9128.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le
@@ -83,6 +87,7 @@ BuildRequires:  libgudev
 # Upstream miniz is no longer compatible, gotta use the fork.
 # BuildRequires:  miniz-devel
 BuildRequires:  NLopt-devel
+BuildRequires:  opencascade-devel
 BuildRequires:  openvdb
 BuildRequires:  openvdb-devel
 BuildRequires:  systemd-devel
@@ -275,6 +280,7 @@ license avrdude COPYING
 license imgui LICENSE.txt
 license libnest2d LICENSE.txt
 license qhull COPYING.txt
+git add license-files
 commit "Move license files"
 
 # Delete a stray font file
@@ -289,7 +295,6 @@ unbundle () {
 }
 
 unbundle eigen
-unbundle expat
 unbundle glew
 
 # These tests were fixed but the fixes were undone upsteam with commit ac6969c
@@ -311,7 +316,7 @@ commit "Disable voronoi test"
 # -DSLIC3R_FHS=1 - Enable FHS layout instead of installing things into the resources directory
 # -DSLIC3R_WX_STABLE=1 - Allow use of wxGTK version 3.0 instead of 3.1.
 %cmake -DSLIC3R_PCH=0 -DSLIC3R_FHS=1 -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 \
-    -DSLIC3R_BUILD_TESTS=1 -DCMAKE_BUILD_TYPE=Release \
+    -DSLIC3R_BUILD_TESTS=1 -DCMAKE_BUILD_TYPE=Release -DSLIC3R_ENABLE_FORMAT_STEP=0 \
 %if %{with perltests}
     -DSLIC3R_PERL_XS=1
 %endif
@@ -412,6 +417,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Sat Jan 27 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.5.0-1
+- Rebase to 2.5.0.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

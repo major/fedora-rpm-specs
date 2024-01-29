@@ -6,7 +6,7 @@
 
 Name:		yadifa
 Version:	2.6.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD
@@ -182,6 +182,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 04 2023 Denis Fateyev <denis@fateyev.com> - 2.6.5-1
 - Update to 2.6.5 release
 

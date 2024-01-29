@@ -1,6 +1,6 @@
 Name:       xkbcomp
 Version:    1.4.6
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    XKB keymap compiler
 
 License:    MIT-open-group AND HPND-DEC
@@ -45,6 +45,9 @@ X.Org XKB keymap compiler development files
 %{_libdir}/pkgconfig/xkbcomp.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 27 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.4.6-7
 - SPDX migration: add SPDX license entries
 

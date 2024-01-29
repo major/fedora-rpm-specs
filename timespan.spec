@@ -1,6 +1,6 @@
 Name:           timespan
 Version:        2.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A tool that performs date-based time calculations
 
 License:        GPLv2+
@@ -29,6 +29,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

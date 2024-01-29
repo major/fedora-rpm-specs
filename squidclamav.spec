@@ -1,6 +1,6 @@
 Name:           squidclamav
 Version:        7.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP Antivirus for Squid based on ClamAv and the ICAP protocol
 License:        GPL-3.0-or-later
 URL:            https://squidclamav.darold.net/
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 23 2023 Simone Caronni <negativo17@gmail.com> - 7.3-2
 - Fix dependencies for el7.
 

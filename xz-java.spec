@@ -2,7 +2,7 @@
 
 Name:           xz-java
 Version:        1.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java implementation of XZ data compression
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://tukaani.org/xz/java.html
@@ -57,6 +57,9 @@ mkdir -p extdoc && touch extdoc/package-list
 %license COPYING
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9-7
 - Convert License tag to SPDX format
 

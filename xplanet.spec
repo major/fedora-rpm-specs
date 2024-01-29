@@ -1,7 +1,7 @@
 Summary:	Render a planetary image into an X window
 Name:		xplanet
 Version:	1.3.1
-Release:	20%{?dist}
+Release:	21%{?dist}
 
 License:	GPLv2+
 Source:		http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -59,6 +59,9 @@ ln -sf ../fonts/gnu-free/FreeMonoBold.ttf \
 %{_datadir}/xplanet
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Summary(fr.UTF8):	Outil pour vérifier et restaurer des partitions
 Summary(ru_RU.UTF8): Программа для проверки и восстановления разделов диска
 Name:		testdisk
 Version:	7.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	GPLv2+
 Source0:	https://www.cgsecurity.org/testdisk-%{version}.tar.bz2
 URL:		https://www.cgsecurity.org/wiki/TestDisk
@@ -109,6 +109,9 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/qphotorec.svg
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

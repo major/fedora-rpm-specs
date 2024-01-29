@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.9.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -92,6 +92,9 @@ sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Nov 05 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.24-1
 - Update to 0.9.24
 

@@ -1,6 +1,6 @@
 Name:           thonny
 Version:        4.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 abrarwali <abrarwali@tutanota.com> - 4.1.4-1
 - New Upstream Version 4.1.4
 

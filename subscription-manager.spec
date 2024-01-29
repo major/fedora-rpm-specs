@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.29.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -735,6 +735,9 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.40-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Packit <hello@packit.dev> - 1.29.40-1
 - Automatic commit of package [subscription-manager] release [1.29.40-1]. (Pino Toscano)
 - Translated using Weblate (Korean) (김인수)

@@ -1,6 +1,6 @@
 Name:           xdg-dbus-proxy
 Version:        0.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Filtering proxy for D-Bus connections
 
 License:        LGPL-2.1-or-later
@@ -38,6 +38,9 @@ to facilitate using it in other contexts.
 %{_mandir}/man1/xdg-dbus-proxy.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 07 2023 Kalev Lember <klember@redhat.com> - 0.1.5-1
 - Update to 0.1.5 (rhbz#2229713)
 

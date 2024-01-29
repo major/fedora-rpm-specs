@@ -2,7 +2,7 @@
 
 Name:               python-fedmsg-meta-fedora-infrastructure
 Version:            0.31.0
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            Metadata providers for Fedora Infrastructure's fedmsg deployment
 
 License:            LGPLv2+
@@ -18,7 +18,6 @@ BuildRequires:      python3-fedora
 BuildRequires:      python3-dateutil
 BuildRequires:      python3-pytz
 BuildRequires:      python3-nose
-BuildRequires:      python3-mock
 BuildRequires:      python3-pbr
 BuildRequires:      python3-fasjson-client
 
@@ -67,6 +66,9 @@ FEDMSG_META_NO_NETWORK=True %{__python3} setup.py test
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 0.31.0-12
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

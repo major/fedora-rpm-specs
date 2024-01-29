@@ -14,7 +14,7 @@ URL:            https://www.smufl.org/fonts/
 # If both %%petalumaver and %%petalumascriptver were increased,
 # release should be reset to 1. Otherwise, keep increasing it so that
 # name-version-release keeps growing for both subpackages.
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -118,6 +118,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Petaluma/Petaluma.json
 %files          all
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.065-9
 - Stop building for 32-bit x86
 

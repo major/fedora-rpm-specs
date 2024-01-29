@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Space arcade game for multiple players
 
 License:        GPLv2+
@@ -220,6 +220,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Florian Weimer <fweimer@redhat.com> - 4.7.3-30
 - Additional C compatibility fixes (#2155781)
 

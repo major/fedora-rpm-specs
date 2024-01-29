@@ -1,6 +1,6 @@
 Name:    vsomeip3
 Version: 3.3.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0 AND BSL-1.0
@@ -240,6 +240,9 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 3.3.8-2
 - Rebuilt for Boost 1.83
 

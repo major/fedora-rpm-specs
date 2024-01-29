@@ -4,7 +4,7 @@
 
 Name:           zeek
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful framework for network analysis and security monitoring
 
 License:        ASL 2.0 and Boost and BSD and ISC and LGPLv3+ and MIT and NCSA 
@@ -305,5 +305,8 @@ done
 %{_datadir}/btest/data
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Mar 17 2022 Marco Rizzi <marcor@fb.com> - 4.2.0-1
 - Initial Fedora package

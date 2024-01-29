@@ -3,7 +3,7 @@
 
 Name:           unicode-emoji
 Version:        15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode Emoji Data Files
 
 License:        Unicode-DFS-2016
@@ -46,6 +46,9 @@ cp -p %{SOURCE6} %{buildroot}%{emojidir}
 %{emojidir}/emoji-*txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Mike FABIAN <mfabian@redhat.com> - 15.1-1
 - Update to Unicode Emoji Data 15.1 (was released on September 12, 2023)
 

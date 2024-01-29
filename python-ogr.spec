@@ -1,6 +1,6 @@
 Name:           python-ogr
-Version:        0.48.1
-Release:        3%{?dist}
+Version:        0.49.0
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -48,6 +48,9 @@ One Git library to Rule!
 
 
 %changelog
+* Sat Jan 27 2024 Packit <hello@packit.dev> - 0.49.0-1
+- For Pagure there are 2 new methods available: one for getting users with specified access rights and one for getting members of a group. (#834)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

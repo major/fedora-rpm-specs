@@ -215,7 +215,7 @@
 
 Name:           uwsgi
 Version:        2.0.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1858,6 +1858,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 23 2024 Ralf Ertzinger <ralf@skytale.net> - 2.0.23-2
 - Add reworked patch for python3.12
 - Build plugin for python3.11 under EPEL9

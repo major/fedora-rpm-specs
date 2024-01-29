@@ -3,7 +3,7 @@
 
 Name:           x2gokdriveclient
 Version:        0.0.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        X2Go KDrive Client application
 License:        GPL-3.0-or-later
 URL:            https://www.x2go.org
@@ -87,6 +87,9 @@ export 'PATH=%{_qt6_bindir}:'"${PATH}"
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Orion Poplawski <orion@nwra.com> - 0.0.0.1-2
 - Add BR for gcc-c++
 - Fix License tag

@@ -9,7 +9,7 @@ Name:           tmux
 
 Version:        3.3a
 # forge meta appends commit info
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -86,6 +86,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3a-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 12 2023 Sven Lankes <sven@lank.es> - 3.3a-7.20230918gitb202a2f
 - Don't crash on showing certain glyph
   Resolves: rhbz#2253441

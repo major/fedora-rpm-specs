@@ -1,6 +1,6 @@
 Name:		tzclock
 Version:	3.1.7
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	GTK+ graphical Clock displaying the time around the world
 
 # SPDX confirmed
@@ -55,6 +55,9 @@ desktop-file-install \
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.7-13
 - SPDX migration
 

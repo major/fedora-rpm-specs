@@ -6,7 +6,7 @@
 Summary: X.Org X11 Protocol headers
 Name: xorg-x11-proto-devel
 Version: 2023.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-2-Clause AND HPND AND HPND-sell-variant AND ICU AND MIT AND MIT-open-group AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
 URL: https://www.x.org
 BuildArch: noarch
@@ -209,6 +209,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/*/*.{html,svg}
 %{_docdir}/xorgproto/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 2023.2-3
 - SPDX Migration
 

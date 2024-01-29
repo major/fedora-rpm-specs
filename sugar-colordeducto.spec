@@ -1,6 +1,6 @@
 Name:		sugar-colordeducto
 Version:	8
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	To improve students skills to deducing logic and learning colors & schemes
 
 License:	GPLv3 and MIT
@@ -40,6 +40,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/ColorDeducto.activity/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

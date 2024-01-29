@@ -3,7 +3,7 @@
 
 Name:           tkdnd
 Version:        2.8
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Tk extension that adds native drag & drop capabilities
 
 License:        BSD
@@ -44,6 +44,9 @@ chmod +x %{buildroot}%{tcl_sitearch}/%{name}%{version}/lib%{name}%{version}.so
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

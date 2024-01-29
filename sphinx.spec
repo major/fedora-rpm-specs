@@ -20,7 +20,7 @@
 
 Name:		sphinx
 Version:	2.2.11
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Free open-source SQL full-text search engine
 License:	GPLv2+
 URL:		http://sphinxsearch.com
@@ -301,6 +301,9 @@ chown -R %{sphinx_user}:root %{_localstatedir}/lib/%{name}/
 %{_datadir}/php/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 2.2.11-28
 - Additional C compatibility fixes
 

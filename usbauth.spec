@@ -26,7 +26,7 @@ Summary:        USB firewall against BadUSB attacks
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2
 
 Requires:       systemd
@@ -69,6 +69,9 @@ popd
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

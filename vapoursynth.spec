@@ -1,6 +1,6 @@
 Name:       vapoursynth
 Version:    65
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Video processing framework with simplicity in mind
 License:    LGPLv2
 URL:        http://www.vapoursynth.com
@@ -116,6 +116,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_bindir}/vspipe
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 65-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 02 2023 Simone Caronni <negativo17@gmail.com> - 65-1
 - Update to version R65.
 

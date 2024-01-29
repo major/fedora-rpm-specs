@@ -1,6 +1,6 @@
 Name:       ydiff
 Version:    1.2
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    View colored, incremental diff
 URL:        https://github.com/ymattw/ydiff
 License:    BSD
@@ -42,6 +42,9 @@ Python library that implements API used by ydiff tool.
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           stacer
 Version:        1.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Linux system optimizer and monitoring
 
 License:        GPLv3+
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

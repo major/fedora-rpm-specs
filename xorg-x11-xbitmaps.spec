@@ -5,7 +5,7 @@
 Summary: X.Org X11 application bitmaps
 Name: xorg-x11-%{pkgname}
 Version: 1.1.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: HPND AND ICU
 URL: http://www.x.org
 BuildArch: noarch
@@ -35,6 +35,9 @@ X.Org X11 application bitmaps
 %{_datadir}/pkgconfig/xbitmaps.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 José Expósito <jexposit@redhat.com> - 1.1.3-1
 - xorg-x11-xbitmaps 1.1.3
 

@@ -3,7 +3,7 @@
 Summary: An X Window System tool for drawing basic vector graphics
 Name: xfig
 Version: 3.2.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL:     https://en.wikipedia.org/wiki/Xfig
 Source0: http://downloads.sourceforge.net/mcj/xfig-%{version}.tar.xz
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.9-2
 - Backport upstream patches for upstream 2 issues
   - Fix exporting only active layers

@@ -1,6 +1,6 @@
 Name:		sugar-xoeditor
 Version:	14
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Editor for XO icon colors
 
 License:	GPLv3+ and MIT
@@ -40,6 +40,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/xoEditor.activity/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

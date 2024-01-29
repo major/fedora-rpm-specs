@@ -2,7 +2,7 @@
 
 Name:       sord
 Version:    0.16.14
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A lightweight Resource Description Framework (RDF) C library
 
 License:    ISC
@@ -64,6 +64,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

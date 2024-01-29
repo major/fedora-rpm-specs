@@ -1,7 +1,7 @@
 Summary:	3-dimensional perspective star map viewer
 Name:		starplot
 Version:	0.95.5
-Release:	38%{?dist}
+Release:	39%{?dist}
 
 # See README
 # SPDX confirmed
@@ -92,6 +92,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/test.stars
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.5-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Dec 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.95.5-38
 - SPDX migration
 

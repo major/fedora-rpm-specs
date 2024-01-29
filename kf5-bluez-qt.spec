@@ -6,7 +6,7 @@ Summary:        A Qt wrapper for Bluez
 Version: 5.113.0
 Release: 3%{?dist}
 
-License:        CC0-1.0, LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+License:        CC0-1.0, LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5

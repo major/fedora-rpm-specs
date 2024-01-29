@@ -1,6 +1,6 @@
 Name:		sugar-yupana
 Version:	19
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Counting and calculating device used by the Incan
 
 License:	GPLv3+
@@ -35,6 +35,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

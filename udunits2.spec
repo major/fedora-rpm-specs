@@ -1,6 +1,6 @@
 Name: udunits2
 Version: 2.2.28
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A library for manipulating units of physical quantities
 License: UCAR
 URL: http://www.unidata.ucar.edu/software/udunits/
@@ -87,6 +87,9 @@ make check
 %{_libdir}/libudunits2.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.28-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.28-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global date    20020801
-%global baserelease 19
+%global baserelease 20
 
 Name:           xhtml1-dtds
 Version:        1.0
@@ -114,6 +114,9 @@ cd - >/dev/null
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20020801.20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 23 2023 Ondrej Sloup <osloup@redhat.com> - 1.0-20020801.19
 - Update license tag to the SPDX format
 

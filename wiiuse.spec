@@ -4,7 +4,7 @@
 
 Name:           wiiuse
 Version:        0.15.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The wiiuse library is used to access and control multiple Nintendo Wiimotes
 License:        GPL-3.0-or-later
 URL:            https://github.com/rpavlik/wiiuse
@@ -78,6 +78,9 @@ chrpath -d %{buildroot}%{_bindir}/wiiuseexample*
 %ldconfig_scriptlets
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           v4l2ucp
 Version:        2.0.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Video4linux universal control panel
 License:        GPLv2+
 URL:            http://v4l2ucp.sourceforge.net/
@@ -53,6 +53,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/%{name}.png \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           tinc
 Version:        1.0.36
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A virtual private network daemon
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_unitdir}/%{name}*.service
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.36-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

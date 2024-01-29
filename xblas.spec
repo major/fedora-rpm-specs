@@ -1,6 +1,6 @@
 Name:		xblas
 Version:	1.0.248
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Extra Precise Basic Linear Algebra Subroutines
 License:	BSD
 URL:		http://www.netlib.org/xblas
@@ -58,6 +58,9 @@ make tests
 %{_includedir}/*.h
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.248-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.248-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

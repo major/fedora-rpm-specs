@@ -4,7 +4,7 @@
 Summary: X.Org X11 Autotools macros
 Name: xorg-x11-util-macros
 Version: 1.20.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: HPND-sell-variant AND MIT
 URL: http://www.x.org
 BuildArch: noarch
@@ -35,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/util-macros
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 1.20.0-3
 - SPDX Migration
 

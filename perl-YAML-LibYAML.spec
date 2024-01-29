@@ -7,8 +7,8 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.88
-Release:        5%{?dist}
+Version:        0.89
+Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -50,6 +50,7 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Filter::Util::Call)
 BuildRequires:  perl(FindBin)
+BuildRequires:  perl(if)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Pipe)
 BuildRequires:  perl(lib)
@@ -61,6 +62,7 @@ BuildRequires:  perl(utf8)
 
 %if %{with perl_YAML_LibYAML_enables_optional_test}
 # Optional Tests
+BuildRequires:  perl(boolean)
 BuildRequires:  perl(Path::Class)
 %endif
 
@@ -155,6 +157,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Paul Howarth <paul@city-fan.org> - 1:0.89-1
+- Update to 0.89 (rhbz#2260595)
+  - Recognise core booleans on Perl 5.36+ at dump time (GH#114)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.88-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

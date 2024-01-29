@@ -1,6 +1,6 @@
 Name:		xcb-util-wm
 Version:	0.4.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Client and window-manager helper library on top of libxcb
 License:	X11-distribute-modifications-variant
 URL:		http://xcb.freedesktop.org
@@ -67,6 +67,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 07 2023 José Expósito <jexposit@redhat.com> - 0.4.2-4
 - SPDX Migration
 

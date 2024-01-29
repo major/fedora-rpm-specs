@@ -14,7 +14,7 @@ Name: simde
 Version: %{simde_version}%{?rc_version:~rc%{rc_version}}
 # Align the release format with the packages setting Source0 by commit hash
 # such as podman.spec and moby-engine.spec.
-Release: 2.git%{short_commit_simde}%{?dist}
+Release: 3.git%{short_commit_simde}%{?dist}
 Summary: SIMD Everywhere
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
@@ -158,6 +158,9 @@ export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 %{_includedir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-3.gitfefc785
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-2.gitfefc785
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

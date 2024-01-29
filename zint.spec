@@ -1,6 +1,6 @@
 Name:      zint
 Version:   2.13.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Barcode generator library
 License:   GPLv3+
 URL:       http://www.zint.org.uk
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Martin Gieseking <martin.gieseking@uos.de> - 2.13.0-1
 - Update to 2.13.0
 

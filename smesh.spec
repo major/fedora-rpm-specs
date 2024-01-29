@@ -1,6 +1,6 @@
 Name:           smesh
 Version:        9.8.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OpenCascade based MESH framework
 
 License:        LGPLv2
@@ -88,6 +88,9 @@ LDFLAGS='-Wl,--as-needed'; export LDFLAGS
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 9.8.0.2-8
 - Rebuilt for Boost 1.83
 

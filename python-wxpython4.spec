@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -24,12 +24,8 @@ License:        wxWidgets and BSD
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
 
-# Patches needed for compatibility with Python 3.12
-# https://www.riverbankcomputing.com/hg/sip/rev/312476401030 
-Patch:          sipMalloc-and-sipFree-are-now-implemented-using-PyMe.patch
-# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
-Patch:          For-Python-v3.12-implement-sipPyTypeDict-using-PyTyp.patch
 Patch:          https://github.com/wxWidgets/Phoenix/commit/aeb557d01e7cd37176ebbf0f1ae6d0b53c115378.patch
+Patch:          https://github.com/wxWidgets/Phoenix/commit/6a049ccc0ad96f25c3f7d8540b218ffe8921d8c5.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -125,8 +121,7 @@ for file in demo/TestTable.txt docs/sphinx/_downloads/i18nwxapp/locale/I18Nwxapp
 done
 
 %build
-#DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py dox touch etg --nodoc sip build_py --use_syswx --gtk3
-DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py build_py --use_syswx --gtk3
+DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py dox touch etg --nodoc sip build_py --use_syswx --gtk3
 
 
 %install
@@ -164,6 +159,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Sat Jan 27 2024 Scott Talbert <swt@techie.net> - 4.2.1-6
+- Revert back to generating code and apply patches to fix FTBFS
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,7 +12,7 @@ Version:                3.0.4
 Backend to talk to YubiHSM 2}
 
 Name:           yubihsm-connector
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        YubiHSM Connector
 
 # Upstream license specification: Apache-2.0
@@ -129,6 +129,9 @@ exit 0
 %{_udevrulesdir}/70-yubihsm-connector.rules
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

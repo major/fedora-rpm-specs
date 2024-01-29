@@ -4,7 +4,7 @@
 
 Name:       python-%{pypi_name}
 Version:    2.1
-Release:    12%{?dist}
+Release:    %autorelease
 Summary:    EventEmitter using gevent
 BuildArch:  noarch
 
@@ -20,7 +20,6 @@ BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(coverage) >= 4.0.3
 BuildRequires: python3dist(gevent) >= 1.3
-BuildRequires: python3dist(mock)
 BuildRequires: python3dist(pytest-cov) >= 2.5.1
 BuildRequires: python3dist(pytest) >= 3.2.1
 
@@ -61,38 +60,4 @@ Summary:    %{summary}
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.1-9
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 2.1-6
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.1-3
-- Rebuilt for Python 3.10
-
-* Mon Jan 25 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1-2
-- build: Polish to conform Fedora guidelines
-
-* Wed Sep 16 2020 gasinvein <gasinvein@gmail.com> - 2.1-0.1
-- Initial package
+%autochangelog

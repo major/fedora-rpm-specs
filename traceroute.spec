@@ -2,7 +2,7 @@ Summary: Traces the route taken by packets over an IPv4/IPv6 network
 Name: traceroute
 Epoch: 3
 Version: 2.1.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL:  http://traceroute.sourceforge.net
 Source0: https://downloads.sourceforge.net/project/traceroute/traceroute/traceroute-%{version}/traceroute-%{version}.tar.gz
@@ -51,6 +51,9 @@ ln -s traceroute.8 $RPM_BUILD_ROOT%{_mandir}/man8/tcptraceroute.8
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 18 2023 Dmitry Butskoy <Dmitry@Butskoy.name>  - 3:2.1.5-1
 - update to 2.1.5
 

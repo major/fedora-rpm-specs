@@ -32,7 +32,7 @@
 
 Name:           slf4j
 Version:        1.7.32
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple Logging Facade for Java
 # the log4j-over-slf4j and jcl-over-slf4j submodules are ASL 2.0, rest is MIT
 License:        MIT AND Apache-2.0
@@ -205,6 +205,9 @@ cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 %{_defaultdocdir}/%{name}-manual
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.32-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Sep 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7.32-9
 - Rebuild to regenerate auto-Requires on java
 

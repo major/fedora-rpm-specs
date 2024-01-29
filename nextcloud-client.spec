@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.11.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        The Nextcloud Client
 

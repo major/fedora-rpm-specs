@@ -1,6 +1,6 @@
 Name:		whereami
 Version:	1.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Displays work location
 
 License:	GPLv3+
@@ -43,6 +43,9 @@ cd $RPM_BUILD_ROOT%{_mandir}/man1 && (ln -s whereami.1.gz wmi.1.gz||:) && cd -
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

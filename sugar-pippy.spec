@@ -4,7 +4,7 @@
 
 Name:          sugar-pippy
 Version:       75
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Pippy for Sugar
 License:       GPLv2+
 URL:           http://wiki.laptop.org/go/Pippy
@@ -64,6 +64,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 75-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 75-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

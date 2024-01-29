@@ -5,7 +5,7 @@
 
 Name:           yawn
 Version:        0
-Release:        0.46.%{revdate}svn%{svnrev}%{?dist}
+Release:        0.47.%{revdate}svn%{svnrev}%{?dist}
 Summary:        Yet Another WBEM Navigator
 
 
@@ -62,6 +62,9 @@ install -m 0644 ./apache/yawn.conf ${RPM_BUILD_ROOT}/%{apacheconfdir}/conf.d/yaw
 %{_bindir}/yawn.py
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.47.20140318svn632
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.46.20140318svn632
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

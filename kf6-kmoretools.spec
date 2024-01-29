@@ -9,7 +9,7 @@ Version: 5.246.0
 Release: 3%{?dist}
 Summary: KDE library to support for downloading application assets from the network
 
-License: BSD-2-Clause and CC0-1.0 and LGPL-2.1-only and LGPL-2.1-or-later and LGPL-3.0-only and LicenseRef-KDE-Accepted-LGPL
+License: BSD-2-Clause and CC0-1.0 and LGPL-2.1-only and LGPL-2.1-or-later and LGPL-3.0-only and (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/libraries/%{framework}
 Source0: https://invent.kde.org/libraries/%{framework}/-/archive/%{commit0}/%{framework}-%{shortcommit0}.tar.gz
 

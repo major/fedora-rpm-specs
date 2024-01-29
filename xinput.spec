@@ -1,6 +1,6 @@
 Name:       xinput
 Version:    1.6.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Utility to query X Input devices
 
 License:    MIT AND HPND-sell-variant
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 03 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.4-1
 - xinput 1.6.4
 

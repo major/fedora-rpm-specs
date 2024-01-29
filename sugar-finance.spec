@@ -1,6 +1,6 @@
 Name:           sugar-finance
 Version:        15
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Financial planning for Sugar
 
 License:        GPLv3+
@@ -55,6 +55,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

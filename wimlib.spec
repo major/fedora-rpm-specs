@@ -1,6 +1,6 @@
 Name:           wimlib
 Version:        1.14.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source Windows Imaging (WIM) library
 
 # wimlib is dual-licensed (GPL-3.0-or-later/LGPL-3.0-or-later) but is linked to
@@ -89,6 +89,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.14.3-1
 - Update to 1.14.3
 - Switch license tag to SPDX

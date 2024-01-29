@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
@@ -169,6 +169,9 @@ LDFLAGS+=' -lX11 -lICE -lSM'
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 12 2024 Leigh Scott <leigh123linux@gmail.com> - 4.0.2-2
 - AAdd buildrequires python3-packaging
 

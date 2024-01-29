@@ -1,6 +1,6 @@
 Name:           usbredir
 Version:        0.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        USB network redirection protocol libraries
 License:        LGPL-2.1-or-later
 URL:            https://www.spice-space.org/usbredir.html
@@ -87,6 +87,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

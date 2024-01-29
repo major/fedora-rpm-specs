@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -130,6 +130,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 2.3.3-28
 - Rebuilt for Boost 1.83
 

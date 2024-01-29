@@ -6,7 +6,7 @@
 
 Name: tpm2-abrmd-selinux
 Version: 2.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: SELinux policies for tpm2-abrmd
 
 License: BSD-2-Clause
@@ -75,6 +75,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 26 2023 Štěpán Horáček <shoracek@redhat.com> - 2.3.1-9
 - Migrate license to SPDX
 

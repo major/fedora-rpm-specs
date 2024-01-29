@@ -19,10 +19,12 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.13.2
-Release:       3%{?dist}
+Release:       5%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:        %{pecl_name}-build.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -60,6 +62,8 @@ sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 sed -e '\:"zstd/:d' -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Use the system library
 rm -r zstd
 
@@ -198,6 +202,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Sat Jan 27 2024 Remi Collet <remi@remirepo.net> - 0.13.2-5
+- add patch for GCC 14
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

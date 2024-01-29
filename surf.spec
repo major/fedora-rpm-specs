@@ -1,6 +1,6 @@
 Name:           surf
 Version:        2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple web browser
 License:        MIT
 URL:            http://surf.suckless.org/
@@ -65,6 +65,9 @@ install -pm0644 %{S:2} %{buildroot}%{_datadir}/pixmaps/
 %{_datadir}/pixmaps/%{name}.svg
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1-2
 - Add webkit2gtk-web-extension BR
 

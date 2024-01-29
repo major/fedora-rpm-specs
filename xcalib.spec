@@ -1,6 +1,6 @@
 Name:           xcalib
 Version:        0.8
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Tiny monitor calibration loader for X.org
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ export XLIBDIR=%{_libdir}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

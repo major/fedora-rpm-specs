@@ -1,6 +1,6 @@
 Name:           vim-nerdtree
 Version:        6.10.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tree explorer plugin for the editor Vim
 
 License:        WTFPL
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.16-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

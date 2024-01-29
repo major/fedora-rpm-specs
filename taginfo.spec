@@ -1,6 +1,6 @@
 Name:           taginfo
 Version:        1.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Printer of Tag Information from Media Files
 License:        GPLv2+
 URL:            http://grecni.com/software/taginfo/
@@ -39,6 +39,9 @@ install -m 0755 -p %{name} $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

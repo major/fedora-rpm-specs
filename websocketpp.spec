@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: BSD
 Url:     https://www.zaphoyd.com/websocketpp
@@ -91,6 +91,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 27 2023 Christian Birk <mail@birkc.de> - 0.8.2-12
 - add patch to fix c++20 compile errors
 

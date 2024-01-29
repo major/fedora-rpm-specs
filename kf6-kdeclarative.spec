@@ -5,7 +5,7 @@ Version: 5.248.0
 Release: 3%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for Qt declarative
 
-License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-KDE-Accepted-GPL AND MIT
+License: CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz

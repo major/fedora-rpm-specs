@@ -2,7 +2,7 @@
 
 Name:           sugar-%{shortname}
 Version:        20
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Implode for Sugar
 License:        GPLv2+
 URL:            http://wiki.sugarlabs.org/go/Activities/Implode
@@ -55,6 +55,9 @@ done
 %{sugaractivitydir}/Implode.activity/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

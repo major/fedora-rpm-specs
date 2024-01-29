@@ -18,7 +18,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -292,6 +292,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.0-1
 - Version 1.7.0
 - Drop upstreamed coq patch

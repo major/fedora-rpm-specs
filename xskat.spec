@@ -5,7 +5,7 @@ Name:             xskat
 # Upstream License requires to alter the version number
 # for re-distribution
 Version:          %{upstream_version}.0
-Release:          32%{?dist}
+Release:          33%{?dist}
 # https://fedoraproject.org/wiki/Licensing/XSkat_License
 License:          XSkat
 Source0:          http://www.xskat.de/xskat-%{upstream_version}.tar.gz
@@ -113,6 +113,9 @@ EOF
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

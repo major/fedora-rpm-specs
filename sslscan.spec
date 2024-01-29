@@ -1,6 +1,6 @@
 Name:           sslscan
 Version:        2.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Security assessment tool for SSL/TLS
 
 # Special exception to allow linking against the OpenSSL libraries
@@ -44,6 +44,9 @@ make install DESTDIR=%{buildroot} BINPATH=%{_bindir}/ MANPATH=%{_mandir}/
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           torcs
 Version:        1.3.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The Open Racing Car Simulator
 
 License:        GPLv2+
@@ -164,6 +164,9 @@ find %{buildroot}%{_libdir}/torcs/ -name '*.so' | xargs %{__chmod} +x
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

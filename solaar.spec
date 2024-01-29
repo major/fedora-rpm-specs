@@ -1,6 +1,6 @@
 Name:           solaar
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -123,6 +123,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.10-1
 - update to 1.1.10 (#2239784)
 - drop obsolete patch

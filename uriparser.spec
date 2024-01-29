@@ -6,7 +6,7 @@
 
 Name:           uriparser
 Version:        0.9.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        URI parsing library - RFC 3986
 
 License:        BSD
@@ -142,6 +142,9 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.9.7-4
 - Move cmake files to the devel subpackage
 

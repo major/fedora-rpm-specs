@@ -4,7 +4,7 @@
 
 Name:           tsung
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A distributed multi-protocol load testing tool
 License:        GPL-2.0-only
 URL:            http://tsung.erlang-projects.org/
@@ -121,6 +121,9 @@ sed -i 's|python27|python2|' %{buildroot}%{_bindir}/tsplot
 %doc docs examples
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 04 2023 Didier Fabert <didier.fabert@gmail.com> - 1.8.0-3
 - migrated to SPDX license
 

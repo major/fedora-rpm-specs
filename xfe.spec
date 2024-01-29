@@ -5,7 +5,7 @@
 
 Name:		xfe
 Version:	1.46
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -177,6 +177,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan  4 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.46-1
 - 1.46
 

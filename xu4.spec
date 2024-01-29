@@ -3,7 +3,7 @@
 
 Name:           xu4
 Version:        1.1
-Release:        0.46.%{svndate}svn%{svnrev}%{?dist}
+Release:        0.47.%{svndate}svn%{svnrev}%{?dist}
 Summary:        Ultima IV recreated
 License:        GPLv2+
 URL:            http://xu4.sourceforge.net/
@@ -88,6 +88,9 @@ rm -rf %{buildroot}/%{_datadir}/pixmaps
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.47.20150221svn3087
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.46.20150221svn3087
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

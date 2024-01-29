@@ -8,7 +8,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.31.rc3%{?dist}
+Release:	0.32.rc3%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -374,6 +374,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.32.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-0.31.rc3
 - More patches from upstream
 

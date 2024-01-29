@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -285,6 +285,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 15 2024 David Trudgian <dtrudg@sylabs.io> - 4.0.3-1
 - Upgrade to 4.0.3 upstream version.
 - This is a compatible upgrade to a new upstream patch version.

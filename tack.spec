@@ -1,7 +1,7 @@
 %global revision 20230201
 Name:           tack
 Version:        1.09
-Release:        15.%{revision}%{?dist}
+Release:        16.%{revision}%{?dist}
 Summary:        Terminfo action checker
 
 License:        GPL-2.0-only
@@ -33,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/tack.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-16.20230201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Oct 05 2023 Miroslav Lichvar <mlichvar@redhat.com> 1.09-15.20230201
 - convert license tag to SPDX
 - update to 1.09-20230201

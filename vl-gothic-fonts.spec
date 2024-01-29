@@ -14,7 +14,7 @@
 # “fonts-3-sub”:    packaging fonts, released as part of something else
 #
 Version: 20220612
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     http://dicey.org/vlgothic
 
 # The following declarations will be aliased to [variable]0 and reused for all
@@ -128,6 +128,9 @@ mv README.sazanami.tmp README.sazanami
 %fontfiles -a
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20220612-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220612-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

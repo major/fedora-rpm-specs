@@ -4,7 +4,7 @@
 
 Name:           unicode-ucd
 Version:        15.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode Character Database
 
 # http://www.unicode.org/terms_of_use.html in ReadMe.txt redirects to:
@@ -62,6 +62,9 @@ cp %{SOURCE2} .
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Sep 16 2023 Jens Petersen <petersen@redhat.com> - 15.1.0-1
 - Unicode 15.1 released
 

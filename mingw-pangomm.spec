@@ -5,11 +5,11 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-pangomm
-Version:        2.46.3
-Release:        5%{?dist}
+Version:        2.46.4
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for Pango
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://gtkmm.sourceforge.net/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/pangomm/%{release_version}/pangomm-%{version}.tar.xz
 
@@ -100,6 +100,9 @@ quickly create complex user interfaces.
 
 
 %changelog
+* Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 2.46.4-1
+- Update to 2.46.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.46.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

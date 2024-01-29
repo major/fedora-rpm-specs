@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -597,6 +597,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 15 2023 Peter Czanik <peter@czanik.hu> - 4.3.1-3
 - fix excludes, making sure that the base package pulls
   only minimal dependencies

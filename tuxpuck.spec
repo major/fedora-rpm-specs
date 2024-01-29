@@ -1,6 +1,6 @@
 Name:           tuxpuck
 Version:        0.8.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        3D Shufflepuck Pong Game
 
 License:        GPL-2.0-only
@@ -55,6 +55,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/32x32/apps/tuxpuck.png
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

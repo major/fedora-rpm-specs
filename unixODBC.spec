@@ -1,7 +1,7 @@
 Summary: A complete ODBC driver manager for Linux
 Name: unixODBC
 Version: 2.3.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.unixODBC.org/
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -117,6 +117,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 %_libdir/pkgconfig/*.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Honza Horak <hhorak@redhat.com> - 2.3.12-2
 - SPDX migration
 

@@ -3,7 +3,7 @@
 
 Name:               zvbi
 Version:            0.2.35
-Release:            21%{?dist}
+Release:            22%{?dist}
 Summary:            Raw VBI, Teletext and Closed Caption decoding library
 License:            GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT
 URL:                http://zapping.sourceforge.net/ZVBI/index.html
@@ -157,6 +157,9 @@ ln -sf %{fontdir} %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.35-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.35-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

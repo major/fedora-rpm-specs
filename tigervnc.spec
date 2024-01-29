@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -384,6 +384,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jan Grulich <jgrulich@redhat.com> - 1.13.1-11
 - Rebuild (xorg-x11-server)
   CVE fix for: CVE-2023-6816, CVE-2024-0229, CVE-2024-21885, CVE-2024-21886,

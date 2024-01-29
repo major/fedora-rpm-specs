@@ -1,6 +1,6 @@
 Name:           perl-IPC-Run3
-Version:        0.048
-Release:        31%{?dist}
+Version:        0.049
+Release:        1%{?dist}
 Summary:        Run a subprocess in batch mode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR BSD-2-Clause
 URL:            https://metacpan.org/release/IPC-Run3
@@ -26,8 +26,10 @@ BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
 
 # RHBZ #1062267 / https://rt.cpan.org/Public/Bug/Display.html?id=52317
-# Patch from
+# Patch against IPC-Run3-0.048 from
 # https://github.com/rschupp/IPC-Run3/commit/8ebe48760cfdc78fbf4fc46413dde9470121b99e
+# FIXME: For now, keep the patch, but do not apply it.
+# Upstream considers the issue to be a known implementation limitation.
 Patch0:         0001-test-and-fix-for-RT-52317-Calling-run3-garbles-STDIN.patch
 
 %description
@@ -38,10 +40,6 @@ API and none of the bloat and rarely used features of IPC::Run.
 
 %prep
 %setup -q -n IPC-Run3-%{version}
-%patch0 -p1
-
-# Perms in tarballs are broken 
-find -type f -exec chmod -x {} \;
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -61,6 +59,10 @@ find -type f -exec chmod -x {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.049-1
+- Update to 0.049.
+- Do not apply 0001-test-and-fix-for-RT-52317-Calling-run3-garbles-STDIN.patch
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

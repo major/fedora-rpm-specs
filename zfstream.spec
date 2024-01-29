@@ -4,7 +4,7 @@
 
 Name:           zfstream
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Library for reading and writing compressed and non-compressed files
 
 License:        LGPL-2.1-or-later
@@ -82,6 +82,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 20041202-39
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition

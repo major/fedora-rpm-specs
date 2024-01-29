@@ -15,7 +15,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.5.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -310,6 +310,9 @@ done
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Richard W.M. Jones <rjones@redhat.com> - 1:2.5.1-1
 - New development branch version 2.5.1
 

@@ -4,7 +4,7 @@
 Summary:    The standard Tcl library
 Name:       tcllib
 Version:    1.21
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    BSD
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
 URL:        https://core.tcl-lang.org/tcllib/doc/trunk/embedded/index.md
@@ -62,6 +62,9 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 %{_bindir}/tcldocstrip
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

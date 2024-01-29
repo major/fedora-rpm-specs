@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPL-2.0-or-later
@@ -125,6 +125,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.5.1-10
 - Rebuilt for Boost 1.83
 

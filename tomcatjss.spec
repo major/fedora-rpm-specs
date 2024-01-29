@@ -27,7 +27,7 @@ Summary:          JSS Connector for Apache Tomcat
 URL:              https://github.com/dogtagpki/tomcatjss
 License:          LGPL-2.1-or-later
 Version:          8.4.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/tomcatjss.git
@@ -175,6 +175,9 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

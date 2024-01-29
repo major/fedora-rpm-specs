@@ -1,6 +1,6 @@
 Name:          standard-test-roles
 Version:       4.11
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Standard Test Interface Ansible roles
 
 License:       MIT
@@ -67,6 +67,9 @@ cp -p inventory/* %{buildroot}%{_datadir}/ansible/inventory/
 %{_datadir}/ansible/inventory/standard-inventory-docker
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 21 2023 Andrei Stepanov <astepano@redhat.com> - 4.11-2
 - Require ansible-core
 

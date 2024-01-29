@@ -1,7 +1,7 @@
-# BSD 2-Clause License
+# BSD 3-Clause License
 #
 # Apprise - Push Notification Library.
-# Copyright (c) 2023, Chris Caron <lead2gold@gmail.com>
+# Copyright (c) 2024, Chris Caron <lead2gold@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -39,22 +39,23 @@ Apprise is a Python package for simplifying access to all of the different
 notification services that are out there. Apprise opens the door and makes
 it easy to access:
 
-Apprise API, AWS SES, AWS SNS, Bark, Boxcar, Burst SMS, BulkSMS, ClickSend,
-DAPNET, DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock, Google Chat,
-Gotify, Growl, Guilded, Home Assistant, IFTTT, Join, Kavenegar, KODI, Kumulos,
-LaMetric, Line, MacOSX, Mailgun, Mastodon, Mattermost, Matrix, MessageBird,
-Microsoft Windows, Microsoft Teams, Misskey, MQTT, MSG91, MyAndroid, Nexmo,
-Nextcloud, NextcloudTalk, Notica, Notifiarr, Notifico, ntfy, Office365,
-OneSignal, Opsgenie, PagerDuty, PagerTree, ParsePlatform, PopcornNotify,
-Prowl, Pushalot, PushBullet, Pushjet, PushMe, Pushover, PushSafer, Pushy,
-PushDeer, Reddit, Rocket.Chat, RSyslog, SendGrid, ServerChan, Signal,
-SimplePush, Sinch, Slack, SMSEagle, SMTP2Go, Spontit, SparkPost, Super Toasty,
-Streamlabs, Stride, Syslog, Techulus Push, Telegram, Twilio, Twitter, Twist,
-XBMC, Voipms, Vonage, WhatsApp, Webex Teams}
+Apprise API, APRS, AWS SES, AWS SNS, Bark, Boxcar, Burst SMS, BulkSMS, BulkVS,
+ClickSend, DAPNET, DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock,
+Google Chat, Gotify, Growl, Guilded, Home Assistant, httpSMS, IFTTT, Join,
+Kavenegar, KODI, Kumulos, LaMetric, Line, MacOSX, Mailgun, Mastodon,
+Mattermost,Matrix, MessageBird, Microsoft Windows, Microsoft Teams, Misskey,
+MQTT, MSG91, MyAndroid, Nexmo, Nextcloud, NextcloudTalk, Notica, Notifiarr,
+Notifico, ntfy, Office365, OneSignal, Opsgenie, PagerDuty, PagerTree,
+ParsePlatform, PopcornNotify, Prowl, Pushalot, PushBullet, Pushjet, PushMe,
+Pushover, PushSafer, Pushy, PushDeer, Reddit, Rocket.Chat, RSyslog, SendGrid,
+ServerChan, Signal, SimplePush, Sinch, Slack, SMSEagle, SMS Manager, SMTP2Go,
+SparkPost, Super Toasty, Streamlabs, Stride, Synology Chat, Syslog,
+Techulus Push, Telegram, Threema Gateway, Twilio, Twitter, Twist, XBMC,
+Voipms, Vonage, WeCom Bot, WhatsApp, Webex Teams}
 
 Name:           python-%{pypi_name}
-Version:        1.6.0
-Release:        3%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD
 URL:            https://github.com/caronc/%{pypi_name}
@@ -194,6 +195,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Sat Jan 27 2024 Chris Caron <lead2gold@gmail.com> - 1.7.2
+- Updated to v1.7.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           tcpxtract
 Version:        1.0.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Tool for extracting files from network traffic
 License:        GPLv2+
 URL:            http://tcpxtract.sourceforge.net/
@@ -77,6 +77,9 @@ export LDFLAGS="-lfl"
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

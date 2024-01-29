@@ -1,6 +1,6 @@
 Name:		vlfrx-tools
 Version:	0.9m
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	VLF Receiver Software Toolkit
 License:	BSD
 URL:		http://www.abelian.org/vlfrx-tools/
@@ -43,6 +43,9 @@ storage, and post-processing.
 %doc README changelog
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9m-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9m-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

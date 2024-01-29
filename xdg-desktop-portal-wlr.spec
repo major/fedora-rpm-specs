@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 14 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.0-3
 - Add wlroots-portals.conf for xdg-desktop-portal >= 1.17
 

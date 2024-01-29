@@ -1,6 +1,6 @@
 Name:           unique
 Version:        1.1.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Single instance support for applications
 
 License:        LGPLv2+
@@ -66,6 +66,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_libdir}/lib*.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

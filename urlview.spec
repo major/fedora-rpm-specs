@@ -3,7 +3,7 @@
 %global gitrev %(c=%{gitfullrev}; echo ${c:0:6})
 Name:           urlview
 Version:        0.9
-Release:        36.%{gitdate}git%{gitrev}%{?dist}
+Release:        37.%{gitdate}git%{gitrev}%{?dist}
 Summary:        URL extractor/launcher
 
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -50,6 +50,9 @@ echo '.so man1/urlview.1' > $RPM_BUILD_ROOT%{_mandir}/man1/url_handler.sh.1
 %{_mandir}/man5/urlview.conf.5*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-37.20131022git08767a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Tomas Korbar <tkorbar@redhat.com> - 0.9-36.20131022git08767a
 - Add licenses to fully conform to SPDX
 

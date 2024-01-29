@@ -3,7 +3,7 @@
 
 Name:           trilead-ssh2
 Version:        %{buildver}.%{patchlvl}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SSH-2 protocol implementation in pure Java
 
 # Project is under BSD, but some parts are MIT licensed
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} src/org/mindrot/jbcrypt
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 217.21-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 217.21-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

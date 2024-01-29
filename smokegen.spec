@@ -2,7 +2,7 @@
 
 Name: smokegen
 Version: 4.14.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Smoke Generator
 
 License: LGPLv2 and GPLv2+
@@ -72,6 +72,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

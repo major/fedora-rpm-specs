@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
@@ -83,6 +83,9 @@ desktop-file-install --add-category="Utility" \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.6-1
 - New version
   Resolves: rhbz#2258401

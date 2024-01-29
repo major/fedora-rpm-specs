@@ -2,7 +2,7 @@
 
 Name:           simple-mail
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SMTP Client Library for Qt
 
 License:        LGPL-2.1-only
@@ -61,6 +61,9 @@ Header and development files for libsimplemail-qt5.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Nov 20 2023 Jonathan Wright <jonathan@almalinux.org> - 2.3.0-1
 - Update to 2.3.0 rhbz#1804007
 

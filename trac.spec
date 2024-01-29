@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
@@ -82,6 +82,9 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Sep 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6-1
 - 1.6
 

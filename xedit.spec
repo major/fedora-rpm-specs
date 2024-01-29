@@ -1,6 +1,6 @@
 Name:		xedit
 Version:	1.2.2
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Simple text editor for X
 URL:		http://xorg.freedesktop.org
 Source0:	http://xorg.freedesktop.org/releases/individual/app/%{name}-%{version}.tar.bz2
@@ -48,6 +48,9 @@ make check
 %{_mandir}/man1/xedit.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 1.2.2-19
 - Use hunspell as ispell engine
 

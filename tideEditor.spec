@@ -3,7 +3,7 @@
 
 %global		mainver		1.5
 
-%global		baserelease	7
+%global		baserelease	8
 %global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		tideEditor
@@ -60,6 +60,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/tideEditor
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-8.r2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Dec 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-7.r2
 - SPDX migration
 

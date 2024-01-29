@@ -14,7 +14,7 @@ Version:               1.4.0
 
 %forgemeta
 
-Release:               1%{?dist}
+Release:               2%{?dist}
 Summary:               Read the wireless mbus protocol to acquire utility meter readings
 License:               GPLv3+
 Url:                   %{forgeurl}
@@ -101,6 +101,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jul 07 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.14.0-1
 - Update to 1.14.0 (rhbz#2219146)
 

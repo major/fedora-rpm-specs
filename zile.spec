@@ -1,7 +1,7 @@
 Summary: Zile Is Lossy Emacs
 Name: zile
 Version: 2.6.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/%{name}/
 Source0: http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ mv THANKS{.utf8,}
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Florian Weimer <fweimer@redhat.com> - 2.6.2-4
 - Add vala build dependency and trigger rebuild for GCC 14 compatibility
 

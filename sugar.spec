@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.120
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 License: GPLv2+
@@ -243,6 +243,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jul 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.120-5
 - Update py-compile for python 3.12, imp module removed
 

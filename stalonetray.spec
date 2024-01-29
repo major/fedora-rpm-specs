@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        0.8.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -41,6 +41,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

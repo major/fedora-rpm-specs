@@ -4,7 +4,7 @@
 
 Name:           wine-mono
 Version:        8.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
@@ -122,6 +122,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Dec  9 2023 Florian Weimer <fweimer@redhat.com> - 8.1.0-2
 - Fix C compatibility issue in the configure script
 

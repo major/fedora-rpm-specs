@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -184,6 +184,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Jan 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-6
 - Backport fix for wget to stdin
   Resolves: rhbz#2257700

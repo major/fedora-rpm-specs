@@ -1,6 +1,6 @@
 Name:           spim
 Version:        20230804
-Release:        0.6.svn%{?dist}
+Release:        0.7.svn%{?dist}
 Summary:        An assembly language MIPS32 simulator
 License:        BSD
 URL:            http://spimsimulator.sourceforge.net/
@@ -54,4 +54,7 @@ install -p -m 644 -D Documentation/spim.man %{buildroot}%{_mandir}/man1/spim.1
 %doc README
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230804-0.7.svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

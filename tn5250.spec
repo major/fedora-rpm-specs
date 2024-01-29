@@ -1,7 +1,7 @@
 Summary:   5250 Telnet protocol and Terminal
 Name:      tn5250
 Version:   0.17.6
-Release:   1%{?dist}
+Release:   2%{?dist}
 # doc/tn5250*.1 are GPLv2+
 License:   LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:       https://github.com/tn5250/tn5250
@@ -85,6 +85,9 @@ cp -pf linux/README README.Linux
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Oct 17 2023 Dan Horák <dan[at]danny.cz> - 0.17.6-1
 - updated to 0.17.6
 - modernize spec file

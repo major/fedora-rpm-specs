@@ -3,7 +3,7 @@ Summary: Accessibility client library for Qt6
 Version: 0.5.0
 Release: 3%{?dist}
 
-License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
+License: CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://cgit.kde.org/libkdeaccessibilityclient.git/
 Source0: https://download.kde.org/stable/libqaccessibilityclient/libqaccessibilityclient-%{version}.tar.xz
 

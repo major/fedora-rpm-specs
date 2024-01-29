@@ -1,7 +1,7 @@
 Summary:    X font list utility
 Name:       xlsfonts
 Version:    1.0.7
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    MIT
 URL:        http://www.x.org
 
@@ -36,6 +36,9 @@ xlsfonts lists the fonts available on an X server.
 %{_mandir}/man1/xlsfonts.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

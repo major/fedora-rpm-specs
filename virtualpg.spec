@@ -1,6 +1,6 @@
 Name:           virtualpg
 Version:        2.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A loadable dynamic extension to both SQLite and SpatiaLite
 
 # VirtualPG is licensed under the MPL tri-license terms; you are free to choose the best-fit license between:
@@ -66,6 +66,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

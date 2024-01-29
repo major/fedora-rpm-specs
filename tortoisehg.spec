@@ -3,7 +3,7 @@
 
 Name:           tortoisehg
 Version:        6.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mercurial GUI command line tool thg
 License:        GPLv2+
 URL:            https://foss.heptapod.net/mercurial/tortoisehg/thg
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %{_datadir}/nautilus-python/extensions/nautilus-thg.py*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug 11 2023 Mads Kiilerich <mads@kiilerich.com> - 6.5.1-1
 - tortoisehg 6.5.1
 

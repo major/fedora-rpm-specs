@@ -1,6 +1,6 @@
 Name:       xclock
 Version:    1.1.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    The classic X Window System clock utility
 
 License:    MIT-open-group AND SMLNJ AND MIT
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/XClock-color
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.1.1-5
 - SPDX migration
 

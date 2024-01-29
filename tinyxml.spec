@@ -4,7 +4,7 @@
 
 Name:           tinyxml
 Version:        2.6.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A simple, small, C++ XML parser
 License:        zlib
 URL:            http://www.grinninglizard.com/tinyxml/
@@ -90,6 +90,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./xmltest
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.6.2-28
 - apply Debian patch to fix CVE-2021-42260 (rhbz#2253716, rhbz#2253718)
 - apply Debian patch to fix CVE-2023-34194 and its duplicate, CVE-2023-40462

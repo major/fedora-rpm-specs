@@ -1,7 +1,7 @@
 Summary: Creates xguest user as a locked down user 
 Name: xguest
 Version: 1.0.10
-Release: 48%{?dist}
+Release: 49%{?dist}
 License: GPLv2+
 BuildArch: noarch
 Source: http://people.fedoraproject.org/~dwalsh/xguest/%{name}-%{version}.tar.bz2
@@ -57,6 +57,9 @@ sed -i '/^xguest/d' /etc/security/sepermit.conf
 fi
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

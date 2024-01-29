@@ -1,6 +1,6 @@
 Name:    telepathy-logger-qt
 Version: 17.09.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Telepathy Logging for Qt 5
 
 License: LGPLv2+
@@ -67,6 +67,9 @@ Requires: telepathy-logger-devel%{?_isa}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.09.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.09.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

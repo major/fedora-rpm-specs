@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        0.19.7
 # can only be reset when all subpkgs bumped
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Build system library, like Make, but more accurate dependencies
 
 License:        BSD-3-Clause
@@ -222,6 +222,9 @@ rm %{buildroot}%{_datadir}/%{pkgver}/docs/manual/*
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.7-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 29 2023 Jens Petersen <petersen@redhat.com> - 0.19.7-27
 - rebuild
 

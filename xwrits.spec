@@ -2,7 +2,7 @@ Summary: Reminds you take wrist breaks
 
 Name: xwrits
 Version: 2.26
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://www.lcdf.org/xwrits/xwrits-%{version}.tar.gz
 Source2: xwrits.png
 Source3: xwrits.desktop
@@ -63,6 +63,9 @@ desktop-file-install                            \
 %{_datadir}/applications/xwrits.desktop
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

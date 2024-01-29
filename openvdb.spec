@@ -149,7 +149,7 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
     -DUSE_NANOVDB=ON
 # Increase memory usage to 8GB for a successful
 # build on ppc64le architecture
-%cmake_build %limit_build -m 8192
+%cmake_build %limit_build -m 10240
 
 %if 0%{?with_tests}
 %check

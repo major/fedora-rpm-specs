@@ -7,7 +7,7 @@ URL:            https://www.smufl.org/fonts/
 
 %forgemeta
 
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
@@ -83,6 +83,9 @@ ln -s metadata.json %{buildroot}%{_datadir}/SMuFL/Fonts/Bravura/Bravura.json
 %fontfiles -z 1
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.392-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.392-7
 - Stop building for 32-bit x86
 

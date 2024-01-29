@@ -2,7 +2,7 @@
 
 Name:           symmetrica
 Version:        3.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Collection of Routines for Solving Symmetric Groups
 # Note: they claim it's 'public domain' but then provide this:
 # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/copyright_engl.html
@@ -91,6 +91,9 @@ cd -
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.0.1-9
 - Stop building for 32-bit x86
 

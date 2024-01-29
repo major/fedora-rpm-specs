@@ -6,7 +6,7 @@
 
 Name:		uim
 Version:	1.8.9
-Release:	6%{?dist}
+Release:	7%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -497,6 +497,9 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 28 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.9-6
 - Fix symbol error on Emacs 29.
   Resolves: rhbz#2251120

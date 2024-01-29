@@ -5,7 +5,7 @@
 
 Epoch:   1
 Version: 2.001
-Release: 15%{?dist}
+Release: 16%{?dist}
 URL:     http://www.yanone.de/typedesign/kaffeesatz/
 
 %global foundry           Yanone
@@ -50,6 +50,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.001-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.001-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

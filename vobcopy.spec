@@ -1,6 +1,6 @@
 Name:           vobcopy
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utility to copy DVD .vob files to disk
 
 License:        GPL-2.0-or-later
@@ -50,6 +50,9 @@ rm -r %{buildroot}%{_datadir}/doc
 %lang(de) %{_mandir}/de/man1/vobcopy.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Aug 28 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1.2.1-4
 - Convert license tag to SPDX
 - Rework specfile to follow the Fedora packaging guidelines

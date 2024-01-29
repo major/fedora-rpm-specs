@@ -1,6 +1,6 @@
 Name:           sugar-calculator
 Version:        47
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Calculator for Sugar
 
 License:        GPLv2+
@@ -36,6 +36,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Calculate.activity/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 47-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

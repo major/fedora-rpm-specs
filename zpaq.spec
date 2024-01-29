@@ -7,7 +7,7 @@
 
 Name:           zpaq
 Version:        7.15
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Incremental journaling back-up archiver
 # COPYING:      Unlicense text AND MIT text
 # Parts of libzpaq.cpp: LicenseRef-Fedora-Public-Domain
@@ -97,6 +97,9 @@ make check %{?_smp_mflags}
 %{_libdir}/libzpaq.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.15-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 30 2023 Petr Pisar <ppisar@redhat.com> - 7.15-20
 - zpaq to require an exact release of zpaq-libs
 

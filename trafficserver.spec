@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        9.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        ASL 2.0
@@ -307,6 +307,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 11 2023 Jered Floyd <jered@redhat.com> 9.2.3-1
 - Update to upstream 9.2.3
 - Resolves CVE-2023-44487, CVE-2023-41752, CVE-2023-39456

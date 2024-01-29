@@ -5,7 +5,7 @@
 
 Name:          %{fontname}-fonts
 Version:       2.0.2
-Release:       28%{?dist}
+Release:       29%{?dist}
 Summary:       Two fonts by Steve Jordi released under the GPL
 
 License:       GPLv2 with exceptions
@@ -100,6 +100,9 @@ install -Dm 0644 -p %{SOURCE4} \
 %dir %{_fontdir}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

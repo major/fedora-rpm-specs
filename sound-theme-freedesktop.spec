@@ -1,6 +1,6 @@
 Name: sound-theme-freedesktop
 Version: 0.8
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: freedesktop.org sound theme
 Source0: http://people.freedesktop.org/~mccann/dist/sound-theme-freedesktop-%{version}.tar.bz2
 # For details on the licenses used, see CREDITS
@@ -41,6 +41,9 @@ touch --no-create %{_datadir}/sounds/freedesktop %{_datadir}/sounds
 %{_datadir}/sounds/freedesktop/stereo/*.oga
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

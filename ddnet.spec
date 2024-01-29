@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        17.4.2
-Release:        3%{?dist}
+Version:        18.0.1
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -151,7 +151,6 @@ install -Dp -m 0644 man/DDNet-Server.6 %{buildroot}%{_mandir}/man6/DDNet-Server.
 %check
 %cmake_build --target run_tests
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %files
@@ -163,7 +162,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_libdir}/%{name}/
 
 %{_datadir}/applications/%{name}.desktop
-%{_metainfodir}/*.appdata.xml
 
 %files data
 %{_datadir}/%{name}/
@@ -177,6 +175,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sat Jan 27 2024 Sérgio Basto <sergio@serjux.com> - 18.0.1-1
+- Update ddnet to 18.0.1 (#2258303)
+  Mon Jan 22 2024 Packit <hello@packit.dev> - 18.0-1
+    - Update config_variables.h (Samuele Radici)
+    - Resolves rhbz#2258303
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           stratis-cli
 Version:        3.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
 License:        Apache-2.0
@@ -75,6 +75,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Oct 25 2023 Bryan Gurney <bgurney@redhat.com> - 3.6.0-2
 - Use testing tag v3.6.0
 

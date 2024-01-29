@@ -8,7 +8,7 @@
 Summary:    Xorg X11 evdev input driver
 Name:       xorg-x11-drv-evdev
 Version:    2.10.6
-Release:    14%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:    15%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:        http://www.x.org
 License:    HPND-sell-variant AND MIT
 
@@ -73,6 +73,9 @@ X.Org X11 evdev input driver development files.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Sep 05 2023 Peter Hutterer <peter.hutterer@redhat.com>
 - SPDX migration: update to SPDX license identifiers
 

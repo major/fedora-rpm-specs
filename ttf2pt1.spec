@@ -1,6 +1,6 @@
 Name: ttf2pt1
 Version: 3.4.4
-Release: 38%{?dist}
+Release: 39%{?dist}
 Summary: TrueType to Adobe Type 1 font converter
 Summary(sv): Konverterare från TrueType till Adobe Type 1
 
@@ -78,6 +78,9 @@ cp other/showg %buildroot/%_bindir/%{name}_showg
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

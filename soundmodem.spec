@@ -1,6 +1,6 @@
 Name: soundmodem
 Version: 0.20
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Soundcard Packet Radio Modem
 License: GPLv2+
 URL: http://gna.org/projects/soundmodem
@@ -88,6 +88,9 @@ mv %{buildroot}%{_includedir}/simd.h %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

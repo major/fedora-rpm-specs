@@ -1,6 +1,6 @@
 Name:           worminator-data
 Version:        3.0R2.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Data for worminator the game
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/worminator/
@@ -40,6 +40,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/worminator/ICON.ICO
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

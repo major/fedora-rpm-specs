@@ -13,7 +13,7 @@
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
 Version:          6.24.10
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
@@ -177,6 +177,9 @@ fi
 # =============================================================================
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

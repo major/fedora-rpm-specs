@@ -3,7 +3,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Leigh Scott <leigh123linux@gmail.com> - 2.0.3-2
 - Disable modern c build flags due to vala issue
 

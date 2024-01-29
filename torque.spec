@@ -74,7 +74,7 @@
 
 Name:        torque
 Version:     6.1.3
-Release:     9%{?dist}
+Release:     10%{?dist}
 Summary:     Tera-scale Open-source Resource and QUEue manager
 # Source0:   http://www.adaptivecomputing.com/download/%%{name}/%%{name}-%%{version}.tar.gz
 # git clone https://github.com/adaptivecomputing/torque.git
@@ -919,6 +919,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

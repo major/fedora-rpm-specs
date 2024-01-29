@@ -4,7 +4,7 @@
 
 Name:		xed
 Version:	3.4.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 License:	GPLv2+
@@ -128,6 +128,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 3.4.5-1
 - Update to 3.4.5 release
 

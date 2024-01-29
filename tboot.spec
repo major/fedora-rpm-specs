@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -73,6 +73,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.11.1-4
 - Add grub2-efi-x64-modules dependency and scriplet
 

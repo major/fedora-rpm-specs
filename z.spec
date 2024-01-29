@@ -9,7 +9,7 @@ order.
 
 Name:		%{projname}
 Version:	1.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Maintains a jump-list of the directories you actually use
 License:	WTFPL
 Source0:	https://github.com/rupa/%{projname}/archive/v%{version}.tar.gz
@@ -39,6 +39,9 @@ install -pm 644 z.1 %{buildroot}%{_mandir}/man1/z.1
 %{_mandir}/man1/z.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 11 2023 Ben Cotton <bcotton@fedoraproject.org> - 1.12-1
 - Upstream release 1.12
 

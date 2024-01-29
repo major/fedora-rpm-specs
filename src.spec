@@ -1,6 +1,6 @@
 Name:           src
 Version:        1.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Revision Control
 
 License:        BSD-2-Clause
@@ -54,6 +54,9 @@ echo "${result}"
 %{_mandir}/man1/src.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Aug 13 2023 Bob Hepple <bob.hepple@gmail.com> - 1.32-1
 - new version
 - SPDX license

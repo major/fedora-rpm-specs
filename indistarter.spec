@@ -1,11 +1,11 @@
-%global gittag v2.4.0
+%global gittag v2.4.1
 #%%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20230125
 
 Name:           indistarter
 %if "%{?gittag}"
-Version:        2.4.0
+Version:        2.4.1
 %else
 Version:        2.3.1^%{date}%{shortcommit}
 %endif

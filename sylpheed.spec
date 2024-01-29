@@ -10,20 +10,24 @@
 
 Name:           sylpheed
 Version:        3.7.0
-Release:        15%{?prerelease:.%{?prerelease}}%{?dist}
+Release:        16%{?prerelease:.%{?prerelease}}%{?dist}
 Summary:        GTK+ based, lightweight, and fast email client
 
-License:        GPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            http://sylpheed.sraoss.jp/
-#VCS:           svn:svn://sylpheed.sraoss.jp/sylpheed/
+#VCS:           https://github.com/sylpheed-mail/sylpheed
 
 Source0:        http://sylpheed.sraoss.jp/sylpheed/v3.7/%{name}-%{version}%{?prerelease}.tar.bz2
 Source1:        sylpheed.1
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel openssl-devel
-BuildRequires:  desktop-file-utils pkgconfig gettext xdg-utils
+BuildRequires:  gtk2-devel
+BuildRequires:  openssl-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig
+BuildRequires:  gettext
+BuildRequires:  xdg-utils
 %{!?_without_gpgme:BuildRequires: gpgme-devel}
 %{!?_without_compface:BuildRequires: compface-devel}
 %{!?_without_ldap:BuildRequires: openldap-devel}
@@ -41,6 +45,8 @@ Patch3:         sylpheed-2.5.0-certsdir.patch
 # harden link checker
 # https://bugzilla.redhat.com/show_bug.cgi?id=1988552
 Patch4:         sylpheed-3.7.0-uri-check.patch
+# various type and format related fixes
+Patch5:         sylpheed-3.7.0-types.patch
 
 Requires: sylpheed-libs%{?_isa} = %{version}-%{release}
 # For xdg-open in patch1
@@ -64,7 +70,6 @@ See /usr/share/doc/sylpheed*/README for more information.
 
 %package libs
 Summary: Libraries for sylpheed
-License: GPLv2+ and LGPLv2+
 
 %description libs
 This package contains libraries for Sylpheed.
@@ -79,11 +84,7 @@ This package contains development files for Sylpheed.
 
 
 %prep
-%setup -q %{?prerelease:-n %{name}-%{version}%{?prerelease}}
-%patch1 -p1 -b .defs.h
-%patch2 -p1 -b .desktop
-%patch3 -p1 -b .certsdir
-%patch4 -p1 -b .uri-check
+%autosetup %{?prerelease:-n %{name}-%{version}%{?prerelease}} -p1
 
 %build
 %configure --disable-silent-rules \
@@ -97,11 +98,11 @@ This package contains development files for Sylpheed.
 # Remove rpaths
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%make_install
 
 # Install plugins
 pushd plugin/attachment_tool
@@ -154,6 +155,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         baserelease     5
+%global         baserelease     6
 
 %global         githash     3ba444a4f7a6835e4a717c46f95802faea03eaf5
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -102,6 +102,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-6.D20170103git3ba444a4f7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9-5.D20170103git3ba444a4f7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

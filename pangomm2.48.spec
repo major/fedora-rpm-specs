@@ -7,23 +7,23 @@
 %global pango_version 1.49.4
 
 Name:           pangomm2.48
-Version:        2.50.1
+Version:        2.50.2
 Release:        %autorelease
 Summary:        C++ interface for Pango
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/pangomm/%{release_version}/pangomm-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(cairomm-1.16) >= %{cairomm_version}
+BuildRequires:  pkgconfig(glibmm-2.68) >= %{glibmm_version}
+BuildRequires:  pkgconfig(pangocairo) >= %{pango_version}
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-BuildRequires:  glibmm2.68-devel >= %{glibmm_version}
 BuildRequires:  libxslt
 BuildRequires:  m4
 BuildRequires:  meson
 BuildRequires:  mm-common
-BuildRequires:  pango-devel >= %{pango_version}
 
 Requires:       glibmm2.68%{?_isa} >= %{glibmm_version}
 Requires:       cairomm1.16%{?_isa} >= %{cairomm_version}
@@ -74,7 +74,7 @@ documentation browser or through a web browser.
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README.md
+%doc NEWS README.md
 %{_libdir}/libpangomm-%{apiver}.so.1*
 
 

@@ -4,7 +4,7 @@
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        5%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        6%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -250,6 +250,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Dec 19 2023 Florian Weimer <fweimer@redhat.com> - 0.99.14-5
 - Fix C compatibility issues in the configure script
 

@@ -1,6 +1,6 @@
 Name:           waylandpp
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Wayland C++ bindings
 
 # waylandpp includes part of Wayland under MIT, wayland-scanner++ is GPLv3+
@@ -92,6 +92,9 @@ rm -r $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-doc/latex/
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

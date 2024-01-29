@@ -1,6 +1,6 @@
 Name:       perl-Net-DHCP
 Version:    0.700
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Set of classes for basic handling of DHCP packets
 
 License:    GPL+ or Artistic
@@ -19,6 +19,7 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(strict)
@@ -26,11 +27,8 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Vars)
 BuildRequires:  perl(Test::Warn)
-# Generic Perl Requires
 
 %{?perl_default_filter}
 
@@ -75,6 +73,9 @@ find %{buildroot} -type f -exec chmod 644 {} 2>/dev/null \;
 
 
 %changelog
+* Sat Jan 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.700-7
+- Remove perl(Test::Vars) from the BuildRequires (#2260481)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.700-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

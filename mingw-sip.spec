@@ -3,12 +3,14 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.7.12
-Release:        3%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 
 License:        GPL-2.0-only OR GPL-3.0-only
 Url:            http://www.riverbankcomputing.com/software/sip/intro
 Source0:        %{pypi_source}
+
+BuildArch:      noarch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -68,10 +70,6 @@ MinGW Windows SIP6.
 %{mingw32_py3_install_wheel}
 %{mingw64_py3_install_wheel}
 
-# Fix extension
-mv %{buildroot}%{mingw32_python3_sitearch}/sipbuild/code_generator.abi3.so %{buildroot}%{mingw32_python3_sitearch}/sipbuild/code_generator.abi3.pyd
-mv %{buildroot}%{mingw64_python3_sitearch}/sipbuild/code_generator.abi3.so %{buildroot}%{mingw64_python3_sitearch}/sipbuild/code_generator.abi3.pyd
-
 
 # Wrappers
 mkdir -p %{buildroot}%{_bindir}
@@ -119,6 +117,9 @@ done
 
 
 %changelog
+* Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
+- Update to 6.8.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

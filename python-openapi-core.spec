@@ -4,25 +4,16 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.18.2
+Version:        0.19.0~a1
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-Source:         %{pypi_source %{modname}}
+Source:         %{pypi_source %{modname} 0.19.0a1}
 
-# Bump starlette from 0.31.1 to 0.32.0.post1
-# https://github.com/python-openapi/openapi-core/commit/8f77adab98d94ca5778dbdd5a4886b5d784148be
-#
-# Bump starlette from 0.32.0.post1 to 0.34.0
-# https://github.com/python-openapi/openapi-core/commit/339cb3dda00942eba417904f82cda6e9e431ced9
-#
-# Bump starlette from 0.34.0 to 0.35.1
-# https://github.com/python-openapi/openapi-core/pull/760
-#
-# All cherry-picked without noisy changes to poetry.lock, which we do not use.
-Patch:          openapi-core-0.18.2-starlette.patch
+# Accept starlette 0.35 currently in Rawhide.
+Patch:          openapi-core-0.19.0a1-starlette.patch
 
 BuildArch:      noarch
 
@@ -56,7 +47,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{modname}-0.19.0a1 -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 

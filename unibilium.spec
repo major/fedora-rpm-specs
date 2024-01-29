@@ -1,6 +1,6 @@
 Name:           unibilium
 Version:        2.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Terminfo parsing library
 
 License:        LGPLv3+
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/%{name}.h.3*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

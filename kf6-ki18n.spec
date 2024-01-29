@@ -4,7 +4,7 @@ Name:		kf6-%{framework}
 Version:	5.248.0
 Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
-License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL AND ODbL-1.0
+License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbL-1.0
 URL:		https://invent.kde.org/frameworks/%{framework}
 Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 

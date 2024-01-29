@@ -1,6 +1,6 @@
 Name:           yaz
 Version:        5.34.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 # SPDX confirmed
 License:        BSD-3-Clause
@@ -152,6 +152,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.34.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-6
 - Use %%ldconfig_scriptlets instead of /usr/sbin/ldconfig
   (ref: DNF5 file deps change: bug 2180842)

@@ -1,7 +1,7 @@
 Summary:	Stellar data set for use by the StarPlot tool
 Name:		starplot-contrib
 Version:	3
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	Public Domain
 URL:		http://starplot.org/
 Source0:	http://starplot.org/data/stars_with_planets%{version}.stars
@@ -28,6 +28,9 @@ install -p -m644 %{SOURCE0} $RPM_BUILD_ROOT%{_datadir}/starplot
 %{_datadir}/starplot/stars_with_planets3.stars
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

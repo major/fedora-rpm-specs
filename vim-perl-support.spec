@@ -1,6 +1,6 @@
 Name:           vim-perl-support
 Version:        5.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Perl-IDE for VIM
 
 
@@ -115,6 +115,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

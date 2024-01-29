@@ -1,7 +1,7 @@
 Summary:        TCP stream sniffer, tracker and capturer
 Name:           tcpick
 Version:        0.2.1
-Release:        46%{?dist}
+Release:        47%{?dist}
 # tcpick itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # BSD-3-Clause: src/{tcp,udp}.h
 # LGPL-2.1-or-later: src/{ip,udp}.h
@@ -63,6 +63,9 @@ touch -c -r AUTHORS AUTHORS.utf8; mv -f AUTHORS.utf8 AUTHORS
 %{_mandir}/it/man8/%{name}.8*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 31 2023 Florian Weimer <fweimer@redhat.com> - 0.2.1-46
 - Set build_type_safety_c to 0 (#2189659)
 

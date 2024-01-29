@@ -4,7 +4,7 @@
 
 Name:           sisu-mojos
 Version:        0.9.0~M2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sisu plugin for Apache Maven
 License:        EPL-1.0
 URL:            https://www.eclipse.org/sisu
@@ -62,6 +62,9 @@ This package contains %{summary}.
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0~M2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 17 2023 Marian Koncek <mkoncek@redhat.com> - 0.9.0~M2-1
 - Update to upstream version 0.9.0~M2
 

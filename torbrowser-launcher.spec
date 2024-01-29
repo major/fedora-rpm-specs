@@ -1,7 +1,7 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
 Version:	0.3.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.torproject
 %{python3_sitelib}/%{oname}-%{version}.dist-info/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 16 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.3.7-1
 - 0.3.7
 

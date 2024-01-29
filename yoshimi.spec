@@ -2,7 +2,7 @@
 
 Name:		yoshimi
 Version:	2.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Rewrite of ZynAddSubFx aiming for better JACK support
 
 License:	GPLv2+
@@ -83,6 +83,9 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/presets/*
 %{_mandir}/man1/yoshimi.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

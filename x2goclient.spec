@@ -1,6 +1,6 @@
 Name:           x2goclient
 Version:        4.1.2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        X2Go Client application
 
 License:        GPLv2+
@@ -133,6 +133,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jul 25 2023 Daniel Rusek <mail@asciiwolf.com> - 4.1.2.3-3
 - Add AppStream metadata
 

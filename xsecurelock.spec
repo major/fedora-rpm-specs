@@ -1,6 +1,6 @@
 Name:           xsecurelock
 Version:        1.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        X11 screen lock utility with security in mind
 License:        ASL 2.0
 URL:            https://github.com/google/xsecurelock
@@ -61,6 +61,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_libexecdir}/%{name}/saver_mpv
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           tse3
 Version:        0.3.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        MIDI Sequencer Engine
 License:        GPL+
 URL:            http://tse3.sourceforge.net/
@@ -115,6 +115,9 @@ rm -rf %{buildroot}/%{_libdir}/lib%{name}-%{version}.so \
 %{_libdir}/libtse3.so
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           sound-juicer
 Version:        3.40.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Clean and lean CD ripper
 
 License:        GPLv2+
@@ -69,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SoundJui
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

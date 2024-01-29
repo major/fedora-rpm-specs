@@ -1,6 +1,6 @@
 Name:		ssmtp
 Version:	2.64
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Extremely simple MTA to get mail off the system to a Mailhub
 License:	GPLv2+
 URL:		http://packages.debian.org/stable/mail/ssmtp
@@ -140,6 +140,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.64-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 2.64-34
 - C compatibility fixes
 

@@ -8,7 +8,7 @@
 
 Name: virt-manager
 Version: 4.1.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -170,6 +170,9 @@ machine).
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 29 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.1.0-4
 - Drop spice-gtk3 on Fedora ELN as in CentOS Stream 9
 - Resolves: fedora#2237969

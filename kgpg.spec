@@ -3,7 +3,7 @@ Summary: Manage GPG encryption keys
 Version: 24.01.90
 Release: 3%{?dist}
 
-License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-KDE-Accepted-GPL
+License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://www.kde.org/applications/utilities/kgpg/
 
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz

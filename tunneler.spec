@@ -1,6 +1,6 @@
 Name:           tunneler
 Version:        1.1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Clone of legendary Tunneler game
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ desktop-file-install %{SOURCE2} \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       xvidtune
 Version:    1.0.3
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Video mode tuner for Xorg
 
 License:    X11-distribute-modifications-variant
@@ -40,6 +40,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/Xvidtune
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 08 2023 Peter Hutterer <peter.hutterer@redhat.com> 1.0.3-8
 - SDPX migration
 

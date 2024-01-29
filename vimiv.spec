@@ -1,6 +1,6 @@
 Name:       vimiv
 Version:    0.9.1
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    An image viewer with vim-like keybindings
 
 License:    MIT
@@ -71,6 +71,9 @@ install -p -Dm644 icons/%{name}.svg $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/sc
 %doc readme.md
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

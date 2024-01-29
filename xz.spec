@@ -6,7 +6,7 @@ Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
 Version:	5.4.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -170,6 +170,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 01 2023 Richard W.M. Jones <rjones@redhat.com> - 5.4.5-1
 - New version 5.4.5 (RHBZ#2247487)
 

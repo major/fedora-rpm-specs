@@ -1,6 +1,6 @@
 Name: termic
 Version: 1.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 Summary: GCC powered interactive C/C++ terminal created with BASH
 
@@ -28,4 +28,7 @@ install -D -p -m 644 %{name}.1 %{buildroot}/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.gz
 %license LICENSE.txt
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 %autochangelog

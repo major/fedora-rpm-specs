@@ -8,7 +8,7 @@ Name:           workflow
 License:        Apache-2.0 AND BSD-2-Clause AND Zlib AND GPL-2.0-or-later
 
 Version:        0.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/sogou/workflow
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -115,6 +115,9 @@ make check
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Nov 11 2023 Benson Muite <benson_muite@emailplus.org> - 0.11.1-1
 - Update to new release
 

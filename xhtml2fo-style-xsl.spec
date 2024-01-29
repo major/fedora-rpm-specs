@@ -1,6 +1,6 @@
 Name: xhtml2fo-style-xsl
 Version: 20051222
-Release: 28%{?dist}
+Release: 29%{?dist}
 
 Summary: Antenna House, Inc. XHTML to XSL:FO stylesheets
 License: MIT
@@ -57,6 +57,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20051222-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Oct 13 2023 Richard Fontana <rfontana@redhat.com> - 20051222-28
 - Correct License: tag and migrate to SPDX
 

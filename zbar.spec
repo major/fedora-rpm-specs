@@ -6,7 +6,7 @@
 
 Name:		zbar
 Version:	0.23.93
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.93-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Jan 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.23.93-1
 - 0.23.93
 

@@ -4,7 +4,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}7%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}7%{?prever:.%{prever}}%{?dist}.1
 License: BSD
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-7.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 09 2023 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-7
 - fix uninitialized variable
 - bump build release to avoid confusion in the changelog

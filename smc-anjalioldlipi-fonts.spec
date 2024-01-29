@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	7.1.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Open Type Fonts for Malayalam script 
 License:	OFL
 URL:		https://gitlab.com/smc/fonts/anjalioldlipi
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

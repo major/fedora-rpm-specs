@@ -1,7 +1,7 @@
 Name:		unrtf
 Summary:	RTF (Rich Text Format) to other formats converter
 Version:	0.21.9
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 License:	GPLv3+
 URL:		https://www.gnu.org/software/unrtf/unrtf.html
@@ -52,6 +52,9 @@ make check
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.9-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.9-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

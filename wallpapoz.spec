@@ -7,7 +7,7 @@
 
 %define         mainver         0.6.2
 %undefine         betaver
-%define         baserelease		15
+%define         baserelease		16
 
 %define         rel             %{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
@@ -220,6 +220,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Nov 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.2-15
 - Clean up release number and some spec file stuff
 - SPDX migration

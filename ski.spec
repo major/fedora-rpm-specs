@@ -1,6 +1,6 @@
 Name:           ski
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        IA-64 user and system mode simulator
 
 License:        GPL-2.0-only and GPL-2.0-or-later
@@ -63,6 +63,9 @@ The Ski IA-64 user and system simulator originally developed by HP.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Florian Weimer <fweimer@redhat.com> - 1.4.0-3
 - Backport upstream patches to fix C type errors
 

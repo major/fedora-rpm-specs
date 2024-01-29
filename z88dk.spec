@@ -6,7 +6,7 @@ Name: z88dk
 # what version it is supposed to be. (README.1st still claims to be from version
 # 1.9 when they already released 1.10 and 1.10.1.)
 Version: 1.10.1
-Release: 28%{?nightly:.%{nightly}cvs}%{?dist}
+Release: 29%{?nightly:.%{nightly}cvs}%{?dist}
 Summary: A Z80 cross compiler
 License: Artistic clarified
 URL: http://www.z88dk.org/
@@ -90,6 +90,9 @@ cp -p netman/man3z/* %{buildroot}%{_mandir}/man3z
 %{_mandir}/man3z/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-29.20150709cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Aug 31 2023 Florian Weimer <fweimer@redhat.com> - 1.10.1-2820150709:.%{nightly}cvs}
 - Set build_type_safety_c to 0 (#2166990)
 

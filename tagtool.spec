@@ -1,6 +1,6 @@
 Name:       tagtool
 Version:    0.12.3
-Release:    41%{?dist}
+Release:    42%{?dist}
 Summary:    Ogg Vorbis and MP3 tag manager
 
 License:    GPLv2
@@ -125,6 +125,9 @@ EOF
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

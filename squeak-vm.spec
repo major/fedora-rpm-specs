@@ -8,7 +8,7 @@
 
 Name:           squeak-vm
 Version:        %{vmver}
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        The Squeak virtual machine
 
 License:        MIT
@@ -145,6 +145,9 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}/inisqueak
 %{_datadir}/icons/gnome/*/mimetypes/*.png
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2.2614-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2.2614-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

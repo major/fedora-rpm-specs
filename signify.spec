@@ -1,6 +1,6 @@
 Name:     signify
 Version:  31
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Sign and verify signatures on files
 
 # signify itself is ISC but uses other source codes, breakdown:
@@ -51,6 +51,9 @@ make check
 %{_mandir}/man1/signify.*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 31-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

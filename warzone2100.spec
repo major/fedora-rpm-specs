@@ -3,7 +3,7 @@
 
 Name:           warzone2100
 Version:        4.3.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
@@ -94,6 +94,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.5-4
 - Backport upstream patch for new vulkan header (#2242267)
 

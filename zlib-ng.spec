@@ -19,7 +19,7 @@
 
 Name:		zlib-ng
 Version:	2.1.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Zlib replacement with optimizations
 License:	Zlib
 Url:		https://github.com/zlib-ng/zlib-ng
@@ -213,6 +213,9 @@ CHOST=%{target_cpu}-%{vendor}-linux-gnu sh test/abicheck.sh --zlib-compat
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 11 2024 Lukas Javorsky <ljavorsk@redhat.com> - 2.1.6-1
 - Rebase to version 2.1.6
 

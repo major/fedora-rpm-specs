@@ -3,7 +3,7 @@
 Summary:        Taglib support for other formats 
 Name:           taglib-extras
 Version:        1.0.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 
 # all LGPLv2, except for rmff/ which is GPLv2+/LGPLv2+
 License:        LGPLv2
@@ -69,6 +69,9 @@ Requires: taglib-devel
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

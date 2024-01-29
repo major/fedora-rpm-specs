@@ -7,7 +7,7 @@ Summary:    X.Org X11 font utilities
 Name:       xorg-x11-font-utils
 Epoch:      1
 Version:    7.5
-Release:    58%{?dist}
+Release:    59%{?dist}
 License:    MIT AND BSD-2-Clause AND MIT-open-group AND Unicode-3.0
 URL:        http://www.x.org
 
@@ -64,6 +64,9 @@ find $RPM_BUILD_ROOT -name bdftruncate\* -print0 | xargs -0 rm -f
 %{_x11fontdir}/util/map-*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.5-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 03 2024 Peter Hutterer <peter.hutterer@redhat.com> - 7.5-58
 - font-utils 1.4.1 with sources this time
 

@@ -3,7 +3,7 @@
 
 Name:           perl-gettext
 Version:        1.07
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Interface to gettext family of functions
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,6 +28,10 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Encode)
 # Tests:
 BuildRequires:  perl(Test)
+
+# Need to allow LANG=en_US.UTF-8
+# Testsuite fails w/ LANG=C.UTF-8 on fedora >= 40
+BuildRequires:  glibc-langpack-en
 
 %description
 The gettext module permits access from perl to the gettext() family of
@@ -57,7 +61,8 @@ internationalize software.
 
 
 %check
-%{__make} test
+# Testsuite fails w/ LANG=C.UTF-8 on fedora >= 40
+LANG=en_US.UTF-8 %{__make} test
 
 
 %files -n perl-%{tarname}
@@ -68,6 +73,9 @@ internationalize software.
 
 
 %changelog
+* Sat Jan 27 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.07-29
+- BR: glibc-langpack-en (RHBZ#2259131).
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           zssh
 Version:        1.5c
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        SSH and Telnet client with ZMODEM file transfer capability
 License:        GPLv3
 URL:            http://zssh.sourceforge.net/
@@ -47,6 +47,9 @@ rm %{buildroot}%{_mandir}/man1/ztelnet.1*
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5c-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5c-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

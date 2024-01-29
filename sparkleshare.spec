@@ -3,7 +3,7 @@
 
 Name:           sparkleshare
 Version:        3.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Share and collaborate by syncing with any Git repository instantly
 
 License:        GPLv3+
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.sparklesh
 %{_metainfodir}/org.sparkleshare.SparkleShare.appdata.xml
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Aug 12 2023 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 3.38-1
 - Release 3.38 (#2227570) and dropping i686 support
 

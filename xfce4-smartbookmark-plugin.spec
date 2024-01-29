@@ -6,7 +6,7 @@
 
 Name:           xfce4-smartbookmark-plugin
 Version:        0.5.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Smart bookmarks for the Xfce panel
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ chmod 755 %{buildroot}/%{_libdir}/xfce4/panel/plugins/*.so
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

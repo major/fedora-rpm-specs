@@ -1,7 +1,7 @@
 Summary: Modular Assembler
 Name: yasm
 Version: 1.3.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 # See COPYING for the detail, there is quite a lot!
 # Bitvect is (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later
 # Everything else is BSD. Either 2 or 3 clause.
@@ -77,6 +77,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 22 2023 Nick Clifton  <nickc@redhat.com> - 1.3.0-19
 - Spec File: Migrated to SPDX license.  (#2222115)
 

@@ -1,7 +1,7 @@
 Summary: Transparent and scalable SSL/TLS interception
 Name: sslsplit
 Version: 0.5.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: BSD
 Url: http://www.roe.ch/SSLsplit
 Source: http://mirror.roe.ch/rel/sslsplit/sslsplit-%{version}.tar.bz2
@@ -49,6 +49,9 @@ cp -a %{name}.1  %{buildroot}%{_mandir}/man1/
 %{_mandir}/*/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

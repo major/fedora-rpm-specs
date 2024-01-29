@@ -1,7 +1,7 @@
 Summary:        SSL/TLS network protocol analyzer
 Name:           ssldump
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 # pcap/{attrib.h,{logpkt,sys}.[ch]} are BSD-2-Clause, rest is BSD-4-Clause
 License:        BSD-4-Clause AND BSD-2-Clause
 URL:            https://github.com/adulau/ssldump
@@ -62,6 +62,9 @@ export CFLAGS="$RPM_OPT_FLAGS -D_BSD_SOURCE"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 16 2023 Robert Scheck <robert@fedoraproject.org> 1.8-1
 - Upgrade to 1.8 (#2231870)
 

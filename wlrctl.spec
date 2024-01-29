@@ -1,6 +1,6 @@
 Name:           wlrctl
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate Wayland compositors using wlroots protocols
 
 License:        MIT
@@ -43,5 +43,8 @@ sed -e "/werror=true/d" -i meson.build
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 17 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.2.2-1
 - Initial package

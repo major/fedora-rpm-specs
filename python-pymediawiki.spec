@@ -2,7 +2,7 @@
 %global modname mediawiki
 
 Name:           python-%{srcname}
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Python wrapper and parser for MediaWiki API
 

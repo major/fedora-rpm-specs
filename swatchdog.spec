@@ -3,7 +3,7 @@
 
 Name:           %{newname}
 Version:        3.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for actively monitoring log files
 License:        GPL-2.0-or-later
 URL:            http://swatch.sourceforge.net/
@@ -75,6 +75,9 @@ make test
 %{perl_vendorlib}/auto/Swatchdog/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Aug  4 2023 Tom Callaway <spot@fedoraproject.org> - 3.2.4-2
 - add BR: perl-interpreter
 - Fix obsoletes to include release

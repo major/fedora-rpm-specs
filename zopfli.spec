@@ -3,7 +3,7 @@
 
 Name:           zopfli
 Version:        %{so_ver}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Zlib compatible better compressor
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ Devolopment files for zopfli and zopflipng.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

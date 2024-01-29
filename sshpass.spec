@@ -1,7 +1,7 @@
 Summary:    Non-interactive SSH authentication utility
 Name:       sshpass
 Version:    1.09
-Release:    6%{?dist}
+Release:    7%{?dist}
 License:    GPLv2
 Url:        http://sshpass.sourceforge.net/
 Source0:    http://downloads.sourceforge.net/sshpass/sshpass-%{version}.tar.gz
@@ -29,6 +29,9 @@ more secure public key authentication of SSH instead.
 %doc AUTHORS COPYING ChangeLog NEWS
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

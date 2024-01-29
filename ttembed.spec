@@ -1,6 +1,6 @@
 Name:       ttembed
 Version:    1.1
-Release:    20%{?dist}
+Release:    21%{?dist}
 Summary:    Remove embedding limitations from TrueType fonts
 License:    Public Domain
 URL:        https://github.com/hisdeedsaredust/ttembed
@@ -40,6 +40,9 @@ fi
 rm test
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

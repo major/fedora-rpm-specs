@@ -1,6 +1,6 @@
 Name:           xcat
 Version:        1.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A command line tool to explore blind XPath injection vulnerabilities
 
 License:        MIT
@@ -43,6 +43,9 @@ sed -i -e "/cchardet/d" setup.py
 %{python3_sitelib}/%{name}-*.egg-info/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           zix
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight C library of portability wrappers and data structures
 
 License:        ISC
@@ -72,6 +72,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/%{name}-%{maj}
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 17 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.4.0-1
 - Update to 0.4.0
 - Use releases

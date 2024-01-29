@@ -3,7 +3,7 @@
 
 Name:           wordwarvi
 Version:        1.1
-Release:        18.git%{shortcommit}%{?dist}
+Release:        19.git%{shortcommit}%{?dist}
 Summary:        Side-scrolling shoot 'em up '80s style arcade game
 License:        GPLv2+ and CC-BY and CC-BY-SA
 URL:            https://smcameron.github.io/wordwarvi/
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-19.git6beed31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18.git6beed31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

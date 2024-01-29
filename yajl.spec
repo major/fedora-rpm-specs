@@ -3,7 +3,7 @@
 
 Name: yajl
 Version: 2.1.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Yet Another JSON Library (YAJL)
 
 License: ISC
@@ -97,6 +97,9 @@ cd test
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

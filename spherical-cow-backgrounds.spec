@@ -1,6 +1,6 @@
 Name:           spherical-cow-backgrounds
 Version:        18.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Spherical Cow desktop backgrounds
 
 License:        CC-BY-SA
@@ -137,6 +137,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/xfce4/backdrops/*.jpg
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

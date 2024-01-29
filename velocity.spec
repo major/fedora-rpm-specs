@@ -2,7 +2,7 @@
 
 Name:           velocity
 Version:        2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java-based template engine
 License:        Apache-2.0
 URL:            http://velocity.apache.org/
@@ -96,6 +96,9 @@ sed 's/${project.version}/%{version}/' \
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Sep 01 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.3-2
 - Convert License tag to SPDX format
 

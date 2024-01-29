@@ -2,7 +2,7 @@
 BuildArch: noarch
 
 Version: 5.300
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: OFL
 URL:     https://scripts.sil.org/Mondulkiri
 
@@ -196,6 +196,9 @@ This package provides optional documentation files shipped with
 %doc documentation/*.pdf
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.300-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.300-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

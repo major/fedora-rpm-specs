@@ -10,7 +10,7 @@
 Name:		svxlink
 Epoch:		2
 Version:	%{main_version}
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Repeater controller and EchoLink (simplex or repeater)
 
 License:	GPLv2+
@@ -327,6 +327,9 @@ exit 0
 %{_unitdir}/svxreflector.service
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:17.12.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:17.12.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

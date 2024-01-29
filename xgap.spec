@@ -1,6 +1,6 @@
 Name:           xgap
 Version:        4.31
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GUI for GAP
 
 # The project as a whole is GPL-2.0-or-later.
@@ -119,6 +119,9 @@ mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
 %{gap_archdir}/pkg/%{name}/htm/
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.31-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Nov 30 2023 Jerry James <loganjerry@gmail.com> - 4.31-9
 - Fix incompatible pointer type warning
 

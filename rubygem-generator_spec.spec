@@ -1,8 +1,8 @@
 %global gem_name generator_spec
 
 Name: rubygem-%{gem_name}
-Version: 0.9.4
-Release: 16%{?dist}
+Version: 0.10.0
+Release: 1%{?dist}
 Summary: Test Rails generators with RSpec
 License: MIT
 URL: https://github.com/stevehodgkiss/generator_spec
@@ -72,6 +72,9 @@ popd
 %exclude %{gem_instdir}/spec
 
 %changelog
+* Sat Jan 27 2024 Ilia Gradina <ilgrad@fedoraproject.org> - 0.10.0-1
+- Update to 0.10.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

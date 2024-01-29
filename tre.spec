@@ -3,7 +3,7 @@
 
 Name: tre
 Version: 0.8.0
-Release: 42.20140228git%{shortcommit}%{?dist}
+Release: 43.20140228git%{shortcommit}%{?dist}
 License: BSD
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
 # based on https://github.com/laurikari/tre/pull/19
@@ -138,6 +138,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-43.20140228gitc2f5d13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Dominik Mierzejewski <dominik@greysector.net> 0.8.0-42.20140228gitc2f5d13
 - Fix deprecated PyUnicode API usage (PEP-623)
 

@@ -6,7 +6,7 @@
 
 Name: vim-fugitive-gitlab
 Version: 0~%posttag
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: GitLab support for vim-fugitive plugin
 License: MIT
 BuildArch: noarch
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0~20220701gitb73a8e-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~20220701gitb73a8e-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

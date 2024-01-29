@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.008
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           SorkinType
@@ -59,6 +59,9 @@ This package provides optional documentation files shipped with
 %doc documents/*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

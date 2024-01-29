@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -205,6 +205,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Aug 30 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 1:2.10-8
 - Backport WPA3 support for Broadcom devices. Fixes: rhbz#2226569
 - Enable parsing of IPv6 addresses in RADIUS configuration (#2095296)

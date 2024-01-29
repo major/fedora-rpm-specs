@@ -5,7 +5,7 @@ Version: 23.08.2
 Release: 4%{?dist}
 Summary: PIM common libraries
 
-License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LicenseRef-KDE-Accepted-GPL
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://api.kde.org/kdepim/pimcommon/html/
 
 %global revision %(echo %{version} | cut -d. -f3)

@@ -1,7 +1,7 @@
 Summary:       Network performance tool with modelling and replay support
 Name:          uperf
 Version:       1.0.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv3
 URL:           http://www.uperf.org/
 Source0:       https://github.com/uperf/uperf/archive/v%{version}.tar.gz
@@ -45,6 +45,9 @@ rm -rf %{buildroot}%{_datadir}/*.xml %{buildroot}%{_datadir}/doc
 %{_datadir}/uperf
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sun Sep 10 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.8-1
 - 1.0.8
 

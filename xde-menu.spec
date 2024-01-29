@@ -1,6 +1,6 @@
 Name:           xde-menu
 Version:        0.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Menu system for the X Desktop Environment
 
 License:        GPLv3+
@@ -78,6 +78,9 @@ rm %{buildroot}%{_libdir}/%{name}/modules/*.la
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

@@ -520,6 +520,7 @@ do
     pushd build_$mpi
 
     export OMPI_MCA_rmaps_base_oversubscribe=yes
+    export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
     # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1997717
     export HDF5_USE_FILE_LOCKING=FALSE
     # Increase timeout for copr / s390x

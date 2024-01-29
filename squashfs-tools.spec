@@ -11,7 +11,7 @@ Source:  %{forgesource}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2178510
 # Fix a crash caused by an out-of-bounds access that was inadvertently
 # re-introduced in a memory leak fix
-Release: 3%{dist}
+Release: 4%{dist}
 License: GPL-2.0-or-later
 
 BuildRequires: make
@@ -54,6 +54,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Oct 16 2023 Pavel Reichl <preichl@redhat.com> - 4.6.1-3
 - Convert License tag to SPDX format
 

@@ -2,7 +2,7 @@
 
 Name:           spatialite-gui
 Version:        2.1.0
-Release:        0.17%{?pre:.%pre}%{?dist}
+Release:        0.18%{?pre:.%pre}%{?dist}
 Summary:        GUI to manage Spatialite databases
 
 License:        GPL-3.0-or-later
@@ -63,6 +63,9 @@ GUI to manage Spatialite databases.
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.18.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Tue Aug 15 2023 Sandro Mani <manisandro@gmail.com> - 2.1.0-0.17.beta1
 - Rebuild (libspatialite)
 

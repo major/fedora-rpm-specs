@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        4.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -177,6 +177,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Dec 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-1
 - 4.0.5
 

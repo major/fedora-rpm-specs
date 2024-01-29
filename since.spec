@@ -1,6 +1,6 @@
 Name:		since
 Version:	1.1
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Stateful tail replacement
 
 License:	GPLv3+
@@ -35,6 +35,9 @@ chmod 644 $RPM_BUILD_ROOT/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

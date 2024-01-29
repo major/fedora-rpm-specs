@@ -1,6 +1,6 @@
 Name:           warmux
 Version:        11.04.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        2D turn-based artillery game
 
 # fixedpoint library seems to be under BSD license
@@ -158,6 +158,9 @@ EOF
 %{_datadir}/warmux
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.04.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.04.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

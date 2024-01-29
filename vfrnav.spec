@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -473,6 +473,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230429-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Nov 15 2023 Sandro Mani <manisandro@gmail.com> - 20230429-6
 - Rebuild (gdal)
 

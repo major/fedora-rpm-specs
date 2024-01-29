@@ -5,7 +5,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
 Version:        1.15.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -79,6 +79,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 1.15.3-5
+- Rebuild (sip)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

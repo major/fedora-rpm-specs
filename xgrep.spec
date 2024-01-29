@@ -1,6 +1,6 @@
 Name:		xgrep
 Version:	0.08
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	A grep-like utility for XML files
 
 License:	GPLv2+
@@ -40,6 +40,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

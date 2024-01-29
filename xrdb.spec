@@ -1,6 +1,6 @@
 Name:       xrdb
 Version:    1.2.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    X server resource database utility
 
 License:    HPND-DEC AND MIT-open-group
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Sep 28 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.2-2
 - SPDX migration
 

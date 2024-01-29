@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        WYSIWYG ebook editor
 License:        GPL-3.0-or-later AND Apache-2.0
 URL:            https://sigil-ebook.com/
@@ -147,6 +147,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Dec 04 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2.0.2-2
 - Rebuilt for minizip-ng transition Fedora change
 - Fedora Change: https://fedoraproject.org/wiki/Changes/MinizipNGTransition
