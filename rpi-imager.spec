@@ -1,6 +1,6 @@
 Name:           rpi-imager
-Version:        1.8.4
-Release:        3%{?dist}
+Version:        1.8.5
+Release:        1%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
 License:        ASL 2.0
@@ -63,20 +63,23 @@ pushd src
 %cmake_install
 desktop-file-install \
     --add-category="X-GNOME-Utilities" \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
+    %{buildroot}%{_datadir}/applications/org.raspberrypi.%{name}.desktop
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 %files
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/org.raspberrypi.%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_metainfodir}/%{name}.metainfo.xml
 %license license.txt
 %doc README.md
 
 %changelog
+* Sun Jan 28 2024 K. de Jong <keesdejong@fedoraproject.org> - 1.8.5-1
+- New upstream release
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

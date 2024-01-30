@@ -105,6 +105,8 @@ sed -i \
 sed -r -i 's|(qtconsole.*),<5.5.0|\1|' setup.py
 # Do the same for qdarkstyle (3.2.1 > 3.2~~)
 sed -r -i 's|(qdarkstyle.*),<3.2.0|\1|' setup.py
+# And for lsp-server (1.10.0 > 1.9.0)
+sed -r -i 's|(python-lsp-server.*),<1.[89].0|\1|' setup.py
 
 
 %generate_buildrequires

@@ -12,7 +12,7 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD-3-Clause
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
@@ -27,9 +27,7 @@ BuildRequires:  expect
 BuildRequires:  net-tools
 BuildRequires:  openssl-devel
 BuildRequires:  socat
-%if %{undefined rhel}
-BuildRequires:  trousers >= 0.3.9
-%endif
+BuildRequires:  tpm2-tss
 BuildRequires:  softhsm
 BuildRequires:  json-glib-devel
 %if %{with gnutls}
@@ -71,8 +69,8 @@ Include files for the TPM emulator's CUSE interface.
 Summary:        Tools for the TPM emulator
 License:        BSD-3-Clause
 Requires:       swtpm = %{version}-%{release}
-# trousers: for tss account (unsupported in RHEL)
-Requires:       %{!?rhel:trousers >= 0.3.9} bash gnutls-utils
+# tpm2-tss for tss account
+Requires:       tpm2-tss bash gnutls-utils
 
 %description    tools
 Tools for the TPM emulator from the swtpm package
@@ -82,7 +80,7 @@ Summary:        Tools for creating a local CA based on a TPM pkcs11 device
 License:        BSD-3-Clause
 Requires:       swtpm-tools = %{version}-%{release}
 Requires:       tpm2-pkcs11 tpm2-pkcs11-tools tpm2-tools tpm2-abrmd
-Requires:       expect gnutls-utils %{!?rhel:trousers >= 0.3.9}
+Requires:       expect gnutls-utils
 
 %description   tools-pkcs11
 Tools for creating a local CA based on a pkcs11 device
@@ -195,6 +193,9 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Sun Jan 28 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.8.1-5
+- Use tpm2-tss to provide tss account
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

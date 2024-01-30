@@ -1,13 +1,15 @@
 %global srcname tblib
 
 Name:           python-%{srcname}
-Version:        2.0.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Traceback serialization library
 
 License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source %{srcname}
+# https://github.com/ionelmc/python-tblib/issues/74
+Patch:          0001-Strip-locations.patch
 
 BuildArch:      noarch
 
@@ -44,10 +46,7 @@ BuildRequires:  python3dist(twisted)
 %pyproject_save_files %{srcname}
 
 %check
-# doctest is disabled - failing on 3.9, 3.11 and 3.12
-# due to changes in tracebacks README.rst needs to be adapted
-# upstream report: https://github.com/ionelmc/python-tblib/issues/64
-%{pytest} -ra tests
+%{pytest} -ra tests -vvv
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE

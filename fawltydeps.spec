@@ -3,13 +3,15 @@
 %bcond tests 1
 
 Name:           fawltydeps
-Version:        0.13.3
+Version:        0.15.0
 Release:        %{autorelease}
 Summary:        Find undeclared and unused 3rd-party dependencies in your Python project
 %forgemeta
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
+# Relax dependency constraints allowing build in F38+
+Patch:          relax_constraints.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -31,12 +33,8 @@ is inspired by the Monty Python-adjacent Fawlty Towers sitcom.}
 %prep
 %forgeautosetup -p1
 # Loosen pinned versions to match what we have in >= F38
-# importlib_metadat >= 6.0.0
-sed -r -i 's/(importlib_metadata.* ").*$/\1>=6.0.0"/' pyproject.toml
 # pydantic >= 1.10.2
 sed -r -i 's/(pydantic.*>=).*(,.*$)/\11.10.2\2/' pyproject.toml
-# setuptools = >=65.5.1,<69.0.0
-sed -r -i 's/(setuptools.* ").*/\1>=65.5.1,<69.0.0"/' pyproject.toml
 
 
 %generate_buildrequires

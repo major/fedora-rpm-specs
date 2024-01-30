@@ -40,7 +40,7 @@
 
 %global        shortver              1.16
 %global        fullver               %{shortver}.1
-%global        baserelease           4
+%global        baserelease           5
 
 %if 0%{?use_release} >= 1
 %global        fedorarel             %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -58,7 +58,11 @@ Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
-License:       GPLv2+
+# Overall	GPL-2.0-or-later
+# data/org.gnome.gnome-commander.appdata.xml.in		CC0-1.0
+# doc/C/legal.xml	GFDL-1.1-or-later
+# SPDX confirmed
+License:       GPL-2.0-or-later AND GFDL-1.1-or-later AND CC0-1.0
 URL:           http://gcmd.github.io/
 %if 0%{?use_release}
 Source0:       http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{shortver}/%{name}-%{version}%{?extratag:-%extratag}.tar.xz
@@ -284,6 +288,9 @@ popd
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Sun Jan 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.16.1-5
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.16.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

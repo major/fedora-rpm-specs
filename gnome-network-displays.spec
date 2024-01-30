@@ -1,12 +1,12 @@
 Name:           gnome-network-displays
-Version:        0.91.0
-Release:        3%{?dist}
-Summary:        Stream the desktop to Wi-Fi Display capable devices
+Version:        0.92.1
+Release:        1%{?dist}
+Summary:        Screencasting for GNOME
 
 # The icon is licensed CC-BY-SA
 License:        GPLv3+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-network-displays
-Source0:        https://download.gnome.org/sources/%{name}/0.91/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/0.92/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  firewalld-filesystem
@@ -23,9 +23,11 @@ BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-rtsp-1.0) >= 1.14
 BuildRequires:  pkgconfig(gstreamer-rtsp-server-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.14
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.0.0
 BuildRequires:  pkgconfig(libnm) >= 1.15.1
+BuildRequires:  pkgconfig(libportal-gtk4) >= 0.7
 BuildRequires:  pkgconfig(libprotobuf-c)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libsoup-3.0)
@@ -33,7 +35,7 @@ BuildRequires:  pkgconfig(libsoup-3.0)
 # Versioned library deps
 Requires: gnome-desktop3
 Requires: gstreamer1-rtsp-server
-Requires: gtk3
+Requires: gtk4
 Requires: hicolor-icon-theme
 Requires: NetworkManager-libnm > 1.16.0
 %if !0%{?flatpak}
@@ -69,13 +71,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc README.md
 %{_bindir}/gnome-network-displays
 %{_datadir}/applications/*.desktop
-%{_datadir}/glib-2.0/schemas/org.gnome.NetworkDisplays.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.NetworkDisplays.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.NetworkDisplays-symbolic.svg
 %{_metainfodir}/org.gnome.NetworkDisplays.appdata.xml
 %{_prefix}/lib/firewalld/zones/P2P-WiFi-Display.xml
 
 %changelog
+* Sun Jan 28 2024 Christian Glombek <lorbus@fedoraproject.org> - 0.92.1-1
+- Update to v0.92.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.91.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

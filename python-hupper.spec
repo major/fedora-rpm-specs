@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.10.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -17,7 +17,6 @@ BuildRequires:  python3-setuptools
 # python3 test buildrequires
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cov
-BuildRequires: python3-mock
 
 %description
 hupper is an integrated process monitor that will track changes
@@ -52,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{_bindir}/hupper
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 1.10.3-12
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

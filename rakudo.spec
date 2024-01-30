@@ -1,5 +1,5 @@
 Name:           rakudo
-Version:        2023.12
+Version:        2024.01
 Release:        %autorelease
 Summary:        Raku on MoarVM, JVM, and JS
 License:        Artistic-2.0
@@ -64,6 +64,10 @@ rm %{buildroot}%{_datadir}/perl6/core/repo.lock
 # https://kojipkgs.fedoraproject.org//work/tasks/2785/109212785/build.log
 %ifarch x86_64
 rm t/09-moar/00-misc.t
+%endif
+# https://kojipkgs.fedoraproject.org//work/tasks/9417/112489417/build.log
+%ifarch i686
+rm t/06-telemetry/01-basic.t
 %endif
 make test
 

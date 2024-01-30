@@ -10,7 +10,7 @@ spyder-IDE maintainers.
 }
 
 Name:           python-%{short_name}
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 %forgemeta

@@ -14,6 +14,9 @@ Source0:        https://github.com/AcademySoftwareFoundation/OpenImageIO/archive
 # Images for test suite
 #Source1:        https://github.com/OpenImageIO/oiio-images/archive/master/oiio-images.tar.gz
 
+# OpenVDB no longer build for i686
+ExcludeArch:    i686
+
 # Needed until LibRaw is available on s390x and aarch64
 %if 0%{?rhel} >= 8
 ExclusiveArch:  x86_64 ppc64le
@@ -65,7 +68,7 @@ BuildRequires:  zlib-devel
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
-BuildRequires:  OpenColorIO-devel
+#BuildRequires:  OpenColorIO-devel
 
 
 %description

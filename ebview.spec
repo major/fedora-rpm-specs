@@ -1,9 +1,12 @@
 Name:		ebview
 Version:	0.3.6.2
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	EPWING CD-ROM dictionary viewer
 
-License:	GPLv2+
+# data/about.en.in	GPL-2.0-or-later
+# intl/		LGPL-2.1-or-later unused
+# SPDX confirmed
+License:	GPL-2.0-or-later
 %if 0
 URL:		http://ebview.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -23,7 +26,7 @@ Patch102:	https://sources.debian.org/data/main/e/ebview/0.3.6.2-2/debian/patches
 # Port to c99, -Werror=implicit-int -Werror=implicit-function-declaration
 Patch103:	ebview-0.3.6.2-c99.patch
 
-BuildRequires:  gcc
+BuildRequires:	gcc
 BuildRequires:	eb-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -42,11 +45,11 @@ EBView is a EPWING dictionary browser.
 
 %prep
 %setup -q
-%patch0 -p1 -b .format
-%patch1 -p1 -b .inline
-%patch101 -p1 -b .pango
-%patch102 -p1 -b .link
-%patch103 -p1 -b .c99
+%patch -P0 -p1 -b .format
+%patch -P1 -p1 -b .inline
+%patch -P101 -p1 -b .pango
+%patch -P102 -p1 -b .link
+%patch -P103 -p1 -b .c99
 
 rm -f m4/glib-gettext.m4
 autoreconf -i
@@ -82,10 +85,13 @@ iconv -f ISO-8859-1 -t UTF-8 doc/en/index.html > doc/en/index.html.tmp && \
 	%{__mv} -f doc/en/index.html.tmp doc/en/index.html || \
 	%{__rm} -f doc/en/index.html.tmp
 
+# Clearly mark this as unused
+rm -f intl/*.{c,h}
+
 %build
 %configure \
 	--with-eb-conf=%{_libdir}/eb.conf
-%{__make} %{?_smp_mflags} -k
+%make_build -k
 
 
 %install
@@ -100,9 +106,6 @@ iconv -f ISO-8859-1 -t UTF-8 doc/en/index.html > doc/en/index.html.tmp && \
 
 desktop-file-install \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
-%if 0%{?fedora} < 19
-	--vendor fedora \
-%endif
 	%{SOURCE1}
 %{__mkdir_p} $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{__install} -cpm 644 pixmaps/%{name}.xpm \
@@ -112,7 +115,7 @@ desktop-file-install \
 
 %files -f %{name}.lang
 %doc AUTHORS
-%doc COPYING
+%license COPYING
 %doc ChangeLog
 %doc NEWS
 %doc README
@@ -124,6 +127,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Sun Jan 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6.2-37
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

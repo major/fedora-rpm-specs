@@ -3,8 +3,8 @@
 %global libcmatrix_commit 702b894675f12ecd43439b3b3eee66cc74899b82
 
 Name: chatty
-Version: 0.8.0
-Release: 3%{?dist}
+Version: 0.8.1
+Release: 1%{?dist}
 Summary: A libpurple messaging client
 
 License: GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -32,7 +32,7 @@ BuildRequires:  pkgconfig(libebook-contacts-1.2)
 BuildRequires:  pkgconfig(libebook-1.2) >= 3.42.0
 BuildRequires:  pkgconfig(libfeedback-0.0)
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.2
-BuildRequires:  pkgconfig(gtk4) >= 4.8
+BuildRequires:  pkgconfig(gtk4) >= 4.10
 BuildRequires:  pkgconfig(gio-2.0) >= 2.66
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.62
 BuildRequires:  pkgconfig(purple)
@@ -129,12 +129,12 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
+%autochangelog
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-%autochangelog
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

@@ -70,7 +70,7 @@ Version:        4.8.1
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -568,6 +568,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 4.8.1-8
+- Rebuild (tesseract)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          gimagereader
 Version:       3.4.1
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt5.desktop
 
 %changelog
+* Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 3.4.1-10
+- Rebuild (tesseract)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

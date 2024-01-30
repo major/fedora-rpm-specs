@@ -6,8 +6,8 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.2.6
-Release:        2%{?dist}
+Version:        1.2.7
+Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -67,9 +67,13 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %dir %{vdr_configdir}/plugins/%{pname}
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/tvscraper.conf
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/override.conf
+%config(noreplace) %{_datadir}/vdr/plugins/%{pname}/override_tvs.conf
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Sun Jan 28 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.7-1
+- Update to 1.2.7
+
 * Fri Jan 26 2024 Martin Gansser <martinkg@fedoraproject.org> - 1.2.6-2
 - Rebuilt for new VDR API version
 

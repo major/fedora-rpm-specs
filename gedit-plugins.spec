@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gedit-plugins
-Version:        45.0
-Release:        3%{?dist}
+Version:        46.0
+Release:        1%{?dist}
 Summary:        Plugins for gedit
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Gedit
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
@@ -18,7 +18,7 @@ BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  vala
 BuildRequires:  yelp-tools
-BuildRequires:  pkgconfig(gedit) >= 45.0
+BuildRequires:  pkgconfig(gedit) >= 46.0
 BuildRequires:  pkgconfig(libpeas-1.0)
 
 # this is a metapackage dragging in all the plugins
@@ -266,6 +266,9 @@ The gedit wordcompletion plugin.
 %{_metainfodir}/gedit-wordcompletion.metainfo.xml
 
 %changelog
+* Sun Jan 28 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 46.0-1
+- Update to 46.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

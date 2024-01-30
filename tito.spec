@@ -16,8 +16,8 @@
 %endif
 
 Name: tito
-Version: 0.6.24
-Release: 3%{?dist}
+Version: 0.6.25
+Release: 1%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -36,6 +36,7 @@ Requires: python3-setuptools
 Requires: python3-bugzilla
 Requires: python3-blessed
 Requires: rpm-python3
+Recommends: python3-fedora-distro-aliases
 %else
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
@@ -118,11 +119,16 @@ install -Dp -m 0644 share/tito_completion.sh %{buildroot}%{_datadir}/bash-comple
 
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.24-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.24-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Sun Jan 28 2024 Jakub Kadlcik <frostyx@email.cz>
+- Use rpm.ds instead of deprecated hdr.dsFromHeader (frostyx@email.cz)
+- Support branch aliases in releasers (frostyx@email.cz)
+- Document how to automate bodhi updates (msuchy@redhat.com)
+- Use raw strings for regex patterns (frostyx@email.cz)
+- Allow tito build without .tito directory (frostyx@email.cz)
+- Unify README and index.md (msuchy@redhat.com)
+- Fix PEP8 issues found by runtests.py (frostyx@email.cz)
+- Replace egrep with grep -E (frostyx@email.cz)
+- Don't use --cacheonly on DNF5 (frostyx@email.cz)
 
 * Sat Jul 08 2023 Jakub Kadlcik <frostyx@email.cz> 0.6.24-1
 - Will now copy both source files and patch files declared in the spec

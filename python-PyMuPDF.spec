@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.23.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -95,6 +95,9 @@ sphinx-build docs docs_built
 %doc docs_built/* README.md
 
 %changelog
+* Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 1.23.8-4
+- Rebuild (tesseract)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

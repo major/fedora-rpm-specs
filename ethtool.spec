@@ -1,8 +1,8 @@
 Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
-Version:        6.6
-Release:        3%{?dist}
+Version:        6.7
+Release:        1%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Mon Jan 29 2024 Robert Scheck <robert@fedoraproject.org> - 2:6.7-1
+- Upgrade to 6.7 (#2260796)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

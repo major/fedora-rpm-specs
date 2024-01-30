@@ -7,8 +7,8 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.5.0
-Release:        1%{?dist}
+Version:        2.5.2
+Release:        2%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -316,7 +316,7 @@ commit "Disable voronoi test"
 # -DSLIC3R_FHS=1 - Enable FHS layout instead of installing things into the resources directory
 # -DSLIC3R_WX_STABLE=1 - Allow use of wxGTK version 3.0 instead of 3.1.
 %cmake -DSLIC3R_PCH=0 -DSLIC3R_FHS=1 -DSLIC3R_WX_STABLE=1 -DSLIC3R_GTK=3 \
-    -DSLIC3R_BUILD_TESTS=1 -DCMAKE_BUILD_TYPE=Release -DSLIC3R_ENABLE_FORMAT_STEP=0 \
+    -DSLIC3R_BUILD_TESTS=1 -DCMAKE_BUILD_TYPE=Release \
 %if %{with perltests}
     -DSLIC3R_PERL_XS=1
 %endif
@@ -392,12 +392,7 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 # Some tests are Perl but there is a framework for other tests even though
 # currently the only thing that uses them is one of the bundled libraries.
 # There's no reason not to run as much as we can.
-%ifarch s390x
-# Some test tend to segfault on s390x; ignore failure there
-%cmake_build -- test ARGS=-V || :
-%else
 %cmake_build -- test ARGS=-V
-%endif
 
 
 %files -f license-files -f lang-files
@@ -406,6 +401,7 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %_bindir/%name
 %_bindir/prusa-gcodeviewer
 %_bindir/%name.wrapped
+%_libdir/OCCTWrapper.so
 %_datadir/icons/hicolor/*/apps/PrusaSlicer*.png
 %_datadir/applications/PrusaGcodeviewer.desktop
 %_datadir/applications/PrusaSlicer.desktop
@@ -417,6 +413,12 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Sat Jan 27 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.5.2-2
+- Fix the OCCT wrapper location, enable the STEP file support.
+
+* Sat Jan 27 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.5.2-1
+- Rebase to 2.5.2.
+
 * Sat Jan 27 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.5.0-1
 - Rebase to 2.5.0.
 

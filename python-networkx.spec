@@ -123,7 +123,6 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
 
 # Permit older versions of doc packages where Fedora is behind
 sed -e 's/\(sphinx-gallery>=\)0\.14/\10.11.1/' \
-    -e 's/\(numpydoc>=1.\)6/\14.0/' \
     -i pyproject.toml requirements/doc.txt
 
 # Fedora does not have osmnx or momepy
@@ -158,6 +157,7 @@ done
 %endif
 
 %check
+export FLEXIBLAS=NETLIB
 %if %{with doctest}
 %pytest
 %else
@@ -175,6 +175,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 27 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-4
+- Test with netlib
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

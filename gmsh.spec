@@ -43,6 +43,8 @@ Patch4:     gmsh_build.patch
 Patch5:     gmsh_unbundle_gl2ps.patch
 # Header fix for GCC 13
 Patch6:     gmsh-cstdint.patch
+# Fix incompatible size_t* -> uint64_t* conversions
+Patch7:     gmsh_uint64.patch
 
 BuildRequires: alglib-devel
 BuildRequires: ann-devel

@@ -1,6 +1,6 @@
 Name:           perl-Font-AFM
 Version:        1.20
-Release: 	46%{?dist}
+Release: 	47%{?dist}
 Summary:        Perl interface to Adobe Font Metrics files
 
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -14,7 +14,13 @@ BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+%if 0%{fedora} >= 40
+# REGRESSION: dnf5 is unable to BuildRequires: files
+BuildRequires: urw-base35-nimbus-sans-fonts
+%else
+# This is what is actually BuildRequired
 BuildRequires:  %{_fontbasedir}/urw-base35/NimbusSans-Bold.afm
+%endif
 
 %description
 Interface to Adobe Font Metrics files
@@ -49,6 +55,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/Font*
 
 %changelog
+* Sun Jan 28 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-47
+- Add work-around to dnf5's regression to not support BuildRequires: on files.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

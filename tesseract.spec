@@ -167,7 +167,7 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.5.3.3
+%{_libdir}/lib%{name}.so.5.3.4
 %{_datadir}/%{name}/
 %{_mandir}/man1/tesseract.1*
 

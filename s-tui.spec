@@ -1,7 +1,7 @@
 %global sys_name s_tui
 
 Name:       s-tui
-Version:    1.1.5
+Version:    1.1.6
 Release:    %autorelease
 Summary:    Terminal-based CPU stress and monitoring utility
 BuildArch:  noarch

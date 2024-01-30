@@ -8,15 +8,13 @@ community maintained language-server (python-lsp-server).
 }
 
 Name:           python-%{short_name}
-Version:        1.3.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        A python-lsp-server plugin that adds support to black autoformatter
 %forgemeta
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Enable building against Python3.12
-Patch:          lift_python_version_upper_bound.patch
 
 BuildArch:      noarch
 
@@ -37,6 +35,8 @@ Supplements:    python3dist(python-lsp-server)
 %autosetup -n %{name}-%{version}
 # Remove version pinning from python-lsp-server dependency
 sed -i -r -e 's/(lsp-server)>=.*/\1/' setup.cfg
+# Remove Python version upper bound
+sed -i -e 's/; python_version.*//' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x extras_require

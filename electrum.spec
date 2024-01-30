@@ -1,30 +1,32 @@
 Name:           electrum
-Version:        4.3.4
-Release:        5%{?dist}
+Version:        4.5.2
+Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
 URL:            https://electrum.org/
-Source0:        https://download.electrum.org/%{version}/Electrum-%{version}.tar.gz
-Source1:        https://download.electrum.org/%{version}/Electrum-%{version}.tar.gz.asc
+Source0:        https://download.electrum.org/%{version}/Electrum-sourceonly-%{version}.tar.gz
+Source1:        https://download.electrum.org/%{version}/Electrum-sourceonly-%{version}.tar.gz.asc
 #Wed Feb 01 2017, exported the upstream gpg key using the command:
 #gpg2 --export --export-options export-minimal 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6 9EDAFF80E080659604F4A76B2EBB056FD847F8A7 0EEDCFD5CAFB459067349B23CA9EEEC43DF911DC > gpgkey-electrum.gpg
 Source2:        gpgkey-%{name}.gpg
 Source3:        %{name}.metainfo.xml
 Source4:        %{name}.1
 
-Patch0:         fix-desktop-exec.patch
+Patch0:         relax-protobuf-requirement.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-wheel
 BuildRequires:  gettext
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  gnupg2
+BuildRequires:  protobuf-compiler
 
 Requires:       hicolor-icon-theme
 
@@ -51,9 +53,12 @@ it does not download the Bitcoin block chain.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1 -n Electrum-%{version}
+%autosetup -p0 -n Electrum-%{version}
 rm -rf Electrum.egg-info
 rm -rf packages
+
+contrib/generate_payreqpb2.sh
+contrib/build_locale.sh electrum/locale electrum/locale
 
 %generate_buildrequires
 %pyproject_buildrequires -x gui -x crypto
@@ -92,6 +97,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Sun Jan 28 2024 Jonathan Schleifer <js@nil.im> - 4.5.2-1
+- Updated to version 4.5.2.
+- Switched to sourceonly tarball.
+- Regenerate pb2 files to lower protobuf requirement.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -20,6 +20,9 @@ URL:            http://www.openvdb.org/
 
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# OpenVDB no longer builds on 32bits with latest TBB due to OOM.
+ExcludeArch:    i686
+
 BuildRequires:  boost-devel >= 1.61
 # boost-python3-devel merged in boost-devel for Fedora 33+
 # https://src.fedoraproject.org/rpms/boost/c/1f2e448e099a867f9da62b9da009d3dec5e1ad64?branch=master
@@ -52,7 +55,7 @@ BuildRequires:  cmake(pybind11)
 %if 0%{?with_openexr}
 BuildRequires:  pkgconfig(OpenEXR) >= 3.0
 %endif
-BuildRequires:  pkgconfig(tbb) >= 3.0
+BuildRequires:  cmake(tbb)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(zlib) > 1.2.7
 
@@ -79,7 +82,7 @@ volumetric applications typically encountered in feature film production.
 Summary:        Development files for %{name}
 BuildRequires:  texlive-latex
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       pkgconfig(tbb) >= 3.0
+Requires:       cmake(tbb)
 Requires:       pkgconfig(zlib) > 1.2.7
 Obsoletes:      %{name}-doc < 6.1.0-1
 Provides:       %{name}-doc = %{version}-%{release}
@@ -147,9 +150,10 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
     -DUSE_EXR=ON \
 %endif
     -DUSE_NANOVDB=ON
-# Increase memory usage to 8GB for a successful
-# build on ppc64le architecture
-%cmake_build %limit_build -m 10240
+
+# Increase memory reserve to 12GB per build thread for a successful build on
+# ppc64le and s390x.
+%cmake_build %limit_build -m 12288
 
 %if 0%{?with_tests}
 %check
