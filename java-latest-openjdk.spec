@@ -124,6 +124,8 @@
 %global ssbd_arches x86_64
 # Set of architectures for which java has short vector math library (libsvml.so)
 %global svml_arches x86_64
+# Set of architectures with  libsimdsort.so
+%global simdsort_arches x86_64
 # Set of architectures where we verify backtraces with gdb
 # s390x fails on RHEL 7 so we exclude it there
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -279,9 +281,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 21
+%global featurever 22
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -330,7 +332,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        13
+%global buildver        32
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -856,7 +858,9 @@ exit 0
 %endif
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsctp.so
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsystemconf.so
+%ifarch %{simdsort_arches}
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsimdsort.so
+%endif
 %ifarch %{svml_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
 %endif
@@ -903,7 +907,6 @@ exit 0
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.policy
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/security/java.security
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/logging.properties
-%config(noreplace) %{etcjavadir -- %{?1}}/conf/security/nss.fips.cfg
 %config(noreplace) %{etcjavadir -- %{?1}}/conf/management/jmxremote.access
 # This is a config template, thus not config-noreplace
 %config  %{etcjavadir -- %{?1}}/conf/management/jmxremote.password.template
@@ -1060,6 +1063,7 @@ exit 0
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_arch_dir}
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}
 %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/lib*.a
+%{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/server/lib*.a
 }
 
 %define files_javadoc() %{expand:
@@ -1256,7 +1260,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2127,7 +2131,7 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
+$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true || echo "FIXME! Fips are now disabled in portables"
 $JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
 
 # Check java launcher has no SSB mitigation
@@ -2419,8 +2423,13 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:21.0.2.0.13-1.rolling.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Mon Jan 29 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.32-1
+- Update to jdk-22.0.0.0.32-0.2
+- removed libsystemconf.so; not present in jdk?
+- removed nss.fips.cfg; fisp disabled in portables for now
+- disabled java ${SEC_DEBUG} ${PROG} true; fisp disabled in portables for now
+- added lib/libsimdsort.so for simdsort_arches x86_64
+- added server/libjvm.a
 
 * Sat Jan 20 2024 Jiri Vanek <jvanek@redhat.com> - 1:21.0.2.0.13-1
 - Update to jdk-21.0.2+13 (GA)

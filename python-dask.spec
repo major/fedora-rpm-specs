@@ -10,8 +10,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2024.1.0
-%global tag     2024.1.0
+Version:        2024.1.1
+%global tag     2024.1.1
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -33,8 +33,6 @@ Patch:          0005-Allow-older-versioneer.patch
 # Upstream had https://github.com/dask/dask/pull/10307 but reverted it because
 # a new Pandas was released that fixed the warning, but we don't have it yet.
 Patch:          0006-Ignore-NumPy-warnings-from-Pandas.patch
-# Filter warnings from std test
-Patch:          https://github.com/dask/dask/pull/10815.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.

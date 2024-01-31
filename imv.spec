@@ -8,6 +8,8 @@ URL:            https://sr.ht/~exec64/imv/
 Source:         https://git.sr.ht/~exec64/imv/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://lists.sr.ht/~exec64/imv-devel/patches/41580
 Patch:          imv-4.4.0-libheif-support-fixes.patch
+# https://todo.sr.ht/~exec64/imv/57
+Patch:          imv-4.4.0-fix-types-for-GCC-14.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils

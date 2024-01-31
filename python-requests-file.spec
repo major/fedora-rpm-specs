@@ -1,62 +1,54 @@
 %global srcname requests-file
 
 Name:           python-%{srcname}
-Version:        1.5.1
-Release:        12%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Transport adapter for using file:// URLs with python-requests
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/dashea/requests-file
 Source0:        %pypi_source
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 
-%description
+%global _description %{expand:
 Requests-File is a transport adapter for use with the Requests Python
-library to allow local file system access via file:// URLs.
+library to allow local file system access via file:// URLs.}
 
-This is the Python 2 version of the requests_file module
+%description %_description
 
 %package -n python3-requests-file
-Summary:        Transport adapter for using file:// URLs with python3-requests
-%{?python_provide:%python_provide python3-%{srcname}}
+Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-requests
-BuildRequires:  python3-six
-
-Requires:       python3-requests
-Requires:       python3-six
-
-%description -n python3-requests-file
-Requests-File is a transport adapter for use with the Requests Python
-library to allow local file system access via file:// URLs.
-
-This is the Python 3 version of the requests_file module
+%description -n python3-requests-file %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
-rm -rf requests_file.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files requests_file
 
 %check
 %{pytest}
 
-%files -n python3-requests-file
+%files -n python3-requests-file -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/requests_file.py*
-%{python3_sitelib}/__pycache__/requests_file.*
-%{python3_sitelib}/requests_file*.egg-info*
 
 %changelog
+* Mon Jan 29 2024 David Shea <reallylongword@gmail.com> - 2.0.0-1
+- Update to version 2.0.0
+- Apply current python packaging recommendations to the spec file
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

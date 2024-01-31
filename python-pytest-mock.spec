@@ -9,6 +9,9 @@ Summary:        Thin-wrapper around the mock package for easier use with py.test
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-mock/
 Source0:        %{pypi_source}
+# https://github.com/pytest-dev/pytest-mock/pull/404
+Patch0:         0001-Update-expected-message.patch
+
 BuildArch:      noarch
 
 %description

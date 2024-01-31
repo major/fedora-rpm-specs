@@ -149,6 +149,11 @@ cd NTS
 # Ignore know failed test on some ach (s390x, armv7hl, aarch64) with timeout
 rm tests/229_Tutorial_fxAnalyzeImage_case1.phpt
 rm tests/244_Tutorial_psychedelicFontGif_basic.phpt
+# very long, and erratic results
+rm tests/073_Imagick_forwardFourierTransformImage_basic.phpt
+rm tests/086_Imagick_forwardFourierTransformImage_basic.phpt
+# https://github.com/Imagick/imagick/issues/645
+rm tests/316_Imagick_getImageKurtosis.phpt
 
 : upstream test suite for NTS extension
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
@@ -186,6 +191,9 @@ cd ../ZTS
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 3.7.0-11
+- ignore 1 test failing with recent ImageMagick version
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

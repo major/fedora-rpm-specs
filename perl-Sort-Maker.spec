@@ -1,6 +1,6 @@
 Name:           perl-Sort-Maker
 Version:        0.06
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Simple way to make efficient sort subs
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sort-Maker
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

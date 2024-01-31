@@ -1,11 +1,12 @@
 Name:           python-perky
 Version:        0.8.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A simple, Pythonic file format
 
 License:        MIT
 URL:            https://github.com/larryhastings/perky/
 Source:         %{url}/archive/%{version}/perky-%{version}.tar.gz
+Patch:          use-flit_core-instead-of-flit-to-build-wheel.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -57,6 +58,9 @@ cd tests
 
 
 %changelog
+* Mon Jan 29 2024 Maxwell G <maxwell@gtmx.me> - 0.8.2-6
+- Use flit_core instead of flit to build wheel
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

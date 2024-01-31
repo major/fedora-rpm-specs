@@ -1,7 +1,7 @@
 Summary: A complete ODBC driver manager for Linux
 Name: unixODBC
 Version: 2.3.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.unixODBC.org/
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -14,6 +14,7 @@ Source5: README.dist
 
 Patch8: so-version-bump.patch
 Patch9: keep-typedefs.patch
+Patch10: unixODBC-c89.patch
 
 Conflicts: iodbc
 
@@ -40,6 +41,7 @@ ODBC, you need to install this package.
 %setup -q
 %patch -P8 -p1 -b .soname-bump
 %patch -P9 -p1
+%patch -P 10 -p1
 
 chmod 0644 Drivers/MiniSQL/*.c
 chmod 0644 Drivers/nn/*.c
@@ -117,6 +119,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 %_libdir/pkgconfig/*.pc
 
 %changelog
+* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 2.3.12-4
+- Fix out-of-bounds stack write (GCC 14 compatibility)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

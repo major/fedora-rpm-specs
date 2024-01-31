@@ -1,6 +1,6 @@
 Name:           kdsoap-ws-discovery-client
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for finding WS-Discovery devices in the network using Qt6 and KDSoap
 
 License:        GPL-3.0-or-later AND LicenseRef-OASIS AND LicenseRef-WS-Addressing AND LicenseRef-Discovery AND W3C
@@ -25,11 +25,16 @@ Requires:       cmake(KDSoap-qt6)
 %description    devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+%{summary}.
+
 %prep
 %autosetup -p1
 
 %build
-%cmake -DBUILD_WITH_QT6=ON
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 %install
@@ -48,8 +53,16 @@ Requires:       cmake(KDSoap-qt6)
 %{_includedir}/KDSoapWSDiscoveryClient/
 %{_libdir}/cmake/KDSoapWSDiscoveryClient/
 %{_libdir}/libKDSoapWSDiscoveryClient.so
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_docdir}/KDSoapWSDiscoveryClient/
+%{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Jan 29 2024 Alessandro Astone <ales.astone@gmail.com> - 0.3.0-4
+- Add developer documentation in the doc subpackage
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

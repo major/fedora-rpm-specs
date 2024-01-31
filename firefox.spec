@@ -174,7 +174,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        122.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -494,6 +494,13 @@ to run Firefox explicitly on Wayland.
 %files wayland
 %{_bindir}/firefox-wayland
 %{_datadir}/applications/firefox-wayland.desktop
+%endif
+
+# Don't ship firefox-x11 and firefox-wayland on Fedora 40.
+# Wayland backend is considered as mature enough now.
+%if 0%{?fedora} >= 40
+Obsoletes: firefox-wayland
+Obsoletes: firefox-x11
 %endif
 
 %if 0%{?run_firefox_tests}
@@ -1170,6 +1177,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jan 29 2024 Martin Stransky <stransky@redhat.com>- 122.0-2
+- Obsolete firefox-wayland and firefox-x11 on Fedora 40+
+
 * Fri Jan 19 2024 Martin Stransky <stransky@redhat.com>- 122.0-1
 - Update to 122.0
 

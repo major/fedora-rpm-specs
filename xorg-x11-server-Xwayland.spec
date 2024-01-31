@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   23.2.4
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   3%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -17,6 +17,7 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
+Patch1:    xorg-x11-server-Xwayland-c89.patch
 
 License:   MIT
 
@@ -137,6 +138,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 23.2.4-3
+- Fix C compatibility issue on i686
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

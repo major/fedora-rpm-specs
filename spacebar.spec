@@ -71,7 +71,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENSES/{GPL-2.0-or-later,(GPL-2.0-only OR GPL-3.0-only)}.txt
+%license LICENSES/{GPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg

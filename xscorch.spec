@@ -1,6 +1,6 @@
 Name:		xscorch
 Version:	0.2.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	A Scorched Earth clone
 License:	GPL-2.0-only
 URL:		http://www.xscorch.org/
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

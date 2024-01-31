@@ -4,7 +4,7 @@
 Summary: Thread-safe hash algorithms library
 Name: mhash
 Version: 0.9.9.9
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL: http://mhash.sourceforge.net/
 License: LGPL-2.1-or-later
 Source: http://downloads.sourceforge.net/mhash/mhash-%{version}.tar.bz2
@@ -33,6 +33,9 @@ Patch10: mhash-0.9.9.9-keygen_test_fix.patch
 # Fix mhash_test
 # Credit to Hanno Böck back in 2015.
 Patch11: mhash-0.9.9-no-free-before-use.patch
+# Taken from Gentoo:
+# https://gitweb.gentoo.org/repo/gentoo.git/tree/app-crypt/mhash/files/mhash-0.9.9.9-cast-temp-64bit.patch
+Patch12: mhash-0.9.9.9-cast-temp-64bit.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -65,16 +68,17 @@ develop programs that use the mhash library.
 
 %prep
 %setup -q
-%patch2 -p1 -b .alignment
-%patch3 -p1 -b .force64bit-tiger
-%patch4 -p1 -b .fix-snefru-segfault
-%patch5 -p1 -b .fix-mem-leak
-%patch6 -p1 -b .fix-whirlpool-segfault
-%patch7 -p1 -b .fix-autotool-stomping
-%patch8 -p1 -b .maxint
-%patch9 -p1 -b .alignment2
-%patch10 -p1 -b .fix
-%patch11 -p1 -b .nofree
+%patch -P2 -p1 -b .alignment
+%patch -P3 -p1 -b .force64bit-tiger
+%patch -P4 -p1 -b .fix-snefru-segfault
+%patch -P5 -p1 -b .fix-mem-leak
+%patch -P6 -p1 -b .fix-whirlpool-segfault
+%patch -P7 -p1 -b .fix-autotool-stomping
+%patch -P8 -p1 -b .maxint
+%patch -P9 -p1 -b .alignment2
+%patch -P10 -p1 -b .fix
+%patch -P11 -p1 -b .nofree
+%patch -P12 -p1 -b .cast-temp-64bit
 autoconf
 
 %build
@@ -119,6 +123,9 @@ make check
 
 
 %changelog
+* Mon Jan 29 2024 Tom Callaway <spot@fedoraproject.org> - 0.9.9.9-32
+- fix FTBFS, patch from Christopher Fore & Yixun Lan @ Gentoo
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

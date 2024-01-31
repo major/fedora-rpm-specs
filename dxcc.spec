@@ -1,6 +1,6 @@
 Name:           dxcc
 Version:        20080225
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Small utility which determines the ARRL DXCC entity of a ham radio callsign
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20080225-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20080225-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

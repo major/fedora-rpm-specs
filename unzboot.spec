@@ -7,8 +7,9 @@ Version:	0.1~git.%{commitdate}.%{shortcommit}
 Release:	3%{?dist}
 
 Summary:	Extracts a kernel vmlinuz image from a EFI application
-License:	MIT
+License:	GPL-2.0-or-later
 
+URL:            https://github.com/eballetbo/unzboot
 # Upstream is still under development so they are not tagging releases
 # yet. Use the following to do a rebase to a new snapshot:
 #

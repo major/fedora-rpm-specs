@@ -2,7 +2,7 @@
 
 Name:		driverctl
 Version:	0.101
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Device driver control utility
 
 License:	LGPLv2
@@ -61,6 +61,9 @@ by default.
 %udev_rules_update
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.101-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -16,6 +16,8 @@ URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
 Source1:   colord.sysusers
 
+Patch0:    0001-Fix-writing-to-the-database-with-ProtectSystem-stric.patch
+
 %if !0%{?rhel}
 BuildRequires: bash-completion
 %endif

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-fpath
 Version:        0.7.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        File paths for OCaml
 
 License:        ISC
@@ -72,6 +72,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.3-20
+- Bump and rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

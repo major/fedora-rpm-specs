@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-netresearch-jsonmapper
 #
-# Copyright (c) 2017-2023 Remi Collet
+# Copyright (c) 2017-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f60565f8c0566a31acf06884cdaa591867ecc956
+%global gh_commit    18133a2d8c24e10e58e02b700308ed3a4a60c97f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     cweiske
 %global gh_project   jsonmapper
@@ -18,8 +18,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        4.2.0
-Release:        4%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Map nested JSON structures onto PHP classes
 
 License:        OSL-3.0
@@ -32,15 +32,16 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 BuildRequires:  php(language) >= 7.1
-BuildRequires:  php-spl
+BuildRequires:  php-date
 BuildRequires:  php-json
 BuildRequires:  php-pcre
 BuildRequires:  php-reflection
+BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "~7.5 || ~8.0 || ~9.0",
+#        "phpunit/phpunit": "~7.5 || ~8.0 || ~9.0 || ~10.0",
 #        "squizlabs/php_codesniffer": "~3.5"
-%global phpunit %{_bindir}/phpunit9
-BuildRequires: phpunit9
+%global phpunit %{_bindir}/phpunit10
+BuildRequires: phpunit10
 # Required by autoloader
 BuildRequires:  php-fedora-autoloader-devel
 %endif
@@ -56,7 +57,7 @@ Requires:       php-spl
 Requires:       php-json
 Requires:       php-pcre
 Requires:       php-reflection
-# From phpcompatinfo report for version 1.6.0
+# From phpcompatinfo report for version 4.4.0
 # none
 # Required by autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -103,13 +104,13 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
+for cmd in "php %{phpunit}" php81 php82 php83; do
   if which $cmd; then
     set $cmd
-    $1 ${2:-%{_bindir}/phpunit9} \
+    $1 ${2:-%{_bindir}/phpunit10} \
       --bootstrap %{buildroot}%{php_home}/%{pk_vendor}/%{pk_project}/autoload.php \
       --no-coverage \
-      --verbose . || ret=1
+      . || ret=1
   fi
 done
 exit $ret
@@ -128,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 4.4.0-1
+- update to 4.4.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

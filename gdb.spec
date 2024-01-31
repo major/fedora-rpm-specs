@@ -57,7 +57,7 @@ Version: 14.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1250,6 +1250,10 @@ fi
 %endif
 
 %changelog
+* Mon Jan 29 2024 Kevin Buettner <kevinb@redhat.com> - 14.1-8
+- Backport upstream workaround for GCC 14 problem which is causing
+  GDB internal errors (RHBZ 261580, Tom de Vries).
+
 * Thu Jan 25 2024 Guinevere Larsen <blarsen@redhat.com>
 - Remove gdb-6.5-BEA-testsuite.patch, as it was upstreamed and
   will make its way back with the next rebase.

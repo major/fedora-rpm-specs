@@ -40,12 +40,8 @@ Source0: %{url}/archive/v%{version}.tar.gz
 Source1: %{url}/releases/download/v%{version}/%{name}-v%{version}-vendor.tar.gz
 BuildRequires: cargo
 BuildRequires: %{_bindir}/go-md2man
-# aardvark-dns and %%{name} are usually released in sync
-# but netavark 1.10.1 came with aardvark-dns 1.10.0
-#Recommends: aardvark-dns >= %{version}-1
-#Requires: (aardvark-dns >= %{version}-1 if fedora-release-identity-server)
-Recommends: aardvark-dns >= 1.10.0-1
-Requires: (aardvark-dns >= 1.10.0-1 if fedora-release-identity-server)
+Recommends: aardvark-dns
+Requires: (aardvark-dns if fedora-release-identity-server)
 Provides: container-network-stack = 2
 BuildRequires: make
 BuildRequires: protobuf-c

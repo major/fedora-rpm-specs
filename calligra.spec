@@ -18,7 +18,7 @@
 
 Name:    calligra 
 Version: 3.2.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: An integrated office suite
 
 License: GPLv2+ and LGPLv2+
@@ -60,6 +60,9 @@ Patch201: calligra-gcc11.patch
 # Switch to C++17 because poppler needs it
 Patch202: calligra-c++17.patch
 Patch203: calligra-c99.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: boost-devel
 BuildRequires: bzip2-devel bzip2
@@ -787,6 +790,9 @@ fi
 
 
 %changelog
+* Mon Jan 29 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.1-28
+- Drop i686 support (leaf package)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

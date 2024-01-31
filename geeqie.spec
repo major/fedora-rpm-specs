@@ -5,7 +5,7 @@
 Summary: Image browser and viewer
 Name: geeqie
 License: GPLv2+
-Version: 2.1
+Version: 2.2
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -14,10 +14,6 @@ Source:  https://github.com/BestImageViewer/%{name}/archive/%{gitcommit}/%{name}
 %else
 Source:  https://github.com/BestImageViewer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 %endif
-
-# https://github.com/BestImageViewer/geeqie/pull/1182
-Patch:   0001-Do-not-truncate-socket-path.patch
-Patch:   0002-fix-compilation-with-lua.patch
 
 ExcludeArch: %{ix86}
 
@@ -98,7 +94,7 @@ for f in ufraw-batch ; do
 done
 %endif
 
-export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
+export CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-parameter"
 
 %meson -Dvideothumbnailer=disabled
 %meson_build
@@ -122,7 +118,7 @@ ln -s NEWS %{buildroot}%{_pkgdocdir}/ChangeLog
 desktop-file-install \
     --delete-original \
     --dir %{buildroot}%{_datadir}/applications \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
+    %{buildroot}%{_datadir}/applications/org.geeqie.Geeqie.desktop
 
 %find_lang %name
 
@@ -139,7 +135,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_datadir}/%{name}/
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/applications/*%{name}.desktop
+%{_datadir}/applications/org.geeqie.Geeqie.desktop
 %{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
 
 

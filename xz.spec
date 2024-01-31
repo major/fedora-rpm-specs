@@ -5,16 +5,16 @@ Summary:	LZMA compression utilities
 Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
-Version:	5.4.5
-Release:	2%{?dist}
+Version:	5.4.6
+Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
 # OK), documentation is Public Domain.
 License:	GPLv2+ and Public Domain
 # official upstream release
-Source0:	https://tukaani.org/%{name}/%{name}-%{version}.tar.xz
-Source1:	https://tukaani.org/%{name}/%{name}-%{version}.tar.xz.sig
+Source0:	https://github.com/tukaani-project/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:	https://github.com/tukaani-project/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:        https://tukaani.org/misc/jia_tan_pubkey.txt
 
 Source100:	colorxzgrep.sh
@@ -170,6 +170,10 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 5.4.6-1
+- New version 5.4.6 (RHBZ#2260521)
+- Fix Source URLs.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

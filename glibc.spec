@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-522-g486452affb
+%global glibcsrcdir glibc-2.38.9000-525-gae49a7b29a
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 35
+%global baserelease 37
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -882,7 +882,7 @@ Summary: Locale data for ]]..langname..[[
 Provides: glibc-langpack = %{version}-%{release}
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-common = %{version}-%{release}
-Supplements: (glibc and (]]..suppl..[[))
+Supplements: ((glibc and (]]..suppl..[[)) unless glibc-all-langpacks)
 %description langpack-]]..lang..[[
 
 The glibc-langpack-]]..lang..[[ package includes the basic information required
@@ -2218,6 +2218,16 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Jan 29 2024 Arjun Shankar <arjun@redhat.com> - 2.38.9000-37
+- Auto-sync with upstream branch master,
+  commit ae49a7b29acc184b03c2a6bd6ac01b5e08efd54f:
+- Relicense IBM portions of resolv/base64.c resolv/res_debug.c.
+- localedata: Use consistent values for grouping and mon_grouping
+- manual: fix order of arguments of memalign and aligned_alloc (Bug 27547)
+
+* Thu Jan 25 2024 Jens Petersen <petersen@redhat.com> - 2.38.9000-36
+- no longer supplement langpacks if all-langpacks installed
+
 * Wed Jan 24 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-35
 - Add crh_RU, gbm_IN, ssy_ER locales.
 - Auto-sync with upstream branch master,

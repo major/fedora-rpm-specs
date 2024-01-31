@@ -16,7 +16,7 @@ Go client for HAProxy configuration and runtime API.}
                         specification/README.md specification/copyright.txt
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Go client for HAProxy configuration and runtime API
 
 # Upstream license specification: Apache-2.0
@@ -85,6 +85,9 @@ mv specification/README.md README-specification.md
 %gopkgfiles
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

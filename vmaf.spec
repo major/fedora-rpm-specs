@@ -1,3 +1,7 @@
+# This can be remove once vmaf is updated to 3.0.0
+# I can't be bothered to do the 3.0.0 update because of circular deps and the use of rpmautospec.
+%global build_type_safety_c 0
+
 Name:           vmaf
 Version:        2.3.0
 Release:        7%{?dist}

@@ -1,8 +1,8 @@
 Name:           libjpeg-turbo
 Version:        2.1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A MMX/SSE2/SIMD accelerated library for manipulating JPEG image files
-License:        IJG
+License:        Zlib AND BSD-3-Clause AND MIT AND IJG
 URL:            http://sourceforge.net/projects/libjpeg-turbo
 
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -69,6 +69,8 @@ manipulate JPEG files using the TurboJPEG library.
 
 %prep
 %autosetup -p1
+
+rm -rf doc
 
 %build
 # NASM object files are missing GNU Property note for Intel CET,
@@ -179,6 +181,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/pkgconfig/libturbojpeg.pc
 
 %changelog
+* Mon Jan 29 2024 Matej Mužila <mmuzila@redhat.com> - 2.1.4-6
+- migrated to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

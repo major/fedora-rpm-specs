@@ -388,11 +388,6 @@ export MESON_PACKAGE_CACHE_DIR="%{cargo_registry}/"
 %rewrite_wrap_file unicode-ident
 %endif
 
-# We've gotten a report that enabling LTO for mesa breaks some games. See
-# https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
-# Disable LTO for now
-%define _lto_cflags %{nil}
-
 %meson \
   -Dplatforms=x11,wayland \
   -Ddri3=enabled \

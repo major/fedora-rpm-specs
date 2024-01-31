@@ -1,3 +1,5 @@
+%bcond wireplumber %[0%{?fedora} < 40]
+
 Name:           waybar
 Version:        0.9.24
 Release:        2%{?dist}
@@ -48,7 +50,9 @@ BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols)
+%if %{with wireplumber}
 BuildRequires:  pkgconfig(wireplumber-0.4)
+%endif
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
@@ -65,11 +69,16 @@ sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 %build
 %meson \
     -Dcava=disabled  \
-    -Dsndio=disabled
+    -Dsndio=disabled \
+    %{!?with_wireplumber:-Dwireplumber=disabled}
 %meson_build
 
 %install
 %meson_install
+# remove man pages for disabled modules
+for module in cava sndio %{!?with_wireplumber:wireplumber} wlr-workspaces; do
+    rm -f %{buildroot}%{_mandir}/man5/%{name}-${module}.5
+done
 
 %check
 %meson_test
@@ -92,6 +101,9 @@ sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Mon Jan 29 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.24-2
+- Disable wireplumber support in rawhide (rhbz#2260558)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

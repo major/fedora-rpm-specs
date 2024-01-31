@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-geos
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -23,7 +23,7 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 
 Summary:        PHP module for GEOS
 
@@ -42,6 +42,8 @@ Patch4:         0005-fix-for-8.0.0RC1.patch
 Patch3:         0004-fix-all-zend_parse_parameters-call-to-use-zend_long.patch
 # https://git.osgeo.org/gitea/geos/php-geos/issues/27
 Patch5:         0006-fix-__toString-with-8.2.patch
+# https://git.osgeo.org/gitea/geos/php-geos/issues/32
+Patch6:         0001-Fix-incompatible-pointer-types.patch
 
 BuildRequires:  php-devel
 BuildRequires:  php-pear
@@ -71,6 +73,7 @@ cd %{sources}
 %patch -P3 -p1 -b .zendlong
 %patch -P4 -p1 -b .arg
 %patch -P5 -p1 -b .php82
+%patch -P6 -p1 -b .pointers
 
 sed -e '/PHP_GEOS_VERSION/s/"0.0"/"%{version}%{?prever}"/' -i php_geos.h
 
@@ -186,6 +189,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 1.0.0-31
+- fix incompatible pointer types
+  using patch from https://git.osgeo.org/gitea/geos/php-geos/issues/32
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

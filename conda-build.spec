@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda-build
-Version:        3.28.0
+Version:        3.28.4
 Release:        %autorelease
 Summary:        Commands and tools for building conda packages
 # version.py is BSD-2-Clause
@@ -130,13 +130,21 @@ py.test-%{python3_version} -vv --ignore tests/test_api_build.py --ignore tests/c
   --deselect='tests/test_api_convert.py::test_skip_conversion[package0-osx]' \
   --deselect='tests/test_api_convert.py::test_renaming_executables[package0-linux]' \
   --deselect='tests/test_api_convert.py::test_renaming_executables[package0-osx]' \
+  --deselect='tests/test_api_debug.py::test_debug[outputs w/ invalid filtering]' \
+  --deselect='tests/test_api_debug.py::test_debug[outputs w/ no filtering]' \
+  --deselect='tests/test_api_debug.py::test_debug[outputs w/ valid filtering]' \
   --deselect='tests/test_api_debug.py::test_debug[recipe w/ config]' \
   --deselect='tests/test_api_debug.py::test_debug[tarball w/ config]' \
   --deselect='tests/test_api_debug.py::test_debug[recipe w/ path]' \
   --deselect='tests/test_api_debug.py::test_debug[tarball w/ path]' \
-  --deselect='tests/test_api_debug.py::test_debug[outputs w/ valid filtering]' \
   --deselect='tests/test_api_inspect.py::test_check_recipe' \
   --deselect='tests/test_api_render.py::test_get_output_file_path_jinja2' \
+  --deselect='tests/test_api_render.py::test_hash_no_apply_to_custom_build_string' \
+  --deselect='tests/test_api_render.py::test_host_entries_finalized' \
+  --deselect='tests/test_api_render.py::test_merge_build_host_build_key' \
+  --deselect='tests/test_api_render.py::test_merge_build_host_empty_host_section' \
+  --deselect='tests/test_api_render.py::test_noarch_with_platform_deps' \
+  --deselect='tests/test_api_render.py::test_output_without_jinja_does_not_download' \
   --deselect='tests/test_api_render.py::test_noarch_with_no_platform_deps' \
   --deselect='tests/test_api_render.py::test_pin_compatible_semver' \
   --deselect='tests/test_api_render.py::test_pin_depends' \
@@ -187,7 +195,12 @@ py.test-%{python3_version} -vv --ignore tests/test_api_build.py --ignore tests/c
   --deselect='tests/test_published_examples.py::test_skeleton_pypi' \
   --deselect='tests/test_source.py::test_multiple_different_sources' \
   --deselect='tests/test_source.py::test_git_repo_with_single_subdir_does_not_enter_subdir' \
+  --deselect='tests/test_subpackages.py::test_autodetect_raises_on_invalid_extension' \
+  --deselect='tests/test_subpackages.py::test_build_string_does_not_incorrectly_add_hash' \
+  --deselect='tests/test_subpackages.py::test_circular_deps_cross' \
   --deselect='tests/test_subpackages.py::test_git_in_output_version' \
+  --deselect='tests/test_subpackages.py::test_intradep_with_templated_output_name' \
+  --deselect='tests/test_subpackages.py::test_multi_outputs_without_package_version' \
   --deselect='tests/test_subpackages.py::test_subpackage_recipes[noarch_subpackage]' \
   --deselect='tests/test_subpackages.py::test_subpackage_recipes[copying_files]' \
   --deselect='tests/test_subpackages.py::test_subpackage_recipes[script_install_files]' \
@@ -221,16 +234,21 @@ py.test-%{python3_version} -vv --ignore tests/test_api_build.py --ignore tests/c
   --deselect='tests/test_subpackages.py::test_merge_build_host_applies_in_outputs' \
   --deselect='tests/test_subpackages.py::test_activation_in_output_scripts' \
   --deselect='tests/test_subpackages.py::test_loops_do_not_remove_earlier_packages' \
-  --deselect='tests/test_variants.py::test_pinning_in_build_requirements' \
-  --deselect='tests/test_variants.py::test_variants_in_versions_with_setup_py_data' \
+  --deselect='tests/test_variants.py::test_build_run_exports_act_on_host' \
+  --deselect='tests/test_variants.py::test_different_git_vars' \
   --deselect='tests/test_variants.py::test_git_variables_with_variants' \
+  --deselect='tests/test_variants.py::test_no_satisfiable_variants_raises_error' \
+  --deselect='tests/test_variants.py::test_pinning_in_build_requirements' \
+  --deselect='tests/test_variants.py::test_python_variants[yaml]' \
+  --deselect='tests/test_variants.py::test_python_variants[dict]' \
   --deselect='tests/test_variants.py::test_ensure_valid_spec_on_run_and_test' \
   --deselect='tests/test_variants.py::test_serial_builds_have_independent_configs' \
   --deselect='tests/test_variants.py::test_numpy_used_variable_looping' \
   --deselect='tests/test_variants.py::test_inner_python_loop_with_output' \
-  --deselect='tests/test_variants.py::test_different_git_vars' \
   --deselect='tests/test_variants.py::test_top_level_finalized' \
+  --deselect='tests/test_variants.py::test_variant_as_dependency_name' \
   --deselect='tests/test_variants.py::test_variant_subkeys_retained' \
+  --deselect='tests/test_variants.py::test_variants_in_versions_with_setup_py_data' \
   --deselect='tests/cli/test_main_build.py::test_build_empty_sections' \
   --deselect='tests/cli/test_main_build.py::test_build_skip_existing' \
   --deselect='tests/cli/test_main_build.py::test_build_skip_existing_croot' \

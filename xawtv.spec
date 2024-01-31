@@ -3,12 +3,13 @@
 Summary: TV applications for video4linux compliant devices
 Name: xawtv
 Version: 3.107
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2+
 URL: http://linuxtv.org/wiki/index.php/Xawtv
 
 Source0: http://linuxtv.org/downloads/xawtv/%{name}-%{version}.tar.bz2
 Patch0: xawtv-strsignal.patch
+Patch1: xawtv-3.107-XawListChange.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -59,6 +60,7 @@ which support teletext.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Wno-pointer-sign -fcommon"
@@ -154,6 +156,9 @@ ln -s consolehelper $RPM_BUILD_ROOT%{_bindir}/v4l-conf
 
 
 %changelog
+* Tue Jan 30 2024 Dmitry Butskoy <Dmitry@Butskoy.name> - 3.107-11
+- fix incompatible pointer types warnings (#2261796)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.107-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,6 +13,10 @@ License:       MIT
 URL:           https://github.com/yaml/pyyaml
 Source0:       %{pypi_source PyYAML}
 
+# Fix build with Cython 3
+# Proposed upstream but refused (upstream does not want Cython 3)
+Patch:          https://github.com/yaml/pyyaml/pull/731.patch
+
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
@@ -46,6 +50,11 @@ MinGW Windows Python2 %{pypi_name} library.
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+chmod a-x examples/yaml-highlight/yaml_hl.py
+# remove pre-generated file
+rm -rf ext/_yaml.c
+# we have a patch for Cython 3
+sed -i 's/Cython<3.0/Cython/' pyproject.toml
 
 
 %build

@@ -14,6 +14,9 @@ Source0:          https://github.com/%{name}/%{name}/archive/v%{version}/%{name}
 Source1:          %{name}.desktop
 Source2:          pgmodeler-mime-dbm.xml
 
+# Fix build against recent libxml2
+Patch0:           pgmodeler_libxml.patch
+
 Requires:         hicolor-icon-theme
 Requires:         shared-mime-info
 

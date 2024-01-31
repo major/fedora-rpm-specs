@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.4.5
-Release:          4%{?dist}
+Release:          5%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT) and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and MIT and (Unlicense or MIT) and (0BSD or MIT or ASL 2.0) and MPLv2.0 and ASL 2.0 and (MIT or zlib or ASL 2.0) and ((MIT or ASL 2.0) and Unicode-DFS-2016) and (ASL 2.0 or Boost) and BSD
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -747,6 +747,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

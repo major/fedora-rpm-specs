@@ -1,6 +1,6 @@
 Name:           perl-Text-Brew
 Version:        0.02
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Implementation of the Brew edit distance
 # License specified in README
 License:        GPL+ or Artistic
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/Text*
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

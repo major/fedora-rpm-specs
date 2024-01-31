@@ -15,16 +15,28 @@
 
 %global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path             kubernetes.io/
-%global commit                  be3af46a4654bdf05b4838fe94e95ec8c165660c
-%global shortcommit              %(c=%{commit}; echo ${c:0:7})
+
+# **** release metadata ****
+%global commit                  bc401b91f2782410b3fb3f9acf43a995c4de90d2
+%global shortcommit             %(c=%{commit}; echo ${c:0:7})
+# release major.minor version (k8s_minver); patch version (k8s_patchver)
+%global k8s_name                kubernetes
+%global k8s_minver              1.29
+%global k8s_patchver            1
+# golang 'built with' version
+%global golangver               1.21.6
+
+# last release version of these rpms prior to F40 restructure
+# should not change once restructure goes into rawhide
+%global switchver              1.28.4-1
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
 %global _checkshell  /bin/bash
 
 ##############################################
-Name:           kubernetes
-Version:        1.28.6
+Name:           %{k8s_name}
+Version:        %{k8s_minver}.%{k8s_patchver}
 Release:        %autorelease
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
@@ -51,98 +63,98 @@ Source116:      %{name}.sysusers
 
 Patch3:         build-with-debug-info.patch
 
-# Obsoletes removed 17 Aug 2023. No longer needed per email from
-# Jan Chaloupka
-# It obsoletes cadvisor but needs its source code (literally integrated)
-# Obsoletes:      cadvisor
-
-# kubernetes is decomposed into master and node subpackages
-# require both of them for updates
-Requires: kubernetes-master = %{version}-%{release}
-Requires: kubernetes-node = %{version}-%{release}
-
-%description
-%{summary}
-
 ##############################################
-%package master
-Summary: Kubernetes services for control plane host
+# main package components - installs kubelet, kubeadm and necessary
+# configuration files. Recommends kubernetes-client.
 
-BuildRequires: golang >= 1.20.13
+# build requirements for kubelet, kubeadm
+BuildRequires: golang >= %{golangver}
+BuildRequires: make
+BuildRequires: go-md2man
 BuildRequires: systemd
 BuildRequires: rsync
-BuildRequires: go-md2man
+
+# needed per fedora documentation - may drop as /run not used
+# and kube user no longer needed
 BuildRequires: systemd-rpm-macros
 %{?sysusers_requires_compat}
-#BuildRequires: go-bindata
 
-Requires(pre): shadow-utils
-Requires: kubernetes-client = %{version}-%{release}
-
-# if node is installed with node, version and release must be the same
-Conflicts: kubernetes-node < %{version}-%{release}
-Conflicts: kubernetes-node > %{version}-%{release}
-
-%description master
-Kubernetes services for control plane host
-
-##############################################
-%package node
-Summary: Kubernetes services for worker node host
-
-Requires: (containerd or cri-o)
-Suggests: containerd
-Requires: conntrack-tools
-
-BuildRequires: golang >= 1.20.13
-BuildRequires: systemd
-BuildRequires: rsync
-BuildRequires: go-md2man
-BuildRequires: systemd-rpm-macros
-%{?sysusers_requires_compat}
-#BuildRequires: go-bindata
+# additonal kubelet requirements
+Requires:   (containerd or cri-o)
+Recommends: cri-o = %{version}-%{release}
+Requires:   conntrack-tools
 
 Requires(pre): shadow-utils
 Requires:      socat
-Requires:      kubernetes-client = %{version}-%{release}
+Recommends:    kubernetes-client = %{version}-%{release}
 
-# if master is installed with node, version and release must be the same
-Conflicts: kubernetes-master < %{version}-%{release}
-Conflicts: kubernetes-master > %{version}-%{release}
-
-%description node
-Kubernetes services for worker node host
-
-##############################################
-%package  kubeadm
-Summary:  Kubernetes tool for standing up clusters
-Requires: kubernetes-node = %{version}-%{release}
-
-BuildRequires: golang >= 1.20.13
+# additional kubeadm requirements
 Requires: containernetworking-plugins
 Requires: cri-tools
 
-%description kubeadm
-Kubernetes tool for standing up clusters
+# require same version for kubernetes-client if installed
+Conflicts: kubernetes-client < %{version}-%{release}
+Conflicts: kubernetes-client > %{version}-%{release}
+
+# provides and obsoletes kubernetes-node and kubernetes-kubeadm
+Provides: kubernetes-kubeadm = %{version}-%{release}
+Obsoletes: kubernetes-kubeadm <= %{switchver}
+Provides: kubernetes-node = %{version}-%{release}
+Obsoletes: kubernetes-node <= %{switchver}
+
+%description
+%{summary}
+Installs kubeadm and kubelet, the two basic components needed to
+bootstrap, and run a cluster. The kubernetes-client sub-package,
+containing kubectl, is recommended but not strictly required.
+The kubernetes-client sub-package should be installed on
+control plane machines.
 
 ##############################################
 %package client
 Summary: Kubernetes client tools
 
-BuildRequires: golang >= 1.20.13
-#BuildRequires: go-bindata
+BuildRequires: golang >= %{golangver}
 BuildRequires: make
 
+Conflicts: kubernetes < %{version}-%{release}
+Conflicts: kubernetes > %{version}-%{release}
+
 %description client
-Kubernetes client tools like kubectl
+Installs kubectl, the Kubernetes command line client.
 
 ##############################################
+%package legacy-systemd
+Summary: Legacy systemd services for control plane and/or node
 
+BuildRequires: golang >= %{golangver}
+BuildRequires: systemd
+BuildRequires: rsync
+BuildRequires: make
+BuildRequires: go-md2man
+
+Requires(pre): shadow-utils
+Requires: kubernetes = %{version}-%{release}
+
+# obsoletes kubernetes-master in part
+Provides: kubernetes-master = %{version}-%{release}
+Obsoletes: kubernetes-master <= %{switchver}
+
+%description legacy-systemd
+Legacy systemd services needed for manual installation of Kubernetes
+on control plane or node machines. Not needed for most modern clusters.
+If kubeadm is used to bootstrap Kubernetes then this rpm is not
+needed as kubeadm will install these services as static pods in
+the cluster on nodes as needed. If these services are used, enable
+ all services on each control plane. Enable kube-proxy on all nodes.
+
+##############################################
+##############################################
 %prep
 %setup -q -n %{repo}-%{commit}
 
 %if 0%{?with_debug}
-%patch -P3 -p1
+%patch3 -p1
 %endif
 
 # src/k8s.io/kubernetes/pkg/util/certificates
@@ -170,11 +182,17 @@ mv .go* src/k8s.io/kubernetes/.
 
 %build
 
-# With K*S 1.26.3/1.25.8/1.24.12 upstream now builds with an explicit
+# As of K8S 1.26.3/1.25.8/1.24.12 upstream now builds with an explicit
 # version of go and will try to fetch that version if not present.
 # FORCE_HOTS_GO=y overrides that specification by using the host's
-# version of go. This spec file continues to use built requires to
+# version of go. This spec file continues to use build requires to
 # require as a minimum the 'built with' go version from upstream.
+#
+# Packagers need to ensure that the go version on the build host contains
+# any security patches and other critical fixes that are part of the
+# "built with" version. Go maintainers typically release patch updates
+# for both supported versions of Go that contain the same security
+# updates.
 export FORCE_HOST_GO=y
 
 pushd src/k8s.io/kubernetes/
@@ -304,39 +322,12 @@ fi
 
 ##############################################
 %files
-# empty as it depends on master and node
-
-##############################################
-%files master
 %license LICENSE
 %doc *.md
-%{_mandir}/man1/kube-apiserver.1*
-%{_mandir}/man1/kube-controller-manager.1*
-%{_mandir}/man1/kube-scheduler.1*
-%attr(754, -, kube) %caps(cap_net_bind_service=ep) %{_bindir}/kube-apiserver
-%{_bindir}/kube-controller-manager
-%{_bindir}/kube-scheduler
-%{_unitdir}/kube-apiserver.service
-%{_unitdir}/kube-controller-manager.service
-%{_unitdir}/kube-scheduler.service
-%{_sysusersdir}/%{name}.conf
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/apiserver
-%config(noreplace) %{_sysconfdir}/%{name}/scheduler
-%config(noreplace) %{_sysconfdir}/%{name}/config
-%config(noreplace) %{_sysconfdir}/%{name}/controller-manager
-%{_tmpfilesdir}/kubernetes.conf
-%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{name}
 
-##############################################
-%files node
-%license LICENSE
-%doc *.md
+# kubelet
 %{_mandir}/man1/kubelet.1*
-%{_mandir}/man1/kube-proxy.1*
 %{_bindir}/kubelet
-%{_bindir}/kube-proxy
-%{_unitdir}/kube-proxy.service
 %{_unitdir}/kubelet.service
 %{_sysusersdir}/%{name}.conf
 %dir %{_sharedstatedir}/kubelet
@@ -344,16 +335,13 @@ fi
 %dir %{_sysconfdir}/%{name}/manifests
 %config(noreplace) %{_sysconfdir}/%{name}/config
 %config(noreplace) %{_sysconfdir}/%{name}/kubelet
-%config(noreplace) %{_sysconfdir}/%{name}/proxy
+# % config(noreplace) % {_sysconfdir}/% {name}/proxy
 %config(noreplace) %{_sysconfdir}/%{name}/kubelet.kubeconfig
 %config(noreplace) %{_sysconfdir}/systemd/system.conf.d/kubernetes-accounting.conf
 %{_tmpfilesdir}/kubernetes.conf
 %verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{name}
 
-##############################################
-%files kubeadm
-%license LICENSE
-%doc *.md
+# kubeadm
 %{_mandir}/man1/kubeadm.1*
 %{_mandir}/man1/kubeadm-*
 %{_bindir}/kubeadm
@@ -373,34 +361,61 @@ fi
 
 ##############################################
 
-%pre master
+%files legacy-systemd
+%license LICENSE
+%doc *.md
+%{_mandir}/man1/kube-apiserver.1*
+%{_mandir}/man1/kube-controller-manager.1*
+%{_mandir}/man1/kube-scheduler.1*
+%{_mandir}/man1/kube-proxy.1*
+%attr(754, -, kube) %caps(cap_net_bind_service=ep) %{_bindir}/kube-apiserver
+%{_bindir}/kube-controller-manager
+%{_bindir}/kube-scheduler
+%{_bindir}/kube-proxy
+%{_unitdir}/kube-proxy.service
+%{_unitdir}/kube-apiserver.service
+%{_unitdir}/kube-controller-manager.service
+%{_unitdir}/kube-scheduler.service
+%{_sysusersdir}/%{name}.conf
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/apiserver
+%config(noreplace) %{_sysconfdir}/%{name}/scheduler
+%config(noreplace) %{_sysconfdir}/%{name}/config
+%config(noreplace) %{_sysconfdir}/%{name}/controller-manager
+%config(noreplace) %{_sysconfdir}/%{name}/proxy
+%{_tmpfilesdir}/kubernetes.conf
+%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{name}
+
+##############################################
+
+%pre legacy-systemd
 %sysusers_create_compat %{SOURCE116}
 
-%post master
-%systemd_post kube-apiserver kube-scheduler kube-controller-manager
+%post legacy-systemd
+%systemd_post kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
-%preun master
-%systemd_preun kube-apiserver kube-scheduler kube-controller-manager
+%preun legacy-systemd
+%systemd_preun kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
-%postun master
-%systemd_postun kube-apiserver kube-scheduler kube-controller-manager
+%postun legacy-systemd
+%systemd_postun kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
 
-%pre node
+%pre
 %sysusers_create_compat %{SOURCE116}
 
-%post node
-%systemd_post kubelet kube-proxy
+%post
+%systemd_post kubelet
 # If accounting is not currently enabled systemd reexec
 if [[ `systemctl show kubelet | grep -q -e CPUAccounting=no -e MemoryAccounting=no; echo $?` -eq 0 ]]; then
   systemctl daemon-reexec
 fi
 
-%preun node
-%systemd_preun kubelet kube-proxy
+%preun
+%systemd_preun kubelet
 
-%postun node
-%systemd_postun kubelet kube-proxy
+%postun
+%systemd_postun kubelet
 
 ############################################
 %changelog

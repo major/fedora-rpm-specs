@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-let
 Version:        0.16.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Monadic let-bindings for OCaml
 
 License:        MIT
@@ -71,6 +71,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 0.16.0-9
+- Bump and rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

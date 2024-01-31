@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2.5.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       TWAIN Data Source Manager
 
 License:       LGPLv2+
@@ -93,6 +93,9 @@ popd
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

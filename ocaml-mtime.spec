@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mtime
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Monotonic wall-clock time for OCaml
 
 License:        ISC
@@ -65,6 +65,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 2.0.0-10
+- Bump and rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

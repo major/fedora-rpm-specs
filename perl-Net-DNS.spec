@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.40
-Release:       3%{?dist}
+Version:       1.43
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -18,24 +18,23 @@ BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
 BuildRequires: perl(Config)
+BuildRequires: perl(constant)
 BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires: perl(Getopt::Long)
 # IO::Socket::IP or IO::Socket::INET
 BuildRequires: perl(IO::Socket::IP) >= 0.38
+BuildRequires: perl(strict)
+BuildRequires: perl(warnings)
 # Runtime
 BuildRequires: perl(base)
 BuildRequires: perl(Carp)
-# Config not used
-BuildRequires: perl(constant)
 BuildRequires: perl(Data::Dumper)
 %if ! (0%{?rhel} >= 7)
 # Digest::BubbleBabble is optional
 BuildRequires: perl(Digest::BubbleBabble)
 %endif
-# Digest::GOST is optional and intentionally unavailable
-# Digest::GOST::CryptoPro is optional and intentionally unavailable
 BuildRequires: perl(Digest::HMAC) >= 1.03
-BuildRequires: perl(Digest::MD5) >= 2.13
+BuildRequires: perl(Digest::MD5) >= 2.37
 BuildRequires: perl(Digest::SHA) >= 5.23
 BuildRequires: perl(Encode)
 BuildRequires: perl(Exporter)
@@ -44,28 +43,24 @@ BuildRequires: perl(FileHandle)
 BuildRequires: perl(integer)
 BuildRequires: perl(IO::File)
 # IO::Select is not used
+BuildRequires: perl(IO::Socket) >= 1.30
 # Prefer IO::Socket::IP over IO::Socket::INET for IPv6 support
-BuildRequires: perl(MIME::Base64) >= 2.13
+BuildRequires: perl(MIME::Base64) >= 3.07
 # Prefer Net::LibIDN2 over Net::LibIDN, both are optional
 BuildRequires: perl(Net::LibIDN2) >= 1
 BuildRequires: perl(overload)
 # PerlIO is optional
 # Scalar::Util is optional
-BuildRequires: perl(Socket)
-BuildRequires: perl(strict)
+BuildRequires: perl(Socket) >= 1.81
 BuildRequires: perl(Time::Local)
-BuildRequires: perl(warnings)
 # Win32::IPHelper is not needed
 # Win32::TieRegistry is not needed
 # Tests only
-BuildRequires: perl(File::Find) >= 1.05
+BuildRequires: perl(File::Find) >= 1.13
 BuildRequires: perl(Test::Builder)
 BuildRequires: perl(Test::More)
-# Optional tests:
-BuildRequires: perl(Test::Pod) >= 1.45
 Suggests:      perl(Config)
 Requires:      perl(Data::Dumper)
-# Digest::GOST not available
 Requires:      perl(Digest::HMAC) >= 1.03
 Requires:      perl(Digest::MD5) >= 2.13
 Requires:      perl(Digest::SHA) >= 5.23
@@ -74,12 +69,6 @@ Requires:      perl(Encode)
 Recommends:    perl(IO::Socket::IP) >= 0.38
 Requires:      perl(MIME::Base64) >= 2.13
 # Net::DNS::Extlang not available
-Suggests:      perl(Net::DNS::SEC::DSA)
-# Net::DNS::SEC::ECCGOST not available
-Suggests:      perl(Net::DNS::SEC::ECDSA)
-Suggests:      perl(Net::DNS::SEC::EdDSA)
-Suggests:      perl(Net::DNS::SEC::Private)
-Suggests:      perl(Net::DNS::SEC::RSA)
 # Prefer Net::LibIDN2 over Net::LibIDN, both are optional
 Suggests:      perl(Net::LibIDN2) >= 1
 Suggests:      perl(Scalar::Util) >= 1.25
@@ -193,6 +182,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 29 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.43-1
+- 1.43 bump (rhbz#2251788)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

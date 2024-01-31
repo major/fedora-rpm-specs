@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        4.2.21
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -50,12 +50,8 @@ The BGP swiss army knife of networking (exabgp systemd unit)
 %pyproject_install
 %pyproject_save_files exabgp
 
-# project installs binaries in /usr/bin but systemd unit expects it to be in /usr/sbin
-mkdir -p %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/exabgp %{buildroot}%{_sbindir}/
-
 # Install health check with non-generic name
-install -p -m 0755 bin/healthcheck %{buildroot}%{_sbindir}/exabgp-healthcheck
+install -p -m 0755 bin/healthcheck %{buildroot}%{_bindir}/exabgphealthcheck
 
 # Install exabgpcli
 install -p -m 0755 bin/exabgpcli %{buildroot}%{_bindir}/
@@ -96,7 +92,7 @@ rm -rf %{buildroot}%{_usr}/etc
 %post -n exabgp
 %systemd_post exabgp.service
 # Default env
-[ -f %{_sysconfdir}/exabgp/exabgp.env ] || %{_sbindir}/exabgp --full-ini > %{_sysconfdir}/exabgp/exabgp.env
+[ -f %{_sysconfdir}/exabgp/exabgp.env ] || %{_bindir}/exabgp --full-ini > %{_sysconfdir}/exabgp/exabgp.env
 
 %preun -n exabgp
 %systemd_preun exabgp.service
@@ -112,8 +108,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_bindir}/exabgp-healthcheck
 %{_bindir}/exabgpcli
 %{_bindir}/exabgp-cli
-%{_sbindir}/exabgp
-%{_sbindir}/exabgp-healthcheck
+%{_bindir}/exabgp
+%{_bindir}/exabgp-healthcheck
+%{_bindir}/exabgphealthcheck
 %dir %{_sysconfdir}/exabgp
 %ghost %{_sysconfdir}/exabgp/exabgp.env
 %{_unitdir}/exabgp.service
@@ -124,6 +121,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Mon Jan 29 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-11
+- Adjust for unification of /usr/sbin and /usr/bin
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.21-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

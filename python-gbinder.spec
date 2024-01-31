@@ -2,12 +2,15 @@
 
 Name:           python-gbinder
 Version:        1.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for libgbinder
 
 License:        GPL-3.0-only
 URL:            https://github.com/erfanoabdi/%{proj_name}
 Source:         %{url}/archive/%{version}/%{proj_name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %global libgbinder_version 1.1.20
 BuildRequires:  python3-devel
@@ -44,6 +47,9 @@ sed -i "/^USE_CYTHON =/s/False/True/" setup.py
 %files -n python3-gbinder -f %{pyproject_files}
 
 %changelog
+* Mon Jan 29 2024 Alessandro Astone <ales.astone@gmail.com> - 1.1.2-4
+- Drop i686 support (leaf package)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           sparsehash
 Version:        2.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extremely memory-efficient C++ hash_map implementation
 
 License:        BSD
@@ -53,6 +53,9 @@ make check
 %{_libdir}/pkgconfig/libsparsehash.pc
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

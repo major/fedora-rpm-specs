@@ -1,14 +1,13 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
-Version:       4.5.0
-Release:       5%{?dist}
+Version:       4.6.0
+Release:       2%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
 Source:        http://download.osgeo.org/libtiff/tiff-%{version}.tar.gz
 
 Patch0:        libtiff-am-version.patch
-Patch4:        libtiff-CVE-2023-0804.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
@@ -62,7 +61,6 @@ image files using the libtiff library.
 %autosetup -n tiff-%{version} -N
 
 %patch0 -p1 -b .backup
-%patch4 -p1 -b .backup
 
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
@@ -166,6 +164,12 @@ LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH make check
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 29 2024 Matej Mužila <mmuzila@redhat.com> - 4.6.0-2
+- migrated to SPDX license
+
+* Mon Jan 29 2024 Matej Mužila <mmuzila@redhat.com> - 4.6.0-1
+- New upstream release 4.6.0 (#2153870)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

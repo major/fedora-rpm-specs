@@ -2,7 +2,7 @@
 %global srcname kombu
 # Packaging unstable?
 # %%global prerel b3
-%global general_version 5.3.4
+%global general_version 5.3.5
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-%{srcname}

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Fake Web Apps for HTTP Testing
 
 License:          MIT
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

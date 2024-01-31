@@ -4,7 +4,7 @@ Name:           kf6-%{framework}
 Version:        5.248.0
 Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
-# The following are in the LICENSES folder, but go unused: LGPL-3.0-only, (LGPL-2.1-only OR LGPL-3.0-only)
+# The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License:        CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
 

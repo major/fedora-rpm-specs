@@ -7,7 +7,7 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -27,6 +27,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1: 1797.patch
 
 ## upstreamable patches
+# Use Weston's kiosk shell instead of the deprecated fullscreen-shell
+# https://github.com/sddm/sddm/pull/1860
+Patch2:         0001-Switch-the-Wayland-greeter-default-to-use-Weston-s-K.patch
+
 # Fix the keyboard with layer-shell and Qt6
 # https://github.com/sddm/sddm/pull/1831
 Patch5:         0001-Correctly-integrate-the-greeter-with-layer-shell.patch
@@ -86,7 +90,8 @@ BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6QuickTest)
-BuildRequires:  cmake(LayerShellQt)
+# Require the Qt 6 version of LayerShellQt
+BuildRequires:  cmake(LayerShellQt) >= 5.27.80
 # verify presence to pull defaults from /etc/login.defs
 BuildRequires:  shadow-utils
 BuildRequires:  systemd
@@ -283,6 +288,9 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
 
 %changelog
+* Mon Jan 29 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-9
+- Add patch to make SDDM uses kiosk-shell rather than fullscreen-shell
+
 * Sat Jan 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-8
 - Switch to SPDX license identifiers
 

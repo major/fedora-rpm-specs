@@ -29,7 +29,6 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  hwloc-devel >= 2.0
 %if ! (0%{?rhel} >= 10)
 %ifarch x86_64
-BuildRequires:  infinipath-psm-devel
 # BuildRequires:  json-c-devel
 BuildRequires:  libpsm2-devel
 %endif

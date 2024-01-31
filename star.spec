@@ -3,7 +3,7 @@
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: CDDL-1.0 AND GPL-2.0-only
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -91,7 +91,7 @@ star_recode()
 
 star_recode AN-1.5 AN-1.5.2 star/star.4
 
-for PLAT in %{arm} %{power64} aarch64 %{mips} x86_64 s390 s390x sh3 sh4 sh4a sparcv9; do
+for PLAT in %{arm} %{power64} aarch64 i686 %{mips} x86_64 s390 s390x sh3 sh4 sh4a sparcv9; do
     for AFILE in gcc cc; do
             [ ! -e RULES/${PLAT}-linux-${AFILE}.rul ] \
             && ln -s i586-linux-${AFILE}.rul RULES/${PLAT}-linux-${AFILE}.rul
@@ -202,6 +202,9 @@ fi
 %{_sysconfdir}/rmt
 
 %changelog
+* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 1.6-13
+- Link in build configuration for i686 to use Fedora build flags
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

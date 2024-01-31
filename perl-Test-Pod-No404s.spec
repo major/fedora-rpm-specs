@@ -1,13 +1,16 @@
 Name:           perl-Test-Pod-No404s
 Version:        0.02
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Checks POD for HTTP 404 links
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod-No404s
 Source0:        https://cpan.metacpan.org/authors/id/A/AP/APOCAL/Test-Pod-No404s-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
 # ExtUtils::MakeMaker not needed
 BuildRequires:  perl(Module::Build::Tiny) >= 0.039
 BuildRequires:  perl(strict)
@@ -27,16 +30,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.88
-# Optional tests:
-# Break build-time cycle with perl-Test-Apocalypse
-%if %{undefined perl_bootstrap}
-
-# Disable using of Test::Apocalypse, because it cannot be built with Perl 5.22
-# due to failing perl-Test-Vars
-%if ! 0%(perl -e 'print $] >= 5.022')
-BuildRequires:  perl(Test::Apocalypse) >= 1.000
-%endif
-%endif
 # Inject correct provide, bug #1160263
 Provides:       perl(Test::Pod::No404s) = %{version}
 
@@ -49,26 +42,64 @@ will not return a 404. It uses LWP::UserAgent for the heavy lifting, and
 simply lets you know if it failed to retrieve the document. More specifically,
 it uses $response->is_error as the "test".
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(lib)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Test-Pod-No404s-%{version}
+rm t/apocalypse.t
+perl -i -ne 'print $_ unless m{\At/apocalypse\.t\b}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install "--destdir=$RPM_BUILD_ROOT" --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install "--destdir=%{buildroot}" --create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
-%doc AUTHOR_PLEDGE Changes CommitLog examples LICENSE README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc AUTHOR_PLEDGE Changes CommitLog examples README
+%dir %{perl_vendorlib}/Test
+%dir %{perl_vendorlib}/Test/Pod
+%{perl_vendorlib}/Test/Pod/No404s.pm
+%{_mandir}/man3/Test::Pod::No404s.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 29 2024 Petr Pisar <ppisar@redhat.com> - 0.02-37
+- Remove an optional test with Test::Apocalypse (bug #2260493)
+- Package the tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

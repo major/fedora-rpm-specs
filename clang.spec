@@ -55,7 +55,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -93,6 +93,7 @@ Patch5:     0001-Workaround-a-bug-in-ORC-on-ppc64le.patch
 Patch6:     cfg.patch
 Patch7:     tsa.patch
 Patch8:     0001-Clang-Fix-build-with-GCC-14-on-ARM.patch
+Patch9:     0001-Clang-Defer-the-instantiation-of-explicit-specifier-.patch
 
 
 # RHEL specific patches
@@ -623,6 +624,10 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} %{__ninja} check-all -C %{__cmake_buildd
 
 %endif
 %changelog
+* Fri Jan 26 2024 Kefu Chai <kefu.chai@scylladb.com> - 17.0.6-6
+- Fix the too-early instantiation of conditional "explict" by applying the patch
+  of https://github.com/llvm/llvm-project/commit/128b3b61fe6768c724975fd1df2be0abec848cf6
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

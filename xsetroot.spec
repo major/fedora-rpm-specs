@@ -1,6 +1,6 @@
 Name:       xsetroot
 Version:    1.1.2
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Root window parameter setting utility for X
 
 License:    MIT-open-group
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           SAASound
 Version:        3.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Phillips SAA 1099 sound chip emulator library
 License:        BSD
 URL:            http://simonowen.com/sam/saasound
@@ -55,6 +55,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

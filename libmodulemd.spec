@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -37,6 +37,9 @@ Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
+# Fix building with glib2-doc 2.79.0, in upstream after 2.15.0
+Patch0:         modulemd-2.15.0-build-Move-computing-gtk-doc-module-paths-to-the-che.patch
+Patch1:         modulemd-2.15.0-doc-Adapt-GLib-documentation-path-to-GLib-2.79.0.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.47
@@ -181,6 +184,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Mon Jan 29 2024 Petr Pisar <ppisar@redhat.com> - 2.15.0-8
+- Fix building with glib2-doc 2.79.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

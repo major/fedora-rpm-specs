@@ -10,15 +10,15 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    173c60d1eff911c9c54322704623a45561d3241d
+%global gh_commit    a92472c6fb66349de25211f31c77eceae3df024e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-01-16
+%global gh_date      2024-01-19
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.47.1
-Release:        3%{?dist}
+Version:        3.48.0
+Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
 # see bundled list below, SPDX
@@ -148,6 +148,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Jan 22 2024 Remi Collet <remi@remirepo.net> - 3.48.0-1
+- update to 3.48.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

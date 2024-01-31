@@ -2,14 +2,14 @@
 
 %global glib2_version 2.79.0
 %global gnome_autoar_version 0.4.4
-%global gtk4_version 4.11.2
+%global gtk4_version 4.12.0
 %global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        46~alpha.0
-Release:        2%{?dist}
+Version:        46~alpha.1
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
@@ -103,7 +103,7 @@ sed -i '/-Werror/d' meson.build
 %find_lang %{name}
 
 %check
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.Nautilus.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.Nautilus.metainfo.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %files  -f %{name}.lang
@@ -127,7 +127,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/tracker3/domain-ontologies/org.gnome.Nautilus.domain.rule
 %{_libdir}/nautilus/extensions-4/libnautilus-image-properties.so
 %{_libdir}/nautilus/extensions-4/libtotem-properties-page.so
-%{_metainfodir}/org.gnome.Nautilus.appdata.xml
+%{_metainfodir}/org.gnome.Nautilus.metainfo.xml
 
 %files extensions
 %license libnautilus-extension/LICENSE
@@ -144,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Mon Jan 29 2024 David King <amigadave@amigadave.com> - 46~alpha.1-1
+- Update to 46.alpha.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,6 +12,7 @@ Source0:        %pypi_source
 BuildArch:      noarch
 
 Patch:          https://github.com/boutproject/boutdata/pull/89.patch
+Patch:          https://github.com/boutproject/boutdata/pull/101/commits/2c4500ed56199a55e098d84c399c5a6b3f27544e.patch#./no-gc.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

@@ -1,8 +1,8 @@
 %bcond tests %{undefined rhel}
 
 Name:           ansible-collection-community-crypto
-Version:        2.15.0
-Release:        3%{?dist}
+Version:        2.17.1
+Release:        1%{?dist}
 Summary:        The community.crypto collection for Ansible
 
 # See the LICENSES directory and the summary in the README
@@ -55,6 +55,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Sun Jan 28 2024 Maxwell G <maxwell@gtmx.me> - 2.17.1-1
+- Update to 2.17.1. Fixes rhbz#2234040.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

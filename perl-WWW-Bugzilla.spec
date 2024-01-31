@@ -6,7 +6,7 @@
 
 Name:           perl-WWW-Bugzilla
 Version:        1.5
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Handles submission/update of bugzilla bugs via WWW::Mechanize
 
 License:        GPL+ or Artistic
@@ -60,6 +60,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

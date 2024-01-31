@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005-2023, Ralf Corsepius, Ulm, Germany.
+# Copyright (c) 2005-2024, Ralf Corsepius, Ulm, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -41,7 +41,7 @@ Requires: mod_fcgid
 
 %global RT_BINDIR		%{_bindir}
 %global RT_SBINDIR		%{_sbindir}
-%global RT_FONTSDIR		%{_datadir}/%{name}/fonts
+%global RT_FONTSDIR		/usr/share/fonts/google-droid-sans-fonts
 %global RT_LIBDIR		%{perl_vendorlib}
 %global RT_WWWDIR		%{_datadir}/%{name}/html
 %global RT_LEXDIR		%{_datadir}/%{name}/po
@@ -52,7 +52,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.5
-Release:	4%{?dist}
+Release:	6%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -78,6 +78,8 @@ Patch6: 0006-Add-fcgid.patch
 Patch7: 0007-Apply-RT-StaticPath-to-pickup-scripts.patch
 # Misc. dirty hacks to let testsuite pickup files from installed testsuite tree
 Patch8: 0008-Fedora-testsuite-hacks.patch
+
+Patch9: 0009-Don-t-install-fonts.patch
 
 BuildArch:	noarch
 
@@ -207,6 +209,9 @@ BuildRequires: perl(Pod::Usage)
 BuildRequires: perl(Pod::Select)
 %endif
 BuildRequires: perl(Plack) >= 1.0002
+%if "%{web_handler}" == "fcgid"
+BuildRequires: perl(Plack::Handler::FCGI)
+%endif
 BuildRequires: perl(Plack::Handler::Starlet)
 %{?with_devel_mode:BuildRequires: perl(Plack::Middleware::Test::StashWarnings) >= 0.06}
 BuildRequires: perl(Regexp::Common)
@@ -264,11 +269,10 @@ BuildRequires:	/usr/bin/pod2man
 BuildRequires:	/usr/sbin/apachectl
 
 # the original sources carry bundled versions of these ...
-Requires:  /usr/share/fonts/google-droid-sans-fonts/DroidSansFallbackFull.ttf
-Requires:  /usr/share/fonts/google-droid-sans-fonts/DroidSans.ttf
-# ... we use symlinks to the system-wide versions ...
-BuildRequires:  /usr/share/fonts/google-droid-sans-fonts/DroidSansFallbackFull.ttf
-BuildRequires:  /usr/share/fonts/google-droid-sans-fonts/DroidSans.ttf
+Requires:      font(droidsans)
+Requires:      font(droidsansfallback)
+BuildRequires: font(droidsans)
+BuildRequires: font(droidsansfallback)
 
 Requires:	%{_sysconfdir}/httpd/conf.d
 
@@ -300,6 +304,9 @@ Requires: perl(Module::Versions::Report)
 Requires: perl(Net::IP)
 Requires: perl(PerlIO::eol)
 Requires: perl(Plack::Middleware::Test::StashWarnings) >= 0.06
+%if "%{web_handler}" == "fcgid"
+Requires: perl(Plack::Handler::FCGI)
+%endif
 Requires: perl(Plack::Handler::Starlet)
 Requires: perl(Text::Quoted)
 Requires: perl(Text::WordDiff)
@@ -419,6 +426,7 @@ while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm "$b"; done
 %patch -P 6 -p1
 %patch -P 7 -p1
 %patch -P 8 -p1
+%patch -P 9 -p1
 
 sed -i -e '/Date::Manip/d' etc/cpanfile
 sed -i -e '/Date::Extract/d' etc/cpanfile
@@ -559,10 +567,6 @@ install -m 644 rt.logrotate ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/%{name}
 # Symlink, %%{_sysconfdir}/%%{name}/upgrade is hard-coded at various places
 ln -s %{_datadir}/%{name}/upgrade ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/upgrade
 
-install -d -m755 ${RPM_BUILD_ROOT}%{RT_FONTSDIR}
-ln -s /usr/share/fonts/google-droid-sans-fonts/DroidSans.ttf ${RPM_BUILD_ROOT}%{RT_FONTSDIR}/DroidSans.ttf
-ln -s /usr/share/fonts/google-droid-sans-fonts/DroidSansFallbackFull.ttf ${RPM_BUILD_ROOT}%{RT_FONTSDIR}/DroidSansFallback.ttf
-
 install -d -m755 ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 cp -R t ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 
@@ -642,7 +646,6 @@ fi
 %dir %{_datadir}/%{name}
 %{RT_WWWDIR}
 %{RT_LEXDIR}
-%{RT_FONTSDIR}
 %{RT_STATICDIR}
 
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
@@ -672,6 +675,15 @@ fi
 %endif
 
 %changelog
+* Mon Jan 29 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.5-6
+- Add BR:/R: perl(Plack::Handler::FCGI).
+- Add BR: font(droidsans), font(droidsansfallback).
+- Update rt.conf.fcgid.in.
+- Update copyright notice.
+
+* Mon Jan 29 2024 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.0.5-5
+- Depend on and use Droid Sans fonts from distro packages.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -18,6 +18,7 @@ Patch0:         %{name}-build.patch
 Patch1:         %{name}-2.07-rc3-ldflags.patch
 Patch2:         %{name}-2.09-pkgconfig.patch
 Patch3:         %{name}-2.12-install.patch
+Patch4:         %{name}-2.17-incompatible-pointer.patch
 
 BuildRequires:  httpd-devel >= 2.0.48
 BuildRequires:  libtool
@@ -90,10 +91,11 @@ chmod +x %{__perl_provides}
   "s|<path>.*?</path>|<path>%{_docdir}/apr-util-devel/html/</path>|" \
   docs/apu.tag
 
-%patch0
-%patch1
-%patch2
-%patch3 -p1
+%patch -P 0
+%patch -P 1
+%patch -P 2
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 cp %{SOURCE2} .
 

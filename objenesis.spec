@@ -33,7 +33,7 @@
 Summary:        A library for instantiating Java objects
 Name:           objenesis
 Version:        3.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        Apache-2.0
 URL:            http://objenesis.org/
 BuildArch:      noarch
@@ -110,6 +110,9 @@ rm tck/src/test/java/org/objenesis/tck/OsgiTest.java
 %doc LICENSE.txt
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

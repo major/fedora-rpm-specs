@@ -2,8 +2,8 @@ Summary:        An enterprise-level RPC system
 Name:           srpc
 License:        Apache-2.0
 
-Version:        0.10.0
-Release:        3%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 
 URL:            https://github.com/sogou/srpc
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -68,6 +68,9 @@ make check
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Mon Jan 29 2024 Bensob Muite <benson_muite@emailplus.org> - 0.10.1-1
+- Upgrade to release 0.10.1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

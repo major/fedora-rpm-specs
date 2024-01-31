@@ -1,7 +1,7 @@
 Summary: Password manager with GTK3 GUI
 Name: fpm2
 Version: 0.90
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2+
 Source: http://als.regnet.cz/%{name}/download/%{name}-%{version}.tar.xz
 URL: http://als.regnet.cz/fpm2/
@@ -54,6 +54,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/*/apps/fpm2.png
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 24%{?dist}
+Release: 25%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -654,6 +654,12 @@ Patch410: 00410-bpo-42598-fix-implicit-function-declarations-in-configure.patch
 # parameter to getaddresses() and parseaddr() functions. Patch by
 # Thomas Dwyer.
 Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
+
+# 00419 # f13682530cc7e4daec2e40acd56508846fdd3aad
+# gh-112769: test_zlib: Fix comparison of ZLIB_RUNTIME_VERSION with non-int suffix (GH-112771) (GH-112774)
+#
+# zlib-ng defines the version as "1.3.0.zlib-ng".
+Patch419: 00419-gh-112769-test_zlib-fix-comparison-of-zlib_runtime_version-with-non-int-suffix-gh-112771-gh-112774.patch
 
 # (New patches go here ^^^)
 #
@@ -1912,6 +1918,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Jan 29 2024 Karolina Surma <ksurma@redhat.com> - 3.6.15-25
+- Fix test_zlib when building with zlib-ng-compat
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

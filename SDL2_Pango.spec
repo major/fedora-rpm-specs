@@ -46,7 +46,7 @@ make install DESTDIR=%{buildroot}
 %files
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
-%{_libdir}/*.so.*
+%{_libdir}/*.so.4*
 
 %files devel
 %doc docs/html/*

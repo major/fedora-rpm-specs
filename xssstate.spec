@@ -1,6 +1,6 @@
 Name:          xssstate
 Version:       1.1
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       A simple tool to retrieve the X screen saver state
 License:       MIT
 URL:           http://tools.suckless.org/%{name}
@@ -35,6 +35,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

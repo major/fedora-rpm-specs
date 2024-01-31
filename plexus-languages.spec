@@ -2,7 +2,7 @@
 
 Name:           plexus-languages
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plexus Languages
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-languages
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

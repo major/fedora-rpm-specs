@@ -1,6 +1,6 @@
-Version:        0.31.0
+Version:        0.32.0
 Name:           lfortran
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -8,7 +8,7 @@ Summary:        A modern Fortran compiler
 # License with LLVM exception
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
-Source0:        https://lfortran.github.io/tarballs/release/lfortran-%{version}.tar.gz
+Source:         https://lfortran.github.io/tarballs/release/lfortran-%{version}.tar.gz
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 
@@ -163,6 +163,9 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Mon Jan 29 2024 Benson Muite <benson_muite@emailplus.org> - 0.32.0-1
+- Version bump to v0.32.0 (bug #2260659)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

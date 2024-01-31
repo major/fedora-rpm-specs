@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        0.89.0
-Release:        2%{?dist}
+Version:        0.90.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -77,6 +77,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Jan 28 2024 Packit <hello@packit.dev> - 0.90.0-1
+- `pull-from-upstream` and `propose-downstream` commands now have the `--sync-acls` option that enables syncing the ACLs between dits-git repo and fork. The default behaviour was, however, changed to not sync the ACLs. (#2214)
+- Packit now properly handles exceptions when syncing ACLs during release syncing. (#2213)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.89.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

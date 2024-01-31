@@ -10,6 +10,7 @@ Summary:        Backend implementation for xdg-desktop-portal using GNOME
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Patch0: xdg-desktop-portal-gnome-c89.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -27,6 +28,11 @@ Requires:       dbus
 Requires:       dbus-common
 Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 Supplements:    gnome-shell
+
+# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
+%if 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 A backend implementation for xdg-desktop-portal that is using various pieces of

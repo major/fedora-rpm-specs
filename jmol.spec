@@ -1,6 +1,6 @@
 Name:           jmol
-Version:        16.1.45
-Release:        3%{?dist}
+Version:        16.1.51
+Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
 # JSpecView, JMol, and Sparsh-UI are all LGPL-2.1-or-later.
@@ -18,16 +18,14 @@ Source0:        http://downloads.sourceforge.net/%{name}/Jmol-%{version}-full.ta
 Source1:        http://biomodel.uah.es/Jmol/logos/Jmol_icon13.svg
 Source2:        org.jmol.jmol.desktop
 Source3:        org.jmol.jmol.metainfo.xml
+# The ant build file, of all things, was omitted from the 16.1.51 release
+Source4:        https://sourceforge.net/p/jmol/code/22589/tree/trunk/Jmol/build-4-Jmol.jar-and-release.xml
 # Fedora-specific patch to the ant build rules
 Patch0:         %{name}-build.patch
-# Use xsltproc instead of saxon
-Patch1:         %{name}-xslt.patch
 # Fix code that is invalid with JDK 9+
-Patch2:         %{name}-java9.patch
-# Fix javadoc errors
-Patch3:         %{name}-javadoc.patch
+Patch1:         %{name}-java9.patch
 # Avoid deprecated interfaces
-Patch4:         %{name}-deprecated.patch
+Patch2:         %{name}-deprecated.patch
 
 BuildRequires:  ant
 BuildRequires:  ant-contrib
@@ -35,14 +33,11 @@ BuildRequires:  ant-junit
 BuildRequires:  apache-commons-cli
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
-BuildRequires:  docbook-dtds
-BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  java-devel
 BuildRequires:  javapackages-tools
 BuildRequires:  jni-inchi
 BuildRequires:  junit
-BuildRequires:  libxslt
 BuildRequires:  naga
 BuildRequires:  web-assets-devel
 
@@ -64,6 +59,12 @@ Provides:       bundled(sparshui)
 
 # Icons from Nuvola are included, but at different sizes than Fedora provides
 Provides:       bundled(nuvola-icon-theme)
+
+# This can be removed when F43 reaches EOL
+Obsoletes:      %{name}-doc < 16.1.51
+Obsoletes:      %{name}-javadoc < 16.1.51
+Provides:       %{name}-doc = %{version}-%{release}
+Provides:       %{name}-javadoc = %{version}-%{release}
 
 %description
 Jmol is a free, open source molecule viewer for students, educators,
@@ -97,32 +98,20 @@ JSmol is integrated fully with JSME and JSpecView.
 A "lite" version of JSmol provides minimal functionality
 (balls and sticks only) for extremely small-bandwidth apps.
 
-%package javadoc
-Summary:        Java docs for %{name}
-Requires:       javapackages-tools
-
-%description javadoc
-This package contains the API documentation for %{name}.
-
-%package doc
-Summary:     Documentation for %{name}
-
-%description doc
-The documentation for %{name}.
-
 %prep
-%autosetup -p0
+%autosetup -N
+cp -p %{SOURCE4} build.xml
+%autopatch -p0
 
 # Remove binaries
 find . \( -name \*.exe -o -name \*.jar -o -name \*.dll \) -delete
-rm doc/*.zip
 
 # Link the system jars
 build-jar-repository -p -s jars commons-cli junit naga-3_0
 ln -s %{_jnidir}/jni-inchi/jni-inchi.jar jars
 
 # Fix EOL encoding
-for doc in COPYRIGHT.txt LICENSE.txt README.txt; do
+for doc in COPYRIGHT.txt LICENSE.txt; do
   sed -i.orig "s|\r||g" $doc
   touch -r $doc.orig $doc
   rm $doc.orig
@@ -136,7 +125,7 @@ mv CHANGES.txt.utf8 CHANGES.txt
 %build
 export ANT_OPTS="-Dfile.encoding=utf-8"
 export JAVAC=%{_bindir}/javac
-ant jar doc
+ant jar
 
 %install
 # Install the JARs
@@ -160,10 +149,6 @@ cp -p %{SOURCE3} %{buildroot}%{_metainfodir}
 appstreamcli validate --no-net \
   %{buildroot}%{_metainfodir}/org.jmol.jmol.metainfo.xml
 
-# Javadoc files
-mkdir -p %{buildroot}%{_javadocdir}
-cp -a build/doc %{buildroot}%{_javadocdir}/%{name}
-
 # Install the parts of jsmol needed by sagemath
 mkdir -p %{buildroot}%{_jsdir}/jsmol
 cd appletweb
@@ -172,11 +157,11 @@ cd jsmol
 sed -i.orig "s|\r||g" README.TXT
 touch -r README.TXT.orig README.TXT
 cp -p JSmol*js %{buildroot}%{_jsdir}/jsmol
-cp -a idioma j2s %{buildroot}%{_jsdir}/jsmol
+cp -a j2s js %{buildroot}%{_jsdir}/jsmol
 cd ../..
 
 %files
-%doc README.txt ChangeLog.html CHANGES.txt
+%doc CHANGES.txt
 %license COPYRIGHT.txt LICENSE.txt
 %{_bindir}/%{name}
 %{_javadir}/%{name}/
@@ -189,27 +174,12 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 %{_jsdir}/jsmol/
 
-%files javadoc
-%license COPYRIGHT.txt LICENSE.txt
-%{_javadocdir}/%{name}/
-
-%files doc
-%doc %lang(en) build/doc/JmolAppletGuide.html
-%doc %lang(en) build/doc/JmolDevelopersGuide.html
-%doc %lang(en) build/doc/JmolHistory/ChangeLog.html
-%doc %lang(en) build/doc/JmolUserGuide/
-%doc %lang(de) build/doc/JmolAppletGuide_de.html
-%doc %lang(de) build/doc/JmolDevelopersGuide_de.html
-%doc %lang(de) build/doc/JmolUserGuide_de/
-%doc %lang(fr) build/doc/JmolAppletGuide_fr.html
-%doc %lang(fr) build/doc/JmolDevelopersGuide_fr.html
-%doc %lang(fr) build/doc/JmolHistory/ChangeLog_fr.html
-%doc %lang(fr) build/doc/JmolUserGuide_fr/
-%doc %lang(nl) build/doc/JmolHistory/ChangeLog_nl.html
-%doc %lang(ro) build/doc/JmolHistory/ChangeLog_ro.html
-%license COPYRIGHT.txt LICENSE.txt
-
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 16.1.51-1
+- Version 16.1.51
+- Drop unneeded xslt and javadoc patches
+- Drop the doc and javadoc packages; sources are no longer provided
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.1.45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.7.0
-Release:        4%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Tue Jan 30 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.1-1
+- Update to 0.7.1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

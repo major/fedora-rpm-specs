@@ -16,10 +16,10 @@
 
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        FTP transport adapter for python-requests
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/Lukasa/requests-ftp
 Source0:        https://pypi.python.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
 
@@ -116,6 +116,9 @@ rm -rf requests_ftp.egg-info
 %endif
 
 %changelog
+* Mon Jan 29 2024 David Shea <reallylongword@gmail.com> - 0.3.1-33
+- Migrate to SPDX license
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-league-mime-type-detection
 #
-# Copyright (c) 2020-2023 Remi Collet
+# Copyright (c) 2020-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    b6a5854368533df0295c5761a0253656a2e52d9e
+%global gh_commit    ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   mime-type-detection
@@ -19,8 +19,8 @@
 %global ns_project   MimeTypeDetection
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.14.0
-Release:        3%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        Mime-type detection for Flysystem
 
 License:        MIT
@@ -96,7 +96,7 @@ sed -e 's/PHPStan\\Testing\\TestCase/PHPUnit\\Framework\\TestCase/' -i src/Overr
 : Run upstream test suite
 # the_generated_map_should_be_up_to_date is online
 ret=0
-for cmdarg in "php %{phpunit}" "php80 %{_bindir}/phpunit9" php81 php82 php83; do
+for cmdarg in "php %{phpunit}" php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit10} \
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 1.15.0-1
+- update to 1.15.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

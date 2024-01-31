@@ -1,6 +1,6 @@
 Name:			Rex
 Version:		1.14.3
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		The friendly automation framework on basis of Perl
 
 License:		ASL 2.0
@@ -154,6 +154,9 @@ sed -i "s|/usr/bin/env perl|/usr/bin/perl|" $RPM_BUILD_ROOT/%{_bindir}/rex
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

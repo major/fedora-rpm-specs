@@ -1,6 +1,6 @@
 Name:		3Depict
 Version:	0.0.22
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Valued 3D point cloud visualization and analysis
 
 
@@ -130,6 +130,9 @@ mv docs/manual-latex/manual.pdf %{name}-%{version}-manual.pdf
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

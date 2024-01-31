@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-fmt
 Version:        0.9.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        OCaml Format pretty-printer combinators
 
 License:        ISC
@@ -73,6 +73,9 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 0.9.0-15
+- Bump and rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

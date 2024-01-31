@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-nose2
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        The successor to nose, based on unittest2
 
@@ -25,26 +25,6 @@ Source1:        nose2.1
 # deprecated PyPI “mock” package (which is not actually needed for the tests on
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
-# Fix verbose reporting of skipped tests
-#
-# On 3.12.1+, unittest doesn't call `startTest` for skipped tests. This
-# is treated as a fix to how tests are counted, which is why it appeared
-# in a point release.
-#
-# Because the nose2 path for test reporting uses the test result methods
-# as the point of connection between `unittest` and nose2 plugins,
-# losing the `startTest` call in this case means that the reporter
-# plugin doesn't emit proper output.
-#
-# The test result object now tracks whether or not a test has been
-# started, and the reporter will check this attribute to ensure that the
-# skipped test output is correct.
-#
-#   Fixes:
-#
-# Python 3.13: test_skip_reason_in_message fails
-# https://github.com/nose-devs/nose2/issues/588
-Patch:          %{forgeurl}/commit/58cbe5ff35e2cc0633e7ff7c46d48a66d597a025.patch
 
 BuildArch:      noarch
 
@@ -124,6 +104,15 @@ PYTHONPATH="${PWD}" %make_build -C docs latex \
 %install
 %pyproject_install
 %pyproject_save_files -l nose2
+
+# Don’t install the tests; we are not sure how to fix this *successfully* in
+# pyproject.toml, even after reading
+# https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html#setuptools-specific-configuration,
+# so we haven’t suggested any change upstream. Still, the tests are large and
+# unlikely to be useful to package users.
+rm -rvf '%{buildroot}%{python3_sitelib}/nose2/tests/'
+sed -r -i '/\/nose2\/tests(\/|$)/d' %{pyproject_files}
+
 hardlink -v '%{buildroot}%{_bindir}'
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 

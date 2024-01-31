@@ -2,7 +2,7 @@
 
 Name:             3proxy
 Version:          0.8.13
-Release:          13%{?dist}
+Release:          14%{?dist}
 
 Summary:          Tiny but very powerful proxy
 Summary(ru):      Маленький, но крайне мощный прокси-сервер
@@ -100,6 +100,9 @@ done
 %{_unitdir}/%{name}.service
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

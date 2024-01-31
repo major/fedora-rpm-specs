@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           picom
-Version:        11
+Version:        11.1
 Release:        %autorelease
 Summary:        Lightweight compositor for X11
 

@@ -9,6 +9,13 @@
 # The code is not safe to build with LTO
 %global _lto_cflags %{nil}
 
+%ifarch %{ix86}
+# On i686, there is a confusion whether Fortran INTEGER should be
+# translated as int or long.
+# <https://github.com/scipy/scipy/issues/19993>
+%global build_type_safety_c 2
+%endif
+
 # Set to pre-release version suffix if building pre-release, else %%{nil}
 %global rcver %{nil}
 
@@ -23,7 +30,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.11.3
-Release:    4%{?dist}
+Release:    5%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -306,6 +313,9 @@ popd
 %endif
 
 %changelog
+* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 1.11.3-5
+- Disable incompatible-pointer-types errors on i686 (#2258823)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

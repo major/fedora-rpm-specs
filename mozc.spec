@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -58,6 +58,9 @@ Patch4:		mozc-build-gcc-common.patch
 Patch5:		mozc-use-system-abseil-cpp.patch
 Patch6:		mozc-build-gyp.patch
 Patch7:		mozc-build-new-abseil.patch
+# Add #include directives for compatibility with abseil-cpp-20240116.
+# Downstream-only because these are fixed upstream in a later release.
+Patch8:         mozc-abseil-cpp-20240116-includes.patch
 
 BuildRequires:	python gettext
 BuildRequires:	libstdc++-devel zlib-devel libxcb-devel protobuf-devel protobuf-c glib2-devel gtk2-devel
@@ -250,6 +253,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 25 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-7
+- Don’t link the top-level absl_flags library; it is not required in
+  absl-cpp-20230802, and not present in absl-cpp-20240116
+- Add #include directives for compatibility with absl-cpp-20240116
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.5111.102-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

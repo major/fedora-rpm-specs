@@ -12,7 +12,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -20,6 +20,7 @@ License:	MIT
 URL:		http://perfmon2.sourceforge.net/
 Source0:	http://sourceforge.net/projects/perfmon2/files/libpfm4/%{name}-%{version}.tar.gz
 Patch2:		libpfm-python3-setup.patch
+Patch3:		libpfm-gcc14.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -73,7 +74,8 @@ Python bindings for libpfm4 and perf_event_open system call.
 
 %prep
 %setup -q
-%patch2 -p1 -b .python3
+%patch -P2 -p1 -b .python3
+%patch -P3 -p1 -b .gcc14
 # to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
 # see https://github.com/pypa/setuptools/issues/3143
 # and https://github.com/pypa/pip/issues/11501
@@ -133,6 +135,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Mon Jan 29 2024 William Cohen <wcohen@redhat.com> - 4.13.0-8
+- Fix gcc-14 -Werror=calloc-transposed-args compatibility
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

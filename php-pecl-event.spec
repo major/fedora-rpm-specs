@@ -15,7 +15,7 @@
 %global with_zts    0%{?__ztsphp:1}
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 3.1.2
+%global upstream_version 3.1.3
 #global upstream_prever  RC3
 #global upstream_postver r1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -190,6 +190,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 3.1.3-1
+- update to 3.1.3
+
 * Wed Jan 24 2024 Remi Collet <remi@remirepo.net> - 3.1.2-1
 - update to 3.1.2
 

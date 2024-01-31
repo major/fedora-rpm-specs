@@ -1,7 +1,7 @@
 Summary: Advanced Power Management (APM) BIOS utilities for laptops
 Name: apmd
 Version: 3.2.2
-Release: 44%{?dist}
+Release: 45%{?dist}
 Source: ftp://ftp.debian.org/debian/pool/main/a/apmd/%{name}_%{version}.orig.tar.gz
 Source2: apmscript
 Source3: apmd.conf
@@ -91,6 +91,9 @@ install -D -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/apmd.service
 %{_unitdir}/apmd.service
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.2-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.2.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

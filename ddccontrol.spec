@@ -12,8 +12,8 @@
 
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          0.6.1
-Release:          4%{?dist}
+Version:          1.0.1
+Release:          1%{?dist}
 License:          GPLv2+
 BuildRequires:    gtk2-devel
 BuildRequires:    pkgconfig
@@ -40,6 +40,8 @@ Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
 Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/ddccontrol/ddccontrol/pull/169
+Patch0:           ddccontrol-1.0.1-gcc-14-fix.patch
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
 
@@ -157,6 +159,10 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 29 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.1-1
+- New version
+  Resolves: rhbz#2260784
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

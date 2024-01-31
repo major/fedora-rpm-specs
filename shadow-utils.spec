@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -119,6 +119,7 @@ autoreconf
         --without-libbsd \
         --without-libcrack \
         --without-libpam \
+        --without-sssd \
         --enable-shared \
         --with-group-name-max-length=32 \
         --enable-lastlog \
@@ -263,6 +264,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Mon Jan 29 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-4
+- Disable SSSD support. Resolves: #2253182
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

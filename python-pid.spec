@@ -26,10 +26,10 @@ PidFile can also be used as a context manager or a decorator.}
 
 Name:           python-%{srcname}
 Version:        2.2.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        PID file management library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/trbs/pid
 Source0:        %pypi_source
 
@@ -118,6 +118,9 @@ PYTHONPATH=%{buildroot}%{python2_sitelib} nosetests-%{python2_version} --verbose
 %endif
 
 %changelog
+* Mon Jan 29 2024 David Shea <reallylongword@gmail.com> - 2.2.3-21
+- Migrate to SPDX license identifier
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

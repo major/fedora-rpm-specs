@@ -1,5 +1,5 @@
 Name:           janet
-Version:        1.32.1
+Version:        1.33.0
 Release:        %autorelease
 Summary:        A dynamic language and bytecode vm
 

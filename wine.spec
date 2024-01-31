@@ -40,14 +40,14 @@
 %endif
 
 Name:           wine
-Version:        9.0
-Release:        3%{?dist}
+Version:        9.1
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/9.0/wine-%{version}.tar.xz
-Source10:       https://dl.winehq.org/wine/source/9.0/wine-%{version}.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/9.x/wine-%{version}.tar.xz
+Source10:       https://dl.winehq.org/wine/source/9.x/wine-%{version}.tar.xz.sign
 
 Source1:        wine.systemd
 Source2:        wine-README-Fedora
@@ -2819,6 +2819,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 29 2024 Michael Cronenworth <mike@cchtml.com> - 9.1-1
+- version update
+
 * Thu Jan 25 2024 Michael Cronenworth <mike@cchtml.com> - 9.0-3
 - Revert smartcard subpackage (RHBZ#2259936)
 

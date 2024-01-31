@@ -12,8 +12,8 @@
 %global soversion 1
 
 Name:           mopac
-Version:        22.1.0
-Release:        3%{?dist}
+Version:        22.1.1
+Release:        1%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        LGPLv3+
 URL:            http://openmopac.net
@@ -82,6 +82,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/libmopac.so
 
 %changelog
+* Mon Jan 29 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.1.1-1
+- Update to 22.1.1.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 22.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           snapraid
 Summary:        Disk array backup for many large rarely-changed files
-Version:        12.2
-Release:        2%{?dist}
+Version:        12.3
+Release:        1%{?dist}
 # snapraid itself is GPL-3.0-or-later but uses other source codes, breakdown:
 # Apache-2.0 AND GPL-3.0-or-later: cmdline/metro.c
 # BSD-2-Clause: tommyds/*
@@ -42,6 +42,9 @@ make check
 %{_mandir}/man1/snapraid.1*
 
 %changelog
+* Mon Jan 29 2024 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 12.3-1
+- Update to 12.3
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

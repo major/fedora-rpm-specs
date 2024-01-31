@@ -18,13 +18,11 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.13.2
-Release:       5%{?dist}
+Version:       0.13.3
+Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{sources}.tgz
-
-Patch0:        %{pecl_name}-build.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -62,8 +60,6 @@ sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 sed -e '\:"zstd/:d' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-
 # Use the system library
 rm -r zstd
 
@@ -202,6 +198,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 0.13.2-1
+- update to 0.13.3
+- drop patch merged upstream
+
 * Sat Jan 27 2024 Remi Collet <remi@remirepo.net> - 0.13.2-5
 - add patch for GCC 14
 

@@ -48,6 +48,8 @@ Patch5:         webkit-offlineasm-warnings-ruby27.patch
 Patch6:         qtwebkit_icu-success.patch
 # Fix gcc13 build
 Patch7:         qtwebkit_gcc13.patch
+# Fix build against recent libxml2
+Patch8:         qtwebkit_libxml.patch
 
 BuildArch:      noarch
 

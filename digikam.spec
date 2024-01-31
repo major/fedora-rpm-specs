@@ -32,6 +32,7 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
+Patch1:  https://invent.kde.org/graphics/digikam/-/commit/82c627923a8b85cbb1e97306337fd6f1d85e4c3d.patch
 
 ## upstreamable patches
 

@@ -14,6 +14,8 @@ Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive
 
 Patch0:         94da59daeb4647faa9b134665ad156f37cfa021d.patch
 
+ExcludeArch:    i686
+
 # OIIO is only built for these arches due to Libraw
 %if 0%{?rhel} >= 8 && 0%{?rhel} < 9
 ExclusiveArch:  x86_64 ppc64le

@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        110.git.%{git_revision}%{?dist}
+Release:        111.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPL-3.0-or-later
@@ -39,11 +39,11 @@ Patch4:         mail-notification-eds3_23_2.patch
 Patch5:		mail-notification-gstreamer1.patch
 
 Patch6:		mail-notification-jb-c99.patch
-Patch7:		0001-incompatible-pointer-types.patch
-Patch8:		0002-maybe-uninitialized.patch
-Patch9:		0003-libxml2.patch
+Patch7:		mail-notification-incompatible-pointer-types.patch
+Patch8:		mail-notification-maybe-uninitialized.patch
+Patch9:		mail-notification-libxml2.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils, scrollkeeper
@@ -229,6 +229,10 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jan 30 2024 Dmitry Butskoy <Dmitry@Butskoy.name> - 5.4-111.git.9ae8768
+- fix incompatible-pointer-types patch (#2261363)
+- rename patches properly
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-110.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

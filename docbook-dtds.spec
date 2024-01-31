@@ -5,11 +5,11 @@
 
 Name: docbook-dtds
 Version: 1.0
-Release: 85%{?dist}
+Release: 86%{?dist}
 
 Summary: SGML and XML document type definitions for DocBook
 
-License: Copyright only
+License: LicenseRef-docbook-dtds
 URL: http://www.oasis-open.org/docbook/
 
 Obsoletes: docbook-dtd30-sgml < %{version}-%{release}
@@ -398,6 +398,9 @@ do
 done
 
 %changelog
+* Fri Jan 26 2024 Ondrej Sloup <osloup@redhat.com> - 1.0-86
+- Update license tag to the SPDX format (LicenseRef-docbook-dtds)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-85
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

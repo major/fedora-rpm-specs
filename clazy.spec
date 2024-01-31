@@ -1,12 +1,12 @@
 
-%global commit b205b52c0efbee044fd9377e077cb73e8772c8f8
-%global commitdate 20230618
+%global commit 69fedb41f3c41b3c81ba7707c606ce3010a3e445
+%global commitdate 20240128
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.11%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
@@ -46,7 +46,7 @@ refactoring.
 
 %files
 %doc HOWTO
-%license COPYING*
+%license LICENSES/*
 %{_bindir}/clazy
 %{_bindir}/clazy-standalone
 %dir %{_docdir}/clazy
@@ -57,6 +57,9 @@ refactoring.
 
 
 %changelog
+* Mon Jan 29 2024 Jan Grulich <jgrulich@redhat.com> - 1.11^git20230618.69fedb4-4
+- Update to latest git snapshot
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11^git20230618.b205b52-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

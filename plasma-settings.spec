@@ -1,6 +1,6 @@
 Name:           plasma-settings 
 Version:        23.01.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
 Url:            https://invent.kde.org/plasma-mobile/plasma-settings
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.mobile.p
 %{_qt5_plugindir}/kcms/*.so
  
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

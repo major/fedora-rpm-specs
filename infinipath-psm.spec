@@ -15,16 +15,20 @@ URL:            https://github.com/01org/psm
 Source0:        %{name}-%{version}-%{git_version}.tar.gz
 Source1:        ipath.rules
 Patch1:         0001-fix-a-compilation-issue.patch
-Patch2:         adjust-base-cflags.patch
 Patch3:         remove-executable-permissions-for-header-files.patch
 Patch4:         0001-Include-sysmacros.h.patch
 Patch5:         0001-Extend-buffer-for-uvalue-and-pvalue.patch
 Patch6:         extend-fdesc-array.patch
 Patch7:         psm-multiple-definition.patch
 Patch8:         infinipath-psm-gcc11.patch
+Patch9:         fix-clang-build.patch
 
 Requires:       udev
+%if "%{toolchain}" == "clang"
+BuildRequires:  clang
+%else
 BuildRequires:  gcc
+%endif
 BuildRequires:  libuuid-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires: make
@@ -48,13 +52,13 @@ Development files for the %{name} library.
 %prep
 %setup -q -n %{name}-%{version}-%{git_version}
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p0
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 find libuuid -type f -not -name 'psm_uuid.[c|h]' -not -name Makefile -delete
 
 %build
@@ -64,7 +68,7 @@ find libuuid -type f -not -name 'psm_uuid.[c|h]' -not -name Makefile -delete
 %define _lto_cflags %{nil}
 
 %{set_build_flags}
-%make_build PSM_USE_SYS_UUID=1 %{MAKEARG} CC=gcc
+%make_build PSM_USE_SYS_UUID=1 %{MAKEARG}
 
 %install
 %make_install %{MAKEARG}

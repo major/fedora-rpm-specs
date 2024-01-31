@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 License:        ASL 2.0
 URL:            https://cotyledon.readthedocs.io
 Source0:        %{pypi_source}
+Patch0:         remove-python-mock.patch
 BuildArch:      noarch
 
 %package -n python3-%{pypi_name}
@@ -30,7 +31,7 @@ This package contains documentation in HTML format.
 Cotyledon provides a framework for defining long-running services.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x test -x doc -x oslo
@@ -58,6 +59,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 1.7.3-21
+- Remove python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

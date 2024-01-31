@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -112,6 +112,9 @@ sed -i '/ocamlfind\.conf/d' .ofiles
 
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-11
+- Bump and rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

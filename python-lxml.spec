@@ -13,8 +13,8 @@ URL:            https://github.com/lxml/lxml
 # We use the get-lxml-source.sh script to generate the tarball
 # without the isoschematron RNG validation file under a problematic license.
 # See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/154
-Source0:         lxml-%{version}-no-isoschematron-rng.tar.gz
-Source1:         get-lxml-source.sh
+Source0:        lxml-%{version}-no-isoschematron-rng.tar.gz
+Source1:        get-lxml-source.sh
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel

@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-ModPerl
 Version:        0.09
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Enable Kwiki to work under mod_perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-ModPerl
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

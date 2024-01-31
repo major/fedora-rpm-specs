@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        40.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -18,6 +18,9 @@ Source0:        %{name}-%{version}.tar.gz
 # https://github.com/weldr/lorax/pull/1370
 # wget replaced by wget2-wget
 Patch:          0001-runtime-install-wget2-wget-has-replaced-wget.patch
+# https://github.com/weldr/lorax/pull/1371
+# pcmciautils retired
+Patch:          0001-runtime-install-drop-retired-pcmciautils.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -172,6 +175,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Mon Jan 29 2024 Adam Williamson <awilliam@redhat.com> - 40.3-5
+- Backport PR #1371 to handle pcmciautils being retired
+
 * Fri Jan 26 2024 Adam Williamson <awilliam@redhat.com> - 40.3-4
 - Backport PR #1370 to handle wget being replaced by wget2-wget
 

@@ -93,7 +93,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -353,7 +353,9 @@ export ASMFLAGS="%{build_cflags}"
 %if %{with lto_build}
 	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0" \
 %endif
+%ifarch x86_64
 	-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -Wl,-z,cet-report=error"
+%endif
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
 # are no other compile jobs running.  This will help reduce OOM errors on the
@@ -609,6 +611,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 29 2024 Nikita Popov <npopov@redhat.com> - 17.0.6-5
+- Only use cet-report=error on x86_64
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

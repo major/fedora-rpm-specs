@@ -1,8 +1,8 @@
 Summary:	Library for easy parsing of XMP metadata
 Name:		exempi
 Version:	2.6.4
-Release:	4%{?dist}
-License:	BSD
+Release:	5%{?dist}
+License:	BSD-3-Clause
 URL:		http://libopenraw.freedesktop.org/wiki/Exempi
 Source0:	https://gitlab.freedesktop.org/libopenraw/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 BuildRequires:	gcc-c++
@@ -69,6 +69,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Jan 29 2024 Matej Mužila <mmuzila@redhat.com> - 2.6.4-5
+- migrated to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

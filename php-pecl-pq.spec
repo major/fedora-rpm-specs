@@ -3,18 +3,12 @@
 #
 # remirepo spec file for php-pecl-pq
 #
-# Copyright (c) 2014-2023 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-
-# Defined in Fedora >= 37 and RHEL >= 10
-%{!?__phpize:      %global __phpize       %{_bindir}/phpize}
-%{!?__ztsphpize:   %global __ztsphpize    %{_bindir}/zts-phpize}
-%{!?__phpconfig:   %global __phpconfig    %{_bindir}/php-config}
-%{!?__ztsphpconfig:%global __ztsphpconfig %{_bindir}/zts-php-config}
 
 # Build using "--without tests" to disable tests
 %bcond_without     tests
@@ -35,6 +29,8 @@ Release:        5%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
+
+Patch0:         %{pecl_name}-build.patch
 
 BuildRequires:  libpq-devel > 9
 BuildRequires:  make
@@ -80,6 +76,8 @@ sed -e '/role="test"/d' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -223,6 +221,10 @@ exit $RET
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 2.2.2-5
+- Fix incompatible pointer types using patch from
+  https://github.com/m6w6/ext-pq/pull/52
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

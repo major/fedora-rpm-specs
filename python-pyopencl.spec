@@ -1,7 +1,7 @@
 %global srcname pyopencl
 
 Name:           python-%{srcname}
-Version:        2023.1.4
+Version:        2024.1
 Release:        %autorelease
 Summary:        Python wrapper for OpenCL
 

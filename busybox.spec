@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.36.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -68,6 +68,14 @@ Source6:	busybox-musl-static.config
 # musl kernel headers
 Source10:	https://github.com/sabotage-linux/kernel-headers/archive/refs/tags/v4.19.88-1.tar.gz
 Patch0:		busybox-1.31.1-stime-fix.patch
+# Linux no longer supports CBQ UAPI as of
+# https://github.com/torvalds/linux/commit/33241dca486264193ed68167c8eeae1fb197f3df
+# I just changed networking/tc.c to print an unsupported message if you try to set options for cbq
+# ... there is probably a better fix.
+# Technically, the bundled headers from sabotage-linux still have the CBQ vars, but they're really old at this point.
+# Felt safer to just disable CBQ, as that is what iproute did:
+# https://github.com/iproute2/iproute2/commit/07ba0af3fee132eddc1c2eab643ff4910181c993
+Patch1:		busybox-1.36.1-no-cbq.patch
 BuildRequires:	gcc
 BuildRequires:	libselinux-devel >= 1.27.7-2
 BuildRequires:	libsepol-devel
@@ -123,6 +131,7 @@ package is build against shared libraries, most notably glibc.
 %prep
 %setup -q -a 10
 %patch -P0 -p1 -b .stime
+%patch -P1 -p1 -b .cbq
 
 %build
 # Fix architecture name maps
@@ -347,6 +356,9 @@ ln -s ./busybox %{buildroot}%{_sbindir}/udhcpc
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Mon Jan 29 2024 Tom Callaway <spot@fedoraproject.org> - 1:1.36.1-7
+- disable CBQ in networking/tc.c to fix build against current kernel-headers
+
 * Wed Jan 24 2024 Major Hayden <major@redhat.com> - 1:1.36.1-6
 - Add symlink for udhcpc so cloud-init can use it rhbz#2247055
 

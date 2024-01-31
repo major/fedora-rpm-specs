@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.10.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Hashes and Crypto in GAP
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -23,7 +23,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-case
-BuildRequires:  python3-mock
 BuildRequires:  python3-psutil
 BuildRequires:  python3-pytest
 %endif

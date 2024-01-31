@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -338,7 +338,7 @@ done
 %patch -P0 -p1 -b .examples
 %patch -P1 -p1 -b .fluid
 %patch -P2 -p1 -b .no-hdf4-and-hdf5-simultaneously
-#patch -P5 -p1 -b .lang
+%patch -P5 -p1 -b .lang
 %patch -P6 -p1 -b .gcc7
 %patch -P7 -p1 -b .no_updatedb
 %if 0%{?with_octave}
@@ -625,6 +625,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Mon Jan 29 2024 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 8.0.1-10
+- Fix -python subpackage build.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

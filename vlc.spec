@@ -43,6 +43,9 @@ Patch:		vaapi-without-ffmepg4.patch
 Patch:		oneVPL.patch
 # fix appstreamcli validate to show in Software (rhbz#2258611)
 Patch:		appdata.patch
+# GCC 14 fixes from upstream
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/4645.patch
+Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/4665.patch
 
 %{load:%{S:1}}
 %global __provides_exclude_from ^%{vlc_plugindir}/.*$
@@ -645,6 +648,8 @@ export LIVE555_PREFIX=%{_prefix}
 
 # clean unused-direct-shlib-dependencies
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
+# avoid redefinition warnings
+sed -i -e '/^#define _FORTIFY_SOURCE/d' config.h
 
 %make_build
 

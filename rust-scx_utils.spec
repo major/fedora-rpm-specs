@@ -5,7 +5,7 @@
 %global crate scx_utils
 
 Name:           rust-scx_utils
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Utilities for sched_ext schedulers
 

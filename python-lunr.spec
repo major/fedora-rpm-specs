@@ -59,7 +59,8 @@ implementation as possible.
             not test_lunr_function_registers_nltk_stemmers_in_pipeline and \
             not test_lunr_registers_lun_stemmers_in_pipeline_if_language_is_en and \
             not test_search_stems_search_terms and \
-            not test_search_stems_search_terms_for_both_languages"
+            not test_search_stems_search_terms_for_both_languages and \
+            not acceptance"
 
 
 %files -n python3-lunr -f %{pyproject_files}

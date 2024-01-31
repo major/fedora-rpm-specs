@@ -1,6 +1,6 @@
 Name:		endless-sky
-Version:	0.10.4
-Release:	3%{?dist}
+Version:	0.10.5
+Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
@@ -92,6 +92,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Jan 29 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.10.5-1
+- 0.10.5
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-http
 #
-# Copyright (c) 2012-2023 Remi Collet
+# Copyright (c) 2012-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -39,6 +39,8 @@ Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 # From http://www.php.net/manual/en/http.configuration.php
 Source1:        %{proj_name}.ini
+
+Patch0:         %{proj_name}-build.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -107,6 +109,8 @@ These are the files needed to compile programs using HTTP extension.
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 extver=$(sed -n '/#define PHP_PECL_HTTP_VERSION/{s/.* "//;s/".*$//;p}' php_http.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:dev}"; then
    : Error: Upstream HTTP version is now ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:dev}.
@@ -245,6 +249,10 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 4.2.4-4
+- Fix incompatible pointer types using patch from
+  https://github.com/m6w6/ext-http/pull/134
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

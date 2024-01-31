@@ -35,6 +35,7 @@ The %{name}-devel package contains development files for %{name}.
 %forgeautosetup -p1
 
 %build
+export CXXFLAGS="%{optflags} -Wno-error=maybe-uninitialized"
 %cmake \
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \

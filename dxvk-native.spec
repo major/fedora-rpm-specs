@@ -1,20 +1,16 @@
 Name:           dxvk-native
-Version:        1.9.2a
-Release:        5%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        Vulkan-based D3D11 and D3D9 implementation for Linux
 
-# Main sources are zlib
-## Licenses of customized vendored headers
-### Vulkan headers are ASL 2.0
-### Wine/ReactOS DX headers are LGPLv2+
-### SPIR-V headers are Khronos License (MIT)
-### MinGW Windows headers are Public Domain
-### Unused OpenVR headers are BSD
-License:        zlib and ASL 2.0 and LGPLv2+ and MIT and Public Domain and BSD
-URL:            https://github.com/Joshua-Ashton/dxvk-native
-Source0:        %{url}/archive/native-%{version}/%{name}-%{version}.tar.gz
+License:        Zlib
+URL:            https://github.com/doitsujin/dxvk
+Source0:        %{url}/archive/v%{version}/dxvk-%{version}.tar.gz
 # Will hopefully be upstreamed in a different form...
 Source1:        dxvk-native.pc.in
+
+# From: https://github.com/doitsujin/dxvk/pull/3824
+Patch01:        0001-meson-Only-use-the-libdisplay-info-subproject-as-a-f.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -22,19 +18,12 @@ BuildRequires:  meson >= 0.46
 BuildRequires:  glslang
 BuildRequires:  SDL2-devel
 BuildRequires:  vulkan-loader-devel
+BuildRequires:  spirv-headers-devel
+BuildRequires:  mingw64-headers
+BuildRequires:  pkgconfig(libdisplay-info)
 
 Requires:       vulkan-loader%{?_isa}
 Requires:       SDL2%{?_isa}
-
-# This is a mangled customized version
-Provides:       bundled(vulkan-headers)
-# This name is made up, but it is what it is
-## Note, this is a slim, customized for this library
-Provides:       bundled(wine-d3dheaders)
-# This is a mangled customized version
-Provides:       bundled(spirv-headers)
-# This is a slim, customized version
-Provides:       bundled(mingw-headers)
 
 # Requires x86-specific headers for now...
 ExclusiveArch:  %{ix86} x86_64
@@ -58,11 +47,80 @@ This package provides the development libraries and other
 files for building applications that use %{name}.
 
 %prep
-%autosetup -n %{name}-native-%{version} -p1
+%autosetup -n dxvk-%{version} -p1
 
+# Replace local vulkan/directx headers includes with the system directories
+sed -i 's^./include/vulkan/include^/usr/include^' meson.build
+sed -i 's^./include/spirv/include^/usr/include^' meson.build
+
+# Copy the MinGW DirectX headers to include/native/directx/
+cp %{mingw64_includedir}/d3d10_1.h include/native/directx
+cp %{mingw64_includedir}/d3d10_1shader.h include/native/directx
+cp %{mingw64_includedir}/d3d10effect.h include/native/directx
+cp %{mingw64_includedir}/d3d10.h include/native/directx
+cp %{mingw64_includedir}/d3d10misc.h include/native/directx
+cp %{mingw64_includedir}/d3d10sdklayers.h include/native/directx
+cp %{mingw64_includedir}/d3d10shader.h include/native/directx
+cp %{mingw64_includedir}/d3d11_1.h include/native/directx
+cp %{mingw64_includedir}/d3d11_2.h include/native/directx
+cp %{mingw64_includedir}/d3d11_3.h include/native/directx
+cp %{mingw64_includedir}/d3d11_4.h include/native/directx
+cp %{mingw64_includedir}/d3d11.h include/native/directx
+cp %{mingw64_includedir}/d3d11on12.h include/native/directx
+cp %{mingw64_includedir}/d3d11sdklayers.h include/native/directx
+cp %{mingw64_includedir}/d3d11shader.h include/native/directx
+cp %{mingw64_includedir}/d3d12.h include/native/directx
+cp %{mingw64_includedir}/d3d12sdklayers.h include/native/directx
+cp %{mingw64_includedir}/d3d12shader.h include/native/directx
+cp %{mingw64_includedir}/d3d8caps.h include/native/directx
+cp %{mingw64_includedir}/d3d8.h include/native/directx
+cp %{mingw64_includedir}/d3d8types.h include/native/directx
+cp %{mingw64_includedir}/d3d9caps.h include/native/directx
+cp %{mingw64_includedir}/d3d9.h include/native/directx
+cp %{mingw64_includedir}/d3d9types.h include/native/directx
+cp %{mingw64_includedir}/d3dcaps.h include/native/directx
+cp %{mingw64_includedir}/d3dcommon.h include/native/directx
+cp %{mingw64_includedir}/d3dcompiler.h include/native/directx
+cp %{mingw64_includedir}/d3d.h include/native/directx
+cp %{mingw64_includedir}/d3dhal.h include/native/directx
+cp %{mingw64_includedir}/d3drmdef.h include/native/directx
+cp %{mingw64_includedir}/d3drm.h include/native/directx
+cp %{mingw64_includedir}/d3drmobj.h include/native/directx
+cp %{mingw64_includedir}/d3dtypes.h include/native/directx
+cp %{mingw64_includedir}/d3dvec.inl include/native/directx
+cp %{mingw64_includedir}/d3dx9anim.h include/native/directx
+cp %{mingw64_includedir}/d3dx9core.h include/native/directx
+cp %{mingw64_includedir}/d3dx9effect.h include/native/directx
+cp %{mingw64_includedir}/d3dx9.h include/native/directx
+cp %{mingw64_includedir}/d3dx9math.h include/native/directx
+cp %{mingw64_includedir}/d3dx9math.inl include/native/directx
+cp %{mingw64_includedir}/d3dx9mesh.h include/native/directx
+cp %{mingw64_includedir}/d3dx9shader.h include/native/directx
+cp %{mingw64_includedir}/d3dx9shape.h include/native/directx
+cp %{mingw64_includedir}/d3dx9tex.h include/native/directx
+cp %{mingw64_includedir}/d3dx9xof.h include/native/directx
+cp %{mingw64_includedir}/dxdiag.h include/native/directx
+cp %{mingw64_includedir}/dxerr8.h include/native/directx
+cp %{mingw64_includedir}/dxerr9.h include/native/directx
+cp %{mingw64_includedir}/dxfile.h include/native/directx
+cp %{mingw64_includedir}/dxgi1_2.h include/native/directx
+cp %{mingw64_includedir}/dxgi1_3.h include/native/directx
+cp %{mingw64_includedir}/dxgi1_4.h include/native/directx
+cp %{mingw64_includedir}/dxgi1_5.h include/native/directx
+cp %{mingw64_includedir}/dxgi1_6.h include/native/directx
+cp %{mingw64_includedir}/dxgicommon.h include/native/directx
+cp %{mingw64_includedir}/dxgidebug.h include/native/directx
+cp %{mingw64_includedir}/dxgiformat.h include/native/directx
+cp %{mingw64_includedir}/dxgi.h include/native/directx
+cp %{mingw64_includedir}/dxgitype.h include/native/directx
+cp %{mingw64_includedir}/dxtmpl.h include/native/directx
+cp %{mingw64_includedir}/dxva2api.h include/native/directx
+cp %{mingw64_includedir}/dxva.h include/native/directx
+cp %{mingw64_includedir}/dxvahd.h include/native/directx
+cp %{mingw64_includedir}/_mingw_unicode.h include/native/directx
 
 %build
-%meson -Denable_tests=true -Dbuild_id=true
+%meson -Dbuild_id=true
 %meson_build
 
 
@@ -84,6 +142,14 @@ sed -e "s:@prefix@:%{_prefix}:g" \
     -e "s:@D3DVER@:9:g" \
     %{SOURCE1} > %{buildroot}%{_libdir}/pkgconfig/%{name}-d3d9.pc
 
+# Install dxvk-native-d3d10 pc file
+sed -e "s:@prefix@:%{_prefix}:g" \
+    -e "s:@libdir@:%{_libdir}:g" \
+    -e "s:@includedir@:%{_includedir}/%{name}:g" \
+    -e "s:@PACKAGE_VERSION@:%{version}:g" \
+    -e "s:@D3DVER@:10core:g" \
+    %{SOURCE1} > %{buildroot}%{_libdir}/pkgconfig/%{name}-d3d10.pc
+
 # Install dxvk-native-d3d11 pc file
 sed -e "s:@prefix@:%{_prefix}:g" \
     -e "s:@libdir@:%{_libdir}:g" \
@@ -97,17 +163,20 @@ sed -e "s:@prefix@:%{_prefix}:g" \
 %doc README.md
 # The libraries are ABI stable and match Windows conventions
 %{_libdir}/libdxvk_d3d9.so
+%{_libdir}/libdxvk_d3d10core.so
 %{_libdir}/libdxvk_d3d11.so
 %{_libdir}/libdxvk_dxgi.so
 
 
 %files devel
-%{_bindir}/%{name}-*
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/%{name}/
 
 
 %changelog
+* Fri Jan 26 2024 Ethan Lee <flibitijibibo@gmail.com> - 2.3-1
+- Update to 2.3
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2a-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

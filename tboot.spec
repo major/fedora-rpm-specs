@@ -1,12 +1,13 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
 URL:           http://sourceforge.net/projects/tboot/
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0: tboot-gcc14.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -73,6 +74,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 1:1.11.1-6
+- Suppress GCC 14 allocation size warning
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

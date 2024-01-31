@@ -8,7 +8,7 @@
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
 License:        GPLv2+
 
@@ -36,6 +36,9 @@ Patch:          0007-Move-the-source-files-into-a-subdirectory.patch
 Patch:          0008-Attempt-RB_POWER_OFF-before-reboot.patch
 Patch:          0009-Make-sure-that-qemu-sanity-check-v-displays-kernel-o.patch
 Patch:          0010-Error-out-if-any-kernel-panic-is-seen.patch
+Patch:          0011-src-Add-more-information-about-kernel-and-qemu-searc.patch
+Patch:          0012-docs-Use-F-around-file-references-in-the-manual.patch
+Patch:          0013-src-Look-for-kernels-in-lib-modules-vmlinuz.patch
 
 # To verify the tarball signature.
 BuildRequires:  gnupg2
@@ -137,8 +140,8 @@ autoreconf -fi
     --with-qemu-list="qemu-system-\$canonical_arch" \
 %endif
 || {
-  cat config.log
-  exit 1
+    cat config.log
+    exit 1
 }
 make %{?_smp_mflags}
 
@@ -146,8 +149,9 @@ make %{?_smp_mflags}
 %check
 %ifarch %{test_arches}
 make check || {
-  cat test-suite.log
-  exit 1
+    cat tests/run-qemu-sanity-check.log ||:
+    cat tests/test-suite.log ||:
+    exit 1
 }
 %endif
 
@@ -168,6 +172,11 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 1.1.6-14
+- Look for kernels in /lib/modules/*/vmlinuz
+- Display the correct test-suite.log if %%check fails
+- Enhance debugging in tests/run-qemu-sanity-check
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		0ad-data
 Version:	0.0.26
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	The Data Files for 0 AD
 License:	CC-BY-SA
 Url:		http://play0ad.com
@@ -48,6 +48,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.26-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

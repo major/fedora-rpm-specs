@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-smbclient
 #
-# Copyright (c) 2015-2023 Remi Collet
+# Copyright (c) 2015-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -18,18 +18,22 @@
 %global ini_name   40-%{pecl_name}.ini
 # Test suite requires a Samba server and configuration file
 %bcond_with        tests
+%global sources    %{pecl_name}-%{version}%{?prever}
+%global _configure ../%{sources}/configure
 
 Name:           php-smbclient
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PHP wrapper for libsmbclient
 
 License:        BSD-2-Clause
 URL:            https://github.com/eduardok/libsmbclient-php
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 %if %{with tests}
 Source2:        %{pecl_name}-phpunit.xml
 %endif
+
+Patch0:         %{pecl_name}-upstream.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -63,14 +67,15 @@ to PHP programs.
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{version}%{?prever} NTS
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
+%patch -P0 -p1 -b .up
+
 # Check extension version
 ver=$(sed -n '/define PHP_SMBCLIENT_VERSION/{s/.* "//;s/".*$//;p}' php_smbclient.h)
 if test "$ver" != "%{version}%{?prever}"; then
@@ -84,22 +89,23 @@ cat  << 'EOF' | tee %{ini_name}
 extension=%{pecl_name}.so
 EOF
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -120,7 +126,7 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -149,7 +155,7 @@ cp %{SOURCE2} phpunit.xml
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -163,6 +169,10 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 1.1.1-6
+- fix incompatible pointer types using upstream patch
+- build out of sources tree
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

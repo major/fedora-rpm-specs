@@ -38,8 +38,6 @@ Obsoletes:      python-vecrec-doc < 0.3.1-3
 %prep
 %autosetup -n vecrec-%{version} -p1
 
-# Remove HTML coverage directory with bundled JavaScript and other cruft
-rm -rv tests/htmlcov
 # Patch out coverage dependencies
 sed -r -i '/\b(pytest-cov|coveralls)\b/d' pyproject.toml
 sed -r -i \

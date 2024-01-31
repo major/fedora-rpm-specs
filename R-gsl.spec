@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.1.7.1
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Wrapper for the Gnu Scientific Library
 
 License:          GPLv3
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

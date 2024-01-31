@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pecl-rrd
 #
-# Copyright (c) 2011-2023 Remi Collet
+# Copyright (c) 2011-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,9 +10,11 @@
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
 
-%global with_zts  0%{?__ztsphp:1}
-%global pecl_name rrd
-%global ini_name  40-%{pecl_name}.ini
+%global with_zts   0%{?__ztsphp:1}
+%global pecl_name  rrd
+%global ini_name   40-%{pecl_name}.ini
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
@@ -21,7 +23,9 @@ Release:      12%{?dist}
 License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
-Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source0:      https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:       %{pecl_name}-build.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -48,14 +52,14 @@ system for time series data.
 %prep 
 %setup -c -q
 
-mv %{pecl_name}-%{version} NTS
-
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
+%patch -P0 -p1
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RRD_VERSION/{s/.* "//;s/".*$//;p}' php_rrd.h)
 if test "x${extver}" != "x%{version}%{?prever}"; then
@@ -69,21 +73,23 @@ cat > %{ini_name} << 'EOF'
 extension=%{pecl_name}.so
 EOF
 
+mkdir NTS
 %if %{with_zts}
-cp -r  NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -104,24 +110,25 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Test & Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
 %if %{with_zts}
 %{__ztsphp} --no-php-ini \
-    --define extension=ZTS/modules/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
+    --modules | grep '^%{pecl_name}$'
 %endif
 
-cd NTS
 %{__php} --no-php-ini \
-    --define extension=modules/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
+    --modules | grep '^%{pecl_name}$'
 
 # See https://bugzilla.redhat.com/1224530 - segfault on ARM
 %ifnarch %{arm} s390x
+cd %{sources}
+
 if pkg-config librrd --atleast-version=1.5.0
 then
   : ignore test failed with rrdtool > 1.5
@@ -133,19 +140,20 @@ then
   rm tests/rrd_{012,017}.phpt
 fi
 
+cp ../NTS/tests/data/Makefile   tests/data
+cp ../NTS/tests/rrdtool-bin.inc tests
 make -C tests/data clean
 make -C tests/data all
 
-TEST_PHP_EXECUTABLE=%{_bindir}/php \
-TEST_PHP_ARGS="-n -d extension_dir= -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
+TEST_PHP_EXECUTABLE=%{__php} \
+TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 REPORT_EXIT_STATUS=1 \
-%{_bindir}/php -n run-tests.php --show-diff
+%{__php} -n run-tests.php -q --show-diff
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -159,6 +167,11 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 2.0.3-12
+- fix incompatible pointer types using patch from
+  https://github.com/php/pecl-processing-rrd/pull/4
+- build out of sources tree
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -57,7 +57,7 @@ Contacts application which allows adding, modifying and removing contacts.
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENSES/{CC0-1.0.txt,GPL-2.0-only,GPL-3.0-only,GPL-3.0-or-later,LGPL-2.0-or-later,(GPL-2.0-only OR GPL-3.0-only)}.txt
+%license LICENSES/{CC0-1.0.txt,GPL-2.0-only,GPL-3.0-only,GPL-3.0-or-later,LGPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.phonebook.svg
 %{_kf5_datadir}/applications/org.kde.phonebook.desktop

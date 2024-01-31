@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -93,6 +93,7 @@ Patch205:	insight-13.0-noselfmove.patch
 Patch206:	insight-configure-c99.patch
 Patch207:	insight-13.0-bfd-CVE-2023-1972.patch
 Patch208:	insight-13.0-gdb-python313.patch
+Patch209:	insight-13.0.50-calloc.patch
 
 
 %description
@@ -131,6 +132,7 @@ the latest GDB version.
 %patch 206 -p1
 %patch 207 -p1
 %patch 208 -p1
+%patch 209 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -326,13 +328,16 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Mon Jan 29 2024 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-15
+- Patch "calloc" to respect count/size parameter order.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Tue Oct 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-12
 - Patch "python313" for Python 3.13 compatibility.

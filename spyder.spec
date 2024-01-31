@@ -101,12 +101,15 @@ find . -type f \( \
 sed -i \
 -e '/pylint>.*/d' \
 -e '/pylint-venv>.*/d' setup.py
-# Drop upper bound for qtconsole (5.5.0 > 5.5~~)
-sed -r -i 's|(qtconsole.*),<5.5.0|\1|' setup.py
-# Do the same for qdarkstyle (3.2.1 > 3.2~~)
-sed -r -i 's|(qdarkstyle.*),<3.2.0|\1|' setup.py
-# And for lsp-server (1.10.0 > 1.9.0)
-sed -r -i 's|(python-lsp-server.*),<1.[89].0|\1|' setup.py
+# Drop upper bound for dependencies that are newer in Fedora
+# qtconsole (5.5.0 > 5.5~~)
+# qdarkstyle (3.2.1 > 3.2~~)
+# lsp-server (1.10.0 > 1.9.0)
+sed -r -i \
+    -e 's|(qtconsole.*),<.?5\.[0-9]*\.0|\1|'  \
+    -e 's|(qdarkstyle.*),<.?3\.[0-9]*\.0|\1|' \
+    -e 's|(python-lsp-server.*),<.?1\.[0-9]*\.0|\1|' \
+    setup.py binder/environment.yml requirements/main.yml
 
 
 %generate_buildrequires

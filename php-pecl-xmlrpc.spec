@@ -34,7 +34,7 @@ License:        PHP-3.01 AND MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 
-Patch0:         %{pecl_name}-php82.patch
+Patch0:         %{pecl_name}-tests.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -181,6 +181,9 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-10
+- adapt tests for new libxml
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -57,6 +57,11 @@ Source20: unbound.sysusers
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2253461
+# https://github.com/NLnetLabs/unbound/commit/a8739bad76d4d179290627e989c7ef236345bda6
+Patch2:   unbound-1.19-b.root-servers.net.patch
+# https://github.com/NLnetLabs/unbound/pull/993
+Patch3:   unbound-1.19-b.root-servers.net-conf.patch
 
 BuildRequires: gcc, make
 BuildRequires: flex, openssl-devel

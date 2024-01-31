@@ -1,13 +1,13 @@
-%global fontname lohit-tamil
+%global fontname lohit-tamil-fonts
 
 Version:       2.91.3
-Release:       20%{?dist}
+Release:       21%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-tamil-fonts
 
 %global foundry           Lohit
 %global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt COPYRIGHT
-%global fontdocs          AUTHORS README ChangeLog test-tamil.txt 
+%global fontdocs          AUTHORS README.md ChangeLog src/test-tamil.txt 
 
 %global fontfamily        Lohit Tamil
 %global fontsummary       Free truetype font for Tamil language
@@ -20,14 +20,14 @@ This package provides a free Tamil truetype/opentype font.
 
 BuildRequires: make
 BuildRequires: fontforge
-Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
+Source0:        https://github.com/lohit-fonts/lohit-tamil-fonts/archive/refs/tags/%{version}.tar.gz#/%{fontname}-%{version}.tar.gz
 Source10:       66-%{fontpkgname}.conf
 
 %fontpkg
 
 %prep
 %setup -q -n %{fontname}-%{version}
-%linuxtext OFL.txt AUTHORS README ChangeLog COPYRIGHT test-tamil.txt
+%linuxtext OFL.txt AUTHORS README.md ChangeLog COPYRIGHT src/test-tamil.txt
 
 %build
 make ttf %{?_smp_mflags}
@@ -43,6 +43,9 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Mon Jan 29 2024 Sudip Shil <sshil@redhat.com> - 2.91.3-21
+- Fixed version mismatch https://bugzilla.redhat.com/show_bug.cgi?id=1580458 
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
