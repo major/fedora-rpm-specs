@@ -1,6 +1,6 @@
 Name:           perl-Convert-Color
 Version:        0.17
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Color space conversions and named lookups
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Color
@@ -21,11 +21,13 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 
 %if 0%{fedora} >= 40
 # REGRESSION: dnf5 is unable to BuildRequires: files
+# REGRESSION: dnf5 is unable to Requires: files
 BuildRequires:  rgb
+Requires: rgb
 %else
 BuildRequires:  /usr/share/X11/rgb.txt
-%endif
 Requires:       /usr/share/X11/rgb.txt
+%endif
 
 %description
 This module provides conversions between commonly used ways to express
@@ -54,7 +56,11 @@ and it provides ways to look up colors by a name.
 %{_mandir}/man3/*
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-5
+* Tue Jan 30 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.17-6
+- Add R: rgb to work-around dnf5 now outsmarting itself by not being able to R: files.
+- Fix bogus changelog entry.
+
+* Sat Jan 27 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.17-5
 - Add work-around to dnf5's regression to not support BuildRequires: on files.
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4

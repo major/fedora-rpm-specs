@@ -62,7 +62,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.2
+Version:        %{libo_version}.3
 %if 0%{?libo_prerelease}
 Release:        %autorelease -e %{?libo_prerelease}
 %else

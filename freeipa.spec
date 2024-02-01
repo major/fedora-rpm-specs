@@ -96,9 +96,8 @@
 %global alt_name ipa
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.16
-# Require 4.7.0 which brings Python 3 bindings
-# Require 4.12 which has DsRGetForestTrustInformation access rights fixes
-%global samba_version 2:4.12.10
+# Require 4.20.0 for libndr4
+%global samba_version 2:4.20.0
 
 # 38.28 or later includes passkey-related fixes
 %global selinux_policy_version 38.28-1
@@ -201,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}.2
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -224,6 +223,12 @@ Patch0001:      freeipa-4.11-samba-changes.patch
 Patch0002:      freeipa-4.11-pki-revocation-changes.patch
 Patch0003:      freeipa-4.11-py3.12-timezone-changes.patch
 Patch0004:      freeipa-4.11-pwpolicy-minlength.patch
+Patch0005:      0009-host-keytab-permission.patch
+Patch0006:      0008-netbios-defaults.patch
+Patch0009:      0005-pyca-42.0.0-support.patch
+Patch0010:      0004-ipa-cli-krb5-crash.patch
+Patch0011:      0003-kdb-memory-leak.patch
+Patch0012:      0010-support-samba-4.20.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1744,6 +1749,14 @@ fi
 %endif
 
 %changelog
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-2
+- Rebuild against Samba 4.20rc1
+- Fix memory leak in Kerberos KDC driver
+- Fix possible crash in IPA command line tool when accessing Kerberos credentials
+- Compatibility fix for Python Cryptography 42.0.0
+- NetBIOS defaults fix
+- Fix default host keytab retrieval permissions
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

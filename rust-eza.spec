@@ -4,7 +4,7 @@
 %global crate eza
 
 Name:           rust-eza
-Version:        0.17.1
+Version:        0.17.3
 Release:        %autorelease
 Summary:        Modern replacement for ls
 
@@ -45,6 +45,9 @@ License:        MIT AND Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only WITH GCC-ex
 # exa is unmaintained upstream and was retired - development continued as eza
 Obsoletes:      exa < 0.10.1-13
 
+# exa was retired in Fedora 39 - remove Provides and Obsoletes in Fedora 41
+Provides:       exa = %{version}-%{release}
+
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
@@ -56,6 +59,7 @@ Obsoletes:      exa < 0.10.1-13
 %doc INSTALL.md
 %doc README.md
 %doc SECURITY.md
+%{_bindir}/exa
 %{_bindir}/eza
 %{bash_completions_dir}/eza
 %{fish_completions_dir}/eza.fish
@@ -142,6 +146,8 @@ use the "powertest" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+# create compatibility symlink for exa
+ln -s eza %{buildroot}/%{_bindir}/exa
 # install shell completions
 install -Dpm 0644 completions/bash/eza -t %{buildroot}/%{bash_completions_dir}/
 install -Dpm 0644 completions/fish/eza.fish -t %{buildroot}/%{fish_completions_dir}/

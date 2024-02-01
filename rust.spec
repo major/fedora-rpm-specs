@@ -1,6 +1,6 @@
 Name:           rust
 Version:        1.75.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -85,9 +85,15 @@ ExclusiveArch:  %{rust_arches}
 %endif
 
 %if 0%{?__isa_bits} == 32
-# Disable PGO on 32-bit to reduce build memory
+# Reduce rustc's own debuginfo and optimizations to conserve 32-bit memory.
+# e.g. https://github.com/rust-lang/rust/issues/45854
+%global enable_debuginfo --debuginfo-level=0 --debuginfo-level-std=2
+%global enable_rust_opts --set rust.codegen-units-std=1
 %bcond_with rustc_pgo
 %else
+# Build rustc with full debuginfo, CGU=1, ThinLTO, and PGO.
+%global enable_debuginfo --debuginfo-level=2
+%global enable_rust_opts --set rust.codegen-units=1 --set rust.lto=thin
 %bcond_without rustc_pgo
 %endif
 
@@ -125,6 +131,9 @@ Patch6:         0001-bootstrap-only-show-PGO-warnings-when-verbose.patch
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
 Source100:      macros.rust-toolset
+Source101:      macros.rust-srpm
+Source102:      cargo_vendor.attr
+Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
 Patch100:       rustc-1.75.0-disable-libssh2.patch
@@ -520,6 +529,14 @@ useful as a reference for code completion tools in various editors.
 
 %if 0%{?rhel}
 
+%package srpm-macros
+Summary:        RPM macros for building Rust source packages
+BuildArch:      noarch
+
+%description srpm-macros
+RPM macros for building source packages for Rust projects.
+
+
 %package toolset
 Summary:        Rust Toolset
 BuildArch:      noarch
@@ -649,14 +666,6 @@ end}
 %build
 %{export_rust_env}
 
-%ifarch %{arm} %{ix86}
-# full debuginfo is exhausting memory; just do libstd for now
-# https://github.com/rust-lang/rust/issues/45854
-%define enable_debuginfo --debuginfo-level=0 --debuginfo-level-std=2
-%else
-%define enable_debuginfo --debuginfo-level=2
-%endif
-
 # Some builders have relatively little memory for their CPU count.
 # At least 2GB per CPU is a good rule of thumb for building rustc.
 ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
@@ -721,8 +730,7 @@ test -r "%{profiler}"
   --disable-llvm-static-stdcpp \
   --disable-rpath \
   %{enable_debuginfo} \
-  --set rust.codegen-units=1 \
-  --set rust.lto=thin \
+  %{enable_rust_opts} \
   --set build.build-stage=2 \
   --set build.doc-stage=2 \
   --set build.install-stage=2 \
@@ -848,6 +856,9 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 %if 0%{?rhel}
 # This allows users to build packages using Rust Toolset.
 %{__install} -D -m 644 %{S:100} %{buildroot}%{rpmmacrodir}/macros.rust-toolset
+%{__install} -D -m 644 %{S:101} %{buildroot}%{rpmmacrodir}/macros.rust-srpm
+%{__install} -D -m 644 %{S:102} %{buildroot}%{_fileattrsdir}/cargo_vendor.attr
+%{__install} -D -m 755 %{S:103} %{buildroot}%{_rpmconfigdir}/cargo_vendor.prov
 %endif
 
 
@@ -1027,12 +1038,21 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %if 0%{?rhel}
+%files srpm-macros
+%{rpmmacrodir}/macros.rust-srpm
+
 %files toolset
 %{rpmmacrodir}/macros.rust-toolset
+%{_fileattrsdir}/cargo_vendor.attr
+%{_rpmconfigdir}/cargo_vendor.prov
 %endif
 
 
 %changelog
+* Tue Jan 30 2024 Josh Stone <jistone@redhat.com> - 1.75.0-3
+- Consolidate 32-bit build compromises.
+- Update rust-toolset and add rust-srpm-macros for ELN.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.75.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

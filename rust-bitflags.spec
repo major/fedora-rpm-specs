@@ -5,7 +5,7 @@
 %global crate bitflags
 
 Name:           rust-bitflags
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Macro to generate structures which behave like bitflags
 

@@ -7,7 +7,7 @@ Summary: RDMA core userspace libraries and daemons
 #  providers/ipathverbs/ Dual licensed using a BSD license with an extra patent clause
 #  providers/rxe/ Incorporates code from ipathverbs and contains the patent clause
 #  providers/hfi1verbs Uses the 3 Clause BSD license
-License: GPLv2 or BSD
+License: GPL-2.0-only OR BSD-2-Clause AND BSD-3-Clause
 Url: https://github.com/linux-rdma/rdma-core
 Source: https://github.com/linux-rdma/rdma-core/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch9998: 9998-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch

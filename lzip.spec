@@ -1,6 +1,6 @@
 Name:           lzip
-Version:        1.23
-Release:        7%{?dist}
+Version:        1.24
+Release:        1%{?dist}
 Summary:        LZMA compressor with integrity checking
 
 License:        GPL-3.0-or-later
@@ -49,6 +49,9 @@ make check
 
 
 %changelog
+* Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24-1
+- 1.24
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -19,13 +19,13 @@
 %bcond_with python3
 %endif
 
-%global talloc_version 2.4.1
-%global tdb_version 1.4.9
-%global tevent_version 0.15.0
+%global talloc_version 2.4.2
+%global tdb_version 1.4.10
+%global tevent_version 0.16.1
 
 Name: libldb
-Version: 2.8.0
-Release: 3%{?dist}
+Version: 2.9.0
+Release: 1%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
@@ -221,6 +221,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Mon Jan 29 2024 Guenther Deschner <gdeschner@redhat.com> - 2.9.0-1
+- rhbz#2260898 - libldb-2.9.0 is available
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

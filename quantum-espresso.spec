@@ -37,14 +37,14 @@ gfortran < 4.9 unsupported https://lists.quantum-espresso.org/pipermail/users/20
 
 # devxlib compilation fails on armv7hl
 # configure: error: cannot guess build type; you must specify one
-ExclusiveArch:		x86_64 %{ix86} aarch64 %{power64}
+ExclusiveArch:		x86_64 aarch64 %{power64}
 
 # disable compilation warnings
 %global wnoflags -Wno-unused-variable -Wno-conversion -Wno-unused-dummy-argument -Wno-character-truncation -Wno-missing-include-dirs -Wno-unused-function -Wno-maybe-unitialized
 
 Name:			quantum-espresso
 Version:		7.0
-Release:		8%{?dist}
+Release:		9%{?dist}
 Summary:		A suite for electronic-structure calculations and materials modeling
 
 # See bundling discussion in https://gitlab.com/QEF/q-e/-/issues/366
@@ -342,6 +342,9 @@ mv test-suite.orig test-suite
 
 
 %changelog
+* Tue Jan 30 2024 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0-9
+- Remove support for i686 due to openmpi removal
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

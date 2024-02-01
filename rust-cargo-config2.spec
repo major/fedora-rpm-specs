@@ -5,13 +5,15 @@
 %global crate cargo-config2
 
 Name:           rust-cargo-config2
-Version:        0.1.17
+Version:        0.1.18
 Release:        %autorelease
 Summary:        Load and resolve Cargo configuration
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/cargo-config2
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          cargo-config2-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

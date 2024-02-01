@@ -18,7 +18,7 @@
 
 Name:           ibus-anthy
 Version:        1.5.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -40,6 +40,7 @@ BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
+BuildRequires:  /usr/bin/appstream-util
 
 Requires:       ibus >= %{require_ibus_version}
 %if %{with kasumi_unicode}
@@ -118,6 +119,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libanthygobject-%{sub_version}.la
 %check
 desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-anthy.desktop
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.xml
 export LANG=C.UTF-8
 locale
 make -C data check
@@ -138,10 +140,10 @@ make -C data check
 
 %files python
 %{_libexecdir}/ibus-*-anthy
-%{_datadir}/metainfo/*.metainfo.xml
 %{_datadir}/ibus-anthy/engine
 %{_datadir}/ibus-anthy/setup
 %{_datadir}/ibus/component/*
+%{_metainfodir}/*.xml
 
 %files devel
 %{_datadir}/gir-1.0/Anthy*.gir
@@ -155,6 +157,10 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Tue Jan 30 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-5
+- Resolves #2261242 Update era.t with 2024
+- Add appstream-util validattion
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

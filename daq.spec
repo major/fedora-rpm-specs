@@ -13,7 +13,7 @@ ExclusiveArch:	x86_64 aarch64
 Summary:	Data Acquisition Library
 Name:		daq
 Version:	2.0.7
-Release:	4%{?dist}
+Release:	5%{?dist}
 # sfbpf is BSD (various versions)
 License:	GPLv2 and BSD
 URL:		https://www.snort.org
@@ -61,6 +61,8 @@ autoreconf -ivf -Wobsolete
 
 
 %build
+# Workaround for error: passing argument 2 of 'nfq_get_payload' from incompatible pointer type
+export CFLAGS="$(echo %{__global_cflags} -Wno-incompatible-pointer-types)"
 %{configure} --enable-static=no
 # get rid of rpath
 %{__sed} -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -110,6 +112,9 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -delete -print
 
 
 %changelog
+* Tue Jan 30 2024 Marcin Dulak <marcindulak@fedoraproject.org> - 2.0.7-5
+- Use -Wincompatible-pointer-types to avoid error: passing argument 2 of 'nfq_get_payload' from incompatible pointer type
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

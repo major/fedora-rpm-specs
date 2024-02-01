@@ -21,7 +21,11 @@ elk-5.2.14 requires libxc 3 or newer
 # el6/ppc64 Error: No Package found for mpich-devel
 ExclusiveArch:          x86_64 %{ix86}
 %else
+%if 0%{?fedora} >= 40
+ExclusiveArch:          x86_64 aarch64 %{arm} %{power64}
+%else
 ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
+%endif
 %endif
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -37,8 +41,8 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 
 Name:			elk
-Version:		8.8.26
-Release:		4%{?dist}
+Version:		9.2.12
+Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 License:		GPLv3+
@@ -305,6 +309,9 @@ mv tests.orig tests
 
 
 %changelog
+* Tue Jan 30 2024 Marcin Dulak <marcindulak@fedoraproject.org> - 9.2.12-1
+- Remove support for i686 due to openmpi removal
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.8.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

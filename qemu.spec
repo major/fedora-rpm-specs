@@ -358,7 +358,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 5
+%global baserelease 6
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -388,7 +388,7 @@ Patch: 0001-target-i386-do-not-re-compute-new-pc-with-CF_PCREL.patch
 
 # Fix builds on i686.
 # Sent upstream 29-01-2024
-Patch: 0001-block-blkio-Don-t-assume-size_t-is-64-bit.patch
+Patch: 0001-block-blkio-Make-s-mem_region_alignment-be-64-bits.patch
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -1920,6 +1920,7 @@ pushd %{static_builddir}
 run_configure \
   --enable-attr \
   --enable-linux-user \
+  --enable-pie \
   --enable-tcg \
   --disable-install-blobs \
   --static
@@ -3152,7 +3153,7 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
-* Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 8.2.0-5
+* Tue Jan 30 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-6
 - Fix builds on i686.
 
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:8.2.0-4

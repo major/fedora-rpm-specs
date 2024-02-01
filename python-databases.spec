@@ -1,10 +1,6 @@
 # When bootstrapping, break circular dependency on starlette in the tests.
 %bcond bootstrap 0
 
-# MySQL tests require interacting with a temporary MySQL database. We are able
-# to do this, but leave a build conditional in case it breaks.
-%bcond mysql_tests 1
-
 Name:           python-databases
 Summary:        Async database support for Python
 Version:        0.8.0
@@ -48,10 +44,6 @@ BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(requests)
 # Used only as a soft dependency of starlette.testclient
 BuildRequires:  python3dist(httpx)
-%endif
-
-%if %{with mysql_tests}
-BuildRequires:  mariadb-server
 %endif
 
 %global common_description %{expand:
@@ -231,60 +223,6 @@ touch tests/__init__.py
 # The following environment variable is a comma-separated list with (optional?)
 # whitespace.
 export TEST_DATABASE_URLS="sqlite:///testsuite, sqlite+aiosqlite:///testsuite"
-
-%if %{with mysql_tests}
-# Based on rubygem-mysql2 packaging; see also python-asyncmy
-
-# Use a randomized port in case the standard mysqld port 3306 is occupied, and
-# to account for multiple simultaneous builds on the same host.
-# https://src.fedoraproject.org/rpms/rubygem-pg/pull-request/3
-MYSQL_PORT="$((13306 + ${RANDOM} % 1000))"
-MYSQL_USER="$(whoami)"
-MYSQL_DATA_DIR="${PWD}/data"
-MYSQL_SOCKET="${PWD}/mysql.sock"
-MYSQL_LOG="${PWD}/mysql.log"
-MYSQL_PID_FILE="${PWD}/mysql.pid"
-
-mkdir "${MYSQL_DATA_DIR}"
-mysql_install_db --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}"
-
-%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --skip-ssl \
-    --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}" \
-    --socket="${MYSQL_SOCKET}" --pid-file="${MYSQL_PID_FILE}" & :
-
-echo "Waiting for server… ${i}" 1>&2
-TIMEOUT=30
-while ! grep -q 'ready for connections.' "${MYSQL_LOG}"
-do
-  sleep 1
-  TIMEOUT=$((TIMEOUT - 1))
-  if [[ "${TIMEOUT}" = '0' ]]
-  then
-    echo 'Timed out' 1>&2
-    exit 1
-  fi
-done
-
-echo 'Ready' 1>&2
-trap "kill $(cat "${MYSQL_PID_FILE}")" INT TERM EXIT
-
-# See https://github.com/brianmario/mysql2/blob/master/.travis_setup.sh
-mysql -u "${MYSQL_USER}" -S "${MYSQL_SOCKET}" -P "${MYSQL_PORT}" \
-  -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';"
-mysql -u 'root' --password='123456' \
-  --protocol='TCP' -h 'localhost' -P "${MYSQL_PORT}" \
-  -e 'CREATE DATABASE testsuite;'
-
-for url in \
-    "mysql://root:123456@localhost:${MYSQL_PORT}/testsuite" \
-%if %{with asyncmy}
-    "mysql+asyncmy://root:123456@localhost:${MYSQL_PORT}/testsuite" \
-%endif
-    "mysql+aiomysql://root:123456@localhost:${MYSQL_PORT}/testsuite"
-do
-  export TEST_DATABASE_URLS="${TEST_DATABASE_URLS}, ${url}"
-done
-%endif
 
 %pytest --verbose
 

@@ -14,7 +14,7 @@ Release:    23%{?dist}
 # tests/init.sh:            GPL-3.0-or-later
 # INSTALL:                  FSFAP
 # configure:                FSFUL
-# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic
+# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # build-aux/install-sh:     X11 AND LicenseRef-Fedora-Public-Domain
 # build-aux/config.rpath:   FSFULLR
 # build-aux/test-driver:    GPL-2.0-or-later WITH Autoconf-exception-generic
@@ -23,7 +23,7 @@ Release:    23%{?dist}
 # build-aux/vc-list-files:  GPL-3.0-or-later
 # build-aux/missing:        GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-generic
-# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic
+# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # build-aux/gitlog-to-changelog:    GPL-3.0-or-later
 # build-aux/git-version-gen:        GPL-3.0-or-later
 # build-aux/texinfo.tex:    GPL-3.0-or-later WITH Texinfo-exception AND GPL-1.0-or-later
@@ -32,6 +32,8 @@ Release:    23%{?dist}
 # GNUmakefile:              GPL-3.0-or-later
 # m4/asm-underscore.m4:     FSFULLR
 # m4/gnulib-cache.m4:       GPL-3.0-or-later WITH Autoconf-exception-generic
+#                           (Waiting on an approval
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/473?)
 # m4/host-cpu-c-abi.m4:     FSFULLR
 # m4/longlong.m4:           FSFULLR
 # m4/ssize_t.m4:            FSFULLR
@@ -39,7 +41,7 @@ Release:    23%{?dist}
 # maint.mk:                 GPL-3.0-or-later
 # tests/time-posix-quiet.sh:    GPL-3.0-or-later
 License:    GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later
-SourceLicense: %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Texinfo-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-1.0-or-later AND X11 AND FSFAP AND FSFUL AND FSFULLR AND LicenseRef-Fedora-Public-Domain
+SourceLicense: %{license} AND GPL-3.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-1.0-or-later AND X11 AND FSFAP AND FSFUL AND FSFULLR AND LicenseRef-Fedora-Public-Domain
 Url:        https://www.gnu.org/software/%{name}/
 Source0:    https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:    https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig

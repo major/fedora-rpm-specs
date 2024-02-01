@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        45.1
-Release:        3%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        Note-taking application
 
 License:        GPL-3.0-or-later AND GFDL-1.1
 URL:            https://wiki.gnome.org/Apps/Gnote
-Source0:        https://download.gnome.org/sources/gnote/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnote/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(giomm-2.68)
 BuildRequires:  pkgconfig(glibmm-2.68)
 BuildRequires:  pkgconfig(gtkmm-4.0)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxslt)
@@ -69,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Tue Jan 30 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

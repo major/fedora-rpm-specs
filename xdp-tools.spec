@@ -1,6 +1,6 @@
 Name:             xdp-tools
-Version:          1.4.1
-Release:          2%{?dist}
+Version:          1.4.2
+Release:          1%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.4.0
 
@@ -124,6 +124,9 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Tue Jan 30 2024 Toke Høiland-Jørgensen <toke@redhat.com> 1.4.2-1
+- Upstream version bump
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

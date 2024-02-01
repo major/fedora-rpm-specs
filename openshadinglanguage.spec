@@ -11,7 +11,7 @@
 
 Name:           openshadinglanguage
 Version:        1.12.14.0
-Release:        %autorelease
+Release:        10
 Summary:        Advanced shading language for production GI renderers
 
 # The entire source is BSD-3-Clause, except:
@@ -56,8 +56,8 @@ BuildRequires:  llvm%{?llvm_compat}-devel
 BuildRequires:  ninja-build
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
-BuildRequires:  pkgconfig(Imath) >= 2.3
-BuildRequires:  pkgconfig(OpenImageIO) >= 2.3
+BuildRequires:  cmake(Imath) >= 2.3
+BuildRequires:  cmake(OpenImageIO) >= 2.3
 BuildRequires:  pkgconfig(pugixml)
 
 # For osltoy

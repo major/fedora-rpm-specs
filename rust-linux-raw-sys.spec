@@ -5,7 +5,7 @@
 %global crate linux-raw-sys
 
 Name:           rust-linux-raw-sys
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -97,6 +97,18 @@ This package contains library source intended for building other packages which
 use the "if_ether" feature of the "%{crate}" crate.
 
 %files       -n %{name}+if_ether-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+if_packet-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+if_packet-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "if_packet" feature of the "%{crate}" crate.
+
+%files       -n %{name}+if_packet-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+io_uring-devel

@@ -1,6 +1,6 @@
 Name:           xmakemol
 Version:        5.16
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Program for visualizing atomic and molecular systems
 License:        GPLv2+
 URL:            https://www.nongnu.org/xmakemol/
@@ -16,6 +16,8 @@ Patch3:         xmakemol-5.16-print_torsions.patch
 Patch4:         xmakemol-5.16-extern.patch
 # Fix BZ#1914657, crash about NULL widget class
 Patch5:         xmakemol-5.16-widget.patch
+# Fix BZ#2261809, initialization of XmString from incompatible pointer type
+Patch6:         xmakemol-5.16-pointertype.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -49,6 +51,7 @@ bonds.  Features include:
 %patch3 -p1 -b .torsion
 %patch4 -p1 -b .extern
 %patch5 -p1 -b .widget
+%patch6 -p1 -b .pointertype
 
 %build
 %configure
@@ -66,6 +69,9 @@ bonds.  Features include:
 %{_bindir}/xmake_anim.pl
 
 %changelog
+* Tue Jan 30 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.16-19
+- Fix FTBFS on Fedora 40.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

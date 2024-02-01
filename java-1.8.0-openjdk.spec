@@ -259,7 +259,7 @@
 # Define version of OpenJDK 8 used
 %global project openjdk
 %global repo shenandoah-jdk8u
-%global openjdk_revision jdk8u392-b08
+%global openjdk_revision jdk8u402-b06
 %global shenandoah_revision shenandoah-%{openjdk_revision}
 # Define IcedTea version used for SystemTap tapsets and desktop files
 # Define IcedTea version used for SystemTap tapsets and desktop file
@@ -326,7 +326,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      7
+%global rpmrelease      1
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -1355,7 +1355,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{javaver}.%{updatever}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.2
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2581,6 +2581,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Jan 30 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.402.b06-1
+- updated to repack u402.b06
+- debuginfo si probably broken due to wrong b05 in source tarball in comapre with b06
+-- of the rpm (where b06 was delivered by patch)
+- removed wrong release set by rcm bot
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.0.392.b08-7.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

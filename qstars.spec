@@ -9,9 +9,13 @@
 
 Name:           qstars
 Version:        0.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A screensaver simulating planets and asteroids in space
-License:        GPL+
+
+# COPYING	GPL-2.0-or-later
+# vroot.h	HPND
+# SPDX confirmed
+License:        GPL-2.0-or-later AND HPND
 URL:            http://qt.osdn.org.ua/qstars.html
 Source0:        http://qt.osdn.org.ua/%{name}-%{version}.tar.gz
 Source1:        %{name}.setup
@@ -19,12 +23,9 @@ Source2:        %{name}.conf
 Patch0:         %{name}-0.4-desktop.patch
 # Patch to build with -Werror=format-security
 Patch1:         qstars-0.4-format-security.patch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  qt3-devel >= 3.3
-%if 0%{?fedora} >= 22
-Obsoletes:		%{name}-kde < 0.4-15.999
-%endif
 
 %description
 A screensaver which simulates planets, asteroids and ships in a moving
@@ -42,25 +43,10 @@ A screensaver which simulates planets, asteroids and ships in a moving
 starfield. This package contains the files needed to use the hack with
 xscreensaver.
 
-# TODO: confirm these still work on kde4 -- Rex
-%package        kde
-Summary:        KDE screensaver support for %{name}
-Requires:       %{name} = %{version}-%{release}
-%if 0%{?fedora} <= 6
-Requires:       kdeartwork-extras
-%else
-Requires:       kdeartwork-kxs
-%endif
-
-%description    kde
-A screensaver which simulates planets, asteroids and ships in a moving
-starfield. This package contains the files needed to use the hack with KDE.
-
-
 %prep
 %setup -q
-%patch0 -p0 -b .orig
-%patch1 -p1 -b .format
+%patch -P0 -p0 -b .orig
+%patch -P1 -p1 -b .format
 
 # Set installation in project file
 sed -i 's|/local/|/|' %{name}.pro
@@ -84,10 +70,6 @@ install -p -m0644 %{SOURCE2} %{buildroot}%{_datadir}/xscreensaver/hacks.conf.d/
 # For KDE
 install -p -m0755 %{name} %{buildroot}%{_bindir}/%{name}
 install -p -m0755 %{SOURCE1} %{buildroot}%{_bindir}/
-%if 0%{?fedora} < 22
-mkdir -p %{buildroot}%{kdessconfigdir}
-install -p -m0644 %{name}.desktop %{buildroot}%{kdessconfigdir}
-%endif
 cp -a ships galaxies planets asteroids %{buildroot}%{_datadir}/%{name}/
 
 
@@ -105,7 +87,8 @@ fi
 
 
 %files
-%doc COPYING ChangeLog
+%license COPYING
+%doc ChangeLog
 %{_bindir}/%{name}
 %{_bindir}/%{name}.setup
 %{_datadir}/%{name}
@@ -115,13 +98,10 @@ fi
 %{_datadir}/xscreensaver/hacks.conf.d/%{name}.conf
 
 
-%if 0%{?fedora} < 22
-%files kde
-%{kdessconfigdir}/%{name}.desktop
-%endif
-
-
 %changelog
+* Tue Jan 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4-36
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

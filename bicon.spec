@@ -1,10 +1,12 @@
 Name:         bicon
 License:      LGPL-2.0-or-later and Python-2.0.1
 Version:      0.5
-Release:      21%{?dist}
+Release:      22%{?dist}
 Summary:      Bidirectional Console
 Source:       https://github.com/behdad/bicon/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:       %{name}-HEAD.patch
+# https://github.com/behdad/bicon/issues/31
+Patch1:       %{name}-2261007-ftbfs-partype.patch
 URL:          https://www.arabeyes.org/Bicon
 
 BuildRequires: autoconf
@@ -80,6 +82,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/bicon/*.a
 %{_datadir}/%{name}/keymap
 
 %changelog
+* Tue Jan 30 2024 Takao Fujiwara <tfujiwar@redhat.com> - 0.5-22
+- Resolves #2261007 Fix arg in fribidi_log2vis()
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

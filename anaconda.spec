@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.18
+Version: 40.20
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -57,7 +57,6 @@ BuildRequires: gobject-introspection-devel
 %if %{with glade}
 BuildRequires: glade-devel
 %endif
-BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: make
 BuildRequires: pango-devel
@@ -273,9 +272,9 @@ Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
 Requires: adwaita-icon-theme
+Requires: tecla
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
-Requires: libgnomekbd
 Requires: nm-connection-editor
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
@@ -462,6 +461,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 30 2024 Packit <hello@packit.dev> - 40.20-1
+- docs: add section about multi-package updates (kkoukiou)
+
 * Wed Jan 24 2024 Jiri Konecny <jkonecny@redhat.com> - 40.18-1
 - Use flag file to signal backend is ready (jkonecny)
 - Start Firefox before Anaconda on Live (jkonecny)

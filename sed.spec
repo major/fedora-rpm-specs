@@ -2,8 +2,8 @@
 
 Summary: A GNU stream text editor
 Name: sed
-Version: 4.8
-Release: 15%{?dist}
+Version: 4.9
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -15,6 +15,12 @@ BuildRequires: make
 BuildRequires: glibc-devel, libselinux-devel, libacl-devel, automake, autoconf, gcc
 BuildRequires: perl-Getopt-Long
 BuildRequires: perl(FileHandle)
+
+# for tests.  More tests require a ja_JP locale, but glibc-langpack-ja gives:
+#   invalid-mb-seq-UMR.sh: skipped test: locale 'ja_JP' is buggy
+#   mb-charclass-non-utf8.sh: skipped test: ja_JP shift-jis locale not found
+BuildRequires: glibc-langpack-el, glibc-langpack-en
+BuildRequires: glibc-langpack-ru, valgrind
 
 Provides: /bin/sed
 
@@ -29,14 +35,7 @@ that sed performs (substitutions, deletions, insertions, etc.) can be
 specified in a script file or from the command line.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-
-
-sed -e 's/1729576/EPERM/' \
-    -i gnulib-tests/test-{strerror_r,perror2}.c
+%autosetup -p1
 
 %build
 %configure --without-included-regex
@@ -65,6 +64,13 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Tue Jan 30 2024 Paolo Bonzini <pbonzini@redhat.com> - 4.9-1
+- Rebase to 4.9
+- Update downstream patches
+- Resolves: rhbz#2140486
+- Remove change to gnulib tests, they pass anyway
+- Install valgrind and langpacks to increase test coverage
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

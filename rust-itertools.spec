@@ -5,7 +5,7 @@
 %global crate itertools
 
 Name:           rust-itertools
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Extra iterator adaptors, iterator methods, free functions, and macros
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/itertools
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, benchmark-only criterion dev-dependency
 Patch:          itertools-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

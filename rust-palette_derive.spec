@@ -5,7 +5,7 @@
 %global crate palette_derive
 
 Name:           rust-palette_derive
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Automatically implement traits from the palette crate
 

@@ -36,7 +36,6 @@ Source:         ftp://ftp.alsa-project.org/pub/tools/%{name}-%{version}.tar.bz2
 Source1:        90-alsa-tools-firmware.rules
 
 Patch1:         hwmixvolume-python.patch
-Patch2: alsa-tools-c99.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  alsa-lib-devel >= %{version}
@@ -93,8 +92,7 @@ The following tools are available:
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1 -b .hwmixvolume-python
-%patch -P 2 -p1
+%patch -P 1 -p1 -b .hwmixvolume-python
 
 %build
 mv seq/sbiload . ; rm -rf seq

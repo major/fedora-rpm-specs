@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-perl4caml
 Version:        0.9.5
-Release:        107%{?dist}
+Release:        108%{?dist}
 Summary:        OCaml library for calling Perl libraries and code
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -13,10 +13,16 @@ Source0:        perl4caml-%{version}.tar.gz
 
 # Include upstream patch for Perl 5.12:
 # http://git.annexia.org/?p=perl4caml.git;a=commitdiff_plain;h=4cb12aa05bd5aa69ccfa1c6d41ab10bc79a3c3a3
-Patch0:         perl4caml-0.9.5-svtrv.patch
+Patch:          perl4caml-0.9.5-svtrv.patch
 
 # Upstream patch to fix build for OCaml 4.04.
-Patch1:         perl4caml-0.9.5-fix-use-of-camlparam-etc-macros.patch
+Patch:          perl4caml-0.9.5-fix-use-of-camlparam-etc-macros.patch
+
+# Upstream patch to fix argv declaration for GCC 14:
+Patch:          0001-perl_c.c-Fix-declaration-of-argv.patch
+
+# Upstream patch to avoid warning from coreutils:
+Patch:          0002-Makefile.config-Avoid-annoying-coreutils-warning.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
@@ -126,6 +132,9 @@ install -c -m 0755 dllperl4caml.so $DESTDIR/%{_libdir}/ocaml/stublibs
 
 
 %changelog
+* Tue Jan 30 2024 Richard W.M. Jones <rjones@redhat.com> - 0.9.5-108
+- Upstream patch to fix some build failures (RHBZ#2261832)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-107
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

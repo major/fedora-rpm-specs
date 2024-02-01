@@ -5,7 +5,7 @@
 %global crate wayland-scanner
 
 Name:           rust-wayland-scanner
-Version:        0.31.0
+Version:        0.31.1
 Release:        %autorelease
 Summary:        Wayland Scanner for generating rust APIs from XML wayland protocol files
 

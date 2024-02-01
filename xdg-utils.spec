@@ -1,18 +1,13 @@
-%global basever 1.2.0
-%global commit 21fb316bea83e3374eafc7fbf1e25a0ccdda92cb
-%global commitdate 20231511
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Summary: Basic desktop integration functions
 Name:    xdg-utils
-Version: %{basever}%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release: 2%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 
 URL:     https://www.freedesktop.org/wiki/Software/xdg-utils/
 %if 0%{?snap:1}
 Source0: xdg-utils-%{version}-%{snap}.tar.gz
 %else
-Source0:  https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/%{commit}/xdg-utils-%{commit}.tar.gz
+Source0:  https://gitlab.freedesktop.org/xdg/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 %endif
 License: MIT
 
@@ -52,7 +47,7 @@ The following scripts are provided at this time:
 
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -n %{name}-v%{version} -p1
 
 
 %build
@@ -90,6 +85,9 @@ make man scripts %{?_smp_mflags} -C scripts
 
 
 %changelog
+* Tue Jan 30 2024 Steve Cossette <farchord@gmail.com> - 1.2.0-1
+- Release to 1.2.0 final
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0~git20231511.21fb316-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

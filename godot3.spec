@@ -238,7 +238,7 @@ done
 %define disable_modules module_denoise_enabled=no
 %endif
 
-%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs use_lto=yes use_static_cpp=no progress=no %{?disable_modules}
+%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs use_lto=yes use_static_cpp=no progress=no %{?disable_modules}
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"

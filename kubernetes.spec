@@ -28,7 +28,7 @@
 
 # last release version of these rpms prior to F40 restructure
 # should not change once restructure goes into rawhide
-%global switchver              1.28.4-1
+%global switchver              1.28.6-4
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash

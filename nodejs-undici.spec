@@ -20,6 +20,7 @@ Source4:    %{npm_name}-sources.sh
 
 # Upstream proposal: https://github.com/nodejs/undici/pull/2403
 Patch:      0001-feat-allow-customization-of-build-environment.patch
+Patch:      0002-Support-building-for-externally-shared-js-builtins-2.patch
 
 # Binary artifacts in this package are aimed at the wasm32-wasi "architecture".
 %global     _binaries_in_noarch_packages_terminate_build 0
@@ -63,7 +64,7 @@ export WASM_LDFLAGS='-nodefaultlibs'
 export WASM_LDLIBS='-lc'
 
 # `npm run build` uses docker; invoke the build script directly
-%{__nodejs} build/wasm.js
+env EXTERNAL_PATH='%{nodejs_sitelib}/%{npm_name}' %{__nodejs} build/wasm.js
 npm --offline pack
 
 %install

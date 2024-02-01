@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-comparator5
 #
-# Copyright (c) 2014-2023 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -33,6 +33,7 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
+Patch0:         %{name}-upstream.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
@@ -45,8 +46,8 @@ BuildRequires:  (php-composer(%{pk_vendor}/exporter) >= 5.0   with php-composer(
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^10.3"
-BuildRequires:  phpunit10 >= 10.3
+#        "phpunit/phpunit": "^10.4"
+BuildRequires:  phpunit10 >= 10.4
 %endif
 
 # from composer.json
@@ -79,6 +80,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 
 %build
@@ -126,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 30 2024 Remi Collet <remi@remirepo.net> - 5.0.1-4
+- add upstream patch for phpunit >= 10.4 FTBFS #2261508
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -33,6 +33,8 @@ Patch10:	iaxclient-system-ilbc.patch
 Patch11:	iaxclient-2.1beta3-fpic.patch
 Patch12:        wxwidgets-3.0.patch
 Patch13:        gtk3.patch
+Patch14:	iaxclient-gcc14.patch
+
 # Fix some makefile issues
 Patch20:	iax-0.2.3_makefile.patch
 # Fix format-security issue
@@ -131,6 +133,7 @@ wx IAX Phone Client.
 %patch11 -p1 -b .fpic
 %patch12 -p1 -b .wx3
 %patch13 -p1 -b .gtk3
+%patch14 -p1 -b .gcc14
 
 # Delete bundled libraries (except libiax2) just to be sure
 rm -rf lib/{gsm, portmixer, sox, spandsp}

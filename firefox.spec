@@ -174,7 +174,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        122.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -440,6 +440,13 @@ BuildRequires:  libproxy-devel
 Obsoletes:      mozilla <= 37:1.7.13
 Provides:       webclient
 
+# Don't ship firefox-x11 and firefox-wayland on Fedora 40.
+# Wayland backend is considered as mature enough now.
+%if 0%{?fedora} >= 40
+Obsoletes:  firefox-wayland < 122.0-2
+Obsoletes:  firefox-x11 < 122.0-2
+%endif
+
 %description
 Mozilla Firefox is an open-source web browser, designed for standards
 compliance, performance and portability.
@@ -494,13 +501,6 @@ to run Firefox explicitly on Wayland.
 %files wayland
 %{_bindir}/firefox-wayland
 %{_datadir}/applications/firefox-wayland.desktop
-%endif
-
-# Don't ship firefox-x11 and firefox-wayland on Fedora 40.
-# Wayland backend is considered as mature enough now.
-%if 0%{?fedora} >= 40
-Obsoletes: firefox-wayland
-Obsoletes: firefox-x11
 %endif
 
 %if 0%{?run_firefox_tests}
@@ -1177,6 +1177,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jan 30 2024 Martin Stransky <stransky@redhat.com>- 122.0-4
+- Build with --enable-replace-malloc (rhbz#2260766)
+
+* Tue Jan 30 2024 Martin Stransky <stransky@redhat.com>- 122.0-3
+- Added version to obsolete firefox-wayland/x11
+
 * Mon Jan 29 2024 Martin Stransky <stransky@redhat.com>- 122.0-2
 - Obsolete firefox-wayland and firefox-x11 on Fedora 40+
 

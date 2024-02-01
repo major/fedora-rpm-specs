@@ -5,7 +5,7 @@
 %global crate anstream
 
 Name:           rust-anstream
-Version:        0.6.7
+Version:        0.6.11
 Release:        %autorelease
 Summary:        Simple cross platform library for writing colored text to a terminal
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          anstream-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-# * drop Windows-specific features
 Patch:          anstream-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

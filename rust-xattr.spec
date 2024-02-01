@@ -5,7 +5,7 @@
 %global crate xattr
 
 Name:           rust-xattr
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Unix extended filesystem attributes
 

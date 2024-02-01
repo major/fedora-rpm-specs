@@ -5,13 +5,14 @@
 
 Name:           rust-%{crate}
 Version:        0.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Specify and send TPM2 policies to satisfy object authorization
 
 # Upstream license specification: EUPL-1.2
 License:        EUPL 1.2
 URL:            https://crates.io/crates/tpm2-policy
 Source:         %{crates_source}
+Patch0:         tpm2-policy-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
 
@@ -66,6 +67,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Tue Jan 30 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.6.0-7
+- Fix build
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

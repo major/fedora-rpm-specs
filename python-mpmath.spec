@@ -14,18 +14,13 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-wheel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-sphinx
 BuildRequires:  xorg-x11-server-Xvfb
 
 # For building documentation
 BuildRequires:  dvipng
 BuildRequires:  make
-BuildRequires:  latexmk
-BuildRequires:  texlive-collection-basic
-BuildRequires:  texlive-collection-latexrecommended
-BuildRequires:  texlive-collection-latexextra
-BuildRequires:  texlive-collection-fontsrecommended
 
 BuildArch:      noarch
 
@@ -45,21 +40,16 @@ use gmpy to speed up high precision operations.}
 %package -n python3-mpmath
 Summary:        A pure Python library for multiprecision floating-point arithmetic
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends: python3-matplotlib
+Recommends:     python3-matplotlib
 %endif
+# The doc subpackage was dropped
+# (https://bugzilla.redhat.com/show_bug.cgi?id=2221964)
+Obsoletes:      %{name}-doc < 1.3.0-6
 %{?python_provide:%python_provide python3-mpmath}
 
 %description -n python3-mpmath %_description
 
 If you require plotting capabilities in mpmath, install python3-matplotlib.
-
-
-%package doc
-Summary:        HTML documentation for %{name}
-Requires:       python3-mpmath = %{version}-%{release}
-
-%description doc
-This package contains the HTML documentation for %{name}.
 
 
 %prep
@@ -89,10 +79,6 @@ sed -i -r 's/use_scm_version=True/version="%{version}"/' setup.py
 %build
 %py3_build
 
-# Build documentation
-%{__python3} setup.py build_sphinx -c docs -b html,latex
-make -C build/sphinx/latex all-pdf
-
 %install
 %py3_install
 
@@ -105,9 +91,6 @@ xvfb-run -a pytest-3 -v
 %doc CHANGES README.rst
 %{python3_sitelib}/mpmath/
 %{python3_sitelib}/mpmath-%{version}-*.egg-info
-
-%files doc
-%doc build/sphinx/latex/mpmath.pdf build/sphinx/html/ build/sphinx/doctrees/
 
 %changelog
 %autochangelog

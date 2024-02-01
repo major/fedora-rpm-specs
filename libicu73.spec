@@ -2,25 +2,30 @@
 
 # Set to 0 when upgrading to a new ICU release that contains up-to-date timezone data.
 # (or update the timezone data update..).
-%global use_tzdata_update 1
-# Adjust to version major; used in tzdata update.
-%global icu_major 71
+%global use_tzdata_update 0
 
-Name:      libicu71
-Version:   71.1
-Release:   5%{?dist}
+%define version_dash %{gsub %{version} %. -}
+%define version_underscore %{gsub %{version} %. _}
+
+Name:      libicu73
+Version:   73.2
+Release:   1%{?dist}
 Summary:   Compat package with icu libraries
 
-License:   MIT and UCD and Public Domain
+License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-%{version_dash}/icu4c-%{version_underscore}-src.tgz
 %if 0%{?use_tzdata_update}
-Source1:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-data.zip
+Source1:   https://github.com/unicode-org/icu/releases/download/release-%{version_dash}/icu4c-%{version_underscore}-data.zip
 Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/metaZones.txt
 Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/timezoneTypes.txt
 Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/windowsZones.txt
 Source5:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/zoneinfo64.txt
 %endif
+
+# Fix broken TestHebrewCalendarInTemporalLeapYear
+# https://github.com/unicode-org/icu/pull/2610 (fixed in icu 74)
+Patch0:    intltest-fix-hebrew-cal.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -29,14 +34,13 @@ BuildRequires: make
 
 Patch4: gennorm2-man.patch
 Patch5: icuinfo-man.patch
-Patch10: timezone-update-2022b.patch
 
 # Explicitly conflict with older icu packages that ship libraries
 # with the same soname as this compat package
-Conflicts: libicu < 72
+Conflicts: libicu < 74
 
 %description
-Compatibility package with icu libraries ABI version 71.
+Compatibility package with icu libraries ABI version 73.
 
 
 %{!?endian: %global endian %(%{__python3} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
@@ -48,7 +52,7 @@ Compatibility package with icu libraries ABI version 71.
 %if 0%{?use_tzdata_update}
 pushd source
 unzip -o %{SOURCE1}
-rm -f data/in/icudt%{icu_major}l.dat
+rm -f data/in/icudt*l.dat
 cp -v -f %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} data/misc
 popd
 %endif
@@ -116,17 +120,5 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 71.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 71.1-1
+* Tue Jan 30 2024 Pete Walter <pwalter@fedoraproject.org> - 73.2-1
 - Initial packaging

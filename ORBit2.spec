@@ -4,7 +4,7 @@
 Summary: A high-performance CORBA Object Request Broker
 Name: ORBit2
 Version: 2.14.19
-Release: 35%{?dist}
+Release: 36%{?dist}
 #VCS: git:git://git.gnome.org/ORBit2
 Source: http://download.gnome.org/sources/ORBit2/2.14/%{name}-%{version}.tar.bz2
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -25,6 +25,7 @@ Patch1: ORBit2-2.14.3-ref-leaks.patch
 Patch2: ORBit2-make-j-safety.patch
 Patch3: ORBit2-allow-deprecated.patch
 Patch4: ORBit2-configure-c99.patch
+Patch5: pointer-type.patch
 
 %description
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -61,11 +62,12 @@ write such programs, you'll also need to install the ORBIT package.
 
 %prep
 %setup -q
-%patch0 -p1 -b .multilib
-%patch1 -p1 -b .ref-leaks
-%patch2 -p1 -b .make-j
-%patch3 -p1 -b .deprecated
-%patch4 -p1
+%patch -P 0 -p1 -b .multilib
+%patch -P 1 -p1 -b .ref-leaks
+%patch -P 2 -p1 -b .make-j
+%patch -P 3 -p1 -b .deprecated
+%patch -P 4 -p1
+%patch -P 5 -p0
 
 %build
 %configure --disable-gtk-doc --enable-purify --disable-static --disable-rpath
@@ -131,6 +133,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/typelib-dump
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.14.19-36
+- Patch for modern C.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.19-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

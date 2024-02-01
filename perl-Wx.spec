@@ -12,9 +12,9 @@
 
 Name:           perl-Wx
 Version:        0.9932
-Release:        31%{?dist}
+Release:        33%{?dist}
 Summary:        Interface to the wxWidgets cross-platform GUI toolkit
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Wx
 Source0:        https://cpan.metacpan.org/authors/id/M/MD/MDOOTSON/Wx-%{version}.tar.gz
 # Work around BOM_UTF8 clash between wxGTK and Perl. Should be fixed in newer
@@ -47,6 +47,14 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(YAML) >= 0.35
 BuildRequires:  dos2unix
 
+# this package requires the same version of perl(Alien::wxWidgets::Config::gtk_XXX) it was built with
+# see https://bugzilla.redhat.com/2232294 for details.
+# oh, we crossing the streams here, hold on.
+%global alien_versioned_require %(rpm -q perl-Alien-wxWidgets --provides |grep gtk)
+
+%if "%{alien_versioned_require}" != ""
+Requires: %{alien_versioned_require}
+%endif
 
 # Manual provides from XS
 Provides: perl(Wx::AboutDialogInfo)
@@ -674,20 +682,23 @@ you can download it from http://wxperl.sourceforge.net/.
 
 %prep
 %setup -q -n Wx-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # Hooray for line ending differences.
 dos2unix MANIFEST
 dos2unix typemap
 
-%patch3 -p1 -b .port
+%patch -P3 -p1 -b .port
 
 chmod -c a-x README.txt docs/todo.txt samples/*/*.pl
 find . -type f -name "*.pm" -o -name "*.h" -o -name "*.cpp" |
     xargs chmod -c a-x
 
+
+# OLD
+%if 0
 %filter_provides_in %{perl_vendorarch}/.*\\.so$ 
 %filter_provides_in -P %{perl_archlib}/(?!CORE/libperl).*\\.so$ 
 %filter_from_provides /perl(UNIVERSAL)/d; /perl(DB)/d 
@@ -697,6 +708,13 @@ find . -type f -name "*.pm" -o -name "*.h" -o -name "*.cpp" |
 %filter_provides_in %{_docdir} 
 %filter_requires_in %{_docdir} 
 %filter_setup 
+%endif
+
+# NEW
+%global __provides_exclude_from ^(%{perl_vendorarch}/.*\\.so)$
+%global __provides_exclude ^perl\\((Wx|MY)\\)$
+%{?perl_default_filter}
+
 
 %build
 perl Makefile.PL --wx-unicode \
@@ -726,6 +744,14 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Tue Jan 30 2024 Tom Callaway <spot@fedoraproject.org> - 0.9932-33
+- use new filtering macros
+- fix license tag
+- add explicit requires on perl(Alien::wxWidgets::Config::gtk_XXX) that we build against
+
+* Tue Jan 30 2024 Miro Hrončok <mhroncok@redhat.com> - 0.9932-32
+- Rebuilt with perl(Alien::wxWidgets::Config::gtk_3_2_4_uni_gcc_3_4)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9932-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

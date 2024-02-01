@@ -1,11 +1,12 @@
 Name:    libcircle
 Version: 0.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Source: https://github.com/hpc/libcircle/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 URL: http://hpc.github.io/libcircle/
 Summary: A library used to distribute workloads
 License: BSD
+ExcludeArch:    %{ix86}
 
 BuildRequires:  check-devel
 BuildRequires:  doxygen
@@ -136,6 +137,9 @@ make -C mpich check || { cat mpich/tests/test-suite.log && exit 1; }
 %{_docdir}/%{name}
 
 %changelog
+* Tue Jan 30 2024 Christoph Junghans <junghans@votca.org> - 0.3-16
+- exclude ix86
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

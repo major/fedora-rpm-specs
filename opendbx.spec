@@ -4,9 +4,8 @@ Release:        36%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
 #License:        LGPLv2+
-# (util/argmap.{cpp,hpp}) have a GPL license header rather than an LGPL one
-# until upstream decides about this I am leaving GPLv2+ here as the stricter license
-License:        GPLv2+
+# (util/argmap.{cpp,hpp}) and lib/opendbx/api are LGPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://www.linuxnetworks.de/doc/index.php/OpenDBX
 Source0:        http://linuxnetworks.de/opendbx/download/%{name}-%{version}.tar.gz
 Patch0:         opendbx-1.4.6-freetds-fix.patch

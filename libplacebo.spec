@@ -1,7 +1,7 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        6.338.1
+Version:        6.338.2
 Release:        %autorelease
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 

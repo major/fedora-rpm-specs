@@ -2,22 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate wayland-server
+%global crate cached_proc_macro
 
-Name:           rust-wayland-server
-Version:        0.31.1
+Name:           rust-cached_proc_macro
+Version:        0.18.1
 Release:        %autorelease
-Summary:        Bindings to the standard C implementation of the wayland protocol, server side
+Summary:        Generic cache implementations and simplified function memoization
 
 License:        MIT
-URL:            https://crates.io/crates/wayland-server
+URL:            https://crates.io/crates/cached_proc_macro
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Bindings to the standard C implementation of the wayland protocol,
-server side.}
+Generic cache implementations and simplified function memoization.}
 
 %description %{_description}
 
@@ -31,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
-%doc %{crate_instdir}/CHANGELOG.md
+# FIXME: no license files detected
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -46,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+log-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+log-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
-
-%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

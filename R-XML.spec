@@ -1,16 +1,15 @@
 %global packname XML
-%global packver  3.99-0.15
+%global packver  3.99-0.16.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          3.99.0.15
+Version:          3.99.0.16.1
 Release:          %autorelease
 Summary:          Tools for Parsing and Generating XML Within R and S-Plus
 
-License:          BSD
+License:          BSD-3-Clause
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
-Patch0:           R-XML-libxml2-2.12.0-includes.patch
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods, R-utils
@@ -21,6 +20,7 @@ Patch0:           R-XML-libxml2-2.12.0-includes.patch
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    tex(inconsolata.sty)
 BuildRequires:    R-methods
 BuildRequires:    R-utils
 BuildRequires:    R-bitops
@@ -35,9 +35,6 @@ access to an XPath "interpreter".
 
 %prep
 %setup -q -c -n %{packname}
-pushd %{packname}
-%patch -P 0 -p1
-popd
 
 
 %build

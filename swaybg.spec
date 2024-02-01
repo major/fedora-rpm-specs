@@ -9,6 +9,8 @@ Source0:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:    https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
 
+Patch:      0001-main.c-fix-build-against-gcc-14-Walloc-size.patch
+
 # Swaybg was part of sway before sway 1.1
 Conflicts:  sway < 1.1
 

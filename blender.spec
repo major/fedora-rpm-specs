@@ -155,10 +155,10 @@ BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(vpx)
 # OpenColorIO 2 and up required
-BuildRequires:  pkgconfig(OpenColorIO) > 1
+BuildRequires:  cmake(OpenColorIO) > 1
 BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenEXR)
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(tbb) = 2020.3
 BuildRequires:  potrace-devel

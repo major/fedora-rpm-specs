@@ -71,12 +71,8 @@ BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libtiff-4)
-%if 0%{?fedora} > 34 
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(Imath)
-%else
-BuildRequires:  pkgconfig(OpenEXR)
-%endif
 BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  cmake(OpenImageIO)
 # Disable pyside2 due to incompatibility with python 3.12

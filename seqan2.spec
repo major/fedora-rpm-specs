@@ -1,8 +1,5 @@
 %global __cmake_in_source_build 1
 
-# Default ld_as_needed flag breaks executables linkage
-%undefine _ld_as_needed
-
 # Tests need Python2 to be executed
 %global with_check 0
 
@@ -13,9 +10,9 @@ Obsoletes: seqan2-doc < 0:2.4.0-8
 Name:      seqan2
 Summary:   C++ library of efficient algorithms and data structures
 Version:   2.4.0
-Release:   21%{?dist}
-License:   BSD
-URL:       http://www.seqan.de/
+Release:   22%{?dist}
+License:   BSD-3-Clause
+URL:       https://www.seqan.de/
 Source0:   https://github.com/seqan/seqan/archive/seqan-v%{version}.tar.gz#/seqan-seqan-v%{version}.tar.gz
 
 # Disable automatic stripping on no-DEVELOP seqan build systems 
@@ -27,6 +24,9 @@ Patch1: %{name}-set_config_filepath.patch
 # Set paths of plot.awk and ps2pswLinks.gawk files
 Patch2: %{name}-set_awk_installation.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
+
 BuildRequires: make
 BuildRequires: qt4-devel
 BuildRequires: cmake, gcc-c++
@@ -34,7 +34,6 @@ BuildRequires: llvm-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 BuildRequires: boost-devel
-BuildRequires: coin-or-lemon-devel
 BuildRequires: libstdc++-static
 BuildRequires: python3-devel
 
@@ -66,33 +65,27 @@ As such, it contains algorithms and data structures for
 
 %package apps
 Summary: SeqAn (2.x.x) applications
-
-## Seqan apps are licenses under BSD and GPLv3+ and LGPLv3+.
-#
+## Seqan apps are licensed under BSD and GPLv3+ and LGPLv3+.
 # BSD (3-clauses): alf, bs_tools, fiona, fx_tools, gustaf
 # insegt, mason2, ngs_roi, param_chooser, rabema, razers3
 # sak, sam2matrix, samcat, searchjoin, seqcons2, yara
 # ngs_roi, pair_align, ngs_roi.
-#
 # GPLv3+: rabema.
-#
 # LGPLv3+: dfi, insegt, micro_razers, pair_align
 # param_chooser, razers, razers3, rep_sep, sak
 # seqan_tcoffee, sgip, snp_store, splazers, stellar
 # tree_recon.
-##
 # LGPLv3 gives you permission to relicense the code under GPLv3
 # BSD (3-clauses) is compatible with GPLv3
 # We can use a collective license:
-License:  GPLv3+ and BSD and LGPLv3+
+License:  GPL-3.0-or-later AND BSD-3-Clause AND LGPL-3.0-or-later
 Requires: gawk%{?_isa}
-
-# 'seqan2' is the most recent version of 'SeqAn'
 Obsoletes: seqan <= 0:1.4.2
 Provides:  seqan =  0:%{version}-%{release}
 
 %description apps
 All SeqAn applications.
+
 
 %package headers
 Summary: SeqAn (2.x.x) headers only files
@@ -101,13 +94,16 @@ Summary: SeqAn (2.x.x) headers only files
 # basic/boost*.h libraries are distributed under Boost
 # bam_io/bam_index_bai.h is distributed under MIT
 # Although Boost, zlib, MIT are GPL compatible, they're all tagged anyway
-License:   GPLv3+ and BSD and MIT and LGPLv3+ and zlib and Boost
+License:  GPL-3.0-or-later AND BSD-3-Clause AND MIT AND LGPL-3.0-or-later AND Zlib AND BSL-1.0
 
+Requires: bzip2-devel%{?_isa}
+Requires: zlib-devel%{?_isa}
 Provides: bundled(bzip2stream)
 Provides: bundled(zipstream)
 
 %description headers
-C headers files of SeqAn, including pkconfig and CMake configuration files.
+C headers files of SeqAn, including pkgconfig and CMake configuration files.
+
 
 %package examples
 Summary: SeqAn (2.x.x) examples
@@ -122,10 +118,14 @@ Summary: SeqAn (2.x.x) documentation
 # 3L is licensed under MIT
 # Less and bootstrap files is licensed under ASL 2.0
 # jquery-bbq are licensed under LGPLv3+
-License: LGPLv3+ and MIT and ASL 2.0
+License: LGPL-3.0-or-later AND MIT AND Apache-2.0
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx_rtd_theme
+%if 0%{?fedora} > 38
+Requires: fontawesome4-fonts-web
+%else
 Requires: fontawesome-fonts-web
+%endif
 BuildArch: noarch
 
 # https://github.com/mateuszkocz/3l
@@ -175,7 +175,6 @@ SEQAN_OPT_FLAGS="$RPM_OPT_FLAGS"
  -DSEQAN_DISABLE_VERSION_CHECK:BOOL=ON \
  -DZLIB_INCLUDE_DIR:PATH=%{_includedir} -DZLIB_LIBRARY:FILEPATH=%{_libdir}/libz.so \
  -DBZIP2_INCLUDE_DIR:PATH=%{_includedir} -DBZIP2_LIBRARY:FILEPATH=%{_libdir}/libbz2.so \
- -DLEMON_INCLUDE_DIR:PATH=%{_includedir} -DLEMON_LIBRARY:FILEPATH=%{_libdir}/libemon.so \
  -DBoost_INCLUDE_DIR:PATH=%{_includedir} -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DSPHINX_EXECUTABLE:FILEPATH=%{_bindir}/sphinx-build \
  -DSPHINX_MAN_OUTPUT:BOOL=ON \
@@ -200,7 +199,6 @@ SEQAN_OPT_FLAGS="$RPM_OPT_FLAGS"
  -DSEQAN_DISABLE_VERSION_CHECK:BOOL=ON \
  -DZLIB_INCLUDE_DIR:PATH=%{_includedir} -DZLIB_LIBRARY:FILEPATH=%{_libdir}/libz.so \
  -DBZIP2_INCLUDE_DIR:PATH=%{_includedir} -DBZIP2_LIBRARY:FILEPATH=%{_libdir}/libbz2.so \
- -DLEMON_INCLUDE_DIR:PATH=%{_includedir} -DLEMON_LIBRARY:FILEPATH=%{_libdir}/libemon.so \
  -DBoost_INCLUDE_DIR:PATH=%{_includedir} -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DYARA_LARGE_CONTIGS:BOOL=OFF \
  -DSPHINX_EXECUTABLE:FILEPATH=%{_bindir}/sphinx-build \
@@ -215,10 +213,10 @@ make -O -j1
 
 # Unbundle font-awesome fonts
 %if 0%{?with_doc}
-ln -s %{_datadir}/font-awesome/scss %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/scss
-ln -s %{_datadir}/font-awesome/css %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/css
-ln -s %{_datadir}/font-awesome/fonts %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/fonts
-ln -s %{_datadir}/font-awesome/less %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/less
+ln -s %{_datadir}/font-awesome-web/scss %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/scss
+ln -s %{_datadir}/font-awesome-web/css %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/css
+ln -s %{_datadir}/fonts/fontawesome %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/fonts
+ln -s %{_datadir}/font-awesome-web/less %{buildroot}%{_pkgdocdir}/html/lib/font-awesome/less
 %endif
 
 ## Fix executable permissions
@@ -236,8 +234,7 @@ rm -f %{buildroot}%{_datadir}/doc/seqan2/README.rst
 
 %if 0%{?with_check}
 %check
-pushd build/Release
-ctest --force-new-ctest-process -VV --parallel %{?_smp_mflags} -E app_test_fiona
+%ctest -- -E app_test_fiona
 %endif
 
 %files apps
@@ -271,6 +268,14 @@ ctest --force-new-ctest-process -VV --parallel %{?_smp_mflags} -E app_test_fiona
 %endif
 
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 2.4.0-22
+- Remove unused dependency on coin-or-lemon
+- Convert License fields to SPDX
+- Stop building for 32-bit x86
+- Depend on fontawesome4 for F39+, not fontawesome
+- The headers subpackage needs bzip2-devel and zlib-devel
+- Fix a few typos
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

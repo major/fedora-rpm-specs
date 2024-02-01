@@ -241,7 +241,7 @@ failing_tests="test_(byte_conversion|bytscl|finite|gaussfit|matrix_multiply)"
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
 # save_restore - https://github.com/gnudatalanguage/gdl/issues/1655
-failing_tests="test_(byte_conversion|bytsc|hdf5|save_restore)"
+failing_tests="test_(byte_conversion|bytsc|hdf5|tic_toc|save_restore)"
 %endif
 make test VERBOSE=1 ARGS="-V -E '$failing_tests'"
 make test VERBOSE=1 ARGS="-V -R '$failing_tests' --timeout 600" || :

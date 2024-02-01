@@ -1,15 +1,15 @@
 Summary: imake source code configuration and build system
 Name: imake
-Version: 1.0.9
-Release: 6%{?dist}
+Version: 1.0.10
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 
 Source0: https://www.x.org/pub/individual/util/imake-%{version}.tar.xz
-Source1: https://www.x.org/pub/individual/util/makedepend-1.0.6.tar.bz2
+Source1: https://www.x.org/pub/individual/util/makedepend-1.0.8.tar.xz
 Source2: https://www.x.org/pub/individual/util/gccmakedep-1.0.3.tar.bz2
-Source3: https://www.x.org/pub/individual/util/xorg-cf-files-1.0.7.tar.bz2
-Source4: https://www.x.org/pub/individual/util/lndir-1.0.3.tar.bz2
+Source3: https://www.x.org/pub/individual/util/xorg-cf-files-1.0.8.tar.xz
+Source4: https://www.x.org/pub/individual/util/lndir-1.0.4.tar.xz
 Patch11: imake-1.0.2-abort.patch
 
 BuildRequires: make
@@ -38,7 +38,7 @@ migrate software to the GNU autotools system.
 
 # imake patches
 pushd %{name}-%{version}
-%patch11 -p1 -b .abort
+%patch -P 11 -p1 -b .abort
 popd
 
 %build
@@ -102,6 +102,9 @@ popd
 %{_mandir}/man1/xmkmf.1*
 
 %changelog
+* Tue Jan 30 2024 Orion Poplawski <orion@nwra.com> - 1.0.10-1
+- Update to 1.0.10
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

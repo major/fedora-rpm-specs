@@ -3,7 +3,7 @@
 
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 6.05
+Version: 6.05.01
 Release: %autorelease
 # List of all licenses - each with an example of a man-page that uses it
 # (complete list of all man-pages per license would be too long)

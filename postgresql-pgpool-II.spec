@@ -10,7 +10,7 @@
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{short_name}
 Version:		4.5.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		BSD
 
 URL:			http://pgpool.net
@@ -19,15 +19,14 @@ Source1:		pgpool.service
 Source2:		pgpool.sysconfig
 Source3:		pgpool.init
 
-# Temporarily stop building i686 architecture as the build fails
-# This is a temporary workaround
-ExcludeArch: i686
+# Stop building i686 architecture
+ExcludeArch: %{ix86}
 
 BuildRequires:		make
 BuildRequires:		gcc
 BuildRequires:		clang-devel llvm-devel
 BuildRequires:		postgresql-server-devel
-BuildRequires:		pam-devel, libmemcached-devel, openssl-devel
+BuildRequires:		pam-devel, libmemcached-awesome-devel, openssl-devel
 
 %if %{systemd_enabled}
 BuildRequires:		systemd
@@ -70,6 +69,9 @@ DB nodes to be connected, which was not possible in pgpool-I.
 Summary:	The development files for pgpool-II
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
+# Stop building i686 architecture
+ExcludeArch: %{ix86}
+
 %description devel
 Development headers and libraries for pgpool-II.
 
@@ -80,6 +82,8 @@ Provides:	postgresql-pgpool-II-recovery = %{version}-%{release}
 Requires:	postgresql-server
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
+# Stop building i686 architecture
+ExcludeArch: %{ix86}
 
 %description extensions
 Postgresql extensions libraries and sql files for pgpool-II.
@@ -248,6 +252,10 @@ fi
 
 
 %changelog
+* Tue Jan 30 2024 Ondrej Sloup <osloup@redhat.com> - 4.5.0-3
+- Stop building i686 permanently
+- https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Fri Jan 26 2024 Ondrej Sloup <osloup@redhat.com> - 4.5.0-2
 - Temporarily stop building i686
 

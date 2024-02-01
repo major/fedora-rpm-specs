@@ -37,7 +37,11 @@ BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(passlib)
 %endif
 
-Requires:       dhcp-client
+# Required for the udhcpc binary that replaces the unmaintained
+# dhclient binary from the dhcp-client package. See BZ 2247055
+# for more details. 
+Requires:       busybox
+
 Requires:       hostname
 Requires:       e2fsprogs
 Requires:       iproute

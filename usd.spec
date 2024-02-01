@@ -172,7 +172,7 @@ BuildRequires:  cmake(OpenColorIO)
 %endif
 
 %if %{with oiio}
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO)
 %endif
 
 %if %{with openshading}

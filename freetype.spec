@@ -4,7 +4,7 @@
 Summary: A free and portable font rendering engine
 Name: freetype
 Version: 2.13.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: (FTL or GPLv2+) and BSD and MIT and Public Domain and zlib with acknowledgement
 URL: http://www.freetype.org
 Source:  http://download.savannah.gnu.org/releases/freetype/freetype-%{version}.tar.xz
@@ -24,8 +24,6 @@ Patch3:  freetype-2.6.5-libtool.patch
 Patch4:  freetype-2.8-multilib.patch
 
 Patch5:  freetype-2.10.0-internal-outline.patch
-# Revert ABI/API change
-Patch6:  freetype-2.10.1-debughook.patch
 
 BuildRequires:  gcc
 BuildRequires: libX11-devel
@@ -88,7 +86,6 @@ popd
 %patch 3 -p1 -b .libtool
 %patch 4 -p1 -b .multilib
 %patch 5 -p1 -b .internal-outline
-%patch 6 -p1 -b .debughook
 
 %build
 
@@ -230,6 +227,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jan 30 2024 Marek Kasik <mkasik@redhat.com> - 2.13.2-4
+- Remove a patch which causes FTBFS
+- Resolves: #2261113
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -52,6 +52,12 @@ Patch5:		efl-1.27.0-gettextfix.patch
 
 # Build ecore_sdl versioned so. So efl no longer requires efl-devel
 Patch6:		efl-1.27.0-sdl-version-build.patch
+
+# Handle incompatible pointer types in the bigendian cases
+Patch7:		efl-1.27.0-bigendian-gcc-fix.patch
+# Fix weird pointer to pointer issue on aarc64
+# Note: I am not 100% sure this is right.
+Patch8:		efl-1.27.0-pointerpointerfix.patch
 
 %ifnarch s390 s390x
 BuildRequires:	libunwind-devel
@@ -217,6 +223,8 @@ Development files for EFL.
 %patch -P4 -p1 -b .checkfix
 %patch -P5 -b .gettextfix
 %patch -P6 -b .sdl-version-build
+%patch -P7 -p1 -b .bigendianfix
+%patch -P8 -p1 -b .pointerpointerfix
 
 # This is why hardcoding paths is bad.
 # sed -i -e 's|/opt/efl-%{version}/share/|%{_datadir}/|' \
@@ -588,6 +596,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Jan 30 2024 Tom Callaway <spot@fedoraproject.org> - 1.27.0-5
+- fix incompatible pointer types in bigendian cases causing FTBFS
+- fix pointer issue with aarch64 specific code
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

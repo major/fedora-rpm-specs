@@ -1,15 +1,15 @@
-%global _hardened_build 1
 %{!?__global_ldflags: %global __global_ldflags -Wl,-z,relro -Wl,-z,now}
 
 Name:		SDL_image
 Version:	1.2.12
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Image loading library for SDL
 
 License:	Zlib
 URL:		http://www.libsdl.org/projects/SDL_image/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 Patch0:         SDL_image-1.2.12-interlaced-png-warning-fix.patch
+Patch1:         pointer-type.patch
 
 BuildRequires:  gcc make
 BuildRequires: 	SDL-devel >= 1.2.10
@@ -38,8 +38,8 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
-
+%patch -P 0 -p1
+%patch -P 1 -p0
 
 %build
 # XCF support is crashy in 1.2.4
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.2.12-37
+- Fixes for modern C
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.38.9000-525-gae49a7b29a
+%global glibcsrcdir glibc-2.38.9000-530-gddf542da94
 %global glibcversion 2.38.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 37
+%global baserelease 38
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2218,6 +2218,15 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Jan 30 2024 Patsy Griffin <patsy@redhat.com> - 2.38.9000-38
+- Auto-sync with upstream branch master,
+  commit ddf542da94caf97ff43cc2875c88749880b7259b:
+- syslog: Fix integer overflow in __vsyslog_internal (CVE-2023-6780)
+- syslog: Fix heap buffer overflow in __vsyslog_internal (CVE-2023-6779)
+- syslog: Fix heap buffer overflow in __vsyslog_internal (CVE-2023-6246)
+- Use binutils 2.42 branch in build-many-glibcs.py
+- elf: correct relocation statistics for !ELF_MACHINE_START_ADDRESS
+
 * Mon Jan 29 2024 Arjun Shankar <arjun@redhat.com> - 2.38.9000-37
 - Auto-sync with upstream branch master,
   commit ae49a7b29acc184b03c2a6bd6ac01b5e08efd54f:

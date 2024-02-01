@@ -4,7 +4,7 @@
 %global crate sha1collisiondetection
 
 Name:           rust-sha1collisiondetection
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        SHA-1 hash function with collision detection and mitigation
 
@@ -24,10 +24,8 @@ SHA-1 hash function with collision detection and mitigation.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# MIT
-# MIT OR Apache-2.0
-License:        MIT AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0)
+# FIXME: paste output of %%cargo_license_summary here
+License:        # FIXME
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

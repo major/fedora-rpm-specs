@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        3
+Version:        4
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -11,7 +11,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  gettext
 
-%global anacondacorever 40.9
+%global anacondacorever 40.20
 %global cockpitver 275
 
 Requires: cockpit-bridge >= %{cockpitver}
@@ -103,6 +103,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jan 30 2024 Packit <hello@packit.dev> - 4-1
+- storage: add support for recommended mount points
+
 * Tue Jan 23 2024 Packit <hello@packit.dev> - 3-1
 - Accounts: allow to set root password
 - Add feedback section in the installation screen

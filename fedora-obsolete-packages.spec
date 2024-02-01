@@ -138,9 +138,13 @@ Source0:    README
 # This allows a rebuild with a bumped Release: to be installed.
 
 # Template:
-# Remove in F42
+# Remove in F43
 # %%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # %%obsolete foo 3.5-7
+
+# Remove in F42
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2260493
+%obsolete perl-Test-Apocalypse 1.006-30
 
 # Remove in F41
 # TeXLive sometimes just kills off components without notice, so there is no ticket.

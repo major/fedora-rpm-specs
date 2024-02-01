@@ -77,8 +77,9 @@ Summary:    %{summary}
 Requires:       hicolor-icon-theme
 # Unbundled from spyder/plugins/help/utils/js/mathjax
 Requires:       mathjax
-# Required for the plugin (but not for building Spyder)
+# Required for the plugins (but not for building Spyder)
 Requires:       python3-pylint
+Requires:       python3-pylint-venv
 
 %description -n python3-spyder %_description
 

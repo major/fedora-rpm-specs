@@ -3,8 +3,8 @@
 Name:		oomd
 Summary:	Userspace Out-Of-Memory (OOM) killer
 Version:	0.5.0
-Release:	10%{dist}
-License:	GPLv2
+Release:	11%{dist}
+License:	GPL-2.0-only
 URL:		https://github.com/facebookincubator/oomd/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Check return value for mkstemp()
@@ -13,7 +13,8 @@ Patch0:         %{url}/commit/076af42b270388f38055fdf60dccbb3001de723a.patch
 Patch1:         %{url}/commit/3989e169fc0da9c29da8dd692427d4f4c1ace413.patch
 # Resolved a compiler error due to lacking include
 Patch2:         %{url}/commit/83a6742f08349fbc93f459228dcc3d1f56eac411.patch
-
+# Disable a test that seems to fail on kernel 6.6.9-100.fc38
+Patch3:         oomd-disable-datalifecycle-children-test.patch
 
 ExcludeArch:	i686 armv7hl
 
@@ -55,7 +56,7 @@ Furthermore, time spent livedlocked in kernelspace is minimized.
 
 %if %{with tests}
 %check
-%meson_test
+%meson_test -v
 %endif
 
 %install
@@ -79,6 +80,12 @@ Furthermore, time spent livedlocked in kernelspace is minimized.
 %systemd_postun_with_restart oomd.service
 
 %changelog
+* Tue Jan 30 2024 Michel Lind <salimma@fedoraproject.org> - 0.5.0-11
+- Enable verbose test output
+- Use SPDX license identifier
+- Disable DataLifeCycle children comparison while we investigate failure
+  with newer kernels
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

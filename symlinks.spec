@@ -3,7 +3,7 @@ Name: symlinks
 URL: http://ibiblio.org/pub/Linux/utils/file/
 Version: 1.7
 Release: 10%{?dist}
-License: Copyright only
+License: Symlinks
 # Upstream maintainer provided tarball, ibiblio no longer allowing uploads
 Source0: http://ibiblio.org/pub/Linux/utils/file/%{name}-%{version}.tar.gz
 # Taken from http://packages.debian.org/changelogs/pool/main/s/symlinks/symlinks_1.2-4.2/symlinks.copyright

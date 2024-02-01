@@ -34,9 +34,6 @@
 # flag.
 %bcond aiohttp 1
 
-# Run tests that use a mysql/mariadb server? A hacky workaround is required.
-%bcond mysql 1
-
 Name:           python-aws-xray-sdk
 Summary:        AWS X-Ray SDK for the Python programming language
 Version:        2.12.1
@@ -73,9 +70,6 @@ BuildRequires:  python3dist(django)
 %endif
 %endif
 
-%if %{with mysql}
-BuildRequires:  mariadb-server
-%endif
 BuildRequires:  postgresql-server
 
 %global common_description %{expand:
@@ -124,7 +118,6 @@ cp -p sample-apps/LICENSE LICENSE.sample-apps
 %{?with_httpx:%{toxenv}-ext-httpx},\
 %{?with_pg8000:%{toxenv}-ext-pg8000,}\
 %{toxenv}-ext-psycopg2,\
-%{?with_mysql:%{toxenv}-ext-pymysql,}\
 %{?with_pynamodb:%{toxenv}-ext-pynamodb,}\
 %{?with_requests:%{toxenv}-ext-requests,}\
 %{toxenv}-ext-sqlalchemy,\
@@ -156,48 +149,9 @@ cp -vpr sample-apps/ '%{buildroot}%{_pkgdocdir}'
 # See tox-distributioncheck.ini:
 %pytest tests/distributioncheck
 
-%if %{with mysql}
-# Based on rubygem-mysql2 packaging:
-
-# Use a randomized port in case the standard mysqld port 3306 is occupied, and
-# to account for multiple simultaneous builds on the same host.
-# https://src.fedoraproject.org/rpms/rubygem-pg/pull-request/3
-MYSQL_PORT="$((13306 + ${RANDOM} % 1000))"
-MYSQL_DATA_DIR="${PWD}/data"
-MYSQL_SOCKET="${PWD}/mysql.sock"
-MYSQL_LOG="${PWD}/mysql.log"
-MYSQL_PID_FILE="${PWD}/mysql.pid"
-
-mkdir "${MYSQL_DATA_DIR}"
-mysql_install_db --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}"
-
-%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --skip-ssl \
-    --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}" \
-    --socket="${MYSQL_SOCKET}" --pid-file="${MYSQL_PID_FILE}" & :
-
-echo "Waiting for server… ${i}" 1>&2
-TIMEOUT=30
-while ! grep -q 'ready for connections.' "${MYSQL_LOG}"
-do
-  sleep 1
-  TIMEOUT=$((TIMEOUT - 1))
-  if [[ "${TIMEOUT}" = '0' ]]
-  then
-    echo 'Timed out' 1>&2
-    exit 1
-  fi
-done
-
-echo 'Ready' 1>&2
-trap "kill $(cat "${MYSQL_PID_FILE}")" INT TERM EXIT
-
-# See https://github.com/brianmario/mysql2/blob/master/.travis_setup.sh
-mysql -u "$(whoami)" -S "${MYSQL_SOCKET}" -P "${MYSQL_PORT}" \
-  -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
-      CREATE DATABASE test_db;"
-
-sed -r -i "s/\b3306\b/${MYSQL_PORT}/" tests/ext/pymysql/test_pymysql.py
-%endif
+# Tests for the pymysql extension require a running mysql/mariadb server. We
+# used to do this, using rubygem-mysql2 as an example, but it has become
+# impractical to keep this working.
 
 %if %{with aiohttp}
 # See the note above the aiohttp bcond
@@ -205,7 +159,7 @@ ignore="${ignore-} --ignore=tests/ext/aiohttp/test_client.py"
 %endif
 
 # This will automatically run all the environments for which we generated
-# dependencies in %%generated_buildrequires.
+# dependencies in %%generate_buildrequires.
 %tox -- -- -v --asyncio-mode=auto ${ignore-}
 
 

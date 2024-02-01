@@ -1,4 +1,8 @@
+%ifarch %{ix86}
+%bcond openmpi 0
+%else
 %bcond openmpi %{undefined flatpak}
+%endif
 %bcond mpich %{undefined flatpak}
 
 Name:           cgnslib
@@ -13,6 +17,7 @@ Patch0:         cgnslib-cmake-install-dirs.patch
 # Fix invalid Icon and Exec paths in desktop files
 Patch1:         cgnslib_desktop.patch
 Patch2:         cgnslib-c99.patch
+Patch3:         cgnslib-gcc14.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

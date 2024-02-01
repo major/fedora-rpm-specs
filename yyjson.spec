@@ -43,6 +43,9 @@ The %{name}-devel package contains development files for %{name}.
 %prep
 %forgeautosetup -p1
 
+# https://github.com/ibireme/yyjson/issues/154
+sed -i '/-Werror/d' CMakeLists.txt
+
 %build
 %cmake \
     -GNinja \

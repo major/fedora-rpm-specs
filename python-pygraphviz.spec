@@ -5,6 +5,7 @@ Summary:        Create and Manipulate Graphs and Networks
 License:        BSD
 URL:            http://networkx.lanl.gov/pygraphviz/
 Source0:        https://github.com/pygraphviz/pygraphviz/archive/pygraphviz-%{version}.tar.gz
+Patch0:         pygraphviz-pygraphviz-1.11-Remove-outdated-pystrings.swg-508.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

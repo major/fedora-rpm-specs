@@ -6,7 +6,7 @@
 %global crate clap_mangen
 
 Name:           rust-clap_mangen
-Version:        0.2.17
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Manpage generator for clap
 

@@ -1,5 +1,5 @@
 Name:           python-blosc2
-Version:        2.3.2
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Python wrapper for the Blosc2 compression library
 License:        BSD-3-Clause
@@ -9,7 +9,7 @@ Source:         https://github.com/Blosc/python-blosc2/archive/v%{version}/pytho
 BuildRequires:  python3-devel
 BuildRequires:  gcc-g++
 BuildRequires:  ninja-build
-BuildRequires:  blosc2-devel >= 2.10.0
+BuildRequires:  blosc2-devel >= 2.13.1
 
 ExcludeArch:    %{ix86}
 

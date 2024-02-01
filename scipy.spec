@@ -30,7 +30,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.11.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -223,39 +223,24 @@ export FLEXIBLAS=netlib
 # default test timeout
 TIMEOUT=500
 
-# https://github.com/scipy/scipy/issues/17912
-SKIP_ALL="\
-not TestDatasets and \
-not TestOde and \
-not TestComplexOde and \
-not TestVODECheckParameterUse and \
-not TestZVODECheckParameterUse and \
-not test_banded_ode_solvers and \
-not test_examples[True-complex64]"
+# TestDatasets try to download from the internet
+SKIP_ALL="not TestDatasets"
 export PYTEST_ADDOPTS="-k '$SKIP_ALL'"
+
+%ifarch ppc64le
+TIMEOUT=1000
+%endif
+
+%ifarch aarch64
 # TestConstructUtils::test_concatenate_int32_overflow is flaky on aarch64
-%ifarch aarch64 ppc64le
-# https://bugzilla.redhat.com/show_bug.cgi?id=1959353
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-not test_solve_discrete_are and \
-not test_maxiter_worsening[lgmres] and \
-not test_concatenate_int32_overflow and \
-not test_expm_multiply_dtype'"
+not test_concatenate_int32_overflow'"
 TIMEOUT=1000
 %endif
 
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=1959353
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-not test_solve_discrete_are and \
-not test_maxiter_worsening[lgmres] and \
-not TestInterop and \
-not TestSplder and \
-not test_dblint and \
-not TestUnivariateSpline and \
-not TestLSQBivariateSpline and \
-not TestPPoly and \
-not TestLevyStable and \
 not test_distance_transform_cdt05'"
 TIMEOUT=1000
 %endif
@@ -263,27 +248,16 @@ TIMEOUT=1000
 %ifarch x86_64
 %if 0%{?rhel}
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-not TestPPoly and \
-not TestLinprogIPSparse and \
-not test_axis_nan_policy_full'"
-%else
-export PYTEST_ADDOPTS="-k '$SKIP_ALL'"
+not test_gh7799'"
 %endif
 %endif
 
-%ifarch i686 armv7hl
-# skip also test_cython_api: https://bugzilla.redhat.com/show_bug.cgi?id=2068496
+%ifarch i686
 # https://github.com/scipy/scipy/issues/17213
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
-not test_cython_api and \
 not test_examples and \
 not test_shifts and \
-not test_mu and \
-not test_sum and \
-not test_svdp and \
-not test_resiliency_all_32 and \
-not test_resiliency_random[TestCSC-test_sum_dtype]'"
-
+not test_svdp'"
 %endif
 
 pushd %{buildroot}/%{python3_sitearch}
@@ -313,6 +287,9 @@ popd
 %endif
 
 %changelog
+* Tue Jan 30 2024 Miro Hrončok <mhroncok@redhat.com> - 1.11.3-6
+- Skip fewer tests during build
+
 * Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 1.11.3-5
 - Disable incompatible-pointer-types errors on i686 (#2258823)
 

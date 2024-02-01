@@ -6,7 +6,7 @@
 %global crate serde_with
 
 Name:           rust-serde_with
-Version:        3.4.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Custom de/serialization functions for Rust's serde
 
@@ -191,6 +191,18 @@ This package contains library source intended for building other packages which
 use the "macros" feature of the "%{crate}" crate.
 
 %files       -n %{name}+macros-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+schemars_0_8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+schemars_0_8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "schemars_0_8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+schemars_0_8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

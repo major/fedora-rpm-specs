@@ -1,6 +1,6 @@
 Name:           libpal
 Version:        0.9.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Positional Astronomy Library
 
 # The entire source is GPLv3+, except:
@@ -14,9 +14,7 @@ Summary:        Positional Astronomy Library
 #   palFk54z.c palGaleq.c palGeoc.c palMappa.c palMapqkz.c palPrebn.c
 #   palPrec.c palPrenut.c palPvobs.c palRvlg.c palRvlsrd.c palRvlsrk.c
 #
-# The effective license of the library and documenation is therefore
-# GPLv3+, while the API headers are all LGPLv3+.
-License:        GPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://github.com/Starlink/pal
 Source0:        https://github.com/Starlink/pal/releases/download/v%{version}/pal-%{version}.tar.gz
 
@@ -61,6 +59,7 @@ The %{name}-doc package contains documentation for %{name}.
 
 
 %build
+export CPPFLAGS=-D_DEFAULT_SOURCE
 %configure --disable-static --with-external_cminpack --with-external_pal
 %make_build
 
@@ -92,6 +91,10 @@ make check
 %doc sun267.pdf
 
 %changelog
+* Tue Jan 30 2024 Orion Poplawski <orion@nwra.com> - 0.9.8-10
+- Define _DEFAULT_SOURCE for strlcpy()
+- Use SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

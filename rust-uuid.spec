@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -37,13 +37,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/COPYRIGHT
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -106,30 +102,6 @@ use the "fast-rng" feature of the "%{crate}" crate.
 %files       -n %{name}+fast-rng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+getrandom-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
-
-%files       -n %{name}+getrandom-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+md-5-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+md-5-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "md-5" feature of the "%{crate}" crate.
-
-%files       -n %{name}+md-5-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+md5-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -140,18 +112,6 @@ This package contains library source intended for building other packages which
 use the "md5" feature of the "%{crate}" crate.
 
 %files       -n %{name}+md5-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rand-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rng-devel
@@ -188,18 +148,6 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sha1_smol-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha1_smol-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha1_smol" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha1_smol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+slog-devel

@@ -1,3 +1,10 @@
+# openmpi dropped 32 bit support, thus also drop it
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
+%bcond_without openmpi
+%endif
+
 %if 0%{?fedora} >= 33
 %global blaslib flexiblas
 %else
@@ -9,10 +16,13 @@
 Name:           hpl
 URL:            http://www.netlib.org/benchmark/hpl/
 Version:        2.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        BSD with advertising
 Requires:       %{name}-common = %{version}-%{release}
-BuildRequires:  mpich-devel, openmpi-devel
+BuildRequires:  mpich-devel
+%if %{with openmpi}
+BuildRequires:  openmpi-devel
+%endif
 BuildRequires:  %{blaslib}-devel
 Summary:        A Portable Implementation of the High-Performance Linpack Benchmark
 Source0:        http://www.netlib.org/benchmark/hpl/%{name}-%{version}.tar.gz
@@ -41,6 +51,7 @@ BuildArch: noarch
 %description doc
 HPL documentation.
 
+%if %{with openmpi}
 %package openmpi
 Summary: HPL compiled against openmpi
 # Require explicitly for dir ownership and to guarantee the pickup of the right runtime
@@ -48,6 +59,7 @@ Requires: %{name}-common = %{version}-%{release}
 
 %description openmpi
 This package contains HPL compiled with openmpi.
+%endif
 
 %package mpich
 Summary: HPL compiled against mpich
@@ -82,10 +94,12 @@ cp setup/Make.Linux_PII_CBLAS_gm Make.$MPI_COMPILER \
 make TOPdir="%{_builddir}/%{name}-%{version}" arch=$MPI_COMPILER ARCH=$MPI_COMPILER \\\
   LAlib=-l%{blaslib}
 
+%if %{with openmpi}
 # Build OpenMPI version
 %{_openmpi_load}
 %dobuild
 %{_openmpi_unload}
+%endif
 
 # Build mpich version
 %{_mpich_load}
@@ -94,10 +108,12 @@ make TOPdir="%{_builddir}/%{name}-%{version}" arch=$MPI_COMPILER ARCH=$MPI_COMPI
 
 
 %install
+%if %{with openmpi}
 # Install OpenMPI version
 %{_openmpi_load}
 install -D -m 0755 bin/${MPI_COMPILER}/xhpl %{buildroot}${MPI_BIN}/xhpl${MPI_SUFFIX}
 %{_openmpi_unload}
+%endif
 
 # Install MPICH version
 %{_mpich_load}
@@ -117,12 +133,14 @@ install -p -D -m 0644 man/man3/* %{buildroot}%{_mandir}/man3
 
 
 %check
+%if %{with openmpi}
 # Check openmpi implementation
 %{_openmpi_load}
 pushd bin/${MPI_COMPILER}
 OMPI_MCA_rmaps_base_oversubscribe=1 mpirun -n 4 ./xhpl
 popd
 %{_openmpi_unload}
+%endif
 
 # Check mpich implementation
 %{_mpich_load}
@@ -142,14 +160,20 @@ popd
 %doc %{_docdir}/%{name}/html
 %{_mandir}/man3/*.3*
 
+%if %{with openmpi}
 %files openmpi
 %{_libdir}/openmpi/bin/xhpl*
+%endif
 
 %files mpich
 %{_libdir}/mpich/bin/xhpl*
 
 
 %changelog
+* Tue Jan 30 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.2-18
+- Dropped openmpi support on 32 bit to fix FTBFS
+  Resolves: rhbz#2261235
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

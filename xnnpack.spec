@@ -13,7 +13,7 @@ Summary:        High-efficiency floating-point neural network inference operator
 Name:           xnnpack
 License:        BSD-3-Clause
 Version:        0.0^git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://github.com/google/%{upstream_name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -84,6 +84,9 @@ ln -s libXNNPACK.so.0.0.221221 libXNNPACK.so
 %{_libdir}/libXNNPACK.so
 
 %changelog
+* Tue Jan 30 2024 Tom Rix <trix@redhat.com> - 0.0^git20221221.51a9875-4
+- Fix arm build
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0^git20221221.51a9875-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

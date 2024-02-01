@@ -3,7 +3,7 @@
 Summary: Tethered shooting & control of digital cameras
 Name: entangle
 Version: 3.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later
 Source: https://entangle-photo.org/download/sources/%{name}-%{version}.tar.xz
 Patch: 0001-meson-fix-build-for-meson-0.60.0.patch
@@ -15,7 +15,7 @@ BuildRequires: libgphoto2-devel >= 2.4.11
 BuildRequires: libgudev1-devel >= 145
 BuildRequires: lcms2-devel >= 2.0
 BuildRequires: gobject-introspection-devel >= 1.54.0
-BuildRequires: libpeas-devel >= 1.2.0
+BuildRequires: libpeas1-devel >= 1.2.0
 BuildRequires: libgexiv2-devel >= 0.2.2
 BuildRequires: intltool
 BuildRequires: libX11-devel
@@ -29,7 +29,7 @@ BuildRequires: meson >= 0.41.0
 
 BuildRequires: adwaita-icon-theme
 Requires: adwaita-icon-theme
-Requires: libpeas-loader-python3%{?_isa}
+Requires: libpeas1-loader-python3%{?_isa}
 
 %description
 Entangle is an application which uses GTK and libgphoto2 to provide a
@@ -110,6 +110,9 @@ rm -f %{buildroot}%{_libdir}/libentangle_frontend.so
 %{_libdir}/girepository-1.0/Entangle-0.1.typelib
 
 %changelog
+* Tue Jan 30 2024 Daniel P. Berrange <berrange@redhat.com> - 3.0-7
+- Switch to libpeas1 dep
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

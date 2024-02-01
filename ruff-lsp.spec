@@ -1,7 +1,7 @@
 %bcond_without  check
 
 Name:           ruff-lsp
-Version:        0.0.49
+Version:        0.0.50
 Release:        1%{?dist}
 Summary:        A Language Server Protocol implementation for Ruff
 
@@ -75,6 +75,10 @@ install -d '%{buildroot}%{_mandir}/man1'
 %doc README.md
 
 %changelog
+* Tue Jan 30 2024 blinxen <h-k-81@hotmailcom> - 0.0.50-1
+- Update to version 0.50.0
+- Changelog: https://github.com/astral-sh/ruff-lsp/releases/tag/v0.0.50
+
 * Thu Jan 18 2024 blinxen <h-k-81@hotmailcom> - 0.0.49-1
 - Applied various improvements from package reviewer
 

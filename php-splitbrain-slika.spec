@@ -2,7 +2,7 @@
 %global project  slika
 Name: php-%{author}-%{project}
 
-Version: 1.0.6
+Version: 1.0.7
 Release: 1%{?dist}
 
 Summary: Image handling library for PHP
@@ -18,8 +18,6 @@ URL: https://github.com/%{author}/%{project}
 # fetch the images and zip it all up.
 Source0: %{project}-%{version}.zip
 Source99: slika-get-archive.sh
-
-Patch0: 0000-php-8.3.0-compat.patch
 
 BuildArch: noarch
 
@@ -105,6 +103,10 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Tue Jan 30 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.7-1
+- Update to v1.0.7
+- Drop Patch0 (fix PHP 8.3.0 compatibility - merged upstream)
+
 * Sat Jan 27 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6-1
 - Update to v1.0.6
 

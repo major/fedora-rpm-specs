@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -34,6 +34,9 @@ Patch105: coreutils-9.4-systemd-coredump.patch
 
 # fix buffer overflow in split (CVE-2024-0684)
 Patch106: coreutils-9.4-CVE-2024-0684.patch
+
+# fix tail on kernels with 64k pagesize
+Patch107: coreutils-9.4-tail-64k-pages.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -259,6 +262,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Jan 29 2024 Lukáš Zaoral <lzaoral@redhat.com> - 9.4-6
+- fix tail on kernels with 64k page sizes (RHEL-22866)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

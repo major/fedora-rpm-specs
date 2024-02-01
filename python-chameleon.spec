@@ -1,7 +1,7 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        4.5.1
+Version:        4.5.2
 Release:        1%{?dist}
 Summary:        XML-based template compiler
 
@@ -60,6 +60,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Tue Jan 30 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.5.2-1
+- Update to upstream.
+
 * Sun Jan 28 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.5.1-1
 - Update to upstream.
 

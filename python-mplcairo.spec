@@ -9,7 +9,11 @@ License:        MIT
 URL:            https://github.com/matplotlib/mplcairo
 Source0:        %pypi_source %{srcname}
 # Make pth-generation PEP517-compatible.
-Patch:          https://github.com/matplotlib/mplcairo/commit/bf3b69ceec82b09350e725d310e3a324afc0c3ff.patch
+# https://github.com/matplotlib/mplcairo/commit/bf3b69ceec82b09350e725d310e3a324afc0c3ff
+Patch:          0001-Make-pth-generation-PEP517-compatible.patch
+# Fix use with latest wheel.
+# https://github.com/matplotlib/mplcairo/commit/e85ebb2115f617e20c0269047f9b50ac050f5eb9
+Patch:          0002-Remove-fragile-build_ext-command-run-order-check.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

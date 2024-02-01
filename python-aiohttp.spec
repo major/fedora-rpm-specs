@@ -1,8 +1,8 @@
 %bcond_without tests
 
 Name:           python-aiohttp
-Version:        3.9.1
-Release:        3%{?dist}
+Version:        3.9.3
+Release:        1%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -132,6 +132,16 @@ k="${k-}${k+ and }not (TestCookieJarSafe and test_expires)"
 k="${k-}${k+ and }not (TestCookieJarSafe and test_max_age)"
 k="${k-}${k+ and }not test_cookie_jar_clear_expired"
 %endif
+# A warning comes from our version of uvloop that is not one of the ignored
+# types.
+#   UserWarning: enum class uv_fs_event not importable from uvloop.includes.uv.
+#   You are probably using a cpdef enum declared in a .pxd file that does not
+#   have a .py  or .pyx file.
+k="${k-}${k+ and }not test_no_warnings[aiohttp.pytest_plugin]"
+# This depends on the exact compressed byte stream, which doesn’t match
+# upstream’s expectation due to
+# https://fedoraproject.org/wiki/Changes/ZlibNGTransition.
+k="${k-}${k+ and }not test_send_compress_text"
 %pytest -Wdefault ${ignore-} -k "${k-}" -m 'not dev_mode'
 %else
 # aiohttp.worker requires gunicorn
@@ -144,6 +154,13 @@ k="${k-}${k+ and }not test_cookie_jar_clear_expired"
 %doc README.rst
 
 %changelog
+* Tue Jan 30 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.9.3-1
+- Update to 3.9.3, security update for CVE-2024-23334 and CVE-2024-23829 (fix
+  RHBZ#2261891, fix RHBZ#2261910)
+
+* Tue Jan 30 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.9.1-4
+- Skip a couple of spurious or insignificant test failures (close RHBZ#2261544)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

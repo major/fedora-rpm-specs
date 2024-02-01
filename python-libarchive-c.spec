@@ -30,7 +30,6 @@ Summary:       %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-libarchive-c}
 BuildRequires: python%{python3_pkgversion}-setuptools
 BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-mock
 BuildRequires: python%{python3_pkgversion}-pytest
 Requires:      libarchive
 

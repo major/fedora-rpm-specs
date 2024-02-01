@@ -1,7 +1,7 @@
 Summary:	GLib Ncurses Toolkit
 Name:		libgnt
 Version:	2.14.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPLv2+
 URL:		https://keep.imfreedom.org/libgnt/libgnt/
 BuildRequires:	gcc
@@ -17,6 +17,8 @@ Source0:	https://sourceforge.net/projects/pidgin/files/%{name}/%{version}/%{name
 Source1:	https://sourceforge.net/projects/pidgin/files/%{name}-%{version}.tar.xz.asc
 # https://issues.imfreedom.org/issue/LIBGNT-10
 Source2:	libgnt-maintainers-keyring.asc
+# https://keep.imfreedom.org/libgnt/libgnt/rev/2da723f790d6
+Patch0:		libgnt-2.14.1-gcc-14-fix.patch
 
 %description
 GNT is an ncurses toolkit for creating text-mode graphical user interfaces
@@ -37,7 +39,7 @@ Documentation files for libgnt.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
 %meson
@@ -64,6 +66,10 @@ Documentation files for libgnt.
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Jan 30 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.1-9
+- FTBFS fix (gcc-14)
+  Resolves: rhbz#2261323
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

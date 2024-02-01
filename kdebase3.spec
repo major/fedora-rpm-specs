@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 80%{?dist}
+Release: 81%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPL-2.0-only
@@ -112,6 +112,8 @@ Patch302: kde3-automake-add-missing.patch
 Patch303: kde3-libtool-aarch64.patch
 # fix for autoconf 2.7x
 Patch304: kde3-autoconf-version.patch
+# fix FTBFS due to gcc14
+Patch305: kdebase3-ftbfs-gcc14.patch
 
 Requires: %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -295,6 +297,7 @@ install -p -m644 %{SOURCE9} %{SOURCE10} %{SOURCE11} pics/crystalsvg/
 %patch302 -p1 -b .automake-add-missing
 %patch303 -p1 -b .libtool-aarch64
 %patch304 -p1 -b .autoconf2.7x
+%patch305 -p1 -b .ftbfs-gcc14
 
 make -f admin/Makefile.common cvs
 
@@ -764,6 +767,9 @@ fi
 
 
 %changelog
+* Tue Jan 30 2024 Than Ngo <than@redhat.com> - 3.5.10-81
+- fixed bz#2261271, FTBFS
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-80
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

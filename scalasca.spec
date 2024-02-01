@@ -11,7 +11,7 @@
 
 Name:		scalasca
 Version:	2.6.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Toolset for performance analysis of large-scale parallel applications
 
 # ScoutPatternParser and SilasConfigParser are Bison-generated
@@ -24,9 +24,7 @@ BuildRequires:	zlib-devel openmpi-devel chrpath gcc-c++
 %if %{with mpich}
 BuildRequires:	mpich-devel
 %endif
-# Needed by square, to be moved out of the scorep package.
-# (The -instrument option is deprecated, so don't require/recommend scorep.)
-Requires:	%_bindir/scorep-config
+Requires:	scorep-config
 # As for scorep
 ExcludeArch: s390 s390x armv7hl i686
 
@@ -49,7 +47,7 @@ suited for small- and medium-scale HPC platforms.
 %package openmpi
 Summary:	Toolset for performance analysis of large-scale parallel applications - openmpi
 Requires:	openmpi%{?_isa}
-Requires:	%_libdir/openmpi/bin/scorep-config
+Requires:	scorep-openmpi-config
 
 %description openmpi
 %desc
@@ -59,7 +57,7 @@ Requires:	%_libdir/openmpi/bin/scorep-config
 Summary:	Toolset for performance analysis of large-scale parallel applications - openmpi3
 BuildRequires:	openmpi3-devel
 Requires:	openmpi3%{?_isa}
-Requires:	%_libdir/openmpi3/bin/scorep-config
+Requires:	scorep-openmpi3-config
 
 %description openmpi3
 %desc
@@ -71,7 +69,7 @@ This is the openmpi3 version.
 %package mpich
 Summary:	Toolset for performance analysis of large-scale parallel applications - mpich
 Requires:	mpich%{?_isa}
-Requires:	%_libdir/mpich/bin/scorep-config
+Requires:	scorep-mpich-config
 
 %description mpich
 %desc
@@ -195,6 +193,9 @@ make check VERBOSE=1
 
 
 %changelog
+* Tue Jan 30 2024 Jan Kolarik <jkolarik@redhat.com> - 2.6.1-5
+- Switch scorep-config file dependencies for packages (rhbz#2229953)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

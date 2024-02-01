@@ -6,16 +6,16 @@
 # ***********************************************************************
 
 # Author: John Zaitseff <J.Zaitseff@zap.org.au>
-# $Id: e76f1bf1b6a69e9276beaa9892a5055fc5044d73 $
+# $Id: 60b7467370a91b8d874bd0a0bff37b4ac2a267b1 $
 
 # This file is distributed under the same licence as Star Traders itself:
 # the GNU General Public License, version 3 or later.
 
 Name:           trader
-Version:        7.19
-Release:        2%{?dist}
+Version:        7.20
+Release:        1%{?dist}
 Summary:        Star Traders, a simple game of interstellar trading
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Url:            https://www.zap.org.au/projects/trader/
 Source0:        https://ftp.zap.org.au/pub/trader/unix/trader-%{version}.tar.xz
 Source1:        https://ftp.zap.org.au/pub/trader/unix/trader-%{version}.tar.xz.sig
@@ -55,8 +55,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.19-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Jan 31 2024 John Zaitseff <J.Zaitseff@zap.org.au> - 7.20-1
+- Updated the RPM package for a new release of Star Traders: version 7.20.
 
 * Sun Jan 07 2024 John Zaitseff <J.Zaitseff@zap.org.au> - 7.19-1
 - Updated the RPM package for a new release of Star Traders: version 7.19.

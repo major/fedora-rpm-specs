@@ -1,5 +1,5 @@
 Name:           ansible-collection-containers-podman
-Version:        1.10.1
+Version:        1.12.0
 Release:        5%{?dist}
 Summary:        Podman Ansible collection for Podman containers
 
@@ -31,6 +31,9 @@ rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .github/ .gitignore docs/
 %doc README.md
 
 %changelog
+* Thu Jan 30 2024 Sagi Shnaidman <sshnaidm@redhat.com> - 1.12.0-1
+- Bump to 1.12.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

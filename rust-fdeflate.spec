@@ -5,7 +5,7 @@
 %global crate fdeflate
 
 Name:           rust-fdeflate
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Fast specialized deflate implementation
 

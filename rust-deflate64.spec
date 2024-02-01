@@ -5,7 +5,7 @@
 %global crate deflate64
 
 Name:           rust-deflate64
-Version:        0.1.6
+Version:        0.1.7
 Release:        %autorelease
 Summary:        Deflate64 implementation based on .NET's implementation
 

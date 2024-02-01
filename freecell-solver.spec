@@ -4,9 +4,10 @@
 
 Name: freecell-solver
 Version: 6.8.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
+Patch1: fc-solve-ptr-type.patch
 URL: https://fc-solve.shlomifish.org/
 Summary: The Freecell Solver Executable
 
@@ -147,6 +148,7 @@ Freecell Solver from within your programs.
 
 %prep
 %setup -q
+%patch -P 1 -p3 -b .ptr_type
 
 %build
 # The game limit flags are recommended by the PySolFC README.
@@ -173,6 +175,9 @@ chmod a-x "$dest/$bn"
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Tue Jan 30 2024 Shlomi Fish <shlomif@shlomifish.org> 6.8.0-7
+- Add fc-solve-ptr-type.patch to fix GCC errors [FTFBS]
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -217,6 +217,7 @@ fi
 %files gimp
 %{gimpplugindir}/gmic_gimp_qt
 %{gimpplugindir}/gmic_cluts.gmz
+%{gimpplugindir}/gmic_fonts.gmz
 %{gimpplugindir}/gmic_denoise_cnn.gmz
 
 %files libs

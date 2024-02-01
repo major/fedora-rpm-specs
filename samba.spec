@@ -146,10 +146,10 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.19.4
-%global baserelease 4
+%global samba_version 4.20.0
+%global baserelease 1
 # This should be rc1 or %%nil
-%global pre_release %nil
+%global pre_release rc1
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -164,7 +164,7 @@
 %global libdcerpc_so_version 0
 %global libndr_krb5pac_so_version 0
 %global libndr_nbt_so_version 0
-%global libndr_so_version 3
+%global libndr_so_version 4
 %global libndr_standard_so_version 0
 %global libnetapi_so_version 1
 %global libsamba_credentials_so_version 1
@@ -180,10 +180,10 @@
 %global libsmbclient_so_version 0
 %global libwbclient_so_version 0
 
-%global talloc_version 2.4.1
-%global tdb_version 1.4.9
-%global tevent_version 0.15.0
-%global ldb_version 2.8.0
+%global talloc_version 2.4.2
+%global tdb_version 1.4.10
+%global tevent_version 0.16.1
+%global ldb_version 2.9.0
 
 %global required_mit_krb5 1.20.1
 
@@ -237,9 +237,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         samba-4.19-fix-gpupdate-rhel-fedora.patch
-Patch1:         samba-4.19-fix-gpupdate-site-aware.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -1660,8 +1657,8 @@ fi
 %{_sbindir}/nmbd
 %{_sbindir}/smbd
 %if %{with dc} || %{with testsuite}
-# This is only used by vfs_dfs_samba4
-%{_libdir}/samba/libdfs-server-ad-samba4.so
+# This is only used by vfs_dfs_samba-private
+%{_libdir}/samba/libdfs-server-ad-private-samba.so
 %endif
 %dir %{_libdir}/samba/auth
 %{_libdir}/samba/auth/unix.so
@@ -1799,6 +1796,7 @@ fi
 %{_bindir}/smbspool
 %{_bindir}/smbtar
 %{_bindir}/smbtree
+%{_bindir}/wspsearch
 %dir %{_libexecdir}/samba
 %ghost %{_libexecdir}/samba/cups_backend_smb
 %{_mandir}/man1/dbwrap_tool.1*
@@ -1870,86 +1868,86 @@ fi
 %{_libdir}/libtevent-util.so.%{libtevent_util_so_version}*
 
 %dir %{_libdir}/samba
-%{_libdir}/samba/libCHARSET3-samba4.so
-%{_libdir}/samba/libMESSAGING-SEND-samba4.so
-%{_libdir}/samba/libMESSAGING-samba4.so
-%{_libdir}/samba/libaddns-samba4.so
-%{_libdir}/samba/libads-samba4.so
-%{_libdir}/samba/libasn1util-samba4.so
-%{_libdir}/samba/libauth-samba4.so
-%{_libdir}/samba/libauthkrb5-samba4.so
-%{_libdir}/samba/libcli-cldap-samba4.so
-%{_libdir}/samba/libcli-ldap-common-samba4.so
-%{_libdir}/samba/libcli-ldap-samba4.so
-%{_libdir}/samba/libcli-nbt-samba4.so
-%{_libdir}/samba/libcli-smb-common-samba4.so
-%{_libdir}/samba/libcli-spoolss-samba4.so
-%{_libdir}/samba/libcliauth-samba4.so
-%{_libdir}/samba/libclidns-samba4.so
-%{_libdir}/samba/libcluster-samba4.so
-%{_libdir}/samba/libcmdline-contexts-samba4.so
-%{_libdir}/samba/libcommon-auth-samba4.so
-%{_libdir}/samba/libctdb-event-client-samba4.so
-%{_libdir}/samba/libdbwrap-samba4.so
-%{_libdir}/samba/libdcerpc-pkt-auth-samba4.so
-%{_libdir}/samba/libdcerpc-samba-samba4.so
-%{_libdir}/samba/libevents-samba4.so
-%{_libdir}/samba/libflag-mapping-samba4.so
-%{_libdir}/samba/libgenrand-samba4.so
-%{_libdir}/samba/libgensec-samba4.so
-%{_libdir}/samba/libgpext-samba4.so
-%{_libdir}/samba/libgpo-samba4.so
-%{_libdir}/samba/libgse-samba4.so
-%{_libdir}/samba/libhttp-samba4.so
-%{_libdir}/samba/libinterfaces-samba4.so
-%{_libdir}/samba/libiov-buf-samba4.so
-%{_libdir}/samba/libkrb5samba-samba4.so
-%{_libdir}/samba/libldbsamba-samba4.so
-%{_libdir}/samba/liblibcli-lsa3-samba4.so
-%{_libdir}/samba/liblibcli-netlogon3-samba4.so
-%{_libdir}/samba/liblibsmb-samba4.so
-%{_libdir}/samba/libmessages-dgm-samba4.so
-%{_libdir}/samba/libmessages-util-samba4.so
-%{_libdir}/samba/libmscat-samba4.so
-%{_libdir}/samba/libmsghdr-samba4.so
-%{_libdir}/samba/libmsrpc3-samba4.so
-%{_libdir}/samba/libndr-samba-samba4.so
-%{_libdir}/samba/libndr-samba4.so
-%{_libdir}/samba/libnet-keytab-samba4.so
-%{_libdir}/samba/libnetif-samba4.so
-%{_libdir}/samba/libnpa-tstream-samba4.so
-%{_libdir}/samba/libposix-eadb-samba4.so
-%{_libdir}/samba/libprinter-driver-samba4.so
-%{_libdir}/samba/libprinting-migrate-samba4.so
-%{_libdir}/samba/libreplace-samba4.so
-%{_libdir}/samba/libregistry-samba4.so
-%{_libdir}/samba/libsamba-cluster-support-samba4.so
-%{_libdir}/samba/libsamba-debug-samba4.so
-%{_libdir}/samba/libsamba-modules-samba4.so
-%{_libdir}/samba/libsamba-security-samba4.so
-%{_libdir}/samba/libsamba-sockets-samba4.so
-%{_libdir}/samba/libsamba3-util-samba4.so
-%{_libdir}/samba/libsamdb-common-samba4.so
-%{_libdir}/samba/libsecrets3-samba4.so
-%{_libdir}/samba/libserver-id-db-samba4.so
-%{_libdir}/samba/libserver-role-samba4.so
-%{_libdir}/samba/libsmb-transport-samba4.so
-%{_libdir}/samba/libsmbclient-raw-samba4.so
-%{_libdir}/samba/libsmbd-base-samba4.so
-%{_libdir}/samba/libsmbd-shim-samba4.so
-%{_libdir}/samba/libsmbldaphelper-samba4.so
-%{_libdir}/samba/libstable-sort-samba4.so
-%{_libdir}/samba/libsys-rw-samba4.so
-%{_libdir}/samba/libsocket-blocking-samba4.so
-%{_libdir}/samba/libtalloc-report-printf-samba4.so
-%{_libdir}/samba/libtalloc-report-samba4.so
-%{_libdir}/samba/libtdb-wrap-samba4.so
-%{_libdir}/samba/libtime-basic-samba4.so
-%{_libdir}/samba/libtorture-samba4.so
-%{_libdir}/samba/libtrusts-util-samba4.so
-%{_libdir}/samba/libutil-reg-samba4.so
-%{_libdir}/samba/libutil-setid-samba4.so
-%{_libdir}/samba/libutil-tdb-samba4.so
+%{_libdir}/samba/libCHARSET3-private-samba.so
+%{_libdir}/samba/libMESSAGING-SEND-private-samba.so
+%{_libdir}/samba/libMESSAGING-private-samba.so
+%{_libdir}/samba/libaddns-private-samba.so
+%{_libdir}/samba/libads-private-samba.so
+%{_libdir}/samba/libasn1util-private-samba.so
+%{_libdir}/samba/libauth-private-samba.so
+%{_libdir}/samba/libauthkrb5-private-samba.so
+%{_libdir}/samba/libcli-cldap-private-samba.so
+%{_libdir}/samba/libcli-ldap-common-private-samba.so
+%{_libdir}/samba/libcli-ldap-private-samba.so
+%{_libdir}/samba/libcli-nbt-private-samba.so
+%{_libdir}/samba/libcli-smb-common-private-samba.so
+%{_libdir}/samba/libcli-spoolss-private-samba.so
+%{_libdir}/samba/libcliauth-private-samba.so
+%{_libdir}/samba/libclidns-private-samba.so
+%{_libdir}/samba/libcluster-private-samba.so
+%{_libdir}/samba/libcmdline-contexts-private-samba.so
+%{_libdir}/samba/libcommon-auth-private-samba.so
+%{_libdir}/samba/libctdb-event-client-private-samba.so
+%{_libdir}/samba/libdbwrap-private-samba.so
+%{_libdir}/samba/libdcerpc-pkt-auth-private-samba.so
+%{_libdir}/samba/libdcerpc-samba-private-samba.so
+%{_libdir}/samba/libevents-private-samba.so
+%{_libdir}/samba/libflag-mapping-private-samba.so
+%{_libdir}/samba/libgenrand-private-samba.so
+%{_libdir}/samba/libgensec-private-samba.so
+%{_libdir}/samba/libgpext-private-samba.so
+%{_libdir}/samba/libgpo-private-samba.so
+%{_libdir}/samba/libgse-private-samba.so
+%{_libdir}/samba/libhttp-private-samba.so
+%{_libdir}/samba/libinterfaces-private-samba.so
+%{_libdir}/samba/libiov-buf-private-samba.so
+%{_libdir}/samba/libkrb5samba-private-samba.so
+%{_libdir}/samba/libldbsamba-private-samba.so
+%{_libdir}/samba/liblibcli-lsa3-private-samba.so
+%{_libdir}/samba/liblibcli-netlogon3-private-samba.so
+%{_libdir}/samba/liblibsmb-private-samba.so
+%{_libdir}/samba/libmessages-dgm-private-samba.so
+%{_libdir}/samba/libmessages-util-private-samba.so
+%{_libdir}/samba/libmscat-private-samba.so
+%{_libdir}/samba/libmsghdr-private-samba.so
+%{_libdir}/samba/libmsrpc3-private-samba.so
+%{_libdir}/samba/libndr-samba-private-samba.so
+%{_libdir}/samba/libndr-samba4-private-samba.so
+%{_libdir}/samba/libnet-keytab-private-samba.so
+%{_libdir}/samba/libnetif-private-samba.so
+%{_libdir}/samba/libnpa-tstream-private-samba.so
+%{_libdir}/samba/libposix-eadb-private-samba.so
+%{_libdir}/samba/libprinter-driver-private-samba.so
+%{_libdir}/samba/libprinting-migrate-private-samba.so
+%{_libdir}/samba/libreplace-private-samba.so
+%{_libdir}/samba/libregistry-private-samba.so
+%{_libdir}/samba/libsamba-cluster-support-private-samba.so
+%{_libdir}/samba/libsamba-debug-private-samba.so
+%{_libdir}/samba/libsamba-modules-private-samba.so
+%{_libdir}/samba/libsamba-security-private-samba.so
+%{_libdir}/samba/libsamba-sockets-private-samba.so
+%{_libdir}/samba/libsamba3-util-private-samba.so
+%{_libdir}/samba/libsamdb-common-private-samba.so
+%{_libdir}/samba/libsecrets3-private-samba.so
+%{_libdir}/samba/libserver-id-db-private-samba.so
+%{_libdir}/samba/libserver-role-private-samba.so
+%{_libdir}/samba/libsmb-transport-private-samba.so
+%{_libdir}/samba/libsmbclient-raw-private-samba.so
+%{_libdir}/samba/libsmbd-base-private-samba.so
+%{_libdir}/samba/libsmbd-shim-private-samba.so
+%{_libdir}/samba/libsmbldaphelper-private-samba.so
+%{_libdir}/samba/libstable-sort-private-samba.so
+%{_libdir}/samba/libsys-rw-private-samba.so
+%{_libdir}/samba/libsocket-blocking-private-samba.so
+%{_libdir}/samba/libtalloc-report-printf-private-samba.so
+%{_libdir}/samba/libtalloc-report-private-samba.so
+%{_libdir}/samba/libtdb-wrap-private-samba.so
+%{_libdir}/samba/libtime-basic-private-samba.so
+%{_libdir}/samba/libtorture-private-samba.so
+%{_libdir}/samba/libtrusts-util-private-samba.so
+%{_libdir}/samba/libutil-reg-private-samba.so
+%{_libdir}/samba/libutil-setid-private-samba.so
+%{_libdir}/samba/libutil-tdb-private-samba.so
 
 %if %{without libwbclient}
 %{_libdir}/samba/libwbclient.so.*
@@ -1964,9 +1962,9 @@ fi
 
 %if %{with includelibs}
 %{_libdir}/samba/libldb-*.so
-%{_libdir}/samba/libtalloc-samba4.so
-%{_libdir}/samba/libtdb-samba4.so
-%{_libdir}/samba/libtevent-samba4.so
+%{_libdir}/samba/libtalloc-private-samba.so
+%{_libdir}/samba/libtdb-private-samba.so
+%{_libdir}/samba/libtevent-private-samba.so
 
 %{_libdir}/samba/ldb/asq.so
 %{_libdir}/samba/ldb/ldb.so
@@ -2009,7 +2007,7 @@ fi
 ### COMMON-LIBS
 %files common-libs
 # common libraries
-%{_libdir}/samba/libcmdline-samba4.so
+%{_libdir}/samba/libcmdline-private-samba.so
 
 %dir %{_libdir}/samba/ldb
 
@@ -2054,6 +2052,7 @@ fi
 %endif
 %{_libexecdir}/samba/rpcd_spoolss
 %{_libexecdir}/samba/rpcd_winreg
+%{_libexecdir}/samba/rpcd_witness
 %{_mandir}/man8/samba-dcerpcd.8*
 
 ### DC
@@ -2139,16 +2138,16 @@ fi
 %endif
 ### DC-LIBS
 %files dc-libs
-%{_libdir}/samba/libauth4-samba4.so
+%{_libdir}/samba/libauth4-private-samba.so
 
 %if %{with dc} || %{with testsuite}
-%{_libdir}/samba/libdb-glue-samba4.so
-%{_libdir}/samba/libpac-samba4.so
-%{_libdir}/samba/libprocess-model-samba4.so
-%{_libdir}/samba/libservice-samba4.so
+%{_libdir}/samba/libdb-glue-private-samba.so
+%{_libdir}/samba/libpac-private-samba.so
+%{_libdir}/samba/libprocess-model-private-samba.so
+%{_libdir}/samba/libservice-private-samba.so
 
 %if %{with testsuite}
-%{_libdir}/samba/libntvfs-samba4.so
+%{_libdir}/samba/libntvfs-private-samba.so
 %endif
 
 %dir %{_libdir}/samba/process_model
@@ -2174,11 +2173,11 @@ fi
 %endif
 
 %{_libdir}/libdcerpc-server.so.*
-%{_libdir}/samba/libad-claims-samba4.so
-%{_libdir}/samba/libauthn-policy-util-samba4.so
-%{_libdir}/samba/libdsdb-module-samba4.so
-%{_libdir}/samba/libdsdb-garbage-collect-tombstones-samba4.so
-%{_libdir}/samba/libscavenge-dns-records-samba4.so
+%{_libdir}/samba/libad-claims-private-samba.so
+%{_libdir}/samba/libauthn-policy-util-private-samba.so
+%{_libdir}/samba/libdsdb-module-private-samba.so
+%{_libdir}/samba/libdsdb-garbage-collect-tombstones-private-samba.so
+%{_libdir}/samba/libscavenge-dns-records-private-samba.so
 
 ### DC-BIND
 %files dc-bind-dlz
@@ -2252,6 +2251,7 @@ fi
 %{_includedir}/samba-4.0/samba/version.h
 %{_includedir}/samba-4.0/share.h
 %{_includedir}/samba-4.0/smb2_lease_struct.h
+%{_includedir}/samba-4.0/smb3posix.h
 %{_includedir}/samba-4.0/smbconf.h
 %{_includedir}/samba-4.0/smb_ldap.h
 %{_includedir}/samba-4.0/smbldap.h
@@ -2365,16 +2365,16 @@ fi
 %files libs
 %{_libdir}/libdcerpc-samr.so.*
 
-%{_libdir}/samba/libLIBWBCLIENT-OLD-samba4.so
-%{_libdir}/samba/libauth-unix-token-samba4.so
-%{_libdir}/samba/libdcerpc-samba4.so
-%{_libdir}/samba/libdnsserver-common-samba4.so
-%{_libdir}/samba/libshares-samba4.so
-%{_libdir}/samba/libsmbpasswdparser-samba4.so
-%{_libdir}/samba/libxattr-tdb-samba4.so
-%{_libdir}/samba/libREG-FULL-samba4.so
-%{_libdir}/samba/libRPC-SERVER-LOOP-samba4.so
-%{_libdir}/samba/libRPC-WORKER-samba4.so
+%{_libdir}/samba/libLIBWBCLIENT-OLD-private-samba.so
+%{_libdir}/samba/libauth-unix-token-private-samba.so
+%{_libdir}/samba/libdcerpc-samba4-private-samba.so
+%{_libdir}/samba/libdnsserver-common-private-samba.so
+%{_libdir}/samba/libshares-private-samba.so
+%{_libdir}/samba/libsmbpasswdparser-private-samba.so
+%{_libdir}/samba/libxattr-tdb-private-samba.so
+%{_libdir}/samba/libREG-FULL-private-samba.so
+%{_libdir}/samba/libRPC-SERVER-LOOP-private-samba.so
+%{_libdir}/samba/libRPC-WORKER-private-samba.so
 
 ### LIBNETAPI
 %files -n libnetapi
@@ -2474,6 +2474,7 @@ fi
 %{python3_sitearch}/samba/__pycache__/drs_utils.*.pyc
 %{python3_sitearch}/samba/__pycache__/functional_level.*.pyc
 %{python3_sitearch}/samba/__pycache__/getopt.*.pyc
+%{python3_sitearch}/samba/__pycache__/gkdi.*.pyc
 %{python3_sitearch}/samba/__pycache__/graph.*.pyc
 %{python3_sitearch}/samba/__pycache__/hostconfig.*.pyc
 %{python3_sitearch}/samba/__pycache__/idmap.*.pyc
@@ -2484,6 +2485,7 @@ fi
 %{python3_sitearch}/samba/__pycache__/ms_schema.*.pyc
 %{python3_sitearch}/samba/__pycache__/ndr.*.pyc
 %{python3_sitearch}/samba/__pycache__/ntacls.*.pyc
+%{python3_sitearch}/samba/__pycache__/nt_time.*.pyc
 %{python3_sitearch}/samba/__pycache__/policies.*.pyc
 %{python3_sitearch}/samba/__pycache__/safe_tarfile.*.pyc
 %{python3_sitearch}/samba/__pycache__/sd_utils.*.pyc
@@ -2512,6 +2514,7 @@ fi
 %{python3_sitearch}/samba/dcerpc/auth.*.so
 %{python3_sitearch}/samba/dcerpc/base.*.so
 %{python3_sitearch}/samba/dcerpc/claims.*.so
+%{python3_sitearch}/samba/dcerpc/conditional_ace.*.so
 %{python3_sitearch}/samba/dcerpc/dcerpc.*.so
 %{python3_sitearch}/samba/dcerpc/dfs.*.so
 %{python3_sitearch}/samba/dcerpc/dns.*.so
@@ -2520,6 +2523,8 @@ fi
 %{python3_sitearch}/samba/dcerpc/drsuapi.*.so
 %{python3_sitearch}/samba/dcerpc/echo.*.so
 %{python3_sitearch}/samba/dcerpc/epmapper.*.so
+%{python3_sitearch}/samba/dcerpc/gkdi.*.so
+%{python3_sitearch}/samba/dcerpc/gmsa.*.so
 %{python3_sitearch}/samba/dcerpc/idmap.*.so
 %{python3_sitearch}/samba/dcerpc/initshutdown.*.so
 %{python3_sitearch}/samba/dcerpc/irpc.*.so
@@ -2538,6 +2543,8 @@ fi
 %{python3_sitearch}/samba/dcerpc/security.*.so
 %{python3_sitearch}/samba/dcerpc/server_id.*.so
 %{python3_sitearch}/samba/dcerpc/smb_acl.*.so
+%{python3_sitearch}/samba/dcerpc/smb3posix.*.so
+%{python3_sitearch}/samba/dcerpc/smbXsrv.*.so
 %{python3_sitearch}/samba/dcerpc/spoolss.*.so
 %{python3_sitearch}/samba/dcerpc/srvsvc.*.so
 %{python3_sitearch}/samba/dcerpc/svcctl.*.so
@@ -2557,6 +2564,7 @@ fi
 %{python3_sitearch}/samba/functional_level.py
 %{python3_sitearch}/samba/gensec.*.so
 %{python3_sitearch}/samba/getopt.py
+%{python3_sitearch}/samba/gkdi.py
 %{python3_sitearch}/samba/graph.py
 %{python3_sitearch}/samba/hostconfig.py
 %{python3_sitearch}/samba/idmap.py
@@ -2583,6 +2591,7 @@ fi
 %{python3_sitearch}/samba/gp/__pycache__/gp_centrify_crontab_ext.*.pyc
 %{python3_sitearch}/samba/gp/__pycache__/gp_centrify_sudoers_ext.*.pyc
 %{python3_sitearch}/samba/gp/__pycache__/gp_cert_auto_enroll_ext.*.pyc
+%{python3_sitearch}/samba/gp/__pycache__/gp_drive_maps_ext.*.pyc
 %{python3_sitearch}/samba/gp/__pycache__/gp_chromium_ext.*.pyc
 %{python3_sitearch}/samba/gp/__pycache__/gp_ext_loader.*.pyc
 %{python3_sitearch}/samba/gp/__pycache__/gp_firefox_ext.*.pyc
@@ -2608,6 +2617,7 @@ fi
 %{python3_sitearch}/samba/gp/gp_centrify_crontab_ext.py
 %{python3_sitearch}/samba/gp/gp_centrify_sudoers_ext.py
 %{python3_sitearch}/samba/gp/gp_cert_auto_enroll_ext.py
+%{python3_sitearch}/samba/gp/gp_drive_maps_ext.py
 %{python3_sitearch}/samba/gp/gp_chromium_ext.py
 %{python3_sitearch}/samba/gp/gp_ext_loader.py
 %{python3_sitearch}/samba/gp/gp_firefox_ext.py
@@ -2642,6 +2652,7 @@ fi
 %{python3_sitearch}/samba/gp_parse/gp_inf.py
 %{python3_sitearch}/samba/gp_parse/gp_ini.py
 %{python3_sitearch}/samba/gp_parse/gp_pol.py
+%{python3_sitearch}/samba/hresult.*.so
 %{python3_sitearch}/samba/logger.py
 %{python3_sitearch}/samba/mdb_util.py
 %{python3_sitearch}/samba/ms_display_specifiers.py
@@ -2673,11 +2684,11 @@ fi
 %{python3_sitearch}/samba/netcmd/__pycache__/processes.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/pso.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/rodc.*.pyc
+%{python3_sitearch}/samba/netcmd/__pycache__/shell.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/schema.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/sites.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/spn.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/testparm.*.pyc
-%{python3_sitearch}/samba/netcmd/__pycache__/user.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/validators.*.pyc
 %{python3_sitearch}/samba/netcmd/__pycache__/visualize.*.pyc
 %{python3_sitearch}/samba/netcmd/common.py
@@ -2744,7 +2755,9 @@ fi
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/claim_type.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/exceptions.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/fields.*.pyc
+%{python3_sitearch}/samba/netcmd/domain/models/__pycache__/group.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/model.*.pyc
+%{python3_sitearch}/samba/netcmd/domain/models/__pycache__/query.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/schema.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/site.*.pyc
 %{python3_sitearch}/samba/netcmd/domain/models/__pycache__/subnet.*.pyc
@@ -2755,7 +2768,9 @@ fi
 %{python3_sitearch}/samba/netcmd/domain/models/claim_type.py
 %{python3_sitearch}/samba/netcmd/domain/models/exceptions.py
 %{python3_sitearch}/samba/netcmd/domain/models/fields.py
+%{python3_sitearch}/samba/netcmd/domain/models/group.py
 %{python3_sitearch}/samba/netcmd/domain/models/model.py
+%{python3_sitearch}/samba/netcmd/domain/models/query.py
 %{python3_sitearch}/samba/netcmd/domain/models/schema.py
 %{python3_sitearch}/samba/netcmd/domain/models/site.py
 %{python3_sitearch}/samba/netcmd/domain/models/subnet.py
@@ -2785,13 +2800,72 @@ fi
 %{python3_sitearch}/samba/netcmd/pso.py
 %{python3_sitearch}/samba/netcmd/rodc.py
 %{python3_sitearch}/samba/netcmd/schema.py
+%{python3_sitearch}/samba/netcmd/shell.py
 %{python3_sitearch}/samba/netcmd/sites.py
 %{python3_sitearch}/samba/netcmd/spn.py
 %{python3_sitearch}/samba/netcmd/testparm.py
-%{python3_sitearch}/samba/netcmd/user.py
+%dir %{python3_sitearch}/samba/netcmd/user
+%{python3_sitearch}/samba/netcmd/user/__init__.py
+%{python3_sitearch}/samba/netcmd/user/add.py
+%{python3_sitearch}/samba/netcmd/user/add_unix_attrs.py
+%dir %{python3_sitearch}/samba/netcmd/user/auth
+%{python3_sitearch}/samba/netcmd/user/auth/__init__.py
+%{python3_sitearch}/samba/netcmd/user/auth/policy.py
+%dir %{python3_sitearch}/samba/netcmd/user/auth/__pycache__
+%{python3_sitearch}/samba/netcmd/user/auth/__pycache__/__init__.*.pyc
+%{python3_sitearch}/samba/netcmd/user/auth/__pycache__/policy.*.pyc
+%{python3_sitearch}/samba/netcmd/user/auth/__pycache__/silo.*.pyc
+%{python3_sitearch}/samba/netcmd/user/auth/silo.py
+%{python3_sitearch}/samba/netcmd/user/delete.py
+%{python3_sitearch}/samba/netcmd/user/disable.py
+%{python3_sitearch}/samba/netcmd/user/edit.py
+%{python3_sitearch}/samba/netcmd/user/enable.py
+%{python3_sitearch}/samba/netcmd/user/getgroups.py
+%{python3_sitearch}/samba/netcmd/user/list.py
+%{python3_sitearch}/samba/netcmd/user/move.py
+%{python3_sitearch}/samba/netcmd/user/password.py
+%dir %{python3_sitearch}/samba/netcmd/user/__pycache__
+%{python3_sitearch}/samba/netcmd/user/__pycache__/__init__.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/add.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/add_unix_attrs.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/delete.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/disable.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/edit.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/enable.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/getgroups.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/list.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/move.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/password.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/rename.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/sensitive.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/setexpiry.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/setpassword.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/setprimarygroup.*.pyc
+%{python3_sitearch}/samba/netcmd/user/__pycache__/unlock.*.pyc
+%dir %{python3_sitearch}/samba/netcmd/user/readpasswords
+%{python3_sitearch}/samba/netcmd/user/readpasswords/common.py
+%{python3_sitearch}/samba/netcmd/user/readpasswords/get_kerberos_ticket.py
+%{python3_sitearch}/samba/netcmd/user/readpasswords/getpassword.py
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__init__.py
+%dir %{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/__init__.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/common.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/get_kerberos_ticket.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/getpassword.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/show.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/__pycache__/syncpasswords.*.pyc
+%{python3_sitearch}/samba/netcmd/user/readpasswords/show.py
+%{python3_sitearch}/samba/netcmd/user/readpasswords/syncpasswords.py
+%{python3_sitearch}/samba/netcmd/user/rename.py
+%{python3_sitearch}/samba/netcmd/user/sensitive.py
+%{python3_sitearch}/samba/netcmd/user/setexpiry.py
+%{python3_sitearch}/samba/netcmd/user/setpassword.py
+%{python3_sitearch}/samba/netcmd/user/setprimarygroup.py
+%{python3_sitearch}/samba/netcmd/user/unlock.py
 %{python3_sitearch}/samba/netcmd/validators.py
 %{python3_sitearch}/samba/netcmd/visualize.py
 %{python3_sitearch}/samba/ntacls.py
+%{python3_sitearch}/samba/nt_time.py
 %{python3_sitearch}/samba/param.*.so
 %{python3_sitearch}/samba/policies.py
 %{python3_sitearch}/samba/policy.*.so
@@ -2933,6 +3007,9 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/common.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/complex_expressions.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/compression.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/conditional_ace_assembler.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/conditional_ace_bytes.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/conditional_ace_claims.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/core.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/credentials.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/cred_opt.*.pyc
@@ -2957,6 +3034,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/gensec.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/get_opt.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/getdcname.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/gkdi.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/glue.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/gpo.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/gpo_member.*.pyc
@@ -2977,7 +3055,6 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/libsmb-basic.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/lsa_string.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/messaging.*.pyc
-%{python3_sitearch}/samba/tests/__pycache__/ndr.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/netbios.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/netcmd.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/net_join_no_spnego.*.pyc
@@ -3023,7 +3100,9 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/samdb.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/samdb_api.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/sddl.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/sddl_conditional_ace.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/security.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/security_descriptors.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/segfault.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/sid_strings.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/smb.*.pyc
@@ -3039,6 +3118,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/strings.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/subunitrun.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/tdb_util.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/token_factory.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgrade.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgradeprovision.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgradeprovisionneeddc.*.pyc
@@ -3062,16 +3142,19 @@ fi
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/__init__.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/bug13653.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/check_output.*.pyc
+%{python3_sitearch}/samba/tests/blackbox/__pycache__/claims.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/downgradedatabase.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/mdsearch.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/ndrdump.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/netads_dns.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/netads_json.*.pyc
+%{python3_sitearch}/samba/tests/blackbox/__pycache__/rpcd_witness_samba_only.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/samba_dnsupdate.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcacls.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcacls_basic.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcacls_dfs_propagate_inherit.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcacls_propagate_inhertance.*.pyc
+%{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcacls_save_restore.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcontrol.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/smbcontrol_process.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/traffic_learner.*.pyc
@@ -3079,16 +3162,19 @@ fi
 %{python3_sitearch}/samba/tests/blackbox/__pycache__/traffic_summary.*.pyc
 %{python3_sitearch}/samba/tests/blackbox/bug13653.py
 %{python3_sitearch}/samba/tests/blackbox/check_output.py
+%{python3_sitearch}/samba/tests/blackbox/claims.py
 %{python3_sitearch}/samba/tests/blackbox/downgradedatabase.py
 %{python3_sitearch}/samba/tests/blackbox/mdsearch.py
 %{python3_sitearch}/samba/tests/blackbox/ndrdump.py
 %{python3_sitearch}/samba/tests/blackbox/netads_dns.py
 %{python3_sitearch}/samba/tests/blackbox/netads_json.py
+%{python3_sitearch}/samba/tests/blackbox/rpcd_witness_samba_only.py
 %{python3_sitearch}/samba/tests/blackbox/samba_dnsupdate.py
 %{python3_sitearch}/samba/tests/blackbox/smbcacls.py
 %{python3_sitearch}/samba/tests/blackbox/smbcacls_basic.py
 %{python3_sitearch}/samba/tests/blackbox/smbcacls_dfs_propagate_inherit.py
 %{python3_sitearch}/samba/tests/blackbox/smbcacls_propagate_inhertance.py
+%{python3_sitearch}/samba/tests/blackbox/smbcacls_save_restore.py
 %{python3_sitearch}/samba/tests/blackbox/smbcontrol.py
 %{python3_sitearch}/samba/tests/blackbox/smbcontrol_process.py
 %{python3_sitearch}/samba/tests/blackbox/traffic_learner.py
@@ -3097,6 +3183,9 @@ fi
 %{python3_sitearch}/samba/tests/common.py
 %{python3_sitearch}/samba/tests/compression.py
 %{python3_sitearch}/samba/tests/complex_expressions.py
+%{python3_sitearch}/samba/tests/conditional_ace_assembler.py
+%{python3_sitearch}/samba/tests/conditional_ace_bytes.py
+%{python3_sitearch}/samba/tests/conditional_ace_claims.py
 %{python3_sitearch}/samba/tests/core.py
 %{python3_sitearch}/samba/tests/credentials.py
 %{python3_sitearch}/samba/tests/cred_opt.py
@@ -3176,6 +3265,7 @@ fi
 %{python3_sitearch}/samba/tests/gensec.py
 %{python3_sitearch}/samba/tests/getdcname.py
 %{python3_sitearch}/samba/tests/get_opt.py
+%{python3_sitearch}/samba/tests/gkdi.py
 %{python3_sitearch}/samba/tests/glue.py
 %{python3_sitearch}/samba/tests/gpo.py
 %{python3_sitearch}/samba/tests/gpo_member.py
@@ -3205,14 +3295,17 @@ fi
 %{python3_sitearch}/samba/tests/krb5/__pycache__/claims_in_pac.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/claims_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/compatability_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/conditional_ace_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/device_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/etype_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/fast_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/gkdi_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/group_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kcrypto.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_base_test.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tgs_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tgt_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kpasswd_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/lockout_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/ms_kile_client_principal_lookup_tests.*.pyc
@@ -3223,6 +3316,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/__pycache__/raw_testcase.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/rfc4120_constants.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/rfc4120_pyasn1.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/rfc4120_pyasn1_generated.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/rodc_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/simple_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/s4u_tests.*.pyc
@@ -3242,14 +3336,17 @@ fi
 %{python3_sitearch}/samba/tests/krb5/claims_in_pac.py
 %{python3_sitearch}/samba/tests/krb5/claims_tests.py
 %{python3_sitearch}/samba/tests/krb5/compatability_tests.py
+%{python3_sitearch}/samba/tests/krb5/conditional_ace_tests.py
 %{python3_sitearch}/samba/tests/krb5/device_tests.py
 %{python3_sitearch}/samba/tests/krb5/etype_tests.py
 %{python3_sitearch}/samba/tests/krb5/fast_tests.py
+%{python3_sitearch}/samba/tests/krb5/gkdi_tests.py
 %{python3_sitearch}/samba/tests/krb5/group_tests.py
 %{python3_sitearch}/samba/tests/krb5/kcrypto.py
 %{python3_sitearch}/samba/tests/krb5/kdc_base_test.py
 %{python3_sitearch}/samba/tests/krb5/kdc_tests.py
 %{python3_sitearch}/samba/tests/krb5/kdc_tgs_tests.py
+%{python3_sitearch}/samba/tests/krb5/kdc_tgt_tests.py
 %{python3_sitearch}/samba/tests/krb5/kpasswd_tests.py
 %{python3_sitearch}/samba/tests/krb5/lockout_tests.py
 %{python3_sitearch}/samba/tests/krb5/ms_kile_client_principal_lookup_tests.py
@@ -3260,6 +3357,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/raw_testcase.py
 %{python3_sitearch}/samba/tests/krb5/rfc4120_constants.py
 %{python3_sitearch}/samba/tests/krb5/rfc4120_pyasn1.py
+%{python3_sitearch}/samba/tests/krb5/rfc4120_pyasn1_generated.py
 %{python3_sitearch}/samba/tests/krb5/rodc_tests.py
 %{python3_sitearch}/samba/tests/krb5/simple_tests.py
 %{python3_sitearch}/samba/tests/krb5/test_idmap_nss.py
@@ -3284,7 +3382,14 @@ fi
 %{python3_sitearch}/samba/tests/logfiles.py
 %{python3_sitearch}/samba/tests/lsa_string.py
 %{python3_sitearch}/samba/tests/messaging.py
-%{python3_sitearch}/samba/tests/ndr.py
+%dir %{python3_sitearch}/samba/tests/ndr
+%{python3_sitearch}/samba/tests/ndr/gkdi.py
+%{python3_sitearch}/samba/tests/ndr/gmsa.py
+%dir %{python3_sitearch}/samba/tests/ndr/__pycache__
+%{python3_sitearch}/samba/tests/ndr/__pycache__/gkdi.*.pyc
+%{python3_sitearch}/samba/tests/ndr/__pycache__/gmsa.*.pyc
+%{python3_sitearch}/samba/tests/ndr/__pycache__/wbint.*.pyc
+%{python3_sitearch}/samba/tests/ndr/wbint.py
 %{python3_sitearch}/samba/tests/netbios.py
 %{python3_sitearch}/samba/tests/netcmd.py
 %{python3_sitearch}/samba/tests/net_join_no_spnego.py
@@ -3336,7 +3441,6 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/contact.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/demote.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/dnscmd.*.pyc
-%{python3_sitearch}/samba/tests/samba_tool/__pycache__/domain_auth_base.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/domain_auth_policy.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/domain_auth_silo.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/domain_claim.*.pyc
@@ -3362,10 +3466,15 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/provision_userPassword_crypt.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/rodc.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/schema.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/silo_base.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/sites.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/timecmd.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_auth_policy.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_auth_silo.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_check_password_script.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_get_kerberos_ticket.*.pyc
+%{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_getpassword_gmsa.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA_base.*.pyc
 %{python3_sitearch}/samba/tests/samba_tool/__pycache__/user_virtualCryptSHA_gpg.*.pyc
@@ -3378,7 +3487,6 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/contact.py
 %{python3_sitearch}/samba/tests/samba_tool/demote.py
 %{python3_sitearch}/samba/tests/samba_tool/dnscmd.py
-%{python3_sitearch}/samba/tests/samba_tool/domain_auth_base.py
 %{python3_sitearch}/samba/tests/samba_tool/domain_auth_policy.py
 %{python3_sitearch}/samba/tests/samba_tool/domain_auth_silo.py
 %{python3_sitearch}/samba/tests/samba_tool/domain_claim.py
@@ -3404,10 +3512,15 @@ fi
 %{python3_sitearch}/samba/tests/samba_tool/provision_userPassword_crypt.py
 %{python3_sitearch}/samba/tests/samba_tool/rodc.py
 %{python3_sitearch}/samba/tests/samba_tool/schema.py
+%{python3_sitearch}/samba/tests/samba_tool/silo_base.py
 %{python3_sitearch}/samba/tests/samba_tool/sites.py
 %{python3_sitearch}/samba/tests/samba_tool/timecmd.py
 %{python3_sitearch}/samba/tests/samba_tool/user.py
+%{python3_sitearch}/samba/tests/samba_tool/user_auth_policy.py
+%{python3_sitearch}/samba/tests/samba_tool/user_auth_silo.py
 %{python3_sitearch}/samba/tests/samba_tool/user_check_password_script.py
+%{python3_sitearch}/samba/tests/samba_tool/user_get_kerberos_ticket.py
+%{python3_sitearch}/samba/tests/samba_tool/user_getpassword_gmsa.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA_base.py
 %{python3_sitearch}/samba/tests/samba_tool/user_virtualCryptSHA_gpg.py
@@ -3418,7 +3531,9 @@ fi
 %{python3_sitearch}/samba/tests/samdb.py
 %{python3_sitearch}/samba/tests/samdb_api.py
 %{python3_sitearch}/samba/tests/sddl.py
+%{python3_sitearch}/samba/tests/sddl_conditional_ace.py
 %{python3_sitearch}/samba/tests/security.py
+%{python3_sitearch}/samba/tests/security_descriptors.py
 %{python3_sitearch}/samba/tests/segfault.py
 %{python3_sitearch}/samba/tests/sid_strings.py
 %{python3_sitearch}/samba/tests/smb.py
@@ -3434,6 +3549,7 @@ fi
 %{python3_sitearch}/samba/tests/strings.py
 %{python3_sitearch}/samba/tests/subunitrun.py
 %{python3_sitearch}/samba/tests/tdb_util.py
+%{python3_sitearch}/samba/tests/token_factory.py
 %{python3_sitearch}/samba/tests/upgrade.py
 %{python3_sitearch}/samba/tests/upgradeprovision.py
 %{python3_sitearch}/samba/tests/upgradeprovisionneeddc.py
@@ -3464,9 +3580,9 @@ fi
 ### TEST-LIBS
 %files test-libs
 %if %{with dc} || %{with testsuite}
-%{_libdir}/samba/libdlz-bind9-for-torture-samba4.so
+%{_libdir}/samba/libdlz-bind9-for-torture-private-samba.so
 %else
-%{_libdir}/samba/libdsdb-module-samba4.so
+%{_libdir}/samba/libdsdb-module-private-samba.so
 %endif
 
 ### USERSHARES
@@ -3479,8 +3595,8 @@ fi
 %files winbind
 %{_libdir}/samba/idmap
 %{_libdir}/samba/nss_info
-%{_libdir}/samba/libnss-info-samba4.so
-%{_libdir}/samba/libidmap-samba4.so
+%{_libdir}/samba/libnss-info-private-samba.so
+%{_libdir}/samba/libidmap-private-samba.so
 %{_sbindir}/winbindd
 %{_sysusersdir}/samba-winbind.conf
 %attr(750,root,wbpriv) %dir /var/lib/samba/winbindd_privileged
@@ -4471,6 +4587,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 29 2024 Guenther Deschner <gdeschner@redhat.com> - 4.20.0rc1-1
+- resolves: #2260895 - Update to version 4.20.0rc1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.19.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

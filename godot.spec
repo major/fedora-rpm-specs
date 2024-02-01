@@ -247,7 +247,7 @@ for lib in $to_unbundle; do
     rm -rf thirdparty/$lib
 done
 
-%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs use_lto=yes use_static_cpp=no debug_symbols=yes progress=no
+%define _scons scons %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs use_lto=yes use_static_cpp=no debug_symbols=yes progress=no
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"

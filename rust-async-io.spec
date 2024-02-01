@@ -6,7 +6,7 @@
 %global crate async-io
 
 Name:           rust-async-io
-Version:        2.2.2
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Async I/O and timers
 

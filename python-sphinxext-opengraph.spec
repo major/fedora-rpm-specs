@@ -2,7 +2,7 @@
 %global pypi_name    sphinxext_opengraph
 
 Name:           python-%{project_name}
-Version:        0.8.2
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Sphinx extension to generate unique OpenGraph metadata
 

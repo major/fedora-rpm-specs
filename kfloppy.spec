@@ -2,7 +2,7 @@
 Name:    kfloppy
 Summary: Floppy formatting tool 
 Version: 23.04.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv2+
 URL:     http://utils.kde.org/projects/%{name}
@@ -57,7 +57,7 @@ to format 3.5" and 5.25" floppy disks.
 
 
 %check
-desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kfloppy.desktop
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kfloppy.desktop
 
 
 %files -f %{name}.lang
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kfloppy.
 
 
 %changelog
+* Tue Jan 30 2024 Than Ngo <than@redhat.com> - 23.04.3-5
+- fixed bz#261279 - FTBFS 
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.04.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

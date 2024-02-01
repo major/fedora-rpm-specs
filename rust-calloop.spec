@@ -5,16 +5,13 @@
 %global crate calloop
 
 Name:           rust-calloop
-Version:        0.12.3
+Version:        0.12.4
 Release:        %autorelease
 Summary:        Callback-based event loop
 
 License:        MIT
 URL:            https://crates.io/crates/calloop
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-#  * Drop unwanted features
-Patch:          calloop-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

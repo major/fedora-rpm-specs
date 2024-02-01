@@ -24,10 +24,9 @@ BuildRequires: git-core
 # BuildRequires: glibc-headers
 %ifarch x86_64
 # So... in some build environments, glibc32 provides some headers.  In
-# others, glibc-devel.i686 does.  They have no non-file provides in common.
-#BuildRequires: glibc32
-#BuildRequires: glibc-devel(x86-32)
-BuildRequires: /usr/include/gnu/stubs-32.h
+# others, glibc-devel.i686 does.  They have no provides in common, as
+# file provides in /usr/include or /usr/lib are not usable with dnf5.
+BuildRequires: (glibc-devel(x86-32) or glibc32)
 %endif
 BuildRequires: make
 

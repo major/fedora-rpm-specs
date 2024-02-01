@@ -13,9 +13,9 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.084
-Version:        2.84.0
-Release:        5%{?dist}
+%global cpan_version 2.085
+Version:        2.85.0
+Release:        2%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -91,6 +91,7 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Filter::Simple) >= 0.88
 BuildRequires:  perl(Filter::Util::Call)
+BuildRequires:  perl(Graph)
 BuildRequires:  perl(Inline) >= 0.43
 BuildRequires:  perl(Inline::C)
 BuildRequires:  perl(List::Util)
@@ -113,6 +114,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker::Config)
 BuildRequires:  perl(ExtUtils::testlib)
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(IPC::Cmd)
+BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Exception)
@@ -141,6 +143,7 @@ Requires:       perl(Fcntl)
 Requires:       perl(File::Map) >= 0.57
 Requires:       perl(File::Spec) >= 0.6
 Requires:       perl(Filter::Simple) >= 0.88
+Requires:       perl(Graph)
 Requires:       perl(Inline) >= 0.43
 Requires:       perl(OpenGL) >= 0.70
 Requires:       perl(OpenGL::GLUT) >= 0.72
@@ -168,6 +171,8 @@ Provides:       perl(PDL::Graphics::TriD::Objects) = %{version}
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Data::Dumper|File::Spec|Filter::Simple|Inline|Module::Compile|OpenGL|Text::Balanced)\\)$
 # Remove modules not compiled
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((PDL::GIS::Proj|PDL::IO::HDF.*)\\)$
+# Filter modules bundled for tests
+%global __requires_exclude %{__requires_exclude}|^perl\\(My::Test::Primitive\\)
 
 %description
 PDL ("Perl Data Language") gives standard Perl the ability to
@@ -275,6 +280,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 30 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.85.0-2
+- Filter modules bundled for tests
+
+* Tue Jan 30 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.85.0-1
+- 2.085 bump (rhbz#2261841)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.84.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

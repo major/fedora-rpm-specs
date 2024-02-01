@@ -2,10 +2,10 @@
 
 Name:           netcdf
 Version:        4.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
-License:        NetCDF
+License:        BSD-3-Clause
 URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
 # Remove sonames from plugins
@@ -14,6 +14,8 @@ Patch0:         https://patch-diff.githubusercontent.com/raw/Unidata/netcdf-c/pu
 Patch1:         netcdf-tst-blosc.patch
 # Fix segfault in octave-netcdf on exit
 Patch2:         https://github.com/Unidata/netcdf-c/pull/2827.patch
+# Fix incompatible types
+Patch3:         https://github.com/Unidata/netcdf-c/pull/2850.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -408,6 +410,10 @@ done
 
 
 %changelog
+* Tue Jan 30 2024 Orion Poplawski <orion@nwra.com> - 4.9.2-5
+- Add patch to fix compilation on i668 (FTBFS bz#2261400)
+- Update license to BSD-3-Clause (SPDX)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

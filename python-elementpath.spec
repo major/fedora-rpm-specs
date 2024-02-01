@@ -1,7 +1,7 @@
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
 Version:        4.1.5
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
 License:        MIT
@@ -71,97 +71,4 @@ export LANG=en_US.utf-8
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Sep 01 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.1.5-2
-- Update to 4.1.5 - enable tests
-
-* Fri Aug 25 2023 Charalampos Stratakis <cstratak@redhat.com> - 4.1.5-1
-- Update to 4.1.5
-- Disable tests for bootstraping with new version of xmlschema
-- Fixes: rhbz#2166299
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.0.2-5
-- Rebuilt for Python 3.12
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.2-4
-- Bootstrap for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Aug 16 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.0.2-2
--  Update to 3.0.2 - enable tests
-
-* Tue Aug 16 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.0.2-1
-- Update to 3.0.2
-- Fixes: rhbz#2021606
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.3.2-4
-- Rebuilt for Python 3.11
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.3.2-3
-- Bootstrap for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Nov 05 2021 Joel Capitao <jcapitao@redhat.com> - 2.3.2-1
-- Update to 2.3.2
-- Fixes rhbz#2000317
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jul 26 2021 Tomas Hrnciar <thrnciar@redhat.com> - 2.2.3-2
-- Update to 2.2.3 with tests
-
-* Mon Jul 26 2021 Tomas Hrnciar <thrnciar@redhat.com> - 2.2.3-1
-- Update to 2.2.3 without tests
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.1.2-3
-- Rebuilt for Python 3.10
-
-* Wed Jun 02 2021 Python Maint <python-maint@redhat.com> - 2.1.2-2
-- Bootstrap for Python 3.10
-
-* Thu Jan 28 12:03:51 CET 2021 Tomas Hrnciar <thrnciar@redhat.com> - 2.1.2-1
-- Update to 2.1.2
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 15 09:57:43 CET 2021 Tomas Hrnciar <thrnciar@redhat.com> - 2.1.1-2
-- Build with tests
-
-* Thu Jan 14 08:35:26 CET 2021 Tomas Hrnciar <thrnciar@redhat.com> - 2.1.1-1
-- Update to 2.1.1
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 23 2020 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-4
-- Rebuilt for Python 3.9
-
-* Sat May 23 2020 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-3
-- Bootstrap for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec 31 2019 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-1
-- Update to 1.4.0
-
-* Tue Dec 17 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.2-1
-- Initial package
+%autochangelog

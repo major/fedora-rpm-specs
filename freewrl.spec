@@ -12,9 +12,9 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	20.%{commitdate}git%{shortcommit}%{?dist}
+Release:	21.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 URL:		http://freewrl.sourceforge.net
 # Source0:	http://sourceforge.net/projects/freewrl/files/freewrl-linux/3.0/%%{name}-%%{version}.tar.bz2
 # git clone https://git.code.sf.net/p/freewrl/git freewrl-git
@@ -38,6 +38,8 @@ Patch6:		freewrl-4.3.0-fix-indent-issues.patch
 # io_files.c:627:17: warning: pointer targets in passing argument 1 of 'stlDTFT' differ in signedness [-Wpointer-sign]
 Patch7:		freewrl-4.3.0-sign-fixes.patch
 Patch8: freewrl-c99.patch
+# Fix issue with incompatible pointer type
+Patch9:		freewrl-4.3.0-fix-cast.patch
 BuildRequires:	gcc-c++
 BuildRequires:	zlib-devel, freetype-devel, fontconfig-devel
 BuildRequires:	imlib2-devel, nspr-devel
@@ -117,12 +119,13 @@ cp %{SOURCE1} .
 %endif
 # Don't need it.
 rm -rf appleOSX/
-%patch3 -p1 -b .cparsestlfix
-%patch4 -p1 -b .memcpy
-%patch5 -p1 -b .missing-functions
-%patch6 -p1 -b .fixindent
-%patch7 -p1 -b .signfix
-%patch8 -p1
+%patch -P3 -p1 -b .cparsestlfix
+%patch -P4 -p1 -b .memcpy
+%patch -P5 -p1 -b .missing-functions
+%patch -P6 -p1 -b .fixindent
+%patch -P7 -p1 -b .signfix
+%patch -P8 -p1
+%patch -P9 -p1 -b .fix-cast
 autoreconf --force --install
 
 # hardcoding /usr/local/lib is a no-no
@@ -222,6 +225,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Tue Jan 30 2024 Tom Callaway <spot@fedoraproject.org> - 4.3.0-21.20200221gite99ab4a
+- fix FTBFS
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-20.20200221gite99ab4a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

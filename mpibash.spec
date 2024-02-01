@@ -1,6 +1,6 @@
 Name:           mpibash
 Version:        1.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Parallel scripting right from the Bourne-Again Shell
 License:        GPLv3+
 Url:            https://github.com/lanl/MPI-Bash
@@ -9,43 +9,37 @@ Patch0: mpibash-c99.patch
 BuildRequires: make
 BuildRequires:  bash-devel >= 4.4
 
-%description
-MPI-Bash makes it possible to parallelize Bash scripts which run a set of
-Linux commands independently over a large number of input files.
-Because MPI-Bash includes various MPI functions for data transfer and
-synchronization, it is not limited to parallel workloads
-but can incorporate phased operations (i.e. all workers must finish
-operation X before any worker is allowed to begin operation Y).
+# Prevent generation of a file dependency on ourselves
+# https://bugzilla.redhat.com/show_bug.cgi?id=2229948
+%global __requires_exclude ^%{_libdir}/.*/bin/.*
+
+%global _description %{expand:
+This package makes it possible to parallelize bash scripts which run a set of
+Linux commands independently over a large number of input files. Because mpibash
+includes various MPI functions for data transfer and synchronization, it is not
+limited to parallel workloads, but can incorporate phased operations where all
+workers must finish operation X before any worker is allowed to begin
+operation Y.}
+
+%description %_description
 
 %package openmpi
 Summary:        Mpibash Open MPI binaries and libraries
 BuildRequires:  openmpi-devel
 BuildRequires:  libcircle-openmpi-devel
 
-%description openmpi
-MPI-Bash makes it possible to parallelize Bash scripts which run a set of
-Linux commands independently over a large number of input files.
-Because MPI-Bash includes various MPI functions for data transfer and
-synchronization, it is not limited to parallel workloads
-but can incorporate phased operations (i.e. all workers must finish
-operation X before any worker is allowed to begin operation Y).
+%description openmpi  %_description
 
-mpibash compiled with Open MPI, package incl. binaries and libraries
+mpibash compiled with Open MPI, package incl. binaries and libraries.
 
 %package mpich
 Summary:        Mpibash MPICH binaries and libraries
 BuildRequires:  mpich-devel
 BuildRequires:  libcircle-mpich-devel
 
-%description mpich
-MPI-Bash makes it possible to parallelize Bash scripts which run a set of
-Linux commands independently over a large number of input files.
-Because MPI-Bash includes various MPI functions for data transfer and
-synchronization, it is not limited to parallel workloads
-but can incorporate phased operations (i.e. all workers must finish
-operation X before any worker is allowed to begin operation Y).
+%description mpich  %_description
 
-mpibash compiled with MPICH, package incl. binaries and libraries
+mpibash compiled with MPICH, package incl. binaries and libraries.
 
 %package openmpi-examples
 Summary:        Example Scripts for Open MPI %{name}
@@ -115,6 +109,9 @@ sed -i '1s@/usr/bin/env mpibash@%{_libdir}/mpich/bin/mpibash_mpich@' %{buildroot
 %{_libdir}/mpich/lib/share/%{name}/examples
 
 %changelog
+* Tue Jan 30 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3-19
+- Suppress internal file depedency
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

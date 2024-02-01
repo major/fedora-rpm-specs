@@ -10,7 +10,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.5.23
+%global last_tested_version 10.11.6
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -120,31 +120,25 @@
 
 
 
-# Provide mysql names for compatibility
-%if 0%{?fedora}
-%bcond_without mysql_names
-%else
-%bcond_with    mysql_names
-%endif
+# Set explicit conflicts with 'mysql' packages
+%bcond_without conflicts_mysql
+# Set explicit conflicts with 'community-mysql' names, provided by 'mysql' packages
+#   'community-mysql' names are deprecated and to be removed in future Fedora
+%bcond_without conflicts_community_mysql
 
 # Make long macros shorter
 %global sameevr   %{epoch}:%{version}-%{release}
 
 Name:             mariadb
-Version:          10.5.23
-Release:          10%{?with_debug:.debug}%{?dist}
+Version:          10.11.6
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
 URL:              http://mariadb.org
 License:          GPLv2 and LGPLv2
 
-# Original upstream sources archive URL
-# Source0:          https://downloads.mariadb.org/interstitial/mariadb-%{version}/source/mariadb-%{version}.tar.gz
-# Non-existent URL containing correct archive name
-#   The archive was created by executing the "generate-modified-sources.sh" script
-Source0:          https://fedoraproject.org/mariadb-%{version}-downstream_modified.tar.gz
-
+Source0:          https://downloads.mariadb.org/interstitial/mariadb-%{version}/source/mariadb-%{version}.tar.gz
 Source2:          mysql_config_multilib.sh
 Source3:          my.cnf.in
 Source6:          README.mariadb-docs
@@ -262,6 +256,8 @@ BuildRequires:    perl(warnings)
 # for running some openssl tests rhbz#1189180
 BuildRequires:    openssl openssl-devel
 
+BuildRequires:    fmt-devel
+
 Requires:         bash coreutils grep
 
 Requires:         %{name}-common = %{sameevr}
@@ -274,16 +270,13 @@ Requires:         %{name}-libs%{?_isa} = %{sameevr}
 Requires:         mariadb-connector-c >= 3.0
 %endif
 
-%if %{with mysql_names}
-Provides:         mysql = %{sameevr}
-Provides:         mysql%{?_isa} = %{sameevr}
-Provides:         mysql-compat-client = %{sameevr}
-Provides:         mysql-compat-client%{?_isa} = %{sameevr}
-%endif
-
 Suggests:         %{name}-server%{?_isa} = %{sameevr}
 
-Conflicts:        %{?fedora:community-}mysql
+%{?with_conflicts_mysql:Conflicts: mysql}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql}
+# Explicitly disallow combination mariadb + mysql-server
+%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 
 %description
 MariaDB is a community developed fork from MySQL - a multi-user, multi-threaded
@@ -297,10 +290,9 @@ utilities.
 %package          libs
 Summary:          The shared libraries required for MariaDB/MySQL clients
 Requires:         %{name}-common = %{sameevr}
-%if %{with mysql_names}
-Provides:         mysql-libs = %{sameevr}
-Provides:         mysql-libs%{?_isa} = %{sameevr}
-%endif
+
+%{?with_conflicts_mysql:Conflicts: mysql-libs}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-libs}
 
 %description      libs
 The mariadb-libs package provides the essential shared libraries for any
@@ -388,14 +380,7 @@ member. MariaDB is a community developed fork originally from MySQL.
 %package          server
 Summary:          The MariaDB server and related files
 
-# note: no version here = %%{version}-%%{release}
-%if %{with mysql_names}
-Requires:         mysql-compat-client%{?_isa}
-Requires:         mysql%{?_isa}
-Recommends:       %{name}%{?_isa}
-%else
 Requires:         %{name}%{?_isa}
-%endif
 Requires:         %{name}-common = %{sameevr}
 Requires:         %{name}-errmsg = %{sameevr}
 Recommends:       %{name}-server-utils%{?_isa} = %{sameevr}
@@ -431,13 +416,12 @@ Requires:         systemd
 %{?systemd_requires}
 # RHBZ#1496131; use 'iproute' instead of 'net-tools'
 Requires:         iproute
-%if %{with mysql_names}
-Provides:         mysql-server = %{sameevr}
-Provides:         mysql-server%{?_isa} = %{sameevr}
-Provides:         mysql-compat-server = %{sameevr}
-Provides:         mysql-compat-server%{?_isa} = %{sameevr}
-%endif
-Conflicts:        %{?fedora:community-}mysql-server
+
+%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
+# Explicitly disallow combination mariadb-server + mysql
+%{?with_conflicts_mysql:Conflicts: mysql}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql}
 
 %description      server
 MariaDB is a multi-user, multi-threaded SQL database server. It is a
@@ -581,12 +565,11 @@ but still have them accessible for reading in MariaDB.
 %package          server-utils
 Summary:          Non-essential server utilities for MariaDB/MySQL applications
 Requires:         %{name}-server%{?_isa} = %{sameevr}
-%if %{with mysql_names}
-Provides:         mysql-perl = %{sameevr}
-%endif
-Conflicts:        %{?fedora:community-}mysql-server
 # mysqlhotcopy needs DBI/DBD support
 Requires:         perl(DBI) perl(DBD::MariaDB)
+
+%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 
 %description      server-utils
 This package contains all non-essential server utilities and scripts for
@@ -602,11 +585,9 @@ Requires:         openssl-devel
 %if %{without clibrary}
 Requires:         mariadb-connector-c-devel >= 3.0
 %endif
-%if %{with mysql_names}
-Provides:         mysql-devel = %{sameevr}
-Provides:         mysql-devel%{?_isa} = %{sameevr}
-%endif
-Conflicts:        %{?fedora:community-}mysql-devel
+
+%{?with_conflicts_mysql:Conflicts: mysql-devel}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-devel}
 
 %description      devel
 MariaDB is a multi-user, multi-threaded SQL database server.
@@ -627,10 +608,6 @@ mariadb-connector-c package.
 Summary:          MariaDB as an embeddable library
 Requires:         %{name}-common = %{sameevr}
 Requires:         %{name}-errmsg = %{sameevr}
-%if %{with mysql_names}
-Provides:         mysql-embedded = %{sameevr}
-Provides:         mysql-embedded%{?_isa} = %{sameevr}
-%endif
 
 %description      embedded
 MariaDB is a multi-user, multi-threaded SQL database server. This
@@ -645,11 +622,9 @@ Requires:         %{name}-embedded%{?_isa} = %{sameevr}
 Requires:         %{name}-devel%{?_isa} = %{sameevr}
 # embedded-devel should require libaio-devel (rhbz#1290517)
 Requires:         libaio-devel
-%if %{with mysql_names}
-Provides:         mysql-embedded-devel = %{sameevr}
-Provides:         mysql-embedded-devel%{?_isa} = %{sameevr}
-%endif
-Conflicts:        %{?fedora:community-}mysql-embedded-devel
+
+%{?with_conflicts_mysql:Conflicts: mysql-embedded-devel}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-embedded-devel}
 
 %description      embedded-devel
 MariaDB is a multi-user, multi-threaded SQL database server.
@@ -677,11 +652,9 @@ Requires:         perl(Socket)
 Requires:         perl(Sys::Hostname)
 Requires:         perl(Test::More)
 Requires:         perl(Time::HiRes)
-Conflicts:        %{?fedora:community-}mysql-test
-%if %{with mysql_names}
-Provides:         mysql-test = %{sameevr}
-Provides:         mysql-test%{?_isa} = %{sameevr}
-%endif
+
+%{?with_conflicts_mysql:Conflicts: mysql-test}
+%{?with_conflicts_community_mysql:Conflicts: community-mysql-test}
 
 %description      test
 MariaDB is a multi-user, multi-threaded SQL database server.
@@ -692,7 +665,7 @@ sources.
 
 
 %prep
-%setup -q -n %{pkg_name}-%{version}-downstream_modified
+%setup -q -n %{pkg_name}-%{version}
 
 # Remove JAR files that upstream puts into tarball
 find . -name "*.jar" -type f -exec rm --verbose -f {} \;
@@ -817,6 +790,7 @@ fi
          -DCONC_WITH_SSL=%{?with_clibrary:ON}%{!?with_clibrary:NO} \
          -DWITH_SSL=system \
          -DWITH_ZLIB=system \
+         -DWITH_LIBFMT=system \
          -DLZ4_LIBS=%{?with_lz4:/usr/%{_lib}/liblz4.so}%{!?with_lz4:} \
          -DWITH_INNODB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
          -DWITH_ROCKSDB_LZ4=%{?with_lz4:ON}%{!?with_lz4:OFF} \
@@ -835,6 +809,8 @@ fi
          -DPLUGIN_AWS_KEY_MANAGEMENT=NO \
          -DCONNECT_WITH_MONGO=OFF \
          -DCONNECT_WITH_JDBC=OFF \
+         -DPLUGIN_PROVIDER_LZMA=NO \
+         -DPLUGIN_HASHICORP_KEY_MANAGEMENT=NO \
 %{?with_debug: -DCMAKE_BUILD_TYPE=Debug -DWITH_ASAN=OFF -DWITH_INNODB_EXTRA_DEBUG=ON -DWITH_VALGRIND=ON}
 
 # The -DSECURITY_HARDENED is used to force a set of compilation flags for hardening
@@ -858,8 +834,10 @@ CFLAGS="$CFLAGS -O0 -g"
 %if 0%{?fedora} >= 32
 CFLAGS="$CFLAGS -Wno-error=class-memaccess"
 CFLAGS="$CFLAGS -Wno-error=enum-conversion"
-%endif # f32
-%endif # debug
+# endif f32
+%endif
+# endif debug
+%endif
 
 CXXFLAGS="$CFLAGS"
 CPPFLAGS="$CFLAGS"
@@ -992,11 +970,6 @@ rm %{buildroot}%{_mandir}/man1/mytop.1*
 # Should be shipped with mariadb-connector-c
 rm %{buildroot}%{_mandir}/man1/mariadb_config.1*
 
-# put logrotate script where it needs to be
-mkdir -p %{buildroot}%{logrotateddir}
-mv %{buildroot}%{_datadir}/%{pkg_name}/mysql-log-rotate %{buildroot}%{logrotateddir}/%{daemon_name}
-chmod 644 %{buildroot}%{logrotateddir}/%{daemon_name}
-
 # for compatibility with upstream RPMs, create mysqld symlink in sbin
 mkdir -p %{buildroot}%{_sbindir}
 ln -s %{_libexecdir}/mysqld %{buildroot}%{_sbindir}/mysqld
@@ -1032,7 +1005,7 @@ touch %{buildroot}%{_sysconfdir}/sysconfig/clustercheck
 install -p -m 0755 %{_vpath_builddir}/scripts/clustercheck %{buildroot}%{_bindir}/clustercheck
 
 # remove duplicate logrotate script
-rm %{buildroot}%{logrotateddir}/mysql
+rm %{buildroot}%{_datadir}/mariadb/mariadb.logrotate
 # Remove AppArmor files
 rm -r %{buildroot}%{_datadir}/%{pkg_name}/policy/apparmor
 
@@ -1065,6 +1038,7 @@ rm %{buildroot}%{_libdir}/libmariadb.so.*
 unlink %{buildroot}%{_libdir}/libmysqlclient.so
 unlink %{buildroot}%{_libdir}/libmysqlclient_r.so
 unlink %{buildroot}%{_libdir}/libmariadb.so
+rm %{buildroot}%{_mandir}/man3/*
 # Client plugins
 rm %{buildroot}%{_libdir}/%{pkg_name}/plugin/{dialog.so,mysql_clear_password.so,sha256_password.so}
 %if %{with gssapi}
@@ -1121,7 +1095,7 @@ rm %{buildroot}%{_datadir}/%{pkg_name}/errmsg-utf8.txt
 rm -r %{buildroot}%{_datadir}/%{pkg_name}/{english,czech,danish,dutch,estonian,\
 french,german,greek,hungarian,italian,japanese,korean,norwegian,norwegian-ny,\
 polish,portuguese,romanian,russian,serbian,slovak,spanish,swedish,ukrainian,hindi,\
-bulgarian,chinese}
+bulgarian,chinese,georgian}
 %endif
 
 %if %{without test}
@@ -1131,11 +1105,13 @@ rm %{buildroot}%{_bindir}/{mysql_client_test_embedded,mysqltest_embedded}
 rm %{buildroot}%{_bindir}/{mariadb-client-test-embedded,mariadb-test-embedded}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test_embedded,mysqltest_embedded}.1*
 rm %{buildroot}%{_mandir}/man1/{mariadb-client-test-embedded,mariadb-test-embedded}.1*
-%endif # embedded
+# endif embedded
+%endif
 %if %{with pam}
 rm %{buildroot}/suite/plugins/pam/mariadb_mtr
 rm %{buildroot}/suite/plugins/pam/pam_mariadb_mtr.so
-%endif # pam
+# endif pam
+%endif
 rm %{buildroot}%{_bindir}/{mysql_client_test,mysqltest}
 rm %{buildroot}%{_bindir}/{mariadb-client-test,mariadb-test}
 rm %{buildroot}%{_mandir}/man1/{mysql_client_test,mysqltest,my_safe_process}.1*
@@ -1209,7 +1185,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
       --skip-test-list=unstable-tests
     %endif
     # Second run for the SPIDER suites that fail with SCA (ssl self signed certificate)
-    perl ./mysql-test-run.pl $common_testsuite_arguments --skip-ssl --big-test --suite=spider,spider/bg,spider/bugfix,spider/handler \
+    perl ./mysql-test-run.pl $common_testsuite_arguments --skip-ssl --big-test --suite=spider,spider/bg,spider/bugfix \
     %if %{ignore_testsuite_result}
       --max-test-fail=999 || :
     %else
@@ -1220,6 +1196,8 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
 
   # There might be a dangling symlink left from the testing, remove it to not be installed
   rm -rf ./var
+  # Remove temporary files created by the testsuite execution
+  find ./ -type f -name '*~' -exec rm {} +
 )
 
 # NOTE: the Spider SE has 2 more hidden testsuites "oracle" and "oracle2".
@@ -1356,6 +1334,7 @@ fi
 %lang(uk) %{_datadir}/%{pkg_name}/ukrainian
 %lang(bg) %{_datadir}/%{pkg_name}/bulgarian
 %lang(zh) %{_datadir}/%{pkg_name}/chinese
+%lang(ka) %{_datadir}/%{pkg_name}/georgian
 %endif
 
 %if %{with galera}
@@ -1399,6 +1378,11 @@ fi
 %config(noreplace) %{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
 %config(noreplace) %{_sysconfdir}/my.cnf.d/enable_encryption.preset
 %config(noreplace) %{_sysconfdir}/my.cnf.d/spider.cnf
+
+%config(noreplace) %{_sysconfdir}/my.cnf.d/provider_lz4.cnf
+#%%config(noreplace) %%{_sysconfdir}/my.cnf.d/provider_lzma.cnf
+
+#%%config(noreplace) %%{_sysconfdir}/my.cnf.d/hashicorp_key_management.cnf
 
 %{_sbindir}/mysqld
 %{_sbindir}/mariadbd
@@ -1457,10 +1441,12 @@ fi
 
 %{_mandir}/man1/mysql.server.1*
 
+%{_datadir}/%{pkg_name}/mini-benchmark
 %{_datadir}/%{pkg_name}/fill_help_tables.sql
 %{_datadir}/%{pkg_name}/maria_add_gis_sp.sql
 %{_datadir}/%{pkg_name}/maria_add_gis_sp_bootstrap.sql
 %{_datadir}/%{pkg_name}/mysql_system_tables.sql
+%{_datadir}/%{pkg_name}/mysql_sys_schema.sql
 %{_datadir}/%{pkg_name}/mysql_system_tables_data.sql
 %{_datadir}/%{pkg_name}/mysql_test_data_timezone.sql
 %{_datadir}/%{pkg_name}/mysql_performance_tables.sql
@@ -1485,7 +1471,15 @@ fi
 %{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*
 %{_datadir}/%{pkg_name}/policy/selinux/mariadb.*
 
-%{_unitdir}/%{daemon_name}*
+# More on socket activation or extra port service at
+# https://mariadb.com/kb/en/systemd/
+%{_unitdir}/%{daemon_name}.service
+%{_unitdir}/%{daemon_name}@.service
+%{_unitdir}/%{daemon_name}.socket
+%{_unitdir}/%{daemon_name}@.socket
+%{_unitdir}/%{daemon_name}-extra.socket
+%{_unitdir}/%{daemon_name}-extra@.socket
+%{_unitdir}/%{daemon_name}@bootstrap.service.d
 
 %{_libexecdir}/mariadb-prepare-db-dir
 %{_libexecdir}/mariadb-check-socket
@@ -1591,6 +1585,7 @@ fi
 %{_datadir}/aclocal/mysql.m4
 %{_libdir}/pkgconfig/*mariadb.pc
 %if %{with clibrary}
+%{_mandir}/man3/*
 %{_libdir}/{libmysqlclient.so.18,libmariadb.so,libmysqlclient.so,libmysqlclient_r.so}
 %{_bindir}/mysql_config*
 %{_bindir}/mariadb_config*
@@ -1630,6 +1625,24 @@ fi
 %endif
 
 %changelog
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.11.6-1
+- Rebase to 10.11.6
+
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.10.7-1
+- Rebase to 10.10.7
+
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.9.8-1
+- Rebase to 10.9.8
+
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.8.8-1
+- Rebase to 10.8.8
+
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.7.8-1
+- Rebase to 10.7.8
+
+* Thu Jan 25 2024 Michal Schorm <mschorm@redhat.com> - 3:10.6.16-1
+- Rebase to 10.6.16
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.5.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

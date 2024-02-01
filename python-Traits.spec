@@ -7,12 +7,12 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        6.4.2
-Release:        3%{?dist}
+Version:        6.4.3
+Release:        1%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
-License:        BSD and EPL and LGPLv2+
+License:        BSD-3-Clause AND CC-BY-3.0
 URL:            http://docs.enthought.com/traits/
 #Source0:        https://github.com/enthought/traits/archive/%{commit}/%{modname}-%{shortcommit}.tar.gz
 Source0:        https://github.com/enthought/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
@@ -91,6 +91,10 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Tue Jan 30 2024 Orion Poplawski <orion@nwra.com> - 6.4.3-1
+- Update to 6.4.3
+- Fix and use SPDX license
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

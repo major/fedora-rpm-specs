@@ -1,5 +1,5 @@
-%global codate 20231219
-%global commit 1e99fe84c08d2cea5d86668ac6948e382ef545e3
+%global codate 20240130
+%global commit 7a27b339cf5ee1ab431431a844418a7f7c16d167
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 Name:           edid-decode
