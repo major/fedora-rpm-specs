@@ -291,6 +291,10 @@ Patch4: py313.patch
 # fix FTB in ppc64le from sharkcz
 # https://lists.freedesktop.org/archives/libreoffice/2023-August/090870.html
 Patch11: lo-7.6-ppc64le-tests.patch
+# icu 74 compatibility patch, from gentoo, via arch linux
+# https://bugs.gentoo.org/917618
+# https://bugs.documentfoundation.org/show_bug.cgi?id=158108
+Patch12: libreoffice-7.5.8.2-icu-74-compatibility.patch
 Patch500: 0001-disable-libe-book-support.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch

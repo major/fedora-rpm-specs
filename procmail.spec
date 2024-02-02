@@ -8,7 +8,7 @@
 Summary: Mail processing program
 Name: procmail
 Version: 3.24
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Dual licensed "gpl-2.0-or-later OR artistic-perl-1.0", but
 # artistic-perl-1.0 is not allowed, thus dropped from the license
 # tag as per: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/423
@@ -23,6 +23,8 @@ Patch1: procmail-3.15.1-man.patch
 Patch2: procmail-3.22-truncate.patch
 Patch3: procmail-3.24-ipv6.patch
 Patch4: procmail-3.24-coverity-scan-fixes.patch
+# https://github.com/BuGlessRB/procmail/pull/7
+Patch5: procmail-3.24-gcc-14-fix.patch
 BuildRequires: make
 BuildRequires: gcc
 
@@ -66,6 +68,10 @@ cp -p %{SOURCE2} telsas_procmailrc
 %{_mandir}/man[15]/*
 
 %changelog
+* Wed Jan 31 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.24-6
+- Fixed FTBFS with gcc-14
+  Resolves: rhbz#2261530
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

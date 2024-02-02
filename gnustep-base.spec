@@ -10,7 +10,7 @@
 
 Name: gnustep-base
 Version: 1.29.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+ and LGPLv2+
 Summary: GNUstep Base library package
 URL: http://www.gnustep.org/
@@ -173,6 +173,9 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1.29.0-4
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21
 %global prever %{nil}
-Release: 5%{?dist}
+Release: 6%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -500,6 +500,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1:2.3.21-6
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

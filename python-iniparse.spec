@@ -16,6 +16,8 @@ URL:            https://github.com/candlepin/python-iniparse
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/candlepin/python-iniparse/pull/24
 Patch6:         0006-Fix-compatibility-issues-with-Python-3.11.patch
+# https://github.com/candlepin/python-iniparse/pull/29
+Patch7:         0001-Fix-tests-with-python-3.12.1.patch
 
 BuildArch: noarch
 

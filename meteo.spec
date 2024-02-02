@@ -1,11 +1,11 @@
 %global uuid    com.gitlab.bitseater.%{name}
 
 Name:           meteo
-Version:        0.9.9.2
+Version:        0.9.9.3
 Release:        %autorelease
 Summary:        Forecast application using OpenWeatherMap API
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/bitseater/meteo
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 

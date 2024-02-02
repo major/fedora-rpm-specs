@@ -23,7 +23,7 @@ Name: dbcsr
 # SONAME is based on major.minor version
 %global sover 2.6
 Version: %{sover}.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Distributed Block Compressed Sparse Row matrix library
 License: GPL-2.0-or-later
 URL: https://cp2k.github.io/dbcsr/develop/
@@ -44,6 +44,9 @@ Patch: dbcsr-flags.patch
 # Allow install into _fmoddir
 # https://github.com/cp2k/dbcsr/pull/701
 Patch: dbcsr-fmoddir.patch
+# Add CMake PROCESSORS properties
+# https://github.com/cp2k/dbcsr/pull/757
+Patch: dbcsr-2.6.0-ctest-processors.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
@@ -146,7 +149,8 @@ do
   %cmake -DCMAKE_INSTALL_Fortran_MODULES=$MPI_FORTRAN_MOD_DIR %{?with_opencl:-DUSE_ACCEL=opencl -DUSE_SMM=libxsmm} \
    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
    -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB \
-   -DUSE_MPI_F08=ON
+   -DUSE_MPI_F08=ON \
+   -DTEST_MPI_RANKS=2
   %cmake_build
   module purge
 done
@@ -221,6 +225,9 @@ done
 %{_libdir}/mpich/lib/libdbcsr_c.so
 
 %changelog
+* Tue Jan 30 2024 Cristian Le <fedora@lecris.me> - 2.6.0-5
+- Fix test parallelization
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

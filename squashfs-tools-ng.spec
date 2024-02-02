@@ -19,6 +19,9 @@ BuildRequires: help2man
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
+# https://github.com/AgentD/squashfs-tools-ng/issues/125
+Patch0: zlib-ng-checksum.patch
+
 %description
 Squashfs is a highly compressed read-only filesystem for Linux.  This package
 contains modified utilities for manipulating squashfs filesystems.
@@ -39,7 +42,7 @@ The squashfs-tools-ng-devel package contains the header files needed to
 develop programs that use the squashfs-tools-ng libsquashfs library.
 
 %prep
-%autosetup
+%autosetup -p0
 
 %build
 %configure --disable-static

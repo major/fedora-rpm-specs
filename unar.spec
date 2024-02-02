@@ -2,7 +2,7 @@
 
 Name:           unar
 Version:        1.10.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Multi-format extractor
 License:        LGPLv2+
 URL:            https://theunarchiver.com/command-line
@@ -64,6 +64,9 @@ popd
 %{_datadir}/bash-completion/completions/*
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1.10.8-5
+- Rebuild for ICU 74
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

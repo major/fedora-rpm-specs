@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    18133a2d8c24e10e58e02b700308ed3a4a60c97f
+%global gh_commit    132c75c7dd83e45353ebb9c6c9f591952995bbf0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     cweiske
 %global gh_project   jsonmapper
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        4.4.0
+Version:        4.4.1
 Release:        1%{?dist}
 Summary:        Map nested JSON structures onto PHP classes
 
@@ -129,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 4.4.1-1
+- update to 4.4.1
+
 * Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 4.4.0-1
 - update to 4.4.0
 

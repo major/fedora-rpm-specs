@@ -8,13 +8,13 @@
 %define version_underscore %{gsub %{version} %. _}
 
 Name:      icu
-Version:   74.1
+Version:   74.2
 Release:   1%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-%{version_dash}/icu4c-%{version_underscore}-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-%{version_dash}/icu4c-%{version_underscore}-src-FIXED.tgz
 %if 0%{?use_tzdata_update}
 Source1:   https://github.com/unicode-org/icu/releases/download/release-%{version_dash}/icu4c-%{version_underscore}-data.zip
 Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/metaZones.txt
@@ -194,6 +194,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 74.2-1
+- Update to 74.2
+
 * Mon Jan 29 2024 Pete Walter <pwalter@fedoraproject.org> - 74.1-1
 - Update to 74.1
 

@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.8.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        An advanced IRC bouncer
 
 License:        ASL 2.0
@@ -221,6 +221,9 @@ getent passwd znc >/dev/null || \
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1.8.2-25
+- Rebuild for ICU 74
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

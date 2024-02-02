@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        104
+Version:        105
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        104
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -131,6 +131,13 @@ manifests and osbuild.
 Summary:        Dependency solving support for DNF
 Requires:       %{name} = %{version}-%{release}
 
+# Fedora 40 and later use libdnf5, RHEL and Fedora < 40 use libdnf
+%if 0%{?fedora} >= 40
+Requires: python3-libdnf5 >= 5.1.1
+%else
+Requires: python3-libdnf
+%endif
+
 %description    depsolve-dnf
 Contains depsolving capabilities for package managers.
 
@@ -200,7 +207,12 @@ install -p -m 0755 data/10-osbuild-inhibitor.rules %{buildroot}%{_udevrulesdir}
 
 # Install `osbuild-depsolve-dnf` into libexec
 mkdir -p %{buildroot}%{_libexecdir}
+# Fedora 40 and later use dnf5-json, RHEL and Fedora < 40 use dnf-json
+%if 0%{?fedora} >= 40
+install -p -m 0755 tools/osbuild-depsolve-dnf5 %{buildroot}%{_libexecdir}/osbuild-depsolve-dnf
+%else
 install -p -m 0755 tools/osbuild-depsolve-dnf %{buildroot}%{_libexecdir}/osbuild-depsolve-dnf
+%endif
 
 %check
 exit 0
@@ -278,6 +290,41 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Jan 31 2024 Packit <hello@packit.dev> - 105-1
+Changes with 105
+----------------
+  * move source parallelization into sources (#1549)
+    * Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  * osbuild-depsolve-dnf5: Add libdnf5 based depsolving for Fedora 40 (#1530)
+    * Author: Brian C. Lane, Reviewers: Simon de Vlieger
+  * osbuild: add "mypy-strict" check (#1476)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * osbuild: error when {Device,Mount} is modified after creation (#1516)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane
+  * schutzbot: add dustymabe SSH key to team_ssh_keys (#1546)
+    * Author: Dusty Mabe, Reviewers: Achilleas Koutsou
+  * stages(container-deploy): add new `exclude` option (#1552)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  * stages/org.osbuild.mkfs.ext4: add ext4 options (#1538)
+    * Author: Luke Yang, Reviewers: Dusty Mabe
+  * stages/ostree.aleph: don't manipulate image name from origin (#1548)
+    * Author: Dusty Mabe, Reviewers: Luke Yang
+  * test: add new testutil.assert_jsonschema_error_contains() helper (#1543)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * test: check that `mkfs.fat` has the `-g` option in `test_fat` (#1540)
+    * Author: Michael Vogt, Reviewers: Paweł Poławski
+  * test: export schemas in testing_libdir_fixture (#1539)
+    * Author: Michael Vogt, Reviewers: Paweł Poławski
+  * test: fix `test_libc_futimes_works` (#1541)
+    * Author: Michael Vogt, Reviewers: Paweł Poławski
+  * test: fix test_schema_validation_containers_storage_conf (#1542)
+    * Author: Michael Vogt, Reviewers: Simon de Vlieger
+  * tests/CI: Add RHEL 9.3 and 8.9 GA to pipeline (#1536)
+    * Author: tkoscieln, Reviewers: Jakub Rusz
+
+— Somewhere on the Internet, 2024-01-31
+
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 104-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

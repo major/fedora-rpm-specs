@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 11%{?dist}
+Release: 12%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
@@ -23,6 +23,7 @@ Patch2: abiword-2.6.0-boolean.patch
 Patch3: abiword-3.0.0-librevenge.patch
 Patch4: abiword-3.0.2-explicit-python.patch
 Patch5: abiword-3.0.4-pygobject.patch
+Patch6: xml-inc.patch
 
 BuildRequires: aiksaurus-devel
 BuildRequires: aiksaurus-gtk-devel
@@ -113,6 +114,7 @@ Python bindings for developing with libabiword
 %patch -P 3 -p0 -b .librevenge
 %patch -P 4 -p1 -b .explicit_python
 %patch -P 5 -p1 -b .pygo
+%patch -P 6 -p0 -b .xml
 
 # setup abiword documentation
 pushd abiword-docs-%{docsversion}
@@ -190,6 +192,9 @@ find %{buildroot} -name '*.a' -delete
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.5-12
+- Add missing include
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

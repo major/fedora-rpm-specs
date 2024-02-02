@@ -27,7 +27,7 @@
 
 Name:           freerdp2
 Version:        2.11.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
 URL:            http://www.freerdp.com/
@@ -262,6 +262,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2.11.4-5
+- Rebuild for ICU 74
+
 * Fri Jan 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.11.4-4
 - Fix dependency in libs subpackage
 

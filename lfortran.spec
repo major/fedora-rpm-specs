@@ -1,6 +1,6 @@
-Version:        0.32.0
+Version:        0.33.1
 Name:           lfortran
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -8,7 +8,7 @@ Summary:        A modern Fortran compiler
 # License with LLVM exception
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
-Source:         https://lfortran.github.io/tarballs/release/lfortran-%{version}.tar.gz
+Source0:        https://lfortran.github.io/tarballs/release/lfortran-%{version}.tar.gz
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
 
@@ -51,13 +51,10 @@ BuildRequires: xeus-devel
 BuildRequires: xeus-zmq-devel
 BuildRequires: xtl-devel
 %endif
-
-%if 0%{?fedora}
-# Only on Fedora for backend=cpp
+# For backend=cpp
 BuildRequires: kokkos-devel
 # Not explicitly linked, hence listed here
 Requires: kokkos-devel
-%endif
 
 Requires: %{name}-shared%{?_isa} = %{version}-%{release}
 
@@ -125,7 +122,7 @@ This package contains the jupyter kernel for %{name}.
        -DWITH_STACKTRACE=ON \
        -DWITH_TARGET_WASM=ON \
        -DWITH_UNWIND=ON \
-       -DWITH_WHEREAMI=OFF \
+       -DWITH_WHEREAMI=ON \
        -DWITH_ZSTD=OFF \
        -DWITH_XEUS=%{with_jupyter} \
        -DWITH_ZLIB=ON
@@ -138,16 +135,20 @@ This package contains the jupyter kernel for %{name}.
 %ctest
 
 %files
+# liblfortran_runtime.so is in this package as
+# lfortran calls it directly.
 %doc README.md
 %license LICENSE
 %{_bindir}/lfortran
 %{_mandir}/man1/lfortran.1.*
+%{_libdir}/liblfortran_runtime.so
 
 %files devel
 %dir %{_includedir}/lfortran
 %dir %{_includedir}/lfortran/impure
 %{_includedir}/lfortran/impure/lfortran_intrinsics.h
-%{_libdir}/liblfortran_runtime.so
+%dir %{_datadir}/lfortran
+%{_datadir}/lfortran/*.py
 %{_libdir}/lfortran_*.mod
 
 %files static
@@ -163,6 +164,15 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Wed Jan 31 2024 Christoph Junghans <junghans@votca.org> - 0.33.1-2
+- Move liblfortran_runtime.so to the right package
+
+* Wed Jan 31 2024 Christoph Junghans <junghans@votca.org> - 0.33.1-1
+- Version bump to v0.33.1
+
+* Wed Jan 31 2024 Christoph Junghans <junghans@votca.org> - 0.33.0-1
+- Version bump to v0.33.0 (bug #2261190)
+
 * Mon Jan 29 2024 Benson Muite <benson_muite@emailplus.org> - 0.32.0-1
 - Version bump to v0.32.0 (bug #2260659)
 

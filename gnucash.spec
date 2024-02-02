@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.5
 URL: https://gnucash.org/
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 5.5-5
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

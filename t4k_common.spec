@@ -1,12 +1,13 @@
 Name: t4k_common
 Version: 0.1.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 URL: https://github.com/tux4kids/t4kcommon/
 Summary: Library for Tux4Kids applications
 License: GPL-3.0-or-later
 Source0: https://github.com/tux4kids/t4kcommon/archive/debian/0.1.1-1.1/t4k_common-0.1.1.tar.gz
 Patch0: t4k_common-0.1.1.patch
 Patch1: t4k_common-c99.patch
+Patch2: pointer-types.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: SDL-devel SDL_mixer-devel SDL_image-devel
@@ -32,8 +33,9 @@ These are the development files.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p0
 
 %build
 export CPPFLAGS="$CPPFLAGS -fcommon"
@@ -64,6 +66,9 @@ chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/t4k_common.pc
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.1.1-36
+- Patch for modern C.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

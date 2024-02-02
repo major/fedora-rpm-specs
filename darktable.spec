@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -254,6 +254,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 4.6.0-4
+- Rebuilt for libavif 1.0.3
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

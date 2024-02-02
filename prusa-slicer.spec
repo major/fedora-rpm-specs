@@ -7,8 +7,8 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.5.2
-Release:        2%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -24,16 +24,7 @@ URL:            https://github.com/prusa3d/PrusaSlicer/
 Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.tar.gz
 Source2:        %name.appdata.xml
 
-Patch1:         prusa-slicer-no-cereal-lib.patch
-
-# Add missing include, needed for GCC13
-# Proposed upstream: https://github.com/prusa3d/PrusaSlicer/pull/9434
-Patch2:         prusa-slicer-gcc13.patch
-# Fix compilation errors with -std=gnu++17 (PR#11154)
-Patch3:         prusa-slicer-fix-gcc-17.patch
-
 # Fix a couple of segfaults that happen with wxWidgets 3.2 (from Debian)
-Patch4:         prusa-slicer-fix-wxtranslations-segfault.patch
 Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 
 # Beware!
@@ -44,19 +35,12 @@ Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 # OpenEXR 3 fixes
 Patch351:       https://github.com/archlinux/svntogit-community/blob/1dea61c0b5/trunk/prusa-slicer-openexr3.patch
 
-# Boost 1.79 fixes
-# https://github.com/prusa3d/PrusaSlicer/pull/8304
-Patch391:       prusa-slicer-pr8304-boost-1_79-fix.patch
-# https://github.com/prusa3d/PrusaSlicer/commit/408e56f0390f20aaf793e0aa0c70c4d9544401d4
-Patch392:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79.patch
-# https://github.com/prusa3d/PrusaSlicer/commit/926ae0471800abd1e5335e251a5934570eb8f6ff
-Patch393:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79-followup.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/11769
 Patch394:       prusa-slicer-pr-11769.patch
 # Work with OpenCASCADE 7.6.3 which is in Fedora 39
 Patch395:       prusa-slicer-opencascade-7.6.3.patch
-# https://github.com/prusa3d/PrusaSlicer/issues/9128
-Patch396:       prusa-slicer-issue-9128.patch
+# https://github.com/prusa3d/PrusaSlicer/pull/10390
+Patch397:       prusa-slicer-pr-10390.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le
@@ -86,10 +70,12 @@ BuildRequires:  ImageMagick
 BuildRequires:  libgudev
 # Upstream miniz is no longer compatible, gotta use the fork.
 # BuildRequires:  miniz-devel
+BuildRequires:  nanosvg-devel
 BuildRequires:  NLopt-devel
 BuildRequires:  opencascade-devel
 BuildRequires:  openvdb
 BuildRequires:  openvdb-devel
+BuildRequires:  qhull-devel
 BuildRequires:  systemd-devel
 BuildRequires:  tbb-devel
 BuildRequires:  wxGTK-devel
@@ -98,7 +84,6 @@ BuildRequires:  wxGTK-devel
 #BuildRequires:  admesh-devel >= 0.98.1
 #BuildRequires:  polyclipping-devel >= 6.2.0
 #BuildRequires:  boost-nowide-devel
-#BuildRequires:  qhull-devel
 
 # For the %%_udevrulesdir macro
 BuildRequires:  systemd
@@ -213,15 +198,6 @@ Provides: bundled(polyclipping) = 6.2.9
 # Upstream: https://github.com/ivanfratric/polypartition
 Provides: bundled(polypartition)
 
-# It looks like we could unbundle this, but the Fedora package is old and
-# doesn't appear to be suitable.  There is one change from upstream: in
-# lib
-# this, the compilation will fail as the slicer code expects floats while qhull
-# uses doubles.
-# License: Qhull
-# Upstream: http://www.qhull.org
-Provides: bundled(qhull) = 2016.01
-
 # Is intended to be embedded (or installed into a source tree using clib).
 # Could technically be packaged in Fedora but isn't currently.
 # License: MIT
@@ -279,13 +255,8 @@ license agg copying
 license avrdude COPYING
 license imgui LICENSE.txt
 license libnest2d LICENSE.txt
-license qhull COPYING.txt
 git add license-files
 commit "Move license files"
-
-# Delete a stray font file
-rm -rf resources/fonts
-commit "Remove stray font file"
 
 # Unbundle libraries
 unbundle () {
@@ -295,7 +266,6 @@ unbundle () {
 }
 
 unbundle eigen
-unbundle glew
 
 # These tests were fixed but the fixes were undone upsteam with commit ac6969c
 # https://github.com/prusa3d/PrusaSlicer/issues/2288
@@ -386,6 +356,9 @@ find %buildroot%_datadir/PrusaSlicer/localization -type d | sed '
 rm -f %buildroot%_prefix/lib/udev/rules.d/90-3dconnexion.rules
 %endif
 
+# Delete font files that are only needed for tests
+rm -rf %buildroot%_datadir/PrusaSlicer/fonts
+
 %check
 desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 
@@ -413,6 +386,18 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Wed Jan 31 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.6.1-1
+- Rebase to 2.6.1.
+
+* Sun Jan 28 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.6.0-3
+- Fix failing tests that need the NotoSans-Regular.ttf file.
+
+* Sun Jan 28 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.6.0-2
+- Update how the cereal component is built, patch is no longer needed.
+
+* Sun Jan 28 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.6.0-1
+- Rebase to 2.6.0.
+
 * Sat Jan 27 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.5.2-2
 - Fix the OCCT wrapper location, enable the STEP file support.
 

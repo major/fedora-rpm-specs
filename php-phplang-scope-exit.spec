@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phplang-scope-exit
 #
-# Copyright (c) 2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2024 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -26,7 +26,7 @@ Version:        1.0.0
 Release:        12%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Emulation of SCOPE_EXIT construct from C++
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
@@ -35,8 +35,8 @@ BuildArch:      noarch
 BuildRequires:  php(language)
 # For tests, from composer.json "require-dev": {
 #        "phpunit/phpunit": "*",
-BuildRequires:  php-composer(phpunit/phpunit)
-%global phpunit %{_bindir}/phpunit
+BuildRequires:  phpunit10
+%global phpunit %{_bindir}/phpunit10
 # For autoloader
 BuildRequires:  php-fedora-autoloader-devel
 %endif
@@ -83,12 +83,17 @@ mkdir vendor
 cat << 'EOF' | tee vendor/autoload.php
 <?php
 require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{pk_project}-autoload.php';
+class_alias('PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase');
 EOF
 
 ret=0
-for cmd in php php56 php70 php71 php72 php73 php74; do
+for cmd in php php81 php82 php83; do
    if which $cmd; then
-      $cmd %{phpunit} --no-coverage --verbose . || ret=1
+      $cmd %{phpunit} \
+         --do-not-cache-result \
+         --no-coverage \
+         --no-configuration \
+         . || ret=1
    fi
 done
 exit $ret
@@ -105,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.0.0-12
+- switch to phpunit10, fix FTBFS #2261502
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,12 +1,11 @@
 Name:           uresourced
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Dynamically allocate resources to the active user
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.freedesktop.org/benzea/uresourced
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
-Patch0:         %{url}/-/commit/af9cac5b78507c58f72ab6e389583755f50cdc5f.patch#/uresourced-remove-unneeded-directive.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-doctrine-deprecations
 #
-# Copyright (c) 2021-2023 Remi Collet
+# Copyright (c) 2021-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    4f2d4f2836e7ec4e7a8625e75c6aa916004db931
+%global gh_commit    dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,8 +21,8 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.2
-Release:        3%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
@@ -126,7 +126,7 @@ cat << 'EOF' | tee -a vendor/autoload.php
 EOF
 
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd  -d auto_prepend_file=vendor/autoload.php \
       %{_bindir}/phpunit9 \
@@ -149,6 +149,10 @@ exit $ret
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.1.3-1
+- update to 1.1.3 (no change)
+- Fix FTBFS #2261475
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

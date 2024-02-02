@@ -2,8 +2,8 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        24.01.90
-Release:        3%{?dist}
+Version:        24.01.95
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
 
@@ -229,6 +229,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Wed Jan 31 2024 Than Ngo <than@redhat.com> - 24.01.95-1
+- 24.01.95
+
 * Tue Jan 23 2024 Nicolas Fella <nicolas.fella@gmx.de> - 9:24.01.90-3
 - Add missing konsolepart dependency
 

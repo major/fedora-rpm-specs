@@ -40,12 +40,12 @@
 
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
-Version: 8.17.2
-Release: 6%{?dist}
+Version: 8.18.1
+Release: 1%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
-Source0: ftp://ftp.sendmail.org/pub/sendmail/sendmail.%{version}.tar.gz
+Source0: https://ftp.sendmail.org/sendmail.%{version}.tar.gz
 # Systemd Service file
 Source1: sendmail.service
 # NetworkManager dispatch script
@@ -89,13 +89,13 @@ Patch11: sendmail-8.17.1-dynamic.patch
 # fix cyrus path
 Patch12: sendmail-8.13.0-cyrus.patch
 # fix aliases.db path
-Patch13: sendmail-8.17.2-aliases_dir.patch
+Patch13: sendmail-8.18.1-aliases_dir.patch
 # fix vacation Makefile
 Patch14: sendmail-8.14.9-vacation.patch
 # remove version information from sendmail helpfile
 Patch15: sendmail-8.17.2-noversion.patch
 # do not accept localhost.localdomain as valid address from SMTP
-Patch16: sendmail-8.17.2-localdomain.patch
+Patch16: sendmail-8.18.1-localdomain.patch
 # build libmilter as DSO
 Patch17: sendmail-8.14.3-sharedmilter.patch
 # skip colon separator when parsing service name in ServiceSwitchFile
@@ -104,7 +104,7 @@ Patch18: sendmail-8.17.1-switchfile.patch
 Patch23: sendmail-8.17.2-sasl2-in-etc.patch
 # add QoS support, patch from Philip Prindeville <philipp@fedoraproject.org>
 # upstream reserved option ID 0xe7 for testing of this new feature, #576643
-Patch25: sendmail-8.17.2-qos.patch
+Patch25: sendmail-8.18.1-qos.patch
 Patch26: sendmail-8.17.1-libmilter-socket-activation.patch
 
 BuildRequires: make
@@ -725,6 +725,11 @@ exit 0
 
 
 %changelog
+* Wed Jan 31 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-1
+- New version
+  Resolves: rhbz#2228229
+  Resolves: CVE-2023-51765
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

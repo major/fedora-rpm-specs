@@ -13,8 +13,10 @@ URL:            https://crates.io/crates/vhost-device-scmi
 Source:         %{crates_source}
 # Upstream doesn't provide man pages
 Patch0:         rust-vhost-device-scmi-man-page.patch
+# Crate dependencies update from upstream git
+Patch1:         rust-vhost-device-scmi-dependencies.patch
 
-BuildRequires:  rust-packaging >= 23
+BuildRequires:  cargo-rpm-macros >= 24
 
 # Unit tests fail on s390x, see bug #2244364.
 ExcludeArch: s390x

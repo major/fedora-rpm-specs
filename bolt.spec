@@ -2,7 +2,7 @@ Name:          bolt
 Version:       0.9.6
 Release:       3%{?dist}
 Summary:       Thunderbolt device manager
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://gitlab.freedesktop.org/bolt/bolt
 Source0:       %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:        0001-test-test-unix-skip-unix-domain-socket-test.patch

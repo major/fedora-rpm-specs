@@ -34,7 +34,7 @@
 
 Name:           freerdp
 Version:        3.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
@@ -344,6 +344,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2:3.2.0-3
+- Rebuild for ICU 74
+
 * Sat Jan 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.2.0-2
 - Force static libuwac to deconflict with freerdp2
 

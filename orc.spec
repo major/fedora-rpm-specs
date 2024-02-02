@@ -3,7 +3,7 @@ Version:	0.4.33
 Release:	5%{?dist}
 Summary:	The Oil Run-time Compiler
 
-License:	BSD
+License:	BSD-2-Clause AND BSD-3-Clause
 URL:		http://cgit.freedesktop.org/gstreamer/orc/
 Source0:	http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
 

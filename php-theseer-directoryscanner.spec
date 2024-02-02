@@ -1,6 +1,6 @@
 # spec file for php-theseer-directoryscanner
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -26,14 +26,14 @@ Release:        8%{?dist}
 Summary:        A recursive directory scanner and filter
 
 Group:          Development/Libraries
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.3.1
 %if %{with tests}
-BuildRequires:  %{_bindir}/phpunit
+BuildRequires:  phpunit7
 %endif
 
 # From composer.json
@@ -65,13 +65,21 @@ cp -pr src %{buildroot}%{php_home}/%{gh_project}
 
 %check
 %if %{with tests}
+cat << 'EOF' | tee bs.php
+<?php
+require_once '%{buildroot}%{php_home}/%{gh_project}/autoload.php';
+class_alias('PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase');
+EOF
+
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit \
-         --bootstrap %{buildroot}%{php_home}/%{gh_project}/autoload.php \
+    $cmd %{_bindir}/phpunit7 \
+         --bootstrap bs.php \
          --verbose \
-         --no-coverage || ret=1
+         --no-coverage \
+         --no-configuration \
+         tests/*php|| ret=1
   fi
 done
 exit $ret
@@ -94,6 +102,9 @@ fi
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.3.3-8
+- use phpunit7 FTBFS #2261513
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

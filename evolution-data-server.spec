@@ -60,7 +60,7 @@
 
 Name: evolution-data-server
 Version: 3.51.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -505,6 +505,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.51.1-4
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.51.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -34,6 +34,7 @@ BuildRequires:  zeromq-devel
 BuildRequires:  jsoncpp-devel
 BuildRequires:  libopenshot-audio-devel >= 0.3.2
 BuildRequires:  catch-devel
+BuildRequires:  python3-setuptools
 
 
 %description
@@ -111,6 +112,7 @@ rm -rf third_party/jsoncpp
 %changelog
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- BR: python3-setuptools to fix ModuleNotFoundError: No module named 'distutils'
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

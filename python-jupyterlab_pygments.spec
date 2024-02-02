@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Pygments theme
 # Jupyterlab_pygments is BSD-3-Clause
 # Bundled JS libs licences
@@ -50,6 +50,9 @@ JupyterLab CSS variables.
 rm -rf %{pypi_name}.egg-info
 # Replace dynamic version
 sed -i "s/##VERSION##/%{version}/" pyproject.toml
+# Remove the build-time dependency on jupyterlab - it's only needed if
+# node.js packages are installed during the build, which is not the case in Fedora
+sed -i '/"jupyterlab[><"]/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -67,41 +70,4 @@ sed -i "s/##VERSION##/%{version}/" pyproject.toml
 %{_datadir}/jupyter/labextensions/jupyterlab_pygments
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Nov 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.3.0-1
-- Update to 0.3.0 (rhbz#2251177)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.2-9
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1.2-6
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.2-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Nov 26 2020 Mukundan Ragavan <nonamedotc@gmail.com> - 0.1.2-1
-- Initial package.
+%autochangelog

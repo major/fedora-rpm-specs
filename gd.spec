@@ -18,7 +18,7 @@
 Summary:       A graphics library for quick creation of PNG or JPEG images
 Name:          gd
 Version:       2.3.3
-Release:       14%{?prever}%{?short}%{?dist}
+Release:       15%{?prever}%{?short}%{?dist}
 License:       GD
 URL:           http://libgd.github.io/
 %if 0%{?commit:1}
@@ -192,6 +192,9 @@ grep %{version} $RPM_BUILD_ROOT%{_libdir}/pkgconfig/gdlib.pc
 
 
 %changelog
+* Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 2.3.3-15
+- Rebuilt for libavif 1.0.3
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

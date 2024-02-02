@@ -1,7 +1,7 @@
 Name:           perl-TimeDate
 Version:        2.33
 Epoch:          1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A Perl module for time and date manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TimeDate
@@ -14,6 +14,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.4
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -34,6 +35,15 @@ Date::Format and Date::Parse modules can display and read times and
 dates in various formats, providing a more reliable interface to
 textual representations of points in time.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n TimeDate-%{version}
 # ChangeLog is ISO-8859-1 encoded
@@ -42,13 +52,28 @@ mv ChangeLog.utf8 ChangeLog
 # Bogus exec permissions on some language modules
 chmod -x lib/Date/Language/{Russian_cp1251,Russian_koi8r,Turkish}.pm
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -60,7 +85,13 @@ make test
 %{perl_vendorlib}/TimeDate.pm
 %{_mandir}/man3/*.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Jan 31 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.33-14
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.33-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

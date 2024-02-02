@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-zetacomponents-console-tools
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2024 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    fbc31f1be66ccd178c68d846d7c0ae09dbb97c89
+%global gh_commit    c487720bffd26e74a297c3baa31a9b90580759b2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zetacomponents
 %global gh_project   ConsoleTools
@@ -22,13 +22,13 @@
 %bcond_without  phpab
 
 Name:           php-%{gh_owner}-%{cname}
-Version:        1.7.3
-Release:        8%{?dist}
+Version:        1.7.4
+Release:        1%{?dist}
 Summary:        Zeta %{gh_project} Component
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://zetacomponents.org/
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
+Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 Source1:        autoloader.php
 
 BuildArch:      noarch
@@ -38,10 +38,10 @@ BuildRequires:  %{_bindir}/phpab
 %if %{with tests}
 BuildRequires: (php-composer(%{gh_owner}/base) >= 1.8   with php-composer(%{gh_owner}/base) < 2)
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "~8.0",
+#        "phpunit/phpunit": "~9.0",
 #        "zetacomponents/unit-test": "*"
 BuildRequires:  phpunit9
-BuildRequires:  php-composer(%{gh_owner}/unit-test) >= 1.2.0
+BuildRequires:  php-composer(%{gh_owner}/unit-test) >= 1.2.4
 %endif
 
 # From composer.json, "require": {
@@ -116,12 +116,10 @@ EOF
 
 : Drop assertion which rely on path in sources dir
 sed -e '/realpath/d' -i tests/statusbar_test.php
-: Not ready for phpunit9
-rm tests/option_test.php tests/arguments_test.php
 
 
 : Run test test suite
-for cmd in php php74 php80 php81
+for cmd in php php81 php82 php83
 do
   if which $cmd;
   then
@@ -145,6 +143,15 @@ done
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.7.4-1
+- update to 1.7.4
+- drop patch merged upstream
+
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.7.3-8
+- add upstream patch for PHP 8.2
+- add patch for PHP 8.3 from https://github.com/zetacomponents/ConsoleTools/pull/26
+- fix FTBFS #2261516
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 Summary:	PoPToP Point to Point Tunneling Server
 Name:		pptpd
 Version:	1.4.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	GPLv2+ and LGPLv2+
 BuildRequires:	make
 BuildRequires:	gcc
@@ -29,6 +29,8 @@ Source4:	20-pptpd.conf
 Patch0:		pptpd-1.4.0-bcrelay-iflog-size-limit.patch
 # upstream ticket: https://sourceforge.net/p/poptop/patches/21/
 Patch1:		pptpd-1.4.0-ppp-2.5.0.patch
+# upstream ticket: https://sourceforge.net/p/poptop/bugs/54/
+Patch2:		pptpd-1.4.0-gcc-14-fix.patch
 Requires:	ppp >= 2.4.2
 Requires:	perl-interpreter
 
@@ -139,6 +141,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 31 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.0-36
+- Fixed FTBFS with gcc-14
+  Resolves: rhbz#2261526
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

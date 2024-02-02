@@ -3,7 +3,7 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        COBOL compiler
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
@@ -14,6 +14,9 @@ Source1:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz.sig
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 Source3:        https://www.itl.nist.gov/div897/ctg/suites/newcob.val.Z
 Source4:        http://downloads.sourceforge.net/%{name}/contrib/esql/%{name}-sql-3.0.tar.gz
+
+# https://sourceforge.net/p/gnucobol/bugs/941/
+Patch0:         xml-parser.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -61,7 +64,7 @@ ESQL for GnuCOBOL
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p0
 cp %{SOURCE3} tests/cobol85/
 
 %build
@@ -125,6 +128,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/libocsql.so*
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.2-5
+- Patch for implicit function declaration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

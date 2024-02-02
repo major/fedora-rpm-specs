@@ -47,7 +47,7 @@
 
 Name: brltty
 Version: 6.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -689,6 +689,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 6.6-13
+- Rebuild for ICU 74
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

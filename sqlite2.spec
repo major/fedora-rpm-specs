@@ -3,7 +3,7 @@
 
 Name:           sqlite2
 Version:        2.8.17
-Release:        42%{?dist}
+Release:        43%{?dist}
 
 Summary:        Embeddable SQL engine in a C library
 License:        Public Domain
@@ -33,7 +33,7 @@ Patch21:        sqlite2-lemon-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  ncurses-devel, readline-devel, %{_includedir}/tcl.h
+BuildRequires:  ncurses-devel, readline-devel, tcl-devel
 Obsoletes:      sqlite < 3
 
 %description
@@ -145,6 +145,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/tclsqlite
 %{tcl_sitearch}/sqlite2/
 
 %changelog
+* Wed Jan 31 2024 Tom Callaway <spot@fedoraproject.org> - 2.8.17-43
+- change file dep to package dep on tcl-devel
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.17-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

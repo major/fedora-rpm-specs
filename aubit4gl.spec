@@ -5,14 +5,14 @@
 %global __requires_exclude_from ^(%{_privatelibs}|%{_priv_debuginfo})$
 
 %global latestversion 1.6.1
-%global commit r12844
-%global commitdate 20231002
-%global postrelease .p3
+%global commit r12871
+%global commitdate 20240131
+%global postrelease .p4
 %global namesuffix src
 
 Name:           aubit4gl
 Version:        %{latestversion}%{postrelease} 
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        IBM Informix 4GL compatible compiler
 
 # The entire source code is GPL-2.0-or-later except
@@ -44,6 +44,8 @@ BuildRequires: gcc
 BuildRequires: ncurses-devel
 BuildRequires: libpq-devel
 BuildRequires: bison flex procps-ng
+# https://fedoraproject.org/wiki/Changes/SunRPCRemoval
+BuildRequires: rpcgen libtirpc-devel
 Requires: gcc
 # These are not primary architectures, so not required to build on them.
 # https://fedoraproject.org/wiki/Architectures#Structure 
@@ -76,7 +78,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
            %if "%{getenv:INFORMIXDIR}" != ""
            --with-informix=%{getenv:INFORMIXDIR} \
            %endif
-           --without-zlib
+           --without-zlib \
+           --enable-minimal=yes
 # It does not compile with multiple threads
 %make_build -j1
 
@@ -99,7 +102,8 @@ chmod -x %{_builddir}/%{name}%{namesuffix}/tools/examples/*/*.4gl
 
 # Remove files which will not be packaged, to cleanup licensing.
 # compilers/ace/dump_4gl.c contains: "This code is not covered by the GPL"
-rm %{buildroot}%{_libdir}/%{name}/bin/aace_4gl
+# Not compiling...
+#rm -f %%{buildroot}%%{_libdir}/%%{name}/bin/aace_4gl
 
 # Install header files
 cp -p %{buildroot}%{_libdir}/%{name}/incl/*.h %{buildroot}%{_includedir}/%{name}
@@ -179,11 +183,10 @@ make -C tools/test
 
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1.p3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1.p3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Jan 31 2024 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p4-1 
+- added BuildRequires: rpcgen libtirpc-devel
+- added configure option --enable-minimal=yes to not build aace or glade
+- updated to 1.6.1.p4
 
 * Mon Oct 02 2023 Chad Lemmen <rpm@stansoft.org> - 1.6.1.p3-1
 - added configure option --with-informix

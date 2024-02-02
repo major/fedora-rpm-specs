@@ -15,7 +15,7 @@
 Name:          atril
 Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
 Release:       0.21%{?git_rel}%{?dist}
 %endif
@@ -28,6 +28,11 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# https://github.com/mate-desktop/atril/commit/479e927
+Patch1:       atril_0002-fix-a-incompatible-pointer-type-warning-for-gcc14-1.26.patch
+# https://github.com/mate-desktop/atril/commit/d901a9d
+Patch2:       atril_0001-epub-Avoid-crash-when-index-list-has-extraneous-entr-1.26.patch
 
 BuildRequires: cairo-gobject-devel
 BuildRequires: desktop-file-utils
@@ -195,6 +200,11 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Wed Jan 31 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-2
+- fix gcc14 build error and another epub crash
+- use https://github.com/mate-desktop/atril/commit/479e927
+- use https://github.com/mate-desktop/atril/commit/d901a9d
+
 * Wed Jan 24 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
 - update to 1.26.2
 

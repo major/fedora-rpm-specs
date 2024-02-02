@@ -17,8 +17,8 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.4
-Release:	3%{?dist}
-License:	GPL+
+Release:	4%{?dist}
+License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
 Source1:	%{name}.desktop
@@ -63,6 +63,10 @@ BuildRequires:	fluidsynth-devel
 BuildRequires:	gtkglext-devel
 %endif
 BuildRequires: make
+
+# i686 stopped working cleanly with gcc14
+# and since it is 2024, I care a lot less about fixing it.
+ExcludeArch:    i686
 
 Patch1:		%{name}-3.12.2-nolintl.patch
 Patch2:		%{name}-3.12.2-noliconv.patch
@@ -1789,6 +1793,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed Jan 31 2024 Tom Callaway <spot@fedoraproject.org> - 3.18.4-4
+- do not attempt builds on i686
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

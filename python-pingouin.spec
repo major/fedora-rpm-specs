@@ -1,22 +1,14 @@
 %bcond tests 1
 
 Name:           python-pingouin
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Statistical package in Python based on Pandas
 
 License:        GPL-3.0-only
 URL:            https://pingouin-stats.org/
 # PyPI tar does not contain docs and tests
-Source0:        https://github.com/raphaelvallat/pingouin/archive/v%{version}/pingouin-%{version}.tar.gz
-
-# hotfix: CI crash in test_power_chi2
-# https://github.com/raphaelvallat/pingouin/pull/344
-Patch:          https://github.com/raphaelvallat/pingouin/pull/344.patch
-
-# Fix in flatten_list for Python 3.12
-# https://github.com/raphaelvallat/pingouin/pull/370
-Patch:          https://github.com/raphaelvallat/pingouin/pull/370.patch
+Source:         https://github.com/raphaelvallat/pingouin/archive/v%{version}/pingouin-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -96,7 +88,18 @@ sed -r -i 's/(numpy)<.*/\1/' requirements-test.txt
 
 %check
 %if %{with tests}
-%pytest -v
+# TestMultivariate.test_box_m fails without this. See:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/BLAS_LAPACK/#_tests
+#
+# Two new test failures fails in Fedora Rawhide
+# https://github.com/raphaelvallat/pingouin/issues/402
+export FLEXIBLAS=netlib
+
+# Two new test failures fails in Fedora Rawhide
+# https://github.com/raphaelvallat/pingouin/issues/402
+k="${k-}${k+ and }not (TestRegression and test_linear_regression)"
+
+%pytest -k "${k-}" -v
 %endif
 
 %files -n python3-pingouin -f %{pyproject_files}

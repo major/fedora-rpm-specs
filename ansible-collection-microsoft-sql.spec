@@ -14,8 +14,8 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 2.1.0
-Release: 3%{?dist}
+Version: 2.2.1
+Release: 1%{?dist}
 
 License: MIT
 
@@ -306,6 +306,12 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed Jan 31 2024 Sergei Petrosian <spetrosi@redhat.com> - 2.2.1-1
+- Support installing SQL Server 2022 on RHEL 9 and running as a selinux-confined application
+- Remove unnecessary variable and RPM requirements for read-scale clusters
+- Add the mssql_ha_prep_for_pacemaker variable to configure SQL Server for Pacemaker
+- Deprecate `mssql_ha_cluster_run_role` for `mssql_manage_ha_cluster`
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

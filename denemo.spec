@@ -1,7 +1,7 @@
 Summary:	Graphical music notation program
 Name:		denemo
 Version:	2.6.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPLv3+
 Source:		https://ftp.gnu.org/gnu/denemo/denemo-%{version}.tar.gz
 Source1:	%{name}-feta.metainfo.xml
@@ -10,6 +10,7 @@ Source3:	%{name}-music.metainfo.xml
 Patch1:		%{name}-%{version}-configure.patch
 # Upstream patch: https://savannah.gnu.org/bugs/index.php?63720
 Patch2:		%{name}-%{version}-c99.patch
+Patch3:		%{name}-%{version}-bad_pointer.patch
 
 URL: http://www.denemo.org/
 
@@ -94,8 +95,9 @@ This contains the directory common to all Denemo fonts.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 autoupdate
@@ -155,6 +157,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Thu Feb 01 2024 Roy Rankin <rrankin@ihug.com.au> - 2.6.0-10
+- Add patch for invalid pointer
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

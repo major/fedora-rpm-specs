@@ -2,8 +2,8 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 5.248.0
-Release: 3%{?dist}
+Version: 5.249.0
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -11,8 +11,6 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
 # upstream patches
-# https://invent.kde.org/frameworks/purpose/-/merge_requests/100
-Patch0: 100.diff
 
 BuildRequires: extra-cmake-modules >= %{version}
 BuildRequires: gcc-c++
@@ -89,6 +87,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
+- 5.249.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.248.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

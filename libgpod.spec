@@ -13,7 +13,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.3
-Release: 49%{?dist}
+Release: 50%{?dist}
 License: LGPL-2.1-or-later
 URL: http://www.gtkpod.org/libgpod.html
 Source0: http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -27,6 +27,7 @@ Patch4:  libgpod-udev.patch
 Patch5:  0001-configure.ac-Add-support-for-libplist-2.2.patch
 Patch6:  libgpod-0.8.3-no-plist_dict_insert_item.patch
 Patch99: libgpod-0.8.3-implicit-int.patch
+Patch100: pointer-types.patch
 
 BuildRequires: automake libtool
 BuildRequires: docbook-style-xsl
@@ -186,6 +187,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %endif
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-50
+- Patch for modern C.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

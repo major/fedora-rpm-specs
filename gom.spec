@@ -3,7 +3,8 @@ Version:        0.4
 Release:        14%{?dist}
 Summary:        GObject to SQLite object mapper library
 
-License:        LGPLv2+
+# documentation is GFDL-1.1-or-later
+License:        LGPL-2.1-or-later AND GFDL-1.1-or-later
 URL:            https://wiki.gnome.org/Projects/Gom
 Source0:        https://download.gnome.org/sources/gom/0.4/gom-%{version}.tar.xz
 

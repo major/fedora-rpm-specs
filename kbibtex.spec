@@ -2,7 +2,7 @@
 
 Name:       kbibtex
 Version:    0.10.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    A BibTeX editor for KDE
 
 License:    GPLv2+
@@ -105,6 +105,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 0.10.0-6
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

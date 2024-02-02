@@ -1,6 +1,6 @@
 Name:       slop
 Version:    7.6
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Command line tool to perform region SeLect OPeration with mouse
 URL:        https://github.com/naelstrof/slop
 
@@ -68,6 +68,9 @@ This sub-package contains development files for libslopy library.
 %{_includedir}/slop.hpp
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 7.6-13
+- Rebuild for ICU 74
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

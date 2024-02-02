@@ -1,5 +1,5 @@
 Name:           python-pymapvbvd
-Version:        0.5.6
+Version:        0.5.7
 Release:        %autorelease
 Summary:        Python twix file reader
 

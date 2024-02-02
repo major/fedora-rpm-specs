@@ -139,7 +139,7 @@ for f in \
 done
 
 %build
-%mvn_build
+%mvn_build -- -Dcommons.packageId=configuration
 
 %install
 %mvn_install

@@ -1,8 +1,8 @@
 %global framework kunitconversion
 
 Name:    kf6-%{framework}
-Version: 5.248.0
-Release: 3%{?dist}
+Version: 5.249.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for unit conversions
 
 License: CC0-1.0 AND LGPL-2.0-or-later
@@ -62,6 +62,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
+- 5.249.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.248.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

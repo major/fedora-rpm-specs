@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.9.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -51,6 +51,7 @@ Source0: https://github.com/SSSD/sssd/releases/download/2.9.4/sssd-2.9.4.tar.gz
 
 ### Patches ###
 Patch0001: 0001-ENUMERATION-conditional-build-of-enumeration-support.patch
+Patch0002: 0002-Fix-the-build-with-Samba-4.20.patch
 
 ### Dependencies ###
 
@@ -1064,6 +1065,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Wed Jan 31 2024 Guenther Deschner <gdeschner@redhat.com> - 2.9.4-4
+- Fix the build with Samba 4.20
+
 * Thu Jan 18 2024 Alexey Tikhonov <atikhono@redhat.com> - 2.9.4-3
 - Disable enumeration support for IPA and AD providers.
   Deprecation was announced in F39 release notes:

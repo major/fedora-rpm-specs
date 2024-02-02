@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2639,6 +2639,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2:18.2.1-9
+- Rebuild for ICU 74
+
 * Fri Jan 26 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-8
 - rebuild for libarrow-15.0.0, rhbz#2260552
 

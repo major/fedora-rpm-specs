@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       252
+Version:       255
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPL-3.0-or-later
@@ -29,6 +29,7 @@ ExcludeArch:  %{ix86}
     xz \
     tar \
     zip \
+    p7zip \
     sng >= 1.1.0-2 \
     openssl \
     openssh \

@@ -35,7 +35,7 @@ Summary:        %{summary}
 # The doc extra is potentially useful for dependent packages; for example,
 # rope[doc] depends on pytoolconfig[doc]. However, the gendoc extra appears to
 # be solely for building the documentation of this package, so we do not build
-# acorresponding metapackage, nor do we generate BR’s from it.
+# a corresponding metapackage, nor do we generate BR’s from it.
 %pyproject_extras_subpkg -n python3-pytoolconfig validation global doc
 
 

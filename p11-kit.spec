@@ -11,6 +11,7 @@ Source1:        https://github.com/p11-glue/p11-kit/releases/download/%{version}
 Source2:        https://p11-glue.github.io/p11-glue/p11-kit/p11-kit-release-keyring.gpg
 Source3:        trust-extract-compat
 Source4:        p11-kit-client.service
+Patch:          p11-kit-0.25.3-import-object.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtasn1-devel >= 2.3

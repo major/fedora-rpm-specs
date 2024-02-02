@@ -9,12 +9,15 @@
 
 Name:               igraph
 Version:            0.10.8
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Library for creating and manipulating graphs
 
 License:             GPL-2.0-or-later
 URL:                http://igraph.sourceforge.net/
 Source0:            https://github.com/igraph/igraph/releases/download/%{version}/igraph-%{version}.tar.gz
+
+# https://github.com/igraph/igraph/pull/2474
+Patch0:             pointer-types.patch
 
 BuildRequires:      gcc
 BuildRequires:      gcc-c++
@@ -40,6 +43,8 @@ documentation needed to develop application with %{name}.
 %prep
 %setup -q
 
+%patch -P 0 -p0
+
 %build
 %cmake \
     -DIGRAPH_ENABLE_LTO=AUTO \
@@ -48,7 +53,6 @@ documentation needed to develop application with %{name}.
     -DIGRAPH_USE_INTERNAL_LAPACK=0 \
     -DIGRAPH_USE_INTERNAL_ARPACK=0 \
     -DIGRAPH_USE_INTERNAL_GLPK=0 \
-    -DIGRAPH_USE_INTERNAL_CXSPARSE=0 \
     -DIGRAPH_USE_INTERNAL_GMP=0 \
     %{cmake_blas_flags} \
     -DIGRAPH_GRAPHML_SUPPORT=1 \
@@ -82,6 +86,9 @@ export FLEXIBLAS=netlib
 %exclude %{_mandir}/man3/igraph.3*
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.10.8-4
+- Patch for modern C.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

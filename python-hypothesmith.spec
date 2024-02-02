@@ -7,11 +7,11 @@ Hypothesis strategies for generating Python programs, something like CSmith.}
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.2.0
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Hypothesis strategies for generating Python programs
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/Zac-HD/hypothesmith
 Source0:        %{pypi_source}
 BuildArch:      noarch

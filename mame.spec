@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 261
+%global baseversion 262
 
 %undefine _auto_set_build_flags
 
@@ -47,11 +47,7 @@ BuildRequires:  pugixml-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinxcontrib-rsvgconverter
-%if 0%{?fedora} >= 38
 BuildRequires:  qt6-qtbase-devel
-%else
-BuildRequires:  qt5-qtbase-devel
-%endif
 BuildRequires:  rapidjson-devel
 BuildRequires:  SDL2_ttf-devel
 BuildRequires:  sqlite-devel
@@ -75,7 +71,7 @@ Provides:       bundled(luafilesystem)
 Provides:       bundled(lua-linenoise)
 Provides:       bundled(lua-zlib)
 #lzma is not made to be linked dynamically
-Provides:       bundled(lzma-sdk) = 22.01
+Provides:       bundled(lzma-sdk) = 23.01
 #minimp3 is just two header files
 Provides:       bundled(minimp3)
 #softfloat is not made to be linked dynamically
@@ -145,7 +141,7 @@ rm -rf \
     3rdparty/dxsdk \
     3rdparty/expat \
     3rdparty/glm \
-    3rdparty/libflac \
+    3rdparty/flac \
     3rdparty/libjpeg \
     3rdparty/portaudio \
     3rdparty/portmidi \
@@ -224,9 +220,7 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=python3 \
-%if 0%{?fedora} >= 38
     QT_HOME=%{_libdir}/qt6 \
-%endif
     VERBOSE=1 \
     USE_SYSTEM_LIB_ASIO=1 \
     USE_SYSTEM_LIB_EXPAT=1 \

@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-machines
-Version:        305
-Release:        3%{?dist}
+Version:        306
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -78,7 +78,7 @@ Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.5
-Provides: bundled(npm(date-fns)) = 3.2.0
+Provides: bundled(npm(date-fns)) = 3.3.1
 Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
@@ -132,7 +132,7 @@ Provides: bundled(npm(redux-thunk)) = 3.1.0
 Provides: bundled(npm(redux)) = 5.0.1
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
 Provides: bundled(npm(scheduler)) = 0.23.0
-Provides: bundled(npm(set-function-length)) = 1.1.1
+Provides: bundled(npm(set-function-length)) = 1.2.0
 Provides: bundled(npm(set-function-name)) = 2.0.1
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
@@ -170,6 +170,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 31 2024 Packit <hello@packit.dev> - 306-1
+- Machines: Action to Replace SPICE devices
+- Machines: Create external snapshots when supported
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 305-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

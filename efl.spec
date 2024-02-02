@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -596,6 +596,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 1.27.0-6
+- Rebuilt for libavif 1.0.3
+
 * Tue Jan 30 2024 Tom Callaway <spot@fedoraproject.org> - 1.27.0-5
 - fix incompatible pointer types in bigendian cases causing FTBFS
 - fix pointer issue with aarch64 specific code

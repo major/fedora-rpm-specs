@@ -1,6 +1,6 @@
 Name:           apache-commons-pool
 Version:        1.6
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Apache Commons Pool Package
 License:        ASL 2.0
 URL:            http://commons.apache.org/pool/
@@ -29,7 +29,7 @@ interface that makes these implementations interchangeable.
 %mvn_file : commons-pool %{name}
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -- -Dcommons.packageId=pool
 
 %install
 %mvn_install
@@ -39,6 +39,9 @@ interface that makes these implementations interchangeable.
 %doc README.txt RELEASE-NOTES.txt
 
 %changelog
+* Wed Jan 31 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6-36
+- Port to apache-commons-parent 65
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

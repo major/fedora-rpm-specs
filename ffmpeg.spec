@@ -120,6 +120,8 @@ Patch2:         ffmpeg-allow-fdk-aac-free.patch
 # https://patchwork.ffmpeg.org/project/ffmpeg/list/?series=10211
 Patch4:         0001-lavc-libopenh264-Drop-openh264-runtime-version-check.patch
 Patch5:         ffmpeg-c99.patch
+# Fix build with gcc14 (-Wint-conversion, -Wincompatible-pointer-types)
+Patch6:         ffmpeg-gcc14.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch

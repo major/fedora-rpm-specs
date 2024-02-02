@@ -5,7 +5,7 @@
 %global crate cached_proc_macro
 
 Name:           rust-cached_proc_macro
-Version:        0.18.1
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Generic cache implementations and simplified function memoization
 
@@ -30,7 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -1,7 +1,7 @@
 Summary:        SAX parser access API for Perl
 Name:           perl-XML-SAX
 Version:        1.02
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-SAX
@@ -23,6 +23,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
@@ -62,22 +63,63 @@ without requiring programmer intervention. Those of you familiar with
 the DBI will be right at home. Some of the designs come from the Java
 JAXP specification (SAX part), only without the javaness.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n XML-SAX-%{version}
-%patch0 -p1
+%patch -P0 -p1
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-echo N | %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+echo N | perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=%{buildroot}
+%{_fixperms} %{buildroot}
+touch %{buildroot}%{perl_vendorlib}/XML/SAX/ParserDetails.ini
 
-touch $RPM_BUILD_ROOT%{perl_vendorlib}/XML/SAX/ParserDetails.ini
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t testfiles %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/99cleanup.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+
+# Non-root user is not possible to work with system
+# %{perl_vendorlib}/XML/SAX/ParserDetails.ini
+if [ `id -u` -ne 0 ]; then
+    rm t/01known.t t/20factory.t t/21saxini.t
+    prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+else
+    cp -p "%{perl_vendorlib}/XML/SAX/ParserDetails.ini" "%{perl_vendorlib}/XML/SAX/ParserDetails.ini.backup"
+    prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+    mv "%{perl_vendorlib}/XML/SAX/ParserDetails.ini.backup" "%{perl_vendorlib}/XML/SAX/ParserDetails.ini"
+fi
+
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 # See http://rhn.redhat.com/errata/RHBA-2010-0008.html regarding these scriptlets
@@ -116,8 +158,13 @@ rm -rf "%{perl_vendorlib}/XML/SAX/ParserDetails.ini.backup" || :
 %{_mandir}/man3/XML::*.3pm*
 %ghost %{perl_vendorlib}/XML/SAX/ParserDetails.ini
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 31 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-16
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

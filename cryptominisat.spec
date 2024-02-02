@@ -1,37 +1,30 @@
-# Cryptominisat is more efficient when it can use BreakID.
-# BreakID bundles saucy.
-# Saucy has a "noncommercial use only" clause in the license, so it is non-free.
-# Therefore, we have to do without BreakID.
-
 Name:           cryptominisat
-Version:        5.8.0
-Release:        18%{?dist}
+Version:        5.11.15
+Release:        1%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
 # src/MersenneTwister.h is BSD-3-Clause.
 License:        MIT AND BSD-3-Clause
 URL:            https://www.msoos.org/
-Source0:        https://github.com/msoos/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/msoos/cryptominisat/archive/%{version}/%{name}-%{version}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch0:         %{name}-cmake.patch
-# Use setuptools instead of distutils (bz 2154857)
-Patch1:         %{name}-setuptools.patch
-# Add a missing #include statement
-Patch2:         %{name}-include.patch
+# Unbundle picosat
+Patch1:         %{name}-picosat.patch
+# Do not rebuild the entire library for python; just link the existing library
+Patch2:         %{name}-python-library.patch
 
 BuildRequires:  boost-devel
-BuildRequires:  chrpath
 BuildRequires:  cmake
+BuildRequires:  cmake(breakid)
 BuildRequires:  gcc-c++
 BuildRequires:  gperftools-devel
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  pkgconfig(m4ri)
-BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  picosat-devel
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -47,7 +40,7 @@ solver. Highlights:
 %package devel
 Summary:        Header files for developing with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       m4ri-devel%{?_isa}
+Requires:       zlib-devel%{?_isa}
 
 %description devel
 Header files for developing applications that use %{name}.
@@ -58,55 +51,57 @@ Summary:        Cryptominisat library
 %description libs
 The %{name} library.
 
-%package -n python3-%{name}
+%package -n python3-pycryptosat
 Summary:        Python 3 interface to %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%description -n python3-%{name}
+# This can be removed when F41 reaches EOL
+Obsoletes:      python3-%{name} < 5.11.15
+Provides:       python3-%{name} = %{version}-%{release}
+
+%description -n python3-pycryptosat
 Python 3 interface to %{name}.
 
 %prep
 %autosetup -p0
 
-# Fix the library install path
-if [ "%{_libdir}" = "%{_prefix}/lib64" ]; then
-  sed -i 's,${dir}/lib,&64,g' cmake/FindPkgMacros.cmake
-fi
-
-# Remove flags we do not want in Fedora
-sed -e '/-Wno-class-memaccess/d' \
-    -e '/-mpopcnt/d' \
-    -e '/-msse4.2/d' \
-    -e '/-ggdb3/d' \
-    -i CMakeLists.txt
-
-# Fix the python install
-sed -ri 's|install |&--root %{buildroot} |' python/CMakeLists.txt
-
-# Fix the install directory for cmake files on 64-bit systems
+# Fix install paths
 if [ "%{_lib}" != "lib" ]; then
+  sed -i 's,${dir}/lib,&64,g' cmake/FindPkgMacros.cmake
   sed -i 's,lib/cmake,%{_lib}/cmake,' CMakeLists.txt
 fi
 
+# Ensure the bundled picosat is not used
+rm -fr src/picosat
+
+# Do not confuse pyproject_buildrequires by requiring a python builtin
+sed -i 's/, "pathlib"//' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %cmake \
+    -DARJUN_SERIALIZE:BOOL=ON \
     -DCMAKE_INSTALL_BINDIR=bin \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DEXTFEAT:BOOL=ON \
-    -DNOBREAKID:BOOL=ON
+    -DNOBREAKID:BOOL=OFF
 %cmake_build
+%pyproject_wheel
 
 %install
 %cmake_install
-
-# Remove an unwanted rpath
-chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
+%pyproject_install
+%pyproject_save_files pycryptosat
+sed -i '/msvc/d;/oracle/d' \
+  %{buildroot}%{python3_sitearch}/pycryptosat-%{version}.dist-info/top_level.txt
 
 %files
 %doc README.markdown
 %{_bindir}/cryptominisat5
 %{_bindir}/cryptominisat5_simple
-%{_mandir}/man1/cryptominisat5*
+%{_mandir}/man1/cryptominisat5.1*
 
 %files devel
 %{_includedir}/cryptominisat5/
@@ -116,14 +111,24 @@ chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
 %files libs
 %doc AUTHORS
 %license LICENSE.txt
-%{_libdir}/libcryptominisat5.so.5.8
+%{_libdir}/libcryptominisat5.so.5.11
 
-%files -n python3-%{name}
-%doc python/README.rst
-%license python/LICENSE
-%{python3_sitearch}/pycryptosat*
+%files -n python3-pycryptosat -f %{pyproject_files}
+%doc python/README.md
+%exclude %{python3_sitearch}/msvc
+%exclude %{python3_sitearch}/oracle
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 5.11.15-1
+- Version 5.11.15
+- Drop unused sqlite dependency
+- Dynamically generate python BuildRequires
+- Drop upstreamed setuptools and include patches
+- Unbundle picosat
+- Avoid rebuilding the entire library for python
+- Build with BreakID support
+- Rename the python subpackage to match upstream
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

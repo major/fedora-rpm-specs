@@ -3,7 +3,7 @@
 Name:    konsole
 Summary: KDE Terminal emulator
 Version: 24.01.90
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-only (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://www.kde.org/applications/system/konsole/
@@ -139,6 +139,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 24.01.90-4
+- Rebuild for ICU 74
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

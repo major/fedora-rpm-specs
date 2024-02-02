@@ -3,11 +3,12 @@
 
 Name:		urh
 Version:	2.9.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
 Source0:	https://github.com/jopohl/urh/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:	io.github.jopohl.urh.metainfo.xml
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 BuildRequires:	gcc-c++
@@ -72,6 +73,10 @@ desktop-file-install --add-category="Utility" \
   --dir=%{buildroot}%{_datadir}/applications \
   data/urh.desktop
 
+# metainfo file
+install -Dpm 0644 %{SOURCE1} \
+  %{buildroot}%{_metainfodir}/io.github.jopohl.urh.metainfo.xml
+
 %files
 %license LICENSE
 %doc README.md
@@ -79,10 +84,14 @@ desktop-file-install --add-category="Utility" \
 %{_bindir}/urh_cli
 %{_datadir}/icons/hicolor/128x128/apps/urh.png
 %{_datadir}/applications/urh.desktop
+%{_metainfodir}/io.github.jopohl.urh.metainfo.xml
 %{python3_sitearch}/urh
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Mon Jan 29 2024 Daniel Rusek <mail@asciiwolf.com> - 2.9.6-3
+- Added AppStream metadata
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

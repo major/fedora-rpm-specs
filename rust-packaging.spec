@@ -24,11 +24,13 @@ BuildRequires:  python3-pytest
 %description
 %{summary}.
 
+%if ! 0%{?rhel}
 %package -n rust-srpm-macros
 Summary:        RPM macros for building Rust projects
 
 %description -n rust-srpm-macros
 RPM macros for building source packages for Rust projects.
+%endif
 
 %package -n cargo-rpm-macros
 Summary:        RPM macros for building projects with cargo
@@ -57,7 +59,9 @@ RPM macros for building projects with cargo.
 %install
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust
+%if ! 0%{?rhel}
 install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust-srpm
+%endif
 install -D -p -m 0644 -t %{buildroot}/%{_fileattrsdir} fileattrs/cargo.attr
 install -D -p -m 0644 -t %{buildroot}/%{_fileattrsdir} fileattrs/cargo_vendor.attr
 
@@ -67,14 +71,19 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 pytest -vv
 %endif
 
+%if ! 0%{?rhel}
 %files -n rust-srpm-macros
 %license LICENSE
 %{_rpmmacrodir}/macros.rust
 %{_rpmmacrodir}/macros.rust-srpm
+%endif
 
 %files -n cargo-rpm-macros
 %license LICENSE
 %{_rpmmacrodir}/macros.cargo
+%if 0%{?rhel}
+%{_rpmmacrodir}/macros.rust
+%endif
 %{_fileattrsdir}/cargo.attr
 %{_fileattrsdir}/cargo_vendor.attr
 

@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	23.8.1
+%global srcver	24.1.1
 # for default font
 %global hprio	56
 # for default font but static
@@ -28,8 +28,8 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20230801
-Release:        6%{?dist}
+Version:        20240101
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -37,9 +37,6 @@ Source0:        https://github.com/notofonts/notofonts.github.io/archive/refs/ta
 Source1:        google-noto-sans-math-vf.conf
 Source2:        google-noto-sans-math.conf
 Source3:        google-noto-naskh-arabic-ex.conf
-Source5:        google-noto-sans-symbols-ex.conf
-Source6:        google-noto-sans-symbols2-ex.conf
-Source7:        google-noto-sans-symbols-vf-ex.conf
 Source8:	google-noto-sans-sinhala-ex.conf
 
 BuildArch:      noarch
@@ -84,12 +81,10 @@ local subpackages = {
     { alias="fangsong",   family="Fangsong KSS Vertical" },
 
     { alias="fantasy",    family="Music" },
-    { alias="fantasy",    family="Sans Symbols",
-      fcconfexfile=rpm.expand('%{SOURCE5}')
-    },
-    { alias="fantasy",    family="Sans Symbols2",
-      fcconfexfile=rpm.expand('%{SOURCE6}')
-    },
+    { alias="fantasy",    family="Sans Symbols" },
+    { alias="fantasy",    family="Sans Symbols2" },
+
+    { alias="sans-serif", family="Kufi Arabic" },
 
     { alias="sans-serif", family="Looped Thai", lang={ "th" }, nogroup=1,
       obsoletes={ "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
@@ -103,8 +98,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Anatolian Hieroglyphs",
       obsoletes={ "sans-anatolian-hieroglyphs-vf" }
     },
-    { alias="sans-serif", family="Sans Arabic", lang={ "ar" },
-      obsoletes={ "kufi-arabic", "sans-arabic-ui" },
+    { alias="sans-serif", family="Sans Arabic",
+      obsoletes={ "sans-arabic-ui" },
       default=true
     },
     { alias="sans-serif", family="Sans Armenian", lang={ "hy" },
@@ -329,7 +324,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Pahawh Hmong" },
     { alias="sans-serif", family="Sans Palmyrene" },
     { alias="sans-serif", family="Sans Pau Cin Hau" },
-    { alias="sans-serif", family="Sans Phags-Pa" },
+    { alias="sans-serif", family="Sans PhagsPa" },
     { alias="sans-serif", family="Sans Phoenician",
       obsoletes={ "sans-phenician-vf" }
     },
@@ -530,9 +525,9 @@ local subpackages = {
       default=true
     },
 
-    { alias="fantasy",    variable=true, family="Sans Symbols",
-      fcconfexfile=rpm.expand('%{SOURCE7}')
-    },
+    { alias="fantasy",    variable=true, family="Sans Symbols" },
+
+    { alias="sans-serif", variable=true, family="Kufi Arabic" },
 
     { alias="sans-serif", variable=true, family="Sans",
       obsoletes={ "sans-display-vf" },
@@ -540,8 +535,8 @@ local subpackages = {
     },
     { alias="sans-serif", variable=true, family="Sans Adlam" },
     { alias="sans-serif", variable=true, family="Sans Adlam Unjoined" },
-    { alias="sans-serif", variable=true, family="Sans Arabic", lang={ "ar" },
-      obsoletes={ "kufi-arabic-vf", "sans-arabic-ui-vf" },
+    { alias="sans-serif", variable=true, family="Sans Arabic",
+      obsoletes={ "sans-arabic-ui-vf" },
       default=true
     },
     { alias="sans-serif", variable=true, family="Sans Armenian", lang={ "hy" },
@@ -740,7 +735,7 @@ local _metainfobuild = ''
 local _filelistbuild = ''
 
 local function is_nonlatin(table)
-    latin_langs = { "af", "az", "bs", "ca", "cs", "cy", "da", "de", "en", "es", "et", "fil", "fi", "fo", "fr", "ga", "gd", "gl", "hr", "hu", "id", "is", "it", "kk", "ky", "lb", "lt", "lv", "mk", "mont", "ms", "mt", "nl", "no", "pl", "pt", "ro", "sk", "sl", "sq", "sr", "sv", "sw", "tg", "tk", "tr", "uz" }
+    latin_langs = { "af", "ar", "az", "bs", "ca", "cs", "cy", "da", "de", "en", "es", "et", "fil", "fi", "fo", "fr", "ga", "gd", "gl", "hr", "hu", "id", "is", "it", "kk", "ky", "lb", "lt", "lv", "mk", "mont", "ms", "mt", "nl", "no", "pl", "pt", "ro", "sk", "sl", "sq", "sr", "sv", "sw", "tg", "tk", "tr", "uz" }
     if table.lang then
         for i = 1, #table.lang do
             for j = 1, #latin_langs do
@@ -1197,6 +1192,9 @@ rm %{buildroot}%{_fontbasedir}/google-noto/NotoSansDisplay*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSerifDisplay*.ttf || :
 rm %{buildroot}%{_fontbasedir}/google-noto/Noto*Test-*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto-vf/Noto*Test*.ttf || :
+# Noto Sans Phags Pa has been renamed to Noto Sans PhagsPa but shipped in the archive somehow
+#   https://github.com/notofonts/phags-pa/commit/b85e2b0a38ad21d0196104e791e0b15bafedaf66
+rm %{buildroot}%{_fontbasedir}/google-noto/NotoSansPhags-Pa*.ttf || :
 
 # fc-scan in script expects fonts are already installed
 %{notobuild_metainfo}
@@ -1232,6 +1230,11 @@ done
 
 
 %changelog
+* Wed Jan 31 2024 Akira TAGOH <tagoh@redhat.com> - 20240101-4
+- Updates to monthly release of 24.1.1
+- Remove substitute config for Symbol.
+  Resolves: rhbz#2259962
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -39,6 +39,18 @@ Patch18: 0003-RISCV64-Add-per-cpu-IRQ-stacks-support.patch
 Patch19: 0004-RISCV64-Add-per-cpu-overflow-stacks-support.patch
 Patch20: 0005-x86_64-Fix-bt-command-not-printing-stack-trace-enoug.patch
 Patch21: 0006-symbols-skip-the-module-if-the-given-address-is-not-.patch
+Patch22: 0001-Add-LoongArch64-framework-code-support.patch
+Patch23: 0002-LoongArch64-Make-the-crash-tool-successfully-enter-t.patch
+Patch24: 0003-LoongArch64-Add-pte-command-support.patch
+Patch25: 0004-LoongArch64-Add-mach-command-support.patch
+Patch26: 0005-LoongArch64-Add-bt-command-support.patch
+Patch27: 0006-LoongArch64-Add-help-m-M-command-support.patch
+Patch28: 0007-LoongArch64-Add-help-r-command-support.patch
+Patch29: 0008-LoongArch64-Add-irq-command-support.patch
+Patch30: 0009-LoongArch64-Add-kaslr-command-line-option-support.patch
+Patch31: 0010-LoongArch64-Add-LoongArch64-architecture-support-inf.patch
+Patch32: 0011-Fix-mount-command-failure-on-Linux-6.8-rc1-and-later.patch
+Patch33: 0012-Add-log-c-option-to-display-printk-caller-id.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -80,6 +92,18 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 19 -p1
 %patch -P 20 -p1
 %patch -P 21 -p1
+%patch -P 22 -p1
+%patch -P 23 -p1
+%patch -P 24 -p1
+%patch -P 25 -p1
+%patch -P 26 -p1
+%patch -P 27 -p1
+%patch -P 28 -p1
+%patch -P 29 -p1
+%patch -P 30 -p1
+%patch -P 31 -p1
+%patch -P 32 -p1
+%patch -P 33 -p1
 
 %build
 

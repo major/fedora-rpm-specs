@@ -1,4 +1,4 @@
-%define po_package gnome-session-45
+%define po_package gnome-session-46
 
 %if 0%{?fedora}
 %else
@@ -8,13 +8,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-session
-Version:        45.0
+Version:        46~alpha
 Release:        %autorelease
 Summary:        GNOME session manager
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-session
-Source:         https://download.gnome.org/sources/gnome-session/45/%{name}-%{tarball_version}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-session/46/%{name}-%{tarball_version}.tar.xz
 
 # Blacklist NV30: https://bugzilla.redhat.com/show_bug.cgi?id=745202
 Patch:          gnome-session-3.3.92-nv30.patch
@@ -96,12 +96,11 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
-%meson                                                          \
+%meson \
 %if 0%{?with_session_selector}
-           -Dsession_selector=true                              \
+    -Dsession_selector=true \
 %endif
-           -Dsystemd=true                                       \
-           -Dsystemd_journal=true
+  %{nil}
 %meson_build
 
 %install
@@ -132,8 +131,6 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %dir %{_datadir}/xdg-desktop-portal
 %{_datadir}/xdg-desktop-portal/gnome-portals.conf
 %{_datadir}/doc/gnome-session/
-%dir %{_datadir}/GConf/gsettings
-%{_datadir}/GConf/gsettings/gnome-session.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.SessionManager.gschema.xml
 %{_userunitdir}/gnome-session*
 %{_userunitdir}/gnome-launched-.scope.d/

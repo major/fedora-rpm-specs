@@ -10,7 +10,7 @@
 Name:    konsole5
 Summary: KDE Terminal emulator
 Version: 23.08.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -173,6 +173,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 23.08.4-5
+- Rebuild for ICU 74
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -30,7 +30,7 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2023.4
+Version:	2024
 Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 License:	GPLv2+
@@ -40,8 +40,12 @@ Source0:	https://ftp.gromacs.org/pub/gromacs/gromacs-%{version}%{?_rc}.tar.gz
 Source1:	https://ftp.gromacs.org/pub/manual/manual-%{version}%{?_rc}.pdf
 Source2:	https://ftp.gromacs.org/regressiontests/regressiontests-%{version}%{?_rc}.tar.gz
 Source3:	gromacs-README.fedora
-# increase some test tolerances: https://gitlab.com/gromacs/gromacs/-/merge_requests/3900
-# drop in v2023.4
+# Drop in v2024.1
+# Fixes for  https://gitlab.com/gromacs/gromacs/-/issues/4973
+# https://gitlab.com/gromacs/gromacs/-/merge_requests/4053
+Patch0:         https://gitlab.com/gromacs/gromacs/-/commit/4064e8c5d9f69a879002a76224bba22f6ab2978e.patch
+# https://gitlab.com/gromacs/gromacs/-/merge_requests/4056
+Patch1:         4056.patch
 BuildRequires:	gcc-c++
 BuildRequires:  cmake3 >= 3.4.3
 BuildRequires:	%{blaslib}-devel
@@ -377,6 +381,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Tue Jan 30 2024 Christoph Junghans <junghans@votca.org> - 2024-1
+- Version bump to v2024 (bug #2261951)
+
 * Wed Jan 24 2024 Christoph Junghans <junghans@votca.org> - 2023.4-1
 - Version bump to v2023.4 (bug#2260114)
 

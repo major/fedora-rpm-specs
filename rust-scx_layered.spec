@@ -4,7 +4,7 @@
 %global crate scx_layered
 
 Name:           rust-scx_layered
-Version:        0.0.4
+Version:        0.0.6
 Release:        %autorelease
 Summary:        Configurable multi-layer BPF / user space hybrid scheduler
 

@@ -13,8 +13,12 @@
 %global _lto_cflags %nil
 
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2023.10.16.00
+%global tag 2024.01.22.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
+
+# lib/fbi/cpp/LowerBoundPrefixMap.cpp includes folly/container/tape.h
+# which uses std::ranges which is part of C++20
+%global optflags %optflags -std=c++20
 
 Name:           mcrouter
 Version:        0.41.0.%{date}
@@ -23,9 +27,9 @@ Summary:        Memcached protocol router for scaling memcached deployments
 
 License:        MIT
 URL:            %{forgeurl}
-Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
+Source:         %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
 # distutils deprecated in Python 3.10
-Patch0:         %{name}-0.41.0-no_distutils.patch
+Patch:          %{name}-0.41.0-no_distutils.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 

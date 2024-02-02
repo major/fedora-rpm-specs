@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        3.16.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -20,14 +20,15 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  xml-security-c-devel
 BuildRequires:  xsd
 BuildRequires:  zlib-devel
+BuildRequires:  minizip-ng-compat-devel
 # Provide xxd
 BuildRequires:  vim-common
 
 # Dynamically loaded libraries
 Requires:       opensc%{?_isa}
 
-Provides: bundled(minizip)
-
+Patch0:		Increase_version_control.patch
+Patch1:		Add-zlib-header.patch
 
 %description
 Libdigidocpp library offers creating, signing and verification of digitally
@@ -51,7 +52,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-doc package contains documentation provided by upstream.
 
 %prep
-%setup -q
+%autosetup -p 1
 # Compatibility macro XALAN_USING_XALAN() was removed in xalan-c 1.12. This
 # workaround is harmless when using older xalan-c versions. See
 # https://github.com/open-eid/libdigidocpp/issues/363 and the corresponding
@@ -62,6 +63,9 @@ find . -type f -execdir sed -r -i \
 # it contains non UTF-8 files, but they do not worth the process of
 # unpackaging and fixing the encoding
 rm -rf doc/sample_files.zip
+
+# Remove bundled minizip
+rm -rf src/minizip
 
 %build
 # the dot after %%{cmake} has been removed from Fedora because of
@@ -120,6 +124,11 @@ rm -rf doc/sample_files.zip
 
 
 %changelog
+* Mon Jan 29 2024 Lukas Javorsky <ljavorsk@redhat.com> - 3.16.0-6
+- Build with system minizip-ng-compat
+- Add missing zlib.h include in ZipSerialize.cpp
+- Increase version control of minzip (so minizip-ng can be used)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

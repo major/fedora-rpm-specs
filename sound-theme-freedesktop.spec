@@ -4,7 +4,7 @@ Release: 21%{?dist}
 Summary: freedesktop.org sound theme
 Source0: http://people.freedesktop.org/~mccann/dist/sound-theme-freedesktop-%{version}.tar.bz2
 # For details on the licenses used, see CREDITS
-License: GPLv2+ and LGPLv2+ and CC-BY-SA and CC-BY
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later AND CC-BY-SA-3.0 AND CC-BY-3.0 AND CC-BY-4.0
 Url: http://www.freedesktop.org/wiki/Specifications/sound-theme-spec
 BuildArch: noarch
 BuildRequires: make

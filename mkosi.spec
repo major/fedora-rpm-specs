@@ -90,6 +90,10 @@ A fancy wrapper around "dnf --installroot", "apt-get", "pacman", "zypper", and
 Generated images are tailored to the purpose. This means GPT disk labels are
 used and only systemd-based images may be generated.
 
+This package also provides a kernel-install plugin which allows mkosi to be used
+to build initrds and UKIs. Note that the kernel-install plugin is not enabled
+by default and has to be enabled explicitly in /etc/kernel/install.conf.
+
 %prep
 %autosetup -p1
 
@@ -109,11 +113,14 @@ mkdir -p %{buildroot}%{_mandir}/man1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/mkosi.1
 
+install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ kernel-install/50-mkosi.install
+
 %files -f %pyproject_files
 %license LICENSE
 %doc README.md
 %_bindir/mkosi
 %_mandir/man1/mkosi.1*
+/usr/lib/kernel/install.d/50-mkosi.install
 
 %check
 %if %{with tests}

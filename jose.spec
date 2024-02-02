@@ -1,11 +1,14 @@
 Name:           jose
 Version:        11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tools for JSON Object Signing and Encryption (JOSE)
 
 License:        Apache-2.0
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+# Backport from https://github.com/latchset/jose/pull/143
+Patch:          143.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
@@ -81,6 +84,9 @@ rm -rf %{buildroot}/%{_libdir}/lib%{name}.la
 %{_mandir}/man3/jose*.3*
 
 %changelog
+* Tue Jan 30 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 11-11
+- Fix test when using zlib-ng
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

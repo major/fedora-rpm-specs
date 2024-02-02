@@ -1,7 +1,7 @@
 # spec file for php-pear-Console-Getargs
 #
-# Copyright (c) 2006-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2006-2024 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
 # Please, preserve the changelog entries
@@ -14,18 +14,18 @@ Name:           php-pear-Console-Getargs
 Version:        1.4.0
 Release:        15%{?dist}
 Summary:        Command-line arguments and parameters parser
-Summary(fr):    Analyseur des arguments et paramètres en ligne de commande
 
-License:        PHP
+License:        PHP-3.01
 URL:            http://pear.php.net/package/Console_Getargs
 Source0:        http://pear.php.net/get/%{pear_name}-%{version}.tgz
 
 Patch0:         %{pear_name}-php8.patch
+Patch1:         %{pear_name}-tests.patch
 
 BuildArch:      noarch
 BuildRequires:  php-pear
 # For test suite
-BuildRequires:  php-phpunit-PHPUnit
+BuildRequires:  phpunit9
 
 Requires:       php-pear(PEAR)
 Requires(post): %{__pear}
@@ -41,21 +41,16 @@ parameters parser for your CLI applications. It performs some basic
 arguments validation and automatically creates a formatted help text,
 based on the given configuration.
  
-%description -l fr
-L'extension Console_Getargs fournit un analyseur des arguments et des
-paramètres passés à vos applications sur la ligne de commande. 
-Il réalise quelques validations simples des arguments et crée 
-automatiquement un texte d'aide à partir de la configuration fournie.
-
 
 %prep
 %setup -c -q
 cd %{pear_name}-%{version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p0
 
 # package.xml is V2
 sed -e '/README/s/role="data"/role="doc"/' \
-    -e '/Getargs.php/s/md5sum.*name/name/' \
+    -e 's/md5sum.*name/name/' \
     ../package.xml >%{name}.xml
 
 
@@ -78,9 +73,10 @@ install -pm 644 %{name}.xml $RPM_BUILD_ROOT%{pear_xmldir}
 
 %check
 cd %{pear_name}-%{version}
-%{_bindir}/phpunit \
+%{_bindir}/phpunit9 \
+   --do-not-cache-result \
    --include-path=$RPM_BUILD_ROOT%{pear_phpdir} \
-   --verbose tests
+   tests
 
 
 %post
@@ -102,6 +98,9 @@ fi
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 1.4.0-15
+- switch to phpunit9, fix FTBFS #2261495
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

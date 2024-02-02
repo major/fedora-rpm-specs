@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 102%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 109%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -59,8 +59,8 @@ License: ASL 2.0 and LGPLv2+ and SISSL
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit ec1d730163d984934c467e050ebf6d39f8c09384
-%define ovsshortcommit ec1d730
+%define ovscommit 49e64f13b2c965f5b53a65eeab70ac2e3f0bf69a
+%define ovsshortcommit 49e64f1
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -433,6 +433,37 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue Jan 30 2024 Numan Siddique <numans@ovn.org> - 23.09.0-109
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-106)
+- ovs: Bump submodule to tip of OVS branch-3.2.
+[Upstream: f224c6e5f69c099ddb008f99dba2e19a902a612f]
+- actions: Use random port selection for SNAT with external_port_range.
+[Upstream: 7ee483a45df19e11e26487e64a93940e0de64b9a]
+- ovn-ic: Handle NB:name updates properly.
+[Upstream: 0e684ec206e8979694912ad1037145ccd0d0b7dc]
+
+* Mon Jan 29 2024 Dumitru Ceara <dceara@redhat.com> - 23.09.0-106
+- Sync to upstream OVN branch-23.09. Below are the commits
+since last update (23.09.0-100)
+- northd: Make sure that affinity flows match on VIP.
+[Upstream: 859e8d917408d50272c910f78ac44ab8a593aa13]
+
+- Fix segfault due to ssl-ciphers.
+[Upstream: d39e7c0068ecc719a3d6154e2078d6d9a3435fc9]
+
+- ovn: Add tunnel PMTUD support. (#2241711)
+[Upstream: 6d2f9d60760a793c15ca7423b24ff586b653fc76]
+
+- controller: fixed potential segfault when changing tunnel_key and deleting ls.
+[Upstream: 120075357a624293d52a1905c47a1bd249d2157c]
+
+- northd: Use proper field for lookup_nd
+[Upstream: 8e25c1c37aa3301f69bc89ee49ffaef5aa2f76fd]
+
+- checkpatch.py: Port checkpatch related changes from the OVS repo.
+[Upstream: bf334c65e1ead50013880049564d445919aee61f]
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.09.0-102
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

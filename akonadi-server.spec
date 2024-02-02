@@ -1,9 +1,3 @@
-%global mysql mysql
-%if 0%{?rhel} > 6
-# el7 mariadb pkgs don't have compat Provides: mysql (apparently?)
-%global mysql mariadb
-%endif
-
 %if 0%{?flatpak}
 %global database_backend SQLITE
 %endif
@@ -11,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.01.90
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -61,6 +55,10 @@ BuildRequires:  cmake(KAccounts6)
 # ^^ sqlite3 driver plugin needs versioned qt6 dep
 BuildRequires: qt6-qtbase-private-devel
 
+%if ! 0%{?flatpak}
+BuildRequires: mariadb-server
+%endif
+
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
 
@@ -103,10 +101,7 @@ Summary:        Akonadi MySQL backend support
 # upgrade path
 Obsoletes:      kf5-akonadi-server-mysql < 24.01.80-1
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       %{mysql}-server
-%if "%{?mysql}" != "mariadb"
-Recommends:     mariadb-server
-%endif
+Requires:       mariadb-server
 Requires:       qt6-qtbase-mysql%{?_isa}
 Requires(post): /usr/sbin/update-alternatives
 Requires(postun): /usr/sbin/update-alternatives
@@ -252,6 +247,9 @@ fi
 
 
 %changelog
+* Wed Jan 31 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-5
+- Generic mysql is no more, switch to requiring mariadb
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

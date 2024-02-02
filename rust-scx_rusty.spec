@@ -4,7 +4,7 @@
 %global crate scx_rusty
 
 Name:           rust-scx_rusty
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        A multi-domain, BPF / user space hybrid scheduler
 

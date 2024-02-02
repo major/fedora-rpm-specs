@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 7%{?dist}
+Release: 9%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -829,6 +829,12 @@ sudo -u cyrus LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl %{?_smp_mflags
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.8.1-9
+- Rebuild for ICU 74
+
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.8.1-8
+- Rebuild for ICU 74
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

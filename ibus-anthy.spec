@@ -18,7 +18,7 @@
 
 Name:           ibus-anthy
 Version:        1.5.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -157,6 +157,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Wed Jan 31 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-6
+- Fix make check with GitHub action
+
 * Tue Jan 30 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-5
 - Resolves #2261242 Update era.t with 2024
 - Add appstream-util validattion

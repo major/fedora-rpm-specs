@@ -1,11 +1,14 @@
 Name:           ruby-augeas
 Version:        0.5.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Ruby bindings for Augeas
 
 License:        LGPLv2+
 URL:            http://augeas.net
 Source0:        http://download.augeas.net/ruby/ruby-augeas-%{version}.tgz
+
+# Backport of https://github.com/hercules-team/ruby-augeas/pull/17
+Patch:          remove-unused-sibling-argument-from-augeas_rm.patch
 
 BuildRequires:  ruby rubygem(rake) rubygem(test-unit)
 BuildRequires:  ruby rubygem(rdoc)
@@ -21,7 +24,7 @@ Provides:       ruby(augeas) = %{version}
 Ruby bindings for augeas.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -46,6 +49,9 @@ ruby tests/tc_augeas.rb
 
 
 %changelog
+* Wed Jan 31 2024 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 0.5.0-38
+- Correct method definition of augeas_rm (fixes rhbz#2261659)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

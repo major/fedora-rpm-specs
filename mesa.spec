@@ -5,14 +5,11 @@
 %global with_va 1
 %if !0%{?rhel}
 %global with_nine 1
+%global with_nvk %{with vulkan_hw}
 %global with_omx 1
 %global with_opencl 1
 %endif
 %global base_vulkan ,amd
-%endif
-
-%if 0%{?with_vulkan_hw}
-%global with_nvk 1
 %endif
 
 %ifarch %{ix86} x86_64
@@ -387,6 +384,11 @@ export MESON_PACKAGE_CACHE_DIR="%{cargo_registry}/"
 %rewrite_wrap_file syn
 %rewrite_wrap_file unicode-ident
 %endif
+
+# We've gotten a report that enabling LTO for mesa breaks some games. See
+# https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
+# Disable LTO for now
+%define _lto_cflags %{nil}
 
 %meson \
   -Dplatforms=x11,wayland \

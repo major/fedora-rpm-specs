@@ -61,7 +61,7 @@ ExcludeArch: i686
 
 %global system_ffi        1
 %global system_av1        1
-%global system_libvpx     1
+%global system_libvpx     0
 %global system_jpeg       1
 %global system_pixman     1
 %global system_webp       1
@@ -174,7 +174,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        122.0
-Release:        4%{?pre_tag}%{?dist}
+Release:        5%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -1177,6 +1177,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Jan 31 2024 Martin Stransky <stransky@redhat.com>- 122.0-5
+- Disabled system libvpx due to WebRTC/camera issues (mzbz#1875201)
+
 * Tue Jan 30 2024 Martin Stransky <stransky@redhat.com>- 122.0-4
 - Build with --enable-replace-malloc (rhbz#2260766)
 

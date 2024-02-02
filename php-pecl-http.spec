@@ -30,7 +30,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
@@ -249,6 +249,9 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 4.2.4-5
+- Rebuild for ICU 74
+
 * Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 4.2.4-4
 - Fix incompatible pointer types using patch from
   https://github.com/m6w6/ext-http/pull/134

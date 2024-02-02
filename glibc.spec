@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 38
+%global baserelease 39
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -225,6 +225,19 @@ original = original:match("^%s*(.-)%s*$"):gsub("\\\n", "")
 rpm.define("__debug_install_post bash " .. wrapper
   .. " " .. sysroot .. " " .. original)
 }
+
+# sysroot package support.  These contain arch-specific packages, so
+# turn off the rpmbuild check.
+%global _binaries_in_noarch_packages_terminate_build 0
+# Variant of %%dist that contains just the distribution release, no affixes.
+%{?fedora:%global sysroot_dist fc%{fedora}}
+%{?rhel:%global sysroot_dist el%{rhel}}
+%{?!sysroot_dist:%global sysroot_dist root}
+# The name of the sysroot package.
+%global sysroot_package_arch sysroot-%{_arch}-%{sysroot_dist}-%{name}
+# Installed path for the sysroot tree.  Must contain /sys-root/, which
+# triggers filtering.
+%global sysroot_prefix /usr/%{_arch}-redhat-linux/sys-root/%{sysroot_dist}
 
 # The wrapper script relies on the fact that debugedit does not change
 # build IDs.
@@ -1026,6 +1039,21 @@ libpthread_nonshared.a which is no longer used. The static library
 libpthread_nonshared.a is an internal implementation detail of the C
 runtime and should not be expected to exist.
 
+%if %{without bootstrap}
+%package -n %sysroot_package_arch
+Summary: Sysroot package for glibc, %{_arch} architecture
+BuildArch: noarch
+Provides: sysroot-%{_arch}-%{name}
+# The files are not usable for execution, so do not provide nor
+# require anything.
+AutoReqProv: no
+
+%description -n %sysroot_package_arch
+This package contains development files for the glibc package
+that can be installed across architectures.
+%dnl %%{without bootstrap}
+%endif
+
 ##############################################################################
 # Prepare for the build.
 ##############################################################################
@@ -1520,6 +1548,61 @@ done
 ##############################################################################
 ar cr %{glibc_sysroot}%{_prefix}/%{_lib}/libpthread_nonshared.a
 
+###############################################################################
+# Sysroot package creation.
+###############################################################################
+
+%if %{without bootstrap}
+mkdir -p %{glibc_sysroot}/%{sysroot_prefix}
+pushd %{glibc_sysroot}/%{sysroot_prefix}
+mkdir -p usr/lib usr/lib64
+
+cp -a %{glibc_sysroot}/%{_prefix}/include usr/.
+for lib in lib lib64;  do
+    for pfx in "" %{_prefix}/; do
+	if test -d %{glibc_sysroot}/$pfx$lib ; then
+	    # Implement UsrMove: everything goes into usr/$lib.  Only
+	    # copy files directly in $lib.
+	    find %{glibc_sysroot}/$pfx$lib -maxdepth 1 -type f \
+		| xargs -I '{}' cp  '{}' usr/$lib/.
+	    # Symbolic links need to be adjusted for UsrMove: They
+	    # need to stay within the same directory.
+	    for sl in `find %{glibc_sysroot}/$pfx$lib -maxdepth 1 -type l`; do
+		set +x
+		slbase=$(basename $sl)
+		sltarget=$(basename $(readlink $sl))
+		if ! test -r usr/$lib/$sltarget; then
+		    echo "$sl: inferred $sltarget ($(readlink $sl)) missing"
+		    exit 1
+		fi
+		set -x
+		ln -s $sltarget usr/$lib/$slbase
+	    done
+	fi
+    done
+done
+
+# Workaround for the lack of a kernel sysroot package.  Copy the
+# kernel headers into the sysroot.
+rpm -ql kernel-headers | grep "^/usr/include" | while read f ; do
+    if test -f "$f" ; then
+        install -D "$f" "./$f"
+    fi
+done
+
+# Remove the executable bit from files in the sysroot.  This prevents
+# debuginfo extraction.
+find -type f | xargs chmod a-x
+
+# Use sysroot-relative paths in linker script.  Ignore symbolic links.
+sed -e 's,\([^0-9a-zA-Z=*]/lib\),/usr/lib,g' \
+    -e 's,\([^0-9a-zA-Z=*]\)/,\1/,g' \
+    -i $(find -type f -name 'lib[cm].so')
+
+popd
+%dnl %%{without bootstrap}
+%endif
+
 ##############################################################################
 # Beyond this point in the install process we no longer modify the set of
 # installed files.
@@ -1605,13 +1688,14 @@ touch compat-libpthread-nonshared.filelist
   # language specific sub-packages.
   # libnss_ files go into subpackages related to NSS modules.
   # and .*/share/i18n/charmaps/.*), they go into the sub-package
-  # "locale-source":
+  # "locale-source".  /sys-root/ files are put into the sysroot package.
   sed -e '\,.*/share/locale/\([^/_]\+\).*/LC_MESSAGES/.*\.mo,d' \
       -e '\,.*/share/i18n/locales/.*,d' \
       -e '\,.*/share/i18n/charmaps/.*,d' \
       -e '\,.*/etc/\(localtime\|nsswitch.conf\|ld\.so\.conf\|ld\.so\.cache\|default\|rpc\|gai\.conf\),d' \
       -e '\,.*/%{_libdir}/lib\(pcprofile\|memusage\)\.so,d' \
-      -e '\,.*/bin/\(memusage\|mtrace\|xtrace\|pcprofiledump\),d'
+      -e '\,.*/bin/\(memusage\|mtrace\|xtrace\|pcprofiledump\),d' \
+      -e '\,.*/sys-root,d'
 } | sort > master.filelist
 
 # The master file list is now used by each subpackage to list their own
@@ -1936,8 +2020,9 @@ echo ====================PLT RELOCS END==================
 
 # Obtain a way to run the dynamic loader.  Avoid matching the symbolic
 # link and then pick the first loader (although there should be only
-# one).  See wrap-find-debuginfo.sh.
-ldso_path="$(find %{glibc_sysroot}/ -regextype posix-extended \
+# one).  Use -maxdepth 2 to avoid descending into the /sys-root/
+# sub-tree.  See wrap-find-debuginfo.sh.
+ldso_path="$(find %{glibc_sysroot}/ -maxdepth 2 -regextype posix-extended \
   -regex '.*/ld(-.*|64|)\.so\.[0-9]+$' -type f | LC_ALL=C sort | head -n1)"
 run_ldso="$ldso_path --library-path %{glibc_sysroot}/%{_lib}"
 
@@ -2217,7 +2302,15 @@ update_gconv_modules_cache ()
 
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
+%if %{without bootstrap}
+%files -n sysroot-%{_arch}-%{sysroot_dist}-glibc
+%{sysroot_prefix}
+%endif
+
 %changelog
+* Wed Jan 31 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-39
+- Add noarch sysroot subpackages
+
 * Tue Jan 30 2024 Patsy Griffin <patsy@redhat.com> - 2.38.9000-38
 - Auto-sync with upstream branch master,
   commit ddf542da94caf97ff43cc2875c88749880b7259b:

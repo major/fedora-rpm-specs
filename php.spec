@@ -64,13 +64,13 @@
 %bcond_with      imap
 %bcond_without   lmdb
 
-%global upver        8.3.2
-#global rcver        RC1
+%global upver        8.3.3
+%global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -106,11 +106,10 @@ Patch1: php-7.4.0-httpd.patch
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-8.0.0-embed.patch
 Patch8: php-8.1.0-libdb.patch
-Patch9: php-gcc14.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.3.0-parser.patch
+Patch41: php-8.3.3-parser.patch
 # use system tzdata
 Patch42: php-8.3.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
@@ -326,7 +325,7 @@ Requires: zlib-devel%{?_isa}
 Provides: php-zts-devel = %{version}-%{release}
 Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
-Recommends: php-nikic-php-parser5 >= 5.0.0~alpha3
+Recommends: php-nikic-php-parser5 >= 5.0.0
 
 
 %description devel
@@ -719,7 +718,6 @@ in pure PHP.
 %patch -P5 -p1 -b .includedir
 %patch -P6 -p1 -b .embed
 %patch -P8 -p1 -b .libdb
-%patch -P9 -p1 -b .gcc14
 
 %patch -P41 -p1 -b .syslib
 %patch -P42 -p1 -b .systzdata
@@ -1554,6 +1552,10 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Jan 31 2024 Remi Collet <remi@remirepo.net> - 8.3.2~RC1-1
+- update to 8.3.3RC1
+- drop GCC 14 patch merged upstream
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

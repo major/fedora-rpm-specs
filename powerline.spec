@@ -2,7 +2,7 @@
 
 Name:           powerline
 Version:        2.8.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 Summary:        The ultimate status-line/prompt utility
 License:        MIT
@@ -34,6 +34,10 @@ Source1:        vim-powerline.metainfo.xml
 
 # Fix build error with Python 3.11 (#2022396)
 Patch0:         0001-Ensure-compatibility-with-Python-3.11.patch
+
+# Fix `SyntaxWarning` with Python 3.12
+# (https://github.com/powerline/powerline/issues/2244)
+Patch1:         0002-Change-TMUJX_VAR_RE-re.compile-to-use-raw-string-224.patch
 
 %description
 Powerline is a status-line plugin for vim, and provides status-lines and prompts
@@ -335,6 +339,9 @@ install -m 0644 powerline/dist/systemd/powerline-daemon.service %{buildroot}%{_u
 %{_datadir}/tmux/powerline*.conf
 
 %changelog
+* Wed Jan 31 2024 Christoph Erhardt <fedora@sicherha.de> - 2.8.3-14
+- Fix `SyntaxWarning` with Python 3.12 (rhbz#2260646)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

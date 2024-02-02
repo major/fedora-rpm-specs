@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        309
-Release:        3%{?dist}
+Version:        310
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # Don't change the bridge in the RHEL 8; the old SSH breaks some features, see @todoPybridgeRHEL8
@@ -508,7 +508,7 @@ Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.0
-Provides: bundled(npm(set-function-length)) = 1.1.1
+Provides: bundled(npm(set-function-length)) = 1.2.0
 Provides: bundled(npm(set-function-name)) = 2.0.1
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(sprintf-js)) = 1.0.3
@@ -811,6 +811,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 31 2024 Packit <hello@packit.dev> - 310-1
+- Storage: support for btrfs
+- Storage: improved support for swap
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 309-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

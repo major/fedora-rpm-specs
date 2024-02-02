@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
@@ -198,6 +198,9 @@ popd
 
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1.1-6
+- Rebuild for ICU 74
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

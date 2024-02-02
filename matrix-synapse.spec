@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.99.0
+Version:    1.100.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -14,9 +14,11 @@ Source0:    %{url}/archive/%{upstream_tag}/synapse-%{version}.tar.gz
 Source1:    synapse.sysconfig
 Source2:    synapse.service
 Source3:    matrix-synapse.sysusers
-Patch1:     0001-Build-RustExtension-with-debug-enabled.patch
-Patch2:     0002-pyo3-Disable-abi3-feature.patch
+Patch1:     0001-pyo3-Disable-abi3-feature.patch
+Patch2:     0002-Build-RustExtension-with-debug-symbols.patch
 Patch3:     0003-Revert-Mandate-Pillow-10.0.1-because-of-libwebp-CVE-.patch
+# The following patches are only applied for fc38
+Patch4:     0004-Build-RustExtension-with-debug-enabled.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
@@ -40,7 +42,11 @@ the ecosystem.
 
 
 %prep
-%autosetup -p1 -n synapse-%{archive_tag}
+%autosetup -n synapse-%{archive_tag} -N
+%autopatch -p1 -M 3
+%if 0%{?fc38}
+%autopatch -p1 -m 4
+%endif
 
 # We don't support the built-in client so remove all the bundled JS.
 rm -rf synapse/static

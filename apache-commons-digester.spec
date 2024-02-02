@@ -2,7 +2,7 @@
 
 Name:          apache-%{short_name}
 Version:       2.1
-Release:       28%{?dist}
+Release:       29%{?dist}
 Summary:       XML to Java object mapping module
 License:       ASL 2.0
 URL:           http://commons.apache.org/digester/
@@ -37,7 +37,7 @@ This package contains the %{summary}.
 %mvn_file :%{short_name} %{short_name} %{name}
 
 %build
-%mvn_build -- -Dmaven.compiler.release=8
+%mvn_build -- -Dcommons.packageId=digester
 
 %install
 %mvn_install
@@ -49,6 +49,9 @@ This package contains the %{summary}.
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jan 31 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1-29
+- Port to apache-commons-parent 65
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

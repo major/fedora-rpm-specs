@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          3.0.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPL-3.0-or-later AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND PSF-2.0
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -907,6 +907,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.0.1-2
+- Rebuild for ICU 74
+
 * Tue Jan 30 2024 Simon Pichugin <spichugi@redhat.com> - 3.0.1-1
 - Bump version to 3.0.1
 - Issue 6043, 6044 - Enhance Rust and JS bundling and add SPDX licenses for both (#6045)

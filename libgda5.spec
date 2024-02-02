@@ -16,7 +16,7 @@
 Name:           libgda5
 Epoch:          1
 Version:        5.2.10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPL-2.1-or-later
@@ -37,6 +37,7 @@ Patch8:         libgda5-configure-c99-2.patch
 Patch9:         libgda5-c99-2.patch
 Patch10:        libgda5-c99-3.patch
 Patch11:        libgda5-c99-4.patch
+Patch12:        pointer-types.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -393,6 +394,9 @@ rm %{buildroot}/%{_sysconfdir}/%{upstream}-%{apiver}/sales_test.db
 %endif
 
 %changelog
+* Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:5.2.10-21
+- Patch for modern C.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.2.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

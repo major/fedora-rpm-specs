@@ -4,7 +4,7 @@
 
 Name: vte
 Version: 0.28.2
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: A terminal emulator
 License: LGPL-2.0-or-later
 #VCS: git:git://git.gnome.org/vte
@@ -39,6 +39,7 @@ Patch8: vte-0.28.2-683730.patch
 # Backport extended xterm/urxvt mouse tracking support
 # https://bugzilla.gnome.org/show_bug.cgi?id=681329
 Patch9: vte-0.28.2-mouse-tracking.patch
+Patch10: pointer-types.patch
 
 BuildRequires: make
 BuildRequires: gtk2-devel >= %{gtk2_version}
@@ -74,16 +75,17 @@ vte.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p2
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p2
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p0
 
 %build
 %configure \
@@ -133,6 +135,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/python*/site-packages/gtk-2.0/*.a
 %doc %{_datadir}/gtk-doc/html/vte-0.0
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.28.2-42
+- PAtch for modern C.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

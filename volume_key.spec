@@ -48,7 +48,8 @@ BuildRequires: autoconf, automake, libtool
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: cryptsetup-devel, gettext-devel, glib2-devel, /usr/bin/gpg2
-BuildRequires: gpgme-devel, libblkid-devel, nss-devel, python3-devel
+BuildRequires: gpgme-devel, libblkid-devel, nss-devel
+BuildRequires: python3-devel, python3-setuptools
 %if 0%{?drop_python2} < 1
 BuildRequires: python2-devel
 %endif

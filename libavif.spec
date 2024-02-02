@@ -15,14 +15,13 @@
 %bcond_without check
 
 Name:           libavif
-Version:        0.11.1
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Library for encoding and decoding .avif files
 
 License:        BSD-2-Clause
 URL:            https://github.com/AOMediaCodec/libavif
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         libavif-0.11.1-build_tests_fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -96,7 +95,7 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
 %files
 %license LICENSE
 # Do not glob the soname
-%{_libdir}/libavif.so.15*
+%{_libdir}/libavif.so.16*
 %{_datadir}/thumbnailers/avif.thumbnailer
 
 %files devel

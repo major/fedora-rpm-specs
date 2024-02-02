@@ -12,22 +12,20 @@
 
 Name: audacity
 
-Version: 3.3.3
-Release: 3%{?dist}
+Version: 3.4.2
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
 
 Source0: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-sources-%{version}.tar.gz
-Source1: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-manual-%{version}.tar.gz
+Source1: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-manual-%{version}.zip
 
 # Use the X11 backend in GTK to make the waveform viewer work properly (RHBZ: 2024019)
 Patch0: gdk_x11_backend.patch
 
 Patch2: fix_data_path.patch
 
-# Fedora lv2 1.18.8 switched to meson build, which changed include file path
-Patch5: audacity-3.1.3-lv2-meson-switch.patch
 
 BuildRequires: cmake
 BuildRequires: gettext-devel
@@ -69,6 +67,8 @@ BuildRequires: wavpack-devel
 BuildRequires: zip
 BuildRequires: zlib-devel
 BuildRequires: python3
+BuildRequires: rapidjson-devel
+BuildRequireS: opusfile-devel
 # We need /usr/bin/wx-config so that configure can detect the wx-config version:
 #if 0#{?rhel} || 0#{?fedora} < 28
 #BuildRequires: wxGTK3-devel
@@ -133,9 +133,6 @@ For the most up to date manual content, use the on-line manual.
 
 %patch -P 0 -p0
 %patch -P 2 -p1
-%if 0%{?fedora} >= 37
-%patch -P 5 -p1
-%endif
 
 # fix building translations with gettext-0.22 (#2225711), fixed in 3.4
 sed -i -e 's|%hs|%s|g' locale/*.po
@@ -247,7 +244,10 @@ fi
 
 # audacity manual must be extracted to correct location
 pushd %{buildroot}%{_datadir}/%{name}
-gzip -dc %{SOURCE1} | tar -xvvf -
+#gzip -dc %{SOURCE1} | tar -xvvf -
+unzip %{SOURCE1}
+mv %{name}-manual-%{version}/* .
+rmdir %{name}-manual-%{version}
 popd
 
 %{find_lang} %{name}
@@ -267,7 +267,11 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/EffectsMenuDefaults.xml
 %{_datadir}/%{name}/nyquist/
 %{_datadir}/%{name}/plug-ins/
-%exclude %{_datadir}/%{name}/help
+%exclude %{_datadir}/%{name}/favicon.ico
+%exclude %{_datadir}/%{name}/index.html
+%exclude %{_datadir}/%{name}/quick_help.html
+%exclude %{_datadir}/%{name}/man/
+%exclude %{_datadir}/%{name}/m/
 %{_mandir}/man*/*
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/*
@@ -279,12 +283,16 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %license LICENSE.txt
 
 %files manual
-%dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/help
-%{_datadir}/%{name}/help/manual/
-
+%{_datadir}/%{name}/favicon.ico
+%{_datadir}/%{name}/index.html
+%{_datadir}/%{name}/quick_help.html
+%{_datadir}/%{name}/man/
+%{_datadir}/%{name}/m/
 
 %changelog
+* Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.4.2-1
+- 3.4.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

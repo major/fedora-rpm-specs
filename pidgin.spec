@@ -125,7 +125,7 @@
 
 Name:           pidgin
 Version:        2.14.12
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
 # GPLv2 - novell prpls
@@ -703,6 +703,9 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Wed Jan 31 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-8
+- Updated gcc-14 patch by upstream version
+
 * Tue Jan 30 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-7
 - Fixed gcc-14 FTBFS
   Resolves: rhbz#2261518

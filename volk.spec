@@ -1,6 +1,6 @@
 Name:          volk
 Version:       3.1.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPLv3+
 URL:           https://github.com/gnuradio/%{name}
@@ -34,6 +34,7 @@ approaches the problem differently. VOLK is a sub-project of GNU Radio.
 %package devel
 Summary:       Development files for VOLK
 Requires:      %{name}%{?_isa} = %{version}-%{release}
+Conflicts:     vulkan-volk-devel
 
 
 %description devel
@@ -110,6 +111,9 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Wed Jan 31 2024 José Expósito <jexposit@redhat.com> - 3.1.0-3
+- Add conflict with vulkan-volk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,20 +1,22 @@
+%bcond_without bootstrap
+
 %if 0%{?rhel}
-%bcond_with docs
 %bcond_with tests
 %else
-%bcond_without docs
+%if %{with bootstrap}
+# need updated libcst to update hypothesmith
+# and older hypothesmith does not work with newer hypothesis
+%bcond_with tests
+%else
 %bcond_without tests
 %endif
-
-# Rust parser has unsatisfied dependencies:
-# chic is out of date and require an old version of annotate-snippets
-%bcond_with rust
+%endif
 
 # Use --with all_tests to run all tests
 %bcond_with all_tests
 
 Name:           python-libcst
-Version:        0.4.10
+Version:        1.1.0
 Release:        %autorelease
 Summary:        A concrete syntax tree with AST-like properties for Python 3
 
@@ -22,27 +24,20 @@ Summary:        A concrete syntax tree with AST-like properties for Python 3
 License:        MIT AND (MIT OR PSF-2.0) AND Apache-2.0
 URL:            https://github.com/Instagram/LibCST
 Source:         %{pypi_source libcst}
-# Optional patches
-# Disable building Rust code
-Patch100:       libcst-no-rust.diff
+# * specify license in crates' metadata
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          libcst-fix-metadata.diff
+# Optional patches (100+)
 
-BuildArch:      noarch
+BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
+
 %if %{with tests}
 # test dependencies are intermingled with dev dependencies
 # so list them manually for now
 BuildRequires:  python3dist(hypothesis)
 BuildRequires:  python3dist(hypothesmith)
 BuildRequires:  python3dist(pytest)
-%endif
-%if %{with docs}
-BuildRequires:  graphviz
-BuildRequires:  sed
-BuildRequires:  python3-docs
-BuildRequires:  python3-metakernel-python
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(nbsphinx) >= 0.4.2
-BuildRequires:  python3dist(sphinx-rtd-theme) >= 0.4.3
 %endif
 
 
@@ -61,47 +56,51 @@ AST.}
 
 %package -n     python3-libcst
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
+# Apache-2.0 OR MIT
+# MIT
+# MIT AND PSF-2.0
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        MIT AND (MIT OR PSF-2.0) AND Apache-2.0 AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
+# LICENSE.dependencies contains a full license breakdown
+
+# Documentation is hard to build since libcst.native is not available to import until %%install
+Obsoletes:      python-libcst-doc < 1.1.0-1
 
 %description -n python3-libcst %_description
-
-
-%if %{with docs}
-%package        doc
-Summary:        %{name} documentation
-Requires:       python3-docs
-
-%description    doc
-Documentation for %{name}
-%endif
 
 
 %prep
 %autosetup -N -n libcst-%{version}
 # Apply patches up to 99
 %autopatch -p1 -M 99
-%if %{without rust}
-%autopatch -p1 100
-%endif
-%if %{with docs}
-# Use local intersphinx inventory
-sed -r \
-    -e 's|https://docs.python.org/3|%{_docdir}/python3-docs/html|' \
-    -i docs/source/conf.py
-%endif
 
+# remove version locks
+rm native/Cargo.lock
+
+%cargo_prep
 
 %generate_buildrequires
+for p in libcst_derive libcst; do
+  cd native/$p
+  # dev dependencies need to be included, setuptools_rust seems to include them unconditionally
+  %cargo_generate_buildrequires -t
+  cd ../..
+done
 %pyproject_buildrequires -r
 
 
 %build
+export RUSTFLAGS="%{build_rustflags}"
 %pyproject_wheel
-%if %{with docs}
-# generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 docs/source html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
-%endif
+
+# write license summary and breakdown
+cd native
+%{cargo_license_summary}
+%{cargo_license} > ../LICENSE.dependencies
+cd ..
 
 
 %install
@@ -138,13 +137,7 @@ EXCLUDES+=" and not test_gen_cache_0 and not test_simple_class_types_0 and not t
 
 
 %files -n python3-libcst -f %{pyproject_files}
-
-
-%if %{with docs}
-%files doc
-%doc html
-%license LICENSE
-%endif
+%license LICENSE.dependencies
 
 
 %changelog

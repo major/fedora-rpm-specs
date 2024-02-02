@@ -1,12 +1,13 @@
-%global _hardened_build 1
-
 Name: libcli
 Version: 1.10.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A shared library for a Cisco-like cli
 License: LGPL-2.1-or-later
 URL: http://sites.dparrish.com/libcli
 Source0: https://github.com/dparrish/libcli/archive/V%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/dparrish/libcli/pull/93
+Patch0: calloc.patch
 
 %package devel
 Summary: Development files for libcli
@@ -30,6 +31,8 @@ These are the development files.
 
 %prep
 %setup -q
+
+%patch -P 0 -p0
 
 %build
 
@@ -55,6 +58,9 @@ ln -s %{_libdir}/libcli.so.1.10 %{buildroot}%{_libdir}/libcli.so
 %{_includedir}/*.h
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.10.7-8
+- Patch for calloc parameter order.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

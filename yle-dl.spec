@@ -1,5 +1,5 @@
 Name:           yle-dl
-Version:        20231214
+Version:        20240130
 Release:        %autorelease
 Summary:        Download videos from Yle servers
 
