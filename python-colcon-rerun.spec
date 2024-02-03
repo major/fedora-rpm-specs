@@ -1,8 +1,8 @@
 %global srcname colcon-rerun
 
 Name:           python-%{srcname}
-Version:        0.0.1
-Release:        6%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        Extension for colcon to quickly re-run a recently executed verb
 
 License:        ASL 2.0
@@ -23,7 +23,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-colcon-core
+Requires:       python%{python3_pkgversion}-colcon-core >= 0.13.0
 Requires:       python%{python3_pkgversion}-filelock
 Requires:       python%{python3_pkgversion}-PyYAML
 %endif
@@ -59,6 +59,9 @@ An extension for colcon-core to quickly re-run a recently executed verb.
 
 
 %changelog
+* Thu Feb 01 2024 Scott K Logan <logans@cottsay.net> - 0.1.1-1
+- Update to 0.1.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,12 +1,12 @@
-%global git_date 20231204
-%global git_commit 1e3a2e499877c6c1d1438459aa1049942c305698
+%global git_date 20240201
+%global git_commit 9f501f30f2a0a92e82e224cbd1b031c042e96386
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        3.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -212,6 +212,11 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Feb 01 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20240201-1.git9f501f3
+- fips-finish-install: make sure ostree is detected in chroot
+- fips-mode-setup: make sure ostree is detected in chroot
+- java: disable ChaCha20-Poly1305 where applicable
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231204-3.git1e3a2e4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

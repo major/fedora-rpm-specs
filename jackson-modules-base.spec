@@ -27,7 +27,7 @@ BuildRequires:  mvn(org.mockito:mockito-all)
 BuildRequires:  mvn(org.ow2.asm:asm)
 
 BuildArch:      noarch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch:  %{java_arches} noarch
 %endif
 

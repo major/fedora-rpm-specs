@@ -74,7 +74,9 @@ Features:
 %prep
 %autosetup -p1 -n loupe-%{tarball_version}
 
-%if ! 0%{?bundled_rust_deps}
+%if 0%{?bundled_rust_deps}
+%cargo_prep -v vendor
+%else
 rm -rf vendor
 sed -i -e '/Cargo.lock/d' meson.build
 %cargo_prep
@@ -91,9 +93,10 @@ sed -i -e '/Cargo.lock/d' meson.build
 %meson
 %meson_build
 
-%if ! 0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%cargo_vendor_manifest
 %endif
 
 
@@ -114,8 +117,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Loupe.de
 
 %files -f loupe.lang
 %license COPYING.md
-%if ! 0%{?rhel}
 %license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
 %endif
 %doc NEWS README.md
 %{_bindir}/loupe

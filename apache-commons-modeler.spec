@@ -3,7 +3,7 @@
 
 Name:             apache-%{short_name}
 Version:          2.0.1
-Release:          38%{?dist}
+Release:          39%{?dist}
 Summary:          Model MBeans utility classes
 License:          ASL 2.0
 URL:              http://commons.apache.org/%{base_name}/
@@ -16,7 +16,6 @@ Source1:          pom.xml
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-digester:commons-digester)
-BuildRequires:  mvn(commons-logging:commons-logging-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
@@ -44,6 +43,12 @@ sed -i 's/\r//' NOTICE.txt
 # Copy pom file into place
 cp -p %{SOURCE1} .
 
+# Full commons-logging is a transitive dependency (through commons-digester)
+%pom_remove_dep :commons-logging-api
+
+# xml-apis is part of JDK
+%pom_remove_dep :xml-apis
+
 # Remove redundant dep on mx4j
 %pom_remove_dep mx4j:mx4j-jmx
 
@@ -55,7 +60,7 @@ cp -p %{SOURCE1} .
 %mvn_file : %{name} %{short_name}
 
 %build
-%mvn_build -- -Dproject.build.sourceEncoding=UTF-8 -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -- -Dcommons.packageId=modeler
 
 %install
 %mvn_install
@@ -67,6 +72,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.1-39
+- Port to apache-commons-logging 1.3.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

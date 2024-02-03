@@ -10,7 +10,7 @@
 Summary:       Raptor RDF Parser Toolkit for Redland
 Name:          raptor
 Version:       1.4.21
-Release:       43%{?dist}
+Release:       44%{?dist}
 
 License:       LGPLv2+ or ASL 2.0
 URL:           http://librdf.org/raptor/
@@ -31,6 +31,7 @@ BuildRequires: gtk-doc
 Patch100: raptor-1.4.21-curl.patch
 Patch101: raptor-1.4.21-CVE-2017-18926.patch
 Patch102: raptor-configure-c99.patch
+Patch103: raptor-1.4.21-gcc-14-fix.patch
 
 %description
 Raptor is the RDF Parser Toolkit for Redland that provides
@@ -52,6 +53,7 @@ RDF/XML or N-Triples.
 %patch100 -p1 -b .curl
 %patch101 -p1 -b .CVE-2017-18926
 %patch102 -p1
+%patch103 -p1 -b .gcc-14-fix
 
 # Fix encoding
 iconv -f ISO-8859-1 -t UTF8 NEWS > NEWS.tmp
@@ -104,6 +106,10 @@ make test
 %{_bindir}/raptor-config
 
 %changelog
+* Thu Feb  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.21-44
+- Fixed FTBFS (gcc-14)
+  Resolves: rhbz#2261643
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.21-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

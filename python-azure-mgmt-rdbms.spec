@@ -4,8 +4,8 @@
 %global         srcname     azure-mgmt-rdbms
 
 Name:           python-%{srcname}
-Version:        10.2.0~b11
-%global         pypi_version    10.2.0b11
+Version:        10.2.0~b12
+%global         pypi_version    10.2.0b12
 Release:        %autorelease
 Summary:        Microsoft Azure RDBMS Management Client Library for Python
 License:        MIT

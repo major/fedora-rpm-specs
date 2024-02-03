@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -13,11 +13,11 @@ Source0: https://github.com/opentoonz/opentoonz/archive/refs/tags/v%{version}.ta
 Patch0: opentoonz-1.5.0-lzo-fix.patch
 # https://github.com/opentoonz/opentoonz/issues/4199
 Patch1: opentoonz-1.5.0-tiff-fix.patch
-Patch2: opentoonz-1.6.0-exr-fix.patch
+Patch2: opentoonz-1.7.1-exr-fix.patch
 # https://github.com/opentoonz/opentoonz/pull/4239
 Patch3: opentoonz-1.7.0-gethostbyname.patch
 Patch4: opentoonz-1.7.0-install-path-fix.patch
-Patch5: opentoonz-1.7.0-kissfft-fix.patch       
+Patch5: opentoonz-1.7.1-kissfft-fix.patch       
 Patch6: opentoonz-1.7.0-toonzrle-rm.patch
 Patch7: opentoonz-1.7.0-tzp-tiffiop-fix.patch
 Patch8: opentoonz-1.7.1-appdata.patch
@@ -53,7 +53,6 @@ BuildRequires: turbojpeg-devel
 BuildRequires: xz-devel
 
 BuildRequires: qt5-qttools-static
-BuildRequires: kiss-fft-static
 
 Requires: opencv
 Requires: hicolor-icon-theme
@@ -138,6 +137,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Feb 1 2024 Diego Herrera <dherrera@redhat.com> 1.7.1-7
+- Fix for kissfft-v131.1.0
+- Fix for tinyexr-v1.0.7
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

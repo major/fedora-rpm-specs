@@ -26,15 +26,13 @@
 %global build_type_safety_c 2
 
 Name:           freerdp2
-Version:        2.11.4
-Release:        5%{?dist}
+Version:        2.11.5
+Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
 URL:            http://www.freerdp.com/
 
 Source0:        https://github.com/FreeRDP/FreeRDP/archive/%{version}/FreeRDP-%{version}.tar.gz
-
-Patch:          channels-rdpsnd-fix-missing-include.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -262,6 +260,9 @@ rm -rfv %{buildroot}%{_bindir}
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Thu Feb 01 2024 Ondrej Holy <oholy@redhat.com> - 2:2.11.5-1
+- Update to 2.11.5.
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2.11.4-5
 - Rebuild for ICU 74
 

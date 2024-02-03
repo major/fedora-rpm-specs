@@ -1,13 +1,13 @@
 Name:           mpibash
-Version:        1.3
-Release:        19%{?dist}
+Version:        1.4
+Release:        1%{?dist}
 Summary:        Parallel scripting right from the Bourne-Again Shell
 License:        GPLv3+
 Url:            https://github.com/lanl/MPI-Bash
 Source0:        https://github.com/lanl/MPI-Bash/releases/download/v%{version}/mpibash-%{version}.tar.gz
-Patch0: mpibash-c99.patch
 BuildRequires: make
 BuildRequires:  bash-devel >= 4.4
+ExcludeArch:    %{ix86}
 
 # Prevent generation of a file dependency on ourselves
 # https://bugzilla.redhat.com/show_bug.cgi?id=2229948
@@ -109,6 +109,10 @@ sed -i '1s@/usr/bin/env mpibash@%{_libdir}/mpich/bin/mpibash_mpich@' %{buildroot
 %{_libdir}/mpich/lib/share/%{name}/examples
 
 %changelog
+* Fri Feb 02 2024 Christoph Junghans <junghans@votca.org> - 1.4-1
+- Version bump v1.4 (bug #2262350)
+- exclude ix86
+
 * Tue Jan 30 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3-19
 - Suppress internal file depedency
 

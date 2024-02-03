@@ -1,7 +1,7 @@
 Name:    bomber
 Summary: Arcade bombing game
-Version: 24.01.90
-Release: 3%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 
 # code LGPLv2+, docs GFDL
 License: LGPL-2.0-or-later AND GFDL-1.2-or-later
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

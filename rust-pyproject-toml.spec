@@ -5,7 +5,7 @@
 %global crate pyproject-toml
 
 Name:           rust-pyproject-toml
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Pyproject.toml parser in Rust
 

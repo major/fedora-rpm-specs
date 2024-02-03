@@ -6,7 +6,7 @@
 License:       LGPL-2.1-only AND Unlicense
 
 Name:          calc
-Version:       2.15.0.2
+Version:       2.15.0.4
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 
@@ -20,6 +20,8 @@ Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%
 ExcludeArch: s390x
 
 BuildRequires: gcc, sed, util-linux
+# used in creating 'calc.usage'
+BuildRequires: man-db
 
 # for compatibility with the Debian package name
 Provides:      apcalc

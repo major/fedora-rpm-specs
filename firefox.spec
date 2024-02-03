@@ -29,6 +29,11 @@ ExcludeArch: i686
 %global system_libevent   1
 %global build_with_asan   0
 %global test_on_wayland   0
+%ifarch x86_64 %{ix86}
+%global enable_replace_malloc 1
+%else
+%global enable_replace_malloc 0
+%endif
 
 %if "%{toolchain}" == "clang"
 %global build_with_clang 1
@@ -436,6 +441,10 @@ BuildRequires:  make
 BuildRequires:  pciutils-libs
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libproxy-devel
+# Required for --enable-replace-malloc
+%if %{enable_replace_malloc}
+BuildRequires:  libstdc++-static
+%endif
 
 Obsoletes:      mozilla <= 37:1.7.13
 Provides:       webclient
@@ -687,6 +696,10 @@ echo "ac_add_options --with-google-safebrowsing-api-keyfile=`pwd`/google-api-key
 # with clang 17 upstream's detection fails, so let's just tell it
 # where to look
 echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
+
+%if %{enable_replace_malloc}
+echo "ac_add_options --enable-replace-malloc" >> .mozconfig
+%endif
 
 echo 'export NODEJS="%{_buildrootdir}/bin/node-stdout-nonblocking-wrapper"' >> .mozconfig
 

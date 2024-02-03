@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.11.23
+Version:        0.11.24
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -372,18 +372,6 @@ This package contains library source intended for building other packages which
 use the "rustls-native-certs" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rustls-native-certs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rustls-pemfile-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rustls-pemfile-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rustls-pemfile" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rustls-pemfile-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rustls-tls-devel

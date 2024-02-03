@@ -1,12 +1,12 @@
-%global oqs_version 0.5.2
+%global oqs_version 0.5.3
 Name:       oqsprovider
 Version:    %{oqs_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    oqsprovider is an OpenSSL provider for quantum-safe algorithms based on liboqs
 
 License:    Apache-2.0 AND MIT
 URL:        https://github.com/open-quantum-safe/oqs-provider.git
-Source:     https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/0.5.2.tar.gz
+Source:     https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/0.5.3.tar.gz
 
 #TODO increase version - 0.5.2 is in sync with liboqs 0.9.0 but doesn't require it
 Requires: liboqs
@@ -28,7 +28,7 @@ provided via the encode/decode mechanism and X.509 data structures.
 %setup -T -b 0 -q -n oqs-provider-%{oqs_version}
 
 %build
-%cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -LAH ..
+%cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DOQS_KEM_ENCODERS=ON -LAH ..
 %cmake_build
 
 %check
@@ -46,6 +46,10 @@ install %{_vpath_builddir}/lib/oqsprovider.so $RPM_BUILD_ROOT/%{_libdir}/ossl-mo
 %{_libdir}/ossl-modules/oqsprovider.so
 
 %changelog
+* Thu Feb 01 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.5.3-1
+- Update to 0.5.3 version
+  Enable KEM encoders
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

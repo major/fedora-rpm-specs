@@ -2,7 +2,7 @@
 
 Name:           apache-%{jarname}
 Version:        1.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Apache Commons Text is a library focused on algorithms working on strings
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/%{jarname}
@@ -19,7 +19,7 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
-BuildRequires:  mvn(org.mockito:mockito-inline)
+BuildRequires:  mvn(org.mockito:mockito-core)
 
 %description
 The Commons Text library provides additions to the standard JDK's text handling.
@@ -40,6 +40,9 @@ escaping of various types.
 # delete precompiled jar and class files
 find -type f '(' -name '*.jar' -o -name '*.class' ')' -print -delete
 
+# mockito-inline was merged into mockito-core
+%pom_change_dep :mockito-inline :mockito-core
+
 %build
 # disable test: some test deps can't be installed
 %mvn_build -f -- -Dmaven.compiler.release=8
@@ -52,6 +55,9 @@ find -type f '(' -name '*.jar' -o -name '*.class' ')' -print -delete
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.0-5
+- Port to mockito 5.8.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: neochat
-Version: 24.01.90
-Release: 4%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/neochat.1*
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 24.01.90-4
 - Rebuild for ICU 74
 

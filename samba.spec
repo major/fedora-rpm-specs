@@ -147,7 +147,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.20.0
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release rc1
 
@@ -1657,7 +1657,7 @@ fi
 %{_sbindir}/nmbd
 %{_sbindir}/smbd
 %if %{with dc} || %{with testsuite}
-# This is only used by vfs_dfs_samba-private
+# This is only used by vfs_dfs_samba4
 %{_libdir}/samba/libdfs-server-ad-private-samba.so
 %endif
 %dir %{_libdir}/samba/auth
@@ -4587,6 +4587,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 01 2024 Pete Walter <pwalter@fedoraproject.org> - 2:4.20.0-0.2.rc1
+- Rebuild for ICU 74
+
 * Mon Jan 29 2024 Guenther Deschner <gdeschner@redhat.com> - 4.20.0rc1-1
 - resolves: #2260895 - Update to version 4.20.0rc1
 

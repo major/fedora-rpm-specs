@@ -1,23 +1,26 @@
-%global commit 59bf23181b7fd61471ea567c8a57dbdd36fca753
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20170704
-
-# For rpmdev-bumpspec
-%global baserelease 13
-
 %define service recompress
 
 Name:           obs-service-%{service}
-Version:        0.3.1
-Release:        %{baserelease}%{?commitdate:.git%{commitdate}.%{shortcommit}}%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        An OBS source service: Recompress files
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-service-%{service}
-Source:         %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{url}/archive/refs/tags/%{version}.tar.gz#./%{name}-%{version}.tar.gz
 BuildRequires:  make
+BuildRequires:  gzip
+BuildRequires:  bzip2
+BuildRequires:  xz
+BuildRequires:  zstd
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  /usr/bin/prove
 Requires:       bzip2
 Requires:       gzip
 Requires:       xz
+Requires:       zstd
+
 BuildArch:      noarch
 
 %description
@@ -32,13 +35,16 @@ It supports to compress, uncompress or recompress files from or to
 
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 
 %build
 # Nothing to build
 
 %install
 %make_install
+
+%check
+%make_build test
 
 %files
 # In lieu of a proper license file: https://github.com/openSUSE/obs-service-recompress/issues/13
@@ -48,6 +54,9 @@ It supports to compress, uncompress or recompress files from or to
 %{_prefix}/lib/obs/service
 
 %changelog
+* Thu Feb  1 2024 Dan Čermák <dan.cermak@cgc-instruments.com> - 0.5.2-1
+- New upstream release 0.5.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-13.git20170704.59bf231
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

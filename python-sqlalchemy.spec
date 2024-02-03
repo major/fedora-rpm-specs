@@ -2,21 +2,26 @@
 %bcond_with xdist
 
 %global srcname SQLAlchemy
+%global canonicalname %{py_dist_name %{srcname}}
 
 %global python_pkg_extras \
     asyncio \
     mssql_pymssql \
     mssql_pyodbc \
     mysql \
+    mysql_connector \
+    mypy \
     postgresql \
     postgresql_pg8000 \
     postgresql_asyncpg \
     pymysql \
     aiomysql \
-    aiosqlite
+    aioodbc \
+    aiosqlite \
+    asyncmy
 
-Name:           python-sqlalchemy
-Version:        1.4.51
+Name:           python-%{canonicalname}
+Version:        2.0.25
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease
@@ -29,12 +34,12 @@ Source0:        %{pypi_source %{srcname} %{srcversion}}
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
-BuildRequires:  python3-devel >= 3.6
-BuildRequires:  python3-greenlet >= 1.0
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
+BuildRequires:  python3-devel >= 3.7
+# The dependencies needed for testing don’t get auto-generated.
+BuildRequires:  python3dist(mypy)
+BuildRequires:  python3dist(pytest)
 %if %{with xdist}
-BuildRequires:  python3-pytest-xdist
+BuildRequires:  python3dist(pytest-xdist)
 %endif
 
 %description
@@ -59,7 +64,7 @@ define the join conditions explicitly, to bridge the gap between database and
 domain.
 
 # Subpackages to ensure dependencies enabling extra functionality
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-sqlalchemy -i %{python3_sitearch}/*.egg-info %python_pkg_extras}
+%pyproject_extras_subpkg -n python3-sqlalchemy %python_pkg_extras
 
 %package doc
 Summary:        Documentation for SQLAlchemy
@@ -69,20 +74,27 @@ BuildArch:      noarch
 Documentation for SQLAlchemy.
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
-%autosetup -n %{srcname}-%{srcversion} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{canonicalname}
+# Work around poetry not listing license files as such in package metadata.
+sed -i -e 's|^\(.*/LICENSE\)|%%license \1|g' %{pyproject_files}
 
 install -d %{buildroot}%{_pkgdocdir}
-cp -a doc %{buildroot}%{_pkgdocdir}/
+cp -a doc examples %{buildroot}%{_pkgdocdir}/
 # remove unnecessary scripts for building documentation
 rm -rf %{buildroot}%{_pkgdocdir}/doc/build
-find %{buildroot}%{_pkgdocdir}/doc | while read long; do
+find %{buildroot}%{_pkgdocdir} | while read long; do
     short="${long#%{buildroot}}"
     if [ -d "$long" ]; then
         echo "%%doc %%dir $short"
@@ -104,13 +116,9 @@ done > doc-files.txt
 
 
 %files doc -f doc-files.txt
-%doc examples
 
-%files -n python3-sqlalchemy
-%license LICENSE
+%files -n python3-sqlalchemy -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/SQLAlchemy-*.egg-info/
-%{python3_sitearch}/sqlalchemy/
 
 %changelog
 %autochangelog

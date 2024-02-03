@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.51
-Release:   3%{?dist}
+Version:   3.52
+Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -78,6 +78,16 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Thu Feb 01 2024 Brian C. Lane <bcl@redhat.com> - 3.52-1
+- Deprecate %%packages --instLangs and --excludeWeakdeps kickstart options (vponcova)
+- Deprecate timezone --isUtc, --ntpservers and --nontp kickstart options (vponcova)
+- Fix the assert_removed check in the unit tests (vponcova)
+- Remove the repo --ignoregroups kickstart option in Fedora 40 (vponcova)
+- Remove the logging --level kickstart option in Fedora 40 (vponcova)
+- Remove the method kickstart command in Fedora 40 (vponcova)
+- Remove the autostep kickstart command in Fedora 40 (vponcova)
+- requirements: Add setuptools (bcl)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.51-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

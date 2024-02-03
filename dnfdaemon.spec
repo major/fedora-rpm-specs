@@ -2,15 +2,13 @@
 %global dnf_version 4.2.6
 
 Name:           dnfdaemon
-Version:        0.3.20
-Release:        15%{?dist}
+Version:        0.3.22
+Release:        1%{?dist}
 Summary:        DBus daemon for dnf package actions
 
 License:        GPLv2+
 URL:            https://github.com/manatools/%{name}
-Source0:        %{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
-# https://github.com/manatools/dnfdaemon/pull/48
-Patch0:         0001-Fix-python-3.10-detection-in-makefiles.patch
+Source0:        %{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -119,6 +117,9 @@ fi
 
 
 %changelog
+* Thu Feb 01 2024 Jonathan Wright <jonathan@almalinux.org> - 0.3.22-1
+- Update to 0.3.22 rhbz#2132423
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.20-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

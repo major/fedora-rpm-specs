@@ -3,10 +3,10 @@
 
 Name:           scamp
 Version:        2.10.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        compute astrometric and photometric solutions from sextractor catalogs
 
-License:        GPLv3+
+License:        GPL-3.0-only
 URL:            http://www.astromatic.net/software/scamp
 Source0:        https://github.com/astromatic/scamp/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -51,6 +51,10 @@ sh autogen.sh
 
 
 %changelog
+* Thu Feb 01 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 2.10.0-8
+- Rebuild to fix FTBS
+- Using SPDX license name
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

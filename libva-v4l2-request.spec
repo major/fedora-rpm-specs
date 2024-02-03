@@ -4,7 +4,7 @@
 
 Name:           libva-v4l2-request
 Version:        1.0.0
-Release:        12.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        13.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        VA-API Backend using v4l2-request API
 
 License:        LGPLv2+ and MIT
@@ -12,6 +12,8 @@ URL:            https://github.com/bootlin/libva-v4l2-request
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 # https://github.com/bootlin/libva-v4l2-request/pull/38
 Patch3:         https://patch-diff.githubusercontent.com/raw/bootlin/libva-v4l2-request/pull/38.patch
+Patch4:         0001-Add-missing-include.patch
+Patch5:         0001-Drop-headers-from-pre-upstream-ctrls.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -28,6 +30,9 @@ the Video Engine found in most Allwinner SoCs.
 
 %prep
 %autosetup -p1 -n %{name}-%{commit0}
+# Not yet adapted to upstream kernel
+rm -r src/h265.c
+sed -i -e "/'h265.c'/d" src/meson.build
 
 
 %build
@@ -50,6 +55,9 @@ the Video Engine found in most Allwinner SoCs.
 
 
 %changelog
+* Thu Feb 01 2024 Nicolas Chauvet <kwizart@gmail.com> - 1.0.0-13.20190517gita3c2476
+- Fix FTBFS - rhbz#2171594
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12.20190517gita3c2476
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

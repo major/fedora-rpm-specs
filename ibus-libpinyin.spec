@@ -1,8 +1,8 @@
 %global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.15.6
-Release:    4%{?dist}
+Version:    1.15.7
+Release:    1%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
@@ -10,7 +10,6 @@ Source0:    http://downloads.sourceforge.net/libpinyin/ibus-libpinyin/%{name}-%{
 %if %snapshot
 Patch0:     ibus-libpinyin-1.15.x-head.patch
 %endif
-Patch1: ibus-libpinyin-c89.patch
 
 Requires:       python3-gobject
 Requires:       ibus >= 1.5.11
@@ -42,7 +41,6 @@ input method based on libpinyin for IBus.
 %if %snapshot
 %patch0 -p1 -b .head
 %endif
-%patch1 -p1
 
 %build
 %configure --disable-static \
@@ -83,6 +81,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus/component/*
 
 %changelog
+* Thu Feb  1 2024 Peng Wu <pwu@redhat.com> - 1.15.7-1
+- Update to 1.15.7
+- bug fixes
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

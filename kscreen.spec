@@ -1,7 +1,7 @@
 Name:    kscreen
 Epoch:   1
-Version: 5.92.0
-Release: 3%{?dist}
+Version: 5.93.0
+Release: 1%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later (GPL-2.0-only OR GPL-3.0-only)
@@ -62,6 +62,7 @@ KCM and KDED modules for managing displays in KDE.
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/main.qml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.json
 %{_kf6_datadir}/applications/kcm_kscreen.desktop
+%{_kf6_datadir}/kglobalaccel/org.kde.kscreen.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
 %{_kf6_datadir}/qlogging-categories6/kscreen.categories
 %{_kf6_plugindir}/kded/kscreen.so
@@ -72,6 +73,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.93.0-1
+- 5.93.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.92.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

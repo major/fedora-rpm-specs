@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        105
+Version:        106
 
 %forgemeta
 
@@ -290,6 +290,19 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Jan 31 2024 Packit <hello@packit.dev> - 106-1
+Changes with 106
+----------------
+  * CI: update terraform SHA (#1559)
+    * Author: Jakub Rusz, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * stages/org.osbuild.cloud-init: fix dump format of `datasource_list` key (#1556)
+    * Author: Tomáš Hozza, Reviewers: Michael Vogt
+  * test: drop `-k` from `-k stages/test` test matrix (#1564)
+    * Author: Michael Vogt, Reviewers: Dusty Mabe, Tomáš Hozza
+
+— Somewhere on the Internet, 2024-01-31
+
+
 * Wed Jan 31 2024 Packit <hello@packit.dev> - 105-1
 Changes with 105
 ----------------

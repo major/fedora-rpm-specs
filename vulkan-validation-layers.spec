@@ -7,8 +7,6 @@ License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
 Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
 
-Requires:       vulkan-utility-libraries-devel
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -30,18 +28,6 @@ BuildRequires:  pkgconfig(xcb)
 
 %description
 Vulkan validation layers
-
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       vulkan-headers
-# The devel files are now provided by vulkan-utility-libraries-devel
-# Deprecate vulkan-validation-layers-devel
-Provides:       deprecated()
-
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -n Vulkan-ValidationLayers-vulkan-sdk-%{version}
@@ -75,10 +61,6 @@ developing applications that use %{name}.
 %doc README.md CONTRIBUTING.md
 %{_datadir}/vulkan/explicit_layer.d/*.json
 %{_libdir}/libVkLayer_*.so
-
-%files devel
-# The devel files are now provided by vulkan-utility-libraries-devel
-# Keep empty for backwards compatibility
 
 %changelog
 %autochangelog

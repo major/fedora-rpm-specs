@@ -1,6 +1,6 @@
 Name: merkuro
-Version: 24.01.90
-Release: 3%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License: GPL-3.0-or-later
@@ -113,6 +113,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_datadir}/icons/hicolor/128x128/apps/org.kde.merkuro*.png
 %{_datadir}/icons/hicolor/256x256/apps/org.kde.merkuro*.png
 %{_datadir}/icons/hicolor/48x48/apps/org.kde.merkuro*.png
+%{_datadir}/icons/hicolor/16x16/apps/org.kde.merkuro*.png
+%{_datadir}/icons/hicolor/24x24/apps/org.kde.merkuro*.png
+%{_datadir}/icons/hicolor/32x32/apps/org.kde.merkuro*.png
 %{_kf6_metainfodir}/org.kde.merkuro.*.metainfo.xml
 %{_kf6_metainfodir}/org.kde.merkuro.contact.appdata.xml
 %{_datadir}/qlogging-categories6/akonadi.quick.categories
@@ -120,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_datadir}/qlogging-categories6/merkuro.contact.categories
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

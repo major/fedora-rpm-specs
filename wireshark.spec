@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
 %global with_lua 1
 %global with_maxminddb 1
-%global plugins_version 4.0
+%global plugins_version 4.2
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.0.8
-Release:	3%{?dist}
+Version:	4.2.2
+Release:	1%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -27,10 +27,6 @@ Patch5:   wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 # Fedora-specific
 Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
 Patch7:   wireshark-0007-cmakelists.patch
-Patch8:   wireshark-0008-glib2-g_strdup-build.patch
-Patch9:   wireshark-0009-fix-asn2wrs-cmake.patch
-Patch10:  wireshark-0010-ripemd-fips-core-dump.patch
-Patch11:  wireshark-0011-manage-interfaces-crash.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -82,6 +78,7 @@ BuildRequires:	compat-lua-devel
 Buildrequires: git-core
 Buildrequires: python3-devel
 Buildrequires: cmake
+Buildrequires: speexdsp-devel
 #needed for sdjournal external capture interface
 BuildRequires: systemd-devel
 BuildRequires: libnghttp2-devel
@@ -235,8 +232,6 @@ fi
 %{_libdir}/wireshark/extcap/sdjournal
 %{_libdir}/wireshark/extcap/dpauxmon
 %{_libdir}/wireshark/extcap/androiddump
-%dir %{_libdir}/wireshark/cmake
-%{_libdir}/wireshark/cmake/*.cmake
 #the version wireshark uses to store plugins is only x.y, not .z
 %dir %{_libdir}/wireshark/plugins/%{plugins_version}
 %dir %{_libdir}/wireshark/plugins/%{plugins_version}/epan
@@ -253,7 +248,6 @@ fi
 %{_mandir}/man1/dumpcap.*
 %{_mandir}/man4/wireshark-filter.*
 %{_mandir}/man1/rawshark.*
-%{_mandir}/man1/dftest.*
 %{_mandir}/man1/randpkt.*
 %{_mandir}/man1/reordercap.*
 %{_mandir}/man1/sshdump.*
@@ -266,7 +260,10 @@ fi
 %{_mandir}/man1/dpauxmon.*
 %{_mandir}/man1/sdjournal.*
 %{_mandir}/man1/etwdump.*
+%{_mandir}/man1/falcodump.*
 %{_mandir}/man4/extcap.*
+%{_datadir}/doc/wireshark/*
+
 %if %{with_maxminddb} && 0%{?fedora}
 %{_mandir}/man1/mmdbresolve.*
 %endif
@@ -278,9 +275,11 @@ fi
 %doc doc/README.* ChangeLog
 %{_includedir}/wireshark
 %{_libdir}/lib*.so
-%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 01 2024 Michal Ruprich <mruprich@redhat.com> - 1:4.2.2-1
+- New version 4.2.2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

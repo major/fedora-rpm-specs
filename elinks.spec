@@ -1,7 +1,13 @@
+%if 0%{?rhel} >= 10 || 0%{?rescue}
+%bcond_with gpm
+%else
+%bcond_without gpm
+%endif
+
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.17.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -12,7 +18,9 @@ BuildRequires: bzip2-devel
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
 BuildRequires: gettext
+%if %{with gpm}
 BuildRequires: gpm-devel
+%endif
 BuildRequires: krb5-devel
 BuildRequires: libidn2-devel
 BuildRequires: lua-devel
@@ -70,12 +78,14 @@ export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS) -D_GNU_SOURCE"
 # make the code build with lua-5.4.x
 CFLAGS="$CFLAGS -DLUA_COMPAT_5_3"
 
-%configure %{?rescue:--without-gpm} \
+%configure \
     --enable-256-colors             \
     --enable-bittorrent             \
     --with-gssapi                   \
     --with-lua                      \
     --with-openssl                  \
+    %{?with_gpm:--with-gpm}         \
+    %{!?with_gpm:--without-gpm}     \
     --without-gnutls                \
     --without-spidermonkey          \
     --without-x
@@ -126,6 +136,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Thu Feb 01 2024 Lukáš Zaoral <lzaoral@redhat.com> - 0.17.0-4
+- disable gpm integration for RHEL 10 (RHEL-23701)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

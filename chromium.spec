@@ -286,7 +286,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 121.0.6167.139
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -463,6 +463,7 @@ Patch358: chromium-121-rust-clang_lib.patch
 Patch359: chromium-121-python3-invalid-escape-sequence.patch
 
 # upstream patches
+Patch400: chromium-121-el8-support-64kpage.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1081,6 +1082,12 @@ udev.
 %patch -P357 -p1 -b .clang16-disable-auto-upgrade-debug-info
 %patch -P358 -p1 -b .rust-clang_lib
 %patch -P359 -p1 -b .python3-invalid-escape-sequence
+
+%%ifarch aarch64
+%if 0%{?rhel} == 8
+%patch -P400 -p1 -b .el8-support-64kpage.patch
+%endif
+%endif
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1796,6 +1803,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Feb 01 2024 Than Ngo <than@redhat.com> - 121.0.6167.139-2
+- Support for 64K pages on Linux/AArch64
+
 * Wed Jan 31 2024 Than Ngo <than@redhat.com> - 121.0.6167.139-1
 - update to 121.0.6167.139
   * High CVE-2024-1060: Use after free in Canvas

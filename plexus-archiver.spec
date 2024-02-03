@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-archiver
-Version:        4.9.0
-Release:        3%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 Summary:        Plexus Archiver Component
 License:        Apache-2.0
 URL:            https://codehaus-plexus.github.io/plexus-archiver
@@ -88,6 +88,9 @@ rm src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java
 %license LICENSE
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.9.1-1
+- Update to upstream version 4.9.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

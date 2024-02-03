@@ -1,8 +1,8 @@
 Summary: DWARF optimization and duplicate removal tool
 Name: dwz
 Version: 0.15
-Release: 5%{?dist}
-License: GPLv2+ and GPLv3+
+Release: 6%{?dist}
+License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND LGPL-2.0-or-later
 URL: https://sourceware.org/dwz/
 Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
 BuildRequires: gcc, gcc-c++, gdb, elfutils-libelf-devel, dejagnu
@@ -39,6 +39,9 @@ CFLAGS="" LDFLAGS="" make check
 %{_mandir}/man1/dwz.1*
 
 %changelog
+* Thu Feb  1 2024 Siddhesh Poyarekar <siddhesh@redhat.com> - 0.15-6
+- Bump release for SPDX change.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -34,12 +34,12 @@
 #
 # And then change these two:
 
-%global hash 64113751
-%global date 20220210
+%global hash de8a0821
+%global date 20240119
 
 Name:    ipxe
 Version: %{date}
-Release: 8.git%{hash}%{?dist}
+Release: 1.git%{hash}%{?dist}
 Summary: A network boot loader
 
 License: BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND (GPL-2.0-only OR MPL-1.1) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH UBDL-exception AND ISC AND MIT
@@ -51,8 +51,6 @@ Source0: %{name}-%{version}-git%{hash}.tar.xz
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
 Patch0001: 0001-build-customize-configuration.patch
 Patch0002: 0002-Use-spec-compliant-timeouts.patch
-# Fix build with binutils-2.41, https://github.com/ipxe/ipxe/pull/1011
-Patch0003: 0003-librm-Use-explicit-operand-size.patch
 
 %ifarch %{buildarches}
 BuildRequires: perl-interpreter
@@ -280,6 +278,9 @@ cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe
 %endif
 
 %changelog
+* Tue Jan 30 2024 Daniel P. Berrangé <berrange@redhat.com> - 20240119-1.gitde8a0821
+- Update to latest git snapshot
+
 * Thu Jan 25 2024 Stid Official <stidofficiel@gmail.com> - 20220210-8.git64113751
 - Add support of NFS protocol
 
@@ -309,211 +310,3 @@ cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200823-8.git4bd064de
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jul 24 2021 Cole Robinson <crobinso@redhat.com> - 20200823-7.git4bd064de
-- Add snponly build (bz 1981799)
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 20200823-6.git4bd064de
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 07 2021 Cole Robinson <crobinso@redhat.com> - 20200823-5.git4bd064de
-- Generate qemu compatible rom filenames
-
-* Mon Jun 14 2021 Jiri Kucera <jkucera@redhat.com> - 20200823-4.git4bd064de
-- Replace genisoimage by xorriso
-
-* Tue Feb 23 2021 Cole Robinson <aintdiscole@gmail.com> - 20200823-3.git4bd064de
-- combine BIOS and EFI roms using "util/catrom.pl"
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 20200823-2.git4bd064de
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Sep 15 2020 Cole Robinson <aintdiscole@gmail.com> - 20200823-1.git4bd064de.git
-- Update to newer git snapshot, synced with qemu.git
-- Re-enable HTTPS support, with edk2 fix included (bz 1820836)
-
-* Fri Sep 04 2020 Merlin Mathesius <mmathesi@redhat.com> - 20190125-9.git36a4c85f
-- Workaound fatal GCC 9 compilation/link errors
-- Fix conditionals for perl BuildRequires
-
-* Mon Aug 17 2020 Cole Robinson <aintdiscole@gmail.com> - 20190125-8.git36a4c85f
-- Revert HTTPS support, causes boot hangs with UEFI (bz 1869102)
-
-* Tue Aug 11 2020 Cole Robinson <aintdiscole@gmail.com> - 20190125-7.git36a4c85f
-- Enable HTTPS support (bug 1820836)
-
-* Wed Jul 29 2020 Richard W.M. Jones <rjones@redhat.com> - 20190125-6.git36a4c85f
-- Explicitly BR perl-FindBin and perl-lib.
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 20190125-5.git36a4c85f
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 20190125-4.git36a4c85f
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20190125-3.git36a4c85f
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jul 16 2019 Paolo Bonzini <pbonxini@redhat.com> - 20190125-2.git36a4c85f
-- Allow removing IA32 EFI images from combined oproms
-- Check that the ROMs fit in 256K and pad them
-
-* Tue Feb 12 2019 Daniel P. Berrangé <berrange@redhat.com> - 20190125-1.git36a4c85f
-- Update to latest git snapshot
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20170710-6.git0600d3ae
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jul 23 2018 Daniel P. Berrangé <berrange@redhat.com> - 20170710-5.git0600d3ae
-- mkisofs tool moved to genisoimage RPM
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 20170710-4.git0600d3ae
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 20170710-3.git0600d3ae
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Nov 21 2017 Paolo Bonzini <pbonzini@redhat.com> - ipxe-20170710-2.git0600d3ae
-- Include bugfix and configuration patches from RHEL
-- Disable cross compilation on RHEL
-
-* Thu Aug 03 2017 Cole Robinson <crobinso@redhat.com> - ipxe-20170710-1.git0600d3ae
-- Update to ipxe 0600d3ae for qemu-2.10.0
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 20161108-4.gitb991c67
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 20161108-3.gitb991c67
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 20161108-2.gitb991c67
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sun Dec 04 2016 Cole Robinson <crobinso@redhat.com> - 20161108-1.gitb991c67
-- Rebase to version shipped with qemu 2.8
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 20150821-3.git4e03af8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Jan 26 2016 Cole Robinson <crobinso@redhat.com> 20150821-2.git4e03af8
-- Build ipxe.efi (bug 1300865)
-- Build eepro100 rom for qemu
-
-* Tue Nov 17 2015 Cole Robinson <crobinso@redhat.com> - 20150821-1.git4e03af8
-- Update to commit 4e03af8 for qemu 2.5
-- Enable IPv6 (bug 1280318)
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20150407-3.gitdc795b9f
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Thu Apr 16 2015 Paolo Bonzini <pbonzini@redhat.com> - 20150407-2.gitdc795b9f
-- Fix virtio bug with UEFI driver
-
-* Thu Apr 16 2015 Paolo Bonzini <pbonzini@redhat.com> - 20150407-1.gitdc795b9f
-- Update to latest upstream snapshot
-- Switch source to .tar.xz
-- Include patches from QEMU submodule
-- Use config file for configuration
-- Distribute additional permissions on top of GPLv2 ("UBDL")
-
-* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20140303-3.gitff1e7fc7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20140303-2.gitff1e7fc7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Mon Mar 03 2014 Cole Robinson <crobinso@redhat.com> - 20140303-1.gitff1e7fc7
-- Allow access to ipxe prompt if VM is set to pxe boot (bz #842932)
-- Enable PNG support (bz #1058176)
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20130517-3.gitc4bce43
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Mon May 20 2013 Paolo Bonzini <pbonzini@redhat.com> - 20130103-3.git717279a
-- Fix BuildRequires, use cross-compiler when building on 32-bit i686
-- Build UEFI drivers for QEMU and include them (patch from Gerd Hoffmann.
-  BZ#958875)
-
-* Fri May 17 2013 Daniel P. Berrange <berrange@redhat.com> - 20130517-1.gitc4bce43
-- Update to latest upstream snapshot
-
-* Fri May 17 2013 Daniel P. Berrange <berrange@redhat.com> - 20130103-3.git717279a
-- Fix build with GCC 4.8 (rhbz #914091)
-
-* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20130103-2.git717279a
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Thu Jan  3 2013 Daniel P. Berrange <berrange@redhat.com> - 20130103-1.git717279a
-- Updated to latest GIT snapshot
-
-* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 20120328-2.gitaac9718
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Wed Mar 28 2012 Daniel P. Berrange <berrange@redhat.com> - 20120328-1.gitaac9718
-- Update to newer upstream
-
-* Fri Mar 23 2012 Daniel P. Berrange <berrange@redhat.com> - 20120319-3.git0b2c788
-- Remove more defattr statements
-
-* Tue Mar 20 2012 Daniel P. Berrange <berrange@redhat.com> - 20120319-2.git0b2c788
-- Remove BuildRoot & rm -rf of it in install/clean sections
-- Remove defattr in file section
-- Switch to use global, instead of define for macros
-- Add note about Patch1 not going upstream
-- Split BRs across lines for easier readability
-
-* Mon Feb 27 2012 Daniel P. Berrange <berrange@redhat.com> - 20120319-1.git0b2c788
-- Initial package based on gPXE
-
-* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Mon Feb 21 2011 Matt Domsch <mdomsch@fedoraproject.org> - 1.0.1-4
-- don't use -Werror, it flags a failure that is not a failure for gPXE
-
-* Mon Feb 21 2011 Matt Domsch <mdomsch@fedoraproject.org> - 1.0.1-3
-- Fix virtio-net ethernet frame length (patch by cra), fixes BZ678789
-
-* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Thu Aug  5 2010 Matt Domsch <mdomsch@fedoraproject.org> - 1.0.1-1
-- New drivers: Intel e1000, e1000e, igb, EFI snpnet, JMicron jme,
-  Neterion X3100, vxge, pcnet32.
-- Bug fixes and improvements to drivers, wireless, DHCP, iSCSI,
-  COMBOOT, and EFI.
-* Tue Feb  2 2010 Matt Domsch <mdomsch@fedoraproject.org> - 1.0.0-1
-- bugfix release, also adds wireless card support
-- bnx2 builds again
-- drop our one patch
-
-* Tue Oct 27 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.9-1
-- new upstream version 0.9.9
--- plus patches from git up to 20090818 which fix build errors and
-   other release-critical bugs.
--- 0.9.9: added Attansic L1E and sis190/191 ethernet drivers.  Fixes
-   and updates to e1000 and 3c90x drivers.
--- 0.9.8: new commands: time, sleep, md5sum, sha1sum. 802.11 wireless
-   support with Realtek 8180/8185 and non-802.11n Atheros drivers.
-   New Marvell Yukon-II gigabet Ethernet driver.  HTTP redirection
-   support.  SYSLINUX floppy image type (.sdsk) with usable file
-   system.  Rewrites, fixes, and updates to 3c90x, forcedeth, pcnet32,
-   e1000, and hermon drivers.
-
-* Mon Oct  5 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.7-6
-- move rtl8029 from -roms to -roms-qemu for qemu ne2k_pci NIC (BZ 526776)
-
-* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
-
-* Tue May 19 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.7-4
-- add undionly.kpxe to -bootimgs
-
-* Tue May 12 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.7-3
-- handle isolinux changing paths
-
-* Sat May  9 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.7-2
-- add dist tag
-
-* Thu Mar 26 2009 Matt Domsch <mdomsch@fedoraproject.org> - 0.9.7-1
-- Initial release based on etherboot spec

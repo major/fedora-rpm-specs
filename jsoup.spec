@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           jsoup
-Version:        1.16.1
-Release:        4%{?dist}
+Version:        1.17.2
+Release:        1%{?dist}
 Summary:        Java library for working with real-world HTML
 License:        MIT
 URL:            https://jsoup.org/
@@ -19,7 +19,9 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 %endif
+BuildRequires:  jurand
 
 %description
 jsoup is a Java library for working with real-world HTML. It provides a very
@@ -53,6 +55,12 @@ tree.
 %pom_xpath_inject "pom:plugin[pom:artifactId='maven-bundle-plugin']/pom:configuration/pom:instructions" \
   "<_exportcontents>*.internal;x-internal:=true,*</_exportcontents>"
 
+# Remove jspecify annotations which are used for static analysis only
+%pom_remove_dep :jspecify
+sed -i /org.jspecify/d src/main/java9/module-info.java
+%java_remove_annotations src/main/java -s \
+  -p org[.]jspecify[.]annotations[.] \
+
 %build
 %mvn_build -f
 
@@ -60,10 +68,13 @@ tree.
 %mvn_install
 
 %files -f .mfiles
-%doc README.md CHANGES
+%doc README.md CHANGES.md
 %license LICENSE
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.17.2-1
+- Update to upstream version 1.17.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

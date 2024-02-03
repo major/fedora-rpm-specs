@@ -1,8 +1,8 @@
 %define upstream_name    Games-Solitaire-Verify
 
 Name:       perl-%{upstream_name}
-Version:    0.2403
-Release:    13%{?dist}
+Version:    0.2500
+Release:    1%{?dist}
 
 Summary:    Process and verify solitaire games
 License:    MIT
@@ -71,6 +71,9 @@ chmod 755 %{buildroot}/%{_bindir}/*
 %{perl_vendorlib}/*
 
 %changelog
+* Wed Jan 31 2024 Shlomi Fish <shlomif@cpan.org> 0.2500-1
+- New upstream version
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2403-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

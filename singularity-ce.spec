@@ -3,7 +3,7 @@
 %undefine _debugsource_packages
 
 Name: singularity-ce
-Version: 4.1.0
+Version: 4.1.1
 Release: 1%{?dist}
 Summary: Application and environment virtualization
 
@@ -70,7 +70,7 @@ Provides: bundled(golang(github.com/cilium/ebpf)) = v0.9.1
 Provides: bundled(golang(github.com/cloudflare/circl)) = v1.3.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = v3.0.2
 Provides: bundled(golang(github.com/containerd/console)) = v1.0.3
-Provides: bundled(golang(github.com/containerd/containerd)) = v1.7.12
+Provides: bundled(golang(github.com/containerd/containerd)) = v1.7.13
 Provides: bundled(golang(github.com/containerd/continuity)) = v0.4.3
 Provides: bundled(golang(github.com/containerd/fifo)) = v1.1.0
 Provides: bundled(golang(github.com/containerd/go_cni)) = v1.1.9
@@ -82,8 +82,8 @@ Provides: bundled(golang(github.com/containerd/ttrpc)) = v1.2.2
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = v2.1.1
 Provides: bundled(golang(github.com/containernetworking/cni)) = v1.1.2
 Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.4.0
-Provides: bundled(golang(github.com/containers/common)) = v0.57.2
-Provides: bundled(golang(github.com/containers/image/v5)) = v5.29.1
+Provides: bundled(golang(github.com/containers/common)) = v0.57.3
+Provides: bundled(golang(github.com/containers/image/v5)) = v5.29.2
 Provides: bundled(golang(github.com/containers/storage)) = v1.51.0
 Provides: bundled(golang(github.com/coreos/go_iptables)) = v0.7.0
 Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.5.0
@@ -93,10 +93,10 @@ Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.2.4
 Provides: bundled(golang(github.com/d2g/dhcp4client)) = v1.0.0
 Provides: bundled(golang(github.com/d2g/dhcp4)) = v0.0.0_20170904100407_a1d1b6c41b1c
 Provides: bundled(golang(github.com/distribution/reference)) = v0.5.0
-Provides: bundled(golang(github.com/docker/cli)) = v25.0.0+incompatible
+Provides: bundled(golang(github.com/docker/cli)) = v25.0.2+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.8.0
-Provides: bundled(golang(github.com/docker/docker)) = v25.0.0+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v25.0.2+incompatible
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.0
 Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
 Provides: bundled(golang(github.com/docker/go_units)) = v0.5.0
@@ -115,7 +115,7 @@ Provides: bundled(golang(github.com/go_log/log)) = v0.2.0
 Provides: bundled(golang(github.com/go_logr/logr)) = v1.3.0
 Provides: bundled(golang(github.com/go_logr/stdr)) = v1.2.2
 Provides: bundled(golang(github.com/google/go_cmp)) = v0.6.0
-Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.18.0
+Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.19.0
 Provides: bundled(golang(github.com/google/shlex)) = v0.0.0_20191202100458_e7afc7fbc510
 Provides: bundled(golang(github.com/google/uuid)) = v1.6.0
 Provides: bundled(golang(github.com/gorilla/handlers)) = v1.5.1
@@ -144,7 +144,7 @@ Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.6.1
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = v0.12.0_rc.1
 Provides: bundled(golang(github.com/mitchellh/go_homedir)) = v1.1.0
 Provides: bundled(golang(github.com/mitchellh/hashstructure/v2)) = v2.0.2
-Provides: bundled(golang(github.com/moby/buildkit)) = v0.12.4
+Provides: bundled(golang(github.com/moby/buildkit)) = v0.12.5
 Provides: bundled(golang(github.com/moby/locker)) = v1.0.1
 Provides: bundled(golang(github.com/moby/patternmatcher)) = v0.6.0
 Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.7.1
@@ -158,7 +158,7 @@ Provides: bundled(golang(github.com/Netflix/go_expect)) = v0.0.0_20220104043353_
 Provides: bundled(golang(github.com/networkplumbing/go_nft)) = v0.4.0
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0_rc6
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.11
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.12
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.1.0
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20230914150019_408c51e934dc
 Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.11.0
@@ -207,40 +207,6 @@ Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
 Provides: bundled(golang(github.com/xeipuuv/gojsonpointer)) = v0.0.0_20190905194746_02993c407bfb
 Provides: bundled(golang(github.com/xeipuuv/gojsonreference)) = v0.0.0_20180127040603_bd5ef7bd5415
 Provides: bundled(golang(github.com/xeipuuv/gojsonschema)) = v1.2.0
-Provides: bundled(golang(go)) = 1.20
-Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.8
-Provides: bundled(golang(golang.org/x/crypto)) = v0.18.0
-Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20231006140011_7918f672742d
-Provides: bundled(golang(golang.org/x/mod)) = v0.13.0
-Provides: bundled(golang(golang.org/x/net)) = v0.18.0
-Provides: bundled(golang(golang.org/x/sync)) = v0.6.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.16.0
-Provides: bundled(golang(golang.org/x/term)) = v0.16.0
-Provides: bundled(golang(golang.org/x/text)) = v0.14.0
-Provides: bundled(golang(golang.org/x/time)) = v0.3.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.14.0
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20231106174013_bbf56f31fb17
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = v0.0.0_20231106174013_bbf56f31fb17
-Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20231106174013_bbf56f31fb17
-Provides: bundled(golang(google.golang.org/grpc)) = v1.61.0
-Provides: bundled(golang(google.golang.org/protobuf)) = v1.31.0
-Provides: bundled(golang(go.opencensus.io)) = v0.24.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = v0.45.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace)) = v0.45.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.45.0
-Provides: bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel/exporters/otlp/otlptrace)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.19.0
-Provides: bundled(golang(go.opentelemetry.io/proto/otlp)) = v1.0.0
-Provides: bundled(golang(gopkg.in/go_jose/go_jose.v2)) = v2.6.1
-Provides: bundled(golang(gopkg.in/yaml.v2)) = v2.4.0
-Provides: bundled(golang(gopkg.in/yaml.v3)) = v3.0.1
-Provides: bundled(golang(gotest.tools)) = v2.2.0+incompatible
-Provides: bundled(golang(gotest.tools/v3)) = v3.5.1
 Provides: bundled(golang(mvdan.cc/sh/v3)) = v3.7.1_0.20231014181306_8b673862efc6
 Provides: bundled(golang(sigs.k8s.io/yaml)) = v1.4.0
 Provides: bundled(golang(tags.cncf.io/container_device_interface/specs_go)) = v0.6.0
@@ -256,15 +222,12 @@ Conflicts: sif-runtime
 # https://pagure.io/fesco/issue/2934#comment-839598
 Provides: alternative-for(singularity)
 
-# https://github.com/sylabs/singularity/pull/2598
-Patch0: crun-linux-resources.patch
-
 %description
 SingularityCE is the Community Edition of Singularity, an open source
 container platform designed to be simple, fast, and secure.
 
 %prep
-%autosetup -p0
+%autosetup
 
 %build
 # Configure to use distro provided conmon.
@@ -327,6 +290,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Thu Feb 1 2024 David Trudgian <dtrudg@sylabs.io> - 4.1.1-1
+- Upgrade to 4.1.1 upstream version.
+
 * Mon Jan 29 2024 David Trudgian <dtrudg@sylabs.io> - 4.1.0-1
 - Upgrade to 4.1.0 upstream version.
 

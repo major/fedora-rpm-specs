@@ -1,20 +1,21 @@
 Name: psfex
-Version: 3.17.1
-Release: 31%{?dist}
+Version: 3.24.1
+Release: 1%{?dist}
 Summary: Model the Point Spread Function from FITS images
 
-License: GPLv3+
+License: GPL-3.0-only
 URL: http://astromatic.iap.fr/software/%{name}
-Source0: http://www.astromatic.net/download/%{name}/%{name}-%{version}.tar.gz
-# Change plwid to plwidth
-Patch0: psfex-plplot.patch
-Patch1: psfex-3.17.1-gcc10.patch
-Patch2: psfex-c99.patch
+Source0: https://github.com/astromatic/psfex/archive/%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: fftw-devel >= 3.1
-BuildRequires: atlas-devel >= 3.6.0
-BuildRequires: plplot-devel >= 5.3.1
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
+
+BuildRequires: fftw-devel
+BuildRequires: atlas-devel
+BuildRequires: plplot-devel
 
 %description
 PSFEx (“PSF Extractor”) extracts models of the Point Spread Function (PSF) 
@@ -23,16 +24,10 @@ The generated PSF models can be used for model-fitting photometry or
 morphological analyses.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-# New atlas libs
-sed -i -e '/LIBS*=.*atlas/s,=.*,="-L%{_libdir}/atlas -lsatlas",' configure
-# New plplot lib name
-sed -i -e 's/plplotd/plplot/g' configure
+%autosetup 
 
 %build
+./autogen.sh
 %configure --enable-plplot=yes
 %make_build
 
@@ -40,14 +35,18 @@ sed -i -e 's/plplotd/plplot/g' configure
 %make_install
 
 %files
-%license COPYRIGHT LICENSE
-%doc AUTHORS HISTORY README THANKS doc/psfex.pdf
+%license LICENSE
+%doc AUTHORS HISTORY README.md THANKS 
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%exclude %{_mandir}/manx/*
+%{_mandir}/manx/%{name}.x*
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Feb 01 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 3.24.1-1
+- New upstream source
+- Using SPDX license name
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,9 +4,9 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3450000
-%define docver 3450000
-%define rpmver 3.45.0
+%define realver 3450100
+%define docver 3450100
+%define rpmver 3.45.1
 %define year 2024
 
 Summary: Library that implements an embeddable SQL database engine
@@ -258,6 +258,9 @@ make test
 %endif
 
 %changelog
+* Wed Jan 31 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.45.1-1
+- Updated to version 3.45.1 (https://sqlite.org/releaselog/3_45_1.html)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.45.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

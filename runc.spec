@@ -16,18 +16,14 @@
 %global import_path %{provider_prefix}
 %global git0 https://github.com/opencontainers/runc
 
-%global built_tag v1.1.9
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
 Name: %{repo}
 Epoch: 2
-Version: %{gen_version}
+Version: 1.1.12
 Release: %autorelease
 Summary: CLI for running Open Containers
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT
 URL: %{git0}
-Source0: %{git0}/archive/%{built_tag}/%{name}-%{version}.tar.gz
+Source0: %{git0}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:  %{golang_arches_future}
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -69,7 +65,7 @@ in accordance with the Open Container Initiative's specifications,
 and to manage containers running under runc.
 
 %prep
-%autosetup -p1 -n %{name}-%{built_tag_strip}
+%autosetup -p1 -n %{name}-%{version}
 sed -i 's/ -trimpath//g' Makefile
 
 %build

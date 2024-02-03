@@ -37,10 +37,12 @@ BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(passlib)
 %endif
 
-# Required for the udhcpc binary that replaces the unmaintained
-# dhclient binary from the dhcp-client package. See BZ 2247055
-# for more details. 
-Requires:       busybox
+# ISC DHCP is no longer maintained and cloud-init will ship a 
+# release with dhcpcd support soon. See BZ 2247055 for details.
+#
+# Cloud-init dhcpcd support is pending a release here:
+# https://github.com/canonical/cloud-init/pull/4746/files
+Requires:       dhcp-client
 
 Requires:       hostname
 Requires:       e2fsprogs

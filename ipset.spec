@@ -1,6 +1,6 @@
 Name:             ipset
-Version:          7.19
-Release:          3%{?dist}
+Version:          7.20
+Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
 License:          GPL-2.0-only
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Thu Feb 01 2024 Nicolas Chauvet <kwizart@gmail.com> - 7.20-1
+- Update to 7.20
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perltidy
-Version:	20230912
-Release:	3%{?dist}
+Version:	20240202
+Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
 URL:		http://perltidy.sourceforge.net/
@@ -42,6 +42,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
 # Dependencies
 Requires:	perl(File::Spec)
+Requires:	perl(File::Temp)
 Requires:	perl(HTML::Entities)
 Requires:	perl(Pod::Html)
 Provides:	perl-Perl-Tidy = %{version}-%{release}
@@ -96,6 +97,9 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Thu Feb  1 2024 Paul Howarth <paul@city-fan.org> - 20240202-1
+- Update to 20240202 (see CHANGES.md for details) (rhbz#2262294)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230912-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

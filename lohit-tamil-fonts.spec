@@ -1,7 +1,7 @@
-%global fontname lohit-tamil-fonts
+%global fontname lohit-tamil
 
 Version:       2.91.3
-Release:       21%{?dist}
+Release:       22%{?dist}
 URL:           https://github.com/lohit-fonts/lohit-tamil-fonts
 
 %global foundry           Lohit
@@ -20,13 +20,13 @@ This package provides a free Tamil truetype/opentype font.
 
 BuildRequires: make
 BuildRequires: fontforge
-Source0:        https://github.com/lohit-fonts/lohit-tamil-fonts/archive/refs/tags/%{version}.tar.gz#/%{fontname}-%{version}.tar.gz
+Source0:        https://github.com/lohit-fonts/lohit-tamil-fonts/archive/refs/tags/%{version}.tar.gz#/%{fontname}-fonts-%{version}.tar.gz
 Source10:       66-%{fontpkgname}.conf
 
 %fontpkg
 
 %prep
-%setup -q -n %{fontname}-%{version}
+%setup -q -n %{fontname}-fonts-%{version}
 %linuxtext OFL.txt AUTHORS README.md ChangeLog COPYRIGHT src/test-tamil.txt
 
 %build
@@ -43,6 +43,10 @@ make ttf %{?_smp_mflags}
 
 
 %changelog
+* Wed Feb 1 2024 Sudip Shil <sshil@redhat.com> - 2.91.3-22
+- reverted unexpected sfd changes with correcting version of .sfd file
+- refreshed github tarball
+
 * Mon Jan 29 2024 Sudip Shil <sshil@redhat.com> - 2.91.3-21
 - Fixed version mismatch https://bugzilla.redhat.com/show_bug.cgi?id=1580458 
 

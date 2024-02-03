@@ -3,8 +3,8 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        40.3
-Release:        5%{?dist}
+Version:        40.4
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,13 +14,6 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
-
-# https://github.com/weldr/lorax/pull/1370
-# wget replaced by wget2-wget
-Patch:          0001-runtime-install-wget2-wget-has-replaced-wget.patch
-# https://github.com/weldr/lorax/pull/1371
-# pcmciautils retired
-Patch:          0001-runtime-install-drop-retired-pcmciautils.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -175,17 +168,16 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Mon Jan 29 2024 Adam Williamson <awilliam@redhat.com> - 40.3-5
-- Backport PR #1371 to handle pcmciautils being retired
-
-* Fri Jan 26 2024 Adam Williamson <awilliam@redhat.com> - 40.3-4
-- Backport PR #1370 to handle wget being replaced by wget2-wget
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Thu Feb 01 2024 Brian C. Lane <bcl@redhat.com> 40.4-1
+- mkksiso: Add support for adding an anaconda updates.img (jkonecny@redhat.com)
+- runtime-install: drop kdump-anaconda-addon (awilliam@redhat.com)
+- ltmpl: Handle installing provides with resolve_pkg_spec (bcl@redhat.com)
+- s390: Escape volid before using it (bcl@redhat.com)
+- aarch64: Escape volid before using it (bcl@redhat.com)
+- runtime-install: drop retired pcmciautils (awilliam@redhat.com)
+- runtime-install: wget2-wget has replaced wget (awilliam@redhat.com)
+- runtime-cleanup: anaconda's new interface needs stdbuf (kkoukiou@redhat.com)
+- ltmpl: Pass packages to add_rpm_install as strings (bcl@redhat.com)
 
 * Wed Dec 20 2023 Brian C. Lane <bcl@redhat.com> 40.3-1
 - runtime-install: Work around problem with conflicting packages (bcl@redhat.com)

@@ -59,7 +59,9 @@ Sandboxed and extendable image decoding.
 %prep
 %autosetup -p1 -n glycin-loaders-%{tarball_version}
 
-%if ! 0%{?bundled_rust_deps}
+%if 0%{?bundled_rust_deps}
+%cargo_prep -v vendor
+%else
 rm -rf vendor
 %cargo_prep
 %endif
@@ -79,9 +81,10 @@ rm -rf vendor
 
 %meson_build
 
-%if !0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%cargo_vendor_manifest
 %endif
 
 
@@ -99,8 +102,9 @@ rm -rf vendor
 
 %files
 %license LICENSE LICENSE-LGPL-2.1 LICENSE-MPL-2.0
-%if !0%{?rhel}
 %license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
 %endif
 %doc NEWS README.md
 %{_libexecdir}/glycin-loaders/

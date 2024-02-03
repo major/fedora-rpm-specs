@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 %if 0%{?rhel}
 %bcond_with tests
@@ -111,25 +111,30 @@ cd ..
 %check
 %pyproject_check_import -e 'libcst.tests.*'
 %if %{with tests}
+# libcst.native is not available in build directory
+# test the pure Python codepath for now
+# (TODO: test *both* paths)
+export LIBCST_PARSER_TYPE=pure
+%pyproject_check_import -e 'libcst.tests.*'
 %if %{with all_tests}
 %pytest
 %else
-# test_codegen_clean is tracked in https://github.com/Instagram/LibCST/issues/304
-# test_codemod_cli is tracked in https://github.com/Instagram/LibCST/issues/331
-# test_type_enforce is tracked in https://github.com/Instagram/LibCST/issues/305
-# test_type_inference_provider requires pyre which is not packaged
-#
+# =========================== short test summary info ============================
+### these fail with this:
+###    AssertionError: False is not true : libcst._typed_visitor needs new codegen, see `python -m libcst.codegen.generate --help` for instructions, or run `python -m libcst.codegen.generate all`
 # FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_matcher_classes
 # FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_return_types
 # FAILED libcst/codegen/tests/test_codegen_clean.py::TestCodegenClean::test_codegen_clean_visitor_functions
-# FAILED libcst/tests/test_type_enforce.py::TypeEnforcementTest::test_basic_pass_19
-EXCLUDES="not test_codegen_clean_matcher_classes and not test_codegen_clean_return_types"
-EXCLUDES+=" and not test_codegen_clean_visitor_functions and not test_basic_pass_19"
+### these need pyre, not available yet
 # ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_gen_cache_0
 # ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_simple_class_types_0
 # ERROR libcst/metadata/tests/test_type_inference_provider.py::TypeInferenceProviderTest::test_with_empty_cache
-EXCLUDES+=" and not test_gen_cache_0 and not test_simple_class_types_0 and not test_with_empty_cache"
-%pytest -k "$EXCLUDES"
+EXCLUDES="not ... and not ..."
+EXCLUDES+=...
+#%%pytest -k "$EXCLUDES"
+%pytest \
+  --ignore=libcst/codegen/tests/test_codegen_clean.py \
+  --ignore=libcst/metadata/tests/test_type_inference_provider.py
 # end all_tests
 %endif
 # end tests

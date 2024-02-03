@@ -1,23 +1,14 @@
 Name:           xsel
-Version:        1.2.0
-Release:        34%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Command line clipboard and X selection tool
 License:        MIT
-URL:            http://www.vergenet.net/~conrad/software/xsel/
-Source0:        http://www.vergenet.net/~conrad/software/xsel/download/xsel-%{version}.tar.gz
+URL:            https://www.vergenet.net/~conrad/software/xsel/
+Source0:        https://github.com/kfish/xsel/archive/refs/tags/%{version}.tar.gz#/xsel-%{version}.tar.gz
 
-# Applied upstream (BZ#690214)
-Patch0:         xsel-1.2.0-MAX_NUM_TARGETS.patch
-# Upstream: https://github.com/kfish/xsel/commit/ba8656dc7c7e771c802fc957ce3dd128d4b6e3ae
-Patch1:         xsel-1.2.0-fix-large-pastes.patch
-# Patch for rhbz#1473002, taken from https://github.com/kfish/xsel/pull/6
-Patch2:         xsel-1.2.0-fix-java-pasting.patch
-# Patches for rhbz#1529894, taken from https://github.com/kfish/xsel/pull/16
-Patch3:         xsel-1.2.0-do-not-terminate-string.patch
-Patch4:         xsel-1.2.0-send-correct-event.patch
-# TODO: forward upstream
-Patch5:         xsel-1.2.0-fix-buffer-overflow.patch
-
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libSM-devel
@@ -32,27 +23,25 @@ you would paste with the middle mouse button.
 
 %prep
 %setup -q
-%patch0 -p1 -b .MAX_NUM_TARGETS
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
+./autogen.sh --version
 %configure
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+%make_install
 
 %files
-%doc AUTHORS ChangeLog COPYING README
+%license COPYING
+%doc AUTHORS ChangeLog README
 %{_mandir}/man1/xsel.1x*
 %{_bindir}/xsel
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-1
+- Update to upstream version 1.2.1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

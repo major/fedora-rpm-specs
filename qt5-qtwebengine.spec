@@ -61,8 +61,8 @@
 
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
-Version: 5.15.12
-Release: 12%{?dist}
+Version: 5.15.16
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -110,19 +110,13 @@ Patch8:  qtwebengine-everywhere-5.15.8-libpipewire-0.3.patch
 Patch24: qtwebengine-everywhere-src-5.11.3-aarch64-new-stat.patch
 # Use Python2
 Patch26: qtwebengine-everywhere-5.15.5-use-python2.patch
-# FTBFS TRUE/FALSE undeclared
-Patch31: qtwebengine-everywhere-src-5.15.5-TRUE.patch
 Patch32: qtwebengine-skia-missing-includes.patch
-# Fix QtWebEngine on Apple M1 hardware (patch from Arch Linux ARM)
-## Cf. https://bugreports.qt.io/browse/QTBUG-108674
-## Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2144200
-## From: https://chromium-review.googlesource.com/c/chromium/src/+/3545665
-Patch33: qtwebengine-5.15-Backport-of-16k-page-support-on-aarch64.patch
 Patch34: qtwebengine-fix-build.patch
 Patch35: qt5-qtwebengine-c99.patch
 
 # Fix assembly with binutils 2.41 https://fftrac-bg.ffmpeg.org/ticket/10405
 Patch50: 0001-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch
+Patch51: qtwebengine-icu-74.patch
 
 ## Upstream patches:
 
@@ -450,14 +444,13 @@ popd
 ## upstream patches
 %patch24 -p1 -b .aarch64-new-stat
 %patch26 -p1 -b .use-python2
-%patch31 -p1 -b .TRUE
 %patch32 -p1 -b .skia-missing-includes
-%patch33 -p1 -b .aarch64-16kb-support
 %patch34 -p1 -b .fix-build
 
 %patch35 -p1 -b .c99
 
 %patch50 -p1 -b .0001-avcodec-x86-mathops-clip-constants-used-with-shift-i
+%patch51 -p1 -b .icu-74
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
@@ -683,6 +676,9 @@ done
 
 
 %changelog
+* Thu Feb 01 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.16-1
+- 5.15.16
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,7 +12,7 @@ BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.15
 BuildRequires:  mvn(junit:junit)
 
 BuildArch:      noarch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch:  %{java_arches} noarch
 %endif
 

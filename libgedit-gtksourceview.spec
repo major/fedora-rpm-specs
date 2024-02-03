@@ -3,12 +3,14 @@
 %global gtk_version 3.20
 
 Name:           libgedit-gtksourceview
-Version:        299.0.4
+Version:        299.0.5
 Release:        %autorelease
 Summary:        Gedit Technology - Source code editing widget
 License:        LGPL-2.1-or-later
-URL:            https://gedit-technology.net/
-Source0:        %{url}/tarballs/%{name}/%{name}-%{version}.tar.xz
+URL:            https://gedit-technology.github.io/
+Source:         https://github.com/gedit-technology/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+# %%generate_buildrequires in RPM spec
+Patch:          rpmspec.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -37,7 +39,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build

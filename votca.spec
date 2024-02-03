@@ -2,7 +2,7 @@ Name:           votca
 Version:        2024
 %global         uversion %{version}
 %global         sover 2024
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
@@ -251,6 +251,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Thu Feb 01 2024 Christoph Junghans <junghans@votca.org> - 2024-2
+- Rebuilt to gromacs-2024
+
 * Wed Jan 24 2024 Christoph Junghans <junghans@votca.org> - 2024-1
 - Version bump to v2024 (bug#2260025)
 

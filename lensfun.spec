@@ -16,6 +16,8 @@ Source0: https://github.com/lensfun/lensfun/archive/v%{version}/%{name}-%{versio
 
 ## upstream patches (master branch)
 Patch866: 0866-Pull-isnan-into-std-namespace-include-cmath-not-math.patch
+# https://github.com/lensfun/lensfun/commit/ec9412d27d5fa8f377848a59c768b12c243cb80d
+Patch1000: python.patch
 
 ## upstreamable patches
 # install manpages only when INSTALL_HELPER_SCRIPTS=ON
@@ -30,6 +32,7 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(zlib)
 %if 0%{?python3:1}
 BuildRequires: %{python3} %{python3}-devel
+BuildRequires: python3-setuptools
 %else
 Obsoletes: lensfun-python3 < %{version}-%{release}
 Obsoletes: lensfun-tools < %{version}-%{release}
@@ -77,6 +80,7 @@ Obsoletes: python34-lensfun < %{version}-%{release}
 
 
 %patch -P 866 -p1 -b .0866
+%patch -P 1000 -p1 -b .1000
 
 %patch -P 200 -p1 -b .INSTALL_HELPER_SCRIPTS
 

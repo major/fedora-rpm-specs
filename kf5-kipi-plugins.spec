@@ -2,7 +2,7 @@
 
 Name:    kf5-%{base_name}
 Summary: Plugins to use with kf5-libkipi applications
-Version: 24.01.90
+Version: 24.01.95
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/kipiplugins.deskt
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Fri Jan 26 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
 - 24.01.90
 

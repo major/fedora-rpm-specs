@@ -358,7 +358,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 6
+%global baserelease 7
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -374,8 +374,9 @@ Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz
 Source1: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz.sig
 Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
 
-# https://patchwork.kernel.org/project/qemu-devel/patch/20231128143647.847668-1-crobinso@redhat.com/
 # Fix pvh.img ld build failure on fedora rawhide
+# Not yet submitted upstream in this form. Original attempt is here:
+# https://patchwork.kernel.org/project/qemu-devel/patch/20231128143647.847668-1-crobinso@redhat.com/
 Patch: 0001-pc-bios-optionrom-Fix-pvh.img-ld-build-failure-on-fe.patch
 
 
@@ -1920,7 +1921,9 @@ pushd %{static_builddir}
 run_configure \
   --enable-attr \
   --enable-linux-user \
+%ifnarch %{power64}
   --enable-pie \
+%endif
   --enable-tcg \
   --disable-install-blobs \
   --static
@@ -3153,6 +3156,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Thu Feb 01 2024 Cole Robinson <crobinso@redhat.com> - 8.2.0-7
+- Enable PIE for qemu-user-static builds
+- Replace PVH build fix patch with version that should work on centos
+
 * Tue Jan 30 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-6
 - Fix builds on i686.
 

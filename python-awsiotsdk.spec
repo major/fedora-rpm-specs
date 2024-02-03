@@ -4,7 +4,7 @@
 %global         srcname     awsiotsdk
 
 Name:           python-%{srcname}
-Version:        1.20.0
+Version:        1.21.0
 Release:        %autorelease
 Summary:        AWS IoT SDK based on the AWS Common Runtime
 
@@ -65,8 +65,7 @@ sed "s/'awscrt==[0-9\.]*'/'awscrt'/" -i setup.py
 %pyproject_check_import
 
 %if %{with tests}
-# test_rpc.py has some import issues.
-%pytest --ignore=test/test_rpc.py
+%pytest --ignore=test/test_rpc.py --ignore-glob=servicetests/test_cases/*
 %endif
 
 

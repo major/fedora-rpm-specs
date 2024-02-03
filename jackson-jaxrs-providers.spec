@@ -10,7 +10,7 @@ URL:            https://github.com/FasterXML/jackson-jaxrs-providers
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch:  %{java_arches} noarch
 %endif
 

@@ -7,7 +7,7 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 24%{?dist}
+Release: 26%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
@@ -15,6 +15,7 @@ Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{versio
 #   which is included through %%license
 Patch0: sblim-sfcc-2.2.8-docdir-license.patch
 Patch1: c99.patch
+Patch2: c89.patch
 BuildRequires: make
 BuildRequires: curl-devel chrpath
 BuildRequires: gcc gcc-c++
@@ -33,8 +34,7 @@ Small Footprint CIM Client Library Header Files and Link Libraries
 %prep
 
 %setup -q
-%patch0 -p1 -b .docdir-license
-%patch1 -p1 -b .c99
+%autopatch -p1
 
 %build
 chmod a-x backend/cimxml/*.[ch]
@@ -66,6 +66,12 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
+* Thu Feb 01 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-26
+- Fix bogus date in changelog, use autopatch
+
+* Thu Feb 01 2024 Florian Weimer <fweimer@redhat.com> - 2.2.8-25
+- Add pointer casts for GCC 14/C89 compatibility
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -75,7 +81,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 * Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-22
 - SPDX migration
 
-* Wed Jan 21 2023 Timm Bäder <tbaeder@redhat.com> - 2.2.8-21
+* Sat Jan 21 2023 Timm Bäder <tbaeder@redhat.com> - 2.2.8-21
 - Add downstream patch to fix c99 incompatibilities
 - https://fedoraproject.org/wiki/Changes/PortingToModernC
 

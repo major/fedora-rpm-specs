@@ -12,10 +12,12 @@
 
 Epoch: 5
 Name: containers-common
-Version: 0.57.1
+Version: 0.57.3
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
+# for BuildRequires: go-md2man
+ExclusiveArch: %{golang_arches} noarch
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man
 Provides: skopeo-containers = %{epoch}:%{version}-%{release}
@@ -65,8 +67,8 @@ Requires: container-network-stack
 Requires: oci-runtime
 Recommends: crun
 Requires: (crun if fedora-release-identity-server)
-Recommends: netavark >= 1.6.0-1
-Requires: (netavark >= 1.6.0-1 if fedora-release-identity-server)
+Recommends: netavark >= 1.10.2-1
+Requires: (netavark >= 1.10.2-1 if fedora-release-identity-server)
 Recommends: slirp4netns
 Requires: (slirp4netns if fedora-release-identity-server)
 Recommends: passt

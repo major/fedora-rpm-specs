@@ -69,7 +69,9 @@ Take pictures and videos on your computer, tablet, or phone.
 %prep
 %autosetup -p1 -n snapshot-%{tarball_version}
 
-%if ! 0%{?bundled_rust_deps}
+%if 0%{?bundled_rust_deps}
+%cargo_prep -v vendor
+%else
 rm -rf vendor
 %cargo_prep
 %endif
@@ -88,9 +90,10 @@ cd ~-
 %meson
 %meson_build
 
-%if ! 0%{?rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%cargo_vendor_manifest
 %endif
 
 
@@ -111,8 +114,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Snapshot
 
 %files -f snapshot.lang
 %license LICENSE
-%if ! 0%{?rhel}
 %license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
 %endif
 %doc README.md
 %{_bindir}/snapshot

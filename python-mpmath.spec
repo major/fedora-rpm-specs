@@ -2,7 +2,7 @@ Name:           python-mpmath
 Version:        1.3.0
 Release:        %autorelease
 Summary:        A pure Python library for multiprecision floating-point arithmetic
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://mpmath.org
 # Source code
 Source0:        https://github.com/fredrik-johansson/mpmath/archive/%{version}/%{name}-%{version}.tar.gz
@@ -11,16 +11,25 @@ Source0:        https://github.com/fredrik-johansson/mpmath/archive/%{version}/%
 Patch0:         python-mpmath-1.0.0-sphinx.patch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pytest
 BuildRequires:  xorg-x11-server-Xvfb
 
 # For building documentation
 BuildRequires:  dvipng
+BuildRequires:  latexmk
 BuildRequires:  make
+BuildRequires:  tex(latex)
+BuildRequires:  tex(capt-of.sty)
+BuildRequires:  tex(ellipse.sty)
+BuildRequires:  tex(fncychap.sty)
+BuildRequires:  tex(framed.sty)
+BuildRequires:  tex(needspace.sty)
+BuildRequires:  tex(pict2e.sty)
+BuildRequires:  tex(tabulary.sty)
+BuildRequires:  tex(tgtermes.sty)
+BuildRequires:  tex(txtt.tfm)
+BuildRequires:  tex(upquote.sty)
+BuildRequires:  tex(wrapfig.sty)
 
 BuildArch:      noarch
 
@@ -42,29 +51,29 @@ Summary:        A pure Python library for multiprecision floating-point arithmet
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     python3-matplotlib
 %endif
-# The doc subpackage was dropped
-# (https://bugzilla.redhat.com/show_bug.cgi?id=2221964)
-Obsoletes:      %{name}-doc < 1.3.0-6
-%{?python_provide:%python_provide python3-mpmath}
 
 %description -n python3-mpmath %_description
 
 If you require plotting capabilities in mpmath, install python3-matplotlib.
 
+%package doc
+Summary:        HTML documentation for %{name}
+Requires:       python3-mpmath = %{version}-%{release}
+
+# BSD-3-Clause: the content
+# BSD-2-Clause: files in html/_static and html/searchindex.js, added by Sphinx
+License:        BSD-3-Clause AND BSD-2-Clause
+
+%description doc
+This package contains the HTML documentation for %{name}.
+
+%pyproject_extras_subpkg -n python3-mpmath gmpy
 
 %prep
 %setup -q -n mpmath-%{version}
-%if 0%{?rhel} == 6 || 0%{?rhel} == 7
-%patch0 -p1 -b .sphinx
+%if 0%{?rhel} == 7
+%patch -P0 -p1 -b .sphinx
 %endif
-
-# Convert line encodings
-for doc in CHANGES LICENSE README.rst TODO mpmath/tests/runtests.py; do
- sed "s|\r||g" $doc > $doc.new && \
- touch -r $doc $doc.new && \
- mv $doc.new $doc
-done
-find docs -name *.txt -exec sed -i "s|\r||g" {} \;
 
 shebangs="mpmath/matrices/eigen.py mpmath/matrices/eigen_symmetric.py mpmath/tests/runtests.py mpmath/tests/test_eigen.py mpmath/tests/test_eigen_symmetric.py mpmath/tests/test_levin.py"
 # Get rid of unnecessary shebangs
@@ -74,23 +83,34 @@ for lib in $shebangs; do
  mv $lib.new $lib
 done
 
-sed -i -r 's/use_scm_version=True/version="%{version}"/' setup.py
+%generate_buildrequires
+%pyproject_buildrequires -x docs,gmpy,tests
 
 %build
-%py3_build
+%pyproject_wheel
+
+# Build documentation
+export PYTHONPATH=$PWD/build/lib
+mkdir -p docs/latex
+sphinx-build -b latex %{?_smp_mflags} docs docs/latex
+%make_build -C docs/latex
+mkdir -p docs/html
+sphinx-build -b html %{?_smp_mflags} docs docs/html
+rm -rf docs/html/.{buildinfo,doctrees}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files mpmath
 
 %check
 cd build/lib/mpmath/tests/
 xvfb-run -a pytest-3 -v
 
-%files -n python3-mpmath
-%license LICENSE
+%files -n python3-mpmath -f %{pyproject_files}
 %doc CHANGES README.rst
-%{python3_sitelib}/mpmath/
-%{python3_sitelib}/mpmath-%{version}-*.egg-info
+
+%files doc
+%doc docs/latex/mpmath.pdf docs/html
 
 %changelog
 %autochangelog

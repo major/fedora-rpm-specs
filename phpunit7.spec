@@ -1,15 +1,13 @@
 # remirepo/fedora spec file for phpunit7
 #
-# Copyright (c) 2010-2022 Remi Collet
+# Copyright (c) 2010-2024 Remi Collet
 #
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-# For compatibility with SCL
-%undefine __brp_mangle_shebangs
 
 %global gh_commit    9467db479d1b0487c99733bb1e7944d32deded2c
 #global gh_date      20150927
@@ -31,7 +29,7 @@ Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
 Release:        15%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_vendor}/%{gh_project}
 Source0:        https://github.com/%{gh_vendor}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -41,6 +39,8 @@ Patch0:         %{name}-rpm.patch
 Patch1:         %{name}-php8.patch
 # Fix for new comparator
 Patch2:         %{name}-comp.patch
+# Minimal fix for PHP 8.1
+Patch3:         %{name}-php81.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -138,6 +138,11 @@ Requires:       php-spl
 # projects have been merged
 Obsoletes:      php-phpunit-mock-objects6 < 6.1.3
 
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+Provides:       php-composer(phpunit/phpunit) = %{version}
+Provides:       phpunit                       = %{version}-%{release}
+%endif
+
 
 %description
 PHPUnit is a programmer-oriented testing framework for PHP.
@@ -155,9 +160,10 @@ Documentation: https://phpunit.readthedocs.io/
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p1 -b .rpm
-%patch1 -p1 -b .php8
-%patch2 -p1 -b .comp
+%patch -P0 -p1 -b .rpm
+%patch -P1 -p1 -b .php8
+%patch -P2 -p1 -b .comp
+%patch -P3 -p1 -b .php8
 
 find . -name \*.php8 -delete -print
 find . -name \*.comp -delete -print
@@ -176,7 +182,6 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/Text/Template/Autoload.php',
     '%{php_home}/SebastianBergmann/CodeCoverage6/autoload.php',
     '%{php_home}/SebastianBergmann/Timer/autoload.php',
-    '%{php_home}/Prophecy/autoload.php',
     '%{php_home}/SebastianBergmann/Diff3/autoload.php', // Before comparator which may load v2
     '%{php_home}/SebastianBergmann/Comparator3/autoload.php',
     '%{php_home}/SebastianBergmann/Environment4/autoload.php',
@@ -190,6 +195,8 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/SebastianBergmann/Invoker/autoload.php',
     '%{php_home}/PharIo/Manifest/autoload.php',
     '%{php_home}/PharIo/Version/autoload.php',
+    // May load Comparator/RecursionContext bad version
+    '%{php_home}/Prophecy/autoload.php',
 ]);
 // Extensions
 \Fedora\Autoloader\Dependencies::optional([
@@ -219,7 +226,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php73 php74 php80 php81; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
      OPT="--testsuite=unit --no-coverage"
      VER=$($cmd -r  'echo PHP_VERSION_ID;');
@@ -229,7 +236,9 @@ for cmd in php php73 php74 php80 php81; do
      fi
      if [ $VER -ge 80000 ]; then
        FILTER="$FILTER|testCountTraversable|testConstraintTraversableCheckForObjectIdentityForDefaultCase"
-       OPT="$OPT --filter '^((?!($FILTER)).)*$'"
+     fi
+     if [ $VER -ge 80300 ]; then
+       FILTER="$FILTER|testMessageXdebugScreamCompatibility|testGetOriginalException|testNoOriginalExceptionInStacktrace|testIsInIsolationReturnsTrue"
      fi
      if [ -n "$FILTER" ]; then
        OPT="$OPT --filter '^((?!($FILTER)).)*$'"
@@ -249,6 +258,9 @@ exit $ret
 
 
 %changelog
+* Thu Feb  1 2024 Remi Collet <remi@remirepo.net> - 7.5.20-15
+- add minimal fix for PHP 8.1, FTBFS #2261517
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.20-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

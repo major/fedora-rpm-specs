@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-compute
 
 Name:           python-%{srcname}
-Version:        30.3.0
+Version:        30.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure Compute Client Library for Python
 License:        MIT

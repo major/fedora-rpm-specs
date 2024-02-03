@@ -12,8 +12,8 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:       pl
-Version:    9.0.4
-Release:    4%{?dist}
+Version:    9.2.0
+Release:    1%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
 #library/dialect/iso/iso_predicates.pl  BSD-2-Clause AND (GPL-2.0-or-later WITH
@@ -157,6 +157,8 @@ Patch1:     swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 Patch2:     swipl-8.2.0-unbundle-libstemmer.patch
 # Fix the bundled minizip for zlib-ng
 Patch3:     swipl-9.0.4-zlib.patch
+# Fix an LTO type mismatch
+Patch4:     swipl-9.2.0-lto-mismatch.patch
 
 BuildRequires:  cmake
 BuildRequires:  findutils
@@ -350,10 +352,9 @@ in Prolog. In both setups it provides a re-entrant bidirectional interface.
 
 # Fix the installation path on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
-  sed -e 's,\${CMAKE_INSTALL_PREFIX}/lib,&64,' \
-      -e 's,lib\(/\${SWIPL_INSTALL_DIR}\),lib64\1,' \
+  sed -e 's,lib\(/\${SWIPL_INSTALL_DIR}\),lib64\1,' \
       -e '/SWIPL_INSTALL_CMAKE_CONFIG_DIR/s/lib/&64/' \
-      -i CMakeLists.txt
+      -i cmake/LocationsPostPorts.cmake
 fi
 
 # Unpack the XPCE user guide
@@ -403,14 +404,12 @@ export DISABLE_PKGS="jpl"
 
 # Configure
 %cmake \
-%if 0%{?fedora}
-  -DBUILD_PDF_DOCUMENTATION:BOOL=ON \
-%else
-  -DBUILD_PDF_DOCUMENTATION:BOOL=OFF \
-%endif
+  -DBUILD_PDF_DOCUMENTATION:BOOL=%{?fedora:ON}%{!?fedora:OFF} \
+  -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
   -DCPACK_GENERATOR:STRING=RPM \
   -DGET0SIG_CONST_T:STRING=const \
-  -DJQUERYDIR:STRING=%{_datadir}/javascript/jquery/latest \
+  -DJQUERYDIR:PATH=%{_datadir}/javascript/jquery/latest \
+  -DSWIPL_INSTALL_IN_LIB:BOOL=ON \
   -DSWIPL_VERSIONED_DIR:BOOL=ON \
   -G Ninja
 
@@ -482,6 +481,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_mandir}/man1/swipl*
 %{_bindir}/swipl
 %{_bindir}/swipl-ld
+%{_libdir}/libswipl.so.9*
 %dir %{_libdir}/swipl-%{version}/
 %dir %{_libdir}/swipl-%{version}/bin/
 %{_libdir}/swipl-%{version}/bin/latex2html
@@ -489,6 +489,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %dir %{_libdir}/swipl-%{version}/bin/%{swipl_arch}/
 %{_libdir}/swipl-%{version}/bin/%{swipl_arch}/swipl
 %{_libdir}/swipl-%{version}/bin/%{swipl_arch}/swipl-ld
+%{_libdir}/swipl-%{version}/app/
 %{_libdir}/swipl-%{version}/boot*
 %{_libdir}/swipl-%{version}/customize/
 %{_libdir}/swipl-%{version}/demo/
@@ -505,9 +506,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/http_stream.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/inclpr.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/isub.so
+%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/janus.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/json.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libedit4pl.so
-%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libswipl.so.*
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/mallocinfo.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/md54pl.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/memfile.so
@@ -530,6 +531,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/socket.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/ssl4pl.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/streaminfo.so
+%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/sweep-module.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/syslog.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/table.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/tex.so
@@ -551,10 +553,10 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 # Exclude the files that are in the sub-packages
 %ifarch %{java_arches}
 # JPL
-%exclude %{_libdir}/swipl-%{version}/library/jpl.pl
+%exclude %{_libdir}/swipl-%{version}/library/ext/jpl
 %endif
 # ODBC
-%exclude %{_libdir}/swipl-%{version}/library/odbc.pl
+%exclude %{_libdir}/swipl-%{version}/library/ext/odbc
 
 %if %{separate_xpce}
 %files xpce
@@ -569,11 +571,11 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %endif
 
 %files devel
+%{_libdir}/libswipl.so
 %{_libdir}/swipl-%{version}/cmake/
 %dir %{_libdir}/swipl-%{version}/include/
 %{_libdir}/swipl-%{version}/include/sicstus/
 %{_libdir}/swipl-%{version}/include/SWI*
-%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libswipl.so
 %{_libdir}/cmake/swipl/
 %{_datadir}/pkgconfig/swipl.pc
 
@@ -589,7 +591,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 %files odbc
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/odbc4pl.so
-%{_libdir}/swipl-%{version}/library/odbc.pl
+%{_libdir}/swipl-%{version}/library/ext/odbc
 %doc packages/odbc/{demo,ChangeLog,README}
 
 %ifarch %{java_arches}
@@ -598,12 +600,16 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %{_jnidir}/jpl.jar
 %{_libdir}/swipl-%{version}/lib/jpl*jar
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libjpl.so
-%{_libdir}/swipl-%{version}/library/jpl.pl
+%{_libdir}/swipl-%{version}/library/ext/jpl/
 %{_libdir}/swipl-jpl/
 %endif
 
 
 %changelog
+* Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 9.2.0-1
+- Version 9.2.0
+- Add patch to fix an LTO type mismatch
+
 * Mon Jan 22 2024 Jerry James <loganjerry@gmail.com> - 9.0.4-4
 - Add patch for zlib-ng
 

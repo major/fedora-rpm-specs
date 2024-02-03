@@ -1,10 +1,10 @@
 Summary: C source code tree search and browse tool
 Name: cscope
 Version: 15.9
-Release: 21%{?dist}
+Release: 22%{?dist}
 Source0: https://downloads.sourceforge.net/project/%{name}/%{name}/v%{version}/%{name}-%{version}.tar.gz
 URL: http://cscope.sourceforge.net
-License: BSD and GPLv2+
+License: BSD-3-Clause AND GPL-2.0-or-later
 BuildRequires: pkgconf-pkg-config ncurses-devel gcc flex bison m4
 BuildRequires: autoconf automake make
 Requires: emacs-filesystem coreutils ed
@@ -109,6 +109,9 @@ rm -f %{emacs_lisp_path}/xcscope.el
 rm -f %{vim_plugin_path}/cctree.vim
 
 %changelog
+* Thu Feb 01 2024 Vladis Dronov <vdronov@redhat.com> - 15.9-22
+- Use proper SPDX license identifiers
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.9-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

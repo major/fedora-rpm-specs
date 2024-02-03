@@ -21,6 +21,9 @@ BuildRequires:  vulkan-headers
 %package        devel
 Summary:        Development files for %{name}
 Requires:       vulkan-headers
+Obsoletes:      vulkan-validation-layers-devel < 1.3.268.0-2
+Provides:       vulkan-validation-layers-devel = %{version}-%{release}
+Provides:       vulkan-validation-layers-devel%{?_isa} = %{version}-%{release}
 
 %description    devel
 %{summary}

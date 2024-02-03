@@ -1,8 +1,8 @@
 %global somajor 8
 
 Name:           ode
-Version:        0.16.3
-Release:        4%{?dist}
+Version:        0.16.4
+Release:        1%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
 License:        BSD or LGPLv2+
 URL:            https://bitbucket.org/odedevs/ode
@@ -45,7 +45,7 @@ developing applications that use %{name} or %{name}-double.
 %prep
 %setup -q
 ./bootstrap
-%patch1 -p1
+%patch -P 1 -p1
 # allow overriding EXTRA_LIBTOOL_LDFLAGS from the make cmdline
 sed -i 's/libode_la_LDFLAGS = @EXTRA_LIBTOOL_LDFLAGS@/libode_la_LDFLAGS = $(EXTRA_LIBTOOL_LDFLAGS)/' \
   ode/src/Makefile.in
@@ -119,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.16.4-1
+- 0.16.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

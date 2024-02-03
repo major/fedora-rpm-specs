@@ -19,12 +19,17 @@
 %global debug_package %{nil}
 %endif
 
+# Minimum X.Y dep for aardvark-dns
+%define major_minor %((v=%{version}; echo ${v%.*}))
+
 Name: netavark
 # Set a different Epoch for copr builds
 %if %{defined copr_username}
 Epoch: 102
+%else
+Epoch: 0
 %endif
-Version: 1.10.1
+Version: 1.10.2
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -40,8 +45,9 @@ Source0: %{url}/archive/v%{version}.tar.gz
 Source1: %{url}/releases/download/v%{version}/%{name}-v%{version}-vendor.tar.gz
 BuildRequires: cargo
 BuildRequires: %{_bindir}/go-md2man
-Recommends: aardvark-dns
-Requires: (aardvark-dns if fedora-release-identity-server)
+# aardvark-dns and %%{name} are usually released in sync
+Recommends: aardvark-dns >= %{epoch}:%{major_minor}
+Requires: (aardvark-dns >=  %{epoch}:%{major_minor} if fedora-release-identity-server)
 Provides: container-network-stack = 2
 BuildRequires: make
 BuildRequires: protobuf-c

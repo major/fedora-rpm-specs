@@ -1,13 +1,14 @@
 Name:           apache-logging-parent
 Summary:        Parent pom for Apache Logging Services projects
 Version:        9
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Apache-2.0
 
 URL:            https://logging.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/logging/logging-parent/%{version}/logging-parent-%{version}-source-release.zip
-Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
+Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache:apache:pom:)
@@ -38,6 +39,9 @@ cp -p %SOURCE1 LICENSE
 
 
 %changelog
+* Thu Feb 01 2024 Marian Koncek <mkoncek@redhat.com> - 9-5
+- Add ExclusiveArch field
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

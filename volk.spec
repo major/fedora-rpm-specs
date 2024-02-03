@@ -1,6 +1,6 @@
 Name:          volk
-Version:       3.1.0
-Release:       3%{?dist}
+Version:       3.1.1
+Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPLv3+
 URL:           https://github.com/gnuradio/%{name}
@@ -111,6 +111,10 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Feb  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.1-1
+- New version
+  Resolves: rhbz#2262148
+
 * Wed Jan 31 2024 José Expósito <jexposit@redhat.com> - 3.1.0-3
 - Add conflict with vulkan-volk
 

@@ -44,6 +44,8 @@ Source9: ipv6-up
 Source10: ifup-ppp
 Source11: ifdown-ppp
 Source12: ppp-watch.tar.xz
+Source13: ipv6-up.initscripts
+Source14: ipv6-down.initscripts
 
 # Fedora-specific
 Patch0: ppp-2.5.0-use-change-resolv-function.patch
@@ -136,6 +138,8 @@ install -p %{SOURCE6} %{buildroot}%{_sysconfdir}/ppp/ip-up
 install -p %{SOURCE7} %{buildroot}%{_sysconfdir}/ppp/ip-up.ipv6to4
 install -p %{SOURCE8} %{buildroot}%{_sysconfdir}/ppp/ipv6-down
 install -p %{SOURCE9} %{buildroot}%{_sysconfdir}/ppp/ipv6-up
+install -p %{SOURCE13} %{buildroot}%{_sysconfdir}/ppp/ipv6-down.initscripts
+install -p %{SOURCE14} %{buildroot}%{_sysconfdir}/ppp/ipv6-up.initscripts
 
 install -d %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/
 install -p %{SOURCE10} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/ifup-ppp
@@ -164,7 +168,9 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %{_sysconfdir}/ppp/ip-up.ipv6to4
 %{_sysconfdir}/ppp/ip-down.ipv6to4
 %{_sysconfdir}/ppp/ipv6-up
+%{_sysconfdir}/ppp/ipv6-up.initscripts
 %{_sysconfdir}/ppp/ipv6-down
+%{_sysconfdir}/ppp/ipv6-down.initscripts
 %{_sysconfdir}/ppp/openssl.cnf
 %{_mandir}/man8/chat.8*
 %{_mandir}/man8/pppd.8*

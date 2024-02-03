@@ -21,8 +21,8 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.19.2
-Release:        4%{?dist}
+Version:        1.19.6
+Release:        1%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Thu Feb 01 2024 Miroslav Lichvar <mlichvar@redhat.com> - 1.19.6-1
+- update to 1.19.6
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

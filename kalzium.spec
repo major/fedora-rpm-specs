@@ -16,8 +16,8 @@
 
 Name:    kalzium
 Summary: Periodic Table of Elements
-Version: 24.01.90
-Release: 4%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/education/kalzium
@@ -147,6 +147,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalzium_c
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Fri Jan 26 2024 Cristian Le <fedora@lecris.me> - 24.01.90-4
 - Update Spglib library dependency
 

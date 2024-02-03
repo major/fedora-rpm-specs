@@ -1,24 +1,30 @@
 %bcond_with bootstrap
 
 Name:           moditect
-Version:        1.0.0
-Release:        5%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Tooling for the Java Module System
 License:        Apache-2.0
 URL:            https://github.com/moditect/moditect
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        %{url}/archive/%{version}.Final/%{name}-%{version}.Final.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(com.github.javaparser:javaparser-core)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
+BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.assertj:assertj-core)
+BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
 
 %description
@@ -44,7 +50,7 @@ Summary:        Javadoc for %{name}
 Javadoc for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}.Final
+%setup -q
 
 %pom_remove_parent parent
 %pom_xpath_inject 'pom:project' '<groupId>org.moditect</groupId>' parent
@@ -59,7 +65,7 @@ Javadoc for %{name}.
 rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 
 %build
-%mvn_build
+%mvn_build -- -Dproject.build.sourceEncoding=UTF-8
 
 %install
 %mvn_install
@@ -72,6 +78,9 @@ rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 %license LICENSE.txt
 
 %changelog
+* Thu Feb 01 2024 Marian Koncek <mkoncek@redhat.com> - 1.1.0-1
+- Update to upstream version 1.1.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Image-PNG-Libpng
-Version:        0.57
-Release:        12%{?dist}
+Version:        0.58
+Release:        1%{?dist}
 Summary:        Perl interface to the libpng library
 # lib/Image/PNG/Const.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Image/PNG/Libpng.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,10 +8,11 @@ Summary:        Perl interface to the libpng library
 # Makefile.PL:              GPL-1.0-or-later OR Artistic-1.0-Perl
 # repackage.sh:             GPL-2.0-or-later
 # t/libpng/PngSuite.LICENSE:    FSFUL-like (contrib/pngsuite bundled from libpng)
+#                           TODO: Waiting on a license review
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/474>.
 ## Stripped from the source archive
 # examples/life.png:        CC-BY-NC-2.5
 # examples/life-gray.png:   CC-BY-NC-2.5
-# t/emoticon.png:           CC-BY-NC-2.5
 # t/tantei-san.png:         "I don't have permission to disseminate it."
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-PNG-Libpng
@@ -23,10 +24,7 @@ Source0:        Image-PNG-Libpng-%{version}_repackaged.tar.gz
 Source1:        repackage.sh
 # Adapt tests to the stripped source archive. Not suitable for an upstream.
 # <https://github.com/benkasminbullock/image-png-libpng/issues/36>.
-Patch0:         Image-PNG-Libpng-0.57-Remove-tests-depending-on-proprietary-files.patch
-# Adapt tests to zlib-ng, bug #2259160, proposed the the upstream,
-# <https://github.com/benkasminbullock/image-png-libpng/issues/40>
-Patch1:         Image-PNG-Libpng-0.57-Remove-size-tests-from-t-compress-level.t.patch
+Patch0:         Image-PNG-Libpng-0.58-Remove-tests-depending-on-proprietary-files.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -130,6 +128,7 @@ set -e
 DIR=$(mktemp -d)
 cp -a %{_libexecdir}/%{name}/t "$DIR"
 pushd "$DIR"
+unset ORIGINAL_ZLIB
 prove -I . -j 1
 popd
 rm -r "$DIR"
@@ -137,6 +136,7 @@ EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset ORIGINAL_ZLIB
 # Tests are not parallel-safe, they overwrite same-named files
 make test
 
@@ -156,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 01 2024 Petr Pisar <ppisar@redhat.com> - 0.58-1
+- 0.58 bump
+
 * Tue Jan 23 2024 Petr Pisar <ppisar@redhat.com> - 0.57-12
 - Adapt tests to zlib-ng (bug #2259160)
 

@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.4.2
+%global upstream_version 6.4.3
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -21,7 +21,7 @@ Summary:    Blog tool and publishing platform
 URL:        http://www.wordpress.org
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    2%{?dist}
+Release:    1%{?dist}
 # Wordpress     is GPL-2.0-or-later
 # php-simplepie is BSD-3-Clause
 # php-getid3    is LGPL-3.0-or-later (or some others)
@@ -266,6 +266,9 @@ end
 
 
 %changelog
+* Thu Feb  1 2024 Remi Collet <remi@remirepo.net> - 6.4.3-1
+- WordPress 6.4.3 Maintenance & Security Release
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

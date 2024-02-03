@@ -2,7 +2,7 @@
 
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
-Version: 24.01.90
+Version: 24.01.95
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -72,6 +72,9 @@ Requires: cmake(KF5XmlGui)
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
+- 24.01.95
+
 * Fri Jan 26 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.90-1
 - 24.01.90
 

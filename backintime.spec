@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.4.1
-Release:          3%{?dist}
+Version:          1.4.3
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 License:          GPLv2+
 URL:              https://github.com/bit-team/backintime
@@ -12,6 +12,7 @@ BuildRequires:    gettext
 BuildRequires:    python-rpm-macros
 BuildRequires:    python%{python3_pkgversion}-devel
 BuildRequires:    systemd
+BuildRequires:    pylint
 Requires:         %{name}-common = %{version}-%{release}
 # we place additional icons
 Requires:         hicolor-icon-theme
@@ -19,6 +20,7 @@ Requires:         hicolor-icon-theme
 # execution of tests
 BuildRequires:    python%{python3_pkgversion}-pyfakefs
 BuildRequires:    python%{python3_pkgversion}-pytest
+BuildRequires:    python%{python3_pkgversion}-pylint
 BuildRequires:    python%{python3_pkgversion}-dbus
 BuildRequires:    python%{python3_pkgversion}-qt5-base
 BuildRequires:    /usr/bin/ssh-agent
@@ -100,7 +102,8 @@ pushd common
 %configure
 popd
 pushd qt
-%configure
+%configure \
+	--python=%{__python3}
 popd
 
 %make_build -C common
@@ -163,7 +166,7 @@ make -C common test-v
 %{_datadir}/bash-completion/completions/backintime
 %{_datadir}/dbus-1/system-services/net.launchpad.backintime.serviceHelper.service
 %{_datadir}/polkit-1/actions/net.launchpad.backintime.policy
-%{_sysconfdir}/dbus-1/system.d/net.launchpad.backintime.serviceHelper.conf
+%{_datadir}/dbus-1/system.d/net.launchpad.backintime.serviceHelper.conf
 %{_mandir}/man1/%{name}*
 
 %files plugins
@@ -185,6 +188,9 @@ make -C common test-v
 
 
 %changelog
+* Thu Feb 01 2024 Johannes Lips <hannes@fedoraproject.org> - 1.4.3-1
+- update to latest upstream release
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

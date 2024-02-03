@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.9.2
-Release:	1%{?alphatag:.%{alphatag}}%{?dist}
+Release:	2%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -69,6 +69,7 @@ BuildRequires:	python3-mako
 BuildRequires:	python3-qt5-devel
 BuildRequires:	python3-scipy
 BuildRequires:	python3-thrift
+BuildRequires:	python3-zmq
 BuildRequires:	qwt-qt5-devel
 BuildRequires:	tex(latex)
 BuildRequires:	SDL-devel
@@ -99,6 +100,7 @@ Requires:	python3-click-plugins
 Requires:	python3-qt5
 Requires:	python3-scipy
 Requires:	python3-pyqtgraph
+Requires:	python3-zmq
 Requires:	gtk3
 Suggests:	soapy-rtlsdr
 
@@ -211,6 +213,10 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Feb  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.9.2-2
+- Added python3-zmq requirement
+  Resolves: rhbz#2262173
+
 * Mon Jan 22 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.9.2-1
 - New version
   Resolves: rhbz#2258885

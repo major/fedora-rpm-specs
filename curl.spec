@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.5.0
-Release: 2%{?dist}
+Version: 8.6.0
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -10,8 +10,8 @@ Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
 
-# add missing test script tests/errorcodes.pl to the tarball
-Patch001: 001-dist-add-tests-errorcodes.pl-to-the-tarball.patch
+# remove duplicate content from curl-config.1
+Patch001: 0001-curl-8.6.0-remove-duplicate-content.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -371,6 +371,10 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/fish
 
 rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 
+# Don't install man for mk-ca-bundle it's upstream bug
+# should be fixed in next release https://github.com/curl/curl/pull/12843
+rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
+
 %ldconfig_scriptlets -n libcurl
 
 %ldconfig_scriptlets -n libcurl-minimal
@@ -413,6 +417,12 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Feb 01 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2024-0853 - OCSP verification bypass with TLS session reuse
+- drop 001-dist-add-tests-errorcodes.pl-to-the-tarball.patch (replaced by upstream fix)
+- remove accidentally included mk-ca-bundle.1 man page (upstream bug #12843)
+
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

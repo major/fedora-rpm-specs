@@ -1,13 +1,15 @@
 %if 0%{?rhel} >= 10
 %bcond_with compat_libs
+%bcond_with gpm
 %else
 %bcond_without compat_libs
+%bcond_without gpm
 %endif
-%global revision 20240113
+%global revision 20240127
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 11.%{revision}%{?dist}
+Release: 12.%{revision}%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -17,7 +19,8 @@ Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072
 Patch8: ncurses-config.patch
 Patch9: ncurses-libs.patch
 Patch11: ncurses-urxvt.patch
-BuildRequires: gcc gcc-c++ gpm-devel gnupg2 make pkgconfig
+BuildRequires: gcc gcc-c++ gnupg2 make pkgconfig
+%{?with_gpm:BuildRequires: gpm-devel}
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -144,6 +147,7 @@ common_options="\
     --with-termlib=tinfo \
     --with-ticlib=tic \
     --with-xterm-kbs=DEL \
+%{!?with_gpm:--without-gpm} \
     --without-ada"
 abi5_options="--with-chtype=long"
 
@@ -235,7 +239,6 @@ echo "INPUT(-ltinfo)" > $RPM_BUILD_ROOT%{_libdir}/libtermcap.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/ncurses*5-config
 rm -f $RPM_BUILD_ROOT%{_libdir}/terminfo
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/*_g.pc
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/init.1*
 
 xz NEWS
 
@@ -295,6 +298,10 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Feb 01 2024 Miroslav Lichvar <mlichvar@redhat.com> 6.4-12.20240127
+- update to 6.4-20240127
+- disable gpm on RHEL >= 10 (RHEL-23679)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-11.20240113
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

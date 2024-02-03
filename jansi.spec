@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:             jansi
-Version:          2.4.0
-Release:          12%{?dist}
+Version:          2.4.1
+Release:          1%{?dist}
 Summary:          Generate and interpret ANSI escape sequences in Java
 License:          Apache-2.0
 URL:              http://fusesource.github.io/jansi/
@@ -23,9 +23,10 @@ BuildRequires:    javapackages-bootstrap
 BuildRequires:    maven-local
 BuildRequires:    mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:    mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:    mvn(org.apache.maven.surefire:surefire-junit-platform)
 BuildRequires:    mvn(org.fusesource:fusesource-pom:pom:)
-BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-engine)
+BuildRequires:    mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-params)
+BuildRequires:    mvn(org.moditect:moditect-maven-plugin)
 %endif
 
 %description
@@ -51,21 +52,11 @@ This package contains the API documentation for %{name}.
 %pom_remove_plugin :maven-gpg-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin :nexus-staging-maven-plugin
+%pom_remove_plugin :spotless-maven-plugin
 
 # We don't want GraalVM support in Fedora
 %pom_remove_plugin :exec-maven-plugin
 %pom_remove_dep :picocli-codegen
-
-# Build for JDK 1.8 at a minimum
-%pom_xpath_set "//pom:properties/pom:jdkTarget" 1.8
-
-# Remove prebuilt shared objects
-rm -fr src/main/resources/org/fusesource/jansi/internal
-
-# Unbundle the JNI headers
-rm src/main/native/inc_linux/*.h
-ln -s %{java_home}/include/jni.h src/main/native/inc_linux
-ln -s %{java_home}/include/linux/jni_md.h src/main/native/inc_linux
 
 # Set the JNI path
 sed -i 's,@LIBDIR@,%{_prefix}/lib,' \
@@ -104,6 +95,9 @@ cp -p src/main/native/libjansi.so %{buildroot}%{_prefix}/lib/%{name}
 %license license.txt
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.1-1
+- Update to upstream version 2.4.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

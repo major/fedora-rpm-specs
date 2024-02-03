@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        1.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build deviation analysis and compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPL-3.0-or-later, and:
@@ -192,6 +192,9 @@ control files.
 
 
 %changelog
+* Thu Feb 01 2024 Pete Walter <pwalter@fedoraproject.org> - 1.12.1-2
+- Rebuild for ICU 74
+
 * Thu Oct 12 2023 David Cantrell <dcantrell@redhat.com> - 1.12.1-1
 - Upgrade to rpminspect-1.12.1
 

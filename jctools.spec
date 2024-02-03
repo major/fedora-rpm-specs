@@ -3,8 +3,8 @@
 %global srcname JCTools
 
 Name:           jctools
-Version:        4.0.1
-Release:        6%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        Apache-2.0
 
@@ -101,6 +101,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.2-1
+- Update to upstream version 4.0.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

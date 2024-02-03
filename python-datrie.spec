@@ -26,7 +26,16 @@ Source:         %{pypi_source datrie}
 # UnicodeDecodeError: 'utf32' codec can't decode bytes in position 0-3: code
 # point not in range(0x110000)
 # https://github.com/pytries/datrie/issues/38
-Patch:          https://github.com/pytries/datrie/pull/85.patch
+Patch:          %{url}/pull/85.patch
+# Fix AlphaMap definition in cdatrie.pxd
+# Fixes failure to compile on GCC with -Werror=incompatible-pointer-types.
+# https://github.com/pytries/datrie/pull/99
+#
+# Fixes:
+#
+# python-datrie: FTBFS in Fedora rawhide/f40
+# https://bugzilla.redhat.com/show_bug.cgi?id=2261554
+Patch:          %{url}/pull/99.patch
 
 BuildRequires:  python3-devel
 

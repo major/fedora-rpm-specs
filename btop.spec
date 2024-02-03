@@ -1,6 +1,6 @@
 Name:           btop
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -13,15 +13,22 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
-%if 0%{?el8} || 0%{?el9}
+%if 0%{?el8}
 BuildRequires:  gcc-toolset-12-gcc-c++
 BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 BuildRequires:  gcc-toolset-12-binutils
 %endif
+%if 0%{?el9}
+BuildRequires:  gcc-toolset-13-gcc-c++
+BuildRequires:  gcc-toolset-13-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-13-binutils
+%endif
 
 # gpu support
 %if 0%{?fedora}
+%ifnarch i686 s390x
 BuildRequires:  rocm-smi-devel
+%endif
 %endif
 
 Requires:       hicolor-icon-theme
@@ -45,7 +52,7 @@ C++ version and continuation of bashtop and bpytop.
 
 %build
 %{?el8:. /opt/rh/gcc-toolset-12/enable}
-%{?el9:. /opt/rh/gcc-toolset-12/enable}
+%{?el9:. /opt/rh/gcc-toolset-13/enable}
 
 # to build debuginfo
 export CXXFLAGS="${CXXFLAGS} -g"
@@ -67,6 +74,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Tue Jan 30 2024 Jonathan Wright <jonathan@almalinux.org> - 1.3.0-4
+- Fix FTBFS by fixing BR for certain arches
+- Build EPEL9 with gcc13
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

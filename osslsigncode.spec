@@ -26,6 +26,9 @@ Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # To prevent network access during tests
 # Patch0:     %{name}-preventnetwork-access-during-tests.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   i686
+
 BuildRequires: coreutils
 BuildRequires: gcc
 BuildRequires: cmake >= 3.17

@@ -5,12 +5,12 @@
 %global         srcname     azure-synapse-artifacts
 
 Name:           python-%{srcname}
-Version:        0.17.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Artifacts Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

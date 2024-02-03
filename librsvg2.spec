@@ -105,10 +105,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package provides extra utilities based on the librsvg library.
 
 %prep
-%autosetup -n librsvg-%{version} -p1
+%autosetup -n librsvg-%{version} -p1 %{?bundled_rust_deps:-a1}
 %if 0%{?bundled_rust_deps}
 # Use the bundled deps
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 # No bundled deps
 rm -vrf vendor .cargo Cargo.lock
@@ -130,9 +130,10 @@ export CARGO="%__cargo"
            --enable-vala
 %make_build
 
-%if %{undefined rhel}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%cargo_vendor_manifest
 %endif
 
 %install
@@ -156,8 +157,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %files
 %doc code-of-conduct.md NEWS README.md
 %license COPYING.LIB
-%if %{undefined rhel}
 %license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
 %endif
 %{_libdir}/librsvg-2.so.*
 %dir %{_libdir}/girepository-1.0

@@ -3,8 +3,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.92.0
-Release: 7%{?dist}
+Version: 5.93.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -38,11 +38,6 @@ Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
-
-# Upstream:: Will be fixed in RC2.
-# Patch to fix clicking in the taskbar, doesn't always minimize the app
-# https://invent.kde.org/plasma/plasma-workspace/-/commit/ef9b3c4a9995ee480e271eb8df4030b78b3cbc06
-Patch200:       5.92.0-fix-clicking-app-in-taskbar.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -659,6 +654,8 @@ fi
 %{_kf6_datadir}/kconf_update/plasma6.0-remove-dpi-settings.upd
 %{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels.upd
 %{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
+%{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.upd
+%{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.py
 %{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
 %{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
 %{_libdir}/kconf_update_bin/plasma6.0-remove-dpi-settings
@@ -719,6 +716,9 @@ fi
 
 
 %changelog
+* Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
+- 5.93.0
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 5.92.0-7
 - Rebuild for ICU 74
 

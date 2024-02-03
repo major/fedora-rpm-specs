@@ -5,7 +5,7 @@
 %global crate pep508_rs
 
 Name:           rust-pep508_rs
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Library for python dependency specifiers, better known as PEP 508
 

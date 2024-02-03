@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-cosmosdb
 
 Name:           python-%{srcname}
-Version:        9.3.0
+Version:        9.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure Cosmos DB Management Client Library for Python
 License:        MIT

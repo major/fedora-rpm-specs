@@ -38,7 +38,10 @@ BuildRequires:  fftw-devel
 BuildRequires:  glew-devel
 %endif
 BuildRequires:  gmp-devel
+%if 0
+# only used in benchmarks, not used in the RPM build
 BuildRequires:  gsl-devel
+%endif
 BuildRequires:  mpfr-devel
 BuildRequires:  gcc-gfortran
 %if %{with sparsehash}

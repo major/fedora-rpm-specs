@@ -1,8 +1,8 @@
-%global		gittag	4_1_0
+%global		gittag	4_1_1
 
 Name:		ogdi
-Version:	4.1.0
-Release:	13%{?dist}
+Version:	4.1.1
+Release:	1%{?dist}
 Summary:	Open Geographic Datastore Interface
 License:	BSD
 URL:		http://ogdi.sourceforge.net/
@@ -10,16 +10,17 @@ URL:		http://ogdi.sourceforge.net/
 Source0:	https://github.com/libogdi/ogdi/archive/%{name}_%{gittag}.tar.gz
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # https://bugzilla.redhat.com/show_bug.cgi?id=1470896
-Patch0:		ogdi-%{version}-sailer.patch
-Patch1: ogdi-c99.patch
+Patch0:		ogdi-4.1.0-sailer.patch
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc
-BuildRequires:	unixODBC-devel
 BuildRequires:	zlib-devel
 BuildRequires:	expat-devel
 BuildRequires:	tcl-devel
 BuildRequires:	libtirpc-devel
+
+# ODBC driver has been removed in 4.1.1 without replacement
+Obsoletes:	%{name}-odbc < 4.1.1
 
 %description
 OGDI is the Open Geographic Datastore Interface. OGDI is an
@@ -40,14 +41,6 @@ Requires:	zlib-devel expat-devel
 
 %description devel
 OGDI header files and developer's documentation.
-
-
-%package odbc
-Summary:	ODBC driver for OGDI
-Requires:	%{name} = %{version}-%{release}
-
-%description odbc
-ODBC driver for OGDI.
 
 
 %package tcl
@@ -89,9 +82,6 @@ export CFLAGS="$RPM_OPT_FLAGS -DDONT_TD_VOID -DUSE_TERMIO"
 # build contributions
 %{__make} -C contrib/gdal
 
-# build odbc drivers
-%{__make} -C ogdi/attr_driver/odbc \
-	ODBC_LINKLIB="-lodbc"
 
 %install
 # export env
@@ -106,8 +96,6 @@ TOPDIR=`pwd`; TARGET=Linux; export TOPDIR TARGET
 %{__make} install -C ogdi/tcl_interface \
 	INST_LIB=%{buildroot}%{_libdir}
 %{__make} install -C contrib/gdal \
-	INST_LIB=%{buildroot}%{_libdir}
-%{__make} install -C ogdi/attr_driver/odbc \
 	INST_LIB=%{buildroot}%{_libdir}
 
 # remove example binary
@@ -151,7 +139,6 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/ogdi_*
 %{_libdir}/libogdi.so.*
 %dir %{_libdir}/ogdi
-%exclude %{_libdir}/%{name}/liblodbc.so
 %exclude %{_libdir}/%{name}/libecs_tcl.so
 %{_libdir}/%{name}/lib*.so
 
@@ -166,14 +153,15 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 %{_includedir}/%{name}/*.h
 %{_libdir}/libogdi.so
 
-%files odbc
-%{_libdir}/%{name}/liblodbc.so
-
 %files tcl
 %{_libdir}/%{name}/libecs_tcl.so
 
 
 %changelog
+* Thu Feb 01 2024 Dan Horák <dan[at]danny.cz> - 4.1.1-1
+- Update to 4.1.1 (fixes rhbz#2261412)
+- Remove odbc subpackage
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

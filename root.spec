@@ -45,9 +45,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.30.02
+Version:	6.30.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	9%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -105,13 +105,11 @@ Patch11:	%{name}-avoid-out-of-memory-during-linking.patch
 Patch12:	%{name}-clad.patch
 Patch13:	%{name}-gtest-back.patch
 Patch14:	%{name}-np32.patch
-#		https://github.com/root-project/root/pull/14164
-Patch15:	%{name}-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch
-#		Only for EPEL 8 - disable tests not working with old gtest
-Patch16:	%{name}-old-gtest.patch
 #		Adjust tests for zlib-ng
 #		https://github.com/root-project/root/pull/14295
-Patch17:	%{name}-new-zlib.patch
+Patch15:	%{name}-new-zlib.patch
+#		Only for EPEL 8 - disable tests not working with old gtest
+Patch16:	%{name}-old-gtest.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -2005,7 +2003,6 @@ This package contains utility functions for ntuples.
 %if %{?rhel}%{!?rhel:0} == 8
 %patch -P 16 -p1
 %endif
-%patch -P 17 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2818,6 +2815,8 @@ gtest-math-matrix-test-testMatrixTSparse"
 %endif
 
 # Filter out parts of tests that require remote network access
+# TClingDataMemberInfo.Offset fails on s390x
+# https://github.com/root-project/root/issues/14512
 # RNTuple.TClassEBO seg fault
 # https://github.com/root-project/root/issues/12428
 GTEST_FILTER=-\
@@ -2827,6 +2826,9 @@ RSqliteDS.Davix:\
 TChainParsing.RemoteGlob:\
 TFile.ReadWithoutGlobalRegistrationNet:\
 TFile.ReadWithoutGlobalRegistrationWeb:\
+%ifarch s390x
+TClingDataMemberInfo.Offset:\
+%endif
 RNTuple.TClassEBO \
 %if ! ( %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8 )
 ROOTTEST_IGNORE_PANDAS_PY3=1 \
@@ -3743,6 +3745,12 @@ fi
 %endif
 
 %changelog
+* Wed Jan 31 2024 Mattias Ellert <ellert@ellert.se> - 6.30.04-1
+- Update to 6.30.04
+- Drop patch root-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch
+  (accepted upstrem)
+- Exclude failing TClingDataMemberInfo.Offset test on s390x
+
 * Fri Jan 26 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.02-9
 - Rebuilt for libarrow.so.1500
 

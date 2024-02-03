@@ -1,6 +1,6 @@
 Name:           libstrophe
-Version:        0.12.3
-Release:        3%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        An XMPP library for C
 
 License:        MIT and GPLv3
@@ -17,6 +17,7 @@ BuildRequires:  expat-devel
 BuildRequires:  openssl-devel
 # For docs
 BuildRequires:  doxygen
+BuildRequires:  lcov
 
 %description
 libstrophe is a minimal XMPP library written in C. It has almost no
@@ -54,10 +55,12 @@ applications that use %{name}.
 %build
 autoreconf -i -W all
 # expat is the default; use --with-libxml2 to switch
-%configure --disable-static
+# create a code coverage report: --enable-coverage
+%configure --disable-static --enable-coverage
 %make_build
 # Build HTML documentation
 doxygen
+make coverage  # results are in coverage/
 
 
 %install
@@ -73,18 +76,15 @@ mv %{buildroot}%{_libdir}/%{name}/examples/.deps %{buildroot}%{_libdir}/%{name}/
 rm -f %{buildroot}%{_libdir}/%{name}/examples/.dirstamp
 rm -f %{buildroot}%{_libdir}/%{name}/examples/deps/.dirstamp
 
-# Install tests/ for testing the lib after install
-cp -a tests/ %{buildroot}%{_libdir}/%{name}/
-
 # Install HTML documentation for the doc subpackage
 mkdir -p %{buildroot}%{_pkgdocdir}/
 cp -a docs/html/ %{buildroot}%{_pkgdocdir}/
+cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
 
 
 %check
-# error on buildtime: Disabling.
-# /usr/bin/ld: DWARF error: invalid abstract instance DIE ref
-##make check
+# the tests suite is launched with 'make coverage'
+# no need to run it twice
 
 
 
@@ -108,6 +108,12 @@ cp -a docs/html/ %{buildroot}%{_pkgdocdir}/
 
 
 %changelog
+* Thu Feb 1 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-1
+- Update to 0.13.0
+- Remove tests suite from devel subpackage
+- Enable code coverage report
+- Cleanup %%check section
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

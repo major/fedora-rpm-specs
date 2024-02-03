@@ -8,6 +8,7 @@ Summary:        Python bindings for libgit2
 License:        GPL-2.0-only WITH GCC-exception-2.0
 URL:            https://www.pygit2.org/
 Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{pkgname}-%{version}.tar.gz
+Patch0: python-pygit2-transfer-size.patch
 # This patch lowers the Python-level dependency on cffi. Fedora package python-cffi-1.15.1-5 and
 # higher contain the patches needed for Python >= 3.12.
 # Remove when cffi >= 1.16.0 is available on all releases with Python 3.12.

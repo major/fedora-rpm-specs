@@ -12,6 +12,7 @@ BuildArch:      noarch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-gobject-base
 BuildRequires:  desktop-file-utils

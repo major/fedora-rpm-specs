@@ -4,8 +4,8 @@
 %global         srcname     azure-mgmt-sql
 
 Name:           python-%{srcname}
-Version:        4.0.0~b12
-%global         pypi_version    4.0.0b12
+Version:        4.0.0~b13
+%global         pypi_version    4.0.0b13
 Release:        %autorelease
 Summary:        Microsoft Azure SQL Management Client Library for Python
 License:        MIT

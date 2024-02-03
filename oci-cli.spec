@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.37.5
+Version:        3.37.7
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -77,7 +77,7 @@ rm -f %{buildroot}/%{_bindir}/create_backup_from_onprem
 
 %files -n %{name} -f %{pyproject_files}
 %license LICENSE.txt THIRD_PARTY_LICENSES.txt
-%doc CHANGELOG.rst COMMON_ISSUES.rst CONTRIBUTING.rst README.rst
+%doc CHANGELOG.rst COMMON_ISSUES.rst README.rst
 %{_bindir}/oci
 
 

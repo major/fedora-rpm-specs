@@ -2,7 +2,7 @@
 Name:           perl-threads
 Epoch:          1
 Version:        2.36
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Perl interpreter-based threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads
@@ -52,10 +52,30 @@ between threads.
 (Prior to Perl 5.8, 5005threads was available through the "Thread.pm" API.
 This threading model has been deprecated, and was removed as of Perl 5.10.0.)
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# Optional tests:
+Requires:       procps-ng
+Requires:       perl(Thread::Queue)
+Requires:       perl(Thread::Semaphore)
+Requires:       perl(threads::shared)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n threads-%{base_version}
 %patch -P0 -p1
 chmod -x examples/*
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
@@ -66,18 +86,45 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{opt
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+perl -i -ple "s{ '-Mblib' }{}" %{buildroot}%{_libexecdir}/%{name}/t/exit.t
+perl -i -ple "s{ '-Mblib' }{}" %{buildroot}%{_libexecdir}/%{name}/t/thread.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+unset GIT_DIR PERL_BUILD_PACKAGING PERL_CORE PERL_RUNPERL_DEBUG \
+    PERL5_ITHREADS_STACK_SIZE RUN_MAINTAINER_TESTS
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
 unset GIT_DIR PERL_BUILD_PACKAGING PERL_CORE PERL_RUNPERL_DEBUG \
     PERL5_ITHREADS_STACK_SIZE RUN_MAINTAINER_TESTS
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes examples README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/threads*
 %{perl_vendorarch}/threads*
-%{_mandir}/man3/*
+%{_mandir}/man3/threads*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 01 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.36-503
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.36-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

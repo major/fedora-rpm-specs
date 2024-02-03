@@ -2,7 +2,7 @@
 %global pypi_name boutdata
 
 Name:           python-%{pypi_name}
-Version:        0.1.10
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Python package for collecting BOUT++ data
 
@@ -11,8 +11,8 @@ URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
 
-Patch:          https://github.com/boutproject/boutdata/pull/89.patch
-Patch:          https://github.com/boutproject/boutdata/pull/101/commits/2c4500ed56199a55e098d84c399c5a6b3f27544e.patch#./no-gc.patch
+Patch:          0001-pytest-no-cov.patch
+Patch:          https://github.com/boutproject/boutdata/commit/2c4500ed56199a55e098d84c399c5a6b3f27544e.patch#./0002-no-gc-collect.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

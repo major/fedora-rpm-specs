@@ -14,7 +14,7 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml:oss-parent:pom:)
 
 BuildArch:      noarch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch:  %{java_arches} noarch
 %endif
 

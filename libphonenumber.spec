@@ -1,6 +1,6 @@
 Name: libphonenumber
-Version: 8.13.28
-Release: 7%{?dist}
+Version: 8.13.29
+Release: 1%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -80,6 +80,14 @@ popd
 
 
 %changelog
+* Fri Jan 26 2024 Packit <hello@packit.dev> - 8.13.29-1
+- [maven-release-plugin] prepare release v8.13.29 (Kavitha Keshava)
+- Metadata updates for release 8.13.29 (#3395) (kkeshava)
+- Mandlil patch 2 (#3393) (mandlil)
+- Update README.md (#3386) (mandlil)
+- Mandlil maven update (#3385) (mandlil)
+- Resolves rhbz#2258931
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 8.13.28-7
 - Rebuild for ICU 74
 

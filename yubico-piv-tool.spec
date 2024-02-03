@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:		yubico-piv-tool
-Version:	2.4.2
-Release:	2%{?dist}
+Version:	2.5.0
+Release:	1%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
 License:	GPLv3+
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Thu Feb 01 2024 Jakub Jelen <jjelen@redhat.com> - 2.5.0-1
+- New upstream release supporting larger RSA keys and ED25519 and X25519 (#2262179)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,36 +1,22 @@
 %global srcname doit
 
 Name:           python-%{srcname}
-Version:        0.33.1
-Release:        12%{?dist}
+Version:        0.36.0
+Release:        1%{?dist}
 Summary:        Automation Tool
 
 License:        MIT
-URL:            http://python-doit.sourceforge.net/
+URL:            https://pydoit.org/
 Source0:        https://pypi.io/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
+Patch1:         python-doit_ignore_versions.patch
 
 BuildArch:      noarch
 
-# setuptools are not declared in the dependencies and so we need to add them explicitly:
-# see bug #1695045
-Requires:       python3-setuptools
-
-BuildRequires: make
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(pyinotify)
-
-# python3-sphinx is needed for documentation
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-press-theme)
-
-# Test requirements
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(mock)
-BuildRequires:  python3dist(cloudpickle)
+BuildRequires:  make
 BuildRequires:  strace
+BuildRequires:  python3-devel
 
-%description
+%global _description %{expand:
 python-doit is a build tool (in the same class as make, cmake, scons,
 ant and others)
 
@@ -40,37 +26,21 @@ python-doit can be used as:
    shell scripts and python scripts)
   * a functional tests runner (combine together different tools)
   * a configuration management system
-  * manage computational pipelines
+  * manage computational pipelines}
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_enable_dependency_generator}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-# For backwards compatibility, can be removed in F31
-Obsoletes:      python-%{srcname} < 0.30.3
-Obsoletes:      python2-%{srcname} < 0.30.3
-
-%description -n python3-%{srcname}
-python-doit is a build tool (in the same class as make, cmake, scons,
-ant and others)
-
-python-doit can be used as:
-  * a build tool (generic and flexible)
-  * home of your management scripts (it helps you organize and combine
-   shell scripts and python scripts)
-  * a functional tests runner (combine together different tools)
-  * a configuration management system
-  * manage computational pipelines
+%description -n python3-%{srcname} %_description
 
 %package -n python3-%{srcname}-doc
 Summary:        Documentation for %{name}
 Requires:       python3-%{srcname} = %{version}-%{release}
 %{?python_provide:%python_provide python3-%{srcname}-doc}
-
-# For backwards compatibility, can be removed in F31
-Obsoletes:      python-%{srcname}-doc < 0.30.3
-Obsoletes:      python2-%{srcname}-doc < 0.30.3
 
 %description -n python3-%{srcname}-doc
 %{name} documentation
@@ -80,11 +50,11 @@ Obsoletes:      python2-%{srcname}-doc < 0.30.3
 
 find -type f -exec sed -i '1s=^#! /usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
-# Remove bundled egg-info
-rm -rf %{srcname}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires dev_requirements.txt doc_requirements.txt -r
 
 %build
-%py3_build
+%pyproject_wheel
 
 cd doc
 PYTHONPATH=.. make html SPHINXBUILD=sphinx-build-3
@@ -92,21 +62,21 @@ rm -rf _build/html/_sources/ _build/html/.buildinfo
 cd -
 
 %install
-%py3_install
+%pyproject_install
 
 install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_completion.d/doit
+%pyproject_save_files %{srcname}
 
 %check
 # Is impossible to run tests because the testsuite is not ready for Python 3
 # environment and there is also one unresolved test dependency doit-py
 # %{__python3} -m pytest
+%py3_check_import %{srcname}
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %{_bindir}/doit
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/doit
-%{python3_sitelib}/doit-%{version}-py*.egg-info
 %{_sysconfdir}/bash_completion.d/doit
 
 %files -n python3-%{srcname}-doc
@@ -118,6 +88,13 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 %doc TODO.txt
 
 %changelog
+* Thu Feb  1 2024 José Matos <jamatos@fedoraproject.org> - 0.36.0-1
+- Update to 0.36.0
+- Update the spec file to more modern Python guidelines
+
+* Thu Feb  1 2024 Maxwell G <maxwell@gtmx.me> - 0.33.1-13
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

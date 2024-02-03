@@ -1,16 +1,15 @@
 Summary: A version of the MIT Athena widget set for X
 Name: Xaw3d
-Version: 1.6.4
-Release: 7%{?dist}
+Version: 1.6.5
+Release: 1%{?dist}
 Source0: https://xorg.freedesktop.org/archive/individual/lib/libXaw3d-%{version}.tar.xz
 Source1: https://xorg.freedesktop.org/archive/individual/lib/libXaw3d-%{version}.tar.xz.sig
-Source2: alan.coopersmith.asc
+Source2: matt.turner.asc
 Patch5: Xaw3d-1.5-debian-fixes.patch
 Patch7: Xaw3d-1.6.1-3Dlabel.patch
-Patch10: Xaw3d-1.6.1-fontset.patch
+Patch10: Xaw3d-1.6.5-fontset.patch
 Patch11: Xaw3d-1.6.1-hsbar.patch
-Patch12: Xaw3d-c99-1.patch
-Patch13: Xaw3d-c99-2.patch
+Patch12: Xaw3d-c99-2.patch
 
 License: MIT
 URL: http://xorg.freedesktop.org/
@@ -65,11 +64,10 @@ package.
 %setup -q -n libXaw3d-%{version}
 # This doesn't apply cleanly, but has not been applied
 #%patch5 -p1 -b .debian
-%patch7 -p1 -b .3Dlabel
-%patch10 -p1 -b .fontset
-%patch11 -p1 -b .hsbar
+%patch -P 7 -p1 -b .3Dlabel
+%patch -P 10 -p1 -b .fontset
+%patch -P 11 -p1 -b .hsbar
 %patch -P 12 -p1
-%patch -P 13 -p1
 
 
 %build
@@ -101,6 +99,9 @@ rm -r $RPM_BUILD_ROOT%{_docdir}
 %{_includedir}/X11/Xaw3d
 
 %changelog
+* Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.6.5-1
+- 1.6.5
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

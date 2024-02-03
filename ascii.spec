@@ -1,8 +1,8 @@
 Name:           ascii
-Version:        3.18
-Release:        20%{?dist}
+Version:        3.19
+Release:        1%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
-Source0:        http://www.catb.org/~esr/ascii/ascii-3.18.tar.gz
+Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
 BuildRequires:  xmlto, gcc
 BuildRequires: make
 
@@ -33,10 +33,13 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %files
 %{_mandir}/man1/ascii.1*
 %{_bindir}/ascii
-%doc README NEWS
+%doc README NEWS.adoc ascii.adoc
 %license COPYING
 
 %changelog
+* Thu Feb 01 2024 Didier Fabert <didier.fabert@gmail.com> - 3.19-1
+- Update to 3.19 version
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

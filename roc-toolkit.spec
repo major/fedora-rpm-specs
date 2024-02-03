@@ -2,22 +2,23 @@
 #global git_commit 127cfc645d0a807a33506001367b6d9a9d46f23e
 #global git_date 20230110
 
-#global git_short_commit %(echo %{git_commit} | cut -c -8)
-#global git_suffix %{git_date}git%{git_short_commit}
+#global git_short_commit %%(echo %%{git_commit} | cut -c -8)
+#global git_suffix %%{git_date}git%%{git_short_commit}
 
 Name:		roc-toolkit
-#Version:	0.2.1^%{git_suffix}
-Version:	0.2.1
-Release:	6%{?dist}
+#Version:	0.2.1^%%{git_suffix}
+Version:	0.3.0
+Release:	1%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
-#Source0:	%{url}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
+#Source0:	%%{url}/archive/%%{git_commit}/%%{name}-%%{git_suffix}.tar.gz
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	python3-devel
 BuildRequires:	python3-scons
+BuildRequires:	python3-sphinxemoji
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	pkgconf-pkg-config
@@ -32,10 +33,10 @@ BuildRequires:	cpputest-devel
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-breathe
 BuildRequires:	speexdsp-devel
+BuildRequires:	openssl-devel
 BuildRequires:	doxygen
 # https://github.com/roc-streaming/roc-toolkit/issues/481
-Patch0:		roc-toolkit-0.1.5-no-explicit-cpp98.patch
-Patch1:		pkgdir.patch
+Patch0:		roc-toolkit-0.3.0-no-explicit-cpp98.patch
 
 %description
 Roc is a toolkit for real-time audio streaming over the network.
@@ -88,7 +89,7 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %{_libdir}/pkgconfig/roc.pc
 
 %files utils
-%{_bindir}/roc-conv
+%{_bindir}/roc-copy
 %{_bindir}/roc-recv
 %{_bindir}/roc-send
 %{_mandir}/man1/*.1.gz
@@ -97,6 +98,11 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Thu Feb  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 0.3.0-1
+- New version
+- Fixed FTBFS
+  Resolves: rhbz#2261654
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.53.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
@@ -53,13 +53,12 @@ BuildRequires: docbook-style-xsl
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(libcap)
 
-Recommends: /usr/bin/wsdd
-
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 Requires: polkit
 Requires: udisks2 >= %{udisks2_version}
+Requires: /usr/bin/wsdd
 
 Obsoletes: gnome-mount <= 0.8
 Obsoletes: gnome-mount-nautilus-properties <= 0.8
@@ -432,6 +431,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Feb 01 2024 Ondrej Holy <oholy@redhat.com> - 1.53.1-3
+- Make wsdd regular dependency
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.53.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

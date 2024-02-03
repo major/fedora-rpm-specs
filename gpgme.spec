@@ -11,7 +11,7 @@
 
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        1.22.0
+Version:        1.23.2
 Release:        %autorelease
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
@@ -36,9 +36,6 @@ Patch1004:      0002-setup_py_extra_opts.patch
 # Skip lang/qt/tests/t-remarks on gnupg 2.4+
 Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
 
-# fix FTBFS caused by include path order, for <= 1.22.0
-Patch3002:	gpgme-1.22.0-ftbfs-aee18a2a.patch
-Patch3003:	gpgme-1.22.0-ftbfs-d23528ca.patch
 
 BuildRequires:  make
 BuildRequires:  cmake

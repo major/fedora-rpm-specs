@@ -23,6 +23,17 @@ Patch2:         0002-23.10.0-fix-and-skip-tests-fedora.patch
 # https://github.com/twisted/twisted/pull/12054
 Patch3:         0003-python3.12.1.patch
 
+# Three backported upstream commits to remove cgi module (removed from Python 3.13)
+# https://github.com/twisted/twisted/commit/e6bf82b0a703e4bc78934d
+# https://github.com/twisted/twisted/commit/2bceedc79f86c750f27432
+# https://github.com/twisted/twisted/commit/4579398f6b089f93181ba2
+Patch4:         0004-Remove-the-usage-of-cgi.parse_multipart.patch
+
+# In Python 3.13 line numbers returned by findlinestarts
+# can be None for bytecode that does not map to source lines.
+# https://github.com/twisted/twisted/pull/12059
+Patch5:         0005-Update-dis.findlinestarts-for-Python-3.13.patch
+
 BuildArch:      noarch
 
 %description %{common_description}

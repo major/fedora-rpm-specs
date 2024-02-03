@@ -1,25 +1,30 @@
-Name:           power-profiles-daemon
+%global forgeurl    https://gitlab.freedesktop.org/upower/%{name}
+
 Version:        0.13
+%forgemeta
+
+Name:           power-profiles-daemon
 Release:        %autorelease
 Summary:        Makes power profiles handling available over D-Bus
 
 License:        GPL-3.0-or-later
-URL:            https://gitlab.freedesktop.org/hadess/power-profiles-daemon
-Source0:        https://gitlab.freedesktop.org/hadess/power-profiles-daemon/uploads/1f2ea40547b2af8d255875d7085211e5/power-profiles-daemon-0.13.tar.xz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  gtk-doc
-BuildRequires:  pkgconfig(udev)
-BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(polkit-gobject-1)
-BuildRequires:  systemd
-BuildRequires:  umockdev
-BuildRequires:  python3-dbusmock
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  systemd-rpm-macros
+
+# Test dependencies
+BuildRequires:  umockdev
+BuildRequires:  python3dist(python-dbusmock)
+BuildRequires:  python3dist(pygobject)
 
 %description
 %{summary}.
@@ -32,7 +37,7 @@ BuildArch:      noarch
 This package contains the documentation for %{name}.
 
 %prep
-%autosetup
+%forgeautosetup
 
 %build
 %meson -Dgtk_doc=true
@@ -40,7 +45,7 @@ This package contains the documentation for %{name}.
 
 %install
 %meson_install
-mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/lib/power-profiles-daemon
+mkdir -p %{buildroot}/%{_localstatedir}/lib/power-profiles-daemon
 
 %check
 %meson_test

@@ -1,12 +1,13 @@
 Summary:	Library (C API) for accessing CDDB servers
 Name:		libcddb
 Version:	1.3.2
-Release:	41%{?dist}
+Release:	42%{?dist}
 License:	LGPLv2+
 URL:		http://libcddb.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/libcddb/%{name}-%{version}.tar.bz2
 Patch0:		libcddb-1.3.0-multilib.patch
 Patch1:		libcddb-1.3.2-rhbz770611.patch
+Patch2:         pointer-types.patch
 BuildRequires:  gcc
 BuildRequires:	pkgconfig, libcdio-devel >= 0.67
 BuildRequires: make
@@ -29,8 +30,9 @@ for libcddb.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p0
 iconv -f ISO_8859-1 -t UTF-8 THANKS > THANKS.tmp
 touch -r THANKS THANKS.tmp
 mv THANKS.tmp THANKS
@@ -68,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3.2-42
+- Patch for updated compiler flags.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
