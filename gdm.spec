@@ -79,12 +79,6 @@ Requires: /usr/bin/dbus-run-session
 
 %{?sysusers_requires_compat}
 
-# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/URKAWVPEINE4CREFO4L22MGKN6TNUGQK/
-# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
-%if 0%{?rhel} >= 10
-ExcludeArch:    %{ix86}
-%endif
-
 Provides: gdm-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description

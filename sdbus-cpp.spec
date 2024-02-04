@@ -12,6 +12,8 @@ Summary:        High-level C++ D-Bus library
 License:        LGPL-2.1-only
 URL:            https://github.com/Kistler-Group/sdbus-cpp
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Kistler-Group/sdbus-cpp/pull/380
+Patch0:         0001-fix-add-missing-algorithm-header.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc-c++

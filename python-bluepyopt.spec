@@ -59,7 +59,6 @@ BuildRequires:  %{py3_dist matplotlib}
 
 # To run tests
 %if %{with tests}
-BuildRequires:  %{py3_dist future}
 BuildRequires:  python3-jupyter-client
 BuildRequires:  python3-nbconvert
 BuildRequires:  python3-neuron
@@ -68,6 +67,10 @@ BuildRequires:  %{py3_dist lfpy}
 BuildRequires:  %{py3_dist papermill}
 BuildRequires:  %{py3_dist meautility}
 BuildRequires:  python3-arbor
+# Previously, imp was pulled into the buildroot via future,
+# now it has to be declared explicitly. Open issue to remove imp:
+# https://github.com/BlueBrain/BluePyOpt/issues/481
+BuildRequires: (python%{python3_pkgversion}-zombie-imp if python%{python3_pkgversion} >= 3.12)
 %endif
 
 %description %_description
@@ -79,6 +82,9 @@ Summary:        %{summary}
 Requires: neuron-devel
 Requires: python3-neuron
 Requires: python3dist(setuptools)
+%if 0%{?python3_version_nodots} >= 312
+Requires: python%{python3_pkgversion}-zombie-imp
+%endif
 
 %description -n python3-bluepyopt %_description
 

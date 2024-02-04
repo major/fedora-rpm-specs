@@ -69,13 +69,13 @@
 
 %global major_version 3
 %global minor_version 28
-%global patch_version 0
+%global patch_version 2
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc3
+#%%global rcsuf rc3
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -117,7 +117,6 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
-Patch101: cmake-c99.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -550,6 +549,9 @@ popd
 
 
 %changelog
+* Thu Feb 01 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.28.2-1
+- cmake-3.28.2 (fixes RHBZ#2261037 and RHBZ#2243343)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0~rc3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

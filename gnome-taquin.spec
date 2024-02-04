@@ -1,9 +1,9 @@
 Name:           gnome-taquin
 Version:        3.38.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Sliding-block puzzle game
 
-License:        GPLv3+ and GPLv2+ and CC-BY-SA 
+License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 URL:            https://wiki.gnome.org/Apps/Taquin
 Source0:        https://download.gnome.org/sources/gnome-taquin/3.38/gnome-taquin-%{version}.tar.xz
 
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Taquin.d
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 3.38.1-11
+- SPDX migration. License update to reflect (not so recent) upstream change
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

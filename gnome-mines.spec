@@ -2,10 +2,10 @@
 
 Name:           gnome-mines
 Version:        40.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GNOME Mines Sweeper game
 
-License:        GPLv2+ and CC-BY-SA
+License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Mines
 Source0:        https://download.gnome.org/sources/gnome-mines/40/gnome-mines-%{tarball_version}.tar.xz
 
@@ -57,6 +57,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.de
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 40.1-8
+- SPDX migration. License update to reflect (not so recent) upstream change
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

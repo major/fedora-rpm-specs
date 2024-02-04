@@ -1,6 +1,6 @@
 Name:           tellico
-Version:        3.5.1
-Release:        3%{?dist}
+Version:        3.5.3
+Release:        1%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
@@ -111,6 +111,9 @@ sed \
 
 
 %changelog
+* Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 3.5.3-1
+- Update to 3.5.3
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

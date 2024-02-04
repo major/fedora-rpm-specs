@@ -34,31 +34,32 @@ BuildRequires:  git
 # - in version filed substituted with . per versioning guidelines
 Provides: bundled(golang(github.com/cilium/ebpf)) = 0.11.0
 Provides: bundled(golang(github.com/cosiner/argv)) = 0.1.0
-Provides: bundled(golang(github.com/cpuguy83/go.md2man/v2)) = 2.0.0
-Provides: bundled(golang(github.com/creack/pty)) = 1.1.9
-Provides: bundled(golang(github.com/derekparker/trie)) = 0.0.0.20221213183930.4c74548207f4
+Provides: bundled(golang(github.com/cpuguy83/go.md2man/v2)) = 2.0.2
+Provides: bundled(golang(github.com/creack/pty)) = 1.1.20
+Provides: bundled(golang(github.com/derekparker/trie)) = 0.0.0.20230829180723.39f4de51ef7d
+Provides: bundled(golang(github.com/go.delve/gore)) = 0.11.6
 Provides: bundled(golang(github.com/go.delve/liner)) = 1.2.3.0.20220127212407.d32d89dd2a5d
-Provides: bundled(golang(github.com/google/go.dap)) = 0.9.1
-Provides: bundled(golang(github.com/hashicorp/golang.lru)) = 0.5.4
-Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.0.0
-Provides: bundled(golang(github.com/konsorten/go.windows.terminal.sequences)) = 1.0.3
-Provides: bundled(golang(github.com/mattn/go.colorable)) = 0.0.9
-Provides: bundled(golang(github.com/mattn/go.isatty)) = 0.0.3
+Provides: bundled(golang(github.com/google/go.dap)) = 0.11.0
+Provides: bundled(golang(github.com/hashicorp/golang.lru)) = 1.0.2
+Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
+Provides: bundled(golang(github.com/mattn/go.colorable)) = 0.1.13
+Provides: bundled(golang(github.com/mattn/go.isatty)) = 0.0.20
 Provides: bundled(golang(github.com/mattn/go.runewidth)) = 0.0.13
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.2.0
-Provides: bundled(golang(github.com/russross/blackfriday/v2)) = 2.0.1
-Provides: bundled(golang(github.com/shurcooL/sanitized_anchor_name)) = 1.0.0
-Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.6.0
-Provides: bundled(golang(github.com/spf13/cobra)) = 1.1.3
+Provides: bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
+Provides: bundled(golang(github.com/sirupsen/logrus)) = 1.9.3
+Provides: bundled(golang(github.com/spf13/cobra)) = 1.7.0
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.5
-Provides: bundled(golang(github.com/stretchr/testify)) = 1.7.0
-Provides: bundled(golang(golang.org/x/arch)) = 0.0.0.20190927153633.4e8777c89be4
+Provides: bundled(golang(golang.org/x/arch)) = 0.6.0
 Provides: bundled(golang(golang.org/x/exp)) = 0.0.0.20230224173230.c95f2b4c22f2
-Provides: bundled(golang(golang.org/x/mod)) = 0.12.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.12.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.13.0
+Provides: bundled(golang(golang.org/x/mod)) = 0.14.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.13.0
+Provides: bundled(golang(golang.org/x/tools)) = 0.14.0
 Provides: bundled(golang(gopkg.in/yaml.v2)) = 2.4.0
-Provides: bundled(golang(go.starlark.net)) = 0.0.0.20220816155156.cfacd8902214
+Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
+Provides: bundled(golang(go.starlark.net)) = 0.0.0.20231101134539.556fd59b42f6
+
+Patch0001:	0001-Skipping-due-issues-with-the-go-version-in-Fedora.patch
 
 %description
 %{common_description}

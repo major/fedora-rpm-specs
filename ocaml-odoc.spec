@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -127,6 +127,9 @@ rm -fr %{buildroot}%{ocamldir}/odoc-bench
 %license LICENSE
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-2
+- Rebuild for changed ocamlx hashes
+
 * Thu Jan 25 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-1
 - Version 2.4.1
 

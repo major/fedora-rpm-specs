@@ -13,7 +13,7 @@
 Name:    kdb
 Summary: Database Connectivity and Creation Framework
 Version: 3.2.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 License: LGPLv2+
 
@@ -48,6 +48,7 @@ BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(KF5CoreAddons)
 
+BuildRequires: cmake(Qt5LinguistTools)
 BuildRequires: cmake(Qt5Widgets)
 BuildRequires: cmake(Qt5Xml)
 
@@ -175,6 +176,9 @@ cat kdb_sqlitedriver_qt.lang >> kdb_qt.lang
 
 
 %changelog
+* Fri Feb 02 2024 Pete Walter <pwalter@fedoraproject.org> - 3.2.0-19
+- Fix FTBFS (rhbz#2261270)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

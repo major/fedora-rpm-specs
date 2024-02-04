@@ -1,9 +1,9 @@
 Name:           four-in-a-row
 Version:        3.38.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GNOME Four-in-a-row game
 
-License:        GPLv2+ and GFDL and GPLv3+
+License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Four-in-a-row
 Source0:        https://download.gnome.org/sources/four-in-a-row/3.38/four-in-a-row-%{version}.tar.xz
 
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Four-in-
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 3.38.1-10
+- SPDX migration. License update to reflect (not so recent) upstream change
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

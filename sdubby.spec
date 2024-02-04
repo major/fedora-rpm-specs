@@ -30,7 +30,9 @@ BuildRequires:	gzip
 # turn confuses many tools about whether they should be doing
 # grub things, or systemd-boot things.
 Conflicts: grubby
+%if 0%{?fedora}
 Provides:  grubby = 8.41
+%endif
 
 %description
 This package provides a place to drop systemd-boot shimming

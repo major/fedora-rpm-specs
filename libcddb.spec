@@ -1,8 +1,8 @@
 Summary:	Library (C API) for accessing CDDB servers
 Name:		libcddb
 Version:	1.3.2
-Release:	42%{?dist}
-License:	LGPLv2+
+Release:	43%{?dist}
+License:	LGPL-2.0-or-later
 URL:		http://libcddb.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/libcddb/%{name}-%{version}.tar.bz2
 Patch0:		libcddb-1.3.0-multilib.patch
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3.2-43
+- SPDX license tag
+
 * Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3.2-42
 - Patch for updated compiler flags.
 

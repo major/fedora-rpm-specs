@@ -1,6 +1,6 @@
 Name:		ufdbGuard
-Version:	1.35.5
-Release:	4%{?dist}
+Version:	1.35.6
+Release:	1%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPL-2.0-only
@@ -133,6 +133,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.35.6-1
+- 1.35.6
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

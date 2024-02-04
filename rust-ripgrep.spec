@@ -4,7 +4,7 @@
 %global crate ripgrep
 
 Name:           rust-ripgrep
-Version:        14.0.3
+Version:        14.1.0
 Release:        %autorelease
 Summary:        Line-oriented search tool
 

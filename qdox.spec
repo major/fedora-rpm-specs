@@ -1,10 +1,8 @@
 %bcond_with bootstrap
 
-%global upstream_version %(echo %{version} | tr '~' '-')
-
 Name:           qdox
-Version:        2.0.3
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Extract class/interface/method definitions from sources
 License:        Apache-2.0
 URL:            https://github.com/paul-hammant/qdox
@@ -39,7 +37,7 @@ Summary:        Javadoc for %{name}
 API docs for %{name}.
 
 %prep
-%setup -q -n %{name}-%{upstream_version}
+%setup -q
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -70,10 +68,10 @@ jflex -d src/main/java/com/thoughtworks/qdox/parser/impl src/grammar/commentlexe
 )
 
 # Build artifact
-%mvn_build -f -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 # Inject OSGi manifests
-jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
+jar ufm target/%{name}-%{version}.jar %{SOURCE1}
 
 %install
 %mvn_install
@@ -86,6 +84,9 @@ jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Fri Feb 02 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-1
+- Update to upstream version 2.1.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

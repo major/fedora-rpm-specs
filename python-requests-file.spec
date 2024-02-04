@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transport adapter for using file:// URLs with python-requests
 
 License:        Apache-2.0
@@ -28,7 +28,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.0-2
+- Avoid tox dependency
+
 * Mon Jan 29 2024 David Shea <reallylongword@gmail.com> - 2.0.0-1
 - Update to version 2.0.0
 - Apply current python packaging recommendations to the spec file

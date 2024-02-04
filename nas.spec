@@ -1,7 +1,7 @@
 Name:       nas 
 Summary:    The Network Audio System (NAS)
 Version:    1.9.5
-Release:    8%{?dist}
+Release:    9%{?dist}
 URL:        http://radscan.com/nas.html
 # README:               MIT (main license)
 # lib/audio/aiff.c          MIT (with Apple warranty declaration)
@@ -31,9 +31,12 @@ Patch0:     nas-1.9.3-Move-AuErrorDB-to-SHAREDIR.patch
 # Adapt to GCC 14, in upstream after 1.9.5,
 # bug #2149230, <https://sourceforge.net/p/nas/bugs/10/>
 Patch1:     nas-1.9.5-No-implicit-ints-and-function-declarations.patch
-# Respect linker flags when linking shared libraries, proposed to the
-# upstream, <https://sourceforge.net/p/nas/bugs/11/>
+# Respect linker flags when linking shared libraries, in upstream after 1.9.5,
+# <https://sourceforge.net/p/nas/bugs/11/>
 Patch2:     nas-1.9.5-Pass-extra-linker-flags-to-shared-libraries.patch
+# Adapt pointer types to GCC 14, bug #2261396, proposed to the upstream,
+# <https://sourceforge.net/p/nas/bugs/12/>
+Patch3:     nas-1.9.5-Correct-pointer-types-for-GCC-14.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gcc
@@ -148,6 +151,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/lib*.a
 
 
 %changelog
+* Fri Feb 02 2024 Petr Pisar <ppisar@redhat.com> - 1.9.5-9
+- Adapt pointer types to GCC 14 (bug #2261396)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

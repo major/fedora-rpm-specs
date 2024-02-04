@@ -8,7 +8,7 @@
 Name:           perl-YAML-LibYAML
 Epoch:          1
 Version:        0.89
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -60,7 +60,9 @@ BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(utf8)
 
-%if %{with perl_YAML_LibYAML_enables_optional_test}
+# A build cycle: perl-YAML-LibYAML → perl-boolean → perl-JSON-MaybeXS
+# → perl-Cpanel-JSON-XS → perl-YAML-LibYAML
+%if %{with perl_YAML_LibYAML_enables_optional_test} && !%{defined perl_bootstrap}
 # Optional Tests
 BuildRequires:  perl(boolean)
 BuildRequires:  perl(Path::Class)
@@ -157,6 +159,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 02 2024 Petr Pisar <ppisar@redhat.com> - 1:0.89-2
+- Break a build cycle: perl-YAML-LibYAML → perl-boolean → perl-JSON-MaybeXS
+  → perl-Cpanel-JSON-XS → perl-YAML-LibYAML
+
 * Sat Jan 27 2024 Paul Howarth <paul@city-fan.org> - 1:0.89-1
 - Update to 0.89 (rhbz#2260595)
   - Recognise core booleans on Perl 5.36+ at dump time (GH#114)

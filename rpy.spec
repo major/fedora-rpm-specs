@@ -16,8 +16,8 @@
 }
 
 Name:          rpy
-Version:       3.5.14
-Release:       3%{?dist}
+Version:       3.5.15
+Release:       2%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -27,56 +27,58 @@ BuildRequires: gcc
 BuildRequires: %add_rver R-devel
 BuildRequires: python3-devel
 BuildRequires: readline-devel
-BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(cffi)
-BuildRequires: python3dist(numpy)
 BuildRequires: python3dist(pytest)
-BuildRequires: python3dist(pandas)
 
 Requires:      python3-%{srcname} = %{version}-%{release}
 
-%description
+%global _description %{expand:
 RPy provides a robust Python interface to the R
 programming language.  It can manage all kinds of R objects and can
 execute arbitrary R functions. All the errors from the R language are
-converted to Python exceptions.
+converted to Python exceptions.}
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:       %{sum}
 Requires:      %add_rver R-core
 
-%description -n python3-%{srcname}
-RPy provides a robust Python interface to the R
-programming language.  It can manage all kinds of R objects and can
-execute arbitrary R functions. All the errors from the R language are
-converted to Python exceptions.
+%description -n python3-%{srcname} %_description
+
+%global extras all,numpy,pandas
+%{pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} %{extras}}
 
 %prep
 %setup -q -n %{srcname}2-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}2 '_rinterface_cffi_*'
 
 %check
-cd %{srcname}2
-# rpy requires to test the installed packages
-#PYTHONPATH=%{buildroot}%{python3_sitearch} pytest tests/
-
+# cd %{srcname}2
+%pytest
 
 %files
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS NEWS PKG-INFO
 %license gpl-2.0.txt
-%{python3_sitearch}/%{srcname}*
-%{python3_sitearch}/_rinterface_cffi_abi.py
-%{python3_sitearch}/_rinterface_cffi_api.abi3.so
-%{python3_sitearch}/__pycache__/*
 
 %changelog
+* Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 3.5.15-2
+- Update the spec file to more modern Python guidelines
+
+* Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 3.5.15-1
+- Update to 3.5.15
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

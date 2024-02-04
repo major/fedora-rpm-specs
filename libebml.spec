@@ -1,8 +1,8 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
-Version:    1.4.4
-Release:    6%{?dist}
-License:    LGPLv2+
+Version:    1.4.5
+Release:    1%{?dist}
+License:    LGPL-2.1-or-later
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
 Patch0:     %{name}-use-system-utf8cpp.patch
@@ -63,6 +63,11 @@ rm -r src/lib/utf8-cpp
 
 
 %changelog
+* Fri Feb 02 2024 Dominik Mierzejewski <dominik@greysector.net> - 1.4.5-1
+- update to 1.4.5 (#2254413)
+- fixes CVE-2023-52339 (#2258046, #2258047)
+- use SPDX identifier in License field
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

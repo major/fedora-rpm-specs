@@ -23,6 +23,9 @@ BuildRequires:  perl-interpreter
 BuildRequires:  torque-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
+# openmpi, pmix no longer support 32-bit platforms
+ExcludeArch:    %{ix86}
+
 %description
 PRRTE is the PMIx Reference Run Time Environment.
 

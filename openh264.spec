@@ -3,8 +3,8 @@
 %global commit1 e7d30b921df736a1121a0c8e0cf3ab1ce5b8a4b7
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global openh264_version 2.4.0
-%global gst_version 1.22.7
+%global openh264_version 2.4.1
+%global gst_version 1.22.9
 
 # Filter out soname provides for the mozilla plugin
 %global __provides_exclude_from ^%{_libdir}/mozilla/plugins/
@@ -12,7 +12,7 @@
 Name:           openh264
 Version:        %{openh264_version}
 # Also bump the Release tag for gstreamer1-plugin-openh264 down below
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD-2-Clause
@@ -25,9 +25,6 @@ Source1:        https://github.com/mozilla/gmp-api/archive/%{commit1}/gmp-api-%{
 Source2:        gst-plugins-bad-openh264-%{gst_version}.tar.xz
 Source3:        gst-p-bad-cleanup.sh
 
-# Backported from upstream
-# https://github.com/cisco/openh264/pull/3704
-Patch1:         0001-Fix-off-by-one-regression-in-decoder-3704.patch
 # Don't use pkg-config for finding openh264 as we are building against an in-tree copy
 Patch2:         hardcode-openh264-dep.patch
 
@@ -81,7 +78,6 @@ This package contains the H.264 plugin.
 
 %prep
 %setup -q
-%patch1 -p1
 
 # Extract gmp-api archive
 tar -xf %{S:1}
@@ -238,6 +234,10 @@ popd
 
 
 %changelog
+* Fri Feb 02 2024 Kalev Lember <klember@redhat.com> - 2.4.1-1
+- Update to 2.4.1
+- Update gstreamer plugin to 1.22.9
+
 * Mon Dec 04 2023 Kalev Lember <klember@redhat.com> - 2.4.0-2
 - Fix off by one regression in decoder
 - Filter out soname provides for mozilla gmp plugin

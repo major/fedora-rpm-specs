@@ -16,7 +16,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        45.0
+Version:        46~alpha
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -38,9 +38,7 @@ Summary:        IDE for writing GNOME-based software
 #     - data/html-preview.png
 License:        GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0
 URL:            https://wiki.gnome.org/Apps/Builder
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/768
-Patch:          gnome-builder-45.0-libxml2-2.12.0-includes.patch
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags

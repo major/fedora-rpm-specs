@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-classworlds
-Version:        2.7.0
-Release:        5%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
 License:        Apache-2.0 AND Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
@@ -15,9 +15,9 @@ Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
 
 %description
@@ -38,8 +38,8 @@ classworlds.
 %pom_remove_plugin :maven-dependency-plugin
 
 # These tests depend on artifacts that are not packaged
-sed -i /testConfigure_Valid/s/./@org.junit.Ignore/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
-sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i /testConfigure_Valid/s/./@org.junit.jupiter.api.Disabled/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
+sed -i /testConfigure_Optionally_Existent/s/./@org.junit.jupiter.api.Disabled/ src/test/java/org/codehaus/plexus/classworlds/launcher/ConfiguratorTest.java
 
 %build
 %mvn_build
@@ -51,6 +51,9 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ src/test/java/o
 %license LICENSE.txt LICENSE-Codehaus.txt
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.8.0-1
+- Update to upstream version 2.8.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-enumerate
 Version:        0.16.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Generate a list containing all values of a finite type
 
 License:        MIT
@@ -53,6 +53,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 0.16.0-9
+- Rebuild for changed ocamlx hashes
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

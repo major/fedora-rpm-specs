@@ -1,8 +1,6 @@
-%global cvs_version %(echo %{version} | tr . _)
-
 Name:           xalan-j2
-Version:        2.7.2
-Release:        17%{?dist}
+Version:        2.7.3
+Release:        1%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        Apache-2.0 AND W3C
@@ -11,8 +9,8 @@ URL:            http://xalan.apache.org/
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
 Source1:        xalan-j2-serializer-MANIFEST.MF
-Source2:        http://repo1.maven.org/maven2/xalan/xalan/%{version}/xalan-%{version}.pom
-Source3:        http://repo1.maven.org/maven2/xalan/serializer/%{version}/serializer-%{version}.pom
+Source2:        https://repo1.maven.org/maven2/xalan/xalan/%{version}/xalan-%{version}.pom
+Source3:        https://repo1.maven.org/maven2/xalan/serializer/%{version}/serializer-%{version}.pom
 Source4:        xsltc-%{version}.pom
 Source5:        xalan-j2-MANIFEST.MF
 # Remove bundled binaries which cannot be easily verified for licensing
@@ -64,7 +62,7 @@ License:        Apache-2.0
 Documentation for %{name}.
 
 %prep
-%setup -q -n xalan-j_%{cvs_version}
+%setup -q
 %patch0 -p0
 
 find . -name '*.jar' -delete
@@ -86,25 +84,18 @@ sed -i 's/\r//' KEYS LICENSE.txt NOTICE.txt xdocs/style/resources/script.js \
 %mvn_package :xsltc xsltc
 
 %build
-pushd lib
-ln -sf $(build-classpath java_cup-runtime) runtime.jar
-ln -sf $(build-classpath bcel) BCEL.jar
-ln -sf $(build-classpath regexp) regexp.jar
-ln -sf $(build-classpath xerces-j2) xercesImpl.jar
-ln -sf $(build-classpath xml-commons-apis) xml-apis.jar
-popd
-pushd tools
-ln -sf $(build-classpath java_cup) java_cup.jar
-ln -sf $(build-classpath ant) ant.jar
-popd
-export CLASSPATH=$(build-classpath glassfish-servlet-api)
-
-ant \
-  -Dcompiler.source=1.7 \
-  -Dcompiler.target=1.7 \
+%ant \
+  -Dcompiler.source=1.8 \
+  -Dcompiler.target=1.8 \
   -Djava.awt.headless=true \
   -Dbuild.xalan-interpretive.jar=build/xalan-interpretive.jar \
-  xalan-interpretive.jar\
+  -Dxmlapis.jar=$(build-classpath xml-commons-apis) \
+  -Dparser.jar=$(build-classpath xerces-j2) \
+  -Dbcel.jar=$(build-classpath bcel) \
+  -Druntime.jar=$(build-classpath java_cup-runtime) \
+  -Dregexp.jar=$(build-classpath regexp) \
+  -Djava_cup.jar=$(build-classpath java_cup) \
+  xalan-interpretive.jar \
   xsltc.unbundledjar \
   docs
 
@@ -119,17 +110,9 @@ jar ufm build/xalan-interpretive.jar %{SOURCE5}
 %install
 %mvn_install
 
-%post
-# update-alternatives will remove the symlink - preserve it
-mv %{_javadir}/jaxp_transform_impl.jar{,.tmp} || :
-# alternatives removed in f26
-update-alternatives --remove jaxp_transform_impl %{_javadir}/%{name}.jar &>/dev/null || :
-# restore the symlink
-mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
-
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
-%doc KEYS readme.html
+%doc KEYS README
 
 %files xsltc -f .mfiles-xsltc
 %license LICENSE.txt NOTICE.txt
@@ -139,6 +122,10 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Fri Feb 02 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.3-1
+- Update to upstream version 2.7.3
+- Remove alternatives post striplet
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

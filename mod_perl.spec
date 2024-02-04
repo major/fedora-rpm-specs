@@ -14,7 +14,7 @@
 
 Name:           mod_perl
 Version:        2.0.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -32,6 +32,7 @@ Source4:        perl.module.conf
 # Normalize documentation encoding
 Patch0:         mod_perl-2.0.12-Convert-documentation-to-UTF-8.patch
 Patch1:         mod_perl-2.0.4-inline.patch
+Patch2:         mod_perl-32bit-ftbs.patch
 
 BuildRequires:  apr-devel >= 1.2.0
 BuildRequires:  apr-util-devel
@@ -318,6 +319,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 02 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.0.13-4
+- fix ftbs on i686, BZ 2261386
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

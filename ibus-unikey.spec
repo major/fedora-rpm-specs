@@ -3,10 +3,10 @@
 
 Name:          ibus-unikey
 Version:       0.6.1
-Release:       33.20190311git46b5b9e%{?dist}
+Release:       34.20190311git46b5b9e%{?dist}
 Summary:       Vietnamese engine for IBus input platform
 
-License:       GPLv3
+License:       GPL-3.0-only
 URL:           https://github.com/vn-input/ibus-unikey/
 Source0:       https://github.com/vn-input/ibus-unikey/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 
@@ -47,6 +47,9 @@ A Vietnamese engine for IBus input platform that uses Unikey.
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.unikey.gschema.xml
 
 %changelog
+* Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 0.6.1-34.20190311git46b5b9e
+- Migrate to SPDX license expression
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-33.20190311git46b5b9e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -238,6 +238,7 @@ autoreconf -fiv
 mkdir build-{full,minimal}
 export common_configure_opts="          \
     --cache-file=../config.cache        \
+    --disable-manual                    \
     --disable-static                    \
     --enable-hsts                       \
     --enable-ipv6                       \
@@ -260,7 +261,6 @@ export common_configure_opts="          \
         --disable-imap                  \
         --disable-ldap                  \
         --disable-ldaps                 \
-        --disable-manual                \
         --disable-mqtt                  \
         --disable-ntlm                  \
         --disable-ntlm-wb               \
@@ -286,7 +286,6 @@ export common_configure_opts="          \
         --enable-imap                   \
         --enable-ldap                   \
         --enable-ldaps                  \
-        --enable-manual                 \
         --enable-mqtt                   \
         --enable-ntlm                   \
         --enable-ntlm-wb                \
@@ -417,6 +416,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri Feb 02 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-2
+- don't build manual for curl-full - use man 1 curl instead (#2262373)
+
 * Thu Feb 01 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2024-0853 - OCSP verification bypass with TLS session reuse

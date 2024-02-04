@@ -258,6 +258,9 @@ make test
 %endif
 
 %changelog
+* Fri Feb 02 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.45.1-2
+- bump changelog number to match real release number.
+
 * Wed Jan 31 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.45.1-1
 - Updated to version 3.45.1 (https://sqlite.org/releaselog/3_45_1.html)
 

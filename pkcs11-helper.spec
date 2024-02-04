@@ -1,17 +1,17 @@
 Name:           pkcs11-helper
-Version:        1.29.0
-Release:        6%{?dist}
+Version:        1.30.0
+Release:        1%{?dist}
 Summary:        A library for using PKCS#11 providers
 
-License:        GPLv2 or BSD
+License:        GPL-2 or BSD-3-Clause
 URL:            http://www.opensc-project.org/opensc/wiki/pkcs11-helper
 Source0:        https://github.com/OpenSC/pkcs11-helper/releases/download/pkcs11-helper-%{version}/pkcs11-helper-%{version}.tar.bz2
 # https://github.com/OpenSC/pkcs11-helper/pull/4
 Patch2:         pkcs11-helper-rfc7512.patch
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  doxygen graphviz
+BuildRequires:  make
 BuildRequires:  openssl-devel
 
 %description
@@ -55,9 +55,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}/
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
-%ldconfig_scriptlets
-
-
 %files
 %license COPYING*
 %doc AUTHORS ChangeLog README THANKS
@@ -74,6 +71,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Feb 02 2024 Kalev Lember <klember@redhat.com> - 1.30.0-1
+- Update to 1.30.0
+- Use SPDX license identifiers
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

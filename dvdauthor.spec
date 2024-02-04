@@ -19,6 +19,8 @@ BuildRequires:  fribidi-devel
 BuildRequires:  freetype-devel
 BuildRequires:  ImageMagick-devel >= 1:7.0
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description
 DVDAuthor is a set of tools to help you author the file and directory
@@ -64,6 +66,7 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
 %changelog
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Since it is now a leaf package, drop i686 per fedora leaf package policy, which also fix the build
 
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

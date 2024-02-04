@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -263,6 +263,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-17
+- Rebuild for changed ocamlx(Dynlink) hash
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

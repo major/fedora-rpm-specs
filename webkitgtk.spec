@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.43.3
+Version:        2.43.4
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -109,7 +109,6 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libjxl)
 %endif
 BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseccomp)
 BuildRequires:  pkgconfig(libsecret-1)

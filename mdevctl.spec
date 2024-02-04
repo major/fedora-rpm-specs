@@ -4,7 +4,7 @@
 
 Name:           mdevctl
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -28,9 +28,9 @@ can be dynamically created and potentially used by drivers like
 vfio-mdev for assignment to virtual machines.
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
 %if 0%{?rhel}
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 %cargo_prep
 
@@ -40,6 +40,11 @@ vfio-mdev for assignment to virtual machines.
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 %install
 %make_install
@@ -51,6 +56,10 @@ vfio-mdev for assignment to virtual machines.
 
 %files
 %license COPYING
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc README.md
 %{_sbindir}/mdevctl
 %{_sbindir}/lsmdev
@@ -64,6 +73,9 @@ vfio-mdev for assignment to virtual machines.
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-4
+- Update Rust macro usage
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

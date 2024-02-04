@@ -1,13 +1,14 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 Patch0: 0001-Fix-segfault-when-trying-to-reuse-an-invalid-GtkTreeIter.patch
 Patch1: 0002-Add-cmdline-option-to-force-blivet-gui-to-keep-above.patch
 Patch2: 0003-Add-cmdline-option-to-enabled-blivets-auto_dev_updates-flag.patch
 Patch3: 0004-Fix-logic-when-checking-for-dialog-response.patch
+Patch4: 0005-Remove-support-for-labelling-JFS-and-ReiserFS.patch
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -78,6 +79,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Feb 02 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-7
+- Remove support for labelling JFS and ReiserFS (#2262334)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Release:        13%{?dist}
 Summary:        gobject-introspection typelib sub-package generator macros
 
 URL:            https://src.fedoraproject.org/rpms/typelib-srpm-macros
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 Source0:        macros.typelib
 
 BuildArch:      noarch

@@ -1,9 +1,9 @@
 Name:		ibus-kkc
 Version:	1.5.22
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Japanese Kana Kanji input method for ibus
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://github.com/ueno/ibus-kkc
 Source0:	https://github.com/ueno/ibus-kkc/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		ibus-kkc-content-type.patch
@@ -23,13 +23,10 @@ A Japanese Kana Kanji Input Method Engine for ibus.
 
 
 %prep
-%setup -q
+%autosetup -p1
 rm src/*vala.stamp
 # don't touch XKB layout under Fedora
 sed -i 's!<layout>jp</layout>!<layout>default</layout>!' src/kkc.xml.in.in
-# for ibus 1.5.4 or later
-%patch0 -p1 -b .content-type
-%patch1 -p1 -b .orig
 
 
 %build
@@ -93,6 +90,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-kkc.deskt
 
 
 %changelog
+* Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 1.5.22-25
+- Migrate to SPDX license expression
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.22-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global svndate 20230124
-%global svnrev 13161
+%global svndate 20240128
+%global svnrev 13434
 %global snapshot 0%{?svndate}
 %if %{snapshot}
 %global svnrelease .%{svndate}svn%{svnrev}
@@ -30,7 +30,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	hunspell-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	libICE-devel
-BuildRequires:	libtool >= 2.4.6-50
+BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	tinyxml-devel
 BuildRequires:	wxGTK-devel
@@ -41,12 +41,18 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	shared-mime-info
 Requires:	xterm
 Provides:	bundled(wxScintilla) = 3.53.0
+# patched with https://github.com/albertodemichelis/squirrel/issues/230 (svn rev 12365)
+Provides:	bundled(squirrel) = 3.1
 
 %global		pkgdatadir	%{_datadir}/%{name}
 %global		pkglibdir	%{_libdir}/%{name}
 %global		plugindir	%{pkglibdir}/plugins
 
 %global __provides_exclude_from ^%{plugindir}/.*\\.so$
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 
 %description
 Code::Blocks is a free C++ IDE built specifically to meet the most demanding
@@ -86,13 +92,9 @@ Development files needed to build Code::Blocks contrib plug-ins.
 Summary:	Additional Code::Blocks plug-ins
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-contrib-libs = %{version}-%{release}
-%if 0
-# not in Fedora yet
-Requires:	cccc
-%endif
-Requires:	cppcheck
-Requires:	cscope
-Requires:	valgrind
+Recommends:	cppcheck
+Recommends:	cscope
+Recommends:	valgrind
 
 %description contrib
 Additional Code::Blocks plug-ins.
@@ -101,11 +103,11 @@ Additional Code::Blocks plug-ins.
 %prep
 %if %{snapshot}
 %setup -q -n %{name}
-%patch0 -p1
+%patch -P 0 -p1
 %else
 %setup -q
 %endif
-%patch1 -p1
+%patch -P 1 -p1
 
 
 %if %{snapshot}

@@ -22,6 +22,8 @@ Source0:        http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{vers
 # https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/3.patch
 Patch0:         telepathy-glib-pr3-test-cm-with-newer-glib.patch
 # Patch for -Werror=incompatible-pointer-types
+# https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/issues/146
+# https://gitlab.freedesktop.org/telepathy/telepathy-glib/-/merge_requests/4
 Patch1:         telepathy-glib-prXXX-function-type-cast.patch
 
 BuildRequires:	make

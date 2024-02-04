@@ -93,7 +93,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -112,6 +112,9 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 %endif
+
+# Backport of https://reviews.llvm.org/D156485 for rhbz#2262260.
+Patch0: 0001-PEI-Don-t-zero-out-noreg-operands.patch
 
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
@@ -611,6 +614,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 01 2024 Nikita Popov <npopov@redhat.com> - 17.0.6-6
+- Fix crash with -fzero-call-used-regs (rhbz#2262260)
+
 * Mon Jan 29 2024 Nikita Popov <npopov@redhat.com> - 17.0.6-5
 - Only use cet-report=error on x86_64
 

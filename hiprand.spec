@@ -52,6 +52,7 @@ backend. Currently, hipRAND supports either rocRAND or cuRAND.
 %package devel
 Summary:        The hipRAND development package
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       rocrand-devel
 
 %description devel
 The hipRAND development package.

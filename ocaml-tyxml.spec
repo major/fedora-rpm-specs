@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-tyxml
 Version:        4.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -140,6 +140,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 4.6.0-7
+- Rebuild for changed ocamlx(Location) hash
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

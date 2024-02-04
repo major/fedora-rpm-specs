@@ -1,98 +1,38 @@
 %global pypi_name nikola
 
 Name:           python-%{pypi_name}
-Version:        8.2.4
-Release:        6%{?dist}
+Version:        8.3.0
+Release:        2%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 License:        MIT and CC0 and BSD
 URL:            https://getnikola.com/
 Source0:        https://github.com/getnikola/nikola/archive/v%{version}/nikola-%{version}.tar.gz
-# https://github.com/getnikola/nikola/issues/3700
-# https://github.com/getnikola/nikola/pull/3701
-# Fix to work with Python 3.12-compatible yapsy
-Patch:          0001-Handle-change-to-plugin-loading-in-recent-yapsy-3700.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 # Sphinx required for documentation
 BuildRequires:  python3dist(sphinx)
 
-# Required for testing ( requires + extras + testing)
-#  * from requirements.txt
-BuildRequires:  python3dist(doit)
-BuildRequires:  python3dist(pygments)
-BuildRequires:  python3dist(pillow)
-BuildRequires:  python3dist(python-dateutil)
-BuildRequires:  python3dist(docutils)
-BuildRequires:  python3dist(mako)
-BuildRequires:  python3dist(markdown)
-BuildRequires:  python3dist(unidecode)
-BuildRequires:  python3dist(lxml)
-BuildRequires:  python3dist(yapsy)
-BuildRequires:  python3dist(pyrss2gen)
-BuildRequires:  python3dist(blinker)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(natsort)
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(piexif)
-BuildRequires:  python3dist(babel)
-# * from requirements-extras.txt
-BuildRequires:  python3dist(jinja2)
-BuildRequires:  python3dist(husl)
-BuildRequires:  python3dist(pyphen)
-BuildRequires:  python3dist(micawber)
-BuildRequires:  python3dist(pygal)
-BuildRequires:  python3dist(typogrify)
-BuildRequires:  python3dist(phpserialize)
-BuildRequires:  python3dist(notebook)
-BuildRequires:  python3dist(ipykernel)
-BuildRequires:  python3dist(ghp-import)
-BuildRequires:  python3dist(aiohttp)
-BuildRequires:  python3dist(watchdog)
-BuildRequires:  python3dist(ruamel-yaml)
-BuildRequires:  python3dist(toml)
-# * from requirements-tests.txt
-BuildRequires:  python3dist(coverage)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  python3dist(freezegun)
-BuildRequires:  python3dist(flake8)
-
-%description
+%global _description %{expand:
 Nikola is a static site and blog generator using Python. It generates sites
 with tags, feeds, archives, comments, and more from plain text files. Source
  can be unformatted, or formatted with reStructuredText or Markdown.
-It also automatically builds image galleries.
+It also automatically builds image galleries.}
 
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-Requires:       glyphicons-halflings-fonts
-# Extra requirements to enable plugins
-Requires:  python3dist(jinja2)
-Requires:  python3dist(husl)
-Requires:  python3dist(pyphen)
-Requires:  python3dist(micawber)
-Requires:  python3dist(pygal)
-Requires:  python3dist(typogrify)
-Requires:  python3dist(phpserialize)
-Requires:  python3dist(notebook)
-Requires:  python3dist(ipykernel)
-Requires:  python3dist(ghp-import)
-Requires:  python3dist(aiohttp)
-Requires:  python3dist(watchdog)
-Requires:  python3dist(ruamel-yaml)
-Requires:  python3dist(toml)
 
 # nikola carries these python modules bundled
 ## a modified version to use dateutil instead of pytz
 Provides:  bundled(python3-pytzlocal)
-## this is a small module made by Chris Warrick (a Nikola main contributor)
+## this is a small module made by Chris Warrick (a Nikola major contributor)
 Provides:  bundled(python3-datecond) = 0.1.6
-## this is a small module made by Chris Warrick (a Nikola main contributor)
+## this is a small module made by Chris Warrick
 Provides:  bundled(python3-pygments_better_html)
 
 %description -n python3-%{pypi_name}
@@ -104,8 +44,7 @@ This package contains the Python implementation of nikola.
 
 %package -n python-%{pypi_name}-doc
 Summary:        python-nikola documentation
-Obsoletes:      python2-nikola < 8
-Obsoletes:      python3-nikola < 8
+
 %description -n python-%{pypi_name}-doc
 Documentation for python-nikola
 
@@ -114,22 +53,22 @@ Documentation for python-nikola
 Summary:        %{summary}
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 
-%description -n %{pypi_name}
-Documentation for python-nikola
-Nikola is a static site and blog generator using Python. It generates sites
-with tags, feeds, archives, comments, and more from plain text files. Source
- can be unformatted, or formatted with reStructuredText or Markdown.
-It also automatically builds image galleries.
+%description -n %{pypi_name} %_description
 
+%{pyproject_extras_subpkg -n python3-%{pypi_name} extras}
 
 %prep
 %autosetup -p1 -n nikola-%{version}
-# Remove bundled egg-info
-rm -rf Nikola.egg-info
+
+sed -i 's|hsluv.*||' requirements-extras.txt
+
+%generate_buildrequires
+%pyproject_buildrequires requirements.txt requirements-extras.txt requirements-tests.txt -r
 
 
 %build
-%py3_build
+%pyproject_wheel
+
 # generate html docs
 PYTHONPATH=${PWD} sphinx-build-3 docs/sphinx html
 # remove the sphinx-build leftovers
@@ -137,18 +76,16 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-pytest
+%pytest
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/nikola
-%{python3_sitelib}/Nikola-%{version}-py%{python3_version}.egg-info
 
 
 %files -n python-%{pypi_name}-doc
@@ -165,6 +102,12 @@ pytest
 
 
 %changelog
+* Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 8.3.0-2
+- Update the spec file to more modern Python guidelines
+
+* Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 8.3.0-1
+- Update to 8.3.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

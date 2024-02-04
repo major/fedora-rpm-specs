@@ -1,8 +1,7 @@
 Name:       perl-Text-Password-Pronounceable 
 Version:    0.30
-Release:    35%{?dist}
-# lib/Text/Password/Pronounceable.pm -> GPL+ or Artistic
-License:    GPL+ or Artistic 
+Release:    36%{?dist}
+License:    Artistic-1.0-Perl 
 Summary:    Generate pronounceable passwords 
 Source0:    https://cpan.metacpan.org/authors/id/T/TS/TSIBLEY/Text-Password-Pronounceable-%{version}.tar.gz
 Url:        https://metacpan.org/release/Text-Password-Pronounceable
@@ -52,6 +51,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.30-36
+- SPDX license tag
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

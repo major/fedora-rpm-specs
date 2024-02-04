@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        65
-Release:        4%{?dist}
+Version:        66
+Release:        1%{?dist}
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0
 URL:            https://commons.apache.org/commons-parent-pom.html
@@ -46,6 +46,7 @@ The Project Object Model files for the apache-commons packages.
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :versions-maven-plugin
+%pom_remove_plugin :maven-artifact-plugin
 
 %pom_remove_dep org.junit:junit-bom
 
@@ -65,6 +66,9 @@ done
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Feb 02 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 66-1
+- Update to upstream version 66
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 65-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

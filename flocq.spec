@@ -7,11 +7,11 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 %global flocqdir %{ocamldir}/coq/user-contrib/Flocq
 %global coqver  8.18.0
-%global commit  5162468486c3a4ac0d4b3ea2b587d952b3e22ec3
+%global commit  c5f475dd493d8f83c69d6959e531bf73c359da52
 
 Name:           flocq
-Version:        4.1.3
-Release:        3%{?dist}
+Version:        4.1.4
+Release:        1%{?dist}
 Summary:        Formalization of floating point numbers for Coq
 
 License:        LGPL-3.0-or-later
@@ -87,6 +87,9 @@ cp -p src/Prop/*.v $RPM_BUILD_ROOT%{flocqdir}/Prop
 %{flocqdir}/Prop/*.v
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 4.1.4-1
+- Version 4.1.4
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

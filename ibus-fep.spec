@@ -1,9 +1,9 @@
 Name:		ibus-fep
 Version:	1.4.4
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	IBus client for text terminals (non frame buffer)
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://github.com/ueno/ibus-fep
 Source0:	https://github.com/downloads/ueno/ibus-fep/%{name}-%{version}.tar.gz
 
@@ -18,7 +18,7 @@ ibus-fep is an IBus client that runs on text terminals such as xterm.
 
 
 %prep
-%setup -q
+%autosetup
 touch src/*.vala
 
 
@@ -41,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 1.4.4-26
+- Migrate to SPDX license expression
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

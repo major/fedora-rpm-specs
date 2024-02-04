@@ -5,7 +5,7 @@ Version:       1.3.0
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       5%{?dist}
+Release:       6%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 # To create the vendor tarball:
@@ -76,7 +76,8 @@ This package contains development tools for %{name}.
 %forgeautosetup -p1
 
 %if 0%{?rhel}
-%cargo_prep -V 1
+tar xf %{SOURCE1}
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
@@ -87,6 +88,11 @@ sed -e 's/--locked//' -i src/cargo-build.sh
 export RUSTFLAGS="%build_rustflags"
 %{meson}
 %{meson_build}
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 
 %install
@@ -95,6 +101,10 @@ export RUSTFLAGS="%build_rustflags"
 
 %files
 %license LICENSE-APACHE LICENSE-MIT LICENSE.crosvm
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc README.rst
 %{_libdir}/libblkio.so.1{,.*}
 
@@ -109,6 +119,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-6
+- Update Rust macro usage
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

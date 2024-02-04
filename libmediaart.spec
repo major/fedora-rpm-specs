@@ -1,9 +1,9 @@
 Name:           libmediaart
 Version:        1.9.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for managing media art caches
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/libmediaart
 Source0:        https://download.gnome.org/sources/%{name}/1.9/%{name}-%{version}.tar.xz
 
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 1.9.6-7
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

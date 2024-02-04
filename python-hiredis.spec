@@ -19,6 +19,9 @@ BuildRequires: gcc
 BuildRequires: python3dist(pytest)
 
 
+Requires: hiredis
+
+
 # Fill in the actual package description to submit package to Fedora
 %global _description %{expand:
 Python extension that wraps protocol parsing code in hiredis.

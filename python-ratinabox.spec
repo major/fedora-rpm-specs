@@ -1,8 +1,13 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
 
+%ifarch x86_64 aarch64
+%global arch_has_torch 1
+%endif
+%bcond torch 0%{?arch_has_torch:1}
+
 Name:           python-ratinabox
-Version:        1.11.4
+Version:        1.12.0
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -15,14 +20,18 @@ URL:            https://github.com/TomGeorge1234/RatInABox
 # large that it is doubtful whether it is worth packaging them.
 Source:         %{pypi_source ratinabox}
 
-BuildArch:      noarch
+# The package is arched so that the BR and weak dependency on python-torch can
+# be conditionalized. It does not contain compiled machine code, so there are
+# no debugging symbols.
+%global debug_package %{nil}
 
 BuildRequires:  python3-devel
 
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
+%if %{with torch}
 BuildRequires:  %{py3_dist torch}
-Recommends:     %{py3_dist torch}
+%endif
 
 %global common_description %{expand:
 RatInABox is a toolkit for generating locomotion trajectories and complementary
@@ -34,6 +43,10 @@ continuous environments.}
 
 %package -n     python3-ratinabox
 Summary:        %{summary}
+
+%if %{with torch}
+Recommends:     %{py3_dist torch}
+%endif
 
 %description -n python3-ratinabox %{common_description}
 
@@ -64,6 +77,7 @@ Summary:        %{summary}
 # Let’s do this in addition to running the tests, so we can be aware of any
 # issues in contribs that may not be tested.
 %{pyproject_check_import \
+    %{?!with_torch:-e '*.contribs.NeuralNetworkNeurons'} \
     %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'} }
 
 %if %{without gymnasium}

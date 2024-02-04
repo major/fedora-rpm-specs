@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 39.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -16,6 +16,7 @@ Source1: COPYING
 
 # Temporarily as a patch until f40 backgrounds exist to bump to 40
 Patch0:  0001-Add-initial-setup-configuration-with-kwin_wayland.patch
+Patch1:  0001-Revert-kwinrc-Disable-the-Blur-plugin-in-kwin-by-def.patch
 
 BuildArch: noarch
 
@@ -245,6 +246,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Fri Feb 02 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-6
+- Re-enable kwin blur plugin
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

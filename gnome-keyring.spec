@@ -9,7 +9,9 @@ Version:        42.1
 Release:        10%{?dist}
 Summary:        Framework for managing passwords and other secrets
 
-License:        GPLv2+ and LGPLv2+
+# egg/ is (GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause
+# pkcs11/ is MPL-1.1 OR GPL-2.0-or-later OR  LGPL-2.1-or-later
+License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND ((GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/GnomeKeyring
 Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/52
@@ -52,7 +54,7 @@ Applications can use the gnome-keyring library to integrate with the keyring.
 
 %package pam
 Summary: Pam module for unlocking keyrings
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 # for /lib/security
 Requires: pam%{?_isa}

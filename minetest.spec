@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.8.0
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 License:  LGPLv2+ and CC-BY-SA
@@ -19,6 +19,7 @@ Source7:  http://www.gnu.org/licenses/lgpl-2.1.txt
 Source8:  default.conf
 Source9:  https://github.com/minetest/irrlicht/archive/%{irr_version}/%{name}-%{irr_version}.tar.gz
 Patch0:   %{name}-gcc11.patch
+Patch1:   includes.patch
 
 %if 0%{?rhel}
 ExclusiveArch:  %{ix86} x86_64
@@ -223,6 +224,9 @@ exit 0
 
 
 %changelog
+* Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.8.0-5
+- Patch for FTBFS.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

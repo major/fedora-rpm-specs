@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.9.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
@@ -77,11 +77,6 @@ Suggests: sssd-dbus = %{version}-%{release}
 %global secdbpath %{sssdstatedir}/secrets
 %global deskprofilepath %{sssdstatedir}/deskprofile
 
-# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/URKAWVPEINE4CREFO4L22MGKN6TNUGQK/
-# https://github.com/containers/composefs/pull/229#issuecomment-1838735764
-%if 0%{?rhel} >= 10
-ExcludeArch:    %{ix86}
-%endif
 
 ### Build Dependencies ###
 
@@ -1065,6 +1060,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Feb 02 2024 Stephen Gallagher <sgallagh@redhat.com> - 2.9.4-5
+- Restore i686 on Fedora ELN
+
 * Wed Jan 31 2024 Guenther Deschner <gdeschner@redhat.com> - 2.9.4-4
 - Fix the build with Samba 4.20
 

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ctypes
 Version:        0.21.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -81,6 +81,9 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 0.21.1-7
+- Rebuild for changed ocamlx(Toploop) hash
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

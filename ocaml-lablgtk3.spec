@@ -2,24 +2,28 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-lablgtk3
-Version:        3.1.3
-Release:        11%{?dist}
+Version:        3.1.4
+Release:        1%{?dist}
 Summary:        OCaml interface to gtk3
 
-License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://garrigue.github.io/lablgtk/
 Source0:        https://github.com/garrigue/lablgtk/archive/%{version}/lablgtk3-%{version}.tar.gz
+# Fix an incompatible pointer error
+# https://github.com/garrigue/lablgtk/pull/175
+Patch0:         %{name}-incompatible-pointer.patch
 
 BuildRequires:  help2man
-BuildRequires:  ocaml >= 4.09.0
+BuildRequires:  ocaml >= 4.12.0
 BuildRequires:  ocaml-cairo-devel >= 0.6
-BuildRequires:  ocaml-camlp-streams-devel
+BuildRequires:  ocaml-camlp-streams-devel >= 5.0
 BuildRequires:  ocaml-dune >= 1.8.0
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  pkgconfig(goocanvas-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-3.0)
 BuildRequires:  pkgconfig(gtkspell3-3.0)
+BuildRequires:  pkgconfig(librsvg-2.0)
 
 # This can be removed when F40 reaches EOL
 Obsoletes:      ocaml-lablgtk3-doc < 3.1.2-5
@@ -44,7 +48,6 @@ developing applications that use %{name}.
 %package        goocanvas2
 Summary:        OCaml interface to GooCanvas
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       goocanvas2-devel%{?_isa}
 
 %description    goocanvas2 %_description
 
@@ -54,6 +57,7 @@ This package contains OCaml bindings for the GTK3 GooCanvas library.
 Summary:        Development files for %{name}-goocanvas2
 Requires:       %{name}-goocanvas2%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       goocanvas2-devel%{?_isa}
 
 %description    goocanvas2-devel
 The %{name}-goocanvas2-devel package contains libraries and signature
@@ -62,7 +66,6 @@ files for developing applications that use %{name}-goocanvas2.
 %package        gtkspell3
 Summary:        OCaml interface to gtkspell3
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       gtkspell3-devel%{?_isa}
 
 %description    gtkspell3 %_description
 
@@ -72,15 +75,33 @@ This package contains OCaml bindings for gtkspell3.
 Summary:        Development files for %{name}-gtkspell3
 Requires:       %{name}-gtkspell3%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       gtkspell3-devel%{?_isa}
 
 %description    gtkspell3-devel
 The %{name}-gtkspell3-devel package contains libraries and signature
 files for developing applications that use %{name}-gtkspell3.
 
+%package        rsvg2
+Summary:        OCaml interface to librsvg2
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    rsvg2 %_description
+
+This package contains OCaml bindings for librsvg2.
+
+%package        rsvg2-devel
+Summary:        Development files for %{name}-rsvg2
+Requires:       %{name}-rsvg2%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       librsvg2-devel%{?_isa}
+
+%description    rsvg2-devel
+The %{name}-rsvg2-devel package contains libraries and signature
+files for developing applications that use %{name}-rsvg2.
+
 %package        sourceview3
 Summary:        OCaml interface to gtksourceview3
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       gtksourceview3-devel%{?_isa}
 
 %description    sourceview3 %_description
 
@@ -90,6 +111,7 @@ This package contains OCaml bindings for gtksourceview3.
 Summary:        Development files for %{name}-sourceview3
 Requires:       %{name}-sourceview3%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       gtksourceview3-devel%{?_isa}
 
 %description    sourceview3-devel
 The %{name}-sourceview3-devel package contains libraries and signature
@@ -144,11 +166,20 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 
 %files gtkspell3-devel -f .ofiles-lablgtk3-gtkspell3-devel
 
+%files rsvg2 -f .ofiles-lablgtk3-rsvg2
+
+%files rsvg2-devel -f .ofiles-lablgtk3-rsvg2-devel
+
 %files sourceview3 -f .ofiles-lablgtk3-sourceview3
 
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 3.1.4-1
+- Version 3.1.4
+- Add rsvg2 subpackage
+- Add patch to fix an incompatible pointer error
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

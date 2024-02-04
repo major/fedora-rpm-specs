@@ -1,20 +1,24 @@
 Name:           liblouisutdml
-Version:        2.11.0
-Release:        7%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        Braille transcription library for UTDML documents
 License:        LGPLv3+
 URL:            http://liblouis.org
 Source0:        https://github.com/liblouis/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         liblouisutdml-missing-decls.patch
+# upstream patch to fix failing testsuite
+# https://github.com/liblouis/liblouisutdml/pull/101/commits/10254fc8216fba30e03c2bb3650d1699bfcb3716
+Patch0:         liblouisutdml-failing-testsuite.patch
+# add missing #includes
+Patch1:         liblouisutdml-includes.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  help2man
-BuildRequires:  liblouis-devel >= 3.20
+BuildRequires:  liblouis-devel >= 3.27
 BuildRequires:  libxml2-devel
 BuildRequires:  texinfo-tex
-BuildRequires: make
+BuildRequires:  make
 
 
 # gnulib is a copylib that has been granted an exception from the no-bundled-libraries policy
@@ -112,6 +116,13 @@ rm -rf %{buildroot}/%{_defaultdocdir}/liblouisutdml
 
 
 %changelog
+* Fri Feb 02 2024 Martin Gieseking <martin.gieseking@uos.de> - 2.12.0-1
+- Update to 2.12.0.
+- Updated dependency of liblouis to version 3.27.
+- Removed liblouisutdml-missing-decls.patch.
+- Added upstream patch to fix failing testsuite
+- Added patch to add missing #includes
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

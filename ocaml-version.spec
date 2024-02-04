@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-version
-Version:        3.6.3
-Release:        5%{?dist}
+Version:        3.6.4
+Release:        1%{?dist}
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
@@ -60,6 +60,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 3.6.4-1
+- Version 3.6.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

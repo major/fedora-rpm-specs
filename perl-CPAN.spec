@@ -304,7 +304,7 @@ unset AUTHOR_TEST CPAN_EXPECT_TIMEOUT CPAN_RUN_SHELL_TEST_WITHOUT_EXPECT \
 DIR=$(mktemp -d)
 pushd "$DIR"
 cp -a %{_libexecdir}/%{name}/* ./
-prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+prove -I .
 popd
 rm -rf "$DIR"
 EOF

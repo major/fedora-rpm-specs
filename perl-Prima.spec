@@ -33,8 +33,8 @@
 
 
 Name:           perl-Prima
-Version:        1.71
-Release:        3%{?dist}
+Version:        1.72
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -55,6 +55,12 @@ Summary:        Perl graphic toolkit
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
+# Fix Bool type to build with GCC 14, bug #2261449, CPAN RT#151523,
+# proposed to the upstream.
+Patch0:         Prima-1.71-Harmonize-Prima-Bool-type-with-X11-Bool-macro.patch
+# Rename /usr/bin/pod2pdf to prima-pod2pdf because it conflicts with
+# perl-podf2pdf, CPAN RT#151521, in upstream after 1.72.
+Patch1:         Prima-1.72-Rename-pod2pdf-to-prima-pod2pdf.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}
@@ -225,11 +231,14 @@ for F in $(find t -name '*.t'); do
 done
 
 %build
+unset AUTOMATED_TESTING NONINTERACTIVE_TESTING PERL_BATCH
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
     OPTIMIZE="$RPM_OPT_FLAGS" \
     DEBUG=0 \
     VERBOSE=1 \
     WITH_COCOA=0 \
+    WITH_FONTCONFIG=1 \
+    WITH_FREETYPE=1 \
     WITH_FRIBIDI=%{with perl_Prima_enables_fribidi} \
     WITH_GTK2=%{use_gtk2} \
     WITH_GTK3=%{use_gtk3} \
@@ -322,6 +331,12 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 02 2024 Petr Pisar <ppisar@redhat.com> - 1.72-1
+- 1.72 bump
+
+* Fri Feb 02 2024 Petr Pisar <ppisar@redhat.com> - 1.71-4
+- Fix Bool type to build with GCC 14 (bug #2261449)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

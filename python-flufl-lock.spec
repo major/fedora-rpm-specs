@@ -1,13 +1,13 @@
 %global pkgname flufl-lock
 
 Name:           python-%{pkgname}
-Version:        7.1.1
-Release:        6%{?dist}
+Version:        8.0.2
+Release:        1%{?dist}
 Summary:        NFS-safe file locking with timeouts for POSIX systems
 
 License:        Apache-2.0
 URL:            https://gitlab.com/warsaw/flufl.lock
-Source0:        https://files.pythonhosted.org/packages/source/f/flufl.lock/flufl.lock-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/f/flufl.lock/flufl_lock-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -35,7 +35,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n flufl.lock-%{version}
+%autosetup -n flufl_lock-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -63,6 +63,9 @@ rm -f conftest.py
 
 
 %changelog
+* Fri Feb 02 2024 jonathanspw <jonathan@almalinux.org> - 8.0.2-1
+- Update to 8.0.2 rhbz#2216613
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

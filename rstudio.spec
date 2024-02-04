@@ -27,9 +27,9 @@
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
 %global rstudio_version_minor       12
-%global rstudio_version_patch       0
-%global rstudio_version_suffix      369
-%global rstudio_git_revision_hash   960e8fa44552e2c0e917260463dfec48c83f215c
+%global rstudio_version_patch       1
+%global rstudio_version_suffix      402
+%global rstudio_git_revision_hash   4da58325ffcff29d157d9264087d4b1ab27f7204
 %global quarto_git_revision_hash    d379a090ffcc482fd383f43b0d598e7c3cb6776b
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_flags \
@@ -47,14 +47,14 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
 # See NOTICE file
 License:        AGPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND MIT AND BSD-3-Clause AND ISC AND W3C AND MPL-1.1 AND CPL-1.0 AND CC-BY-SA-4.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/%{name}/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source4:        https://github.com/quarto-dev/quarto/archive/%{quarto_git_revision_hash}/quarto-%{quarto_git_revision_hash}.tar.gz
 Source5:        panmirror-cleanup.sh
 # Node dependencies to build visual editor (use nodejs-bundler.sh)
@@ -197,6 +197,7 @@ ln -sf %{_includedir}/catch2 src/cpp/tests/cpp/tests/vendor
 %{rstudio_flags}
 %cmake -B build \
 %ifarch %{qt5_qtwebengine_arches}
+    -DRSTUDIO_DISABLE_CHECK_FOR_UPDATES=1 \
     -DRSTUDIO_TARGET=Desktop \
     -DRSTUDIO_DESKTOP=TRUE \
     -DQUARTO_ENABLED=FALSE \
@@ -350,6 +351,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Fri Feb 02 2024 Iñaki Úcar <iucar@fedoraproject.org> - 2023.12.1+402-1
+- Update to 2023.12.1+402
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12.0+369-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

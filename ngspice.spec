@@ -66,6 +66,7 @@ Source10:		create-ngspice-git-bare-tarball.sh
 # not (bug 1047056, debian bug 737279)
 Patch0:		ngspice-37-blt-linkage-workaround.patch
 # Fix compilation with C99 -Werror=incompatible-pointer-types
+# https://sourceforge.net/p/ngspice/bugs/659/
 Patch1:		ngspice-42-pointer-type-cast-c99.patch
 
 BuildRequires:	make

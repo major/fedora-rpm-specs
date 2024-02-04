@@ -143,37 +143,39 @@ Patch125: xorg-x11-server-fb-access-wrapper.patch
 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1057
 Patch126: 0001-present-Send-a-PresentConfigureNotify-event-for-dest.patch
 
+# CVE-2023-5367
+Patch1010: 0001-Xi-randr-fix-handling-of-PropModeAppend-Prepend.patch
+# CVE-2023-5380
+Patch1011: 0002-mi-reset-the-PointerWindows-reference-on-screen-swit.patch
+# CVE-2023-6377
+Patch1012: 0001-Xi-allocate-enough-XkbActions-for-our-buttons.patch
+# CVE-2023-6478
+Patch1013: 0001-randr-avoid-integer-truncation-in-length-check-of-Pr.patch
+# CVE-2023-6816
+Patch1014: 0001-dix-allocate-enough-space-for-logical-button-maps.patch
+# CVE-2024-0229
+Patch1015: 0002-dix-Allocate-sufficient-xEvents-for-our-DeviceStateN.patch
+Patch1016: 0003-dix-fix-DeviceStateNotify-event-calculation.patch
+Patch1017: 0004-Xi-when-creating-a-new-ButtonClass-set-the-number-of.patch
+# CVE-2024-21885
+Patch1018: 0005-Xi-flush-hierarchy-events-after-adding-removing-mast.patch
+# CVE-2024-21886
+Patch1019: 0006-Xi-do-not-keep-linked-list-pointer-during-recursion.patch
+Patch1020: 0007-dix-when-disabling-a-master-float-disabled-slaved-de.patch
+# CVE-2024-0408
+Patch1021: 0008-glx-Call-XACE-hooks-on-the-GLX-buffer.patch
+# CVE-2024-0409
+Patch1022: 0009-ephyr-xwayland-Use-the-proper-private-key-for-cursor.patch
+# Related to CVE-2024-21886
+Patch1023: 0001-dix-Fix-use-after-free-in-input-device-shutdown.patch
+# Fix compilation error on i686
+Patch1024: 0001-ephyr-Fix-incompatible-pointer-type-build-error.patch
+
+## Add new patches above; Fedora-specific patches below
+
 # Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
 Patch3801: 0001-Disallow-byte-swapped-clients-by-default.patch
-
-# CVE-2023-5367
-Patch3810: 0001-Xi-randr-fix-handling-of-PropModeAppend-Prepend.patch
-# CVE-2023-5380
-Patch3811: 0002-mi-reset-the-PointerWindows-reference-on-screen-swit.patch
-# CVE-2023-6377
-Patch3812: 0001-Xi-allocate-enough-XkbActions-for-our-buttons.patch
-# CVE-2023-6478
-Patch3813: 0001-randr-avoid-integer-truncation-in-length-check-of-Pr.patch
-# CVE-2023-6816
-Patch3814: 0001-dix-allocate-enough-space-for-logical-button-maps.patch
-# CVE-2024-0229
-Patch3815: 0002-dix-Allocate-sufficient-xEvents-for-our-DeviceStateN.patch
-Patch3816: 0003-dix-fix-DeviceStateNotify-event-calculation.patch
-Patch3817: 0004-Xi-when-creating-a-new-ButtonClass-set-the-number-of.patch
-# CVE-2024-21885
-Patch3818: 0005-Xi-flush-hierarchy-events-after-adding-removing-mast.patch
-# CVE-2024-21886
-Patch3819: 0006-Xi-do-not-keep-linked-list-pointer-during-recursion.patch
-Patch3820: 0007-dix-when-disabling-a-master-float-disabled-slaved-de.patch
-# CVE-2024-0408
-Patch3821: 0008-glx-Call-XACE-hooks-on-the-GLX-buffer.patch
-# CVE-2024-0409
-Patch3822: 0009-ephyr-xwayland-Use-the-proper-private-key-for-cursor.patch
-# Related to CVE-2024-21886
-Patch3823: 0001-dix-Fix-use-after-free-in-input-device-shutdown.patch
-# Fix compilation error on i686
-Patch3824: 0001-ephyr-Fix-incompatible-pointer-type-build-error.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel

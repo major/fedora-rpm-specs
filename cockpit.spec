@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        310
+Version:        310.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -811,6 +811,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Feb 02 2024 Packit <hello@packit.dev> - 310.1-1
+- bridge: Fix race condition/crash in file watching channels
+
 * Wed Jan 31 2024 Packit <hello@packit.dev> - 310-1
 - Storage: support for btrfs
 - Storage: improved support for swap

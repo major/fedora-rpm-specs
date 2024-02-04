@@ -1,8 +1,8 @@
 %global use_wayland 1
 
 Name:		enlightenment
-Version:	0.25.4
-Release:	5%{?dist}
+Version:	0.26.0
+Release:	1%{?dist}
 License:	BSD
 Summary:	Enlightenment window manager
 Url:		http://enlightenment.org
@@ -92,7 +92,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %systemd_preun enlightenment.service
 
 %files
-%doc AUTHORS COPYING README NEWS
+%doc AUTHORS COPYING README.md TODO.md
 %dir %{_sysconfdir}/enlightenment
 %config %{_sysconfdir}/enlightenment/system.conf
 %{_sysconfdir}/xdg/menus/e-applications.menu
@@ -126,6 +126,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/enlightenment
 
 %changelog
+* Fri Feb 02 2024 Ding-Yi Chen <dingyichen@gmail.com> - 0.26.0-1
+- Upstream update to 0.26.0
+- Upstream remove NEWS, thus remove from doc
+- Upstream rename README to README.md
+- Upstream has TODO.md now, thus add to doc
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

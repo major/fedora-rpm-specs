@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
-License:        GPL-2.0-only or GPL-3.0-only
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/sip
 Source0:        %{pypi_source}
 BuildArch:      noarch

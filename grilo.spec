@@ -6,7 +6,7 @@ Version:        0.3.16
 Release:        %autorelease
 Summary:        Content discovery framework
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Grilo
 Source0:        https://download.gnome.org/sources/grilo/%{release_version}/grilo-%{version}.tar.xz
 

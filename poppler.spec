@@ -16,8 +16,8 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 23.08.0
-Release: 3%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -52,6 +52,8 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(poppler-data)
+BuildRequires: pkgconfig(libcurl)
+BuildRequires: cmake(Gpgmepp)
 %if 0%{?qt5}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
@@ -219,7 +221,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.130*
+%{_libdir}/libpoppler.so.134*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc
@@ -278,6 +280,13 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Fri Feb  2 2024 Marek Kasik <mkasik@redhat.com> - 24.02.0-1
+- Update to 24.02.0
+- Resolves: #2237549
+
+* Fri Feb  2 2024 Marie Loise Nolden <loise@kde.org> - 24.01.0-1
+- update to 24.01.9
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

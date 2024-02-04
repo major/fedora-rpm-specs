@@ -1,12 +1,6 @@
 # Coq's plugin architecture requires cmxs files, so:
 ExclusiveArch: %{ocaml_native_compiler}
 
-# ANTLR is unavailable on i686, so coq is also unavailable.  We could build
-# without coq support, but choose to forgo i686 support entirely.
-# See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-#ExclusiveArch:  %%{java_arches}
-
 # NOTE: Upstream has said that the Frama-C support is still experimental, and
 # less functional than the corresponding support in why2.  They recommend not
 # enabling it for now.  We abide by their wishes.  Revisit this decision each
@@ -17,7 +11,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 %endif
 
 Name:           why3
-Version:        1.7.0
+Version:        1.7.1
 Release:        2%{?dist}
 Summary:        Software verification platform
 
@@ -292,6 +286,12 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.1-2
+- Build again because koji ran out of disk space
+
+* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.1-1
+- Version 1.7.1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

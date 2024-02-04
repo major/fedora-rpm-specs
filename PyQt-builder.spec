@@ -6,7 +6,7 @@ Version:        1.15.3
 Release:        3%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqt/
 Source0:        %{pypi_source}
 BuildArch:      noarch

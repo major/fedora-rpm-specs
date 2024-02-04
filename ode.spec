@@ -2,9 +2,9 @@
 
 Name:           ode
 Version:        0.16.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
-License:        BSD or LGPLv2+
+License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://bitbucket.org/odedevs/ode
 Source0:        https://bitbucket.org/odedevs/ode/downloads/ode-%{version}.tar.gz
 Patch1:         ode-0.11.1-multilib.patch
@@ -119,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.16.4-2
+- SPDX license tags
+
 * Thu Feb 01 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.16.4-1
 - 0.16.4
 

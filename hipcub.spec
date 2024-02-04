@@ -50,6 +50,7 @@ In the ROCm environment, hipCUB uses the rocPRIM library as the backend.
 %package devel
 Summary:        The %{upstreamname} development package
 Provides:       %{name}-static = %{version}-%{release}
+Requires:       rocprim-devel
 
 %description devel
 The %{upstreamname} development package.

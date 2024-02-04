@@ -1,14 +1,14 @@
 Name:           gnome-directory-thumbnailer
 Version:        0.1.11
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Thumbnailer for directories
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GnomeDirectoryThumbnailer
 Source0:        https://download.gnome.org/sources/%{name}/0.1/%{name}-%{version}.tar.xz
 
-# https://gitlab.gnome.org/GNOME/gnome-directory-thumbnailer/-/issues/8
-Patch1:         temp-ftbfs.patch
+# https://gitlab.gnome.org/GNOME/gnome-directory-thumbnailer/-/commit/8b39714ff8fd5de6643b5fdcf7fb01da35b82334
+Patch1:         0001-Update-for-gnome-desktop-43-API-change.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
@@ -47,6 +47,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 0.1.11-15
+- SPDX migration. Replace api patch with upstream commit.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

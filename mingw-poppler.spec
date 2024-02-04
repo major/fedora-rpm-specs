@@ -3,11 +3,11 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       23.08.0
-Release:       3%{?dist}
+Version:       24.02.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
-License:       (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
+License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 BuildArch:     noarch
 URL:           http://poppler.freedesktop.org/
 Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
@@ -32,6 +32,7 @@ BuildRequires: mingw32-gtk3
 BuildRequires: mingw32-lcms2
 BuildRequires: mingw32-qt5-qtbase-devel
 BuildRequires: mingw32-qt6-qtbase
+BuildRequires: mingw32-curl
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-boost
@@ -45,6 +46,7 @@ BuildRequires: mingw64-gtk3
 BuildRequires: mingw64-lcms2
 BuildRequires: mingw64-qt5-qtbase-devel
 BuildRequires: mingw64-qt6-qtbase
+BuildRequires: mingw64-curl
 
 
 %description
@@ -153,6 +155,8 @@ MinGW Windows C++ Poppler library.
   -DENABLE_DCTDECODER=libjpeg \
   -DENABLE_LIBOPENJPEG=openjpeg2 \
   -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
+  -DENABLE_NSS3=OFF \
+  -DENABLE_GPGME=OFF \
   -DENABLE_ZLIB=OFF \
 
 %mingw_make_build
@@ -173,7 +177,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-130.dll
+%{mingw32_bindir}/libpoppler-134.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -208,7 +212,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-130.dll
+%{mingw64_bindir}/libpoppler-134.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -242,6 +246,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Fri Feb 02 2024 Sandro Mani <manisandro@gmail.com> - 24.02.0-1
+- Update to 24.02.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

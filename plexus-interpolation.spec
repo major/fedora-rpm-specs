@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-interpolation
-Version:        1.26
-Release:        19%{?dist}
+Version:        1.27
+Release:        1%{?dist}
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT
 License:        Apache-2.0 AND Apache-1.1 AND MIT
@@ -19,8 +19,9 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
 
 %description
@@ -48,6 +49,9 @@ related projects.
 %files -f .mfiles
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.27-1
+- Update to upstream version 1.27
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

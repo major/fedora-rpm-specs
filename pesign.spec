@@ -6,7 +6,7 @@
 Name:    pesign
 Summary: Signing utility for UEFI binaries
 Version: 116
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL:     https://github.com/rhboot/pesign
 
@@ -162,6 +162,9 @@ certutil -d %{_sysconfdir}/pki/pesign/ -X -L > /dev/null
 %{python3_sitelib}/mockbuild/plugins/pesign.*
 
 %changelog
+* Fri Feb 02 2024 Peter Jones <pjones@redhat.com> - 116-3
+- Fix incorrect calloc() invocations caught by -Wcalloc-transposed-args
+
 * Mon Feb 20 2023 Nicolas Frayer <nfrayer@redhat.com> - 116-2
 - cms_common: Fixed Segmentation fault
 

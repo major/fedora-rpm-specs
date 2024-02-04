@@ -5,7 +5,7 @@
 
 Name:           clevis-pin-tpm2
 Version:        0.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Clevis PIN for unlocking with TPM2 supporting Authorized Policies
 
 License:        MIT
@@ -31,9 +31,9 @@ Requires:       clevis
 %{summary}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 %{?rhel:-a1}
 %if 0%{?rhel}
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 %cargo_prep
 
@@ -43,6 +43,11 @@ Requires:       clevis
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 %install
 %cargo_install
@@ -56,10 +61,17 @@ ln -s /usr/bin/clevis-pin-tpm2 %{buildroot}/usr/bin/clevis-decrypt-tpm2plus
 
 %files
 %license LICENSE
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %{_bindir}/clevis-pin-tpm2
 %{_bindir}/clevis-*-tpm2plus
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.3-5
+- Update Rust macro usage
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

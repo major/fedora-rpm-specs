@@ -1,7 +1,7 @@
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
 Version:       0.9.34
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPLv2+
 URL:           http://qtractor.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -20,10 +20,13 @@ BuildRequires: libmad-devel
 BuildRequires: libsamplerate-devel
 BuildRequires: libsndfile-devel
 BuildRequires: libvorbis-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-linguist
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qtx11extras-devel
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: rubberband-devel
 BuildRequires: suil-devel
 BuildRequires: lilv-devel
@@ -65,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.rncbc.qtractor.de
 %{_datadir}/metainfo/org.rncbc.qtractor.metainfo.xml
 
 %changelog
+* Fri Jan 26 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.34-4
+- Use Qt6
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

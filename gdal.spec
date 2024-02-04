@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.8.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -576,6 +576,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Fri Feb 02 2024 Sandro Mani <manisandro@gmail.com> - 3.8.3-5
+- Rebuild (poppler)
+
 * Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 3.8.3-4
 - Enable libarrow, libdeflate
 

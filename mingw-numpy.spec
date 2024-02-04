@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       1.26.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -82,6 +82,12 @@ mkdir -p %{buildroot}%{_prefix}/%{mingw64_target}/include
 ln -s %{mingw32_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefix}/%{mingw32_target}/include/numpy
 ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefix}/%{mingw64_target}/include/numpy
 
+# Install missing files
+cp -a build_mingw32_host/src.linux-*-%{mingw32_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw32_python3_hostsitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw32_python3_sitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
+cp -a build_mingw64_host/src.linux-*-%{mingw64_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw64_python3_hostsitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw64_python3_sitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
+
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
@@ -109,6 +115,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 
 
 %changelog
+* Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 1.26.2-4
+- Fix missing files
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

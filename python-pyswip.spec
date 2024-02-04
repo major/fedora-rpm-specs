@@ -2,14 +2,17 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
 URL:            https://github.com/yuce/pyswip
 Source0:        https://github.com/yuce/pyswip/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 BuildArch:      noarch
+
 BuildRequires:  pl-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -42,25 +45,31 @@ Pythonic interface.
 %autosetup -n %{srcname}-%{version} -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
 %check
-pytest-3 tests
+%pytest
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md CHANGELOG.md
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 0.2.10-15
+- Stop building for 32-bit x86
+- Modernize the spec file
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

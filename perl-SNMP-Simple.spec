@@ -1,9 +1,9 @@
 Name:           perl-SNMP-Simple
 Version:        0.02
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Shortcuts for SNMP
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SNMP-Simple
 Source0:        https://cpan.metacpan.org/authors/id/I/IA/IAN/SNMP-Simple-%{version}.tar.gz
 
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Feb  2 2024 Yanko Kaneti <yaneti@declera.com> - 0.02-35
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
