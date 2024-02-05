@@ -1,16 +1,17 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       36%{?dist}
+Release:       37%{?dist}
 License:       BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
 Source1:       http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
 Source2:       eterm.png
 Patch0:        eterm-0.9.6-gcc10.patch
-Patch1:        eterm-0.9.6-query-graphics.patch
-Patch2:        eterm-configure-c99.patch
-Patch3:        eterm-c99-headers.patch
-Patch4:        fix-fail-to-build-with-imlib2.patch
+Patch1:        eterm-0.9.6-gcc14.patch
+Patch2:        https://sources.debian.org/data/main/e/eterm/0.9.6-7.1/debian/patches/fix-fail-to-build-with-imlib2.patch
+Patch3:        eterm-0.9.6-query-graphics.patch
+Patch4:        eterm-configure-c99.patch
+Patch5:        eterm-c99-headers.patch
 URL:           http://www.eterm.org/
 Requires:      xorg-x11-fonts-misc
 Requires:      xorg-x11-fonts-ISO8859-1-75dpi
@@ -35,12 +36,7 @@ various themes and is very configurable, in keeping with the
 philosophy of Enlightenment.
 
 %prep
-%setup -a 1 -q -n Eterm-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
+%autosetup -p1 -a 1 -n Eterm-%{version}
 for f in ChangeLog ; do
     mv $f $f.iso88591
     iconv -o $f -f iso88591 -t utf8 $f.iso88591
@@ -100,6 +96,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Sat Feb 03 2024 Terje Rosten <terje.rosten@ntnu.no> - 0.9.6-37
+- Fix GCC 14 and imlib2 issue
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

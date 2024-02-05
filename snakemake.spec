@@ -30,7 +30,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        8.2.3
+Version:        8.4.3
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -44,6 +44,10 @@ Summary:        Workflow management system to create reproducible and scalable d
 License:        MIT AND Unlicense
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
 Source:         https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
+
+# Fix a SyntaxWarning (non-raw regex pattern string)
+# https://github.com/snakemake/snakemake/pull/2670
+Patch:          https://github.com/snakemake/snakemake/pull/2670.patch
 
 BuildArch:      noarch
 

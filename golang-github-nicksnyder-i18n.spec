@@ -5,15 +5,9 @@
 %global goipath         github.com/nicksnyder/go-i18n
 %global goipathsex      github.com/nicksnyder/go-i18n/v2
 Epoch:                  1
-Version:                1.10.1
+Version:                1.10.3
 
 %gometa
-
-# Remove in F33
-%global godevelheader %{expand:
-Obsoletes:      golang-github-nicksnyder-go-i18n-devel < 1.10.0-7
-Obsoletes:      golang-github-nicksnyder-go-i18n-unit-test-devel < 1.10.0-7
-}
 
 %global common_description %{expand:
 go-i18n is a Go package and a command that helps you translate Go programs into
@@ -30,7 +24,7 @@ multiple languages.
 %global godocs          CHANGELOG.md README.md dev.md
 
 Name:           %{goname}
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        Translate your Go program into multiple languages
 
 License:        MIT
@@ -52,8 +46,6 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 
 %install
 %gopkginstall
-rm -r %{buildroot}%{gopath}/src/%{goipath}/v2
-sed -i -e '/v2/d' %{gorpmname %{goipath}}-%{gofilelist}
 
 %if %{with check}
 %check
@@ -63,55 +55,4 @@ sed -i -e '/v2/d' %{gorpmname %{goipath}}-%{gofilelist}
 %gopkgfiles
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Oct 16 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.10.1-1
-- Downgrade to latest v1 release; v2 can be found in golang-github-nicksnyder-i18n-2
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jul 12 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.2-1
-- Update to latest version
-
-* Tue Jul 09 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.0-2
-- Add binary subpackage
-- Add Obsoletes for old name
-
-* Thu May 23 18:53:45 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 2.0.0-1
-- Release 2.0.0
-
-* Tue Feb 19 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.10.0-1
-- First package for Fedora
+%autochangelog

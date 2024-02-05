@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2023.4
+Version:       2024.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -65,6 +65,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 2024.1-1
+- Update to 2024.1
+
 * Mon Jan 29 2024 Sandro Mani <manisandro@gmail.com> - 2023.4-1
 - Update to 2023.4
 

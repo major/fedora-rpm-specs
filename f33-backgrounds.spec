@@ -7,7 +7,7 @@
 
 Name:		%{bgname}-backgrounds
 Version:	%{relnum}.0.8
-Release:	9%{?dist}
+Release:	%autorelease
 Summary:	Fedora %{relnum} default desktop background
 
 License:	CC-BY-SA
@@ -18,7 +18,7 @@ Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{versio
 BuildArch:	noarch
 
 # for %%_kde4_* macros
-BuildRequires:	kde-filesystem
+BuildRequires:	kde4-filesystem
 BuildRequires: make
 
 Requires:	%{name}-gnome = %{version}-%{release}
@@ -180,53 +180,4 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 33.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Dec 06 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.8-1
-- Update to 33.0.8
-
-* Tue Oct 06 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.7-1
-- Update to 33.0.7
-
-* Mon Oct 05 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.6-1
-- Update to 33.0.6
-
-* Tue Sep 22 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.5-1
-- Update to 33.0.5
-
-* Tue Sep 15 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.4-1
-- Update to 33.0.4
-
-* Fri Aug 28 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.3-1
-- Update to 33.0.3
-
-* Thu Aug 20 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.2-1
-- Update to 33.0.2
-
-* Sat Aug 15 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.1-1
-- Update to 33.0.1
-
-* Wed Aug 12 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 33.0.0-1
-- Initial package
+%autochangelog

@@ -1,5 +1,5 @@
 %global git 0
-%global commit ce756540e8615b6f7c1c1242695172b502834b19
+%global commit 27e8d0f19cfd60ff513828af74d07d2c8f3c4451
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20230802.1^%{shortcommit}
+Version:        20230802.2^%{shortcommit}
 %else
-Version:        20230802.1
+Version:        20230802.2
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,7 +25,7 @@ Version:        20230802.1
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -43,10 +43,12 @@ BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
+%ifnarch %ix86
 BuildRequires:  openmpi-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-openmpi
-BuildRequires:  mpich-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-mpich
+%endif
+BuildRequires:  mpich-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  fftw3-devel
@@ -364,6 +366,12 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sat Feb 3 2024 Richard Berger <richard.berger@outlook.com> - 20230802.2-1
+- Version bump to 20230802.2
+
+* Thu Feb 1 2024 Richard Berger <richard.berger@outlook.com> - 20230802.1-4
+- Remove non-existant build dependencies from 32bit builds
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230802.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

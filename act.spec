@@ -2,7 +2,7 @@ Name:           act
 %global lname   AutomaticComponentToolkit
 %global goipath github.com/Autodesk/%{lname}
 Version:        1.6.0
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        Automatic Component Toolkit
 License:        BSD
 
@@ -41,40 +41,4 @@ install -m 0755 -vp act %{buildroot}%{_bindir}/
 %{_bindir}/act
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 1.6.0-7
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962 in
-  golang}
-
-* Fri Jun 17 2022 Robert-André Mauchin <zebob.m@gmail.com> - 1.6.0-6
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Mar 31 2020 Miro Hrončok <mhroncok@redhat.com> - 1.6.0-1
-- Initial package (#1819148)
+%autochangelog

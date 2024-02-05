@@ -4,31 +4,24 @@
 %global crate libcramjam
 
 Name:           rust-libcramjam
-Version:        0.1.5
+Version:        0.2.0
 # Even though this is just MAJOR.MINOR from the SemVer version, we repeat it
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
-%global soversion 0.1
+%global soversion 0.2
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
 License:        MIT
 URL:            https://crates.io/crates/libcramjam
 Source:         %{crates_source}
-# Get the top-level license file from the commit corresponding to the 0.1.5
-# release. We filed a PR to fix this:
-#   Fix missing license file in the libcramjam crate
-#   https://github.com/milesgranger/cramjam/pull/120
-Source1:        https://github.com/milesgranger/cramjam/raw/8510678864af328a8b711f04ef2ddd8a4fa1d0cc/LICENSE
 # Manually created patch for downstream crate metadata changes
-#   - Typo fix in crate description,
-#     https://github.com/milesgranger/cramjam/pull/121
-#   - Bump zstd to 0.13.0 (to go with zstd-safe 7.0.0),
-#     https://github.com/milesgranger/cramjam/pull/128
 #   - Remove inline-c dependency; it is not packaged, not currently used, and
 #     has a significant number of dependencies of its own
 #   - Add a [lib] table with crate-type = ["lib", "cdylib"] to get a better
 #     template from rust2rpm
+#   - Don’t ask for the static feature of the xz2 crate (link the liblzma
+#     shared library instead)
 Patch:          libcramjam-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -49,7 +42,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 License:        %{shrink:
-                (0BSD OR MIT OR Apache-2.0) AND 
+                (0BSD OR MIT OR Apache-2.0) AND
                 Apache-2.0 AND
                 BSD-3-Clause AND
                 MIT AND
@@ -135,7 +128,6 @@ use the "libc" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE1}' .
 %cargo_prep
 
 %generate_buildrequires

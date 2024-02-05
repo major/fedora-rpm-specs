@@ -4,15 +4,14 @@
 %global pypi_name pytest-aiohttp
 
 Name:           python-%{pypi_name}
-Version:        1.0.4
-Release:        9%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Pytest plugin for aiohttp support
 
 License:        ASL 2.0
 URL:            https://github.com/aio-libs/pytest-aiohttp/
 Source0:        %{pypi_source}
 BuildArch:      noarch
-
 
 %description
 The library allows to use aiohttp pytest plugin without need for implicitly
@@ -31,25 +30,13 @@ loading it like pytest_plugins = 'aiohttp.pytest_plugin'.
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
-# Although upstream requires setuptools_scm >= 6.2, we can relax the
-# version requirement and add the PRETEND_VERSION environment variables
-# below as many other Fedora Python packages do. This allows the package
-# to build successfully in epel9 where only setuptools_scm 6.0.1 exists.
-sed -i 's/setuptools_scm >= 6.2/setuptools_scm >= 6.0/' setup.cfg
-sed -i 's/setuptools_scm>=6.2/setuptools_scm>=6.0/' pyproject.toml
-
-# Fixes https://github.com/aio-libs/pytest-aiohttp/issues/47
-sed -i 's/@pytest.mark.tryfirst/@pytest.hookimpl(tryfirst=True)/' pytest_aiohttp/plugin.py
-
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
-
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-
 
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -62,12 +49,14 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pytest
 %endif
 
-
 %files -n python3-%{pypi_name}  -f %{pyproject_files}
 %doc CHANGES.rst README.rst
 %license LICENSE
 
 %changelog
+* Sat Feb 03 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.5-1
+- Update to latest upstream release 1.0.5 (closes rhbz#2237729)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

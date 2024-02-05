@@ -1,6 +1,6 @@
 Name:           urlwatch
-Version:        2.21
-Release:        11%{?dist}
+Version:        2.28
+Release:        1%{?dist}
 Summary:        A tool for monitoring webpages for updates
 
 License:        BSD
@@ -16,6 +16,10 @@ Requires:       python3-requests
 Requires:       python3-keyring
 Requires:       python3-minidb
 Requires:       python3-PyYAML
+Requires:       python3-appdirs
+Requires:       python3-lxml
+Requires:       python3-cssselect
+
 
 %description
 This script is intended to help you watch URLs and get notified (via
@@ -57,6 +61,9 @@ chmod a+x %{buildroot}%{python3_sitelib}/%{name}/handler.py
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Tue Jan 30 2024 Ondřej Nosek <onosek@redhat.com> - 2.28-1
+- Update to latest upstream release 2.28
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

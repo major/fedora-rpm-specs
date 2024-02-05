@@ -1,3 +1,5 @@
+# Do not edit this spec file. (Re-)Generate using newrelease.sh
+
 %global with_debug   0
 
 %if 0%{?with_debug}
@@ -9,26 +11,25 @@
 
 %global provider                github
 %global provider_tld            com
-%global project                 kubernetes
+%global owner                   kubernetes
 %global repo                    kubernetes
 # https://github.com/kubernetes/kubernetes
 
-%global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
+%global provider_prefix         %{provider}.%{provider_tld}/%{owner}/%{repo}
 %global import_path             kubernetes.io/
 
 # **** release metadata ****
-%global commit                  bc401b91f2782410b3fb3f9acf43a995c4de90d2
-%global shortcommit             %(c=%{commit}; echo ${c:0:7})
-# release major.minor version (k8s_minver); patch version (k8s_patchver)
+# populated by envsubst in newrelease.sh
+%global gittag                  v1.29.1
+%global tar_ver                 1.29.1
 %global k8s_name                kubernetes
-%global k8s_minver              1.29
-%global k8s_patchver            1
+%global k8s_ver                 1.29.1
 # golang 'built with' version
 %global golangver               1.21.6
 
 # last release version of these rpms prior to F40 restructure
 # should not change once restructure goes into rawhide
-%global switchver              1.28.6-4
+%global switchver              1.29.0
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
 %global _buildshell  /bin/bash
@@ -36,13 +37,13 @@
 
 ##############################################
 Name:           %{k8s_name}
-Version:        %{k8s_minver}.%{k8s_patchver}
-Release:        %autorelease
+Version:        %{k8s_ver}
+Release:        4%{?dist}
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
 URL:            https://%{import_path}
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x %{arm}
-Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
+Source0:        https://%{provider_prefix}/archive/%{gittag}/%{repo}-%{tar_ver}.tar.gz
 
 Source101:      kube-proxy.service
 Source102:      kube-apiserver.service
@@ -59,7 +60,7 @@ Source112:      environ-scheduler
 Source113:      kubernetes-accounting.conf
 Source114:      kubeadm.conf
 Source115:      kubernetes.conf
-Source116:      %{name}.sysusers
+Source116:      %{repo}.sysusers
 
 Patch3:         build-with-debug-info.patch
 
@@ -86,21 +87,21 @@ Requires:   conntrack-tools
 
 Requires(pre): shadow-utils
 Requires:      socat
-Recommends:    kubernetes-client = %{version}-%{release}
+Recommends:    %{name}-client = %{version}-%{release}
 
 # additional kubeadm requirements
 Requires: containernetworking-plugins
 Requires: cri-tools
 
 # require same version for kubernetes-client if installed
-Conflicts: kubernetes-client < %{version}-%{release}
-Conflicts: kubernetes-client > %{version}-%{release}
+Conflicts: %{name}-client < %{version}-%{release}
+Conflicts: %{name}-client > %{version}-%{release}
 
 # provides and obsoletes kubernetes-node and kubernetes-kubeadm
 Provides: kubernetes-kubeadm = %{version}-%{release}
-Obsoletes: kubernetes-kubeadm <= %{switchver}
+Obsoletes: kubernetes-kubeadm < %{switchver}
 Provides: kubernetes-node = %{version}-%{release}
-Obsoletes: kubernetes-node <= %{switchver}
+Obsoletes: kubernetes-node < %{switchver}
 
 %description
 %{summary}
@@ -117,15 +118,15 @@ Summary: Kubernetes client tools
 BuildRequires: golang >= %{golangver}
 BuildRequires: make
 
-Conflicts: kubernetes < %{version}-%{release}
-Conflicts: kubernetes > %{version}-%{release}
+Conflicts: %{name} < %{version}-%{release}
+Conflicts: %{name} > %{version}-%{release}
 
 %description client
 Installs kubectl, the Kubernetes command line client.
 
 ##############################################
-%package legacy-systemd
-Summary: Legacy systemd services for control plane and/or node
+%package systemd
+Summary: Systemd services for control plane and/or node
 
 BuildRequires: golang >= %{golangver}
 BuildRequires: systemd
@@ -134,24 +135,27 @@ BuildRequires: make
 BuildRequires: go-md2man
 
 Requires(pre): shadow-utils
-Requires: kubernetes = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 
 # obsoletes kubernetes-master in part
 Provides: kubernetes-master = %{version}-%{release}
-Obsoletes: kubernetes-master <= %{switchver}
+Provides: kubernetes-legacy-systemd = %{version}-%{release}
+Obsoletes: kubernetes-master < %{switchver}
 
-%description legacy-systemd
-Legacy systemd services needed for manual installation of Kubernetes
-on control plane or node machines. Not needed for most modern clusters.
-If kubeadm is used to bootstrap Kubernetes then this rpm is not
-needed as kubeadm will install these services as static pods in
-the cluster on nodes as needed. If these services are used, enable
- all services on each control plane. Enable kube-proxy on all nodes.
+%description systemd
+Systemd services needed for manual installation of Kubernetes
+on control plane or node machines. If kubeadm is used to bootstrap
+Kubernetes then this rpm is not needed as kubeadm will install
+these services as static pods in the cluster on nodes as needed.
+If these systemd services are used, enable all services except
+kube-proxy on each control plane. Enable kube-proxy on all machines
+nodes that runs kubelet, including control plane machines with
+kubelet.
 
 ##############################################
 ##############################################
 %prep
-%setup -q -n %{repo}-%{commit}
+%setup -q -n %{repo}-%{tar_ver}
 
 %if 0%{?with_debug}
 %patch3 -p1
@@ -245,8 +249,8 @@ install -p -m 755 -t %{buildroot}%{_bindir} ${output_path}/kube-scheduler
 install -p -m 755 -t %{buildroot}%{_bindir} ${output_path}/kubectl
 
 echo "+++ INSTALLING kubelet service config"
-install -d -m 0755 %{buildroot}/%{_sysconfdir}/systemd/system/kubelet.service.d
-install -p -m 0644 -t %{buildroot}/%{_sysconfdir}/systemd/system/kubelet.service.d %{SOURCE114}
+install -d -m 0755 %{buildroot}/%{_unitdir}/kubelet.service.d
+install -p -m 0644 -t %{buildroot}/%{_unitdir}/kubelet.service.d %{SOURCE114}
 
 echo "+++ INSTALLING shell completion"
 install -dm 0755 %{buildroot}/%{bash_completions_dir}
@@ -258,22 +262,22 @@ install -dm 0755 %{buildroot}/%{zsh_completions_dir}
 
 echo "+++ INSTALLING config files"
 %define remove_environ_prefix() %(echo -n %1|sed 's/.*environ-//g')
-install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}
-install -d -m 0700 %{buildroot}%{_sysconfdir}/%{name}/manifests
-install -m 644 -T %{SOURCE106} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE106}}
-install -m 644 -T %{SOURCE107} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE107}}
-install -m 644 -T %{SOURCE108} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE108}}
-install -m 644 -T %{SOURCE109} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE109}}
-install -m 644 -T %{SOURCE110} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE110}}
-install -m 644 -T %{SOURCE111} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE111}}
-install -m 644 -T %{SOURCE112} %{buildroot}%{_sysconfdir}/%{name}/%{remove_environ_prefix %{SOURCE112}}
+install -d -m 0755 %{buildroot}%{_sysconfdir}/%{repo}
+install -d -m 0700 %{buildroot}%{_sysconfdir}/%{repo}/manifests
+install -m 644 -T %{SOURCE106} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE106}}
+install -m 644 -T %{SOURCE107} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE107}}
+install -m 644 -T %{SOURCE108} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE108}}
+install -m 644 -T %{SOURCE109} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE109}}
+install -m 644 -T %{SOURCE110} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE110}}
+install -m 644 -T %{SOURCE111} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE111}}
+install -m 644 -T %{SOURCE112} %{buildroot}%{_sysconfdir}/%{repo}/%{remove_environ_prefix %{SOURCE112}}
 
 # place systemd/tmpfiles.d/kubernetes.conf to /usr/lib/tmpfiles.d/kubernetes.conf
 install -d -m 0755 %{buildroot}%{_tmpfilesdir}
 install -p -m 0644 -t %{buildroot}/%{_tmpfilesdir} %{SOURCE115}
 
 echo "+++ INSTALLING sysusers.d"
-install -D -m 0644 -vp %{SOURCE116}       %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -m 0644 -vp %{SOURCE116}       %{buildroot}%{_sysusersdir}/%{repo}.conf
 
 # enable CPU and Memory accounting
 install -d -m 0755 %{buildroot}/%{_sysconfdir}/systemd/system.conf.d
@@ -296,7 +300,7 @@ install -p -m 644 docs/man/man1/*.1 %{buildroot}%{_mandir}/man1
 install -d %{buildroot}%{_sharedstatedir}/kubelet
 
 mkdir -p %{buildroot}/run
-install -d -m 0755 %{buildroot}/run/%{name}/
+install -d -m 0755 %{buildroot}/run/%{repo}/
 popd
 
 mv src/k8s.io/kubernetes/CHANGELOG/CHANGELOG-*.md .
@@ -329,24 +333,24 @@ fi
 %{_mandir}/man1/kubelet.1*
 %{_bindir}/kubelet
 %{_unitdir}/kubelet.service
-%{_sysusersdir}/%{name}.conf
+%{_sysusersdir}/%{repo}.conf
 %dir %{_sharedstatedir}/kubelet
-%dir %{_sysconfdir}/%{name}
-%dir %{_sysconfdir}/%{name}/manifests
-%config(noreplace) %{_sysconfdir}/%{name}/config
-%config(noreplace) %{_sysconfdir}/%{name}/kubelet
-# % config(noreplace) % {_sysconfdir}/% {name}/proxy
-%config(noreplace) %{_sysconfdir}/%{name}/kubelet.kubeconfig
+%dir %{_sysconfdir}/%{repo}
+%dir %{_sysconfdir}/%{repo}/manifests
+%config(noreplace) %{_sysconfdir}/%{repo}/config
+%config(noreplace) %{_sysconfdir}/%{repo}/kubelet
+# % config(noreplace) % {_sysconfdir}/% {repo}/proxy
+%config(noreplace) %{_sysconfdir}/%{repo}/kubelet.kubeconfig
 %config(noreplace) %{_sysconfdir}/systemd/system.conf.d/kubernetes-accounting.conf
 %{_tmpfilesdir}/kubernetes.conf
-%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{name}
+%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{repo}
 
 # kubeadm
 %{_mandir}/man1/kubeadm.1*
 %{_mandir}/man1/kubeadm-*
 %{_bindir}/kubeadm
-%dir %{_sysconfdir}/systemd/system/kubelet.service.d
-%config(noreplace) %{_sysconfdir}/systemd/system/kubelet.service.d/kubeadm.conf
+%dir %{_unitdir}/kubelet.service.d
+%config(noreplace) %{_unitdir}/kubelet.service.d/kubeadm.conf
 
 ##############################################
 %files client
@@ -361,7 +365,7 @@ fi
 
 ##############################################
 
-%files legacy-systemd
+%files systemd
 %license LICENSE
 %doc *.md
 %{_mandir}/man1/kube-apiserver.1*
@@ -376,28 +380,28 @@ fi
 %{_unitdir}/kube-apiserver.service
 %{_unitdir}/kube-controller-manager.service
 %{_unitdir}/kube-scheduler.service
-%{_sysusersdir}/%{name}.conf
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/apiserver
-%config(noreplace) %{_sysconfdir}/%{name}/scheduler
-%config(noreplace) %{_sysconfdir}/%{name}/config
-%config(noreplace) %{_sysconfdir}/%{name}/controller-manager
-%config(noreplace) %{_sysconfdir}/%{name}/proxy
+%{_sysusersdir}/%{repo}.conf
+%dir %{_sysconfdir}/%{repo}
+%config(noreplace) %{_sysconfdir}/%{repo}/apiserver
+%config(noreplace) %{_sysconfdir}/%{repo}/scheduler
+%config(noreplace) %{_sysconfdir}/%{repo}/config
+%config(noreplace) %{_sysconfdir}/%{repo}/controller-manager
+%config(noreplace) %{_sysconfdir}/%{repo}/proxy
 %{_tmpfilesdir}/kubernetes.conf
-%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{name}
+%verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{repo}
 
 ##############################################
 
-%pre legacy-systemd
+%pre systemd
 %sysusers_create_compat %{SOURCE116}
 
-%post legacy-systemd
+%post systemd
 %systemd_post kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
-%preun legacy-systemd
+%preun systemd
 %systemd_preun kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
-%postun legacy-systemd
+%postun systemd
 %systemd_postun kube-apiserver kube-scheduler kube-controller-manager kube-proxy
 
 

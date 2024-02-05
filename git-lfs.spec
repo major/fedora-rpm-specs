@@ -25,6 +25,12 @@ Source1:        https://github.com/git-lfs/git-lfs/releases/download/v%{version}
 Source2:        https://api.github.com/repos/git-lfs/git-lfs/tarball/core-gpg-keys#/core-gpg-keys.tar.gz
 Source3:        README.Fedora
 
+# Backport fix for flaky tests.
+Patch:          https://github.com/git-lfs/git-lfs/pull/5616.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  gnupg2
 
 BuildRequires:  golang(github.com/dpotapov/go-spnego)

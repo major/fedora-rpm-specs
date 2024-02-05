@@ -17,7 +17,7 @@ Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{versio
 BuildArch:	noarch
 
 # for %%_kde4_* macros
-BuildRequires:	kde-filesystem
+BuildRequires:	kde4-filesystem
 BuildRequires:  make
 
 Requires:	%{name}-gnome = %{version}-%{release}

@@ -8,7 +8,7 @@
 %endif
 
 Name:           perl-URI
-Version:        5.25
+Version:        5.26
 Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Warnings)
+# Optional Tests
+# Geo::Point not (yet) available in Fedora
+#BuildRequires:  perl(Geo::Point)
 # Dependencies
 Requires:       perl(Cwd)
 Requires:       perl(Data::Dumper)
@@ -138,12 +141,16 @@ make test
 %{_mandir}/man3/URI::icaps.3*
 %{_mandir}/man3/URI::data.3*
 %{_mandir}/man3/URI::file.3*
+%{_mandir}/man3/URI::geo.3*
 %{_mandir}/man3/URI::ldap.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Feb  3 2024 Paul Howarth <paul@city-fan.org> - 5.26-1
+- 5.26 bump (rhbz#2262451)
+
 * Sun Jan 28 2024 Paul Howarth <paul@city-fan.org> - 5.25-1
 - 5.25 bump (rhbz#2260642)
 

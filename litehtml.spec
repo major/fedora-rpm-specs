@@ -1,9 +1,9 @@
 Name:           litehtml
-Version:        0.8
-Release:        6%{?dist}
+Version:        0.9
+Release:        1%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/litehtml/litehtml
 Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}-%{version}.tar.gz
 # Downstream patch
@@ -12,8 +12,6 @@ Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}
 Patch0:         litehtml_gumbo.patch
 # Add some stuff needed for qt-creator
 Patch1:         litehtml_qtcreator.patch
-# Fix undefined symbol
-Patch2:         litehtml_undefsym.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -75,6 +73,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 0.9-1
+- Update to 0.9
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

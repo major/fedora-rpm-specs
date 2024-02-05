@@ -1,5 +1,5 @@
 Name:           virtme-ng
-Version:        1.19
+Version:        1.20
 Release:        %autorelease
 Summary:        Quickly build and run kernels inside a virtualized snapshot of your live system
 

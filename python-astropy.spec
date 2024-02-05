@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 5.3.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD-3-Clause AND CFITSIO
 
@@ -16,6 +16,7 @@ Patch1: python-astropy-system-ply.patch
 # Backport of commit 3727e36ec2473c6a602d57c29cb075e62863c64c
 # https://github.com/astropy/astropy/commit/3727e36ec2473c6a602d57c29cb075e62863c64c
 Patch2: python-astropy-erfa-pv.patch
+Patch3: python-astropy-ipointer.patch
 # bundled versions
 # expat 2.2.9
 # wcslib 7.12
@@ -147,6 +148,9 @@ popd
 %license LICENSE.rst cextern/cfitsio/License.txt
 
 %changelog
+* Sat Feb 03 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 5.3.2-7
+- Add patch to fix FTBS
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

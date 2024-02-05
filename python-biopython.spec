@@ -27,7 +27,6 @@ Summary: Python3 tools for computational molecular biology
 %py_provides      python3-%{module}
 BuildRequires:    python3-devel
 BuildRequires:    python3dist(reportlab)
-Requires:         wise2%{?_isa}
 Requires:         flex%{?_isa}
 
 %description -n python3-%{module}

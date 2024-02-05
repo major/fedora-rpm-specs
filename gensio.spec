@@ -1,4 +1,4 @@
-Version:        2.8.2
+Version:        2.8.3
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -150,6 +150,7 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %doc docs
 %doc AUTHORS ChangeLog FAQ.rst NEWS README.rst SECURITY.md
 %{_bindir}/%{name}t
+%{_bindir}/gagwpe
 %{_bindir}/gmdns
 %{_bindir}/greflector
 %{_bindir}/gsound

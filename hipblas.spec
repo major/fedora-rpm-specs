@@ -19,7 +19,7 @@
 
 Name:           hipblas
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -40,6 +40,7 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
+BuildRequires:  rocsolver-devel
 
 %if %{with test}
 
@@ -90,7 +91,6 @@ for gpu in %{rocm_gpu_list}
 do
     module load rocm/$gpu
     %cmake %rocm_cmake_options \
-           -DBUILD_WITH_SOLVER=OFF \
 %if %{with test}
            %rocm_cmake_test_options \
 %endif
@@ -129,6 +129,9 @@ done
 %endif
 
 %changelog
+* Sat Feb 3 2024 Tom Rix <trix@redhat.com> - 6.0.0-4
+- Build with rocsolver
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

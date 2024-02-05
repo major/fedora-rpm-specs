@@ -3,7 +3,7 @@
 
 # https://github.com/saracen/walker
 %global goipath         github.com/saracen/walker
-Version:                0.1.3
+Version:                0.1.4
 
 %gometa
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ppx-assert
 Version:        0.16.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Assert-like extension nodes that raise useful errors on failure
 
 License:        MIT
@@ -56,6 +56,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Feb  3 2024 Jerry James <loganjerry@gmail.com> - 0.16.0-9
+- Rebuild for changed ocamlx hashes
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

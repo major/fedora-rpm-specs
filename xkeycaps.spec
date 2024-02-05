@@ -3,14 +3,15 @@
 Name:		xkeycaps
 Summary: 	Graphical front end to xmodmap
 Version:	2.46
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	MIT
 Source0:	http://www.jwz.org/xkeycaps/%{name}-%{version}.tar.Z
 Source1:	xkeycaps.desktop
 Source2:	xkeycaps.png
 URL:		http://www.jwz.org/xkeycaps/
-BuildRequires: make
-BuildRequires:  gcc
+Patch0:		xkeycaps-2.46-fix-casts.patch
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	xorg-x11-xbitmaps, libICE-devel, libXmu-devel, libSM-devel
 BuildRequires:	libXaw-devel, imake, libXt-devel, xorg-x11-proto-devel
 BuildRequires:	desktop-file-utils, libXext-devel
@@ -27,6 +28,7 @@ xmodmap to recreate your changes in future sessions.
 
 %prep
 %setup -q 
+%patch -P0 -p1 -b .fix-casts
 
 %build
 xmkmf
@@ -52,6 +54,9 @@ desktop-file-install                             \
 %{_mandir}/man1/*
 
 %changelog
+* Sat Feb  3 2024 Tom Callaway <spot@fedoraproject.org> - 2.46-36
+- fix cast issues causing FTBFS
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.46-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

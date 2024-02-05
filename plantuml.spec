@@ -1,22 +1,21 @@
 Name:           plantuml
-Version:        1.2023.13
+Version:        1.2024.0
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
 
 License:        LGPL-3.0-or-later
 URL:            http://plantuml.com/
-Source:         https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
-# Manually add build.xml as it is not included in the latest version
-# https://github.com/plantuml/plantuml/issues/1542
-Source1:        build.xml
+Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  ant
-Requires:       java >= 1.8.0
+BuildRequires:  help2man
 BuildRequires:  javapackages-local
+
+Requires:       java >= 1.8.0
 # Explicit requires for javapackages-tools since plantuml script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
@@ -43,7 +42,8 @@ This package contains the API documentation for %{name}.
 
 %prep
 %autosetup
-mv %{SOURCE1} .
+# Don't set Class-Path when building jar
+sed --in-place '/<attribute name="Class-Path"/d' build.xml
 
 
 %build
@@ -62,9 +62,14 @@ export CLASSPATH=$(build-classpath ant):plantuml.jar
 
 %jpackage_script net.sourceforge.plantuml.Run "" "" plantuml plantuml true
 
+# Build man page
+install -d "%{buildroot}%{_mandir}/man1"
+help2man --help-option='-h' --version-option='--version' --no-info --output='%{buildroot}%{_mandir}/man1/plantuml.1' "java -jar plantuml.jar"
+
 %files -f .mfiles
 %{_bindir}/plantuml
 %doc README.md
+%{_mandir}/man1/plantuml.1*
 %license COPYING plantuml-lgpl/lgpl-license.txt
 
 %files javadoc -f .mfiles-javadoc

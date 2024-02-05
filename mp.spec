@@ -34,8 +34,8 @@
 
 Name: mp
 Version: 3.1.0
-Release: 44.%{date}git%{shortcommit}%{?dist}
-License: MIT and BSD
+Release: 45.%{date}git%{shortcommit}%{?dist}
+License: SMLNJ AND BSD-2-Clause AND BSD-3-Clause
 Summary: An open-source library for mathematical programming
 URL: https://github.com/ampl/mp
 Source0: https://github.com/ampl/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -52,6 +52,9 @@ Patch2:  %{name}-python3.patch
 # Avoid crashes due to ambiguous order of destructor execution
 # https://bugzilla.redhat.com/show_bug.cgi?id=1858054
 Patch3:  %{name}-jvm-destructor.patch
+
+# Fix compatibility with GCC-14
+Patch4:  %{name}-fix_gcc14.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 Requires: config(environment-modules)
@@ -314,6 +317,10 @@ popd
 %doc build/doc/ampl.github.io/*
 
 %changelog
+* Sat Feb 03 2024 Antonio Trande <sagitter@fedoraproject.org.com> - 3.1.0-45.20200303git7fd4828
+- Patched for GCC-14 (rhbz#2261393)
+- Switch to SPDX
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-44.20200303git7fd4828
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

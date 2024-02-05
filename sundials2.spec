@@ -19,13 +19,15 @@
 %global blasvar o
 %endif
 
+ExcludeArch: %{ix86}
+
 Summary:    Suite of nonlinear solvers
 Name:       sundials2
 Version:    2.7.0
-Release:    14%{?dist}
+Release:    15%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
-License:    BSD
+License:    BSD-3-Clause
 URL:        https://www.llnl.gov/casc/sundials/
 Source0:    https://www.llnl.gov/casc/sundials/download/code/sundials-%{version}.tar.gz
 
@@ -524,6 +526,9 @@ find %{buildroot}${MPI_LIB} -name "libsundials-*" -exec rename 's/libsundials/li
 %endif
 
 %changelog
+* Sat Feb 03 2024 Antonio Trande <sagitterATfedoraproject.org> - 2.7.0-15
+- Exclude ix86 builds
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

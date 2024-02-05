@@ -5,8 +5,8 @@
 %global api_key ABCDEFGH
 
 Name:           python-%{pypi_name}
-Version:        1.29.1
-Release:        5%{?dist}
+Version:        1.30.0
+Release:        1%{?dist}
 Summary:        Python library and command-line utility for Shodan.io
 
 License:        MIT
@@ -95,6 +95,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Sat Feb 03 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.30.0-1
+- Update to latest upstream release 1.30.0 (closes rhbz#2232219)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

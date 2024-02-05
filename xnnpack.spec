@@ -1,7 +1,18 @@
+# So pre releases can be tried
+%bcond_with gitcommit
+
+%if %{with gitcommit}
+# commit is what PyTorch 2.3 at its gitcommit expects
+%global commit0 d9cce341f86a207da9d851d05e26cd50b508b73c
+%global date0 20231127
+%else
 # commit is what PyTorch 2.1 expects, TOT has API changes that break PyTorch
 %global commit0 51a987591a6fc9f0fc0707077f53d763ac132cbf
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global date0 20221221
+%endif
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
+
 %global upstream_name XNNPACK
 
 # This project is not well behaved so build in source
@@ -13,7 +24,7 @@ Summary:        High-efficiency floating-point neural network inference operator
 Name:           xnnpack
 License:        BSD-3-Clause
 Version:        0.0^git%{date0}.%{shortcommit0}
-Release:        4%{?dist}
+Release:        %autorelease
 
 URL:            https://github.com/google/%{upstream_name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
@@ -65,10 +76,17 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 mkdir -p %{buildroot}%{_includedir}
 install -p -m 644 include/xnnpack.h %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
+%if %{with gitcommit}
+strip libXNNPACK.so.23.11.27
+install -p -m 755 libXNNPACK.so.23.11.27 %{buildroot}%{_libdir}
+cd %{buildroot}%{_libdir}
+ln -s libXNNPACK.so.23.11.27 libXNNPACK.so
+%else
 strip libXNNPACK.so.0.0.221221
 install -p -m 755 libXNNPACK.so.0.0.221221 %{buildroot}%{_libdir}
 cd %{buildroot}%{_libdir}
 ln -s libXNNPACK.so.0.0.221221 libXNNPACK.so
+%endif
 
 # building tests or benchmarks is broken
 # % check
@@ -76,7 +94,7 @@ ln -s libXNNPACK.so.0.0.221221 libXNNPACK.so
 
 %files
 %license LICENSE
-%{_libdir}/libXNNPACK.so.0*
+%{_libdir}/libXNNPACK.so.*
 
 %files devel
 %doc README.md

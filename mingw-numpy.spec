@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       1.26.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -16,6 +16,7 @@ URL:           http://www.numpy.org/
 Source0:       %{pypi_source}
 
 # Don't use MSC specific stuff
+# endian.h does not exist on mingw
 Patch0:        numpy_mingw.patch
 # Drop werror, fails with py3.11
 Patch1:        numpy_werror.patch
@@ -83,10 +84,12 @@ ln -s %{mingw32_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefix}/%{mingw64_target}/include/numpy
 
 # Install missing files
-cp -a build_mingw32_host/src.linux-*-%{mingw32_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw32_python3_hostsitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
-cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw32_python3_sitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
-cp -a build_mingw64_host/src.linux-*-%{mingw64_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw64_python3_hostsitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
-cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/_numpyconfig.h %{buildroot}%{mingw64_python3_sitearch}/%{pypi_name}/core/include/numpy/_numpyconfig.h
+for file in _numpyconfig.h __multiarray_api.h; do
+cp -a build_mingw32_host/src.linux-*-%{mingw32_python3_version}/numpy/core/include/numpy/${file} %{buildroot}%{mingw32_python3_hostsitearch}/%{pypi_name}/core/include/numpy/${file}
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/${file} %{buildroot}%{mingw32_python3_sitearch}/%{pypi_name}/core/include/numpy/${file}
+cp -a build_mingw64_host/src.linux-*-%{mingw64_python3_version}/numpy/core/include/numpy/${file} %{buildroot}%{mingw64_python3_hostsitearch}/%{pypi_name}/core/include/numpy/${file}
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/${file} %{buildroot}%{mingw64_python3_sitearch}/%{pypi_name}/core/include/numpy/${file}
+done
 
 
 %files -n mingw32-python3-%{pypi_name}
@@ -115,6 +118,9 @@ cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/nu
 
 
 %changelog
+* Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 1.26.2-5
+- Update numpy_mingw.patch: endian.h does not exist on mingw
+
 * Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 1.26.2-4
 - Fix missing files
 

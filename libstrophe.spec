@@ -1,6 +1,6 @@
 Name:           libstrophe
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An XMPP library for C
 
 License:        MIT and GPLv3
@@ -11,6 +11,7 @@ BuildRequires:  gcc
 BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  libtool
+BuildRequires:  zlib-devel
 # expat or libxml, but no need for both
 BuildRequires:  expat-devel
 #BuildRequires:  libxml2-devel
@@ -108,6 +109,9 @@ cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
 
 
 %changelog
+* Sat Feb 3 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-2
+- Add zlib as new BuildRequires
+
 * Thu Feb 1 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-1
 - Update to 0.13.0
 - Remove tests suite from devel subpackage

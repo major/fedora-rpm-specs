@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 5.93.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,6 +12,10 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+
+# 5.93.0: Fix for kwin that causes some strange color glitches on RC2 (Will be fixed on final)
+# https://invent.kde.org/plasma/kwin/-/commit/fe2ead76443a8fb347b2a507ba3086606bd38237
+Patch0:  kwin-drm-use-correct-uniform-type.patch
 
 ## proposed patches
 
@@ -285,6 +289,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Sat Feb 03 2024 Steve Cossette <farchord@gmail.com> - 5.93.0-2
+- Added patch that fixes kwin glitch with HDR and some other issues
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

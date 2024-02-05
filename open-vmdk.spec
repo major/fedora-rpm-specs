@@ -1,12 +1,10 @@
 Name:           open-vmdk
-Version:        0.3.6
-Release:        3%{?dist}
+Version:        0.3.7
+Release:        1%{?dist}
 Summary:        Tools to create OVA files from raw disk images
 License:        Apache-2.0
 URL:            https://github.com/vmware/open-vmdk
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Honor CFLAGS/LDFLAGS
-Patch1:         honor-build-flags.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  zlib-devel
@@ -45,6 +43,10 @@ install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
 %config(noreplace) %{_sysconfdir}/open-vmdk.conf
 
 %changelog
+* Sat Feb 03 2024 İsmail Dönmez <ismail@i10z.com> - 0.3.7-1
+- Bump to version 0.3.7
+  Drop honor-build-flags.patch, merged upstream
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

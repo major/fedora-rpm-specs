@@ -1,8 +1,8 @@
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        8.0.35
-Release:        3%{?dist}
+Version:        8.0.36
+Release:        1%{?dist}
 Summary:        ODBC driver for MySQL
 License:        GPLv2 with exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
@@ -10,6 +10,7 @@ URL:            https://dev.mysql.com/downloads/connector/odbc/
 Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/%{name}-%{version}-src.tar.gz
 Patch0:         myodbc-64bit.patch
 Patch1:         mysql-connector-odbc-c99.patch
+Patch2:         mysql-connector-odbc-pointer-type.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -31,6 +32,7 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
 %setup -q -n %{name}-%{version}-src
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 
 %build
 %cmake \
@@ -79,6 +81,10 @@ rm -rf %{buildroot}/usr/test
 %endif
 
 %changelog
+* Sat Feb 03 2024 Honza Horak <hhorak@redhat.com> - 8.0.36-1
+- Rebase to 8.0.36
+  Resolves: BZ#2261395
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

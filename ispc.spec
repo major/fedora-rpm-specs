@@ -30,10 +30,10 @@ BuildRequires:	llvm-devel
 BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(ncurses)
 BuildRequires:	pkgconfig(python3)
-# Hardcoded path from 32-bit glibc-devel needed to build
-# See https://github.com/ispc/ispc/wiki/Building-ispc:-Linux-and-Mac-OS-X
 %ifarch x86_64
-BuildRequires:	/usr/lib/crt1.o
+# Koji 64-bit buildroots do not contain packages from 32-bit builds, therefore
+# the 'glibc-devel.i686' variant is provided as 'glibc32'.
+BuildRequires: (glibc32 or glibc-devel(%__isa_name-32))
 %endif
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:	pkgconfig(zlib)

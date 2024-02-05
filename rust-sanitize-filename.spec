@@ -2,21 +2,26 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate serde-big-array
+%global crate sanitize-filename
 
-Name:           rust-serde-big-array
-Version:        0.5.1
+Name:           rust-sanitize-filename
+Version:        0.5.0
 Release:        %autorelease
-Summary:        Big array helper for serde
+Summary:        Simple filename sanitizer, based on Node's sanitize-filename
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/serde-big-array
+License:        MIT
+URL:            https://crates.io/crates/sanitize-filename
 Source:         %{crates_source}
+# Upstream PR: https://github.com/kardeiz/sanitize-filename/pull/10
+Source1:        https://raw.githubusercontent.com/kardeiz/sanitize-filename/ee35c34ce6f867643a13265e24dc95fd7ca31dc5/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * Deactivate binary compilation, since we are not interested in the binary
+Patch:          sanitize-filename-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Big array helper for serde.}
+A simple filename sanitizer, based on Node's sanitize-filename.}
 
 %description %{_description}
 
@@ -30,8 +35,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,6 +53,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -pv %{SOURCE1} .
+find . -type f -exec chmod -x {} \;
 %cargo_prep
 
 %generate_buildrequires

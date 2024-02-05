@@ -1,5 +1,4 @@
 %global pypi_name torch
-%global pypi_version 2.1.2
 
 # Where the src comes from
 %global forgeurl https://github.com/pytorch/pytorch
@@ -7,9 +6,14 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# The top of the 2.1.0 branch - update to whatever..
-%global commit0 1841d54370d167365d15f0ac78efc2c56cdf43ab
+# The top of tree ~2/1/24
+%global commit0 a43c28368c184ba1bf964f4fb99bec300917e2f4
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
+%global pypi_version 2.3.0
+%else
+%global pypi_version 2.1.2
+
 %endif
 
 # For -test subpackage
@@ -20,6 +24,7 @@
 %bcond_with test
 
 # For testing rocm
+# Not viable on 2.1.2, use --with gitcommit
 %bcond_with rocm
 
 # For testing openmp
@@ -29,8 +34,8 @@
 %bcond_with caffe2
 
 Name:           python-%{pypi_name}
-Version:        2.1.2
-Release:        3%{?dist}
+Version:        %{pypi_version}
+Release:        %autorelease
 Summary:        PyTorch AI/ML framework
 # See below for details
 License:        BSD-3-Clause AND BSD-2-Clause AND 0BSD AND Apache-2.0 AND MIT AND BSL-1.0 AND GPL-3.0-or-later AND Zlib
@@ -42,13 +47,23 @@ Source1:        pyproject.toml
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
 %endif
+
+%if %{with gitcommit}
+
+Patch0:        0001-no-third_party-foxi.patch
+Patch1:        0001-no-third_party-fmt.patch
+Patch2:        0001-no-third_party-FXdiv.patch
+Patch3:        0001-Stub-in-kineto-ActivityType.patch
+Patch4:        0001-Regenerate-flatbuffer-header.patch
+Patch5:        0001-disable-submodule-search.patch
+
 %if %{with rocm}
-# Public version is references the /opt install location
-# Replace it with one that uses the system install location
-Source100:      LoadHIP.cmake
-Patch100:       0001-add-rocm_version-fallback.patch
+Patch100:      0001-cuda-hip-signatures.patch
+Patch101:      0001-silence-an-assert.patch
+Patch102:      0001-can-not-use-with-c-files.patch
 %endif
 
+%else
 # Misc cmake changes that would be difficult to upstream
 # * Use the system fmt
 # * Remove foxi use
@@ -78,6 +93,7 @@ Patch8:         0001-torch-sane-version.patch
 # etc.
 # As a wrapper library, this should be the expected behavior.
 Patch9:         0001-disable-as-needed-for-libtorch.patch
+%endif
 
 # Limit to these because they are well behaved with clang
 ExclusiveArch:  x86_64 aarch64
@@ -111,7 +127,7 @@ BuildRequires:  python3-pyyaml
 BuildRequires:  python3-typing-extensions
 BuildRequires:  sleef-devel
 BuildRequires:  valgrind-devel
-BuildRequires:  xnnpack-devel
+BuildRequires:  xnnpack-devel = 0.0^git20221221.51a9875
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(filelock)
@@ -125,10 +141,12 @@ BuildRequires:  python3dist(sphinx)
 
 %if %{with rocm}
 BuildRequires:  hipblas-devel
+BuildRequires:  hipblaslt-devel
 BuildRequires:  hipcub-devel
 BuildRequires:  hipfft-devel
 BuildRequires:  hipsparse-devel
 BuildRequires:  hipsolver-devel
+BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocprim-devel
 BuildRequires:  rocm-cmake
@@ -198,15 +216,14 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 rm -rf %{pypi_name}.egg-info
 # Overwrite with a git checkout of the pyproject.toml
 cp %{SOURCE1} .
-%else
-%autosetup -p1 -n pytorch-v%{version}
 
 %if %{with rocm}
-cp %{SOURCE100} cmake/public
-
 # hipify
-./tools/amd_build/build_amd.py 
+./tools/amd_build/build_amd.py
 %endif
+
+%else
+%autosetup -p1 -n pytorch-v%{version}
 
 %if %{with opencv}
 # Reduce requirements, *FOUND is not set 
@@ -307,6 +324,7 @@ export USE_ROCM=ON
 export USE_NCCL=OFF
 export BUILD_NVFUSER=OFF
 export HIP_PATH=%{_prefix}
+export ROCM_PATH=%{_prefix}
 %else
 export USE_ROCM=OFF
 %endif
@@ -390,6 +408,9 @@ sed -i -f br.sed devel.files
 %{python3_sitearch}/torch/utils/model_dump/{*.js,*.mjs,*.html}
 %{python3_sitearch}/torchgen/packaged/ATen/native/*.yaml
 %{python3_sitearch}/torchgen/packaged/autograd/{*.md,*.yaml}
+%if %{with gitcommit}
+%{python3_sitearch}/torch/_export/serde/schema.yaml
+%endif
 
 # egg
 %{python3_sitearch}/torch*.egg-info/*

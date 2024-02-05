@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.18.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -113,6 +113,8 @@ Patch47: xen.gcc13.fixes.patch
 Patch49: xen.python3.12.patch
 Patch50: xen.ocaml5.fixes.patch
 Patch51: xsa447.patch
+Patch52: xen.gcc14.fixes.patch
+Patch53: newlib.gcc14.fixes.patch
 
 
 %if %build_qemutrad
@@ -127,9 +129,9 @@ BuildRequires: dev86
 %endif
 BuildRequires: python3-devel ncurses-devel python3-setuptools
 BuildRequires: perl-interpreter perl-generators
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 # so that x86_64 builds pick up glibc32 correctly
-BuildRequires: /usr/include/gnu/stubs-32.h
+BuildRequires: glibc32
 %endif
 BuildRequires: gettext
 BuildRequires: gnutls-devel
@@ -330,6 +332,8 @@ manage Xen virtual machines.
 %patch 50 -p1
 %endif
 %patch 51 -p1
+%patch 52 -p1
+%patch 53 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -936,6 +940,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 03 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-4
+- build fixes for gcc14, replace stubs-32.h requirement with glibc32
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

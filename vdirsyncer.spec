@@ -9,14 +9,13 @@
 %global _docdir_fmt %{name}
 
 Name:       vdirsyncer
-Version:    0.18.0
-Release:    11%{?dist}
+Version:    0.19.2
+Release:    1%{?dist}
 Summary:    %{sum}
 
 License:    BSD
 URL:        https://github.com/pimutils/%{name}
 Source0:    %{pypi_source}
-Patch0:     vdirsyncer-click-log-dependency-version.patch
 
 BuildArch:  noarch
 Obsoletes:  python2-%{srcname} <= 0.12.1
@@ -30,12 +29,15 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-icalendar
 BuildRequires:  python3-lxml
 BuildRequires:  python3-requests >= 2.10
-BuildRequires:  python3-requests-oauthlib
 BuildRequires:  python3-requests-toolbelt >= 0.4.0
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  python3-aiohttp-oauthlib
+BuildRequires:  python3-trustme
+BuildRequires:  python3-pytest-httpserver
+BuildRequires:  python3-pytest-localserver
 
 Requires:       python3-atomicwrites >= 0.1.7
 Requires:       python3-click >= 5.0
@@ -44,8 +46,8 @@ Requires:       python3-click-threading >= 0.4.0
 Requires:       python3-icalendar
 Requires:       python3-lxml >= 3.1
 Requires:       python3-requests >= 2.10
-Requires:       python3-requests-oauthlib
 Requires:       python3-requests-toolbelt >= 0.4.0
+Requires:       python3-aiohttp-oauthlib
 Requires:       python3-vdirsyncer = %{version}
 Requires:       sqlite
 
@@ -67,8 +69,8 @@ Requires:       python3-click-threading >= 0.4.0
 Requires:       python3-icalendar
 Requires:       python3-lxml >= 3.1
 Requires:       python3-requests >= 2.10
-Requires:       python3-requests-oauthlib
 Requires:       python3-requests-toolbelt >= 0.4.0
+Requires:       python3-aiohttp-oauthlib
 
 %description -n python3-%{srcname}
 vdirsyncer synchronizes your calendars and address books between two entities.
@@ -146,6 +148,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Sat Feb 03 2024 David Kaufmann <astra@ionic.at> - 0.19.2-1
+- Update to v0.19.2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

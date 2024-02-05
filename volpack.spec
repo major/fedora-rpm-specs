@@ -1,15 +1,16 @@
 Name:          volpack
 Version:       1.0c7
-Release:       30%{?dist}
+Release:       31%{?dist}
 Summary:       Portable library for fast volume rendering
-License:       BSD
+License:       BSD-3-Clause
 URL:           http://amide.sourceforge.net
 Source0:       http://downloads.sourceforge.net/amide/%{name}/%{name}-%{version}.tgz
 Patch0:        volpack-aarch64.patch
 Patch1:        volpack-c99.patch
+Patch2:        volpack-1.0c7-fix-casts.patch
 
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: m4
 
 %description 
@@ -38,8 +39,9 @@ programs using the volpack volume rendering library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .aarch64
-%patch1 -p1 -b .c99
+%patch -P0 -p1 -b .aarch64
+%patch -P1 -p1 -b .c99
+%patch -P2 -p1 -b .fix-casts
 
 
 %build
@@ -82,6 +84,9 @@ popd
 
 
 %changelog
+* Sat Feb  3 2024 Tom Callaway <spot@fedoraproject.org> - 1.0c7-31
+- fix casts to resolve FTBFS
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0c7-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

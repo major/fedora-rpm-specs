@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Pure Python library to simplify exif manipulations with python
 
 License:        MIT
@@ -13,51 +13,58 @@ BuildArch:      noarch
 # Taken from https://github.com/hMatoba/Piexif/issues/108
 Patch0:         python-piexif-fix-tests-pillow.patch
 
-%global _description \
-Very simple Python library to simplify exif manipulations that does \
-not depend on other libraries.\
-\
-There are only just five functions:\
-\
-    load(filename)                 - Get exif data as dict.\
-    dump(exif_dict)                - Get exif as bytes to save with JPEG.\
-    insert(exif_bytes, filename)   - Insert exif into JPEG.\
-    remove(filename)               - Remove exif from JPEG.\
-    transplant(filename, filename) - Transplant exif from JPEG to JPEG.
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
+
+%global _description %{expand:
+Very simple Python library to simplify exif manipulations that does
+not depend on other libraries.
+
+There are only just five functions:
+    load(filename)                 - Get exif data as dict.
+    dump(exif_dict)                - Get exif as bytes to save with JPEG.
+    insert(exif_bytes, filename)   - Insert exif into JPEG.
+    remove(filename)               - Remove exif from JPEG.
+    transplant(filename, filename) - Transplant exif from JPEG to JPEG.}
 
 %description %{_description}
 
 %package -n     python3-%{modname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pillow
 Suggests:       python%{python3_version}dist(pillow)
 
 %description -n python3-%{modname} %{_description}
 
-Python 3 version.
-
 %prep
 %autosetup -p1 -n Piexif-%{version}
 
+sed -i 's|==.*$||' requirements.txt
+sed -i 's|unittest.makeSuite|unittest.defaultTestLoader.loadTestsFromTestCase|' tests/s_test.py
+
+%generate_buildrequires
+%pyproject_buildrequires requirements.txt -r
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
+
 
 %check
-%{__python3} setup.py test
+%pytest
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Feb  3 2024 José Matos <jamatos@fedoraproject.org> - 1.1.3-20
+- Replace deprecated functions in tests.
+- Update the spec file to more modern Python guidelines
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:		%{bgname}-backgrounds
 Version:	%{relnum}.0.1
-Release:	8%{?dist}
+Release:	%autorelease
 Summary:	Fedora %{relnum} default desktop background
 
 License:	CC-BY-SA
@@ -18,7 +18,7 @@ Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{versio
 BuildArch:	noarch
 
 # for %%_kde4_* macros
-BuildRequires:	kde-filesystem
+BuildRequires:	kde4-filesystem
 # make is no longer part of buildroot from the build system
 # https://fedoraproject.org/wiki/Changes/Remove_make_from_BuildRoot
 BuildRequires:	make
@@ -176,32 +176,4 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 34.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 22 2021 Luya Tshimbalanga <luya@fedoraproject.org> - 34.0.1-1
-- Update to 34.0.1 fixing incorrect time of day due to gnome-desktop bug
-
-* Mon Feb 08 2021 Luya Tshimbalanga <luya@fedoraproject.org> - 34.0.0-2
-- Add make as build requirement
-
-* Thu Dec 03 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 34.0.0-1
-- Initial package
+%autochangelog

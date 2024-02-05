@@ -15,7 +15,7 @@
 Name:           mate-applets
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        9%{?dist}
+Release:        10%{?dist}
 %else
 Release:        0.9%{?git_rel}%{?dist}
 %endif
@@ -144,6 +144,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-10
+- rebuild to fix rhbz (2262518)
+
 * Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-9
 - fix building with gcc14
 

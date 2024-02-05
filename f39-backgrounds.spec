@@ -18,7 +18,7 @@ Source0:        https://github.com/fedoradesign/backgrounds/releases/download/v%
 BuildArch:      noarch
 
 # for %%_kde4_* macros
-BuildRequires:  kde-filesystem
+BuildRequires:  kde4-filesystem
 BuildRequires:  make
 
 # for lossy optimization

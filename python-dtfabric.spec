@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.%{date}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool to manage data types and structures, as used by libyal
 
 License:        ASL 2.0
@@ -23,7 +23,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pyyaml
 BuildRequires:  python3-six
 BuildRequires:  python3-pip
-BuildRequires:  python3-mock
 BuildRequires:  python3-pbr
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -49,6 +48,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/*
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 0.0.20230520-6
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20230520-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

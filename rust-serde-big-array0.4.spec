@@ -4,8 +4,8 @@
 
 %global crate serde-big-array
 
-Name:           rust-serde-big-array
-Version:        0.5.1
+Name:           rust-serde-big-array0.4
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Big array helper for serde
 

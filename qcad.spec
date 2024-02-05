@@ -66,7 +66,6 @@ BuildRequires: libappstream-glib
 BuildRequires: fontpackages-devel
 
 Requires:      hicolor-icon-theme
-Requires:      wise2
 Requires:      qgnomeplatform-qt5
 
 BuildRequires: vlgothic-fonts
@@ -210,7 +209,6 @@ LD_LIBRARY_PATH=%{_QCAD_DIR}:%{_QCAD_DIR}/plugins/script \
 QTLIB=%{_qt5_libdir} \
 QTDIR=%{_qt5_libdir} \
 QTINC=%{_qt5_headerdir} \
-WISECONFIGDIR=%{_datadir}/wise2 \
 QT_QPA_PLATFORM=xcb \
 PATH=%{_libdir}:%{_QCAD_DIR}
 %{_QCAD_DIR}/%{name}-bin "\$@"

@@ -1,16 +1,32 @@
 # depends on downloading googletest src directory, only suitable to local building
 %bcond_with check
 
+# So pre releases can be tried
+%bcond_with gitcommit
+
+%if %{with gitcommit}
+
+# commit is what PyTorch 2.3 at its gitcommit expects
+%global commit0 d6860c477c99f1fce9e28eb206891af3c0e1a1d7
+Version:        23.11.04
+%define patch_level 0
+
+%else
+
 %global commit0 eb4a6674bfe9cf91b63b9817412ae5f6862c8432
+# The project has no version, this is the last git commit date YY.M.D
+Version:        23.2.14
+%define patch_level 4
+
+%endif
+
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Summary:        A library to detect information about host CPU
 Name:           cpuinfo
 License:        BSD-2-Clause
-# The project has no version, this is the last git commit date YY.M.D
-Version:        23.2.14
-%define patch_level 3
-Release:        %{patch_level}.git%{?shortcommit0}%{?dist}.2
+Release:        %{patch_level}.git%{?shortcommit0}%{?dist}
+
 
 URL:            https://github.com/pytorch/%{name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz

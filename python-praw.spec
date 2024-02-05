@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python module that allows for simple access to reddit's API
 
 License:        GPLv3+
@@ -22,12 +22,10 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  python3-prawcore
 BuildRequires:  mock
-BuildRequires:  python3-mock
 BuildRequires:  python3-betamax
 BuildRequires:  python3-betamax-matchers
 BuildRequires:  python3-betamax-serializers
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
 BuildRequires:  python3-websocket-client
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -62,7 +60,7 @@ rm -rf html/.{doctrees,buildinfo}
 %py3_install
 
 %check
-%{__python3} setup.py test
+%pytest
 
 %files -n python3-%{pypi_name}
 %doc AUTHORS.rst CHANGES.rst README.rst
@@ -76,6 +74,10 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 7.6.1-7
+- Remove unused python3-mock test dependency
+- Replace deprecated pytest-runner with %%pytest
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

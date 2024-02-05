@@ -1,8 +1,8 @@
 %global pypi_name rarfile
 
 Name:           python-%{pypi_name}
-Version:        4.0
-Release:        12%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        RAR archive reader for Python
 
 License:        ISC
@@ -42,6 +42,9 @@ zipfile like as possible.
 %{python3_sitelib}/__pycache__/%{pypi_name}*
 
 %changelog
+* Sat Feb 03 2024 Fabian Affolter <mail@fabian-affolter.ch> - 4.1-1
+- Update to latest upstream release 4.1 (closes rhbz#2239354)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
