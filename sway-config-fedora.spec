@@ -1,11 +1,13 @@
-%bcond_without  sddm
+%bcond  initialsetup %[0%{?fedora} >= 40 || 0%{?rhel} >= 10]
+%bcond  sddm 1
 %global sway_ver 1.8
 
 Name:           sway-config-fedora
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
+SourceLicense:  MIT AND CC-BY-SA-3.0
 License:        MIT
 URL:            https://gitlab.com/fedora/sigs/sway/sway-config-fedora
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -35,6 +37,7 @@ Recommends:     (qt6-qtwayland if qt6-qtbase-gui)
 Recommends: foot
 Recommends: libnotify
 Recommends: rofi-wayland
+Recommends: xdg-user-dirs
 Requires: /usr/bin/pgrep
 Requires: /usr/bin/pkill
 Requires: desktop-backgrounds-compat
@@ -51,14 +54,32 @@ Requires: waybar
 %description
 %{summary}.
 
+%if %{with initialsetup}
+%package -n     initial-setup-gui-wayland-sway
+Summary:        Sway Wayland Initial Setup GUI configuration
+Provides:       firstboot(gui-backend)
+Conflicts:      firstboot(gui-backend)
+
+Requires:       xorg-x11-server-Xwayland
+Requires:       initial-setup-gui >= 0.3.99
+Requires:       sway >= %{sway_ver}
+Supplements:    (initial-setup-gui and sway)
+
+%description -n initial-setup-gui-wayland-sway
+This package contains configuration and dependencies for
+Anaconda Initial Setup to use Sway for the display server.
+%endif
+
 %if %{with sddm}
 %package -n     sddm-wayland-sway
 Summary:        Sway Wayland SDDM greeter configuration
+License:        MIT AND CC-BY-SA-3.0
+
 Provides:       sddm-greeter-displayserver
 Conflicts:      sddm-greeter-displayserver
 
-Requires:       lxqt-themes-fedora
-Requires:       sddm >= 0.19.0^git20221123.3e48649
+Requires:       desktop-backgrounds-compat
+Requires:       sddm >= 0.20.0
 Requires:       sway >= %{sway_ver}
 
 %description -n sddm-wayland-sway
@@ -76,7 +97,9 @@ to use Sway for the greeter display server.
 
 
 %install
-%make_install PREFIX='%{_prefix}' WITH_SDDM='%[%{with sddm}?"yes":"no"]'
+%make_install PREFIX='%{_prefix}' \
+    WITH_INITIALSETUP='%[%{with initialsetup}?"yes":"no"]' \
+    WITH_SDDM='%[%{with sddm}?"yes":"no"]'
 
 
 %files
@@ -92,12 +115,20 @@ to use Sway for the greeter display server.
 %{_datadir}/wayland-sessions/sway.desktop
 %{_libexecdir}/sway
 
+%if %{with initialsetup}
+%files -n initial-setup-gui-wayland-sway
+%license LICENSE
+%{_libexecdir}/initial-setup/run-gui-backend
+%endif
+
 %if %{with sddm}
 %files -n sddm-wayland-sway
 %license LICENSE
+%license %{_datadir}/sddm/themes/03-sway-fedora/LICENSE
 %config(noreplace) %{_sysconfdir}/sway/sddm-greeter.config
-%{_prefix}/lib/sddm/sddm.conf.d/wayland-sway.conf
+%{_datadir}/sddm/themes/03-sway-fedora/
 %{_libexecdir}/sddm-compositor-sway
+%{_prefix}/lib/sddm/sddm.conf.d/wayland-sway.conf
 %endif
 
 %changelog

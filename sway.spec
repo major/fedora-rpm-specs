@@ -1,12 +1,8 @@
-%global tag     1.8.1
-
-%if 0%{?fedora} >= 38
-%bcond_without  caps
-%endif
+%global tag     1.9-rc2
 
 Name:           sway
-Version:        1.8.1
-Release:        4%{?dist}
+Version:        1.9~rc2
+Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -25,8 +21,6 @@ Source102:      README.md
 # Fedora patches
 
 # Conditional patches
-# swaywm/sway#7326, requires libxkbcommon >= 1.5.0
-Patch20:        sway-1.8-input-enable-user-xkb-configs-with-cap_sys_nice.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
@@ -49,10 +43,10 @@ BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-server) >= 1.21.0
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
-BuildRequires:  (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
+BuildRequires:  (pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-icccm)
-BuildRequires:  pkgconfig(xkbcommon) %{?with_caps: >= 1.5.0}
+BuildRequires:  pkgconfig(xkbcommon) >= 1.5.0
 
 # Require any of the available configuration packages;
 # Prefer the -upstream one if none are directly specified in the package manager transaction
@@ -89,8 +83,9 @@ Requires:       xorg-x11-server-Xwayland
 Recommends:     foot
 # grim is the recommended way to take screenshots on sway 1.0+
 Recommends:     grim
-# Dmenu is the default launcher in sway
+# wmenu is the default launcher in sway, but it still requires dmenu_path to work
 Recommends:     dmenu
+Recommends:     wmenu
 # In addition, xargs is recommended for use in such a launcher arrangement
 Recommends:     findutils
 # Install configs and scripts for better integration with systemd user session
@@ -133,28 +128,12 @@ License:        CC0-1.0
 Wallpaper collection provided with Sway
 
 
-%package -n     grimshot
-Summary:        Helper for screenshots within sway
-Requires:       grim
-Requires:       jq
-Requires:       slurp
-Requires:       /usr/bin/wl-copy
-Recommends:     /usr/bin/notify-send
-
-%description -n grimshot
-Grimshot is an easy to use screenshot tool for sway. It relies on grim,
-slurp and jq to do the heavy lifting, and mostly provides an easy to use
-interface.
-
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -N -n %{name}-%{tag}
 # apply unconditional patches
-%autopatch -p1 -M19
+%autopatch -p1 -M99
 # apply conditional patches
-%if %{with caps}
-%patch -P20 -p1
-%endif
 
 %build
 %meson \
@@ -174,13 +153,6 @@ install -D -m644 -pv %{SOURCE102} %{buildroot}%{_pkgdocdir}/README.Fedora
 # Create directory for extra config snippets
 install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 
-# install python scripts from contrib
-install -D -m644 -pv -t %{buildroot}%{_datadir}/sway/contrib contrib/*.py
-
-# install contrib/grimshot tool
-scdoc <contrib/grimshot.1.scd >%{buildroot}%{_mandir}/man1/grimshot.1
-install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
-
 %files
 %license LICENSE
 %doc %{_pkgdocdir}
@@ -189,11 +161,10 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/sway*
 %{_mandir}/man5/*
 %{_mandir}/man7/*
-%{?with_caps:%caps(cap_sys_nice=ep)} %{_bindir}/sway
+%caps(cap_sys_nice=ep) %{_bindir}/sway
 %{_bindir}/swaybar
 %{_bindir}/swaymsg
 %{_bindir}/swaynag
-%{_datadir}/sway
 %dir %{_datadir}/xdg-desktop-portal
 %{_datadir}/xdg-desktop-portal/sway-portals.conf
 %{bash_completions_dir}/sway*
@@ -211,11 +182,10 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %license assets/LICENSE
 %{_datadir}/backgrounds/sway
 
-%files -n grimshot
-%{_bindir}/grimshot
-%{_mandir}/man1/grimshot.1*
-
 %changelog
+* Sun Feb 04 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9~rc2-1
+- Update to 1.9-rc2 (rhbz#2260566)
+
 * Sun Jan 14 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-4
 - Use gnome-keyring for Secret portal implementation
 

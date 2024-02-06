@@ -1,7 +1,7 @@
 %global srcname branca
 
 Name:           python-%{srcname}
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Generate complex HTML+JS pages with Python
 

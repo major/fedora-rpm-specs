@@ -19,10 +19,12 @@
 
 %global _docdir_fmt %{name}
 
+ExcludeArch:    %{ix86}
+
 Name:           libsedml
 Summary:        Library that fully supports SED-ML for SBML
 Version:        2.0.32
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML
 Source0:        https://github.com/fbergmann/libSEDML/archive/v%{version}/libSEDML-%{version}.tar.gz
@@ -179,16 +181,16 @@ sed -e 's| /usr/lib/cmake | %{_libdir}/cmake |g' -i CMakeModules/FindLIBNUML.cma
 sed -e 's| /usr/lib/cmake | %{_libdir}/cmake |g' -i CMakeModules/FindLIBSBML.cmake
 
 # Needed by bindings
-%patch0 -p1 -b .fix_install_libpaths
+%patch -P 0 -p1 -b .fix_install_libpaths
 
 %if %{with python}
 %if 0%{?python3_version_nodots} > 39
-%patch1 -p1 -b .porting_to_python310
+%patch -P 1 -p1 -b .porting_to_python310
 %endif
 %endif
 
 # Needed for SWIG 4.1.0
-%patch2 -p1 -b .fix_macro_definition
+%patch -P 2 -p1 -b .fix_macro_definition
 
 %build
 ######################################################################################################
@@ -379,6 +381,9 @@ make test -C build
 %endif
 
 %changelog
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 2:2.0.32-10
+- Exclude ix86 architectures
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.0.32-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

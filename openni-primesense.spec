@@ -13,9 +13,9 @@
 
 Name:           openni-primesense
 Version:        5.1.6.6
-Release:        26%{?gitrev}%{?dist}
+Release:        27%{?gitrev}%{?dist}
 Summary:        PrimeSensor/Kinect Modules for OpenNI
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/PrimeSense/Sensor
 
 Source0:        https://github.com/PrimeSense/Sensor/archive/%{commit}/Sensor-%{commit}.tar.gz
@@ -24,12 +24,11 @@ Patch0:         openni-primesense-5.1.6.6-fedora.patch
 Patch1:         openni-primesense-5.1.6.6-willowgarage.patch
 Patch2:         openni-primesense-5.1.6.6-sse.patch
 Patch3:         openni-primesense-5.1.6.6-softfloat.patch
-ExclusiveArch:  %{ix86} x86_64 %{arm}
+ExclusiveArch:  x86_64 %{arm}
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  openni-devel >= 1.5.0.0
-BuildRequires:  dos2unix
 BuildRequires:  libjpeg-devel
 BuildRequires:  systemd-rpm-macros
 Requires:       openni >= 1.5.0.0
@@ -52,19 +51,18 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n Sensor-%{commit}
-%patch0 -p0 -b .fedora
-%patch1 -p0 -b .willow
-%patch2 -p0 -b .sse
-%patch3 -p0 -b .softfloat
+%patch 0 -p0 -b .fedora
+%patch 1 -p0 -b .willow
+%patch 2 -p0 -b .sse
+%patch 3 -p0 -b .softfloat
 
-#dos2unix LGPL.txt
 rm -rf Source/External/LibJPEG
 rm -rf Platform/Android Platform/Win32
 
 %build
 cd Platform/Linux/CreateRedist
 # Add SSE_GENERATION=2 (or 3) to enable SSE
-sed -i 's|make -j$(calc_jobs_number) -C ../Build|make -j$(calc_jobs_number) -C ../Build CFLAGS_EXT="%{optflags} -Wno-unknown-pragmas" LDFLAGS_EXT="%{optflags}" DEBUG=1|' RedistMaker
+sed -i 's|make -j$(calc_jobs_number) -C ../Build|make -C ../Build CFLAGS_EXT="%{optflags} -Wno-unknown-pragmas" LDFLAGS_EXT="%{optflags}" DEBUG=1|' RedistMaker
 ./RedistMaker
 
 
@@ -122,6 +120,13 @@ fi
 %{_bindir}/XnSensorServer
 
 %changelog
+* Sat Feb 03 2024 Scott K Logan <logans@cottsay.net> - 5.1.6.6-27
+- Disable parallelism in makefile to avoid an unknown bug
+- Switch to new patch macro syntax
+- Drop unused BuildDepends: dos2unix
+- Switch to SPDX license identifier
+- Disable i686 build due to missing upstream openni-devel
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

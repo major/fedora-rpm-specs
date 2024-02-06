@@ -1,7 +1,7 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
 Version: 5.93.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -54,14 +54,14 @@ BuildRequires:  cmake(KF5WindowSystem)
 BuildRequires:  cmake(KF5Wayland)
 BuildRequires:  cmake(KF5GuiAddons)
 
-BuildRequires:  plasma-breeze-devel
-Requires:       plasma-breeze
+Requires:       plasma-breeze%{?_isa}
 Requires:       breeze-cursor-theme
 Requires:       breeze-icon-theme
 Recommends:     plasma-workspace
 
-# The default QtQuick style
-Requires:       qqc2-breeze-style
+# The default QtQuick styles
+Requires:       qqc2-breeze-style%{?_isa}
+Requires:       kf6-qqc2-desktop-style%{?_isa}
 
 Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
@@ -70,6 +70,8 @@ Requires:       (%{name}-qt5 if qt5-qtbase-gui)
 
 %package        qt5
 Summary:        Qt5 support for %{name}
+# The default QtQuick style
+Requires:       qqc2-desktop-style%{?_isa}
 %description    qt5
 %{summary}.
 
@@ -104,6 +106,12 @@ Summary:        Qt5 support for %{name}
 %{_qt5_plugindir}/platformthemes/KDEPlasmaPlatformTheme5.so
 
 %changelog
+* Sun Feb 04 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-3
+- Arched Qt plugin requires
+
+* Sun Feb 04 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-2
+- Require qqc2-desktop-style for both qt5 and qt6
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

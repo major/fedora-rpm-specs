@@ -1,8 +1,8 @@
 Name:           perl-Future-IO
-Version:        0.14
-Release:        4%{?dist}
+Version:        0.15
+Release:        1%{?dist}
 Summary:        Future-returning IO core methods
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Future-IO
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-IO-%{version}.tar.gz
@@ -24,6 +24,7 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test::ExpectAndCheck)
 BuildRequires:  perl(Test::Future::IO::Impl)
 BuildRequires:  perl(Test::Pod) >= 1.00
 
@@ -55,6 +56,10 @@ their results asynchronously via Future instances.
 %{_mandir}/man3/Future*
 
 %changelog
+* Sun Feb 04 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
+- Update to 0.15
+- Migrate to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,14 +1,16 @@
 Name:           perl-Catalyst-Manual
 Summary:        Catalyst web framework manual
 Epoch:          1
-Version:        5.9011
-Release:        12%{?dist}
-License:        GPL+ or Artistic
+Version:        5.9012
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Manual-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Manual
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Test::More)
@@ -25,7 +27,7 @@ This is the manual to the Catalyst web framework.
 find -name .gitignore -print0 | xargs -0 rm -f
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -41,6 +43,11 @@ find -name .gitignore -print0 | xargs -0 rm -f
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 04 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1:5.9012-1
+- Update to 5.9012
+- Use /usr/bin/perl instead of %%{__perl}
+- Migrate license to SPDX.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9011-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

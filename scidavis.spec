@@ -5,7 +5,7 @@
 
 Name:           scidavis
 Version:        2.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Application for Scientific Data Analysis and Visualization
 
 License:        GPL-3.0-or-later
@@ -15,7 +15,10 @@ URL:            http://scidavis.sourceforge.net/
 #Source0:        https://github.com/%%{owner}/%%{name}/archive/%%{version}/%%{name}-master.tar.gz
 Source0:        https://github.com/%{owner}/%{name}/archive/master/%{name}-%{version}.tar.gz
 Patch0:         scidavis-build_w_system_qwtplot3d.patch
+# https://github.com/SciDAVis/scidavis/pull/31
 Patch1:         scidavis-fix_building_w_liborigin302.patch
+# https://github.com/SciDAVis/scidavis/pull/32
+Patch2:         scidavis-add_minigzip_includes.patch
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -79,6 +82,7 @@ This module provides SciDAVis bindings to the Python3 programming language.
 #%%setup -q -n %%{name}-master
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 # Set the correct python paths
 sed -i 's+pythonconfig.path = "$$INSTALLBASE/../etc"+pythonconfig.path = "$$INSTALLBASE/..%{python3_sitearch}/scidavis"+g' config.pri
 sed -i 's+pythonutils.path = "$$INSTALLBASE/share/scidavis"+pythonutils.path = "$$INSTALLBASE/..%{python3_sitearch}/scidavis"+g' config.pri
@@ -134,6 +138,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Feb 04 2024 Alexander Ploumistos <alexpl@fedoraproject.org> - 2.9.0-11
+- Add required include directives in minigzip.c (#2261683)
+- Add links to upstream issues/PRs
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

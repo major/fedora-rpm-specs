@@ -1,15 +1,13 @@
 %global sover 20
 
 Name:           quarter
-Version:        1.1.0
-Release:        12%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Lightweight glue library between Coin and Qt
 
 License:        BSD
 URL:            https://grey.colorado.edu/quarter/
-Source0:        https://github.com/coin3d/%{name}/archive/Quarter-%{version}.tar.gz
-
-Patch0:         quarter-cpack_fix.patch
+Source0:        https://github.com/coin3d/%{name}/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
 
 BuildRequires:  cmake gcc gcc-c++ doxygen
 BuildRequires:  mesa-libGL-devel
@@ -52,7 +50,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -p1 -n %{name}-Quarter-%{version}
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -67,9 +65,8 @@ BuildArch:      noarch
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README
-%{_libdir}/*.so.1*
-%{_libdir}/*.so.%{sover}
+%doc AUTHORS ChangeLog NEWS README.md
+%{_libdir}/*.so.%{sover}*
 %{_libdir}/qt5/plugins/designer/*
 
 %files devel
@@ -83,6 +80,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Sun Feb 04 2024 Richard Shaw <hobbes1069@gmail.com> - 1.2.0-1
+- Update to 1.2.0.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

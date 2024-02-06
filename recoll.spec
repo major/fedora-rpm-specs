@@ -3,7 +3,7 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.37.0
+Version:        1.37.4
 Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
@@ -11,7 +11,6 @@ Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
 Source1:        https://www.lesbonscomptes.com/recoll/downloads/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt5.sh
 Patch01:        recoll-1.25.11-appdata.patch
-Patch02:        recoll-1.37.0-libxml2.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -208,6 +207,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Feb 04 2024 Terje Rosten <terje.rosten@ntnu.no> - 1.37.4-1
+- 1.37.4
+
 * Sun Jan 28 2024 Terje Rosten <terje.rosten@ntnu.no> - 1.37.0-1
 - 1.37.0
 

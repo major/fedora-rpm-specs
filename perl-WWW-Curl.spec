@@ -1,6 +1,6 @@
 Name:           perl-WWW-Curl
 Version:        4.17
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Perl extension interface for libcurl
 License:        MIT
 URL:            https://metacpan.org/release/WWW-Curl
@@ -16,6 +16,8 @@ Patch3:         WWW-Curl-4.17-Adapt-to-curl-7.87.0.patch
 Patch4:         WWW-Curl-4.17-Work-around-a-macro-bug-in-curl-7.87.0.patch
 # Workound a bug in WWW::CURL 4.17, bug #2245689, GH #9
 Patch5:         WWW-Curl-4.17-add-back-CURLOPT_RESOLV-support.patch
+# Adapt to new version of gcc, bug #2259537
+Patch6:         WWW-Curl-4.17-BRC2259537.patch
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -74,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 04 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 4.17-38
+- Adapt to new version of gcc (#2259537)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.29.5111.102
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -253,6 +253,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-8
+- Rebuilt for abseil-cpp-20240116.0
+
 * Thu Jan 25 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.29.5111.102-7
 - Don’t link the top-level absl_flags library; it is not required in
   absl-cpp-20230802, and not present in absl-cpp-20240116

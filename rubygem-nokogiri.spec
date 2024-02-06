@@ -1,7 +1,7 @@
-%global	mainver		1.16.0
+%global	mainver		1.16.2
 #%%global	prever		.rc4
 
-%global	baserelease		3
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -266,6 +266,12 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Mon Feb 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.16.2-1
+- 1.16.2
+
+* Sun Feb 04 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.16.1-1
+- 1.16.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

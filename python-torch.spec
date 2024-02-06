@@ -61,6 +61,7 @@ Patch5:        0001-disable-submodule-search.patch
 Patch100:      0001-cuda-hip-signatures.patch
 Patch101:      0001-silence-an-assert.patch
 Patch102:      0001-can-not-use-with-c-files.patch
+Patch103:      0001-use-any-hip.patch
 %endif
 
 %else
@@ -325,6 +326,7 @@ export USE_NCCL=OFF
 export BUILD_NVFUSER=OFF
 export HIP_PATH=%{_prefix}
 export ROCM_PATH=%{_prefix}
+export DEVICE_LIB_PATH=/usr/lib/clang/17/amdgcn/bitcode
 %else
 export USE_ROCM=OFF
 %endif
@@ -343,6 +345,13 @@ export USE_XNNPACK=ON
 %py3_build
 
 %install
+%if %{with rocm}
+export USE_ROCM=ON
+export HIP_PATH=%{_prefix}
+export ROCM_PATH=%{_prefix}
+export DEVICE_LIB_PATH=/usr/lib/clang/17/amdgcn/bitcode
+%endif
+
 %py3_install
 
 # empty files
@@ -403,6 +412,11 @@ sed -i -f br.sed devel.files
 %{python3_sitearch}/torch/lib/libtorch_cpu.so
 %{python3_sitearch}/torch/lib/libtorch_global_deps.so
 %{python3_sitearch}/torch/lib/libtorch_python.so
+%if %{with rocm}
+%{python3_sitearch}/torch/lib/libc10_hip.so
+%{python3_sitearch}/torch/lib/libcaffe2_nvrtc.so
+%{python3_sitearch}/torch/lib/libtorch_hip.so
+%endif
 
 # misc
 %{python3_sitearch}/torch/utils/model_dump/{*.js,*.mjs,*.html}

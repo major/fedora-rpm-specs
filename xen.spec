@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.18.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -115,6 +115,8 @@ Patch50: xen.ocaml5.fixes.patch
 Patch51: xsa447.patch
 Patch52: xen.gcc14.fixes.patch
 Patch53: newlib.gcc14.fixes.patch
+Patch54: xsa449.patch
+Patch55: xsa450.patch
 
 
 %if %build_qemutrad
@@ -129,10 +131,6 @@ BuildRequires: dev86
 %endif
 BuildRequires: python3-devel ncurses-devel python3-setuptools
 BuildRequires: perl-interpreter perl-generators
-%ifarch x86_64
-# so that x86_64 builds pick up glibc32 correctly
-BuildRequires: glibc32
-%endif
 BuildRequires: gettext
 BuildRequires: gnutls-devel
 BuildRequires: openssl-devel
@@ -334,6 +332,8 @@ manage Xen virtual machines.
 %patch 51 -p1
 %patch 52 -p1
 %patch 53 -p1
+%patch 54 -p1
+%patch 55 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -940,6 +940,13 @@ fi
 %endif
 
 %changelog
+* Sun Feb 04 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-5
+- pci: phantom functions assigned to incorrect contexts [XSA-449,
+        CVE-2023-46839]
+- VT-d: Failure to quarantine devices in !HVM build [XSA-450,
+        CVE-2023-46840]
+- the glibc32 doesn't seem to add anything to the build so drop it
+
 * Sat Feb 03 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-4
 - build fixes for gcc14, replace stubs-32.h requirement with glibc32
 

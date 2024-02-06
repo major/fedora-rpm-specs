@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.13.29
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -80,7 +80,10 @@ popd
 
 
 %changelog
-* Fri Jan 26 2024 Packit <hello@packit.dev> - 8.13.29-1
+* Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 8.13.29-2
+- Rebuilt for abseil-cpp-20240116.0
+
+* Fri Feb 02 2024 Packit <hello@packit.dev> - 8.13.29-1
 - [maven-release-plugin] prepare release v8.13.29 (Kavitha Keshava)
 - Metadata updates for release 8.13.29 (#3395) (kkeshava)
 - Mandlil patch 2 (#3393) (mandlil)

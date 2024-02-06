@@ -9,7 +9,7 @@ Name:     parlaylib
 License:  MIT
 #Version obtained from cmake config, but no tags upstream
 Version:  2.1.5^20230215git%{shortcommit}
-Release:  5%{?dist}
+Release:  6%{?dist}
 
 URL:      https://github.com/cmuparlay/parlaylib
 Source0:  %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -104,6 +104,9 @@ BuildArch:  noarch
 
 
 %changelog
+* Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.5^20230215git137076b-6
+- Rebuilt for abseil-cpp-20240116.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5^20230215git137076b-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

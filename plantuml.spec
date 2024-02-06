@@ -47,6 +47,10 @@ sed --in-place '/<attribute name="Class-Path"/d' build.xml
 
 
 %build
+# Encoding needs to be set to UTF-8 for f38 and epel builds
+%if 0%{?fedora} < 39 || 0%{?rhel}
+export ANT_OPTS=-Dfile.encoding=UTF-8
+%endif
 ant
 
 # build javadoc

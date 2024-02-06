@@ -1,7 +1,7 @@
 %global release_date "July 2018"
 
 Name:           openfst
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Weighted finite-state transducer library
 

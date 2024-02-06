@@ -103,23 +103,40 @@ Provides:       bundled(colorpicker) = 0
 Provides:       bundled(pclock) = 0.13.1
 Provides:       bundled(XOverrideFontCursor) = 20190901
 
-%description
+%global _description %{expand:
 NsCDE is a retro but powerful UNIX desktop environment which resembles CDE look
 (and partially feel) but with a more powerful and flexible framework
 beneath-the-surface, more suited for 21st century UNIX-like and Linux systems
 and user requirements than original CDE.
+}
+
+%description %{_description}
 
 %package        data
 Summary:        Data files for %{name}
 BuildArch:      noarch
-%description    data
+Requires:       %{name}-icon-theme = %{version}-%{release}
+
+%description    data %{_description}
+
 This package contains data files for %{name}.
 
 %package        doc
 Summary:        Documentation files for %{name}
 BuildArch:      noarch
-%description    doc
+
+%description    doc %{_description}
+
 This package contains documentation for %{name}.
+
+%package        icon-theme
+Summary:        %{name} icon theme
+BuildArch:      noarch
+Requires:       hicolor-icon-theme
+
+%description    icon-theme %{_description}
+
+This package contains the %{name} icon theme.
 
 %prep
 %autosetup -p1
@@ -155,6 +172,7 @@ done
 %{_bindir}/nscde
 %{_bindir}/nscde_fvwmclnt
 %{_datadir}/applications/nscde-*.desktop
+%{_datadir}/xsessions/nscde.desktop
 %{_libdir}/%{name}
 %{_libexecdir}/%{name}
 %config(noreplace) %{_sysconfdir}/xdg/menus/nscde-applications.menu
@@ -162,13 +180,16 @@ done
 %files data
 %license COPYING
 %{_datadir}/desktop-directories/nscde-*.directory
-%{_datadir}/xsessions/nscde.desktop
 %{_datadir}/icons/NsCDE
 %{_datadir}/%{name}
 
 %files doc
 %license COPYING
 %doc %{_docdir}/%{name}-doc/*
+
+%files icon-theme
+%license COPYING
+%{_datadir}/icons/NsCDE
 
 %changelog
 %autochangelog

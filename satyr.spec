@@ -16,8 +16,8 @@
 %define glib_ver 2.43.4
 
 Name: satyr
-Version: 0.42
-Release: 5%{?dist}
+Version: 0.43
+Release: 1%{?dist}
 Summary: Tools to create anonymous, machine-friendly problem reports
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/satyr
@@ -129,6 +129,9 @@ make check|| {
 %endif
 
 %changelog
+* Sun Feb 04 2024 Michal Srb <michal@redhat.com> - 0.43-1
+- Update to 0.43
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

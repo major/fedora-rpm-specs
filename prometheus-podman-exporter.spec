@@ -14,7 +14,7 @@
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.7.0
+Version:                1.8.0
 
 %gometa -f
 
@@ -228,7 +228,11 @@ export GOFLAGS="-mod=vendor"
 %endif
 
 %if 0%{?rhel} >= 9
-export BUILDTAGS="exclude_graphdriver_btrfs btrfs_noversion"
+export BUILDTAGS="exclude_graphdriver_btrfs btrfs_noversion systemd"
+%endif
+
+%if 0%{?fedora}
+export BUILDTAGS="systemd"
 %endif
 
 export LDFLAGS="-X %{goipath}/cmd.buildVersion=%{version} -X %{goipath}/cmd.buildRevision=%{release} -X %{goipath}/cmd.buildBranch=main"

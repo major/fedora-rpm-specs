@@ -1,9 +1,9 @@
 Name:       perl-Net-DHCP
 Version:    0.700
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Set of classes for basic handling of DHCP packets
 
-License:    GPL+ or Artistic
+License:    MIT
 URL:        https://metacpan.org/release/Net-DHCP
 Source0:    https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/Net-DHCP-0.7.tar.gz
 
@@ -73,6 +73,9 @@ find %{buildroot} -type f -exec chmod 644 {} 2>/dev/null \;
 
 
 %changelog
+* Sun Feb 04 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.700-8
+- Correct License tag (#2260481)
+
 * Sat Jan 27 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.700-7
 - Remove perl(Test::Vars) from the BuildRequires (#2260481)
 

@@ -1,22 +1,23 @@
+%global sover 1.6
+
 Name:           liquid-dsp
-Version:        1.4.0
-Release:        7%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Digital Signal Processing Library for Software-Defined Radios
 
 License:        MIT
 URL:            http://liquidsdr.org/
-Source0:        https://github.com/jgaeddert/%{name}/archive/%{commit}/%{name}-%{version}.tar.gz
-# set soname ourselves as upstream doesn't
-Patch0:         soname-version.patch
+Source0:        https://github.com/jgaeddert/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Patch configure.ac for ppc64
 Patch1:         ppc64-configureac.patch
 # fixes ppc64 altivec, other 64-bit problems. Patch by Dan Horák.
 # https://github.com/jgaeddert/liquid-dsp/pull/136
 Patch3:         ppc64.patch
+
 BuildRequires:  gcc
 BuildRequires:  fftw-devel fftw-libs-single
 BuildRequires:  autoconf automake libtool
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Digital signal processing library for software-defined radios
@@ -28,29 +29,35 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description -n %{name}-devel
 Digital signal processing library for software-defined radios
 
+
 %prep
 %autosetup -p1 -n %{name}-%{version}
 autoreconf -f -i
+
+
 %build
 %configure --exec_prefix=/ --enable-simdoverride
 %make_build
 
+
 %check
 make check
+
 
 %install
 %make_install
 pushd ${RPM_BUILD_ROOT}/%{_libdir} > /dev/null 2>&1
 rm libliquid.a
-ln -s libliquid.so.%{version} libliquid.so
-chmod a+x libliquid.so.%{version}
+chmod a+x libliquid.so.%{sover}
 popd > /dev/null 2>&1
 
 %ldconfig_scriptlets
+
+
 %files
 %license LICENSE
-%{_libdir}/libliquid.so.%{version}
-
+%{_libdir}/libliquid.so.1
+%{_libdir}/libliquid.so.%{sover}
 
 %files -n %{name}-devel
 %{_includedir}/liquid/
@@ -58,6 +65,9 @@ popd > /dev/null 2>&1
 
 
 %changelog
+* Sun Feb 04 2024 Richard Shaw <hobbes1069@gmail.com> - 1.6.0-1
+- Update to 1.6.0.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

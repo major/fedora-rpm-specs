@@ -1,5 +1,5 @@
 Name:           contour-terminal
-Version:        0.4.1.6292
+Version:        0.4.2.6429
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 
@@ -26,7 +26,7 @@ BuildRequires:  libutempter-devel
 BuildRequires:  pkgconfig(libssh2)
 
 BuildRequires:  libunicode-devel >= 0.4.0
-BuildRequires:  boxed-cpp-devel >= 1.1.0
+BuildRequires:  cmake(boxed-cpp)
 
 # provides tic
 BuildRequires:  ncurses
@@ -65,7 +65,6 @@ for everyday use. It is aiming for power users with a modern feature mindset.
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCONTOUR_TESTING=ON \
-    -DCONTOUR_QT_VERSION=6 \
 
 %cmake_build
 

@@ -1,9 +1,9 @@
 # Installed library version
-%global lib_version 2308.0.0
+%global lib_version 2401.0.0
 
 Name:           abseil-cpp
-Version:        20230802.1
-Release:        4%{?dist}
+Version:        20240116.0
+Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -139,7 +139,6 @@ Development headers for %{name}
 %{_libdir}/libabsl_examine_stack.so.%{lib_version}
 %{_libdir}/libabsl_exponential_biased.so.%{lib_version}
 %{_libdir}/libabsl_failure_signal_handler.so.%{lib_version}
-%{_libdir}/libabsl_flags.so.%{lib_version}
 %{_libdir}/libabsl_flags_commandlineflag.so.%{lib_version}
 %{_libdir}/libabsl_flags_commandlineflag_internal.so.%{lib_version}
 %{_libdir}/libabsl_flags_config.so.%{lib_version}
@@ -163,6 +162,7 @@ Development headers for %{name}
 %{_libdir}/libabsl_log_initialize.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_check_op.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_conditions.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_fnmatch.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_format.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_globals.so.%{lib_version}
 %{_libdir}/libabsl_log_internal_log_sink_set.so.%{lib_version}
@@ -202,6 +202,7 @@ Development headers for %{name}
 %{_libdir}/libabsl_throw_delegate.so.%{lib_version}
 %{_libdir}/libabsl_time.so.%{lib_version}
 %{_libdir}/libabsl_time_zone.so.%{lib_version}
+%{_libdir}/libabsl_vlog_config_internal.so.%{lib_version}
 
 %files testing
 # TESTONLY libraries (that are actually installed):
@@ -233,6 +234,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Wed Jan 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 20240116.0-1
+- Update to 20240116.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230802.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

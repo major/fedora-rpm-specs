@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -16,6 +16,8 @@ Source10:       wx-config
 # remove abort when ABI check fails
 # Backport from wxGTK
 Patch0:         %{name}-3.1.6-abicheck.patch
+Patch1:         tests-no-deprecated-copy-dtor.patch
+Patch2:         https://github.com/wxWidgets/wxWidgets/commit/1622a5c9c2f123ef27fc3a52938162a68892e725.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -186,6 +188,7 @@ pushd %{gtk3dir}
   --with-opengl \
   --with-sdl \
   --with-libmspack \
+  --with-liblzma \
   --enable-intl \
   --disable-rpath \
   --disable-glcanvasegl \
@@ -318,6 +321,13 @@ fi
 %doc html
 
 %changelog
+* Sun Feb 04 2024 Scott Talbert <swt@techie.net> - 3.2.4-5
+- Enable wxLZMAInputStream (#2258458)
+
+* Wed Jan 31 2024 Scott Talbert <swt@techie.net> - 3.2.4-4
+- Fix FTBFS w/ GCC 14 (#2261535)
+- Fix FTBFS w/ WebKitGTK 2.43
+
 * Fri Jan 26 2024 Scott Talbert <swt@techie.net> - 3.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

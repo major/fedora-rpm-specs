@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -275,6 +275,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 9.1-2
+- Rebuilt for abseil-cpp-20240116.0
+
 * Thu Jan 25 2024 Michal Ruprich <mruprich@redhat.com> - 9.1-1
 - New version 9.1
 

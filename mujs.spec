@@ -1,10 +1,16 @@
 Name:           mujs
 Version:        1.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
 Source0:        https://mujs.com/downloads/%{name}-%{version}.tar.gz
+
+# https://github.com/ccxvii/mujs/pull/187
+Patch0:         set-library-soname-version.patch
+
+# use custom soname version until it lands upstream to avoid future potential conflict
+Patch1:         downstream-soname-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -30,11 +36,11 @@ This package provides the MuJS static library.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
 chmod a-x -v docs/*
 
 %build
-%make_build release CFLAGS="%{build_cflags} %{build_ldflags}"
+%make_build release prefix="%{_prefix}" libdir="%{_libdir}" CFLAGS="%{build_cflags} %{build_ldflags}"
 
 %install
 %make_install prefix="%{_prefix}" libdir="%{_libdir}"
@@ -46,19 +52,24 @@ chmod a-x -v docs/*
 %doc AUTHORS README docs
 %{_bindir}/%{name}
 %{_bindir}/%{name}-pp
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %license COPYING
 %doc AUTHORS README
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}.h
-%{_libdir}/lib%{name}.so{,.*}
+%{_libdir}/lib%{name}.so
 
 %files static
 %{_libdir}/lib%{name}.a
 
 
 %changelog
+* Thu Jan 25 2024 Alessandro Astone <ales.astone@gmail.com> - 1.3.3-5
+- Fix paths in pkgconfig file
+- Make shared library versioned
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

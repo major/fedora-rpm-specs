@@ -2,8 +2,8 @@
 # lacks sphinx_book_theme.
 
 Name:           python-linkify-it-py
-Version:        2.0.2
-Release:        6%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -50,6 +50,9 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Sun Feb  4 2024 Jerry James <loganjerry@gmail.com> - 2.0.3-1
+- Version 2.0.3
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

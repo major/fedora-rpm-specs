@@ -14,16 +14,11 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.11
-Release: 6%{?dist}
+Version: 2.17.13
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: libreport-c89.patch
-Patch1: libreport-c89-2.patch
-# Fix compatibility with libxml2 2.12
-Patch:  https://github.com/abrt/%{name}/pull/801.patch
-
 BuildRequires: %{dbus_devel}
 BuildRequires: gtk3-devel
 BuildRequires: curl-devel
@@ -291,7 +286,7 @@ data over ftp/scp...
 %endif
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 ./autogen.sh
@@ -674,6 +669,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Sun Feb 04 2024 Packit <hello@packit.dev> - 2.17.13-1
+- Release version 2.17.13 (Michal Srb)
+- Exclude coredump archives when creating a bug (Michal Srb)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

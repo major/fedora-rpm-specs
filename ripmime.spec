@@ -1,11 +1,11 @@
 Name:           ripmime
-Version:        1.4.0.10
-Release:        15%{?dist}
+Version:        1.4.1.0
+Release:        1%{?dist}
 Summary:        Extract attachments out of a MIME encoded email packages
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.pldaniels.com/ripmime/
-Source0:        http://www.pldaniels.com/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/inflex/RIPmime/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -14,10 +14,10 @@ BuildRequires: gcc
 ripMIME extract attachments out of a MIME encoded email packages.
 
 %prep
-%setup -q
+%setup -q -n ripMIME-%{version}
 
 %build
-make CFLAGS="%{optflags}" %{?_smp_mflags}
+%make_build CFLAGS="%{optflags}"
 
 %install
 install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
@@ -25,11 +25,17 @@ install -Dp -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 %files
 %{_bindir}/%{name}
-%{_mandir}/man1/*
+%{_mandir}/man1/ripmime.1*
 %doc CHANGELOG CONTRIBUTORS INSTALL TODO README
 %license LICENSE
 
 %changelog
+* Sun Feb 04 2024 Xavier Bachelot <xavier@bachelot.org> - 1.4.1.0-1
+- Update to 1.4.1.0
+- Update Source0 to github
+- Convert License: to SPDX
+- Use %%make_build
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.10-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

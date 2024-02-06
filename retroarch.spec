@@ -24,13 +24,13 @@ ExcludeArch: s390x
 # Assets
 # * https://github.com/libretro/retroarch-assets
 # * https://github.com/libretro/retroarch-assets/issues/414
-%global commit1     7b735ef18bcc6508b1c9a626eb237779ff787179
-%global date        20230911
+%global commit1     923b711dc6772a168d83dc8915e9260730fcf3a1
+%global date        20240102
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.16.0.3
-%global         version_addons 1.16.0
+Version:        1.17.0
+%global         version_addons 1.17.0
 Release:        %autorelease
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 

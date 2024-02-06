@@ -1,7 +1,7 @@
 %global libapogee_pkg indi-3rdparty-libapogee
 %global libfli_pkg indi-3rdparty-libfli
 
-%global indi_version 2.0.5
+%global indi_version 2.0.6
 
 Name:           indi-3rdparty-libraries
 Version:        %{indi_version}

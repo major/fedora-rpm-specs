@@ -32,7 +32,7 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.0.5
+%global indi_version 2.0.6
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
@@ -51,11 +51,6 @@ URL:            http://indilib.org
 # https://github.com/indilib/indi-3rdparty/archive/refs/tags/v%%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.xz
 Source1:        generate-drivers-tarball.sh
-
-# In Fedora we unbundle json library from libindi
-# I'm working with upstream on an official patch
-# meanwhile just hard patch things here
-Patch:          system-jsonlib.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -704,7 +699,7 @@ find . -mindepth 2 -name CMakeLists.txt \
 %doc indi-eqmod/AUTHORS indi-eqmod/README
 %{_bindir}/indi_eqmod_telescope
 %{_bindir}/indi_azgti_telescope
-%{_bindir}/indi_skyadventurergti_telescope
+%{_bindir}/indi_staradventurergti_telescope
 %{_datadir}/indi/indi_align_sk.xml
 %{_datadir}/indi/indi_eqmod*.xml
 

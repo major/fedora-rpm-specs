@@ -1,15 +1,17 @@
 %bcond_without check
 %bcond_without python
 
+ExcludeArch:   %{ix86}
+
 Name:           libCombine
 Summary:        C++ library for working with the COMBINE Archive format
 Version:        0.2.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 URL:            https://github.com/sbmlteam/libCombine
 Source0:        %{url}/archive/%{version}/libCombine-%{version}.tar.gz
 
 # Header files and part of source code is released under LGPLv2+ license
-License:        BSD and LGPLv2+
+License:        BSD-2-Clause and LGPL-2.0-or-later
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -75,6 +77,7 @@ This package contains %{summary}.
  -DLIBSBML_LIBRARY:FILEPATH=%{_libdir}/libsbml.so -DLIBSBML_SHARED:BOOL=ON \
  -DZIPPER_LIBRARY:FILEPATH=%{_libdir}/libZipper.so \
  -DZIPPER_INCLUDE_DIR:PATH=%{_includedir}/zipper -DEXTRA_LIBS:STRING="numl;sbml;xml2;bz2;z;m;dl;expat" \
+ -DEXTRA_INCLUDE:STRING=%{_includedir}/libxml2 \
 %if %{with python}
  -DWITH_PYTHON:BOOL=ON \
  -DPYTHON_INCLUDE_DIR:PATH=%{_includedir}/python%{python3_version}$(python3-config --abiflags) \
@@ -120,6 +123,10 @@ rm -rf %{buildroot}%{_datadir}
 %endif
 
 %changelog
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 0.2.20-6
+- Exclude ix86 architectures
+- Switch to SPDX
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

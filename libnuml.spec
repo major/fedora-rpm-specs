@@ -31,10 +31,12 @@
 %global date 20201214
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
+ExcludeArch:    %{ix86}
+
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 License:        LGPLv2+
@@ -176,10 +178,10 @@ of libNUML libraries.
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
-%patch0 -p1 -b .porting_to_python310
+%patch -P 0 -p1 -b .porting_to_python310
 %endif
 %endif
-%patch1 -p1 -b .fix_for_swig
+%patch -P 1 -p1 -b .fix_for_swig
 
 %build
 mkdir -p libnuml/build
@@ -366,6 +368,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-16
+- Exclude ix86 architectures
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

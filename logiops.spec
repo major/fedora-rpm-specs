@@ -2,7 +2,7 @@
 
 Name:    logiops
 Version: 0.3.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
 %forgemeta
 
@@ -13,6 +13,7 @@ Source:  %{forgesource}
 
 # Change from static to dynamic lib
 Patch0:  logiops-use-ipcgull-shared-lib.patch
+Patch1:  logiops-include-missing-headers.patch
 
 Requires:  ipcgull
 
@@ -34,6 +35,7 @@ This is currently only compatible with HID++ >2.0 devices.
 %prep
 %forgesetup
 %patch -p1 0
+%patch -p1 1
 rmdir src/ipcgull
 
 %build
@@ -62,6 +64,9 @@ rmdir src/ipcgull
 %doc logid.example.cfg
 
 %changelog
+* Sun Feb 04 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.3-4
+- Adding missing algorithm header
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

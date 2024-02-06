@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.37.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -219,6 +219,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Feb 04 2024 Fabio Valentini <decathorpe@gmail.com> - 0.37.0-4
+- Rebuild against fixed mujs to address dynamic linking issues.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

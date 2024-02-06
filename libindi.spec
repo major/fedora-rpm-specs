@@ -11,7 +11,7 @@
 %global build_tests 1
 
 Name:       libindi
-Version:    2.0.5
+Version:    2.0.6
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -23,10 +23,6 @@ License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD
 
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
-
-# Unbundle cpp json library
-# https://github.com/indilib/indi/pull/1970
-Patch:      system-jsonlib.patch
 
 BuildRequires: cmake
 BuildRequires: libev-devel

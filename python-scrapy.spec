@@ -1,12 +1,14 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.10.1
-Release:	3%{?dist}
+Version:	2.11.0
+Release:	1%{?dist}
 Summary:	A high-level Python Screen Scraping framework
+
 License:	BSD
-URL:		https://scrapy.org
+URL:		http://scrapy.org
 Source0:	https://files.pythonhosted.org/packages/source/S/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+
 BuildArch:	noarch
 
 
@@ -32,6 +34,14 @@ BuildRequires:	python3-w3lib
 BuildRequires:	python3-queuelib
 BuildRequires:	python3-sphinx-hoverxref
 BuildRequires:	python3-sphinx-notfound-page
+BuildRequires:	python-tldextract
+BuildRequires:	python3-service-identity
+BuildRequires:	python3-parsel
+BuildRequires:	python3-itemadapter
+BuildRequires:	python3-itemloaders
+BuildRequires:	python3-pydispatcher
+BuildRequires:	python3-pyOpenSSL
+BuildRequires:	python3-cryptography 
 Requires:	python3-pyOpenSSL
 Requires:	python3-twisted
 Requires:	python3-lxml
@@ -45,6 +55,9 @@ Requires:	python3-itemadapter
 Requires:	python3-protego
 Requires:	python3-itemloaders
 Requires:	python3-pydispatcher
+Requires:	python-tldextract
+Requires:	python3-service-identity
+Requires:	python3-cryptography 
 
 %{?python_provide:%python_provide python3-%{pkg_name}}
 
@@ -68,12 +81,14 @@ from data mining to monitoring and automated testing.
 This package contains the documentation for %{name}
 
 %prep
-%autosetup -n %{pkg_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 %build
 %py3_build
-PYTHONPATH=$(pwd) make -C docs html
-rm -f docs/build/html/.buildinfo
+# Removing docs temporarily because is not compatible with sphinx 7.2.x
+#PYTHONPATH=$(pwd) make -C docs html
+#%make_build PYTHONPATH=$(pwd) -C docs html
+#rm -f docs/build/html/.buildinfo
 
 %install
 %py3_install
@@ -81,15 +96,18 @@ rm -f docs/build/html/.buildinfo
 
 %files -n python3-%{pkg_name}
 %license LICENSE
-%doc AUTHORS
+%doc AUTHORS PKG-INFO
 %{python3_sitelib}/scrapy
 %{python3_sitelib}/Scrapy-*.egg-info
 %{_bindir}/scrapy
 
-%files doc
-%doc docs/build/html
+#%files doc
+#%doc docs/build/html
 
 %changelog
+* Sun Feb 4 2024 Eduardo Echeverria <echevemaster@gmail.com> - 2.11.0-1
+- Update to 2.11.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

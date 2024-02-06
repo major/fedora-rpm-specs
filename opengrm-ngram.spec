@@ -2,15 +2,13 @@
 %global shortname ngram
 
 Name:           opengrm-%{shortname}
-Version:        1.3.14
-Release:        8%{?dist}
+Version:        1.3.15
+Release:        1%{?dist}
 Summary:        Library for making and modifying n-gram language models
 
 License:        ASL 2.0
 URL:            http://www.opengrm.org/
 Source0:        http://www.openfst.org/twiki/pub/GRM/NGramDownload/%{shortname}-%{version}.tar.gz
-# Add std:: prefix to use of vector.
-Patch0:         ngram-1.3.14-std-vector.patch
 
 BuildRequires: make
 BuildRequires:  flexiblas-devel
@@ -108,14 +106,9 @@ LD_LIBRARY_PATH=$PWD/src/lib/.libs make check
 %{_mandir}/man1/*
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Sun Feb 04 2024 W. Michael Petullo <mike@flyn.org> - 1.3.15-1
+- New upstream release
+- Drop upstreamed -std-vector patch
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

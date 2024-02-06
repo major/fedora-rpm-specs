@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A size profiler for binaries
 
 # The entire source is Apache-2.0, except:
@@ -79,6 +79,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 bloaty.1
 
 
 %changelog
+* Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-27
+- Rebuild for abseil-cpp-20240116.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

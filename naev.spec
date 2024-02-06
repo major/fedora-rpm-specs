@@ -1,6 +1,6 @@
 Name:           naev
 Version:        0.10.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        2d action, RPG space game
 License:        GPL-3.0-only
 URL:            http://naev.org
@@ -96,6 +96,9 @@ rm -f %{buildroot}%{_datadir}/doc/naev/LICENSE %{buildroot}%{_datadir}/doc/naev/
 
 
 %changelog
+* Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 0.10.2-7
+- Rebuild with suitesparse 7.6.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

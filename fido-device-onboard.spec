@@ -14,9 +14,11 @@ Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 Patch0:         0001-hack-drop-shadow.patch
 Patch1:         0001-fix-drop-unused-sha-crypt-dep.patch
-Patch2:         fix-devmapper-version.patch
 Patch3:         0001-fix-relabel-devcreds-before-onboarding.patch
 Patch4:         fdo-bump-devicemapper-libcryptosetup.patch
+
+# fixes for vendored dependencies
+Patch100:       fix-aws-nitro-enclaves-cose.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -45,8 +47,9 @@ BuildRequires:  tpm2-tss-devel
 %patch -P4 -p1
 
 %if 0%{?rhel}
-%patch -P2 -p1
 %cargo_prep -V 1
+# patch vendored dependencies
+%patch -P100 -p1
 %else
 %cargo_prep
 %generate_buildrequires

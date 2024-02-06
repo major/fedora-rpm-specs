@@ -33,7 +33,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -458,6 +458,9 @@ done
 %endif
 
 %changelog
+* Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 4.14-6
+- Rebuild with suitesparse 7.6.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: qrmumps
 Version: 3.0.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A multithreaded multifrontal QR solver
 License: LGPLv3+
 URL: http://buttari.perso.enseeiht.fr/qr_mumps/
@@ -124,6 +124,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc doc/*
 
 %changelog
+* Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 3.0.2-12
+- Rebuild with suitesparse 7.6.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

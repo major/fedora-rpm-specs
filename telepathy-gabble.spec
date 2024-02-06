@@ -2,7 +2,7 @@
 
 Name:           telepathy-gabble
 Version:        0.18.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A Jabber/XMPP connection manager
 
 License:        LGPLv2+
@@ -12,6 +12,9 @@ Patch1:         telepathy-gabble-0.18.0-build.patch
 Patch2:         0001-xmpp-console-Explicitly-state-python-in-the-shebang.patch
 # python3
 Patch3:         telepathy-gabble-0.18.4-python3.patch
+Patch4:         telepathy-gabble-0.18.4-xmlerror-constness.patch
+Patch5:         telepathy-gabble-0.18.4-aviod-errno-name-confusion.patch
+Patch6:         telepathy-gabble-0.18.4-libsoup-3.0.patch
 
 BuildRequires: make
 BuildRequires:  dbus-devel >= 1.1.0
@@ -21,7 +24,7 @@ BuildRequires:  glib2-devel >= 2.32
 BuildRequires:  gnutls-devel >= 2.12.0
 BuildRequires:  sqlite-devel
 BuildRequires:  libuuid-devel
-BuildRequires:  libsoup-devel
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  libnice-devel >= 0.0.11
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  libxslt
@@ -32,6 +35,7 @@ BuildRequires:  python3-twisted
 BuildRequires:  python3-dbus
 BuildRequires:  python3-gobject
 %endif
+BuildRequires:  autoconf
 
 Requires:       telepathy-mission-control >= 5.5.0
 Requires:       telepathy-filesystem
@@ -47,10 +51,15 @@ chats and voice calls.
 
 %prep
 %setup -q
-%patch1 -p 1 -b .build
-%patch2 -p 1 -b .shebang
-%patch3 -p1 -b .py3
+%patch -P1 -p 1 -b .build
+%patch -P2 -p 1 -b .shebang
+%patch -P3 -p1 -b .py3
+%patch -P4 -p1 -b .xmlerror
+%patch -P5 -p1 -b .errno
+%patch -P6 -p1 -b .soup
 
+autoconf
+( cd lib/ext/wocky/ ; autoconf )
 
 %if %{run_tests}
 %check
@@ -97,6 +106,11 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/*.html
 
 
 %changelog
+* Tue Jan 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.18.4-23
+- Patch for libxml2 2.12.0 API constness change
+- Patch for variable name confusion with errno
+- Use libsoup-3, linking with both libsoup-2 and -3 is not supported
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

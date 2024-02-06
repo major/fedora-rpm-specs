@@ -68,7 +68,7 @@ BuildRequires:  cmake(KF5Plasma)
 # to display scalable icons
 Requires:       qt%{qt_major_ver}-qtsvg
 # explicit requires on fcitx5-qt{5,6}-gui-wrapper
-Requires:       %{_libexecdir}/fcitx5-qt%{qt_major_ver}-gui-wrapper
+Requires:       fcitx5-qt-qt%{qt_major_ver}gui
 
 %description
 Configuration tools used by fcitx5.
