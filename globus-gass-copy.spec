@@ -1,7 +1,7 @@
 Name:		globus-gass-copy
 %global _name %(tr - _ <<< %{name})
-Version:	10.12
-Release:	6%{?dist}
+Version:	10.13
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus Gass Copy
 
 License:	Apache-2.0
@@ -151,6 +151,9 @@ GLOBUS_HOSTNAME=localhost %make_build check
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.13-1
+- New GCT release v6.2.20240202
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

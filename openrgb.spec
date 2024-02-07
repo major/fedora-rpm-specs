@@ -1,5 +1,8 @@
 %global forgeurl https://gitlab.com/CalcProgrammer1/%{upstream_package_name}
 %global tag release_%{version}
+# Workaround for incorrect package suffix name with forge macros
+# (.20231017gitrelease.0.9 for example)
+%global distprefix %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -16,7 +19,7 @@ Summary:        Open source RGB lighting control
 #   * GPL-3.0-or-later:
 #     - hueplusplus-1.0.0
 #     - libcmmk
-License:        GPL-2.0-only and GPL-3.0-or-later
+License:        GPL-2.0-only AND GPL-3.0-or-later
 URL:            https://openrgb.org
 Source0:        %{forgesource}
 

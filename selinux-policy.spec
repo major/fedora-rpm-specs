@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 210bb812c1d727318cf8d977b5440437135f02a0
+%global commit 20114105ce9cccef6775736565f449c27c4a669e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.10
+Version: 40.11
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,25 @@ exit 0
 %endif
 
 %changelog
+* Mon Feb 05 2024 Zdenek Pytela <zpytela@redhat.com> - 40.11-1
+- Replace init domtrans rule for confined users to allow exec init
+- Update dbus_role_template() to allow user service status
+- Allow polkit status all systemd services
+- Allow setroubleshootd create and use inherited io_uring
+- Allow load_policy read and write generic ptys
+- Allow gpg manage rpm cache
+- Allow login_userdomain name_bind to howl and xmsg udp ports
+- Allow rules for confined users logged in plasma
+- Label /dev/iommu with iommu_device_t
+- Remove duplicate file context entries in /run
+- Dontaudit getty and plymouth the checkpoint_restore capability
+- Allow su domains write login records
+- Revert "Allow su domains write login records"
+- Allow login_userdomain delete session dbusd tmp socket files
+- Allow unix dgram sendto between exim processes
+- Allow su domains write login records
+- Allow smbd_t to watch user_home_dir_t if samba_enable_home_dirs is on
+
 * Wed Jan 24 2024 Zdenek Pytela <zpytela@redhat.com> - 40.10-1
 - Allow chronyd-restricted read chronyd key files
 - Allow conntrackd_t to use bpf capability2

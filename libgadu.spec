@@ -2,26 +2,25 @@
 
 Name:		libgadu
 Version:	1.12.2
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	A Gadu-gadu protocol compatible communications library
 License:	LGPLv2
 Source0:	https://github.com/wojtekka/libgadu/releases/download/%{version}%{?rcver}/libgadu-%{version}%{?rcver}.tar.gz
 Patch0:	libgadu-1.12.2-gcc10.patch
-Patch1: %{name}-fix-openssl-symbol-clash.patch
+Patch1:	%{name}-fix-openssl-symbol-clash.patch
 URL:		http://libgadu.net/
-BuildRequires:  gcc
 BuildRequires:	curl-devel
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
+BuildRequires:	gcc
 BuildRequires:	gnutls-devel
 BuildRequires:	gsm-devel
 BuildRequires:	libxml2-devel
+BuildRequires:	make
 # protobuf-c-1.0.0 is an incompatible update from 0.15
 BuildRequires:	protobuf-c-devel >= 1.0.0
 BuildRequires:	speex-devel
 BuildRequires:	zlib-devel
-BuildRequires:  perl-Test-Vars
-BuildRequires: make
 
 %description
 libgadu is intended to make it easy to add Gadu-Gadu communication
@@ -61,8 +60,8 @@ Pakiet libgadu-doc zawiera dokumentację biblioteki libgadu.
 
 %prep
 %setup -q -n %{name}-%{version}%{?rcver}
-%patch0 -p1 -b .gcc10
-%patch1 -p1 -b .openssl
+%patch -P 0 -p1 -b .gcc10
+%patch -P 1 -p1 -b .openssl
 
 # bug 1126750: touch to force rebuild with protobuf-c-1.0.0 (incompatible with 0.15)
 touch packets.proto
@@ -99,6 +98,10 @@ make check
 %doc docs/protocol.html docs/html
 
 %changelog
+* Mon Feb  5 2024 Paul Howarth <paul@city-fan.org> - 1.12.2-26
+- Drop redundant test dependency perl-Test-Vars (rhbz#2260472)
+- Fix use of deprecated patch syntax
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

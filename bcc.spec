@@ -10,7 +10,7 @@
 %endif
 %endif
 
-%ifarch x86_64 ppc64 ppc64le aarch64
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x
 %bcond_without libbpf_tools
 %else
 %bcond_with libbpf_tools
@@ -24,16 +24,15 @@
 
 
 Name:           bcc
-Version:        0.28.0
-Release:        3%{?dist}
+Version:        0.29.1
+Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         Use-bpf_obj_get_info_by_fd-instead-of-bpf_btf_get_in.patch
-Patch1:         libbpf-tools-add-block_io_-start-done-tracepoints-su.patch
-Patch2:         tools-Add-support-for-the-new-block_io_-tracepoints.patch
-Patch3:         tool-slabratetop-add-definition-of-freelist_aba_t.patch
+Patch0:         libbpf-tools-Fix-bindsnoop-for-kernel-v6.6.patch
+Patch1:         Fix-ttysnoop.py-with-newer-kernels.patch
+Patch2:         Sync-with-latest-libbpf-repo-4889.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -242,6 +241,11 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Mon Feb 05 2024 Jerome Marchand <jmarchan@redhat.com> - 0.29.1-1
+- Rebase to the latest release version (#2253688)
+- Enable libbpf-tools on s390x (#2249458)
+- Misc 0.29.1 fixes
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

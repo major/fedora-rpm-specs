@@ -1,11 +1,13 @@
+%bcond_without selinux
 %global selinux_variants targeted
+%global selinux_package_dir %{_datadir}/selinux/packages
+
 %global logdir %{_localstatedir}/log/%{name}
 %global modulename %{name}
-%global selinux_package_dir %{_datadir}/selinux/packages
 
 Name:           cepces
 Version:        0.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
@@ -17,10 +19,13 @@ Patch0:         cepces-0.3.8-fix-version.patch
 BuildArch:      noarch
 
 Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}
+%if %{with selinux}
+Requires:       (%{name}-selinux%{?_isa} if selinux-policy-%{selinuxtype})
+%endif
 
 Recommends:     logrotate
+
 Supplements:    %{name}-certmonger%{?_isa} = %{version}-%{release}
-Supplements:    %{name}-selinux%{?_isa} = %{version}-%{release}
 
 %description
 cepces is an application for enrolling certificates through CEP and CES.
@@ -60,6 +65,7 @@ Requires:       certmonger
 Installing %{name}-certmonger adds %{name} as a CA configuration.
 Uninstall revert the action.
 
+%if %{with selinux}
 %package selinux
 Summary:        SELinux support for %{name}
 
@@ -71,6 +77,8 @@ Requires(post): selinux-policy-targeted
 
 %description selinux
 SELinux support for %{name}
+#endif with selinux
+%endif
 
 %prep
 %autosetup -p1
@@ -78,17 +86,20 @@ SELinux support for %{name}
 %build
 %py3_build
 
+%if %{with selinux}
 # Build the SELinux module(s).
 for SELINUXVARIANT in %{selinux_variants}; do
-  make %{?_smp_mflags} -C selinux clean all
-  mv -v selinux/%{name}.pp selinux/%{name}-${SELINUXVARIANT}.pp
+    make %{?_smp_mflags} -C selinux clean all
+    mv -v selinux/%{name}.pp selinux/%{name}-${SELINUXVARIANT}.pp
 done
+%endif
 
 %install
 %py3_install
 
 install -d  %{buildroot}%{logdir}
 
+%if %{with selinux}
 # Install the SELinux module(s).
 rm -fv selinux-files.txt
 
@@ -101,6 +112,8 @@ for SELINUXVARIANT in %{selinux_variants}; do
 
   echo $MODULE_PATH >> selinux-files.txt
 done
+#endif with selinux
+%endif
 
 # Configuration files
 install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}/
@@ -128,37 +141,40 @@ for SELINUXVARIANT in %{selinux_variants}; do
   %selinux_relabel_pre -s %{SELINUXVARIANT}
 done
 
+%if %{with selinux}
 %post selinux
 semodule -d %{modulename} &> /dev/null || true;
 for SELINUXVARIANT in %{selinux_variants}; do
-  MODULE_PATH=%{selinux_package_dir}/${SELINUXVARIANT}/%{modulename}.pp.bz2
-  %selinux_modules_install -s %{SELINUXVARIANT} ${MODULE_PATH}
+    MODULE_PATH=%{selinux_package_dir}/${SELINUXVARIANT}/%{modulename}.pp.bz2
+    %selinux_modules_install -s %{SELINUXVARIANT} ${MODULE_PATH}
 done
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-  for SELINUXVARIANT in %{selinux_variants}; do
-    %selinux_modules_uninstall -s %{SELINUXVARIANT} %{modulename}
-    semodule -e %{modulename}  &> /dev/null || true;
-  done
+    for SELINUXVARIANT in %{selinux_variants}; do
+        %selinux_modules_uninstall -s %{SELINUXVARIANT} %{modulename}
+        semodule -e %{modulename}  &> /dev/null || true;
+    done
 fi
 
 %posttrans selinux
 for SELINUXVARIANT in %{selinux_variants}; do
-  %selinux_relabel_post -s %{SELINUXVARIANT}
+    %selinux_relabel_post -s %{SELINUXVARIANT}
 done
+#endif with selinux
+%endif
 
 %post certmonger
 # Install the CA into certmonger.
 if [[ "$1" == "1" ]]; then
-  getcert add-ca -c %{name} \
-    -e %{_libexecdir}/certmonger/%{name}-submit >/dev/null || :
+    getcert add-ca -c %{name} \
+      -e %{_libexecdir}/certmonger/%{name}-submit >/dev/null || :
 fi
 
 %preun certmonger
 # Remove the CA from certmonger, unless it's an upgrade.
 if [[ "$1" == "0" ]]; then
-  getcert remove-ca -c %{name} >/dev/null || :
+    getcert remove-ca -c %{name} >/dev/null || :
 fi
 
 %files
@@ -178,9 +194,14 @@ fi
 %files certmonger
 %{_libexecdir}/certmonger/%{name}-submit
 
+%if %{with selinux}
 %files selinux -f selinux-files.txt
+%endif
 
 %changelog
+* Mon Feb 05 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-2
+- Require selinux package if selinux is enabled
+
 * Tue Jan 23 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-1
 - Update to version 0.3.8
   * https://github.com/openSUSE/cepces/releases/tag/v0.3.8

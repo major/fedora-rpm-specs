@@ -44,7 +44,7 @@
 %endif
 
 %define glib_ver 2.73.3
-%define libreport_ver 2.14.0
+%define libreport_ver 2.17.13
 %define satyr_ver 0.24
 
 Summary: Automatic bug detection and reporting tool
@@ -275,6 +275,7 @@ This package contains plugin for collecting kernel oopses from pstore storage.
 %package plugin-bodhi
 Summary: %{name}'s bodhi plugin
 Requires: %{name} = %{version}-%{release}
+Requires: abrt-libs = %{version}-%{release}
 Obsoletes: libreport-plugin-bodhi <= 2.0.10
 Provides: libreport-plugin-bodhi = %{version}-%{release}
 
@@ -785,6 +786,7 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/CCpp.conf
 %{_mandir}/man5/abrt-CCpp.conf.5*
 %{_libexecdir}/abrt-gdb-exploitable
+%{_libexecdir}/abrt-action-coredump
 %config(noreplace) %{_sysconfdir}/libreport/plugins/catalog_journal_ccpp_format.conf
 %{_unitdir}/abrt-journal-core.service
 %{_journalcatalogdir}/abrt_ccpp.catalog

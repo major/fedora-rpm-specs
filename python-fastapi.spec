@@ -47,6 +47,11 @@ Patch:          %{url}/pull/5799.patch
 # https://github.com/tiangolo/fastapi/pull/10646
 # Squashed and rebased on 0.105.0
 Patch:          0001-Fix-pydanticV2.5-tests.patch
+# Downstream-only: allow testing with python-multipart 0.0.7
+# Upstream requires python-multipart starting with 0.109.1; it provides a
+# compatible security update. See:
+# https://github.com/tiangolo/fastapi/security/advisories/GHSA-qf9m-vfgh-m389
+Patch:          fastapi-0.109.0-multipart-0.0.7.patch
 
 BuildRequires:  python3-devel
 

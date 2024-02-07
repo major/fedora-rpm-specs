@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -12,6 +12,10 @@ Source2: mykey.asc
 
 # remove duplicate content from curl-config.1
 Patch001: 0001-curl-8.6.0-remove-duplicate-content.patch
+
+# ignore response bode to HEAD requests
+# https://bodhi.fedoraproject.org/updates/FEDORA-2024-634a6662aa
+Patch002: 0002-curl-8.6.0-ignore-response-body-to-HEAD.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -416,6 +420,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Feb 05 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-3
+- ignore response body to HEAD requests
+
 * Fri Feb 02 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-2
 - don't build manual for curl-full - use man 1 curl instead (#2262373)
 

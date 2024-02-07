@@ -1,7 +1,7 @@
 %global pypi_name wadllib
 Name:           python-%{pypi_name}
 Version:        1.3.6
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Navigate HTTP resources using WADL files as guides
 
 License:        LGPL-3.0-only
@@ -44,56 +44,4 @@ BuildRequires:  python3dist(lazr-uri)
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.6-6
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.6-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Ondřej Pohořelský <opohorel@redhat.com> - 1.3.6-1
-- Update to 1.3.6
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.3.5-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan 21 2021 Ondřej Pohořelský <opohorel@redhat.com> - 1.3.5-1
-- Update to 1.3.5
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.3.4-2
-- Rebuilt for Python 3.9
-
-* Thu Apr 30 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.3.4-1
-- Update to 1.3.4 
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Sep 17 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.3-1
-- Initial package
+%autochangelog

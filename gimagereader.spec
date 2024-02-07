@@ -1,17 +1,11 @@
 Name:          gimagereader
-Version:       3.4.1
-Release:       10%{?dist}
+Version:       3.4.2
+Release:       1%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
 URL:           https://github.com/manisandro/gimagereader
 Source0:       https://github.com/manisandro/gimagereader/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# PoDoFo 0.10 support
-Patch0:        0001-Qt-Add-support-for-PoDoFo-0.10.x.patch
-Patch1:        0002-Qt-Drop-PoDoFo-0.9.3-code-path.patch
-Patch2:        0003-Gtk-Add-support-for-PoDoFo-0.10.x.patch
-Patch3:        0004-Gtk-Drop-PoDoFo-0.9.3-code-path.patch
 
 
 BuildRequires: desktop-file-utils
@@ -151,6 +145,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt5.desktop
 
 %changelog
+* Mon Feb 05 2024 Sandro Mani <manisandro@gmail.com> - 3.4.2-1
+- Update to 3.4.2
+
 * Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 3.4.1-10
 - Rebuild (tesseract)
 

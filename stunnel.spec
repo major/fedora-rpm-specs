@@ -9,7 +9,7 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.71
+Version: 5.72
 Release: %autorelease
 License: GPL-2.0-or-later WITH stunnel-exception AND MIT
 URL: https://www.stunnel.org/
@@ -36,8 +36,12 @@ Patch1:   stunnel-5.61-systemd-service.patch
 # platforms, OpenSSL supports the PROFILE=SYSTEM setting to use those
 # policies. Change stunnel to default to this setting.
 Patch3:   stunnel-5.69-system-ciphers.patch
-# Apply patch stunnel-5.69-default-tls-version.patch
-Patch5:   stunnel-5.69-default-tls-version.patch
+# Use TLS version f/crypto-policies unless specified
+# 
+# Do not explicitly set the TLS version and rely on the defaults from
+# crypto-policies unless a TLS minimum or maximum version are explicitly
+# specified in the stunnel configuration.
+Patch5:   stunnel-5.72-default-tls-version.patch
 # Apply patch stunnel-5.56-curves-doc-update.patch
 Patch6:   stunnel-5.56-curves-doc-update.patch
 # util-linux is needed for rename

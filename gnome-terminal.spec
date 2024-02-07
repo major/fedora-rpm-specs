@@ -47,6 +47,9 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: libhandy%{?_isa} >= %{libhandy_version}
 Requires: vte291%{?_isa} >= %{vte_version}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description
 gnome-terminal is a terminal emulator for GNOME. It features the ability to use
 multiple terminals in a single window (tabs) and profiles support.

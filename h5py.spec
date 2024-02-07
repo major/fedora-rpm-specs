@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -30,13 +30,21 @@ BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-sphinx
 # MPI builds
 # openmpi disabled, see https://bugzilla.redhat.com/2220011
+%ifarch %{ix86}
 %bcond openmpi 0
+%else
+%bcond openmpi 0
+%endif
 %if %{with openmpi}
 BuildRequires:  hdf5-openmpi-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-openmpi
 %endif
+%ifarch %{ix86}
+%bcond mpich 0
+%else
 %bcond mpich 1
+%endif
 %if %{with mpich}
 BuildRequires:  hdf5-mpich-devel
 BuildRequires:  mpich-devel
@@ -224,6 +232,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Mon Feb 05 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.10.0-4
+- OpenMPI and MPICH have dropped i686 support
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

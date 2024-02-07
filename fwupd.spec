@@ -49,7 +49,7 @@
 Summary:   Firmware update daemon
 Name:      fwupd
 Version:   1.9.12
-Release:   %autorelease
+Release:   2%{?dist}
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz

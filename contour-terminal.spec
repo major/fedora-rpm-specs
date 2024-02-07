@@ -1,5 +1,5 @@
 Name:           contour-terminal
-Version:        0.4.2.6429
+Version:        0.4.3.6442
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 

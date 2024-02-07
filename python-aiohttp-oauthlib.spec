@@ -1,6 +1,6 @@
 Name:           python-aiohttp-oauthlib
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        This library is a port of requests-oauthlib for aiohttp
 
 License:        ISC
@@ -10,6 +10,7 @@ Source:         %{pypi_source aiohttp-oauthlib}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+Requires:       python3-aiohttp
 
 %global _description %{expand:
 This library is a port of requests-oauthlib for aiohttp}

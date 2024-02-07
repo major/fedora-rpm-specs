@@ -1,13 +1,13 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.39.3
-Release: 4%{?dist}
+Version: 2.40
+Release: 0.1%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
-%global upstream_version %{version}
+%global upstream_version %{version}-rc1
 %global upstream_major %(eval echo %{version} | sed -e 's/\([[:digit:]]*\)\.\([[:digit:]]*\)\.[[:digit:]]*$/\1.\2/')
 
 %global compldir %{_datadir}/bash-completion/completions/
@@ -97,8 +97,6 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
-# 2258501 - dnf5 unusable with libsmartcols
-Patch2: libsmartcols-fix-columns-reduction.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -309,6 +307,7 @@ export DAEMON_LDFLAGS="$SUID_LDFLAGS"
 	--disable-silent-rules \
 	--disable-bfs \
 	--disable-pg \
+	--disable-liblastlog2 \
 	--enable-chfn-chsh \
 	--enable-usrdir-path \
 	--enable-write \
@@ -505,6 +504,8 @@ fi
 %{_bindir}/colrm
 %{_bindir}/column
 %{_bindir}/eject
+%{_bindir}/enosys
+%{_bindir}/exch
 %{_bindir}/fallocate
 %{_bindir}/fincore
 %{_bindir}/fadvise
@@ -517,6 +518,7 @@ fi
 %{_bindir}/look
 %{_bindir}/lsblk
 %{_bindir}/lscpu
+%{_bindir}/lsclocks
 %{_bindir}/lsfd
 %{_bindir}/lsipc
 %{_bindir}/lsirq
@@ -535,6 +537,7 @@ fi
 %{_bindir}/scriptlive
 %{_bindir}/scriptreplay
 %{_bindir}/setarch
+%{_bindir}/setpgid
 %{_bindir}/setpriv
 %{_bindir}/setterm
 %{_bindir}/uclampset
@@ -555,7 +558,9 @@ fi
 %{_mandir}/man1/colrm.1*
 %{_mandir}/man1/column.1*
 %{_mandir}/man1/eject.1*
-%{_mandir}/man1/fadvise.1.*
+%{_mandir}/man1/enosys.1*
+%{_mandir}/man1/exch.1*
+%{_mandir}/man1/fadvise.1*
 %{_mandir}/man1/fallocate.1*
 %{_mandir}/man1/fincore.1*
 %{_mandir}/man1/getopt.1*
@@ -566,6 +571,7 @@ fi
 %{_mandir}/man1/login.1*
 %{_mandir}/man1/look.1*
 %{_mandir}/man1/lscpu.1*
+%{_mandir}/man1/lsclocks.1*
 %{_mandir}/man1/lsfd.1*
 %{_mandir}/man1/lsipc.1*
 %{_mandir}/man1/lsirq.1*
@@ -582,6 +588,7 @@ fi
 %{_mandir}/man1/script.1*
 %{_mandir}/man1/scriptlive.1*
 %{_mandir}/man1/scriptreplay.1*
+%{_mandir}/man1/setpgid.1*
 %{_mandir}/man1/setpriv.1*
 %{_mandir}/man1/setterm.1*
 %{_mandir}/man1/su.1*
@@ -595,6 +602,7 @@ fi
 %{_mandir}/man1/whereis.1*
 %{_mandir}/man1/write.1*
 %{_mandir}/man5/fstab.5*
+%{_mandir}/man5/scols-filter.5*
 %{_mandir}/man5/terminal-colors.d.5*
 %{_mandir}/man8/addpart.8*
 %{_mandir}/man8/blkdiscard.8*
@@ -672,6 +680,8 @@ fi
 %{compldir}/ctrlaltdel
 %{compldir}/delpart
 %{compldir}/eject
+%{compldir}/enosys
+%{compldir}/exch
 %{compldir}/fadvise
 %{compldir}/fallocate
 %{compldir}/fdisk
@@ -691,6 +701,7 @@ fi
 %{compldir}/look
 %{compldir}/lsblk
 %{compldir}/lscpu
+%{compldir}/lsclocks
 %{compldir}/lsipc
 %{compldir}/lsirq
 %{compldir}/lslocks
@@ -718,6 +729,7 @@ fi
 %{compldir}/scriptreplay
 %{compldir}/setarch
 %{compldir}/setpriv
+%{compldir}/setpgid
 %{compldir}/setterm
 %{compldir}/su
 %{compldir}/swaplabel
@@ -932,6 +944,10 @@ fi
 %files -n util-linux-i18n -f %{name}.lang
 
 %changelog
+* Fri Feb  2 2024 Karel Zak <kzak@redhat.com> - 2.40-0.1
+- upgrade to v2.40-rc1
+- add setpgid, enosys, exch and lsclocks commands
+
 * Thu Jan 25 2024 Karel Zak <kzak@redhat.com> - 2.39.3-4
 - improve fix for #2256391 (util-linux-i18n conflicts)
 

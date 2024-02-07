@@ -34,7 +34,7 @@ Patch1:     nas-1.9.5-No-implicit-ints-and-function-declarations.patch
 # Respect linker flags when linking shared libraries, in upstream after 1.9.5,
 # <https://sourceforge.net/p/nas/bugs/11/>
 Patch2:     nas-1.9.5-Pass-extra-linker-flags-to-shared-libraries.patch
-# Adapt pointer types to GCC 14, bug #2261396, proposed to the upstream,
+# Adapt pointer types to GCC 14, bug #2261396, in upstream after 1.9.5,
 # <https://sourceforge.net/p/nas/bugs/12/>
 Patch3:     nas-1.9.5-Correct-pointer-types-for-GCC-14.patch
 BuildRequires:  bison

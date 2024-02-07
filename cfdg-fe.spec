@@ -1,6 +1,6 @@
 Name: cfdg-fe
 Version:  0.1
-Release:  34%{?dist}
+Release:  35%{?dist}
 Summary: A front end to cfdg
 
 License: GPL-2.0-or-later
@@ -8,6 +8,7 @@ URL: http://impulzus.com/~tchibo/
 Source0: http://impulzus.com/~tchibo/cfdg-fe.tgz_
 Source1: cfdg-fe.desktop
 Patch0: cfdg-fe-pixmap-path.patch
+Patch1: pointer-types.patch
 BuildRequires:  gcc
 BuildRequires: autoconf, automake, desktop-file-utils, glib2-devel, gtk2-devel
 BuildRequires: make
@@ -19,7 +20,8 @@ A front end to cfdg
 %prep
 %setup -qn cfdg-fe
 
-%patch0 -p0
+%patch -P 0 -p0
+%patch -P 1 -p0
 
 %build
 aclocal
@@ -54,6 +56,9 @@ install -p -m 644 pixmaps/icon.png \
 %{_datadir}/cfdg-fe/logo.png
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.1-35
+- Patch for stricter flags
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

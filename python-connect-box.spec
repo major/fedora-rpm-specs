@@ -2,8 +2,8 @@
 %global pkg_name connect-box
 
 Name:           python-%{pkg_name}
-Version:        0.3.0
-Release:        9%{?dist}
+Version:        0.3.1
+Release:        1%{?dist}
 Summary:        Python client for interacting with Compal CH7465LG devices
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Feb 05 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.1-1
+- Update to latest upstream release (closes rhbz#2257488)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

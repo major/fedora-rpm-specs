@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXext runtime library
 Name: libXext
-Version: 1.3.5
-Release: 6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.3.6
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT-open-group AND X11 AND HPND AND HPND-sell-variant AND SMLNJ AND MIT AND ISC AND HPND-doc AND HPND-doc-sell
 URL: http://www.x.org
 
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Feb 05 2024 José Expósito <jexposit@redhat.com> - 1.3.6-1
+- libXext 1.3.6-1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

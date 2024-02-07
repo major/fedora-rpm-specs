@@ -18,7 +18,7 @@ BuildRequires: mvn(org.jboss:jboss-parent:pom:)
 BuildRequires: mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 
 BuildArch:     noarch
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 ExclusiveArch:  %{java_arches} noarch
 %endif
 

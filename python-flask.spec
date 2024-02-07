@@ -2,8 +2,8 @@
 %global srcname flask
 
 Name:           python-%{modname}
-Version:        3.0.1
-Release:        2%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
 
@@ -81,6 +81,9 @@ popd
 %doc docs/_build/html examples
 
 %changelog
+* Mon Feb 05 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.2-1
+- Update to 3.0.2 (fixes RHBZ#2262551)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

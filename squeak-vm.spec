@@ -8,7 +8,7 @@
 
 Name:           squeak-vm
 Version:        %{vmver}
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        The Squeak virtual machine
 
 License:        MIT
@@ -21,6 +21,7 @@ Patch1:         alsa-fixes.patch
 Patch2:         squeak-vm-4.10.2-fix-cmake.patch
 Patch3:         squeak-vm-4.10.2-squeak-init-fix.patch
 Patch4:         squeak-vm-4.10.2-format-security.patch
+Patch5:         squeak-vm-4.10.2-gcc-14-fix.patch
 
 # For clean upgrade path, could be probably dropped in F20 or later
 Provides:       %{name}-nonXOplugins = %{version}-%{release}
@@ -53,6 +54,7 @@ This package contains just the Squeak virtual machine.
 %patch2 -p1 -b .fix-cmake
 %patch3 -p1 -b .squeak-init-fix
 %patch4 -p1 -b .format-security
+%patch5 -p1 -b .gcc-14-fix
 
 # Fix libdir
 sed -i 's|libdir="${prefix}/lib/squeak"|libdir="%{_libdir}/squeak"|' unix/cmake/squeak.in
@@ -93,27 +95,27 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}/inisqueak
 %if 0 == 0%{?nonXOplugins}
 %{_libdir}/squeak/%{vmver2}/so.FileCopyPlugin
 %{_libdir}/squeak/%{vmver2}/so.B3DAcceleratorPlugin
-#%{_libdir}/squeak/%{vmver2}/so.PseudoTTYPlugin
+#%%{_libdir}/squeak/%%{vmver2}/so.PseudoTTYPlugin
 %{_libdir}/squeak/%{vmver2}/so.UnixOSProcessPlugin
 %{_libdir}/squeak/%{vmver2}/so.XDisplayControlPlugin
 
 %{_libdir}/squeak/%{vmver2}/so.AioPlugin
 %{_libdir}/squeak/%{vmver2}/so.ClipboardExtendedPlugin
 %{_libdir}/squeak/%{vmver2}/so.DBusPlugin
-#%{_libdir}/squeak/%{vmver2}/so.GStreamerPlugin
-#%{_libdir}/squeak/%{vmver2}/so.ImmX11Plugin
-#%{_libdir}/squeak/%{vmver2}/so.KedamaPlugin
-#%{_libdir}/squeak/%{vmver2}/so.KedamaPlugin2
+#%%{_libdir}/squeak/%%{vmver2}/so.GStreamerPlugin
+#%%{_libdir}/squeak/%%{vmver2}/so.ImmX11Plugin
+#%%{_libdir}/squeak/%%{vmver2}/so.KedamaPlugin
+#%%{_libdir}/squeak/%%{vmver2}/so.KedamaPlugin2
 %{_libdir}/squeak/%{vmver2}/so.MIDIPlugin
-#%{_libdir}/squeak/%{vmver2}/so.OggPlugin
+#%%{_libdir}/squeak/%%{vmver2}/so.OggPlugin
 %{_libdir}/squeak/%{vmver2}/so.RomePlugin
 %{_libdir}/squeak/%{vmver2}/so.Squeak3D
 %{_libdir}/squeak/%{vmver2}/so.UUIDPlugin
-#%{_libdir}/squeak/%{vmver2}/so.VideoForLinuxPlugin
+#%%{_libdir}/squeak/%%{vmver2}/so.VideoForLinuxPlugin
 %{_libdir}/squeak/%{vmver2}/so.HostWindowPlugin
 
-#%{_libdir}/squeak/%{vmver2}/npsqueak.so
-#%{_libdir}/squeak/%{vmver2}/squeak
+#%%{_libdir}/squeak/%%{vmver2}/npsqueak.so
+#%%{_libdir}/squeak/%%{vmver2}/squeak
 %{_libdir}/squeak/%{vmver2}/so.vm-display-X11
 %{_libdir}/squeak/%{vmver2}/so.vm-display-fbdev
 %{_libdir}/squeak/%{vmver2}/so.vm-display-null
@@ -121,7 +123,7 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}/inisqueak
 %{_libdir}/squeak/%{vmver2}/so.vm-sound-OSS
 %{_libdir}/squeak/%{vmver2}/so.vm-sound-null
 
-#%{_libdir}/squeak/%{vmver2}/so.Mpeg3Plugin
+#%%{_libdir}/squeak/%%{vmver2}/so.Mpeg3Plugin
 %{_libdir}/squeak/%{vmver2}/so.SqueakFFIPrims
 %{_libdir}/squeak/%{vmver2}/so.vm-display-custom
 %{_libdir}/squeak/%{vmver2}/so.vm-sound-NAS
@@ -138,13 +140,17 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}/inisqueak
 
 %endif
 %{_mandir}/man*/*
-#%dir %{_datadir}/squeak
-#%{_datadir}/squeak/*
+#%%dir %%{_datadir}/squeak
+#%%{_datadir}/squeak/*
 %{_datadir}/pixmaps/*
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/icons/gnome/*/mimetypes/*.png
 
 %changelog
+* Mon Feb  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.10.2.2614-34
+- Fixed FTBFS with gcc-14
+  Resolves: rhbz#2261712
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2.2614-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

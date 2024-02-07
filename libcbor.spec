@@ -1,6 +1,6 @@
 Name:		libcbor
-Version:	0.10.2
-Release:	5%{?dist}
+Version:	0.11.0
+Release:	1%{?dist}
 Summary:	A CBOR parsing library
 
 License:	MIT
@@ -15,6 +15,7 @@ BuildRequires:	python3-breathe
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-sphinx_rtd_theme
 BuildRequires:	make
+BuildRequires:	pkgconfig(cmocka)
 
 %description
 libcbor is a C library for parsing and generating CBOR.
@@ -31,7 +32,7 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release
+%cmake -DCMAKE_BUILD_TYPE=Release -DWITH_TESTS=ON
 %cmake_build
 cd doc
 make man
@@ -40,22 +41,31 @@ make man
 %install
 %cmake_install
 mkdir -p %{buildroot}%{_mandir}/man3
-cp doc/build/man/* %{buildroot}%{_mandir}/man3/
+cp doc/build/man/libcbor.3 %{buildroot}%{_mandir}/man3/
+
+
+%check
+%ctest
 
 
 %files
 %license LICENSE.md
 %doc README.md
-%{_libdir}/libcbor.so.0.10{,.*}
+%{_libdir}/libcbor.so.0.11{,.*}
 
 %files devel
 %{_includedir}/cbor.h
 %{_includedir}/cbor
 %{_libdir}/libcbor.so
 %{_libdir}/pkgconfig/libcbor.pc
+%{_libdir}/cmake/libcbor
 %{_mandir}/man3/libcbor.3{,.*}
 
 %changelog
+* Sun Feb 04 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.11.0-1
+- Update version to 0.11.0 ( resolves: rhbz#2262592 )
+- add running of unit tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

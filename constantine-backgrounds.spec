@@ -11,7 +11,7 @@ BuildArch:      noarch
 
 #BuildRequires:  inkscape
 # for %%_kde4_* macros
-BuildRequires:	kde-filesystem
+BuildRequires:	kde4-filesystem
 BuildRequires: make
 Requires:       %{name}-single = %{version}-%{release}
 

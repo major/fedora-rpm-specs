@@ -1,7 +1,7 @@
 %global pypi_name hstspreload
 
 Name:           python-%{pypi_name}
-Version:        2023.1.1
+Version:        2024.2.1
 Release:        %autorelease
 Summary:        Chromium HSTS Preload list
 

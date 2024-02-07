@@ -1,6 +1,6 @@
 Name:           foobillard
 Version:        3.0a
-Release:        48%{?dist}
+Release:        49%{?dist}
 
 Summary:        OpenGL billard game
 
@@ -15,6 +15,7 @@ Patch1:         foobillard-3.0a-no-fonts.patch
 Patch2:		foobillard-3.0a-clothtex.patch
 Patch3:         foobillard-configure-c99.patch
 Patch4:         foobillard-c99.patch
+Patch5:         pointer-types.patch
 Requires:       dejavu-sans-fonts
 BuildRequires:  gcc
 BuildRequires:  SDL-devel ImageMagick alsa-lib-devel
@@ -29,11 +30,12 @@ FooBillard is still under development but the main physics is implemented.
 
 %prep
 %setup -q -n foobillard-3.0a
-%patch0 -p1
-%patch1 -p1 -b .no-fonts
-%patch2 -p0 -b .clothtex
-%patch3 -p1
-%patch4 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1 -b .no-fonts
+%patch -P 2 -p0 -b .clothtex
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p0
 
 %build
 iconv -f iso-8859-1 -t utf-8 < ChangeLog > _
@@ -76,6 +78,9 @@ install -p -m 644 foobillard-256x256.png \
 
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.0a-49
+- Patch for stricter flags
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0a-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

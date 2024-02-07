@@ -12,13 +12,19 @@
 %define _lto_cflags %{nil}
 %endif
 
+# Disable LTO on aarch64 (borked since GCC14)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2260867
+%ifarch aarch64
+%define _lto_cflags %{nil}
+%endif
+
 # Big endian platforms
 %ifarch ppc ppc64 s390 s390x
 %global big_endian 1
 %endif
 
 Name:           mozjs%{major}
-Version:        115.6.0
+Version:        115.7.0
 Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 

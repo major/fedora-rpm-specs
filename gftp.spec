@@ -1,11 +1,14 @@
 Summary: A multi-threaded FTP client for the X Window System
 Name: gftp
 Version: 2.9.1b
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 2
 License: GPL-2.0-or-later
 Url: https://github.com/masneyb/gftp/tags
 Source0: https://github.com/masneyb/gftp/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:  pointer-types.patch
+
 BuildRequires: gcc
 BuildRequires: gtk2-devel >= 2.2.0
 BuildRequires: readline-devel
@@ -27,6 +30,8 @@ Install gftp if you need a graphical FTP client.
 
 %prep
 %setup -q
+
+%patch -P 0 -p0
 
 %build
 ./autogen.sh
@@ -62,6 +67,9 @@ desktop-file-install --vendor net --delete-original         \
 %{_mandir}/man1/gftp.1.gz
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 2:2.9.1b-8
+- Patch for stricter flags.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.9.1b-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

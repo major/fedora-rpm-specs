@@ -1,11 +1,11 @@
-%global gitdate 20231015.171500
-%global commit0 011bd155f3bec52d747e177960add1398788e56a
+%global gitdate 20240205
+%global commit0 c8ad98249af541514ff7a81634d3295e712f1a39
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global tag0 VERSION_%{version}
 
 Name:           signon
 Version:        8.60^%{gitdate}.%{shortcommit0}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 
 License:        LGPL-2.1-only
@@ -169,6 +169,9 @@ mkdir -p %{buildroot}%{_libdir}/extensions/
 
 
 %changelog
+* Mon Feb 05 2024 Alessandro Astone <ales.astone@gmail.com> - 8.60^20240205.c8ad982-1
+- Update git snapshot
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.60^20231015.171500.011bd15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

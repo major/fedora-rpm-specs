@@ -1,12 +1,13 @@
 %global srcname selenium
 
 Name:          python-%{srcname}
-Version:       3.141.0
+Version:       4.17.2
 Release:       %autorelease
 Summary:       Python bindings for Selenium
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           http://docs.seleniumhq.org/
-Source:        %pypi_source
+
+Source0:       %pypi_source
 
 BuildArch:     noarch
 
@@ -34,7 +35,7 @@ Several browsers/drivers are supported (Firefox, Chrome, Internet Explorer,
 PhantomJS), as well as the Remote protocol.
 
 %prep
-%autosetup -p2 -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 find . -type f -name "*.py" -exec sed -i '1{/^#!/d;}' {} \;
 
 %generate_buildrequires

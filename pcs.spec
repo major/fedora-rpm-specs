@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -56,6 +56,7 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 # ui patches: >200
 # Patch201: name-web-ui.patch
 Patch201: make-AppStream-metainfo-more-descriptive.patch
+Patch202: metainfo-fix-outdated-extends-id.patch
 
 # git for patches
 BuildRequires: git-core
@@ -269,6 +270,8 @@ update_times_patch(){
 %autosetup -D -T -b 100 -a 101 -S git -n %{ui_src_name} -N
 %autopatch -p1 -m 201
 # update_times_patch %%{PATCH201}
+update_times_patch %%{PATCH201}
+update_times_patch %%{PATCH202}
 
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
@@ -466,6 +469,9 @@ run_all_tests
 
 
 %changelog
+* Mon Feb 5 2024 Michal Pospisil <mpospisi@redhat.com> - 0.11.7-3
+- Fixed a bug preventing the Cockpit Application from being installed from Cockpit
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

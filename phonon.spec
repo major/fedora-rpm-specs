@@ -1,7 +1,7 @@
 Summary: Multimedia framework api
 Name:    phonon
 Version: 4.12.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 URL:     https://community.kde.org/Phonon
 
@@ -30,7 +30,7 @@ BuildRequires: pkgconfig(xcb)
 Summary: Multimedia framework api for Qt5
 %{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
 Requires: %{name}-common = %{version}-%{release}
-Requires: phonon-qt5-backend%{?_isa}
+Recommends: phonon-qt5-backend%{?_isa}
 Suggests: phonon-qt5-backend-vlc%{?_isa}
 %description qt5
 %{summary}.
@@ -45,7 +45,7 @@ Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 Summary: Multimedia framework api for Qt6
 %{?_qt6:Requires: %{_qt6}%{?_isa} >= %{_qt6_version}}
 Requires: %{name}-common = %{version}-%{release}
-Requires: phonon-qt6-backend%{?_isa}
+Recommends: phonon-qt6-backend%{?_isa}
 Suggests: phonon-qt6-backend-vlc%{?_isa}
 %description qt6
 %{summary}.
@@ -147,6 +147,9 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %files common -f %{name}.lang
 
 %changelog
+* Mon Feb 05 2024 Alessandro Astone <ales.astone@gmail.com> - 4.12.0-5
+- Relax backend dependency, avoids circular dependency
+
 * Fri Feb 02 2024 Alessandro Astone <ales.astone@gmail.com> - 4.12.0-4
 - Require a backend and prefer vlc
 

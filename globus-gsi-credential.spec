@@ -1,14 +1,13 @@
 Name:		globus-gsi-credential
 %global _name %(tr - _ <<< %{name})
-Version:	8.3
-Release:	9%{?dist}
+Version:	8.4
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Credential Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Replace-make_time-fcie-to-work-after-2050.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -60,7 +59,6 @@ Globus GSI Credential Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P 0 -p4
 
 %build
 # Reduce overlinking
@@ -109,6 +107,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.4-1
+- New GCT release v6.2.20240202
+- Drop patches included in the release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

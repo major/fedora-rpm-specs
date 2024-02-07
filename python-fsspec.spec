@@ -7,14 +7,16 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2023.12.2
-%global tag     2023.12.2
+Version:        2024.2.0
+%global tag     2024.2.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
 License:        BSD-3-Clause
 URL:            https://github.com/fsspec/filesystem_spec
 Source0:        %{url}/archive/%{tag}/%{srcname}-%{tag}.tar.gz
+# https://github.com/fsspec/filesystem_spec/pull/1523
+Patch:          0001-Skip-test_append_parquet-when-missing-kerchunk.patch
 
 BuildArch:      noarch
 

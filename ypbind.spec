@@ -2,20 +2,23 @@ Summary: The NIS daemon which binds NIS clients to an NIS domain
 Name: ypbind
 Epoch: 3
 Version: 2.7.2
-Release: 12%{?dist}
-License: GPLv2
+Release: 13%{?dist}
+License: GPL-2.0-only
+Url: https://www.thkukuk.de/nis/nis/ypbind-mt/
+
 Source0: https://github.com/thkukuk/ypbind-mt/archive/v%{version}.tar.gz#/ypbind-mt-%{version}.tar.gz
-Url: http://www.linux-nis.org/nis/ypbind-mt/index.html
 #Source1: ypbind.init
 Source2: nis.sh
 Source3: ypbind.service
 Source4: ypbind-pre-setdomain
 Source5: ypbind-post-waitbind
+
 # Fedora-specific patch. Renaming 'ypbind' package to proper
 # 'ypbind-mt' would allow us to drop it.
 Patch1: ypbind-1.11-gettextdomain.patch
 # Not sent to upstream.
 Patch2: ypbind-2.5-helpman.patch
+
 # This is for /bin/systemctl
 Requires(post): systemd
 Requires(preun): systemd
@@ -53,9 +56,7 @@ Install the ypbind package on any machines running NIS client programs
 also need to install the ypserv package to a machine on your network.
 
 %prep
-%setup -q -n ypbind-mt-%{version}
-%patch1 -p1 -b .gettextdomain
-%patch2 -p1 -b .helpman
+%autosetup -p1 -n ypbind-mt-%{version}
 
 autoreconf -fiv
 
@@ -71,7 +72,6 @@ export LDFLAGS="$LDFLAGS -pie -Wl,-z,relro,-z,now"
 
 %configure
 %make_build
-
 
 %install
 %make_install
@@ -109,6 +109,9 @@ install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_libexecdir}/ypbind-post-waitbind
 %license COPYING
 
 %changelog
+* Tue Jan 30 2024 Ondrej Sloup <osloup@redhat.com> -  3:2.7.2-13
+- Update license tag to the SPDX format (GPL-2.0-only)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.7.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

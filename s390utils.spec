@@ -11,12 +11,10 @@
 %bcond_with pandoc
 %endif
 
-%bcond_without rust
-
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.30.0
-Release:        2%{?dist}
+Version:        2.31.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -49,7 +47,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-Patch100:       s390utils-%{version}-fedora.patch
+#Patch100:       s390utils-%%{version}-fedora.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -75,7 +73,6 @@ Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
-%if %{with rust}
 %if 0%{?rhel}
 BuildRequires:  libcurl-devel
 BuildRequires:  openssl-devel
@@ -105,9 +102,8 @@ BuildRequires:  crate(serde_yaml)
 BuildRequires:  crate(strsim)
 BuildRequires:  crate(terminal_size)
 BuildRequires:  crate(thiserror)
-BuildRequires:  crate(zerocopy) = 0.6.6
+BuildRequires:  crate(zerocopy)
 BuildRequires:  rust-packaging
-%endif
 %endif
 
 %description
@@ -121,7 +117,6 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %prep
 %autosetup -n s390-tools-%{version} -p1
 
-%if %{with rust}
 %if 0%{?rhel}
 pushd rust
 %cargo_prep -V 1
@@ -130,15 +125,11 @@ popd
 %cargo_prep
 %endif
 rm ./rust/Cargo.lock
-%endif
 
 %build
 make \
         CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" LDFLAGS="%{build_ldflags}" \
         HAVE_DRACUT=1 \
-%if %{without rust}
-        HAVE_CARGO=0 \
-%endif
 %if %{with pandoc}
         ENABLE_DOC=1 \
 %endif
@@ -151,9 +142,6 @@ make \
 %install
 make install \
         HAVE_DRACUT=1 \
-%if %{without rust}
-        HAVE_CARGO=0 \
-%endif
 %if %{with pandoc}
         ENABLE_DOC=1 \
 %endif
@@ -244,26 +232,24 @@ touch %{buildroot}%{_sysconfdir}/zipl.conf
 %doc README.md
 %license LICENSE
 %{_bindir}/genprotimg
+%{_bindir}/pvapconfig
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
-%if %{with rust}
 %{_bindir}/pvsecret
-%endif
 %{_mandir}/man1/genprotimg.1*
+%{_mandir}/man1/pvapconfig.1*
 %{_mandir}/man1/pvattest.1*
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
-%if %{with rust}
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
-%{_mandir}/man1/pvsecret-version.1*
+%{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
-%endif
 %dir %{_datadir}/s390-tools
 %{_datadir}/s390-tools/genprotimg/
 
@@ -319,7 +305,10 @@ This package provides minimal set of tools needed to system to boot.
 /lib/s390-tools/cpictl
 /lib/s390-tools/stage3.bin
 /lib/s390-tools/zdev_id
+/lib/s390-tools/zdev-from-dasd_mod.dasd
 /lib/s390-tools/zdev-root-update
+/lib/s390-tools/zdev-to-dasd_mod.dasd
+/lib/s390-tools/zdev-to-rd.znet
 /lib/s390-tools/zipl.conf
 %ghost %config(noreplace) %{_sysconfdir}/zipl.conf
 %config(noreplace) %{_sysconfdir}/ziplenv
@@ -583,12 +572,11 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_sbindir}/zpcictl
 %{_bindir}/dump2tar
 %{_bindir}/genprotimg
+%{_bindir}/pvapconfig
 %{_bindir}/mk-s390image
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
-%if %{with rust}
 %{_bindir}/pvsecret
-%endif
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
 %{_unitdir}/dumpconf.service
@@ -613,20 +601,19 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_libdir}/zkey/zkey-kmip.so
 %{_mandir}/man1/dump2tar.1*
 %{_mandir}/man1/genprotimg.1*
+%{_mandir}/man1/pvapconfig.1*
 %{_mandir}/man1/pvattest.1*
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
-%if %{with rust}
 %{_mandir}/man1/pvsecret-add.1*
 %{_mandir}/man1/pvsecret-create-association.1*
 %{_mandir}/man1/pvsecret-create-meta.1*
 %{_mandir}/man1/pvsecret-create.1*
 %{_mandir}/man1/pvsecret-list.1*
 %{_mandir}/man1/pvsecret-lock.1*
-%{_mandir}/man1/pvsecret-version.1*
+%{_mandir}/man1/pvsecret-verify.1*
 %{_mandir}/man1/pvsecret.1*
-%endif
 %{_mandir}/man1/zkey.1*
 %{_mandir}/man1/zkey-cryptsetup.1*
 %{_mandir}/man1/zkey-ekmfweb.1*
@@ -1043,6 +1030,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Mon Feb 05 2024 Dan Horák <dan[at]danny.cz> - 2:2.31.0-1
+- rebased to 2.31.0 (rhbz#2262499)
+
 * Thu Jan 25 2024 Dan Horák <dan[at]danny.cz> - 2:2.30.0-2
 - add s390utils-se-data as a noarch subpackage with Secure Execution data files
 

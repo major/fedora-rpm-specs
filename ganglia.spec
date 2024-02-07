@@ -11,7 +11,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            44%{?dist}
+Release:            45%{?dist}
 License:            BSD
 URL:                http://ganglia.sourceforge.net/
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
@@ -26,6 +26,7 @@ Patch1:             ganglia-3.7.2-apache.patch
 Patch2:             ganglia-3.7.2-sflow.patch
 Patch3:             ganglia-3.7.2-tirpc-hack.patch
 Patch4:             ganglia-web-5ee6b7.patch
+Patch5:             ganglia-3.7.2-gcc14-cast.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
@@ -147,6 +148,7 @@ install -m 0644 %{SOURCE2} gmond/gmond.service.in
 install -m 0644 %{SOURCE3} gmetad/gmetad.service.in
 %patch1 -p0
 %patch2 -p0
+%patch5 -p1
 %if 0%{?fedora} || 0%{?rhel} > 7
 %patch3 -p1
 %endif
@@ -408,6 +410,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Mon Feb 05 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-45
+- Fix GCC 14 issue
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

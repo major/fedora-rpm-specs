@@ -6,7 +6,7 @@
 %bcond doc_pdf 1
 
 Name:           python-llvmlite
-Version:        0.41.1
+Version:        0.42.0
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -17,6 +17,7 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 #     Public-domain text added to fedora-license-data in commit
 #     830d88d4d89ee5596839de5b2c1f48426488841f:
 #     https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/210
+#   - ffi/memorymanager.{h,cpp} are Apache-2.0 WITH LLVM-exception
 # Additionally, the following does not affect the license of the binary RPMs:
 #   - conda-recipes/appveyor/run_with_env.cmd is CC0-1.0; for distribution in
 #     the source RPM, it is covered by “Existing uses of CC0-1.0 on code files
@@ -24,7 +25,11 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 #     of those files in those packages, continue to be allowed. We encourage
 #     Fedora package maintainers to ask upstreams to relicense such files.”
 #     https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
-License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
+License:        %{shrink:
+                BSD-2-Clause AND
+                Apache-2.0 WITH LLVM-exception AND
+                LicenseRef-Fedora-Public-Domain
+                }
 
 URL:            http://llvmlite.pydata.org/
 %global forgeurl https://github.com/numba/llvmlite
@@ -32,7 +37,7 @@ Source:         %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 
-# 0.41.0 only supports llvm14
+# 0.41.0-0.42.0 only support llvm14
 BuildRequires:  llvm14-devel
 BuildRequires:  gcc-c++
 
@@ -51,19 +56,22 @@ following approach:
 %package -n python3-llvmlite
 Summary:        %{summary}
 
+# ffi/memorymanager.{h,cpp} are copied from an unspecified version of LLVM
+Provides:       bundled(llvm)
 
 %description -n python3-llvmlite %_description
 
 %package doc
 Summary:        %{summary}
+
 %if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
-# The HTML theme is imported in conf.py even when not generating HTML
-BuildRequires:  python3dist(sphinx-rtd-theme)
 %endif
+
+BuildArch:      noarch
 
 %description doc
 Documentation for %{name}.
@@ -82,7 +90,8 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires
+# The HTML theme is imported in conf.py even when not generating HTML
+%pyproject_buildrequires %{?with_doc_pdf:docs/rtd-requirements.txt}
 
 %build
 export LLVM_CONFIG="%{_libdir}/llvm14/bin/llvm-config"

@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ popd
 %doc README.rst
 
 %changelog
+* Mon Feb 05 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.2-4
+- Rebuilt to fix FTBFS
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

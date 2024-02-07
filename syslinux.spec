@@ -21,6 +21,7 @@ Patch0004: 0004-Add-RPMOPTFLAGS-to-CFLAGS-for-some-stuff.patch
 Patch0005: 0005-Workaround-multiple-definition-of-symbol-errors.patch
 Patch0006: 0006-Replace-builtin-strlen-that-appears-to-get-optimized.patch
 Patch0007: 0007-Fix-backspace-when-editing-a-multiline-cmdline.patch
+Patch0008: 0008-Fix-build-with-GCC-14.patch
 
 # this is to keep rpmbuild from thinking the .c32 / .com / .0 / memdisk files
 # in noarch packages are a reason to stop the build.
@@ -32,7 +33,7 @@ BuildRequires: git
 BuildRequires:  gcc
 BuildRequires: nasm >= 0.98.38-1, perl-interpreter, perl-generators, netpbm-progs
 BuildRequires: perl(FileHandle)
-BuildRequires: /usr/include/gnu/stubs-32.h
+BuildRequires: (glibc-devel(x86-32) or glibc32)
 BuildRequires: libuuid-devel
 Requires: syslinux-nonlinux = %{version}-%{release}
 %endif

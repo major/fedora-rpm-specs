@@ -11,8 +11,8 @@ Source1:    COPYING
 
 BuildArch:  noarch
 
-BuildRequires:  kde-filesystem
-Requires: kde-filesystem
+BuildRequires:  kde4-filesystem
+Requires: kde4-filesystem
 Requires: xdg-user-dirs
 ## add breeze deps here? probably, need more too -- rex
 Requires: breeze-icon-theme

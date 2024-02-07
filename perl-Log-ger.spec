@@ -1,6 +1,6 @@
 Name:           perl-Log-ger
-Version:        0.040
-Release:        6%{?dist}
+Version:        0.041
+Release:        1%{?dist}
 Summary:        Lightweight, flexible logging framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-ger
@@ -67,18 +67,22 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+unset AUTHOR_TESTING
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Log/ger*
+%{_mandir}/man3/Log::ger*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.041-1
+- 0.041 bump (rhbz#2262717)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.040-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

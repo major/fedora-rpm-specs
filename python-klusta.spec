@@ -3,7 +3,7 @@
 
 Name:       python-%{srcname}
 Version:    3.0.16
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    %{sum}
 
 License:    BSD
@@ -30,7 +30,7 @@ graph formed by the recording sites in the probe.
 %package -n python3-%{srcname}
 Summary:        %{sum}
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist numpy six pytest h5py scipy tqdm responses click mock}
+BuildRequires:  %{py3_dist numpy six pytest h5py scipy tqdm responses click}
 BuildRequires:  %{py3_dist setuptools}
 Requires:       %{py3_dist numpy scipy six h5py tqdm click}
 %{?python_provide:%python_provide python3-%{srcname}}
@@ -72,6 +72,9 @@ rm -fr *egg-info
 %{_bindir}/%{srcname}
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 3.0.16-27
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.16-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

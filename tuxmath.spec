@@ -1,15 +1,14 @@
 Name:           tuxmath
 Version:        2.0.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Educational math tutor for children
 
 License:        GPL-3.0-or-later AND CC-BY-1.0 AND OFL-1.1
 URL:            http://tux4kids.alioth.debian.org/
 Source0:        https://alioth.debian.org/frs/download.php/3271/%{name}_w_fonts-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
-#Patch0:	        tuxmath_w_fonts-2.0.1-scandir.patch
-Patch1:         tuxmath_w_fonts-2.0.1-gcc5.patch
-#Patch2:         tuxmath_w_fonts-2.0.1-powerup-crash.patch
+Patch0:         tuxmath_w_fonts-2.0.1-gcc5.patch
+Patch1:         pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -32,9 +31,8 @@ different types of gameplay, at a variety of difficulty levels.
 %setup -q -n %{name}_w_fonts-%{version}
 # remove unneeded font files
 rm -f data/fonts/*.ttf
-#%patch0 -p1
-%patch1 -p1
-#%patch2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p0
 
 
 %build
@@ -76,6 +74,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.0.3-18
+- Patch for stricter flags
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

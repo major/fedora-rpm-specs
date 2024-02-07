@@ -1,11 +1,12 @@
 Name:       ibus-handwrite
 Version:    3.0.0
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    IBus handwrite project
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus-handwrite/
 Source0:    https://github.com/microcai/ibus-handwrite/releases/download/3.0/%{name}-%{version}.tar.bz2
 Patch0:     fixes-blink-issue.patch
+Patch1:     ibus-handwrite-fixes-compile.patch
 
 BuildRequires:  autoconf
 BuildRequires:  gcc
@@ -116,6 +117,10 @@ EOF
 %{_datadir}/ibus/component/handwrite-zh.xml
 
 %changelog
+* Mon Feb  5 2024 Peng Wu <pwu@redhat.com> - 3.0.0-25
+- Fix compile
+- Resolves: RHBZ#2261243
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

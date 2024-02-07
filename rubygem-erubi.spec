@@ -2,14 +2,14 @@
 %global gem_name erubi
 
 Name: rubygem-%{gem_name}
-Version: 1.10.0
-Release: 8%{?dist}
+Version: 1.12.0
+Release: 1%{?dist}
 Summary: Small ERB Implementation
 License: MIT
 URL: https://github.com/jeremyevans/erubi
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jeremyevans/erubi.git && cd erubi
-# git archive -v -o erubi-1.10.0-test.tar.gz 1.10.0 test/
+# git archive -v -o erubi-1.12.0-test.tar.gz 1.12.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -72,6 +72,10 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Feb 02 2024 Vít Ondruch <vondruch@redhat.com> - 1.12.0-1
+- Update to Erubi 1.12.0.
+  Resolves: rhbz#2114063
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

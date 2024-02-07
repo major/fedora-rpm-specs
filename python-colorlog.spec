@@ -2,8 +2,8 @@
 %global desc "colorlog.ColoredFormatter is a formatter for use with Python's logging module that outputs records using terminal colors."
 
 Name:           python-%{srcname}
-Version:        6.7.0
-Release:        6%{?dist}
+Version:        6.8.2
+Release:        1%{?dist}
 Summary:        Colored formatter for the Python logging module
 
 License:        MIT
@@ -70,6 +70,9 @@ Summary:        %{summary}
 %endif
 
 %changelog
+* Mon Feb 05 2024 Fabian Affolter <mail@fabian-affolter.ch> - 6.8.2-1
+- Update to latest upstream release (closes rhbz#2252570)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,7 @@
 %undefine __cmake_in_source_build
 
 %bcond_with  tests
+%bcond_without  compat_openvc_pc
 %if %{without tests}
 %bcond_with     extras_tests
 %else
@@ -8,7 +9,7 @@
 %endif
 # linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
 %bcond_with     linters
-%bcond_with     ffmpeg
+%bcond_without  ffmpeg
 %bcond_without  gstreamer
 %bcond_with     eigen2
 %bcond_without  eigen3
@@ -21,7 +22,7 @@
 %endif
 %bcond_without  tbb
 %bcond_with     cuda
-%bcond_with     xine
+%bcond_without  xine
 # Atlas need (missing: Atlas_CLAPACK_INCLUDE_DIR Atlas_CBLAS_LIBRARY Atlas_BLAS_LIBRARY Atlas_LAPACK_LIBRARY)
 # LAPACK may use atlas or openblas since now it detect openblas, atlas is not used anyway, more info please
 # check OpenCVFindLAPACK.cmake
@@ -36,7 +37,6 @@
 
 %ifarch x86_64
 %bcond_without  libmfx
-%bcond_without  va
 %else
 %bcond_with     libmfx
 %endif
@@ -51,6 +51,13 @@
 %bcond_with  java
 %endif
 
+%if 0%{?fedora}
+%bcond_without openexr
+%else
+%bcond_with openexr
+%endif
+
+%bcond_without  va
 %bcond_without  vulkan
 
 %define _lto_cflags %{nil}
@@ -64,13 +71,13 @@
 %endif
 
 Name:           opencv
-Version:        4.8.1
+Version:        4.9.0
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        8%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause and Apache-2.0 and ISC
@@ -87,9 +94,8 @@ Source1:        %{name}_contrib-clean-%{version}.tar.gz
 Source2:        %{name}_extra-clean-%{version}.tar.gz
 }
 Source3:        face_landmark_model.dat.xz
-# from https://github.com/opencv/ade/archive/v0.1.2a.zip
-# mv v0.1.2a.zip $(md5sum v0.1.2a.zip | cut -d' ' -f1)-v0.1.2a.zip
-Source4:        fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip
+# SRC=v0.1.2d.zip ; wget https://github.com/opencv/ade/archive/$SRC; mv $SRC $(md5sum $SRC | cut -d' ' -f1)-$SRC
+Source4:        dbb095a8bf3008e91edbbf45d8d34885-v0.1.2d.zip
 Source5:        xorg.conf
 %global wechat_commit 3487ef7cde71d93c6a01bb0b84aa0f22c6128f6b
 %global wechat_shortcommit %(c=%{wechat_commit}; echo ${c:0:7})
@@ -97,12 +103,7 @@ Source5:        xorg.conf
 Source6:        https://github.com/WeChatCV/opencv_3rdparty/archive/%{wechat_commit}/wechat-%{wechat_gitdate}.git%{wechat_shortcommit}.tar.gz
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
-# Backport support for protobuf v22 and later from opencv 4.9.0
-# https://github.com/opencv/opencv/commit/6e4280ea81b59c6dca45bb9801b758377beead55
-# Rebased on 4.8.1
-Patch1:         opencv-4.8.1-protobuf-v22.patch
 Patch3:         opencv.python.patch
-Patch4:         numpy.distutils_removal.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -130,10 +131,14 @@ BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libGL-devel
 BuildRequires:  libv4l-devel
+%{?with_openexr:
 BuildRequires:  OpenEXR-devel
+}
 %{?with_openni:
 BuildRequires:  openni-devel
+%if 0%{?fedora}
 BuildRequires:  openni-primesense
+%endif
 }
 %{?with_tbb:
 BuildRequires:  tbb-devel
@@ -148,7 +153,13 @@ BuildRequires:  pylint
 BuildRequires:  python3-flake8
 }
 BuildRequires:  swig >= 1.3.24
-%{?with_ffmpeg:BuildRequires:  ffmpeg-devel >= 0.4.9}
+%{?with_ffmpeg:
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
+BuildRequires:  pkgconfig(libavdevice)
+}
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{?with_gstreamer:BuildRequires:  gstreamer1-devel gstreamer1-plugins-base-devel}
 %else
@@ -390,9 +401,7 @@ shopt -u extglob
 popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
-%patch -P 1 -p1 -b .protobuf-v22
 %patch -P 3 -p1 -b .python_install_binary
-%patch -P 4 -p1 -b .numpy.distutils_removal
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -435,7 +444,8 @@ install -pm 0644 %{S:4} .cache/ade/
 %endif
  -DOpenGL_GL_PREFERENCE=GLVND \
  -DWITH_GDAL=ON \
- -DWITH_OPENEXR=ON \
+%{?with_openexr: -DWITH_OPENEXR=ON} \
+%{!?with_openexr: -DWITH_OPENEXR=OFF} \
  -DCMAKE_SKIP_RPATH=ON \
  -DWITH_CAROTENE=OFF \
 %ifarch x86_64 %{ix86}
@@ -502,7 +512,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %endif
 
 # For compatibility with existing opencv.pc application
-%{!?without_compat_openvc_pc:
+%{?with_compat_openvc_pc:
   ln -s opencv4.pc %{buildroot}%{_libdir}/pkgconfig/opencv.pc
 }
 
@@ -545,7 +555,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %dir %{_includedir}/opencv4
 %{_includedir}/opencv4/opencv2
 %{_libdir}/lib*.so
-%{!?without_compat_openvc_pc:
+%{?with_compat_openvc_pc:
 %{_libdir}/pkgconfig/opencv.pc
 }
 %{_libdir}/pkgconfig/opencv4.pc
@@ -568,6 +578,16 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 4.9.0-2
+- Revert drop compat symlink to opencv.pc
+
+* Sun Jan 28 2024 Sérgio Basto <sergio@serjux.com> - 4.9.0-1
+- Update opencv to 4.9.0 (#2256160)
+- Enable ffmpeg and xine (now they are available on Fedora)
+- Really drop compat symlink for includes - rhbz#1830266
+  Note: conditional builds with underscrore don't have _without option
+  https://github.com/rpm-software-management/rpm/issues/1929
+
 * Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 4.8.1-8
 - Rebuild (tesseract)
 

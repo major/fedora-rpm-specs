@@ -1,14 +1,16 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 3
-%global syslog_ng_patch_ver 1
+%global syslog_ng_minor_ver 6
+%global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
+ExcludeArch: %{ix86}
+
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 4%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -69,13 +71,15 @@ BuildRequires:  python3-rsa
 BuildRequires:  python3-six
 BuildRequires:  python3-urllib3
 BuildRequires:  python3-websocket-client
+BuildRequires:  python3-boto3
+BuildRequires:  python3-botocore
 
 %ifarch i686
 %bcond_with bpf
-%bcond_with otel
+%bcond_with grpc
 %else
-%bcond_without bpf
-%bcond_without otel
+%bcond_with bpf
+%bcond_without grpc
 %endif
 
 %if %{with bpf}
@@ -84,9 +88,10 @@ BuildRequires: bpftool
 BuildRequires: clang
 %endif
 
-%if %{with otel}
+%if %{with grpc}
 BuildRequires:  grpc-devel
 BuildRequires:  protobuf-devel
+BuildRequires:  gcc-c++
 %endif
 
 Requires: logrotate
@@ -96,9 +101,6 @@ Requires(preun): systemd-units
 Requires(postun): systemd-units
 
 Provides: syslog
-# merge separate syslog-vim package into one
-Provides: syslog-ng-vim = %{version}-%{release}
-Obsoletes: syslog-ng-vim < 2.0.8-1
 
 # Fedora 17’s unified filesystem (/usr-move)
 Conflicts: filesystem < 3
@@ -202,14 +204,42 @@ Obsoletes: %{name}-curl < 3.10
 %description http
 This module supports the http destination.
 
+%package grpc
+Summary: GRPC support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description grpc
+This module supports the GRPC, a common requirement
+for OpenTelemetry and Loki support.
+
 
 %package opentelemetry
 Summary: OpenTelemetry support for %{name}
 Group: Development/Libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-grpc
 
 %description opentelemetry
 This module adds OpenTelemetry support.
+
+%package loki
+Summary: Loki support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-grpc
+
+%description loki
+This module adds loki support.
+
+%package bigquery
+Summary: Google BigQuery support for %{name}
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-grpc
+
+%description bigquery
+This module adds Google BigQuery support.
 
 
 %package bpf
@@ -335,7 +365,7 @@ touch -r lib/cfg-grammar.y lib/merge-grammar.py
     --disable-java \
     --disable-java-modules \
     --enable-afsnmp \
-%if %{with otel}
+%if %{with grpc}
     --enable-cpp --enable-grpc \
 %endif
 %if %{with bpf}
@@ -366,20 +396,6 @@ make DESTDIR=%{buildroot} install
 %{__install} -p -m 644 config.h %{buildroot}%{_includedir}/%{name}
 %{__install} -p -m 644 lib/*.h %{buildroot}%{_includedir}/%{name}
 
-# install vim files
-%{__install} -d -m 755 %{buildroot}%{_datadir}/%{name}/vim/ftdetect
-%{__install} -d -m 755 %{buildroot}%{_datadir}/%{name}/vim/syntax
-%{__install} -p -m 644 contrib/vim/ftdetect/syslog-ng.vim %{buildroot}%{_datadir}/%{name}/vim/ftdetect
-%{__install} -p -m 644 contrib/vim/syntax/syslog-ng.vim %{buildroot}%{_datadir}/%{name}/vim/syntax
-for vimver in 73 ; do
-    %{__install} -d -m 755 %{buildroot}%{_datadir}/vim/vim$vimver/ftdetect
-    %{__install} -d -m 755 %{buildroot}%{_datadir}/vim/vim$vimver/syntax
-    cd %{buildroot}%{_datadir}/vim/vim$vimver
-    ln -s ../../../%{name}/vim/ftdetect/syslog-ng.vim ftdetect
-    ln -s ../../../%{name}/vim/syntax/syslog-ng.vim syntax
-    cd -
-done
-
 find %{buildroot} -name "*.la" -exec rm -f {} \;
 
 # remove some extra testing related files
@@ -403,32 +419,6 @@ ldconfig
 %triggerun -- syslog-ng < 3.2.3
 if /sbin/chkconfig --level 3 %{name} ; then
     /bin/systemctl enable %{name}.service >/dev/null 2>&1 || :
-fi
-
-%triggerin -- vim-common
-VIMVERNEW=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | tail -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
-[ -d %{_datadir}/vim/vim${VIMVERNEW}/ftdetect ] && \
-    cd %{_datadir}/vim/vim${VIMVERNEW}/ftdetect && \
-    ln -sf ../../../%{name}/vim/ftdetect/syslog-ng.vim . || :
-[ -d %{_datadir}/vim/vim${VIMVERNEW}/syntax ] && \
-    cd %{_datadir}/vim/vim${VIMVERNEW}/syntax && \
-    ln -sf ../../../%{name}/vim/syntax/syslog-ng.vim . || :
-
-%triggerun -- vim-common
-VIMVEROLD=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | head -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
-[ $2 = 0 ] && rm -f %{_datadir}/vim/vim${VIMVEROLD}/ftdetect/syslog-ng.vim %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
-
-%triggerpostun -- vim-common
-VIMVEROLD=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | head -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
-VIMVERNEW=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | tail -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
-if [ $1 = 1 ]; then
-    rm -f %{_datadir}/vim/vim${VIMVEROLD}/ftdetect/syslog-ng.vim %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
-    [ -d %{_datadir}/vim/vim${VIMVERNEW}/ftdetect ] && \
-        cd %{_datadir}/vim/vim${VIMVERNEW}/ftdetect && \
-        ln -sf ../../../%{name}/vim/ftdetect/syslog-ng.vim . || :
-    [ -d %{_datadir}/vim/vim${VIMVERNEW}/syntax ] && \
-        cd %{_datadir}/vim/vim${VIMVERNEW}/syntax && \
-        ln -sf ../../../%{name}/vim/syntax/syslog-ng.vim . || :
 fi
 
 %files
@@ -488,11 +478,12 @@ fi
 %exclude %{_libdir}/syslog-ng/libotel.so
 %exclude %{_libdir}/syslog-ng/libmqtt.so
 %exclude %{_libdir}/syslog-ng/libebpf.so
+%exclude %{_libdir}/syslog-ng/libotel.so
+%exclude %{_libdir}/syslog-ng/libloki.so
+%exclude %{_libdir}/syslog-ng/libbigquery.so
+%exclude %{_libdir}/syslog-ng/libcloud_auth.so
 
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/vim/ftdetect/syslog-ng.vim
-%{_datadir}/%{name}/vim/syntax/syslog-ng.vim
-%ghost %{_datadir}/vim/
 
 # scl files
 %{_datadir}/syslog-ng/include/
@@ -521,6 +512,28 @@ fi
 %{_mandir}/man1/slogencrypt.1*
 %{_mandir}/man1/slogverify.1*
 %{_mandir}/man7/secure-logging.7*
+
+%if %{with grpc}
+
+%files grpc
+%{_libdir}/libgrpc-protos.*
+
+%files opentelemetry
+%{_libdir}/%{name}/libotel.so
+
+%files loki
+%{_libdir}/%{name}/libloki.so
+
+%files bigquery
+%{_libdir}/%{name}/libbigquery.so
+%endif
+
+%if %{with cloudauth}
+%files cloudauth
+%{_libdir}/%{name}/libcloud_auth.so
+
+%endif
+
 
 %files libdbi
 %{_libdir}/syslog-ng/libafsql.so
@@ -565,11 +578,6 @@ fi
 %{_libdir}/%{name}/libebpf.so
 %endif
 
-%if %{with otel}
-%files opentelemetry
-%{_libdir}/%{name}/libotel.so
-%endif
-
 %files python
 %{_libdir}/%{name}/libmod-python.so
 %dir %{_sysconfdir}/%{name}/python
@@ -597,6 +605,19 @@ fi
 
 
 %changelog
+* Mon Feb 05 2024 Peter Czanik <peter@czanik.hu> - 4.6.0-2
+- rebuild for abseil-cpp-20240116.0-1
+
+* Mon Feb 05 2024 Peter Czanik <peter@czanik.hu> - 4.6.0-1
+- update to 4.6.0
+- disable eBPF support for now as bpftool is removed from Fedora :/
+- updated Python dependencies
+- added many new parsers (SCL)
+- new GRPC-based drivers, reorganized support
+- removed VIM support, as it was removed upstream. Now available
+  separately at: https://github.com/syslog-ng/vim-syslog-ng
+- excludeArch x86 until a 32bit compile bug is fixed
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

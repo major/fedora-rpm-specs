@@ -1,5 +1,5 @@
 Name:           hyprland
-Version:        0.34.0
+Version:        0.35.0
 Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor that doesn't sacrifice on its looks
 
@@ -60,7 +60,7 @@ BuildRequires:  pkgconfig(xwayland)
 # Upstream insists on always building against very current snapshots of
 # wlroots, and doesn't provide a method for building against a system copy.
 # https://github.com/hyprwm/Hyprland/issues/302
-Provides:       bundled(wlroots) = 0.18.0~1.git5d63939
+Provides:       bundled(wlroots) = 0.18.0~1.git00b869c
 
 # udis86 is packaged in Fedora, but the copy bundled here is actually a
 # modified fork.
@@ -68,7 +68,7 @@ Provides:       bundled(udis86) = 1.7.2^1.git5336633
 
 Requires:       xorg-x11-server-Xwayland%{?_isa}
 Requires:       xdg-desktop-portal%{?_isa}
-Requires:       libdrm%{?_isa} >= 2.4.118
+Requires:       libdrm%{?_isa} >= 2.4.120
 
 # Both are used in the default configuration
 Recommends:     kitty
@@ -91,6 +91,9 @@ plugin system and more.
 Summary:        Header files for %{name}
 License:        BSD-3-Clause AND MIT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       meson
+Requires:       cmake
+Requires:       ninja-build
 Requires:       pkgconfig(cairo)
 Requires:       pkgconfig(egl)
 Requires:       pkgconfig(gbm)
@@ -106,7 +109,6 @@ Requires:       pkgconfig(pango)
 Requires:       pkgconfig(pangocairo)
 Requires:       pkgconfig(pixman-1) >= 0.42.0
 Requires:       pkgconfig(wayland-client)
-Requires:       pkgconfig(wayland-protocols)
 Requires:       pkgconfig(wayland-scanner)
 Requires:       pkgconfig(wayland-server) >= 1.22.0
 Requires:       pkgconfig(xcb)
@@ -145,11 +147,7 @@ cp -p subprojects/wlroots/LICENSE LICENSE-wlroots
 
 
 %install
-%meson_install
-rm %{buildroot}%{_libdir}/libwlroots.a
-rm %{buildroot}%{_libdir}/pkgconfig/wlroots.pc
-mkdir -p %{buildroot}%{_includedir}/%{name}/wlroots/wlr
-mv %{buildroot}%{_includedir}/wlr %{buildroot}%{_includedir}/%{name}/wlroots
+%meson_install --skip-subprojects wlroots
 
 
 %files

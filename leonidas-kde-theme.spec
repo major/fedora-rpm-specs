@@ -9,8 +9,8 @@ License:	GPLv2+ and CC-BY-SA and CC-BY
 URL:		https://fedorahosted.org/fedora-kde-artwork/
 Source0:	https://fedorahosted.org/releases/f/e/fedora-kde-artwork/%{name}-%{version}.tar.bz2
 BuildArch:	noarch
-BuildRequires:	kde-filesystem
-Requires:	kde-filesystem
+BuildRequires:	kde4-filesystem
+Requires:	kde4-filesystem
 Requires:	system-logos
 Requires:	leonidas-backgrounds-common >= 11.0.0-1
 Requires:	leonidas-backgrounds-kdm >= 11.0.0-1

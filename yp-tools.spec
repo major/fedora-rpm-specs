@@ -1,15 +1,19 @@
 Summary: NIS (or YP) client programs
 Name: yp-tools
 Version: 4.2.3
-Release: 16%{?dist}
-License: GPLv2
+Release: 17%{?dist}
+License: GPL-2.0-only
+
+URL: https://www.thkukuk.de/nis/nis/yp-tools/
 Source: https://github.com/thkukuk/yp-tools/archive/v%{version}.tar.gz
+
 Patch1: yp-tools-2.12-hash.patch
 Patch2: yp-tools-2.12-crypt.patch
 Patch3: yp-tools-2.12-adjunct.patch
 Patch4: yp-tools-4.2.2-strict-prototypes.patch
 Patch5: yp-tools-4.2.3-yppasswd.patch
-Url: http://www.linux-nis.org/nis/yp-tools/index.html
+Patch6: yp-tools-4.2.3-yppasswd-exclamation_mark.patch
+
 BuildRequires: make
 BuildRequires: autoconf, automake, gettext-devel, libtool, libtirpc-devel, libnsl2-devel
 Requires: ypbind >= 3:2.4-2
@@ -46,13 +50,7 @@ Install yp-tools-devel package for developing applications that use yp-tools
 
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch1 -p1 -b .hash
-%patch2 -p1 -b .crypt
-%patch3 -p1 -b .adjunct
-%patch4 -p1 -b .strict-prototypes
-%patch5 -p1
-
+%autosetup -n %{name}-%{version} -p1
 
 autoreconf -i -f -v
 
@@ -60,6 +58,7 @@ autoreconf -i -f -v
 
 export CFLAGS="$CFLAGS %{optflags} -Wno-cast-function-type"
 
+# If needed the yppasswd can be deprecated by --enable-call-passwd
 %configure --disable-domainname
 
 %make_build
@@ -80,6 +79,10 @@ make DESTDIR="$RPM_BUILD_ROOT" INSTALL_PROGRAM=install install
 /var/yp/nicknames
 
 %changelog
+* Tue Jan 30 2024 Ondrej Sloup <osloup@redhat.com> - 4.2.3-17
+- Update license tag to the SPDX format (GPL-2.0-only)
+- Fix /etc/passwd flags for locked and deactivated account (rhbz#2093381)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

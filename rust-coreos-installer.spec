@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.20.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -88,8 +88,9 @@ Obsoletes:      coreos-installer-dracut < 0.0.1
 
 %files       -n %{crate}
 %license LICENSE
-%if !0%{?rhel}
 %license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
 %endif
 %doc README.md
 %{_bindir}/coreos-installer
@@ -146,9 +147,8 @@ from the initramfs in IoT/Edge and is supported by the community.
 %prep
 %autosetup -n %{crate}-%{version} -a 2 -p1
 %if 0%{?rhel}
-# Hackily enable rdcore manually on RHEL (RHEL macros do not take -f)
-sed -i '/^\[features\]/a \ \ default = ["rdcore"]' Cargo.toml
-%cargo_prep -V 1
+tar xf %{SOURCE1}
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
@@ -159,18 +159,14 @@ sed -i '/^\[features\]/a \ \ default = ["rdcore"]' Cargo.toml
 %endif
 
 %build
-%if 0%{?rhel}
-%cargo_build
-%else
 %cargo_build -f rdcore
 %{cargo_license_summary -f rdcore}
 %{cargo_license -f rdcore} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
 %endif
 
 %install
-%if 0%{?rhel}
-%make_install RELEASE=1
-%else
 %cargo_install -f rdcore
 # Install binaries, dracut modules, units, targets, generators for running via systemd
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/50rdcore dracut/50rdcore/module-setup.sh
@@ -179,21 +175,19 @@ make install-systemd DESTDIR=%{buildroot}
 make install-man DESTDIR=%{buildroot}
 make install-data DESTDIR=%{buildroot}
 mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
-%endif
 
 # 51coreos-installer for coreos-installer-dracut
 %make_install -C coreos-installer-dracut-%{dracutcommit}
 
 %if %{with check}
 %check
-%if 0%{?rhel}
-%cargo_test
-%else
 %cargo_test -f rdcore
-%endif
 %endif
 
 %changelog
+* Sun Feb 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20.0-4
+- Update Rust macro usage
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,9 +1,11 @@
 Summary: The NIS (Network Information Service) server
-Url: http://www.linux-nis.org/nis/ypserv/index.html
+
 Name: ypserv
 Version: 4.2
-Release: 9%{?dist}
-License: GPLv2
+Release: 10%{?dist}
+License: GPL-2.0-only
+URL: https://www.thkukuk.de/nis/nis/ypserv/
+
 Source0: https://github.com/thkukuk/%{name}/archive/v%{version}.tar.gz
 Source1: ypserv.service
 Source2: yppasswdd.service
@@ -61,21 +63,7 @@ need to install the yp-tools and ypbind packages on any NIS client
 machines.
 
 %prep
-
-%setup -q
-
-%patch0 -p1 -b .redhat
-%patch2 -p1 -b .nfsnobody
-%patch3 -p1 -b .respzero
-%patch4 -p1 -b .nonedomain
-%patch5 -p1 -b .slp-warning
-%patch6 -p1 -b .manfix
-%patch7 -p1 -b .aliases
-%patch8 -p1 -b .confpost
-%patch10 -p1 -b .netgrprecur
-%patch12  -b .headers
-%patch14 -p1 -b .selinux-context
-%patch15 -p1 -b .implicit-int
+%autosetup -n %{name}-%{version} -p1
 
 # Delete generated man pages. They will be generated later from source.
 rm makedbm/makedbm.8
@@ -94,7 +82,7 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 %endif
 
 # Fix gcc12 issues (#2047138)
-export CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=2 -Wno-format-overflow"
+export CFLAGS="$CFLAGS -Wno-format-overflow"
 
 %configure \
     --enable-checkroot \
@@ -177,6 +165,10 @@ install -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/rpc.yppasswdd.env
 %{_includedir}/rpcsvc
 
 %changelog
+* Tue Jan 30 2024 Ondrej Sloup <osloup@redhat.com> - 4.2-10
+- Don't hard code _FORTIFY_SOURCE=2
+- Update license tag to the SPDX format (GPL-2.0-only)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

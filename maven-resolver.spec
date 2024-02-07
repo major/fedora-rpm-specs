@@ -2,8 +2,8 @@
 
 Name:           maven-resolver
 Epoch:          1
-Version:        1.9.15
-Release:        5%{?dist}
+Version:        1.9.18
+Release:        1%{?dist}
 License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -32,6 +32,7 @@ BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-resolver-provider)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
@@ -119,6 +120,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.18-1
+- Update to upstream version 1.9.18
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

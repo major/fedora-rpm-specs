@@ -1,14 +1,13 @@
 Name:		globus-gsi-cert-utils
 %global _name %(tr - _ <<< %{name})
-Version:	10.10
-Release:	7%{?dist}
+Version:	10.11
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Cert Utils Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Replace-make_time-fcie-to-work-after-2050.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -75,7 +74,6 @@ Globus GSI Cert Utils Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P 0 -p4
 
 %build
 # Reduce overlinking
@@ -141,6 +139,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.11-1
+- New GCT release v6.2.20240202
+- Drop patches included in the release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

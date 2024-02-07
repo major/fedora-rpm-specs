@@ -1,7 +1,7 @@
 Summary:	Perl binding of Sendmail Milter protocol
 Name:		perl-Sendmail-PMilter
-Version:	1.24
-Release:	5%{?dist}
+Version:	1.27
+Release:	1%{?dist}
 License:	BSD-3-Clause
 URL:		https://metacpan.org/release/Sendmail-PMilter
 Source0:	https://cpan.metacpan.org/authors/id/G/GW/GWHAYWOOD/Sendmail-PMilter-%{version}.tar.gz
@@ -88,6 +88,12 @@ make test
 %{_mandir}/man3/Sendmail::PMilter::Context.3*
 
 %changelog
+* Mon Feb  5 2024 Paul Howarth <paul@city-fan.org> - 1.27-1
+- Update to 1.27
+  - Proper handling of die (CPAN RT#150737)
+  - Fix child_exit and add milter_exit (CPAN RT#150611)
+  - Setconn with unix socket permissions (CPAN RT#150270)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

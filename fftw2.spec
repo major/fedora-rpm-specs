@@ -1,120 +1,129 @@
 Name:           fftw2
 Version:        2.1.5
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Fast Fourier Transform library (version 2)
-%define         real_name fftw
-
 License:        GPLv2+
-URL:            http://www.fftw.org/
-Source0:        ftp://ftp.fftw.org/pub/fftw/fftw-%{version}.tar.gz
-Patch0: fftw2-configure.patch
-
-BuildRequires: make
+URL:            https://www.fftw.org
+Source0:        https://www.fftw.org/fftw-%{version}.tar.gz
+Patch1:         fftw2-configure.patch
+Patch2:         fftw2-texi.patch
 BuildRequires:  gcc-gfortran
-
+BuildRequires:  make
 %description
-FFTW is a C subroutine library for computing the Discrete Fourier Transform
-(DFT) in one or more dimensions, of both real and complex data, and of
-arbitrary input size. We believe that FFTW, which is free software, should
-become the FFT library of choice for most applications. Our benchmarks,
-performed on on a variety of platforms, show that FFTW's performance is
-typically superior to that of other publicly available FFT software.
-
+FFTW is a C subroutine library for computing the Discrete Fourier
+Transform (DFT) in one or more dimensions, of both real and complex
+data, and of arbitrary input size. We believe that FFTW, which is free
+software, should become the FFT library of choice for most
+applications. Our benchmarks, performed on on a variety of platforms,
+show that FFTW's performance is typically superior to that of other
+publicly available FFT software.
 
 %package        devel
 Summary:        Headers, libraries and docs for the FFTW library (version 2)
 Requires:       %{name} = %{version}-%{release}
 
 %description    devel
-FFTW is a C subroutine library for computing the Discrete Fourier Transform
-(DFT) in one or more dimensions, of both real and complex data, and of
-arbitrary input size. We believe that FFTW, which is free software, should
-become the FFT library of choice for most applications. Our benchmarks,
-performed on on a variety of platforms, show that FFTW's performance is
-typically superior to that of other publicly available FFT software.
-
 This package contains header files and development libraries needed to
-develop programs using the FFTW fast Fourier transform library version 2.
-
+develop programs using the FFTW fast Fourier transform library version
+2.
 
 %package        static
 Summary:        Static version of the FFTW library (version 2)
 Requires:       %{name} = %{version}-%{release}
 
 %description    static
-This package contains the static linked libraries of the FFTW fast Fourier
-transform library (version 2).
+This package contains the static linked libraries of the FFTW fast
+Fourier transform library (version 2).
 
 %prep
-%setup -q -c %{real_name}-%{version}
-pushd %{real_name}-%{version}
-%patch0 -p1
-popd
-
-mv %{real_name}-%{version} single
-cp -a single double
-
+%autosetup -N -c -n fftw-%{version}
+%autopatch -p0
+mv fftw-%{version} double
+cp -a double single
 
 %build
 pushd double
-	%ifarch i386
-		%configure \
-			--enable-shared \
-			--enable-threads \
-			--enable-i386-hacks
-	%else
-		%configure \
-			--enable-shared \
-			--enable-threads
-	%endif
-	make %{?_smp_mflags}
-popd
-pushd single
-	%configure \
-		--enable-shared \
-		--enable-type-prefix \
-		--enable-threads \
-		--enable-float
-	make %{?_smp_mflags}
+%configure \
+    --enable-shared \
+%ifarch i386
+    --enable-i386-hacks \
+%endif
+    --enable-threads
+%make_build
 popd
 
+pushd single
+%configure \
+    --enable-shared \
+    --enable-type-prefix \
+    --enable-threads \
+    --enable-float
+%make_build
+popd
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
 pushd double
-	make install DESTDIR=${RPM_BUILD_ROOT}
-	cp -a AUTHORS COPYING COPYRIGHT ChangeLog NEWS README* TODO ../
-	cp -a FAQ/fftw-faq.html/ doc/ ../
+%make_install
 popd
+
 pushd single
-	make install DESTDIR=${RPM_BUILD_ROOT}
+%make_install
+
+find %{buildroot} -type f -name "*.la" -delete
+rm %{buildroot}%{_infodir}/dir
+cp -a doc COPYING AUTHORS COPYRIGHT ChangeLog NEWS README* TODO ..
 popd
-rm -f doc/Makefile*
-find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
-rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
-
-
-
-%ldconfig_scriptlets
-
+rm doc/{Makefile*,mdate-sh,stamp-vti,texi2html,texinfo.tex,*.texi,fftw.info*}
 
 %files
 %license COPYING
 %doc AUTHORS COPYRIGHT ChangeLog NEWS README* TODO
-%{_libdir}/*.so.*
+%{_libdir}/libfftw.so.2*
+%{_libdir}/libfftw_threads.so.2*
+%{_libdir}/librfftw.so.2*
+%{_libdir}/librfftw_threads.so.2*
+%{_libdir}/libsfftw.so.2*
+%{_libdir}/libsfftw_threads.so.2*
+%{_libdir}/libsrfftw.so.2*
+%{_libdir}/libsrfftw_threads.so.2*
 
 %files devel
 %license COPYING
-%doc  doc/
-%{_includedir}/*
-%{_libdir}/*.so
-%{_infodir}/*
+%doc doc/
+%{_includedir}/fftw.h
+%{_includedir}/fftw_threads.h
+%{_includedir}/rfftw.h
+%{_includedir}/rfftw_threads.h
+%{_includedir}/sfftw.h
+%{_includedir}/sfftw_threads.h
+%{_includedir}/srfftw.h
+%{_includedir}/srfftw_threads.h
+%{_libdir}/libfftw.so
+%{_libdir}/libfftw_threads.so
+%{_libdir}/librfftw.so
+%{_libdir}/librfftw_threads.so
+%{_libdir}/libsfftw.so
+%{_libdir}/libsfftw_threads.so
+%{_libdir}/libsrfftw.so
+%{_libdir}/libsrfftw_threads.so
+%{_infodir}/fftw.info*
 
 %files static
 %license COPYING
-%{_libdir}/*.a
+%{_libdir}/libfftw.a
+%{_libdir}/libfftw_threads.a
+%{_libdir}/librfftw.a
+%{_libdir}/librfftw_threads.a
+%{_libdir}/libsfftw.a
+%{_libdir}/libsfftw_threads.a
+%{_libdir}/libsrfftw.a
+%{_libdir}/libsrfftw_threads.a
 
 %changelog
+* Mon Feb  5 2024 Terje Rosten <terje.rosten@ntnu.no> - 2.1.5-49
+- Use modern macros and explicit file listing
+- Add patch to fix info build
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

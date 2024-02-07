@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 1.7.1-8
+- Rebuild for opencv 4.9.0
+
 * Thu Feb 1 2024 Diego Herrera <dherrera@redhat.com> 1.7.1-7
 - Fix for kissfft-v131.1.0
 - Fix for tinyexr-v1.0.7

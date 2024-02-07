@@ -1,7 +1,7 @@
 %global pypi_name launchpadlib
 Name:           python-%{pypi_name}
 Version:        1.11.0
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Script Launchpad through its web services interfaces
 
 License:        LGPL-3.0-only
@@ -52,87 +52,4 @@ BuildRequires:  python3dist(wadllib)
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Ondřej Pohořelský <opohorel@redhat.com> - 1.11.0-1
-- Update to 1.11.0
-- Resolves: rhbz#2220302
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.10.18-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Nov 08 2022 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.18-1
-- Update to 1.10.18
-- Resolves: rhbz#2138506
-
-* Mon Oct 17 2022 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.17-1
-- Update to 1.10.17
-- Resolves: rhbz#2135033
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.16-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 1.10.16-2
-- Rebuilt for Python 3.11
-
-* Wed Feb 09 2022 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.16-1
-- Update to 1.10.16
-- Resolves: rhbz#2043604
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.15.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.15.1-1
-- Update to 1.10.15.1
-- Resolves: rhbz#2017831
-
-* Tue Sep 14 2021 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.14-1
-- Update to 1.10.14
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.13-6
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.10.13-5
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.10.13-2
-- Rebuilt for Python 3.9
-
-* Mon Apr 20 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.13-1
-- Update to 1.10.13
-
-* Fri Apr 17 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.12-1
-- Update to 1.10.12
-
-* Thu Apr 16 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.11-1
-- Update to 1.10.11
-- Fix URL in spec file
-
-* Tue Feb 4 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.10-1
-- Update to 1.10.10
-
-* Mon Feb 3 2020 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.9-1
-- Update to 1.10.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Sep 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.10.7-1
-- Initial package
+%autochangelog

@@ -7,7 +7,7 @@ Version:        1.7.1
 Release:        %autorelease
 Summary:        Command-line JSON processor
 
-License:        MIT and ASL 2.0 and CC-BY and GPLv3
+License:        MIT AND ICU AND CC-BY-3.0
 URL:            https://jqlang.github.io/jq/
 Source0:        https://github.com/jqlang/jq/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 

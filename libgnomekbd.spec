@@ -3,7 +3,7 @@ Version:        3.28.1
 Release:        5%{?dist}
 Summary:        A keyboard configuration library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://gswitchit.sourceforge.net
 Source0:        https://download.gnome.org/sources/libgnomekbd/3.28/libgnomekbd-%{version}.tar.xz
 

@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.4.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -47,7 +47,12 @@ BuildRequires:  tpm2-tss-devel
 %patch -P4 -p1
 
 %if 0%{?rhel}
+%if 0%{?rhel} >= 10
+tar xf %{SOURCE1}
+%cargo_prep -v vendor
+%else
 %cargo_prep -V 1
+%endif
 # patch vendored dependencies
 %patch -P100 -p1
 %else
@@ -62,6 +67,9 @@ BuildRequires:  tpm2-tss-devel
 
 %{?cargo_license_summary}
 %{?cargo_license} > LICENSE.dependencies
+%if 0%{?rhel} >= 10
+%cargo_vendor_manifest
+%endif
 
 %install
 install -D -m 0755 -t %{buildroot}%{_libexecdir}/fdo target/release/fdo-client-linuxapp
@@ -108,6 +116,9 @@ Requires: dracut
 
 %files -n fdo-init
 %license LICENSE LICENSE.dependencies
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %{dracutlibdir}/modules.d/52fdo/
 %{_libexecdir}/fdo/fdo-manufacturing-client
 
@@ -120,6 +131,9 @@ Requires: openssl-libs >= 3.0.1-12
 
 %files -n fdo-owner-onboarding-server
 %license LICENSE LICENSE.dependencies
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %dir %{_sysconfdir}/fdo
 %dir %{_sysconfdir}/fdo/keys
 %dir %{_sysconfdir}/fdo/owner-onboarding-server.conf.d
@@ -157,6 +171,9 @@ License: %combined_license
 
 %files -n fdo-rendezvous-server
 %license LICENSE LICENSE.dependencies
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %dir %{_sysconfdir}/fdo
 %dir %{_sysconfdir}/fdo/keys
 %dir %{_sysconfdir}/fdo/rendezvous-server.conf.d
@@ -187,6 +204,9 @@ Requires: openssl-libs >= 3.0.1-12
 
 %files -n fdo-manufacturing-server
 %license LICENSE LICENSE.dependencies
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %dir %{_sysconfdir}/fdo
 %dir %{_sysconfdir}/fdo/keys
 %dir %{_sysconfdir}/fdo/manufacturing-server.conf.d
@@ -221,6 +241,9 @@ Requires: cryptsetup
 %{summary}
 
 %files -n fdo-client
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %license LICENSE LICENSE.dependencies
 %{_libexecdir}/fdo/fdo-client-linuxapp
 %{_unitdir}/fdo-client-linuxapp.service
@@ -241,6 +264,9 @@ License: %combined_license
 %{summary}
 
 %files -n fdo-owner-cli
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %license LICENSE LICENSE.dependencies
 %{_bindir}/fdo-owner-tool
 %{_libexecdir}/fdo/fdo-owner-tool
@@ -258,6 +284,9 @@ Requires: fdo-init = %{version}-%{release}
 %{summary}
 
 %files -n fdo-admin-cli
+%if 0%{?rhel} >= 10
+%license cargo-vendor.txt
+%endif
 %license LICENSE LICENSE.dependencies
 %dir %{_sysconfdir}/fdo
 %dir %{_sysconfdir}/fdo/keys
@@ -275,6 +304,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Sun Feb 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.12-9
+- Update Rust macro usage
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

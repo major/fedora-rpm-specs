@@ -49,7 +49,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -96,6 +96,8 @@ Patch9: postgresql-server-pg_config.patch
 # rhbz#1940964
 Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
+Patch13: postgresql-libxml2.patch
+Patch14: postgresql14-libxml2.patch
 
 %if %?postgresql_default
 %global pkgname %{majorname}
@@ -538,6 +540,7 @@ goal of accelerating analytics queries.
 %endif
 %patch 9 -p1
 %patch 10 -p1
+%patch 13 -p1
 
 
 %if ! %external_libpq
@@ -547,6 +550,7 @@ find . -type f -name Makefile -exec sed -i -e "s/SO_MAJOR_VERSION=\s\?\([0-9]\+\
 
 %if %upgrade
 tar xfj %{SOURCE3}
+%patch 14 -p1
 
 # libpq from this upgrade-only build is dropped and the libpq from the main
 # version is used. Use the same major hack therefore.
@@ -1354,6 +1358,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Feb 05 2024 Honza Horak <hhorak@redhat.com> - 15.5-4
+- Fix FTBFS with libxml2
+  Resolves: #2259169
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 15.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

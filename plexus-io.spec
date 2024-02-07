@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-io
-Version:        3.4.1
-Release:        4%{?dist}
+Version:        3.4.2
+Release:        1%{?dist}
 Summary:        Plexus IO Components
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-io
@@ -17,13 +17,17 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
+BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
-BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(javax.inject:javax.inject)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-testing)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -40,10 +44,8 @@ API documentation for %{name}.
 %setup -q -n plexus-io-plexus-io-%{version}
 cp %{SOURCE1} .
 
-%pom_remove_plugin :animal-sniffer-maven-plugin
-
 # Test fails in mock
-sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io/attributes/SymlinkUtilsTest.java
+sed -i /class/i@org.junit.jupiter.api.Disabled src/test/java/org/codehaus/plexus/components/io/attributes/SymlinkUtilsTest.java
 
 %mvn_file : plexus/io
 
@@ -60,6 +62,9 @@ sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.4.2-1
+- Update to upstream version 3.4.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

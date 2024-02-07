@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.2.0
+%global musescore_ver             4.2.1
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 
 # Font versions.  Use otfinfo -v to extract these values.
@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -216,6 +216,28 @@ Patch4:         %{name}-ffmpeg.patch
 # - Remove an invalid <icon> tag
 # - Remove duplicated <release> data
 Patch5:         %{name}-appdata.patch
+# Avoid calling localtime in multithreaded code
+# https://github.com/musescore/MuseScore/pull/21178
+Patch6:         %{name}-localtime.patch
+# Workaround to avoid an out-of-bounds vector access that cause crashes.
+# This patch treats the symptom, not the actual disease.  We need to find
+# and fix the underlying cause.
+Patch7:         %{name}-vector.patch
+# Fix a build failure due to a missing include
+Patch8:         %{name}-qvariantmap.patch
+# Fix a build failure due to a missing include
+Patch9:         %{name}-qeventloop.patch
+# Fix a build failure due to a missing include
+Patch10:        %{name}-qpainter.patch
+# Fix a build failure due to a missing include
+Patch11:        %{name}-qxmlstreamreader.patch
+# Fix a build failure due to a missing include
+Patch12:        %{name}-qvariantlist.patch
+# Fix a build failure due to a missing include
+Patch13:        %{name}-qtcore.patch
+# Fix an abort when ALSA is shutdown but was never initialized
+# https://github.com/musescore/MuseScore/pull/21376
+Patch14:        %{name}-alsa-shutdown.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -262,7 +284,6 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gmock)
-BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavfilter)
@@ -325,6 +346,7 @@ Provides:       bundled(KDDockWidgets) = 1.5.0
 Provides:       bundled(deto_async)
 Provides:       bundled(haw_logger)
 Provides:       bundled(haw_profiler)
+Provides:       bundled(kors_logger) = 1.3
 Provides:       bundled(picojson) = 1.3.0
 
 # This can be removed when F42 reaches EOL
@@ -411,9 +433,9 @@ cd ..
     -DCMAKE_CXX_FLAGS_RELEASE:STRING='%{build_cxxflags} -fPIC -DNDEBUG -DQT_NO_DEBUG' \
     -DMUE_BUILD_CRASHPAD_CLIENT:BOOL=OFF \
     -DMUE_BUILD_VIDEOEXPORT_MODULE:BOOL=ON \
+    -DMUE_COMPILE_USE_PCH:BOOL=OFF \
     -DMUE_COMPILE_USE_SYSTEM_FREETYPE:BOOL=ON \
     -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF \
-    -DMUE_ENABLE_AUDIO_JACK:BOOL=ON \
     -DMUE_ENABLE_LOGGER_DEBUGLEVEL:BOOL=OFF \
     -DMUE_ENABLE_STRING_DEBUG_HACK:BOOL=OFF
 PREFIX=%{_prefix} %cmake_build --target lrelease
@@ -546,6 +568,12 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Mon Feb  5 2024 Jerry James <loganjerry@gmail.com> - 4.2.1-8
+- Version 4.2.1
+- Add patch to avoid races in localtime()
+- Add patch to avoid out-of-bounds vector accesses
+- Disable jack support; it interferes with pulseaudio support
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

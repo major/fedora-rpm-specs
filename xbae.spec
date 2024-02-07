@@ -1,6 +1,6 @@
 Name:           xbae
 Version:        4.60.4
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Motif matrix, caption and text input widgets
 # all the files are covered by the MIT license, except DebugUtil.c LGPLv2+
 License:        LGPL-2.0-or-later
@@ -10,7 +10,8 @@ Source0:        http://downloads.sourceforge.net/xbae/xbae-%{version}.tar.gz
 # now that Wcl isn't buildrequired, but it is still better.
 Patch0:         xbae-link_Mri_with_lXmp.diff
 Patch1:         xbae-4.60.4-multilib.patch
-Patch2: xbae-configure-c99.patch
+Patch2:         xbae-configure-c99.patch
+Patch3:         pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -72,9 +73,10 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1 -b .multilib
-%patch2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1 -b .multilib
+%patch -P 2 -p1
+%patch -P 3 -p0
 
 for file in COPYING ChangeLog NEWS; do
  iconv -f latin1 -t utf8 < $file > $file.utf8
@@ -163,6 +165,9 @@ mv __dist_examples __dist_code_examples/code_examples
 
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.60.4-41
+- Patch for stricter flags
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.60.4-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

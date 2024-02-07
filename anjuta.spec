@@ -10,7 +10,7 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
 License:        GPL-2.0-or-later
@@ -19,6 +19,7 @@ Source0:        http://download.gnome.org/sources/anjuta/3.34/%{name}-%{version}
 Patch0:         cpp-java.patch
 Patch1:         webkit-4.1.patch
 Patch2:         autoconf-2.72.patch
+Patch3:         pointer-types.patch
 
 BuildRequires:  autogen
 BuildRequires:  chrpath
@@ -88,9 +89,10 @@ This package contains library files for %{name}.
 %prep
 %setup -q
 
-%patch0 -p0 -b .cpp-java
-%patch1 -p1 -b .webkit
-%patch2 -p1 -b .autoconf
+%patch -P 0 -p0 -b .cpp-java
+%patch -P 1 -p1 -b .webkit
+%patch -P 2 -p1 -b .autoconf
+%patch -P 3 -p0 -b .pointer
 
 %build
 %if 0%{?with_python3}
@@ -187,6 +189,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-23
+- Patch for modern C.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.34.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

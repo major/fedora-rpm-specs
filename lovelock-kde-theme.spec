@@ -11,8 +11,8 @@ License:	GPLv2+ and CC-BY-SA
 URL:		https://fedorahosted.org/fedora-kde-artwork/
 Source0:	https://fedorahosted.org/releases/f/e/fedora-kde-artwork/%{name}-%{version}.tar.bz2
 BuildArch:	noarch
-BuildRequires:	kde-filesystem
-Requires:	kde-filesystem
+BuildRequires:	kde4-filesystem
+Requires:	kde4-filesystem
 Requires:	system-logos
 Requires:	lovelock-backgrounds-kde >= %{backgrounds_kde_version}
 

@@ -2,14 +2,14 @@
 
 %global underscore_version %(echo %{version} | sed 's/\\./_/g')
 %global dash_version %(echo %{version} | sed 's/\\./-/g')
-%global lib_version 73
+%global lib_version 74
 
 Name:           mingw-icu
-Version:        73.2
-Release:        4%{?dist}
+Version:        74.2
+Release:        1%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
-License:        MIT and UCD and Public Domain
+License:        Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://icu-project.org
 Source0:        https://github.com/unicode-org/icu/releases/download/release-%{dash_version}/icu4c-%{underscore_version}-src.tgz
 
@@ -198,6 +198,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Mon Feb 05 2024 Sandro Mani <manisandro@gmail.com> - 74.2-1
+- Update to 74.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 73.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-resources
-Version:        1.2.0
-Release:        7%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Plexus Resource Manager
 License:        Apache-2.0 AND MIT
 URL:            https://github.com/codehaus-plexus/plexus-resources
@@ -16,8 +16,9 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(javax.inject:javax.inject)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
@@ -51,6 +52,9 @@ API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.0-1
+- Update to upstream version 1.3.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

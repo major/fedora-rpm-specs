@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           plexus-containers
-Version:        2.1.1
-Release:        9%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Containers for Plexus
 # Most of the files are either under Apache-2.0 or MIT
 # The following files are under xpp:
@@ -21,21 +21,19 @@ Source2:        LICENSE.MIT
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.thoughtworks.qdox:qdox)
-BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
-BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  mvn(org.apache.xbean:xbean-reflect)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
-BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-testing)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 BuildRequires:  mvn(org.jdom:jdom2)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
 
 %description
@@ -58,50 +56,20 @@ Summary:        Component API from %{name}
 %description component-annotations
 %{summary}.
 
-%package container-default
-Summary:        Default Container from %{name}
-
-%description container-default
-%{summary}.
-
 %{?javadoc_package}
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-
 cp %{SOURCE1} .
 cp %{SOURCE2} .
 
 %pom_remove_plugin -r :maven-site-plugin
 
-# Generate OSGI info
-%pom_xpath_inject "pom:project" "
-    <packaging>bundle</packaging>
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-bundle-plugin</artifactId>
-          <extensions>true</extensions>
-          <configuration>
-            <instructions>
-              <_nouses>true</_nouses>
-              <Export-Package>org.codehaus.plexus.component.annotations.*</Export-Package>
-            </instructions>
-          </configuration>
-        </plugin>
-      </plugins>
-    </build>" plexus-component-annotations
-
-# plexus-component-api has been merged into plexus-container-default
-%mvn_alias ":plexus-container-default" "org.codehaus.plexus:containers-component-api"
-
-# keep compat symlink for maven's sake
-%mvn_file ":plexus-component-annotations" %{name}/plexus-component-annotations plexus/containers-component-annotations
-
 # remove some broken tests
 rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/merge/ComponentsXmlMergerTest.java
 rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultComponentDescriptorWriterTest.java
+
+%mvn_package :plexus-containers __noinstall
 
 %build
 %mvn_build -s
@@ -109,20 +77,17 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %install
 %mvn_install
 
-# plexus-containers pom goes into main package
-%files -f .mfiles-plexus-containers
-%license LICENSE-2.0.txt LICENSE.MIT
-
 %files component-annotations -f .mfiles-plexus-component-annotations
-%license LICENSE-2.0.txt LICENSE.MIT
-
-%files container-default -f .mfiles-plexus-container-default
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %files component-metadata -f .mfiles-plexus-component-metadata
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog
+* Sat Feb 03 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.2.0-1
+- Update to upstream version 2.2.0
+- Drop obsolete plexus-containers-container-default
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

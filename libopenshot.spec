@@ -5,7 +5,7 @@
 
 Name:           libopenshot
 Version:        0.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -110,6 +110,9 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 0.3.2-5
+- Rebuild for opencv 4.9.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 - BR: python3-setuptools to fix ModuleNotFoundError: No module named 'distutils'

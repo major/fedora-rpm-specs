@@ -297,11 +297,6 @@ Provides: %{pkg_name}%{?1:-%{1}}-any\
 Conflicts: %{pkg_name}%{?1:-%{1}}-any\
 }
 
-%define pkg_provides() %{expand:\
-Provides: %{pkgname}%{?1:-%{1}} = %{sameevr}\
-Provides: %{pkgname}%{?1:-%{1}}%{?_isa} = %{sameevr}\
-}
-
 # Provide also mariadbXX.XX if default
 %if %?mariadb_default
 %define mariadbXX_if_default() %{expand:\
@@ -314,7 +309,6 @@ Provides: mariadb%{pkg_version}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 %define add_metadata() %{expand:\
 %conflict_with_other_streams %{**}\
-%pkg_provides %{**}\
 %mariadbXX_if_default %{**}\
 }
 
@@ -381,7 +375,9 @@ Summary:          The shared files required by server and client
 BuildArch:        noarch
 Requires:         %{_sysconfdir}/my.cnf
 
-%add_metadata common
+# Only conflicts, provides would add %%{_isa} provides for noarch,
+# which is not wanted
+%conflict_with_other_streams common
 
 %if %{without clibrary}
 Obsoletes: %{pkgname}-libs <= %{sameevr}
@@ -399,7 +395,9 @@ Summary:          The error messages files required by server and embedded
 BuildArch:        noarch
 Requires:         %{pkgname}-common = %{sameevr}
 
-%add_metadata errmsg
+# Only conflicts, provides would add %%{_isa} provides for noarch,
+# which is not wanted
+%conflict_with_other_streams errmsg
 
 %description      -n %{pkgname}-errmsg
 The package provides error messages files for the MariaDB daemon and the

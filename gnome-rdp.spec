@@ -15,6 +15,8 @@ Source1:	COPYING-GNOME-RDP
 
 # Mono only available on these:
 ExclusiveArch: %{mono_arches}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
 
 BuildRequires:	gcc
 BuildRequires:  glib2-devel >= 2.15.3

@@ -11,7 +11,7 @@ BuildArch:      noarch
 
 # for %%_kde4_* macros
 BuildRequires: make
-BuildRequires:  kde-filesystem
+BuildRequires:  kde4-filesystem
 Requires:       %{name}-gnome = %{version}-%{release}
 Requires:       %{name}-kde = %{version}-%{release}
 Requires:       %{name}-xfce = %{version}-%{release}

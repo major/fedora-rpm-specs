@@ -2,11 +2,11 @@
 %bcond_without perl_DateTime_TimeZone_enables_optional_test
 
 # Regenerate Perl library code from upstream Olson database of this date
-%global tzversion 2023d
+%global tzversion 2024a
 
 Name:           perl-DateTime-TimeZone
-Version:        2.61
-Release:        3%{?dist}
+Version:        2.62
+Release:        1%{?dist}
 Summary:        Time zone object base class and factory
 # tzdata%%{tzversion}.tar.gz archive:   LicenseRef-Fedora-Public-Domain
 # other files:                          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -180,6 +180,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.62-1
+- 2.62 bump (2024a Olson database) - rhbz#2262363
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.61-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

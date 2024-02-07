@@ -8,12 +8,14 @@
 
 Name:		riemann-c-client
 Version:	1.10.5
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	The riemann C client
 License:	GPLv2
 Url:		https://github.com/algernon/riemann-c-client
 Source0:	%{url}/archive/refs/tags/%{name}-%{version}.tar.gz
 Patch0000:	riemann-c-client-1.10.5-gcc10_symver.patch
+Patch0001:      fix-gnutls-send-recv-when-return-eagain
+Patch0002:      fix-gnutls-send-recv-when-return-less-than-expected
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	libtool
@@ -41,6 +43,8 @@ This package provides files necessary for riemann-c-client development.
 %prep
 %setup -qn %{name}-%{name}-%{version}
 %patch0 -p1 -b.gcc10_symver
+%patch1 -p1
+%patch2 -p1
 autoreconf -fiv
 
 %build
@@ -66,6 +70,9 @@ rm %{buildroot}%{_libdir}/libriemann-client.la
 %{_libdir}/pkgconfig/riemann-client.pc
 
 %changelog
+* Mon Feb 05 2024 Peter Czanik <peter@czanik.hu> - 1.10.5-9
+- add patches to fix gnutls error handling
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

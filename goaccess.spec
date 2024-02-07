@@ -7,8 +7,8 @@
 %endif
 
 Name:           goaccess
-Version:        1.8.1
-Release:        3%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
 URL:            https://goaccess.io/
@@ -16,11 +16,7 @@ Source0:        https://tar.goaccess.io/%{name}-%{version}.tar.gz
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
-%if 0%{?fedora} > 36
 BuildRequires:  libmaxminddb-devel
-%else
-BuildRequires:  GeoIP-devel
-%endif
 BuildRequires:  ncurses-devel
 BuildRequires:  gettext-devel
 %if %{with openssl}
@@ -78,11 +74,7 @@ sed -i '/-pthread/d' configure.ac
 # %%configure --enable-debug --enable-geoip --enable-utf8 --enable-tcb=btree --with-getline
 %configure \
     --enable-debug \
-%if 0%{?fedora} > 36
     --enable-geoip=mmdb \
-%else     
-    --enable-geoip=legacy \
-%endif
     --enable-utf8 \
     --with-getline \
     %{?with_openssl: --with-openssl}
@@ -101,6 +93,9 @@ sed -i '/-pthread/d' configure.ac
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Feb 01 2024 Jonathan Wright <jonathan@almalinux.org> - 1.9.0-1
+- Update to 1.9.0 rhbz#2262022
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

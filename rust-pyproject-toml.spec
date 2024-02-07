@@ -12,6 +12,11 @@ Summary:        Pyproject.toml parser in Rust
 License:        MIT
 URL:            https://crates.io/crates/pyproject-toml
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * revert breaking upstream change (pep440_rs v0.3 -> v0.4 update):
+#   https://github.com/PyO3/pyproject-toml-rs/commit/9e888f4
+#   https://github.com/PyO3/pyproject-toml-rs/issues/17
+Patch:          pyproject-toml-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.1.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause
@@ -13,6 +13,12 @@ Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{
 Patch0:         openexr-cstdint.patch
 # https://github.com/AcademySoftwareFoundation/openexr/pull/1507
 Patch1:         march-x86-64-v3.patch
+# Fix incompatible pointer types with GCC 14 on i686
+Patch2:         gcc14.patch
+# Fix CVE 2023 5841
+# https://github.com/AcademySoftwareFoundation/openexr/pull/1627
+# Backported to 3.1.10
+Patch3:         openexr-3.1.10-CVE-2023-5841.patch
 
 BuildRequires:  cmake gcc gcc-c++
 BuildRequires:  boost-devel
@@ -151,6 +157,9 @@ EXCLUDE_REGEX='ReadDeep|DWA[AB]Compression|testCompression|Rgba|SampleImages|Sha
 
 
 %changelog
+* Mon Feb 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.10-5
+- Backport proposed fix for CVE-2023-5841 to 3.1.10 (fix RHBZ#2262406)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

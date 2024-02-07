@@ -4,7 +4,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bootloader updater
 
 License:        Apache-2.0
@@ -43,10 +43,8 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 
 %files -n %{crate}
 %license LICENSE
-%if !0%{?rhel}
 %license LICENSE.dependencies
 %license cargo-vendor.txt
-%endif
 %doc README.md
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
@@ -54,20 +52,14 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %{_prefix}/lib/bootupd/grub2-static/
 
 %prep
-%autosetup -n %{crate}-%{version} -p1 %{!?rhel:-a1}
-%if 0%{?rhel}
-%cargo_prep -V 1
-%else
+%autosetup -n %{crate}-%{version} -p1 -a1
 %cargo_prep -v vendor
-%endif
 
 %build
 %cargo_build
-%if !0%{?rhel}
 %cargo_vendor_manifest
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
-%endif
 
 %install
 %make_install INSTALL="install -p -c"
@@ -83,6 +75,9 @@ License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (Apache-2.0 OR BSL-1.0) 
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Thu Feb 01 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2.17-4
+- Update Rust macro usage
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

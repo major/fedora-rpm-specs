@@ -2,8 +2,8 @@ Name:           CSFML
 Summary:        C Interface for the Simple and Fast Multimedia Library
 License:        Zlib
 
-Version:        2.5.2
-Release:        6%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 
 URL:            https://www.sfml-dev.org/download/csfml/
 Source0:        https://github.com/SFML/CSFML/archive/%{version}/CSFML-%{version}.tar.gz
@@ -48,6 +48,11 @@ This package contains developer documentation (in HTML format) for %{name}.
 %install
 %cmake_install
 
+# Fix pkgconfig stuff being installed under wrong path
+mv \
+	%{buildroot}%{_prefix}/pkgconfig \
+	%{buildroot}%{_libdir}/pkgconfig
+
 # Fix documentation being installed in wrong directory
 install -m 755 -d %{buildroot}%{_datadir}/doc
 mv \
@@ -70,6 +75,7 @@ rm %{buildroot}%{_datadir}/%{name}/readme.md
 %files devel
 %{_includedir}/SFML/
 %{_libdir}/libcsfml-*.so
+%{_libdir}/pkgconfig/csfml*.pc
 
 %files doc
 %license license.md
@@ -77,6 +83,9 @@ rm %{buildroot}%{_datadir}/%{name}/readme.md
 
 
 %changelog
+* Mon Feb 05 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.6.0-1
+- Update to v2.6.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

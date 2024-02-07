@@ -1,19 +1,21 @@
 Name:           perl-Mail-SPF
-Version:        2.9.0
-Release:        34%{?dist}
+Version:        3.20240205
+Release:        1%{?dist}
 Summary:        Object-oriented implementation of Sender Policy Framework
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Mail-SPF
-Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMEHNLE/mail-spf/Mail-SPF-v%{version}.tar.gz
-Patch0:         Mail-SPF-v2.8.0-POD.patch
-Patch1:         Mail-SPF-v2.8.0-testsuite.patch
+Source0:        https://cpan.metacpan.org/modules/by-module/Mail/Mail-SPF-%{version}.tar.gz
+Patch0:         Mail-SPF-v2.8.0-testsuite.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(version)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
@@ -22,19 +24,14 @@ BuildRequires:  perl(Net::DNS) >= 0.62
 BuildRequires:  perl(Net::DNS::Resolver)
 BuildRequires:  perl(NetAddr::IP) >= 4
 BuildRequires:  perl(overload)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Sys::Hostname)
-BuildRequires:  perl(URI) >= 1.13
-BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(URI::Escape) >= 1.13
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Net::DNS::Resolver::Programmable) >= 0.003
 BuildRequires:  perl(Net::DNS::RR)
 BuildRequires:  perl(Test::More)
-# Optional tests only
-BuildRequires:  perl(Test::Pod) >= 1.00
 Requires:       perl(Net::DNS) >= 0.62
 Requires:       perl(URI) >= 1.13
 
@@ -45,53 +42,86 @@ Requires(postun): %{_sbindir}/update-alternatives
 Mail::SPF is an object-oriented implementation of Sender Policy Framework
 (SPF). See http://www.openspf.org for more information about SPF.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Mail-SPF-v%{version}
-# Fix broken POD (CPAN RT#86060)
-%patch -P 0
+%setup -q -n Mail-SPF-%{version}
 # Work around test suite failures with Net::DNS ≥ 0.68 (CPAN RT#78214)
-%patch -P 1
-chmod -x bin/* sbin/*
+%patch -P 0
+chmod -x bin/*
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Build.PL installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install destdir=%{buildroot} create_packlist=0
+%{make_install}
 %{_fixperms} %{buildroot}/*
 # The spfquery and spfd will use alternatives
 %{__mv} -f %{buildroot}%{_bindir}/spfquery %{buildroot}%{_bindir}/spfquery.%{name}
-%{__mv} -f %{buildroot}%{_sbindir}/spfd %{buildroot}%{_bindir}/spfd.%{name}
+%{__mv} -f %{buildroot}%{_bindir}/spfd %{buildroot}%{_bindir}/spfd.%{name}
 %{__mv} -f %{buildroot}%{_mandir}/man1/spfquery.1 %{buildroot}%{_mandir}/man1/spfquery-%{name}.1
 touch %{buildroot}%{_bindir}/spfquery %{buildroot}%{_bindir}/spfd %{buildroot}%{_mandir}/man1/spfquery.1.gz
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/90-author*
+for F in `ls %{buildroot}%{_libexecdir}/%{name}/t/*`; do
+    perl -i -ne 'print $_ unless m{^use blib}' $F
+done
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
-./Build test
+make test
 
 %post
 %{_sbindir}/update-alternatives --install %{_bindir}/spfquery spf %{_bindir}/spfquery.%{name} 10 \
-	--slave %{_bindir}/spfd spf-daemon %{_bindir}/spfd.%{name} \
-	--slave %{_mandir}/man1/spfquery.1.gz spfquery-man-page %{_mandir}/man1/spfquery-%{name}.1.gz
+       --slave %{_bindir}/spfd spf-daemon %{_bindir}/spfd.%{name} \
+       --slave %{_mandir}/man1/spfquery.1.gz spfquery-man-page %{_mandir}/man1/spfquery-%{name}.1.gz
 
 %postun
 if [ $1 -eq 0 ] ; then
-	%{_sbindir}/update-alternatives --remove spf %{_bindir}/spfquery.%{name}
+       %{_sbindir}/update-alternatives --remove spf %{_bindir}/spfquery.%{name}
 fi
 
 %files
 %license LICENSE
-%doc CHANGES README TODO bin/ sbin/
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%doc Changes README TODO bin/
+%{perl_vendorlib}/Mail/SPF*
+%{_mandir}/man1/spf*
+%{_mandir}/man3/Mail::SPF*
 %ghost %{_bindir}/spfquery
 %ghost %{_bindir}/spfd
 %ghost %{_mandir}/man1/spfquery.1.gz
 %{_bindir}/spfquery.%{name}
 %{_bindir}/spfd.%{name}
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Feb 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.20240205-1
+- 3.20240205 bump (rhbz#2262786)
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

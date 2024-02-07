@@ -3,18 +3,15 @@
 
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
-Version: 3.3.32
-Release: 8%{?dist}
+Version: 3.3.33
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
 Source1: %{name}.tmpfiles
 Source2: %{name}.sysusers
-# git format-patch -N 3.3.32
+# git format-patch -N 3.3.33
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
-Patch0001: 0001-imp-module-is-deprecated-in-favor-of-importlib.patch
-Patch0002: 0002-Always-reset-pending-alarms-when-alarm-0.patch
-Patch0003: 0003-gitlab-ci-use-apt-get-to-install-python3-dbus-packag.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -194,6 +191,10 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Jan 31 2024 Vit Mojzis <vmojzis@redhat.com> - 3.3.33-1
+- Check that SELinux is enabled before running (rhbz#2178950)
+- Improve limiting RAM utilization
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.32-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

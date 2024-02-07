@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/qxmpp-project/qxmpp
-Version:        1.5.5
+Version:        1.5.6
 %forgemeta
 
 %bcond_without check

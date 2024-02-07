@@ -1,8 +1,8 @@
 %global mod_name blinker
 
 Name:           python-blinker
-Version:        1.6.2
-Release:        5%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
@@ -53,6 +53,12 @@ of interested parties to subscribe to events, or "signals".
 
 
 %changelog
+* Mon Feb  5 2024 José Matos <jamatos@fedoraproject.org> - 1.7.0-1
+- Update to 1.7.0
+
+* Mon Feb  5 2024 José Matos <jamatos@fedoraproject.org> - 1.6.3-1
+- Update to 1.6.3
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

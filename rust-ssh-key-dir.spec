@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        sshd AuthorizedKeysCommand to read ~/.ssh/authorized_keys.d
 
 License:        Apache-2.0
@@ -45,6 +45,10 @@ Requires(postun): systemd
 %{_libexecdir}/ssh-key-dir
 %config(noreplace) %{_sysconfdir}/ssh/sshd_config.d/40-ssh-key-dir.conf
 %license LICENSE
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc README.md
 
 %post        -n %{crate}
@@ -56,9 +60,9 @@ if [ $1 == 0 ] ; then
 fi
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
 %if 0%{?rhel}
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
@@ -70,6 +74,11 @@ fi
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 %install
 %if 0%{?rhel}
@@ -86,6 +95,9 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ssh/sshd_config.d conf/40-ssh-key
 %endif
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.1.4-7
+- Update Rust macro usage
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

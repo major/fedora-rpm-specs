@@ -1,19 +1,25 @@
+%global gitdate 20240205
+%global commit0 eef943f0edf3beee8ecb85d4a9dae3656002fc24
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 Name:           signon-ui
-Version:        0.15
-Release:        21%{?dist}
+Version:        0.15^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
 Summary:        Online Accounts Sign-on Ui
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://launchpad.net/signon-ui
 
-Source0:        https://launchpad.net/signon-ui/trunk/%{version}/+download/signon-ui-%{version}.tar.bz2
+# Source0:      https://launchpad.net/signon-ui/trunk/%{version}/+download/signon-ui-%{version}.tar.bz2
+Source0:        https://gitlab.com/accounts-sso/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.bz2
 
-Patch0:         signon-ui-0.15-fix-qt5-build.patch
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: make
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  libaccounts-qt5-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtwebengine-devel
+BuildRequires:  libaccounts-qt6-devel
+BuildRequires:  signon-qt6-devel
 BuildRequires:  signon-devel
 BuildRequires:  libproxy-devel
 BuildRequires:  libnotify-devel
@@ -35,14 +41,12 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n signon-ui-%{version}
-
-%patch0 -p1 -b .qt5
+%autosetup -n %{name}-%{commit0}
 
 
 %build
-export PATH=%{_qt5_bindir}:$PATH
-%{qmake_qt5} QMF_INSTALL_ROOT=%{_prefix} \
+export PATH=%{_qt6_bindir}:$PATH
+%{qmake_qt6} QMF_INSTALL_ROOT=%{_prefix} \
     CONFIG+=release signon-ui.pro
 
 make %{?_smp_mflags}
@@ -50,10 +54,6 @@ make %{?_smp_mflags}
 
 %install
 make install INSTALL_ROOT=%{buildroot}
-
-# Remove installed tests
-rm %{buildroot}/%{_bindir}/signon-ui-unittest
-rm %{buildroot}/%{_bindir}/tst_inactivity_timer
 
 # Own directory where others can install provider-specific configuration
 mkdir -p %{buildroot}/%{_sysconfdir}/signon-ui/webkit-options.d
@@ -63,9 +63,14 @@ mkdir -p %{buildroot}/%{_sysconfdir}/signon-ui/webkit-options.d
 %license COPYING
 %{_bindir}/signon-ui
 %{_datadir}/dbus-1/services/*.service
+%{_datadir}/applications/signon-ui.desktop
 %{_sysconfdir}/signon-ui
 
 %changelog
+* Mon Feb 05 2024 Alessandro Astone <ales.astone@gmail.com> - 0.15^20240205.eef943f-1
+- Update to git snapshot for qt6
+- Restrict to qt6_qtwebengine_arches
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

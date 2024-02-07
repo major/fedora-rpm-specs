@@ -8,8 +8,8 @@
 
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
-Version:	13.24
-Release:	8%{?dist}
+Version:	13.25
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -20,9 +20,6 @@ Source2:	globus-gridftp-sshftp.service
 Source3:	%{name}
 Source4:	globus-gridftp-sshftp
 Source8:	README
-#		Fix buffer overflow in test
-#		https://bugzilla.redhat.com/show_bug.cgi?id=2146585
-Patch0:		%{name}-buffer-overflow.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -117,7 +114,6 @@ Globus GridFTP Server Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch0 -p4
 
 %build
 # Reduce overlinking
@@ -249,6 +245,10 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.25-1
+- New GCT release v6.2.20240202
+- Drop patches included in the release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.24-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

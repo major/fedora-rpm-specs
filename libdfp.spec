@@ -1,6 +1,6 @@
 Name:		libdfp
 Version:	1.0.16
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Decimal Floating Point C Library
 License:	LGPL-2.1-or-later
 Url:		https://github.com/libdfp/libdfp
@@ -9,6 +9,7 @@ Source0:	https://github.com/libdfp/libdfp/releases/download/%{version}/%{name}-%
 # Patches from upstream
 #
 Patch1: bz2045793.patch
+Patch2: bz2261309.patch
 
 # Be explicit about the soname in order to avoid unintentional changes.
 %global soname libdfp.so.1
@@ -147,6 +148,9 @@ done
 %{_libdir}/pkgconfig/libdecnumber.pc
 
 %changelog
+* Tue Jan 30 2024 Paul E. Murphy <murphyp@linux.ibm.com> - 1.0.16-10
+- Fix upstream issue #189
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

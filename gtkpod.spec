@@ -1,12 +1,13 @@
 Name:           gtkpod
 Version:        2.1.5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Graphical song management program for Apple's iPod
 
 License:        GPL-2.0-or-later
 URL:            http://www.gtkpod.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch4:		gtkpod-m4a-copy.patch
+Patch0:		gtkpod-m4a-copy.patch
+Patch1:         includes.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel
@@ -50,7 +51,8 @@ developing extensions for gtkpod.
 %prep
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni "%{__python2} %{py2_shbang_opts}" .
 %setup -q
-%patch4 -p1
+%patch -P 0 -p1
+%patch -P 1 -p0
 
 %build
 autoreconf -if
@@ -97,6 +99,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} \;
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.1.5-28
+- Fix FTBFS
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -9,18 +9,14 @@
 %global with_checks 1
 
 Name:           myproxy
-Version:        6.2.14
-Release:        8%{?dist}
+Version:        6.2.16
+Release:        1%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
 URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source8:        README
-#               https://github.com/gridcf/gct/pull/211
-Patch0:         %{name}-configure-c99.patch
-#               https://github.com/gridcf/gct/pull/222
-Patch1:         %{name}-type-errors.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -166,9 +162,7 @@ trusted CA certificates and Certificate Revocation Lists (CRLs).
 Package %{name}-doc contains the MyProxy documentation.
 
 %prep
-%autosetup -p1
-# Prevent autotools from running.
-touch -r aclocal.m4 configure*
+%setup -q
 
 %build
 # Reduce overlinking
@@ -366,6 +360,10 @@ fi
 %license LICENSE*
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-1
+- New GCT release v6.2.20240202
+- Drop patches included in the release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

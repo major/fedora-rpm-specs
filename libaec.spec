@@ -1,6 +1,6 @@
 Name:           libaec
-Version:        1.0.6
-Release:        7%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Adaptive Entropy Coding library
 License:        BSD
 Url:            https://gitlab.dkrz.de/k202009/libaec
@@ -51,9 +51,7 @@ mv %{buildroot}/%{_prefix}/cmake %{buildroot}/%{_libdir}
 %files
 %doc README.md README.SZIP CHANGELOG.md
 %license LICENSE.txt doc/patent.txt
-%{_bindir}/aec
 %{_libdir}/lib*.so.*
-%{_mandir}/man1/aec.*
 
 %files devel
 %{_includedir}/*.h
@@ -61,6 +59,9 @@ mv %{buildroot}/%{_prefix}/cmake %{buildroot}/%{_libdir}
 %{_libdir}/cmake/%{name}-*.cmake
 
 %changelog
+* Mon Feb 05 2024 Orion Poplawski <orion@nwra.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

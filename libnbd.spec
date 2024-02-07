@@ -17,14 +17,14 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 
 # The source directory.
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.5
-Release:        3%{?dist}
+Version:        1.19.6
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -385,6 +385,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Feb 05 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.6-1
+- New upstream development version 1.19.6
+
 * Thu Jan 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.5-3
 - Bump and rebuild for ELN
 

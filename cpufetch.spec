@@ -2,8 +2,8 @@ Name: cpufetch
 Summary: Simple tool for determining CPU architecture
 License: GPL-2.0-only
 
-Version: 1.04
-Release: 4%{?dist}
+Version: 1.05
+Release: 1%{?dist}
 
 URL: https://github.com/Dr-Noob/cpufetch
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -50,6 +50,9 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1{.gz,}
 
 
 %changelog
+* Tue Feb 06 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.05-1
+- Update to v1.05
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 8
+%global baserelease 9
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond_with bootstrap
@@ -58,6 +58,8 @@ Patch5:         0005-reproducible-parsers.patch
 Patch6:         0006-antlr3memory.hpp-fix-for-C-20-mode.patch
 # Compile for target 1.8 to fix build with JDK 11
 Patch7:         0007-update-java-target.patch
+# Fix source for tighter gcc template checks
+Patch8:         0008-unconst-cyclicdfa-gcc-14.patch
 
 BuildRequires:  ant
 BuildRequires:  make
@@ -350,6 +352,9 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Thu Feb  1 2024 Avi Kivity <avi@scylladb.com> - 1:3.5.3-9
+- Remove const specifiers in templates that are now flagged by gcc 14.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

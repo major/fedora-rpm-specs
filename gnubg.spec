@@ -4,8 +4,8 @@ Name:          gnubg
 License:       GPL-3.0-only
 Summary:       A backgammon game and analyser
 Epoch:         1
-Version:       1.07.001
-Release:       7%{?dist}
+Version:       1.08.001
+Release:       1%{?dist}
 Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
 Source2:       gnubg.png
@@ -115,6 +115,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/Shaders/
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:1.08.001-1
+- 1.08.001
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07.001-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

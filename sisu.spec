@@ -3,7 +3,7 @@
 Name:           sisu
 Epoch:          1
 Version:        0.3.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Eclipse dependency injection framework
 # sisu is EPL-1.0, the bundled asm is BSD
 License:        EPL-1.0 AND BSD-3-Clause
@@ -45,6 +45,10 @@ Provides:       %{name}-inject = %{epoch}:%{version}-%{release}
 Provides:       %{name}-plexus = %{epoch}:%{version}-%{release}
 Provides:       bundled(objectweb-asm)
 
+# Remove in Fedora 43
+Obsoletes:      plexus-containers < 2.2.0
+Obsoletes:      plexus-containers-container-default < 2.2.0
+
 %description
 Java dependency injection framework with backward support for plexus and bean
 style dependency injection.
@@ -72,7 +76,7 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %mvn_file ":{*}" @1
 %mvn_package ":*{inject,plexus}"
 %mvn_package : __noinstall
-%mvn_alias :org.eclipse.sisu.plexus org.sonatype.sisu:sisu-inject-plexus
+%mvn_alias :org.eclipse.sisu.plexus org.sonatype.sisu:sisu-inject-plexus org.codehaus.plexus:plexus-container-default
 
 %build
 %mvn_build
@@ -84,6 +88,9 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %license sisu-inject/LICENSE.txt
 
 %changelog
+* Sat Feb 03 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-11
+- Add plexus-container-default alias
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

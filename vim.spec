@@ -2,13 +2,15 @@
 
 %if 0%{?fedora}
 %bcond_without default_editor
+%bcond_without gpm
 %bcond_without libsodium_crypt
 %else
 %bcond_with default_editor
+%bcond_with gpm
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 031
+%define patchlevel 076
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -118,8 +120,10 @@ BuildRequires: gettext
 # formats during compilation.
 BuildRequires: glibc-gconv-extra
 
+%if %{with gpm}
 # for mouse support in console
 BuildRequires: gpm-devel
+%endif
 # for setting ACL on created files
 BuildRequires: libacl-devel
 
@@ -305,6 +309,14 @@ Provides: gvim
 Provides: vim(plugins-supported)
 Provides: %{_bindir}/mergetool
 Provides: %{_bindir}/gvim
+
+%if 0%{?fedora} >= 40 || 0%{?rhel} > 9
+# glib2 in Fedora 40 introduced a new function, which is not used in GVim, but it is present
+# in compiled gvim binary as symbol when Vim is compiled with glib2-2.79.1
+# there does not seem to be a better solution than version based requires on glib2...
+# https://bugzilla.redhat.com/show_bug.cgi?id=2262371
+Requires: glib2 >= 2.79.1
+%endif
 # GVIM graphics are based on GTK3
 Requires: gtk3
 # needed for icons (#226526)
@@ -473,6 +485,11 @@ mv -f os_unix.h.save os_unix.h
   --enable-fips-warning \
   --with-compiledby="<bugzilla@redhat.com>" --enable-cscope \
   --with-modified-by="<bugzilla@redhat.com>" \
+%if %{with gpm}
+ --enable-gpm \
+%else
+ --disable-gpm \
+%endif
   %if "%{withnetbeans}" == "1"
   --enable-netbeans \
   %else
@@ -522,6 +539,11 @@ make clean
  --with-tlib=ncurses \
  --enable-fips-warning \
  --with-compiledby="<bugzilla@redhat.com>" \
+%if %{with gpm}
+ --enable-gpm \
+%else
+ --disable-gpm \
+%endif
 %if "%{withnetbeans}" == "1"
   --enable-netbeans \
 %else
@@ -1035,6 +1057,13 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Mon Feb 05 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.076-2
+- enable building without GPM support - build with GPM in Fedora
+- 2262371 - gvim: symbol lookup error: gvim: undefined symbol: g_once_init_enter_pointer
+
+* Mon Feb 05 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.076-1
+- patchlevel 076
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:9.1.031-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

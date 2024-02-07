@@ -1,6 +1,6 @@
 Name:           tilda
-Version:        1.5.4
-Release:        9%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        A Gtk based drop down terminal for Linux and Unix
 
 License:        GPLv2 and MIT
@@ -64,9 +64,14 @@ install -D -p -m 644 %{name}.png \
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/tilda-dbus.desktop
+%{_datadir}/man/man1/tilda.1.gz
 %{_metainfodir}/tilda.appdata.xml
 
 %changelog
+* Mon Feb 05 2024 Johannes Lips <hannes@fedoraproject.org> - 2.0.0-1
+- update to upstream version 2.0.0
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

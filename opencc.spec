@@ -1,16 +1,19 @@
 Name:       opencc
-Version:    1.1.4
-Release:    6%{?dist}
+Version:    1.1.7
+Release:    1%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
 License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
 Source0:    https://github.com/BYVoid/OpenCC/archive/ver.%{version}.tar.gz#/OpenCC-ver.%{version}.tar.gz
+Patch0:     opencc-fixes-std-initializer-list.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  python3
+BuildRequires:  marisa-devel
+BuildRequires:  rapidjson-devel
 
 %description
 OpenCC is a library for converting characters and phrases between
@@ -44,9 +47,10 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n OpenCC-ver.%{version}
+%patch -P0 -p1 -b .compile
 
 %build
-%cmake -DENABLE_GETTEXT:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=ON
+%cmake -DENABLE_GETTEXT:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=ON -DUSE_SYSTEM_MARISA:BOOL=ON -DUSE_SYSTEM_RAPIDJSON:BOOL=ON
 %cmake_build
 
 %install
@@ -73,8 +77,13 @@ developing applications that use %{name}.
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+%{_libdir}/cmake/opencc/OpenCC*.cmake
 
 %changelog
+* Fri Feb  2 2024 Peng Wu <pwu@redhat.com> - 1.1.7-1
+- Update to 1.1.7
+- Resolves: RHBZ#2261417
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

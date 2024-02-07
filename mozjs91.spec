@@ -12,6 +12,12 @@
 %define _lto_cflags %{nil}
 %endif
 
+# Disable LTO on aarch64 (borked since GCC14)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2260867
+%ifarch aarch64
+%define _lto_cflags %{nil}
+%endif
+
 # Big endian platforms
 %ifarch ppc ppc64 s390 s390x
 %global big_endian 1
@@ -19,7 +25,7 @@
 
 Name:           mozjs%{major}
 Version:        91.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPLv2.0 and MPLv1.1 and BSD and GPLv2+ and GPLv3+ and LGPLv2+ and AFL and ASL 2.0
@@ -91,22 +97,22 @@ developing applications that use %{name}.
 %setup -q -n firefox-%{version}/js/src
 
 pushd ../..
-%patch01 -p1
-%patch02 -p1
-%patch03 -p1
-%patch09 -p1
-%patch10 -p1
+%patch 01 -p1
+%patch 02 -p1
+%patch 03 -p1
+%patch 09 -p1
+%patch 10 -p1
 
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
+%patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
+%patch 15 -p1
+%patch 16 -p1
+%patch 17 -p1
+%patch 18 -p1
 
 # Fixes for ppc64 and s390x, there is no need to keep it in ifarch here since mozilla tests support ifarch conditions
-%patch20 -p1
+%patch 20 -p1
 
 # Copy out the LICENSE file
 cp LICENSE js/src/
@@ -252,6 +258,10 @@ export PYTHONPATH="${PYTHONPATH}:../../third_party/python/"
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Mon Feb 05 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 91.13.0-8
+- Add ICU 74.2 expected failures (Fixes RHBZ#2261392)
+- Disable LTO on aarch64
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 91.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

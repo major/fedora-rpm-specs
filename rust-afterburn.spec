@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ License:        Apache-2.0 AND 0BSD AND BSD-3-Clause AND MIT AND (Apache-2.0 OR 
 %license LICENSE
 %license NOTICE
 %license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc README.md
 %doc code-of-conduct.md
 %{_bindir}/afterburn
@@ -104,9 +107,9 @@ to run in the initramfs on boot.
 %{dracutmodulesdir}/30afterburn/
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
 %if 0%{?rhel}
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
@@ -126,6 +129,9 @@ sed -e 's,@DEFAULT_INSTANCE@,core,' < \
 %cargo_build
 %{?cargo_license_summary}
 %{?cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 %install
 %if 0%{?rhel}
@@ -144,6 +150,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Fri Feb 02 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.5.1-3
+- Update Rust macro usage
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

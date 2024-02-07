@@ -1,5 +1,5 @@
 Name: anarch
-License: CC0
+License: CC0-1.0
 
 %global summ_text Suckless, anarcho-pacifist Doom clone that runs everywhere
 Summary: %{summ_text}
@@ -8,8 +8,8 @@ Summary: %{summ_text}
 %global git_commit eeb04a079784ccd9c4b37909795ae781902712eb
 %global git_commit_short %(c='%{git_commit}'; echo "${c:0:8}")
 
-Version: 1.1
-Release: 4.%{git_date}git%{git_commit_short}%{?dist}
+Version: 1.1^%{git_date}git%{git_commit_short}
+Release: 1%{?dist}
 
 URL: https://drummyfish.gitlab.io/anarch/
 Source0: https://gitlab.com/drummyfish/%{name}/-/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -139,6 +139,11 @@ done
 
 
 %changelog
+* Mon Feb 05 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1^20230123giteeb04a07-1
+- Rebuilt for CSFML 2.6
+- Move snapshot info from Release to Version tag
+- Migrate License tag to SPDX
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-4.20230123giteeb04a07
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

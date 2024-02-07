@@ -1,7 +1,7 @@
 Name:		globus-rsl
 %global _name %(tr - _ <<< %{name})
-Version:	11.3
-Release:	7%{?dist}
+Version:	11.4
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Resource Specification Language Library
 
 License:	Apache-2.0
@@ -107,6 +107,9 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Feb 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 11.4-1
+- New GCT release v6.2.20240202
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

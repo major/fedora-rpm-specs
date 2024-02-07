@@ -1,6 +1,6 @@
 Name:		gnurobots
 Version:	1.2.0
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	A robot programming game
 
 License:	GPL-3.0-or-later
@@ -8,6 +8,7 @@ URL:		http://www.gnu.org/software/%{name}/
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Patch0:		%{name}-%{version}-guile.patch
+Patch1:         pointer-types.patch
 
 BuildRequires:  gcc
 BuildRequires:	compat-guile18-devel >= 1.8 , readline-devel, vte-devel
@@ -22,7 +23,8 @@ The robot program is written in Scheme, and is implemented using GNU Guile.
 
 %prep
 %setup -q
-%patch0 -p0 -b .guile
+%patch -P 0 -p0 -b .guile
+%patch -P 1 -p0 -b .pointers
 sed -i.optflags -e '/^CFLAGS=/d' configure
 
 %build
@@ -54,6 +56,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-39
+- Patch for stricter flags.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

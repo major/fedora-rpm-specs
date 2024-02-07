@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Minimal low-level HTTP client
 

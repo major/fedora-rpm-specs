@@ -34,13 +34,6 @@ BuildRequires:  python3dist(six)
 MechanicalSoup automatically stores and sends cookies, follows redirects,
 and can follow links and submit forms. It doesn't do JavaScript.
 
-%package -n python-%{pypi_name}-doc
-Summary:        mechanicalsoup documentation
-
-BuildRequires:  python3dist(sphinx)
-%description -n python-%{pypi_name}-doc
-Documentation for mechanicalsoup.
-
 %prep
 %autosetup -n MechanicalSoup-%{version}
 rm -rf %{pypi_name}.egg-info
@@ -49,8 +42,7 @@ sed -i -e 's/--flake8//g' setup.cfg
 
 %build
 %py3_build
-PYTHONPATH=${PWD} sphinx-build-3 docs html
-rm -rf html/.{doctrees,buildinfo}
+
 
 %install
 %py3_install
@@ -63,10 +55,6 @@ rm -rf html/.{doctrees,buildinfo}
 %doc README.rst
 %{python3_sitelib}/%{pypi_name}/
 %{python3_sitelib}/MechanicalSoup-%{version}-py%{python3_version}.egg-info/
-
-%files -n python-%{pypi_name}-doc
-%doc html
-%license LICENSE
 
 %changelog
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6

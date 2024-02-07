@@ -6,7 +6,7 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Io is a small, prototype-based programming language
 License:        BSD-3-Clause
 URL:            https://iolanguage.org
@@ -23,6 +23,7 @@ Patch8:         pcre.patch
 # https://github.com/IoLanguage/io/commit/92fe8304c55b84a17b0624613a7006e85a0128a2
 Patch9:         c99.patch
 Patch10:        libm-basekit.patch
+Patch11:        pointer-types.patch
 BuildRequires:  make gcc gcc-c++
 BuildRequires:  e2fsprogs-devel freeglut-devel gmp-devel
 BuildRequires:  libedit-devel libevent-devel libjpeg-devel libpng-devel
@@ -100,6 +101,7 @@ Io mysql bindings
 %patch -P 8 -p0
 %patch -P 9 -p1
 %patch -P 10 -p0
+%patch -P 11 -p0
 sed -i 's|/lib/io/addons|/%{_lib}/io/addons|g' libs/iovm/io/AddonLoader.io
 # building Io while Io-language-devel is installed results in binaries getting
 # linked against the installed version, instead of the just build one <sigh>
@@ -275,6 +277,9 @@ done
 
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 20170906-18
+- Patch for stricter flags
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20170906-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

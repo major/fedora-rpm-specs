@@ -6,7 +6,7 @@ Version: 14.0.0
 Release: 7%{?dist}
 Summary: A simpler alternative to Regular Expressions
 License: MIT
-URL: https://github.com/cucumber/cucumber-expressions-ruby#readme
+URL: https://github.com/cucumber/cucumber-expressions
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
