@@ -6,13 +6,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     xmlada
-%global upstream_version  23.0.0
+%global upstream_version  24.0.0
 %global upstream_gittag   v%{upstream_version}
 
 Name:           xmlada
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        XML library for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -34,6 +34,7 @@ BuildRequires:  gcc-gnat gprbuild sed
 # A fedora-gnat-project-common that contains GPRbuild_flags is needed.
 BuildRequires:  fedora-gnat-project-common >= 3.17
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -280,6 +281,10 @@ find %{buildroot}%{_includedir}/%{name}/sources -type d -empty -delete
 ###############
 
 %changelog
+* Sun Jan 28 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:24.0.0-1
+- Updated to v24.0.0.
+- Generated HTML-documentation now uses the 'Read the Docs' Sphinx theme.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:23.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

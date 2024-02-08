@@ -12,6 +12,7 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch0:         0001-fix-test_-font.patch
 Patch1:         0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch2:         0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
+Patch3:         0001-fix-type-error-with-GCC-14.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-fonttools
@@ -25,16 +26,8 @@ BuildRequires:  rst2pdf
 BuildRequires:  gcc gcc-c++
 BuildRequires:  swig
 BuildRequires:  zlib-devel
-BuildRequires:  mupdf-static
-# Can be removed if mupdf provides a shared library
-BuildRequires:  libjpeg-devel
-BuildRequires:  openjpeg2-devel
-BuildRequires:  jbig2dec-devel
+BuildRequires:  mupdf-devel
 BuildRequires:  freetype-devel
-BuildRequires:  harfbuzz-devel
-BuildRequires:  gumbo-parser-devel
-BuildRequires:  leptonica-devel
-BuildRequires:  tesseract-devel
 
 %global _description %{expand:
 This is PyMuPDF, a Python binding for MuPDF - a lightweight PDF and XPS
@@ -69,8 +62,8 @@ export PYMUPDF_SETUP_MUPDF_BUILD_TYPE='debug'
 export PYMUPDF_SETUP_MUPDF_BUILD=''
 # build original implementation only:
 export PYMUPDF_SETUP_IMPLEMENTATIONS='a'
-CFLAGS="$CFLAGS -I/usr/include -I/usr/include/freetype2 -I/usr/include/harbuzz -I/usr/include/mupdf"
-LDFLAGS="$LDFLAGS -lfreetype -lgumbo -lharfbuzz -ljbig2dec -ljpeg -lleptonica -lmupdf -lmupdf-third -lopenjp2 -ltesseract"
+CFLAGS="$CFLAGS -I/usr/include -I/usr/include/freetype2 -I/usr/include/mupdf"
+LDFLAGS="$LDFLAGS -lfreetype -lmupdf"
 %pyproject_wheel
 sphinx-build docs docs_built
 

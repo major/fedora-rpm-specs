@@ -2,7 +2,7 @@
 
 Name:           weston
 Version:        %{apiver}.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -195,6 +195,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 13.0.0-3
+- Rebuilt for turbojpeg 3.0.2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

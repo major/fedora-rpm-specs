@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:    %{pkgname}
-Version: 4.1.10
+Version: 4.1.11
 Release: %autorelease
 Summary: Ansible python helper functions
 

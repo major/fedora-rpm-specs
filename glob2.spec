@@ -1,6 +1,6 @@
 Name:           glob2
 Version:        0.9.4.4
-Release:        66%{?dist}
+Release:        67%{?dist}
 Summary:        An innovative RTS game
 
 License:        GPLv3+
@@ -58,18 +58,18 @@ Online Gaming (or YOG for short).
 
 %prep
 %setup -q
-#%patch0 -p0
-#%patch2 -p0
-%patch3 -p0
-%patch4 -p1
-%patch5 -p1
-%patch6 -p0
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1 -b.python3
-%patch10 -p1 -b.scons3
-%patch11 -p1 -b.fixtabs
-%patch12 -p1 -b.bool
+#%patch 0 -p0
+#%patch 2 -p0
+%patch 3 -p0
+%patch 4 -p1
+%patch 5 -p1
+%patch 6 -p0
+%patch 7 -p1
+%patch 8 -p1
+%patch 9 -p1 -b.python3
+%patch 10 -p1 -b.scons3
+%patch 11 -p1 -b.fixtabs
+%patch 12 -p1 -b.bool
 
 sed -i -e '3d' -e '12d' data/glob2.desktop
 sed -i s#"Icon=glob2-icon-48x48"#"Icon=glob2"# data/glob2.desktop
@@ -78,10 +78,10 @@ chmod -x campaigns/Tutorial_Campaign.txt
 sed -i 's/\r//' campaigns/Tutorial_Campaign.txt
 
 %build
-scons-3 %{?_smp_mflags} INSTALLDIR=$RPM_BUILD_ROOT%{_datadir} BINDIR=$RPM_BUILD_ROOT%{_bindir} DATADIR=%{_datadir} CXXFLAGS="%{optflags}" --portaudio=true
+scons %{?_smp_mflags} INSTALLDIR=$RPM_BUILD_ROOT%{_datadir} BINDIR=$RPM_BUILD_ROOT%{_bindir} DATADIR=%{_datadir} CXXFLAGS="%{optflags}" --portaudio=true
 
 %install
-scons-3 install --portaudio=true
+scons install --portaudio=true
 
 # Use the dejavu-sans-fonts package to supply the neeeded fonts
 ln -f -s $(fc-match -f "%{file}" "sans") $RPM_BUILD_ROOT%{_datadir}/%{name}/data/fonts/sans.ttf
@@ -153,6 +153,9 @@ EOF
 
 
 %changelog
+* Tue Feb 06 2024 Bruno Wolff III <bruno@wolff.to> - 0.9.4.4-67
+- scons-3 appears to have been dropped
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4.4-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

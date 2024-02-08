@@ -7,7 +7,7 @@
 %endif
 
 Name:           goaccess
-Version:        1.9
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
@@ -93,6 +93,9 @@ sed -i '/-pthread/d' configure.ac
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Feb 06 2024 Fabio Alessandro Locati <fale@fedoraproject.org> - 1.9.1-1
+- Update to 1.9.1, fixes rhbz#2262022
+
 * Thu Feb 01 2024 Jonathan Wright <jonathan@almalinux.org> - 1.9.0-1
 - Update to 1.9.0 rhbz#2262022
 

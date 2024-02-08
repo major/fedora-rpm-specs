@@ -1,13 +1,13 @@
 %global pypi_name scramp
 
 Name:           python-%{pypi_name}
-Version:        1.4.1
-Release:        9%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Implementation of the SCRAM protocol
 
-License:        MIT
+License:        MIT-0
 URL:            https://github.com/tlocke/scramp
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source %{pypi_name} %{version}}
 BuildArch:      noarch
 
 %description
@@ -17,34 +17,40 @@ Scramp is pure-Python implementation of the SCRAM authentication protocol.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python-asn1crypto
-%{?python_provide:%python_provide python3-%{pypi_name}}
+# The dependencies needed for testing don’t get auto-generated.
+BuildRequires:  python3dist(passlib)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
 
 %description -n python3-%{pypi_name}
 Scramp is a pure-Python implementation of the SCRAM authentication protocol.
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-%pytest -v -k "not test_make_channel_binding_tls_server_end_point" 
+#pytest -v -k "not test_make_channel_binding_tls_server_end_point"
+%pytest -v
 
-%files -n python3-%{pypi_name}
-%doc README.adoc
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc README.rst
 
 %changelog
+* Tue Feb 06 2024 Nils Philippsen <nils@tiptoe.de> - 1.4.4-1
+- Update to latest upstream release 1.4.4
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

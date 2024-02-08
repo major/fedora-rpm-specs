@@ -1,6 +1,6 @@
 Name:           roxterm
-Version:        3.13.1
-Release:        3%{?dist}
+Version:        3.14.3
+Release:        1%{?dist}
 Summary:        Terminal emulator
 
 License:        GPLv2+
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/roxterm.desktop
 %{_mandir}/man1/roxterm*.1*
 
 %changelog
+* Tue Feb 06 2024 Pete Walter <pwalter@fedoraproject.org> - 3.14.3-1
+- Update to 3.14.3
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

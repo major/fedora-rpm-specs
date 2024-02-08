@@ -5,16 +5,19 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.3.2
-Release:        6%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Command line parser for C++11
 
 License:        BSD-3-Clause
 URL:            https://github.com/CLIUtils/CLI11
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Add a missing include of cstdint
+# https://github.com/CLIUtils/CLI11/pull/996
+Patch0:         %{name}-cstdint.patch
 
 BuildRequires:  boost-devel
-BuildRequires:  catch2-devel
+BuildRequires:  catch-devel
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -56,6 +59,9 @@ sed -i.orig 's,\./docs,.,' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
 
+# Install the pkgconfig file in the noarch directory
+sed -i 's/\(CMAKE_INSTALL_\)LIBDIR/\1DATADIR/' cmake/CLI11GeneratePkgConfig.cmake
+
 %build
 CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %cmake \
@@ -85,6 +91,10 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %doc docs/CLI11.svg docs/CLI11_100.png
 
 %changelog
+* Tue Feb  6 2024 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+- Use catch 3.x instead of 2.x
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

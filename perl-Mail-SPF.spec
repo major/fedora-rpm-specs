@@ -1,5 +1,5 @@
 Name:           perl-Mail-SPF
-Version:        3.20240205
+Version:        3.20240206
 Release:        1%{?dist}
 Summary:        Object-oriented implementation of Sender Policy Framework
 License:        BSD-3-Clause
@@ -118,6 +118,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 06 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.20240206-1
+- 3.20240206 bump (rhbz#2262902)
+
 * Mon Feb 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.20240205-1
 - 3.20240205 bump (rhbz#2262786)
 - Package tests

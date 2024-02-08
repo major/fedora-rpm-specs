@@ -34,6 +34,7 @@ BuildRequires:  zeromq-devel
 BuildRequires:  jsoncpp-devel
 BuildRequires:  libopenshot-audio-devel >= 0.3.2
 BuildRequires:  catch-devel
+BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-setuptools
 
 

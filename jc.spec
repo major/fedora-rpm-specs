@@ -2,8 +2,8 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.24.0
-Release: 3%{?dist}
+Version: 1.25.0
+Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
 Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -61,7 +61,11 @@ install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 %doc README.md EXAMPLES.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.*
+
+%dir %{_datadir}/bash-completion/
+%dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/*
+
 
 %files -n python3-%{name}
 %doc docs/
@@ -71,6 +75,9 @@ install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 
 
 %changelog
+* Tue Feb 06 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.25.0-1
+- Update to v1.25.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

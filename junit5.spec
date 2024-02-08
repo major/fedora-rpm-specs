@@ -6,7 +6,7 @@
 %global vintage_version %{version}
 
 Name:           junit5
-Version:        5.10.1
+Version:        5.10.2
 Release:        1%{?dist}
 Summary:        Java regression testing framework
 License:        EPL-2.0
@@ -131,6 +131,9 @@ ln -s ../../javadoc/junit5 documentation/src/docs/api
 %doc documentation/src/docs/*
 
 %changelog
+* Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.10.2-1
+- Update to upstream version 5.10.2
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.10.1-1
 - Update to upstream version 5.10.1
 

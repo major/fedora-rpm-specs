@@ -1,14 +1,12 @@
 Name:           moreutils
-Version:        0.67
+Version:        0.68
 Release:        %autorelease
 Summary:        Additional unix utilities
 License:        GPLv2
 URL:            https://joeyh.name/code/moreutils/
-Source0:        https://deb.debian.org/debian/pool/main/m/%{name}/%{name}_%{version}.orig.tar.gz
+Source0:        https://git.kitenet.net/index.cgi/moreutils.git/snapshot/moreutils-%{version}.tar.gz
 # fixes docbook XSL path
 Patch1:         0001-dont-overwrite-docbooxsl-path.patch
-# Accepted upstream, pending release of 0.68
-Patch2:         0002-Use-pclose-instead-of-fclose.patch
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  docbook2X

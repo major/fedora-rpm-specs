@@ -67,8 +67,8 @@ rm -rf bullet
 sed -i 's/linuxx86/linuxppc/' src/SConscript
 %endif
 
-%patch1 -p0
-%patch4 -p0
+%patch -P 1 -p0
+%patch -P 4 -p0
 %py3_shebang_fix .
 
 /bin/chmod -x src/main.cpp
@@ -76,7 +76,7 @@ sed -i 's/linuxx86/linuxppc/' src/SConscript
 
 
 %build
-scons-3 %{?_smp_mflags}
+scons %{?_smp_mflags}
 
 %install
 # As described in the README scons install is broken so DIY

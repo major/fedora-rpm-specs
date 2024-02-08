@@ -7,9 +7,11 @@ Release:        %autorelease
 Summary:        Display weather information for any location on Earth
 BuildArch:      noarch
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/skrewball/openweather
 Source0:        %{url}/-/archive/v%{version}/%{shortname}-v%{version}.tar.gz
+# Port to Gnome 45
+Patch:          %{url}/-/merge_requests/51.patch#/Port-to-Gnome-45.patch
 
 BuildRequires:  gettext-devel
 BuildRequires:  glib2-devel

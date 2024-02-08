@@ -1,8 +1,8 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 643
-Release: 3%{?dist}
-License: GPLv3+ or BSD
+Release: 4%{?dist}
+License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 Source1: lesspipe.sh
 Source2: less.sh
@@ -61,6 +61,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 %{_mandir}/man1/*
 
 %changelog
+* Tue Feb 06 2024 Matej Mužila <mmuzila@redhat.com> - 643-4
+- migrated to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 643-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

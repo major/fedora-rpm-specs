@@ -2,12 +2,14 @@
 
 Name:           prboom
 Version:        2.5.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Open source port of the DOOM game engine
 
 License:        GPL-2.0-or-later
 URL:            http://prboom.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/prboom/prboom-2.5.0.tar.gz
+
+Patch0:         pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -27,6 +29,8 @@ them.
 
 %prep
 %setup -q
+
+%patch -P 0 -p0
 
 %build
 autoreconf -vif
@@ -59,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT/%{_docdir}
 %doc doc/README.compat doc/README.demos doc/MBF.txt doc/MBFFAQ.txt doc/boom.txt
 
 %changelog
+* Tue Feb 06 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.5.0-34
+- Patch for stricter flags
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
-Version:        0.4.2
-Release:        3%{?dist}
+Version:        0.4.4
+Release:        1%{?dist}
 Summary:        Implementation of Firefly Algorithm in Python
 
 # SPDX
@@ -57,9 +57,12 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %{_bindir}/firefly-algorithm
 %license LICENSE
 %doc README.md examples/ Problems.md CONTRIBUTING.md CODE_OF_CONDUCT.md
-%doc CHANGELOG.md
+%doc CHANGELOG.md CITATION.cff
 
 %changelog
+* Tue Feb 6 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.4-1
+- Update to the latest upstream's release
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

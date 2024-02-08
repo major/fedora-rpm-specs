@@ -4,12 +4,12 @@
 %global         srcname         azure-mgmt-redis
 
 Name:           python-%{srcname}
-Version:        14.2.0
+Version:        14.3.0
 Release:        %autorelease
 Summary:        Microsoft Azure Redis Cache Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

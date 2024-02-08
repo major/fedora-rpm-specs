@@ -2,9 +2,9 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.8.3
-Release: 4%{?dist}
-Summary: A modern, advanced and high performance authoritative-only nameserver
+Version: 4.8.4
+Release: 1%{?dist}
+Summary: A modern, advanced and high performance authoritative-only name server
 License: GPLv2
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
@@ -183,6 +183,7 @@ sed -i \
     %{buildroot}%{_sysconfdir}/%{name}/pdns.conf
 
 %{__rm} %{buildroot}/%{_bindir}/stubquery
+%{__install } -d %{buildroot}/%{_sharedstatedir}/%{name}
 
 %check
 make %{?_smp_mflags} -C pdns check
@@ -190,8 +191,12 @@ make %{?_smp_mflags} -C pdns check
 %pre
 getent group pdns >/dev/null || groupadd -r pdns
 getent passwd pdns >/dev/null || \
-	useradd -r -g pdns -d / -s /sbin/nologin \
-	-c "PowerDNS user" pdns
+	useradd -r -g pdns -d /var/lib/pdns -s /sbin/nologin \
+	-c "PowerDNS Authoritative Server" pdns
+# Change home directory to /var/lib/pdns
+if [[ $(getent passwd pdns | cut -d: -f6) == "/" ]]; then
+    usermod -d /var/lib/pdns pdns
+fi
 exit 0
 
 %post
@@ -222,6 +227,7 @@ exit 0
 %{_unitdir}/pdns@.service
 %{_libdir}/%{name}/libbindbackend.so
 %dir %{_libdir}/%{name}/
+%dir %attr(-,pdns,pdns) %{_sharedstatedir}/%{name}
 %dir %attr(-,root,pdns) %{_sysconfdir}/%{name}/
 %attr(0640,root,pdns) %config(noreplace) %{_sysconfdir}/%{name}/pdns.conf
 
@@ -321,6 +327,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Tue Feb 06 2024 Morten Stevens <mstevens@fedoraproject.org> - 4.8.4-1
+- Update to 4.8.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

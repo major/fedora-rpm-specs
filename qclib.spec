@@ -1,16 +1,18 @@
 Name:		qclib
 Version:	2.4.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Library for extraction of system information for Linux on z Systems
 License:	BSD-3-Clause
 URL:		https://github.com/ibm-s390-linux/qclib
-Source0:	https://github.com/ibm-s390-linux/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 ExclusiveArch:	s390 s390x
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	glibc-static
 BuildRequires:	doxygen
 BuildRequires:	which
+# for EBCDIC to ASCII conversion
+Requires:	glibc-gconv-extra
 
 %description
 %{summary}.
@@ -82,6 +84,9 @@ QC_CHECK_CONSISTENCY=0 make test-sh test
 
 
 %changelog
+* Tue Feb 06 2024 Dan Horák <dan[at]danny.cz> - 2.4.0-6
+- add missing Requires
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

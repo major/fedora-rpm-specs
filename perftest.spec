@@ -6,7 +6,7 @@ Summary:        IB Performance Tests
 %global upstream_ver 23.07.0-0.27
 Version:        %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
 Release:        %autorelease
-License:        GPLv2 or BSD
+License:        GPL-2.0-only OR BSD-2-Clause
 Source:         https://github.com/linux-rdma/perftest/releases/download/23.07.0-0.27/perftest-23.07.0-0.27.g117a291.tar.gz
 Url:            https://github.com/linux-rdma/perftest
 

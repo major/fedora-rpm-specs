@@ -2,10 +2,10 @@
 
 Name:           dconf
 Version:        0.40.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A configuration system
 
-License:        LGPLv2+ and GPLv2+ and GPLv3+
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/dconf
 Source0:        https://download.gnome.org/sources/dconf/0.40/dconf-%{version}.tar.xz
 
@@ -104,6 +104,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/dconf/db/distro.d/locks
 %{_datadir}/vala
 
 %changelog
+* Tue Feb  6 2024 Marek Kasik <mkasik@redhat.com> - 0.40.0-12
+- Migrated to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

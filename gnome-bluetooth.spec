@@ -2,8 +2,8 @@
 
 Name:		gnome-bluetooth
 Epoch:		1
-Version:	42.7
-Release:	3%{?dist}
+Version:	42.8
+Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
 License:	GPL-2.0-or-later
@@ -96,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Feb 06 2024 David King <amigadave@amigadave.com> - 1:42.8-1
+- Update to 42.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:42.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

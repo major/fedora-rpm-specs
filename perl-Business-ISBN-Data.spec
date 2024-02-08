@@ -1,5 +1,5 @@
 Name:           perl-Business-ISBN-Data
-Version:        20240126.001
+Version:        20240206.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Tue Feb 06 2024 Jitka Plesnikova <jplesnik@redhat.com> - 20240206.001-1
+- 20240206.001 bump (rhbz#2262917)
+
 * Fri Jan 26 2024 Jitka Plesnikova <jplesnik@redhat.com> - 20240126.001-1
 - 20240126.001 bump (rhbz#2260428)
 

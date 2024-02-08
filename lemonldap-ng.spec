@@ -28,8 +28,8 @@
 #global pre_release beta1
 
 Name:           lemonldap-ng
-Version:        2.18.1
-Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}.2
+Version:        2.18.2
+Release:        %{?pre_release:0.}1%{?pre_release:.%{pre_release}}%{?dist}
 Summary:        Web Single Sign On (SSO) and Access Management
 # Lemonldap-ng itself is GPLv2+
 # Qrious bundled javascript library is GPLv3+
@@ -306,8 +306,8 @@ Requires:       perl(Lemonldap::NG::Manager) = %{version}-%{release}
 Provides:       bundled(js-angular) = 1.7.9
 Provides:       bundled(js-angular-bootstrap) = 2.5.0
 Provides:       bundled(js-angular-ui-tree) = 2.22.6
-Provides:       bundled(js-es5-shim)
-Provides:       bundled(js-filesaver)
+Provides:       bundled(js-es5-shim) = 4.5.14
+Provides:       bundled(js-filesaver) = 2.0.4
 
 %description manager
 This package deploys the administration interface and sessions explorer.
@@ -350,7 +350,7 @@ Provides:       bundled(js-bootstrap) = 4.5.2
 Provides:       bundled(js-fingerprint2) = 2.1.4
 Provides:       bundled(js-jquery) = 3.5.1
 Provides:       bundled(js-jquery-ui) = 1.13.2
-Provides:       bundled(js-qrious)
+Provides:       bundled(js-qrious) = 4.0.2
 
 %description portal
 This package deploys the authentication portal.
@@ -550,18 +550,13 @@ sed -i 's:/etc/lemonldap-ng/nginx-lua-headers.conf:/etc/nginx/nginx-lua-headers.
 # Remove for_etc_hosts from %%{_sysconfdir}
 mv %{buildroot}%{lm_confdir}/for_etc_hosts .
 
-# Fix shebang and perms
+# Fix shebangs
 sed -i -e 's,#!/usr/bin/env plackup,#!/usr/bin/plackup,' \
-    %{buildroot}%{lm_sharedir}/manager/api/api.psgi \
-    %{buildroot}%{lm_sharedir}/manager/htdocs/manager.psgi \
-    %{buildroot}%{lm_examplesdir}/manager/manager.psgi
-chmod 755 \
     %{buildroot}%{lm_sharedir}/manager/api/api.psgi \
     %{buildroot}%{lm_sharedir}/manager/htdocs/manager.psgi \
     %{buildroot}%{lm_examplesdir}/manager/manager.psgi
 sed -i -e '1i#!/usr/bin/plackup' \
     %{buildroot}%{lm_examplesdir}/llngapp.psgi
-chmod 644 %{buildroot}%{lm_sharedir}/test/cas.php
 
 # Install SELinux policy
 %if 0%{?with_selinux}
@@ -570,11 +565,12 @@ install -D -m 0644 %{modulename}.pp.bz2 \
 %endif
 
 %check
-# This test requires network, use "--with network_tests" to execute it
-%{?!_with_network_tests:rm lemonldap-ng-portal/t/02-Password-Demo-checkHIBP.t}
 sed -i 's:^dirName.*:dirName = %{buildroot}%{lm_vardir}/conf:' \
     %{buildroot}%{lm_storagefile}
-make %{?_smp_mflags} test \
+# Tests requiring network are disabled by default
+# Use "--with network_tests" to execute them
+%make_build test \
+    %{?!_with_network_tests:SKIP_NETWORK_TESTS=1} \
     LLNG_DEFAULTCONFFILE=%{buildroot}%{lm_storagefile}
 sed -i 's:^dirName.*:dirName = %{lm_vardir}/conf:' \
     %{buildroot}%{lm_storagefile}
@@ -763,6 +759,9 @@ fi
 
 
 %changelog
+* Tue Feb 06 2024 Clement Oudot <clem.oudot@gmail.com> - 2.18.2-1
+- Update to 2.18.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -787,7 +786,7 @@ fi
 * Mon Oct 02 2023 Xavier Bachelot <xavier@bachelot.org> - 2.17.1-2
 - Add a dep on SSOaaS version
 - Simplify fix shebang and perms
-- Drop INSTALL from %doc
+- Drop INSTALL from %%doc
 
 * Mon Sep 25 2023 Clement Oudot <clem.oudot@gmail.com> - 2.17.1-1
 - Update to 2.17.1

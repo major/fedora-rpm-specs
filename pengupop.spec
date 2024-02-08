@@ -1,12 +1,16 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
 License:        GPL-2.0-or-later
 URL:            http://www.junoplay.com/pengupop
 Source0:        http://www.junoplay.com/files/%{name}-%{version}.tar.gz
 Patch0: pengupop-c99.patch
+Patch1: includes.patch
+
+# Because unistd
+ExcludeArch: s390x
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -50,6 +54,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.2.2-37
+- Patch for stricter flags
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

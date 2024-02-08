@@ -11,7 +11,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -711,6 +711,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Tue Feb 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.9-2
+- Rebuilt for opencv-4.9.0
+
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

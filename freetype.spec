@@ -4,8 +4,8 @@
 Summary: A free and portable font rendering engine
 Name: freetype
 Version: 2.13.2
-Release: 4%{?dist}
-License: (FTL or GPLv2+) and BSD and MIT and Public Domain and zlib with acknowledgement
+Release: 5%{?dist}
+License: (FTL OR GPL-2.0-or-later) AND BSD-3-Clause AND MIT AND MIT-Modern-Variant AND LicenseRef-Fedora-Public-Domain AND Zlib
 URL: http://www.freetype.org
 Source:  http://download.savannah.gnu.org/releases/freetype/freetype-%{version}.tar.xz
 Source1: http://download.savannah.gnu.org/releases/freetype/freetype-doc-%{version}.tar.xz
@@ -227,6 +227,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Feb  6 2024 Marek Kasik <mkasik@redhat.com> - 2.13.2-5
+- Migrated to SPDX license
+
 * Tue Jan 30 2024 Marek Kasik <mkasik@redhat.com> - 2.13.2-4
 - Remove a patch which causes FTBFS
 - Resolves: #2261113

@@ -1,6 +1,6 @@
 Name:           noggin
-Version:        1.8.0
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -14,16 +14,11 @@ Source10:       noggin-README.Fedora
 
 # Backports from upstream
 ## From:
-## * https://github.com/fedora-infra/noggin/commit/ab4a69cfafef0523ead1780569522892a018f6db
-## Babel 4 and Flask 3 support backport
-Patch0001:      ab4a69cfafef0523ead1780569522892a018f6db.patch
 
 # Proposed upstream
 ## From:
 
 # Downstream Fedora changes
-## Loosen a few version requirements for rhel
-Patch1001:      noggin-downgrade-deps-for-rhel.patch
 
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 0-14
@@ -130,6 +125,10 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Tue Feb 06 2024 Aurelien Bompard <abompard@fedoraproject.org> - 1.9.0-1
+- Update to 1.0.9
+- Remove upstreamed patches
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

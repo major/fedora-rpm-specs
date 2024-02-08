@@ -1,6 +1,6 @@
 Name:           plexus-i18n
 Version:        1.0
-Release:        0.29.b10.4%{?dist}
+Release:        0.30.b10.4%{?dist}
 Summary:        Plexus I18N Component
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-i18n
@@ -10,6 +10,8 @@ ExclusiveArch:  %{java_arches} noarch
 # tar cjf plexus-i18n-1.0-beta-10-src.tar.bz2 plexus-i18n-1.0-beta-10/
 Source0:        plexus-i18n-1.0-beta-10-src.tar.bz2
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
@@ -33,8 +35,10 @@ is like a J2EE application server, without all the baggage.
 %pom_xpath_set 'pom:plugin[pom:artifactId = "plexus-maven-plugin"]/pom:artifactId' plexus-component-metadata
 # set goal to generate-metadata
 %pom_xpath_set 'pom:goals[pom:goal = "descriptor"]/pom:goal' generate-metadata
-# add missing dep: plexus-container-default
-%pom_add_dep org.codehaus.plexus:plexus-container-default
+# add missing dependencies
+%pom_add_dep org.codehaus.plexus:plexus-container-default::provided
+%pom_add_dep com.google.inject:guice::test
+%pom_add_dep junit:junit::test
 # remove maven-compiler-plugin configuration that is broken with Java 11
 %pom_xpath_remove 'pom:plugin[pom:artifactId="maven-compiler-plugin"]/pom:configuration'
 
@@ -47,6 +51,9 @@ is like a J2EE application server, without all the baggage.
 %files -f .mfiles
 
 %changelog
+* Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0-0.30.b10.4
+- Fix build with plexus-containers 2.2.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.29.b10.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

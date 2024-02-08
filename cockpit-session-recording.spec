@@ -1,5 +1,5 @@
 Name: cockpit-session-recording
-Version: 15
+Version: 16
 Release: 1%{?dist}
 Summary: Cockpit Session Recording
 License: LGPL-2.1-or-later
@@ -17,15 +17,15 @@ BuildRequires: libappstream-glib-devel
 
 Requires: cockpit-system
 Requires: tlog
+Requires: sssd-proxy
 
 Provides: bundled(npm(@babel/runtime)) = 7.23.9
-Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-table)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
+Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-core)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0
 Provides: bundled(npm(array-timsort)) = 1.0.3
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(base64-js)) = 1.5.1
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Feb 6 2024 Packit <hello@packit.dev> - 16-1
+- Config: Add sssd-proxy requirement
+
 * Thu Feb 1 2024 Packit <hello@packit.dev> - 15-1
 - Config: Update to authselect with-tlog feature
 - stylelint: handle stylelint-scss deprecation

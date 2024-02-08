@@ -1,6 +1,6 @@
 Name:           cinfo
-Version:        0.5.4
-Release:        3%{?dist}
+Version:        0.5.5
+Release:        1%{?dist}
 Summary:        Fast and minimal system information tool
 
 License:        GPL-3.0-only
@@ -42,6 +42,9 @@ EOL
 
 
 %changelog
+* Tue Feb 06 2024 Jonathan Wright <jonathan@almalinux.org> - 0.5.5-1
+- update to 0.5.5 rhbz#2262896
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

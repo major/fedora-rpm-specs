@@ -3,13 +3,13 @@
 %global libhandy_version 1.5.0
 
 Name:           gnome-disk-utility
-Version:        45.1
-Release:        3%{?dist}
+Version:        46~alpha
+Release:        1%{?dist}
 Summary:        Disks
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-disk-utility
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -54,7 +54,7 @@ fstab/crypttab editing, ATA SMART and other features
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.DiskUtility.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.DiskUtility.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -70,13 +70,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Disks.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/gnome-disks*
 %{_datadir}/icons/hicolor/*/apps/org.gnome.DiskUtility*
-%{_datadir}/metainfo/org.gnome.DiskUtility.appdata.xml
+%{_metainfodir}/org.gnome.DiskUtility.appdata.xml
 %{_mandir}/man1/*.1*
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop
 %{_libexecdir}/gsd-disk-utility-notify
 
 
 %changelog
+* Tue Feb 06 2024 David King <amigadave@amigadave.com> - 46~alpha-1
+- Update to 46.alpha
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

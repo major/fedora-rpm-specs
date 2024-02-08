@@ -6,11 +6,9 @@
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
-ExcludeArch: %{ix86}
-
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -19,6 +17,7 @@ Source0: https://github.com/balabit/syslog-ng/releases/download/syslog-ng-%{vers
 Source1: syslog-ng.conf
 Source2: syslog-ng.logrotate
 Source3: syslog-ng.service
+Patch0:  4816.patch
 
 BuildRequires: make
 BuildRequires: bison
@@ -605,6 +604,9 @@ fi
 
 
 %changelog
+* Tue Feb 06 2024 Peter Czanik <peter@czanik.hu> - 4.6.0-3
+- fix 32bit problem with 4816.patch
+
 * Mon Feb 05 2024 Peter Czanik <peter@czanik.hu> - 4.6.0-2
 - rebuild for abseil-cpp-20240116.0-1
 

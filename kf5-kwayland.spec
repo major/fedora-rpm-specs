@@ -14,7 +14,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.113.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 5 library that wraps Client and Server Wayland libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT AND MIT-CMU
@@ -109,6 +109,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 5.113.0-5
+- Rebuilt for turbojpeg 3.0.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

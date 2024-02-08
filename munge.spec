@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        Enables uid & gid authentication across a host cluster
 
 # The libs and devel package is GPLv3+ and LGPLv3+ where as the main package is GPLv3 only.
-License:        GPLv3+ and LGPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://dun.github.io/munge/
 Source0:        https://github.com/dun/munge/releases/download/munge-%{version}/munge-%{version}.tar.xz
 Source1:        https://github.com/dun/munge/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc

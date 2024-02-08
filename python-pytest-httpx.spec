@@ -1,7 +1,7 @@
 %global pypi_name pytest-httpx
 
 Name:           python-%{pypi_name}
-Version:        0.26.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Send responses to httpx
 

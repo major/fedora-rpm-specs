@@ -12,8 +12,7 @@ License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.xz
-#Patch0: appdata.patch
-#Patch1: wxwidgets3.2.patch
+Patch0:  pointer-types.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -63,7 +62,7 @@ FileZilla is a FTP, FTPS and SFTP client for Linux with a lot of features.
 - Network configuration wizard 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p0 -n %{name}-%{version}
 %if 0%{?run_autogen}
 autoreconf -if
 %endif

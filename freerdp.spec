@@ -9,10 +9,6 @@
 # or by globally setting:
 #global _opencl 1
 
-# Momentarily disable GSS support
-# https://github.com/FreeRDP/FreeRDP/issues/4348
-#global _with_gss 1
-
 # Disable server support in RHEL
 # https://bugzilla.redhat.com/show_bug.cgi?id=1639165
 %if 0%{?fedora} || 0%{?rhel} >= 10
@@ -34,7 +30,7 @@
 
 Name:           freerdp
 Version:        3.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
@@ -77,7 +73,7 @@ BuildRequires:  cmake(cJSON)
 BuildRequires:  (cmake(uriparser) and uriparser-devel)
 
 BuildRequires:  pkgconfig(cairo)
-%{?_with_gss:BuildRequires:  pkgconfig(krb5) >= 1.13}
+BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(libpcsclite)
 BuildRequires:  pkgconfig(libpulse)
@@ -186,10 +182,10 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FUSE=ON \
     -DWITH_GSM=ON \
-    -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
     -DWITH_ICU=ON \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
+    -DWITH_KRB5=ON \
     -DWITH_LAME=ON \
     -DWITH_MANPAGES=ON \
     -DWITH_OPENCL=%{?_with_opencl:ON}%{?!_with_opencl:OFF} \
@@ -344,6 +340,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Feb 01 2024 Ondrej Holy <oholy@redhat.com> - 2:3.2.0-4
+- Enable KRB5 support
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2:3.2.0-3
 - Rebuild for ICU 74
 

@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.14.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -12,6 +12,7 @@ Source3: shadow-utils.login.defs
 Source4: shadow-bsd.txt
 Source5: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Source6: shadow-utils.HOME_MODE.xml
+Source7: passwd.pamd
 
 ### Globals ###
 %global includesubiddir %{_includedir}/shadow
@@ -25,10 +26,18 @@ Patch1: shadow-4.2.1-date-parsing.patch
 Patch2: shadow-4.14.0-audit-update.patch
 # https://github.com/shadow-maint/shadow/pull/812
 Patch3: shadow-4.14.0-useradd-def-usrtemplate-selinux-label.patch
+# Probably non-upstreamable
+Patch4: shadow-4.14.0-account-tools-setuid.patch
+# https://github.com/shadow-maint/shadow/commit/43b4e5a6c41f5c43cad18810f9229e40e8c4a57e
+# https://github.com/shadow-maint/shadow/commit/45f34ee8c196a98397504cb7ed8576b6f1825cf9
+Patch5: shadow-4.14.0-remove-libcrack.patch
+# https://github.com/shadow-maint/shadow/pull/927
+Patch6: shadow-4.14.0-passwd-stdin.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
 Requires: libselinux >= 1.25.2-1
+Requires: pam-libs
 Requires: setup
 
 ### Build Dependencies ###
@@ -51,9 +60,12 @@ BuildRequires: libsemanage-devel
 BuildRequires: libtool
 BuildRequires: libxslt
 BuildRequires: make
+BuildRequires: pam-devel
 
 ### Provides ###
 Provides: shadow = %{epoch}:%{version}-%{release}
+Provides: passwd = 0.80-18
+Obsoletes: passwd <= 0.80-19
 
 %description
 The shadow-utils package includes the necessary programs for
@@ -112,6 +124,7 @@ autoreconf
         --enable-shadowgrp \
         --enable-man \
         --with-audit \
+        --with-libpam \
         --with-sha-crypt \
         --with-bcrypt \
         --with-yescrypt \
@@ -123,7 +136,8 @@ autoreconf
         --enable-shared \
         --with-group-name-max-length=32 \
         --enable-lastlog \
-        --enable-logind=no
+        --enable-logind=no \
+        --disable-account-tools-setuid
 %make_build
 
 %install
@@ -131,6 +145,8 @@ autoreconf
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/default
 install -p -c -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/login.defs
 install -p -c -m 0600 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/default/useradd
+install -d -m 755 $RPM_BUILD_ROOT%{_pam_confdir}
+install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_pam_confdir}/passwd
 
 
 ln -s useradd $RPM_BUILD_ROOT%{_sbindir}/adduser
@@ -145,7 +161,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/chsh
 rm $RPM_BUILD_ROOT%{_bindir}/expiry
 rm $RPM_BUILD_ROOT%{_bindir}/groups
 rm $RPM_BUILD_ROOT%{_bindir}/login
-rm $RPM_BUILD_ROOT%{_bindir}/passwd
 rm $RPM_BUILD_ROOT%{_bindir}/su
 rm $RPM_BUILD_ROOT%{_bindir}/faillog
 rm $RPM_BUILD_ROOT%{_sysconfdir}/login.access
@@ -162,8 +177,6 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/groups.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/groups.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/login.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/login.*
-rm $RPM_BUILD_ROOT%{_mandir}/man1/passwd.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man1/passwd.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/man5/limits.*
@@ -186,6 +199,8 @@ rm $RPM_BUILD_ROOT%{_mandir}/man5/faillog.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man5/faillog.*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/faillog.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man8/faillog.*
+
+# Remove PAM service files we don't use.
 
 find $RPM_BUILD_ROOT%{_mandir} -depth -type d -empty -delete
 %find_lang shadow
@@ -211,6 +226,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %license gpl-2.0.txt shadow-bsd.txt
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/login.defs
 %attr(0644,root,root)   %config(noreplace) %{_sysconfdir}/default/useradd
+%config(noreplace) %{_pam_confdir}/passwd
 %{_bindir}/sg
 %attr(4755,root,root) %{_bindir}/chage
 %attr(4755,root,root) %{_bindir}/gpasswd
@@ -218,6 +234,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %attr(4755,root,root) %{_bindir}/newgrp
 %attr(0755,root,root) %caps(cap_setgid=ep) %{_bindir}/newgidmap
 %attr(0755,root,root) %caps(cap_setuid=ep) %{_bindir}/newuidmap
+%attr(4755,root,root) %{_bindir}/passwd
 %{_sbindir}/adduser
 %attr(0755,root,root)   %{_sbindir}/user*
 %attr(0755,root,root)   %{_sbindir}/group*
@@ -235,6 +252,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_mandir}/man1/newgrp.1*
 %{_mandir}/man1/newgidmap.1*
 %{_mandir}/man1/newuidmap.1*
+%{_mandir}/man1/passwd.*
 %{_mandir}/man3/shadow.3*
 %{_mandir}/man5/shadow.5*
 %{_mandir}/man5/login.defs.5*
@@ -264,6 +282,12 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Feb  1 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-5
+- passwd: Provide binary from this package. Enable libpam and
+  disable account-tools-setuid. Provide passwd PAM service file.
+  Resolves: #2233275
+- passwd: provide --stdin option
+
 * Mon Jan 29 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-4
 - Disable SSSD support. Resolves: #2253182
 

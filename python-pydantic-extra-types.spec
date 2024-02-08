@@ -2,14 +2,25 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.1.0
+Version:        2.4.1
 %forgemeta
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Extra types for Pydantic
 
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
+
+# Allow python-ulid 2.x on Python 3.9 and later
+# https://github.com/pydantic/pydantic-extra-types/pull/131
+#
+# Fixes:
+#
+# Please support python-ulid 2.x
+# https://github.com/pydantic/pydantic-extra-types/issues/130
+#
+# Cherry-picked to v2.4.0.
+Patch:          0001-Allow-python-ulid-2.x-on-Python-3.9-and-later.patch
 
 BuildArch:      noarch
 
@@ -64,6 +75,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jan 31 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.1-1
+- Update to 2.4.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

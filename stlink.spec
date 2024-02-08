@@ -3,11 +3,11 @@
 # %global date 20200420
 
 Name:           stlink
-Version:        1.7.0
+Version:        1.8.0
 # Release:        0.1.%{date}git%{gitcommit}%{?dist}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        STM32 discovery line Linux programmer
-License:        BSD
+License:        BSD-3-Clause
 
 Url:            https://github.com/stlink-org/stlink
 # Source0:        %{url}/tarball/%{gitcommit_full}
@@ -71,6 +71,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 %license LICENSE.md
 %config(noreplace) %{_sysconfdir}/modprobe.d/%{name}*
 %{_bindir}/st-*
+%{_datadir}/%{name}
 %{_libdir}/lib%{name}.so.*
 %{_mandir}/man1/st-*.1*
 %{_udevrulesdir}/49-%{name}*
@@ -88,6 +89,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 # %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Feb 02 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 1.8.0-1
+- Update to 1.8.0
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

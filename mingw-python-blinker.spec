@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.6.2
-Release:       3%{?dist}
+Version:       1.7.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -15,10 +15,12 @@ Source0:       %{pypi_source}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -65,6 +67,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Tue Feb 06 2024 Sandro Mani <manisandro@gmail.com> - 1.7.0-1
+- Update to 1.7.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

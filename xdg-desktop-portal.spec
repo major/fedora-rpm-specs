@@ -9,7 +9,8 @@ Version: 1.18.2
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
-License: LGPLv2+
+# doc/website is CC0-1.0 but it is not included in rpm
+License: LGPL-2.1-or-later
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
 

@@ -3,7 +3,7 @@
 Name:    compiz-plugins-experimental
 Epoch:   1
 Version: %{basever}
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Additional plugins for Compiz
 License: GPLv2+
 URL:     https://gitlab.com/compiz/%{name}
@@ -30,6 +30,8 @@ Requires: compiz-plugins-extra%{?_isa} >= %{basever}
 Provides: compiz-plugins-unsupported%{?_isa} = %{epoch}:%{version}-%{release}
 Provides: compiz-plugins-unsupported = %{epoch}:%{version}-%{release}
 Obsoletes: compiz-plugins-unsupported < %{epoch}:%{version}-%{release}
+# https://gitlab.com/compiz/compiz-plugins-experimental/-/merge_requests/48
+Patch0: compiz-plugins-experimental-0.8.18-gcc-14-fix.patch
 
 %description
 The Compiz Fusion Project brings 3D desktop visual effects that improve
@@ -52,7 +54,7 @@ This package contain development files required for developing other plugins
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 chmod -x src/cubemodel/fileParser.c src/cubemodel/cubemodel.c src/cubemodel/cubemodel-internal.h
 
 %build
@@ -90,6 +92,10 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Feb  6 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.8.18-10
+- Fixed FTBFS with gcc-14
+  Resolves: rhbz#2261042
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -19,8 +19,8 @@
 %{!?make_build:%global make_build %{__make} %{?_smp_mflags}}
 
 Name:           tlog
-Version:        13
-Release:        4%{?dist}
+Version:        14
+Release:        1%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -157,6 +157,10 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Tue Feb 06 2024 Justin Stephenson <jstephen@redhat.com> - 14-1
+- Release v14
+- configure: correctly handle systemd versions before 245
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

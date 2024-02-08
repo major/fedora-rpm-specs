@@ -17,8 +17,8 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 24.02.0
-Release: 1%{?dist}
-License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
+Release: 2%{?dist}
+License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
 # git archive --prefix test/
@@ -280,6 +280,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Tue Feb  6 2024 Marek Kasik <mkasik@redhat.com> - 24.02.0-2
+- Migrated to SPDX license
+
 * Fri Feb  2 2024 Marek Kasik <mkasik@redhat.com> - 24.02.0-1
 - Update to 24.02.0
 - Resolves: #2237549

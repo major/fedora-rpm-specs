@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.3.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -12,15 +12,14 @@ License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/pygsl
 Source:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch0:        pygsl-python312.patch
+Patch1:        pygsl-remove-distutils.patch
 
 BuildRequires: gcc
 BuildRequires: gsl-devel
 BuildRequires: python3-devel
 BuildRequires: python3-numpy-f2py
 
-BuildRequires: python3dist(numpy)
-BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(wheel)
+BuildRequires: python3dist(pytest)
 
 # Only need if the generated sources are different from the version used in source
 BuildRequires: swig
@@ -61,31 +60,41 @@ Development files for pygsl
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Only need if the generated sources are different from the version used in source
 # rm -f swig_src/gslwrap_wrap.c
 %__python3 setup.py gsl_wrappers
 %__python3 setup.py config
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
+
+
+%check
+PYTHONPATH=%{buildroot}%{python3_sitearch} %pytest tests/ --ignore tests/odeiv2_test.py -k 'not test_levin_utrunk'
+
 
 %files
 
-%files devel
-
-%files -n python3-%{srcname}
+%files -n python3-%{srcname}  -f %{pyproject_files}
 %license COPYING
 %doc ChangeLog README.rst CREDITS.rst TODO.rst
 %doc examples/  doc/
-%{python3_sitearch}/*
 
 %files -n python3-%{srcname}-devel
 %{_includedir}/python%{python3_version}*/%{srcname}
 %doc testing tests
 
 %changelog
+* Mon Feb  5 2024 José Matos <jamatos@fedoraproject.org> - 2.3.3-4
+- Update the spec file to more modern Python guidelines
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

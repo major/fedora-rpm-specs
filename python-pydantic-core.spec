@@ -6,8 +6,8 @@
 %bcond tests 1
 
 Name:           python-pydantic-core
-Version:        2.14.6
-Release:        3%{?dist}
+Version:        2.16.2
+Release:        1%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
@@ -36,18 +36,18 @@ written in Rust.}
 %package -n python3-pydantic-core
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0 (duplicate)
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT (duplicate)
 License:        %{shrink:
-                    (MIT OR Apache-2.0)
+                (MIT OR Apache-2.0)
                 AND Unicode-DFS-2016
-                AND Apache-2.0
+                AND (BSD-2-Clause OR Apache-2.0 OR MIT)
                 AND (Apache-2.0 OR BSL-1.0)
                 AND MIT
                 AND (MIT OR Apache-2.0 OR zlib)
@@ -108,6 +108,9 @@ export RUSTFLAGS="%{build_rustflags}"
 
 
 %changelog
+* Mon Feb 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.16.2-1
+- Update to 2.16.2.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

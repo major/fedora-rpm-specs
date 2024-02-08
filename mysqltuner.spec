@@ -3,8 +3,8 @@
 #%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        2.2.12
-Release:        3%{?dist}
+Version:        2.5.2
+Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPL-3.0-or-later
@@ -43,6 +43,9 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Tue Feb 06 2024 Major Hayden <major@redhat.com> - 2.5.2-1
+- new version
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

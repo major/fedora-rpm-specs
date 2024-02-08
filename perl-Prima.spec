@@ -61,6 +61,12 @@ Patch0:         Prima-1.71-Harmonize-Prima-Bool-type-with-X11-Bool-macro.patch
 # Rename /usr/bin/pod2pdf to prima-pod2pdf because it conflicts with
 # perl-podf2pdf, CPAN RT#151521, in upstream after 1.72.
 Patch1:         Prima-1.72-Rename-pod2pdf-to-prima-pod2pdf.patch
+# Fix WEBP decoding on big-endian platforms, bug #2262788, CPAN RT#151593,
+# proposed to the upstream.
+Patch2:         Prima-1.72-Fix-WEBP-decoding-on-big-endian-platforms.patch
+# Fix memory handling in prima_fc_fonts(), bug #2262788, CPAN RT#151594,
+# proposed to the upstream.
+Patch3:         Prima-1.72-Fix-memory-handling-in-prima_fc_fonts.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}

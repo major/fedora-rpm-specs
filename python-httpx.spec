@@ -1,7 +1,7 @@
 %global pypi_name httpx
 
 Name:           python-%{pypi_name}
-Version:        0.25.1
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Python HTTP client
 

@@ -4,13 +4,14 @@
 
 Name:           nemo-extensions
 Version:        6.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:         %url/pull/512.patch
+Patch1:         %url/pull/514.patch
 
 ExcludeArch:    %{ix86}
 
@@ -326,6 +327,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Tue Jan 30 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.1-5
+- Fix python NameError: '_' is not defined
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

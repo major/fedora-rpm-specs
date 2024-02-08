@@ -9,7 +9,7 @@
 Name:           compiz
 License:        GPLv2+ and LGPLv2+ and MIT
 Version:        0.8.18
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        OpenGL window and compositing manager
 
@@ -20,6 +20,8 @@ Source0:        %{url}/-/archive/v%{version}/compiz-core-v%{version}.tar.bz2
 Patch0:        compiz-0.8.18-fedora-logo.patch
 # FTBFS fix, this can be dropped with compiz > 0.8.18
 Patch1:        compiz-0.8.18-rsvg2-2.52-fix.patch
+# https://gitlab.com/compiz/compiz-core/-/merge_requests/177
+Patch2:        compiz-0.8.18-gcc-14-fix.patch
 
 BuildRequires: libX11-devel
 BuildRequires: libdrm-devel
@@ -90,10 +92,8 @@ windows and compositing manager.
 
 
 %prep
-%setup -q -n compiz-core-v%{version}
+%autosetup -p1 -n compiz-core-v%{version}
 
-%patch0 -p1 -b .fedora-logo
-%patch1 -p1 -b .rsvg2-2.52-fix
 
 %build
 ./autogen.sh
@@ -165,6 +165,10 @@ categories},22x22/{categories,devices,mimetypes}}
 
 
 %changelog
+* Tue Feb  6 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.8.18-12
+- Fixed gcc-14 FTBFS
+  Resolves: rhbz#2261041
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

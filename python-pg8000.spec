@@ -1,56 +1,57 @@
 %global srcname pg8000
 
 Name:           python-%{srcname}
-Version:        1.26.1
-Release:        8%{?dist}
+Version:        1.30.4
+Release:        1%{?dist}
 Summary:        Pure Python PostgreSQL Driver
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://github.com/tlocke/pg8000/
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
 %description
-pg8000 is a pure-Python PostgreSQL driver that complies with DB-API 2.0. 
-The driver communicates with the database using the PostgreSQL Backend and 
+pg8000 is a pure-Python PostgreSQL driver that complies with DB-API 2.0.
+The driver communicates with the database using the PostgreSQL Backend and
 Frontend Protocol.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        Pure Python3 PostgreSQL Driver
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python3dist(scramp)
-Requires:       python%{python3_pkgversion}-six
-Requires:       python3dist(scramp)
 
 %{?fedora:Suggests:       python3-sqlalchemy}
 %{?fedora:Suggests:       postgresql}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
-pg8000 is a pure Python3 PostgreSQL driver that complies with DB-API 2.0. 
-The driver communicates with the database using the PostgreSQL Backend / 
+pg8000 is a pure Python3 PostgreSQL driver that complies with DB-API 2.0.
+The driver communicates with the database using the PostgreSQL Backend /
 Frontend Protocol.
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
-#Test requires a runing PostgreSQL instance
+# Test requires a running PostgreSQL instance
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Tue Feb 06 2024 Nils Philippen <nils@tiptoe.de> - 1.30.4-1
+- Update to latest upstream release 1.30.4
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

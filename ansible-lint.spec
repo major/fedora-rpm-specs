@@ -42,10 +42,6 @@ sed 's|setuptools >= 63.0.0|setuptools >= 62.0.0|' -i pyproject.toml
 grep -F 'setuptools >= 62.0.0' pyproject.toml
 %endif
 
-# Relax requests dependency
-sed -i 's|^requests>=.*|requests|' .config/requirements.in
-grep '^requests$' .config/requirements.in
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -70,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Tue Feb 06 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:6.22.2-2
+- Remove the relaxed requests module requirement from %%prep section
+
 * Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:6.22.2-1
 - Update to 6.22.2 version (#2259057)
 

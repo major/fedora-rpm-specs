@@ -16,7 +16,7 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	1.17.13
-Release:	4%{?dist}
+Release:	5%{?dist}
 # From gemspec
 # SPDX confirmed
 License:	GPL-2.0-or-later OR Ruby
@@ -47,10 +47,10 @@ BuildRequires:	rubygem(native-package-installer)
 # Circular dependency
 %if %{without bootstrap}
 BuildRequires:	rubygem(poppler)
+%endif
 # Make sure at least one font is available for test/test_context.rb:57
 # `initialize': out of memory (NoMemoryError)
 BuildRequires:	dejavu-serif-fonts
-%endif
 Requires:	rubygems
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
@@ -138,10 +138,6 @@ rm -rf \
 popd
 
 %check
-%if %{with bootstrap}
-exit 0
-%endif
-
 export RUBYLIB=$(pwd)/TMPINSTDIR/%{gem_instdir}:$(pwd)/TMPINSTDIR/%{gem_extdir_mri}/
 
 pushd ./TMPINSTDIR/%{gem_instdir}
@@ -160,6 +156,18 @@ cp -a rcairo/test/* test
 # Fix up test/run-test.rb
 sed -i -e '\@require .rubygems@a\\ngem "test-unit"\n' test/run-test.rb
 sed -i -e "\@require 'bundler/setup'@d" test/run-test.rb
+
+%if %{with bootstrap}
+# Kill tests which needs poppler
+sed -i test/helper.rb -e '\@poppler@s@^@#@'
+for f in \
+	test/test_context.rb \
+	test/test_pdf_surface.rb \
+	%{nil}
+do
+	mv $f $f.orig
+done
+%endif
 
 ruby ./test/run-test.rb
 
@@ -181,6 +189,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Tue Feb 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.13-5
+- Bump and rebuild
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

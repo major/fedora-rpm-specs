@@ -41,6 +41,9 @@
 #
 %bcond_with bootstrap
 
+# The test suite is normally run. It can be disabled with "--without=check".
+%bcond_without check
+
 # Stripping out debugging information isn't important when bootstrapping.
 %if %{with bootstrap}
 %global debug_package %{nil}
@@ -56,14 +59,14 @@
 # Upstream source information.
 %global upstream_owner         AdaCore
 %global upstream_name          gprbuild
-%global upstream_version       23.0.0
-%global upstream_release_date  20221020
+%global upstream_version       24.0.0
+%global upstream_release_date  20231009
 %global upstream_gittag        v%{upstream_version}
 
 Name:           gprbuild
 Epoch:          2
 Version:        %{upstream_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        A multi-language extensible build tool
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -105,6 +108,13 @@ Patch:          %{name}-resolve-libgpr-conflict.patch
 #    would be needed to handle other possible setups.
 Patch:          %{name}-usrmove.patch
 
+# [Fedora-specific] Hard code the default KB dir to `/usr/share/gprconfig`.
+#    In the upstream code, the default location of the knowledge base is
+#    defined to be relative to the installation folder. This is a problem
+#    when testing GPRbuild and utilities in a staging directory. For Fedora,
+#    installation paths are fixed so the location of the KB can be hard coded.
+Patch:          %{name}-hard-code-default-kb-dir.patch
+
 BuildRequires:  gcc-gnat make sed dos2unix
 BuildRequires:  libgnat-static
 # A fedora-gnat-project-common that contains Gnatmake_flags and GPRbuild_flags
@@ -122,6 +132,32 @@ BuildRequires:  xmlada-devel
 BuildRequires:  xmlada-static >= 2:23
 BuildRequires:  python3-sphinx
 BuildRequires:  texinfo
+%endif
+
+%if %{with check}
+# To verify if G++ and GFortran are detected by gprconfig.
+BuildRequires:  gcc-c++
+BuildRequires:  gcc-gfortran
+# Language packs for used for testing.
+# -- list derived from: https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=gcc/po;hb=HEAD
+BuildRequires:  glibc-langpack-be
+BuildRequires:  glibc-langpack-da
+BuildRequires:  glibc-langpack-de
+BuildRequires:  glibc-langpack-el
+BuildRequires:  glibc-langpack-es
+BuildRequires:  glibc-langpack-fi
+BuildRequires:  glibc-langpack-fr
+BuildRequires:  glibc-langpack-hr
+BuildRequires:  glibc-langpack-id
+BuildRequires:  glibc-langpack-ja
+BuildRequires:  glibc-langpack-nl
+BuildRequires:  glibc-langpack-ru
+BuildRequires:  glibc-langpack-sr
+BuildRequires:  glibc-langpack-sv
+BuildRequires:  glibc-langpack-tr
+BuildRequires:  glibc-langpack-uk
+BuildRequires:  glibc-langpack-vi
+BuildRequires:  glibc-langpack-zh
 %endif
 
 # Build only on architectures where GPRbuild is available.
@@ -349,18 +385,51 @@ rmdir %{buildroot}%{_datadir}/examples
 ## Check ##
 ###########
 
-%if %{with bootstrap}
+%if %{with check}
 %check
 
 # Make the files installed in the buildroot visible to the testsuite.
 export PATH=%{buildroot}%{_bindir}:%{buildroot}%{_libexecdir}:$PATH
 export GPR_PROJECT_PATH=%{buildroot}%{_GNAT_project_dir}:$GPR_PROJECT_PATH
 
+# TEST 1: Validate knowledge base.
+
+gprconfig --batch -o /dev/null --validate
+
+# TEST 2: Verify detection of compilers and linkers under different locales.
+
+detect_tools () {
+
+    # GCC (Ada, Assembly, C, C++ and Fortran)
+    gprconfig --batch -o /dev/null \
+              --config=Ada,,default,%{_bindir},GNAT \
+              --config=Asm,,,%{_bindir},GCC-ASM \
+              --config=Asm2,,,%{_bindir},GCC-ASM \
+              --config=Asm_Cpp,,,%{_bindir},GCC-ASM \
+              --config=C,,,%{_bindir},GCC \
+              --config=C++,,,%{_bindir},G++ \
+              --config=Fortran,,,%{_bindir},GFORTRAN
+
+    # LD (Binary images).
+    gprconfig --batch -o /dev/null \
+              --config=Bin_Img,,,%{_bindir},LD
+}
+
+for locale in $(locale -a); do
+    LANG=${locale} detect_tools
+done
+
+# TEST 3: Perform a test build.
+
 # Unpack the test project.
 tar --verbose --extract --gzip --file %{SOURCE1}
 
 # Try to build the test project; use the pre-installed GPRconfig KB.
-gprbuild -v --db /usr/share/gprconfig -P gprbuild-tests/tests_shared.gpr
+gprbuild -v -P gprbuild-tests/tests_shared.gpr
+
+# TEST 4: Build and run the examples.
+
+make -C examples run
 
 %endif
 
@@ -412,6 +481,13 @@ gprbuild -v --db /usr/share/gprconfig -P gprbuild-tests/tests_shared.gpr
 ###############
 
 %changelog
+* Sun Jan 28 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:24.0.0-1
+- Updated to v24.0.0.
+- The default KB dir is now hard coded to /usr/share/gprconfig.
+- New test that validates the knowledge base.
+- New test detecting compilers and linkers under different locales.
+- New test that builds and runs the examples.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:23.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,10 @@
 Name:           pyodbc
-Version:        5.0.1
-%global uversion 5.0.1
-Release:        3%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
-License:        MIT
+License:        MIT-0
 URL:            https://github.com/mkleehammer/pyodbc
-Source0:        https://github.com/mkleehammer/pyodbc/archive/%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
+Source0:        https://github.com/mkleehammer/pyodbc/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  unixODBC-devel
 BuildRequires:  python3-devel
@@ -33,7 +32,7 @@ convenient interface to ODBC using native data types like datetime and
 decimal.
 
 %prep
-%autosetup -n %{name}-%{uversion} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -48,10 +47,14 @@ decimal.
 %license LICENSE.txt
 %doc README.md notes.txt
 %{python3_sitearch}/%{name}%{python3_ext_suffix}
-%{python3_sitearch}/%{name}-%{uversion}.dist-info/
+%{python3_sitearch}/%{name}-%{version}.dist-info/
 %{python3_sitearch}/%{name}.pyi
 
 %changelog
+* Tue Feb 6 2024 Ondrej Sloup <osloup@redhat.com> - 5.1.0-1
+- Rebase to the newest version (Related: rhbz#2262845)
+- Update license tag to the SPDX format (MIT-0)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

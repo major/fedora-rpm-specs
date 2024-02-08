@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          engrampa
-Version:       %{branch}.1
+Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.21%{?git_rel}%{?dist}
 %endif
@@ -102,6 +102,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Feb 06 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

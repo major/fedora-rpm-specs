@@ -2,7 +2,7 @@
 %bcond_with perl_LWP_Protocol_https_enables_internet_test
 
 Name:           perl-LWP-Protocol-https
-Version:        6.12
+Version:        6.13
 Release:        1%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 06 2024 Michal Josef Špaček <mspacek@redhat.com> - 6.13-1
+- 0.13 bump
+
 * Wed Jan 24 2024 Michal Josef Špaček <mspacek@redhat.com> - 6.12-1
 - 0.12 bump
 

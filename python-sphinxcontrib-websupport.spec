@@ -1,74 +1,58 @@
 %bcond_without optional_tests
-%global pypi_name sphinxcontrib-websupport
 
-Name:           python-%{pypi_name}
-Version:        1.2.4
-Release:        16%{?dist}
+Name:           python-sphinxcontrib-websupport
+Version:        1.2.7
+Release:        1%{?dist}
 Summary:        Sphinx API for Web Apps
 
-License:        BSD
-URL:            http://sphinx-doc.org/
-Source0:        %{pypi_source}
+License:        BSD-2-Clause
+URL:            https://github.com/sphinx-doc/sphinxcontrib-websupport
+Source:         %{pypi_source sphinxcontrib_websupport}
 BuildArch:      noarch
 
 %description
 sphinxcontrib-websupport provides a Python API to easily integrate Sphinx
 documentation into your Web application.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-sphinxcontrib-websupport
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-jinja2
-BuildRequires:  python3-pytest
-BuildRequires:  python3-six
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinxcontrib-serializinghtml >= 1.1.3
 
 %if %{with optional_tests}
-# Optional tests deps, can be individually skipped,
-# but sqlalchemy is required for both whoosh and xapian tests
-BuildRequires:  python3-sqlalchemy
-BuildRequires:  python3-whoosh
+# Optional tests dep, undeclared upstream, can be skipped if needed
 BuildRequires:  python3-xapian
 %endif
 
-# Undeclared but used runtime dependencies
-# https://github.com/sphinx-doc/sphinxcontrib-websupport/pull/46
-Requires:       python3-jinja2
-Requires:       python3-sphinx
-
-Recommends:     python3-sqlalchemy
-Recommends:     python3-whoosh
-
-%description -n python3-%{pypi_name}
+%description -n python3-sphinxcontrib-websupport
 sphinxcontrib-websupport provides a Python API to easily integrate Sphinx
 documentation into your Web application.
 
+%pyproject_extras_subpkg -n python3-sphinxcontrib-websupport whoosh
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n sphinxcontrib_websupport-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files sphinxcontrib
 
 %check
-%pytest -v -rs
+%tox
 
-%files -n python3-%{pypi_name}
+%files -n python3-sphinxcontrib-websupport -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%dir %{python3_sitelib}/sphinxcontrib
-%{python3_sitelib}/sphinxcontrib/websupport/
-%{python3_sitelib}/sphinxcontrib_websupport-*.pth
-%{python3_sitelib}/sphinxcontrib_websupport-*.egg-info/
 
 %changelog
+* Tue Jan 30 2024 Karolina Surma <ksurma@redhat.com> - 1.2.7-1
+- Update to 1.2.7
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

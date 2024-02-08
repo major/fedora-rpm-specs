@@ -1,35 +1,26 @@
 Name: pipewalker
 Summary: Puzzle game about connecting components into a single circuit
-License: GPL-3.0-or-later
+License: MIT
 
-Version: 0.9.5
-Release: 3%{?dist}
+Version: 1.0
+Release: 1%{?dist}
 
 URL: https://github.com/artemsen/pipewalker
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source11: %{name}.metainfo.xml
-
-# Respect XDG Base Directory Specification when storing the config file.
-# Backport of upstream commit:
-# https://github.com/artemsen/pipewalker/commit/5dbaf4e2c9b20aba2fee21f1d840eb90db7bba1e.patch
-Patch1: 0001-follow-xdg-basedir-spec.patch
 
 # Store data files in /usr/share/pipewalker, not /usr/share/games/pipewalker.
 # Reverse-patch created from upstream commit:
 # https://github.com/artemsen/pipewalker/commit/3927dd99f5cd2037a746b1ff92d6a4fb7480a2d9.patch
 Patch2: 0002-no-games-subdir-for-data.patch
 
-BuildRequires: autoconf
-BuildRequires: automake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
-BuildRequires: make
-BuildRequires: ImageMagick
+BuildRequires: meson
 
-BuildRequires: libGL-devel
-BuildRequires: libpng-devel
-BuildRequires: SDL-devel
+BuildRequires: SDL2-devel
+BuildRequires: SDL2_image-devel
 
 Requires: hicolor-icon-theme
 
@@ -52,36 +43,21 @@ required to play PipeWalker.
 
 %prep
 %autosetup -p1
-autoreconf -fiv
 
 # Fix violation of Icon Theme Specification
 sed -e 's/^Icon=pipewalker\.xpm$/Icon=pipewalker/' -i extra/%{name}.desktop
 
 
 %build
-%configure
-%make_build
-
-convert extra/%{name}.ico extra/%{name}.png
+%meson
+%meson_build
 
 
 %install
-%make_install
-
-install -m 755 -d %{buildroot}%{_mandir}/man6
-install -m 644 -p extra/%{name}.6 %{buildroot}%{_mandir}/man6/%{name}.6
+%meson_install
 
 install -m 755 -d %{buildroot}%{_metainfodir}
 install -m 644 -p %{SOURCE11} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-
-install -D -m 644 extra/%{name}-0.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
-install -D -m 644 extra/%{name}-1.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-install -D -m 644 extra/%{name}-2.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-install -D -m 644 extra/%{name}-3.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
-
-# Not used in Fedora
-rm -rf %{buildroot}%{_datadir}/menu
-rm -rf %{buildroot}%{_datadir}/pixmaps
 
 
 %check
@@ -90,7 +66,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %files
-%doc %{_datadir}/doc/%{name}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -98,11 +73,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_mandir}/man6/%{name}.6*
 
 %files data
-%license COPYING
+%license LICENSE
 %{_datadir}/%{name}
 
 
 %changelog
+* Tue Feb 06 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0-1
+- Update to v1.0
+- Drop Patch1 (comply with XDG directory spec - backport from this release)
+- Update License tag (relicensed from GPL-3.0-or-later to MIT)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           imv
 Version:        4.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -88,6 +88,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 4.4.0-8
+- Rebuilt for turbojpeg 3.0.2
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 4.4.0-7
 - Rebuild for ICU 74
 

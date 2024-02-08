@@ -15,8 +15,18 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.45
-Release: 3%{?dist}
-License: BSD
+Release: 4%{?dist}
+
+# Main license is BSD-2-Clause-Darwin
+# Shipped exceptions:
+# * some src/*.{c.h} - BSD-2-Clause
+# Not shipped in Fedora:
+# * src/mygetopt.h - BSD-4-Clause
+# * src/strcasestr.h - BSD-3-Clause
+# * src/strlc{at,py}.c - ISC
+# * src/vasprintf.c - BSD-2-Clause-Darwin AND BSD-3-Clasue
+License: BSD-2-Clause-Darwin AND BSD-2-Clause
+
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
 
@@ -223,6 +233,9 @@ make -C tests check
 %endif
 
 %changelog
+* Tue Feb 06 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.45-4
+- migrate to SPDX license format
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

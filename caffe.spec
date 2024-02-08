@@ -11,7 +11,7 @@ Summary:        A deep learning framework
 Name:           caffe
 License:        BSD-2-Clause
 Version:        1.0^git%{date0}.%{shortcommit0}
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 URL:            http://caffe.berkeleyvision.org/
@@ -143,6 +143,9 @@ rm -r %{buildroot}/usr/python
 %{_libdir}/cmake/Caffe/
 
 %changelog
+* Tue Feb 06 2024 Sérgio Basto <sergio@serjux.com> - 1.0^git20200212.9b89154-10
+- Rebuild for opencv 4.9.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^git20200212.9b89154-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

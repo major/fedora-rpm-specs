@@ -1,16 +1,12 @@
 Name:           git-publish
-Version:        1.8.1
-Release:        6%{?dist}
+Version:        1.8.2
+Release:        1%{?dist}
 Summary:        Prepare and store patch revisions as git tags
 License:        MIT
 URL:            https://github.com/stefanha/git-publish
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
-%if (0%{?rhel} && 0%{?rhel} <= 7)
-BuildRequires:  python2-devel
-%else
 BuildRequires:  python3-devel
-%endif
 BuildRequires:  perl-podlators
 Requires:       git-core git-email
 
@@ -32,11 +28,9 @@ emails are sent.
 %prep
 %autosetup
 
-# Force Python 3 in recent distros
-# https://fedoraproject.org/wiki/Packaging:Python#Multiple_Python_Runtimes
-%if ! (0%{?rhel} && 0%{?rhel} <= 7)
+# Force Python 3
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_shebangs
 sed -i '1c #!%{__python3}' git-publish
-%endif
 
 %build
 pod2man --center "git-publish Documentation" --release "%{version}" git-publish.pod git-publish.1
@@ -56,6 +50,10 @@ install -p -m 644 hooks/pre-publish-send-email.example %{buildroot}%{_datadir}/g
 %_datadir/git-publish/hooks/pre-publish-send-email.example
 
 %changelog
+* Tue Feb 6 2024 Stefan Hajnoczi <stefanha@gmail.com> - 1.8.2-1
+- Add --send-email-args argument to pass git-send-email(1) arguments
+- Show a clear error message when the base branch does not exist
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

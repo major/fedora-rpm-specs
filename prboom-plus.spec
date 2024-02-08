@@ -1,11 +1,13 @@
 Name:    prboom-plus
 Version: 2.6.66
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Free enhanced DOOM engine
 URL:     https://github.com/coelckers/prboom-plus/tags
 License: BSD-3-Clause AND MIT AND LGPL-2.0-or-later
 
 Source0: https://github.com/coelckers/prboom-plus/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0:  pointer-types.patch
 
 Requires:      freedoom
 
@@ -35,6 +37,8 @@ Bash command line completion support for %{name}.
 
 %prep
 %setup -qn %{name}-%{version}
+
+%patch -P 0 -p0
 
 %build
 pushd prboom2
@@ -66,6 +70,9 @@ install -Dpm 644 ICONS/%{name}.bash %{buildroot}%{_datadir}/bash-completion/comp
 %{_datadir}/bash-completion/completions/%{name}.bash
 
 %changelog
+* Tue Feb 06 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.6.66-6
+- Patch for stricter flags.
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.66-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

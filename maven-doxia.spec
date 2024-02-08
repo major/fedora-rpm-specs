@@ -3,7 +3,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        1.12.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -219,6 +219,9 @@ done
 # we don't have maven-clean-plugin or maven-site-plugin
 %pom_xpath_remove '//pom:goals' doxia-modules/doxia-module-markdown
 
+# Fix build issue with plexus-containers 2.2.0
+%pom_add_dep com.google.inject:guice::test
+
 # requires network
 rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 
@@ -265,6 +268,9 @@ sed -i '/doxia-module-itext/d' doxia-modules/pom.xml
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.12.0-6
+- Fix build with plexus-containers 2.2.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

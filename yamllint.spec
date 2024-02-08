@@ -3,8 +3,8 @@
 %global pypi_name yamllint
 
 Name:           %{pypi_name}
-Version:        1.33.0
-Release:        2%{?dist}
+Version:        1.34.0
+Release:        1%{?dist}
 Summary:        A linter for YAML files
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Tue Feb 06 2024 Adrien Vergé <adrienverge@gmail.com> - 1.34.0-1
+- Update to latest upstream version
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

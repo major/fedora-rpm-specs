@@ -2,15 +2,15 @@
 
 Name: luv-icon-theme
 Summary: Flat, but complex, icon theme
-License: CC-BY-SA
+License: CC-BY-SA-4.0
 
-%global git_date    20230826
-%global git_commit  abffcdc287fe9394cf74fe7db885463fd8ef0ee0
+%global git_date    20231224
+%global git_commit  cd15ec28e131d29fc1c1afaa289dc9a70d786428
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
 # Version number taken from 'debian/changelog' file
-Version: 0.6.0^%{git_date}.%{git_commit_short}
-Release: 3%{?dist}
+Version: 0.6.1^%{git_date}.%{git_commit_short}
+Release: 1%{?dist}
 
 URL: https://github.com/Nitrux/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -98,6 +98,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Luv &>/dev/null || :
 
 
 %changelog
+* Tue Feb 06 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.1^20231224.cd15ec2-1
+- Update to latest git snapshot (2023-12-24)
+- Migrate License tag to SPDX
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0^20230826.abffcdc-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

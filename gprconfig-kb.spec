@@ -1,12 +1,12 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gprconfig_kb
-%global upstream_version  23.0.0
+%global upstream_version  24.0.0
 %global upstream_gittag   v%{upstream_version}
 
 Name:           gprconfig-kb
 Version:        %{upstream_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        GNAT project configuration knowledge base
 BuildArch:      noarch
 
@@ -18,9 +18,6 @@ Source0:        %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_ve
 # [Fedora specific]
 Source1:        fedora_arches.xml
 Source2:        fedora_ar.xml
-
-# [Fedora specific]
-Patch0:         %{name}-fedora-compilers.patch
 
 # [specific to recent GCC] Make detection of GCC compilers independent of locale.
 Patch1:         %{name}-improve-detection-of-gcc.patch
@@ -90,6 +87,10 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 ###############
 
 %changelog
+* Sun Jan 28 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 24.0.0-1
+- Updated to v24.0.0.
+- Dropped gprconfig-kb-fedora-compilers.patch. It seemed to have no effect.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

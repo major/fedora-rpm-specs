@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.0
-Release:   11%{?dist}
+Release:   12%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -751,6 +751,17 @@ local langpacks_package_list = {
           recommends={}
    },
  },
+ { lang="mni", fclang="", langname="Manipuri", default={
+                sans="google-noto-sans-meeteimayek-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={ "",
+              },
+   inputmethod="ibus-m17n",
+   meta={ requires={},
+          recommends={}
+   },
+ },
  { lang="mr", fclang="", langname="Marathi", default={
                 sans="google-noto-sans-devanagari-vf-fonts",
                 serif="google-noto-serif-devanagari-vf-fonts",
@@ -929,6 +940,17 @@ local langpacks_package_list = {
    recommends={ "pt-sans-fonts",
               },
    inputmethod="",
+   meta={ requires={},
+          recommends={}
+   },
+ },
+ { lang="sat", fclang="", langname="Santali", default={
+                sans="google-noto-sans-ol-chiki-vf-fonts",
+                serif="",
+                mono="" },
+   recommends={
+              },
+   inputmethod="ibus-m17n",
    meta={ requires={},
           recommends={}
    },
@@ -1545,7 +1567,7 @@ for i = 1, #coreface do
   end
   deffontpkg("default-fonts-core-" .. coreface[i], sum1, sum2, build_deps("", "Requires", drop_duplicate(core_font_package_list["default"][coreface[i]])))
 end
-} # %{lua:}
+} # %%{lua:}
 
 %package -n default-fonts
 Summary: Meta package to install all the default fonts
@@ -1554,7 +1576,8 @@ Requires: default-fonts-cjk = %{version}-%{release}
 Requires: default-fonts-other = %{version}-%{release}
 
 %description -n default-fonts
-This package provides easier way to install all the default fonts meta packages for all the languages.
+This package provides easier way to install all the default fonts meta packages
+for all the languages.
 
 %files -n default-fonts
 %{_datadir}/metainfo/org.fedoraproject.default-fonts.metainfo.xml
@@ -1568,33 +1591,34 @@ Requires: default-fonts-core-emoji = %{version}-%{release}
 Requires: default-fonts-core-math = %{version}-%{release}
 
 %description -n default-fonts-core
-This package provides easier way to install all variants of default fonts meta packages for Western characters.
+This package provides easier way to install all variants of default fonts
+meta packages for Western characters.
 
 %files -n default-fonts-core
 %{_datadir}/metainfo/org.fedoraproject.default-fonts-core.metainfo.xml
 
 %package -n default-fonts-cjk
-Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for CJK.
+Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for CJK
 Requires: default-fonts-cjk-sans = %{version}-%{release}
 Requires: default-fonts-cjk-serif = %{version}-%{release}
 Requires: default-fonts-cjk-mono = %{version}-%{release}
 
 %description -n default-fonts-cjk
-This package provides easier way to install all variants of default fonts meta packages
-for CJK languages.
+This package provides easier way to install all variants of default fonts
+meta packages for CJK languages.
 
 %files -n default-fonts-cjk
 %{_datadir}/metainfo/org.fedoraproject.default-fonts-cjk.metainfo.xml
 
 %package -n default-fonts-other
-Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for non-CJK.
+Summary: Meta package to install sans/serif/mono/emoji/math default fonts meta packages for non-CJK
 Requires: default-fonts-other-sans = %{version}-%{release}
 Requires: default-fonts-other-serif = %{version}-%{release}
 Requires: default-fonts-other-mono = %{version}-%{release}
 
 %description -n default-fonts-other
-This package provides easier way to install all variants of default fonts meta packages
-for non-CJK languages.
+This package provides easier way to install all variants of default fonts
+meta packages for non-CJK languages.
 
 %files -n default-fonts-other
 %{_datadir}/metainfo/org.fedoraproject.default-fonts-other.metainfo.xml
@@ -1617,6 +1641,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE3}
 
 %changelog
+* Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 4.0-12
+- Added langpacks for sat and mni languages (#2259991 and #2259995)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

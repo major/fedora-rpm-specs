@@ -1,6 +1,6 @@
 Name:           inxi
-Version:        3.3.31
-Release:        4%{?dist}
+Version:        3.3.32
+Release:        1%{?dist}
 Summary:        A full featured system information script
 
 License:        GPL-3.0-or-later
@@ -57,11 +57,6 @@ Inxi offers a wide range of built-in options, as well as a good number of extra
 features which require having the script recommends installed on the system.
 
 
-%description -l ru
-Inxi позволяет выводить различную информацию об используемом оборудовании и о
-работе системы.
-
-
 %prep
 %autosetup -n %{name}
 #Disable update option
@@ -86,6 +81,9 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Tue Feb 06 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.32-1
+- Update to 3.3.32
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

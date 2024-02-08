@@ -4,8 +4,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
-Version:        1.15.3
-Release:        5%{?dist}
+Version:        1.15.4
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -79,6 +79,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Tue Feb 06 2024 Sandro Mani <manisandro@gmail.com> - 1.15.4-1
+- Update to 1.15.4
+
 * Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 1.15.3-5
 - Rebuild (sip)
 

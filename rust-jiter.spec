@@ -5,14 +5,16 @@
 %global crate jiter
 
 Name:           rust-jiter
-Version:        0.0.4
+Version:        0.0.6
 Release:        %autorelease
 Summary:        Iterable JSON parser
 
 License:        MIT
 URL:            https://crates.io/crates/jiter
 Source:         %{crates_source}
-# https://github.com/pydantic/jiter/pull/53
+# https://github.com/pydantic/jiter/pull/57
+# Rebased on v0.0.6; adjusted to apply to the released crate and to drop the
+# lexical-core dependency from the “normalized” Cargo.toml.
 Patch:          drop-lexical-core-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24

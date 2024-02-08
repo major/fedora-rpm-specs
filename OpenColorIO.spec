@@ -25,6 +25,7 @@ ExclusiveArch:  x86_64 ppc64le
 BuildRequires:  cmake gcc-c++
 BuildRequires:  help2man
 BuildRequires:  python3
+BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-markupsafe
 BuildRequires:  python3-setuptools
 

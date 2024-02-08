@@ -1,4 +1,6 @@
 %global _hardened_build 1
+
+%bcond gpm %[!(0%{?rhel} >= 10)]
 %bcond webkit %[!(0%{?rhel} >= 10)]
 
 # This file is encoded in UTF-8.  -*- coding: utf-8 -*-
@@ -59,7 +61,9 @@ BuildRequires: m17n-lib-devel
 BuildRequires: libotf-devel
 BuildRequires: libselinux-devel
 BuildRequires: alsa-lib-devel
+%if %{with gpm}
 BuildRequires: gpm-devel
+%endif
 BuildRequires: liblockfile-devel
 BuildRequires: libxml2-devel
 BuildRequires: autoconf
@@ -290,6 +294,9 @@ ln -s ../configure .
            --with-native-compilation=aot \
            --with-sqlite3 \
            --with-tree-sitter \
+%if %{without gpm}
+           --with-gpm=no \
+%endif
            --with-x=no
 %{setarch} %make_build bootstrap
 %{setarch} %make_build

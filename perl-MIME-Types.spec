@@ -15,8 +15,8 @@
 %endif
 
 Name:           perl-MIME-Types
-Version:        2.24
-Release:        5%{?dist}
+Version:        2.26
+Release:        1%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Types
@@ -112,6 +112,11 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Tue Feb  6 2024 Paul Howarth <paul@city-fan.org> - 2.26-1
+- Update to 2.26
+  - IANA updates
+  - Support multi-level extensions
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

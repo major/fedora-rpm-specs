@@ -1,6 +1,6 @@
 Name:           dcm2niix
 Version:        1.0.20220720
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        DICOM to NIfTI converter
 
 License:        BSD
@@ -56,6 +56,9 @@ mkdir build/
 
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 1.0.20220720-7
+- Rebuilt for turbojpeg 3.0.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20220720-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

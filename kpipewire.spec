@@ -1,6 +1,6 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.93.0
+Version: 5.93.2
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -83,9 +83,12 @@ developing applications that use %{name}.
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_libdir}/libKPipeWire.so.*
-%{_libdir}/libKPipeWireRecord.so.*
-%{_libdir}/libKPipeWireDmaBuf.so.*
+%{_libdir}/libKPipeWire.so.6
+%{_libdir}/libKPipeWire.so.%{version}
+%{_libdir}/libKPipeWireRecord.so.6
+%{_libdir}/libKPipeWireRecord.so.%{version}
+%{_libdir}/libKPipeWireDmaBuf.so.6
+%{_libdir}/libKPipeWireDmaBuf.so.%{version}
 %{_qt6_qmldir}/org/kde/pipewire/*
 %{_kf6_datadir}/qlogging-categories6/*.categories
 
@@ -99,6 +102,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Tue Feb 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.2-1
+- 5.93.2
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.56.0
+Version:        2.57.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -69,6 +69,9 @@ Microsoft Azure Command-Line Tools
 %package -n python3-%{srcname}-core
 Summary:        Microsoft Azure Command-Line Tools Core Module
 Requires:       %{name} = %{version}-%{release}
+%if 0%{?fedora}
+Recommends:     python3-antlr4-runtime
+%endif
 
 %description -n python3-%{srcname}-core
 Microsoft Azure Command-Line Tools Core Module

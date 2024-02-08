@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -137,6 +137,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 1.7.1-9
+- Rebuilt for turbojpeg 3.0.2
+
 * Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 1.7.1-8
 - Rebuild for opencv 4.9.0
 

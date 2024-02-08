@@ -1,13 +1,18 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.5.3
-Release:        3%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Convert one Markdown file from CRLF to LF
+# https://github.com/pydantic/pydantic/pull/8731
+Patch:          %{url}/pull/8731.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -72,6 +77,9 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 %pyproject_extras_subpkg email -n python3-pydantic
 
 %changelog
+* Mon Feb 05 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.6.1-1
+- Update to 2.6.1. Fixes rhbz#2261885.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

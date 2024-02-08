@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.82%{?prerel}%{?dist}
+Release:        0.83%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPL-2.0-only AND BSD-3-Clause
@@ -35,6 +35,7 @@ Patch6:         qtwebkit-icu68.patch
 # Ruby 3.2 removes Object#=~ completely
 Patch7:         webkit-offlineasm-warnings-ruby27.patch
 Patch8:         qtwebkit-cstdint.patch
+Patch9:         qtwebkit-fix-build-gcc14.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -259,6 +260,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Tue Feb 06 2024 Jan Grulich <jgrulich@redhat.com> - 5.212.0-0.83alpha4
+- Fix build with GCC 14
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.212.0-0.82alpha4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

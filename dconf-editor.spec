@@ -6,10 +6,10 @@
 
 Name:           dconf-editor
 Version:        45.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Configuration editor for dconf
 
-License:        GPLv3+ and CC0
+License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Projects/dconf
 Source0:        https://download.gnome.org/sources/dconf-editor/45/dconf-editor-%{tarball_version}.tar.xz
 Source1:        https://raw.githubusercontent.com/flathub/ca.desrt.dconf-editor/master/start-dconf-editor.sh
@@ -72,6 +72,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ca.desrt.dconf-edi
 %{_mandir}/man1/dconf-editor.1*
 
 %changelog
+* Tue Feb  6 2024 Marek Kasik <mkasik@redhat.com> - 45.0.1-4
+- Migrated to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

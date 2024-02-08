@@ -24,13 +24,11 @@
 
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
-Version:        2.2.2
-Release:        5%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
-
-Patch0:         %{pecl_name}-build.patch
 
 BuildRequires:  libpq-devel > 9
 BuildRequires:  make
@@ -76,8 +74,6 @@ sed -e '/role="test"/d' \
     -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -221,6 +217,10 @@ exit $RET
 
 
 %changelog
+* Tue Feb  6 2024 Remi Collet <remi@remirepo.net> - 2.2.3-1
+- update to 2.2.3
+- drop patch merged upstream
+
 * Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 2.2.2-5
 - Fix incompatible pointer types using patch from
   https://github.com/m6w6/ext-pq/pull/52

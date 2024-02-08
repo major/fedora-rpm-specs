@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.38.9000-530-gddf542da94
-%global glibcversion 2.38.9000
+%global glibcsrcdir glibc-2.39
+%global glibcversion 2.39
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 39
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2308,6 +2308,21 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Feb 02 2024 Carlos O'Donell <carlos@redhat.com> - 2.39-1
+- Switch to upstream 2.39 release,
+  commit ef321e23c20eebc6d6fb4044425c00e6df27b05f
+- Document CVE-2023-6246, CVE-2023-6779, and CVE-2023-6780
+- Update advisory format and introduce some automation
+- manual/io: Fix swapped reading and writing phrase.
+- Fix typo
+- S390: Fix building with --disable-mutli-arch [BZ #31196]
+- NEWS: insert advisories and fixed bugs for 2.39
+- contrib.texi: update
+- INSTALL, install.texi: minor updates, regenerate
+- libc.pot: regenerate
+- version.h, include/features.h: Bump version to 2.39
+- Create ChangeLog.old/ChangeLog.28
+
 * Wed Jan 31 2024 Florian Weimer <fweimer@redhat.com> - 2.38.9000-39
 - Add noarch sysroot subpackages
 

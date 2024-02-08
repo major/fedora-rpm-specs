@@ -1,7 +1,7 @@
 Summary:	Graphical music notation program
 Name:		denemo
 Version:	2.6.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPLv3+
 Source:		https://ftp.gnu.org/gnu/denemo/denemo-%{version}.tar.gz
 Source1:	%{name}-feta.metainfo.xml
@@ -10,7 +10,6 @@ Source3:	%{name}-music.metainfo.xml
 Patch1:		%{name}-%{version}-configure.patch
 # Upstream patch: https://savannah.gnu.org/bugs/index.php?63720
 Patch2:		%{name}-%{version}-c99.patch
-Patch3:		%{name}-%{version}-bad_pointer.patch
 
 URL: http://www.denemo.org/
 
@@ -20,7 +19,7 @@ BuildRequires: gettext libxml2-devel fftw-devel desktop-file-utils
 BuildRequires: libtool-ltdl-devel jack-audio-connection-kit-devel
 BuildRequires: fontpackages-devel lash-devel libsamplerate-devel
 BuildRequires: fluidsynth-devel librsvg2-devel gtk3-devel
-BuildRequires: chrpath libsndfile-devel evince-devel gtksourceview3-devel
+BuildRequires: chrpath libsndfile-devel atril-devel gtksourceview3-devel
 BuildRequires: portmidi-devel intltool rubberband-devel
 BuildRequires: make autoconf automake gtk-doc
 
@@ -97,7 +96,6 @@ This contains the directory common to all Denemo fonts.
 %setup -q
 %patch 1 -p1
 %patch 2 -p1
-%patch 3 -p1
 
 %build
 autoupdate
@@ -157,6 +155,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Tue Feb 06 2024 Roy Rankin <rrankin@ihug.com.au> - 2.6.0-11
+- Use atril rather than evince. This fixes invalid pointer issue and makes proofreading work properly.
+
 * Thu Feb 01 2024 Roy Rankin <rrankin@ihug.com.au> - 2.6.0-10
 - Add patch for invalid pointer
 

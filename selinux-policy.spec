@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 20114105ce9cccef6775736565f449c27c4a669e
+%global commit 8973a73c7c534b51860b9350eacc6d946ab1e412
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.11
+Version: 40.12
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -61,6 +61,9 @@ Source35: container-selinux.tgz
 
 Source36: selinux-check-proper-disable.service
 
+# Script to convert /var/run file context entries to /run
+Source37: varrun-convert.sh
+
 # Provide rpm macros for packages installing SELinux modules
 Source102: rpm.macros
 
@@ -92,6 +95,7 @@ the policy has been adjusted to provide support for Fedora.
 %{_usr}/lib/tmpfiles.d/selinux-policy.conf
 %{_rpmconfigdir}/macros.d/macros.selinux-policy
 %{_unitdir}/selinux-check-proper-disable.service
+%{_libexecdir}/selinux/varrun-convert.sh
 
 %package sandbox
 Summary: SELinux sandbox policy
@@ -277,6 +281,7 @@ rm -f %{buildroot}%{_sharedstatedir}/selinux/%1/active/*.linked \
 %ghost %{_sharedstatedir}/selinux/%1/active/users_extra.linked \
 %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%1/active/file_contexts.homedirs \
 %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%1/active/modules_checksum \
+%ghost %{_sharedstatedir}/selinux/%1/active/modules/400/extra_varrun \
 %nil
 
 %define relabel() \
@@ -424,6 +429,8 @@ mkdir -p %{buildroot}%{_usr}/lib/tmpfiles.d/
 cp %{SOURCE27} %{buildroot}%{_usr}/lib/tmpfiles.d/
 mkdir -p %{buildroot}%{_bindir}
 install -m 755  %{SOURCE33} %{buildroot}%{_bindir}/
+mkdir -p %{buildroot}%{_libexecdir}/selinux
+install -m 755  %{SOURCE37} %{buildroot}%{_libexecdir}/selinux
 
 # Always create policy module package directories
 mkdir -p %{buildroot}%{_datadir}/selinux/{targeted,mls,minimum,modules}/
@@ -584,6 +591,7 @@ exit 0
 
 %posttrans targeted
 %checkConfigConsistency targeted
+%{_libexecdir}/selinux/varrun-convert.sh targeted
 %{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun targeted
@@ -697,6 +705,7 @@ exit 0
 
 %posttrans minimum
 %checkConfigConsistency minimum
+%{_libexecdir}/selinux/varrun-convert.sh minimum
 %{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun minimum
@@ -771,6 +780,7 @@ exit 0
 
 %posttrans mls
 %checkConfigConsistency mls
+%{_libexecdir}/selinux/varrun-convert.sh mls
 %{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun mls
@@ -814,6 +824,11 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 06 2024 Zdenek Pytela <zpytela@redhat.com> - 40.12-1
+- Rename all /var/lock file context entries to /run/lock
+- Rename all /var/run file context entries to /run
+- Invert the "/var/run = /run" equivalency
+
 * Mon Feb 05 2024 Zdenek Pytela <zpytela@redhat.com> - 40.11-1
 - Replace init domtrans rule for confined users to allow exec init
 - Update dbus_role_template() to allow user service status

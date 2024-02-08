@@ -1,16 +1,16 @@
 %global appname YACReader
-%global versuf 2307166
+%global versuf 2402053
 
 Name:           yacreader
-Version:        9.13.1
+Version:        9.14.1
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 
-# The entire source code is GPLv3+ except:
-# BSD:          QsLog
+# The entire source code is GPL-3.0-or-later except:
+# BSD-3-Clause: QsLog
 #               folder_model
 # MIT:          pictureflow
-License:        GPLv3+ and BSD and MIT
+License:        GPL-3.0-or-later AND BSD-3-Clause AND MIT
 URL:            https://www.yacreader.com
 Source0:        https://github.com/YACReader/%{name}/releases/download/%{version}/%{name}-%{version}.%{versuf}-src.tar.xz
 

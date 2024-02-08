@@ -2,16 +2,16 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.09c
+Version:       4.10c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.09c
+%global tag    v4.10c
 %forgemeta
 
 Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       5%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -20,12 +20,15 @@ Source1:       hello.c
 
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
-ExclusiveArch: %{ix86} x86_64 s390x
+# i686 support was silently removed in AFL++ 4.10c
+ExclusiveArch: x86_64 s390x
 
+BuildRequires: gcc
+BuildRequires: gcc-plugin-devel
 BuildRequires: clang
 BuildRequires: llvm-devel
 BuildRequires: make
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 BuildRequires: lld
 %endif
 
@@ -58,7 +61,7 @@ Requires:      %{name} = %{version}-%{release}
 %if "%{clang_major}" != ""
 Requires:      clang(major) = %{clang_major}
 %endif
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 Requires:      lld
 %endif
 # This ensures that AFL_USE_ASAN=1 works out of the box.  However as
@@ -80,7 +83,7 @@ This subpackage contains clang and clang++ support for
 # interpret the .o/.a files.  Disable LTO for now
 %define _lto_cflags %{nil}
 
-%ifnarch %{ix86} x86_64
+%ifnarch x86_64
 AFL_NO_X86=1 \
 %endif
 CFLAGS="%{optflags}" \
@@ -94,7 +97,7 @@ CFLAGS="%{optflags}" \
 
 
 %install
-%ifnarch %{ix86} x86_64
+%ifnarch x86_64
 AFL_NO_X86=1 \
 %endif
 %{make_install} \
@@ -104,7 +107,7 @@ AFL_NO_X86=1 \
   MAN_PATH="%{_mandir}/man8" \
   MISC_PATH="%{_pkgdocdir}"
 
-%ifnarch %{ix86} x86_64
+%ifnarch x86_64
 # On non-x86 these files are built and installed but they don't
 # function, so delete them.  Only afl-clang-fast* works.
 # afl-clang-fast* is a symlink to afl-cc / afl-c++ so we cannot delete
@@ -137,7 +140,7 @@ mv $RPM_BUILD_ROOT%{_pkgdocdir} pkg-docs
 # This just checks that simple programs can be compiled using
 # the compiler wrappers.
 ln -s %{SOURCE1} hello.cpp
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 ./afl-gcc %{SOURCE1} -o hello
 ./hello
 ./afl-g++ hello.cpp -o hello
@@ -151,6 +154,10 @@ ln -s %{SOURCE1} hello.cpp
 ./hello
 ./afl-clang-fast++ hello.cpp -o hello
 ./hello
+./afl-gcc-fast %{SOURCE1} -o hello
+./hello
+./afl-g++-fast hello.cpp -o hello
+./hello
 
 # Also check that we got the %%clang_major macro
 test -n '%{clang_major}'
@@ -158,7 +165,7 @@ test -n '%{clang_major}'
 %files
 %license docs/COPYING
 %doc pkg-docs/*
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{_bindir}/afl-g++
 %{_bindir}/afl-gcc
 %endif
@@ -169,6 +176,8 @@ test -n '%{clang_major}'
 %{_bindir}/afl-cmin
 %{_bindir}/afl-cmin.bash
 %{_bindir}/afl-fuzz
+%{_bindir}/afl-gcc-fast
+%{_bindir}/afl-g++-fast
 %{_bindir}/afl-gotcpu
 %{_bindir}/afl-persistent-config
 %{_bindir}/afl-plot
@@ -185,7 +194,12 @@ test -n '%{clang_major}'
 %{afl_helper_path}/afl-compiler-rt-64.o
 %endif
 %{afl_helper_path}/afl-compiler-rt.o
-%ifarch %{ix86} x86_64
+%{afl_helper_path}/afl-gcc-cmplog-pass.so
+%{afl_helper_path}/afl-gcc-cmptrs-pass.so
+%{afl_helper_path}/afl-gcc-pass.so
+%{afl_helper_path}/afl-gcc-rt.o
+%{afl_helper_path}/injection-pass.so
+%ifarch x86_64
 %{_mandir}/man8/afl-c++.8*
 %{_mandir}/man8/afl-cc.8*
 %endif
@@ -195,6 +209,8 @@ test -n '%{clang_major}'
 %{_mandir}/man8/afl-cmin.8*
 %{_mandir}/man8/afl-cmin.bash.8*
 %{_mandir}/man8/afl-fuzz.8*
+%{_mandir}/man8/afl-gcc-fast.8*
+%{_mandir}/man8/afl-g++-fast.8*
 %{_mandir}/man8/afl-gotcpu.8*
 %{_mandir}/man8/afl-plot.8*
 %{_mandir}/man8/afl-persistent-config.8*
@@ -207,13 +223,13 @@ test -n '%{clang_major}'
 %files clang
 %license docs/COPYING
 
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{_bindir}/afl-clang
 %{_bindir}/afl-clang++
 %endif
 %{_bindir}/afl-clang-fast
 %{_bindir}/afl-clang-fast++
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{_bindir}/afl-clang-lto
 %{_bindir}/afl-clang-lto++
 %{_bindir}/afl-ld-lto
@@ -222,12 +238,12 @@ test -n '%{clang_major}'
 %endif
 
 %{afl_helper_path}/afl-llvm-dict2file.so
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{afl_helper_path}/afl-llvm-lto-instrumentlist.so
 %endif
 %{afl_helper_path}/afl-llvm-pass.so
 
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %if 0%{?__isa_bits} == 32
 %{afl_helper_path}/afl-llvm-rt-lto-32.o
 %else
@@ -245,7 +261,7 @@ test -n '%{clang_major}'
 %{afl_helper_path}/libAFLQemuDriver.a
 %{afl_helper_path}/libdislocator.so
 %{afl_helper_path}/libtokencap.so
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{afl_helper_path}/SanitizerCoverageLTO.so
 %endif
 %{afl_helper_path}/SanitizerCoveragePCGUARD.so
@@ -254,7 +270,7 @@ test -n '%{clang_major}'
 
 %{_mandir}/man8/afl-clang-fast.8*
 %{_mandir}/man8/afl-clang-fast++.8*
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %{_mandir}/man8/afl-clang-lto.8.gz
 %{_mandir}/man8/afl-clang-lto++.8.gz
 %{_mandir}/man8/afl-lto.8.gz
@@ -263,6 +279,11 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Tue Feb 06 2024 Richard W.M. Jones <rjones@redhat.com> - 4.10c-1
+- New upstream release 4.10c (RHBZ#2262539)
+- Remove i686 support (silently removed upstream in 4.10c)
+- Add afl-gcc-fast etc (uses gcc-plugin support)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.09c-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -68,6 +68,15 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
+%if 0%{?rhel} >= 10
+%ifarch x86_64
+# The bundled embree attempts to limit optimization to SSE4.1 and disable AVX,
+# but RHEL 10 defaults to -march=x86-64-v3 which includes AVX, resulting in
+# build failures due to missing symbols from the AVX code which is not built.
+CXXFLAGS="$CXXFLAGS -mno-avx"
+%endif
+%endif
+
 # QT is known not to work properly with LTO at this point.  Some of the issues
 # are being worked on upstream and disabling LTO should be re-evaluated as
 # we update this change.  Until such time...

@@ -6,27 +6,19 @@
 %endif
 
 Name: hdf
-Version: 4.2.15
-Release: 16%{?dist}
+Version: 4.2.16.2
+Release: 1%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/
-Source0: https://support.hdfgroup.org/ftp/HDF/releases/HDF%{version}/src/%{name}-%{version}.tar.bz2
+Source0: https://hdf-wordpress-1.s3.amazonaws.com/wp-content/uploads/manual/HDF4/HDF4.2.16-2/src/hdf-4.2.16-2.tar.bz2
 Source1: h4comp
-Patch0: hdf-4.2.5-maxavailfiles.patch
-Patch1: hdf-ppc.patch
-Patch2: hdf-4.2.4-sparc.patch
-Patch3: hdf-s390.patch
-Patch4: hdf-arm.patch
+# Fix type - https://github.com/HDFGroup/hdf4/pull/496
+Patch1: hdf-type.patch
 # Support DESTDIR in install-examples
 Patch5: hdf-destdir.patch
 # Install examples into the right location
 Patch6: hdf-examplesdir.patch
-# Add AArch64 definitions
-Patch8: hdf-aarch64.patch
-# ppc64le support
-# https://bugzilla.redhat.com/show_bug.cgi?id=1134385
-Patch9: hdf-ppc64le.patch
 # Fix java build
 Patch11: hdf-build.patch
 
@@ -98,18 +90,12 @@ HDF4 java library
 
 
 %prep
-%setup -q
+%setup -q -n hdf-4.2.16-2
 
-#patch0 -p1 -b .maxavailfiles
-%patch1 -p1 -b .ppc
-%patch2 -p1 -b .sparc
-%patch3 -p1 -b .s390
-%patch4 -p1 -b .arm
-%patch5 -p1 -b .destdir
-%patch6 -p1 -b .examplesdir
-%patch8 -p1 -b .aarch64
-%patch9 -p1 -b .ppc64le
-%patch11 -p1 -b .build
+%patch -P 1 -p1 -b .type
+%patch -P 5 -p1 -b .destdir
+%patch -P 6 -p1 -b .examplesdir
+%patch -P 11 -p1 -b .build
 
 %if %{with java}
 # Replace jars with system versions
@@ -126,22 +112,22 @@ ln -s $(build-classpath junit) java/lib/junit.jar
 junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9.]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 %endif
-ln -s $(build-classpath slf4j/api) java/lib/slf4j-api-1.7.25.jar
-ln -s $(build-classpath slf4j/nop) java/lib/ext/slf4j-nop-1.7.25.jar
-ln -s $(build-classpath slf4j/simple) java/lib/ext/slf4j-simple-1.7.25.jar
+ln -s $(build-classpath slf4j/api) java/lib/slf4j-api-1.7.33.jar
+ln -s $(build-classpath slf4j/nop) java/lib/ext/slf4j-nop-1.7.33.jar
+ln -s $(build-classpath slf4j/simple) java/lib/ext/slf4j-simple-1.7.33.jar
 %endif
 
 find . -type f -name "*.h" -exec chmod 0644 '{}' \;
 find . -type f -name "*.c" -exec chmod 0644 '{}' \;
 
 # restore include file timestamps modified by patching
-touch -c -r ./hdf/src/hdfi.h.ppc ./hdf/src/hdfi.h
+#touch -c -r ./hdf/src/hdfi.h.ppc ./hdf/src/hdfi.h
 
 
 %build
 # This should be removed once rebased to an upstream version with
 # C99 compatibility fixes (bug 2167466).
-%global build_type_safety_c 0
+#global build_type_safety_c 0
 
 # For destdir/examplesdir patches
 autoreconf -vif
@@ -190,7 +176,7 @@ touch -c -r mfhdf/fortran/mffunc.inc mfhdf/fortran/mffunc.f90
 %make_install -C build-shared
 chrpath --delete --keepgoing %{buildroot}%{_bindir}/* %{buildroot}%{_libdir}/%{name}/*.so.* %{buildroot}%{_libdir}/*.so.* || :
 
-install -pm 644 MANIFEST README.txt release_notes/*.txt %{buildroot}%{_pkgdocdir}/
+#install -pm 644 README.txt release_notes/*.txt %{buildroot}%{_pkgdocdir}/
 
 rm -f %{buildroot}%{_libdir}/%{name}/*.la
 rm -f %{buildroot}%{_libdir}/*.la
@@ -202,22 +188,8 @@ for file in ncdump ncgen; do
   rm %{buildroot}%{_mandir}/man1/${file}.1
 done
 
-# this is done to have the same timestamp on multiarch setups
-touch -c -r README.txt %{buildroot}%{_includedir}/hdf/h4config.h
-
-# Remove an autoconf conditional from the API that is unused and cause
-# the API to be different on x86 and x86_64
-pushd %{buildroot}%{_includedir}/hdf
-grep -v 'H4_SIZEOF_INTP' h4config.h > h4config.h.tmp
-touch -c -r h4config.h h4config.h.tmp
-mv h4config.h.tmp h4config.h
-popd
-
 #Fixup headers and scripts for multiarch
 %if "%{_lib}" == "lib64"
-#sed -i -e s/H5pubconf.h/H5pubconf-64.h/ %{buildroot}%{_includedir}/H5public.h
-#mv %{buildroot}%{_includedir}/H5pubconf.h \
-   #%{buildroot}%{_includedir}/H5pubconf-64.h
 for x in h4cc h4fc
 do
   mv %{buildroot}%{_bindir}/${x} \
@@ -225,9 +197,6 @@ do
   install -m 0755 %SOURCE1 %{buildroot}%{_bindir}/${x}
 done
 %else
-#sed -i -e s/H5pubconf.h/H5pubconf-32.h/ %{buildroot}%{_includedir}/H5public.h
-#mv %{buildroot}%{_includedir}/H5pubconf.h \
-   #%{buildroot}%{_includedir}/H5pubconf-32.h
 for x in h4cc h4fc
 do
   mv %{buildroot}%{_bindir}/${x} \
@@ -238,13 +207,19 @@ done
 
 
 %check
+# https://github.com/HDFGroup/hdf4/issues/473
+%ifarch ppc64le s390x
+make -j1 -C build-shared check || :
+make -j1 -C build-static check || :
+%else
 make -j1 -C build-shared check
 make -j1 -C build-static check
+%endif
 
 
 %files
 %license COPYING
-%{_pkgdocdir}/
+%doc README.md release_notes/*.txt
 %exclude %{_pkgdocdir}/examples
 %{_bindir}/*
 %exclude %{_bindir}/h4?c*
@@ -272,6 +247,9 @@ make -j1 -C build-static check
 
 
 %changelog
+* Tue Jan 30 2024 Orion Poplawski <orion@nwra.com> - 4.2.16.2-1
+- Update to 4.2.16-2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.15-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

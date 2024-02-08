@@ -1,9 +1,9 @@
 Name: gxkb
-Version: 0.9.4
+Version: 0.9.5
 Release: %autorelease
 Summary: X11 keyboard indicator and switcher
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/zen-tools/gxkb
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

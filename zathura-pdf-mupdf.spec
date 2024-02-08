@@ -1,18 +1,13 @@
-# Desired jbig2dec header files and library version
-# Apparantly, jbig2dec complains even about newer versions.
-# Please update if needed.
-%global jbig2dec_version 0.20
-
 Name:             zathura-pdf-mupdf
 
 Version:          0.4.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
 Source0:          %{url}/download/%{name}-%{version}.tar.xz
-Patch1:           0001-Revert-Rework-detection-of-mupdf.patch
-Patch2:           0001-Fix-initialization-if-link-target.patch
+Patch1:           0001-Fix-initialization-if-link-target.patch
+Patch2:           0001-configure-for-shared-mupdf-build.patch
 
 BuildRequires:    binutils
 BuildRequires:    cairo-devel
@@ -26,18 +21,9 @@ BuildRequires:    glib2-devel
 BuildRequires:    libappstream-glib
 BuildRequires:    libjpeg-turbo-devel
 BuildRequires:    meson >= 0.43
-BuildRequires:    mupdf-static >= 1.20
-BuildRequires:    openjpeg2-devel
+BuildRequires:    mupdf-devel >= 1.23.9-3
 BuildRequires:    zathura-devel >= 0.3.9
-BuildRequires:    gumbo-parser-devel
-BuildRequires:    leptonica-devel
-BuildRequires:    tesseract-devel
 Requires:         zathura >= 0.3.9
-# Depend on exact versions like mupdf does
-# https://src.fedoraproject.org/rpms/mupdf/c/02d93ee0f097415aa095ffcea4d768e5f43fac91?branch=master
-BuildRequires:  jbig2dec-devel = %{jbig2dec_version}
-BuildRequires:  jbig2dec-libs = %{jbig2dec_version}
-Requires:       jbig2dec-libs = %{jbig2dec_version}
 
 # Old plugins used alternatives
 Conflicts:        zathura-pdf-poppler < 0.2.9
@@ -49,7 +35,7 @@ This plugin adds PDF support to zathura using the mupdf rendering engine.
 %autosetup -S git -p1
 
 %build
-%meson -Dlink-external=true
+%meson
 %meson_build
 
 %install
@@ -69,6 +55,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Fri Feb 02 2024 Michael J Gruber <mjg@fedoraproject.org> - 0.4.1-5
+- Build against mupdf shared library
+
 * Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 0.4.1-4
 - Rebuild (tesseract)
 

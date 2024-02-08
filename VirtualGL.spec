@@ -7,7 +7,7 @@ Source0:        http://downloads.sourceforge.net/project/virtualgl/VirtualGL/%{v
 Patch1:         %{name}-redhatpathsfix.patch
 # fix for bz1088475
 Patch2:         %{name}-redhatlibexecpathsfix.patch
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        wxWindows
 BuildRequires:  make
 %if 0%{?rhel} == 7
@@ -159,6 +159,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/.vglrun.vars32 $RPM_BUILD_ROOT%{_libexecdir}/vglrun
 
 
 %changelog
+* Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 2.6.5-9
+- Rebuilt for turbojpeg 3.0.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

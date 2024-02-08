@@ -1,3 +1,6 @@
+# Use forge macros for getting source tarball from GitHub
+%global forgeurl https://github.com/nest/nest-simulator
+
 # We build the python bit separately - their build system doesn't let me build
 # and install separately - everything is done at install time
 
@@ -5,12 +8,12 @@
 # that develop based on the source git tree can build it themselves
 
 # Switch them off if you want
-%bcond_without mpich
-%bcond_without openmpi
+%bcond mpich 1
+%bcond openmpi 1
 
 # Tests include source linters and so on, and require a specific older version
 # of vera and clang and so forth, so we simply rely on upstream CI here
-%bcond_with tests
+%bcond tests 0
 
 # Default for numthreads
 %global numthreads %{?_smp_build_ncpus}
@@ -46,16 +49,17 @@
 %endif
 
 Name:           nest
-Version:        3.4
-
+Version:        3.6
 Release:        %autorelease
 Summary:        The neural simulation tool
+%forgemeta
 
 # thirdparty/compose is LGPLv2.1+
 # thirdparty/randutils.hpp is MIT
-License:        GPLv2+ and MIT and LGPLv2+
+# SPDX
+License:        GPL-2.0-or-later and MIT and LGPL-2.1-or-later
 URL:            http://www.nest-simulator.org/
-Source0:        https://github.com/%{name}/%{name}-simulator/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %forgesource
 Source1:        README-Fedora.md
 
 # 1. Let it build and install the cythonised shared object But we still build
@@ -64,17 +68,17 @@ Source1:        README-Fedora.md
 # 2. The helpindex must be generated after the help files have been installed
 # to the install location, so we do this manually because the script doesn't
 # respect rpmbuildroot and so on
-Patch0:         0001-Disable-python-setups.patch
+Patch:          disable-python-setups.patch
 # Tweak PYEXECDIR
-Patch1:         0002-tweak-PYEXECDIR.patch
+Patch:          tweak-PYEXECDIR.patch
 # Use system Random123
-Patch2:         0003-Use-system-Random123.patch
+Patch:          use-system-Random123.patch
 # Remove rpath
-Patch3:         0004-Remove-rpath.patch
+Patch:          remove-rpath.patch
 # Install in standard libdir
-Patch4:         0005-Install-in-libdir.patch
+Patch:          install-in-libdir.patch
 # Use online docs for helpdesk
-Patch5:         0006-Use-online-documentation.patch
+Patch:          use-online-documentation.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -233,20 +237,14 @@ Recommends: %{py3_dist ipython}
 %endif
 
 %prep
-%autosetup -c -n %{name}-simulator-%{version} -N
+%forgeautosetup -p1
 cp %{SOURCE1} ./ -v
-cp %{name}-simulator-%{version}/{LICENSE,SECURITY.md,ACKNOWLEDGMENTS.md,CHANGES,CONTRIBUTING.md,README.md} . -v
+
+# Version used in tag is 3.6 and the tarball is named accordingly.
+# However the file VERSION contains '3.6.0'. Let's fix that!
+echo %{version} > VERSION
 
 # Tweaks
-pushd %{name}-simulator-%{version}
-# Apply the patch
-%patch 0 -p1
-%patch 1 -p1
-%patch 2 -p1
-%patch 3 -p1
-%patch 4 -p1
-%patch 5 -p1
-
 # We'll set it ourselves - easier for mpi implementations
 sed -i.orig '/PYEXECDIR/ d' cmake/ProcessOptions.cmake
 # These files are all in standard locations so we don't need them
@@ -257,42 +255,31 @@ sed -i '/PATH=/ d' bin/nest_vars.sh.in
 sed -i 's|-L$prefix/|-L|' bin/nest-config.in
 # Delete bundled Random123 copy
 rm -rf thirdparty/Random123
-popd
 
 # Correct shebangs for py3
-find %{name}-simulator-%{version}/ -name "*.py" -exec sed -i 's|#!/usr/bin/env python.*|#!/usr/bin/python3|' '{}' \;
+find . -name "*.py" -exec sed -i 's|#!/usr/bin/env python.*|#!/usr/bin/python3|' '{}' \;
+
+# builddir for serial
+mkdir build-serial
 
 %if %{with mpich}
-    cp -a %{name}-simulator-%{version} %{name}-simulator-%{version}-mpich
-
-    # Don't generate docs for each build
-    sed -i '/add_subdirectory.*doc/ d' %{name}-simulator-%{version}-mpich/CMakeLists.txt
-    # Don't install examples and extras for each
-    sed -i '/add_subdirectory.*examples/ d' %{name}-simulator-%{version}-mpich/CMakeLists.txt
-    # Don't install tests in docdir either
-    sed -i '/add_subdirectory.*testsuite/ d' %{name}-simulator-%{version}-mpich/CMakeLists.txt
+    mkdir build-mpich
 %endif
 
 %if %{with openmpi}
-    cp -a %{name}-simulator-%{version} %{name}-simulator-%{version}-openmpi
-
-    # Don't generate docs for these
-    sed -i '/add_subdirectory.*doc/ d' %{name}-simulator-%{version}-openmpi/CMakeLists.txt
-    # Don't install examples and extras for each
-    sed -i '/add_subdirectory.*examples/ d' %{name}-simulator-%{version}-openmpi/CMakeLists.txt
-    # Don't install tests in docdir either
-    sed -i '/add_subdirectory.*testsuite/ d' %{name}-simulator-%{version}-openmpi/CMakeLists.txt
+    mkdir build-openmpi
 %endif
+
 
 %build
 
 %global do_cmake_config \
 echo  \
-echo "*** BUILDING %{name}-simulator-%{version}$MPI_COMPILE_TYPE ***"  \
+echo "*** BUILDING %{name}$MPI_COMPILE_TYPE ***"  \
 export PYEXECDIR=$MPI_SITEARCH  \
 %set_build_flags \
 echo  \
-pushd %{name}-simulator-%{version}$MPI_COMPILE_TYPE  && \
+pushd build$MPI_COMPILE_TYPE  && \
     cmake \\\
         -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
         -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
@@ -326,18 +313,20 @@ pushd %{name}-simulator-%{version}$MPI_COMPILE_TYPE  && \
         -Dwith-music:BOOL=OFF \\\
 %endif \
 %if "%{_lib}" == "lib64" \
-        -DLIB_SUFFIX=64 . && \
+        -DLIB_SUFFIX=64 .. && \
 %else                      \
-        -DLIB_SUFFIX="" . && \
+        -DLIB_SUFFIX="" .. && \
 %endif \
 popd || exit -1;
 
 %global do_make_build \
-    %make_build -j%{numthreads} -C %{name}-simulator-%{version}$MPI_COMPILE_TYPE || exit -1
+    %make_build -j%{numthreads} -C build$MPI_COMPILE_TYPE || exit -1
 
 %global do_pybuild \
-pushd %{name}-simulator-%{version}$MPI_COMPILE_TYPE  && \
+pushd build$MPI_COMPILE_TYPE  && \
     pushd pynest && \
+        # Create nest/lib dir manually or build fails \
+        mkdir nest/lib \
         $PYTHON_BIN setup.py build \
     popd && \
 popd || exit -1;
@@ -355,13 +344,25 @@ export MPI_LIB=%{_libdir}
 export MPI_YES=OFF
 export PY_MPI4PY=OFF
 # Python 3
-export MPI_COMPILE_TYPE=""
+export MPI_COMPILE_TYPE="-serial"
 export PYTHON_VERSION="3"
 export PYTHON_BIN="%{python3}"
 export MPI_SITEARCH=$MPI_PYTHON3_SITEARCH
 %{do_cmake_config}
 %{do_make_build}
 %{do_pybuild}
+
+# (1) Change configuration slightly for the MPI builds, We want the stuff
+# from doc/, examples/, and testsuite/ dirs only in the serial build.
+# Backup CMakeLists.txt since we need to put it back for installation
+# or nest_serial and nest_indirect will not be installed.
+# Don't generate docs for MPI builds
+# Don't install examples and extras for MPI builds
+# Don't install tests in docdir either for MPI builds
+sed -i.serial \
+-e '/add_subdirectory.*doc/ d' \
+-e '/add_subdirectory.*examples/ d' \
+-e '/add_subdirectory.*testsuite/ d' CMakeLists.txt
 
 # Enable music support
 %global music 1
@@ -387,6 +388,8 @@ export PY_MPI4PY=$MPI_PYTHON3_SITEARCH/mpi4py
 %endif
 
 # Build OpenMPI version
+# Disable MUSIC support. OpenMPI build fails with MUSIC enabled.
+%global music 0
 %if %{with openmpi}
 %{_openmpi_load}
 export CC=mpicc
@@ -411,19 +414,23 @@ export PY_MPI4PY=$MPI_PYTHON3_SITEARCH/mpi4py
 # Install everything
 %global do_install \
 echo  \
-echo "*** INSTALLING %{name}-simulator-%{version}$MPI_COMPILE_TYPE ***"  \
+echo "*** INSTALLING %{name}$MPI_COMPILE_TYPE ***"  \
 echo  \
-    %make_install -C %{name}-simulator-%{version}$MPI_COMPILE_TYPE || exit -1
+    %make_install -C build$MPI_COMPILE_TYPE || exit -1
 
 
 # Install the other python bits
 %global do_pyinstall \
-pushd %{name}-simulator-%{version}$MPI_COMPILE_TYPE && \
+pushd build$MPI_COMPILE_TYPE && \
     pushd pynest && \
         $PYTHON_BIN setup.py install --skip-build --root $RPM_BUILD_ROOT --install-lib=$MPI_SITEARCH && \
     popd && \
 popd || exit -1;
 
+
+# (2) Put the original CMakeLists.txt back into place for installation
+mv -v CMakeLists.txt CMakeLists.txt.mpi
+mv -v CMakeLists.txt.serial CMakeLists.txt
 
 # install serial version
 export MPI_SUFFIX=""
@@ -431,18 +438,15 @@ export MPI_HOME=%{_prefix}
 export MPI_BIN=%{_bindir}
 export MPI_YES=OFF
 # Python 3
-export MPI_COMPILE_TYPE=""
+export MPI_COMPILE_TYPE="-serial"
 export MPI_SITEARCH="%{python3_sitearch}"
 export PYTHON_BIN="%{python3}"
 %{do_install}
 %{do_pyinstall}
 
-# do not make docs, they now use sphinx + RTD, which will bundle lots of fonts/js/css
-# Update the helpindex manually
-# See: doc/CMakelists.txt
-#pushd %{name}-simulator-%{version}/doc/slihelp_generator
-#    %{python3} -B generate_helpindex.py $RPM_BUILD_ROOT/%{_docdir}/%{name}/
-#popd
+# (3) Swap again for MPI installations
+mv -v CMakeLists.txt CMakeLists.txt.serial
+mv -v CMakeLists.txt.mpi CMakeLists.txt
 
 # Install MPICH version
 %if %{with mpich}
@@ -473,11 +477,9 @@ popd
 chrpath --delete $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/nest/pynestkernel.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_BIN/sli_mpich
 chrpath --delete $RPM_BUILD_ROOT/$MPI_BIN/nest_mpich
-chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libmodels.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libsli_readline.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libsli.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libnest.so
-chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libnestkernel.so
 
 %{_mpich_unload}
 %endif
@@ -513,20 +515,13 @@ popd
 chrpath --delete $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/nest/pynestkernel.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_BIN/sli_openmpi
 chrpath --delete $RPM_BUILD_ROOT/$MPI_BIN/nest_openmpi
-chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libmodels.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libsli_readline.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libsli.so
 chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libnest.so
-chrpath --delete $RPM_BUILD_ROOT/$MPI_LIB/libnestkernel.so
 
 %{_openmpi_unload}
 %endif
 
-#pushd $RPM_BUILD_ROOT/%{_datadir}/%{name}/slihelp_generator/
-#    sed -i '/#!\/usr\/bin\/python/ d' generate_help.py
-#    sed -i '/#!\/usr\/bin\/python/ d' generate_helpindex.py
-#popd
-#
 # Remove test suite so that it isn't included in the package
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/nest/testsuite/
 rm -rf $RPM_BUILD_ROOT/%{_bindir}/run_all_cpptests
@@ -554,13 +549,13 @@ rm -rf $RPM_BUILD_ROOT/$MPI_HOME/share/nest/testsuite/
 %if %{with tests}
 %global do_tests_3 \
 echo  \
-echo "*** TESTING %{name}-simulator-%{version}$MPI_COMPILE_TYPE ***"  \
+echo "*** TESTING %{name}$MPI_COMPILE_TYPE ***"  \
 echo  \
 PATH=$RPM_BUILD_ROOT/$NEST_BINDIR/:$PATH $RPM_BUILD_ROOT/$NEST_DATA_DIR/testsuite/do_tests.sh --source-dir=SKIP \
 %{pytest} $NEST_PYTHONDIR/nest/tests
 
 
-export MPI_COMPILE_TYPE=""
+export MPI_COMPILE_TYPE="-serial"
 export NEST_BINDIR="%{_bindir}"
 export PYTHON_VERSION="3"
 export PYTHON_BIN="%{python3}"
@@ -593,6 +588,8 @@ export MPI_SITEARCH=$MPI_PYTHON3_SITEARCH
 %endif
 %endif
 
+# remove LICENSE file from docs
+rm -v %{buildroot}/%{_pkgdocdir}/LICENSE
 
 
 %files
@@ -618,7 +615,9 @@ export MPI_SITEARCH=$MPI_PYTHON3_SITEARCH
 
 %files doc
 %license LICENSE
-%doc %{_pkgdocdir}
+%doc %{_pkgdocdir}/EditorSupport
+%doc %{_pkgdocdir}/examples
+%doc %{_pkgdocdir}/run_examples.sh
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}

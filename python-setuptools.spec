@@ -18,7 +18,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        68.2.2
+Version:        69.0.3
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -52,9 +52,6 @@ Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 # away from pkg_resources.
 Patch:          Remove-warning-from-pkg_resources.patch
 
-# Fix setuptools.depends:get_module_constant() on Python 3.13.0a1
-Patch:          https://github.com/pypa/setuptools/pull/4094.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -86,17 +83,17 @@ execute the software that requires pkg_resources.
 # Bundled packages are defined in multiple files. Generate the list with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' */_vendor/vendored.txt
 %global bundled %{expand:
-Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 2.6.2
 Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 6
 Provides: bundled(python%{python3_pkgversion}dist(importlib-resources)) = 5.10.2
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 3.7
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 8.8
 Provides: bundled(python%{python3_pkgversion}dist(ordered-set)) = 3.1.1
 Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 23.1
-Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.4
-Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.0.1
-Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.7
+Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 2.6.2
 Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
+Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.0.1
+Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.4
+Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.7
 }
 
 %package -n python%{python3_pkgversion}-setuptools

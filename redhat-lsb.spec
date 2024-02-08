@@ -11,56 +11,67 @@
 %ifarch %{ix86}
 %global ldso ld-linux.so.2
 %global lsbldso ld-lsb.so
+%global archname ia32
 %endif
 
 %ifarch alpha
 %global ldso ld-linux-alpha.so.2
 %global lsbldso ld-lsb-alpha.so
+%define archname alpha
 %endif
 
 %ifarch ia64
 %global ldso ld-linux-ia64.so.2
 %global lsbldso ld-lsb-ia64.so
+%global archname ia64
 %endif
 
 %ifarch ppc
 %global ldso ld.so.1
 %global lsbldso ld-lsb-ppc32.so
+%global archname ppc32
 %endif
 
 %ifarch ppc64
 %global ldso ld64.so.1
 %global lsbldso ld-lsb-ppc64.so
+%global archname ppc64
 %endif
 
 %ifarch ppc64le
 %global ldso ld64.so.2
 %global lsbldso ld-lsb-ppc64le.so
+%global archname ppc64le
 %endif
 
 %ifarch s390
 %global ldso ld.so.1
 %global lsbldso ld-lsb-s390.so
+%global archname s390
 %endif
 
 %ifarch s390x
 %global ldso ld64.so.1
 %global lsbldso ld-lsb-s390x.so
+%global archname s390x
 %endif
 
 %ifarch x86_64
 %global ldso ld-linux-x86-64.so.2
 %global lsbldso ld-lsb-x86-64.so
+%global archname amd64
 %endif
 
 %ifarch %{arm}
 %global ldso ld-linux.so.2
 %global lsbldso ld-lsb-arm.so
+%global archname arm
 %endif
 
 %ifarch aarch64
 %global ldso ld-linux-aarch64.so.1
 %global lsbldso ld-lsb-aarch64.so
+%global archname aarch64
 %endif
 
 %global upstreamlsbrelver 2.0
@@ -77,7 +88,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.6%{gver}%{?dist}
+Release: 0.7%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -86,64 +97,34 @@ BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: perl(Getopt::Long)
 
-%ifarch %{ix86}
-%global archname ia32
-%endif
-%ifarch ia64
-%global archname ia64
-%endif
-%ifarch ppc
-%global archname ppc32
-%endif
-%ifarch ppc64
-%global archname ppc64
-%endif
-%ifarch ppc64le
-%global archname ppc64le
-%endif
-%ifarch s390
-%global archname s390
-%endif
-%ifarch s390x
-%global archname s390x
-%endif
-%ifarch x86_64
-%global archname amd64
-%endif
-%ifarch %{arm}
-%global archname arm
-%endif
-%ifarch aarch64
-%global archname aarch64
-%endif
-%ifarch alpha
-%define archname alpha
-%endif
-
-Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-Requires: redhat-lsb-cxx%{?_isa} = %{version}-%{release}
-Requires: redhat-lsb-desktop%{?_isa} = %{version}-%{release}
-Requires: redhat-lsb-languages = %{version}-%{release}
-Requires: redhat-lsb-printing = %{version}-%{release}
+Provides: lsb = %{version}-%{release}
+Provides: lsb-%{archname} = %{version}-%{release}
+Provides: lsb-noarch = %{version}-%{release}
 Obsoletes: redhat-lsb-trialuse <= 5
 Obsoletes: redhat-lsb-submod-multimedia <= 5
 Obsoletes: redhat-lsb-submod-security <= 5
 
-Provides: lsb = %{version}-%{release}
-Provides: lsb-%{archname} = %{version}-%{release}
-Provides: lsb-noarch = %{version}-%{release}
-
 %description
 The Linux Standard Base (LSB) is an attempt to develop a set of standards that
-will increase compatibility among Linux distributions. It is designed to be 
+will increase compatibility among Linux distributions. It is designed to be
 binary-compatible and produce a stable application binary interface (ABI) for
 independent software vendors.
+
+This package is not compliance with LSB, because various components are missing
+from Fedora, so compliance is not possible.
+Fedora explicitly declines add support the missing components of LSB 5.0 or
+earlier because they are completely obsolete.
+
 The lsb package provides utilities, libraries etc. needed for LSB Compliant 
 Applications. It also contains requirements that will ensure that all 
 components required by the LSB are installed on the system.
 
 %package core
 Summary: LSB Core module support
+Requires: redhat-lsb = %{version}-%{release}
+Provides: lsb-core-%{archname} = %{version}-%{release}
+Provides: lsb-core-noarch = %{version}-%{release}
+
 # gLSB Library
 Requires: glibc%{?_isa}
 Requires: glibc-common
@@ -296,10 +277,6 @@ Requires: /usr/bin/wc
 Requires: /usr/bin/xargs
 Requires: /usr/bin/zcat
 
-Provides: lsb-core-%{archname} = %{version}-%{release}
-Provides: lsb-core-noarch = %{version}-%{release}
-#Obsoletes: redhat-lsb < %%{version}-%%{release}
-
 %description core
 The Linux Standard Base (LSB) Core module support provides the fundamental
 system interfaces, libraries, and runtime environment upon which all conforming
@@ -307,11 +284,11 @@ applications and libraries depend.
 
 %package cxx
 Summary: LSB CXX module support
-Requires: libstdc++%{?_isa}
 Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-
 Provides: lsb-cxx-%{archname} = %{version}-%{release}
 Provides: lsb-cxx-noarch = %{version}-%{release}
+
+Requires: libstdc++%{?_isa}
 
 %description cxx
 The Linux Standard Base (LSB) CXX module supports the core interfaces by
@@ -322,6 +299,13 @@ implement the standard base C++ libraries.
 
 %package desktop
 Summary: LSB Desktop module support
+Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
+Provides: lsb-desktop-%{archname} = %{version}-%{release}
+Provides: lsb-desktop-noarch = %{version}-%{release}
+Provides: lsb-graphics-%{archname} = %{version}-%{release}
+Provides: lsb-graphics-noarch = %{version}-%{release}
+Obsoletes: redhat-lsb-graphics < %{version}-%{release}
+
 Requires: xdg-utils
 # LSB_Graphics library
 Requires: libICE%{?_isa}
@@ -341,7 +325,6 @@ Requires: /usr/bin/fc-match
 Requires: cairo%{?_isa}
 Requires: freetype%{?_isa}
 Requires: libjpeg-turbo%{?_isa}
-Requires: libpng12.so.0%{?_isa}
 Requires: libpng%{?_isa}
 Requires: libXft%{?_isa}
 Requires: libXrender%{?_isa}
@@ -362,13 +345,6 @@ Recommends: qt-x11%{?_isa}
 %endif
 # xml
 Requires: libxml2%{?_isa}
-Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-
-Provides: lsb-desktop-%{archname} = %{version}-%{release}
-Provides: lsb-desktop-noarch = %{version}-%{release}
-Provides: lsb-graphics-%{archname} = %{version}-%{release}
-Provides: lsb-graphics-noarch = %{version}-%{release}
-Obsoletes: redhat-lsb-graphics < %{version}-%{release}
 
 %description desktop
 The Linux Standard Base (LSB) Desktop Specifications define components that are
@@ -376,6 +352,10 @@ required to be present on an LSB conforming system.
 
 %package languages
 Summary: LSB Languages module support
+Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
+Provides: lsb-languages-%{archname} = %{version}-%{release}
+Provides: lsb-languages-noarch = %{version}-%{release}
+
 # Perl and Perl non-builtin modules
 Requires: /usr/bin/perl
 Requires: perl(CGI)
@@ -415,14 +395,9 @@ Recommends: perl(File::CheckTree)
 Recommends: perl(Pod::LaTeX)
 Recommends: perl(Pod::Plainer)
 %endif
-
 # python3
 Requires: /usr/bin/python3
 # java
-Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-
-Provides: lsb-languages-%{archname} = %{version}-%{release}
-Provides: lsb-languages-noarch = %{version}-%{release}
 
 %description languages
 The Linux Standard Base (LSB) Languages module supports components for runtime
@@ -430,16 +405,15 @@ languages which are found on an LSB conforming system.
 
 %package printing
 Summary: LSB Printing module support
+Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
+Provides: lsb-printing-%{archname} = %{version}-%{release}
+Provides: lsb-printing-noarch = %{version}-%{release}
+
 # gLSB Printing Libraries
 Requires: cups-libs
 # gLSB Printing Command and Utilities
 Requires: /usr/bin/foomatic-rip
 Requires: /usr/bin/gs
-Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-
-Provides: lsb-printing-%{archname} = %{version}-%{release}
-Provides: lsb-printing-noarch = %{version}-%{release}
-Obsoletes: redhat-lsb-printing < %{version}-%{release}
 
 %description printing
 The Linux Standard Base (LSB) Printing specifications define components that
@@ -521,15 +495,15 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %files
-
-%files core
 %doc README.md README.lsb_release
 %license COPYING
 %{_sysconfdir}/redhat-lsb
-%dir %{_sysconfdir}/lsb-release.d
-%{_mandir}/*/*
-%{_bindir}/*
+%{_mandir}/*/lsb_release*
+%{_bindir}/lsb_release
 /usr/lib/lsb
+
+%files core
+%dir %{_sysconfdir}/lsb-release.d
 %{_libdir}/*so*
 %{_sysconfdir}/lsb-release.d/core*
 
@@ -552,6 +526,12 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %changelog
+* Tue Feb 06 2024 Sérgio Basto <sergio@serjux.com> - 5.0-0.7.20231006git8d00acdc
+- Remove require of libpng12.so.0, lsb-desktop already require libpng
+- redhat-lsb now provides lsb_release, in future maybe we can remove the rest since LSB 5.0 is out of date
+- more cleanups
+- Report that is not LSB compliance, because various components are missing from Fedora, so compliance is not possible
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.6.20231006git8d00acdc
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

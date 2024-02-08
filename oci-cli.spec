@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.37.7
+Version:        3.37.8
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -43,7 +43,7 @@ sed -i 's/jmespath==0.10.0/jmespath>=0.9.4/' setup.py
 sed -i 's/click==8.0.4/click>=8.0.4/' setup.py
 sed -i 's/jmespath==0.10.0/jmespath>=0.10.0/' setup.py
 sed -i 's/prompt-toolkit==3.0.29/prompt-toolkit>=3.0.29/' setup.py
-sed -i 's/terminaltables==3.1.0/terminaltables>=3.1.0/' setup.py
+sed -i 's/terminaltables==3.1.10/terminaltables>=3.1/' setup.py
 
 # Remove upper version limits.
 sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py

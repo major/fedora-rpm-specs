@@ -1,11 +1,11 @@
 Name:           libjpeg-turbo
-Version:        2.1.4
-Release:        6%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        A MMX/SSE2/SIMD accelerated library for manipulating JPEG image files
 License:        Zlib AND BSD-3-Clause AND MIT AND IJG
-URL:            http://sourceforge.net/projects/libjpeg-turbo
+URL:            https://github.com/%{name}/%{name}
 
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:         libjpeg-turbo-cmake.patch
 Patch1:         libjpeg-turbo-CET.patch
 
@@ -92,6 +92,9 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,-z,ibt -Wl,-z,shstk"
 %cmake_install
 find %{buildroot} -name "*.la" -delete
 
+# Remove tjbench
+rm -f %{buildroot}/%{_bindir}/tjbench
+
 # Fix perms
 chmod -x README.md
 
@@ -146,7 +149,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/libjpeg.so.62*
 
 %files devel
-%doc coderules.txt jconfig.txt libjpeg.txt structure.txt example.txt
+%doc coderules.txt jconfig.txt libjpeg.txt structure.txt
 %{_includedir}/jconfig*.h
 %{_includedir}/jerror.h
 %{_includedir}/jmorecfg.h
@@ -181,6 +184,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/pkgconfig/libturbojpeg.pc
 
 %changelog
+* Mon Feb 05 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.2-1
+- New upstream release 3.0.2 (Fixes RHBZ#2256228 and RHBZ#2166459 and RHBZ#2208448)
+
 * Mon Jan 29 2024 Matej Mužila <mmuzila@redhat.com> - 2.1.4-6
 - migrated to SPDX license
 

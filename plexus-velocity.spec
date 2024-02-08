@@ -1,6 +1,6 @@
 Name:           plexus-velocity
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plexus Velocity Component
 License:        ASL 2.0
 URL:            https://codehaus-plexus.github.io/plexus-velocity/
@@ -11,10 +11,13 @@ Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{ver
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(commons-collections:commons-collections)
+BuildRequires:  mvn(com.google.inject:guice)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
-BuildRequires:  mvn(velocity:velocity)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-simple)
 
 %description
 This package provides Plexus Velocity component - a wrapper for
@@ -35,7 +38,8 @@ find -name '*.jar' -delete
 cp -p %{SOURCE1} LICENSE
 
 # Make provided scope on plexus-containers
-%pom_change_dep :plexus-container-default org.codehaus.plexus:plexus-container-default::provided
+%pom_change_dep :plexus-container-default org.eclipse.sisu:org.eclipse.sisu.plexus::provided
+%pom_add_dep com.google.inject:guice::test
 
 %build
 %mvn_build
@@ -50,6 +54,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-5
+- Fix build with plexus-containers 2.2.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

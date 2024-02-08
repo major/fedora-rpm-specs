@@ -1,14 +1,9 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.2
-Release: 7%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
-Patch0: 0001-Fix-segfault-when-trying-to-reuse-an-invalid-GtkTreeIter.patch
-Patch1: 0002-Add-cmdline-option-to-force-blivet-gui-to-keep-above.patch
-Patch2: 0003-Add-cmdline-option-to-enabled-blivets-auto_dev_updates-flag.patch
-Patch3: 0004-Fix-logic-when-checking-for-dialog-response.patch
-Patch4: 0005-Remove-support-for-labelling-JFS-and-ReiserFS.patch
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -79,6 +74,43 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Feb 06 2024 Packit <hello@packit.dev> - 2.5.0-1
+- New version 2.5.0 (Vojtech Trefny)
+- Translated using Weblate (Japanese) (김인수)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (French) (Damien Pou)
+- Translated using Weblate (French) (Corentin Maret)
+- Translated using Weblate (Czech) (Vojtěch Trefný)
+- Translated using Weblate (Czech) (Matěj Valášek)
+- Translated using Weblate (Punjabi) (A S Alam)
+- misc: Vagrantfile update (Vojtech Trefny)
+- ci: Fix Packit actions to bump release number (Vojtech Trefny)
+- ci: Set custom release suffix for Packit (Vojtech Trefny)
+- spec: Bump release to 99 to be always ahead of the Fedora packages (Vojtech Trefny)
+- misc: Add basic filesystem tools to test dependencies (Vojtech Trefny)
+- tests: Make sure GUI tests can run without btrfs kernel module (Vojtech Trefny)
+- pylint: Ignore attribute defined outside __init__ in setup.py (Vojtech Trefny)
+- Remove support for labelling JFS and ReiserFS (Vojtech Trefny)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- Translated using Weblate (Korean) (김인수)
+- Fix logging for mount point change (Vojtech Trefny)
+- Fix logic when checking for dialog response (Vojtech Trefny)
+- pylint: Use 'exit' instead of 'do_exit' for pylint.lint.Run (Vojtech Trefny)
+- Add a cmdline option to enabled blivet's auto_dev_updates flag (Vojtech Trefny)
+- man: Update copyright year (Vojtech Trefny)
+- Add cmdline option to force blivet-gui to keep above other apps (Vojtech Trefny)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- ci: Update GH actions checkout action to v4 (Vojtech Trefny)
+- Fix project name in tests/run_tests.py (Vojtech Trefny)
+- Translated using Weblate (Russian) (Mi Lachew)
+- ci: 'master' branch renamed to 'main' (Vojtech Trefny)
+- Fix segfault when trying to reuse an invalid GtkTreeIter (Vojtech Trefny)
+- Update translation files (Weblate)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Czech) (Vojtěch Trefný)
+- Translated using Weblate (Czech) (Pavel Borecki)
+
 * Fri Feb 02 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-7
 - Remove support for labelling JFS and ReiserFS (#2262334)
 
