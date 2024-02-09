@@ -10,8 +10,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.9
-Release:        2%{?dist}
+Version:        1.23.1
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -80,6 +80,8 @@ BuildRequires:  wpebackend-fdo-devel
 BuildRequires:  glslc
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
+BuildRequires:  liblc3-devel
+BuildRequires:  svt-av1-devel
 
 %if %{with extras}
 BuildRequires:  ladspa-devel
@@ -306,6 +308,7 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D musepack=disabled } \
     -D svthevcenc=disabled -D voaacenc=disabled \
     -D zxing=disabled -D wpe=disabled -D x11=disabled \
+    -D aja=disabled -D qt6d3d11=disabled -D webrtc=disabled \
 %ifarch s390x
     -D ldac=disabled 		 		\
 %else
@@ -711,6 +714,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.23.1-1
+- 1.23.1
+
 * Tue Feb 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.9-2
 - Rebuilt for opencv-4.9.0
 

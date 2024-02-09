@@ -2,11 +2,9 @@ Name:           fabtests
 Version:        1.18.0
 Release:        %autorelease
 Summary:        Test suite for libfabric API
+# COPYING says the license is your choice of BSD or GPLv2.
 # include/jsmn.h and common/jsmn.c are licensed under MIT.
-# All other source files permit distribution under BSD. Some of them
-# additionaly expressly allow the option to be licensed under GPLv2.
-# See the license headers in individual source files to see which those are.
-License:        BSD and (BSD or GPLv2) and MIT
+License:        (BSD-2-Clause OR GPL-2.0-only) AND MIT
 Url:            https://github.com/ofiwg/libfabric
 Source:         https://github.com/ofiwg/libfabric/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 Patch0:         0001-adjust-shebang-lines-in-rft_yaml_to_junit_xml-and-ru.patch

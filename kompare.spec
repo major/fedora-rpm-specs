@@ -1,18 +1,12 @@
 Name:    kompare
 Summary: Diff tool
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 
-License: GPLv2+ and GFDL
+License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://apps.kde.org/kompare/
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -110,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kompare.deskt
 
 
 %changelog
+* Wed Feb 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.95-1
+- 24.01.95 (still Qt5)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

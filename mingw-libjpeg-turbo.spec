@@ -5,13 +5,15 @@
 %global build_programs 0
 
 Name:           mingw-libjpeg-turbo
-Version:        2.1.4
-Release:        5%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        MinGW Windows Libjpeg-turbo library
 
-License:        wxWidgets
-URL:            http://libjpeg-turbo.virtualgl.org/
-Source0:        http://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-%{version}.tar.gz
+License:        Zlib AND BSD-3-Clause AND MIT AND IJG
+URL:            https://github.com/libjpeg-turbo/libjpeg-turbo
+Source0:        %{url}/releases/download/%{version}/libjpeg-turbo-%{version}.tar.gz
+Patch0:         libjpeg-turbo-cmake.patch
+Patch1:         libjpeg-turbo-CET.patch
 
 BuildArch:      noarch
 
@@ -151,6 +153,7 @@ chmod -x README.md
 %{mingw32_includedir}/jerror.h
 %{mingw32_includedir}/jmorecfg.h
 %{mingw32_includedir}/jpeglib.h
+%{mingw32_includedir}/jpegint.h
 %{mingw32_libdir}/cmake/libjpeg-turbo/
 %{mingw32_libdir}/libjpeg.dll.a
 %{mingw32_libdir}/pkgconfig/libjpeg.pc
@@ -179,6 +182,7 @@ chmod -x README.md
 %{mingw64_includedir}/jerror.h
 %{mingw64_includedir}/jmorecfg.h
 %{mingw64_includedir}/jpeglib.h
+%{mingw64_includedir}/jpegint.h
 %{mingw64_libdir}/cmake/libjpeg-turbo/
 %{mingw64_libdir}/libjpeg.dll.a
 %{mingw64_libdir}/pkgconfig/libjpeg.pc
@@ -197,6 +201,9 @@ chmod -x README.md
 
 
 %changelog
+* Wed Feb 07 2024 Sandro Mani <manisandro@gmail.com> - 3.0.2-1
+- Update to 3.0.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

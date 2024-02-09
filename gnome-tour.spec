@@ -1,5 +1,3 @@
-# Use bundled deps as we don't ship the exact right versions for all the
-# required rust libraries
 %if 0%{?rhel}
 %global bundled_rust_deps 1
 %else
@@ -10,21 +8,23 @@
 
 Name:           gnome-tour
 Version:        45.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNOME Tour and Greeter
 
-# * gnome-tour source code is GPLv3+
-# * welcome-fedora.svg is CC-BY-SA
-License:        GPLv3+ and CC-BY-SA
+# * gnome-tour source code is GPL-3.0-or-later
+# * welcome-fedora.svg is CC-BY-SA-3.0
+# * rust crate dependencies are:
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND CC-BY-SA-3.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 URL:            https://gitlab.gnome.org/GNOME/gnome-tour
 Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
-
-%if 0%{?fedora}
-# Fedora only has version 0.4
-Patch:          0001-Downgrade-pretty_env_logger-dep-to-0.4.patch
-%endif
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0)
@@ -35,10 +35,10 @@ BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 
-%if 0%{?bundled_rust_deps}
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else
-BuildRequires:  rust-packaging
+BuildRequires:  cargo-rpm-macros
 %endif
 
 %description
@@ -53,7 +53,6 @@ A guided tour and greeter for GNOME.
 install -p %{SOURCE1} data/resources/assets/welcome.svg
 %endif
 
-sed -i -e '/\(build_by_default\|install\)/s/true/false/' src/meson.build
 %if 0%{?bundled_rust_deps}
 %cargo_prep -v vendor
 %else
@@ -70,7 +69,7 @@ sed -i -e '/\(build_by_default\|install\)/s/true/false/' src/meson.build
 %build
 %meson
 %meson_build
-%cargo_build
+
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
@@ -80,7 +79,6 @@ sed -i -e '/\(build_by_default\|install\)/s/true/false/' src/meson.build
 
 %install
 %meson_install
-%cargo_install
 
 %find_lang gnome-tour
 
@@ -106,6 +104,11 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Wed Feb 07 2024 Kalev Lember <klember@redhat.com> - 45.0-5
+- Drop downstream patch that downgraded pretty_env_logger dep to 0.4
+- Don't use both meson and cargo for building
+- Migrate to SPDX license
+
 * Thu Feb 01 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 45.0-4
 - Update Rust macro usage
 

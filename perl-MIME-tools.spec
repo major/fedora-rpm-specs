@@ -1,6 +1,6 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.513
+Version:	5.514
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
@@ -135,6 +135,16 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Wed Feb  7 2024 Paul Howarth <paul@city-fan.org> - 5.514-1
+- Update to 5.514
+  - Move the guts of the ambiguous_content method to MIME::Head
+  - Add MIME::Entity->ambiguous_content that returns true if this entity or
+    any of its parts, recursively, has a MIME::Head whose ambiguous_content
+    method returns true
+  - Keep MIME::Parser->ambiguous_content as a cached version of the most
+    recently parsed $entity->ambiguous_content
+  - Add some missing files to MANIFEST
+
 * Fri Jan 26 2024 Paul Howarth <paul@city-fan.org> - 5.513-1
 - Update to 5.513
   - Add MIME::Parser->ambiguous_content to indicate one of several types of

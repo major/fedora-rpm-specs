@@ -5,8 +5,8 @@
 %bcond_without docs
 
 Name:           avrdude
-Version:        7.2
-Release:        2%{?dist}
+Version:        7.3
+Release:        1%{?dist}
 Summary:        Software for programming Atmel AVR Microcontroller
 
 License:        GPL-2.0-or-later AND GPL-3.0-only AND (WTFPL OR MIT)
@@ -17,8 +17,8 @@ URL:            https://github.com/avrdudes/avrdude
 # Source0:        https://github.com/avrdudes/%%{name}/archive/refs/tags/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
 
 # So we need to filter out the files we *can* distribute, before we
-# can "fedpkg new-sources" the tarball:
-#     curl -o %%{name}-%%{version}.tar.gz https://github.com/avrdudes/%%{name}/archive/refs/tags/v%%{version}.tar.gz
+# can "fedpkg new-sources" the tarball. "make" should do about this:
+#     curl -L -o %%{name}-%%{version}.tar.gz https://github.com/avrdudes/%%{name}/archive/refs/tags/v%%{version}.tar.gz
 #     python3 filter-tarball %%{name}-%%{version}.tar.gz
 # That results in rpmlint "avrdude.spec: W: invalid-url Source0: …"
 Source0:        %{name}-%{version}-filtered.tar.xz
@@ -38,10 +38,6 @@ Source2:        README.fedora
 # Stop granting blanket access to all /dev/tty{ACM,USB}* devices
 Patch1:         avrdude-udev-no-blanket-access.patch
 
-# Help cmake detect libreadline
-# Upstream issue: https://github.com/avrdudes/avrdude/issues/1624
-Patch2:         avrdude-7.2-detect-readline.patch
-
 # Move avrdude.conf from upstream location /usr/etc/ to /etc/avrdude/
 # FIXME: Eventually move avrdude.conf to /usr/share/avrdude/
 Patch:          avrdude-7.2-fedora-relocate-avrdude-conf.patch
@@ -52,8 +48,10 @@ BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  hidapi-devel
-# As of avrdude-7.2, the gpiod related source files do not build.
+# Optional: Still build problems with gpiod in avrdude-7.3
 # BuildRequires:  libgpiod-devel
+# Optional: libserialport
+# BuildRequires:  libserialport-devel
 # EL does not have libhid-devel
 %if 0%{?fedora} >= 28
 BuildRequires:  libhid-devel
@@ -96,8 +94,6 @@ fi
 
 
 %build
-# As of avrdude-7.2, the gpiod related source files do not build.
-#       -D HAVE_LINUXGPIO=ON
 %cmake \
        -D CMAKE_INSTALL_SYSCONFDIR:PATH=%{_sysconfdir} \
        -D CMAKE_BUILD_TYPE=build_type=RelWithDebInfo \
@@ -107,6 +103,7 @@ fi
        -D BUILD_DOC:BOOL=OFF \
 %endif
        -D HAVE_LINUXSPI:BOOL=ON \
+       -D HAVE_LINUXGPIO:BOOL=ON \
        -D HAVE_PARPORT:BOOL=ON \
        -D FETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON \
        -D FETCHCONTENT_QUIET:BOOL=OFF \
@@ -157,6 +154,10 @@ install -p -m 644 -t $RPM_BUILD_ROOT%{_pkgdocdir} AUTHORS NEWS README.md
 
 
 %changelog
+* Wed Feb  7 2024 Hans Ulrich Niedermann <hun@n-dimensional.de> - 7.3-1
+- Update to avrdude-7.3 release
+- Enable linuxgpio (without libgpiod, though)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

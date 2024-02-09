@@ -25,7 +25,7 @@ https://github.com/uqfoundation/multiprocess/issues, with a legacy list
 maintained at https://uqfoundation.github.io/project/pathos/query.}
 
 Name:           python-multiprocess
-Version:        0.70.15
+Version:        0.70.16
 Release:        %autorelease
 Summary:        Better multiprocessing and multithreading in python
 

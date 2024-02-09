@@ -1,14 +1,13 @@
-%define _legacy_common_support 1
-%global _lto_cflags %nil
 
 Name:           scamp
 Version:        2.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        compute astrometric and photometric solutions from sextractor catalogs
 
 License:        GPL-3.0-only
 URL:            http://www.astromatic.net/software/scamp
 Source0:        https://github.com/astromatic/scamp/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0: wrong-pointer-i386.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -28,7 +27,7 @@ SCAMP is a program that computes astrometric and photometric solutions from
 SExtractor catalogs
 
 %prep
-%setup -q
+%autosetup  -p1
 
 
 %build
@@ -51,6 +50,9 @@ sh autogen.sh
 
 
 %changelog
+* Wed Feb 07 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 2.10.0-9
+- Patch to fix compilation error in i386
+
 * Thu Feb 01 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 2.10.0-8
 - Rebuild to fix FTBS
 - Using SPDX license name

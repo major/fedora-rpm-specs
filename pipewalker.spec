@@ -3,7 +3,7 @@ Summary: Puzzle game about connecting components into a single circuit
 License: MIT
 
 Version: 1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://github.com/artemsen/pipewalker
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -13,6 +13,13 @@ Source11: %{name}.metainfo.xml
 # Reverse-patch created from upstream commit:
 # https://github.com/artemsen/pipewalker/commit/3927dd99f5cd2037a746b1ff92d6a4fb7480a2d9.patch
 Patch2: 0002-no-games-subdir-for-data.patch
+
+# The game code has some issues that affect only 32-bit platforms.
+# Both patches have been borrowed from Debian:
+# - https://sources.debian.org/src/pipewalker/1.0-1/debian/patches/010_match-templated-args.patch/
+# - https://sources.debian.org/src/pipewalker/1.0-1/debian/patches/020_use-size_t-format-string.patch/
+Patch10: 010_match-templated-args.patch
+Patch20: 020_use-size_t-format-string.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -78,6 +85,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Wed Feb 07 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0-2
+- Add two patches from Debian to fix build failure on i686
+
 * Tue Feb 06 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0-1
 - Update to v1.0
 - Drop Patch1 (comply with XDG directory spec - backport from this release)

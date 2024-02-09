@@ -10,8 +10,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:       gnome-abrt
-Version:    1.4.2
-Release:    8%{?snapshot:.git%{shortcommit}}%{?dist}
+Version:    1.4.3
+Release:    1%{?snapshot:.git%{shortcommit}}%{?dist}
 Summary:    A utility for viewing problems that have occurred with the system
 
 License:    GPL-2.0-or-later
@@ -60,9 +60,7 @@ provides them with convenient way for managing these problems.
 
 
 %build
-%meson \
-    -Dlint=false \
-    %{nil}
+%meson
 %meson_build
 
 
@@ -72,8 +70,7 @@ provides them with convenient way for managing these problems.
 %find_lang %{name}
 
 %check
-# do not fail on pylint warnings
-%meson_test || :
+%meson_test
 
 
 %files -f %{name}.lang
@@ -87,6 +84,23 @@ provides them with convenient way for managing these problems.
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Feb 07 2024 Packit <hello@packit.dev> - 1.4.3-1
+- Release version 1.4.3-1 (Michal Srb)
+- Update translations (mgrabovsky)
+- views: Replace self-rolled function for human-readable dates (Nicolas Jeker)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+- spec: Do not run Pylint as part of build (Matěj Grabovský)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+- Use SPDX format for license field (Matěj Grabovský)
+- Update translations (mgrabovsky)
+- l10n: Remove unnecessary assignment (Matěj Grabovský)
+- Add CodeQL workflow for GitHub code scanning (LGTM Migrator)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    sugar-browse
-Version: 207
-Release: 8%{?dist}
+Version: 208
+Release: 1%{?dist}
 Summary: Browse activity for Sugar
 License: GPLv2+
 URL:     http://wiki.laptop.org/go/Browse
@@ -12,7 +12,7 @@ BuildRequires: sugar-toolkit-gtk3
 BuildRequires: webkitgtk4-devel
 BuildRequires: gettext
 Requires: sugar-toolkit-gtk3
-Requires: webkitgtk4
+Requires: webkit2gtk4.1
 
 BuildArch: noarch
 
@@ -45,6 +45,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Wed Feb 07 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 208-1
+- Update to 208
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 207-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

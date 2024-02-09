@@ -1,7 +1,7 @@
 Name:    sugar-artwork
 Summary: Artwork for Sugar look-and-feel
-Version: 0.120
-Release: 4%{?dist}
+Version: 0.121
+Release: 1%{?dist}
 URL:     http://sugarlabs.org
 License: ASL 2.0
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
@@ -69,6 +69,9 @@ touch --no-create %{_datadir}/icons/sugar || :
 %{_datadir}/themes/sugar-72/gtk-3.20/assets/*
 
 %changelog
+* Wed Feb 07 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.121-1
+- Update to 0.121 release
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

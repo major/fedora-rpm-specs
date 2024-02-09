@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        4
+Version:        5.2
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -13,7 +13,9 @@ BuildRequires:  gettext
 
 %global anacondacorever 40.20
 %global cockpitver 275
+%global cockpitstorver 310
 
+Requires: cockpit-storaged >= %{cockpitstorver}
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
@@ -27,17 +29,13 @@ Requires: firefox
 Requires: fedora-logos
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0-prerelease.7
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-core)) = 5.2.0-prerelease.48
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0-prerelease.10
-Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.1.0-prerelease.1
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0-prerelease.6
-Provides: bundled(npm(@patternfly/react-table)) = 5.2.0-prerelease.48
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0-prerelease.7
+Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-core)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-log-viewer)) = 5.1.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
@@ -103,6 +101,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 7 2024 Packit <hello@packit.dev> - 5.2-1
+- Packaging fixes and introduced installability test upstream
+
 * Tue Jan 30 2024 Packit <hello@packit.dev> - 4-1
 - storage: add support for recommended mount points
 

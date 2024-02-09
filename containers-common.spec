@@ -75,7 +75,6 @@ Recommends: passt
 Requires: (passt if fedora-release-identity-server)
 Requires: iptables
 Requires: nftables
-Suggests: containernetworking-plugins >= 0.9.1-1
 Recommends: qemu-user-static
 Requires: (qemu-user-static-aarch64 if fedora-release-identity-server)
 Requires: (qemu-user-static-arm if fedora-release-identity-server)

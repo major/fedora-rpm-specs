@@ -6,7 +6,7 @@ Version:        1.0.2
 Release:        12%{?dist}
 Summary:        A GSSAPI/SPNEGO authentication handler for urllib/urllib2
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/pythongssapi/%{sname}
 Source0:        https://github.com/pythongssapi/%{sname}/releases/download/v%{version}/%{s_name}-%{version}.tar.gz
 BuildArch:      noarch

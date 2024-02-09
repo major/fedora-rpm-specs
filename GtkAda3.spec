@@ -1,13 +1,13 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gtkada
-%global upstream_version  23.0.0
+%global upstream_version  24.0.0
 %global upstream_gittag   v%{upstream_version}
 
 Name:           GtkAda3
 Epoch:          2
 Version:        %{upstream_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        GTKada, an Ada binding to GTK+ 3
 Summary(sv):    GTKada, en adabindning till GTK+ 3
 
@@ -33,9 +33,6 @@ Source4:        gtkada.gpr.in
 Patch:          %{name}-enable-a-staged-build.patch
 # [Fedora-specific] GNAT Studio plugin: remove shortcut to the GtkAda RM.
 Patch:          %{name}-gps-plugin-remove-gtkada-rm.patch
-# Fix a small typo in the documentation: A closing bracket seems to be missing.
-# See also: https://github.com/AdaCore/gtkada/issues/48
-Patch:          %{name}-fix-link-to-github-repo-in-doc.patch
 
 BuildRequires:  gcc-gnat gprbuild make
 # A fedora-gnat-project-common that contains GPRbuild_flags is needed.
@@ -361,6 +358,10 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 ###############
 
 %changelog
+* Wed Feb 07 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:24.0.0-1
+- Updated to v24.0.0.
+- Removed fix for a typo in the documentation; fixed upstream (commit 1def23a).
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:23.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

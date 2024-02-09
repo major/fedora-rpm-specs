@@ -10,7 +10,7 @@ Version:        1.3.1
 Release:        %autorelease
 Summary:        High productivity build system
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
 

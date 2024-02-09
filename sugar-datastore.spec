@@ -1,11 +1,10 @@
 Name:    sugar-datastore
-Version: 0.120
-Release: 6%{?dist}
+Version: 0.121
+Release: 1%{?dist}
 Summary: Sugar Datastore
 License: GPLv2+
 URL:     http://sugarlabs.org/
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
-Patch0:  sugar-datastore-python-3.10-config.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -49,6 +48,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Wed Feb 07 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.121-1
+- New Release 0.121
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

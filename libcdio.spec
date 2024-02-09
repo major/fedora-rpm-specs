@@ -2,7 +2,9 @@ Name: libcdio
 Version: 2.1.0
 Release: 12%{?dist}
 Summary: CD-ROM input and control library
-License: GPLv3+
+# include/cdio/ecma_167.h and lib/driver/netbsd.c and lib/udf/udf_fs.c are BSD-2-Clause
+# src/getopt* are LGPL-2.1-or-later
+License: GPL-3.0-or-later AND BSD-2-Clause AND LGPL-2.1-or-later
 URL: http://www.gnu.org/software/libcdio/
 Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2.sig
@@ -29,6 +31,8 @@ devices.
 
 %package devel
 Summary: Header files and libraries for %{name}
+# doc/* is GFDL-1.2-or-later
+License: GPL-3.0-or-later AND BSD-2-Clause AND LGPL-2.1-or-later AND GFDL-1.2-or-later
 Requires: %{name} = %{version}-%{release}
 
 %description devel

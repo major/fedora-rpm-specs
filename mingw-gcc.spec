@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20230728
-%global gitrev 8a3e2d71f2a0309540e68c79dadd66a06ca3da73
-%global gcc_version 13.2.1
-%global gcc_major 13
+%global DATE 20240127
+%global gitrev 97a1e216faf8ad55b025f07bed4940c016a982c3
+%global gcc_version 14.0.1
+%global gcc_major 14
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -38,6 +38,8 @@ Source0:        %{srcdir}.tar.xz
 
 # See https://sourceforge.net/p/mingw-w64/mailman/mingw-w64-public/thread/8fd2fb03-9b8a-07e1-e162-0bb48bcc3984%40gmail.com/#msg37200751
 Patch0:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
+# Add missing stdlib.h include
+Patch1:         mingw-gcc_include-stdlib.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -918,6 +920,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Wed Feb 07 2024 Sandro Mani <manisandro@gmail.com> - 14.0.1-1
+- Update to 14.0.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

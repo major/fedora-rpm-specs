@@ -5,14 +5,13 @@
 %bcond_with storj
 
 Name: filezilla
-Version: 3.66.4
-Release: 3%{?dist}
+Version: 3.66.5
+Release: 1%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.xz
-Patch0:  pointer-types.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -150,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.66.5-1
+- 3.66.5
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.66.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

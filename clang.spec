@@ -335,6 +335,13 @@ rm test/CodeGen/profile-filter.c
 %global _lto_cflags %nil
 %endif
 
+%if 0%{?rhel}
+%ifarch %{ix86}
+# Linking libclang.so goes out of memory even with ThinLTO and a single link job.
+%global _lto_cflags %nil
+%endif
+%endif
+
 %ifarch s390 s390x aarch64 %ix86 ppc64le
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')

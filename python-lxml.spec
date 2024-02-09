@@ -21,6 +21,10 @@ BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  python3-devel
 
+# Reduce the type safety as a workaround for https://bugs.launchpad.net/lxml/+bug/2051243
+# We trust the tests would uncover real issues.
+%global build_type_safety_c 2
+
 # Some of the extras create a build dependency loop.
 # - [cssselect] Requires cssselect BuildRequires lxml
 # - [html5] Requires html5lib BuildRequires lxml

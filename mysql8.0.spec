@@ -1,11 +1,17 @@
 # Name of the package without any prefixes
-%global pkg_name %{name}
-%global pkgnamepatch community-mysql
+%global majorname mysql
+%global package_version 8.0.36
+%define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
+%global pkgnamepatch mysql
+
+
+# Set if this package will be the default one in distribution
+%{!?mysql_default:%global mysql_default 1}
 
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
 # --nocheck is not possible (e.g. in koji build)
-%{!?runselftest:%global runselftest 1}
+%{!?runselftest:%global runselftest 0}
 
 # Set this to 1 to see which tests fail, but 0 on production ready build
 %global ignore_testsuite_result 0
@@ -17,66 +23,68 @@
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
-# Aditional SELinux rules
-%global require_mysql_selinux 1
-
-# In f20+ use unversioned docdirs, otherwise the old versioned one
-%global _pkgdocdirname %{pkg_name}%{!?_pkgdocdir:-%{version}}
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{pkg_name}-%{version}}
-
-# By default, patch(1) creates backup files when chunks apply with offsets.
-# Turn that off to ensure such files don't get included in RPMs (cf bz#884755).
-%global _default_patch_flags --no-backup-if-mismatch
+# Filtering: https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering
+%global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::)
+%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/mysql/plugin/.*\\.so)$
 
 %global skiplist platform-specific-tests.list
 
+%global boost_bundled_version 1.77.0
+
+
 # For some use cases we do not need some parts of the package
-%bcond_without clibrary
-%bcond_without devel
-%bcond_without client
-%bcond_without common
-%bcond_without errmsg
-%bcond_without test
+%bcond clibrary 1
+%bcond devel 1
+%bcond client 1
+%bcond common 1
+%bcond errmsg 1
+%bcond test 1
 
 # When there is already another package that ships /etc/my.cnf,
 # rather include it than ship the file again, since conflicts between
 # those files may create issues
-%bcond_with config
+%bcond config 0
 
 # For deep debugging we need to build binaries with extra debug info
-%bcond_with debug
+%bcond debug 0
 
-%global boost_bundled_version 1.77.0
+# Aditional SELinux rules from a standalone package 'mysql-selinux' (that holds rules shared between MariaDB and MySQL)
+%bcond require_mysql_selinux 1
+
 
 # Include files for systemd
-%global daemon_name mysqld
-%global daemon_no_prefix mysqld
-
-# Directory for storing pid file
-%global pidfiledir %{_rundir}/%{daemon_name}
+%global daemon_name       mysqld
+%global daemon_no_prefix  mysqld
 
 # We define some system's well known locations here so we can use them easily
 # later when building to another location (like SCL)
-%global logrotateddir %{_sysconfdir}/logrotate.d
-%global logfiledir %{_localstatedir}/log/mysql
-%global logfile %{logfiledir}/%{daemon_no_prefix}.log
-
+%global logrotateddir     %{_sysconfdir}/logrotate.d
+%global logfiledir        %{_localstatedir}/log/mysql
+%global logfile           %{logfiledir}/%{daemon_no_prefix}.log
+# Directory for storing pid file
+%global pidfiledir        %{_rundir}/%{daemon_name}
 # Defining where database data live
-%global dbdatadir %{_localstatedir}/lib/mysql
+%global dbdatadir         %{_localstatedir}/lib/mysql
 
-# Home directory of mysql user should be same for all packages that create it
-%global mysqluserhome /var/lib/mysql
 
-# Provide mysql names for compatibility
-%bcond_without mysql_names
-%bcond_without conflicts
+# Set explicit conflicts with 'mariadb' packages
+%bcond conflicts_mariadb 1
+# Provide explicitly the 'community-mysql' names
+#   'community-mysql' names are deprecated and to be removed in future Fedora
+#   but we're leaving them here for compatibility reasons
+%bcond provides_community_mysql 1
+# Obsolete the package 'community-mysql' and all its sub-packages
+%bcond obsoletes_community_mysql 1
+# This is the last version of the 'community-mysql' package production release
+%global obsolete_community_mysql_version 8.0.35-10
+%global community_mysql_version 8.0.36-1
 
 # Make long macros shorter
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
-Name:             community-mysql
-Version:          8.0.35
-Release:          5%{?with_debug:.debug}%{?dist}
+Name:             %{majorname}%{majorversion}
+Version:          %{package_version}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -118,7 +126,8 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
-Patch55:	  community-mysql-c99.patch
+Patch55:	  %{pkgnamepatch}-c99.patch
+Patch56:          %{pkgnamepatch}-flush-logrotate.patch
 
 # Patches taken from boost 1.59
 Patch111:         boost-1.58.0-pool.patch
@@ -126,6 +135,15 @@ Patch112:         boost-1.57.0-mpl-print.patch
 
 # Patches taken from boost 1.76
 Patch113:         boost-1.76.0-fix_multiprecision_issue_419-ppc64le.patch
+
+# This macro is used for package/sub-package names in the entire specfile
+%if %?mysql_default
+%global pkgname %{majorname}
+%package -n %{pkgname}
+Summary:          MySQL client programs and shared libraries
+%else
+%global pkgname %{name}
+%endif
 
 BuildRequires:    cmake
 BuildRequires:    gcc-c++
@@ -144,14 +162,10 @@ BuildRequires:    numactl-devel
 %endif
 BuildRequires:    openssl
 BuildRequires:    openssl-devel
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:    perl-interpreter
 BuildRequires:    perl-generators
-%endif
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:    rpcgen
 BuildRequires:    libtirpc-devel
-%endif
 BuildRequires:    protobuf-lite-devel
 BuildRequires:    rapidjson-devel
 BuildRequires:    zlib
@@ -205,22 +219,38 @@ BuildRequires:    make
 BuildRequires:    libfido2-devel
 
 Requires:         bash coreutils grep
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-common = %{sameevr}
 
 Provides:         bundled(boost) = %{boost_bundled_version}
 
-%if %{with mysql_names}
-Provides:         mysql = %{sameevr}
-Provides:         mysql%{?_isa} = %{sameevr}
-Provides:         mysql-compat-client = %{sameevr}
-Provides:         mysql-compat-client%{?_isa} = %{sameevr}
+%{?with_conflicts_mariadb:Conflicts: mariadb}
+# Explicitly disallow installation of mysql + mariadb-server
+%{?with_conflicts_mariadb:Conflicts: mariadb-server}
+%{?with_provides_community_mysql:Provides: community-mysql = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql%{?_isa} = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql <= %obsolete_community_mysql_version}
+
+%define conflict_with_other_streams() %{expand:\
+Provides: %{majorname}%{?1:-%{1}}-any\
+Conflicts: %{majorname}%{?1:-%{1}}-any\
+}
+
+# Provide also mysqlX.X if default
+%if %?mysql_default
+%define mysqlX_if_default() %{expand:\
+Provides: mysql%{majorversion}%{?1:-%{1}} = %{sameevr}\
+Provides: mysql%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
+}
+%else
+%define mysqlX_if_default() %{nil}
 %endif
 
-%{?with_conflicts:Conflicts:        mariadb}
+%define add_metadata() %{expand:\
+%conflict_with_other_streams %{**}\
+%mysqlX_if_default %{**}\
+}
 
-# Filtering: https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering
-%global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::)
-%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/mysql/plugin/.*\\.so)$
+%add_metadata
 
 %description
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
@@ -228,17 +258,23 @@ client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. The base package
 contains the standard MySQL client programs and generic MySQL files.
 
+%description -n %{pkgname}
+MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
+client/server implementation consisting of a server daemon (mysqld)
+and many different client programs and libraries. The base package
+contains the standard MySQL client programs and generic MySQL files.
 
 %if %{with clibrary}
-%package          libs
+%package          -n %{pkgname}-libs
 Summary:          The shared libraries required for MySQL clients
-Requires:         %{name}-common%{?_isa} = %{sameevr}
-%if %{with mysql_names}
-Provides:         mysql-libs = %{sameevr}
-Provides:         mysql-libs%{?_isa} = %{sameevr}
-%endif
+Requires:         %{pkgname}-common = %{sameevr}
+%{?with_provides_community_mysql:Provides: community-mysql-libs = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql-libs%{?_isa}= %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-libs <= %obsolete_community_mysql_version}
 
-%description      libs
+%add_metadata libs
+
+%description      -n %{pkgname}-libs
 The mysql-libs package provides the essential shared libraries for any
 MySQL client program or interface. You will need to install this package
 to use any other MySQL package or any clients that need to connect to a
@@ -247,10 +283,15 @@ MySQL server.
 
 
 %if %{with config}
-%package          config
+%package          -n %{pkgname}-config
 Summary:          The config files required by server and client
+%{?with_provides_community_mysql:Provides: community-mysql-config = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql-config%{?_isa} = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-config <= %obsolete_community_mysql_version}
 
-%description      config
+%add_metadata config
+
+%description      -n %{pkgname}-config
 The package provides the config file my.cnf and my.cnf.d directory used by any
 MariaDB or MySQL program. You will need to install this package to use any
 other MariaDB or MySQL package if the config files are not provided in the
@@ -259,11 +300,17 @@ package itself.
 
 
 %if %{with common}
-%package          common
+%package          -n %{pkgname}-common
 Summary:          The shared files required for MySQL server and client
+BuildArch:        noarch
 Requires:         %{_sysconfdir}/my.cnf
+%{?with_provides_community_mysql:Provides: community-mysql-common = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-common <= %obsolete_community_mysql_version}
 
-%description      common
+# As this package is noarch, it can't use the %%{?_isa} RPM macro
+%conflict_with_other_streams common
+
+%description      -n %{pkgname}-common
 The mysql-common package provides the essential shared files for any
 MySQL program. You will need to install this package to use any other
 MySQL package.
@@ -271,26 +318,30 @@ MySQL package.
 
 
 %if %{with errmsg}
-%package          errmsg
+%package          -n %{pkgname}-errmsg
 Summary:          The error messages files required by MySQL server
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+BuildArch:        noarch
+Requires:         %{pkgname}-common = %{sameevr}
+%{?with_provides_community_mysql:Provides: community-mysql-errmsg = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-errmsg <= %obsolete_community_mysql_version}
 
-%description      errmsg
+# As this package is noarch, it can't use the %%{?_isa} RPM macro
+%conflict_with_other_streams errmsg
+
+%description      -n %{pkgname}-errmsg
 The package provides error messages files for the MySQL daemon
 %endif
 
 
-%package          server
+%package          -n %{pkgname}-server
 Summary:          The MySQL server and related files
 
-# Require any mysql client, but prefer community-mysql client for community-mysql server
-Suggests:         %{name}%{?_isa} = %{sameevr}
-Requires:         mysql%{?_isa}
+Requires:         %{pkgname}%{?_isa} = %{sameevr}
 
-Requires:         %{name}-common%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{_sysconfdir}/my.cnf
 Requires:         %{_sysconfdir}/my.cnf.d
-Requires:         %{name}-errmsg%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-errmsg = %{sameevr}
 %{?mecab:Requires: mecab-ipadic}
 Requires:         coreutils
 Requires(pre):    /usr/sbin/useradd
@@ -305,20 +356,22 @@ Requires(post):   policycoreutils-python-utils
 
 # Aditional SELinux rules (common for MariaDB & MySQL) shipped in a separate package
 # For cases, where we want to fix a SELinux issues in MySQL sooner than patched selinux-policy-targeted package is released
-%if %require_mysql_selinux
+%if %{with require_mysql_selinux}
 Requires:         (mysql-selinux if selinux-policy-targeted)
 %endif
 
-%if %{with mysql_names}
-Provides:         mysql-server = %{sameevr}
-Provides:         mysql-server%{?_isa} = %{sameevr}
-Provides:         mysql-compat-server = %{sameevr}
-Provides:         mysql-compat-server%{?_isa} = %{sameevr}
-%endif
-%{?with_conflicts:Conflicts:        mariadb-server}
-%{?with_conflicts:Conflicts:        mariadb-galera-server}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-utils}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-galera}
+# Explicitly disallow installation of mysql + mariadb-server
+%{?with_conflicts_mariadb:Conflicts: mariadb}
+%{?with_provides_community_mysql:Provides: community-mysql-server = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql-server%{?_isa} = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-server <= %obsolete_community_mysql_version}
 
-%description      server
+%add_metadata server
+
+%description      -n %{pkgname}-server
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
 client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. This package contains
@@ -326,26 +379,32 @@ the MySQL server and some accompanying files and directories.
 
 
 %if %{with devel}
-%package          devel
+%package          -n %{pkgname}-devel
 Summary:          Files for development of MySQL applications
-%{?with_clibrary:Requires:         %{name}-libs%{?_isa} = %{sameevr}}
+%{?with_clibrary:Requires:         %{pkgname}-libs%{?_isa} = %{sameevr}}
 Requires:         openssl-devel
 Requires:         zlib-devel
 Requires:         libzstd-devel
-%{?with_conflicts:Conflicts:        mariadb-devel}
+%{?with_conflicts_mariadb:Conflicts: mariadb-devel}
+%{?with_conflicts_mariadb:Conflicts: mariadb-connector-c-devel}
+%{?with_provides_community_mysql:Provides: community-mysql-devel = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql-devel%{?_isa} = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-devel <= %obsolete_community_mysql_version}
 
-%description      devel
+%add_metadata devel
+
+%description      -n %{pkgname}-devel
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains the libraries and header files that are needed for
 developing MySQL client applications.
 %endif
 
 %if %{with test}
-%package          test
+%package          -n %{pkgname}-test
 Summary:          The test suite distributed with MySQL
-Requires:         %{name}%{?_isa} = %{sameevr}
-Requires:         %{name}-common%{?_isa} = %{sameevr}
-Requires:         %{name}-server%{?_isa} = %{sameevr}
+Requires:         %{pkgname}%{?_isa} = %{sameevr}
+Requires:         %{pkgname}-common = %{sameevr}
+Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 Requires:         gzip
 Requires:         lz4
 Requires:         openssl
@@ -366,13 +425,15 @@ Requires:         perl(Socket)
 Requires:         perl(Sys::Hostname)
 Requires:         perl(Test::More)
 Requires:         perl(Time::HiRes)
-%{?with_conflicts:Conflicts:        mariadb-test}
-%if %{with mysql_names}
-Provides:         mysql-test = %{sameevr}
-Provides:         mysql-test%{?_isa} = %{sameevr}
-%endif
 
-%description      test
+%{?with_conflicts_mariadb:Conflicts: mariadb-test}
+%{?with_provides_community_mysql:Provides: community-mysql-test = %community_mysql_version}
+%{?with_provides_community_mysql:Provides: community-mysql-test%{?_isa} = %community_mysql_version}
+%{?with_obsoletes_community_mysql:Obsoletes: community-mysql-test <= %obsolete_community_mysql_version}
+
+%add_metadata test
+
+%description      -n %{pkgname}-test
 MySQL is a multi-user, multi-threaded SQL database server. This
 package contains the regression test suite distributed with
 the MySQL sources.
@@ -390,6 +451,7 @@ the MySQL sources.
 %patch -P53 -p1
 %patch -P54 -p1
 %patch -P55 -p1
+%patch -P56 -p1
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -422,7 +484,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 
 %build
 # arm build ends with out of memory error for LTO enabled build
-%ifarch %arm
+%ifarch %arm32
 %define _lto_cflags %{nil}
 %endif
 
@@ -450,19 +512,19 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
          -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
          -DSYSCONFDIR="%{_sysconfdir}" \
          -DSYSCONF2DIR="%{_sysconfdir}/my.cnf.d" \
-         -DINSTALL_DOCDIR="share/doc/%{_pkgdocdirname}" \
-         -DINSTALL_DOCREADMEDIR="share/doc/%{_pkgdocdirname}" \
+         -DINSTALL_DOCDIR="share/doc/%{majorname}" \
+         -DINSTALL_DOCREADMEDIR="share/doc/%{majorname}" \
          -DINSTALL_INCLUDEDIR=include/mysql \
          -DINSTALL_INFODIR=share/info \
          -DINSTALL_LIBEXECDIR=libexec \
          -DINSTALL_LIBDIR="%{_lib}/mysql" \
          -DRPATH_LIBDIR="%{_libdir}" \
          -DINSTALL_MANDIR=share/man \
-         -DINSTALL_MYSQLSHAREDIR=share/%{pkg_name} \
+         -DINSTALL_MYSQLSHAREDIR=share/%{majorname} \
          -DINSTALL_MYSQLTESTDIR=share/mysql-test \
          -DINSTALL_PLUGINDIR="%{_lib}/mysql/plugin" \
          -DINSTALL_SBINDIR=bin \
-         -DINSTALL_SUPPORTFILESDIR=share/%{pkg_name} \
+         -DINSTALL_SUPPORTFILESDIR=share/%{majorname} \
          -DMYSQL_DATADIR="%{dbdatadir}" \
          -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
          -DENABLED_LOCAL_INFILE=ON \
@@ -499,6 +561,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 
 # Note: disabling building of unittests to workaround #1989847
 
+# Print all Cmake options values; "-LAH" means "List Advanced Help"
 cmake -B %{_vpath_builddir} -LAH
 
 %cmake_build
@@ -540,7 +603,7 @@ install -D -p -m 755 %{_vpath_builddir}/scripts/mysql-prepare-db-dir %{buildroot
 install -p -m 755 %{_vpath_builddir}/scripts/mysql-wait-stop %{buildroot}%{_libexecdir}/mysql-wait-stop
 install -p -m 755 %{_vpath_builddir}/scripts/mysql-check-socket %{buildroot}%{_libexecdir}/mysql-check-socket
 install -p -m 644 %{_vpath_builddir}/scripts/mysql-scripts-common %{buildroot}%{_libexecdir}/mysql-scripts-common
-install -D -p -m 0644 %{_vpath_builddir}/scripts/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
+install -D -p -m 0644 %{_vpath_builddir}/scripts/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{majorname}-server.cnf
 
 rm %{buildroot}%{_libdir}/mysql/*.a
 rm %{buildroot}%{_mandir}/man1/comp_err.1*
@@ -548,7 +611,7 @@ rm %{buildroot}%{_mandir}/man1/comp_err.1*
 # Put logrotate script where it needs to be
 mkdir -p %{buildroot}%{logrotateddir}
 # Remove the wrong file
-rm %{buildroot}%{_datadir}/%{pkg_name}/mysql-log-rotate
+rm %{buildroot}%{_datadir}/%{majorname}/mysql-log-rotate
 # Install the correct one (meant for FSH layout in RPM packages)
 install -D -m 0644 %{_vpath_builddir}/packaging/rpm-common/mysql.logrotate %{buildroot}%{logrotateddir}/%{daemon_name}
 
@@ -572,13 +635,13 @@ install -p -m 0644 %{SOURCE7} %{_vpath_srcdir}/%{basename:%{SOURCE7}}
 # Install the list of skipped tests to be available for user runs
 install -p -m 0644 %{_vpath_srcdir}/mysql-test/%{skiplist} %{buildroot}%{_datadir}/mysql-test
 
-%if %{without clibrary}
+%if ! %{with clibrary}
 unlink %{buildroot}%{_libdir}/mysql/libmysqlclient.so
 rm -r %{buildroot}%{_libdir}/mysql/libmysqlclient*.so.*
 rm -r %{buildroot}%{_sysconfdir}/ld.so.conf.d
 %endif
 
-%if %{without devel}
+%if ! %{with devel}
 rm %{buildroot}%{_bindir}/mysql_config*
 rm -r %{buildroot}%{_includedir}/mysql
 rm %{buildroot}%{_datadir}/aclocal/mysql.m4
@@ -587,7 +650,7 @@ rm %{buildroot}%{_libdir}/mysql/libmysqlclient*.so
 rm %{buildroot}%{_mandir}/man1/mysql_config.1*
 %endif
 
-%if %{without client}
+%if ! %{with client}
 rm %{buildroot}%{_bindir}/{mysql,mysql_config_editor,\
 mysql_plugin,mysqladmin,mysqlbinlog,\
 mysqlcheck,mysqldump,mysqlpump,mysqlimport,mysqlshow,mysqlslap,my_print_defaults}
@@ -602,18 +665,18 @@ mkdir -p %{buildroot}%{_sysconfdir}/my.cnf.d
 #rm %{buildroot}%{_sysconfdir}/my.cnf
 %endif
 
-%if %{without common}
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/charsets
+%if ! %{with common}
+rm -r %{buildroot}%{_datadir}/%{majorname}/charsets
 %endif
 
-%if %{without errmsg}
-rm %{buildroot}%{_datadir}/%{pkg_name}/{messages_to_error_log.txt,messages_to_clients.txt}
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/{english,bulgarian,czech,danish,dutch,estonian,\
+%if ! %{with errmsg}
+rm %{buildroot}%{_datadir}/%{majorname}/{messages_to_error_log.txt,messages_to_clients.txt}
+rm -r %{buildroot}%{_datadir}/%{majorname}/{english,bulgarian,czech,danish,dutch,estonian,\
 french,german,greek,hungarian,italian,japanese,korean,norwegian,norwegian-ny,\
 polish,portuguese,romanian,russian,serbian,slovak,spanish,swedish,ukrainian}
 %endif
 
-%if %{without test}
+%if ! %{with test}
 rm %{buildroot}%{_bindir}/{mysql_client_test,mysqlxtest,mysqltest_safe_process,zlib_decompress}
 rm -r %{buildroot}%{_datadir}/mysql-test
 %endif
@@ -672,27 +735,27 @@ popd
 
 
 
-%pre server
+%pre -n %{pkgname}-server
 /usr/sbin/groupadd -g 27 -o -r mysql >/dev/null 2>&1 || :
-/usr/sbin/useradd -M -N -g mysql -o -r -d %{mysqluserhome} -s /sbin/nologin \
+/usr/sbin/useradd -M -N -g mysql -o -r -d %{dbdatadir} -s /sbin/nologin \
   -c "MySQL Server" -u 27 mysql >/dev/null 2>&1 || :
 
-%post server
+%post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
 if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
     install /dev/null -m0640 -omysql -gmysql "%{logfile}"
 fi
 
-%preun server
+%preun -n %{pkgname}-server
 %systemd_preun %{daemon_name}.service
 
-%postun server
+%postun -n %{pkgname}-server
 %systemd_postun_with_restart %{daemon_name}.service
 
 
 
 %if %{with client}
-%files
+%files -n %{pkgname}
 %{_bindir}/mysql
 %{_bindir}/mysql_config_editor
 %{_bindir}/mysqladmin
@@ -717,13 +780,14 @@ fi
 %endif
 
 %if %{with clibrary}
-%files libs
+%files -n %{pkgname}-libs
+%dir %{_libdir}/mysql
 %{_libdir}/mysql/libmysqlclient*.so.*
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/*
 %endif
 
 %if %{with config}
-%files config
+%files -n %{pkgname}-config
 # although the default my.cnf contains only server settings, we put it in the
 # common package because it can be used for client settings too.
 %dir %{_sysconfdir}/my.cnf.d
@@ -731,46 +795,45 @@ fi
 %endif
 
 %if %{with common}
-%files common
+%files -n %{pkgname}-common
 %license LICENSE
 %doc README README.mysql-license README.mysql-docs
 %doc storage/innobase/COPYING.Percona storage/innobase/COPYING.Google
-%dir %{_libdir}/mysql
-%dir %{_datadir}/%{pkg_name}
-%{_datadir}/%{pkg_name}/charsets
+%dir %{_datadir}/%{majorname}
+%{_datadir}/%{majorname}/charsets
 %endif
 
 %if %{with errmsg}
-%files errmsg
-%{_datadir}/%{pkg_name}/messages_to_error_log.txt
-%{_datadir}/%{pkg_name}/messages_to_clients.txt
-%{_datadir}/%{pkg_name}/english
-%lang(bg) %{_datadir}/%{pkg_name}/bulgarian
-%lang(cs) %{_datadir}/%{pkg_name}/czech
-%lang(da) %{_datadir}/%{pkg_name}/danish
-%lang(nl) %{_datadir}/%{pkg_name}/dutch
-%lang(et) %{_datadir}/%{pkg_name}/estonian
-%lang(fr) %{_datadir}/%{pkg_name}/french
-%lang(de) %{_datadir}/%{pkg_name}/german
-%lang(el) %{_datadir}/%{pkg_name}/greek
-%lang(hu) %{_datadir}/%{pkg_name}/hungarian
-%lang(it) %{_datadir}/%{pkg_name}/italian
-%lang(ja) %{_datadir}/%{pkg_name}/japanese
-%lang(ko) %{_datadir}/%{pkg_name}/korean
-%lang(no) %{_datadir}/%{pkg_name}/norwegian
-%lang(no) %{_datadir}/%{pkg_name}/norwegian-ny
-%lang(pl) %{_datadir}/%{pkg_name}/polish
-%lang(pt) %{_datadir}/%{pkg_name}/portuguese
-%lang(ro) %{_datadir}/%{pkg_name}/romanian
-%lang(ru) %{_datadir}/%{pkg_name}/russian
-%lang(sr) %{_datadir}/%{pkg_name}/serbian
-%lang(sk) %{_datadir}/%{pkg_name}/slovak
-%lang(es) %{_datadir}/%{pkg_name}/spanish
-%lang(sv) %{_datadir}/%{pkg_name}/swedish
-%lang(uk) %{_datadir}/%{pkg_name}/ukrainian
+%files -n %{pkgname}-errmsg
+%{_datadir}/%{majorname}/messages_to_error_log.txt
+%{_datadir}/%{majorname}/messages_to_clients.txt
+%{_datadir}/%{majorname}/english
+%lang(bg) %{_datadir}/%{majorname}/bulgarian
+%lang(cs) %{_datadir}/%{majorname}/czech
+%lang(da) %{_datadir}/%{majorname}/danish
+%lang(nl) %{_datadir}/%{majorname}/dutch
+%lang(et) %{_datadir}/%{majorname}/estonian
+%lang(fr) %{_datadir}/%{majorname}/french
+%lang(de) %{_datadir}/%{majorname}/german
+%lang(el) %{_datadir}/%{majorname}/greek
+%lang(hu) %{_datadir}/%{majorname}/hungarian
+%lang(it) %{_datadir}/%{majorname}/italian
+%lang(ja) %{_datadir}/%{majorname}/japanese
+%lang(ko) %{_datadir}/%{majorname}/korean
+%lang(no) %{_datadir}/%{majorname}/norwegian
+%lang(no) %{_datadir}/%{majorname}/norwegian-ny
+%lang(pl) %{_datadir}/%{majorname}/polish
+%lang(pt) %{_datadir}/%{majorname}/portuguese
+%lang(ro) %{_datadir}/%{majorname}/romanian
+%lang(ru) %{_datadir}/%{majorname}/russian
+%lang(sr) %{_datadir}/%{majorname}/serbian
+%lang(sk) %{_datadir}/%{majorname}/slovak
+%lang(es) %{_datadir}/%{majorname}/spanish
+%lang(sv) %{_datadir}/%{majorname}/swedish
+%lang(uk) %{_datadir}/%{majorname}/ukrainian
 %endif
 
-%files server
+%files -n %{pkgname}-server
 %{_bindir}/ibd2sdi
 %{_bindir}/myisamchk
 %{_bindir}/myisam_ftdump
@@ -787,7 +850,7 @@ fi
 %{_bindir}/innochecksum
 %{_bindir}/perror
 
-%config(noreplace) %{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
+%config(noreplace) %{_sysconfdir}/my.cnf.d/%{majorname}-server.cnf
 
 %{_sbindir}/mysqld
 # sys_nice capability required for rhbz#1628814
@@ -795,10 +858,11 @@ fi
 
 %{_libdir}/mysql/INFO_SRC
 %{_libdir}/mysql/INFO_BIN
-%if %{without common}
-%dir %{_datadir}/%{pkg_name}
+%if ! %{with common}
+%dir %{_datadir}/%{majorname}
 %endif
 
+%dir %{_libdir}/mysql
 %dir %{_libdir}/mysql/plugin
 %{_libdir}/mysql/plugin/adt_null.so
 %{_libdir}/mysql/plugin/auth_socket.so
@@ -853,8 +917,8 @@ fi
 %{_mandir}/man1/lz4_decompress.1*
 %{_mandir}/man8/mysqld.8*
 
-%{_datadir}/%{pkg_name}/dictionary.txt
-%{_datadir}/%{pkg_name}/*.sql
+%{_datadir}/%{majorname}/dictionary.txt
+%{_datadir}/%{majorname}/*.sql
 
 %{_unitdir}/%{daemon_name}*
 %{_libexecdir}/mysql-prepare-db-dir
@@ -872,11 +936,12 @@ fi
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
-%files devel
+%files -n %{pkgname}-devel
 %{_bindir}/mysql_config*
 %exclude %{_bindir}/mysql_config_editor
 %{_includedir}/mysql
 %{_datadir}/aclocal/mysql.m4
+%dir %{_libdir}/mysql
 %if %{with clibrary}
 %{_libdir}/mysql/libmysqlclient.so
 %endif
@@ -885,7 +950,7 @@ fi
 %endif
 
 %if %{with test}
-%files test
+%files -n %{pkgname}-test
 %{_bindir}/mysql_client_test
 %{_bindir}/mysql_keyring_encryption_test
 %{_bindir}/mysqltest
@@ -897,6 +962,7 @@ fi
 %attr(-,mysql,mysql) %{_datadir}/mysql-test
 %{_mandir}/man1/zlib_decompress.1*
 
+%dir %{_libdir}/mysql
 %dir %{_libdir}/mysql/plugin
 %{_libdir}/mysql/plugin/auth.so
 %{_libdir}/mysql/plugin/auth_test_plugin.so
@@ -986,6 +1052,20 @@ fi
 %endif
 
 %changelog
+* Mon Feb 05 2024 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.36-3
+- Apply demodularization
+- the default stream builds mysql.rpm
+- the non-default stream builds mysqlX.XX.rpm
+
+* Wed Jan 31 2024 Honza Horak <hhorak@redhat.com> - 8.0.36-2
+- Use signal to flush logs when rotating
+
+* Wed Jan 31 2024 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.36-1
+- Rebase to version 8.0.36
+
+* Wed Jan 31 2024 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.35-100
+- Renaming 'community-mysql' to 'mysql8.0'
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 8.0.35-5
 - Rebuild for ICU 74
 

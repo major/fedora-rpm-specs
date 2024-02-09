@@ -17,10 +17,10 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
 
@@ -183,6 +183,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Wed Feb 07 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-5
+- Migrate to SPDX license
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.99.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

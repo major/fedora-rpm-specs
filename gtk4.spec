@@ -15,6 +15,14 @@
 # Filter provides for private modules
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
+# FTBFS on i686 with GCC 14 -Werror=int-conversion
+# https://gitlab.gnome.org/GNOME/gtk/-/issues/6033
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%ifarch %{ix86}
+%global build_type_safety_c 1
+%endif
+%endif
+
 Name:           gtk4
 Version:        4.13.6
 Release:        %autorelease

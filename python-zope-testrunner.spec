@@ -5,25 +5,19 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        6.2.1
-Release:        3%{?dist}
+Version:        6.3
+Release:        1%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.testrunner
 Source0:        https://github.com/zopefoundation/zope.testrunner/archive/%{version}/zope.testrunner-%{version}.tar.gz
 
-# Work around a test failure with python 3.12
-Patch0:         %{name}-python3.12.patch
-
-# Adapt to changes in python 3.13.  See:
-# https://github.com/zopefoundation/zope.testrunner/issues/155
-Patch1:         %{name}-python3.13.patch
-
 BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
+BuildRequires:  %{py3_dist manuel}
 
 %description
 This package provides a flexible test runner with layer support.
@@ -62,6 +56,10 @@ sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html
 
 # Replace a deprecated directive
 sed -i "s/autodoc_default_flags.*/autodoc_default_options = {'members': True, 'show-inheritance': True}/" docs/conf.py
+
+# Adapt to a different test path than upstream expects
+sed -i 's/\(doctest-\)src/\1site-packages/' \
+    src/zope/testrunner/tests/test_xml_output.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x test,subunit,docs
@@ -103,11 +101,7 @@ rm -f docs/_build/html/.buildinfo
 unset PYTHONHOME
 
 %check
-# We have to run tests installed together with the package
-# https://github.com/zopefoundation/zope.interface/issues/196
-pushd %{buildroot}%{python3_sitelib}
-PURE_PYTHON=1 python3 -m unittest discover -s zope/testrunner -t .
-popd
+%tox
 
 %files -n python3-zope-testrunner
 %doc CHANGES.html README.html
@@ -122,6 +116,12 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Wed Feb  7 2024 Jerry James <loganjerry@gmail.com> - 6.3-1
+- Version 6.3
+- Drop upstreamed patches
+- BR python3-manuel to enable more tests
+- Test with tox
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Name:           freedoom
 
-Version:        0.12.1
-Release:        13%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Doom styled first person shooter game
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ chmod 755 %{buildroot}/%{_bindir}/%{name}2
 %{_bindir}/%{name}2
 
 %changelog
+* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.13.0-1
+- 0.13.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

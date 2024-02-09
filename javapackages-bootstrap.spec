@@ -22,8 +22,8 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.14.0
-Release:        3%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        Apache-1.1 AND Apache-2.0 AND (Apache-2.0 OR EPL-2.0) AND (Apache-2.0 OR LGPL-2.0-or-later) AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-2.5 AND CC0-1.0 AND CPL-1.0 AND EPL-1.0 AND EPL-2.0 AND (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND LicenseRef-Fedora-Public-Domain AND MIT AND Plexus AND SMLNJ AND Saxpath AND xpp
@@ -148,21 +148,22 @@ Source1101:     plexus-languages.tar.xz
 Source1102:     plexus-pom.tar.xz
 Source1103:     plexus-resources.tar.xz
 Source1104:     plexus-sec-dispatcher.tar.xz
-Source1105:     plexus-utils.tar.xz
-Source1106:     qdox.tar.xz
-Source1107:     servlet-api.tar.xz
-Source1108:     sisu-inject.tar.xz
-Source1109:     sisu-mojos.tar.xz
-Source1110:     sisu-plexus.tar.xz
-Source1111:     slf4j.tar.xz
-Source1112:     testng.tar.xz
-Source1113:     univocity-parsers.tar.xz
-Source1114:     velocity-engine.tar.xz
-Source1115:     xbean.tar.xz
-Source1116:     xmlunit.tar.xz
-Source1117:     xmvn-generator.tar.xz
-Source1118:     xmvn.tar.xz
-Source1119:     xz-java.tar.xz
+Source1105:     plexus-testing.tar.xz
+Source1106:     plexus-utils.tar.xz
+Source1107:     plexus-xml.tar.xz
+Source1108:     qdox.tar.xz
+Source1109:     servlet-api.tar.xz
+Source1110:     sisu-inject.tar.xz
+Source1111:     sisu-mojos.tar.xz
+Source1112:     sisu-plexus.tar.xz
+Source1113:     slf4j.tar.xz
+Source1114:     testng.tar.xz
+Source1115:     univocity-parsers.tar.xz
+Source1116:     velocity-engine.tar.xz
+Source1117:     xmlunit.tar.xz
+Source1118:     xmvn-generator.tar.xz
+Source1119:     xmvn.tar.xz
+Source1120:     xz-java.tar.xz
 
 BuildRequires:  byaccj
 BuildRequires:  gcc
@@ -272,6 +273,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Wed Feb 07 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.15.0-1
+- Update to upstream version 1.15.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

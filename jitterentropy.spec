@@ -1,9 +1,9 @@
 Name:	jitterentropy
-Version:	3.4.1
-Release:	7%{?dist}
+Version:	3.5.0
+Release:	1%{?dist}
 Summary:	Library implementing the jitter entropy source
 
-License:	BSD or GPLv2
+License:	BSD-3-Clause OR GPL-2.0-only
 URL:		https://github.com/smuellerDD/jitterentropy-library
 Source0:	%{url}/archive/v%{version}/%{name}-library-%{version}.tar.gz
 
@@ -45,6 +45,10 @@ mkdir -p %{buildroot}/usr/include/
 %{_mandir}/man3/*
 
 %changelog
+* Wed Feb 07 2024 Vladis Dronov <vdronov@redhat.com> - 3.5.0-1
+- Update to the upstream v3.5.0 @ 54cbe828
+- Use proper SPDX license identifiers
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

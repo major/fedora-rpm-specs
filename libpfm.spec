@@ -4,10 +4,7 @@
 %if %{with python}
 %define python_sitearch %(python3 -c "from distutils.sysconfig import get_python_lib; print (get_python_lib(1))")
 %define python_prefix %(python3 -c "import sys; print (sys.prefix)")
-%{?filter_setup:
-%filter_provides_in %{python3_sitearch}/perfmon/.*\.so$
-%filter_setup
-}
+%global __provides_exclude_from ^%{python3_sitearch}/perfmon/.*\.so$
 %endif
 
 Name:		libpfm

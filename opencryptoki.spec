@@ -1,7 +1,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
-Version:		3.22.0
-Release:		4%{?dist}
+Version:		3.23.0
+Release:		1%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,9 +11,6 @@ Patch1:		opencryptoki-3.11.0-lockdir.patch
 # fix install problem in buildroot
 Patch2:		opencryptoki-3.21.0-p11sak.patch
 # upstream patches
-# https://github.com/opencryptoki/opencryptoki/commit/1eeab070490aa3b18fc64b8b86f6232730e6a106
-# - fix all errors and warnings found by GCC 14
-Patch10:		opencryptoki-3.22.0-gcc14.patch
 
 Requires(pre):		coreutils
 Requires:		(selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -351,6 +348,12 @@ fi
 
 
 %changelog
+* Wed Feb 07 2024 Than Ngo <than@redhat.com> - 3.23.0-1
+- 3.23.0
+   * EP11: Add support for FIPS-session mode
+   * Updates to harden against RSA timing attacks
+   * Bug fixes
+
 * Tue Jan 30 2024 Dan Horák <dan[at]danny.cz> - 3.22.0-4
 - fix all errors and warnings (rhbz#2261419)
 

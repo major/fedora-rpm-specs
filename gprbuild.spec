@@ -398,6 +398,10 @@ gprconfig --batch -o /dev/null --validate
 
 # TEST 2: Verify detection of compilers and linkers under different locales.
 
+# Tests 1 and 2 mostly test the knowledge base. These tests are done here
+# instead of in gprconfig-kb.spec to avoid a dependency loop that would make
+# bootstrapping GPRbuild even more complicated.
+
 detect_tools () {
 
     # GCC (Ada, Assembly, C, C++ and Fortran)

@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/pep508_rs
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused Python bindings
+# * revert breaking upstream change (pep440_rs v0.3 -> v0.4 update):
+#   https://github.com/konstin/pep508_rs/commit/b9b689f
+#   https://github.com/konstin/pep508_rs/issues/13
 Patch:          pep508_rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

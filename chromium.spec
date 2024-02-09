@@ -117,7 +117,7 @@
 %global remotingbuilddir out/Remoting
 
 # enable|disable debuginfo
-%global enable_debug 1
+%global enable_debug 0
 # disable debuginfo due to a bug in debugedit on el7
 # error: canonicalization unexpectedly shrank by one character
 # https://bugzilla.redhat.com/show_bug.cgi?id=304121
@@ -186,27 +186,24 @@
 %global use_qt6 0
 %endif
 
-# enable gtk3 by default
-%global gtk3 1
-
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
 %global bundleicu 1
 
-# system libre2.so is not supported with use_custom_libcxx=true
-# because the library's interface relies on libstdc++'s std::string and std::vector.
+# bundle re2, jsoncpp, woff2 - build errors with use_custom_libcxx=true
 %global bundlere2 1
-
-# The libxml_utils code depends on the specific bundled libxml checkout
-# which is not compatible with the current code in the Fedora package as of
-# 2017-06-08.
-%global bundlelibxml 1
-
+%global bundlejsoncpp 1
+%global bundlewoff2 1
 %global bundlelibaom 1
+%global bundlelibavif 1
+%global bundledav1d 1
 
 # Fedora's Python 2 stack is being removed, we use the bundled Python libraries
 # This can be revisited once we upgrade to Python 3
 %global bundlepylibs 0
+%global bundlelibevent 0
+%global bundlelibxslt 0
+%global bundleflac 0
 
 # RHEL 7.9 dropped minizip.
 # enable bundleminizip for Fedora > 39 due to switch to minizip-ng
@@ -228,14 +225,17 @@
 %global bundlefontconfig 1
 %global bundleffmpegfree 1
 %global bundlebrotli 1
+%global bundlelibopenjpeg2 1
+%global bundlelcms2 1
+%global bundlelibtiff 1
+%global bundlecrc32c 1
+%global bundledoubleconversion 1
+%global bundlelibsecret 1
+%global bundlesnappy 1
+%global bundlelibXNVCtrl 1
+%global bundlelibxml 1
 %else
-%if 0%{?fedora} > 37
-%global bundleharfbuzz 0
-%else
-%global bundleharfbuzz 1
-%endif
-# disable system brotli due to old system brotli on el and fedora < 38
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 38 || 0%{?rhel} > 9
 %global bundlebrotli 0
 %else
 %global bundlebrotli 1
@@ -249,6 +249,21 @@
 %global bundlefontconfig 0
 %global bundleffmpegfree 0
 %global bundlefreetype 0
+%global bundlelibopenjpeg2 0
+%global bundlelcms2 0
+%global bundlelibtiff 0
+%if 0%{?rhel} == 9
+%global bundlecrc32c 1
+%global bundleharfbuzz 1
+%else
+%global bundlecrc32c 0
+%global bundleharfbuzz 0
+%endif
+%global bundledoubleconversion 0
+%global bundlelibsecret 0
+%global bundlesnappy 0
+%global bundlelibXNVCtrl 0
+%global bundlelibxml 0
 %endif
 
 ### From 2013 until early 2021, Google permitted distribution builds of
@@ -285,8 +300,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 121.0.6167.139
-Release: 2%{?dist}
+Version: 121.0.6167.160
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -340,10 +355,8 @@ Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 # patch for using system brotli
 Patch89: chromium-116-system-brotli.patch
 
-# disable GlobalMediaControlsCastStartStop to avoid crash
-# when using the address bar media player button
-# it works with use_custom_libcxx=true
-Patch90: chromium-120-disable-GlobalMediaControlsCastStartStop.patch
+# patch for using system libxml
+Patch90: chromium-121-system-libxml.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
@@ -649,17 +662,58 @@ BuildRequires:	dbus-glib-devel
 # For eu-strip
 BuildRequires:	elfutils
 BuildRequires:	elfutils-libelf-devel
+
+%if ! %{bundleflac}
 BuildRequires:	flac-devel
+%endif
 
 %if ! %{bundlefreetype}
 BuildRequires:	freetype-devel
+%endif
+
+%if ! %{bundlecrc32c}
+BuildRequires: google-crc32c-devel
+%endif
+
+%if ! %{bundlewoff2}
+BuildRequires: woff2-devel
+%endif
+
+%if ! %{bundledav1d}
+BuildRequires: libdav1d-devel
+%endif
+
+%if ! %{bundlelibavif}
+BuildRequires: libavif-devel
+%endif
+
+%if ! %{bundlejsoncpp}
+BuildRequires: jsoncpp-devel
+%endif
+
+%if ! %{bundlelibsecret}
+BuildRequires: libsecret-devel
+%endif
+
+%if ! %{bundledoubleconversion}
+BuildRequires: double-conversion-devel
+%endif
+
+%if ! %{bundlesnappy}
+BuildRequires: snappy-devel
+%endif
+
+%if ! %{bundlelibXNVCtrl}
+BuildRequires: libXNVCtrl-devel
 %endif
 
 # One of the python scripts invokes git to look for a hash. So helpful.
 BuildRequires:	/usr/bin/git
 BuildRequires:	hwdata
 BuildRequires:	kernel-headers
+%if ! %{bundlelibevent}
 BuildRequires:	libevent-devel
+%endif
 BuildRequires:	libffi-devel
 
 %if ! %{bundleicu}
@@ -681,6 +735,18 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 %endif
 
+%if ! %{bundlelibopenjpeg2}
+BuildRequires: openjpeg2-devel
+%endif
+
+%if ! %{bundlelcms2}
+BuildRequires: lcms2-devel
+%endif
+
+%if ! %{bundlelibtiff}
+BuildRequires: libtiff-devel
+%endif
+
 BuildRequires:	libudev-devel
 
 %if ! %{bundlelibusbx}
@@ -699,7 +765,10 @@ BuildRequires:	libva-devel
 BuildRequires:	libwebp-devel
 %endif
 
+%if ! %{bundlelibxslt}
 BuildRequires:	libxslt-devel
+%endif
+
 BuildRequires:	libxshmfence-devel
 
 # Same here, it seems.
@@ -770,11 +839,7 @@ Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
 
 # GTK modules it expects to find for some reason.
-%if %{gtk3}
 Requires: libcanberra-gtk3%{_isa}
-%else
-Requires: libcanberra-gtk2%{_isa}
-%endif
 
 %if 0%{?fedora}
 # This enables support for u2f tokens
@@ -999,8 +1064,8 @@ udev.
 %patch -P89 -p1 -b .system-brotli
 %endif
 
-%if ! %{use_custom_libcxx}
-%patch -P90 -p1 -b .disable-GlobalMediaControlsCastStartStop
+%if ! %{bundlelibxml}
+%patch -P90 -p1 -b .system-libxml
 %endif
 
 %if ! %{bundleopus}
@@ -1219,7 +1284,7 @@ CHROMIUM_CORE_GN_DEFINES=""
 # using system toolchain
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
-CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
+CHROMIUM_CORE_GN_DEFINES+=' is_debug=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_goma=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
@@ -1231,9 +1296,7 @@ sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/gene
 
 CHROMIUM_CORE_GN_DEFINES+=' chrome_pgo_phase=0'
 
-%if %{cfi}
-CHROMIUM_CORE_GN_DEFINES+=' is_cfi=true'
-%else
+%if ! %{cfi}
 CHROMIUM_CORE_GN_DEFINES+=' is_cfi=false'
 %endif
 
@@ -1261,7 +1324,7 @@ CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 CHROMIUM_CORE_GN_DEFINES+=' rust_sysroot_absolute="%{_prefix}"'
 CHROMIUM_CORE_GN_DEFINES+=" rustc_version=\"$rustc_version\""
 
-CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true'
+CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false'
 
 %if %{use_gold}
 CHROMIUM_CORE_GN_DEFINES+=' use_gold=true'
@@ -1277,9 +1340,7 @@ CHROMIUM_CORE_GN_DEFINES+=' icu_use_data_file=true'
 CHROMIUM_CORE_GN_DEFINES+=' target_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
-%if %{use_custom_libcxx}
-CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=true'
-%else
+%if ! %{use_custom_libcxx}
 CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
 %endif
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
@@ -1287,7 +1348,6 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level}'
-CHROMIUM_CORE_GN_DEFINES+=' blink_enable_generated_code_formatting=false'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 export CHROMIUM_CORE_GN_DEFINES
 
@@ -1319,7 +1379,6 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_qt6=false'
 
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_hangout_services_extension=true'
-CHROMIUM_BROWSER_GN_DEFINES+=' use_aura=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_widevine=true'
 
 %if %{use_vaapi}
@@ -1333,10 +1392,31 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_v4l2_codec=true'
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
-CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true rtc_link_pipewire=true'
+CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true'
 %endif
 
+%if ! %{bundlelibjpeg}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libjpeg=true'
+%endif
+
+%if ! %{bundlelibpng}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libpng=true'
+%endif
+
+%if ! %{bundlelibopenjpeg2}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libopenjpeg2=true'
+%endif
+
+%if ! %{bundlelcms2}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_lcms2=true'
+%endif
+
+%if ! %{bundlelibtiff}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libtiff=true'
+%endif
+ 
 CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libffi=true'
+
 export CHROMIUM_BROWSER_GN_DEFINES
 
 # headless gn defines
@@ -1352,57 +1432,94 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false use_qt6=false is_component_build=fa
 CHROMIUM_HEADLESS_GN_DEFINES+=' media_use_libvpx=false proprietary_codecs=false'
 export CHROMIUM_HEADLESS_GN_DEFINES
 
-build/linux/unbundle/replace_gn_files.py --system-libraries \
+# use system libraries
+system_libs=()
 %if ! %{bundlelibaom}
-	libaom \
+	system_libs+=(libaom)
+%endif
+%if ! %{bundlelibavif}
+	system_libs+=(libavif)
 %endif
 %if ! %{bundlebrotli}
-	brotli \
+	system_libs+=(brotli)
+%endif
+%if ! %{bundlecrc32c}
+	system_libs+=(crc32c)
+%endif
+%if ! %{bundledav1d}
+	system_libs+=(dav1d)
 %endif
 %if ! %{bundlefontconfig}
-	fontconfig \
+	system_libs+=(fontconfig)
 %endif
 %if ! %{bundleffmpegfree}
-	ffmpeg \
+	system_libs+=(ffmpeg)
 %endif
 %if ! %{bundlefreetype}
-	freetype \
+	system_libs+=(freetype)
 %endif
 %if ! %{bundleharfbuzz}
-	harfbuzz-ng \
+	system_libs+=(harfbuzz-ng)
 %endif
 %if ! %{bundleicu}
-	icu \
+	system_libs+=(icu)
 %endif
 %if ! %{bundlelibdrm}
-	libdrm \
+	system_libs+=(libdrm)
+%endif
+%if ! %{bundlelibevent}
+	system_libs+=(libevent)
 %endif
 %if ! %{bundlelibjpeg}
-	libjpeg \
+	system_libs+=(libjpeg)
 %endif
 %if ! %{bundlelibpng}
-	libpng \
+	system_libs+=(libpng)
 %endif
 %if ! %{bundlelibusbx}
-	libusb \
+	system_libs+=(libusb)
 %endif
 %if ! %{bundlelibwebp}
-	libwebp \
+	system_libs+=(libwebp)
 %endif
 %if ! %{bundlelibxml}
-	libxml \
+	system_libs+=(libxml)
 %endif
-	libxslt \
+%if ! %{bundlelibxslt}
+	system_libs+=(libxslt)
+%endif
 %if ! %{bundleopus}
-	opus \
+	system_libs+=(opus)
 %endif
 %if ! %{bundlere2}
-	re2 \
+	system_libs+=(re2)
+%endif
+%if ! %{bundlewoff2}
+	system_libs+=(woff2)
 %endif
 %if ! %{bundleminizip}
-	zlib \
+	system_libs+=(zlib)
 %endif
-	flac
+%if ! %{bundlejsoncpp}
+	system_libs+=(jsoncpp)
+%endif
+%if ! %{bundledoubleconversion}
+	system_libs+=(double-conversion)
+%endif
+%if ! %{bundlelibsecret}
+	system_libs+=(libsecret)
+%endif
+%if ! %{bundlesnappy}
+	system_libs+=(snappy)
+%endif
+%if ! %{bundlelibXNVCtrl}
+	system_libs+=(libXNVCtrl)
+%endif
+%if ! %{bundleflac}
+	system_libs+=(flac)
+%endif
+
+build/linux/unbundle/replace_gn_files.py --system-libraries ${system_libs[@]}
 
 # Check that there is no system 'google' module, shadowing bundled ones:
 if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
@@ -1803,6 +1920,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Feb 07 2024 Than Ngo <than@redhat.com> - 121.0.6167.160-1
+- update to 121.0.6167.160
+  * High CVE-2024-1284: Use after free in Mojo
+  * High CVE-2024-1283: Heap buffer overflow in Skia
+
 * Thu Feb 01 2024 Than Ngo <than@redhat.com> - 121.0.6167.139-2
 - Support for 64K pages on Linux/AArch64
 

@@ -1,10 +1,12 @@
 %global appname MangoHud
 %global forgeurl https://github.com/flightlessmango/%{appname}
 
-%global imgui_ver 1.81
-%global imgui_wrap_ver 1
+%global imgui_ver 1.89.9
+%global imgui_wrap_ver 2
 %global vulkan_headers_ver 1.2.158
 %global vulkan_headers_wrap_ver 1
+%global implot_ver 0.16
+%global implot_wrap_ver 2
 
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
@@ -18,26 +20,29 @@
 %endif
 
 Name:           mangohud
-Version:        0.7.0
+Version:        0.7.1
+%forgemeta
 Release:        %autorelease
 Summary:        Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load
-
-%forgemeta
 
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 # imgui
 Source1:        https://github.com/ocornut/imgui/archive/v%{imgui_ver}/imgui-%{imgui_ver}.tar.gz
-Source2:        https://wrapdb.mesonbuild.com/v%{imgui_wrap_ver}//projects/imgui/%{imgui_ver}/%{imgui_wrap_ver}/get_zip#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
+Source2: https://wrapdb.mesonbuild.com/v%{imgui_wrap_ver}/imgui_%{imgui_ver}-1/get_patch#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
 # Vulkan-Headers
 Source3:        https://github.com/KhronosGroup/Vulkan-Headers/archive/v%{vulkan_headers_ver}/Vulkan-Headers-%{vulkan_headers_ver}.tar.gz
 Source4:        https://wrapdb.mesonbuild.com/v%{vulkan_headers_wrap_ver}/projects/vulkan-headers/%{vulkan_headers_ver}/%{vulkan_headers_wrap_ver}/get_zip#/vulkan-headers-%{vulkan_headers_ver}-%{vulkan_headers_wrap_ver}-wrap.zip
+# implot
+Source5:        https://github.com/epezent/implot/archive/v%{implot_ver}/implot-%{implot_ver}.tar.gz
+Source6:        https://wrapdb.mesonbuild.com/v%{implot_wrap_ver}/implot_%{implot_ver}-1/get_patch#/implot-%{implot_ver}-%{implot_wrap_ver}-wrap.zip
 
 # MangoHud switched to bundled vulkan-headers since 0.6.9 version. This rebased
 # upstream patch which reverts this change.
 # https://github.com/flightlessmango/MangoHud/commit/bc282cf300ed5b6831177cf3e6753bc20f48e942
 # Patch0:         mangohud-0.6.9-use-system-vulkan-headers.patch
+BuildRequires:  vulkan-headers
 
 BuildRequires:  appstream
 BuildRequires:  dbus-devel
@@ -106,11 +111,15 @@ Local visualization "mangoplot" for %{name}.
 %setup -qn %{appname}-%{tarball_version} -D -T -a2
 %setup -qn %{appname}-%{tarball_version} -D -T -a3
 %setup -qn %{appname}-%{tarball_version} -D -T -a4
+%setup -qn %{appname}-%{tarball_version} -D -T -a5
+%setup -qn %{appname}-%{tarball_version} -D -T -a6
 
 # imgui
 mv imgui-%{imgui_ver} subprojects/
 # Vulkan-Headers
 mv Vulkan-Headers-%{vulkan_headers_ver} subprojects/
+# implot
+mv implot-%{implot_ver} subprojects/
 
 %if %{with tests}
 # Use system cmocka instead of subproject
@@ -158,7 +167,7 @@ sed -i "s@#!/usr/bin/env python@#!/usr/bin/python3@" \
 
 %files
 %license LICENSE
-%doc README.md
+%doc README.md presets.conf.example
 %{_bindir}/%{name}*
 %{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_datadir}/vulkan/implicit_layer.d/*Mango*.json

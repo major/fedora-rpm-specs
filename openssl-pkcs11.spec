@@ -1,5 +1,5 @@
 Version: 0.4.12
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # Define the directory where the OpenSSL engines are installed
 %global enginesdir %{_libdir}/engines-3
@@ -100,7 +100,10 @@ rm -f %{buildroot}%{_includedir}/*.h
 rm -rf %{buildroot}%{_docdir}/libp11/
 
 %check
+# to run tests use "--with check". They crash now in softhsm
+%if %{?_with_check:1}%{!?_with_check:0}
 make check %{?_smp_mflags} || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
+%endif
 
 %ldconfig_scriptlets
 
@@ -119,6 +122,9 @@ make check %{?_smp_mflags} || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
 %endif
 
 %changelog
+* Tue Feb 06 2024 Jakub Jelen <jjelen@redhat.com> - 0.4.12-7
+- Skip tests by default as they crash in broken SoftHSM (#2261431)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

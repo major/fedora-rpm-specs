@@ -1,7 +1,7 @@
 # Plain package name for cases, where %{name} differs (e.g. for versioned packages)
-%global pkg_name mariadb
+%global majorname mariadb
 %define package_version 10.11.6
-%define pkg_version %(echo %{package_version} | cut -d'.' -f1-2 )
+%define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
 %{!?mariadb_default:%global mariadb_default 1}
@@ -21,7 +21,7 @@
 
 # Filtering: https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/
 %global __requires_exclude ^perl\\((hostnames|lib::mtr|lib::v1|mtr_|My::|wsrep)
-%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/%{pkg_name}/plugin/.*\\.so)$
+%global __provides_exclude_from ^(%{_datadir}/(mysql|mysql-test)/.*|%{_libdir}/%{majorname}/plugin/.*\\.so)$
 
 # Temporary workaround to fix the "internal compiler error" described in https://bugzilla.redhat.com/show_bug.cgi?id=2239498
 # TODO: Remove when the issue is resolved
@@ -110,8 +110,8 @@
 %endif
 
 # Include systemd files
-%global daemon_name      %{pkg_name}
-%global daemon_no_prefix %{pkg_name}
+%global daemon_name      %{majorname}
+%global daemon_no_prefix %{majorname}
 
 # We define some system's well known locations here so we can use them easily
 # later when building to another location (like SCL)
@@ -134,9 +134,9 @@
 # Make long macros shorter
 %global sameevr   %{epoch}:%{version}-%{release}
 
-Name:             %{pkg_name}%{pkg_version}
+Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -183,18 +183,18 @@ Source72:         mariadb-server-galera.te
 
 #   Patch4: Red Hat distributions specific logrotate fix
 #   it would be big unexpected change, if we start shipping it now. Better wait for MariaDB 10.2
-Patch4:           %{pkg_name}-logrotate.patch
+Patch4:           %{majorname}-logrotate.patch
 #   Patch7: add to the CMake file all files where we want macros to be expanded
-Patch7:           %{pkg_name}-scripts.patch
+Patch7:           %{majorname}-scripts.patch
 #   Patch9: pre-configure to comply with guidelines
-Patch9:           %{pkg_name}-ownsetup.patch
+Patch9:           %{majorname}-ownsetup.patch
 #   Patch10: Fix cipher name in the SSL Cipher name test
-Patch10:          %{pkg_name}-ssl-cipher-tests.patch
+Patch10:          %{majorname}-ssl-cipher-tests.patch
 Patch12:          rocksdb-6.8-gcc13.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
-%global pkgname %{pkg_name}
+%global pkgname %{majorname}
 %package -n %{pkgname}
 Summary: A very fast and robust SQL database server
 %else
@@ -293,26 +293,26 @@ Suggests:         %{pkgname}-server%{?_isa} = %{sameevr}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 
 %define conflict_with_other_streams() %{expand:\
-Provides: %{pkg_name}%{?1:-%{1}}-any\
-Conflicts: %{pkg_name}%{?1:-%{1}}-any\
+Provides: %{majorname}%{?1:-%{1}}-any\
+Conflicts: %{majorname}%{?1:-%{1}}-any\
 }
 
 # Provide also mariadbXX.XX if default
 %if %?mariadb_default
 %define mariadbXX_if_default() %{expand:\
-Provides: mariadb%{pkg_version}%{?1:-%{1}} = %{sameevr}\
-Provides: mariadb%{pkg_version}%{?1:-%{1}}%{?_isa} = %{sameevr}\
+Provides: mariadb%{majorversion}%{?1:-%{1}} = %{sameevr}\
+Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 }
 %else
 %define mariadbXX_if_default() %{nil}
 %endif
 
-%define add_metadata() %{expand:\
+%define virtual_conflicts_and_provides() %{expand:\
 %conflict_with_other_streams %{**}\
 %mariadbXX_if_default %{**}\
 }
 
-%add_metadata
+%virtual_conflicts_and_provides
 
 %description
 MariaDB is a community developed fork from MySQL - a multi-user, multi-threaded
@@ -333,7 +333,7 @@ utilities.
 Summary:          The shared libraries required for MariaDB/MySQL clients
 Requires:         %{pkgname}-common = %{sameevr}
 
-%add_metadata libs
+%virtual_conflicts_and_provides libs
 
 %{?with_conflicts_mysql:Conflicts: mysql-libs}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-libs}
@@ -359,7 +359,7 @@ to a MariaDB/MySQL server.
 %package          -n %{pkgname}-config
 Summary:          The config files required by server and client
 
-%add_metadata config
+%virtual_conflicts_and_provides config
 
 %description      -n %{pkgname}-config
 The package provides the config file my.cnf and my.cnf.d directory used by any
@@ -421,7 +421,7 @@ Requires:         lsof
 # Default wsrep_sst_method
 Requires:         rsync
 
-%add_metadata server-galera
+%virtual_conflicts_and_provides server-galera
 
 %description      -n %{pkgname}-server-galera
 MariaDB is a multi-user, multi-threaded SQL database server. It is a
@@ -435,7 +435,7 @@ member. MariaDB is a community developed fork originally from MySQL.
 %package          -n %{pkgname}-server
 Summary:          The MariaDB server and related files
 
-Requires:         %{pkgname} = %{sameevr}
+Requires:         %{pkgname}%{?_isa} = %{sameevr}
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-errmsg = %{sameevr}
 Recommends:       %{pkgname}-server-utils%{?_isa} = %{sameevr}
@@ -454,7 +454,7 @@ Suggests:         logrotate
 Requires:         %{_sysconfdir}/my.cnf
 Requires:         %{_sysconfdir}/my.cnf.d
 
-%add_metadata server
+%virtual_conflicts_and_provides server
 
 # Additional SELinux rules (common for MariaDB & MySQL) shipped in a separate package
 # For cases, where we want to fix a SELinux issues in MariaDB sooner than patched selinux-policy-targeted package is released
@@ -495,7 +495,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # boost and Judy required for oograph
 BuildRequires:    boost-devel Judy-devel
 
-%add_metadata oqgraph-engine
+%virtual_conflicts_and_provides oqgraph-engine
 
 %description      -n %{pkgname}-oqgraph-engine
 The package provides Open Query GRAPH engine (OQGRAPH) as plugin for MariaDB
@@ -514,7 +514,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # As per https://jira.mariadb.org/browse/MDEV-21450
 BuildRequires:    libxml2-devel
 
-%add_metadata connect-engine
+%virtual_conflicts_and_provides connect-engine
 
 %description      -n %{pkgname}-connect-engine
 The CONNECT storage engine enables MariaDB to access external local or
@@ -531,7 +531,7 @@ Summary:          The mariabackup tool for physical online backups
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    libarchive-devel
 
-%add_metadata backup
+%virtual_conflicts_and_provides backup
 
 %description      -n %{pkgname}-backup
 MariaDB Backup is an open source tool provided by MariaDB for performing
@@ -546,7 +546,7 @@ Summary:          The RocksDB storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 Provides:         bundled(rocksdb)
 
-%add_metadata rocksdb-engine
+%virtual_conflicts_and_provides rocksdb-engine
 
 %description      -n %{pkgname}-rocksdb-engine
 The RocksDB storage engine is used for high performance servers on SSD drives.
@@ -565,7 +565,7 @@ Requires(post):   (libselinux-utils if selinux-policy-targeted)
 Requires(post):   (policycoreutils if selinux-policy-targeted)
 Requires(post):   (policycoreutils-python-utils if selinux-policy-targeted)
 
-%add_metadata cracklib-password-check
+%virtual_conflicts_and_provides cracklib-password-check
 
 %description      -n %{pkgname}-cracklib-password-check
 CrackLib is a password strength checking library. It is installed by default
@@ -582,7 +582,7 @@ Summary:          GSSAPI authentication plugin for server
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    krb5-devel
 
-%add_metadata gssapi-server
+%virtual_conflicts_and_provides gssapi-server
 
 %description      -n %{pkgname}-gssapi-server
 GSSAPI authentication server-side plugin for MariaDB for passwordless login.
@@ -600,7 +600,7 @@ Requires(pre):    %{pkgname}-server%{?_isa} = %{sameevr}
 
 BuildRequires:    pam-devel
 
-%add_metadata pam
+%virtual_conflicts_and_provides pam
 
 %description      -n %{pkgname}-pam
 PAM authentication server-side plugin for MariaDB.
@@ -614,7 +614,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    sphinx libsphinxclient libsphinxclient-devel
 Requires:         sphinx libsphinxclient
 
-%add_metadata sphinx-engine
+%virtual_conflicts_and_provides sphinx-engine
 
 %description      -n %{pkgname}-sphinx-engine
 The Sphinx storage engine for MariaDB.
@@ -628,7 +628,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 BuildRequires:    curl-devel
 
-%add_metadata s3-engine
+%virtual_conflicts_and_provides s3-engine
 
 %description      -n %{pkgname}-s3-engine
 The S3 read only storage engine allows archiving MariaDB tables in Amazon S3,
@@ -643,7 +643,7 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 # mysqlhotcopy needs DBI/DBD support
 Requires:         perl(DBI) perl(DBD::MariaDB)
 
-%add_metadata server-utils
+%virtual_conflicts_and_provides server-utils
 
 %{?with_conflicts_mysql:Conflicts: mysql-server}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
@@ -663,7 +663,7 @@ Requires:         openssl-devel
 Requires:         mariadb-connector-c-devel >= 3.0
 %endif
 
-%add_metadata devel
+%virtual_conflicts_and_provides devel
 
 %{?with_conflicts_mysql:Conflicts: mysql-devel}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-devel}
@@ -688,7 +688,7 @@ Summary:          MariaDB as an embeddable library
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-errmsg = %{sameevr}
 
-%add_metadata embedded
+%virtual_conflicts_and_provides embedded
 
 %description      -n %{pkgname}-embedded
 MariaDB is a multi-user, multi-threaded SQL database server. This
@@ -704,7 +704,7 @@ Requires:         %{pkgname}-devel%{?_isa} = %{sameevr}
 # embedded-devel should require libaio-devel (rhbz#1290517)
 Requires:         libaio-devel
 
-%add_metadata embedded-devel
+%virtual_conflicts_and_provides embedded-devel
 
 %{?with_conflicts_mysql:Conflicts: mysql-embedded-devel}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-embedded-devel}
@@ -736,7 +736,7 @@ Requires:         perl(Sys::Hostname)
 Requires:         perl(Test::More)
 Requires:         perl(Time::HiRes)
 
-%add_metadata test
+%virtual_conflicts_and_provides test
 
 %{?with_conflicts_mysql:Conflicts: mysql-test}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-test}
@@ -750,7 +750,7 @@ sources.
 
 
 %prep
-%setup -q -n %{pkg_name}-%{version}
+%setup -q -n %{majorname}-%{version}
 
 # Remove JAR files that upstream puts into tarball
 find . -name "*.jar" -type f -exec rm --verbose -f {} \;
@@ -796,7 +796,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 %if %{with galera}
 # prepare selinux policy
 mkdir selinux
-sed 's/mariadb-server-galera/%{pkg_name}-server-galera/' %{SOURCE72} > selinux/%{pkg_name}-server-galera.te
+sed 's/mariadb-server-galera/%{majorname}-server-galera/' %{SOURCE72} > selinux/%{majorname}-server-galera.te
 %endif
 
 
@@ -846,23 +846,23 @@ fi
          -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
          -DINSTALL_SYSCONFDIR="%{_sysconfdir}" \
          -DINSTALL_SYSCONF2DIR="%{_sysconfdir}/my.cnf.d" \
-         -DINSTALL_DOCDIR="share/doc/%{pkg_name}" \
-         -DINSTALL_DOCREADMEDIR="share/doc/%{pkg_name}" \
+         -DINSTALL_DOCDIR="share/doc/%{majorname}" \
+         -DINSTALL_DOCREADMEDIR="share/doc/%{majorname}" \
          -DINSTALL_INCLUDEDIR=include/mysql \
          -DINSTALL_INFODIR=share/info \
          -DINSTALL_LIBDIR="%{_lib}" \
          -DINSTALL_MANDIR=share/man \
-         -DINSTALL_MYSQLSHAREDIR=share/%{pkg_name} \
+         -DINSTALL_MYSQLSHAREDIR=share/%{majorname} \
          -DINSTALL_MYSQLTESTDIR=%{?with_test:share/mysql-test}%{!?with_test:} \
-         -DINSTALL_PLUGINDIR="%{_lib}/%{pkg_name}/plugin" \
+         -DINSTALL_PLUGINDIR="%{_lib}/%{majorname}/plugin" \
          -DINSTALL_SBINDIR=libexec \
          -DINSTALL_SCRIPTDIR=bin \
-         -DINSTALL_SUPPORTFILESDIR=share/%{pkg_name} \
+         -DINSTALL_SUPPORTFILESDIR=share/%{majorname} \
          -DMYSQL_DATADIR="%{dbdatadir}" \
          -DMYSQL_UNIX_ADDR="/var/lib/mysql/mysql.sock" \
          -DTMPDIR=/var/tmp \
-         -DGRN_DATA_DIR=share/%{pkg_name}-server/groonga \
-         -DGROONGA_NORMALIZER_MYSQL_PROJECT_NAME=%{pkg_name}-server/groonga-normalizer-mysql \
+         -DGRN_DATA_DIR=share/%{majorname}-server/groonga \
+         -DGROONGA_NORMALIZER_MYSQL_PROJECT_NAME=%{majorname}-server/groonga-normalizer-mysql \
          -DENABLED_LOCAL_INFILE=ON \
          -DENABLE_DTRACE=ON \
          -DSECURITY_HARDENED=OFF \
@@ -936,7 +936,7 @@ cmake -B %{_vpath_builddir} -LAH
 # build selinux policy
 %if %{with galera}
 pushd selinux
-make -f /usr/share/selinux/devel/Makefile %{pkg_name}-server-galera.pp
+make -f /usr/share/selinux/devel/Makefile %{majorname}-server-galera.pp
 %endif
 
 
@@ -962,10 +962,10 @@ ln -s mysql_config.1 %{buildroot}%{_mandir}/man1/mysql_config-%{__isa_bits}.1
 fi
 
 # install INFO_SRC, INFO_BIN into libdir (upstream thinks these are doc files,
-# but that's pretty wacko --- see also %%{pkg_name}-file-contents.patch)
-install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{pkg_name}/
-install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{pkg_name}/
-rm -r %{buildroot}%{_datadir}/doc/%{pkg_name}/MariaDB-server-%{version}
+# but that's pretty wacko --- see also %%{majorname}-file-contents.patch)
+install -p -m 644 %{_vpath_builddir}/Docs/INFO_SRC %{buildroot}%{_libdir}/%{majorname}/
+install -p -m 644 %{_vpath_builddir}/Docs/INFO_BIN %{buildroot}%{_libdir}/%{majorname}/
+rm -r %{buildroot}%{_datadir}/doc/%{majorname}/MariaDB-server-%{version}
 
 # Logfile creation
 mkdir -p %{buildroot}%{logfiledir}
@@ -986,12 +986,12 @@ rm %{buildroot}%{_sysconfdir}/my.cnf
 %endif
 
 # use different config file name for each variant of server (mariadb / mysql)
-mv %{buildroot}%{_sysconfdir}/my.cnf.d/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
+mv %{buildroot}%{_sysconfdir}/my.cnf.d/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{majorname}-server.cnf
 
 # Remove upstream SysV init script and a symlink to that, we use systemd
 rm %{buildroot}%{_libexecdir}/rcmysql
 # Remove upstream Systemd service files
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/systemd
+rm -r %{buildroot}%{_datadir}/%{majorname}/systemd
 # Our downstream Systemd service file have set aliases to the "mysql" names in the [Install] section.
 # They can be enabled / disabled by "systemctl enable / diable <service_name>"
 rm %{buildroot}%{_unitdir}/{mysql,mysqld}.service
@@ -1007,13 +1007,13 @@ install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-upgrade %{buildroot}%
 install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}%{_libexecdir}/mariadb-scripts-common
 
 # Install downstream version of tmpfiles
-install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
-echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{pkg_name}.conf
+install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
+echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{majorname}.conf
 
 # Install additional cracklib selinux policy
 %if %{with cracklib}
 mkdir -p %{buildroot}%{_datadir}/selinux/packages/targeted/
-mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
+mv %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
 rm %{buildroot}%{_datadir}/mariadb/policy/selinux/mariadb-plugin-cracklib-password-check.te
 %endif
 
@@ -1036,15 +1036,15 @@ rm %{buildroot}%{_libdir}/*.a
 # Upstream says:
 #   It looks like it's just "mysql_install_db && mysqld_safe"
 #   I've never heard of anyone using it, I'd say, no need to pack it.
-rm %{buildroot}%{_datadir}/%{pkg_name}/binary-configure
+rm %{buildroot}%{_datadir}/%{majorname}/binary-configure
 # FS files first-bytes recoginiton
 # Not updated by upstream since nobody realy use that
-rm %{buildroot}%{_datadir}/%{pkg_name}/magic
+rm %{buildroot}%{_datadir}/%{majorname}/magic
 
 # Upstream ships them because of, https://jira.mariadb.org/browse/MDEV-10797
 # In Fedora we use our own systemd unit files and scripts
-rm %{buildroot}%{_datadir}/%{pkg_name}/mysql.server
-rm %{buildroot}%{_datadir}/%{pkg_name}/mysqld_multi.server
+rm %{buildroot}%{_datadir}/%{majorname}/mysql.server
+rm %{buildroot}%{_datadir}/%{majorname}/mysqld_multi.server
 
 # Binary for monitoring MySQL performance
 # Shipped as a standalone package in Fedora
@@ -1070,7 +1070,7 @@ sed -i -r 's|^wsrep_provider=none|wsrep_provider=%{_libdir}/galera/libgalera_smm
 install -p -m 0644 %{_vpath_builddir}/support-files/wsrep.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/galera.cnf
 
 # install additional galera selinux policy
-install -p -m 644 -D selinux/%{pkg_name}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
+install -p -m 644 -D selinux/%{majorname}-server-galera.pp %{buildroot}%{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
 
 # Fix Galera Replication config file
 #   The replication requires cluster address upon startup (which is end-user specific).
@@ -1091,7 +1091,7 @@ install -p -m 0755 %{_vpath_builddir}/scripts/clustercheck %{buildroot}%{_bindir
 # remove duplicate logrotate script
 rm %{buildroot}%{_datadir}/mariadb/mariadb.logrotate
 # Remove AppArmor files
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/policy/apparmor
+rm -r %{buildroot}%{_datadir}/%{majorname}/policy/apparmor
 
 # Buildroot does not have symlink /lib64 --> /usr/lib64
 %if %{with pam}
@@ -1124,9 +1124,9 @@ unlink %{buildroot}%{_libdir}/libmysqlclient_r.so
 unlink %{buildroot}%{_libdir}/libmariadb.so
 rm %{buildroot}%{_mandir}/man3/*
 # Client plugins
-rm %{buildroot}%{_libdir}/%{pkg_name}/plugin/{dialog.so,mysql_clear_password.so,sha256_password.so}
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/{dialog.so,mysql_clear_password.so,sha256_password.so}
 %if %{with gssapi}
-rm %{buildroot}%{_libdir}/%{pkg_name}/plugin/auth_gssapi_client.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/auth_gssapi_client.so
 %endif
 %endif
 
@@ -1171,12 +1171,12 @@ rm %{buildroot}%{_sysconfdir}/my.cnf.d/mysql-clients.cnf
 %endif
 
 %if %{without common}
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/charsets
+rm -r %{buildroot}%{_datadir}/%{majorname}/charsets
 %endif
 
 %if %{without errmsg}
-rm %{buildroot}%{_datadir}/%{pkg_name}/errmsg-utf8.txt
-rm -r %{buildroot}%{_datadir}/%{pkg_name}/{english,czech,danish,dutch,estonian,\
+rm %{buildroot}%{_datadir}/%{majorname}/errmsg-utf8.txt
+rm -r %{buildroot}%{_datadir}/%{majorname}/{english,czech,danish,dutch,estonian,\
 french,german,greek,hungarian,italian,japanese,korean,norwegian,norwegian-ny,\
 polish,portuguese,romanian,russian,serbian,slovak,spanish,swedish,ukrainian,hindi,\
 bulgarian,chinese,georgian}
@@ -1308,7 +1308,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 1100 ))
 
 %if %{with galera}
 %post -n %{pkgname}-server-galera
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
 
 # Allow ports needed for the replication:
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1325,7 +1325,7 @@ fi
 
 %postun -n %{pkgname}-server-galera
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{pkg_name}-server-galera
+    %selinux_modules_uninstall -s "targeted" %{majorname}-server-galera
 
     # Delete port labeling when the package is removed
     # https://fedoraproject.org/wiki/SELinux/IndependentPolicy#Port_Labeling
@@ -1338,11 +1338,11 @@ fi
 
 %if %{with cracklib}
 %post -n %{pkgname}-cracklib-password-check
-%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
+%selinux_modules_install -s "targeted" %{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
 
 %postun -n %{pkgname}-cracklib-password-check
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s "targeted" %{pkg_name}-plugin-cracklib-password-check
+    %selinux_modules_uninstall -s "targeted" %{majorname}-plugin-cracklib-password-check
 fi
 %endif
 
@@ -1380,45 +1380,45 @@ fi
 
 %if %{with common}
 %files -n %{pkgname}-common
-%doc %{_datadir}/doc/%{pkg_name}
-%dir %{_datadir}/%{pkg_name}
-%{_datadir}/%{pkg_name}/charsets
+%doc %{_datadir}/doc/%{majorname}
+%dir %{_datadir}/%{majorname}
+%{_datadir}/%{majorname}/charsets
 %if %{with clibrary}
-%{_libdir}/%{pkg_name}/plugin/dialog.so
-%{_libdir}/%{pkg_name}/plugin/mysql_clear_password.so
+%{_libdir}/%{majorname}/plugin/dialog.so
+%{_libdir}/%{majorname}/plugin/mysql_clear_password.so
 %endif
 %endif
 
 %if %{with errmsg}
 %files -n %{pkgname}-errmsg
-%{_datadir}/%{pkg_name}/errmsg-utf8.txt
-%{_datadir}/%{pkg_name}/english
-%lang(cs) %{_datadir}/%{pkg_name}/czech
-%lang(da) %{_datadir}/%{pkg_name}/danish
-%lang(nl) %{_datadir}/%{pkg_name}/dutch
-%lang(et) %{_datadir}/%{pkg_name}/estonian
-%lang(fr) %{_datadir}/%{pkg_name}/french
-%lang(de) %{_datadir}/%{pkg_name}/german
-%lang(el) %{_datadir}/%{pkg_name}/greek
-%lang(hi) %{_datadir}/%{pkg_name}/hindi
-%lang(hu) %{_datadir}/%{pkg_name}/hungarian
-%lang(it) %{_datadir}/%{pkg_name}/italian
-%lang(ja) %{_datadir}/%{pkg_name}/japanese
-%lang(ko) %{_datadir}/%{pkg_name}/korean
-%lang(no) %{_datadir}/%{pkg_name}/norwegian
-%lang(no) %{_datadir}/%{pkg_name}/norwegian-ny
-%lang(pl) %{_datadir}/%{pkg_name}/polish
-%lang(pt) %{_datadir}/%{pkg_name}/portuguese
-%lang(ro) %{_datadir}/%{pkg_name}/romanian
-%lang(ru) %{_datadir}/%{pkg_name}/russian
-%lang(sr) %{_datadir}/%{pkg_name}/serbian
-%lang(sk) %{_datadir}/%{pkg_name}/slovak
-%lang(es) %{_datadir}/%{pkg_name}/spanish
-%lang(sv) %{_datadir}/%{pkg_name}/swedish
-%lang(uk) %{_datadir}/%{pkg_name}/ukrainian
-%lang(bg) %{_datadir}/%{pkg_name}/bulgarian
-%lang(zh) %{_datadir}/%{pkg_name}/chinese
-%lang(ka) %{_datadir}/%{pkg_name}/georgian
+%{_datadir}/%{majorname}/errmsg-utf8.txt
+%{_datadir}/%{majorname}/english
+%lang(cs) %{_datadir}/%{majorname}/czech
+%lang(da) %{_datadir}/%{majorname}/danish
+%lang(nl) %{_datadir}/%{majorname}/dutch
+%lang(et) %{_datadir}/%{majorname}/estonian
+%lang(fr) %{_datadir}/%{majorname}/french
+%lang(de) %{_datadir}/%{majorname}/german
+%lang(el) %{_datadir}/%{majorname}/greek
+%lang(hi) %{_datadir}/%{majorname}/hindi
+%lang(hu) %{_datadir}/%{majorname}/hungarian
+%lang(it) %{_datadir}/%{majorname}/italian
+%lang(ja) %{_datadir}/%{majorname}/japanese
+%lang(ko) %{_datadir}/%{majorname}/korean
+%lang(no) %{_datadir}/%{majorname}/norwegian
+%lang(no) %{_datadir}/%{majorname}/norwegian-ny
+%lang(pl) %{_datadir}/%{majorname}/polish
+%lang(pt) %{_datadir}/%{majorname}/portuguese
+%lang(ro) %{_datadir}/%{majorname}/romanian
+%lang(ru) %{_datadir}/%{majorname}/russian
+%lang(sr) %{_datadir}/%{majorname}/serbian
+%lang(sk) %{_datadir}/%{majorname}/slovak
+%lang(es) %{_datadir}/%{majorname}/spanish
+%lang(sv) %{_datadir}/%{majorname}/swedish
+%lang(uk) %{_datadir}/%{majorname}/ukrainian
+%lang(bg) %{_datadir}/%{majorname}/bulgarian
+%lang(zh) %{_datadir}/%{majorname}/chinese
+%lang(ka) %{_datadir}/%{majorname}/georgian
 %endif
 
 %if %{with galera}
@@ -1430,7 +1430,7 @@ fi
 %{_bindir}/galera_recovery
 %config(noreplace) %{_sysconfdir}/my.cnf.d/galera.cnf
 %attr(0640,root,root) %ghost %config(noreplace) %{_sysconfdir}/sysconfig/clustercheck
-%{_datadir}/selinux/packages/targeted/%{pkg_name}-server-galera.pp
+%{_datadir}/selinux/packages/targeted/%{majorname}-server-galera.pp
 %endif
 
 %files -n %{pkgname}-server
@@ -1459,7 +1459,7 @@ fi
 %{_bindir}/wsrep_*
 %endif
 
-%config(noreplace) %{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
+%config(noreplace) %{_sysconfdir}/my.cnf.d/%{majorname}-server.cnf
 %config(noreplace) %{_sysconfdir}/my.cnf.d/enable_encryption.preset
 %config(noreplace) %{_sysconfdir}/my.cnf.d/spider.cnf
 
@@ -1472,32 +1472,32 @@ fi
 %{_sbindir}/mariadbd
 %{_libexecdir}/{mysqld,mariadbd}
 
-%{_libdir}/%{pkg_name}/INFO_SRC
-%{_libdir}/%{pkg_name}/INFO_BIN
+%{_libdir}/%{majorname}/INFO_SRC
+%{_libdir}/%{majorname}/INFO_BIN
 %if %{without common}
-%dir %{_datadir}/%{pkg_name}
+%dir %{_datadir}/%{majorname}
 %endif
 
-%dir %{_libdir}/%{pkg_name}
-%dir %{_libdir}/%{pkg_name}/plugin
+%dir %{_libdir}/%{majorname}
+%dir %{_libdir}/%{majorname}/plugin
 
-%{_libdir}/%{pkg_name}/plugin/*
-%{?with_oqgraph:%exclude %{_libdir}/%{pkg_name}/plugin/ha_oqgraph.so}
-%{?with_connect:%exclude %{_libdir}/%{pkg_name}/plugin/ha_connect.so}
-%{?with_cracklib:%exclude %{_libdir}/%{pkg_name}/plugin/cracklib_password_check.so}
-%{?with_rocksdb:%exclude %{_libdir}/%{pkg_name}/plugin/ha_rocksdb.so}
-%{?with_gssapi:%exclude %{_libdir}/%{pkg_name}/plugin/auth_gssapi.so}
-%{?with_sphinx:%exclude %{_libdir}/%{pkg_name}/plugin/ha_sphinx.so}
-%{?with_s3:%exclude %{_libdir}/%{pkg_name}/plugin/ha_s3.so}
+%{_libdir}/%{majorname}/plugin/*
+%{?with_oqgraph:%exclude %{_libdir}/%{majorname}/plugin/ha_oqgraph.so}
+%{?with_connect:%exclude %{_libdir}/%{majorname}/plugin/ha_connect.so}
+%{?with_cracklib:%exclude %{_libdir}/%{majorname}/plugin/cracklib_password_check.so}
+%{?with_rocksdb:%exclude %{_libdir}/%{majorname}/plugin/ha_rocksdb.so}
+%{?with_gssapi:%exclude %{_libdir}/%{majorname}/plugin/auth_gssapi.so}
+%{?with_sphinx:%exclude %{_libdir}/%{majorname}/plugin/ha_sphinx.so}
+%{?with_s3:%exclude %{_libdir}/%{majorname}/plugin/ha_s3.so}
 %if %{with clibrary}
-%exclude %{_libdir}/%{pkg_name}/plugin/dialog.so
-%exclude %{_libdir}/%{pkg_name}/plugin/mysql_clear_password.so
+%exclude %{_libdir}/%{majorname}/plugin/dialog.so
+%exclude %{_libdir}/%{majorname}/plugin/mysql_clear_password.so
 %endif
 
 # PAM plugin; moved to a standalone sub-package
-%exclude %{_libdir}/%{pkg_name}/plugin/{auth_pam_v1.so,auth_pam.so}
-%exclude %dir %{_libdir}/%{pkg_name}/plugin/auth_pam_tool_dir
-%exclude %{_libdir}/%{pkg_name}/plugin/auth_pam_tool_dir/auth_pam_tool
+%exclude %{_libdir}/%{majorname}/plugin/{auth_pam_v1.so,auth_pam.so}
+%exclude %dir %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir
+%exclude %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir/auth_pam_tool
 
 %{_mandir}/man1/aria_{chk,dump_log,ftdump,pack,read_log}.1*
 %{_mandir}/man1/galera_new_cluster.1*
@@ -1525,35 +1525,35 @@ fi
 
 %{_mandir}/man1/mysql.server.1*
 
-%{_datadir}/%{pkg_name}/mini-benchmark
-%{_datadir}/%{pkg_name}/fill_help_tables.sql
-%{_datadir}/%{pkg_name}/maria_add_gis_sp.sql
-%{_datadir}/%{pkg_name}/maria_add_gis_sp_bootstrap.sql
-%{_datadir}/%{pkg_name}/mysql_system_tables.sql
-%{_datadir}/%{pkg_name}/mysql_sys_schema.sql
-%{_datadir}/%{pkg_name}/mysql_system_tables_data.sql
-%{_datadir}/%{pkg_name}/mysql_test_data_timezone.sql
-%{_datadir}/%{pkg_name}/mysql_performance_tables.sql
-%{_datadir}/%{pkg_name}/mysql_test_db.sql
+%{_datadir}/%{majorname}/mini-benchmark
+%{_datadir}/%{majorname}/fill_help_tables.sql
+%{_datadir}/%{majorname}/maria_add_gis_sp.sql
+%{_datadir}/%{majorname}/maria_add_gis_sp_bootstrap.sql
+%{_datadir}/%{majorname}/mysql_system_tables.sql
+%{_datadir}/%{majorname}/mysql_sys_schema.sql
+%{_datadir}/%{majorname}/mysql_system_tables_data.sql
+%{_datadir}/%{majorname}/mysql_test_data_timezone.sql
+%{_datadir}/%{majorname}/mysql_performance_tables.sql
+%{_datadir}/%{majorname}/mysql_test_db.sql
 %if %{with mroonga}
-%{_datadir}/%{pkg_name}/mroonga/install.sql
-%{_datadir}/%{pkg_name}/mroonga/uninstall.sql
-%license %{_datadir}/%{pkg_name}/mroonga/COPYING
-%license %{_datadir}/%{pkg_name}/mroonga/AUTHORS
-%license %{_datadir}/%{pkg_name}-server/groonga-normalizer-mysql/lgpl-2.0.txt
-%license %{_datadir}/%{pkg_name}-server/groonga/COPYING
-%doc %{_datadir}/%{pkg_name}-server/groonga-normalizer-mysql/README.md
-%doc %{_datadir}/%{pkg_name}-server/groonga/README.md
+%{_datadir}/%{majorname}/mroonga/install.sql
+%{_datadir}/%{majorname}/mroonga/uninstall.sql
+%license %{_datadir}/%{majorname}/mroonga/COPYING
+%license %{_datadir}/%{majorname}/mroonga/AUTHORS
+%license %{_datadir}/%{majorname}-server/groonga-normalizer-mysql/lgpl-2.0.txt
+%license %{_datadir}/%{majorname}-server/groonga/COPYING
+%doc %{_datadir}/%{majorname}-server/groonga-normalizer-mysql/README.md
+%doc %{_datadir}/%{majorname}-server/groonga/README.md
 %endif
 %if %{with galera}
-%{_datadir}/%{pkg_name}/wsrep.cnf
+%{_datadir}/%{majorname}/wsrep.cnf
 %endif
-%{_datadir}/%{pkg_name}/wsrep_notify
-%dir %{_datadir}/%{pkg_name}/policy
-%dir %{_datadir}/%{pkg_name}/policy/selinux
-%{_datadir}/%{pkg_name}/policy/selinux/README
-%{_datadir}/%{pkg_name}/policy/selinux/mariadb-server.*
-%{_datadir}/%{pkg_name}/policy/selinux/mariadb.*
+%{_datadir}/%{majorname}/wsrep_notify
+%dir %{_datadir}/%{majorname}/policy
+%dir %{_datadir}/%{majorname}/policy/selinux
+%{_datadir}/%{majorname}/policy/selinux/README
+%{_datadir}/%{majorname}/policy/selinux/mariadb-server.*
+%{_datadir}/%{majorname}/policy/selinux/mariadb.*
 
 # More on socket activation or extra port service at
 # https://mariadb.com/kb/en/systemd/
@@ -1578,14 +1578,14 @@ fi
 %attr(0660,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
-%{_tmpfilesdir}/%{pkg_name}.conf
-%{_sysusersdir}/%{pkg_name}.conf
+%{_tmpfilesdir}/%{majorname}.conf
+%{_sysusersdir}/%{majorname}.conf
 
 %if %{with cracklib}
 %files -n %{pkgname}-cracklib-password-check
 %config(noreplace) %{_sysconfdir}/my.cnf.d/cracklib_password_check.cnf
-%{_libdir}/%{pkg_name}/plugin/cracklib_password_check.so
-%{_datadir}/selinux/packages/targeted/%{pkg_name}-plugin-cracklib-password-check.pp
+%{_libdir}/%{majorname}/plugin/cracklib_password_check.so
+%{_datadir}/selinux/packages/targeted/%{majorname}-plugin-cracklib-password-check.pp
 %endif
 
 %if %{with backup}
@@ -1602,42 +1602,42 @@ fi
 %{_bindir}/myrocks_hotbackup
 %{_bindir}/{mysql_,mariadb-}ldb
 %{_bindir}/sst_dump
-%{_libdir}/%{pkg_name}/plugin/ha_rocksdb.so
+%{_libdir}/%{majorname}/plugin/ha_rocksdb.so
 %{_mandir}/man1/{mysql_,mariadb-}ldb.1*
 %{_mandir}/man1/myrocks_hotbackup.1*
 %endif
 
 %if %{with gssapi}
 %files -n %{pkgname}-gssapi-server
-%{_libdir}/%{pkg_name}/plugin/auth_gssapi.so
+%{_libdir}/%{majorname}/plugin/auth_gssapi.so
 %config(noreplace) %{_sysconfdir}/my.cnf.d/auth_gssapi.cnf
 %endif
 
 %if %{with pam}
 %files -n %{pkgname}-pam
-%{_libdir}/%{pkg_name}/plugin/{auth_pam_v1.so,auth_pam.so}
-%attr(0755,root,root) %dir %{_libdir}/%{pkg_name}/plugin/auth_pam_tool_dir
+%{_libdir}/%{majorname}/plugin/{auth_pam_v1.so,auth_pam.so}
+%attr(0755,root,root) %dir %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir
 # SUID-to-root binary. Access MUST be restricted (https://jira.mariadb.org/browse/MDEV-25126)
-%attr(4750,root,mysql) %{_libdir}/%{pkg_name}/plugin/auth_pam_tool_dir/auth_pam_tool
+%attr(4750,root,mysql) %{_libdir}/%{majorname}/plugin/auth_pam_tool_dir/auth_pam_tool
 %{_libdir}/security/pam_user_map.so
 %config(noreplace) %{_sysconfdir}/security/user_map.conf
 %endif
 
 %if %{with sphinx}
 %files -n %{pkgname}-sphinx-engine
-%{_libdir}/%{pkg_name}/plugin/ha_sphinx.so
+%{_libdir}/%{majorname}/plugin/ha_sphinx.so
 %endif
 
 %if %{with oqgraph}
 %files -n %{pkgname}-oqgraph-engine
 %config(noreplace) %{_sysconfdir}/my.cnf.d/oqgraph.cnf
-%{_libdir}/%{pkg_name}/plugin/ha_oqgraph.so
+%{_libdir}/%{majorname}/plugin/ha_oqgraph.so
 %endif
 
 %if %{with connect}
 %files -n %{pkgname}-connect-engine
 %config(noreplace) %{_sysconfdir}/my.cnf.d/connect.cnf
-%{_libdir}/%{pkg_name}/plugin/ha_connect.so
+%{_libdir}/%{majorname}/plugin/ha_connect.so
 %endif
 
 %if %{with s3}
@@ -1645,7 +1645,7 @@ fi
 %{_bindir}/aria_s3_copy
 %{_mandir}/man1/aria_s3_copy.1*
 %config(noreplace) %{_sysconfdir}/my.cnf.d/s3.cnf
-%{_libdir}/%{pkg_name}/plugin/ha_s3.so
+%{_libdir}/%{majorname}/plugin/ha_s3.so
 %endif
 
 %files -n %{pkgname}-server-utils
@@ -1709,6 +1709,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 7 2024 Filip Janus <fjanus@redhat.com> - 3:10.11.6-3
+- Rename macros related to demodularization
+ 
 * Wed Jan 31 2024 Filip Janus <fjanus@redhat.com> - 3:10.11.6-2
 - Apply demodularization
 - the default stream builds mariadb.rpm

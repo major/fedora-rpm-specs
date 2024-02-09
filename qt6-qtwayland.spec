@@ -11,7 +11,7 @@
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
 Version: 6.6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,10 +25,10 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
+Patch0:  qtwayland-client-disable-threaded-gl-on-desktop-nvidia.patch
 
 # Upstreamable patches
-
-Patch0:  qtwayland-use-adwaita-decorations-by-default.patch
+Patch10: qtwayland-use-adwaita-decorations-by-default.patch
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt6_archdatadir}/qml/.*\\.so$
@@ -174,6 +174,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 07 2024 Jan Grulich <jgrulich@redhat.com>
+- Backport upstream fix: disable threaded GL on desktop NVIDIA
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

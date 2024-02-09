@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1571,6 +1571,10 @@ for lib in lib lib64;  do
 		set +x
 		slbase=$(basename $sl)
 		sltarget=$(basename $(readlink $sl))
+		if test "$sltarget" = . ; then
+		    # This is the lp64d symbolic link on riscv64, see above.
+		    continue
+		fi
 		if ! test -r usr/$lib/$sltarget; then
 		    echo "$sl: inferred $sltarget ($(readlink $sl)) missing"
 		    exit 1
@@ -2308,6 +2312,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Feb  7 2024 Florian Weimer <fweimer@redhat.com> - 2.39-2
+- Ignore symbolic links to . in sysroot construction
+
 * Fri Feb 02 2024 Carlos O'Donell <carlos@redhat.com> - 2.39-1
 - Switch to upstream 2.39 release,
   commit ef321e23c20eebc6d6fb4044425c00e6df27b05f

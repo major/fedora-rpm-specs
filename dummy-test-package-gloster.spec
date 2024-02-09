@@ -3,7 +3,7 @@
 Name:           dummy-test-package-gloster
 
 Version:        0
-Release:        11751%{?dist}
+Release:        11771%{?dist}
 Summary:        Dummy Test Package called Gloster
 License:        CC0
 URL:            http://fedoraproject.org/wiki/DummyTestPackages
@@ -32,6 +32,66 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Feb 08 2024 packagerbot <admin@fedoraproject.org> - 0-11771
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11770
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11769
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11768
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11767
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11766
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11765
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11764
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11763
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11762
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11761
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11760
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11759
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11758
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11757
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11756
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11755
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11754
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11753
+- rebuilt
+
+* Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11752
+- rebuilt
+
 * Wed Feb 07 2024 packagerbot <admin@fedoraproject.org> - 0-11751
 - rebuilt
 

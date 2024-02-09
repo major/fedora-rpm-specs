@@ -8,13 +8,13 @@ httpx-socks packages.
 }
 
 Name:           python-socks
-Version:        2.4.3
+Version:        2.4.4
 Release:        %autorelease
 Summary:        Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python
 
 License:        Apache-2.0
 URL:            https://github.com/romis2012/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -30,30 +30,29 @@ Obsoletes:      python3-socks+curio < 2.0.3-7
 %description -n python3-socks %_description
 
 # extras: asyncio, trio
-%pyproject_extras_subpkg -n python3-socks asyncio trio
+%pyproject_extras_subpkg -n python3-socks asyncio trio anyio
 
 %prep
 %autosetup
 
-# remove version lock
-# https://github.com/romis2012/python-socks/blob/master/requirements-dev.txt
-# remove curio
-# remove linters and coverage
-# remove fixes
-sed -i -e 's/pytest-asyncio=.*/pytest-asyncio/' \
-    -e '/curio/d' \
-    -e '/flake8/d' -e '/cov/d' \
-    -e 's/pytest=.*$/pytest/' requirements-dev.txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# Also, remove curio, and all exact and upper bounds on test dep. versions.
+sed -r \
+    -e 's/^(pytest-cov|coveralls|flake8)\b/# &/' \
+    -e 's/^(curio)\b/# &/' \
+    -e 's/(==|,<).*//' \
+    requirements-dev.txt |
+  tee requirements-dev-filtered.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements-dev.txt
+%pyproject_buildrequires -x asyncio,trio,anyio requirements-dev-filtered.txt
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files %{undername}
+%pyproject_save_files -l %{undername}
 
 %check
 # https://github.com/romis2012/python-socks/blob/master/.travis.yml

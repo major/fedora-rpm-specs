@@ -1,7 +1,7 @@
 Name:    kdiagram
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
 Version: 3.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Url:     https://invent.kde.org/graphics/kdiagram
@@ -31,6 +31,10 @@ Requires: cmake(Qt6PrintSupport)
 %description devel
 %{summary}.
 
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -59,9 +63,16 @@ cat kchart6_qt.lang kgantt6_qt.lang > %{name}.lang
 %{_kf6_libdir}/cmake/KGantt6/
 %{_kf6_archdatadir}/mkspecs/modules/qt_KChart6.pri
 %{_kf6_archdatadir}/mkspecs/modules/qt_KGantt6.pri
+%{_qt6_docdir}/*.tags
+
+%files doc
+%{_qt6_docdir}/*.qch
 
 
 %changelog
+* Wed Feb 7 2024 Steve Cossette <farchord@gmail.com> - 3.0.1-4
+- Added -doc subpackage
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -58,8 +58,6 @@ BuildRequires:  pkgconfig(rest-1.0)
 %if %{with webkitgtk}
 BuildRequires:  pkgconfig(webkitgtk-6.0)
 %endif
-BuildRequires:  systemd-rpm-macros
-%{?sysusers_requires_compat}
 
 # gnome-initial-setup is being run by gdm
 Requires: gdm
@@ -69,6 +67,10 @@ Requires: gnome-desktop4%{?_isa} >= %{gnome_desktop_version}
 # we install a rules file
 Requires: polkit-js-engine
 Requires: /usr/bin/tecla
+
+Requires(pre): shadow-utils
+
+Provides: user(%name)
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -96,12 +98,16 @@ you through configuring it. It is integrated with gdm.
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/gnome-initial-setup.desktop
 
-install -pDm 0644 %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
+mkdir -p %{buildroot}%{_datadir}/gnome-initial-setup
+cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
 
 %find_lang %{name}
 
 %pre
-%sysusers_create_compat %{buildroot}/%{_sysusersdir}/%{name}.conf
+# we do not use sysusers yet because we need /var/lib/gnome-initial-setup
+# to be owned by the gnome-initial-setup user. please do not convert
+# to sysusers without making sure this is handled, maybe by tmpfiles
+useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
 
 %files -f %{name}.lang
 %license COPYING

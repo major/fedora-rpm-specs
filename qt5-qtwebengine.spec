@@ -62,7 +62,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -676,6 +676,9 @@ done
 
 
 %changelog
+* Thu Feb 08 2024 Pete Walter <pwalter@fedoraproject.org> - 5.15.16-2
+- Rebuild for libvpx 1.14.x
+
 * Thu Feb 01 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.16-1
 - 5.15.16
 

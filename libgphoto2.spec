@@ -13,6 +13,8 @@ URL:            http://www.gphoto.org/
 Source0:        http://downloads.sourceforge.net/gphoto/%{name}-%{version}.tar.bz2
 Patch1:         gphoto2-pkgcfg.patch
 Patch2:         gphoto2-device-return.patch
+# Upstream fix for GCC 14
+Patch3:         gphoto2-gcc14.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

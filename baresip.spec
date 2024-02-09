@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -593,6 +593,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Wed Feb 07 2024 Pete Walter <pwalter@fedoraproject.org> - 3.9.0-2
+- Rebuild for libvpx 1.14.x
+
 * Thu Feb 01 2024 Robert Scheck <robert@fedoraproject.org> 3.9.0-1
 - Upgrade to 3.9.0 (#2262187)
 

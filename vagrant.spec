@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -59,7 +59,6 @@ Requires: rubygem(log4r) >= 1.1.9
 Requires: (rubygem(net-ssh) >= 5.2.0 with rubygem(net-ssh) < 8)
 Requires: rubygem(net-scp) >= 1.2.0
 Requires: rubygem(net-sftp) >= 2.1
-Requires: rubygem(rest-client) >= 1.6.0
 Requires: rubygem(rubyzip) >= 1.1.7
 Requires: rubygem(net-ftp)
 Requires: rubygem(rexml)
@@ -96,7 +95,6 @@ BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(rspec-its)
 BuildRequires: rubygem(net-sftp)
-BuildRequires: rubygem(rest-client)
 BuildRequires: rubygem(rubyzip)
 BuildRequires: rubygem(thor)
 BuildRequires: rubygem(webmock)
@@ -490,6 +488,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Wed Feb 07 2024 Vít Ondruch <vondruch@redhat.com> - 2.3.4-5
+- Drop superfluous rest-client dependency.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

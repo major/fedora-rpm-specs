@@ -8,8 +8,8 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.9.12
-Release:        3%{?dist}
+Version:        3.9.13
+Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
@@ -33,15 +33,15 @@ datetimes, and numpy}
 %package -n     python3-orjson
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
-# Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
                 BSD-3-Clause AND
-                Apache-2.0 AND
                 (Apache-2.0 OR BSL-1.0) AND
+                (BSD-2-Clause OR Apache-2.0 OR MIT) AND
                 MIT
                 }
 
@@ -95,6 +95,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Tue Feb 6 2024 Maxwell G <maxwell@gtmx.me> - 3.9.13-1
+- Update to 3.9.13. Fixes rhbz#2262570.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

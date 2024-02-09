@@ -1,40 +1,38 @@
-%global somajor 7
+%global somajor 8
 %global sominor 0
 %global sotiny  0
 %global soversion %{somajor}.%{sominor}.%{sotiny}
 
-Name:			libvpx7
+Name:			libvpx8
 Summary:		Compat package with libvpx libraries
-Version:		1.12.0
-Release:		4%{?dist}
-License:		BSD
+Version:		1.13.1
+Release:		1%{?dist}
+License:		BSD-3-Clause
+URL:			http://www.webmproject.org/code/
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
 # Thanks to debian.
 Source2:		libvpx.ver
-URL:			http://www.webmproject.org/code/
-BuildRequires: make
+# Do not disable FORTIFY_SOURCE=2
+Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
 BuildRequires:		gcc
 BuildRequires:		gcc-c++
+BuildRequires:		make
 %ifarch %{ix86} x86_64
 BuildRequires:		yasm
 %endif
 BuildRequires:		doxygen, php-cli, perl(Getopt::Long)
-# Do not disable FORTIFY_SOURCE=2
-Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
-Patch1: libvpx-configure-c99.patch
 
 # Explicitly conflict with older libvpx packages that ship libraries
 # with the same soname as this compat package
-Conflicts: libvpx < 1.13.0
+Conflicts: libvpx < 1.14.0
 
 %description
-Compatibility package with libvpx libraries ABI version 7.
+Compatibility package with libvpx libraries ABI version 8.
 
 %prep
 %setup -q -n libvpx-%{version}
-%patch0 -p1 -b .leave-fs-on
-%patch1 -p1
+%patch -P0 -p1 -b .fortify-source-on
 
 %build
 
@@ -44,14 +42,10 @@ Compatibility package with libvpx libraries ABI version 7.
 %ifarch	x86_64
 %global	vpxtarget x86_64-linux-gcc
 %else
-%ifarch armv7hl
-%global vpxtarget armv7-linux-gcc
-%else
 %ifarch aarch64
 %global vpxtarget arm64-linux-gcc
 %else
 %global vpxtarget generic-gnu
-%endif
 %endif
 %endif
 %endif
@@ -70,14 +64,7 @@ Compatibility package with libvpx libraries ABI version 7.
 
 %set_build_flags
 
-%ifarch armv7hl
-CROSS=armv7hl-redhat-linux-gnueabi- CHOST=armv7hl-redhat-linux-gnueabi-hardfloat ./configure \
-%else
 ./configure --target=%{vpxtarget} \
-%endif
-%ifarch %{arm}
---disable-neon --disable-neon_asm \
-%endif
 --enable-pic --disable-install-srcs \
 --enable-vp9-decoder --enable-vp9-encoder \
 --enable-experimental \
@@ -88,21 +75,6 @@ CROSS=armv7hl-redhat-linux-gnueabi- CHOST=armv7hl-redhat-linux-gnueabi-hardfloat
 %endif
 --enable-install-srcs \
 --prefix=%{_prefix} --libdir=%{_libdir} --size-limit=16384x16384
-
-%ifarch armv7hl
-#hackety hack hack
-sed -i "s|AR=armv7hl-redhat-linux-gnueabi-ar|AR=ar|g" libs-%{vpxtarget}.mk
-sed -i "s|AR=armv7hl-redhat-linux-gnueabi-ar|AR=ar|g" examples-%{vpxtarget}.mk
-sed -i "s|AR=armv7hl-redhat-linux-gnueabi-ar|AR=ar|g" docs-%{vpxtarget}.mk
-
-sed -i "s|AS=armv7hl-redhat-linux-gnueabi-as|AS=as|g" libs-%{vpxtarget}.mk
-sed -i "s|AS=armv7hl-redhat-linux-gnueabi-as|AS=as|g" examples-%{vpxtarget}.mk
-sed -i "s|AS=armv7hl-redhat-linux-gnueabi-as|AS=as|g" docs-%{vpxtarget}.mk
-
-sed -i "s|NM=armv7hl-redhat-linux-gnueabi-nm|NM=nm|g" libs-%{vpxtarget}.mk
-sed -i "s|NM=armv7hl-redhat-linux-gnueabi-nm|NM=nm|g" examples-%{vpxtarget}.mk
-sed -i "s|NM=armv7hl-redhat-linux-gnueabi-nm|NM=nm|g" docs-%{vpxtarget}.mk
-%endif
 
 %make_build verbose=true
 
@@ -132,10 +104,6 @@ rm -rf tmp
 # mv libNOTvpx_g.a libvpx_g.a
 
 %install
-%ifarch armv7hl
-export CROSS=armv7hl-redhat-linux-gnueabi-
-export CHOST=armv7hl-redhat-linux-gnueabi-hardfloat
-%endif
 make DIST_DIR=%{buildroot}%{_prefix} dist
 
 # Simpler to label the dir as %%doc.
@@ -170,9 +138,6 @@ chmod 755 .%{_bindir}/*
 popd
 
 # Get the vpx_config.h file
-%ifarch %{arm}
-cp -a vpx_config.h %{buildroot}%{_includedir}/vpx/vpx_config-arm.h
-%else
 # Does ppc64le need its own?
 %ifarch ppc64 ppc64le
 cp -a vpx_config.h %{buildroot}%{_includedir}/vpx/vpx_config-ppc64.h
@@ -184,7 +149,6 @@ cp -a vpx_config.h %{buildroot}%{_includedir}/vpx/vpx_config-s390.h
 cp -a vpx_config.h %{buildroot}%{_includedir}/vpx/vpx_config-x86.h
 %else
 cp -a vpx_config.h %{buildroot}%{_includedir}/vpx/vpx_config-%{_arch}.h
-%endif
 %endif
 %endif
 %endif
@@ -210,14 +174,5 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/
 %{_libdir}/libvpx.so.%{somajor}*
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Feb 15 2023 Pete Walter <pwalter@fedoraproject.org> - 1.12.0-1
+* Wed Feb 07 2024 Pete Walter <pwalter@fedoraproject.org> - 1.13.1-1
 - Initial packaging

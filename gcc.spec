@@ -1,5 +1,5 @@
-%global DATE 20240127
-%global gitrev 97a1e216faf8ad55b025f07bed4940c016a982c3
+%global DATE 20240207
+%global gitrev 0e40195e10a1c63f6b20ea9db0356ed98039480b
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.4%{?dist}
+Release: %{gcc_release}.5%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -321,7 +321,7 @@ Patch100: gcc14-fortran-fdec-duplicates.patch
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
 %global __os_install_post \
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.22.* \
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.* \
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -329,7 +329,7 @@ chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/test2json \
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/vet \
 %__os_install_post \
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.22.* \
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.* \
 chmod 755 %{buildroot}%{_prefix}/bin/go.gcc \
 chmod 755 %{buildroot}%{_prefix}/bin/gofmt.gcc \
 chmod 755 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo \
@@ -1685,7 +1685,7 @@ ln -sf ../../../libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../libgfortran.so.5.* libgfortran.so
 ln -sf ../../../libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../libgo.so.22.* libgo.so
+ln -sf ../../../libgo.so.23.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../libquadmath.so.0.* libquadmath.so
@@ -1720,7 +1720,7 @@ ln -sf ../../../../%{_lib}/libstdc++.so.6.*[0-9] libstdc++.so
 ln -sf ../../../../%{_lib}/libgfortran.so.5.* libgfortran.so
 ln -sf ../../../../%{_lib}/libgomp.so.1.* libgomp.so
 %if %{build_go}
-ln -sf ../../../../%{_lib}/libgo.so.22.* libgo.so
+ln -sf ../../../../%{_lib}/libgo.so.23.* libgo.so
 %endif
 %if %{build_libquadmath}
 ln -sf ../../../../%{_lib}/libquadmath.so.0.* libquadmath.so
@@ -1862,8 +1862,8 @@ ln -sf ../`echo ../../../../lib/libgfortran.so.5.* | sed s~/lib/~/lib64/~` 64/li
 ln -sf ../`echo ../../../../lib/libgomp.so.1.* | sed s~/lib/~/lib64/~` 64/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.22.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.22.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > 64/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -1979,8 +1979,8 @@ ln -sf ../`echo ../../../../lib64/libgfortran.so.5.* | sed s~/../lib64/~/~` 32/l
 ln -sf ../`echo ../../../../lib64/libgomp.so.1.* | sed s~/../lib64/~/~` 32/libgomp.so
 %if %{build_go}
 rm -f libgo.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.22.* | sed 's,^.*libg,libg,'`' )' > libgo.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.22.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > libgo.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgo.so.23.* | sed 's,^.*libg,libg,'`' )' > 32/libgo.so
 %endif
 %if %{build_libquadmath}
 rm -f libquadmath.so
@@ -2200,7 +2200,7 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/liblsan.so.0.*
 %endif
 %if %{build_go}
 # Avoid stripping these libraries and binaries.
-chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.22.*
+chmod 644 %{buildroot}%{_prefix}/%{_lib}/libgo.so.23.*
 chmod 644 %{buildroot}%{_prefix}/bin/go.gcc
 chmod 644 %{buildroot}%{_prefix}/bin/gofmt.gcc
 chmod 644 %{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cgo
@@ -3452,7 +3452,7 @@ end
 %doc rpm.doc/go/*
 
 %files -n libgo
-%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.22*
+%attr(755,root,root) %{_prefix}/%{_lib}/libgo.so.23*
 %doc rpm.doc/libgo/*
 
 %files -n libgo-devel
@@ -3595,6 +3595,44 @@ end
 %endif
 
 %changelog
+* Wed Feb  7 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.5
+- update from trunk
+  - PRs analyzer/113253, analyzer/113509, analyzer/113654, c++/94231,
+	c++/107291, c++/107594, c++/109359, c++/110006, c++/110084,
+	c++/110358, c++/111286, c++/112437, c++/112439, c++/112737,
+	c++/112769, c++/112846, c++/113451, c++/113531, c++/113544,
+	c++/113638, c++/113640, c++/113644, c++/113788, c/111059, c/111911,
+	c/112571, c/113438, c/113740, debug/103047, debug/113394,
+	debug/113637, fortran/104908, libfortran/111022, libgcc/113337,
+	libgcc/113402, libgcc/113403, libgcc/113604, libstdc++/109203,
+	libstdc++/113309, libstdc++/113335, libstdc++/90276,
+	middle-end/101195, middle-end/110176, middle-end/112917,
+	middle-end/113100, middle-end/113607, middle-end/113622,
+	middle-end/113699, middle-end/113705, middle-end/113722,
+	modula2/111627, modula2/112506, modula2/113730,
+	rtl-optimization/113656, sanitizer/110676, sanitizer/112644,
+	target/38534, target/59778, target/103503, target/105576,
+	target/108933, target/111677, target/112577, target/112861,
+	target/112862, target/112863, target/112864, target/112950,
+	target/113059, target/113249, target/113255, target/113312,
+	target/113560, target/113615, target/113616, target/113623,
+	target/113636, target/113655, target/113657, target/113689,
+	target/113690, target/113697, target/113700, target/113701,
+	target/113763, target/113766, testsuite/113502,
+	tree-optimization/110603, tree-optimization/111268,
+	tree-optimization/111444, tree-optimization/113467,
+	tree-optimization/113568, tree-optimization/113588,
+	tree-optimization/113603, tree-optimization/113614,
+	tree-optimization/113630, tree-optimization/113639,
+	tree-optimization/113659, tree-optimization/113670,
+	tree-optimization/113691, tree-optimization/113692,
+	tree-optimization/113693, tree-optimization/113707,
+	tree-optimization/113731, tree-optimization/113736,
+	tree-optimization/113737, tree-optimization/113750,
+	tree-optimization/113753, tree-optimization/113756,
+	tree-optimization/113759, tree-optimization/113796
+  - fix PCH writing assertion (#2259912)
+
 * Sat Jan 27 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.4
 - update from trunk
   - PRs analyzer/112969, c++/109227, c++/112899, c++/113580, c++/113598,

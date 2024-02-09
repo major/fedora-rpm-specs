@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.18.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		CPL-1.0: src/services/acix/core/hashes.py
@@ -57,6 +57,7 @@ Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/
 
 Patch0:		0001-One-more-xmlsec-include-bug-seen-with-libxml2-2.12.patch
 Patch1:		0001-More-libxml-2.12-fixes.patch
+Patch2:		0001-Disable-ServiceEndpointRetrieverTest.py-not-compatib.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -807,6 +808,7 @@ management features on the worker nodes (WN).
 %setup -q
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1765,6 +1767,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Wed Feb 07 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-5
+- Disable test incompatible with SWIG 4.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.18.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

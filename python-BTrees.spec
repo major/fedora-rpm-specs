@@ -7,8 +7,8 @@
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        5.1
-Release:        3%{?dist}
+Version:        5.2
+Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
 License:        ZPL-2.1
@@ -121,6 +121,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Wed Feb  7 2024 Jerry James <loganjerry@gmail.com> - 5.2-1
+- Version 5.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

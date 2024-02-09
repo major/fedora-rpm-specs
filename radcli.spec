@@ -11,7 +11,7 @@ Release: 4%{?dist}
 # Under BSD license: lib/util.c, src/radiusclient.c, lib/rc-md5.c, lib/tls.c,
 # lib/tls.h
 
-License: BSD and MIT
+License: BSD-2-Clause AND UMich-Merit AND HPND-Fenneberg-Livingston
 URL: http://radcli.github.io/radcli/
 
 %{expand:%(echo "%%global myversion %{version}" | \

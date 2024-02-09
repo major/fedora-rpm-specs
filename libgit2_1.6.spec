@@ -6,7 +6,7 @@
 %endif
 
 Name:           libgit2_1.6
-Version:        1.6.4
+Version:        1.6.5
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 License:        GPLv2 with exceptions
@@ -53,6 +53,15 @@ find examples -name ".gitignore" -delete -print
 
 # Don't run "online" tests
 sed -i '/-sonline/s/^/#/' tests/libgit2/CMakeLists.txt
+
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+# On Fedora 40+ and RHEL 10+, we're using zlib-ng rather than
+# zlib for compression. As a result, all of the pack tests fail
+# due to checking the hashes of the packed data against static
+# values that were created with zlib.
+# https://github.com/libgit2/libgit2/issues/6728
+sed -i 's/-xonline/-xonline -xpack/' tests/libgit2/CMakeLists.txt
+%endif
 
 # Remove bundled libraries
 rm -vr deps

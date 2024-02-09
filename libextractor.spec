@@ -2,7 +2,7 @@
 %global gtkver      3
 
 Name:           libextractor
-Version:        1.10
+Version:        1.13
 Release:        %autorelease
 Summary:        Simple library for keyword extraction
 
@@ -108,7 +108,7 @@ without recompiling libextractor.                                               
 This package ships the '%1' plugin.                                                 \
                                                                                     \
 %files plugins-%1                                                                   \
-%{plugindir}/libextractor_%1.so*                                                      \
+%{plugindir}/libextractor_%1.so*                                                    \
 %nil
 
 %package        plugins-base
@@ -133,7 +133,7 @@ introduce additional dependencies.
 %pluginpkg      gif  -B giflib-devel
 %pluginpkg      mime -B file-devel
 %pluginpkg      thumbnailgtk -B gtk%{gtkver}-devel,gtk2-devel,file-devel
-s
+
 ## does not work with libjpeg-turbo
 #pluginpkg      jpeg -B libjpeg-devel
 
@@ -143,7 +143,7 @@ s
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 cp -aR %{SOURCE3} .
 rm -rfv README.debian
 sed -i 's!\(-L\(/usr\|\$with_qt\)/lib\|-I/usr/include\) !!g' configure
@@ -211,24 +211,16 @@ mv %{buildroot}%{_mandir}/man1/{,libextractor-}extract.1
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 export LIBEXTRACTOR_PREFIX=%{buildroot}%{_libdir}/libextractor
 
-### RPM test in rawhide fails with
-# Got additional meta data of type 58 and format 1 with value `Thu Oct  2 09:44:33 2003' from plugin `rpm'
-# Did not get expected meta data of type 58 and format 1 with value `Thu Oct  2 11:44:33 2003' from plugin `rpm'
-# FAIL: test_rpm
-#
-### ignore it for now
-if make check; then
-   echo "Test succeeded unexpectedly! Revisit me!" >&2
-   false
-fi
-
-
+%ifnarch s390x
+# test_elf fails on s390x
+make check
+%endif
 
 %files -f libextractor.lang
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README* TODO
 %{_bindir}/libextractor-extract
-%{_libdir}/libextractor.so.2*
+%{_libdir}/libextractor.so.3*
 %{_libdir}/libextractor_common.so.1*
 %{_infodir}/libextractor.info*
 %{_mandir}/man1/libextractor-extract.1*

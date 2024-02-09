@@ -57,8 +57,8 @@
 %bcond_with autogen
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.1
-Release:        3%{?dist}
+Version:        5.0.2
+Release:        1%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -440,6 +440,9 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 
 
 %changelog
+* Wed Feb 07 2024 Orion Poplawski <orion@nwra.com> - 5.0.2-1
+- Update to 5.0.2
+
 * Wed Jan 24 2024 Orion Poplawski <orion@nwra.com> - 5.0.1-3
 - Drop unused BR on infinipath-psm
 

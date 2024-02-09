@@ -19,7 +19,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.121.1
+Version:        0.121.2
 
 %gometa -f
 
@@ -91,11 +91,28 @@ sed -i '/TestPageWithLastmodFromGitInfo/a t.Skip()' hugolib/page_test.go
 rm hugolib/hugo_modules_test.go
 %endif
 
+# Remove deployment features, as they rely on too many wild dependencies.
+# I cannot at this time find a path forward for golang-gocloud. See, for
+# example,
+#
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/YOVE3SJYZK7SC3CAHZ5CGUWMMWC67AFO/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2262897
+# ... and so on.
+#
+# See also use of nodeploy in build and check sections below.
+rm -rf deploy
+# I would like to avoid the use of sed here. See:
+# https://github.com/gohugoio/hugo/issues/12009
+sed -i '/"github.com\/gohugoio\/hugo\/deploy"/d' config/allconfig/allconfig.go                # Remove import.
+sed -i 's/Deployment deploy.DeployConfig/Deployment bool/g' config/allconfig/allconfig.go     # Replace use with bool.
+sed -i '/"github.com\/gohugoio\/hugo\/deploy"/d' config/allconfig/alldecoders.go              # Remove import.
+sed -i 's/p.c.Deployment, err =/\/\/ p.c.Deployment, err =/g' config/allconfig/alldecoders.go # Comment out use.
+
 %generate_buildrequires
 %go_generate_buildrequires
 
 %build
-BUILDTAGS=extended LDFLAGS="${LDFLAGS} -X %{goipath}/common/hugo.buildDate=$(date --iso=seconds --date=@$SOURCE_DATE_EPOCH) -X %{goipath}/common/hugo.vendorInfo=Fedora:%{version}-%{release}" %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
+BUILDTAGS="extended nodeploy" LDFLAGS="${LDFLAGS} -X %{goipath}/common/hugo.buildDate=$(date --iso=seconds --date=@$SOURCE_DATE_EPOCH) -X %{goipath}/common/hugo.vendorInfo=Fedora:%{version}-%{release}" %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
 %{gobuilddir}/bin/hugo completion bash >hugo-completion
 %{gobuilddir}/bin/hugo gen man
 
@@ -109,6 +126,9 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 
 %if %{with check}
 %check
+
+%global gotestflags -tags nodeploy
+
 # .: Extensive test that uses network.
 # common/herrors: Seems to fail due to colorization.
 # common/text: Seems to fail due to colorization.

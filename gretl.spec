@@ -1,7 +1,7 @@
 Name: gretl	
 Version: 2023c
-Release: 3%{?dist}
-Summary: A tool for econometric analysis	
+Release: 4%{?dist}
+Summary: A tool for econometric analysis
 
 %if 0%{?fedora} >= 33
 %bcond_without flexiblas
@@ -42,6 +42,8 @@ BuildRequires:	ncurses-devel
 BuildRequires:	openmpi-devel
 BuildRequires:	readline-devel
 BuildRequires:	xdg-utils
+BuildRequires:	tex(latex)
+BuildRequires:	texlive-multirow
 
 Requires: gnuplot
 Requires: gtksourceview3
@@ -86,9 +88,11 @@ sed -i -e 's/-lblas/-lflexiblas/g' -e 's/-llapack/-lflexiblas/g' configure
 %{_openmpi_load}
 %configure	--disable-static \
 		--disable-avx \
-	--with-mpi \
-	--with-mpi-lib=%{_libdir}/openmpi/lib/ \
+		--with-mpi \
+		--with-mpi-lib=%{_libdir}/openmpi/lib/ \
 		--enable-build-editor \
+		--enable-build-addons \
+		--enable-addons-doc \
 	--with-mpi-include=%{_includedir}/openmpi-%_arch/
 make %{?_smp_mflags}
 cp %{SOURCE1} %{_builddir}/%{name}-%{version}/gretl_plugins.txt
@@ -145,6 +149,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Wed Feb 07 2024 Johannes Lips <hannes@fedoraproject.org> - 2023c-4
+- enabled addons during build
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023c-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

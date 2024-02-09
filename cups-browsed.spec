@@ -10,7 +10,7 @@
 Name: cups-browsed
 Epoch: 1
 Version: 2.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -21,6 +21,11 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
+# https://github.com/OpenPrinting/cups-browsed/pull/26 both 001 and 002
+Patch001: 0001-Fix-memory-leak-in-resolve_callback.patch
+Patch002: 0001-Init-variables-which-can-be-later-used-uninitialized.patch
+# https://github.com/OpenPrinting/cups-browsed/pull/25
+Patch003: browsed-goto-fail.patch
 
 
 # remove once CentOS Stream 10 is released, cups-browsed
@@ -174,6 +179,10 @@ done
 
 
 %changelog
+* Wed Feb 07 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-4
+- 2253985 - cups-browsed crashes when remote CUPS queue found by DNS-SD is not able to response on IPP Get-Printer-Attributes
+- fix several issues reported by openscanhub
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

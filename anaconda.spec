@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.20
-Release: 1%{?dist}
+Version: 40.21
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,6 +11,11 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
+
+# https://github.com/rhinstaller/anaconda/pull/5460
+# https://bugzilla.redhat.com/show_bug.cgi?id=2262892
+# Fix ostree installs to btrfs with util-linux 2.40+
+Patch: 0001-Resolve-symlinks-in-ostree-install-bind-mount-destin.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -38,7 +43,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.51-1
+%define pykickstartver 3.52-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.8.2-2
 %define rpmver 4.15.0
@@ -270,7 +275,9 @@ ensure all Anaconda capabilities are supported in the resulting image.
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
+Requires: python3-iso639
 Requires: python3-meh-gui >= %{mehver}
+Requires: python3-xkbregistry
 Requires: adwaita-icon-theme
 Requires: tecla
 Requires: tigervnc-server-minimal
@@ -385,6 +392,7 @@ rm -rf \
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
+%{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
 %{_sbindir}/anaconda
@@ -435,6 +443,7 @@ rm -rf \
 %endif
 %{_datadir}/anaconda/window-manager
 %{_datadir}/anaconda/anaconda-gtk.css
+%{_datadir}/anaconda/gtk-4.0/settings.ini
 
 %files tui
 %{python3_sitearch}/pyanaconda/rescue.py
@@ -461,6 +470,34 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 06 2024 Adam Williamson <awilliam@redhat.com> - 40.21-2
+- Backport PR #5460 to fix ostree btrfs installs with new util-linux (#2262892)
+
+* Tue Feb 06 2024 Packit <hello@packit.dev> - 40.21-1
+- Update translations from Weblate for master (github-actions)
+- Deprecate timezone --isUtc, --ntpservers and --nontp kickstart options
+  (vponcova)
+- Remove the repo --ignoregroups kickstart option in Fedora 40 (vponcova)
+- Remove the logging --level kickstart option in Fedora 40 (vponcova)
+- Remove the method kickstart command in Fedora 40 (vponcova)
+- docs: Add a release note for removed/deprecated kickstart commands and
+  options (vponcova)
+- Remove the autostep kickstart command in Fedora 40 (vponcova)
+- Do not write newline to the webui pid file (jkonecny)
+- gui: Log information about blivet-gui failed import (vtrefny)
+- Make network spoke complete also in connecting state. (rvykydal)
+- Do not use libxklavier to list keyboard layouts (jexposit)
+- Do not use stringize and unicodeize from Blivet (vtrefny)
+- Remove the inst.nompath boot option (vponcova)
+- Remove support for timezone --isUtc, --ntpservers and --nontp kickstart
+  options (vponcova)
+- Remove no more used GetRequiredMountPoints API of devicetree viewer.
+  (rvykydal)
+- Set GTK 4 decoration layout (jexposit)
+- Add TUI for installing non-standard kernels (ozobal)
+- Add GUI option for installing 64k ARM kernel (ozobal)
+- Revert "Remove instperf" (vslavik)
+
 * Tue Jan 30 2024 Packit <hello@packit.dev> - 40.20-1
 - docs: add section about multi-package updates (kkoukiou)
 

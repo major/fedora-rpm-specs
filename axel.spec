@@ -1,13 +1,16 @@
-%global gitowner axel-download-accelerator
+%global forgeurl https://github.com/axel-download-accelerator/axel
 
 Name:       axel
-Version:    2.17.11
+Version:    2.17.13
 Release:    %autorelease
 Summary:    Light command line download accelerator for Linux and Unix
 
-License:    GPLv2+
-URL:        https://github.com/%{gitowner}/%{name}
-Source0:    https://github.com/%{gitowner}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+%forgemeta
+
+# spdx
+License:    GPL-2.0-or-later
+URL:        %forgeurl
+Source0:    %forgesource
 BuildRequires: gettext-devel
 BuildRequires: pkgconfig(libssl)
 BuildRequires: autoconf
@@ -24,7 +27,7 @@ download. Axel has no dependencies and is lightweight, so it might
 be useful as a wget clone on byte-critical systems.
 
 %prep
-%autosetup -n %{name}-%{version}
+%forgesetup
 
 %build
 autoreconf -vfi

@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        310.1
+Version:        310.2
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -448,32 +448,33 @@ Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
 Provides: bundled(npm(@patternfly/react-table)) = 5.1.2
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
 Provides: bundled(npm(argparse)) = 1.0.10
-Provides: bundled(npm(array-buffer-byte-length)) = 1.0.0
+Provides: bundled(npm(array-buffer-byte-length)) = 1.0.1
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
-Provides: bundled(npm(available-typed-arrays)) = 1.0.5
+Provides: bundled(npm(available-typed-arrays)) = 1.0.6
 Provides: bundled(npm(call-bind)) = 1.0.5
 Provides: bundled(npm(date-fns)) = 3.2.0
 Provides: bundled(npm(deep-equal)) = 2.2.3
 Provides: bundled(npm(define-data-property)) = 1.1.1
 Provides: bundled(npm(define-properties)) = 1.2.1
+Provides: bundled(npm(es-errors)) = 1.0.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.2
 Provides: bundled(npm(functions-have-names)) = 1.2.3
-Provides: bundled(npm(get-intrinsic)) = 1.2.2
+Provides: bundled(npm(get-intrinsic)) = 1.2.3
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
 Provides: bundled(npm(has-property-descriptors)) = 1.0.1
 Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
-Provides: bundled(npm(has-tostringtag)) = 1.0.0
+Provides: bundled(npm(has-tostringtag)) = 1.0.2
 Provides: bundled(npm(hasown)) = 2.0.0
 Provides: bundled(npm(internal-slot)) = 1.0.6
 Provides: bundled(npm(is-arguments)) = 1.1.1
-Provides: bundled(npm(is-array-buffer)) = 3.0.2
+Provides: bundled(npm(is-array-buffer)) = 3.0.4
 Provides: bundled(npm(is-bigint)) = 1.0.4
 Provides: bundled(npm(is-boolean-object)) = 1.1.2
 Provides: bundled(npm(is-callable)) = 1.2.7
@@ -485,7 +486,6 @@ Provides: bundled(npm(is-set)) = 2.0.2
 Provides: bundled(npm(is-shared-array-buffer)) = 1.0.2
 Provides: bundled(npm(is-string)) = 1.0.7
 Provides: bundled(npm(is-symbol)) = 1.0.4
-Provides: bundled(npm(is-typed-array)) = 1.1.12
 Provides: bundled(npm(is-weakmap)) = 2.0.1
 Provides: bundled(npm(is-weakset)) = 2.0.2
 Provides: bundled(npm(isarray)) = 2.0.5
@@ -519,7 +519,7 @@ Provides: bundled(npm(tslib)) = 2.6.2
 Provides: bundled(npm(uuid)) = 9.0.1
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
-Provides: bundled(npm(which-typed-array)) = 1.1.13
+Provides: bundled(npm(which-typed-array)) = 1.1.14
 Provides: bundled(npm(xterm-addon-canvas)) = 0.5.0
 Provides: bundled(npm(xterm)) = 5.3.0
 
@@ -811,6 +811,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 07 2024 Packit <hello@packit.dev> - 310.2-1
+- selinux: Cover migration to /run
+- ws: Handle HEAD requests correctly, for curl 8.6.0
+
 * Fri Feb 02 2024 Packit <hello@packit.dev> - 310.1-1
 - bridge: Fix race condition/crash in file watching channels
 

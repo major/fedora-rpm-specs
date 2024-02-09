@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -29,6 +29,12 @@ Patch104: 0104-curl-7.88.0-tests-warnings.patch
 Provides: curl-full = %{version}-%{release}
 Provides: webclient
 URL: https://curl.se/
+
+# The reason for maintaining two separate packages for curl is no longer valid.
+# The curl-minimal is currently almost identical to curl-full, so let's drop curl-minimal.
+# For more details, see https://bugzilla.redhat.com/show_bug.cgi?id=2262096
+Obsoletes: curl-minimal < 8.6.0-4
+
 BuildRequires: automake
 BuildRequires: brotli-devel
 BuildRequires: coreutils
@@ -118,6 +124,10 @@ BuildRequires: valgrind
 BuildRequires: stunnel
 %endif
 
+# Suggest minimal version of libcurl to to keep number of dependencies low
+# after dropping curl-minimal.
+Suggests: libcurl-minimal
+
 # using an older version of libcurl could result in CURLE_UNKNOWN_OPTION
 Requires: libcurl%{?_isa} >= %{version}-%{release}
 
@@ -175,22 +185,6 @@ Obsoletes: curl-devel < %{version}-%{release}
 The libcurl-devel package includes header files and libraries necessary for
 developing programs which use the libcurl library. It contains the API
 documentation of the library, too.
-
-%package -n curl-minimal
-Summary: Conservatively configured build of curl for minimal installations
-Provides: curl = %{version}-%{release}
-Conflicts: curl
-Suggests: libcurl-minimal
-RemovePathPostfixes: .minimal
-
-# using an older version of libcurl could result in CURLE_UNKNOWN_OPTION
-Requires: libcurl%{?_isa} >= %{version}-%{release}
-
-%description -n curl-minimal
-This is a replacement of the 'curl' package for minimal installations.  It
-comes with a limited set of features compared to the 'curl' package.  On the
-other hand, the package is smaller and requires fewer run-time dependencies to
-be installed.
 
 %package -n libcurl-minimal
 Summary: Conservatively configured build of libcurl for minimal installations
@@ -351,10 +345,6 @@ for i in ${RPM_BUILD_ROOT}%{_libdir}/*; do
     mv -v $i $i.minimal
 done
 
-# install and rename the executable that will be packaged as curl-minimal
-%make_install -C build-minimal/src
-mv -v ${RPM_BUILD_ROOT}%{_bindir}/curl{,.minimal}
-
 # install libcurl.m4
 install -d $RPM_BUILD_ROOT%{_datadir}/aclocal
 install -m 644 docs/libcurl/libcurl.m4 $RPM_BUILD_ROOT%{_datadir}/aclocal
@@ -410,16 +400,15 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
 %{_mandir}/man3/*
 %{_datadir}/aclocal/libcurl.m4
 
-%files -n curl-minimal
-%{_bindir}/curl.minimal
-%{_mandir}/man1/curl.1*
-
 %files -n libcurl-minimal
 %license COPYING
 %{_libdir}/libcurl.so.4.minimal
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Feb 07 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-4
+- drop curl-minimal subpackage in favor of curl-full (#2262096)
+
 * Mon Feb 05 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-3
 - ignore response body to HEAD requests
 

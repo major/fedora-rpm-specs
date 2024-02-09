@@ -36,6 +36,9 @@ Patch4: rubygem-railties-7.1.0-Run-Rails-console-test-against-IRB-with-Reline-in
 # https://github.com/rails/rails/pull/46254
 Patch5: rubygem-railties-7.1.0-Bump-Puma-to-v6-0-0.patch
 Patch6: rubygem-railties-7.1.0-Bump-Puma-to-v6-0-0-test.patch
+# Minitest 5.21.0 started to output relative paths.
+# https://github.com/rails/rails/pull/50724
+Patch7: rubygem-railties-7.1.4-Fix-failing-test-due-to-the-relative-path-output-of-minitest.patch
 
 # Needed by `rails console`.
 Recommends: rubygem(irb)
@@ -109,6 +112,7 @@ pushd %{_builddir}
 %patch 3 -p2
 %patch 4 -p2
 %patch 6 -p2
+%patch 7 -p2
 popd
 
 %build
@@ -258,6 +262,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Wed Feb 07 2024 Vít Ondruch <vondruch@redhat.com> - 7.0.8-4
+- Fix FTBFS due to Minitest 5.21.0+ incompatibility.
+  Resolves: rhbz#2261665
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

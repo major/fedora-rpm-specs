@@ -1,12 +1,30 @@
+# adblock, whether vendored or not, requires rust and corrosion
+%bcond adblock 1
+# Using system crates requires rust-adblock 0.8.0 and dependencies,
+# which are not packaged for Fedora
+%bcond vendored_adblock 1
+
 Name:    kdepim-addons
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional plugins for KDE PIM applications
-
-License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
+# Cargo license summary:
+# MIT
+# MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
+# MPL-2.0
+# Unlicense OR MIT
+# Zlib OR Apache-2.0 OR MIT
+License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+# to create vendor tarball:
+#   tar xf %%{name}-%%{version}.tar.xz && \
+#   pushd %%{name}-%%{version}/plugins/webengineurlinterceptor/adblock && \
+#   cargo vendor && rm -f vendor/winapi*/lib/* && \
+#   tar Jcvf ../../../../adblock-0.8.0-vendor.tar.xz vendor/ && popd
+Source1: adblock-0.8.0-vendor.tar.xz
 
 ## upstream patches
 
@@ -27,10 +45,6 @@ BuildRequires:  cmake(QGpgmeQt6)
 BuildRequires:  cmake(Qt6WebEngineWidgets)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Test)
-#Adblock addon - packages currently not in fedora and/or out of date
-#BuildRequires:  rust
-#BuildRequires:  cargo
-#BuildRequires:  corrosion
 
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Config)
@@ -87,6 +101,11 @@ BuildRequires:  cmake(KF6TextTemplate)
 BuildRequires:  cmake(Gpgmepp)
 BuildRequires:  discount
 
+%if %{with adblock}
+BuildRequires:  cmake(Corrosion)
+BuildRequires:  rust-packaging >= 25
+%endif
+
 Conflicts:      kdepim-common < 16.04.0
 
 # at least until we have subpkgs for each -- rex
@@ -97,19 +116,27 @@ Supplements:    korganizer
 %description
 %{summary}.
 
-# Adblock Addon
-#%generate_buildrequires
-#cd plugins/webengineurlinterceptor/adblock
-#%%cargo_generate_buildrequires
-#cd ../../../..
-
 
 %prep
 %autosetup -n %{name}-%{version} -p1
-# Adblock addon
-#%%cargo_prep
-# Delete the Cargo.lock (So it doesn't fail building)
-#find -name "Cargo.lock" -print -delete
+%if %{with adblock}
+pushd plugins/webengineurlinterceptor/adblock
+%if %{with vendored_adblock}
+tar xf %{SOURCE1}
+%cargo_prep -v vendor
+%else
+%cargo_prep
+%endif
+popd
+%endif
+
+
+%if %{with adblock} && %{without vendored_adblock}
+%generate_buildrequires
+pushd plugins/webengineurlinterceptor/adblock > /dev/null
+%cargo_generate_buildrequires
+popd > /dev/null
+%endif
 
 
 %build
@@ -118,6 +145,17 @@ Supplements:    korganizer
 
 %cmake_build
 
+%if %{with adblock}
+# Rust dependency handling
+pushd plugins/webengineurlinterceptor/adblock
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if %{with vendored_adblock}
+%cargo_vendor_manifest
+%endif
+popd
+%endif
+
 
 %install
 %cmake_install
@@ -125,10 +163,17 @@ Supplements:    korganizer
 
 %files -f %{name}.lang
 %license LICENSES/*
+%if %{with adblock}
+%license plugins/webengineurlinterceptor/adblock/LICENSE.dependencies
+%if %{with vendored_adblock}
+%license plugins/webengineurlinterceptor/adblock/cargo-vendor.txt
+%endif
+%endif
 %{_kf6_datadir}/icons/hicolor/scalable/status/moon-phase-*
-#%{_kf6_datadir}/kconf_update/webengineurlinterceptoradblock.upd
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
-#%{_kf6_libdir}/libadblocklibprivate.so.*
+%if %{with adblock}
+%{_kf6_libdir}/libadblockplugin.so.*
+%endif
 %{_kf6_libdir}/libakonadidatasetools.so.*
 %{_kf6_libdir}/libdkimverifyconfigure.so.*
 %{_kf6_libdir}/libexpireaccounttrashfolderconfig.so.*
@@ -173,6 +218,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Mon Feb 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.95-2
+- Enable adblock
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

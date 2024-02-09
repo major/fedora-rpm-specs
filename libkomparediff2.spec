@@ -3,20 +3,14 @@
 
 Name:    libkomparediff2
 Summary: Library to compare files and strings
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 
 # Library: GPLv2+ (some files LGPLv2+), CMake scripts: BSD
-License: GPLv2+ and BSD
-URL:     https://cgit.kde.org/%{name}.git
+License: GPL-2.0-or-later AND LGPL-2.1-or-later and BSD
+URL:     https://invent.kde.org/sdk/%{name}
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  kf5-rpm-macros
@@ -98,6 +92,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Feb 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.95-1
+- 24.01.95 (still Qt5)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

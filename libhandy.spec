@@ -2,9 +2,9 @@
 
 Name:           libhandy
 Version:        1.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/libhandy
 %global majmin %(echo %{version} | cut -d . -f -2)
@@ -106,6 +106,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Feb 07 2024 Kalev Lember <klember@redhat.com> - 1.8.2-8
+- Migrate to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

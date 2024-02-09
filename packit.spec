@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.90.0
+Version:        0.91.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,12 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Wed Feb 07 2024 Packit <hello@packit.dev> - 0.91.0-1
+- We have introduced new CLI command `packit dist-git init` that initializes Packit configuration for release automation in dist-git repository. (#2225)
+- `packit validate-config` now checks whether the Upstream Release Monitoring for the package is correctly configured if `pull_from_upstream` job is present in the configuration. (#2226)
+- There is a new global configuration option `parse_time_macros` that allows to configure macros to be explicitly defined or undefined at spec file parse time. (#2222)
+- Resolves rhbz#2259201
+
 * Sun Jan 28 2024 Packit <hello@packit.dev> - 0.90.0-1
 - `pull-from-upstream` and `propose-downstream` commands now have the `--sync-acls` option that enables syncing the ACLs between dits-git repo and fork. The default behaviour was, however, changed to not sync the ACLs. (#2214)
 - Packit now properly handles exceptions when syncing ACLs during release syncing. (#2213)

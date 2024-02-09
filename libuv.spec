@@ -9,7 +9,7 @@
 
 Name:           libuv
 Epoch:          1
-Version:        1.47.0
+Version:        1.48.0
 Release:        %autorelease
 Summary:        Platform layer for node.js
 
@@ -32,18 +32,6 @@ Source1:        https://dist.libuv.org/dist/v%{version}/%{name}-v%{version}.tar.
 # cp temp/keysuv.gpg .
 Source2:        keysuv.gpg
 Source3:        libuv.abignore
-
-# Test fix for IPv6 interfaces with a NULL ifa_addr
-# https://github.com/libuv/libuv/pull/4218
-Patch: 0001-unix-ignore-ifaddrs-with-NULL-ifa_addr-4218.patch
-
-# test: check if ipv6 link-local traffic is routable
-# https://github.com/libuv/libuv/pull/4220
-Patch: 0002-test-check-if-ipv6-link-local-traffic-is-routable.patch
-
-# test: Use unsigned comparison for fs_type
-# https://github.com/libuv/libuv/pull/4227
-Patch: 0003-test_fs.c-Fix-issue-on-32-bit-systems-using-btrfs.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

@@ -1,13 +1,12 @@
 Summary: A Single Packet Authorization (SPA) implementation
 Name: fwknop
-Version: 2.6.10
-Release: 15%{?dist}
+Version: 2.6.11
+Release: 1%{?dist}
 License: GPLv2
 Url: http://www.cipherdyne.org/fwknop/
 Source0: http://cipherdyne.org/fwknop/download/fwknop-%{version}.tar.bz2
 Source1: http://cipherdyne.org/fwknop/download/fwknop-%{version}.tar.bz2.asc
 Source2: fwknopd.service
-Patch1: fwknop-2.6.10-gcc.patch
 BuildRequires: libpcap-devel iptables systemd gpgme-devel gpg firewalld
 BuildRequires: gcc
 BuildRequires: make
@@ -51,7 +50,6 @@ Authorization implementation and API for the other fwknop components.
 
 %prep
 %setup -q
-%patch1 -p1 -b .gcc10
 
 %build
 %configure --with-firewall-cmd=/usr/bin/firewall-cmd --with-gpgme
@@ -114,6 +112,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libfko.{la,a}
 %attr(0644,root,root) %{_infodir}/libfko.info*
 
 %changelog
+* Wed Feb 07 2024 Jakub Jelen <jjelen@redhat.com> - 2.6.11-1
+- New upstream release (#2263111)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.10-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
