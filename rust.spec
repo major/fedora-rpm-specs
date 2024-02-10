@@ -1,6 +1,6 @@
 Name:           rust
-Version:        1.75.0
-Release:        3%{?dist}
+Version:        1.76.0
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.74.0
-%global bootstrap_channel 1.74.0
-%global bootstrap_date 2023-11-16
+%global bootstrap_version 1.75.0
+%global bootstrap_channel 1.75.0
+%global bootstrap_date 2023-12-28
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -44,10 +44,9 @@ ExclusiveArch:  %{rust_arches}
 
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
-# (updated per https://github.com/rust-lang/rust/pull/96907)
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-#global wasi_libc_ref wasi-sdk-20
-%global wasi_libc_ref bd950eb128bff337153de217b11270f948d04bb4
+#global wasi_libc_ref wasi-sdk-21
+%global wasi_libc_ref 03b228e46bb02fcc5927253e1b8ad715072b1ae4
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -63,7 +62,7 @@ ExclusiveArch:  %{rust_arches}
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 15.0+.
 %global min_llvm_version 15.0.0
-%global bundled_llvm_version 17.0.5
+%global bundled_llvm_version 17.0.6
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.7, and not the next minor soname change.
@@ -124,8 +123,8 @@ Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
 Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
-# https://github.com/rust-lang/rust/pull/117982
-Patch6:         0001-bootstrap-only-show-PGO-warnings-when-verbose.patch
+# We don't want to use the bundled library in libsqlite3-sys
+Patch6:         rustc-1.76.0-unbundle-sqlite.patch
 
 ### RHEL-specific patches below ###
 
@@ -136,7 +135,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.75.0-disable-libssh2.patch
+Patch100:       rustc-1.76.0-disable-libssh2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -206,6 +205,7 @@ BuildRequires:  curl-devel
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(liblzma)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
 
 %if %{without bundled_libgit2}
@@ -603,6 +603,7 @@ mkdir -p src/llvm-project/libunwind/
 %clear_dir vendor/*jemalloc-sys*/jemalloc/
 %clear_dir vendor/libffi-sys*/libffi/
 %clear_dir vendor/libmimalloc-sys*/c_src/mimalloc/
+%clear_dir vendor/libsqlite3-sys*/{sqlite3,sqlcipher}/
 %clear_dir vendor/libssh2-sys*/libssh2/
 %clear_dir vendor/libz-sys*/src/zlib{,-ng}/
 %clear_dir vendor/lzma-sys*/xz-*/
@@ -655,13 +656,15 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
   print(env)
 end}
 
-# Set up shared environment variables for build/install/check
-%global rust_env %{?rustflags:RUSTFLAGS="%{rustflags}"} %{rustc_target_cpus}
-%if %without disabled_libssh2
-# convince libssh2-sys to use the distro libssh2
-%global rust_env %{?rust_env} LIBSSH2_SYS_USE_PKG_CONFIG=1
-%endif
-%global export_rust_env %{?rust_env:export %{rust_env}}
+# Set up shared environment variables for build/install/check.
+# *_USE_PKG_CONFIG=1 convinces *-sys crates to use the system library.
+%global rust_env %{shrink:
+  %{?rustflags:RUSTFLAGS="%{rustflags}"}
+  %{rustc_target_cpus}
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  %{!?with_disabled_libssh2:LIBSSH2_SYS_USE_PKG_CONFIG=1}
+}
+%global export_rust_env export %{rust_env}
 
 %build
 %{export_rust_env}
@@ -1049,6 +1052,9 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %changelog
+* Thu Feb 08 2024 Josh Stone <jistone@redhat.com> - 1.76.0-1
+- Update to 1.76.0.
+
 * Tue Jan 30 2024 Josh Stone <jistone@redhat.com> - 1.75.0-3
 - Consolidate 32-bit build compromises.
 - Update rust-toolset and add rust-srpm-macros for ELN.

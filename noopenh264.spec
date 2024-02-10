@@ -1,4 +1,4 @@
-%global openh264_version 2.3.1
+%global openh264_version 2.4.0
 %global openh264_soversion 7
 
 Name:           noopenh264
@@ -12,8 +12,11 @@ Summary:        Fake implementation of the OpenH264 library
 
 License:        BSD-2-Clause and LGPL-2.1-or-later
 URL:            https://gitlab.com/freedesktop-sdk/noopenh264
-%global tag openh264-%{openh264_version}
+%global tag v%{openh264_version}
 Source:         %{url}/-/archive/%{tag}/noopenh264-%{tag}.tar.bz2
+
+# https://gitlab.com/freedesktop-sdk/noopenh264/-/merge_requests/6
+Patch:          0001-Fix-the-build.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson

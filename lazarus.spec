@@ -1,14 +1,18 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        2.2.6
+Version:        3.0
 
-%global baserelease 7
+%global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
-%global qt5pas_version 2.6
-%global qt5pas_release %(relstr="%{version}.%{baserelease}"; relstr=(${relstr//./ }); ((relno=${relstr[0]}*1000000 + ${relstr[1]}*10000 + ${relstr[2]}*100 + ${relstr[3]})); echo "${relno}%{?dist}";)
+%global qt5pas_version 2.15
+%global qt5pas_release %(relstr="%{version}.%{baserelease}"; relstr=(${relstr//./ }); ((relno=${relstr[0]}*10000 + ${relstr[1]}*100 + ${relstr[2]})); echo "${relno}%{?dist}";)
+
+# The qt6pas version is taken from lcl/interfaces/qt6/cbindings/Qt6Pas.pro
+%global qt6pas_version 6.2.7
+%global qt6pas_release %{qt5pas_release}
 
 # The IDE itself is licensed under GPLv2+, with minor parts under the modified LGPL.
 # The Lazarus Component Library has parts licensed under all the licenses mentioned in the tag.
@@ -25,15 +29,15 @@ Source0:        https://downloads.sourceforge.net/project/%{name}/Lazarus%20Zip%
 
 Source100:      lazarus.appdata.xml
 
-# Some components fail to build with the "qt" widget set.
-# This file is listed as Source, not Patch, as we will manually apply and revert it during the build process.
-Source9999:     9999-qt-disable-broken-components.patch
-
 # Lazarus wants to put arch-specific stuff in /usr/share - make it go in /usr/lib istead
 Patch0:         0000-Makefile_patch.diff
 
-# Fix build errors for GTK3 widgetset
-Patch2:         0002-fix-GTK3-build-error.patch
+# lazbuild can be too eager to rebuild some Lazarus packages.
+# This causes build failures on other Fedora packages, as it tries to overwrite files in /usr/lib.
+#
+# Taken from Debian:
+# https://sources.debian.org/data/main/l/lazarus/3.0%2Bdfsg1-6/debian/patches/Fixed-crash-when-trying-to-recompile-packages.patch
+Patch1:         Fixed-crash-when-trying-to-recompile-packages.patch
 
 # -- Build-time dependencies
 
@@ -49,6 +53,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  qt6-qtbase-devel
 
 # -- Run-time dependencies.
 # Since "lazarus" is a metapackage, it puts strong requirements on the
@@ -205,6 +210,19 @@ This package contains LCL components for developing applications
 using the Qt5 widgetset.
 
 
+%package lcl-qt6
+Summary: Lazarus Component Library - Qt6 widgetset support
+Requires: %{name}-lcl%{?_isa} = %{version}-%{release}
+
+Requires: qt6pas-devel%{?_isa} = %{qt6pas_version}-%{qt6pas_release}
+
+%description lcl-qt6
+Lazarus is a cross-platform IDE and component library for Free Pascal.
+
+This package contains LCL components for developing applications
+using the Qt6 widgetset.
+
+
 # Qt5pas start
 %package -n     qt5pas
 Version:        %{qt5pas_version}
@@ -226,7 +244,28 @@ Requires:       qt5pas%{?_isa} = %{qt5pas_version}-%{qt5pas_release}
 %description -n qt5pas-devel
 The qt5pas-devel package contains libraries and header files for
 developing applications that use qt5pas.
-# Qt5pas end
+
+# Qt5pas end, Qt6pas start
+%package -n     qt6pas
+Version:        %{qt6pas_version}
+Release:        %{qt6pas_release}
+Summary:        Qt6 bindings for Pascal
+
+%description -n qt6pas
+Qt6 bindings for Pascal from Lazarus.
+
+%package -n     qt6pas-devel
+Version:        %{qt6pas_version}
+Release:        %{qt6pas_release}
+Summary:        Development files for qt5pas
+
+Requires:       qt6-qtbase-devel%{?_isa}
+Requires:       qt6pas%{?_isa} = %{qt6pas_version}-%{qt6pas_release}
+
+%description -n qt6pas-devel
+The qt6pas-devel package contains libraries and header files for
+developing applications that use qt6pas.
+# Qt6pas end
 
 
 # Instruct fpmake to build in parallel
@@ -257,36 +296,20 @@ fpcmake -Tall
 popd
 
 # Compile some basic targets required by everything else
-make registration lazutils codetools %{fpmakeopt}
+make registration %{fpmakeopt} OPT='%{fpcopt}'
+
+# Compile lazbuild - required to build other targets
+make lazbuild %{fpmakeopt} OPT='%{fpcopt}'
 
 # Compile LCL base (Lazarus Component Library) for the "nogui" widgetset
-make lcl basecomponents %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM=nogui
+make lcl %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM=nogui
 
-# Compile tools (lazbuild, etc.)
+# Compile extra tools
 make tools %{fpmakeopt} OPT='%{fpcopt}'
 
 # Compile the LCL base + extra components for GUI widgetsets
-for WIDGETSET in gtk2 gtk3 qt5; do
+for WIDGETSET in gtk2 gtk3 qt qt5 qt6; do
 	make lcl basecomponents bigidecomponents %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM="${WIDGETSET}"
-done
-
-# The qt widgetset is, unfortunately, a special case.
-for WIDGETSET in qt; do
-	make lcl basecomponents %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM="${WIDGETSET}"
-
-	# bigidecomponents: the "virtualtreeview" component contains some in-line assembly.
-	# Each widgetset has its own bit of assembly. Unfortunately, for the "qt" widgetset,
-	# only x86 assembly is provided. We use this patch to disable the offending components.
-	%ifnarch %{ix86} x86_64
-		patch -p1 < %{SOURCE9999}
-	%endif
-
-	make bigidecomponents %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM="${WIDGETSET}"
-
-	# Revert the patch before proceeding.
-	%ifnarch %{ix86} x86_64
-		patch -R -p1 < %{SOURCE9999}
-	%endif
 done
 
 # Compile the IDE itself
@@ -295,8 +318,14 @@ make bigide %{fpmakeopt} OPT='%{fpcopt}' LCL_PLATFORM=gtk2
 
 # Build Qt5Pas
 pushd lcl/interfaces/qt5/cbindings/
-    %{qmake_qt5}
-    %make_build
+	%{qmake_qt5}
+	%make_build
+popd
+
+# Build Qt6Pas
+pushd lcl/interfaces/qt6/cbindings/
+	%{qmake_qt6}
+	%make_build
 popd
 
 
@@ -307,34 +336,36 @@ make -C lazarus install INSTALL_PREFIX=%{buildroot}%{_prefix} _LIB=%{_lib}
 rm %{buildroot}%{_mandir}/man1/svn2revisioninc.1* || true
 
 desktop-file-install \
-        --dir %{buildroot}%{_datadir}/applications \
-        lazarus/install/%{name}.desktop
+	--dir %{buildroot}%{_datadir}/applications \
+	lazarus/install/%{name}.desktop
 
 install -d %{buildroot}%{_sysconfdir}/lazarus
 sed 's#__LAZARUSDIR__#%{_libdir}/%{name}#;s#__FPCSRCDIR__#%{_datadir}/fpcsrc#' \
-        lazarus/tools/install/linux/environmentoptions.xml \
-        > %{buildroot}%{_sysconfdir}/lazarus/environmentoptions.xml
+	lazarus/tools/install/linux/environmentoptions.xml \
+	> %{buildroot}%{_sysconfdir}/lazarus/environmentoptions.xml
 
 chmod 755 %{buildroot}%{_libdir}/%{name}/components/lazreport/tools/localize.sh
 
 install -m 755 -d %{buildroot}%{_metainfodir}
 install -m 644 %{SOURCE100} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
-# -- Install Qt5Pas
+# -- Install Qt5Pas and Qt6Pas
 
-pushd lazarus/lcl/interfaces/qt5/cbindings/
-    %make_install INSTALL_ROOT=%{buildroot}
-popd
+for QTVER in 5 6; do
+	pushd "lazarus/lcl/interfaces/qt${QTVER}/cbindings/"
+		%make_install INSTALL_ROOT=%{buildroot}
+	popd
 
-# Since we provide Qt5Pas as a standalone package, remove the .so files bundled in Lazarus dir
-# and replace them with symlinks to the standalone .so.
-for FILEPATH in %{buildroot}%{_libdir}/%{name}/lcl/interfaces/qt5/cbindings/libQt5Pas.so* ; do
-    FILENAME="$(basename "${FILEPATH}")"
-    ln -sf "%{_libdir}/${FILENAME}" "${FILEPATH}"
+	# Since we provide Qt?Pas as a standalone package, remove the .so files bundled in Lazarus dir
+	# and replace them with symlinks to the standalone .so.
+	for FILEPATH in "%{buildroot}%{_libdir}/%{name}/lcl/interfaces/qt${QTVER}/cbindings/libQt${QTVER}Pas.so"* ; do
+		FILENAME="$(basename "${FILEPATH}")"
+		ln -sf "%{_libdir}/${FILENAME}" "${FILEPATH}"
+	done
+
+	# Cannot be done earlier since "make install" expects the tmp/ directory to be present. Sigh.
+	rm -rf "%{buildroot}%{_libdir}/%{name}/lcl/interfaces/qt${QTVER}/cbindings/tmp/"
 done
-
-# Cannot be done earlier since "make install" expects the tmp/ directory to be present. Sigh.
-rm -rf %{buildroot}%{_libdir}/%{name}/lcl/interfaces/qt5/cbindings/tmp/
 
 
 %check
@@ -351,27 +382,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/%{name}/examples
 
 %license lazarus/COPYING.GPL.txt
-
-
-%files tools
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lazbuild
-%{_libdir}/%{name}/packager/
-%{_libdir}/%{name}/tools/
-
-%{_bindir}/lazbuild
-%{_bindir}/lazres
-%{_bindir}/lrstolfm
-%{_bindir}/updatepofiles
-
-%dir %{_sysconfdir}/lazarus
-%config(noreplace) %{_sysconfdir}/lazarus/environmentoptions.xml
-
-%license lazarus/COPYING.GPL.txt
-%{_mandir}/man1/lazbuild.1*
-%{_mandir}/man1/lazres.1*
-%{_mandir}/man1/lrstolfm.1*
-%{_mandir}/man1/updatepofiles.1*
 
 # -- IDE files
 
@@ -391,6 +401,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %exclude %{_libdir}/%{name}/packager
 %exclude %{_libdir}/%{name}/tools
 
+# Exclude some files that belong in the ide/ directory
+# but are actually required by lazbuild to run properly.
+%exclude %{_libdir}/%{name}/ide/packages/ideconfig
+%exclude %{_libdir}/%{name}/ide/packages/idedebugger
+
 %{_bindir}/lazarus-ide
 %{_bindir}/startlazarus
 %{_datadir}/pixmaps/lazarus.png
@@ -406,11 +421,37 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_mandir}/man1/lazarus-ide.1*
 %{_mandir}/man1/startlazarus.1*
 
+# -- Tools files
+
+%files tools
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/lazbuild
+%{_libdir}/%{name}/packager/
+%{_libdir}/%{name}/tools/
+
+%dir %{_libdir}/%{name}/ide/
+%dir %{_libdir}/%{name}/ide/packages/
+%{_libdir}/%{name}/ide/packages/ideconfig
+%{_libdir}/%{name}/ide/packages/idedebugger
+
+%{_bindir}/lazbuild
+%{_bindir}/lazres
+%{_bindir}/lrstolfm
+%{_bindir}/updatepofiles
+
+%dir %{_sysconfdir}/lazarus
+%config(noreplace) %{_sysconfdir}/lazarus/environmentoptions.xml
+
+%license lazarus/COPYING.GPL.txt
+%{_mandir}/man1/lazbuild.1*
+%{_mandir}/man1/lazres.1*
+%{_mandir}/man1/lrstolfm.1*
+%{_mandir}/man1/updatepofiles.1*
+
 # -- LCL files
 
 # Helper macro to reduce repetitions (lcl, basecomponents)
 %define lcl_base_files(n:) %{expand:
-	%{*} %{_libdir}/%{name}/components/*/design/lib/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/lib/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/units/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/lcl/interfaces/%{-n*}/
@@ -419,6 +460,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 # Some files are not present for nogui (bigidecomponents)
 %define lcl_extra_files(n:) %{expand:
+	%{*} %{_libdir}/%{name}/components/*/design/lib/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/design/units/*-linux/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/include/%{-n*}/
 	%{*} %{_libdir}/%{name}/components/*/include/intf/%{-n*}/
@@ -451,6 +493,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %lcl_extra_files -n qt %exclude
 %lcl_base_files  -n qt5 %exclude
 %lcl_extra_files -n qt5 %exclude
+%lcl_base_files  -n qt6 %exclude
+%lcl_extra_files -n qt6 %exclude
 
 # -- LCL widgetsets
 
@@ -473,6 +517,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %lcl_base_files -n qt5
 %lcl_extra_files -n qt5
 
+%files lcl-qt6
+%lcl_base_files -n qt6
+%lcl_extra_files -n qt6
+
 # -- Qt5pas
 
 %files -n qt5pas
@@ -483,8 +531,24 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %files -n qt5pas-devel
 %{_libdir}/libQt5Pas.so
 
+# -- Qt6pas
+
+%files -n qt6pas
+%license lazarus/lcl/interfaces/qt6/cbindings/COPYING.TXT
+%doc lazarus/lcl/interfaces/qt6/cbindings/README.TXT
+%{_libdir}/libQt6Pas.so.*
+
+%files -n qt6pas-devel
+%{_libdir}/libQt6Pas.so
+
 
 %changelog
+* Wed Feb 07 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-1
+- Update to v3.0.0
+- Add qt6pas, qt6pas-devel and lazarus-lcl-qt6 packages
+- Drop Patch2 (GTK3 fixes - fixed upstream)
+- Drop workaround for building Qt on non-x86 platforms (fixed upstream)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -333,28 +333,27 @@ fi
 
 
 %changelog
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org>
+* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org>
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-%changelog
-* Mon Nov 27 2023 Remi Collet <remi@remirepo.net> - 1.10.14-1
+* Mon Nov 27 2023 Remi Collet <remi@remirepo.net> - 1:1.10.14-1
 - update to 1.10.14
 - drop patches merged upstream
 
-* Thu Nov 23 2023 Remi Collet <remi@remirepo.net> - 1.10.13-7
+* Thu Nov 23 2023 Remi Collet <remi@remirepo.net> - 1:1.10.13-7
 - fix more deprecations from
   https://github.com/pear/pear-core/pull/127
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.10.13-5
+* Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1:1.10.13-5
 - fix PHP 8.2 deprecations using patch from
   https://github.com/pear/pear-core/pull/124
 - use SPDX license IDs
@@ -368,7 +367,7 @@ fi
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Wed Aug 11 2021 Remi Collet <remi@remirepo.net> - 1.10.13-1
+* Wed Aug 11 2021 Remi Collet <remi@remirepo.net> - 1:1.10.13-1
 - update to 1.10.13
 
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.12-10
@@ -398,12 +397,12 @@ fi
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.10.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Mon Apr 20 2020 Remi Collet <remi@remirepo.net> - 1.10.12-1
+* Mon Apr 20 2020 Remi Collet <remi@remirepo.net> - 1:1.10.12-1
 - update PEAR to 1.10.12
 - update XML_Util to 1.4.5
 - drop patch merged upstream
 
-* Tue Apr 14 2020 Remi Collet <remi@remirepo.net> - 1.10.11-1
+* Tue Apr 14 2020 Remi Collet <remi@remirepo.net> - 1:1.10.11-1
 - update to 1.10.11
 - drop patch merged upstream
 
@@ -890,5 +889,5 @@ fi
 * Thu Dec  1 2005 Joe Orton <jorton@redhat.com> 1:1.4.5-2
 - add virtual provides (#173806) 
 
-* Wed Nov 23 2005 Joe Orton <jorton@redhat.com> 1.4.5-1
+* Wed Nov 23 2005 Joe Orton <jorton@redhat.com> 1:1.4.5-1
 - initial build (Epoch: 1 to allow upgrade from php-pear-5.x)

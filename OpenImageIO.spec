@@ -2,8 +2,8 @@
 %global sover 2.5
 
 Name:           OpenImageIO
-Version:        2.5.6.0
-Release:        5%{?dist}
+Version:        2.5.7.0
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -13,6 +13,8 @@ URL:            https://openimageio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v%{version}/%{name}-%{version}.tar.gz
 # Images for test suite
 #Source1:        https://github.com/OpenImageIO/oiio-images/archive/master/oiio-images.tar.gz
+
+Patch0:         https://patch-diff.githubusercontent.com/raw/AcademySoftwareFoundation/OpenImageIO/pull/4143.patch
 
 # OpenVDB no longer build for i686
 ExcludeArch:    i686
@@ -209,6 +211,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Feb 07 2024 Richard Shaw <hobbes1069@gmail.com> - 2.5.7.0-1
+- Update to 2.5.7.0.
+
 * Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 2.5.6.0-5
 - Rebuild for opencv 4.9.0
 

@@ -1,6 +1,6 @@
 Name:           xsnow
-Version:        3.7.6
-Release:        3%{?dist}
+Version:        3.7.7
+Release:        1%{?dist}
 Summary:        Let it snow on your desktop
 
 License:        GPLv3+
@@ -32,6 +32,9 @@ Xsnow runs in GNOME, KDE, FVWM and desktops that are derived from those.
 
 # Fix Makefile
 sed -i 's!$(exec_prefix)/games!$(exec_prefix)/bin!' src/Makefile.in
+
+# Fix broken disable-selfrep
+sed -i 's!	tarfile_inc =!tarfile_inc =!' src/Makefile.in
 
 
 %build
@@ -68,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Feb 04 2024 Andrea Musuruane <musuruan@gmail.com> - 3.7.7-1
+- Updated to new upstream release
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

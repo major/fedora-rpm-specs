@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        6.22.2
+Version:        24.2.0
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
@@ -66,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Thu Feb 08 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:24.2.0-1
+- Update to 24.2.0 version (#2263278)
+
 * Tue Feb 06 2024 Parag Nemade <pnemade AT redhat DOT com> - 1:6.22.2-2
 - Remove the relaxed requests module requirement from %%prep section
 

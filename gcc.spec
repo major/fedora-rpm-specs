@@ -1,5 +1,5 @@
-%global DATE 20240207
-%global gitrev 0e40195e10a1c63f6b20ea9db0356ed98039480b
+%global DATE 20240208
+%global gitrev b006f0561c0b004822f600ad0ea9a2b90fb29d7f
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.5%{?dist}
+Release: %{gcc_release}.6%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3595,6 +3595,11 @@ end
 %endif
 
 %changelog
+* Thu Feb  8 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.6
+- update from trunk
+  - PRs c++/113814, c/113776, target/113711, target/113733, target/113824,
+	testsuite/113710, tree-optimization/113735, tree-optimization/113808
+
 * Wed Feb  7 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.5
 - update from trunk
   - PRs analyzer/113253, analyzer/113509, analyzer/113654, c++/94231,

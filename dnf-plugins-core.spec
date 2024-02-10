@@ -1,6 +1,6 @@
-%{?!dnf_lowest_compatible: %global dnf_lowest_compatible 4.11.0}
+%{?!dnf_lowest_compatible: %global dnf_lowest_compatible 4.19.0}
 %global dnf_plugins_extra 2.0.0
-%global hawkey_version 0.64.0
+%global hawkey_version 0.73.0
 %global yum_utils_subpackage_name dnf-utils
 %if 0%{?rhel} > 7
 %global yum_utils_subpackage_name yum-utils
@@ -33,8 +33,8 @@
 %endif
 
 Name:           dnf-plugins-core
-Version:        4.4.4
-Release:        3%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
@@ -812,6 +812,10 @@ ln -sf %{_mandir}/man1/%{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/
 %endif
 
 %changelog
+* Thu Feb 08 2024 Jan Kolarik <jkolarik@redhat.com> - 4.5.0-1
+- Update to 4.5.0
+- Request filelists metadata for plugins needing that
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

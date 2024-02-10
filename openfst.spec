@@ -10,6 +10,10 @@ URL:            http://www.openfst.org/
 Source0:        http://www.openfst.org/twiki/pub/FST/FstDownload/%{name}-%{version}.tar.gz
 Source1:        http://www.openfst.org/twiki/pub/Contrib/OpenFstBashComp/openfstbc
 
+# Pre-release patch following email correspondence with developers.
+# Should be in next official release.
+Patch0:         openfst-1.8.3-gcc-fix.patch
+
 BuildRequires: make
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
@@ -55,7 +59,7 @@ This package contains command-line tools that give access to OpenFst
 functionality.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags} -fno-strict-aliasing"

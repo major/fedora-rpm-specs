@@ -78,8 +78,8 @@
 %global ds_version 1.4.3.16-12
 %global selinux_policy_version 3.14.3-107
 %else
-# DNA interval enabled
-%global ds_version 2.0.5-1
+# version supporting LMDB and lib389.cli_ctl.dblib.run_dbscan utility
+%global ds_version 2.1.0
 %global selinux_policy_version 38.1.1-1
 %endif
 
@@ -200,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        3%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -229,6 +229,8 @@ Patch0009:      0005-pyca-42.0.0-support.patch
 Patch0010:      0004-ipa-cli-krb5-crash.patch
 Patch0011:      0003-kdb-memory-leak.patch
 Patch0012:      0010-support-samba-4.20.patch
+Patch0013:      freeipa-support-389-ds-with-lmdb-backup.patch
+Patch0014:      freeipa-support-389-ds-with-lmdb-restore.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1749,6 +1751,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 08 2024 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.1-3
+- Support 389-ds with lmdb backend
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-2
 - Rebuild against Samba 4.20rc1
 - Fix memory leak in Kerberos KDC driver

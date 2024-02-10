@@ -44,6 +44,11 @@ Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
 # which solves the problems reported with #3329 alone
 Patch: 0001-modified-3329.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2261842
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3539
+# fixes failure to show anything on virtio-vga without 3D acceleration
+Patch: 0001-kms-cursor-manager-Create-CrtcStateImpls-for-all-act.patch
+
 Patch: fix-i686-build.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0

@@ -28,6 +28,9 @@ Patch2:         skip-test_passthrough.patch
 Patch3:         test_response-no-within.patch
 # https://github.com/gabrielfalcao/HTTPretty/issues/457
 Patch4:         test_handle_slashes.patch
+# https://github.com/gabrielfalcao/HTTPretty/pull/479/files
+# Fixes RHBZ#2261569
+Patch5:         chunked_requests_handled_by_urllib3.patch  
 
 BuildArch:      noarch
 

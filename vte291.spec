@@ -16,7 +16,7 @@ Release:        3%{?dist}
 Summary:        GTK+ 3 terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
-License:        GPL-3.0-or-later AND LGPL-3.0-or-later and MIT-open-group AND CC-BY-4.0
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
 Source0:        https://download.gnome.org/sources/vte/0.74/vte-%{version}.tar.xz
@@ -82,7 +82,7 @@ Summary:        Development files for GTK+ 3 %{name}
 
 # vte-2.91 is generated from GPLv3+ sources, while the public headers are
 # LGPLv3+
-License:        GPLv3+ and LGPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -95,7 +95,7 @@ Summary:        Development files for GTK 4 %{name}
 
 # vte-2.91 is generated from GPLv3+ sources, while the public headers are
 # LGPLv3+
-License:        GPLv3+ and LGPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 Requires:       %{name}-gtk4%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
@@ -110,7 +110,7 @@ developing GTK 4 applications that use %{name}.
 # of the multilib packages (i686 + x86_64) as the replacement.
 %package -n     vte-profile
 Summary:        Profile script for VTE terminal emulator library
-License:        GPLv3+
+License:        GPL-3.0-or-later
 # vte.sh was previously part of the vte3 package
 Conflicts:      vte3 < 0.36.1-3
 

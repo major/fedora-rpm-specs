@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   b96c049bb1bb7f305bc170e4d181baa3bc691de3
+%global github_commit   46cfab2d892315110c7d40f97679bb03f0e67c3a
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20231222
+%global github_date     20240208
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -73,7 +73,7 @@
 # compile-check-all test fails on the in-tree critic module if we leave
 # that out), ssh-keygen is in openssh in Fedora (openssh-common in SUSE)
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq openssh os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server
+%define test_requires %common_requires %main_requires %python_scripts_requires %worker_requires ShellCheck curl jq openssh os-autoinst-devel perl(App::cpanminus) perl(Perl::Critic) perl(Test::Exception) perl(Test::Fatal) perl(Test::MockModule) perl(Test::MockObject) perl(Test::Mojo) perl(Test::Most) perl(Test::Output) perl(Test::Pod) perl(Test::Strict) perl(Test::Warnings) >= 0.029 postgresql-server shfmt
 %ifarch x86_64
 %define qemu qemu qemu-kvm
 %else
@@ -98,7 +98,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -739,6 +739,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Feb 08 2024 Adam Williamson <awilliam@redhat.com> - 4.6^20240208git46cfab2-1
+- Update to latest upstream git, resync spec
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20231222gitb96c049-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

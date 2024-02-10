@@ -33,6 +33,9 @@
 # For testing caffe2
 %bcond_with caffe2
 
+# For testing distributed
+%bcond_with distributed
+
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
 Release:        %autorelease
@@ -110,7 +113,9 @@ BuildRequires:  FP16-devel
 BuildRequires:  fxdiv-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
+%if %{with distributed}
 BuildRequires:  gloo-devel
+%endif
 BuildRequires:  ninja-build
 BuildRequires:  onnx-devel
 BuildRequires:  openblas-devel
@@ -149,6 +154,9 @@ BuildRequires:  hipsparse-devel
 BuildRequires:  hipsolver-devel
 BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
+%if %{with distributed}
+BuildRequires:  rccl-devel
+%endif
 BuildRequires:  rocprim-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -287,23 +295,12 @@ rm caffe2/mobile/contrib/libopencl-stub/include/CL/*.hpp
 # Manually set this hardening flag
 export CMAKE_EXE_LINKER_FLAGS=-pie
 
-%if %{with caffe2}
-export BUILD_CAFFE2=ON
-export INTERN_BUILD_MOBILE=OFF
-export USE_LITE_PROTO=ON
-%endif
 export BUILD_CUSTOM_PROTOBUF=OFF
 export BUILD_SHARED_LIBS=ON
-%if %{with test}
-export BUILD_TEST=ON
-%else
-export BUILD_TEST=OFF
-%endif
 export CMAKE_BUILD_TYPE=RelWithDebInfo
 export CMAKE_FIND_PACKAGE_PREFER_CONFIG=ON
 export CAFFE2_LINK_LOCAL_PROTOBUF=OFF
 export USE_CUDA=OFF
-export USE_DISTRIBUTED=OFF
 export USE_FBGEMM=OFF
 export USE_GOLD_LINKER=OFF
 export USE_ITT=OFF
@@ -312,14 +309,32 @@ export USE_LITE_INTERPRETER_PROFILER=OFF
 export USE_MKLDNN=OFF
 export USE_NNPACK=OFF
 export USE_NUMPY=ON
+
+export USE_PYTORCH_QNNPACK=OFF
+export USE_QNNPACK=OFF
+export USE_SYSTEM_LIBS=ON
+export USE_TENSORPIPE=OFF
+export USE_XNNPACK=ON
+
+%if %{with caffe2}
+export BUILD_CAFFE2=ON
+export INTERN_BUILD_MOBILE=OFF
+export USE_LITE_PROTO=ON
+%endif
+
+%if %{with distributed}
+export USE_DISTRIBUTED=ON
+%else
+export USE_DISTRIBUTED=OFF
+%endif
+
+
 %if %{with openmp}
 export USE_OPENMP=ON
 %else
 export USE_OPENMP=OFF
 %endif
 
-export USE_PYTORCH_QNNPACK=OFF
-export USE_QNNPACK=OFF
 %if %{with rocm}
 export USE_ROCM=ON
 export USE_NCCL=OFF
@@ -330,9 +345,12 @@ export DEVICE_LIB_PATH=/usr/lib/clang/17/amdgcn/bitcode
 %else
 export USE_ROCM=OFF
 %endif
-export USE_SYSTEM_LIBS=ON
-export USE_TENSORPIPE=OFF
-export USE_XNNPACK=ON
+
+%if %{with test}
+export BUILD_TEST=ON
+%else
+export BUILD_TEST=OFF
+%endif
 
 # Why we are using py3_ vs pyproject_
 #

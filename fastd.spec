@@ -10,6 +10,7 @@ Summary:        Fast and secure tunneling daemon
 License:        BSD-2-Clause AND BSD-3-Clause AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Source1:        %{name}-tmpfiles.conf
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -27,6 +28,7 @@ BuildRequires:  libsodium-devel
 BuildRequires:  libuecc-devel
 BuildRequires:  openssl-devel
 BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 
 Requires(post):   systemd
 Requires(preun):  systemd
@@ -60,6 +62,8 @@ fastd is a secure tunneling daemon with some unique features:
 
 
 %build
+# These use special features on x86 and build may fail while trying to detect
+# their presence on non-x86 builders
 %ifnarch %{ix86} x86_64
   %meson \
     -Dcipher_salsa2012_xmm=disabled \
@@ -76,12 +80,17 @@ pushd doc
   make text
 popd
 
+
 %install
 %meson_install
 
-install -Dpm 0644 doc/examples/fastd@.service $RPM_BUILD_ROOT/%{_unitdir}/%{name}@.service
-install -Dpm 0644 doc/fastd.1 $RPM_BUILD_ROOT/%{_mandir}/man1/%{name}.1
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}
+install -Dpm 0644 doc/examples/fastd@.service %{buildroot}%{_unitdir}/%{name}@.service
+install -Dpm 0644 doc/fastd.1 %{buildroot}%{_mandir}/man1/%{name}.1
+install -d %{buildroot}%{_sysconfdir}/%{name}
+
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -dm 0755 %{buildroot}/run/%{name}
 
 
 %post
@@ -98,9 +107,11 @@ install -d $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}
 %doc README.md doc/build/text/*
 %license COPYRIGHT
 %dir %{_sysconfdir}/%{name}
+%dir /run/%{name}
 %{_mandir}/man1/%{name}.1.gz
 %{_unitdir}/%{name}@.service
 %{_bindir}/%{name}
+%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog

@@ -43,7 +43,6 @@ export LDFLAGS="-X github.com/opentofu/opentofu/version.dev=no"
 %gobuild -o %{gobuilddir}/bin/tofu %{goipath}/cmd/tofu
 
 %install
-%gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
@@ -63,8 +62,6 @@ done
 %doc SECURITY.md README.md CHANGELOG.md CONTRIBUTING.md TSC_SUMMARY.md
 %doc WEEKLY_UPDATES.md
 %{_bindir}/tofu
-
-%gopkgfiles
 
 %changelog
 %autochangelog

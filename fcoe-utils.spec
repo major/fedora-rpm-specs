@@ -7,7 +7,7 @@
 
 Name:               fcoe-utils
 Version:            1.0.34
-Release:            8.git%{shortcommit0}%{?dist}
+Release:            9.git%{shortcommit0}%{?dist}
 Summary:            Fibre Channel over Ethernet utilities
 License:            GPL-2.0-only
 URL:                http://www.open-fcoe.org
@@ -28,6 +28,9 @@ Requires(preun):    systemd
 Requires(postun):   systemd
 
 Patch1: 0001-fcoemon-add-snprintf-string-precision-modifiers-in-f.patch
+
+# https://github.com/openSUSE/fcoe-utils/pull/25
+Patch2: 0002-Don-t-attempt-to-memcpy-zero-bytes.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -83,6 +86,9 @@ done
 %{_libexecdir}/fcoe/
 
 %changelog
+* Tue Feb 06 2024 Stephen Gallagher <sgallagh@redhat.com> - 1.0.34-9.gitb233050
+- FTBFS: Don't attempt to memcpy() zero bytes
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.34-8.gitb233050
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

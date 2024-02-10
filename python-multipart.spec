@@ -2,7 +2,7 @@
 python-multipart is an Apache2 licensed streaming multipart parser for Python.}
 
 Name:           python-multipart
-Version:        0.0.6
+Version:        0.0.7
 Release:        %autorelease
 Summary:        A streaming multipart parser for Python
 License:        Apache-2.0
@@ -38,7 +38,7 @@ BuildRequires:  python3-pyyaml
 
 %install
 %pyproject_install
-%pyproject_save_files multipart
+%pyproject_save_files -l multipart
 
 
 %check

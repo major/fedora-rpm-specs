@@ -5,11 +5,11 @@
 # https://bitbucket.org/creachadair/shell
 %global goipath         bitbucket.org/creachadair/shell
 %global forgeurl        https://bitbucket.org/creachadair/shell
-Version:                0.0.7
-%global commit          9479d77f2b7f1037f17e7eaac680bf9718c28499
+Version:                0.0.8
+%global commit          e395e2d7c36a2a3a0e9d23cb294f07845b8d87f0
 %global distprefix      %{nil}
 
-%gometa
+%gometa -L
 
 %global common_description %{expand:
 Package Shell supports splitting and joining of shell command strings.

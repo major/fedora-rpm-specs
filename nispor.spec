@@ -81,19 +81,24 @@ Requires:       nispor%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 This package contains C binding of %{name}.
 
 %prep
-%autosetup -n %{name}-%{version_no_tilde} -p1
+%autosetup -n %{name}-%{version_no_tilde} -p1 %{?rhel:-a1}
 # Drop the upstream fix on SONAME as fedora %cargo_xxx marcos override it,
 # we use patchelf to set the SONAME.
 rm .cargo/config.toml
 
 %if 0%{?rhel}
-%cargo_prep -V 1
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 pushd src/python
 %py3_build
@@ -127,6 +132,10 @@ patchelf --set-soname libnispor.so.1 \
 %files
 %doc AUTHORS CHANGELOG DEVEL.md README.md
 %license LICENSE
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %{_bindir}/npc
 %{_libdir}/libnispor.so.*
 

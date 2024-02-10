@@ -1,6 +1,6 @@
 Summary: A tool for monitoring the progress of data through a pipeline
 Name: pv
-Version: 1.8.0
+Version: 1.8.5
 Release: %autorelease
 License: Artistic 2.0
 Source0: http://www.ivarch.com/programs/sources/%{name}-%{version}.tar.gz

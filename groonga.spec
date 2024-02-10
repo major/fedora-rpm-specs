@@ -36,8 +36,8 @@ BuildRequires:  openssl-devel
 
 BuildRequires:  systemd-rpm-macros
 
-Requires:       %{name}-libs = %{version}-%{release}
-Requires:       %{name}-plugin-suggest = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
+Requires:       %{name}-plugin-suggest%{?isa} = %{version}-%{release}
 
 Provides:       bundled(onigmo)
 
@@ -56,7 +56,7 @@ This package contains the libraries for Groonga.
 
 %package        devel
 Summary:        Development files for Groonga
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 
 %description    devel
 This package contains libraries and header files for Groonga.
@@ -64,7 +64,7 @@ This package contains libraries and header files for Groonga.
 %package        server-common
 Summary:        Common files for the Groonga server and the Groonga HTTP server
 License:        LGPL-2.1-only
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?isa} = %{version}-%{release}
 Requires(pre):  shadow-utils
 
 %description    server-common
@@ -73,7 +73,7 @@ This package provides common settings for server use.
 %package        server-gqtp
 Summary:        Groonga GQTP server
 License:        LGPL-2.1-only
-Requires:       %{name}-server-common = %{version}-%{release}
+Requires:       %{name}-server-common%{?isa} = %{version}-%{release}
 Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun):systemd
@@ -84,7 +84,7 @@ This package contains the Groonga GQTP server.
 %package        server-http
 Summary:        Groonga HTTP server
 License:        LGPL-2.1-only AND BSD-3-Clause
-Requires:       %{name}-server-common = %{version}-%{release}
+Requires:       %{name}-server-common%{?isa} = %{version}-%{release}
 Requires(pre):  shadow-utils
 Requires(post): systemd
 Requires(preun):systemd
@@ -94,21 +94,21 @@ This package contains the Groonga HTTP server.
 
 %package        plugin-tokenizer-mecab
 Summary:        MeCab tokenizer for Groonga
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 
 %description    plugin-tokenizer-mecab
 This package contains MeCab tokenizer for Groonga.
 
 %package        plugin-suggest
 Summary:        Suggest plugin for Groonga
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 
 %description    plugin-suggest
 This package contains suggest plugin for Groonga.
 
 %package        plugin-token-filters
 Summary:        Token filters plugin for Groonga
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 
 %description    plugin-token-filters
 Token filters plugins for Groonga, which provides stop word and stemming
@@ -116,7 +116,7 @@ features.
 
 %package        munin-plugins
 Summary:        Munin plugins for Groonga
-Requires:       %{name}-libs = %{version}-%{release}
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 Requires:       munin-node
 Requires(post): munin-node
 
@@ -133,7 +133,7 @@ This package contains documentation for Groonga.
 %package        examples
 Summary:        Examples for Groonga
 License:        LGPL-2.1-only
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?isa} = %{version}-%{release}
 
 %description examples
 This package contains the examples for Groonga.
@@ -141,7 +141,7 @@ This package contains the examples for Groonga.
 %package        tools
 Summary:        Tools for Groonga
 License:        LGPL-2.1-only
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?isa} = %{version}-%{release}
 
 %description tools
 This package contains the tools for Groonga.

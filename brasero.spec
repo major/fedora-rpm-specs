@@ -10,6 +10,12 @@
 %bcond_without dvdrwtools
 %endif
 
+# FTBFS with GCC 14 -Werror=incompatible-pointer-types
+# https://gitlab.gnome.org/GNOME/brasero/-/issues/370
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%global build_type_safety_c 2
+%endif
+
 Name:      brasero
 Version:   3.12.3
 Release:   8%{?dist}

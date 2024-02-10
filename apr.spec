@@ -12,7 +12,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.7.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -30,7 +30,6 @@ Patch1: apr-1.7.2-libdir.patch
 Patch2: apr-1.2.7-pkgconf.patch
 Patch3: apr-1.7.0-deepbind.patch
 Patch4: apr-1.7.2-autoconf.patch
-Patch5: apr-1.7.3-lmdb-support.patch
 BuildRequires: gcc, autoconf, libtool, libuuid-devel, python3
 BuildRequires: make
 
@@ -52,12 +51,7 @@ Apache Portable Runtime (APR) is to provide a free library of
 C data structures and routines.
 
 %prep
-%setup -q
-%patch1 -p1 -b .libdir
-%patch2 -p1 -b .pkgconf
-%patch3 -p1 -b .deepbind
-%patch4 -p1 -b .autoconf-2-71
-%patch5 -p1 -b .lmdb-support
+%autosetup -p1
 
 %build
 # regenerate configure script etc.
@@ -67,15 +61,12 @@ C data structures and routines.
 # does not use -lrt).
 export ac_cv_search_shm_open=no
 
-# Forcibly disable sctp protocol support
-export apr_cv_sctp=no
-
 %configure \
         --includedir=%{_includedir}/apr-%{aprver} \
         --with-installbuilddir=%{_libdir}/apr-%{aprver}/build \
         --with-devrandom=/dev/urandom \
-        --disable-static
-        --enable-maintainer-mode --with-lmdb --with-dbm=lmdb
+        --disable-static \
+        --disable-sctp
 %{make_build}
 
 %install
@@ -148,6 +139,10 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Feb  8 2024 Joe Orton <jorton@redhat.com> - 1.7.3-8
+- use autosetup
+- always disable SCTP support at build time
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

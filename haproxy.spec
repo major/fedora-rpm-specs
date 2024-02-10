@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.8.3
-Release:        3%{?dist}
+Version:        2.9.4
+Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPL-2.0-or-later
@@ -127,6 +127,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Thu Feb 08 2024 Ryan O'Hara <rohara@redhat.com> - 2.9.4-1
+- Update to 2.9.4 (#2250339)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

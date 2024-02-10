@@ -71,6 +71,9 @@ BuildRequires:  gcc-c++
 
 # For check-null-licenses
 BuildRequires:  python3-devel
+# For additional license auditing:
+BuildRequires:  askalono-cli
+BuildRequires:  licensecheck
 
 %description
 This project is a port of http_parser to TypeScript. llparse is used to
@@ -145,6 +148,70 @@ popd
 # already audited it by hand. This reduces the chance of accidentally including
 # code with license problems in the source RPM.
 %{python3} '%{SOURCE3}' --exceptions '%{SOURCE4}' --with dev node_modules_dev
+
+# Ensure we have checked all of the licenses in the dev dependency bundle for
+# allowability.
+pattern="${pattern-}${pattern+|}UNKNOWN|(Apache|Python) License 2\\.0"
+pattern="${pattern-}${pattern+|}(MIT|ISC|BSD [023]-Clause) License"
+pattern="${pattern-}${pattern+|}MIT License and/or X11 License"
+pattern="${pattern-}${pattern+|}GNU General Public License"
+# The CC0-1.0 license is *not allowed* in Fedora for code, but the
+# binary-search dev dependency falls under the following blanket exception:
+#
+#   Existing uses of CC0-1.0 on code files in Fedora packages prior to
+#   2022-08-01, and subsequent upstream versions of those files in those
+#   packages, continue to be allowed. We encourage Fedora package maintainers
+#   to ask upstreams to relicense such files.
+#
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
+#
+# This can be verified by checking out commit
+# f460573ec4dc41968e600a96aaaf03a167b236bf (2021-12-16) from dist-git for this
+# package, obtaining the source llhttp-6.0.6-nm-dev.tgz, and observing that
+# llhttp-6.0.6/node_modules_dev/binary-search/package.json shows the CC0-1.0
+# license.
+pattern="${pattern-}${pattern+|}binary-search/package.json: (\*No copyright\* )?Creative Commons CC0 1\.0"
+# The license BSD-3-Clause-Clear appears in sprintf-js/bower.json. This license
+# is on the not-allowed list, but it is not real: sprintf-js/package.json and
+# sprintf-js/LICENSE have the correct (and allowed) BSD-3-Clause license, and
+# upstream confirmed in “Licensing Question”
+# https://github.com/alexei/sprintf.js/issues/211 that the appearance of
+# BSD-3-Clause-Clear in this file was a mere typo.
+pattern="${pattern-}${pattern+|}sprintf-js/bower.json: (\*No copyright\* )?BSD 3-Clause Clear License"
+
+if licensecheck -r node_modules_dev |
+    grep -vE "(${pattern})( \\[generated file\\])?\$" ||
+  ! askalono crawl node_modules_dev | awk '
+      $1 == "License:" { license = $0; next }
+      $1 == "Score:" {
+        if ( \
+          license ~ /: (MIT|ISC|0BSD|BSD-[23]-Clause) \(/ || \
+          license ~ /: (Apache-2\.0|Python-2\.0\.1) \(/ \
+        ) {
+          next # license is OK
+        }
+        # license needs auditing
+        problem = 1
+        print file; print license; print $0
+        next
+      }
+      { file = $0 }
+      END { exit problem }'
+
+then
+  cat 1>&2 <<'EOF'
+=================================================================
+Possible new license(s) found in dev dependency bundle!
+
+While these do not contribute to License, they must appear in:
+https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+
+Please audit them and modify the patterns representing expected
+licenses in the spec file!
+=================================================================
+EOF
+  exit 1
+fi
 
 # http-loose-request.c:7205:20: error: invalid conversion from 'void*' to
 #     'const unsigned char*' [-fpermissive]

@@ -5,8 +5,8 @@
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
@@ -107,6 +107,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Thu Feb 08 2024 Kalev Lember <klember@redhat.com> - 1.4.1-1
+- Update to 1.4.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

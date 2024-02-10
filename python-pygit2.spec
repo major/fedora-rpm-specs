@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.13.3
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
@@ -27,10 +27,6 @@ the core of Git.
 Summary:        Python 3 bindings for libgit2
 %{?python_provide:%python_provide python3-%{pkgname}}
 BuildRequires:  python3-pytest
-# This version of cffi is patched for Python >= 3.12.
-# Remove when cffi >= 1.16.0 is available on all releases with Python 3.12.
-BuildRequires:  python3-cffi >= 1.15.1-5
-Requires:       python3-cffi >= 1.15.1-5
 
 %description -n python3-%{pkgname}
 pygit2 is a set of Python bindings to the libgit2 library, which implements
@@ -81,7 +77,7 @@ rm -f pygit2/__init__.py
 
 %files -n python3-%{pkgname}
 %license COPYING
-%doc README.rst
+%doc README.md
 %{python3_sitearch}/%{pkgname}-*.dist-info/
 %{python3_sitearch}/%{pkgname}/
 

@@ -197,11 +197,11 @@
 %global bundlelibaom 1
 %global bundlelibavif 1
 %global bundledav1d 1
+%global bundlesnappy 1
 
 # Fedora's Python 2 stack is being removed, we use the bundled Python libraries
 # This can be revisited once we upgrade to Python 3
 %global bundlepylibs 0
-%global bundlelibevent 0
 %global bundlelibxslt 0
 %global bundleflac 0
 
@@ -231,9 +231,9 @@
 %global bundlecrc32c 1
 %global bundledoubleconversion 1
 %global bundlelibsecret 1
-%global bundlesnappy 1
 %global bundlelibXNVCtrl 1
 %global bundlelibxml 1
+%global bundlelibevent 1
 %else
 %if 0%{?fedora} > 38 || 0%{?rhel} > 9
 %global bundlebrotli 0
@@ -261,9 +261,9 @@
 %endif
 %global bundledoubleconversion 0
 %global bundlelibsecret 0
-%global bundlesnappy 0
 %global bundlelibXNVCtrl 0
 %global bundlelibxml 0
+%global bundlelibevent 0
 %endif
 
 ### From 2013 until early 2021, Google permitted distribution builds of
@@ -1065,7 +1065,9 @@ udev.
 %endif
 
 %if ! %{bundlelibxml}
+%if 0%{?fedora} && 0%{?fedora} < 40 || 0%{?rhel} && 0%{?rhel} < 10
 %patch -P90 -p1 -b .system-libxml
+%endif
 %endif
 
 %if ! %{bundleopus}
@@ -1284,7 +1286,7 @@ CHROMIUM_CORE_GN_DEFINES=""
 # using system toolchain
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
-CHROMIUM_CORE_GN_DEFINES+=' is_debug=false'
+CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_goma=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
@@ -1392,7 +1394,7 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_v4l2_codec=true'
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
-CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true'
+CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true rtc_link_pipewire=true'
 %endif
 
 %if ! %{bundlelibjpeg}

@@ -1,6 +1,6 @@
 Name:		stalld
 Version:	1.19
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -14,7 +14,7 @@ BuildRequires:	systemd-rpm-macros
 
 Requires:	systemd
 
-%ifnarch i686 s390x
+%ifnarch i686
 BuildRequires:	bpftool
 BuildRequires:	clang
 BuildRequires:	libbpf-devel

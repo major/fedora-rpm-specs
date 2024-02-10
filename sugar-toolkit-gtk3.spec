@@ -1,15 +1,14 @@
 %undefine _hardened_build
 
 Name:    sugar-toolkit-gtk3
-Version: 0.120
-Release: 7%{?dist}
+Version: 0.121
+Release: 1%{?dist}
 Summary: Sugar toolkit GTK+ 3
 License: LGPLv2+
 URL:     http://wiki.laptop.org/go/Sugar
 
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
 Source1: macros.sugar
-Patch0: sugar-toolkit-gtk3-c99.patch
 
 BuildRequires: make
 BuildRequires: alsa-lib-devel
@@ -33,7 +32,7 @@ Requires: python3-decorator
 Requires: gettext
 Requires: sugar-datastore
 Requires: unzip
-Requires: webkit2gtk3
+Requires: webkit2gtk4.1
 
 %description
 Sugar is the core of the OLPC Human Interface. The toolkit provides
@@ -94,6 +93,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Tue Feb 06 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.121-1
+- New Release 0.121
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

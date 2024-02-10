@@ -9,13 +9,6 @@
 %bcond_with nasm
 %endif
 
-# Only build amrnb/amrwbdec on fedora
-%if 0%{?fedora}
-%bcond_without amr
-%else
-%bcond_with amr
-%endif
-
 # RHEL 10 will provide Qt 6 and drop Qt 5
 %if 0%{?rhel} >= 10
 %bcond_with qt5
@@ -34,7 +27,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.23.1
+Version:        1.22.9
 Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -88,15 +81,10 @@ BuildRequires:  mesa-libEGL-devel
 BuildRequires:  lame-devel
 BuildRequires:  mpg123-devel
 BuildRequires:  twolame-devel
-BuildRequires:  qt6-qtshadertools
 %if %{with nasm}
 BuildRequires:  nasm
 %endif
 BuildRequires:  libgudev-devel
-
-%if %{with amr}
-BuildRequires:  opencore-amr-devel
-%endif
 
 # extras
 %if %{with extras}
@@ -340,11 +328,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmpg123.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttwolame.so
 
-%if %{with amr}
-%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
-%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
-%{_datadir}/gstreamer-%{majorminor}/presets/GstAmrnbEnc.prs
-%endif
 
 %files gtk
 # Plugins with external dependencies
@@ -372,9 +355,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
-* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.23.1-1
-- 1.23.1
-
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

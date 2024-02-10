@@ -4,11 +4,11 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          23.11.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
-License:          BSD and (BSD or GPLv2)
+License:          BSD-3-Clause AND ( BSD-3-Clause OR GPL-2.0-only )
 URL:              https://github.com/intel/%{name}
 Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:    systemd gcc make autoconf automake libtool systemd-devel openssl-devel zlib-devel nasm
@@ -131,6 +131,9 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Thu Feb 08 2024 Vladis Dronov <vdronov@redhat.com> - 23.11.0-4
+- Use proper SPDX license identifiers
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

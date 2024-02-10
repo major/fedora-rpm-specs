@@ -48,8 +48,8 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.12
-Release:   2%{?dist}
+Version:   1.9.13
+Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
@@ -294,7 +294,6 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %dir %{_sysconfdir}/fwupd/remotes.d
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs-testing.conf
-%config(noreplace)%{_sysconfdir}/fwupd/remotes.d/vendor.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/vendor-directory.conf
 %config(noreplace)%{_sysconfdir}/pki/fwupd
 %{_sysconfdir}/pki/fwupd-metadata
@@ -391,7 +390,7 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %endif
 %{_libexecdir}/installed-tests/fwupd/*
 %dir %{_sysconfdir}/fwupd/remotes.d
-%config(noreplace)%{_sysconfdir}/fwupd/remotes.d/fwupd-tests.conf
+%{_datadir}/fwupd/remotes.d/fwupd-tests.conf
 %endif
 
 %changelog

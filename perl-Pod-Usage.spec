@@ -2,7 +2,7 @@ Name:           perl-Pod-Usage
 # Compete with perl.spec's epoch
 Epoch:          4
 Version:        2.03
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,6 +10,7 @@ URL:            https://metacpan.org/release/Pod-Usage
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Usage-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -60,11 +61,27 @@ If the verbose level is 1, then the synopsis is printed along with a
 description (if present) of the command line options and arguments. If the
 verbose level is 2, then the entire manual page is printed.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Pod::PlainText)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Pod-Usage-%{version}
 # Remove bundled modules
 rm -rf t/inc
 perl -i -ne 'print $_ unless m{^t/inc/}' MANIFEST
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t -o -name *.pl`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -72,9 +89,33 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+perl -i -pe 's{-Mblib}{}' %{buildroot}%{_libexecdir}/%{name}/t/pod/*
+perl -i -pe 's{ \@blib,}{}' %{buildroot}%{_libexecdir}/%{name}/t/pod/pod2usage2.t
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/lib/Pod
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/scripts
+ln -s %{perl_vendorlib}/Pod/Usage.pm %{buildroot}%{_libexecdir}/%{name}/lib/Pod/
+ln -s %{_bindir}/pod2usage %{buildroot}%{_libexecdir}/%{name}/scripts/pod2usage.PL
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -85,7 +126,13 @@ make test
 %{_mandir}/man1/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Feb 07 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.03-503
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.03-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

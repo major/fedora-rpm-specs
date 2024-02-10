@@ -12,10 +12,9 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2024.1
+Version: 2024.2
 Release: %autorelease
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
-Patch1:  0001-grub2-15_ostree-Graceful-exit-if-etc-default-grub-do.patch
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
 

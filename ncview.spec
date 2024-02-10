@@ -1,10 +1,10 @@
 Name:           ncview
-Version:        2.1.8
-Release:        20%{?dist}
+Version:        2.1.10
+Release:        1%{?dist}
 Summary:        A visual browser for netCDF format files
 License:        GPLv3
-URL:            http://meteora.ucsd.edu/~pierce/ncview_home_page.html
-Source0:        ftp://cirrus.ucsd.edu/pub/ncview/ncview-%{version}.tar.gz
+URL:            https://cirrus.ucsd.edu/ncview/
+Source0:        https://cirrus.ucsd.edu/~pierce/ncview/ncview-%{version}.tar.gz
 # Remove RPATH
 Patch0:         ncview-rpath.patch
 
@@ -61,6 +61,9 @@ chrpath -l -d %{buildroot}%{_bindir}/ncview
 
 
 %changelog
+* Wed Feb 07 2024 Orion Poplawski <orion@nwra.com> - 2.1.10-1
+- Update to 2.1.10 (FTBFS bz#2261398)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

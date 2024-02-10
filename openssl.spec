@@ -28,8 +28,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.1.4
-Release: 4%{?dist}
+Version: 3.2.1
+Release: 1%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -74,6 +74,8 @@ Patch24:  0024-load-legacy-prov.patch
 # # We load FIPS provider and set FIPS properties implicitly
 Patch32:  0032-Force-fips.patch
 # # Embed HMAC into the fips.so
+# Modify fips self test as per
+# https://github.com/simo5/openssl/commit/9b95ef8bd2f5ac862e5eee74c724b535f1a8578a
 Patch33:  0033-FIPS-embed-hmac.patch
 # # Comment out fipsinstall command-line utility
 Patch34:  0034.fipsinstall_disable.patch
@@ -89,10 +91,6 @@ Patch47:  0047-FIPS-early-KATS.patch
 Patch49:  0049-Allow-disabling-of-SHA1-signatures.patch
 # # Support SHA1 in TLS in LEGACY crypto-policy (which is SECLEVEL=1)
 Patch52:  0052-Allow-SHA1-in-seclevel-1-if-rh-allow-sha1-signatures.patch
-# # https://github.com/openssl/openssl/pull/18103
-# # The patch is incorporated in 3.0.3 but we provide this function since 3.0.1
-# # so the patch should persist
-Patch56:  0056-strcasecmp.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2053289
 Patch58:  0058-FIPS-limit-rsa-encrypt.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2087147
@@ -113,8 +111,6 @@ Patch76:  0076-FIPS-140-3-DRBG.patch
 Patch77:  0077-FIPS-140-3-zeroization.patch
 # # https://bugzilla.redhat.com/show_bug.cgi?id=2114772
 Patch78:  0078-Add-FIPS-indicator-parameter-to-HKDF.patch
-# # https://github.com/openssl/openssl/pull/13817
-Patch79:  0079-RSA-PKCS15-implicit-rejection.patch
 # # We believe that some changes present in CentOS are not necessary
 # # because ustream has a check for FIPS version
 Patch80:  0080-rand-Forbid-truncated-hashes-SHA-3-in-FIPS-prov.patch
@@ -147,6 +143,8 @@ Patch113: 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
 # # We believe that some changes present in CentOS are not necessary
 # # because ustream has a check for FIPS version
 Patch114: 0114-FIPS-enforce-EMS-support.patch
+# skip quic and pairwise tests temporarily
+Patch115: 0115-skip-quic-pairwise.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -290,7 +288,7 @@ export HASHBANGPERL=/usr/bin/perl
 	--prefix=%{_prefix} --openssldir=%{_sysconfdir}/pki/tls ${sslflags} \
 	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/openssl.config \
 	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp \
-	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips\
+	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips -D_GNU_SOURCE \
 	no-mdc2 no-ec2m no-sm2 no-sm4 enable-buildtest-c++\
 	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\"" -DREDHAT_FIPS_VERSION="\"%{fips}\""'\
 	-Wl,--allow-multiple-definition
@@ -482,6 +480,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Feb 06 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-1
+- Rebase to upstream version 3.2.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

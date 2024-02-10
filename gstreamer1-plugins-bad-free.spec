@@ -4,14 +4,15 @@
 # Only have extras package on fedora
 %bcond extras %{defined fedora}
 %bcond opencv %[ 0%{?fedora} >= 39 ]
+%bcond openh264 %[ 0%{?fedora} >= 40 ]
 
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.23.1
-Release:        1%{?dist}
+Version:        1.22.9
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -27,6 +28,11 @@ URL:            http://gstreamer.freedesktop.org/
 %endif
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
+
+# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5622
+Patch:          openh264-add-license-file.patch
+# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5780
+Patch:          openh264-drop-runtime-version-checks.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -80,8 +86,6 @@ BuildRequires:  wpebackend-fdo-devel
 BuildRequires:  glslc
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
-BuildRequires:  liblc3-devel
-BuildRequires:  svt-av1-devel
 
 %if %{with extras}
 BuildRequires:  ladspa-devel
@@ -115,6 +119,9 @@ BuildRequires:  openal-soft-devel
 BuildRequires:  opencv-devel
 %endif
 BuildRequires:  openjpeg2-devel
+%if %{with openh264}
+BuildRequires:  pkgconfig(openh264)
+%endif
 BuildRequires:  pkgconfig(spandsp) >= 0.0.6
 ## Plugins not ported
 #BuildRequires:  SDL-devel
@@ -236,6 +243,21 @@ This package (%{name}-opencv) contains the OpenCV plugins.
 %endif
 
 
+%if %{with openh264}
+%package -n gstreamer1-plugin-openh264
+Summary:        GStreamer OpenH264 plugin
+License:        LGPL-2.0-or-later AND BSD-2-Clause
+# Prefer actual openh264 library over the noopenh264 stub
+Suggests:       openh264%{_isa}
+
+%description -n gstreamer1-plugin-openh264
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+
+This package contains the OpenH264 plugin.
+%endif
+
+
 %package libs
 Summary:        Runtime libraries for the GStreamer media framework "bad" plug-ins
 
@@ -283,6 +305,7 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D modplug=disabled } \
     %{!?with_extras:-D openal=disabled } \
     %{!?with_opencv:-D opencv=disabled } \
+    %{!?with_openh264:-D openh264=disabled } \
     %{!?with_extras:-D openjpeg=disabled } \
     %{!?with_extras:-D wildmidi=disabled -D zbar=disabled } \
     %{!?with_extras:-D gme=disabled -D lv2=disabled } \
@@ -308,14 +331,13 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D musepack=disabled } \
     -D svthevcenc=disabled -D voaacenc=disabled \
     -D zxing=disabled -D wpe=disabled -D x11=disabled \
-    -D aja=disabled -D qt6d3d11=disabled -D webrtc=disabled \
 %ifarch s390x
     -D ldac=disabled 		 		\
 %else
     %{!?with_extras:-D ldac=disabled } 		\
 %endif
     %{!?with_extras:-D qroverlay=disabled } 		\
-    -D openh264=disabled -D gs=disabled -D isac=disabled \
+    -D gs=disabled -D isac=disabled \
     -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
     -D amfcodec=disabled -D directshow=disabled -D qsv=disabled
 
@@ -380,6 +402,39 @@ cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-bad-free.appdata.xml <<EOF
 </component>
 EOF
 
+%if %{with openh264}
+cat > $RPM_BUILD_ROOT%{_metainfodir}/gstreamer-openh264.appdata.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Kalev Lember <klember@redhat.com> -->
+<component type="codec">
+  <id>gstreamer-openh264</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>GStreamer Multimedia Codecs - H.264</name>
+  <summary>Multimedia playback for H.264</summary>
+  <description>
+    <p>
+      This addon includes a codec for H.264 playback and encoding.
+    </p>
+    <p>
+      These codecs can be used to encode and decode media files where the
+      format is not patent encumbered.
+    </p>
+    <p>
+      A codec decodes audio and video for playback or editing and is also
+      used for transmission or storage.
+      Different codecs are used in video-conferencing, streaming media and
+      video editing applications.
+    </p>
+  </description>
+  <url type="homepage">http://gstreamer.freedesktop.org/</url>
+  <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer</url>
+  <url type="help">http://gstreamer.freedesktop.org/documentation/</url>
+  <url type="donation">http://www.gnome.org/friends/</url>
+  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
+</component>
+EOF
+%endif
+
 %find_lang gst-plugins-bad-%{majorminor}
 
 # unpackaged files
@@ -391,7 +446,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %license COPYING
 %doc AUTHORS NEWS README.md README.static-linking RELEASE REQUIREMENTS
 
-%{_metainfodir}/*.appdata.xml
+%{_metainfodir}/gstreamer-bad-free.appdata.xml
 %{_bindir}/gst-transcoder-%{majorminor}
 
 # presets
@@ -585,6 +640,14 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstopencv-%{majorminor}.so.0{,.*}
 %endif
 
+%if %{with openh264}
+%files -n gstreamer1-plugin-openh264
+%license COPYING
+%license ext/openh264/LICENSE
+%{_metainfodir}/gstreamer-openh264.appdata.xml
+%{_libdir}/gstreamer-1.0/libgstopenh264.so
+%endif
+
 %files libs
 %license COPYING
 %{_libdir}/libgstadaptivedemux-%{majorminor}.so.0{,.*}
@@ -714,8 +777,8 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
-* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.23.1-1
-- 1.23.1
+* Thu Feb 08 2024 Kalev Lember <klember@redhat.com> - 1.22.9-3
+- Add gstreamer1-plugin-openh264 subpackage with the openh264 plugin
 
 * Tue Feb 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.9-2
 - Rebuilt for opencv-4.9.0

@@ -5,7 +5,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -17,7 +17,9 @@ Patch1:         perl-Tk-debian.patch.gz
 # fix segfaults as in #235666 because of broken cashing code
 Patch2:         perl-Tk-seg.patch
 Patch3:         perl-Tk-c99.patch
-
+# Fix STRLEN vs int pointer confusion in Tcl_GetByteArrayFromObj()
+# It breaks tests with Perl 5.38 on s390* (BZ#2222638)
+Patch4:         perl-Tk-Fix-STRLEN-vs-int-pointer-confusion-in-Tcl_GetByteAr.patch
 
 # Versions before this have Unicode issues
 BuildRequires:  make
@@ -135,14 +137,7 @@ chmod -x pod/Popup.pod Tixish/lib/Tk/balArrow.xbm
 # patch to fix #235666 ... seems like caching code is broken
 %patch -P 2 -p1 -b .seg
 %patch -P 3 -p1 -b .c99
-
-# Temporary disable tests failing with Perl 5.38 BZ#2222638
-%ifarch s390 s390x
-for F in t/balloon.t t/canvas2.t t/photo.t ; do
-    rm "$F"
-    perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
-done
-%endif
+%patch -P 4 -p1
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1
@@ -191,6 +186,9 @@ find __demos/ -type f -exec chmod -x {} \;
 
 
 %changelog
+* Thu Feb 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-14
+- Fix tests failing on s390* (rhbz#2222638)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 804.036-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

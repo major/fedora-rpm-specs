@@ -18,7 +18,7 @@
 
 Name:    calligra 
 Version: 3.2.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: An integrated office suite
 
 License: GPLv2+ and LGPLv2+
@@ -790,6 +790,9 @@ fi
 
 
 %changelog
+* Thu Feb 08 2024 Marek Kasik <mkasik@redhat.com> - 3.2.1-29
+- Rebuild for poppler 24.02.0
+
 * Mon Jan 29 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.1-28
 - Drop i686 support (leaf package)
 

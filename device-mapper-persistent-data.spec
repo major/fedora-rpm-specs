@@ -9,14 +9,14 @@
 
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
-Version: 1.0.9
-Release: 3%{?dist}%{?release_suffix}
+Version: 1.0.11
+Release: 1%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
-Source1: dmpd109-vendor.tar.gz
+Source1: dmpd1011-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
 
 %if %{defined rhel}
@@ -149,6 +149,9 @@ echo %{version}-%{release} > VERSION
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Thu Feb 08 2024 Marian Csontos <mcsontos@redhat.com> - 1.0.11-1
+- Update to latest upstream release 1.0.11.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

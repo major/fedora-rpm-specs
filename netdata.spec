@@ -44,7 +44,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.44.1
+%global upver        1.44.2
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -53,15 +53,15 @@ ExcludeArch: s390x
 %global judy_ver 1.0.5-netdata2
 
 # 
-%global plugin_go_ver 0.57.2
+%global plugin_go_ver 0.58.0
 
 %global netdata_conf_stock %{_prefix}/lib/%{name}
 
 Name:           netdata
 Version:        %{upver}%{?rcver:~%{rcver}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Real-time performance monitoring
-# For a breakdown of the licensing, see LICENSE-REDISTRIBUTED.md
+# For a breakdown of the licensing, see license REDISTRIBUTED.md
 License:        GPL-3.0-only
 URL:            http://my-netdata.io
 Source0:        https://github.com/netdata/netdata/releases/download/v%{upver}%{?rcver:-%{rcver}}/%{name}-v%{upver}%{?rcver:-%{rcver}}.tar.gz
@@ -70,7 +70,7 @@ Source2:        netdata.init
 Source3:        netdata.conf
 Source4:        netdata.profile
 Source5:        README-packager.md
-Source20:       https://github.com/netdata/go.d.plugin/releases/download/v%{plugin_go_ver}/config.tar.gz
+Source20:       https://github.com/netdata/go.d.plugin/releases/download/v%{plugin_go_ver}/go.d.plugin-config-v%{plugin_go_ver}.tar.gz
 Source21:       netdata-install-go-plugins.sh
 # Only for el7
 Source10:       https://github.com/protocolbuffers/protobuf/releases/download/v%{protobuf_cpp_ver}/protobuf-cpp-%{protobuf_cpp_ver}.tar.gz
@@ -422,6 +422,9 @@ echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Thu Feb 08 2024 Didier Fabert <didier.fabert@gmail.com> 1.44.2-1
+- Update from upstream
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

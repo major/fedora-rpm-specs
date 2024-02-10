@@ -17,7 +17,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -71,6 +71,7 @@ ExcludeArch:    i686
 Patch1:		%{name}-3.12.2-nolintl.patch
 Patch2:		%{name}-3.12.2-noliconv.patch
 Patch5:		%{name}-3.14.1-gst1.patch
+Patch6:		%{name}-3.18.4-poppler-24.02.0.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -1033,6 +1034,7 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 1 -p1 -b .nolintl
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
+%patch -P 6 -p1 -b .poppler-24.02.0
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1793,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Feb 08 2024 Marek Kasik <mkasik@redhat.com> - 3.18.4-5
+- Rebuild for poppler 24.02.0
+
 * Wed Jan 31 2024 Tom Callaway <spot@fedoraproject.org> - 3.18.4-4
 - do not attempt builds on i686
 

@@ -2,7 +2,8 @@ Name:		dotconf
 Version:	1.3
 Release:	34%{?dist}
 Summary:	Libraries to parse configuration files
-License:	LGPLv2
+# src/readdir* are Apache-1.1
+License:	LGPL-2.1-only AND Apache-1.1
 URL:		https://github.com/williamh/dotconf/
 Source:		%{name}-%{version}.tar.gz
  

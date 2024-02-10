@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.7
+%global general_version %{pybasever}.8
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -67,7 +67,7 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.2.1
+%global pip_version 24.0
 %global setuptools_version 65.5.0
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -317,11 +317,7 @@ Patch251: 00251-change-user-install-location.patch
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
 
-# 00412 # cf7ebcc048985d04e2b253b7d1de81829ed267c9
-# Include new dir test/regrtestdata in the installation (GH-112765) (GH-112784)
-Patch412: 00412-include-new-dir-test-regrtestdata-in-the-installation-gh-112765-gh-112784.patch
-
-# 00415 # 9ca4533e0b4a03d919953017026f66c6a060756e
+# 00415 # 744762808f7303a55fa941f65cacb94fd7099e5e
 # [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
 #
 # Detect email address parsing errors and return empty tuple to
@@ -1632,6 +1628,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Feb 07 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.8-1
+- Update to 3.11.8
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -547,7 +547,7 @@ export PATH="${cwd}/.bin:$PATH"
            %{!?with_bundled_zlib:--shared-zlib} \
            %{!?with_bootstrap:--shared-builtin-cjs_module_lexer/lexer-path %{nodejs_default_sitelib}/cjs-module-lexer/lexer.js} \
            %{!?with_bootstrap:--shared-builtin-cjs_module_lexer/dist/lexer-path %{nodejs_default_sitelib}/cjs-module-lexer/dist/lexer.js} \
-           %{!?with_bootstrap:--shared-builtin-undici/undici-path %{nodejs_default_sitelib}/undici/index.js} \
+           %{!?with_bootstrap:--shared-builtin-undici/undici-path %{nodejs_default_sitelib}/undici/loader.js} \
            --shared-brotli \
            --shared-libuv \
            --with-intl=small-icu \

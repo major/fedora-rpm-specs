@@ -4,7 +4,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}7%{?prever:.%{prever}}%{?dist}.1
+Release: %{?prever:0.}8%{?prever:.%{prever}}%{?dist}
 License: BSD
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
@@ -70,7 +70,19 @@ autoreconf -fiv
 %make_build
 
 %check
-make check
+for d in crypto data_mgr handle_mgr object_store session_mgr slot_mgr ; do
+make check  -C src/lib/$d
+done
+
+pushd src/lib/test
+make p11test
+for t in TokenTests AsymWrapUnwrapTests DigestTests ForkTests \
+         InitTests InfoTests SessionTests UserTests RandomTests \
+         SignVerifyTests AsymEncryptDecryptTests DeriveTests \
+         ObjectTests SymmetricAlgorithmTests ; do
+./p11test $t
+done
+popd
 
 %install
 rm -rf %{buildroot}
@@ -121,6 +133,10 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Thu Feb 08 2024 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-8
+- Run p11test tests individually
+- Resolves: rhbz#2261703
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-7.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,13 +1,14 @@
-#global prever rcX
+%global prever rc1
 %global _hardened_build 1
 
 Summary: DNSSEC key and zone management software
 Name: opendnssec
-Version: 2.1.10
-Release: 9%{?dist}
+Version: 2.1.14
+Release: 0.1rc1%{?dist}
 License: BSD-2-Clause
 Url: http://www.opendnssec.org/
 Source0: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
+Source10: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz.sig
 Source1: ods-enforcerd.service
 Source2: ods-signerd.service
 Source3: ods.sysconfig
@@ -18,7 +19,7 @@ Source7: opendnssec-2.1.sqlite_convert.sql
 Source8: opendnssec-2.1.sqlite_rpmversion.sql
 Patch1: 0001-Pass-right-remaining-buffer-size-in-hsm_hex_unparse-.patch
 Patch2: opendnssec-configure-c99.patch
-Patch3: opendnssec-c99-1.patch
+Patch3: opendnssec-2.1.14rc1-gcc14.patch
 Patch4: opendnssec-c99-2.patch
 Patch5: opendnssec-implicit-declarations.patch
 
@@ -40,7 +41,10 @@ Requires(preun): systemd-units
 Requires(postun): systemd-units
 %if 0%{?prever:1}
 # For building development snapshots
-Buildrequires: autoconf, automake, libtool, java
+Buildrequires: autoconf, automake, libtool
+%ifarch %{java_arches}
+Buildrequires: java
+%endif
 %endif
 
 %description
@@ -50,11 +54,12 @@ name server. It requires a PKCS#11 crypto module library, such as softhsm
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 %patch -P5 -p1
+
 # Prevent re-running autoconf.
 touch -r aclocal.m4 configure* m4/*
 
@@ -67,7 +72,7 @@ export CFLAGS="$RPM_OPT_FLAGS -fPIE -pie -Wextra -Wformat -Wformat-nonliteral -W
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIE -pie -Wformat-nonliteral -Wformat-security"
 %if 0%{?prever:1}
 # for development snapshots
-sh ./autogen.sh
+autoreconf
 %endif
 %configure --with-ldns=%{_libdir}
 %make_build
@@ -191,6 +196,11 @@ ods-enforcer update all >/dev/null 2>/dev/null ||:
 %systemd_postun_with_restart ods-signerd.service
 
 %changelog
+* Thu Feb 08 2024 Alexander Bokovoy <abokovoy@redhat.com> - 2.1.14-0.1rc1
+- Upstream release 2.1.14RC1
+- Fix build with gcc 14
+- Resolves: rhbz#2261421
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

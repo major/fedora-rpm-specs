@@ -1,6 +1,8 @@
+%bcond tests 1
+
 Name:           python-click
 Version:        8.1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -27,12 +29,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n click-%{version} -p1
-# Use test dependencies without version locks
-sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:requirements/tests.in}
 
 
 %build
@@ -45,7 +45,10 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 
 
 %check
-%tox
+%pyproject_check_import
+%if %{with tests}
+%pytest
+%endif
 
 
 %files -n python%{python3_pkgversion}-click -f %pyproject_files
@@ -54,6 +57,10 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 
 
 %changelog
+* Wed Jan 31 2023 Maxwell G <maxwell@gtmx.me> - 8.1.7-4
+- Add test bcond to make click easier to bootstrap
+- Use pytest directly instead of pulling in tox
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,7 @@
+# Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
+%bcond mypy %{undefined rhel}
 # Tests crash when being run by pytest-xdist
-%bcond_with xdist
+%bcond xdist 0
 
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
@@ -10,7 +12,7 @@
     mssql_pyodbc \
     mysql \
     mysql_connector \
-    mypy \
+    %{?with_mypy:mypy} \
     postgresql \
     postgresql_pg8000 \
     postgresql_asyncpg \
@@ -36,7 +38,9 @@ BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.7
 # The dependencies needed for testing don’t get auto-generated.
+%if %{with mypy}
 BuildRequires:  python3dist(mypy)
+%endif
 BuildRequires:  python3dist(pytest)
 %if %{with xdist}
 BuildRequires:  python3dist(pytest-xdist)
@@ -110,6 +114,9 @@ done > doc-files.txt
 
 %check
 %pytest test \
+%if %{without mypy}
+  -k 'not Mypy' \
+%endif
 %if %{with xdist}
 --numprocesses=auto
 %endif

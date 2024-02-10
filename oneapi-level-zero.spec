@@ -3,7 +3,7 @@
 %global patch_version 0
 
 Name:           oneapi-%{srcname}
-Version:        1.15.8
+Version:        1.15.13
 Release:        %{autorelease}
 Summary:        OneAPI Level Zero Specification Headers and Loader
 

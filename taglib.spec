@@ -10,7 +10,7 @@ Summary:    Audio Meta-Data Library
 Version:    1.12
 Release:    10%{?dist}
 
-License:    LGPLv2 or MPLv1.1
+License:    (LGPL-2.1-only OR MPL-1.1) AND BSD-2-Clause AND LGPL-2.1-only
 URL:        http://taglib.github.io/
 %if 0%{?snap:1}
 Source0:    taglib-%{version}-%{snap}.tar.gz

@@ -1,7 +1,7 @@
 %global apiver 1.0
 
 Name:           gst-devtools
-Version:        1.23.1
+Version:        1.22.9
 Release:        1%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
@@ -9,12 +9,13 @@ License:        LGPL-2.0-or-later
 URL:            https://gstreamer.freedesktop.org/src/gst-devtools
 Source:         https://gstreamer.freedesktop.org/src/gst-devtools/gst-devtools-%{version}.tar.xz
 
+# Remove deprecated call to gettext.bind_textdomain_codeset(), fixed in 1.24
+Patch:          https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5027.patch
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  json-glib-devel
@@ -83,9 +84,6 @@ A simple graphical utility to view and analyze GStreamer debug files.
 %{_metainfodir}/org.freedesktop.GstDebugViewer.appdata.xml
 
 %changelog
-* Wed Feb 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.23.1-1
-- 1.23.1
-
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

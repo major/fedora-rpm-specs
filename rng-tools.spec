@@ -12,8 +12,8 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.16
-Release:        5%{?dist}
-License:        GPLv2+
+Release:        6%{?dist}
+License:        GPL-2.0-or-later
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        rngd.service
@@ -105,6 +105,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Thu Feb 08 2024 Vladis Dronov <vdronov@redhat.com> - 6.16-6
+- Use proper SPDX license identifiers
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

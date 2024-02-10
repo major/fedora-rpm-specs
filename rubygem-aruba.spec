@@ -4,7 +4,7 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.2.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -130,6 +130,18 @@ fi
 # Disable bundler tests.
 mv features/03_testing_frameworks/cucumber/disable_bundler.feature{,.skip}
 
+# Output changed with minitest 5.22.2, adjusting
+# Needs reporting upstream
+status=$(ruby -e "require 'minitest'; p Minitest::VERSION >= '5.22.0'")
+if [ $status == "true" ] ; then
+	sed -i features/06_use_aruba_cli/initialize_project_with_aruba.feature \
+		-e 's|0 runs, 0 assertions, 0 failures, 0 errors, 0 skips|create  test/use_aruba_with_minitest.rb|' \
+		%{nil}
+	sed -i features/01_getting_started_with_aruba/supported_testing_frameworks.feature \
+		-e '\@-Ilib:test test/use_aruba_with_minitest.rb@,$s|the tests should all pass|the exit status should be 0|' \
+		%{nil}
+fi
+
 # Adjust test cases referring to $HOME.
 sed -i features/04_aruba_api/core/expand_path.feature -e "s|/home/\[\^/\]+|$(echo $HOME)|" 
 sed -i features/02_configure_aruba/home_directory.feature \
@@ -165,6 +177,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Thu Feb 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-8
+- Adjust testsuite for Minitest 5.22.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

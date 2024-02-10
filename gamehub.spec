@@ -12,7 +12,7 @@ Version:        %{short_version}.%{minor_version}
 Release:        %autorelease
 Summary:        All your games in one place
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/tkashkin/GameHub
 Source0:        %{url}/archive/%{dev_version}/%{name}-%{version}.tar.gz
 

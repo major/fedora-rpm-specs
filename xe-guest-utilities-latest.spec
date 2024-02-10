@@ -1,14 +1,9 @@
-# The latest version of Citrix Hypervisor
-%global upstream_major 8
-%global upstream_minor 2
-%global upstream_micro 0
-%global buildnum 2
 %global upstream_name xe-guest-utilities
 %global service_name xe-linux-distribution
 
 Summary: XAPI Virtual Machine Monitoring Scripts
 Name:    %{upstream_name}-latest
-Version: 8.3.1
+Version: 8.4.0
 Release: %autorelease
 License: BSD
 URL:     https://github.com/xenserver/%{upstream_name}
@@ -39,15 +34,6 @@ mkdir -p src/github.com/xenserver
 ln -s $PWD src/github.com/xenserver/xe-guest-utilities
 
 sed -i -e 's:/usr/share/oem/xs:%{_sbindir}:' mk/%{service_name}.service
-# move xenstore utilities provided by this package to a private directory
-# to prevent conflict with xen-runtime
-sed -i -e 's:/usr/bin/xenstore-exists:%{_libexecdir}/%{upstream_name}/xenstore-exists:' mk/xen-vcpu-hotplug.rules
-# Mimic the latest Citrix Hypervisor
-sed -i -e "s/@PRODUCT_MAJOR_VERSION@/%{upstream_major}/g" \
-	   -e "s/@PRODUCT_MINOR_VERSION@/%{upstream_minor}/g"  \
-	   -e "s/@PRODUCT_MICRO_VERSION@/%{upstream_micro}/g"  \
-	   -e "s/@NUMERIC_BUILD_NUMBER@/%{buildnum}/g" \
-    guestmetric/guestmetric_linux.go
 
 %build
 GOPATH=$PWD:%{gopath} %{gomodulesmode} make \

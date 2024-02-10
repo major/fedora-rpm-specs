@@ -1,5 +1,5 @@
 Name: bandit
-Version: 1.7.6
+Version: 1.7.7
 Release: %autorelease
 Summary: A framework for performing security analysis of Python source code
 
@@ -14,6 +14,7 @@ BuildRequires:  pyproject-rpm-macros
 # for checks, cherry-picked from test-requirements.txt (mixes coverage and linting)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(fixtures)
+BuildRequires:  python3dist(gitpython)
 BuildRequires:  python3dist(testscenarios)
 BuildRequires:  python3dist(testtools)
 BuildRequires:  python3dist(toml)

@@ -7,7 +7,7 @@ ExclusiveArch: %{ix86} x86_64
 #
 
 %global use_autotools 0
-%global use_intermediate 1
+%global use_intermediate 0
 
 %if 0%{?use_intermediate}
 %global commit cd91559f6e6ab1bf42a6270c0826e4ea5f2d3f29
@@ -28,15 +28,16 @@ ExclusiveArch: %{ix86} x86_64
 
 Name: pioneer
 Summary: A game of lonely space adventure
-Version: 20230203
-Release: 6%{date}%{shortcommit}%{?dist}
+Version: 20240203
+Release: 1%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
-## Pioneer's art, music and other assets (including Lua model scripts): CC-BY-SA
-License: GPLv3 and CC-BY-SA and Bitstream Vera and Public Domain
+## The file scripts/ShipPlanner015.py: GPLv2+
+## contrib/lz4: BSD 2-Clause
+License: GPL-3.0-only AND GPL-2.0-or-later AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain AND BSD-2-Clause
 URL: http://pioneerspacesim.net/
-Source0: https://github.com/pioneerspacesim/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0: https://github.com/pioneerspacesim/%{name}/archive/%{commit}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 
@@ -61,11 +62,6 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(SDL2_image)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(libpng)
-#BuildRequires: pkgconfig(glew)
-#BuildRequires: pkgconfig(lua)
-#BuildRequires: pkgconfig(fmt)
-#BuildRequires: pkgconfig(liblz4)
-#BuildRequires: miniz-devel
 BuildRequires: assimp-devel >= 3.2
 BuildRequires: mesa-libGLU-devel
 BuildRequires: NaturalDocs
@@ -82,9 +78,6 @@ Provides: bundled(fmt) = 6.2.1
 
 # I prefer to install binary files manually
 Patch0: %{name}-use_manual_installation.patch
-
-Patch1: %{name}-bug5527.patch
-Patch2: %{name}-bug5574.patch
 
 %description
 A space adventure game set in the Milky Way galaxy at the turn of
@@ -147,22 +140,8 @@ Requires:  fontpackages-filesystem
 %{fontsummary}
 
 %prep
-%autosetup -n %{name}-%{commit} -N
-
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p1 -b .backup
-
-## Pioneer does not work with Lua 5.4.*
-## We cannot unbundle internal Lua yet
-## See https://github.com/pioneerspacesim/pioneer/issues/3712
-## https://github.com/mpv-player/mpv/issues/5205
-#rm -rf contrib/lua
-
-#rm -rf contrib/fmt
-#rm -rf contrib/glew
-#rm -rf contrib/miniz
-#rm -rf contrib/lz4
+%autosetup -n %{name}-%{version} -N
+%patch -P 0 -p1 -b .backup
 
 %build
 %if 0%{?use_autotools}
@@ -175,6 +154,7 @@ Requires:  fontpackages-filesystem
 %else
 mkdir -p build
 %cmake -B build -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
+       -DPROJECT_VERSION_INFO:STRING=%{version} \
        -DUSE_SYSTEM_LIBLUA:BOOL=OFF \
        -DUSE_SYSTEM_LIBGLEW:BOOL=OFF \
        -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name} -DFMT_INSTALL:BOOL=ON \
@@ -250,29 +230,27 @@ desktop-file-edit \
  %{buildroot}%{_datadir}/applications/pioneer.desktop
 
 ## Moving and editing of appdata file
-mkdir -p %{buildroot}%{_metainfodir}
-mv %{buildroot}%{_datadir}/appdata/net.pioneerspacesim.Pioneer.appdata.xml %{buildroot}%{_metainfodir}/pioneer.appdata.xml
-rm -rf %{buildroot}%{_datadir}/appdata
-sed -i 's|net.pioneerspacesim.Pioneer.desktop|pioneer.desktop|' %{buildroot}%{_metainfodir}/pioneer.appdata.xml
-sed -i 's|<id>net.pioneerspacesim.Pioneer</id>|<id type="desktop">pioneer.desktop</id>|' %{buildroot}%{_metainfodir}/pioneer.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+mv %{buildroot}%{_metainfodir}/net.pioneerspacesim.Pioneer.metainfo.xml %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
+sed -i 's|net.pioneerspacesim.Pioneer.desktop|pioneer.desktop|' %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
+sed -i 's|<id>net.pioneerspacesim.Pioneer</id>|<id type="desktop">pioneer.desktop</id>|' %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
 
 ## Remove empty directories
 find %{buildroot} -name '.gitignore' -exec rm -rf {} ';'
 
 ## Unbundle DejaVuSans.ttf, DejaVuSansMono.ttf and wqy-microhei.ttc
 mkdir -p %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/fonts/Inpionata.ttf %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/fonts/Orbiteer-Bold.ttf %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/fonts/PionilliumText22L-Medium.ttf %{buildroot}%{_fontdir}
+mv %{buildroot}%{_datadir}/%{name}/data/fonts/Inpionata.ttf %{buildroot}%{_fontdir}
+mv %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf %{buildroot}%{_fontdir}
+mv %{buildroot}%{_datadir}/%{name}/data/fonts/PionilliumText22L-Medium.ttf %{buildroot}%{_fontdir}
 
-ln -sf %{_fontdir}/Inpionata.ttf %{buildroot}%{_datadir}/%{name}/fonts/Inpionata.ttf
-ln -sf %{_fontdir}/Orbiteer-Bold.ttf %{buildroot}%{_datadir}/%{name}/fonts/Orbiteer-Bold.ttf
-ln -sf %{_fontdir}/PionilliumText22L-Medium.ttf %{buildroot}%{_datadir}/%{name}/fonts/PionilliumText22L-Medium.ttf
+ln -sf %{_fontdir}/Inpionata.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Inpionata.ttf
+ln -sf %{_fontdir}/Orbiteer-Bold.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf
+ln -sf %{_fontdir}/PionilliumText22L-Medium.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/PionilliumText22L-Medium.ttf
 
-ln -sf $(fc-match -f "%{file}" "wenquanyimicrohei") %{buildroot}%{_datadir}/%{name}/fonts/wqy-microhei.ttc
-ln -sf $(fc-match -f "%{file}" "dejavusansmono") %{buildroot}%{_datadir}/%{name}/fonts/DejaVuSansMono.ttf
-ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fonts/DejaVuSans.ttf
+ln -sf $(fc-match -f "%{file}" "wenquanyimicrohei") %{buildroot}%{_datadir}/%{name}/data/fonts/wqy-microhei.ttc
+ln -sf $(fc-match -f "%{file}" "dejavusansmono") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSansMono.ttf
+ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSans.ttf
 
 %files
 %doc doxygen/html
@@ -296,7 +274,7 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fon
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/%{name}/
 %{_datadir}/applications/*.desktop
-%{_metainfodir}/*.appdata.xml
+%{_metainfodir}/*.metainfo.xml
 
 %files data
 %license licenses/GPL-3.txt licenses/CC-BY-SA-3.0.txt licenses/DejaVu-license.txt licenses/SIL-1.1.txt
@@ -310,6 +288,9 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fon
 %_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240203-1
+- Release 20240203
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230203-6.20230301gitcd91559
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -160,6 +160,11 @@ chmod -x demo/demo
 # be sure that aren't used
 rm -r src/win32/
 
+# Workaround https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113205
+%ifarch x86_64
+%global optflags %(echo %{optflags} -fno-tree-slp-vectorize)
+%endif
+
 %build
 %cmake -DCMAKE_SKIP_RPATH:BOOL=ON           \
        -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON   \
@@ -247,6 +252,8 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %changelog
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.22.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+- Workaround https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113205
+- Rebuild for opencv 4.9.0
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.22.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

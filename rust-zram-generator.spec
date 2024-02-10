@@ -56,6 +56,9 @@ Recommends:     %{_sbindir}/zramctl
 %files       -n %{crate}
 %license LICENSE
 %license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
+%endif
 %doc zram-generator.conf.example
 %doc README.md
 %{_systemdgeneratordir}/zram-generator
@@ -104,10 +107,10 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?bundled_rust_deps:-a2}
 cp -a %{S:1} .
 %if 0%{?bundled_rust_deps}
-%cargo_prep -V 2
+%cargo_prep -v vendor
 %else
 %cargo_prep
 
@@ -123,8 +126,11 @@ echo 'systemd-rpm-macros'
 export SYSTEMD_UTIL_DIR=%{_systemd_util_dir}
 export LC_ALL=C.UTF-8
 %cargo_build
-%{?cargo_license_summary}
-%{?cargo_license} > LICENSE.dependencies
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%cargo_vendor_manifest
+%endif
 %make_build SYSTEMD_SYSTEM_UNIT_DIR=%{_unitdir} SYSTEMD_SYSTEM_GENERATOR_DIR=%{_systemdgeneratordir} \
   systemd-service man
 

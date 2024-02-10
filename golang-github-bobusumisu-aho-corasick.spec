@@ -2,24 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/rodaine/table
-%global goipath         github.com/rodaine/table
-Version:                1.1.1
+# https://github.com/BobuSumisu/aho-corasick
+%global goipath         github.com/BobuSumisu/aho-corasick
+Version:                1.0.3
 
 %gometa -L -f
 
 
 %global common_description %{expand:
-Go CLI Table Generator.}
+Aho-Corasick string-searching algorithm in Go.}
 
-%global golicenses      license
-%global godocs          readme.md
+%global golicenses      LICENSE test_data/gpl.txt
+%global godocs          README.md
 
-Name:           golang-github-rodaine-table
+Name:           golang-github-bobusumisu-aho-corasick
 Release:        %autorelease
-Summary:        Go CLI Table Generator
+Summary:        Aho-Corasick string-searching algorithm in Go
 
-License:        MIT
+License:        MIT AND GPL-3.0-only
 URL:            %{gourl}
 Source:         %{gosource}
 

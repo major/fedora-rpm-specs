@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.1
+%global general_version %{pybasever}.2
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -71,18 +71,18 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.2.1
+%global pip_version 24.0
 %global setuptools_version 67.6.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.12.11
-Provides: bundled(python3dist(certifi)) = 2023.5.7
+Provides: bundled(python3dist(cachecontrol)) = 0.13.1
+Provides: bundled(python3dist(certifi)) = 2023.7.22
 Provides: bundled(python3dist(chardet)) = 5.1
 Provides: bundled(python3dist(colorama)) = 0.4.6
-Provides: bundled(python3dist(distlib)) = 0.3.6
+Provides: bundled(python3dist(distlib)) = 0.3.8
 Provides: bundled(python3dist(distro)) = 1.8
 Provides: bundled(python3dist(idna)) = 3.4
 Provides: bundled(python3dist(msgpack)) = 1.0.5
@@ -98,8 +98,9 @@ Provides: bundled(python3dist(setuptools)) = 68
 Provides: bundled(python3dist(six)) = 1.16
 Provides: bundled(python3dist(tenacity)) = 8.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(truststore)) = 0.8
 Provides: bundled(python3dist(typing-extensions)) = 4.7.1
-Provides: bundled(python3dist(urllib3)) = 1.26.16
+Provides: bundled(python3dist(urllib3)) = 1.26.17
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 }
 # setuptools
@@ -121,7 +122,7 @@ Provides: bundled(python3dist(typing-extensions)) = 4.4
 Provides: bundled(python3dist(zipp)) = 3.7
 }
 # wheel
-#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt)
+#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
 %global wheel_bundled_provides %{expand:
 Provides: bundled(python3dist(packaging)) = 23
 }
@@ -367,7 +368,7 @@ Patch251: 00251-change-user-install-location.patch
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
 
-# 00415 # 83e0fc3ec7bc38055c536f482578a10f6efcc08c
+# 00415 # 5b830b814be638d1a167802780b5f498a4a5e97c
 # [CVE-2023-27043] gh-102988: Reject malformed addresses in email.parseaddr() (#111116)
 #
 # Detect email address parsing errors and return empty tuple to
@@ -375,6 +376,16 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # parameter to getaddresses() and parseaddr() functions. Patch by
 # Thomas Dwyer.
 Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
+
+# 00418 # 153905265371131e1227ace0dfef34a5c5efde59
+# Don't generate sbom in make regen-all
+#
+# The script and make target, added in Python 3.12.2, assumes a fixed
+# location of pip wheel and other bundled libraries, resulting in an
+# error and failed build when not found.
+# Reported upstream: https://github.com/python/cpython/issues/114240
+# and https://github.com/python/cpython/issues/114244
+Patch418: 00418-don-t-generate-sbom-in-make-regen-all.patch
 
 # (New patches go here ^^^)
 #
@@ -697,13 +708,13 @@ The debug runtime additionally supports debug builds of C-API extensions
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
-  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
 fi
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
-rm Lib/test/setuptools-%{setuptools_version}-py3-none-any.whl
-rm Lib/test/wheel-%{wheel_version}-py3-none-any.whl
+rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
+rm Lib/test/wheeldata/wheel-%{wheel_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1685,6 +1696,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Feb 07 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.2-1
+- Update to 3.12.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

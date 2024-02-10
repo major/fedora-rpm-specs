@@ -1,28 +1,27 @@
 # remirepo/fedora spec file for php-bartlett-PHP-CompatInfo
 #
-# Copyright (c) 2011-2023 Remi Collet
+# Copyright (c) 2011-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-# For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    d9504f525abfbdb8fc7d7850cbd58229471526ba
+%global gh_commit    072d0f8637341f880b6844cd50d2c2c9918a69b2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-#global gh_date      20151005
+%global gh_date      2024-02-08
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.1.1
+%global upstream_version  7.1.2
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -57,7 +56,7 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 6.1.1
+Provides: bundled(php-bartlett-php-compatinfo-db) = 6.2.1
 Provides: bundled(php-nikic-php-parser) = v5.0.0
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.1.0
@@ -66,13 +65,13 @@ Provides: bundled(php-composer-semver) = 3.4.0
 Provides: bundled(php-doctrine-cache) = 2.2.0
 Provides: bundled(php-doctrine-collections) = 1.8.0
 Provides: bundled(php-doctrine-common) = 3.4.3
-Provides: bundled(php-doctrine-dbal) = 3.7.2
-Provides: bundled(php-doctrine-deprecations) = 1.1.2
+Provides: bundled(php-doctrine-dbal) = 3.8.1
+Provides: bundled(php-doctrine-deprecations) = 1.1.3
 Provides: bundled(php-doctrine-event-manager) = 2.0.0
 Provides: bundled(php-doctrine-inflector) = 2.0.9
 Provides: bundled(php-doctrine-instantiator) = 2.0.0
-Provides: bundled(php-doctrine-lexer) = 2.1.0
-Provides: bundled(php-doctrine-orm) = 2.17.3
+Provides: bundled(php-doctrine-lexer) = 3.0.1
+Provides: bundled(php-doctrine-orm) = 2.18.0
 Provides: bundled(php-doctrine-persistence) = 3.2.0
 Provides: bundled(php-psr-cache) = 3.0.0
 Provides: bundled(php-psr-clock) = 1.0.0
@@ -81,34 +80,34 @@ Provides: bundled(php-psr-event-dispatcher) = 1.0.0
 Provides: bundled(php-psr-log) = 3.0.0
 Provides: bundled(php-ramsey-collection) = 2.0.0
 Provides: bundled(php-ramsey-uuid) = 4.7.5
-Provides: bundled(php-symfony-cache) = v6.4.2
+Provides: bundled(php-symfony-cache) = v6.4.3
 Provides: bundled(php-symfony-cache-contracts) = v3.4.0
-Provides: bundled(php-symfony-clock) = v6.4.2
-Provides: bundled(php-symfony-config) = v6.4.0
-Provides: bundled(php-symfony-console) = v6.4.2
-Provides: bundled(php-symfony-dependency-injection) = v6.4.2
+Provides: bundled(php-symfony-clock) = v6.4.3
+Provides: bundled(php-symfony-config) = v6.4.3
+Provides: bundled(php-symfony-console) = v6.4.3
+Provides: bundled(php-symfony-dependency-injection) = v6.4.3
 Provides: bundled(php-symfony-deprecation-contracts) = v3.4.0
-Provides: bundled(php-symfony-event-dispatcher) = v6.4.2
+Provides: bundled(php-symfony-event-dispatcher) = v6.4.3
 Provides: bundled(php-symfony-event-dispatcher-contracts) = v3.4.0
-Provides: bundled(php-symfony-filesystem) = v6.4.0
+Provides: bundled(php-symfony-filesystem) = v6.4.3
 Provides: bundled(php-symfony-finder) = v6.4.0
-Provides: bundled(php-symfony-http-client) = v6.4.2
+Provides: bundled(php-symfony-http-client) = v6.4.3
 Provides: bundled(php-symfony-http-client-contracts) = v3.4.0
-Provides: bundled(php-symfony-messenger) = v6.4.0
-Provides: bundled(php-symfony-polyfill-ctype) = v1.28.0
-Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.28.0
-Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.28.0
-Provides: bundled(php-symfony-polyfill-mbstring) = v1.28.0
-Provides: bundled(php-symfony-polyfill-php72) = v1.28.0
-Provides: bundled(php-symfony-polyfill-php80) = v1.28.0
-Provides: bundled(php-symfony-polyfill-php83) = v1.28.0
-Provides: bundled(php-symfony-process) = v6.4.2
+Provides: bundled(php-symfony-messenger) = v6.4.3
+Provides: bundled(php-symfony-polyfill-ctype) = v1.29.0
+Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.29.0
+Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.29.0
+Provides: bundled(php-symfony-polyfill-mbstring) = v1.29.0
+Provides: bundled(php-symfony-polyfill-php72) = v1.29.0
+Provides: bundled(php-symfony-polyfill-php80) = v1.29.0
+Provides: bundled(php-symfony-polyfill-php83) = v1.29.0
+Provides: bundled(php-symfony-process) = v6.4.3
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
-Provides: bundled(php-symfony-serializer) = v6.4.2
+Provides: bundled(php-symfony-serializer) = v6.4.3
 Provides: bundled(php-symfony-service-contracts) = v3.4.1
-Provides: bundled(php-symfony-stopwatch) = v6.4.0
-Provides: bundled(php-symfony-string) = v6.4.2
-Provides: bundled(php-symfony-var-exporter) = v6.4.2
+Provides: bundled(php-symfony-stopwatch) = v6.4.3
+Provides: bundled(php-symfony-string) = v6.4.3
+Provides: bundled(php-symfony-var-exporter) = v6.4.3
 
 Provides: phpcompatinfo = %{version}
 Provides: php-composer(bartlett/php-compatinfo) = %{version}
@@ -200,6 +199,10 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Thu Feb  8 2024 Remi Collet <remi@remirepo.net> - 7.1.2-1
+- update to 7.1.2
+- update bundled bartlett/php-compatinfo-db to 6.2.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

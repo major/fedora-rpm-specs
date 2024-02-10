@@ -1,5 +1,5 @@
 Version: 0.4.12
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # Define the directory where the OpenSSL engines are installed
 %global enginesdir %{_libdir}/engines-3
@@ -17,6 +17,8 @@ Patch4:         openssl-pkcs11-0.4.10-set-rsa-fips-method-flag.patch
 # unbreak operation when some other engine is present in openssl.cnf
 # https://github.com/OpenSC/libp11/pull/460
 # https://github.com/OpenSC/libp11/commit/feb22a66
+# 580c12b78b63d88010a6178d7c4c58186938c479
+# 74497e0fa5b69b15790d6697e1ebce13af842d4c
 Patch5:         openssl-pkcs11-ossl3.patch
 Patch6:         openssl-pkcs11-ec-copy.patch
 
@@ -122,6 +124,9 @@ make check %{?_smp_mflags} || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
 %endif
 
 %changelog
+* Thu Feb 08 2024 Jakub Jelen <jjelen@redhat.com> - 0.4.12-8
+- Unbreak OpenSSL version detection for OpenSSL 3.1.x
+
 * Tue Feb 06 2024 Jakub Jelen <jjelen@redhat.com> - 0.4.12-7
 - Skip tests by default as they crash in broken SoftHSM (#2261431)
 

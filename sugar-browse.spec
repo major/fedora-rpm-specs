@@ -22,7 +22,6 @@ engine.
 
 %prep
 %autosetup -n Browse-%{version}
-sed -i 's#usr/bin/env python#usr/bin/env python3#' setup.py
 
 %build
 python3 ./setup.py build

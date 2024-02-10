@@ -6,13 +6,14 @@
 
 Name:           todocli
 Version:        0.1
-Release:        29.%{date}git%{shortcommit}%{?dist}
+Release:        30.%{date}git%{shortcommit}%{?dist}
 Summary:        Command line To Do application
 
 License:        MIT
 URL:            https://github.com/okulbilisim/todo.py
 Source0:        https://github.com/%{owner}/%{project}/archive/%{commit}/%{project}-%{commit}.tar.gz
 Source1:        todocli.1
+Patch0:         todocli-fix-version.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -23,6 +24,7 @@ A To Do command line application with SQLite back end written in Python.
 
 %prep
 %setup -q -n %{project}-%{commit}
+%patch -P0 -p1
 #Remove egg.info
 rm -rf %{name}.egg.info
 
@@ -44,6 +46,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/*
 
 %changelog
+* Thu Feb 08 2024 Didier Fabert <didier.fabert@gmail.com> - 0.1-30.20151115git219db73
+- Fix FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2259654
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29.20151115git219db73
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    sugar
-Version: 0.120
-Release: 6%{?dist}
+Version: 0.121
+Release: 1%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 License: GPLv2+
@@ -46,7 +46,8 @@ Requires: telepathy-mission-control
 Requires: telepathy-gabble
 Requires: telepathy-salut
 Requires: upower
-Requires: webkitgtk4
+Requires: webkit2gtk4.1
+Requires: libsoup3
 Requires: xdg-user-dirs
 
 Obsoletes: sugar-base < 0.9.8-18
@@ -243,6 +244,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Tue Feb 06 2024 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.121-1
+- New Release 0.121
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

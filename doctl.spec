@@ -2,12 +2,12 @@
 %bcond_without check
 
 %global major 1
-%global minor 103
+%global minor 104
 %global patchlevel 0
 
 # https://github.com/digitalocean/doctl
 %global goipath         github.com/digitalocean/doctl
-Version:                1.103.0
+Version:                1.104.0
 
 %gometa -L -f
 
@@ -53,7 +53,6 @@ export LDFLAGS="-X github.com/digitalocean/doctl.Major=%{major}  \
 %{gobuilddir}/bin/%{name} completion zsh  > %{name}.zsh
 
 %install
-%gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
@@ -77,8 +76,6 @@ done
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish
 %{zsh_completions_dir}/_%{name}
-
-%gopkgfiles
 
 %changelog
 %autochangelog

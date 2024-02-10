@@ -18,7 +18,7 @@
 %bcond_without docs
 
 Name:           webkit2gtk4.0
-Version:        2.42.4
+Version:        2.42.5
 Release:        %autorelease
 Summary:        WebKitGTK for GTK 3 and libsoup 2
 
@@ -55,6 +55,9 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
+
+# https://bugs.webkit.org/show_bug.cgi?id=268739
+Patch:          i686-build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
