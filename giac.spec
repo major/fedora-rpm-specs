@@ -6,12 +6,12 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .73
+%global subversion .91
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       3%{?dist}
+Release:       1%{?dist}
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
 # GPL-2.0-or-later: pariinl.h
@@ -36,7 +36,7 @@ Patch0:        %{name}-iszero.patch
 Patch1:        %{name}-config.patch
 
 # Use Fedora compiler flags
-Patch2:        %{name}-1.6.0-fix_micropy_compiler_flags.patch
+Patch2:        %{name}-1.9.0-fix_micropy_compiler_flags.patch
 
 # Adapt to cocoalib 0.99700
 Patch3:        %{name}-cocoalib.patch
@@ -225,7 +225,7 @@ autoreconf -ivf
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
 export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
-export CFLAGS="$OPT_FLAGS"
+export CFLAGS_FEDORA="$OPT_FLAGS"
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=yes \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
  --enable-dl=yes --enable-gsl=yes --enable-lapack=yes --enable-pari=yes \
@@ -241,7 +241,7 @@ OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-e
 export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
 export CFLAGS_FEDORA="$OPT_FLAGS"
 export LDFLAGS_FEDORA="$OPT_FLAGS"
-%make_build V=1
+%make_build
 
 # Rebuild giac_*.info and Convert info file to utf-8
 (cd doc ; make)
@@ -467,6 +467,12 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Fri Feb 09 2024 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.91-1
+- Update to 1.9.0 sub-91 (rhbz#2259889)
+
+* Sat Jan 27 2024 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.85-1
+- Update to 1.9.0 sub-85 (rhbz#2259889)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0.73-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

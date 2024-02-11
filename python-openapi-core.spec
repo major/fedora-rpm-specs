@@ -12,7 +12,9 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname} 0.19.0a1}
 
-# Accept starlette 0.35 currently in Rawhide.
+# Bump starlette from 0.34.0 to 0.37.0
+# https://github.com/python-openapi/openapi-core/pull/775
+# Modified to omit changes to poetry.lock
 Patch:          openapi-core-0.19.0a1-starlette.patch
 
 BuildArch:      noarch

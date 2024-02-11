@@ -1,5 +1,6 @@
 %bcond_without selinux
 %global selinux_variants targeted
+%global selinuxtype targeted
 %global selinux_package_dir %{_datadir}/selinux/packages
 
 %global logdir %{_localstatedir}/log/%{name}
@@ -7,7 +8,7 @@
 
 Name:           cepces
 Version:        0.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
@@ -20,12 +21,12 @@ BuildArch:      noarch
 
 Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}
 %if %{with selinux}
-Requires:       (%{name}-selinux%{?_isa} if selinux-policy-%{selinuxtype})
+Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 %endif
 
 Recommends:     logrotate
 
-Supplements:    %{name}-certmonger%{?_isa} = %{version}-%{release}
+Supplements:    %{name}-certmonger = %{version}-%{release}
 
 %description
 cepces is an application for enrolling certificates through CEP and CES.
@@ -56,9 +57,7 @@ This package provides the Python part for CEP and CES interaction.
 
 %package certmonger
 Summary:        certmonger integration for %{name}
-
-
-Requires:       %{name} = %{version}-%{release}
+Requires(pre):  %{name} = %{version}-%{release}
 Requires:       certmonger
 
 %description certmonger
@@ -72,8 +71,8 @@ Summary:        SELinux support for %{name}
 BuildRequires:  selinux-policy-devel
 
 Requires:       %{name} = %{version}-%{release}
-Requires:       selinux-policy
-Requires(post): selinux-policy-targeted
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
 
 %description selinux
 SELinux support for %{name}
@@ -90,7 +89,7 @@ SELinux support for %{name}
 # Build the SELinux module(s).
 for SELINUXVARIANT in %{selinux_variants}; do
     make %{?_smp_mflags} -C selinux clean all
-    mv -v selinux/%{name}.pp selinux/%{name}-${SELINUXVARIANT}.pp
+    mv -v selinux/%{modulename}.pp selinux/%{modulename}-${SELINUXVARIANT}.pp
 done
 %endif
 
@@ -104,13 +103,13 @@ install -d  %{buildroot}%{logdir}
 rm -fv selinux-files.txt
 
 for SELINUXVARIANT in %{selinux_variants}; do
-  install -d -m 755 %{buildroot}%{selinux_package_dir}/${SELINUXVARIANT}
-  bzip2 selinux/%{name}-${SELINUXVARIANT}.pp
-  MODULE_PATH=%{selinux_package_dir}/${SELINUXVARIANT}/%{modulename}.pp.bz2
-  install -p -m 644 selinux/%{name}-${SELINUXVARIANT}.pp.bz2 \
-    %{buildroot}$MODULE_PATH
+    install -d -m 755 %{buildroot}%{selinux_package_dir}/${SELINUXVARIANT}
+    bzip2 selinux/%{modulename}-${SELINUXVARIANT}.pp
+    MODULE_PATH=%{selinux_package_dir}/${SELINUXVARIANT}/%{modulename}.pp.bz2
+    install -p -m 644 selinux/%{name}-${SELINUXVARIANT}.pp.bz2 \
+      %{buildroot}${MODULE_PATH}
 
-  echo $MODULE_PATH >> selinux-files.txt
+    echo ${MODULE_PATH} >> selinux-files.txt
 done
 #endif with selinux
 %endif
@@ -136,30 +135,28 @@ EOF
 ln -s tests/cepces_test .
 %{__python3} setup.py test
 
+%if %{with selinux}
 %pre selinux
 for SELINUXVARIANT in %{selinux_variants}; do
-  %selinux_relabel_pre -s %{SELINUXVARIANT}
+    %selinux_relabel_pre -s ${SELINUXVARIANT}
 done
 
-%if %{with selinux}
 %post selinux
-semodule -d %{modulename} &> /dev/null || true;
 for SELINUXVARIANT in %{selinux_variants}; do
     MODULE_PATH=%{selinux_package_dir}/${SELINUXVARIANT}/%{modulename}.pp.bz2
-    %selinux_modules_install -s %{SELINUXVARIANT} ${MODULE_PATH}
+    %selinux_modules_install -s ${SELINUXVARIANT} ${MODULE_PATH}
 done
 
 %postun selinux
 if [ $1 -eq 0 ]; then
     for SELINUXVARIANT in %{selinux_variants}; do
-        %selinux_modules_uninstall -s %{SELINUXVARIANT} %{modulename}
-        semodule -e %{modulename}  &> /dev/null || true;
+        %selinux_modules_uninstall -s ${SELINUXVARIANT} %{modulename}
     done
 fi
 
 %posttrans selinux
 for SELINUXVARIANT in %{selinux_variants}; do
-    %selinux_relabel_post -s %{SELINUXVARIANT}
+    %selinux_relabel_post -s ${SELINUXVARIANT}
 done
 #endif with selinux
 %endif
@@ -199,6 +196,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 09 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-3
+- Fix installing cepces-selinux
+
 * Mon Feb 05 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-2
 - Require selinux package if selinux is enabled
 

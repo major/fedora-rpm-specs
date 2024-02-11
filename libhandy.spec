@@ -1,19 +1,14 @@
 %bcond glade %[!(0%{?rhel} >= 10)]
 
 Name:           libhandy
-Version:        1.8.2
-Release:        8%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPL-2.1-or-later
 
 URL:            https://gitlab.gnome.org/GNOME/libhandy
 %global majmin %(echo %{version} | cut -d . -f -2)
 Source0:        https://download.gnome.org/sources/%{name}/%{majmin}/%{name}-%{version}.tar.xz
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/libhandy/-/commit/7e8a8529c4d79119d0f0acd81b1f1dbbd558978f
-# https://bugzilla.redhat.com/show_bug.cgi?id=2253814
-Patch:          0001-Revert-settings-Always-free-variant.patch
 
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
@@ -61,16 +56,11 @@ developing applications that use %{name}.
 
 
 %build
-# Avatar test fails on s390x.
 %meson -Dgtk_doc=true -Dexamples=false \
 %if %{without glade}
     -Dglade_catalog=disabled \
 %endif
-%ifnarch s390x
-    -Dtests=true
-%else
-    -Dtests=false
-%endif
+    %{nil}
 %meson_build
 
 
@@ -106,6 +96,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb 09 2024 Kalev Lember <klember@redhat.com> - 1.8.3-1
+- Update to 1.8.3
+- Re-enable tests on s390x
+
 * Wed Feb 07 2024 Kalev Lember <klember@redhat.com> - 1.8.2-8
 - Migrate to SPDX license
 

@@ -4,10 +4,17 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://github.com/linux-nvme/libnvme/pull/765
+Patch0:  libnvme-1.8.0-initialize_autoclean_vars.patch
+# https://github.com/linux-nvme/libnvme/pull/780
+Patch1:  libnvme-1.8.0-initialize_autoclean_vars-2.patch
+# https://github.com/linux-nvme/libnvme/pull/766
+Patch2:  libnvme-1.8.0-nbft-parser-fixes-766.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -97,6 +104,10 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Fri Feb 09 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.7.1-4
+- nbft: Fix SSNS HFI indexes parsing
+- cleanup: Explicitly initialize auto-cleanup variables
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

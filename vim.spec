@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 076
+%define patchlevel 083
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -51,7 +51,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1057,6 +1057,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Fri Feb 09 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.083-1
+- patchlevel 083
+
 * Mon Feb 05 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.076-2
 - enable building without GPM support - build with GPM in Fedora
 - 2262371 - gvim: symbol lookup error: gvim: undefined symbol: g_once_init_enter_pointer

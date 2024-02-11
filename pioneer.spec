@@ -29,7 +29,7 @@ ExclusiveArch: %{ix86} x86_64
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20240203
-Release: 1%{date}%{shortcommit}%{?dist}
+Release: 3%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -38,8 +38,6 @@ Release: 1%{date}%{shortcommit}%{?dist}
 License: GPL-3.0-only AND GPL-2.0-or-later AND Bitstream-Vera AND LicenseRef-Fedora-Public-Domain AND BSD-2-Clause
 URL: http://pioneerspacesim.net/
 Source0: https://github.com/pioneerspacesim/%{name}/archive/%{commit}/%{name}-%{version}.tar.gz
-Source1: %{name}.desktop
-Source2: %{name}.appdata.xml
 
 BuildRequires: make
 %if 0%{?use_autotools}
@@ -78,6 +76,8 @@ Provides: bundled(fmt) = 6.2.1
 
 # I prefer to install binary files manually
 Patch0: %{name}-use_manual_installation.patch
+
+Patch1: %{name}-gcc14.patch
 
 %description
 A space adventure game set in the Milky Way galaxy at the turn of
@@ -142,6 +142,7 @@ Requires:  fontpackages-filesystem
 %prep
 %autosetup -n %{name}-%{version} -N
 %patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
 
 %build
 %if 0%{?use_autotools}
@@ -149,7 +150,7 @@ Requires:  fontpackages-filesystem
 %configure --disable-silent-rules --with-ccache --without-strip \
  --with-version --with-extra-version --without-extra-warnings \
  --without-thirdparty --without-external-liblua --with-no-optimise \
- PIONEER_DATA_DIR=%{_datadir}/%{name}
+ PIONEER_DATA_DIR=%{_datadir}/%{name}/data
 %make_build V=1 OPTIMISE=""
 %else
 mkdir -p build
@@ -157,7 +158,7 @@ mkdir -p build
        -DPROJECT_VERSION_INFO:STRING=%{version} \
        -DUSE_SYSTEM_LIBLUA:BOOL=OFF \
        -DUSE_SYSTEM_LIBGLEW:BOOL=OFF \
-       -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name} -DFMT_INSTALL:BOOL=ON \
+       -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name}/data -DFMT_INSTALL:BOOL=ON \
        -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name}
 %make_build -C build all build-data
 %endif
@@ -229,7 +230,7 @@ desktop-file-edit \
  --set-key=StartupNotify --set-value=false \
  %{buildroot}%{_datadir}/applications/pioneer.desktop
 
-## Moving and editing of appdata file
+## Change and edit of appdata file
 mv %{buildroot}%{_metainfodir}/net.pioneerspacesim.Pioneer.metainfo.xml %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
 sed -i 's|net.pioneerspacesim.Pioneer.desktop|pioneer.desktop|' %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
 sed -i 's|<id>net.pioneerspacesim.Pioneer</id>|<id type="desktop">pioneer.desktop</id>|' %{buildroot}%{_metainfodir}/pioneer.metainfo.xml
@@ -288,6 +289,12 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/dat
 %_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240203-3
+- Fix for GCC-14
+
+* Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240203-2
+- Modify DATADIR path
+
 * Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240203-1
 - Release 20240203
 

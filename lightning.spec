@@ -1,6 +1,6 @@
 Name:           lightning
-Version:        2.1.4
-Release:        5%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        Library for generating assembly code on run time
 License:        LGPLv3+
 URL:            http://www.gnu.org/software/lightning/lightning.html
@@ -9,8 +9,6 @@ Source0:        ftp://ftp.gnu.org/gnu/lightning/lightning-%{version}.tar.gz
 BuildRequires:  texinfo, gcc
 BuildRequires:  binutils-devel
 BuildRequires:  make
-
-Patch0: lightning-%{version}-jit_x86.patch
 
 %description
 GNU lightning is a library to aid in making portable programs
@@ -26,7 +24,7 @@ This package contains development header and libraries of the
 ligthing package
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %configure --enable-static=no --enable-shared=yes --with-gnu-ld --with-pic
@@ -49,8 +47,8 @@ make check V=1 CFLAGS="-g -fno-strict-aliasing -fPIC"
 %files
 %doc AUTHORS ChangeLog NEWS README THANKS
 %license COPYING COPYING.DOC COPYING.LESSER
-%{_libdir}/liblightning.so.1.0.0
-%{_libdir}/liblightning.so.1
+%{_libdir}/liblightning.so.2.0.2
+%{_libdir}/liblightning.so.2
 
 %files devel
 %{_libdir}/liblightning.so
@@ -59,6 +57,9 @@ make check V=1 CFLAGS="-g -fno-strict-aliasing -fPIC"
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Feb 09 2024 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 2.2.3-1
+- Update to latest upstream release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

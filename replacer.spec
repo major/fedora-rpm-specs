@@ -1,17 +1,19 @@
 Name:          replacer
 Version:       1.6
-Release:       28%{?dist}
+Release:       29%{?dist}
 Summary:       Replacer Maven Mojo
 License:       MIT
 URL:           https://github.com/beiliubei/maven-replacer-plugin
 # http://code.google.com/p/maven-replacer-plugin/
 Source0:       https://github.com/beiliubei/maven-replacer-plugin/archive/%{version}.tar.gz
+Patch0:        0001-Port-to-maven-plugin-annotations-from-Javadoc-tags.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(xerces:xercesImpl)
 
@@ -32,6 +34,7 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n maven-replacer-plugin-%{version}
+%patch0 -p1
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -70,6 +73,9 @@ done
 %license LICENSE
 
 %changelog
+* Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6-29
+- Port to maven-plugin-annotations from Javadoc tags
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

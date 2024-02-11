@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.33.2
-Release: 11%{?dist}
+Release: 10%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPLv2+ and GFDL
@@ -13,7 +13,11 @@ Source0: http://download.gnome.org/sources/%{name}/1.33/%{name}-%{version}.tar.x
 # https://bugzilla.redhat.com/show_bug.cgi?id=1775560
 # https://gitlab.gnome.org/GNOME/gtk-doc/issues/98
 # https://gitlab.gnome.org/GNOME/gtk-doc/issues/110
-Patch0: 0001-Partially-revert-a-gtk-doc-1.31-change-that-broke-e-.patch
+Patch: 0001-Partially-revert-a-gtk-doc-1.31-change-that-broke-e-.patch
+
+# Resolve FTBFS, unclear if solution is 'proper'
+# https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/150
+Patch: https://gitlab.gnome.org/GNOME/gtk-doc/-/merge_requests/74.patch
 
 BuildRequires: dblatex
 BuildRequires: docbook-utils
@@ -75,11 +79,8 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Fri Feb 09 2024 Neil Hanlon <neil@shrug.pw> - 1.33.2-10
+- Add tests/gobject/examples to path argument (#2254318 #2261221)
 
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

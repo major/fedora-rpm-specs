@@ -14,7 +14,7 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 2.2.1
+Version: 2.2.2
 Release: 1%{?dist}
 
 License: MIT
@@ -60,6 +60,8 @@ Source1002: ansible-packaging.inc
 %include %{SOURCE1002}
 
 BuildArch: noarch
+# No matching package to install: 'ansible-core >= 2.11.0'
+ExcludeArch: i686
 
 # Requirements for galaxy_transform.py
 BuildRequires: python3
@@ -172,15 +174,17 @@ mkdir -p %{buildroot}%{ansible_roles_dir}
 # Copy role in legacy format and rename rolename in tests
 cp -pR "%{rolename}" "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
 find %{buildroot}%{ansible_roles_dir}/%{legacy_rolename} -type f -exec \
-     sed -e "s/%{collection_namespace}.%{collection_name}.%{collection_rolename}/%{legacy_rolename}/g" \
+     sed -e "s/%{collection_namespace}\.%{collection_name}\.%{collection_rolename}/%{legacy_rolename}/g" \
          -i {} \;
 
-# Copy README, COPYING, and LICENSE files to the corresponding directories
+# Copy README, COPYING, CHANGELOG and LICENSE files to the corresponding directories
 mkdir -p %{buildroot}%{_pkglicensedir}
 mkdir -p "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
 ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.md" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
 ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.html" \
+    "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
+ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/CHANGELOG.md" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
 if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" ]; then
     ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" \
@@ -214,6 +218,10 @@ mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
     %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.html \
+    %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
+
+# Link role CHANGELOG.md to /usr/share/doc/ansible-collection-microsoft-sql/collection/roles/server
+ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/CHANGELOG.md \
     %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 
 # Step 4: Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
@@ -306,6 +314,11 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Feb 9 2024 Sergei Petrosian <spetrosi@redhat.com> - 2.2.2-1
+- Update role to version 2.2.2 to fix HA
+- CHANGELOG.md was missing in some places
+- In legacy role, sed repalced unexpected strings at some places
+
 * Wed Jan 31 2024 Sergei Petrosian <spetrosi@redhat.com> - 2.2.1-1
 - Support installing SQL Server 2022 on RHEL 9 and running as a selinux-confined application
 - Remove unnecessary variable and RPM requirements for read-scale clusters

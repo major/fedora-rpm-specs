@@ -68,7 +68,7 @@ Name:           perl
 # cpan/Encode/bin/encguess:             Artistic-2.0
 # cpan/Unicode-Collate/Collate/allkeys.txt:     Unicode-DFS-2015
 # inline.h:                             MIT
-# lib/unicore:                          UCD
+# lib/unicore:                          Unicode-3.0
 # ext/SDBM_File/sdbm.{c,h}:             Public domain
 # regexec.c, regcomp.c:                 Spencer-86
 # cpan/Locale-Maketext-Simple/lib/Locale/Maketext/Simple.pm:    MIT (with
@@ -100,8 +100,8 @@ Name:           perl
 # cpan/Compress-Raw-Zlib/zlib-src:      Zlib
 # perl.h (EBDIC parts)                              MIT
 ## perl sub-package notice
-# perluniprops.pod is generated from lib/unicore sources:   UCD
-# uni_keywords.h is generated from lib/unicore sources:     UCD
+# perluniprops.pod is generated from lib/unicore sources:   Unicode-3.0
+# uni_keywords.h is generated from lib/unicore sources:     Unicode-3.0
 #
 # This sub-subpackage doesn't contain any copyrightable material.
 # Nevertheless, it needs a License tag, so we'll use the generic
@@ -426,7 +426,7 @@ package.
 
 %package libs
 Summary:        The libraries for the perl run-time
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier AND Spencer-86 AND MIT AND UCD AND LicenseRef-Fedora-Public-Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier AND Spencer-86 AND MIT AND Unicode-3.0 AND LicenseRef-Fedora-Public-Domain
 # Compat provides
 Provides:       %perl_compat
 Provides:       perl(:MODULE_COMPAT_5.38.0)
@@ -483,8 +483,8 @@ directories).
 
 %package devel
 Summary:        Header files for use in perl development
-# l1_char_class_tab.h is generated from lib/unicore sources:    UCD
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD
+# l1_char_class_tab.h is generated from lib/unicore sources:    Unicode-3.0
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-3.0
 %if %{with perl_enables_systemtap}
 Requires:       systemtap-sdt-devel
 %endif
@@ -1364,7 +1364,7 @@ for lexical handles.
 
 %package doc
 Summary:        Perl language documentation
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD AND LicenseRef-Fedora-UltraPermissive
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-3.0 AND LicenseRef-Fedora-UltraPermissive
 Epoch:          0
 Version:        %{perl_version}
 BuildArch:      noarch

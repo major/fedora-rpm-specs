@@ -5,8 +5,8 @@
 %bcond_with tests
 
 Name:           python-%{srcname}
-Version:        0.8.1
-Release:        23%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        VCR imitation for python-requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Feb 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.9.0-1
+- 0.9.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

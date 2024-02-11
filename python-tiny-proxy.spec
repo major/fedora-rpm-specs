@@ -10,14 +10,14 @@ used for testing python-socks, aiohttp-socks and httpx-socks packages.}
 %global forgeurl https://github.com/romis2012/tiny-proxy
 
 Name:           python-tiny-proxy
-Version:        0.2.0
+Version:        0.2.1
 Release:        %{autorelease}
 Summary:        Simple proxy server (SOCKS4(a), SOCKS5(h), HTTP tunnel)
 
 License:        Apache-2.0
 %forgemeta
 URL:            %{forgeurl}
-Source0:        %{forgesource}
+Source:         %{forgesource}
 
 BuildArch:      noarch
 
@@ -33,17 +33,20 @@ BuildRequires:  python3-devel
 %autosetup -n tiny-proxy-%{version}
 %forgesetup
 
-# tweak dev requirements to remove linters, loosen versions
-sed -i -e 's/==.*$//' -e '/flake8/ d' -e '/-cov/ d' -e '/^-e/ d' requirements-dev.txt
-
-cat requirements-dev.txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r \
+    -e 's/^(pytest-cov|flake8)\b/# &/' \
+    -e 's/(==|,<).*//' \
+    -e 's/^-e /# &/' \
+    requirements-dev.txt |
+  tee requirements-dev-filtered.txt
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:requirements-dev.txt}
+%pyproject_buildrequires %{?with_tests:requirements-dev-filtered.txt}
 
 
 %build
@@ -51,7 +54,7 @@ cat requirements-dev.txt
 
 %install
 %pyproject_install
-%pyproject_save_files tiny_proxy
+%pyproject_save_files -l tiny_proxy
 
 %check
 %pyproject_check_import
@@ -61,6 +64,7 @@ cat requirements-dev.txt
 
 %files -n python3-tiny-proxy -f %{pyproject_files}
 %doc README.md
+%doc examples/
 
 %changelog
 %autochangelog

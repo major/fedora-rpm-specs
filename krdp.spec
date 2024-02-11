@@ -1,5 +1,5 @@
-%global commit 49310154fbcac1ce32b30c07f663790e143e078b
-%global commitdate 20231227
+%global commit f36bf16487d4c1b4dcdc3cce520d0fafe17d19df
+%global commitdate 20240131
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global qt6minver 6.4.0
@@ -14,10 +14,6 @@ License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
 
-# Proposed upstream
-## From: https://invent.kde.org/plasma/krdp/-/merge_requests/12
-Patch0101:      0001-cmake-Ensure-that-the-library-version-is-set.patch
-
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -28,11 +24,16 @@ BuildRequires:  cmake(Qt6Gui) >= %{qt6minver}
 BuildRequires:  cmake(Qt6Network) >= %{qt6minver}
 BuildRequires:  cmake(Qt6DBus) >= %{qt6minver}
 BuildRequires:  cmake(Qt6WaylandClient) >= %{qt6minver}
-BuildRequires:  cmake(FreeRDP) >= 2.10
-BuildRequires:  cmake(WinPR)
-BuildRequires:  cmake(FreeRDP-Server)
+# Constrain to FreeRDP 2 for now: https://invent.kde.org/plasma/krdp/-/issues/15
+BuildRequires:  (cmake(FreeRDP) >= 2.10 with cmake(FreeRDP) < 3)
+BuildRequires:  (cmake(WinPR) >= 2.10 with cmake(WinPR) < 3)
+BuildRequires:  (cmake(FreeRDP-Server) >= 2.10 with cmake(FreeRDP-Server) < 3)
 BuildRequires:  cmake(KPipeWire) >= 5.27.80
 BuildRequires:  cmake(PlasmaWaylandProtocols)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-cursor)
+BuildRequires:  pkgconfig(wayland-egl)
+BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  /usr/bin/winpr-makecert
 Requires:       /usr/bin/winpr-makecert
@@ -86,6 +87,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Feb 09 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.27.80~git20240131.f36bf16-1
+- Bump to new git snapshot
+- Restrict to FreeRDP 2.x for now
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.80~git20231227.4931015-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

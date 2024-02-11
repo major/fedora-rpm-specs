@@ -1,19 +1,22 @@
 # Enable Python dependency generation
 %{?python_enable_dependency_generator}
 
+%global snapdate 20240129
+%global commit a746cef769151f680758e9b4edc78cc7fc9c7be5
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           m2crypto
-Version:        0.39.0
-Release:        4%{?dist}
+Version:        0.40.1%{?snapdate:^git%{snapdate}.%{shortcommit}}
+Release:        1%{?dist}
 Summary:        Support for using OpenSSL in Python scripts
 
 License:        MIT
 URL:            https://gitlab.com/m2crypto/m2crypto/
-Source0:        %{pypi_source M2Crypto}
-
-# https://gitlab.com/m2crypto/m2crypto/-/merge_requests/294
-Patch0:         M2Crypto-0.39-outdir.patch
-# https://gitlab.com/m2crypto/m2crypto/-/merge_requests/295
-Patch1:         M2Crypto-0.39-asyncore.patch
+%if %{defined snapdate}
+Source:         %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source:         %{pypi_source M2Crypto}
+%endif
 
 BuildRequires:  gcc
 BuildRequires:  openssl
@@ -37,7 +40,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 This package allows you to call OpenSSL functions from Python 3 scripts.
 
 %prep
-%autosetup -n M2Crypto-%{version} -p1
+%autosetup -n %{?snapdate:%{name}-%{commit}}%{!?snapdate:M2Crypto-%{version}} -p1
 
 # remove outdated generated files
 rm -f src/M2Crypto/m2crypto.py src/SWIG/_m2crypto_wrap.c
@@ -71,6 +74,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -munittest discover -v t
 %{python3_sitearch}/M2Crypto-*.egg-info/
 
 %changelog
+* Fri Feb 09 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.40.1^git20240129.a746cef-1
+- Update 0.40.1 post-release snapshot to fix build on Python 3.12 (#2259967)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

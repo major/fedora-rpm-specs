@@ -120,11 +120,11 @@ Patch:          0001-Drop-obsolete-parameterized-test-dependency.patch
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2135
 Patch:          %{url}/pull/2135.patch
 
+# Support SQLAlchemy 2 (in tests and doc strings)
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2160
+Patch:          %{url}/pull/2160.patch
+
 BuildArch:      noarch
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# While this package is noarch, excluding i686 unblocks many dependent packages
-# (some of which have already removed i686 support).
-ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
@@ -2040,16 +2040,12 @@ do
     k="${k-}${k+ and }not (TestLoadingAioHttpInstrumentor and test_loading_instrumentor)"
     ;;
   instrumentation/opentelemetry-instrumentation-fastapi)
-    # We cannot pin an old version of FastAPI, so these tests fail:
-    #   fix fastapi instrumentation tests for version 0.91
-    #   https://github.com/open-telemetry/opentelemetry-python-contrib/issues/1665
-    #k="${k-}${k+ and }not (TestFastAPIManualInstrumentation and test_uninstrument_app)"
-    #k="${k-}${k+ and }not (TestFastAPIManualInstrumentationHooks and test_uninstrument_app)"
-    #k="${k-}${k+ and }not (TestAutoInstrumentation and test_uninstrument_app)"
-    #k="${k-}${k+ and }not (TestAutoInstrumentationHooks and test_uninstrument_app)"
     # These seem to be timing-dependent...?
-    k="${k-}${k+ and }not (TestFastAPIManualInstrumentation and test_basic_metric_success)"
     k="${k-}${k+ and }not (TestAutoInstrumentation and test_basic_post_request_metric_success)"
+    k="${k-}${k+ and }not (TestAutoInstrumentationHooks and test_basic_metric_success)"
+    k="${k-}${k+ and }not (TestFastAPIManualInstrumentation and test_basic_metric_success)"
+    k="${k-}${k+ and }not (TestFastAPIManualInstrumentationHooks and test_basic_post_request_metric_success)"
+    k="${k-}${k+ and }not (TestFastAPIManualInstrumentationHooks and test_basic_post_request_metric_success)"
     ;;
 %if %{without elasticsearch_dsl}
   # Can’t run the tests; do an import-only “smoke test” instead.

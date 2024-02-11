@@ -6,7 +6,7 @@
 
 Name:           xmvn
 Version:        4.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Local Extensions for Apache Maven
 License:        Apache-2.0
 URL:            https://fedora-java.github.io/xmvn/
@@ -47,7 +47,7 @@ BuildRequires:  maven
 %endif
 
 Requires:       %{name}-minimal = %{version}-%{release}
-Requires:       maven >= 3.6.1
+Requires:       maven
 
 %description
 This package provides extensions for Apache Maven that can be used to
@@ -74,7 +74,7 @@ Requires:       plexus-utils
 Requires:       sisu
 Requires:       slf4j
 
-Requires:       maven-lib >= 3.4.0
+Requires:       maven-lib
 Requires:       maven-jdk-binding
 Suggests:       maven-openjdk17
 
@@ -262,6 +262,9 @@ end
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.2.0-7
+- Drop versioned requires on Maven
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

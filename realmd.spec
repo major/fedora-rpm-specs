@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -10,6 +10,7 @@ Patch0001: 0001-service-allow-multiple-names-and-_srv_-ad_server-opt.patch
 Patch0002: 0002-service-fix-error-message-when-removing-host-from-AD.patch
 Patch0003: 0003-doc-fix-reference-in-realmd.conf-man-page.patch
 Patch0004: 0001-sssd-package-fix.patch
+Patch0005: 0001-tools-fix-ccache-handling-for-leave-operation.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -96,6 +97,10 @@ make check
 %doc ChangeLog
 
 %changelog
+* Fri Feb 09 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-9
+- fix ccache handling for leave operation
+  Resolves: jira#SSSD-6420
+
 * Mon Feb 05 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-8
 - improve sssd package handling due to removed sssd meta package
   Resolves: rhbz#2255725

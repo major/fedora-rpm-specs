@@ -3,12 +3,15 @@
 
 Name:           nvme-cli
 Version:        2.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://github.com/linux-nvme/nvme-cli/pull/2165
+Patch0:         nvme-cli-2.8.0-TP4126-lower_hostnqn_warnings.patch
 
 BuildRequires:  meson >= 0.50.0
 BuildRequires:  gcc gcc-c++
@@ -78,6 +81,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Fri Feb 09 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.7.1-4
+- Lower the verbosity of TP4126 hostnqn-hostid consistency checks
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

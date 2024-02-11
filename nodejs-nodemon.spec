@@ -5,10 +5,10 @@
 %global enable_tests 0
 
 Name:          nodejs-%{npm_name}
-Version:       3.0.1
+Version:       3.0.3
 Release:       %autorelease
 Summary:       Simple monitor script for use during development of a node.js app
-License:       MIT
+License:       ISC AND MIT
 URL:           https://github.com/remy/nodemon
 Source0:       %{npm_name}-v%{version}-bundled.tar.gz
 

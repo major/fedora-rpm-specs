@@ -1,7 +1,7 @@
 %bcond_without tests
 
 %global pypi_name tcxreader
-%global fullversion 0.4.6
+%global fullversion 0.4.9
 
 %global _description %{expand:
 This is a simple TCX parser / reader which can read Garmin TCX file
@@ -11,7 +11,7 @@ watts, TPX_speed (extension). It also works well with missing data!}
 
 Name:           python-%{pypi_name}
 Version:        %{?fullversion}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        tcxreader is a parser/reader for Garmin's TCX file format
 
 # SPDX
@@ -58,6 +58,9 @@ BuildRequires:  python3-pytest-cov
 %doc examples/ example_data/
 
 %changelog
+* Fri Feb 9 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.9-1
+- Update to 0.4.9
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,19 +1,23 @@
 %undefine __cmake_in_source_build
 
-%global commit0 1c68b1e2b13bc113cbf41f142f2105f446a3cdce
-%global cdate0  20180601
+#global commit0 5db249cfb09b40cd80a933da8aa2fb8431054a35
+#global cdate0  20190318
 
 %global engine  dreamer
 
 Name:           dreamchess
-Version:        0.3.0
-Release:        0.18.%{cdate0}git%{?dist}
+Version:        0.3.0%{?cdate0:~%{cdate0}git}
+Release:        1%{?dist}
 Summary:        Portable chess game
 # GPLv2+ generally for most of sources
 # but BSD for dreamchess/src/include/gamegui/queue.h
 License:        GPLv3+ and BSD
-URL:            http://www.%{name}.org/
+URL:            https://www.%{name}.org/
+%if 0%{?cdate0}
 Source0:        https://github.com/%{name}/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
+%else
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -22,10 +26,11 @@ BuildRequires:  bison flex
 BuildRequires:  SDL2-devel
 BuildRequires:  SDL2_image-devel
 BuildRequires:  SDL2_mixer-devel
-BuildRequires:  pugixml-devel
+BuildRequires:  expat-devel
 BuildRequires:  glew-devel
 BuildRequires:  help2man
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 # icons get installed into hicolor folders
 Requires:       hicolor-icon-theme
@@ -78,7 +83,7 @@ Boards, Pieces, Sounds, Styles, Themes.
 
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup %{?cdate0:-n %{name}-%{commit0}}
 
 %build
 %cmake \
@@ -93,9 +98,69 @@ help2man -o %{name}.1 --no-discard-stderr \
 %cmake_install
 install -D -t %{buildroot}%{_mandir}/man1 %{name}.1
 
+mkdir -p %{buildroot}%{_metainfodir}
+cat <<EOF > %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>org.dreamchess.dreamchess</id>
+    <name>DreamChess</name>
+    <summary>Portable Chess Game</summary>
+    <metadata_license>FSFAP</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+    <description>
+        <p>
+            DreamChess is an open source chess game. DreamChess features 3D 
+            OpenGL graphics and provides various chess board sets, ranging from 
+            classic wooden to flat figurines.
+        </p>
+        <p>
+            A moderately strong chess engine is included: Dreamer. However,
+            should this engine be too weak for you, then you can use any other 
+            XBoard-compatible chess engine, including GNU Chess.
+        </p>
+        <p>
+            Other features include music, sound effects, on-screen move lists 
+            using SAN notation, undo functionality, and savegames in PGN format.
+        </p>
+    </description>
+    <launchable type="desktop-id">%{name}.desktop</launchable>
+    <provides>
+        <binary>%{name}</binary>
+    </provides>
+    <content_rating type="oars-1.1"/>
+    <developer_name>DreamChess project</developer_name>
+    <releases>
+        <release version="%{version}" date="%(date +%F -r %{SOURCE0})" />
+    </releases>
+    <screenshots>
+        <screenshot type="default">
+            <caption>Classic Wooden theme</caption>
+            <image>https://www.dreamchess.org/assets/images/screenshots/classic.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Opposing Elements theme</caption>
+            <image>https://www.dreamchess.org/assets/images/screenshots/elements.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Figurine theme</caption>
+            <image>https://www.dreamchess.org/assets/images/screenshots/figurine.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Sketch theme</caption>
+            <image>https://www.dreamchess.org/assets/images/screenshots/sketch.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Title screen</caption>
+            <image>https://www.dreamchess.org/assets/images/screenshots/title.png</image>
+        </screenshot>
+    </screenshots>
+    <url type="homepage">%{url}</url>
+</component>
+EOF
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 
 %files
@@ -105,6 +170,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_mandir}/man*/%{name}.*
+%{_metainfodir}/%{name}.appdata.xml
 
 %files engine
 %license LICENSE.txt
@@ -118,6 +184,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jan 24 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.0-1
+- Update to 0.3.0 final
+- Add AppStream data
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-0.18.20180601git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

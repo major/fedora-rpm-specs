@@ -13,7 +13,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.3
-Release: 50%{?dist}
+Release: 51%{?dist}
 License: LGPL-2.1-or-later
 URL: http://www.gtkpod.org/libgpod.html
 Source0: http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -187,6 +187,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %endif
 
 %changelog
+* Fri Feb 09 2024 Dan Horák <dan@danny.cz> - 0.8.3-51
+- rebuilt for sg3_utils 1.48
+
 * Wed Jan 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-50
 - Patch for modern C.
 

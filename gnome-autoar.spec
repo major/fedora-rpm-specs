@@ -1,9 +1,9 @@
 Name:           gnome-autoar
 Version:        0.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Archive library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-autoar
 Source0:        https://download.gnome.org/sources/%{name}/0.4/%{name}-%{version}.tar.xz
 
@@ -79,6 +79,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb 09 2024 Ondrej Holy <oholy@redhat.com> - 0.4.4-5
+- Migrate to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

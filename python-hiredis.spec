@@ -5,7 +5,7 @@ Summary:        Python wrapper for hiredis
 
 License:        BSD-2-Clause
 URL:            https://github.com/redis/hiredis-py
-Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/python-hiredis-%{version}.tar.gz
 # Drop vendor sources for hiredis and use the system one.
 # Upstream issues (reported by OpenSUSE package mainteners):
 # - https://github.com/redis/hiredis-py/issues/158

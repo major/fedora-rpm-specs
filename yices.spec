@@ -1,6 +1,6 @@
 Name:           yices
 Version:        2.6.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        SMT solver
 
 # The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
@@ -185,6 +185,9 @@ make check MODE=debug
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Fri Feb  9 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-11
+- Rebuild for cryptominisat 5.11.21
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-10
 - Rebuild for cryptominisat 5.11.15
 

@@ -6,7 +6,7 @@
 
 Name:       nodejs-%{npm_name}
 Summary:    An HTTP/1.1 client, written from scratch for Node.js
-Version:    5.28.1
+Version:    5.28.3
 Release:    %autorelease
 
 License:    MIT
@@ -19,8 +19,9 @@ Source3:    %{npm_name}-%{version}-bundled-licenses.txt
 Source4:    %{npm_name}-sources.sh
 
 # Upstream proposal: https://github.com/nodejs/undici/pull/2403
-Patch:      0001-feat-allow-customization-of-build-environment.patch
-Patch:      0002-Support-building-for-externally-shared-js-builtins-2.patch
+Patch0:     0001-feat-allow-customization-of-build-environment.patch
+Patch1:     0002-Support-building-for-externally-shared-js-builtins-2.patch
+Patch2:     0002-chore-refine-esbuild-node-detection.patch
 
 # Binary artifacts in this package are aimed at the wasm32-wasi "architecture".
 %global     _binaries_in_noarch_packages_terminate_build 0

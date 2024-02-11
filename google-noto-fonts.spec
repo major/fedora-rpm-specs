@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	24.1.1
+%global srcver	24.2.1
 # for default font
 %global hprio	56
 # for default font but static
@@ -28,7 +28,7 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20240101
+Version:        20240201
 Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
@@ -86,9 +86,6 @@ local subpackages = {
 
     { alias="sans-serif", family="Kufi Arabic" },
 
-    { alias="sans-serif", family="Looped Thai", lang={ "th" }, nogroup=1,
-      obsoletes={ "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
-    },
     { alias="sans-serif", family="Sans",
       obsoletes={ "sans-ui", "sans-display" },
       default=true
@@ -397,7 +394,7 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", family="Sans Thai Looped", lang={ "th" },
-      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf" },
+      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf", "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
     },
     { alias="sans-serif", family="Sans Tifinagh", lang={ "ber-ma" } },
     { alias="sans-serif", family="Sans Tifinagh APT", lang={ "ber-ma" } },
@@ -1230,6 +1227,9 @@ done
 
 
 %changelog
+* Fri Feb  9 2024 Akira TAGOH <tagoh@redhat.com> - 20240201-1
+- Updates to monthly release of 24.2.1
+
 * Wed Jan 31 2024 Akira TAGOH <tagoh@redhat.com> - 20240101-4
 - Updates to monthly release of 24.1.1
 - Remove substitute config for Symbol.

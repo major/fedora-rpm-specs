@@ -1,7 +1,7 @@
 %global pypi_name widgetsnbextension
 
 Name:           python-%{pypi_name}
-Version:        4.0.9
+Version:        4.0.10
 Release:        %autorelease
 Summary:        Interactive HTML widgets for Jupyter notebooks
 

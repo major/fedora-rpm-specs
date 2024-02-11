@@ -23,8 +23,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   46~alpha
-Release:   4%{?dist}
+Version:   46~beta
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -197,6 +197,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/gnome-software-local-file-fwupd.desktop
 %{_datadir}/applications/gnome-software-local-file-packagekit.desktop
 %{_datadir}/applications/org.gnome.Software.desktop
+%{_datadir}/bash-completion/completions/gnome-software
 %{_mandir}/man1/gnome-software.1*
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Software.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Software-symbolic.svg
@@ -263,6 +264,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Feb 09 2024 Milan Crha <mcrha@redhat.com> - 46~beta-1
+- Update to 46.beta
+
 * Fri Jan 26 2024 Milan Crha <mcrha@redhat.com> - 46~alpha-4
 - Resolves: #2260294 (Split fedora-langpacks plugin into a subpackage)
 

@@ -1,4 +1,4 @@
-# when bootstrapping Python, pytest-xdist is not yet available
+# The pytest-xdist package is not available when bootstrapping or for EL builds
 %bcond xdist %{undefined rhel}
 
 # Package the placeholder rpm-macros (moved to redhat-rpm-config in F40)
@@ -16,16 +16,14 @@
 %endif
 
 %global srcname rpmautospec
-%global canonicalname %{py_dist_name %{srcname}}
 
-Name: python-%{canonicalname}
-Version: 0.6.0
+Name: python-%{srcname}
+Version: 0.6.1
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT
-URL: https://github.com/fedora-infra/%{canonicalname}
-Source0: https://github.com/fedora-infra/%{canonicalname}/releases/download/%{version}/%{canonicalname}-%{version}.tar.gz
-Patch100: python-rpmautospec-0.6.0-old-poetry.patch
+URL: https://github.com/fedora-infra/%{srcname}
+Source0: https://github.com/fedora-infra/%{srcname}/releases/download/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: git
@@ -46,17 +44,17 @@ A package and CLI tool to generate RPM release fields and changelogs.}
 
 %description %_description
 
-%package -n python3-%{canonicalname}
+%package -n python3-%{srcname}
 Summary: %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{canonicalname} %_description
+%description -n python3-%{srcname} %_description
 
-%package -n %{canonicalname}
+%package -n %{srcname}
 Summary:  CLI tool for generating RPM releases and changelogs
-Requires: python3-%{canonicalname} = %{version}-%{release}
+Requires: python3-%{srcname} = %{version}-%{release}
 
-%description -n %{canonicalname}
+%description -n %{srcname}
 CLI tool for generating RPM releases and changelogs
 
 %if %{with rpmmacropkg}
@@ -73,10 +71,11 @@ enabled packages locally.
 %pyproject_buildrequires
 
 %prep
-%autosetup -n %{srcname}-%{version} -N
-%autopatch -M 99
+%autosetup -n %{srcname}-%{version}
 %if %{with oldpoetry}
-%autopatch 100
+sed -i \
+    -e 's/\[tool\.poetry\.group\.dev\.dependencies\]/[tool.poetry.dev-dependencies]/g' \
+    pyproject.toml
 %endif
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -102,10 +101,10 @@ install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 --numprocesses=auto
 %endif
 
-%files -n python3-%{canonicalname} -f %{pyproject_files}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 
-%files -n %{canonicalname}
+%files -n %{srcname}
 %{_bindir}/rpmautospec
 
 %if %{with rpmmacropkg}

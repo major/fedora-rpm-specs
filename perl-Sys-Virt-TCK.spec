@@ -4,19 +4,16 @@
 
 Summary: Sys::Virt::TCK - libvirt Technology Compatibility Kit
 Name: perl-%{appname}
-Version: 1.1.0
-Release: 17%{dist}
+Version: 2.0.0
+Release: 1%{dist}
 License: GPL-2.0-or-later
 Source: http://libvirt.org/sources/tck/%{appname}-v%{version}.tar.gz
 Url: http://libvirt.org/
-Requires: libvirt >= 4.4.0
-%if 0%{?fedora} || 0%{?rhel} > 7
+Requires: libvirt-client
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators
-%endif
 BuildRequires: perl(accessors)
 BuildRequires: perl(App::Prove)
-BuildRequires: perl(Config::Record)
 BuildRequires: perl(Cwd)
 BuildRequires: perl(File::Spec::Functions)
 BuildRequires: perl(File::Copy)
@@ -34,23 +31,22 @@ BuildRequires: perl(TAP::Harness::Archive)
 BuildRequires: perl(Test::Builder)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Sub::Uplevel)
-BuildRequires: perl(Sys::Virt) >= 0.2.1
+BuildRequires: perl(Sys::Virt)
 BuildRequires: perl(XML::Twig)
 BuildRequires: perl(XML::Writer)
 BuildRequires: perl(XML::XPath)
 BuildRequires: perl(Test::Pod)
 BuildRequires: perl(Test::Pod::Coverage)
-# RPM autoprovides misses these 3
-Requires: perl(Test::Exception)
+BuildRequires: perl(YAML)
+# RPM autoprovides misses these as they are just
+# referenced as strings passed to App::Prove
+# not directly imported
 Requires: perl(TAP::Formatter::HTML)
 Requires: perl(TAP::Formatter::JUnit)
-Requires: perl(TAP::Harness::Archive)
-Requires: perl(Net::OpenSSH)
+# The way we use Net::OpenSSH requires this add-on
+# which is not mandatory, so we must ask for it
 Requires: perl(IO::Pty)
-Requires: libguestfs-tools
-Requires: /usr/bin/mkisofs
-# Want to force this minimal version, so don't rely on RPM autoprov
-Requires: perl(Sys::Virt) >= 0.2.1
+Requires: guestfs-tools
 BuildArchitectures: noarch
 
 %description
@@ -80,9 +76,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %files
 %license LICENSE
-%doc README Changes
+%doc README.rst Changes
 %dir %{_sysconfdir}/libvirt-tck
-%config(noreplace) %{_sysconfdir}/libvirt-tck/default.cfg
+%config(noreplace) %{_sysconfdir}/libvirt-tck/default.yml
 %{_bindir}/libvirt-tck
 %dir %{_datadir}/libvirt-tck
 %{_datadir}/libvirt-tck/*
@@ -92,6 +88,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %dir %{_localstatedir}/cache/libvirt-tck
 
 %changelog
+* Fri Feb  9 2024 Daniel P. Berrangé <berrange@redhat.com> - 2.0.0-1
+- Update to 2.0.0 release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -112,54 +111,3 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun May 23 2021 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.0-9
-- Perl 5.34 rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 25 2020 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.0-6
-- Perl 5.32 rebuild
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri May 31 2019 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.0-3
-- Perl 5.30 rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Dec 24 2018 Daniel P. Berrangé <berrange@redhat.com> - 1.1.0-1
-- Update to 1.1.0 release
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Jun 30 2018 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-2
-- Perl 5.28 rebuild
-
-* Mon Jun 11 2018 Daniel P. Berrangé <berrange@redhat.com> - 1.0.0-1
-- Update to 1.0.0 release
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Jun 06 2017 Jitka Plesnikova <jplesnik@redhat.com> - 0.1.0-24
-- Perl 5.26 rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild

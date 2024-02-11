@@ -1,5 +1,5 @@
 Name:           cryptominisat
-Version:        5.11.15
+Version:        5.11.21
 Release:        1%{?dist}
 Summary:        SAT solver
 
@@ -14,6 +14,9 @@ Patch0:         %{name}-cmake.patch
 Patch1:         %{name}-picosat.patch
 # Do not rebuild the entire library for python; just link the existing library
 Patch2:         %{name}-python-library.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -100,7 +103,6 @@ sed -i '/msvc/d;/oracle/d' \
 %files
 %doc README.markdown
 %{_bindir}/cryptominisat5
-%{_bindir}/cryptominisat5_simple
 %{_mandir}/man1/cryptominisat5.1*
 
 %files devel
@@ -119,6 +121,10 @@ sed -i '/msvc/d;/oracle/d' \
 %exclude %{python3_sitearch}/oracle
 
 %changelog
+* Fri Feb  9 2024 Jerry James <loganjerry@gmail.com> - 5.11.21-1
+- Version 5.11.21
+- Stop building for 32-bit x86
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 5.11.15-1
 - Version 5.11.15
 - Drop unused sqlite dependency

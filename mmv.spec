@@ -1,6 +1,6 @@
 Name:		mmv
-Version:	2.5.1
-Release:	3%{?dist}
+Version:	2.6
+Release:	1%{?dist}
 Summary:	Move/copy/link multiple files
 
 License:	GPL-3.0-or-later
@@ -29,6 +29,7 @@ beginning, or proceeding by avoiding the offending parts.
 %make_install
 ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mcp.1.gz
 ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mln.1.gz
+ln -s mmv.1.gz $RPM_BUILD_ROOT%{_mandir}/man1/mad.1.gz
 
 %check
 make check
@@ -39,9 +40,14 @@ make check
 %{_bindir}/mmv
 %{_bindir}/mcp
 %{_bindir}/mln
+%{_bindir}/mad
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Feb 09 2024 Jens Kuehnel <JensKuehnel@users.noreply.github.com> - 2.6-1
+- release 2.6
+- readded the mad command
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

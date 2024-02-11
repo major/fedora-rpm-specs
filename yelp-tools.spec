@@ -5,7 +5,7 @@ Version:       42.1
 Release:       4%{?dist}
 Summary:       Create, manage, and publish documentation for Yelp
 
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Apps/Yelp/Tools
 Source0:       https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
 BuildArch:     noarch

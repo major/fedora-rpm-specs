@@ -1,9 +1,9 @@
-%define alphatag 20221115cvs
+%define alphatag 20240209cvs
 
 Summary: Reminder utility
 Name:    calendar
 Version: 1.37
-Release: 5.%{alphatag}%{?dist}
+Release: 6.%{alphatag}%{?dist}
 License: BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:     http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/calendar
 
@@ -31,7 +31,7 @@ week.
 
 %prep
 %setup -q -n %{name}-%{version}-%{alphatag}
-%patch0 -p1 -b .orig
+%patch -P 0 -p1 -b .orig
 cp %{SOURCE1} Makefile
 
 for c in calendars/*.*/* ; do
@@ -54,6 +54,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/calendar
 
 %changelog
+* Fri Feb 09 2024 David Cantrell <dcantrell@redhat.com> - 1.37-6.20240209cvs
+- Upgrade to calendar(1) from OpenBSD 7.4
+- Use non-deprecated syntax for the %%patch macro
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-5.20221115cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,10 +13,10 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.6
-Release: 3%{?dist}
+Version: 2.6.7
+Release: 1%{?dist}
 Summary: LDAP support libraries
-License: OpenLDAP
+License: OLDAP-2.8
 URL: http://www.openldap.org/
 
 Source0: https://openldap.org/software/download/OpenLDAP/openldap-release/openldap-%{version}.tgz
@@ -25,6 +25,7 @@ Source2: slapd.tmpfiles
 Source3: slapd.ldif
 Source4: ldap.conf
 Source5: UPGRADE_INSTRUCTIONS
+Source6: openldap.sysusers
 Source10: https://github.com/ltb-project/openldap-ppolicy-check-password/archive/v%{check_password_version}/openldap-ppolicy-check-password-%{check_password_version}.tar.gz
 Source50: libexec-functions
 Source52: libexec-check-config.sh
@@ -46,6 +47,8 @@ Patch6: openldap-switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.patch
 # System-wide default for CA certs
 Patch7: openldap-openssl-manpage-defaultCA.patch
 Patch8: openldap-add-export-symbols-LDAP_CONNECTIONLESS.patch
+Patch9: openldap-slapi-fix-plugin-plugin_pblock_new-usage.patch
+Patch10: openldap-explicitly-cast-private-values.patch
 
 # check-password module specific patches
 Patch90: check-password-makefile.patch
@@ -116,6 +119,8 @@ License: OpenLDAP
 Requires: openldap%{?_isa} = %{version}-%{release}
 Requires(pre): shadow-utils
 BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 BuildRequires: cracklib-devel
 # migrationtools (slapadd functionality):
 Provides: ldif2ldbm
@@ -146,14 +151,16 @@ programs needed for accessing and modifying OpenLDAP directories.
 %setup -q -c -a 0 -a 10
 
 pushd openldap-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
 
 # build smbk5pwd with other overlays
 ln -s ../../../contrib/slapd-modules/smbk5pwd/smbk5pwd.c servers/slapd/overlays
@@ -174,8 +181,8 @@ done
 popd
 
 pushd openldap-ppolicy-check-password-%{check_password_version}
-%patch90 -p1
-%patch91 -p1
+%patch -P90 -p1
+%patch -P91 -p1
 popd
 
 %build
@@ -237,6 +244,7 @@ popd
 %install
 
 mkdir -p %{buildroot}%{_libdir}/
+install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_sysusersdir}/openldap.conf
 
 pushd openldap-%{version}
 %make_install STRIP_OPTS=""
@@ -368,6 +376,9 @@ rm %{buildroot}%{_libdir}/*.la  # because we do not want files in %{_libdir}/ope
 
 %pre servers
 # create ldap user and group
+# sysusers.d format https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format
+%sysusers_create_compat %{SOURCE6}
+
 getent group ldap &>/dev/null || groupadd -r -g 55 ldap
 getent passwd ldap &>/dev/null || \
 	useradd -r -g ldap -u 55 -d %{_sharedstatedir}/ldap -s /sbin/nologin -c "OpenLDAP server" ldap
@@ -480,6 +491,7 @@ exit 0
 %{_mandir}/man5/slapd*.5*
 %{_mandir}/man5/slapo-*.5*
 %{_mandir}/man5/slappw-argon2.5*
+%{_sysusersdir}/openldap.conf
 # obsolete configuration
 %ghost %config(noreplace,missingok) %attr(0640,ldap,ldap) %{_sysconfdir}/openldap/slapd.conf
 
@@ -504,6 +516,12 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Fri Feb 9 2024 Simon Pichugin <spichugi@redhat.com> - 2.6.7-1
+- Rebase to version 2.6.7 (rhbz#2261163)
+- Use systemd-sysusers for ldap user and group (rhbz#2173965)
+- Fix compiler errors (rhbz#2261427)
+- Replace License with SPDX identifier
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

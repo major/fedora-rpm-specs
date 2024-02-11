@@ -1,12 +1,13 @@
 Name:           perl-Scalar-List-Utils
 Epoch:          5
 Version:        1.63
-Release:        502%{?dist}
+Release:        503%{?dist}
 Summary:        A selection of general-utility scalar and list subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-List-Utils
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Scalar-List-Utils-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -50,8 +51,29 @@ would be nice to have in the perl core, but the usage would not really be
 high enough to warrant the use of a keyword, and the size so small such
 that being individual extensions would be wasteful.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Carp)
+Requires:       perl(IO::File)
+Requires:       perl(IO::Handle)
+Requires:       perl(threads)
+Requires:       perl(threads::shared)
+Requires:       perl(Tie::Handle)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Scalar-List-Utils-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -62,18 +84,35 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERL
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/List*
 %{perl_vendorarch}/List*
 %{perl_vendorarch}/Scalar*
 %{perl_vendorarch}/Sub*
-%{_mandir}/man3/*
+%{_mandir}/man3/List*
+%{_mandir}/man3/Scalar*
+%{_mandir}/man3/Sub*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5:1.63-503
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.63-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

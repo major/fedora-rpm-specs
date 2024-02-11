@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -36,8 +36,6 @@ Patch103: bash-2.05a-interpreter.patch
 Patch104: bash-2.05b-debuginfo.patch
 # Pid passed to setpgrp() can not be pid of a zombie process.
 Patch105: bash-2.05b-pgrp_sync.patch
-# Enable audit logs
-Patch106: bash-3.2-audit.patch
 # Source bashrc file when bash is run under ssh.
 Patch107: bash-3.2-ssh_source_bash.patch
 # Use makeinfo to generate .texi file
@@ -92,6 +90,9 @@ Patch128: bash-5.0-syslog-history.patch
 Patch129: bash-configure-c99.patch
 Patch130: bash-configure-c99-2.patch
 
+# Enable audit logs
+Patch131: bash-4.3-audit.patch
+
 BuildRequires:  gcc
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
@@ -100,6 +101,7 @@ BuildRequires: gnupg2
 # Required for bash tests
 BuildRequires: glibc-all-langpacks
 BuildRequires: make
+BuildRequires: audit-libs-devel
 Requires: filesystem >= 3
 Provides: /bin/sh
 Provides: /bin/bash
@@ -325,6 +327,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Feb 09 2024 Siteshwar Vashisht <svashisht@redhat.com> - 5.2.26-3
+- Update patch for audit logs
+  Resolves: RHEL-22619
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

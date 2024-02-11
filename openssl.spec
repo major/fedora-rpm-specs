@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -145,6 +145,9 @@ Patch113: 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
 Patch114: 0114-FIPS-enforce-EMS-support.patch
 # skip quic and pairwise tests temporarily
 Patch115: 0115-skip-quic-pairwise.patch
+# Add version aliasing due to
+# https://github.com/openssl/openssl/issues/23534
+Patch116: 0116-version-aliasing.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -480,6 +483,10 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Feb 09 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-2
+- Fix version aliasing issue
+- https://github.com/openssl/openssl/issues/23534
+
 * Tue Feb 06 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-1
 - Rebase to upstream version 3.2.1
 

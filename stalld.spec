@@ -1,6 +1,6 @@
 Name:		stalld
-Version:	1.19
-Release:	2%{?dist}
+Version:	1.19.1
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -59,7 +59,8 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
-* Tue Jan 09 2024 Clark Williams <williams@redhat.com> - 1.19.1
+* Fri Feb 09 2024 Clark Williams <williams@redhat.com> - 1.19.1
+- Conditionalize BPF and queue_track build per architecture
 - clean up Makefile install logic and add .bz2 to .gitignore
 - modify Makefiles so install works with relative paths
 - rename 'redhat' to 'systemd' and remove redhat packaging logic

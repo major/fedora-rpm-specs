@@ -362,7 +362,7 @@ BuildRequires: python3-etcd
 %endif
 
 %if %{with gpupdate}
-BuildRequires: cepces
+BuildRequires: cepces-certmonger >= 0.3.8
 %endif
 
 # pidl requirements
@@ -732,7 +732,6 @@ Samba VFS module for GlusterFS integration.
 %if %{with gpupdate}
 %package gpupdate
 Summary: Samba GPO support for clients
-Requires: cepces
 Requires: cepces-certmonger
 Requires: certmonger
 Requires: %{name}-ldb-ldap-modules = %{samba_depver}
@@ -1222,10 +1221,8 @@ xzcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
 %endif
 %autosetup -n samba-%{version}%{pre_release} -p1
 
-# Ensure we rely on GnuTLS and do not build any other crypto code shipping with
-# the sources.
-rm -rf third_party/{aesni-intel,heimdal}
-rm -f lib/crypto/{aes,rijndael}*.c
+# Make sure we do not build with heimdal code
+rm -rfv third_party/heimdal
 
 %build
 %if %{with includelibs}

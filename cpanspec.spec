@@ -1,6 +1,6 @@
 Name:           cpanspec
 Version:        1.78
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        RPM spec file generation utility
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://cpanspec.sourceforge.net/
@@ -29,11 +29,11 @@ contained in the spec file is correct.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 %build
 perl Build.PL installdirs=vendor
@@ -52,6 +52,10 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man1/*
 
 %changelog
+* Fri Feb 09 2024 Michal Josef Špaček <mspacek@redhat.com> - 1.78-50
+- Fix dnf repoquery --whatprovides
+- Remove warnings with %patch macro
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

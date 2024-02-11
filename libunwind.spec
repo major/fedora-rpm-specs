@@ -35,9 +35,7 @@
 #     Ltest-resume-sig-rt
 #     test-ptrace
 
-# these tests are... buggy.
-
-%ifarch aarch64 i686 ppc64le s390x x86_64
+%ifarch i686 ppc64le s390x
 %global test_failure_override true
 %else
 %global test_failure_override false
@@ -48,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -58,18 +56,12 @@ Patch1: libunwind-arm-default-to-exidx.patch
 # Make libunwind.h multilib friendly
 Patch2: libunwind-1.3.1-multilib-fix.patch
 Patch5: libunwind-no-dl-iterate-phdr.patch
-# Fix for aarch64 issue in 1.8.0
-Patch6: https://patch-diff.githubusercontent.com/raw/libunwind/libunwind/pull/714.patch
 
 ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64
 
 BuildRequires: automake libtool autoconf texlive-latex2man
 BuildRequires: make
 BuildRequires: gcc-c++
-
-%ifarch aarch64
-BuildRequires: libatomic
-%endif
 
 # host != target would cause REMOTE_ONLY build even if building i386 on x86_64.
 %global _host %{_target_platform}
@@ -90,18 +82,17 @@ libunwind.
 
 %build
 %ifarch aarch64
-%global optflags %{optflags} -fcommon -O2
-%global build_ldflags %{build_ldflags} -latomic
-%else
-%global optflags %{optflags} -fcommon
+# LTO causes FTBFS on aarch64 (rhbz#2261344)
+%global _lto_cflags %{nil}
 %endif
+
+%global optflags %{optflags} -fcommon
 aclocal
 libtoolize --force
 autoheader
 automake --add-missing
 autoconf
 %configure --enable-static --enable-shared --enable-setjmp=no
-
 make %{?_smp_mflags}
 
 %install
@@ -145,6 +136,10 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Thu Feb 08 2024 Kalev Lember <klember@redhat.com> - 1.8.0-2
+- Disable LTO on aarch64 to fix the build (rhbz#2261344)
+- Re-enable tests on aarch64
+
 * Mon Jan 29 2024 Tom Callaway <spot@fedoraproject.org> - 1.8.0-1
 - update to 1.8.0
 

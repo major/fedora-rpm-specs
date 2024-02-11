@@ -1,17 +1,16 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 11
+%global project_version_patch 12
 
-%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
+%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-Revert-Update-translations-from-weblate.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -137,7 +136,7 @@ BuildRequires:  toml11-static
 %if %{with clang}
 BuildRequires:  clang
 %else
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 10.1
 %endif
 
 %if %{with tests}
@@ -288,6 +287,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man8/dnf5-search.8.*
 %{_mandir}/man8/dnf5-swap.8.*
 %{_mandir}/man8/dnf5-upgrade.8.*
+%{_mandir}/man7/dnf5-aliases.7.*
 %{_mandir}/man7/dnf5-caching.7.*
 %{_mandir}/man7/dnf5-comps.7.*
 # TODO(jkolarik): filtering is not ready yet
@@ -363,7 +363,7 @@ Requires:       libdnf5-devel%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli-devel%{?_isa} = %{version}-%{release}
 
 %description -n dnf5-devel
-Develpment files for dnf5.
+Development files for dnf5.
 
 %files -n dnf5-devel
 %{_includedir}/dnf5/
@@ -769,6 +769,51 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Fri Feb 09 2024 Packit <hello@packit.dev> - 5.1.12-1
+- Release 5.1.12
+- Update translations from weblate
+- Drop dnf obsoletion temporarily
+- Use regex for tmt plan names
+- Add tmt tests identifiers
+- PackageQuery: Add `filter_{latest,earliest}_evr_ignore_arch`
+- Suggest to use dnf5 command to install dnf5 plugins
+- Added arch option to the download command
+- CI: Upgrade action/checkout to a version with Node.js 20
+- Document explicit nevra remove commands and aliases dropped
+- build: Include <unistd.h> for isatty()
+- Change user info display on history command to include display name and username
+- Revert "Use focusbest: prefer latest deps versions over smaller transactions"
+- Fix a warning when building docs.
+- modules: Add a test for enabling default modules
+- modules: Add a new module stream to test data
+- modules: Respect defaults when enabling multiple streams of a module
+- modules: Fix TransactionItemType for not found modules
+- Build: Require GCC 10.1 for std::in_range<>()
+- Add --urlprotocol option to download command
+- dnfdaemon: Explicitly specify allowed config overrides
+- Disable dnf and dnf5daemon tests
+- needs-restarting: get systemd boot time from UnitsLoadStartTimestamp
+- doc: Add --destdir option to upgrade command manual
+- Move number placeholder to postposition in copr_repo.cpp
+- Added url option
+- Load protected packages from installroot
+- Make protected_packages an append options
+- doc: Create a man page for Aliases
+- I18N: Annotate literals in advisory command
+- Extend filter_release and filter_version tests
+- package_query: Fix filter_version with non EQ comparator
+- Fix clang format
+- Fix code for string deduplication
+- Use placeholders to deduplicate strings
+- Add __hash__(), __str__(), and __repr__() for Package
+- Add __hash__() for Reldep Python binding
+- Add __repr__() to python bindings of Reldep
+- Define tp_str slot for Reldep Class
+- group: Fix using allowerasing option
+- Fix misspellings
+- I18N: Remove duplicate empty message IDs from catalogs
+- I18N: Do not mark empty strings for a translation
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

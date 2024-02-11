@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -130,6 +130,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Fri Feb  9 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-31
+- Rebuild for cryptominisat 5.11.21
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-30
 - Rebuild for cryptominisat 5.11.15
 

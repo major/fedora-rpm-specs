@@ -1,5 +1,5 @@
 %global srcname rpmautospec_koji
-%global canonicalname %{py_dist_name %{srcname}}
+%global canonicalname rpmautospec-koji
 
 Name: python-%{canonicalname}
 Version: 0.4.0
@@ -33,6 +33,7 @@ Summary: %{summary}
 Obsoletes: koji-builder-plugin-rpmautospec < 0.4
 Provides: koji-builder-plugin-rpmautospec = %{version}-%{release}
 Requires: koji-builder-plugins
+Requires: redhat-rpm-config
 
 %description -n python3-%{canonicalname} %{_description}
 

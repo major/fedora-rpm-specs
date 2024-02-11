@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.45
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -24,7 +24,7 @@ Release: 4%{?dist}
 # * src/mygetopt.h - BSD-4-Clause
 # * src/strcasestr.h - BSD-3-Clause
 # * src/strlc{at,py}.c - ISC
-# * src/vasprintf.c - BSD-2-Clause-Darwin AND BSD-3-Clasue
+# * src/vasprintf.c - BSD-2-Clause-Darwin AND BSD-3-Clause
 License: BSD-2-Clause-Darwin AND BSD-2-Clause
 
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
@@ -66,7 +66,6 @@ different graphics formats.
 
 %package libs
 Summary: Libraries for applications using libmagic
-License: BSD
 
 %description libs
 
@@ -233,6 +232,9 @@ make -C tests check
 %endif
 
 %changelog
+* Fri Feb 09 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.45-5
+- fix license of the file-libs subpackage
+
 * Tue Feb 06 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.45-4
 - migrate to SPDX license format
 

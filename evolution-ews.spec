@@ -5,8 +5,8 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.51.1
-Release: 3%{?dist}
+Version: 3.51.2
+Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -92,6 +92,9 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Fri Feb 09 2024 Milan Crha <mcrha@redhat.com> - 3.51.2-1
+- Update to 3.51.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.51.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

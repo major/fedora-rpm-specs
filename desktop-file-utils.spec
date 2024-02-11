@@ -7,7 +7,7 @@ Source0: https://www.freedesktop.org/software/desktop-file-utils/releases/%{name
 Source1: desktop-entry-mode-init.el
 # https://bugzilla.redhat.com/show_bug.cgi?id=2053905
 Patch0:  desktop-file-utils-0.26-support-1.5.patch
-License: GPLv2+
+License: GPL-2.0-or-later
 
 BuildRequires: gcc
 BuildRequires: glib2-devel

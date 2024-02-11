@@ -59,14 +59,12 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.51.1
-Release: 4%{?dist}
+Version: 3.51.2
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
-
-Patch01: 0001-build-Don-t-set-CFLAGS-returned-by-pkg-config-as-CMA.patch
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -374,6 +372,7 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/dbus-1/services/%{dbus_service_name_sources}.service
 %{_datadir}/dbus-1/services/%{dbus_service_name_user_prompter}.service
 %{_datadir}/pixmaps/evolution-data-server
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Evolution-alarm-notify.svg
 
 %{_userunitdir}/evolution-addressbook-factory.service
 %{_userunitdir}/evolution-calendar-factory.service
@@ -505,6 +504,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Feb 09 2024 Milan Crha <mcrha@redhat.com> - 3.51.2-1
+- Update to 3.51.2
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.51.1-4
 - Rebuild for ICU 74
 

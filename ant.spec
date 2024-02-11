@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -49,7 +49,7 @@ URL:            https://ant.apache.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://www.apache.org/dist/ant/source/apache-ant-%{version}-src.tar.bz2
+Source0:        https://archive.apache.org/dist/ant/source/apache-ant-%{version}-src.tar.bz2
 Source2:        apache-ant-1.8.ant.conf
 # manpage
 Source3:        ant.asciidoc
@@ -658,6 +658,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-6
+- Fix source tarball URL
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

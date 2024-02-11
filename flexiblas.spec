@@ -1,7 +1,7 @@
-%bcond_without system_lapack
-%bcond_without atlas
-%bcond_without blis
-%bcond_without openblas
+%bcond system_lapack 1
+%bcond atlas %{undefined rhel}
+%bcond blis %{undefined rhel}
+%bcond openblas 1
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2058840
 %undefine _ld_as_needed
@@ -20,7 +20,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -438,6 +438,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Fri Feb 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.1-4
+- Disable ATLAS and BLIS in RHEL builds
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

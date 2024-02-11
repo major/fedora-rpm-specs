@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        12.0.1
-Release:        4%{?dist}
+Version:        12.0.2
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -52,6 +52,9 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
+%ifarch %{qt6_qtwebengine_arches}
+BuildRequires:	cmake(Qt6WebEngineWidgets)
+%endif
 # FIXME: qt6-qtdeclarative packaging bug?
 # The imported target "Qt6::QmlDomPrivate" references the file
 #    "/usr/lib64/libQt6QmlDom.a"
@@ -80,9 +83,17 @@ BuildRequires:  yaml-cpp-devel
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
 
-# we need gcc-c++ to compile programs using qt-creator
-Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
+Requires:       %{name}-doc = %{version}-%{release}
+Requires:       %{name}-translations = %{version}-%{release}
+
+# we need gcc-c++ to compile programs using qt-creator
+Recommends:       gcc-c++
+Recommends:       gdb
+Recommends:       cmake
+Recommends:       git
+Recommends:       qt6-qtbase-devel
+Recommends:       qt6-doc
 
 Provides:       qtcreator = %{version}-%{release}
 
@@ -201,6 +212,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri Feb 09 2024 Marie Loise Nolden <loise@kde.org> - 12.0.2-1
+- update to 12.0.2
+- add Recommends and Requires for usability out of the box
+
 * Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 12.0.1-4
 - Rebuild (litehtml)
 

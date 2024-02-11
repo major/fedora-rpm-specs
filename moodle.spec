@@ -6,8 +6,8 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.3.2
-Release:       	3%{?dist}
+Version:        4.3.3
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -174,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Fri Feb 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.3.3-1
+- 4.3.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

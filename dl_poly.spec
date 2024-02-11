@@ -28,6 +28,7 @@ BuildRequires:	gcc-gfortran %{?java:java-devel} openmpi-devel desktop-file-utils
 BuildRequires:	mpich-devel
 BuildRequires: make
 Requires:	%{name}-common = %{version}-%{release}
+ExcludeArch:   i686
 
 %global base_description \
 DL_POLY Classic is a general purpose molecular dynamics simulation\
@@ -101,7 +102,7 @@ This package provides the Java-based graphical user interface for %name.
 rm java/GUI.jar
 cp %{SOURCE1} source/Makefile
 
-%patch2 -p1
+%patch -P2 -p1
 
 %build
 # Serial version no longer builds.  Reported to Bill Smith, but no fix
@@ -200,6 +201,10 @@ chmod 644 LICENCE.pdf manual/JavaGUI.pdf
 
 
 %changelog
+* Fri Feb  9 2024 Dave Love <loveshack@fedoraproject.org> - 1.10-21
+- ExcludeArch i686 for FTBFS (#2261065)
+- Update patch syntax
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

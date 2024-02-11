@@ -4,7 +4,7 @@
 Summary: Software version of a PKCS#11 Hardware Security Module
 Name: softhsm
 Version: 2.6.1
-Release: %{?prever:0.}8%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}9%{?prever:.%{prever}}%{?dist}
 License: BSD
 Url: http://www.opendnssec.org/
 Source: http://dist.opendnssec.org/source/%{?prever:testing/}%{name}-%{version}.tar.gz
@@ -14,6 +14,9 @@ Patch1: softhsm-2.6.1-rh1831086-exit.patch
 Patch2: softhsm-openssl3-tests.patch
 # based on https://github.com/opendnssec/SoftHSMv2/commit/f94aaffc879ade97a51b8e1308af42f86be1885f
 Patch3: softhsm-2.6.1-uninitialized.patch
+# from https://github.com/Emantor/SoftHSMv2/tree/fix/openssl3
+# as discussed at https://github.com/opendnssec/SoftHSMv2/issues/729
+Patch4: softhsm-prevent-global-deleted-objects-access.patch
 
 BuildRequires: make
 BuildRequires: openssl-devel >= 1.0.1k-6, sqlite-devel >= 3.4.2, cppunit-devel
@@ -48,6 +51,7 @@ The devel package contains the libsofthsm include files
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %if 0%{?prever:1} || 0%{?prerelease:1}
    # pre-release or post-release snapshots fixup
@@ -133,6 +137,10 @@ if [ -f /var/softhsm/slot0.db ]; then
 fi
 
 %changelog
+* Fri Feb 09 2024 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-9
+- Prevent access to global C++ variables once they destroyed
+- Patch from Neil Horman (OpenSSL)
+
 * Thu Feb 08 2024 Alexander Bokovoy <abokovoy@redhat.com> - 2.6.1-8
 - Run p11test tests individually
 - Resolves: rhbz#2261703

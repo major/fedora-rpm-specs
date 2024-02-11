@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -17,6 +17,9 @@ Source1: %{gem_name}-%{version}-tests.txz
 # Use the SSL pem files in the upstream repositry for the SSL tests.
 # https://github.com/brianmario/mysql2/pull/1293
 Patch0: rubygem-mysql2-0.5.4-use-ssl-pem-files-in-repo.patch
+# openssl 3.2 requires CA:TRUE
+# https://github.com/brianmario/mysql2/pull/1357
+Patch1: rubygem-mysql2-0.5.5-openssl-CA-TRUE.patch
 
 # Required in lib/mysql2.rb
 Requires: rubygem(bigdecimal)
@@ -31,8 +34,11 @@ BuildRequires: rubygem(rspec)
 # Used in mysql_install_db
 BuildRequires: %{_bindir}/hostname
 BuildRequires: rubygem(bigdecimal)
-# Used in spec/em/em_spec.rb
+%if !0%{?rhel}
+# Used in spec/em/em_spec.rb as optional dependency.
+# If rubygem-eventmachine is not present, the tests in the file are skipped.
 BuildRequires: rubygem(eventmachine)
+%endif
 # Used in spec/ssl/gen_certs.sh
 BuildRequires: %{_bindir}/openssl
 %endif
@@ -57,6 +63,7 @@ Documentation for %{name}
 
 pushd %{_builddir}/spec
 %patch0 -p2
+%patch1 -p2
 popd
 
 %build
@@ -113,7 +120,9 @@ MYSQL_TEST_LOG="${TOP_DIR}/mysql.log"
 MYSQL_TEST_PID_FILE="${TOP_DIR}/mysql.pid"
 
 mkdir "${MYSQL_TEST_DATA_DIR}"
+# See https://mariadb.com/kb/en/authentication-from-mariadb-10-4/#configuring-mariadb-install-db-to-revert-to-the-previous-authentication-method
 mysql_install_db \
+  --auth-root-authentication-method=normal \
   --datadir="${MYSQL_TEST_DATA_DIR}" \
   --log-error="${MYSQL_TEST_LOG}"
 
@@ -139,13 +148,6 @@ if ! "${conn_found}"; then
   cat "${MYSQL_TEST_LOG}"
   exit 1
 fi
-
-# Reset password for the root user due to MariaDB 10.4 authentication change.
-# See https://mariadb.com/kb/en/authentication-from-mariadb-104/#altering-the-user-account-to-revert-to-the-previous-authentication-method
-mysql -u ${MYSQL_TEST_USER} \
-  -e "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('')" \
-  -S "${MYSQL_TEST_SOCKET}" \
-  -P "${MYSQL_TEST_PORT}"
 
 # See https://github.com/brianmario/mysql2/blob/master/ci/setup.sh
 mysql -u root \
@@ -196,6 +198,11 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Fri Feb 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.5-4
+- Adapt tests to mariadb 10.11
+- Avoid rubygem-eventmachine build dependency in RHEL
+- Adapt tests to openssl 3.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

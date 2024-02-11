@@ -32,11 +32,6 @@ Source:         %{url}/archive/%{version}/fastapi-%{version}.tar.gz
 
 BuildArch:      noarch
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# This package is noarch, but excluding i686 allows this package’s dependencies
-# to exclude i686 support too, which ultimately affects some arched packages.
-ExcludeArch:    %{ix86}
-
 # Fix sql_app_py39 and py310 tests
 # https://github.com/tiangolo/fastapi/pull/4409
 Patch:          %{url}/pull/4409.patch

@@ -1,6 +1,6 @@
 Name:		pgbouncer
-Version:	1.21.0
-Release:	3%{?dist}
+Version:	1.22.0
+Release:	1%{?dist}
 Summary:	Lightweight connection pooler for PostgreSQL
 License:	MIT and BSD
 URL:		https://www.pgbouncer.org
@@ -118,6 +118,9 @@ exit 0
 %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Feb 09 2024 Simone Caronni <negativo17@gmail.com> - 1.22.0-1
+- Update to 1.22.0.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

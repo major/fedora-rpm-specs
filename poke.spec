@@ -1,13 +1,20 @@
+%global is_alpha 1
+
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	3.3
+Version:	3.90.2
 Release:	%autorelease
 
 # Documentation under GFDL
 License:	GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL:		https://www.jemarch.net/poke
+%if 0%is_alpha
+Source0:	https://alpha.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Source1:	https://alpha.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
+%else
 Source0:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
+%endif
 # the url also contains html -> manually stripped away
 Source2:	http://keys.gnupg.net/pks/lookup?op=get&search=0x3EF90523B304AF08#./jemarch-keyring.asc
 
@@ -26,10 +33,10 @@ BuildRequires:	dejagnu
 Requires:	%{name}-data = %{version}-%{release}
 Requires:	%{name}-libs = %{version}-%{release}
 
-# bundles gnulib commit 738dcb549287cf29ed74a6d741d2a0723259b57e
-Provides:	bundled(gnulib) = 20230125
+# bundles gnulib commit 2c9ebdc358bfa4ede419a6e528ed0386ec6c6911
+Provides:	bundled(gnulib) = 20240128
 # bundles jitter, should be packaged independently in the future
-Provides:	bundled(jitter) = 0.9.294
+Provides:	bundled(jitter) = 0.9.303
 
 %description
 GNU poke is an interactive, extensible editor for binary data. Not
@@ -96,8 +103,10 @@ cd -
 %files
 %{_bindir}/%{name}
 %{_bindir}/poked
+%{_bindir}/pokefmt
 %{_bindir}/pk-bin2poke
 %{_bindir}/pk-elfextractor
+%{_bindir}/pk-jojopatch
 %{_bindir}/pk-strings
 %{_infodir}/poke.info*.*
 %{_mandir}/man1/%{name}.1*
@@ -119,7 +128,7 @@ cd -
 %{_emacs_sitelispdir}/poke-*
 
 %files libs
-%{_libdir}/libpoke.so.0*
+%{_libdir}/libpoke.so.1*
 %license COPYING
 
 %files vim

@@ -1,9 +1,11 @@
 Summary: A front end for testing other programs
 Name: dejagnu
 Version: 1.6.3
-Release: 9%{?dist}
+Release: 10%{?dist}
 Epoch: 1
-License: GPLv3+
+# Note: baseboards/riscv-sim.exp is GPL 2.0 or later
+# GFDL-1.3-or-later: Everything in doc/
+License: GPL-3.0-or-later AND GFDL-1.3-or-later
 Source: ftp://ftp.gnu.org/gnu/dejagnu/dejagnu-%{version}.tar.gz
 URL: http://www.gnu.org/software/dejagnu/
 Requires: expect
@@ -61,6 +63,9 @@ install -D -m 644 doc/dejagnu.info $RPM_BUILD_ROOT/%{_infodir}/%{name}.info
 %{_infodir}/dejagnu*
 
 %changelog
+* Wed Feb  7 2024 Siddhesh Poyarekar <siddhesh@redhat.com> - 1:1.6.3-10
+- Add SPDX identifiers for licenses.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.6.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

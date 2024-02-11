@@ -1,7 +1,7 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
 Version: 2.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
 BuildRequires: autoconf, automake, libtool, gettext-devel,
@@ -10,9 +10,6 @@ BuildRequires: libuuid-devel, gcc, json-c-devel
 BuildRequires: libpwquality-devel, libblkid-devel
 BuildRequires: make libssh-devel
 BuildRequires: asciidoctor
-%if %{undefined rhel}
-BuildRequires: libargon2-devel
-%endif
 Requires: cryptsetup-libs = %{version}-%{release}
 Requires: libpwquality >= 1.2.0
 Obsoletes: %{name}-reencrypt <= %{version}
@@ -20,6 +17,8 @@ Provides: %{name}-reencrypt = %{version}
 
 %global upstream_version %{version_no_tilde}
 Source0: https://www.kernel.org/pub/linux/utils/cryptsetup/v2.7/cryptsetup-%{upstream_version}.tar.xz
+
+Patch0:  %{name}-2.7.1-Fix-configure-Argon2-OpenSSL-detection-to-not-compil.patch
 
 %description
 The cryptsetup package contains a utility for setting up
@@ -71,8 +70,7 @@ disk integrity protection using dm-integrity kernel module.
 rm -f man/*.8
 
 ./autogen.sh
-%configure --enable-fips --enable-pwquality --enable-asciidoc \
-  --enable-%{?rhel:internal-sse-}%{!?rhel:lib}argon2
+%configure --enable-fips --enable-pwquality --enable-asciidoc --enable-internal-sse-argon2
 %make_build
 
 %install
@@ -121,6 +119,10 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Fri Feb 09 2024 Ondrej Kozina <okozina@redhat.com> - 2.7.0-2
+- Rebuild for OpenSSL Argon2 implementation (OpenSSL 3.2)
+- patch: Do not compile unused internal argon2 implementation
+
 * Wed Jan 24 2024 Ondrej Kozina <okozina@redhat.com> - 2.7.0-1
 - Update to cryptsetup 2.7.0.
 

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.15.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -22,6 +22,7 @@ Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
+Patch7:		%{name}-remove-uuid.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -192,6 +193,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Sat Feb 10 2024 Akira TAGOH <tagoh@redhat.com> - 2.15.0-4
+- Delete .uuid with fc-cache -f.
+  Resolves: rhbz#1761885
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

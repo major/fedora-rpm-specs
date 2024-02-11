@@ -1,5 +1,5 @@
 Name:           archlinux-keyring
-Version:        20231222
+Version:        20240208
 Release:        %autorelease
 Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz
@@ -48,10 +48,16 @@ ln --relative -s %{_datadir}/pacman/keyrings/archlinux.gpg %{buildroot}%{_keyrin
 %{_unitdir}/archlinux-keyring-wkd-sync.*
 %{_unitdir}/timers.target.wants/archlinux-keyring-wkd-sync.timer
 
-%post
-if [ -x /usr/bin/pacman-key ] && /usr/bin/pacman-key -l &>/dev/null; then
-    /usr/bin/pacman-key --populate archlinux || :
-    /usr/bin/pacman-key --updatedb || :
+%posttrans
+if [ $1 == 1 ] && [ -x /usr/bin/pacman-key ] && ! /usr/bin/pacman-key -l &>/dev/null; then
+    /usr/bin/pacman-key --init && \
+    /usr/bin/pacman-key --populate archlinux --updatedb || :
+fi
+
+%transfiletriggerin -- /usr/bin/pacman-key
+if [ -x /usr/bin/pacman-key ] && ! /usr/bin/pacman-key -l &>/dev/null; then
+    /usr/bin/pacman-key --init && \
+    /usr/bin/pacman-key --populate archlinux --updatedb || :
 fi
 
 %changelog

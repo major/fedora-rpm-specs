@@ -1,14 +1,15 @@
 %global rescan_script rescan-scsi-bus.sh
+%global _udevlibdir %{_prefix}/lib/udev
 
 Summary: Utilities for devices that use SCSI command sets
-Name: sg3_utils
-Version: 1.46
-Release: 7%{?dist}
-License: GPLv2+ and BSD
-Source0: http://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
-Source2: scsi-rescan.8
+Name:    sg3_utils
+Version: 1.48
+Release: 1%{?dist}
+License: GPL-2.0-or-later AND BSD-2-Clause
+URL:     https://sg.danny.cz/sg/sg3_utils.html
+Source0: https://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
+Source1: scsi-rescan.8
 
-URL: http://sg.danny.cz/sg/sg3_utils.html
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: make
 BuildRequires: gcc
@@ -43,8 +44,10 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 This package contains the %{name} library and its header files for
 developing applications.
 
+
 %prep
 %autosetup -p 1
+
 
 %build
 %configure --disable-static
@@ -58,46 +61,65 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %install
 %make_install
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/*.la
+rm -rf %{buildroot}%{_libdir}/*.la
 
-install -p -m 755 scripts/%{rescan_script} $RPM_BUILD_ROOT%{_bindir}
-( cd $RPM_BUILD_ROOT%{_bindir}; ln -sf %{rescan_script} scsi-rescan )
+install -p -m 755 scripts/%{rescan_script} %{buildroot}%{_bindir}
+( cd %{buildroot}%{_bindir}; ln -sf %{rescan_script} scsi-rescan )
 
-install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man8
+install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man8
 
 # install all extra udev rules
-mkdir -p $RPM_BUILD_ROOT%{_udevrulesdir}
-mkdir -p $RPM_BUILD_ROOT/usr/lib/udev
-install -p -m 644 scripts/40-usb-blacklist.rules $RPM_BUILD_ROOT%{_udevrulesdir}
+mkdir -p %{buildroot}%{_udevrulesdir}
+mkdir -p %{buildroot}%{_udevlibdir}
+install -p -m 644 scripts/40-usb-blacklist.rules %{buildroot}%{_udevrulesdir}
 # need to run after 60-persistent-storage.rules
-install -p -m 644 scripts/55-scsi-sg3_id.rules $RPM_BUILD_ROOT%{_udevrulesdir}/61-scsi-sg3_id.rules
+install -p -m 644 scripts/55-scsi-sg3_id.rules %{buildroot}%{_udevrulesdir}/61-scsi-sg3_id.rules
 # need to run after 62-multipath.rules
-install -p -m 644 scripts/58-scsi-sg3_symlink.rules $RPM_BUILD_ROOT%{_udevrulesdir}/63-scsi-sg3_symlink.rules
-install -p -m 644 scripts/59-scsi-cciss_id.rules $RPM_BUILD_ROOT%{_udevrulesdir}/65-scsi-cciss_id.rules
-install -p -m 644 scripts/59-fc-wwpn-id.rules $RPM_BUILD_ROOT%{_udevrulesdir}/63-fc-wwpn-id.rules
-install -p -m 755 scripts/fc_wwpn_id $RPM_BUILD_ROOT/usr/lib/udev
+install -p -m 644 scripts/58-scsi-sg3_symlink.rules %{buildroot}%{_udevrulesdir}/63-scsi-sg3_symlink.rules
+install -p -m 644 scripts/59-scsi-cciss_id.rules %{buildroot}%{_udevrulesdir}/65-scsi-cciss_id.rules
+install -p -m 644 scripts/59-fc-wwpn-id.rules %{buildroot}%{_udevrulesdir}/63-fc-wwpn-id.rules
+install -p -m 755 scripts/fc_wwpn_id %{buildroot}%{_udevlibdir}
+
 
 %files
-%doc AUTHORS BSD_LICENSE COPYING COVERAGE CREDITS ChangeLog README README.sg_start
-%{_bindir}/*
-%{_mandir}/man8/*
+%license BSD_LICENSE COPYING
+%doc AUTHORS COVERAGE CREDITS ChangeLog README README.sg_start
+%{_bindir}/scsi_*
+%{_bindir}/sg_*
+%{_bindir}/rescan-scsi-bus.sh
+%{_bindir}/scsi-rescan
+%{_bindir}/sginfo
+%{_bindir}/sgm_dd
+%{_bindir}/sgp_dd
+%{_mandir}/man8/scsi_*.8*
+%{_mandir}/man8/sg_*.8*
+%{_mandir}/man8/rescan-scsi-bus.sh.8*
+%{_mandir}/man8/scsi-rescan.8*
+%{_mandir}/man8/sginfo.8*
+%{_mandir}/man8/sgm_dd.8*
+%{_mandir}/man8/sgp_dd.8*
+%{_mandir}/man8/%{name}.8*
+%{_mandir}/man8/%{name}_json.8*
 %{_udevrulesdir}/61-scsi-sg3_id.rules
 %{_udevrulesdir}/63-scsi-sg3_symlink.rules
 %{_udevrulesdir}/63-fc-wwpn-id.rules
 %{_udevrulesdir}/65-scsi-cciss_id.rules
 %{_udevrulesdir}/40-usb-blacklist.rules
-/usr/lib/udev/fc_wwpn_id
+%{_udevlibdir}/fc_wwpn_id
 
 %files libs
 %doc BSD_LICENSE COPYING
-%{_libdir}/*.so.*
+%{_libdir}/libsgutils2-%{version}.so.*
 
 %files devel
 %{_includedir}/scsi/*.h
-%{_libdir}/*.so
+%{_libdir}/libsgutils2.so
 
 
 %changelog
+* Fri Feb 09 2024 Dan Horák <dan@danny.cz> - 1.48-1
+- update to version 1.48 (rhbz#1944444)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

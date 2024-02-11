@@ -1,4 +1,3 @@
-
 # enable bootstrap mode (e.g. disables doc generation)
 #global bootstrap 1
 
@@ -7,7 +6,7 @@ Epoch:          1
 Version:        1.1.1
 Release:        36%{?dist}
 Summary:        Theora Video Compression Codec
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.theora.org
 Source0:        http://downloads.xiph.org/releases/theora/%{name}-%{version}.tar.xz
 Patch0:         libtheora-1.1.1-fix-pp_sharp_mod-calc.patch

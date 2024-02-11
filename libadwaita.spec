@@ -1,17 +1,18 @@
 %global apiver  1
 %global gtk_version 4.11.3
+%global glib_version 2.76.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.4.2
+Version:        1.5~beta
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
 # part of src/adw-spring-animation.c is MIT
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
-Source0:        https://download.gnome.org/sources/%{name}/1.4/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.5/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -22,7 +23,7 @@ BuildRequires:  meson >= 0.59.0
 BuildRequires:  vala
 BuildRequires:  pkgconfig(appstream)
 BuildRequires:  pkgconfig(fribidi)
-BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk_version}
 

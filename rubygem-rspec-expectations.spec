@@ -1,9 +1,9 @@
-%global	majorver	3.12.3
+%global	majorver	3.13.0
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	5
+%global	baserelease	1
 
 %global	gem_name	rspec-expectations
 
@@ -57,9 +57,6 @@ This package contains documentation for %{name}.
 
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
-# MiniTest 5.19+
-grep -rl MiniTest spec/ | xargs sed -i 's|MiniTest::|Minitest::|'
-
 %build
 gem build %{gem_name}.gemspec
 %gem_install
@@ -112,6 +109,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Fri Feb 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.0-1
+- 3.13.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

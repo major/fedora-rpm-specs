@@ -122,7 +122,8 @@ Epoch: %{nodejs_epoch}
 Version: %{nodejs_version}
 Release: %{nodejs_release}
 Summary: JavaScript runtime
-License: MIT and ASL 2.0 and ISC and BSD
+# see bundled_licenses.py, which helps identify licenses in bundled NPM modules
+License: Apache-2.0 AND Artistic-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BlueOak-1.0.0 AND CC-BY-3.0 AND CC0-1.0 AND ISC AND MIT
 Group: Development/Languages
 URL: http://nodejs.org/
 

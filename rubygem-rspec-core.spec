@@ -1,9 +1,9 @@
-%global	majorver	3.12.2
+%global	majorver	3.13.0
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	4
+%global	baserelease	1
 
 %global	gem_name	rspec-core
 
@@ -208,6 +208,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Fri Feb 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.0-1
+- 3.13.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

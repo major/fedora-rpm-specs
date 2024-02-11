@@ -1,13 +1,10 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.5.0
+Version:            6.7.0
 Release:            %autorelease
-%if 0%{?rhel}
-Group:              Applications/System
-%endif
 URL:                https://kernel.org/pub/linux/utils/net/%{name}2/
 Source0:            https://kernel.org/pub/linux/utils/net/%{name}2/%{name}2-%{version}.tar.xz
-Patch0:             0001-Makefile-ensure-CONF_USR_DIR-honours-the-libdir-conf.patch
+Patch0:             0001-iproute2-fix-build-failure-on-ppc64le.patch
 
 License:            GPL-2.0-or-later AND NIST-PD
 BuildRequires:      bison
@@ -17,7 +14,6 @@ BuildRequires:      gcc
 BuildRequires:      iptables-devel >= 1.4.5
 BuildRequires:      libbpf-devel
 BuildRequires:      libcap-devel
-BuildRequires:      libdb-devel
 BuildRequires:      libmnl-devel
 BuildRequires:      libselinux-devel
 BuildRequires:      make
@@ -38,9 +34,6 @@ kernel.
 
 %package tc
 Summary:            Linux Traffic Control utility
-%if 0%{?rhel}
-Group:              Applications/System
-%endif
 License:            GPL-2.0-or-later
 Requires:           %{name}%{?_isa} = %{version}-%{release}
 Provides:           /sbin/tc
@@ -53,9 +46,6 @@ Linux.
 %if ! 0%{?_module_build}
 %package doc
 Summary:            Documentation for iproute2 utilities with examples
-%if 0%{?rhel}
-Group:              Applications/System
-%endif
 License:            GPL-2.0-or-later
 Requires:           %{name} = %{version}-%{release}
 
@@ -65,9 +55,6 @@ The iproute documentation contains howtos and examples of settings.
 
 %package devel
 Summary:            iproute development files
-%if 0%{?rhel}
-Group:              Development/Libraries
-%endif
 License:            GPL-2.0-or-later
 Requires:           %{name} = %{version}-%{release}
 Provides:           iproute-static = %{version}-%{release}
@@ -79,8 +66,8 @@ The libnetlink static library.
 %autosetup -p1 -n %{name}2-%{version}
 
 %build
-%configure
-echo -e "\nCONFDIR:=%{_libdir}/iproute2\nSBINDIR=%{_sbindir}" >> config.mk
+%configure --color auto
+echo -e "\nSBINDIR=%{_sbindir}" >> config.mk
 %make_build
 
 %install
@@ -97,11 +84,11 @@ rm -rf '%{buildroot}%{_docdir}'
 
 # append deprecated values to rt_dsfield for compatibility reasons
 %if 0%{?rhel} && ! 0%{?eln}
-cat %{SOURCE1} >>%{buildroot}%{_libdir}/iproute2/rt_dsfield
+cat %{SOURCE1} >>%{buildroot}%{_datadir}/iproute2/rt_dsfield
 %endif
 
 %files
-%dir %{_libdir}/iproute2
+%dir %{_datadir}/iproute2
 %license COPYING
 %doc README README.devel
 %{_mandir}/man7/*
@@ -109,7 +96,7 @@ cat %{SOURCE1} >>%{buildroot}%{_libdir}/iproute2/rt_dsfield
 %{_mandir}/man8/*
 %exclude %{_mandir}/man8/tc*
 %exclude %{_mandir}/man8/cbq*
-%attr(644,root,root) %config(noreplace) %{_libdir}/iproute2/*
+%attr(644,root,root) %config(noreplace) %{_datadir}/iproute2/*
 %{_sbindir}/*
 %exclude %{_sbindir}/tc
 %exclude %{_sbindir}/routel
