@@ -1,15 +1,24 @@
+%bcond tests 1
 %global pypi_name pendulum
 
 Name:           python-%{pypi_name}
-Version:        2.1.2
-Release:        14%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
 URL:            https://pendulum.eustace.io
-Source0:        %{pypi_source}
+Source0:        https://github.com/sdispater/pendulum/archive/%{version}/pendulum-%{version}.tar.gz
+Patch0:         0001-Use-zoneinfo-instead-of-tzdata-package-to-retrieve-t.patch
 
-BuildRequires:  gcc
+BuildRequires:  cargo-rpm-macros
+BuildRequires:  tomcli
+BuildRequires:  tzdata
+%if %{with tests}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytz}
+BuildRequires:  %{py3_dist time-machine}
+%endif
 
 %description
 Unlike other datetime libraries for Python, Pendulum is a drop-in replacement
@@ -21,17 +30,15 @@ timezone-aware and by default in UTC for ease of use.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
+# Primary: MIT
+# Apache-2.0
+# MIT
+# MIT OR Apache-2.0
+License:        MIT AND Apache-2.0 AND (MIT OR Apache-2.0)
 
 BuildRequires:  python3-devel
-# F39FailsToInstall: python3-pendulum
-# https://bugzilla.redhat.com/show_bug.cgi?id=2220403
-BuildRequires:  %py3_dist setuptools
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %py3_dist toml
-BuildRequires:  %py3_dist poetry-core
-BuildRequires:  %py3_dist python-dateutil
-BuildRequires:  %py3_dist pytzdata
 %{?python_provide:%python_provide python3-%{pypi_name}}
+Requires:       tzdata
 
 %description -n python3-%{pypi_name}
 Unlike other datetime libraries for Python, Pendulum is a drop-in replacement
@@ -42,23 +49,48 @@ It also removes the notion of naive datetimes: each Pendulum instance is
 timezone-aware and by default in UTC for ease of use.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
+# Remove tzdata dependency. We use the system one.
+tomcli-set pyproject.toml lists delitem project.dependencies 'tzdata.*'
+# Remove pytest-benchmark dependency. We don't care about it in RPM builds.
+sed -i '/@pytest.mark.benchmark/d' $(find tests -type f -name '*.py')
+%cargo_prep
+cd rust
+rm -rf Cargo.lock
+# Remove unpackaged feature. This is only needed for Windows.
+tomcli-set Cargo.toml lists delitem dependencies.pyo3.features 'generate-import-lib'
 
 %generate_buildrequires
 %pyproject_buildrequires -r
+cd rust
+%cargo_generate_buildrequires -t
 
 %build
+export RUSTFLAGS=%{shescape:%build_rustflags}
 %pyproject_wheel
+
+cd rust
+%cargo_license_summary
+%{cargo_license} > LICENSES.dependencies
 
 %install
 %pyproject_install
 %pyproject_save_files pendulum
 
+%check
+%pyproject_check_import
+%if %{with tests}
+%pytest
+%endif
+
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE
+%license LICENSE rust/LICENSES.dependencies
 %doc README.rst
 
 %changelog
+* Mon Feb 05 2024 Maxwell G <maxwell@gtmx.me> - 3.0.0-1
+- Update to 3.0.0. Fixes rhbz#2147455.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

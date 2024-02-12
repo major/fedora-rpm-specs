@@ -11,7 +11,7 @@ Source:         %{pypi_source vecrec}
 # Use flit_core as the build backend
 #
 # Don’t require all of flit to build a wheel.
-Patch:          %{url}/pull/2.patch
+Patch:          %{url}/pull/3.patch
 
 BuildArch:      noarch
 

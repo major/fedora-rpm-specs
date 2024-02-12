@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/gologger
 %global goipath         github.com/projectdiscovery/gologger
-Version:                1.1.11
+Version:                1.1.12
 
 %gometa -f
 

@@ -1,10 +1,10 @@
 %global packname webfakes
-%global packver  1.1.7
+%global packver  1.3.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          1%{?dist}
 Summary:          Fake Web Apps for HTTP Testing
 
 License:          MIT
@@ -14,7 +14,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-stats, R-tools, R-utils
-# Suggests:  R-callr, R-covr, R-curl, R-glue, R-httpuv, R-httr, R-jsonlite, R-testthat >= 3.0.0, R-withr, R-xml2
+# Suggests:  R-brotli, R-callr, R-covr, R-curl, R-digest, R-glue, R-httpuv, R-httr, R-jsonlite, R-testthat >= 3.0.0, R-withr, R-xml2, R-zip >= 2.3.0
 # LinkingTo:
 # Enhances:
 
@@ -23,9 +23,12 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-stats
 BuildRequires:    R-tools
 BuildRequires:    R-utils
+# Not in Fedora
+# BuildRequires:    R-brotli
 BuildRequires:    R-callr
 BuildRequires:    R-covr
 BuildRequires:    R-curl
+BuildRequires:    R-digest
 BuildRequires:    R-glue
 BuildRequires:    R-httpuv
 BuildRequires:    R-httr
@@ -33,6 +36,7 @@ BuildRequires:    R-jsonlite
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
 BuildRequires:    R-xml2
+BuildRequires:    R-zip >= 2.3.0
 
 %description
 Create a web app that makes it easier to test web clients without using the
@@ -57,7 +61,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
 
 
 %files
@@ -79,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 1.3.0-1
+- update to 1.3.0
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

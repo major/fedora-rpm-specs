@@ -2,8 +2,8 @@
 %global framework kmediaplayer
 
 Name:    kf5-%{framework}
-Version: 5.113.0
-Release: 3%{?dist}
+Version: 5.115.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 module with interface for media player features
 
 # The project has no SPDX tags on files. The LICENSE file points to X11 License, soooooo...
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
+- 5.115.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

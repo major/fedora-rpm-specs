@@ -8,11 +8,12 @@
 
 Name:		tcl-%{realname}
 Version:	2.2.10
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	Sound toolkit
 # generic/snackDecls.h, generic/snackStubInit.c and generic/snackStubLib.c 
 # are under the TCL "license.terms", a copy of which can be found in the tcl package.
-License:	GPLv2+ and TCL and BSD
+# SnackMpg.c just says "BSD" so we pick the most common one. :P
+License:	GPL-2.0-or-later AND TCL AND BSD-3-Clause
 URL:		http://www.speech.kth.se/snack/
 # The upstream source has two files which implement MP3 decoding.
 # ./generic/jkFormatMP3.c and ./generic/jkFormatMP3.h
@@ -38,8 +39,9 @@ Patch8:		tcl-snack-configure-c99.patch
 Patch9:		tcl-snack-sigproc2-c99.patch
 # Do not use obsolete distutils
 Patch10:	snack2.2.10-python3-setuptools.patch
-BuildRequires: make
-BuildRequires:  gcc-c++
+Patch11:	snack2.2.10-const-fix.patch
+BuildRequires:	make
+BuildRequires:	gcc-c++
 BuildRequires:	tcl-devel, tk-devel, libogg-devel, libvorbis-devel
 BuildRequires:	libXft-devel
 BuildRequires:	alsa-lib-devel
@@ -82,16 +84,17 @@ Tkinter are also required to use Snack.
 
 %prep
 %setup -q -n %{realname}%{version}
-%patch0 -p1 -b .mpg123
-%patch1 -p1 -b .extracflags
-%patch3 -p1 -b .newALSA
-%patch4 -p1 -b .CVE20126303
-%patch5 -p1 -b .format-security
-%patch6 -p1 -b .py3
-%patch7 -p1 -b .seektell
-%patch8 -p1 -b .configure-c99
-%patch9 -p1 -b .sigproc2-c99
-%patch10 -p1 -b .setuptools
+%patch -P0 -p1 -b .mpg123
+%patch -P1 -p1 -b .extracflags
+%patch -P3 -p1 -b .newALSA
+%patch -P4 -p1 -b .CVE20126303
+%patch -P5 -p1 -b .format-security
+%patch -P6 -p1 -b .py3
+%patch -P7 -p1 -b .seektell
+%patch -P8 -p1 -b .configure-c99
+%patch -P9 -p1 -b .sigproc2-c99
+%patch -P10 -p1 -b .setuptools
+%patch -P11 -p1 -b .const-fix
 cp %{SOURCE1} .
 cp %{SOURCE2} generic/
 chmod -x generic/*.c generic/*.h unix/*.c COPYING README demos/python/*
@@ -145,6 +148,9 @@ install -p unix/snackConfig.sh %{buildroot}%{_libdir}
 %{python3_sitelib}/__pycache__/tkSnack*
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 2.2.10-59
+- fix FTBFS
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

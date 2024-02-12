@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        0.35.1
+Version:        0.36.3
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -10,6 +10,14 @@ Source:         https://github.com/encode/starlette/archive/%{version}/starlette
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# The file requirements.txt pins exact versions and contains many unwanted
+# dependencies, e.g. linters and typecheckers (see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
+# It’s easier to maintain BuildRequires for testing manually than to heavily
+# patch or process the requirements file.
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist trio}
+BuildRequires:  %{py3_dist typing_extensions}
 
 Obsoletes:      python-starlette-doc < 0.16.0-10
 
@@ -47,31 +55,9 @@ Summary:        %{summary}
 %prep
 %autosetup -n starlette-%{version}
 
-# Produce a filtered version of requirements.txt, which contains testing
-# dependencies.
-awk '
-!NF { next }
-$1 == "#" {
-  # We do not need the “Optionals”, which correspond to the “full” extra we are
-  # already BR’ing; those for “Packaging”, which are for uploading to PyPI; or
-  # those for “Documentation”, so long as we are not able to build and package
-  # it; but we do need those for “Testing”, except linters, formatters,
-  # coverage analysis, and mypy-related dependencies.
-  o = $2 !~ /^(Optionals|Documentation|Packaging)$/
-  next
-}
-o {
-  # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-  if ($1 ~ /^(coverage|mypy|ruff|types-)/) { next }
-  # Drop version pins
-  sub(/[>=]=.*$/, "", $0)
-  print $0
-}
-' requirements.txt | tee requirements-filtered.txt
-
 
 %generate_buildrequires
-%pyproject_buildrequires -x full requirements-filtered.txt
+%pyproject_buildrequires -x full
 
 
 %build
@@ -84,16 +70,17 @@ o {
 
 
 %check
-# There are new trio.TrioDeprecationWarnings from trio 0.22.0, which would be
-# treated as errors; Starlette upstream pins trio 0.21.0 for their CI. We trust
-# upstream will encounter and deal with this by the time the deprecated
-# functionality is removed.
-#
-#   E       trio.TrioDeprecationWarning: trio.MultiError is deprecated since
-#           Trio 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or
-#           exceptiongroup.BaseExceptionGroup (earlier versions) instead
-#           (https://github.com/python-trio/trio/issues/2211)
-%pytest -W 'ignore::trio.TrioDeprecationWarning' -k "${k-}"
+# E       Failed: DID NOT WARN. No warnings of type (<class
+#         'DeprecationWarning'>, <class 'PendingDeprecationWarning'>) were
+#         emitted.
+# E       The list of emitted warnings is: [].
+k="${k-}${k+ and }not test_lifespan_with_on_events"
+
+# E       trio.TrioDeprecationWarning: The `cancellable=` keyword argument to
+#         `trio.to_thread.run_sync` is deprecated since Trio 0.23.0; use
+#         `abandon_on_cancel=` instead
+#         (https://github.com/python-trio/trio/issues/2841)
+%pytest -W 'ignore::trio.TrioDeprecationWarning' -k "${k-}" -v
 
 
 %files -n python3-starlette -f %{pyproject_files}

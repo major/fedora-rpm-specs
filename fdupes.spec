@@ -4,8 +4,8 @@
 
 Name:           fdupes
 Epoch:          1
-Version:        2.2.1
-Release:        5%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Finds duplicate files in a given set of directories
 
 License:        MIT
@@ -19,6 +19,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel
+BuildRequires:  sqlite-devel
 
 %description
 FDUPES is a program for identifying duplicate files residing within specified
@@ -82,6 +83,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}%{macrosdir}/macros.%{name}
 
 
 %changelog
+* Sat Feb 10 2024 Richard Shaw <hobbes1069@gmail.com> - 1:2.3.0-1
+- Update to 2.3.0.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

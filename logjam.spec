@@ -2,10 +2,10 @@
 
 Name:		logjam
 Version:	4.6.2
-Release:	33%{?dist}
+Release:	34%{?dist}
 Epoch:		1
 Summary:	GTK2 client for LiveJournal
-License:	GPLv2+
+License:	GPLv2-or-later
 URL:		http://logjam.danga.com/
 Source0:	http://andy-shev.github.com/LogJam/download/%{name}-%{version}.tar.bz2
 # Alternately, we sometimes get source from git
@@ -24,11 +24,13 @@ BuildRequires:	gettext, desktop-file-utils, aspell-devel, librsvg2-devel
 BuildRequires:	libsoup-devel, sqlite-devel, gnutls-devel, libgcrypt-devel
 BuildRequires:	autoconf, automake, libtool, intltool, popt-devel, m4
 BuildRequires:	dbus-devel, dbus-glib-devel, perl(YAML)
-Obsoletes:	loserjabber, logjam-gnome
+# These are long long ghosts
+# Obsoletes:	loserjabber, logjam-gnome
 Patch1:		logjam-4.4.1-fedora-desktop.patch
 Patch2:		logjam-4.6.2-format-security-fix.patch
 Patch3:		logjam-4.6.2-gcc10.patch
-Patch4: logjam-c99.patch
+Patch4:		logjam-c99.patch
+Patch5:		logjam-4.6.2-fix-verify-path-call.patch
 
 %description
 This is the new GTK2 client for LiveJournal (http://www.livejournal.com).
@@ -47,10 +49,11 @@ current music from XMMS.
 
 %prep
 %setup -q
-%patch1 -p1 -b .desktop
-%patch2 -p1 -b .format-security
-%patch3 -p1 -b .gcc10
-%patch4 -p1
+%patch -P1 -p1 -b .desktop
+%patch -P2 -p1 -b .format-security
+%patch -P3 -p1 -b .gcc10
+%patch -P4 -p1
+%patch -P5 -p1 -b .fix-verify-path-call
 
 %build
 touch NEWS README AUTHORS
@@ -90,6 +93,10 @@ desktop-file-install \
 %endif
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 1:4.6.2-34
+- fix license tag
+- fix verify_path() call causing FTBFS
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

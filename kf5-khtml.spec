@@ -1,8 +1,8 @@
 %global framework khtml
 
 Name:    kf5-%{framework}
-Version: 5.113.0
-Release: 3%{?dist}
+Version: 5.115.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 solution with KHTML, a HTML rendering engine
 
 License: LGPLv2+ and GPLv3 and MIT and BSD
@@ -101,6 +101,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
+- 5.115.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

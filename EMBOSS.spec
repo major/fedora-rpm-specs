@@ -20,7 +20,7 @@
 
 Name:           EMBOSS
 Version:        6.6.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        The European Molecular Biology Open Software Suite
 
 # Files under jemboss/, ajax/ensembl/ are LGPLv2+
@@ -66,6 +66,12 @@ Patch10:	EMBOSS-6.6.0-no-update.patch
 
 # PCRE2
 Patch11:	EMBOSS-6.6.0-pcre2-v2.patch
+
+# s390 is not so differe... ok, well, it is, but not like this
+Patch12:	EMBOSS-s390-too.patch
+
+# Set the proper type for nkeys in ajindex.c
+Patch13:	EMBOSS-6.6.0-ajax-nkeys-right-type.patch
 
 BuildRequires:  gd-devel
 BuildRequires:  pam-devel
@@ -162,13 +168,15 @@ necessary for developing programs which will use the eplplot library.
 
 %prep
 %setup -q
-%patch1 -p1 -b .system-pcre
-%patch4 -p1 -b .system-expat
-%patch5 -p1 -b .system-zlib
-%patch7 -p0 -b .fedora
-%patch9 -p1 -b .fixconflict
-%patch10 -p1 -b .noupdate
-%patch11 -p1 -b .pcre2
+%patch -P1 -p1 -b .system-pcre
+%patch -P4 -p1 -b .system-expat
+%patch -P5 -p1 -b .system-zlib
+%patch -P7 -p0 -b .fedora
+%patch -P9 -p1 -b .fixconflict
+%patch -P10 -p1 -b .noupdate
+%patch -P11 -p1 -b .pcre2
+%patch -P12 -p1 -b .s390-too
+%patch -P13 -p1 -b .nkeys-right-type
 
 # Remove bundled expat, pcre and zlib files to make sure that system versions are used
 rm -rf ajax/{expat,pcre,zlib}/*
@@ -332,6 +340,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/EMBOSS/jemboss
 %{_includedir}/EMBOSS/eplplot/
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 6.6.0-30
+- patch up s390 support
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

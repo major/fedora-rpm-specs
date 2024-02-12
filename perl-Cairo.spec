@@ -6,12 +6,13 @@
 
 Name:           perl-Cairo
 Version:        1.109
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl interface to the cairo library
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Cairo
 Source0:        https://cpan.metacpan.org/authors/id/T/TS/TSCH/Cairo-%{version}.tar.gz
-BuildRequires: make
+Patch0:		perl-Cairo-strlen-type-fix.patch
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -27,6 +28,7 @@ and makes use of hardware acceleration wherever possible.
 
 %prep
 %setup -q -n Cairo-%{version}
+%patch -P0 -p1 -b .strlen-type-fix
 chmod -c a-x examples/*.pl
 
 %build
@@ -50,6 +52,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 1.109-13
+- use proper STRLEN type, fixes FTBFS on i686
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.109-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

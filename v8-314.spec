@@ -10,6 +10,9 @@
 # All copyrightable work in these spec files and patches is Copyright 2011
 # Tom Callaway <spot@fedoraproject.org>
 
+# This package is like a horrible time capsule. If you're reading this, it
+# is never too late to turn back.
+
 # For the 1.2 branch, we use 0s here
 # For 1.3+, we use the three digit versions
 # Hey, now there are four digits. What do they mean? Popsicle.
@@ -25,9 +28,9 @@
 
 Name:		%{truename}-314
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	JavaScript Engine
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://developers.google.com/v8/
 # Once found at http://commondatastorage.googleapis.com/chromium-browser-official/
 # Now, we're the canonical source for the tarball. :/
@@ -163,6 +166,9 @@ Patch31:	v8-314-python3.patch
 # gcc-11 diagnostics
 Patch32:	v8-314-gcc11.patch
 
+# Disable -Werror
+Patch33:	v8-3.14.5.10-no-Werror.patch
+
 %description
 V8 is Google's open source JavaScript engine. V8 is written in C++ and is used 
 in Google Chrome, the open source browser from Google. V8 implements ECMAScript 
@@ -187,38 +193,39 @@ Python libraries from v8.
 
 %prep
 %setup -q -n %{truename}-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1 -b .system-valgrind
-%patch15 -p1 -b .abort-uncaught-exception
-%patch16 -p1 -b .unhandled-ReferenceError
-%patch17 -p1 -b .busy-loop
-%patch18 -p1 -b .profiler-log
-%patch19 -p1 -b .cve20143152
-%patch20 -p1 -b .riu
-%patch21 -p1 -b .mips
-%patch22 -p1 -b .r15102
-%patch23 -p1 -b .r19121
-%patch24 -p1 -b .loongson
-%patch25 -p1 -b .ppc
-%patch26 -p1 -b .CVE-2016-1669
-%patch27 -p1 -b .builtinname
-%patch28 -p1 -b .gcc7
-%patch29 -p1 -b .ppc-harder
-%patch30 -p1 -b .gcc8
-%patch31 -p1 -b .python3
-%patch32 -p1 -b .gcc11
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1 -b .system-valgrind
+%patch -P15 -p1 -b .abort-uncaught-exception
+%patch -P16 -p1 -b .unhandled-ReferenceError
+%patch -P17 -p1 -b .busy-loop
+%patch -P18 -p1 -b .profiler-log
+%patch -P19 -p1 -b .cve20143152
+%patch -P20 -p1 -b .riu
+%patch -P21 -p1 -b .mips
+%patch -P22 -p1 -b .r15102
+%patch -P23 -p1 -b .r19121
+%patch -P24 -p1 -b .loongson
+%patch -P25 -p1 -b .ppc
+%patch -P26 -p1 -b .CVE-2016-1669
+%patch -P27 -p1 -b .builtinname
+%patch -P28 -p1 -b .gcc7
+%patch -P29 -p1 -b .ppc-harder
+%patch -P30 -p1 -b .gcc8
+%patch -P31 -p1 -b .python3
+%patch -P32 -p1 -b .gcc11
+%patch -P33 -p1 -b .no-error
 
 # Do not need this lying about.
 rm -rf src/third_party/valgrind
@@ -406,6 +413,10 @@ chmod -R -x %{buildroot}%{python_sitelib}/*.py*
 %endif
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 3.14.5.10-36
+- disable -Werror. This package is filled with worms, we know it.
+- fix license tag
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.5.10-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

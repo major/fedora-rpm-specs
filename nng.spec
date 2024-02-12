@@ -1,6 +1,6 @@
 Name:     nng
-Version:  1.5.2
-Release:  4%{?dist}
+Version:  1.7.2
+Release:  1%{?dist}
 Summary:  nanomsg next generation: light-weight brokerless messaging
 
 License:  MIT
@@ -44,7 +44,7 @@ sockets and bindings, which can include local and remote connections.
 
 %build
 %cmake -DCMAKE_CXX_FLAGS="%optflags -fPIC" -DBUILD_SHARED_LIBS=ON \
-       -DNNG_SUPP_TLS=ON -DNNG_SUPP_WEBSOCKET=ON -DNNG_ENABLE_NNGCAT=ON \
+       -DNNG_ENABLE_TLS=ON -DNNG_ENABLE_NNGCAT=ON \
        -DNNG_TESTS=ON -DNNG_ENABLE_DOC=ON .
 
 %cmake_build
@@ -71,6 +71,10 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Sat Feb 10 2024 Fabian Affolter <mail@fabian-affolter.ch> - 1.7.2-1
+- Update to latest upstream release (closes rhbz#2251619)
+- Update flags (closes rhbz#2238574)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

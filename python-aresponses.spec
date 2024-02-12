@@ -2,8 +2,8 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        2.1.6
-Release:        7%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Asyncio testing server
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Feb 10 2024 Fabian Affolter <mail@fabian-affolter.ch> - 3.0.0-1
+- Update to latest upstream release (closes rhbz#2258019)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -68,7 +71,7 @@ rm -rf %{pypi_name}.egg-info
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Sat Jul 08 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.6-1
+* Fri Jul 08 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.6-1
 - Update to new upstream version 2.1.6 (closes rhbz#2102952)
 
 * Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 2.1.5-2

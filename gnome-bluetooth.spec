@@ -2,13 +2,13 @@
 
 Name:		gnome-bluetooth
 Epoch:		1
-Version:	42.8
+Version:	46~beta
 Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
 License:	GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeBluetooth
-Source0:	https://download.gnome.org/sources/gnome-bluetooth/42/gnome-bluetooth-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/gnome-bluetooth/46/gnome-bluetooth-%{tarball_version}.tar.xz
 
 %if 0%{?rhel}
 ExcludeArch:	s390 s390x
@@ -96,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Sat Feb 10 2024 David King <amigadave@amigadave.com> - 1:46~beta-1
+- Update to 46.beta
+
 * Tue Feb 06 2024 David King <amigadave@amigadave.com> - 1:42.8-1
 - Update to 42.8
 

@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 Name:           pcmanfm-qt
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        LxQt file manager PCManFM
 

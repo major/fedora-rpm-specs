@@ -1,10 +1,10 @@
 Name:           libmanette
-Version:        0.2.6
-Release:        9%{?dist}
+Version:        0.2.7
+Release:        1%{?dist}
 Summary:        Game controller library
 
-License:        LGPLv2+
-URL:            https://gitlab.gnome.org/aplazas/libmanette
+License:        LGPL-2.1-or-later
+URL:            https://gitlab.gnome.org/GNOME/libmanette
 Source0:        https://download.gnome.org/sources/libmanette/0.2/libmanette-%{version}.tar.xz
 
 BuildRequires:  gcc
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Sat Feb 10 2024 David King <amigadave@amigadave.com> - 0.2.7-1
+- Update to 0.2.7
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

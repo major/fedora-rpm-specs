@@ -11,8 +11,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.113.0
-Release: 4%{?dist}
+Version: 5.115.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module with classes for windows management
 
 License: CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -105,6 +105,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
+- 5.115.0
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 5.113.0-4
 - Rebuilt for turbojpeg 3.0.2
 

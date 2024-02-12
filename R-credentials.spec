@@ -1,10 +1,10 @@
 %global packname credentials
-%global packver  1.3.2
+%global packver  2.0.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          7%{?dist}
+Release:          1%{?dist}
 Summary:          Tools for Managing SSH and Git Credentials
 
 License:          MIT
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 2.0.1-1
+- update to 2.0.1
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

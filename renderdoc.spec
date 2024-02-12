@@ -1,23 +1,27 @@
 %global vswig   modified-7
 Name:           renderdoc
-Version:        1.17
-Release:        4%{?dist}
+Version:        1.31
+Release:        1%{?dist}
 Summary:        A stand-alone graphics debugging tool
 
 License:        MIT
 URL:            https://renderdoc.org
 Source0:        https://github.com/baldurk/renderdoc/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/baldurk/swig/archive/renderdoc-%{vswig}/swig-%{vswig}.tar.gz
+Patch0:         renderdoc-swig-pcre2-1.patch
+Patch1:         renderdoc-swig-pcre2-2.patch
 
 # renderdoc is officially only supported on x86_64.
-ExclusiveArch: x86_64
+# however, it also builds on aarch64
+ExclusiveArch: x86_64 aarch64
 
 # for the local swig
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 
 # for the renderdoc itself
+BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  desktop-file-utils
@@ -51,7 +55,9 @@ required to develop applications that want to integrate with
 renderdoc.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%setup -q -b 1
+%patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 0
+%patch -p1 -d %{_builddir}/swig-renderdoc-%{vswig} 1
 
 %build
 # renderdoc does not allow in-source builds. out-of-source builds
@@ -64,7 +70,7 @@ renderdoc.
 %define _lto_cflags %{nil}
 
 %cmake -DQMAKE_QT5_COMMAND=qmake-qt5 \
-       -DRENDERDOC_SWIG_PACKAGE=%{SOURCE1} \
+       -DRENDERDOC_SWIG_PACKAGE=%{_builddir}/swig-renderdoc-%{vswig} \
        -DENABLE_GL=ON \
        -DENABLE_VULKAN=ON \
        -DENABLE_WAYLAND=ON \
@@ -94,6 +100,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_bindir}/qrenderdoc
 %{_bindir}/renderdoccmd
 %{_datadir}/applications/%{name}.desktop
+%dir %{_libdir}/renderdoc
 %{_libdir}/renderdoc/lib%{name}.so
 %{_datadir}/thumbnailers/%{name}.thumbnailer
 %{_datadir}/icons/hicolor/*/mimetypes/application-x-renderdoc-capture.*
@@ -107,6 +114,19 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Feb 11 2024 kb1000 <fedora@kb1000.de> - 1.31-1
+- Update to version 1.31
+  Resolves: rhbz#2045957
+
+* Mon Jan 22 2024 kb1000 <fedora@kb1000.de> - 1.30-3
+- Build for aarch64
+
+* Thu Dec 21 2023 kb1000 <fedora@kb1000.de> - 1.30-2
+- Move the custom SWIG to PCRE2
+
+* Wed Dec 13 2023 kb1000 <fedora@kb1000.de> - 1.30-1~kb1000
+- Update to version 1.30
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

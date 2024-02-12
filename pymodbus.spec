@@ -21,8 +21,8 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.5.4
-Release: 3%{?dist}
+Version: 3.6.4
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
@@ -57,6 +57,8 @@ Provides: bundled(python3-pyserial-asyncio)
 
 %prep
 %autosetup -p1
+# lower the version requirements for setuptools
+sed -i 's/setuptools>=[^"]*"/setuptools>=62.0.0"/' pyproject.toml
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -75,12 +77,16 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 %files -n python3-%{name} -f %{pyproject_files}
 %license LICENSE
-%doc *.rst pymodbus/repl/README.md
+%doc *.rst
 %{_bindir}/pymodbus.console
 %{_bindir}/pymodbus.server
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Tue Feb 06 2024 Christian Krause <chkr@fedoraproject.org> - 3.6.4-1
+- Update to 3.6.4 (#2253598)
+- Lower version requirements for setuptools
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           iwd
-Version:        2.13
-Release:        3%{?dist}
+Version:        2.14
+Release:        1%{?dist}
 Summary:        Wireless daemon for Linux
 License:        LGPLv2+
 URL:            https://iwd.wiki.kernel.org/
@@ -76,6 +76,9 @@ rm %{buildroot}/usr/lib/systemd/network/80-iwd.link
 
 
 %changelog
+* Sat Feb 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14-1
+- Update to 2.14
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

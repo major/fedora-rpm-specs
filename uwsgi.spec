@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit 3be14d357b7b73a82311db034de034f8c09035e8
+%global commit 4e23afe3582b85103098b6047c349cffa552d692
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -214,8 +214,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.23
-Release:        4%{?dist}
+Version:        2.0.24
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -240,10 +240,10 @@ Patch3:         uwsgi_fix_lua.patch
 Patch5:         uwsgi_fix_mongodb.patch
 Patch6:         uwsgi_v8-314_compatibility.patch
 Patch7:         uwsgi_fix_mono.patch
-# https://github.com/unbit/uwsgi/issues/2283
-Patch12:        uwsgi_fix_php8.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
 Patch14:        uwsgi_python312-2.patch
+Patch15:        uwsgi_fix_gcc_format_signedness.patch
+Patch16:        uwsgi_fix_glusterfs_io_cb.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1265,9 +1265,10 @@ cp -p %{SOURCE5} README.Fedora
 %if %{with mono}
 %patch -P7 -p1
 %endif
-%patch -P12 -p1
 %patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
+%patch -P16 -p1
 
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
@@ -1858,6 +1859,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 10 2024 Ralf Ertzinger <ralf@skytale.net> - 2.0.24-1
+- Update to 2.0.24, drop merged patches
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

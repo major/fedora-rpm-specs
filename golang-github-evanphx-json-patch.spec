@@ -3,7 +3,8 @@
 
 # https://github.com/evanphx/json-patch
 %global goipath         github.com/evanphx/json-patch
-Version:                5.5.0
+%global goaltipaths     gopkg.in/evanphx/json-patch.v5
+Version:                5.9.0
 
 %gometa
 
@@ -21,8 +22,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Go library to apply RFC6902 patches and create and apply RFC7386 patches
 
-# Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        glide.yaml

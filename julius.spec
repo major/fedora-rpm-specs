@@ -2,7 +2,7 @@
 
 Name:		julius
 Version:	4.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Large vocabulary continuous speech recognition (LVCSR) decoder software
 License:	BSD-3-Clause AND MIT
 URL:		https://github.com/julius-speech/julius
@@ -26,6 +26,8 @@ Patch5:		julius-4.6-configure-fixup.patch
 # The viz code depends on GTK1 and we don't want it
 Patch6:		julius-4.6-noviz.patch
 Patch7:		julius-configure-c99.patch
+# https://github.com/julius-speech/julius/pull/196
+Patch8:		julius-4.6-bigendian-cast-fix.patch
 
 BuildRequires:	perl-generators
 BuildRequires:	perl(Jcode), alsa-lib-devel, libsndfile-devel, pulseaudio-libs-devel, zlib-devel, readline-devel
@@ -76,6 +78,7 @@ models (Phonetic tied-mixture triphone / monophone) for use with Julius.
 %patch -P5 -p1 -b .fixup
 %patch -P6 -p1 -b .noviz
 %patch -P7 -p1 -b .c99
+%patch -P8 -p1 -b .cast-fix
 
 # Fix end-of-line encoding
 sed -i 's/\r//' Release.txt
@@ -160,6 +163,9 @@ mv %{buildroot}%{_bindir}/jcontrol %{buildroot}%{_bindir}/julius-jcontrol
 %{_datadir}/julius/model/
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 4.6-5
+- resolve cast issue with bigendian systems (hi s390x)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Automated testing for the examples in your documentation
 
 License:        MIT
@@ -10,6 +10,9 @@ URL:            https://sybil.readthedocs.io/
 Source0:        https://github.com/cjw296/sybil/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 # seedir is not available in Fedora yet
 Patch:          drop-dependency-on-seedir.patch
+# Python 3.13 compatibility
+# https://github.com/simplistix/sybil/pull/112
+Patch:          python3.13.patch
 BuildArch:      noarch
 
 %description
@@ -54,6 +57,9 @@ test runners.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Feb 06 2024 Miro Hrončok <mhroncok@redhat.com> - 5.0.3-4
+- Add patch for Python 3.13.0a3+ compatibility
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

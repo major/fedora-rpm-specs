@@ -5,7 +5,7 @@
 %global namespc Garcon
 
 Name:           garcon
-Version:        4.18.1
+Version:        4.18.2
 Release:        %autorelease
 Summary:        Implementation of the freedesktop.org menu specification
 
@@ -55,7 +55,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b.fedora-menus
+%patch -P 0 -p1 -b.fedora-menus
 
 
 %build
@@ -81,7 +81,7 @@ install -pm 644 %{SOURCE1} %{buildroot}%{_datadir}/desktop-directories
 %config(noreplace) %{_sysconfdir}/xdg/menus/xfce-applications.menu
 %{_libdir}/*.so.*
 %{_libdir}/girepository-1.0/%{namespc}*
-%{_datadir}/icons/hicolor/32x32/apps/org.xfce.garcon.png
+%{_datadir}/icons/hicolor/*/apps/org.xfce.garcon.png
 %{_datadir}/gir-1.0/%{namespc}*
 %{_datadir}/desktop-directories/*.directory
 

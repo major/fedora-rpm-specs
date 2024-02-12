@@ -1,16 +1,3 @@
-# See eachdist.ini. Note that this package must have the same version as the
-# ”prerel_version” (pre-release version) and “stable_version” in the
-# python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.22.0
-%global prerel_version 0.43~b0
-# There are a few subpackages that have their *own* versioning scheme!
-%global aws_propagator_version 1.0.1
-%global aws_sdk_version 2.0.1
-%global rd_azure_version 0.1.0
-# Adjust this to ensure the release is monotonic, unless the base package
-# version and the above versions all change at the same time.
-%global baserel 34
-
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
 # removing a conditional, be sure that those are updated as needed.
@@ -76,10 +63,22 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
+# See eachdist.ini. Note that this package must have the same version as the
+# ”prerel_version” (pre-release version) and “stable_version” in the
+# python-opentelemetry package, and the two packages must be updated together.
+%global stable_version 1.22.0
+%global prerel_version 0.43~b0
+# There are a few subpackages that have their *own* versioning scheme!
+%global aws_propagator_version 1.0.1
+%global aws_sdk_version 2.0.1
+%global rd_azure_version 0.1.0
+
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
 Epoch:          2
-Release:        %autorelease %{?baserel:-b %{baserel}}
+# Keep incrementing the releae monotonically, unless the base package version
+# and the above versions all change at the same time.
+Release:        50%{?dist}
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,
@@ -2756,4 +2755,173 @@ done
 
 
 %changelog
-%autochangelog
+* Sat Feb 10 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-50
+- Stop usuing rpmautospec due to issues parsing the spec file in Koji
+
+* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-49
+- Restore i686 support
+
+* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-48
+- Skip another flaky/timing-dependent FastAPI test
+
+* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-47
+- Enable async tests with SQLAlchemy 2
+- Updates the patch for upstream PR#2160
+
+* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-46
+- Support SQLAlchemy 2 (fix tests)
+
+* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-44
+- Greatly simplify BuildRequires handling
+
+* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-43
+- Send a PR upstream for removal of useless shebangs
+
+* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-42
+- Send PR upstream to drop parameterized test dependency
+
+* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.22.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Tue Jan 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-38
+- Backport Flask 3 support and allow Werkzeug 3
+- Fixes RHBZ#2257256
+
+* Sat Jan 06 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-37
+- F40+: drop Flask instrumentation due to Flask 3 incompatibility (fix
+  RHBZ#2257108)
+
+* Wed Dec 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-36
+- Patch out opentelemetry-instrumentation-aiohttp-server dependencies
+- Fix RHBZ#2255977
+
+* Thu Dec 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-35
+- Fix monotonic release versioning
+
+* Thu Dec 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-33
+- Update to 1.22.0/0.43~b0
+
+* Fri Dec 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.21.0-34
+- Skip a flaky test
+
+* Mon Nov 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.21.0-33
+- Update to 1.21.0/0.42~b0
+- Bump Epoch since resource-detector-azure got its own version (0.1.0) for
+  its initial PyPI release, and it’s less than 0.42~b0
+
+* Fri Sep 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-15
+- Replace a patch with an equivalent that was actually merged upstream
+
+* Wed Sep 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-14
+- Use the tagged upstream release now that it’s available
+
+* Tue Sep 12 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-13
+- Fix instrumentations subpackage requiring Cassandra (fix RHBZ#2238525)
+
+* Fri Sep 08 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-12
+- Update to 1.20.0/0.41~b0
+- Drop grpc instrumentation subpackages until grpc can be updated
+
+* Thu Sep 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.19.0-13
+- Forward compatibility with protobuf4 even before we set the bcond
+
+* Thu Sep 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.19.0-12
+- Update to 1.19.0/0.40~b0
+
+* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-26
+- Enable the httpx21 tox environment
+
+* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-25
+- Revert "Drop and Obsolete httpx support subpackages (…)"
+
+* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-24
+- Relax httpx version to allow >= 0.18.0 (fix RHBZ#2232605)
+
+* Wed Jul 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-23
+- Revert "Disable kafka instrumentation while python-kafka FTBFS"
+
+* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.18.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+
+* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-21
+- Update spec-file comments regarding build conditionals
+
+* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-20
+- Rebuilt for Python 3.12 (close RHBZ#2220379)
+
+* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-19
+- Disable kafka instrumentation while python-kafka FTBFS
+
+* Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-18
+- Test with django 4, not 3
+
+* Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-17
+- Fix accidental BuildRequires on python3dist(falcon)
+
+* Tue Jun 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-16
+- Use new (rpm 4.17.1+) bcond style
+
+* Wed May 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-15
+- Stop patching in explicit/direct dependencies on yarl
+
+* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-14
+- Fix release number
+
+* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-12
+- Fix update to 1.18.0/0.39~b0
+
+* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-11
+- Update to 1.18.0/0.39~b0
+
+* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-12
+- Fix excludes for old sqlalchemy version environments in tox.ini
+
+* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-11
+- Drop and Obsolete httpx support subpackages (close RHBZ#2209296)
+
+* Wed Mar 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-10
+- Fix release number (again)
+
+* Wed Mar 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-9
+- Update to 1.17.0/0.38~b0
+
+* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.16.0-9
+- Fix release number
+
+* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.16.0-7
+- Define extras metapackages manually
+- Ensure the License fields and RPM version numbers match the subpackages
+  to which they correspond
+- Slightly improve the summaries and descriptions
+- Unfortunately, because we are fixing some “wrong” version numbers, an
+  Epoch is introduced
+
+* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-9
+- Update a couple of comments regarding dependency versions
+
+* Fri Mar 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-8
+- Don’t assume %%_smp_mflags is -j%%_smp_build_ncpus
+
+* Thu Mar 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-7
+- Ensure monotonic release for separately-versioned subpackages
+
+* Fri Feb 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-1
+- Update to 1.16.0/0.37~b0
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36~b0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 11 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-5
+- Fix a dependency in a disabled (in F38) subpackage
+
+* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-4
+- Obsolete the datadog exporter, removed upstream
+
+* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-3
+- Improve a spec file comment
+
+* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-2
+- Obsolete disabled subpackages
+
+* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-1
+- Initial package (close RHBZ#2156749)

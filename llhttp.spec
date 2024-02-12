@@ -71,9 +71,11 @@ BuildRequires:  gcc-c++
 
 # For check-null-licenses
 BuildRequires:  python3-devel
+%if !0%{?rhel}
 # For additional license auditing:
 BuildRequires:  askalono-cli
 BuildRequires:  licensecheck
+%endif
 
 %description
 This project is a port of http_parser to TypeScript. llparse is used to
@@ -149,6 +151,7 @@ popd
 # code with license problems in the source RPM.
 %{python3} '%{SOURCE3}' --exceptions '%{SOURCE4}' --with dev node_modules_dev
 
+%if !0%{?rhel}
 # Ensure we have checked all of the licenses in the dev dependency bundle for
 # allowability.
 pattern="${pattern-}${pattern+|}UNKNOWN|(Apache|Python) License 2\\.0"
@@ -212,6 +215,7 @@ licenses in the spec file!
 EOF
   exit 1
 fi
+%endif
 
 # http-loose-request.c:7205:20: error: invalid conversion from 'void*' to
 #     'const unsigned char*' [-fpermissive]

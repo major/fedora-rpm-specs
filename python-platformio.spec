@@ -18,6 +18,10 @@ Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch:          platformio-default-telemetry-off.patch
 # Fedora: neuter update logic for platformio itself
 Patch:          platformio-short-circuit-upgrades.patch
+# Update deps (allow newer Starlette releases)
+# https://github.com/platformio/platformio-core/commit/3e9ca48588abd2ca64df190c870bb1240089a30b
+# Cherry-picked to v6.1.13
+Patch:          0001-Update-deps.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

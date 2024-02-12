@@ -11,7 +11,7 @@
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       1%{?dist}
+Release:       2%{?dist}
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*
 # GPL-2.0-or-later: pariinl.h
@@ -48,6 +48,9 @@ Patch4:        %{name}-fix_graphe_file.patch
 Patch5:        %{name}-pari2.15.patch
 
 Patch6:        %{name}-delete-fenv.patch
+
+# https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=3&t=2895
+Patch7:        %{name}-undefine_GLIBCXX_ASSERTIONS.patch
 
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
@@ -179,6 +182,7 @@ with Giac computations.
 %patch -P 4 -p1 -b .backup
 %patch -P 5 -p1 -b .backup
 %patch -P 6 -p1 -b .backup
+%patch -P 7 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -467,6 +471,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Sat Feb 10 2024 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.91-2
+- Undefine GLIBCXX_ASSERTIONS
+
 * Fri Feb 09 2024 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.91-1
 - Update to 1.9.0 sub-91 (rhbz#2259889)
 

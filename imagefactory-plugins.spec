@@ -34,7 +34,7 @@ exit 0
 
 Name: imagefactory-plugins
 Version: 1.1.16
-Release: 9%{?dist}
+Release: 11%{?dist}
 Summary: Default plugins for the Image Factory system image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -45,6 +45,14 @@ Patch1: container-github-pr434.patch
 Patch2: fix-armv7l.patch
 # https://github.com/redhat-imaging/imagefactory/pull/455
 Patch3: imagefactory-Docker.py-Pass-the-use_ino-option-to-fix-hardlnks.patch
+# https://github.com/redhat-imaging/imagefactory/pull/458
+# this goes along with https://github.com/clalancette/oz/pull/310
+# which was backported to oz in
+# https://src.fedoraproject.org/rpms/oz/c/4e5dbe2
+Patch4: 0001-TinMan.py-adjust-to-oz-generate_diskimage-size-unit-.patch
+# https://github.com/redhat-imaging/imagefactory/pull/459
+# Python 3.12 support
+Patch5: 0002-Python-3.12-adjust-for-removal-of-SafeConfigParser.patch
 
 BuildArch: noarch
 BuildRequires: python3
@@ -228,6 +236,8 @@ rmdir ../imagefactory_plugins/
 %patch1 -p1
 %patch2 -p1
 %patch3 -p2
+%patch4 -p2
+%patch5 -p2
 
 %build
 %py3_build
@@ -405,6 +415,13 @@ rm -rf %{buildroot}%{python3_sitelib}/imagefactory_plugins/EC2
 %{python3_sitelib}/imagefactory_plugins/GCE/*
 
 %changelog
+* Sat Feb 10 2024 Adam Williamson <awilliam@redhat.com> - 1.1.16-11
+- Bump with no changes to exceed F39 infra repo build NVR
+
+* Sat Feb 10 2024 Adam Williamson <awilliam@redhat.com> - 1.1.16-10
+- Backport PR #458 to go with backport of oz PR #310 (image size units)
+- Backport PR #459 to hopefully fix Python 3.12 compatibility
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global pyver_under %(%{python3} -Esc "import sys; sys.stdout.write('{0.major}_{0.minor}'.format(sys.version_info))")
 
 Name:           imath
-Version:        3.1.9
-Release:        6%{?dist}
+Version:        3.1.10
+Release:        1%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ Requires:       python3-devel
 
 
 %changelog
+* Sat Feb 10 2024 Richard Shaw <hobbes1069@gmail.com> - 3.1.10-1
+- Update to 3.1.10.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

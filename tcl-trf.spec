@@ -4,12 +4,12 @@
 
 Name:		tcl-%{realname}
 Version:	2.1.4
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Tcl extension providing "transformer" commands
-License:	MIT and BSD and LGPLv2+ and GPLv2+ and Public Domain and OpenSSL
+License:	TCL AND BSD-3-Clause AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND OpenSSL
 URL:		http://tcltrf.sourceforge.net
 # We can't use the upstream source because it includes the non-free ripemd implementation
-# Source0:	http://downloads.sourceforge.net/tcl%{realname}/%{realname}%{version}.tar.bz2
+# Source0:	http://downloads.sourceforge.net/tcl%%{realname}/%%{realname}%%{version}.tar.bz2
 # To make the clean tarball, just run:
 # rm -rf doc/ripemd160.man doc/html/ripemd160.html doc/html/ripemd128.html ./doc/tmml/ripemd128.tmml ./doc/tmml/ripemd160.tmml ./doc/ripemd128.man 
 # ./doc/digest/ripemd.inc ./generic/ripemd/ generic/rmd1* tea.tests/rmd1* tests/rmd1*
@@ -20,8 +20,9 @@ Source0:	%{realname}%{version}-noripemd.tar.bz2
 Source1:	http://labs.calyptix.com/haval-1.1.tar.gz
 Patch0:		trf2.1.3-havalfixes.patch
 Patch1:		trf2.1.4-noripemd.patch
+Patch2:		trf2.1.4-loadman-type-fix.patch
 Provides:	%{realname} = %{version}-%{release}
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:	tcl-devel, tk-devel, zlib-devel, bzip2-devel, openssl-devel
 Requires:	tcl(abi) = 8.6
@@ -52,8 +53,9 @@ tar xfz %{SOURCE1}
 mv haval-1.1 haval/
 ln -s haval haval.1996
 popd
-%patch0 -p1 -b .haval
-%patch1 -p1 -b .ripemd
+%patch -P0 -p1 -b .haval
+%patch -P1 -p1 -b .ripemd
+%patch -P2 -p1 -b .type-fix
 
 # Get rid of incorrect ripemd docs
 rm -rf doc/digest/ripemd.inc doc/man/ripemd128.n doc/man/ripemd160.n doc/ripemd128.man doc/tmml/ripemd128.tmml doc/tmml/ripemd160.tmml
@@ -80,6 +82,11 @@ rm -rf %{buildroot}%{tcl_sitearch}/Trf%{version}/*.a
 %{_includedir}/trfDecls.h
 
 %changelog
+* Sat Feb 10 2024 Tom Callaway <spot@fedoraproject.org> - 2.1.4-31
+- fix type issue causing FTBFS
+- fix license tag
+- minor spec cleanups
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

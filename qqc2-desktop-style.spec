@@ -1,8 +1,8 @@
 %global framework qqc2-desktop-style
 
 Name:    %{framework}
-Version: 5.113.0
-Release: 4%{?dist}
+Version: 5.115.0
+Release: 1%{?dist}
 Summary: QtQuickControls2 style for consistency between QWidget and QML apps 
 
 # kirigami-plasmadesktop-integration: LGPLv2+
@@ -80,6 +80,9 @@ between QWidget-based and QML-based apps.
 
 
 %changelog
+* Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
+- 5.115.0
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.113.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        0.21.4
-Release:        3%{?dist}
+Version:        0.22.3
+Release:        1%{?dist}
 Summary:        FTP client/server for asyncio
 
 License:        ASL 2.0
@@ -11,49 +11,54 @@ URL:            https://github.com/aio-libs/aioftp
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-%description
-FTP client/server for asyncio.
+%global _description %{expand:
+FTP client/server for asyncio.}
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if %{with network}
-BuildRequires:  python3-async-timeout
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-asyncio
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-siosocks
-BuildRequires:  python3-trustme
-%endif
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-FTP client/server for asyncio.
+%if %{with network}
+BuildRequires:  %{py3_dist async-timeout}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
+BuildRequires:  %{py3_dist pytest-cov}
+BuildRequires:  %{py3_dist siosocks}
+BuildRequires:  %{py3_dist trustme}
+%endif
+
+%description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %{pypi_name}
 
 %if %{with network}
 %check
 %pytest -v tests
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license license.txt
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Sat Feb 10 2024 Fabian Affolter <mail@fabian-affolter.ch> - 0.22.3-1
+- Update to latest upstream release (closes rhbz#2256206)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

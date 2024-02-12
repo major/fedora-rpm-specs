@@ -5,9 +5,11 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
-Version: 6.030
-Release: 4%{?dist}
+Version: 6.050
+Release: 1%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
+Source1: README.ABC
+Source2: README.LilyPond
 URL: https://www.chordpro.org
 
 # It's all plain perl, nothing architecture dependent.
@@ -20,24 +22,25 @@ BuildArch: noarch
 
 Requires: perl(:VERSION) >= 5.26.0
 
-Requires: perl(App::Packager)               >= 1.430
 Requires: perl(PDF::API2)                   >= 2.043
-Requires: perl(Text::Layout)                >= 0.031
+Requires: perl(Text::Layout)                >= 0.032
 Requires: perl(JSON::PP)                    >= 2.27203
 Requires: perl(String::Interpolate::Named)  >= 1.03
 Requires: perl(File::HomeDir)               >= 1.004
-Requires: perl(File::LoadLines)             >= 1.021
+Requires: perl(File::LoadLines)             >= 1.044
+Requires: perl(HarfBuzz::Shaper)
 Requires: perl(Image::Info)                 >= 1.41
-Requires: perl(List::Util)                  >= 1.33
+Requires: perl(List::Util)                  >= 1.46
+Requires: perl(Data::Printer)               >= 1.001001
 Requires: perl(Storable)                    >= 3.08
 Requires: perl(Object::Pad)                 >= 0.78
 Requires: perl(Hash::Util)
 Requires: perl(FindBin)
 
 BuildRequires: make
-BuildRequires: perl(App::Packager)               >= 1.430
 BuildRequires: perl(Carp)
 BuildRequires: perl(Data::Dumper)
+BuildRequires: perl(Data::Printer)               >= 1.001001
 BuildRequires: perl(Encode)
 BuildRequires: perl(ExtUtils::MakeMaker)         >= 7.24
 BuildRequires: perl(File::HomeDir)               >= 1.004
@@ -45,6 +48,7 @@ BuildRequires: perl(File::LoadLines)             >= 1.021
 BuildRequires: perl(File::Spec)
 BuildRequires: perl(File::Temp)
 BuildRequires: perl(FindBin)
+BuildRequires: perl(HarfBuzz::Shaper)
 BuildRequires: perl(Hash::Util)
 BuildRequires: perl(Getopt::Long)
 BuildRequires: perl(Image::Info)                 >= 1.41
@@ -97,11 +101,12 @@ Summary: Support for ChordPro ABC embedding
 AutoReqProv: 0
 
 Requires: %{name} = %{version}-%{release}
-Requires: abcm2ps
-Requires: ImageMagick
 
 %description abc
-This packages installs the requirements for ABC support for ChordPro.
+This package contains nothing.
+
+To use the integrated support for ABC, please install CPAN module
+JavaScript::QuickJS.
 
 %package lilypond
 
@@ -110,13 +115,16 @@ AutoReqProv: 0
 
 Requires: %{name} = %{version}-%{release}
 Requires: lilypond
-Requires: ImageMagick
 
 %description lilypond
 This packages installs the requirements for LilyPond support for ChordPro.
 
 %prep
 %setup -q -n %{FullName}-%{version}
+
+# Update outdated READMEs.
+cp -a %{SOURCE1} .
+cp -a %{SOURCE2} .
 
 # Remove some stuff.
 rm lib/ChordPro/res/linux/setup_desktop.sh
@@ -191,7 +199,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{share}/lib/ChordPro
 %exclude %{share}/lib/ChordPro/Wx.pm
 %exclude %{share}/lib/ChordPro/Wx
-%exclude %{share}/lib/ChordPro/Delegate
 %{_mandir}/man1/chordpro*
 
 %files gui
@@ -206,11 +213,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files abc
 %doc README.ABC
-%{share}/lib/ChordPro/Delegate/ABC.pm
 
 %files lilypond
 %doc README.LilyPond
-%{share}/lib/ChordPro/Delegate/Lilypond.pm
 
 %post gui
 xdg-desktop-menu install --novendor %{share}/lib/ChordPro/res/linux/chordpro.desktop

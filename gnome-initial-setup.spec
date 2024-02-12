@@ -14,7 +14,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        46~alpha
+Version:        46.alpha
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 

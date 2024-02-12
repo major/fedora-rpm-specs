@@ -1,6 +1,6 @@
 Name: imagefactory
 Version: 1.1.16
-Release: 9%{?dist}
+Release: 12%{?dist}
 Summary: System image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -15,6 +15,18 @@ Patch2: 0001-ApplicationConfiguration.py-drop-encoding-from-json..patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2245066
 # https://github.com/redhat-imaging/imagefactory/pull/455
 Patch3: imagefactory-Docker.py-Pass-the-use_ino-option-to-fix-hardlnks.patch
+# https://github.com/redhat-imaging/imagefactory/pull/458
+# this goes along with https://github.com/clalancette/oz/pull/310
+# which was backported to oz in
+# https://src.fedoraproject.org/rpms/oz/c/4e5dbe2
+# Might only be needed in imagefactory-plugins, but let's have it
+# here just to be safe
+Patch4: 0001-TinMan.py-adjust-to-oz-generate_diskimage-size-unit-.patch
+# https://github.com/redhat-imaging/imagefactory/pull/459
+# Python 3.12 support and CVE-2022-31799 fix for bundled bottle
+Patch5: 0001-bottle-fix-for-Python-3.12-backport-CVE-2022-31799-f.patch
+Patch6: 0002-Python-3.12-adjust-for-removal-of-SafeConfigParser.patch
+
 BuildArch: noarch
 
 BuildRequires: python3
@@ -30,11 +42,16 @@ Requires: python3-httplib2
 Requires: python3-cherrypy
 Requires: python3-oauth2
 Requires: python3-libs
+# uses distutils at runtime, was removed from core Python in 3.12
+Requires: python3-setuptools
 Requires: oz
 
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
+
+# Has a vendored copy of bottle.py as imgfac/rest/bottle.py
+Provides: bundled(python-bottle)
 
 # TODO: Any changes to the _internal_ API must increment this version or, in
 #       the case of backwards compatible changes, add a new version (RPM
@@ -97,6 +114,15 @@ rm -f %{buildroot}/%{_initddir}/imagefactoryd
 %{_bindir}/imagefactoryd
 
 %changelog
+* Sat Feb 10 2024 Adam Williamson <awilliam@redhat.com> - 1.1.16-12
+- Requires python3-setuptools (for distutils stuff removed in Python 3.12)
+
+* Sat Feb 10 2024 Adam Williamson <awilliam@redhat.com> - 1.1.16-11
+- Backport PR #459 to hopefully fix Python 3.12 compatibility
+
+* Sat Feb 10 2024 Adam Williamson <awilliam@redhat.com> - 1.1.16-10
+- Backport PR #458 to go with backport of oz PR #310 (image size units)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
