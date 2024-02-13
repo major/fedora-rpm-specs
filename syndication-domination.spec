@@ -3,7 +3,7 @@ Version:        1.0
 Release:        %autorelease
 Summary:        A simple RSS/Atom parser library
 
-License:        AGPL-3.0-only
+License:        AGPL-3.0-or-later
 URL:            https://gitlab.com/gabmus/syndication-domination
 Source:         %{url}/-/archive/%{version}/syndication-domination-%{version}.tar.bz2
 

@@ -14,7 +14,7 @@ Goose database migration tool - fork of https://bitbucket.org/liamstask/goose.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Goose database migration tool
 
 License:        MIT
@@ -62,6 +62,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 2.7.0-11
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

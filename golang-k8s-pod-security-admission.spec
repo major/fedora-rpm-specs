@@ -99,6 +99,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 1.22.0-11
+- Rebuild for golang 1.22.0
+
 * Tue Sep 14 2021 Robert-André Mauchin <zebob.m@gmail.com> 1.22.0-1
 - Uncommitted changes
 

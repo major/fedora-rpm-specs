@@ -14,7 +14,7 @@ suited for a production certificate authority.}
 %global godocs  CODE_OF_CONDUCT.md README.md cmd/pebble-challtestsrv/challtestsrv-README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pebble is a miniature version of Boulder, a small RFC 8555 ACME test server
 
 License:        MPLv2.0
@@ -63,6 +63,9 @@ cp -a docs/man1/pebble* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 2.3.1-12
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

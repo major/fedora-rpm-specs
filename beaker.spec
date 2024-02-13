@@ -2,8 +2,8 @@
 %global with_docs 1
 
 Name:           %{upstream_name}
-Version:        29.0
-Release:        3%{?dist}
+Version:        29.1
+Release:        1%{?dist}
 Summary:        Full-stack software and hardware integration testing system
 License:        GPLv2+ and BSD
 URL:            https://beaker-project.org/
@@ -118,6 +118,9 @@ find %{buildroot} -name '__pycache__' | xargs rm -rf
 %{_datadir}/bash-completion
 
 %changelog
+* Sun Feb 11 2024 Martin Styk <mart.styk@gmail.com> - 29.1-1
+- Update to 29.1 (#2263782)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 29.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

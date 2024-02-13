@@ -57,7 +57,7 @@
 %global source_directory 1.37-development
 
 Name:           nbdkit
-Version:        1.37.6
+Version:        1.37.7
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -347,6 +347,21 @@ Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description curl-plugin
 This package contains cURL (HTTP/FTP) support for %{name}.
+
+
+%if !0%{?rhel}
+# In theory this is noarch, but because plugins are placed in _libdir
+# which varies across architectures, RPM does not allow this.
+%package gcs-plugin
+Summary:        Gooogle Cloud Storage plugin %{name}
+Requires:       %{name}-python-plugin >= 1.38
+# XXX Should not need to add this.
+Requires:       python3-google-cloud-storage
+
+%description gcs-plugin
+This package lets you open disk images stored in Google
+Cloud Storage using %{name}.
+%endif
 
 
 %if !0%{?rhel} && 0%{?have_libguestfs}
@@ -916,8 +931,10 @@ for f in cc cdi ; do
     rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-$f-plugin.so
     rm -f $RPM_BUILD_ROOT%{_mandir}/man?/nbdkit-$f-plugin.*
 done
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-S3-plugin
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-S3-plugin.1*
+for f in gcs S3 ; do
+    rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-$f-plugin
+    rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-$f-plugin.1*
+done
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/filters/nbdkit-qcow2dec-filter.so
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/nbdkit-qcow2dec-filter.1*
 %endif
@@ -1131,6 +1148,15 @@ fi
 %license LICENSE
 %{_libdir}/%{name}/plugins/nbdkit-curl-plugin.so
 %{_mandir}/man1/nbdkit-curl-plugin.1*
+
+
+%if !0%{?rhel}
+%files gcs-plugin
+%doc README.md
+%license LICENSE
+%{_libdir}/%{name}/plugins/nbdkit-gcs-plugin
+%{_mandir}/man1/nbdkit-gcs-plugin.1*
+%endif
 
 
 %if !0%{?rhel} && 0%{?have_libguestfs}
@@ -1471,6 +1497,10 @@ fi
 
 
 %changelog
+* Sun Feb 11 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.7-1
+- New upstream development version 1.37.7
+- New nbdkit-gcs-plugin for Google Cloud Storage
+
 * Thu Feb 01 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.6-1
 - New upstream development version 1.37.6
 

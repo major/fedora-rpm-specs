@@ -18,7 +18,7 @@ An RFC1178 implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.12%{?dist}
+Release:        0.13%{?dist}
 Summary:        An RFC1178 implementation
 
 # Upstream license specification: Apache-2.0
@@ -61,6 +61,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.13
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

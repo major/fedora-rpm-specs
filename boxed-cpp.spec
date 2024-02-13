@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/contour-terminal/boxed-cpp
-Version:        1.2.2
+Version:        1.3.0
 %forgemeta
 
 Name:           boxed-cpp
@@ -36,7 +36,7 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?fedora} >= 39
     -DBOXED_CPP_TESTS=ON \
 %else
@@ -48,8 +48,8 @@ The %{name}-devel package contains development files for %{name}.
 %install
 %cmake_install
 
-%check
 %if 0%{?fedora} >= 39
+%check
 %ctest
 %endif
 

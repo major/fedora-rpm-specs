@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          9.2.10
-Release:          17%{?dist}
+Release:          18%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1006,6 +1006,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 9.2.10-18
+- Rebuild for golang 1.22.0
+
 * Wed Jan 31 2024 Sam Feifer <sfeifer@redhat.com> 9.2.10-17
 - Allows for postgreSQL datasource in selinux policy
 - grafana-cli wrapper script now allows for the gid to be 0

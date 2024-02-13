@@ -6,7 +6,7 @@ Release:        2%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
-License:        GPL-2.0-or-later and CC-BY-SA-3.0
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Lightsoff
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 # https://gitlab.gnome.org/GNOME/lightsoff/-/issues/13

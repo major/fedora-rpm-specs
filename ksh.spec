@@ -4,11 +4,14 @@ URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
 Version:      1.0.8
-Release:      3%{?dist}
+Release:      4%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
 Source3:      dotkshrc
+
+# Re-fix use of strdup on a NULL pointer (RHEL-11982)
+Patch1:       ksh-1.0.8-fix-strdup-on-null.patch
 
 Conflicts:    pdksh
 Requires: coreutils, diffutils
@@ -138,6 +141,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Fri Feb 09 2024 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.8-4
+- fix use of strdup on a NULL pointer (RHEL-11982)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

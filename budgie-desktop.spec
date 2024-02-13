@@ -7,8 +7,8 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.8.2
-Release:        3%{?dist}
+Version:        10.9.1
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -16,26 +16,23 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
+Patch0:         0001-fix-set-budgie-run-dialog.patch
+Patch1:         0002-fix-workspace-applet.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
-BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gee-0.8) >= 0.20.0
-BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gdk-x11-3.0) >= %{gtk3_version}
-BuildRequires:  pkgconfig(gnome-bluetooth-1.0) >= 3.34.0
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
 BuildRequires:  pkgconfig(libcanberra) >= 0.30
 BuildRequires:  pkgconfig(libnotify) >= 0.7
 BuildRequires:  pkgconfig(libpeas-1.0) >= 1.26.0
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libwnck-3.0) >= 3.36.0
+BuildRequires:  pkgconfig(libxfce4windowing-0)
 BuildRequires:  pkgconfig(polkit-agent-1) >= %{polkit_version}
-BuildRequires:  pkgconfig(polkit-gobject-1) >= %{polkit_version}
 BuildRequires:  pkgconfig(upower-glib) >= 0.99.13
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(vapigen) >= %{vala_version}
@@ -45,7 +42,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  git
-BuildRequires:  gnome-menus-devel >= 3.36
 BuildRequires:  gnupg2
 BuildRequires:  gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 BuildRequires:  gtk-doc >= 1.33.0
@@ -53,13 +49,11 @@ BuildRequires:  intltool
 BuildRequires:  magpie-devel
 BuildRequires:  meson
 BuildRequires:  sassc
-BuildRequires:  vala
 BuildRequires:  zenity >= 3.91.0
 Requires:       budgie-control-center
 Requires:       budgie-desktop-view
 Requires:       budgie-screensaver
-Requires:       gnome-bluetooth3.34-libs
-Requires:       gnome-session
+Requires:       budgie-session
 Requires:       gnome-settings-daemon
 Requires:       gsettings-desktop-schemas
 Requires:       gnome-keyring-pam
@@ -127,7 +121,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_libdir}/%{name}/plugins/
 %dir %{_libdir}/%{name}/plugins/*
 %{_bindir}/budgie-*
-%{_bindir}/org.buddiesofbudgie.BudgieScreenshot
+%{_bindir}/org.buddiesofbudgie.*
 %{_datadir}/applications/org.buddiesofbudgie*.desktop
 %{_datadir}/backgrounds/budgie/default.jpg
 %{_datadir}/budgie/budgie-version.xml
@@ -157,8 +151,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libbudgie-raven-plugin.so.0{,.*}
 %{_libdir}/libbudgietheme.so.0{,.*}
 %{_libdir}/libraven.so.0{,.*}
-%{_mandir}/man1/budgie-*.1*
-%{_mandir}/man1/org.buddiesofbudgie.BudgieScreenshot.1.*
+%{_mandir}/man1/budgie-*
+%{_mandir}/man1/org.buddiesofbudgie.BudgieScreenshot.*
+%{_mandir}/man1/org.buddiesofbudgie.sendto.*
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %files devel
@@ -187,6 +182,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Feb 11 2024 Joshua Strobl <me@joshuastrobl.com> - 10.9.1-1
+- Update to Budgie Desktop 10.9.1
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

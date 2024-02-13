@@ -8,7 +8,7 @@
 
 Name:    %{reponame}
 Version: 0
-Release: 0.19.%{commitdate}git%{shortcommit}%{?dist}
+Release: 0.20.%{commitdate}git%{shortcommit}%{?dist}
 Summary: Publish a service from localhost onto your server
 License: GPLv3+
 URL:     https://github.com/m13253/%{name}
@@ -98,6 +98,9 @@ sed -i '/daemon-reload/d' systemd/Makefile
 %{_unitdir}/%{name}-relay@.service
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.20.20171007git6ffa11c
+- Rebuild for golang 1.22.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19.20171007git6ffa11c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

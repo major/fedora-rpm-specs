@@ -2,11 +2,15 @@
 
 Summary:   A popular and easy to use graphical IRC (chat) client
 Name:      hexchat
-Version:   2.16.1
+Version:   2.16.2
 Release:   %autorelease
 License:   GPLv2+
 URL:       https://hexchat.github.io
-Source:    https://dl.hexchat.net/hexchat/%{name}-%{version}.tar.xz
+Source:    https://github.com/hexchat/hexchat/releases/download/v%{version}/hexchat-%{version}.tar.xz
+# Fix release date
+Patch0:    https://github.com/hexchat/hexchat/commit/70069cd50eb07e8a40ac9b0efbb83fcb91a78b99.patch
+# replace hexchat.net links
+Patch1:    https://github.com/hexchat/hexchat/commit/cc60ad275a56126904df0b5e37cfd20db22cb359.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -39,7 +43,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package contains the development files for %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %meson -Dwith-lua=lua %{?flatpak:-Ddbus-service-use-appid=true}

@@ -19,7 +19,7 @@ Heptio and Amazon EKS OSS Engineers.}
                         README.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Tool to use AWS IAM credentials to authenticate to a Kubernetes cluster
 
 # Upstream license specification: Apache-2.0
@@ -122,6 +122,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.5.2-15
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

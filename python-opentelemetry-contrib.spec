@@ -78,7 +78,7 @@ Version:        %{stable_version}
 Epoch:          2
 # Keep incrementing the releae monotonically, unless the base package version
 # and the above versions all change at the same time.
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,
@@ -122,6 +122,10 @@ Patch:          %{url}/pull/2135.patch
 # Support SQLAlchemy 2 (in tests and doc strings)
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2160
 Patch:          %{url}/pull/2160.patch
+
+# Add missing test dep. on requests for xray propagator
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2167
+Patch:          %{url}/pull/2167.patch
 
 BuildArch:      noarch
 
@@ -297,11 +301,6 @@ python3-opentelemetry-distro. It makes sure the dependencies are installed.
 Summary:        AWS X-Ray Propagator for OpenTelemetry
 Version:        %{aws_propagator_version}
 License:        Apache-2.0
-
-# Test dependency (covered upstream by dependencies in
-# opentelemetry-instrumentation-fastapi and
-# opentelemetry-exporter-prometheus-remote-write).
-BuildRequires:  %{py3_dist requests}
 
 %description -n python3-opentelemetry-propagator-aws-xray
 This library provides the propagator necessary to inject or extract a tracing
@@ -2755,6 +2754,9 @@ done
 
 
 %changelog
+* Sun Feb 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-51
+- Add missing test dep. on requests for xray propagator
+
 * Sat Feb 10 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-50
 - Stop usuing rpmautospec due to issues parsing the spec file in Koji
 

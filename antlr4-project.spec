@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -381,6 +381,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 4.10.1-13
+- Rebuild for golang 1.22.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

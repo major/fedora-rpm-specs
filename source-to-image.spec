@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 License:        ASL 2.0
 URL:            %{gourl}
@@ -104,6 +104,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 1.3.9-4
+- Rebuild for golang 1.22.0
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 
 Name:           openblas
 Version:        0.3.26
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 
 License:        BSD-3-Clause
@@ -30,6 +30,8 @@ Patch1:         openblas-0.2.5-libname.patch
 Patch2:         openblas-0.2.15-constructor.patch
 # Supply the proper flags to the test makefile
 Patch3:         openblas-0.3.11-tests.patch
+# Fix incompatible pointer types (causes FTBFS on ppc64le)
+Patch4:         openblas-0.3.26-incompatibletypes.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -243,6 +245,7 @@ cd OpenBLAS-%{version}
 %patch 2 -p1 -b .constructor
 %endif
 %patch 3 -p1 -b .tests
+%patch 4 -p1 -b .incompatibletypes
 
 # Fix source permissions
 find -name \*.f -exec chmod 644 {} \;
@@ -648,6 +651,11 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Fri Feb 09 2024 Honza Horak <hhorak@redhat.com> - 0.3.26-4
+- Fix FTBFS on ppc64le and s390x
+  Resolves: BZ#2261415
+  Resolves: RHEL-24745
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

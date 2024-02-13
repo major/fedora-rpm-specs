@@ -13,8 +13,12 @@
 # Reverting to pocl 1.8 makes the tests pass.  We seem unable to run the tests
 # at all at this point.  Try again when pocl 4.0 is released.
 
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=113330948
+%bcond_with check
+%bcond_without pocl
+
 Name:           clblast
-Version:        1.6.1
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Tuned OpenCL BLAS routines
 
@@ -24,16 +28,13 @@ Source0:        https://github.com/CNugteren/CLBlast/archive/%{version}/%{name}-
 # Fix name clashes between macros in altivec.h and standard types on ppc64le
 Patch0:         %{name}-altivec.patch
 
-%bcond_with check
-%bcond_with pocl
-
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  make
-BuildRequires:  ocl-icd-devel
+BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(flexiblas)
 %if %{with pocl}
 BuildRequires:  pocl-devel
+BuildRequires:  ocl-icd-devel
 %endif
 
 %description
@@ -81,24 +82,35 @@ sed -i 's,include/openblas,include/openblas include/flexiblas,' cmake/Modules/Fi
 sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.cmake
 
 %build
-%cmake -DTESTS:BOOL=ON -DCLIENTS:BOOL=ON -DNETLIB:BOOL=ON
+# https://github.com/CNugteren/CLBlast/issues/529
+# add -Wno-error=format-security to CMAKE_CXX_FLAGS when building tests
+%cmake \
+  -GNinja \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCLIENTS=ON \
+  -DNETLIB=ON \
+%if %{with check}
+  -DTESTS=ON \
+  -DCMAKE_CXX_FLAGS="%{optflags} -Wno-error=format-security" \
+%else
+  -DTESTS=OFF \
+%endif
+
 %cmake_build
 
 %install
 %cmake_install
 
 %if %{with check}
-%ifarch x86_64
 %check
 %ctest
-%endif
 %endif
 
 %files
 %license LICENSE
 %doc CHANGELOG README.md
-%{_libdir}/lib{%name}.so.1
-%{_libdir}/lib{%name}.so.%{version}
+%{_libdir}/lib%{name}.so.1
+%{_libdir}/lib%{name}.so.%{version}
 
 %files devel
 %doc doc
@@ -111,7 +123,6 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_bindir}/clblast_client*
 
 %files tuners
-%{_bindir}/clblast_test*
 %{_bindir}/clblast_tuner*
 
 %changelog

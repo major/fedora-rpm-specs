@@ -104,7 +104,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		9.0.0
-Release:		10%{?dist}
+Release:		11%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -730,6 +730,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 9.0.0-11
+- Rebuild for golang 1.22.0
+
 * Thu Jan 25 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 9.0.0-10
 - Added hpnd-uc license
 

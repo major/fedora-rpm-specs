@@ -1,7 +1,7 @@
 Name:           gnatcoll-db
 Epoch:          2
 Version:        21.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        The GNAT Components Collection – database packages
 Summary(sv):    GNAT Components Collection – databaspaket
 
@@ -269,6 +269,9 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
 
 
 %changelog
+* Sun Feb 11 2024 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-13
+- Rebuilt with XMLada 24 and LibGPR 24.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

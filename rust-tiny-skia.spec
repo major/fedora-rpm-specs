@@ -5,7 +5,7 @@
 %global crate tiny-skia
 
 Name:           rust-tiny-skia
-Version:        0.11.3
+Version:        0.11.4
 Release:        %autorelease
 Summary:        Tiny Skia subset ported to Rust
 

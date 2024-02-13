@@ -53,7 +53,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    2%{?rcrel}%{?dist}.2
+Release:    2%{?rcrel}%{?dist}.3
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -376,6 +376,9 @@ fi
 
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 3.2.0-2.3
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

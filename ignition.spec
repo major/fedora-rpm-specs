@@ -22,7 +22,7 @@ Version:                2.17.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -363,6 +363,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libdir}/bootupd/grub2-static/configs.d/ignition.cfg
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 2.17.0-6
+- Rebuild for golang 1.22.0
+
 * Fri Feb 09 2024 Timothée Ravier <tim@siosm.fr> - 2.17.0-5
 - Backport fix for unexpected Azure IMDS status codes
 

@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.23.0
+Version:        1.24.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -14,8 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # - Exclude unwanted files
 # - Drop cradle dependency, the crate cannot be packaged due to CC0 license
-# - Downgrade `which` dependency to 4
-# - Downgrade `snafu` dependency to 0.7.0
+# - Downgrade dependencies to the versions available in Fedora
 Patch:          just-fix-metadata.diff
 # Remove all uses of cradle
 Patch:          just-1.5.0-no-cradle.patch
@@ -124,8 +123,7 @@ install -D -m644 -pv completions/just.zsh  %{buildroot}%{zsh_completions_dir}/_j
 
 %if %{with check}
 %check
-# * Skip flaky test: https://github.com/casey/just/issues/855
-%cargo_test -- -- --skip justfile::tests::run_shebang
+%cargo_test
 %endif
 
 %changelog

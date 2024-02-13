@@ -38,7 +38,7 @@
 ##############################################
 Name:           %{k8s_name}
 Version:        %{k8s_ver}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
 URL:            https://%{import_path}

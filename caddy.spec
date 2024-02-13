@@ -2,7 +2,7 @@
 
 Name:           caddy
 Version:        2.7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web server with automatic HTTPS
 # main source code is Apache-2.0
 # see comments above provides tags for bundled license breakdown
@@ -469,6 +469,9 @@ fi
 
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 2.7.6-2
+- Rebuild for golang 1.22.0
+
 * Fri Feb 09 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.7.6-1
 - Update to version 2.7.6 rhbz#2253698
 - Includes fix for CVE-2023-45142 rhbz#2246587

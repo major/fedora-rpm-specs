@@ -46,7 +46,7 @@
 
 Name:           gotun
 Version:        0
-Release:        0.20.git%{shortcommit}%{?dist}
+Release:        0.21.git%{shortcommit}%{?dist}
 Summary:        Tool to run tests on OpenStack
 # Detected licences
 # - Unknown at 'COPYING'
@@ -245,6 +245,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.21.gita9dbe4d
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20.gita9dbe4d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

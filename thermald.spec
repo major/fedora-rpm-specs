@@ -1,15 +1,9 @@
-# Explicitly turn on hardening, if required.
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global _hardened_build 1
-%endif
-
 %global pkgname thermal_daemon
 
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
-
 Name:		thermald
-Version:	2.5
+Version:	2.5.6
 Release:	%autorelease
 Summary:	Thermal Management daemon
 
@@ -20,7 +14,7 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # No cpuid.h on other arches.
 ExclusiveArch:	%{ix86} x86_64
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	autoconf autoconf-archive
 BuildRequires:	automake
 BuildRequires:	dbus-glib-devel
@@ -71,14 +65,14 @@ embedded devices.
 %autosetup -n %{pkgname}-%{version} -p 1
 
 # Create tmpfiles.d config.
-%{__mkdir} -p fedora_addons
-%{__cat} << EOF > fedora_addons/%{name}.conf
+mkdir -p fedora_addons
+cat << EOF > fedora_addons/%{name}.conf
 d %{_rundir}/%{name} 0755 root root -
 EOF
 
 %if %{with qt}
 # Create desktop-file for the monitor-app.
-%{__cat} << EOF > fedora_addons/%{name}-monitor.desktop
+cat << EOF > fedora_addons/%{name}-monitor.desktop
 [Desktop Entry]
 Name=%{name} Monitor
 Comment=Application for monitoring %{name}
@@ -91,7 +85,7 @@ Terminal=false
 EOF
 
 # Create icon for the monitor-app.
-%{__cat} << EOF > fedora_addons/%{name}-monitor.svg
+cat << EOF > fedora_addons/%{name}-monitor.svg
 <?xml version="1.0" encoding="iso-8859-1"?>
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -144,7 +138,7 @@ EOF
 EOF
 
 # Create ReadMe.txt for the monitor-app.
-%{__cat} << EOF > fedora_addons/%{name}-monitor.ReadMe.txt
+cat << EOF > fedora_addons/%{name}-monitor.ReadMe.txt
 Running the thermald-monitor-app
 --------------------------------
 
@@ -168,8 +162,8 @@ NO_CONFIGURE=1 ./autogen.sh
 %if %{with qt}
 # Build the monitor-app.
 pushd tools/thermal_monitor
-sed -i -e 's/-lqcustomplot/-lqcustomplot-qt5/' ThermalMonitor.pro
-%{__mkdir} -p %{_target_platform}
+sed -i -e 's/QCustomPlot/qcustomplot-qt5/' ThermalMonitor.pro
+mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %{qmake_qt5} ..
 %make_build
@@ -182,38 +176,29 @@ popd
 %make_install
 
 # Install management-script.
-%{__install} -Dpm 0755 tools/thermald_set_pref.sh				\
+install -Dpm 0755 tools/thermald_set_pref.sh				\
 	%{buildroot}%{_bindir}/%{name}-set-pref
 
-# DBus config belongs into %%{_datadir}.
-%{__mkdir} -p %{buildroot}%{_datadir}
-%{__mv} -f %{buildroot}%{_sysconfdir}/dbus-1/* %{buildroot}%{_datadir}/dbus-1/
-
-# No Upstart.
-%{__rm} -fr %{buildroot}%{_sysconfdir}/init
-
 # Setup tmpfiles.d
-%{__install} -Dpm 0644 fedora_addons/%{name}.conf				\
-	%{buildroot}%{_tmpfilesdir}/%{name}.conf
-%{__install} -dm 0755 %{buildroot}%{_rundir}/%{name}
+install -Dpm 0644 fedora_addons/%{name}.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -dm 0755 %{buildroot}%{_rundir}/%{name}
 /bin/echo "%{name}_pid" > %{buildroot}%{_rundir}/%{name}/%{name}.pid
-%{__chmod} -c 0644 %{buildroot}%{_rundir}/%{name}/%{name}.pid
+chmod -c 0644 %{buildroot}%{_rundir}/%{name}/%{name}.pid
 
 %if %{with qt}
 # Install the monitor-app.
-%{__install} -Dpm 0755 tools/thermal_monitor/%{_target_platform}/ThermalMonitor	\
+install -Dpm 0755 tools/thermal_monitor/%{_target_platform}/ThermalMonitor	\
 	%{buildroot}%{_bindir}/ThermalMonitor
-%{__install} -Dpm 0644 fedora_addons/%{name}-monitor.desktop			\
+install -Dpm 0644 fedora_addons/%{name}-monitor.desktop			\
 	%{buildroot}%{_datadir}/applications/%{name}-monitor.desktop
-%{__install} -Dpm 0644 fedora_addons/%{name}-monitor.svg			\
+install -Dpm 0644 fedora_addons/%{name}-monitor.svg			\
 	%{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}-monitor.svg
 %endif
 
 
 %check
 %if %{with qt}
-%{_bindir}/desktop-file-validate						\
-	%{buildroot}%{_datadir}/applications/*.desktop
+%{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %endif
 
 
@@ -234,11 +219,11 @@ exit 0
 %systemd_postun_with_restart thermald.service
 
 %files
+%license COPYING
 %config(noreplace) %{_sysconfdir}/%{name}
 %doc README.txt thermal_daemon_usage.txt
 %ghost %dir %{_rundir}/%{name}
 %ghost %{_rundir}/%{name}/%{name}.pid
-%license COPYING
 %{_bindir}/%{name}-set-pref
 %{_datadir}/dbus-1/system-services/org.freedesktop.%{name}.service
 %{_datadir}/dbus-1/system.d/org.freedesktop.%{name}.conf

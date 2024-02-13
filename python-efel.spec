@@ -30,7 +30,7 @@ ExcludeArch:    s390x
 
 # spdx
 # pyfeatures/* and tests/* are BSD 3-Clause, the rest are LGPLv3
-License:        LGPL-3.0-only and BSD-3-Clause
+License:        LGPL-3.0-only AND BSD-3-Clause
 URL:            http://efel.readthedocs.io/
 Source0:        %{forgesource}
 # Use the _version.py from pypi

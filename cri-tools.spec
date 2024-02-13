@@ -29,7 +29,7 @@
 
 Name: cri-tools
 Version: 1.29.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CLI and validation tools for Container Runtime Interface
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -211,6 +211,9 @@ install -p -m 644 docs/crictl.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/crictl*.1*
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 1.29.0-2
+- Rebuild for golang 1.22.0
+
 * Thu Jan 25 2024 Bradley G Smith <bradley.g.smith@gmail.com> - 1.29.0-1
 
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.2-5

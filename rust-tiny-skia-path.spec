@@ -5,7 +5,7 @@
 %global crate tiny-skia-path
 
 Name:           rust-tiny-skia-path
-Version:        0.11.3
+Version:        0.11.4
 Release:        %autorelease
 Summary:        Tiny-skia Bezier path implementation
 

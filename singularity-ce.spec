@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -290,6 +290,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 4.1.1-2
+- Rebuild for golang 1.22.0
+
 * Thu Feb 1 2024 David Trudgian <dtrudg@sylabs.io> - 4.1.1-1
 - Upgrade to 4.1.1 upstream version.
 

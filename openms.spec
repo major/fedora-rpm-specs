@@ -2,6 +2,7 @@
 %bcond_with debug
 
 ExclusiveArch: %{qt5_qtwebengine_arches}
+ExcludeArch:   %{ix86}
 
 # LTO flags break Python binding on i686
 %define _lto_cflags %{nil}

@@ -17,7 +17,7 @@ in hot paths. Up to 10x faster than net/http.}
 %global godocs          examples README.md TODO SECURITY.md README-prefork.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fast HTTP package
 
 # reuseport is also MIT

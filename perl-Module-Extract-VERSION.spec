@@ -1,6 +1,6 @@
 Name:		perl-Module-Extract-VERSION
-Version:	1.116
-Release:	5%{?dist}
+Version:	1.117
+Release:	1%{?dist}
 Summary:	Extract a module version without running code
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-VERSION
@@ -11,7 +11,8 @@ BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
-BuildRequires:	perl-interpreter >= 4:5.10.0
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.10.0
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.64
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Spec::Functions)
@@ -27,7 +28,7 @@ BuildRequires:	perl(Test::More) >= 1
 BuildRequires:	perl(Test::Manifest) >= 1.21
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
-# Runtime
+# Dependencies
 Requires:	perl(Safe)
 Requires:	perl(version)
 
@@ -57,6 +58,10 @@ make test
 %{_mandir}/man3/Module::Extract::VERSION.3*
 
 %changelog
+* Sun Feb 11 2024 Paul Howarth <paul@city-fan.org> - 1.117-1
+- Update to 1.117
+  - Refresh distro, update email address, move to BRIANDFOY
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.116-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

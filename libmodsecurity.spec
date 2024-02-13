@@ -1,17 +1,22 @@
 Name: libmodsecurity
-Version: 3.0.10
-Release: 3%{?dist}
+Version: 3.0.12
+Release: 2%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
 License: Apache-2.0
-URL: https://github.com/SpiderLabs/ModSecurity
+URL: https://github.com/owasp-modsecurity/ModSecurity
 
-Source0: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
+Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
+Source: https://github.com/owasp-modsecurity/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz.asc
+# Key 0B2BA1924065B44691202A2AD286E022149F0F6E
+Source: OWASP_ModSecurity.asc
 
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: git-core
+# for gpg verification
+BuildRequires: gnupg2
 BuildRequires: make
 BuildRequires: pkgconfig(libcurl)
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -57,6 +62,7 @@ applications that use %{name}.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n modsecurity-v%{version} -S git
 
 
@@ -92,6 +98,14 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sun Feb 11 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.12-2
+- Add GPG check
+- Change project's URL to owasp-modsecurity
+
+* Sun Feb 11 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.12-1
+- Update to 3.0.12 rhbz#2253518
+- Fix CVE-2024-1019 rhbz#2262017 rhbz#2262018 rhbz#2262019
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,35 +1,25 @@
 %global _hardened_build 1
 
 Name:             3proxy
-Version:          0.8.13
-Release:          14%{?dist}
+Version:          0.9.4
+Release:          1%{?dist}
 
 Summary:          Tiny but very powerful proxy
 Summary(ru):      Маленький, но крайне мощный прокси-сервер
 
 License:          BSD or ASL 2.0 or GPLv2+ or LGPLv2+
 Url:              http://3proxy.ru/?l=EN
-
-Source0:          https://github.com/z3APA3A/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:          https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source2:          3proxy.cfg
 Source3:          3proxy.service
+
 BuildRequires:    gcc
+BuildRequires:    make
 BuildRequires:    openssl-devel
+BuildRequires:    systemd-rpm-macros
 
 # I correct config path in man only. It is fully Fedora related.
 Patch0:           3proxy-0.6.1-config-path.patch
-
-BuildRequires:    systemd
-BuildRequires: make
-Requires(post):   systemd
-Requires(preun):  systemd
-Requires(postun): systemd
-# This is actually needed for the %triggerun script but Requires(triggerun)
-# is not valid.  We can use %post because this particular %triggerun script
-# should fire just after this package is installed.
-Requires(post):   systemd
-Obsoletes:        3proxy-sysvinit < 0.8.12
-
 
 %description
 %{name} -- light proxy server.
@@ -51,7 +41,7 @@ SOCKS v5, FTP, POP3, UDP и TCP проброс портов (portmapping), сп�
 %autosetup -p0
 
 # To use "fedora" CFLAGS (exported)
-sed -i -e "s/CFLAGS =/CFLAGS +=/" Makefile.Linux
+sed -i -e "s/^CFLAGS =/CFLAGS +=/" Makefile.Linux
 
 %build
 make -f Makefile.Linux
@@ -61,16 +51,15 @@ mkdir -p %{buildroot}%{_sysconfdir}
 mkdir -p %{buildroot}%{_sysconfdir}/NetworkManager/dispatcher.d/
 mkdir -p %{buildroot}%{_mandir}/man{3,8}
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
-install -m755 -D src/%{name} %{buildroot}%{_bindir}/%{name}
-install -m755 -D src/dighosts %{buildroot}%{_bindir}/dighosts
-install -m755 -D src/ftppr %{buildroot}%{_bindir}/ftppr
-install -m755 -D src/mycrypt %{buildroot}%{_bindir}/mycrypt
-install -m755 -D src/pop3p %{buildroot}%{_bindir}/pop3p
-install -m755 -D src/%{name} %{buildroot}%{_bindir}/%{name}
-install -m755 -D src/proxy %{buildroot}%{_bindir}/htproxy
-install -m755 -D src/socks %{buildroot}%{_bindir}/socks
-install -m755 -D src/tcppm %{buildroot}%{_bindir}/tcppm
-install -m755 -D src/udppm %{buildroot}%{_bindir}/udppm
+install -m755 -D bin/%{name} %{buildroot}%{_bindir}/%{name}
+install -m755 -D bin/ftppr %{buildroot}%{_bindir}/ftppr
+install -m755 -D bin/mycrypt %{buildroot}%{_bindir}/mycrypt
+install -m755 -D bin/pop3p %{buildroot}%{_bindir}/pop3p
+install -m755 -D bin/proxy %{buildroot}%{_bindir}/htproxy
+install -m755 -D bin/smtpp %{buildroot}%{_bindir}/smtpp
+install -m755 -D bin/socks %{buildroot}%{_bindir}/socks
+install -m755 -D bin/tcppm %{buildroot}%{_bindir}/tcppm
+install -m755 -D bin/udppm %{buildroot}%{_bindir}/udppm
 
 install -pD -m644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/%{name}.cfg
 install -pD -m755 %{SOURCE3} %{buildroot}/%{_unitdir}/%{name}.service
@@ -91,7 +80,7 @@ done
 
 %files
 %license copying
-%doc README authors Release.notes
+%doc README authors
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/%{name}.cfg
 %{_localstatedir}/log/%{name}
@@ -100,6 +89,10 @@ done
 %{_unitdir}/%{name}.service
 
 %changelog
+* Sun Feb 11 2024 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.9.4-1
+- Update to 0.9.4, fixes rhbz#1888503
+- Fix FTBFS, fixes rhbz#2261821
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

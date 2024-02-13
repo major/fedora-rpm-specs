@@ -15,7 +15,7 @@ Data URL Schemes in Golang.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Data URL Schemes in Golang
 
 License:        MIT
@@ -59,6 +59,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/dataurl
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.14
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

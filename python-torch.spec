@@ -6,8 +6,8 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# The top of tree ~2/1/24
-%global commit0 a43c28368c184ba1bf964f4fb99bec300917e2f4
+# The top of tree ~2/6/24
+%global commit0 064610d8ac53f3f5916a1dc8b43acbeeb2469c11
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global pypi_version 2.3.0
@@ -442,6 +442,8 @@ sed -i -f br.sed devel.files
 %{python3_sitearch}/torchgen/packaged/autograd/{*.md,*.yaml}
 %if %{with gitcommit}
 %{python3_sitearch}/torch/_export/serde/schema.yaml
+%{python3_sitearch}/torch/distributed/pipeline/sync/_balance/py.typed
+%{python3_sitearch}/torch/distributed/pipeline/sync/py.typed
 %endif
 
 # egg

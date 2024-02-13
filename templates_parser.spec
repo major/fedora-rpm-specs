@@ -2,7 +2,7 @@
 
 Name:           templates_parser
 Version:        11.8.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        AWS templates engine
 
 # GNAT Modified GPL (GMGPL)
@@ -113,6 +113,9 @@ cp -p %SOURCE2 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Sun Feb 11 2024 Björn Persson <Bjorn@Rombobjörn.se> - 11.8.0-38
+- Rebuilt with XMLada 24.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.8.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           reposurgeon
 Version:        4.38
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -91,6 +91,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 4.38-4
+- Rebuild for golang 1.22.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.38-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,23 +1,59 @@
+# The test suite is normally run. It can be disabled with "--without=check".
+%bcond_without check
+
+# Upstream source information.
+%global upstream_name         zlib-ada
+%global upstream_version      1.4
+%global upstream_commit_date  20210811
+%global upstream_commit       ca39312ba02e84eb15799300ef83607a83402868
+%global upstream_shortcommit  %(c=%{upstream_commit}; echo ${c:0:7})
+
 Name:           zlib-ada
-Version:        1.4
-Release:        0.36.20120830CVS%{?dist}
+Version:        %{upstream_version}
+Release:        0.37.%{upstream_commit_date}git%{upstream_shortcommit}%{?dist}
 Summary:        Zlib for Ada
 Summary(sv):    Zlib för ada
 
-License:        GPLv3+ with exceptions
-URL:            http://zlib-ada.sourceforge.net/
-# The tarball was made with these commands:
-# cvs -z3 -d:pserver:anonymous@zlib-ada.cvs.sourceforge.net:/cvsroot/zlib-ada co -P zlib-ada
-# tar --create --exclude-vcs --bzip2 --file=zlib-ada-20120830.tar.bz2 zlib-ada
-Source:         zlib-ada-20120830.tar.bz2
-# This will be the source when there is a new release:
-#Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source2:        build_zlib_ada.gpr
-Source3:        zlib_ada.gpr
+License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-3.0-or-later WITH GNAT-exception
+# Based on the header of zlib.ads.
 
-BuildRequires:  gcc-gnat fedora-gnat-project-common
+URL:            https://zlib-ada.sourceforge.net/
+Source0:        https://sourceforge.net/code-snapshots/git/z/zl/%{upstream_name}/git.git/%{upstream_name}-git-%{upstream_commit}.zip
+
+# NOTE: The above link points to a source package that is generated on
+# demand by opening the source code page in a browser (see [Code] below),
+# selecting the correct commit and then clicking "Download Snapshot". The
+# generated Zip-file will remain available at the mentioned location for some
+# time (at most 24h, as it seems).
+#
+# See also:
+#   [Code]     https://sourceforge.net/p/zlib-ada/git/ci/master/tree/
+#   [Releases] https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+
+Source1:        build_zlib_ada.gpr
+Source2:        zlib_ada.gpr
+
+# The Ada Web Server bundles the Zlib-Ada library. The authors of the
+# Ada Web Server found that a previous fix in the upstream source of
+# Zlib-Ada did not solve all problems in the end-of-stream detection
+# and therefore made additional improvements, but only in the bundled
+# sources. The improvements have, for some reason, not been offered
+# to/integrated into the upstream repository of Zlib-Ada on
+# SourceForge. Tests have been added to the AWS test suite that
+# explicitly test for the bug(s). As the Ada Web Server is packaged in
+# Fedora (package "aws"), we apply these patches here as well.
+
+# Adapted from: https://github.com/AdaCore/aws/commit/178767546df544388bb8a921d8314957b88a6ae0
+Patch:          %{name}-detect-end-of-zlib-stream-better.patch
+# Adapted from: https://github.com/AdaCore/aws/commit/76ae4648ee0e8c38e92b0ee71ae60db259ff27ce
+Patch:          %{name}-properly-initialize-in_last.patch
+
+BuildRequires:  gcc-gnat
+# A fedora-gnat-project-common that contains GPRbuild_flags is needed.
+BuildRequires:  fedora-gnat-project-common >= 3.17
 BuildRequires:  gprbuild
 BuildRequires:  zlib-devel
+
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
 
@@ -33,6 +69,10 @@ avkomprimeringsbiblioteket Zlib.
 
 %description -l sv %{common_description_sv}
 
+
+#################
+## Subpackages ##
+#################
 
 %package devel
 Summary:        Development files for Zlib-Ada
@@ -51,27 +91,70 @@ Paketet %{name}-devel innehåller källkod och länkningsinformation som behövs
 för att utveckla program som använder Zlib-Ada.
 
 
-%prep
-%setup -q -n zlib-ada
-chmod a-x *  # Remove bogus executable bits.
-cp %{SOURCE2} .
+#############
+## Prepare ##
+#############
 
+%prep
+%autosetup -n %{upstream_name}-git-%{upstream_commit}
+
+# Remove bogus executable bits.
+chmod a-x *
+
+# Copy the GPRbuild-file with which we will build the library.
+cp %{SOURCE1} .
+
+
+###########
+## Build ##
+###########
 
 %build
-gprbuild -P build_zlib_ada.gpr %{GPRbuild_optflags} -XDESTDIR=build_target -XLDFLAGS='%{__global_ldflags}'
+gprbuild %{GPRbuild_flags} -XVERSION=%{upstream_commit_date} \
+         -XDESTDIR=build_target \
+         -P build_zlib_ada.gpr
 
+
+#############
+## Install ##
+#############
 
 %install
 mv build_target/* --target-directory=%{buildroot}
+
 # Add the project file for projects that use this library.
 mkdir --parents %{buildroot}%{_GNAT_project_dir}
-cp --preserve=timestamps %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
+cp --preserve=timestamps %{SOURCE2} %{buildroot}%{_GNAT_project_dir}/
 
+
+###########
+## Check ##
+###########
+
+%if %{with check}
+%check
+
+# Let the multithreading test run for a limited amount of time.
+sed --in-place \
+    --expression="156 { s,Ada.Text_IO.Get_Immediate (Dummy),delay 2.0, ; t; q1 }" \
+    mtest.adb
+
+# Build & run the tests.
+gnatmake test.adb -largs -lz && ./test
+gnatmake mtest.adb -largs -lz && ./mtest
+
+%endif
+
+
+###########
+## Files ##
+###########
 
 %files
 %doc readme.txt
 %license COPYING3 COPYING.RUNTIME
 %{_libdir}/*.so.*
+
 
 %files devel
 %doc test.adb mtest.adb read.adb buffer_demo.adb
@@ -81,7 +164,17 @@ cp --preserve=timestamps %{SOURCE3} %{buildroot}%{_GNAT_project_dir}/
 %{_GNAT_project_dir}/*
 
 
+###############
+## Changelog ##
+###############
+
 %changelog
+* Sun Jan 28 2024 Dennis van Raaij <dvraaij@fedoraproject.org> - 1.4-0.37.20210811gitca39312
+- Updated to new prerelease of v1.4 (Git commit ca39312, 2021-08-11).
+- License field now contains an SPDX license expression.
+- Added an option to run some small tests (enabled by default).
+- Added two additional fixes from AWS; a libray that bundles this library.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-0.36.20120830CVS
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

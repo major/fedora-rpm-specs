@@ -1,14 +1,11 @@
 Name:           gir-to-d
-Version:        0.22.0
-Release:        14%{?dist}
+Version:        0.23.1
+Release:        1%{?dist}
 Summary:        Tool to create D bindings from GObject introspection files
 
 License:        LGPLv3+
 URL:            https://github.com/gtkd-developers/gir-to-d
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Backports from upstream
-Patch0001:      0001-Fix-segfault-with-the-latest-Glib.patch
 
 BuildRequires:  gcc
 BuildRequires:  ldc
@@ -47,6 +44,9 @@ export LDFLAGS="-Wl,-z,relro"
 
 
 %changelog
+* Sun Feb 11 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.23.1-1
+- Update to 0.23.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

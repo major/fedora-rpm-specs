@@ -1,10 +1,10 @@
 Name:           perl-Test2-Tools-PerlCritic
-Version:        0.04
-Release:        10%{?dist}
+Version:        0.05
+Release:        1%{?dist}
 Summary:        Testing tools to enforce Perl::Critic policies
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Test2-Tools-PerlCritic
+URL:            https://metacpan.org/dist/Test2-Tools-PerlCritic
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Test2-Tools-PerlCritic-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -63,6 +63,10 @@ the configuration of the policy as he is addressing violations.
 %{_mandir}/man3/Test2*
 
 %changelog
+* Sun Feb 11 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.05-1
+- Update to 0.05
+- Migrate to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

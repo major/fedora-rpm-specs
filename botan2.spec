@@ -2,7 +2,7 @@
 
 Name:           botan2
 Version:        2.19.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Crypto and TLS for C++11
 
 License:        BSD
@@ -11,6 +11,9 @@ Source0:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz
 
 # upstream patch: distutils.version.StrictVersion dropped in Python 3.12
 Patch0:         0001-Disable-concurrency-sphinx-build.patch
+# Fix test_compression with zlib-ng
+# Taken from https://github.com/randombit/botan/pull/3900 (not yet merged ATTOW)
+Patch1:         a9abec912d33f9a323c3918846ddbd19ec8e107b.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -134,6 +137,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./botan-test
 
 
 %changelog
+* Sun Feb 11 2024 Frantisek Sumsal <frantisek@sumsal.cz> - 2.19.3-8
+- Fix test_compress with zlib-ng (rhbz#2261019)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

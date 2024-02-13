@@ -3,7 +3,7 @@
 Summary: Network monitoring tools including ping
 Name: iputils
 Version: 20240117
-Release: 3%{?dist}
+Release: 4%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -85,6 +85,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Sun Feb 11 2024 Kevin Fenzi <kevin@scrye.com> - 20240117-4
+- Fix sources. Fixes rhbz#2263028
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240117-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

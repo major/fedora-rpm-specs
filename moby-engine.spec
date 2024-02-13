@@ -23,7 +23,7 @@
 
 Name:           moby-engine
 Version:        24.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
 Source0:        %{git_moby}/archive/v%{version}/moby-%{version}.tar.gz
@@ -281,6 +281,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 24.0.5-4
+- Rebuild for golang 1.22.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

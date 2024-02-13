@@ -35,7 +35,7 @@
 
 Name:           %{project}-%{repo}
 Version:        2.8.1
-Release:        4.git%{shortcommit}%{?dist}
+Release:        5.git%{shortcommit}%{?dist}
 Summary:        Docker toolset to pack, ship, store, and deliver content
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -322,6 +322,9 @@ make test
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 2.8.1-5.gitb5ca020
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-4.gitb5ca020
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

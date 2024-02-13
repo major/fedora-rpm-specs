@@ -1,6 +1,6 @@
 Name:           httpdump
 Version:        0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Capture and parse HTTP traffic
 URL:            https://github.com/hsiafan/httpdump
 VCS:            https://github.com/hsiafan/httpdump
@@ -73,6 +73,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0-0.15
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Michal Ambroz <rebus _AT seznam.cz> - 0-0.14
 - bump to current git commit from 20231019
 

@@ -4,7 +4,7 @@
 
 Name:           fido-device-onboard
 Version:        0.4.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -304,6 +304,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.4.12-10
+- Rebuild for golang 1.22.0
+
 * Sun Feb 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.12-9
 - Update Rust macro usage
 

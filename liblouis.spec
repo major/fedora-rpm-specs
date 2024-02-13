@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.28.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -130,6 +130,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 # parallel builds fail
+%if 0%{?rhel}
+LD_LIBRARY_PATH=$PWD/liblouis/.libs \
+%endif
 make
 cd doc; xetex %{name}.texi
 cd ../python
@@ -186,6 +189,9 @@ cd -
 
 
 %changelog
+* Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.28.0-4
+- Fix RHEL build after RPATH removal
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

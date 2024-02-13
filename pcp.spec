@@ -1,6 +1,6 @@
 Name:    pcp
-Version: 6.1.1
-Release: 3%{?dist}
+Version: 6.2.0
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -203,6 +203,19 @@ ExcludeArch: %{ix86}
 %global disable_noarch 1
 %endif
 
+# build pcp2arrow whenever possible (no RHEL or 32 bit x86 Fedora python3-arrow)
+# NB: lack of 32 bit x86 means we cannot build on x86_64 too, build fails with:
+#     "noarch package built differently on different architectures"  (*sigh*)
+%if 0%{?fedora} >= 36
+%ifarch %{ix86} x86_64
+%global disable_arrow 1
+%else
+%global disable_arrow 0
+%endif
+%else
+%global disable_arrow 1
+%endif
+
 %if 0%{?fedora} >= 24
 %global disable_xlsx 0
 %else
@@ -301,7 +314,9 @@ BuildRequires: qt5-qtsvg-devel
 %endif
 %endif
 
-Requires: bash xz gawk sed grep findutils which %{_hostname_executable}
+# Utilities used indirectly e.g. by scripts we install
+Requires: bash xz gawk sed grep coreutils diffutils findutils
+Requires: which %{_hostname_executable}
 Requires: pcp-libs = %{version}-%{release}
 
 %if !%{disable_selinux}
@@ -869,6 +884,30 @@ in JSON format to Apache Spark. See https://spark.apache.org/ for
 further details on Apache Spark.
 
 #
+# pcp-export-pcp2arrow
+#
+%if !%{disable_arrow}
+%package export-pcp2arrow
+License: GPL-2.0-or-later
+Summary: Performance Co-Pilot tools for exporting PCP metrics to Apache Arrow
+URL: https://pcp.io
+Requires: pcp-libs >= %{version}-%{release}
+%if !%{disable_python3}
+Requires: python3-pcp = %{version}-%{release}
+Requires: python3-pyarrow
+BuildRequires: python3-pyarrow
+%else
+Requires: %{__python2}-pcp = %{version}-%{release}
+Requires: %{__python2}-pyarrow
+BuildRequires: %{__python2}-pyarrow
+%endif
+
+%description export-pcp2arrow
+Performance Co-Pilot (PCP) front-end tool for exporting metric values
+to Apache Arrow, which supports the columnar parquet data format.
+%endif
+
+#
 # pcp-export-pcp2xlsx
 #
 %if !%{disable_xlsx}
@@ -891,6 +930,7 @@ BuildRequires: %{__python2}-openpyxl
 Performance Co-Pilot (PCP) front-end tools for exporting metric values
 in Excel spreadsheet format.
 %endif
+
 #
 # pcp-export-pcp2xml
 #
@@ -1058,7 +1098,7 @@ Summary: Performance Co-Pilot (PCP) metrics for NutCracker (TwemCache)
 URL: https://pcp.io
 Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 Requires: perl-PCP-PMDA = %{version}-%{release}
-Requires: perl(YAML::XS::LibYAML)
+Requires: perl(YAML::XS)
 Requires: perl(JSON)
 
 %description pmda-nutcracker
@@ -1499,7 +1539,7 @@ Summary: Performance Co-Pilot (PCP) metrics from eBPF ELF modules
 URL: https://pcp.io
 Requires: pcp = %{version}-%{release} pcp-libs = %{version}-%{release}
 Requires: libbpf
-BuildRequires: libbpf-devel clang llvm bpftool
+BuildRequires: libbpf-devel clang llvm
 %description pmda-bpf
 This package contains the PCP Performance Metrics Domain Agent (PMDA) for
 extracting performance metrics from eBPF ELF modules.
@@ -2462,7 +2502,7 @@ sed -i -e 's/usr\/lib\//usr\/lib64\//' pcp-libs-devel-files
 
 # some special cases for devel
 awk '{print $NF}' $DIST_MANIFEST |\
-grep -E 'pcp\/(examples|demos)|(etc/pcp|pcp/pmdas)\/(sample|simple|trivial|txmon)|bin/(pmdbg|pmclient|pmerr|genpmda)' | grep -E -v tutorials >>pcp-devel-files
+grep -E 'pcp/(examples|demos)|(etc/pcp|pcp/pmdas)/(sample|simple|trivial|txmon)|bin/(pmdbg|pmclient|pmerr|genpmda)' | grep -E -v tutorials >>pcp-devel-files
 
 # Patterns for files to be marked %%config(noreplace).
 # Note: /etc/pcp.{conf,env,sh} are %%config but not noreplace
@@ -2514,6 +2554,7 @@ basic_manifest | keep 'sheet2pcp' >pcp-import-sheet2pcp-files
 basic_manifest | keep 'mrtg2pcp' >pcp-import-mrtg2pcp-files
 basic_manifest | keep 'ganglia2pcp' >pcp-import-ganglia2pcp-files
 basic_manifest | keep 'collectl2pcp' >pcp-import-collectl2pcp-files
+basic_manifest | keep 'pcp2arrow' >pcp-export-pcp2arrow-files
 basic_manifest | keep 'pcp2elasticsearch' >pcp-export-pcp2elasticsearch-files
 basic_manifest | keep 'pcp2influxdb' >pcp-export-pcp2influxdb-files
 basic_manifest | keep 'pcp2xlsx' >pcp-export-pcp2xlsx-files
@@ -2636,7 +2677,7 @@ do \
 done
 
 for export_package in \
-    pcp2elasticsearch pcp2graphite pcp2influxdb pcp2json \
+    pcp2arrow pcp2elasticsearch pcp2graphite pcp2influxdb pcp2json \
     pcp2spark pcp2xlsx pcp2xml pcp2zabbix zabbix-agent ; \
 do \
     export_packages="$export_packages pcp-export-$export_package"; \
@@ -2771,8 +2812,8 @@ semodule -r pcpqa >/dev/null 2>&1 || true
 chown -R pcpqa:pcpqa %{_testsdir} 2>/dev/null
 %if 0%{?rhel}
 %if !%{disable_systemd}
-    systemctl restart pmcd pmlogger >/dev/null 2>&1
-    systemctl enable pmcd pmlogger >/dev/null 2>&1
+    systemctl restart pcp-reboot-init pmcd pmlogger >/dev/null 2>&1
+    systemctl enable pcp-reboot-init pmcd pmlogger >/dev/null 2>&1
 %else
     /sbin/chkconfig --add pmcd >/dev/null 2>&1
     /sbin/chkconfig --add pmlogger >/dev/null 2>&1
@@ -3057,9 +3098,9 @@ if [ "$1" -eq 0 ]
 then
     # stop daemons before erasing the package
     %if !%{disable_systemd}
-       %systemd_preun pmlogger_check.timer pmlogger_daily.timer pmlogger_farm_check.timer pmlogger_farm_check.service pmlogger_farm.service pmlogger.service pmie_check.timer pmie_daily.timer pmie_farm_check.timer pmie_farm_check.service pmie_farm.service pmie.service pmproxy.service pmfind.service pmcd.service
+       %systemd_preun pmlogger_check.timer pmlogger_daily.timer pmlogger_farm_check.timer pmlogger_farm_check.service pmlogger_farm.service pmlogger.service pmie_check.timer pmie_daily.timer pmie_farm_check.timer pmie_farm_check.service pmie_farm.service pmie.service pmproxy.service pmfind.service pmcd.service pcp-reboot-init.service
 
-       systemctl stop pmlogger.service pmie.service pmproxy.service pmfind.service pmcd.service >/dev/null 2>&1
+       systemctl stop pmlogger.service pmie.service pmproxy.service pmfind.service pmcd.service pcp-reboot-init.service >/dev/null 2>&1
     %else
        /sbin/service pmlogger stop >/dev/null 2>&1
        /sbin/service pmie stop >/dev/null 2>&1
@@ -3091,10 +3132,10 @@ for PMDA in dm nfsclient openmetrics ; do
 done
 # auto-enable these usually optional pmie rules
 %{run_pmieconf "$PCP_PMIECONFIG_DIR" dmthin}
-%if 0%{?rhel}
+%if 0%{?rhel} <= 9
 %if !%{disable_systemd}
-    systemctl restart pmcd pmlogger pmie >/dev/null 2>&1
-    systemctl enable pmcd pmlogger pmie >/dev/null 2>&1
+    systemctl restart pcp-reboot-init pmcd pmlogger pmie >/dev/null 2>&1
+    systemctl enable pcp-reboot-init pmcd pmlogger pmie >/dev/null 2>&1
 %else
     /sbin/chkconfig --add pmcd >/dev/null 2>&1
     /sbin/chkconfig --add pmlogger >/dev/null 2>&1
@@ -3344,6 +3385,10 @@ fi
 %files export-pcp2influxdb -f pcp-export-pcp2influxdb-files.rpm
 %endif
 
+%if !%{disable_arrow}
+%files export-pcp2arrow -f pcp-export-pcp2arrow-files.rpm
+%endif
+
 %if !%{disable_xlsx}
 %files export-pcp2xlsx -f pcp-export-pcp2xlsx-files.rpm
 %endif
@@ -3446,6 +3491,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Feb 12 2024 Nathan Scott <nathans@redhat.com> - 6.2.0-1
+- Update to latest PCP sources.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

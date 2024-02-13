@@ -1,5 +1,13 @@
 # Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
 %bcond mypy %{undefined rhel}
+
+# The asyncmy Python package isn’t available in x86 (32bit)
+%ifnarch %ix86
+%bcond asyncmy 1
+%else
+%bcond asyncmy 0
+%endif
+
 # Tests crash when being run by pytest-xdist
 %bcond xdist 0
 
@@ -20,10 +28,10 @@
     aiomysql \
     aioodbc \
     aiosqlite \
-    asyncmy
+    %{?with_asyncmy:asyncmy}
 
 Name:           python-%{canonicalname}
-Version:        2.0.25
+Version:        2.0.26
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease
@@ -57,6 +65,9 @@ domain.
 
 %package -n python3-sqlalchemy
 Summary:        %{summary}
+%if %{without asyncmy}
+Obsoletes:      python3-sqlalchemy+asyncmy < %{version}-%{release}
+%endif
 
 %description -n python3-sqlalchemy
 SQLAlchemy is an Object Relational Mapper (ORM) that provides a flexible,
@@ -79,7 +90,7 @@ Documentation for SQLAlchemy.
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x %{gsub %{quote:%python_pkg_extras} %%s+ ,}
 
 
 %prep

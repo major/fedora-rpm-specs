@@ -17,7 +17,7 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -183,6 +183,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.0.99.5-6
+- Rebuild for golang 1.22.0
+
 * Wed Feb 07 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-5
 - Migrate to SPDX license
 

@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        7.4.0
+Version:        7.5.1
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -181,7 +181,7 @@ chmod -x src/calibre/*/*/*/*.py \
     src/calibre/*.py
 
 # remove bundled MathJax
-rm -rvf resources/mathjax
+rm -rv resources/mathjax
 
 %build
 # unbundle MathJax
@@ -230,12 +230,6 @@ cp -p resources/images/viewer.png                 \
 cp -p resources/images/tweak.png                 \
    %{buildroot}%{_datadir}/pixmaps/calibre-ebook-edit.png
 
-# packages aren't allowed to register mimetypes like this
-rm -f %{buildroot}%{_datadir}/applications/defaults.list
-rm -f %{buildroot}%{_datadir}/applications/mimeinfo.cache
-rm -f %{buildroot}%{_datadir}/mime/application/*.xml
-rm -f %{buildroot}%{_datadir}/mime/text/*.xml
-
 # check .desktop files
 desktop-file-validate \
     %{buildroot}%{_datadir}/applications/calibre-ebook-edit.desktop \
@@ -244,7 +238,7 @@ desktop-file-validate \
     %{buildroot}%{_datadir}/applications/calibre-lrfviewer.desktop
 
 # mimetype icon for lrf
-rm -rf %{buildroot}%{_datadir}/icons/hicolor/128x128
+rm -r %{buildroot}%{_datadir}/icons/hicolor/128x128
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/mimetypes
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
@@ -254,10 +248,10 @@ cp -p resources/images/viewer.png \
       %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/calibre-viewer.png
 
 # these are provided as separate packages
-rm -rf %{buildroot}%{_libdir}/calibre/odf
+rm -r %{buildroot}%{_libdir}/calibre/odf
 
 # unbundle Liberation fonts
-rm -f %{buildroot}%{_datadir}/calibre/fonts/liberation/*
+rm %{buildroot}%{_datadir}/calibre/fonts/liberation/*
 ln --symbolic --relative \
     %{buildroot}%{_usr}/share/fonts/liberation-mono/LiberationMono-BoldItalic.ttf \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationMono-BoldItalic.ttf
@@ -296,8 +290,8 @@ ln --symbolic --relative \
     %{buildroot}%{_datadir}/calibre/fonts/liberation/LiberationSerif-Regular.ttf
 
 # Remove these 2 appdata files, we can only include one
-rm -f %{buildroot}/%{_datadir}/metainfo/calibre-ebook-edit.appdata.xml
-rm -f %{buildroot}/%{_datadir}/metainfo/calibre-ebook-viewer.appdata.xml
+rm %{buildroot}/%{_datadir}/metainfo/calibre-ebook-edit.metainfo.xml
+rm %{buildroot}/%{_datadir}/metainfo/calibre-ebook-viewer.metainfo.xml
  
 %check
 TEST_ARGS=(

@@ -96,8 +96,8 @@
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.22
-%global go_prerelease rc2
-#global go_patch 6
+#global go_prerelease rc2
+%global go_patch 0
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -142,12 +142,14 @@ Provides: bundled(golang(golang.org/x/term)) = 0.15.0
 Provides: bundled(golang(golang.org/x/text)) = 0.14.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.16.2.0.20231218185909.83bceaf2424d
 
+
 Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
 Requires:       go-filesystem
 
 Patch1:         0001-Modify-go.env.patch
 Patch4:         0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
+Patch5:		0005-Skip-TestCrashDumpsAllThreads.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{name}-docs < 1.1-4

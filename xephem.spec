@@ -1,13 +1,13 @@
 #%%global gittag 4.1.0
-%global commit 0a1b50503bdf202fb6fa7ca62124b0242a004e69
+%global commit a2da14bfc6727b1255df6f31ac4ce89d4bd881c8
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230114
+%global date 20240205
 
 Name:           xephem
 %if "%{?gittag}"
 Version:        4.1.0
 %else
-Version:        4.1.0^%{date}%{shortcommit}
+Version:        4.1.0^3%{date}.git%{shortcommit}
 %endif
 Release:        %autorelease
 Summary:        Scientific-grade interactive astronomical ephemeris software
@@ -19,8 +19,9 @@ Source0:        https://github.com/XEphem/XEphem/archive/%{gittag}/XEphem-%{vers
 %else
 Source0:        https://github.com/XEphem/XEphem/archive/%{commit}/XEphem-%{commit}.tar.gz
 %endif
-# Desktop file is not provided by upstream
+# Desktop and appstream metadata files are not provided in upstream sources
 Source1:        io.github.xephem.desktop
+Source2:        io.github.xephem.metainfo.xml
 
 # Patch to use system libraries and not override CFLAGS
 # Proposed upstream: https://github.com/XEphem/XEphem/pull/58
@@ -41,8 +42,10 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  groff-base
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  motif-devel
+BuildRequires:  ImageMagick
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libssl)
@@ -96,6 +99,11 @@ cp liblilxml/LICENSE LICENSE.liblilxml
 %cmake
 %cmake_build
 
+# Create standard size icons
+for d in 32 48 64 128 ; do
+    convert GUI/xephem/XEphem.png -geometry ${d}x${d} -depth 8 -background none xephem-${d}.png
+done
+
 # Old manual build method
 #pushd GUI/xephem
 #%%make_build
@@ -130,15 +138,24 @@ EOF
 
 # Provide a desktop entry
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
-install -p -m0644 GUI/xephem/XEphem.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
+
+# Install icons
+for d in 32 48 64 128 ; do
+    mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${d}x${d}/apps/
+    install -p -m0644 xephem-${d}.png %{buildroot}%{_datadir}/icons/hicolor/${d}x${d}/apps/xephem.png
+done
+
+# Install appstream metadata
+mkdir -p %{buildroot}%{_metainfodir}
+install -p -m0644 %{SOURCE2} %{buildroot}%{_metainfodir}
 
 
 %check
-# Tests currently fail, need to check with upstream
-#pushd tests
-#make run-test
-#popd
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+
+pushd tests
+make run-test
+popd
 
 
 %files
@@ -147,10 +164,8 @@ install -p -m0644 GUI/xephem/XEphem.png %{buildroot}%{_datadir}/icons/hicolor/12
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/applications/io.github.%{name}.desktop
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/128x128
-%dir %{_datadir}/icons/hicolor/128x128/apps
-%{_datadir}/icons/hicolor/128x128/apps/XEphem.png
+%{_datadir}/icons/hicolor/*/apps/xephem.png
+%{_metainfodir}/io.github.%{name}.metainfo.xml
 
 %files      data
 %{_datadir}/%{name}

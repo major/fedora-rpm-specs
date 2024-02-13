@@ -14,7 +14,7 @@ A Tool for Domain Flyovers.}
 %global godocs          README.md CHANGELOG.md
 
 Name:           aquatone
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tool for Domain Flyovers
 
 License:        MIT
@@ -61,6 +61,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 1.7.0-14
+- Rebuild for golang 1.22.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

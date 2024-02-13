@@ -37,7 +37,7 @@ Version:                1.28.2
 
 Name:           cri-o
 Epoch:          0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 
@@ -230,6 +230,12 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0:1.28.2-5
+- Rebuild for golang 1.22.0
+
+* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0:1.28.2-4
+- Rebuild for golang 1.22.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.28.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

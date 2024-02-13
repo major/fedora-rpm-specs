@@ -1,6 +1,6 @@
 Name:           free42
 Epoch:          1
-Version:        3.1.3
+Version:        3.1.4
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator
@@ -90,9 +90,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %files
-%{_bindir}/free42dec
 %doc CREDITS HISTORY README
 %license COPYING gtk/IntelRDFPMathLib20U1/eula.txt
+%{_bindir}/free42dec
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/%{name}.png
 %{_metainfodir}/%{name}.appdata.xml
