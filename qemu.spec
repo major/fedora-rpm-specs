@@ -103,6 +103,9 @@
 %ifarch x86_64 %{power64}
 %global have_pmem 1
 %endif
+%if 0%{?rhel} >= 10
+%global have_pmem 0
+%endif
 
 %global have_jack 1
 %if 0%{?rhel}

@@ -3,7 +3,7 @@
 
 # The asyncmy Python package isn’t available in x86 (32bit)
 %ifnarch %ix86
-%bcond asyncmy 1
+%bcond asyncmy %{undefined rhel}
 %else
 %bcond asyncmy 0
 %endif
@@ -14,6 +14,7 @@
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
 
+%if %{undefined rhel}
 %global python_pkg_extras \
     asyncio \
     mssql_pymssql \
@@ -29,6 +30,7 @@
     aioodbc \
     aiosqlite \
     %{?with_asyncmy:asyncmy}
+%endif
 
 Name:           python-%{canonicalname}
 Version:        2.0.26
@@ -46,9 +48,6 @@ BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.7
 # The dependencies needed for testing don’t get auto-generated.
-%if %{with mypy}
-BuildRequires:  python3dist(mypy)
-%endif
 BuildRequires:  python3dist(pytest)
 %if %{with xdist}
 BuildRequires:  python3dist(pytest-xdist)
@@ -78,8 +77,10 @@ as you choose, determining relationships based on foreign keys or letting you
 define the join conditions explicitly, to bridge the gap between database and
 domain.
 
+%if %{undefined rhel}
 # Subpackages to ensure dependencies enabling extra functionality
 %pyproject_extras_subpkg -n python3-sqlalchemy %python_pkg_extras
+%endif
 
 %package doc
 Summary:        Documentation for SQLAlchemy
@@ -90,7 +91,7 @@ Documentation for SQLAlchemy.
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x %{gsub %{quote:%python_pkg_extras} %%s+ ,}
+%pyproject_buildrequires %{!?rhel:-x %{gsub %{quote:%python_pkg_extras} %%s+ ,}}
 
 
 %prep

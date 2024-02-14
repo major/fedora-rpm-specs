@@ -1,8 +1,8 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       56
-Release:       3%{?dist}
+Version:       57
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
@@ -53,6 +53,29 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Sat Feb 10 2024 Packit <hello@packit.dev> - 57-1
+- [maven-release-plugin] prepare release oss-parent-57 (Tatu Saloranta)
+- Prepare for v57 release (Tatu Saloranta)
+- Update release notes (Tatu Saloranta)
+- Bump version.plugin.surefire from 3.2.3 to 3.2.5 (dependabot[bot])
+- Bump org.apache.maven.plugins:maven-jxr-plugin from 3.3.1 to 3.3.2 (dependabot[bot])
+- Update release notes wrt `version.plugin.compiler` bump (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-compiler-plugin (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-compiler-plugin (dependabot[bot])
+- Update release notes wrt #115 (Tatu Saloranta)
+- Bump version.plugin.surefire from 3.2.2 to 3.2.3 (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump org.codehaus.mojo:build-helper-maven-plugin from 3.4.0 to 3.5.0 (dependabot[bot])
+- Bump org.jacoco:jacoco-maven-plugin from 0.8.10 to 0.8.11 (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-project-info-reports-plugin (dependabot[bot])
+- Update release notes (Tatu Saloranta)
+- Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.0 to 3.6.2 (dependabot[bot])
+- Bump version.plugin.surefire from 3.2.1 to 3.2.2 (dependabot[bot])
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2263613
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 56-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -70,6 +70,7 @@ systemd socket activation, and is disabled by default.
 %build
 autoreconf
 %configure
+touch aconfig.h.in aconfig.h MCONFIG
 make %{?_smp_mflags}
 
 %install

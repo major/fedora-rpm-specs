@@ -8,7 +8,7 @@
 
 Name:           snowball
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Snowball compiler and stemming algorithms
 
 License:        BSD-3-Clause
@@ -141,26 +141,18 @@ Stemming algorithms written in Python 3.
 %langlist
 
 %prep
-# Once https://bugzilla.redhat.com/show_bug.cgi?id=2173192 is fixed, we can
-# do this:
-#%%autosetup -p1 -b 1
-%autosetup -p1
+%autosetup -p1 -b 1
 
 # Fix an RST error
 sed -i 's/\(libstemmer_c-\)\*/\1\\*/' doc/libstemmer_c_README
 
-# Once https://bugzilla.redhat.com/show_bug.cgi?id=2173192 is fixed, we can
-# remove this:
-cd ..
-unzip -o %{SOURCE1}
-
 %generate_buildrequires
 cd python
+rm -f modules.txt README.rst src
 ln -s ../libstemmer/modules.txt .
 ln -s ../README.rst .
 ln -s . src
 %pyproject_buildrequires
-rm modules.txt README.rst src
 
 %build
 # Build the compiler and C library
@@ -262,24 +254,4 @@ make check_python
 %license COPYING
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.0-6
-- Rebuilt for Python 3.12
-
-* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-5
-- Dynamically generate python BuildRequires
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 2.2.0-4
-- Add BR on javapackages-tools for Java arches
-- Run the Java and python tests
-
-* Wed Sep 21 2022 Jerry James <loganjerry@gmail.com> - 2.2.0-3
-- Initial RPM, from the libstemmer and python-snowballstemmer packages
+%autochangelog

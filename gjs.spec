@@ -1,10 +1,10 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
-%global mozjs115_version 115.6.0
+%global mozjs115_version 115.7.0
 
 Name:           gjs
 Version:        1.79.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -98,6 +98,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Feb 12 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.79.2-3
+- Rebuild against mozjs115-115.7.0-1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.79.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

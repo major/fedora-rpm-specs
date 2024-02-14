@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.3.5
 
 Name:           pmbootstrap
-Version:        2.1.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        A sophisticated chroot/build/flash tool to develop and install postmarketOS
 
@@ -44,6 +44,10 @@ rm -rf %{name}.egg-info
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
+%dir %{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/helpers/
+%{_datadir}/%{name}/helpers/envkernel.sh
+%{_datadir}/%{name}/helpers/envkernel.fish
 %{python3_sitelib}/pmb
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 

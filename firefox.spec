@@ -179,7 +179,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        122.0
-Release:        5%{?pre_tag}%{?dist}
+Release:        6%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -259,8 +259,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        D167159.diff
-Patch409:        D196554.diff
-Patch410:        D196555.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -565,8 +563,6 @@ This package contains results of tests executed during build.
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .D167159
-%patch409 -p1 -b .D196554
-%patch410 -p1 -b .D196555
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1190,6 +1186,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Feb 12 2024 Martin Stransky <stransky@redhat.com>- 122.0-6
+- Temporary removed proxy cache (rhbz#2262959)
+
 * Wed Jan 31 2024 Martin Stransky <stransky@redhat.com>- 122.0-5
 - Disabled system libvpx due to WebRTC/camera issues (mzbz#1875201)
 

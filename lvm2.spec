@@ -49,7 +49,7 @@ Epoch: %{rhel}
 %endif
 Version: 2.03.23
 Release: %autorelease
-License: GPLv2
+License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
 Patch0: 0001-spec-Install-and-package-etc-lvm-devices.patch
@@ -384,7 +384,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 ##############################################################################
 %package devel
 Summary: Development libraries and headers
-License: LGPLv2
+License: LGPL-2.1-only
 Requires: %{name} = %{?epoch}:%{version}-%{release}
 Requires: device-mapper-devel = %{?epoch}:%{device_mapper_version}-%{release}
 Requires: device-mapper-event-devel = %{?epoch}:%{device_mapper_version}-%{release}
@@ -401,7 +401,7 @@ the lvm2 libraries.
 
 %package libs
 Summary: Shared libraries for lvm2
-License: LGPLv2
+License: LGPL-2.1-only
 Requires: device-mapper-event = %{?epoch}:%{device_mapper_version}-%{release}
 
 %description libs
@@ -476,7 +476,7 @@ LVM commands use lvmlockd to coordinate access to shared storage.
 
 %package dbusd
 Summary: LVM2 D-Bus daemon
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 Requires: lvm2 >= %{?epoch}:%{version}-%{release}
 Requires: dbus
@@ -516,7 +516,7 @@ Daemon for access to LVM2 functionality through a D-Bus interface.
 %package -n device-mapper
 Summary: Device mapper utility
 Version: %{device_mapper_version}
-License: GPLv2
+License: GPL-2.0-only
 URL: https://www.sourceware.org/dm/
 Requires: device-mapper-libs = %{?epoch}:%{device_mapper_version}-%{release}
 Requires: util-linux-core >= %{util_linux_version}
@@ -550,7 +550,7 @@ for the kernel device-mapper.
 %package -n device-mapper-devel
 Summary: Development libraries and headers for device-mapper
 Version: %{device_mapper_version}
-License: LGPLv2
+License: LGPL-2.1-only
 Requires: device-mapper = %{?epoch}:%{device_mapper_version}-%{release}
 Requires: pkgconfig
 
@@ -566,7 +566,7 @@ the device-mapper libraries.
 %package -n device-mapper-libs
 Summary: Device-mapper shared library
 Version: %{device_mapper_version}
-License: LGPLv2
+License: LGPL-2.1-only
 Requires: device-mapper = %{?epoch}:%{device_mapper_version}-%{release}
 
 %description -n device-mapper-libs
@@ -614,7 +614,7 @@ fi
 %package -n device-mapper-event-libs
 Summary: Device-mapper event daemon shared library
 Version: %{device_mapper_version}
-License: LGPLv2
+License: LGPL-2.1-only
 
 %description -n device-mapper-event-libs
 This package contains the device-mapper event daemon shared library,
@@ -629,7 +629,7 @@ libdevmapper-event.
 %package -n device-mapper-event-devel
 Summary: Development libraries and headers for the device-mapper event daemon
 Version: %{device_mapper_version}
-License: LGPLv2
+License: LGPL-2.1-only
 Requires: device-mapper-event = %{?epoch}:%{device_mapper_version}-%{release}
 Requires: pkgconfig
 
@@ -649,7 +649,7 @@ the device-mapper event library.
 %package testsuite
 Summary: LVM2 Testsuite
 # Most of the code is GPLv2, the harness in test/lib/{brick-shelltest.h,runner.cpp} is BSD, and C files in test/api are LGPLv2...
-License: LGPLv2 and GPLv2 and BSD-2-Clause
+License: GPL-2.0-only AND LGPL-2.1-only AND BSD-2-Clause
 
 %description testsuite
 An extensive functional testsuite for LVM2.

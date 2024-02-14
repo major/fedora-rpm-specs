@@ -41,8 +41,8 @@ Requires: %{srcname}-tools = %{version}-%{release}
 # webapp was removed upstream in release 6.4.2.
 Obsoletes: %{srcname}-webapp < 6.4.2
 
-# python agent was removed upstream in release 6.8.0.
-Obsoletes: python3-%{srcname}-agent < 6.8.0
+# python agent was removed upstream in release 7.0.0.
+Obsoletes: python3-%{srcname}-agent < 7.0.0
 
 # Agent.
 Requires: keylime-agent
@@ -63,10 +63,11 @@ License: MIT
 # Conflicts with the monolithic versions of the package, before the split.
 Conflicts: keylime < 6.3.0-3
 
+Requires(pre): python3-jinja2
 Requires(pre): shadow-utils
 Requires: procps-ng
 Requires: tpm2-tss
-Requires: python3-jinja2
+Requires: openssl
 
 %if 0%{?with_selinux}
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
@@ -103,6 +104,7 @@ Requires: python3-gpg
 Requires: python3-lark-parser
 Requires: python3-pyasn1
 Requires: python3-pyasn1-modules
+Requires: python3-jsonschema
 Requires: python3-typing-extensions
 Requires: tpm2-tools
 
@@ -137,27 +139,6 @@ Requires: python3-%{srcname} = %{version}-%{release}
 %description registrar
 The Keylime Registrar is a database of all agents registered
 with Keylime and hosts the public keys of the TPM vendors.
-
-%package -n python3-%{srcname}-agent
-Summary: The Python Keylime Agent
-License: MIT
-
-# Conflicts with the monolithic versions of the package, before the split.
-Conflicts: keylime < 6.3.0-3
-
-Requires: %{srcname}-base = %{version}-%{release}
-Requires: python3-%{srcname} = %{version}-%{release}
-Requires: python3-psutil
-Requires: python3-zmq
-
-# Virtual Provides to support swapping between Python and Rust implementation.
-Provides:  keylime-agent
-Conflicts: keylime-agent
-
-%description -n python3-%{srcname}-agent
-The Keylime Agent is deployed to the remote machine that is to be
-measured or provisioned with secrets stored within an encrypted
-payload released once trust is established.
 
 %if 0%{?with_selinux}
 # SELinux subpackage

@@ -1,21 +1,22 @@
 # remirepo/fedora spec file for php-mock-phpunit2
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    3dabfd474d43da4d1d2fee5260c634457c5da344
+%global gh_commit    e1f7e795990b00937376e345883ea68ca3bda7e0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+%global gh_date      2024-02-11
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.9.0
-Release:        3%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -25,7 +26,7 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7
 %if %{with_tests}
-BuildRequires: (php-composer(php-mock/php-mock-integration) >= 2.2.1  with php-composer(php-mock/php-mock-integration) < 3)
+BuildRequires: (php-composer(php-mock/php-mock-integration) >= 2.3    with php-composer(php-mock/php-mock-integration) < 3)
 BuildRequires: (php-composer(php-mock/php-mock)             >= 2.2    with php-composer(php-mock/php-mock)             < 3)
 # From composer.json "require-dev": {
 #        "mockery/mockery": "^1.3.6"
@@ -33,19 +34,20 @@ BuildRequires: (php-composer(mockery/mockery)               >= 1.3.6  with php-c
 BuildRequires:  phpunit8
 BuildRequires:  phpunit9
 BuildRequires:  phpunit10 >= 10.0.17
+# TODO phpunit11 but requires php 8.2
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 %endif
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17",
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17 || ^11",
 #        "php-mock/php-mock-integration": "^2.2.1"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
 Requires:       php(language) >= 7
 Recommends:    (phpunit8 or phpunit9 or phpunit10)
-Requires:      (php-composer(php-mock/php-mock-integration) >= 2.2.1 with php-composer(php-mock/php-mock-integration) < 3)
+Requires:      (php-composer(php-mock/php-mock-integration) >= 2.3   with php-composer(php-mock/php-mock-integration) < 3)
 Requires:      (php-composer(php-mock/php-mock)             >= 2.2   with php-composer(php-mock/php-mock)             < 3)
 # From phpcompatinfo report from version 2.1.0
 # only Core
@@ -138,6 +140,17 @@ for cmd in php php81 php82 php83; do
   fi
 done
 fi
+
+if [ -x %{_bindir}/phpunit11 ]; then
+: Run upstream test suite with phpunit11
+for cmd in php php82 php83; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit11 \
+       --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
+       || ret=1
+  fi
+done
+fi
 exit $ret
 %else
 : bootstrap build with test suite disabled
@@ -152,6 +165,11 @@ exit $ret
 
 
 %changelog
+* Mon Feb 12 2024 Remi Collet <remi@remirepo.net> - 2.10.0-1
+- update to 2.10.0 (no change)
+- raise dependency on php-mock-integration2 2.3
+- allow phpunit11
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

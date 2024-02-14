@@ -1,31 +1,31 @@
-%global gettext_version 0.19.8
-%global glib2_version 2.67.4
-%global gtk3_version 3.19.12
+%global gettext_version 0.22
+%global glib2_version 2.78.3
+%global gtk4_version 4.12.4
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.49.0
-Release:	4%{?dist}
+Version:	3.49.1
+Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.49/%{name}-%{version}.tar.xz
 
-Patch1:         gcr_error.patch
-
 BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gobject-2.0) >= %{glib2_version}
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:	gettext >= %{gettext_version}
 BuildRequires:	gtk-doc
 BuildRequires:	krb5-devel
 BuildRequires:	meson
 BuildRequires:	vala
 %if !0%{?flatpak}
-BuildRequires:	pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:	pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libsoup-3.0) >= %{libsoup_version}
@@ -35,7 +35,7 @@ BuildRequires:	pkgconfig(libxml-2.0)
 
 Requires:	glib2%{?_isa} >= %{glib2_version}
 %if !0%{?flatpak}
-Requires:	gtk3%{?_isa} >= %{gtk3_version}
+Requires:	gtk4%{?_isa} >= %{gtk4_version}
 Requires:	libsoup3%{?_isa} >= %{libsoup_version}
 Requires:	gvfs-goa
 %endif
@@ -56,8 +56,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
-%patch -P 1 -p0
 
 %build
 %meson \
@@ -122,6 +120,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Mon Feb 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.1-1
+- 3.49.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.49.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

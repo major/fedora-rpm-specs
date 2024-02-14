@@ -1,5 +1,5 @@
 Name:             freeipmi
-Version:          1.6.11
+Version:          1.6.14
 Release:          %autorelease
 Summary:          IPMI remote console and system management software
 License:          GPL-3.0-or-later

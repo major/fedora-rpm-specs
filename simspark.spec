@@ -1,12 +1,15 @@
 Name:           simspark
 Version:        0.3.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Spark physical simulation system
 
 License:        GPLv2
 URL:            http://simspark.sourceforge.net
 Source0:        http://downloads.sourceforge.net/simspark/%{name}-%{version}.tar.xz
 Patch0:         %{name}-confscript-mlibfix.patch
+# https://gitlab.com/robocup-sim/SimSpark/-/merge_requests/53
+Patch1:         %{name}-pr53-cxx-header-include.patch
+
 
 BuildRequires: make
 BuildRequires:  gcc gcc-c++ cmake boost-devel ruby ruby-devel SDL-devel tex(latex)
@@ -76,6 +79,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Mon Feb 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-6
+- Add additional header, fix FTBFS with g++14
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

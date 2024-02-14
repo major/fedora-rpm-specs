@@ -1,6 +1,6 @@
-%global ghdlver 0.38~dev
-%global ghdldate 20201208
-%global ghdlcommit 83dfd49481603fc894652a4191c6787cbc319898
+%global ghdlver 3.0.0
+%global ghdldate 20230308
+%global ghdlcommit 7de967c51f352fe2d724dbec549b71a392e5ebae
 %global ghdlshortcommit %(c=%{ghdlcommit}; echo ${c:0:7})
 %global ghdlgitrev %{ghdldate}git%{ghdlshortcommit}
 
@@ -22,13 +22,13 @@
 
 %bcond_with gnatwae
 
-%global DATE 20200826
-%global gitrev c59c8927f43fb78d6a72a0ff93a47b36e43282d5
-%global gcc_version 10.2.1
-%global gcc_major 10
+%global DATE 20240208
+%global gitrev b006f0561c0b004822f600ad0ea9a2b90fb29d7f
+%global gcc_version 14.0.1
+%global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 1
 # Hardening slows the compiler way too much.
 %undefine _hardened_build
 %if 0%{?fedora} > 27 || 0%{?rhel} > 7
@@ -40,7 +40,7 @@
 Summary: A VHDL simulator, using the GCC technology
 Name: ghdl
 Version: %{ghdlver}
-Release: 20.%{ghdlgitrev}%{?dist}
+Release: 1.%{ghdlgitrev}%{?dist}
 License: GPLv2+ and GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
 URL: http://ghdl.free.fr/
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -52,31 +52,26 @@ URL: http://ghdl.free.fr/
 Source0: gcc-%{gcc_version}-%{DATE}.tar.xz
 %global isl_version 0.16.1
 
-Patch0: gcc10-hack.patch
-Patch1: gcc10-i386-libgomp.patch
-Patch3: gcc10-libgomp-omp_h-multilib.patch
-Patch4: gcc10-libtool-no-rpath.patch
-Patch5: gcc10-isl-dl.patch
-Patch7: gcc10-no-add-needed.patch
-Patch8: gcc10-foffload-default.patch
-Patch9: gcc10-Wno-format-security.patch
-Patch10: gcc10-rh1574936.patch
-Patch12: gcc10-pr96383.patch
-Patch13: gcc10-pr96385.patch
-Patch14: gcc10-pr96690.patch
+Patch0: gcc14-hack.patch
+Patch3: gcc14-libgomp-omp_h-multilib.patch
+Patch4: gcc14-libtool-no-rpath.patch
+Patch5: gcc14-isl-dl.patch
+Patch6: gcc14-isl-dl2.patch
+Patch8: gcc14-no-add-needed.patch
+Patch9: gcc14-Wno-format-security.patch
+Patch10: gcc14-rh1574936.patch
 
 Source100: https://github.com/ghdl/ghdl/archive/%{ghdlcommit}/%{name}-%{ghdlshortcommit}.tar.gz
-Patch100: ghdl-llvmflags.patch
-Patch101: ghdl-gcc11.patch
-Patch102: ghdl-llvm11.patch
-Patch103: ghdl-llvm12.patch
-Patch104: ghdl-llvm14.patch
+Patch102: ghdl-gcc13.patch
+Patch103: ghdl-gcc14.patch
+Patch104: ghdl-llvm.patch
+Patch106: ghdl-llvm16.patch
+Patch107: ghdl-llvm17.patch
 # From: Thomas Sailer <t.sailer@alumni.ethz.ch>
 # To: ghdl-discuss@gna.org
 # Date: Thu, 02 Apr 2009 15:36:00 +0200
 # https://gna.org/bugs/index.php?13390
-Patch106: ghdl-ppc64abort.patch
-Patch110: ghdlperm.patch
+Patch110: ghdl-ppc64abort.patch
 Requires: gcc
 
 BuildRequires: binutils >= 2.31
@@ -123,7 +118,8 @@ Provides: bundled(libiberty)
 ExclusiveArch: %{GNAT_arches}
 
 # the following arches are not supported by the base compiler:
-ExcludeArch: armv7hl
+# plus https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: armv7hl %{ix86}
 
 # Make sure we don't use clashing namespaces
 %global _vendor fedora_ghdl
@@ -197,24 +193,21 @@ that tracks signal updates and schedules processes.
 
 %prep
 %setup -q -n gcc-%{gcc_version}-%{DATE} -a 100
-%patch0 -p0 -b .hack~
-%patch1 -p0 -b .i386-libgomp~
-%patch3 -p0 -b .libgomp-omp_h-multilib~
-%patch4 -p0 -b .libtool-no-rpath~
+%patch -P 0 -p0 -b .hack~
+%patch -P 3 -p0 -b .libgomp-omp_h-multilib~
+%patch -P 4 -p0 -b .libtool-no-rpath~
 %if %{build_isl}
-%patch5 -p0 -b .isl-dl~
+%patch -P 5 -p0 -b .isl-dl~
+%patch -P 6 -p0 -b .isl-dl2~
 %endif
-%patch7 -p0 -b .no-add-needed~
-%patch8 -p0 -b .foffload-default~
-%patch9 -p0 -b .Wno-format-security~
+%patch -P 8 -p0 -b .no-add-needed~
+%patch -P 9 -p0 -b .Wno-format-security~
 %if 0%{?fedora} >= 29 || 0%{?rhel} > 7
-%patch10 -p0 -b .rh1574936~
+%patch -P 10 -p0 -b .rh1574936~
 %endif
-%patch12 -p0 -b .pr96383~
-%patch13 -p0 -b .pr96385~
-%patch14 -p0 -b .pr96690~
 
-echo 'Red Hat %{version}-%{gcc_release}' > gcc/DEV-PHASE
+
+echo 'Red Hat GHDL %{version}-%{release}' > gcc/DEV-PHASE
 
 cp -a libstdc++-v3/config/cpu/i{4,3}86/atomicity.h
 
@@ -224,31 +217,27 @@ LC_ALL=C sed -i -e 's/\xa0/ /' gcc/doc/options.texi
 
 sed -i -e 's/Common Driver Var(flag_report_bug)/& Init(1)/' gcc/common.opt
 
-# This test causes fork failures, because it spawns way too many threads
-rm -f gcc/testsuite/go.test/test/chan/goroutines.go
-
 # ghdl
 mv ghdl-%{ghdlcommit} ghdl
-%patch100 -p0 -b .llvmflags~
-%patch101 -p0 -b .gcc11~
-%patch102 -p0 -b .llvm11~
-%patch103 -p0 -b .llvm12~
-%patch104 -p0 -b .llvm14~
+
+pushd ghdl
+%patch -P 102 -p1 -b .gcc13~
+%patch -P 103 -p1 -b .gcc14~
+%patch -P 104 -p1 -b .llvm~
+%patch -P 106 -p1 -b .llvm16~
+%patch -P 107 -p1 -b .llvm17~
+popd
 
 # fix library and include path
 pushd ghdl
-sed -i.orig -e 's|\"lib\"|\"%{_lib}\"|' -e 's|\"include\"|\"include/ghdl\"|' src/ghdldrv/ghdlsynth.adb
-sed -i.orig -e 's|\"lib\"|\"%{_lib}\"|' -e 's|\"include\"|\"include/ghdl\"|' src/ghdldrv/ghdlvpi.adb
+sed -i.orig -e 's|\"include\"|\"include/ghdl\"|' src/ghdldrv/ghdlsynth.adb
+sed -i.orig -e 's|\"include\"|\"include/ghdl\"|' src/ghdldrv/ghdlvpi.adb
 popd
-
-%if %{without gnatwae}
-perl -i -pe 's,-gnatwae,,' ghdl/dist/gcc/Make-lang.in
-%endif
 
 %if %{with mcode}
 cp -r ghdl ghdl-mcode
 pushd ghdl-mcode
-perl -i -pe 's,^libdirsuffix=.*$,libdirsuffix=%{_lib}/ghdl/mcode,' configure
+perl -i -pe 's,^libdirsuffix=.*$,libdirsuffix=lib/ghdl/mcode,' configure
 perl -i -pe 's,^libdirreverse=.*$,libdirreverse=../../..,' configure
 popd
 %endif
@@ -256,7 +245,7 @@ popd
 %if %{with llvm}
 cp -r ghdl ghdl-llvm
 pushd ghdl-llvm
-perl -i -pe 's,^libdirsuffix=.*$,libdirsuffix=%{_lib}/ghdl/llvm,' configure
+perl -i -pe 's,^libdirsuffix=.*$,libdirsuffix=lib/ghdl/llvm,' configure
 perl -i -pe 's,^libdirreverse=.*$,libdirreverse=../../..,' configure
 popd
 %endif
@@ -264,13 +253,19 @@ popd
 echo 'Red Hat %{version}-%{gcc_release}' > gcc/DEV-PHASE
 
 pushd ghdl
-./configure --prefix=/usr --with-gcc=.. --enable-libghdl --enable-synth
+./configure \
+%if %{without gnatwae}
+	--disable-werror \
+%endif
+	--prefix=/usr --with-gcc=..
 make copy-sources
 popd
 
-%patch106 -p0 -b .ppc64abort
+%patch -P 110 -p0 -b .ppc64abort
 
-%patch110 -p0 -b .permissive
+# workaround for GCC 14 build system
+touch gcc/vhdl/lang.opt.urls
+
 
 %build
 
@@ -281,7 +276,7 @@ pushd ghdl-mcode
 %if %{without gnatwae}
 	--disable-werror \
 %endif
-	--prefix=/usr --enable-libghdl --enable-synth
+	--prefix=/usr
 make %{?_smp_mflags}
 popd
 %endif
@@ -292,7 +287,7 @@ pushd ghdl-llvm
 %if %{without gnatwae}
 	--disable-werror \
 %endif
-	--with-llvm-config=/usr/bin/llvm-config --enable-libghdl --enable-synth
+	--with-llvm-config=/usr/bin/llvm-config
 make %{?_smp_mflags} LDFLAGS=-Wl,--build-id
 popd
 %endif
@@ -302,7 +297,7 @@ export CONFIG_SITE=NONE
 
 CC=gcc
 CXX=g++
-OPT_FLAGS=`echo %{optflags}|sed -e 's/\(-Wp,\)\?-D_FORTIFY_SOURCE=[12]//g'`
+OPT_FLAGS=`echo %{optflags}|sed -e 's/\(-Wp\)\?,-D_FORTIFY_SOURCE=[123]//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-flto=auto//g;s/-flto//g;s/-ffat-lto-objects//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-m64//g;s/-m32//g;s/-m31//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mfpmath=sse/-mfpmath=sse -msse2/g'`
@@ -328,9 +323,6 @@ CONFIGURE_OPTS="\
 	--prefix=%{_prefix} --mandir=%{_mandir} --infodir=%{_infodir} \
 	--with-bugurl=http://bugzilla.redhat.com/bugzilla \
 	--enable-shared --enable-threads=posix --enable-checking=release \
-%ifarch ppc64le
-	--enable-targets=powerpcle-linux \
-%endif
 	--disable-multilib \
 	--with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions \
 	--enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only \
@@ -404,6 +396,7 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 	$CONFIGURE_OPTS
 
 make %{?_smp_mflags}
+
 pushd gcc/vhdl
 gnatmake -c -aI%{_builddir}/gcc-%{gcc_version}-%{DATE}/gcc/vhdl ortho_gcc-main \
   -cargs -g -Wall -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 \
@@ -417,9 +410,13 @@ gnatmake -c -aI%{_builddir}/gcc-%{gcc_version}-%{DATE}/gcc/vhdl ortho_gcc-main \
 #-gnatwae
 popd
 
-make %{?_smp_mflags}
-
 popd
+
+PBINDIR=`pwd`/obj-%{gcc_target_platform}/gcc/
+pushd ghdl
+make bindir=${PBINDIR} GHDL1_GCC_BIN="--GHDL1=${PBINDIR}/ghdl1" ghdllib
+popd
+
 
 %install
 # install mcode on x86
@@ -441,17 +438,9 @@ popd
 # install gcc
 %make_install -C obj-%{gcc_target_platform}
 
-PBINDIR=`pwd`/obj-%{gcc_target_platform}/gcc/
-
 pushd ghdl
-make bindir=${PBINDIR} GHDL1_GCC_BIN="--GHDL1=${PBINDIR}/ghdl1" ghdllib
 %make_install
 popd
-
-# Add additional libraries to link
-(
-echo "-lgnat-`gnatmake --version| sed -n 's/^GNATMAKE \([^.]*\)\..*$/\1/p'`"
-) >> %{buildroot}%{_prefix}/lib/ghdl/grt.lst
 
 # Remove files not to be packaged
 pushd %{buildroot}
@@ -488,40 +477,47 @@ rm -rf \
 
 popd
 
-install -d %{buildroot}%{_includedir}/ghdl
-mv %{buildroot}%{_includedir}/vpi_user.h %{buildroot}%{_includedir}/ghdl
-mv %{buildroot}%{_includedir}/ghdlsynth*.h %{buildroot}%{_includedir}/ghdl
 %if "%{_lib}" != "lib"
 mv %{buildroot}/usr/lib/libghdlvpi.so %{buildroot}%{_libdir}/
 mv %{buildroot}/usr/lib/libghdl-*.so %{buildroot}%{_libdir}/
+mv %{buildroot}/usr/lib/libghw.so %{buildroot}%{_libdir}/
 %endif
 # remove static libghdl
 rm %{buildroot}/usr/lib/libghdl.{a,link}
 
+
 %files
 %{_bindir}/ghdl
+%{_bindir}/ghwdump
 %{_infodir}/ghdl.info.*
 # Need to own directory %%{_libexecdir}/gcc even though we only want the
 # %%{gcc_target_platform}/%%{gcc_version} subdirectory
 %{_libexecdir}/gcc/
 %{_mandir}/man1/*
-%{_includedir}/ghdl/vpi_user.h
-%{_includedir}/ghdl/ghdlsynth*.h
-%{_libdir}/libghdl*.so
+%{_includedir}/ghdl/
+%{_libdir}/libghdl-*.so
+%{_libdir}/libghdlvpi.so
+%{_libdir}/libghw.so
 
 %files grt
 # Need to own directory %%{_libdir}/gcc even though we only want the
 # %%{gcc_target_platform}/%%{gcc_version} subdirectory
 %{_prefix}/lib/gcc/
 %{_prefix}/lib/ghdl/
+%if %{with llvm}
+%exclude %{_prefix}/lib/ghdl/llvm
+%endif
+%if %{with mcode}
+%exclude %{_prefix}/lib/ghdl/mcode
+%endif
 
 %if %{with mcode}
 %files mcode
 %{_bindir}/ghdl-mcode
 
 %files mcode-grt
-%dir %{_libdir}/ghdl
-%{_libdir}/ghdl/mcode
+#%%dir %%{_libdir}/ghdl
+%{_prefix}/lib/ghdl/mcode
 %endif
 
 %if %{with llvm}
@@ -530,11 +526,18 @@ rm %{buildroot}/usr/lib/libghdl.{a,link}
 %{_bindir}/ghdl1-llvm
 
 %files llvm-grt
-%dir %{_libdir}/ghdl
-%{_libdir}/ghdl/llvm
+#%%dir %%{_libdir}/ghdl
+%{_prefix}/lib/ghdl/llvm
 %endif
 
+
 %changelog
+* Mon Feb 12 2024 Dan Horák <dan[at]danny.cz> - 3.0.0-1.20230308git7de967c
+- updated to ghdl 3.0.0
+- updated to gcc 14.0.1
+- updated to llvm 17
+- Resolves: rhbz#2161618 rhbz#2225826
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.38~dev-20.20201208git83dfd49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

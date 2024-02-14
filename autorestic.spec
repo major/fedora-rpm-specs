@@ -3,7 +3,7 @@
 
 # https://github.com/cupcakearmy/autorestic
 %global goipath         github.com/cupcakearmy/autorestic
-Version:                1.7.10
+Version:                1.7.11
 
 %gometa -f
 

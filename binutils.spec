@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.41
-Release: 32%{?dist}
+Release: 34%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -318,6 +318,18 @@ Patch35: binutils-demangler-updates.patch
 # Purpose:  Add support for Intel's APX extensions (part 1)
 # Lifetime: Fixed in 2.42
 Patch36: binutils-Intel-APX-part-1.patch
+
+# Purpose:  Add support for IBM's Power11 architecture extensions
+# Lifetime: Fixed in 2.43
+Patch37: binutils-power-11.patch
+
+# Purpose:  Fix support for Intel's APX extensions (part 1)
+# Lifetime: Fixed in 2.43
+Patch38: binutils-Intel-APX-part-1-fixes.patch
+
+# Purpose:  Import top-level multlib.am file.
+# Lifetime: Fixed in 2.42
+Patch39: binutils-multilib.am.patch
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
@@ -1358,6 +1370,13 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Feb 12 2024 Nick Clifton  <nickc@redhat.com> - 2.41-34
+- Backport commits 5a635f1f59ad and 41e115853eef to fix some APX issues.
+- Add top-level multilib.am file.
+
+* Mon Feb 12 2024 Nick Clifton  <nickc@redhat.com> - 2.41-33
+- Backport commit 4199cf1e152d in order to add support for IBM's power-11 architecture extensions.
+
 * Wed Jan 24 2024 Nick Clifton  <nickc@redhat.com> - 2.41-32
 - Suppress the x86 linker's p_align-1 tests in order to cope with a CentOS-10 kernel bug.  (RHEL-22466)
 

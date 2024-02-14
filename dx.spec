@@ -1,6 +1,6 @@
 Name: dx
 Version: 4.4.4
-Release: 66%{?dist}
+Release: 67%{?dist}
 Summary: Open source version of IBM's Visualization Data Explorer
 License: IPL-1.0
 URL: http://www.opendx.org/
@@ -68,16 +68,16 @@ Editor, or in the scripting language, you will need this package.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
+%patch -P 10 -p1
 
 # fix debuginfo rpmlint warnings
 chmod a-x src/exec/{dxmods,dpexec,hwrender}/*.{c,h}
@@ -134,6 +134,9 @@ rm     $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Feb 12 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.4-67
+- Use %%patch -P <N> instead of %%patch<N>.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

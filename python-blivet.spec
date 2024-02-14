@@ -5,7 +5,7 @@ Version: 3.9.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -18,6 +18,7 @@ Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
 Patch1: 0002-Fix-crash-when-scanning-degraded-not-fully-assembled.patch
+Patch2: 0003-Fix-UnboundLocalError-in-MD-populator.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -116,6 +117,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Mon Feb 12 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.0-3
+- Fix UnboundLocalError in MD populator (#2263668)
+
 * Tue Feb 06 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.0-2
 - Fix crash when scanning degraded/not fully assembled MD arrays
 

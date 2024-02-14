@@ -5,7 +5,7 @@ Version:	4.6.2
 Release:	34%{?dist}
 Epoch:		1
 Summary:	GTK2 client for LiveJournal
-License:	GPLv2-or-later
+License:	GPL-2.0-or-later
 URL:		http://logjam.danga.com/
 Source0:	http://andy-shev.github.com/LogJam/download/%{name}-%{version}.tar.bz2
 # Alternately, we sometimes get source from git

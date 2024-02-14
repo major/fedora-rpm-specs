@@ -78,7 +78,7 @@ BuildRequires:  libwebp-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  vulkan-devel
 #BuildRequires:  mesa-vulkan-devel
-BuildRequires:  webrtc-audio-processing-devel
+BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.3
 %if 0
 BuildRequires:  wpewebkit-devel
 BuildRequires:  wpebackend-fdo-devel

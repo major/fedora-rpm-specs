@@ -1,8 +1,7 @@
 Name:           dlm
 Version:        4.2.0
 Release:        5%{?dist}
-License:        GPLv2 and GPLv2+ and LGPLv2+
-# For a breakdown of the licensing, see README.license
+License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary:        dlm control daemon and tool
 URL:            https://pagure.io/dlm
 BuildRequires:  gcc

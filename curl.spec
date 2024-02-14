@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.6.0
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -17,6 +17,10 @@ Patch001: 0001-curl-8.6.0-remove-duplicate-content.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2024-634a6662aa
 Patch002: 0002-curl-8.6.0-ignore-response-body-to-HEAD.patch
 
+# revert "receive max buffer" + add test case
+# it breaks pycurl tests suite
+Patch003: 0003-curl-8.6.0-vtls-revert-receive-max-buffer-add-test-case.patch
+
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
 
@@ -27,6 +31,8 @@ Patch102: 0102-curl-7.84.0-test3026.patch
 Patch104: 0104-curl-7.88.0-tests-warnings.patch
 
 Provides: curl-full = %{version}-%{release}
+# do not fail when trying to install curl-minimal after drop
+Provides: curl-minimal = %{version}-%{release}
 Provides: webclient
 URL: https://curl.se/
 
@@ -124,10 +130,6 @@ BuildRequires: valgrind
 BuildRequires: stunnel
 %endif
 
-# Suggest minimal version of libcurl to to keep number of dependencies low
-# after dropping curl-minimal.
-Suggests: libcurl-minimal
-
 # using an older version of libcurl could result in CURLE_UNKNOWN_OPTION
 Requires: libcurl%{?_isa} >= %{version}-%{release}
 
@@ -207,9 +209,12 @@ be installed.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
+# temporarily disable test 0313
+# <https://bugzilla.redhat.com/show_bug.cgi?id=2263877>
+# <https://github.com/curl/curl/pull/11531>
 # disable test 1801
 # <https://github.com/bagder/curl/commit/21e82bd6#commitcomment-12226582>
-echo "1801" >> tests/data/DISABLED
+printf "313\n1801\n" >> tests/data/DISABLED
 
 # test3026: avoid pthread_create() failure due to resource exhaustion on i386
 %ifarch %{ix86}
@@ -406,6 +411,14 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Feb 12 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-6
+- revert "receive max buffer" + add test case
+- temporarily disable test 0313
+- remove suggests of libcurl-minimal in curl-full
+
+* Mon Feb 12 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-5
+- add Provides to curl-minimal
+
 * Wed Feb 07 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-4
 - drop curl-minimal subpackage in favor of curl-full (#2262096)
 

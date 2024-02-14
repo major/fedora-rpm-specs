@@ -29,7 +29,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -194,6 +194,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Mon Feb 12 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-3
+- Rebuilt for Fedora 40
+
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 

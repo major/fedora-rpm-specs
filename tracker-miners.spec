@@ -33,7 +33,7 @@
 
 Name:           tracker-miners
 Version:        3.7~alpha
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -41,6 +41,8 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/%{name}/3.7/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
+# bypass kernel landlock check for distribution builds
+Patch0:         https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/508.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -175,6 +177,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7~alpha-4
+- Bypass kernel landlock check during build
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.7~alpha-3
 - Rebuild for ICU 74
 

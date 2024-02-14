@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 8973a73c7c534b51860b9350eacc6d946ab1e412
+%global commit d9f4a2bbeb91fd95d0c35a90936efb9ea99d2455
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.12
+Version: 40.13
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -824,6 +824,19 @@ exit 0
 %endif
 
 %changelog
+* Mon Feb 12 2024 Zdenek Pytela <zpytela@redhat.com> - 40.13-1
+- Only allow confined user domains to login locally without unconfined_login
+- Add userdom_spec_domtrans_confined_admin_users interface
+- Only allow admindomain to execute shell via ssh with ssh_sysadm_login
+- Add userdom_spec_domtrans_admin_users interface
+- Move ssh dyntrans to unconfined inside unconfined_login tunable policy
+- Update ssh_role_template() for user ssh-agent type
+- Allow init to inherit system DBus file descriptors
+- Allow init to inherit fds from syslogd
+- Allow any domain to inherit fds from rpm-ostree
+- Update afterburn policy
+- Allow init_t nnp domain transition to abrtd_t
+
 * Tue Feb 06 2024 Zdenek Pytela <zpytela@redhat.com> - 40.12-1
 - Rename all /var/lock file context entries to /run/lock
 - Rename all /var/run file context entries to /run

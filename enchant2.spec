@@ -1,8 +1,8 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.6.6
-Release:       2%{?dist}
+Version:       2.6.7
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -220,6 +220,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Feb 12 2024 Sandro Mani <manisandro@gmail.com> - 2.6.7-1
+- Update to 2.6.7
+
 * Mon Feb 05 2024 Sandro Mani <manisandro@gmail.com> - 2.6.6-2
 - Rebuild (icu)
 

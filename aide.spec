@@ -1,7 +1,7 @@
 Summary:        Intrusion detection environment
 Name:           aide
 Version:        0.18.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://sourceforge.net/projects/aide
 License:        GPL-2.0-or-later
 
@@ -25,20 +25,7 @@ BuildRequires:  e2fsprogs-devel
 BuildRequires:  audit-libs-devel
 BuildRequires:  autoconf automake libtool
 
-# Customize the database file location in the man page.
-#Patch1: aide-0.16rc1-man.patch
-# fix aide in FIPS mode
-#Patch2: aide-0.16b1-fipsfix.patch
-# Bug 1674637 - aide: FTBFS in Fedora rawhide/f30
-#Patch3: aide-0.16-Use-LDADD-for-adding-curl-library-to-the-linker-comm.patch
-
-#Patch4: aide-0.15-syslog-format.patch
-#Patch5: aide-0.16-crypto-disable-haval-and-others.patch
-#Patch6: coverity.patch
-#Patch7: aide-0.16-crash-elf.patch
-#Patch8: aide-configure-c99-1.patch
-#Patch9: aide-configure-c99-2.patch
-#Patch10: aide-configure-c99-3.patch
+Patch1: aide-verbose.patch
 
 %description
 AIDE (Advanced Intrusion Detection Environment) is a file integrity
@@ -47,6 +34,8 @@ checker and intrusion detection program.
 %prep
 %autosetup -p1
 cp -a %{S:2} .
+
+%patch -R -P 1 -p1 -b .verbose
 
 %build
 #autoreconf -ivf
@@ -83,6 +72,9 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
 
 %changelog
+* Mon Feb 12 2024 Radovan Sroka <rsroka@redhat.com> - 0.18.6-4
+- rebase to 0.18.6
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

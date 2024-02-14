@@ -2,7 +2,7 @@
 
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	3.90.2
+Version:	3.90.3
 Release:	%autorelease
 
 # Documentation under GFDL
@@ -105,7 +105,6 @@ cd -
 %{_bindir}/poked
 %{_bindir}/pokefmt
 %{_bindir}/pk-bin2poke
-%{_bindir}/pk-elfextractor
 %{_bindir}/pk-jojopatch
 %{_bindir}/pk-strings
 %{_infodir}/poke.info*.*

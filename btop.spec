@@ -1,6 +1,6 @@
 Name:           btop
-Version:        1.3.0
-Release:        4%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Mon Feb 12 2024 Jonathan Wright <jonathan@almalinux.org> - 1.3.2-1
+- update to 1.3.2 rhbz#2263799
+
 * Tue Jan 30 2024 Jonathan Wright <jonathan@almalinux.org> - 1.3.0-4
 - Fix FTBFS by fixing BR for certain arches
 - Build EPEL9 with gcc13

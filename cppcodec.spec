@@ -9,10 +9,9 @@ License:        MIT
 URL:            https://github.com/tplgy/cppcodec
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake >= 2.8.5
-BuildRequires:  ninja-build
+BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(catch2)
+BuildRequires:  catch2-devel
 
 %global _description \
 Header-only C++11 library to encode/decode base64, base64url, base32, base32hex\
@@ -35,16 +34,14 @@ Provides:       %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 rm -vrf test/catch
 
 %build
-%cmake %{_vpath_srcdir} -B%{_vpath_builddir} -GNinja \
-  -DBUILD_TESTING=TRUE \
-  %{nil}
-%ninja_build -C %{_vpath_builddir}
+%cmake -DBUILD_TESTING=TRUE
+%cmake_build
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 
 %check
-%ninja_test -C %{_vpath_builddir}
+%ctest
 
 %files devel
 %license LICENSE

@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -22,6 +22,8 @@ Patch3:         %{name}-3.1.0-tirpc.patch
 Patch4:         %{name}-3.1.0-python3.patch
 Patch5:         %{name}-3.1.0-opencv3.patch
 Patch6:         %{name}-opencv4.patch
+# Upstream PR: https://github.com/playerproject/player/pull/27
+Patch7:         %{name}-3.1.0-pr27-struct-forward-for-swig-parse.patch
 # Sort order: build tools, feature libs, within alphabetically, group related
 # entries on single line (most dominant lib first or alphabetically)
 
@@ -133,6 +135,7 @@ are experimental.
 %patch -P 4 -p1 -b .python3
 %patch -P 5 -p1 -b .opencv3
 %patch -P 6 -p1 -b .opencv4
+%patch -P 7 -p1 -b .swig_forward
 
 # Filter out the 'build' folder from doxygen generation
 sed -i 's|EXCLUDE                =|EXCLUDE                = ../%{_vpath_builddir}|' doc/player.dox.in
@@ -225,6 +228,10 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Mon Feb 12 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-56
+- Fix FTBFS with -Werror=incompatible-pointer-types
+  on swig ruby binding using struct forward decl
+
 * Thu Jan 25 2024 Tomas Korbar <tkorbar@redhat.com> - 3.1.0-55
 - Changed required guile version to 2.2
   https://src.fedoraproject.org/rpms/player/pull-request/6

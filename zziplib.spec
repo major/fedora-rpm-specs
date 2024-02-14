@@ -1,3 +1,7 @@
+# FTBFS with GCC 14, reported upstream, no fix yet
+# https://bugzilla.redhat.com/show_bug.cgi?id=2256917
+%global build_type_safety_c 1
+
 Summary: Lightweight library to easily extract data from zip files
 Name: zziplib
 Version: 0.13.72

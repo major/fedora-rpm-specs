@@ -36,8 +36,8 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2310.0
-Release: 4%{?dist}
+Version: 8.2312.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -758,6 +758,10 @@ done
 
 
 %changelog
+* Mon Feb 12 2024 Attila Lakatos <alakatos@redhat.com> - 8.2312.0-1
+- Rebase to 8.2312.0
+  resolves: rhbz#2232275
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2310.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

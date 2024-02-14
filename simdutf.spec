@@ -1,13 +1,11 @@
 Name:           simdutf
-Version:        3.0.0
+Version:        4.0.9
 Release:        %autorelease
 Summary:        Unicode validation and transcoding at billions of characters per second
 
 License:        Apache-2.0 AND BSD-3-Clause
 URL:			https://github.com/simdutf/simdutf
 Source0:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:			simdutf-fix-cmake.patch
 
 ExcludeArch:	s390 s390x
 
@@ -54,6 +52,8 @@ that use %{name}.
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 %{_libdir}/lib%{name}*.so
+%{_libdir}/pkgconfig/%{name}.pc
+
 
 %changelog
 %autochangelog

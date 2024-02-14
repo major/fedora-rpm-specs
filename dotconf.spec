@@ -1,6 +1,6 @@
 Name:		dotconf
 Version:	1.3
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Libraries to parse configuration files
 # src/readdir* are Apache-1.1
 License:	LGPL-2.1-only AND Apache-1.1
@@ -61,6 +61,9 @@ mv ${RPM_BUILD_ROOT}%{_docdir}/%{name}/* __tmp_doc
 %{_libdir}/pkgconfig/dotconf.pc
 
 %changelog
+* Mon Feb 12 2024 Tomas Popela <tpopela@redhat.com> - 1.3-35
+- Build for the SPDX license format change
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

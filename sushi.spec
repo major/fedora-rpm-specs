@@ -8,7 +8,11 @@ Version:        45.0
 Release:        %autorelease
 Summary:        A quick previewer for Nautilus
 
-License:        GPLv2+ with exceptions
+# data/org.gnome.NautilusPreviewer.appdata.xml.in.in is CC0-1.0
+# the files in src/libsushi/ are combination of:
+#      LGPL-2.0-or-later
+#      LGPL-2.1-or-later WITH GStreamer-exception-2005
+License:        GPL-2.0-or-later WITH GStreamer-exception-2008 AND CC0-1.0 AND (LGPL-2.0-or-later AND LGPL-2.1-or-later WITH GStreamer-exception-2005)
 URL:            https://gitlab.gnome.org/GNOME/sushi
 Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
 # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/53

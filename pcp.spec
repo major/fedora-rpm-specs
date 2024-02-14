@@ -203,15 +203,9 @@ ExcludeArch: %{ix86}
 %global disable_noarch 1
 %endif
 
-# build pcp2arrow whenever possible (no RHEL or 32 bit x86 Fedora python3-arrow)
-# NB: lack of 32 bit x86 means we cannot build on x86_64 too, build fails with:
-#     "noarch package built differently on different architectures"  (*sigh*)
-%if 0%{?fedora} >= 36
-%ifarch %{ix86} x86_64
-%global disable_arrow 1
-%else
+# build pcp2arrow (no python3-arrow on RHEL or 32-bit Fedora)
+%if 0%{?fedora} >= 40
 %global disable_arrow 0
-%endif
 %else
 %global disable_arrow 1
 %endif

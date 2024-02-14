@@ -1,10 +1,13 @@
 %global _hardened_build 1
 
+%bcond_with python
+%bcond_with perl
+
 Summary: IPMI (Intelligent Platform Management Interface) library and tools
 Name: OpenIPMI
 
-Version:    2.0.32
-Release:    13%{?dist}
+Version:    2.0.34
+Release:    1%{?dist}
 License:    LGPL-2.1-or-later and GPL-2.0-or-later or BSD-3-Clause
 URL:        http://sourceforge.net/projects/openipmi/
 Source:     http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -12,13 +15,22 @@ Source1:    openipmi.sysconf
 Source2:    openipmi-helper
 Source3:    ipmi.service
 Patch1:     0001-man.patch
-Patch2:     OpenIPMI-ax-python.patch
-Patch3:     OpenIPMI-sysconfig.patch
-Patch4: OpenIPMI-c99.patch
+Patch2:     include-config-h-cmdlang.patch
+Patch4:     OpenIPMI-c99.patch
+Patch5:     OpenIPMI-py313compat.patch
 
 BuildRequires: make
-BuildRequires:    gdbm-devel swig glib2-devel net-snmp-devel ncurses-devel
-BuildRequires:    openssl-devel python3-devel perl-devel perl-generators
+BuildRequires:    gdbm-devel glib2-devel net-snmp-devel ncurses-devel
+%if %{with python} || %{with perl}
+BuildRequires:    swig
+%endif
+BuildRequires:    openssl-devel
+%if %{with python}
+BuildRequires:    python3-devel
+%endif
+%if %{with perl}
+BuildRequires:    perl-devel perl-generators
+%endif
 BuildRequires:    pkgconfig
 BuildRequires:    readline-devel
 BuildRequires:    automake
@@ -44,13 +56,16 @@ Summary: The OpenIPMI runtime libraries
 The OpenIPMI-libs package contains the runtime libraries for shared binaries
 and applications.
 
+%if %{with perl}
 %package perl
 Summary:  IPMI Perl language bindings
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description perl
 The OpenIPMI-perl package contains the Perl language bindings for OpenIPMI.
+%endif
 
+%if %{with python}
 %package -n python3-openipmi
 %{?python_provide:%python_provide python3-openipmi}
 %{?python_provide:%python_provide python3-OpenIPMI}
@@ -63,12 +78,14 @@ Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description -n python3-openipmi
 The OpenIPMI-python package contains the Python language bindings for OpenIPMI.
+%endif
 
 %package devel
 Summary:  The development environment for the OpenIPMI project
 Requires: pkgconfig
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: %{name}-lanserv%{?_isa} = %{version}-%{release}
 
 %description devel
 The OpenIPMI-devel package contains the development libraries and header files
@@ -77,6 +94,7 @@ of the OpenIPMI project.
 %package lanserv
 Summary:  Emulates an IPMI network listener
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description lanserv
 This package contains a network IPMI listener.
@@ -92,8 +110,15 @@ This package contains a network IPMI listener.
     LDFLAGS="%{__global_ldflags} -Wl,--as-needed" \
     --disable-dependency-tracking \
     --disable-static \
+%if %{with python}
     --with-pythoninstall=%{python3_sitearch} \
     --with-python=%{__python3} \
+%else
+    --with-python=no \
+%endif
+%if %{without perl}
+    --with-perl=no \
+%endif
     --with-tcl=no \
     --with-tkinter=no
 
@@ -170,13 +195,17 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man7/ipmi_cmdlang*
 %{_mandir}/man7/openipmi_conparms*
 
+%if %{with perl}
 %files perl
 %attr(644,root,root) %{perl_vendorarch}/OpenIPMI.pm
 %{perl_vendorarch}/auto/OpenIPMI
+%endif
 
+%if %{with python}
 %files -n python3-openipmi
 %{python3_sitearch}/*OpenIPMI*
 %{python3_sitearch}/__pycache__/OpenIPMI.*.pyc
+%endif
 
 %files libs
 %{_libdir}/libOpenIPMI*.so.*
@@ -200,6 +229,15 @@ echo ".so man1/openipmish.1" > %{buildroot}%{_mandir}/man1/ipmish.1
 %{_mandir}/man5/ipmi_sim_cmd.5*
 
 %changelog
+* Sun Feb 11 2024 Pavel Cahyna <pcahyna@redhat.com> - 2.0.34-1
+- Update to 2.0.34 (rhbz#2105023)
+- Resolve issues found by rpmdiff
+  - add a patch to fix getaddrinfo detection to avoid using gethostbyname
+  - add explicit Requires: on subpackages to avoid the need to test
+    interoperability between the various combinations of old and new
+    subpackages
+- Conditional Perl & Python module build, by default disabled
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.32-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

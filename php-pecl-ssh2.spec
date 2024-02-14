@@ -1,15 +1,17 @@
-%define pecl_name ssh2
-%global ini_name  40-%{pecl_name}.ini
-%global with_zts  0%{!?_without_zts:%{?__ztsphp:1}}
+%define pecl_name  ssh2
+%global ini_name   40-%{pecl_name}.ini
+%global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Name:           php-pecl-ssh2
-Version:        1.4
-Release:        5%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Bindings for the libssh2 library
 
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -36,14 +38,13 @@ Documentation: http://php.net/ssh2
 
 %prep
 %setup -c -q 
-mv %{pecl_name}-%{version} NTS
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 extver=$(sed -n '/#define PHP_SSH2_VERSION/{s/.*\t"//;s/".*$//;p}' php_ssh2.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream version is now ${extver}, expecting %{version}.
@@ -57,22 +58,23 @@ cat > %{ini_name} << 'EOF'
 extension=%{pecl_name}.so
 EOF
 
+mkdir NTS
 %if %{with_zts}
-: Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -93,7 +95,7 @@ install -Dpm644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -102,19 +104,19 @@ done
 %{__php} --no-php-ini \
     --define extension_dir=%{buildroot}%{php_extdir} \
     --define extension=%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension_dir=%{buildroot}%{php_ztsextdir} \
     --define extension=%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -128,6 +130,10 @@ done
 
 
 %changelog
+* Mon Feb 12 2024 Remi Collet <remi@remirepo.net> - 1.4.1-1
+- Update to 1.4.1
+- build out of sources tree
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,13 +1,13 @@
-%global commit0 6a7fad4dd9f094854f45875fa57897934d924f6e
+%global commit0 ac0fb2e301188178ea691f2ef156d0af6f4f967f
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20240117
+%global snapdate 20240210
 
 %global __python %{__python3}
 
 Name:           yosys
-Version:        0.37
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.38
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -174,6 +174,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Sat Feb 10 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.38.1.20240210gitac0fb2e
+- update to 0.38 snapshot
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-2.20240117git6a7fad4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

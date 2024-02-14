@@ -1,11 +1,11 @@
-%global tag_version release-44-1
+%global tag_version release-45-alpha0
 #%%global is_official 0%%(echo %%{tag_version} | grep -qE 'alpha|beta|final'; echo $?)
 #%%global is_official 0
 %global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    44.1
-Release:    3%{?dist}
+Version:    45~alpha0
+Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
 %endif
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Mon Feb 12 2024 Takao Fujiwara <tfujiwar@gmail.com> - 1:45~alpha0-1
+- Bump to release-45-alpha0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:44.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

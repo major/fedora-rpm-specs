@@ -43,7 +43,7 @@ BuildRequires: ninja-build
 BuildRequires: qrencode-devel
 BuildRequires: sqlite-devel
 BuildRequires: vala
-BuildRequires: webrtc-audio-processing-devel
+BuildRequires: pkgconfig(webrtc-audio-processing) >= 0.3
 
 Recommends: webp-pixbuf-loader
 Requires:   filesystem

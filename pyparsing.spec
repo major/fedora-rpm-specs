@@ -7,7 +7,7 @@ Release:        %autorelease
 License:        MIT
 URL:            https://github.com/pyparsing/pyparsing
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
+Patch1:         pyparsing-0001-Avoid-assigning-an-empty-error-message-to-delegated-.patch
 BuildArch:      noarch
 BuildRequires:  dos2unix
 

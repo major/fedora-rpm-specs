@@ -6,9 +6,6 @@ Summary:        Self-service user portal for FreeIPA for communities
 License:        MIT
 URL:            https://noggin-aaa.readthedocs.io/
 Source0:        https://github.com/fedora-infra/noggin/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        noggin.service
-Source2:        noggin.sysconfig
-Source3:        noggin-nginx.conf
 
 Source10:       noggin-README.Fedora
 
@@ -83,13 +80,13 @@ mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_localstatedir}/log/noggin
-install -pm 0644 %{S:1} %{buildroot}%{_unitdir}/%{name}.service
-install -pm 0644 %{S:2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -pm 0644 deployment/noggin.service %{buildroot}%{_unitdir}/%{name}.service
+install -pm 0644 deployment/noggin.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 touch %{buildroot}%{_sysconfdir}/%{name}/%{name}.cfg
 touch %{buildroot}%{_localstatedir}/log/noggin/access.log
 touch %{buildroot}%{_localstatedir}/log/noggin/error.log
 mkdir -p %{buildroot}%{_sysconfdir}/nginx/conf.d
-install -pm 0644 %{S:3} %{buildroot}%{_sysconfdir}/nginx/conf.d/noggin.conf
+install -pm 0644 deployment/nginx.conf %{buildroot}%{_sysconfdir}/nginx/conf.d/noggin.conf
 mkdir -p %{buildroot}%{_localstatedir}/log/nginx
 touch %{buildroot}%{_localstatedir}/log/nginx/noggin.access.log
 touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
@@ -97,7 +94,7 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 %files -f %{pyproject_files}
 %license LICENSE
-%doc README.md noggin.cfg.example README.Fedora
+%doc README.md deployment/noggin.cfg.example README.Fedora
 %{_bindir}/noggin-sar
 %{_unitdir}/%{name}.service
 %ghost %{_sysconfdir}/%{name}/%{name}.cfg

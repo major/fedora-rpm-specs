@@ -5,8 +5,8 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        6.3
-Release:        1%{?dist}
+Version:        6.3.1
+Release:        %autorelease
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -56,10 +56,6 @@ sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html
 
 # Replace a deprecated directive
 sed -i "s/autodoc_default_flags.*/autodoc_default_options = {'members': True, 'show-inheritance': True}/" docs/conf.py
-
-# Adapt to a different test path than upstream expects
-sed -i 's/\(doctest-\)src/\1site-packages/' \
-    src/zope/testrunner/tests/test_xml_output.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x test,subunit,docs
@@ -116,185 +112,4 @@ unset PYTHONHOME
 %doc docs/_build/html
 
 %changelog
-* Wed Feb  7 2024 Jerry James <loganjerry@gmail.com> - 6.3-1
-- Version 6.3
-- Drop upstreamed patches
-- BR python3-manuel to enable more tests
-- Test with tox
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Dec 22 2023 Jerry James <loganjerry@gmail.com> - 6.2.1-1
-- Version 6.2.1
-
-* Tue Dec 12 2023 Jerry James <loganjerry@gmail.com> - 6.2-2
-- Add patch for python 3.13 compatibility
-
-* Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 6.2-1
-- Version 6.2
-
-* Tue Aug 29 2023 Jerry James <loganjerry@gmail.com> - 6.1-1
-- Version 6.1
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 16 2023 Jerry James <loganjerry@gmail.com> - 6.0-2
-- Add patch to work around a test failure with python 3.12
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.0-2
-- Rebuilt for Python 3.12
-
-* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 6.0-1
-- Version 6.0
-
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.6-3
-- Create subunit extras subpackage
-- Dynamically generate BuildRequires
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 5.6-1
-- Version 5.6
-
-* Wed Sep  7 2022 Jerry James <loganjerry@gmail.com> - 5.5.1-1
-- Version 5.5.1
-- Convert License tag to SPDX
-- Add -doc subpackage
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 24 2022 Jerry James <loganjerry@gmail.com> - 5.5-1
-- Version 5.5
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 5.4.0-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Nov 19 2021 Jerry James <loganjerry@gmail.com> - 5.4.0-1
-- Version 5.4.0
-- Drop upstreamed -whitespace and -syntax patches
-
-* Mon Oct 11 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-5
-- Use the latest python macros
-- Simplify %%check
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.3.0-3
-- Rebuilt for Python 3.10
-
-* Mon May 10 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-2
-- Add -syntax patch for python 3.10
-
-* Wed Mar 17 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-1
-- Version 5.3.0
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun 29 2020 Jerry James <loganjerry@gmail.com> - 5.2-1
-- Version 5.2
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.1-4
-- Rebuilt for Python 3.9
-
-* Sun Mar  1 2020 Jerry James <loganjerry@gmail.com> - 5.1-3
-- Add -whitespace patch
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Oct 21 2019 Jerry James <loganjerry@gmail.com> - 5.1-1
-- New upstream version
-- Fix cross-reference links in the documentation
-
-* Mon Sep 16 2019 Jerry James <loganjerry@gmail.com> - 5.0-4
-- Drop the python2 subpackage (bz 1752151)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 5.0-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Mar 19 2019 Jerry James <loganjerry@gmail.com> - 5.0-1
-- New upstream version
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Nov 26 2018 Jerry James <loganjerry@gmail.com> - 4.9.2-1
-- New upstream version
-
-* Mon Nov 26 2018 Lumír Balhar <lbalhar@redhat.com> - 4.9-2
-- Fix issue with automatic dependencies and executables' names
-
-* Sat Nov 17 2018 Jerry James <loganjerry@gmail.com> - 4.9-1
-- New upstream version
-- Do not ship the tests
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.8.1-3
-- Rebuilt for Python 3.7
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Nov 12 2017 Jerry James <loganjerry@gmail.com> - 4.8.1-1
-- New upstream version
-
-* Sat Nov 11 2017 Jerry James <loganjerry@gmail.com> - 4.8.0-1
-- New upstream version
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue May 30 2017 Jerry James <loganjerry@gmail.com> - 4.7.0-1
-- New upstream version
-- subunit is no longer a dependency
-- Enable python 3 tests
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Dec 28 2016 Jerry James <loganjerry@gmail.com> - 4.6.0-1
-- New upstream version
-- Drop upstreamed test patch
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 4.5.1-4
-- Rebuild for Python 3.6
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.1-3
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Tue Jun 21 2016 Jerry James <loganjerry@gmail.com> - 4.5.1-2
-- Fix spurious build failures due to use of _libdir in a noarch package
-
-* Mon Jun 20 2016 Jerry James <loganjerry@gmail.com> - 4.5.1-1
-- New upstream version
-
-* Wed Jun  8 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-3
-- Do not test with detox; it downloads files at build time
-
-* Wed Jun  1 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-2
-- Fix directory ownership
-- Add man page
-
-* Wed Jun  1 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-1
-- Initial RPM
+%autochangelog

@@ -1,26 +1,29 @@
 Name:           python-psutil
-Version:        5.9.5
-Release:        4%{?dist}
+Version:        5.9.8
+Release:        1%{?dist}
 Summary:        A process and system utilities module for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/giampaolo/psutil
 Source:         %{url}/archive/release-%{version}/psutil-%{version}.tar.gz
 #
-# skip 2 tests that fail in mock chroots
+# skip tests that fail in mock chroots
 #
 Patch:          python-psutil-skip-tests-in-mock.patch
 #
-# avoid: AssertionError: 7883822.420000001 != 7883822.42
+# avoid: AssertionError: 885725913.3 != 885725913.3000001 within 7 places
 #
-Patch:          python-psutil-test-sum-floats-via-almost-equal.patch
+Patch:          https://github.com/giampaolo/psutil/pull/2372.patch
 #
-# include unistd.h to avoid (on Python 3.13+):
-#   error: implicit declaration of function ‘syscall’
-#   error: implicit declaration of function ‘close’
-# upstream PR: https://github.com/giampaolo/psutil/pull/2321
+# Skip test_emulate_multi_cpu on aarch64
+# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2373
 #
-Patch:          python-psutil-include-unistd.h.patch
+Patch:          python-psutil-skip-test_emulate_multi_cpu-on-aarch64.patch
+#
+# Skip test_misc.TestCommonModule.test_debug
+# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2374
+#
+Patch:          python-psutil-skip-test_debug.patch
 
 BuildRequires:  gcc
 BuildRequires:  sed
@@ -103,6 +106,10 @@ APPVEYOR=1 %{py3_test_envvars} %{python3} psutil/tests/runner.py
 
 
 %changelog
+* Fri Feb 09 2024 Miro Hrončok <mhroncok@redhat.com> - 5.9.8-1
+- Update to 5.9.8
+- Fixes: rhbz#2244271
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

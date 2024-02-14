@@ -24,10 +24,14 @@
 Name:    udisks2
 Summary: Disk Manager
 Version: 2.10.1
-Release: 2%{?dist}
-License: GPLv2+
+Release: 4%{?dist}
+License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
+
+Patch0:  udisks-2.11.0-BLKRRPART_harder.patch
+Patch1:  udisks-2.11.0-targetcli_config.json_netif_timeout.patch
+Patch2:  udisks-2.11.0-udiskslinuxmanager_use_after_free.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -114,7 +118,7 @@ manipulate disks, storage devices and technologies.
 
 %package -n lib%{name}
 Summary: Dynamic library to access the udisksd daemon
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Provides:  libstoraged = %{version}-%{release}
 Obsoletes: libstoraged < %{version}-%{release}
 
@@ -125,7 +129,7 @@ access to the udisksd daemon.
 %package -n %{name}-iscsi
 Summary: Module for iSCSI
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: iscsi-initiator-utils
 BuildRequires: iscsi-initiator-utils-devel
 Provides:  storaged-iscsi = %{version}-%{release}
@@ -137,7 +141,7 @@ This package contains module for iSCSI configuration.
 %package -n %{name}-lvm2
 Summary: Module for LVM2
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: lvm2
 Requires: libblockdev-lvm >= %{libblockdev_version}
 BuildRequires: libblockdev-lvm-devel >= %{libblockdev_version}
@@ -150,7 +154,7 @@ This package contains module for LVM2 configuration.
 %package -n lib%{name}-devel
 Summary: Development files for lib%{name}
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Provides:  libstoraged-devel = %{version}-%{release}
 Obsoletes: libstoraged-devel < %{version}-%{release}
 
@@ -162,7 +166,7 @@ a dynamic library, which provides access to the udisksd daemon.
 %package -n %{name}-btrfs
 Summary: Module for BTRFS
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: libblockdev-btrfs >= %{libblockdev_version}
 BuildRequires: libblockdev-btrfs-devel >= %{libblockdev_version}
 Provides:  storaged-btrfs = %{version}-%{release}
@@ -176,7 +180,7 @@ This package contains module for BTRFS configuration.
 %package -n %{name}-lsm
 Summary: Module for LSM
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: libstoragemgmt
 BuildRequires: libstoragemgmt-devel
 BuildRequires: libconfig-devel
@@ -332,6 +336,15 @@ fi
 %endif
 
 %changelog
+* Mon Feb 12 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.10.1-4
+- Use SPDX license tags for subpackages
+
+* Mon Feb 12 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.10.1-3
+- Use a SPDX license tag
+- udiskslinuxblockobject: Try issuing BLKRRPART ioctl harder
+- udiskslinuxmanager: Fix use after free
+- tests: Fix targetcli_config.json
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

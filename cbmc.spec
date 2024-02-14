@@ -5,7 +5,7 @@
 
 Name:           cbmc
 Version:        5.95.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
 License:        BSD-4-Clause
@@ -134,6 +134,9 @@ mv %{buildroot}{/usr/etc/bash_completion.d/cbmc,%{bash_completions_dir}}
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Fri Feb 09 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.95.1-4
+- fix FTBFS on Rawhide (rhbz#2259235)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.95.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

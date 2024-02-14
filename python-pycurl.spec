@@ -23,7 +23,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -35,6 +35,7 @@ Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
+BuildRequires:  libcurl-full
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  vsftpd
@@ -162,6 +163,9 @@ make test PYTHON=%{__python3} PYTEST=%{pytest} PYFLAKES=true
 %endif
 
 %changelog
+* Mon Feb 12 2024 Lukáš Zaoral <lzaoral@redhat.com> - 7.45.2-11
+- require libcurl-full for the test suite
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 109%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 112%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -433,6 +433,16 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Fri Feb 9 2024 Dumitru Ceara <dceara@redhat.com> - 23.09.0-112
+- Sync to upstream OVN branch-23.09. Below are the commits since
+last update (23.09.0-109)
+- northd: Remove the protocol match from ECMP symmetric reply flows.
+[Upstream: a36f2955be67a6581e81fb3ae27de825e0046b52]
+- northd: Explicitly handle SNAT for ICMP need frag.
+[Upstream: 6a4c412f43d5f1c076fac3784a4ffeb8a3861436]
+- actions: Adjust the ct_commit_nat action.
+[Upstream: 069842478601c0b01b0cc3117637e5a00344fcb6]
+
 * Tue Jan 30 2024 Numan Siddique <numans@ovn.org> - 23.09.0-109
 - Sync to upstream OVN branch-23.09. Below are the commits
 since last update (23.09.0-106)

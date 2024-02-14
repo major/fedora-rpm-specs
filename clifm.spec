@@ -1,5 +1,5 @@
 Name:           clifm
-Version:        1.16
+Version:        1.17
 Release:        1%{?dist}
 Summary:        Shell-like, command line terminal file manager
 
@@ -67,9 +67,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/zsh/site-functions/_%{name}
+%{_datadir}/fish/vendor_completions.d/%{name}.fish
 
 
 %changelog
+* Mon Feb 12 2024 Jonathan Wright <jonathan@almalinux.org> - 1.17-1
+- update to 1.17 rbhz#2263600
+
 * Thu Feb 01 2024 Jonathan Wright <jonathan@almalinux.org> - 1.16-1
 - Update to 1.16 rhbz#2257487
 

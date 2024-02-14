@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.6.2
-Release: 3%{?dist}
+Version: 6.6.3
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -260,6 +260,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Mon Feb 12 2024 Mads Kiilerich <mads@kiilerich.com> - 6.6.3-1
+- mercurial 6.6.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

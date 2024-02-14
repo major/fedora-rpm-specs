@@ -1,10 +1,10 @@
 %global oname targetcli-fb
 
 Name:           targetcli
-License:        ASL 2.0
+License:        Apache-2.0
 Summary:        An administration shell for storage targets
-Version:        2.1.57
-Release:        2%{?dist}
+Version:        2.1.58
+Release:        1%{?dist}
 URL:            https://github.com/open-iscsi/%{oname}
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 # Proposed upstream
@@ -47,6 +47,10 @@ install -m 644 systemd/* %{buildroot}%{_unitdir}/
 %dir %{_sysconfdir}/target/backup
 
 %changelog
+* Mon Feb 12 2024 Maurizio Lombardi <mlombard@redhat.com> - 2.1.58-1
+- migrated to SPDX license
+- Update to version v2.1.58
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -9,7 +9,9 @@ Version:        0.9.7
 Release:        5%{?dist}
 Summary:        URI parsing library - RFC 3986
 
-License:        BSD
+# /test/ is under LGPL-2.1-or-later but not included in RPM
+# /doc/rfc* are under LicenseRef-scancode-iso-8879, LicenseRef-scancode-ietf, LicenseRef-scancode-ietf-trust but not included in RPM
+License:        BSD-3-Clause
 URL:            https://uriparser.github.io/
 Source0:        https://github.com/%{name}/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
 

@@ -12,7 +12,7 @@
 %endif
 
 %global srcname rpmautospec_core
-%global canonicalname %{py_dist_name %{srcname}}
+%global canonicalname rpmautospec-core
 
 Name: python-%{canonicalname}
 Version: 0.1.4

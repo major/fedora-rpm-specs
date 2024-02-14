@@ -1,7 +1,7 @@
 Summary: Utilities for manipulating .desktop files
 Name: desktop-file-utils
 Version: 0.26
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL: https://www.freedesktop.org/software/desktop-file-utils
 Source0: https://www.freedesktop.org/software/desktop-file-utils/releases/%{name}-%{version}.tar.xz
 Source1: desktop-entry-mode-init.el
@@ -58,6 +58,9 @@ update-desktop-database &> /dev/null || :
 %{_emacs_sitelispdir}/desktop-file-utils/
 
 %changelog
+* Mon Feb 12 2024 Tomas Popela <tpopela@redhat.com> - 0.26-12
+- Build for the SPDX license format change
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

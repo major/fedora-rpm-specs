@@ -26,13 +26,12 @@
 %global libsomajor 4
 
 Name:           pkgconf
-Version:        1.9.5
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
 URL:            http://pkgconf.org/
-# Mirror at https://releases.pagure.org/pkgconf/pkgconf/
 Source0:        https://distfiles.dereferenced.org/%{name}/%{name}-%{version}.tar.xz
 
 # Simple wrapper scripts to offer platform versions of pkgconfig
@@ -226,6 +225,10 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Mon Feb 12 2024 Jens Petersen <petersen@redhat.com> - 2.1.0-1
+- update to 2.1.0
+- https://github.com/pkgconf/pkgconf/blob/pkgconf-2.1.0/NEWS
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

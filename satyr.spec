@@ -17,7 +17,7 @@
 
 Name: satyr
 Version: 0.43
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools to create anonymous, machine-friendly problem reports
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/satyr
@@ -129,6 +129,9 @@ make check|| {
 %endif
 
 %changelog
+* Mon Feb 12 2024 Michal Srb <michal@redhat.com> - 0.43-2
+- Rebuild
+
 * Sun Feb 04 2024 Michal Srb <michal@redhat.com> - 0.43-1
 - Update to 0.43
 

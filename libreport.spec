@@ -14,7 +14,7 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.13
+Version: 2.17.14
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -669,6 +669,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Mon Feb 12 2024 Packit <hello@packit.dev> - 2.17.14-1
+- Release version 2.17.14 (Michal Srb)
+- reporter-bugzilla: Reduce number of duplicate bug reports (Michal Srb)
+- reporter-bugzilla: Fix config loading (Michal Srb)
+- reporter-bugzilla: API key must consist of latin-1 characters (Michal Srb)
+- reporter-bugzilla: Fix typo (Michal Srb)
+- reporter-bugzilla: Fix creating binary attachments (Michal Srb)
+- Update translations (mgrabovsky)
+
 * Sun Feb 04 2024 Packit <hello@packit.dev> - 2.17.13-1
 - Release version 2.17.13 (Michal Srb)
 - Exclude coredump archives when creating a bug (Michal Srb)

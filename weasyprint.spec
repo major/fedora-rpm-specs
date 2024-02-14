@@ -2,8 +2,8 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        60.2
-Release:        2%{?dist}
+Version:        61.0
+Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
@@ -76,6 +76,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Mon Feb 12 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 61.0-1
+- update to 61.0
+
 * Thu Jan 25 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 60.2-2
 - use just flit-core as build dependency
 

@@ -1,6 +1,6 @@
 Name:           luksmeta
 Version:        9
-Release:        18%{?dist}
+Release:        %autorelease
 Summary:        Utility for storing small metadata in the LUKSv1 header
 
 License:        LGPL-2.1-or-later
@@ -69,99 +69,4 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/luksmeta.pc
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Apr 06 2021 Timm Bäder <tbaeder@redhat.com> - 9-11
-- Use make macro
-- https://docs.fedoraproject.org/en-US/packaging-guidelines/#_parallel_make
-
-* Mon Apr 05 2021 Sergio Correia <scorreia@redhat.com> - 9-10
-- Add cryptsetup as a package required during build time.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec 31 2019 Sergio Correia <scorreia@redhat.com> - 9-6
-- Define log callback function to use with libcryptsetup
-  Logs from libcryptsetup now go to stderr and this prevents issues like
-  the one reported in https://bugzilla.redhat.com/show_bug.cgi?id=1770395
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 03 2019 Daniel Kopecek <dkopecek@redhat.com> - 9-4
-- Add patch to fix tests on newer kernels 
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Aug 09 2018 Nathaniel McCallum <npmccallum@redhat.com> - 9-2
-- Add (upstream) patch to fix tests on LUKSv2-default cryptsetup
-
-* Thu Aug 09 2018 Nathaniel McCallum <npmccallum@redhat.com> - 9-1
-- New upstream release
-- Add asciidoc build require to generate man pages
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Nov 08 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 8-2
-- Rebuild for cryptsetup-2.0.0
-
-* Fri Sep 29 2017 Nathaniel McCallum <npmccallum@redhat.com> - 8-1
-- New upstream release
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Jun 24 2017 Nathaniel McCallum <npmccallum@redhat.com> - 7-1
-- New upstream release
-
-* Wed Jun 14 2017 Nathaniel McCallum <npmccallum@redhat.com> - 6-1
-- New upstream release
-
-* Thu Jun 01 2017 Nathaniel McCallum <npmccallum@redhat.com> - 5-1
-- New upstream release
-
-* Tue May 30 2017 Nathaniel McCallum <npmccallum@redhat.com> - 4-1
-- New upstream release
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Tue Oct 25 2016 Nathaniel McCallum <npmccallum@redhat.com> - 3-1
-- New upstream release
-
-* Thu Aug 25 2016 Nathaniel McCallum <npmccallum@redhat.com> - 2-1
-- First release
+%autochangelog

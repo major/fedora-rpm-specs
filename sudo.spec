@@ -26,7 +26,7 @@ BuildRequires: bison
 BuildRequires: libtool
 BuildRequires: audit-libs-devel libcap-devel
 BuildRequires: libselinux-devel
-BuildRequires: sendmail
+BuildRequires: systemd-rpm-macros
 BuildRequires: gettext
 BuildRequires: zlib-devel
 
@@ -89,6 +89,7 @@ export CFLAGS="$RPM_OPT_FLAGS $F_PIE" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
         --sbindir=%{_sbindir} \
         --libdir=%{_libdir} \
         --docdir=%{_pkgdocdir} \
+        --enable-tmpfiles.d=%{_tmpfilesdir} \
         --enable-openssl \
         --disable-root-mailer \
         --disable-intercept \
@@ -102,6 +103,7 @@ export CFLAGS="$RPM_OPT_FLAGS $F_PIE" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
         --with-tty-tickets \
         --with-ldap \
         --with-selinux \
+        --with-sendmail=/usr/sbin/sendmail \
         --with-passprompt="[sudo] password for %p: " \
         --enable-python \
         --enable-zlib=system \

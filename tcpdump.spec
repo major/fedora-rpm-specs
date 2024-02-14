@@ -1,10 +1,10 @@
-%define tcpslice_dir tcpslice-1.6
+%define tcpslice_dir tcpslice-1.7
 
 Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -41,6 +41,7 @@ export CFLAGS="$RPM_OPT_FLAGS $(getconf LFS_CFLAGS) -fno-strict-aliasing -DGUESS
 pushd %{tcpslice_dir}
 # update config.{guess,sub}
 automake -a -f 2> /dev/null || :
+./autogen.sh
 %configure
 %{make_build}
 popd
@@ -84,6 +85,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Mon Feb 12 2024 Michal Ruprich <mruprich@redhat.com> - 14:4.99.4-6
+- New version of tcpslice, 1.7 (rhbz #2263644)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

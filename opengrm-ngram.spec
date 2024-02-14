@@ -1,6 +1,8 @@
 %global release_date "February 2022"
 %global shortname ngram
 
+ExcludeArch:    %{ix86}
+
 Name:           opengrm-%{shortname}
 Version:        1.3.15
 Release:        1%{?dist}

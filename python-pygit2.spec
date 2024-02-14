@@ -13,6 +13,10 @@ Patch0: python-pygit2-transfer-size.patch
 # higher contain the patches needed for Python >= 3.12.
 # Remove when cffi >= 1.16.0 is available on all releases with Python 3.12.
 Patch:          python-pygit2-cffiver.patch
+# mock (by default) and koji builds never have network access, but testing
+# that capability through a DNS resolution is not always accurate.
+# Forcefully disable all network tests to avoid unnecessary build failures.
+Patch:          python-pygit2-network-tests.patch
 
 BuildRequires:  make
 BuildRequires:  gcc

@@ -1,5 +1,5 @@
 Name:           xsnow
-Version:        3.7.7
+Version:        3.7.8
 Release:        1%{?dist}
 Summary:        Let it snow on your desktop
 
@@ -32,9 +32,6 @@ Xsnow runs in GNOME, KDE, FVWM and desktops that are derived from those.
 
 # Fix Makefile
 sed -i 's!$(exec_prefix)/games!$(exec_prefix)/bin!' src/Makefile.in
-
-# Fix broken disable-selfrep
-sed -i 's!	tarfile_inc =!tarfile_inc =!' src/Makefile.in
 
 
 %build
@@ -71,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Feb 12 2024 Andrea Musuruane <musuruan@gmail.com> - 3.7.8-1
+- Updated to new upstream release
+
 * Sun Feb 04 2024 Andrea Musuruane <musuruan@gmail.com> - 3.7.7-1
 - Updated to new upstream release
 

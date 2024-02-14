@@ -3,11 +3,11 @@
 %global pkgname imath
 
 Name:          mingw-%{pkgname}
-Version:       3.1.9
-Release:       4%{?dist}
+Version:       3.1.10
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           http://www.openexr.com/
 BuildArch:     noarch
 Source0:       https://github.com/AcademySoftwareFoundation/Imath/archive/v%{version}/%{pkgname}-%{version}.tar.gz
@@ -74,6 +74,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Mon Feb 12 2024 Sandro Mani <manisandro@gmail.com> - 3.1.10-1
+- Update to 3.1.10
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

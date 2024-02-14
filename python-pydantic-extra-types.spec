@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.4.1
+Version:        2.5.0
 %forgemeta
 Release:        1%{?dist}
 Summary:        Extra types for Pydantic
@@ -18,8 +18,6 @@ Source:         %{forgesource}
 #
 # Please support python-ulid 2.x
 # https://github.com/pydantic/pydantic-extra-types/issues/130
-#
-# Cherry-picked to v2.4.0.
 Patch:          0001-Allow-python-ulid-2.x-on-Python-3.9-and-later.patch
 
 BuildArch:      noarch
@@ -75,6 +73,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Feb 13 2024 Maxwell G <maxwell@gtmx.me> - 2.5.0-1
+- Update to 2.5.0. Fixes rhbz#2261943.
+
 * Wed Jan 31 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.1-1
 - Update to 2.4.1
 

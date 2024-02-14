@@ -22,10 +22,11 @@
 
 Name:    gvfs
 Version: 1.53.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Backends for the gio framework in GLib
 
-License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
+License: LGPL-2.0-or-later and GPL-3.0-only and MPL-2.0 and BSD-3-Clause-Sun
+
 URL: https://wiki.gnome.org/Projects/gvfs
 Source0: https://download.gnome.org/sources/gvfs/1.53/gvfs-%{version}.tar.xz
 
@@ -431,6 +432,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Feb 09 2024 Ondrej Holy <oholy@redhat.com> - 1.53.1-4
+- Migrate to SPDX license
+
 * Thu Feb 01 2024 Ondrej Holy <oholy@redhat.com> - 1.53.1-3
 - Make wsdd regular dependency
 

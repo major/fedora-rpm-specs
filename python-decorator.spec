@@ -5,7 +5,7 @@ Version:        5.1.1
 Release:        9%{?dist}
 Summary:        Module to simplify usage of decorators
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/micheles/decorator
 Source0:        %pypi_source decorator
 

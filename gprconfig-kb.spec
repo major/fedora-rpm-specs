@@ -1,3 +1,6 @@
+# The testsuite is normally run. It can be disabled with "--without=check".
+%bcond_without check
+
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gprconfig_kb
@@ -32,6 +35,14 @@ Patch2:         %{name}-improve-detection-of-gnu-ld.patch
 Patch3:         %{name}-improve-detection-of-clang.patch
 # Our guess at why Adacore don't do this is that they might want to support old
 # versions of Clang where -dumpversion returns a hardcoded fake version number.
+
+%if %{with check}
+# The XML files are checked with XMLlint. Using a tool not written in Ada for
+# this avoids a dependency loop that would make bootstrapping GPRbuild even
+# more complicated. The checking can be disabled if there should be a problem
+# with this dependency.
+BuildRequires:  libxml2
+%endif
 
 # The contents of this package are split off from the gprbuild package.
 Conflicts:      gprbuild <= 2020
@@ -70,6 +81,20 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig db/*.xml
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig db/*.ent
 %{inst} --target-directory=%{buildroot}%{_datadir}/gprconfig %{SOURCE1} %{SOURCE2}
+
+
+###########
+## Check ##
+###########
+
+%if %{with check}
+%check
+# Check that the XML files are valid according to the XML schema.
+xmllint --nonet --noout --noent \
+        --schema %{buildroot}%{_datadir}/gprconfig/gprconfig.xsd \
+        %{buildroot}%{_datadir}/gprconfig/*.xml
+# --schema requires --noent when the XML files contain entity references.
+%endif
 
 
 ###########

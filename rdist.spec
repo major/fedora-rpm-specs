@@ -1,7 +1,7 @@
 Summary: Maintains identical copies of files on multiple machines
 Name: rdist
 Version: 6.1.5
-Release: 83%{?dist}
+Release: 84%{?dist}
 Epoch: 1
 # On Feb 17, 2011, Michael A. Cooper gave permission via email for all of his
 # copyrighted work in rdist to be relicensed to the same BSD as the rest of
@@ -30,6 +30,8 @@ Patch14: rdist-6.1.5-fix-msgsndnotify-loop.patch
 Patch15: rdist-6.1.5-license-fix.patch
 Patch16: rdist-6.1.5-fpic.patch
 Patch17: rdist-c99.patch
+Patch18: rdist-wait-union.patch
+
 URL: http://www.MagniComp.com/rdist
 BuildRequires: make
 BuildRequires: byacc bison gcc
@@ -50,24 +52,25 @@ cp %{SOURCE2} .
 cp %{SOURCE3} .
 
 # apply patch15 first due to #840419
-%patch15 -p1 -b .license-fix
-%patch0 -p1 -b .linux
-%patch1 -p1 -b .links
-%patch2 -p1 -b .oldpath
-%patch3 -p1 -b .hardlink
-%patch4 -p1 -b .bison
-%patch5 -p1 -b .varargs
-%patch6 -p1 -b .maxargs
-%patch7 -p1 -b .lfs
-%patch8 -p1 -b .cleanup
-%patch9 -p1 -b .svr4
-%patch10 -p1 -b .ssh
-%patch11 -p1 -b .mkstemp
-%patch12 -p1 -b .stat64
-%patch13 -p1 -b .re_args
-%patch14 -p1 -b .fix-msgsndnotify-loop
-%patch16 -p1 -b .pic
-%patch17 -p1 -b .c99
+%patch 15 -p1 -b .license-fix
+%patch 0 -p1 -b .linux
+%patch 1 -p1 -b .links
+%patch 2 -p1 -b .oldpath
+%patch 3 -p1 -b .hardlink
+%patch 4 -p1 -b .bison
+%patch 5 -p1 -b .varargs
+%patch 6 -p1 -b .maxargs
+%patch 7 -p1 -b .lfs
+%patch 8 -p1 -b .cleanup
+%patch 9 -p1 -b .svr4
+%patch 10 -p1 -b .ssh
+%patch 11 -p1 -b .mkstemp
+%patch 12 -p1 -b .stat64
+%patch 13 -p1 -b .re_args
+%patch 14 -p1 -b .fix-msgsndnotify-loop
+%patch 16 -p1 -b .pic
+%patch 17 -p1 -b .c99
+%patch 18 -p1 -b .union
 
 %build
 make
@@ -96,6 +99,9 @@ install -m644 doc/rdistd.man ${RPM_BUILD_ROOT}%{_mandir}/man8/rdistd.8
 %{_mandir}/man8/rdistd.8*
 
 %changelog
+* Mon Feb 12 2024 Michal Ruprich <mruprich@redhat.com> - 1:6.1.5-84
+- Fix FTBFS in Fedora rawhide/f40 (rhbz #2261648)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.5-83
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,24 +1,26 @@
 # NOTE: disabled sftp (needs to be ported to use libssh instead of libssh2)
-%bcond_without	slang
+%bcond gpm %[!(0%{?rhel} >= 10)]
+%bcond slang 1
 
 Summary:	User-friendly text console file manager and visual shell
 Name:		mc
 Epoch:		1
-Version: 	4.8.30
-Release:	3%{?dist}
+Version: 	4.8.31
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://midnight-commander.org/
 VCS:		https://github.com/MidnightCommander/mc/
 Source:		%{VCS}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:		%{name}-spec.syntax.patch
-Patch:		%{name}-python3.patch
 Patch:		%{name}-default_setup.patch
 Patch:		%{name}-tmpdir.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gcc
 BuildRequires:	gettext-devel
+%if %{with gpm}
 BuildRequires:	gpm-devel
+%endif
 BuildRequires:	groff-base
 BuildRequires:	libtool
 BuildRequires:	make
@@ -56,16 +58,15 @@ Midnight Commander s3+ and UC1541 EXTFS backend scripts.
 	PYTHON=%__python3 \
 	--disable-rpath \
 	--disable-vfs-sftp \
-	--disable-vfs-smb \
 	--enable-charset \
 	--enable-largefile \
 	--enable-vfs-cpio \
 	--enable-vfs-extfs \
-	--enable-vfs-fish \
+	--enable-vfs-shell \
 	--enable-vfs-ftp \
 	--enable-vfs-sfs \
 	--enable-vfs-tar \
-	--with-gpm-mouse \
+	--with%{!?with_gpm:out}-gpm-mouse \
 	--with-screen=%[%{?with_slang}?"slang":"ncurses"] \
 	--with-x \
 	%{nil}
@@ -92,7 +93,7 @@ Midnight Commander s3+ and UC1541 EXTFS backend scripts.
 %{_libexecdir}/mc/mc*
 %{_libexecdir}/mc/extfs.d
 %{_libexecdir}/mc/ext.d
-%{_libexecdir}/mc/fish
+%{_libexecdir}/mc/shell
 %{_datadir}/mc
 %{_mandir}/man1/*
 %exclude %{_libexecdir}/mc/extfs.d/{s3+,uc1541}
@@ -101,6 +102,15 @@ Midnight Commander s3+ and UC1541 EXTFS backend scripts.
 %{_libexecdir}/mc/extfs.d/{s3+,uc1541}
 
 %changelog
+* Mon Feb 12 2024 Jindrich Novy <jnovy@redhat.com> - 1:4.8.31-1
+- update to 4.8.31
+- drop upstreamed python3 patch
+- rename fish -> shell
+- drop obsolete smb option
+
+* Tue Feb 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.8.30-4
+- Disable gpm on ELN
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

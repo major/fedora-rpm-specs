@@ -7,8 +7,8 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.12.0
-Release: 3%{?dist}
+Version: 1.12.1
+Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -183,6 +183,16 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Mon Feb 12 2024 Thomas Woerner <twoerner@redhat.com> - 1.12.1-1
+- Update to version 1.12.1
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.12.1
+  Highlights:
+  - Fix ipaserver deployment on CentOS 8 Stream
+  - Fix ipaclient deployment with automount
+  - Fix ipaclient OTP error reporting
+  - Add missing support for renaming groups and users
+  - Idempotency fixes in several modules
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

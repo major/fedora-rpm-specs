@@ -27,7 +27,7 @@ Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
 Version:        5.4.2
-Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/jss.git
@@ -44,6 +44,9 @@ Source:         https://github.com/dogtagpki/jss/archive/v%{version}%{?phase:-}%
 #     <version tag> \
 #     > jss-VERSION-RELEASE.patch
 # Patch: jss-VERSION-RELEASE.patch
+
+# https://github.com/dogtagpki/jss/pull/992
+Patch:          jss-5.4.2-nss-3.97.patch
 
 %if 0%{?fedora} && 0%{?fedora} > 35
 ExclusiveArch: %{java_arches}
@@ -215,6 +218,9 @@ modutil -dbdir /etc/pki/nssdb -chkfips true | grep -q enabled && export FIPS_ENA
 
 ################################################################################
 %changelog
+* Thu Feb 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.4.2-1.4
+- Fix compatibility with NSS 3.97
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.2-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

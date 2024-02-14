@@ -1,14 +1,22 @@
 # Memory requirements are insane otherwise
 %define _lto_cflags %{nil}
 
+%global commit cc4f5b62a39543e78df13008c5ab3f8256e01a5f
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global vc_date 20240131
+%global vc_rev .%{vc_date}git%(c=%{commit}; echo ${c:0:7})
+
+# The package will have to be adjusted if we ever stop needing compat, but I don't expect that
+%global llvm_compat 11
+
 Name: intel-cm-compiler
 Version: 1.0.144
-Release: 6%{?dist}
+Release: 7%{?vc_rev}%{?dist}
 Summary: Intel C for Metal compiler
 
 License: MIT
 URL: https://github.com/intel/cm-compiler
-Source0: %{url}/archive/refs/tags/cmclang-%{version}.tar.gz
+Source0: %{url}/archive/%{commit}/cm-compiler-%{shortcommit}.tar.gz
 Patch01: 0001-Include-LLVMSPIRVLib.h-from-subdir-link-to-LLVMGenXI.patch
 
 # This is Intel-only compiler
@@ -19,10 +27,10 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
-BuildRequires: intel-llvm8.0-vc-intrinsics-devel
-BuildRequires: spirv-llvm8.0-translator-devel
-BuildRequires: llvm8.0-devel
-BuildRequires: llvm8.0-static
+BuildRequires: intel-llvm-vc-intrinsics%{?llvm_compat}-devel
+BuildRequires: spirv-llvm-translator%{?llvm_compat}-devel
+BuildRequires: llvm%{?llvm_compat}-devel
+BuildRequires: llvm%{?llvm_compat}-static
 BuildRequires: zlib-devel
 
 # For pathfix.py
@@ -51,10 +59,9 @@ This package contains libraries and header files for
 developing against %{summary}
 
 %prep
-%setup -q -n cm-compiler-cmclang-%{version}
-cd clang/
-%patch01 -p1
+%autosetup -p1 -n cm-compiler-%{commit}
 
+cd clang/
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
     tools/clang-format/*.py \
     tools/clang-format/git-clang-format \
@@ -64,7 +71,7 @@ cd clang/
 %build
 cd clang/
 %cmake \
-    -DLLVM_CMAKE_PATH=%{_libdir}/llvm8.0 \
+    -DLLVM_CMAKE_PATH=%{_libdir}/llvm%{?llvm_compat} \
     -DLLVMGenXIntrinsics_DIR="/usr/include/llvm/GenXIntrinsics/" \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DCMAKE_SKIP_RPATH:BOOL=ON \
@@ -86,7 +93,7 @@ cd clang/
 # Clean up
 find %{buildroot}/usr/bin ! -name 'cmc' -type f -delete
 find %{buildroot}/usr/bin ! -name 'cmc' -type l -delete
-find %{buildroot}%{_libdir} ! -name 'libclangFEWrapper.so.8' -type f -delete
+find %{buildroot}%{_libdir} ! -name 'libclangFEWrapper.so.%{?llvm_compat}' -type f -delete
 find %{buildroot}%{_libdir} ! -name 'libclangFEWrapper.so' -type l -delete
 rm -rf %{buildroot}/usr/include/clang
 rm -rf %{buildroot}%{_libdir}/clang
@@ -106,7 +113,7 @@ rm -f %{buildroot}/usr/share/man/man1/scan-build.1
 
 %files libs
 %license clang/LICENSE.TXT
-%{_libdir}/libclangFEWrapper.so.8
+%{_libdir}/libclangFEWrapper.so.%{?llvm_compat}
 
 %files devel
 %{_includedir}/cm
@@ -114,6 +121,9 @@ rm -f %{buildroot}/usr/share/man/man1/scan-build.1
 %{_libdir}/libclangFEWrapper.so
 
 %changelog
+* Mon Feb 12 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.144-7.20240131gitcc4f5b6
+- cm-compiler rebase to LLVM 11
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.144-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

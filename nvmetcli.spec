@@ -1,5 +1,5 @@
 Name:           nvmetcli
-License:        ASL 2.0
+License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
 Version:        0.7
 Release:        12%{?dist}

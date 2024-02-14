@@ -67,11 +67,11 @@
 # 9.4 needs llvm 10-14
 %global llvm_major 14
 %if %{with hadrian}
-%global ghc_llvm_archs armv7hl s390x
-%global ghc_unregisterized_arches s390 %{mips} riscv64
+%global ghc_llvm_archs armv7hl s390x riscv64
+%global ghc_unregisterized_arches s390 %{mips}
 %else
-%global ghc_llvm_archs armv7hl
-%global ghc_unregisterized_arches s390 s390x %{mips} riscv64
+%global ghc_llvm_archs armv7hl riscv64
+%global ghc_unregisterized_arches s390 s390x %{mips}
 %endif
 
 %global obsoletes_ghcXY() \
@@ -144,6 +144,14 @@ Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
 Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# RISCV64 added to Cabal
+# See: https://github.com/haskell/cabal/pull/9062
+Patch40: cabal-add-riscv64.patch
+
+# Enable GHCi support on riscv64
+# Upstream in >= 9.9.
+Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -454,7 +462,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-%ifarch %{ghc_unregisterized_arches}
+%ifarch %{ghc_unregisterized_arches} riscv64
 %patch -P15 -p1 -b .orig
 %patch -P16 -p1 -b .orig
 %endif
@@ -469,6 +477,13 @@ rm libffi-tarballs/libffi-*.tar.gz
 #sphinx 7
 %if 0%{?fedora} >= 40
 %patch -P30 -p1 -b .orig
+%endif
+
+%ifarch riscv64
+#RISCV64 cabal support
+%patch -P40 -p1 -b .orig
+#GHCi support
+%patch -P41 -p1 -b .orig
 %endif
 
 %if %{with haddock} && %{without hadrian}
@@ -527,7 +542,9 @@ export CC=%{_bindir}/gcc
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
 # https://bugzilla.redhat.com/show_bug.cgi?id=2116508
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
+%ifnarch riscv64
 export LD=%{_bindir}/ld.gold
+%endif
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \

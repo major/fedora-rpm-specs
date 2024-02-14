@@ -8,7 +8,7 @@ FSLeyes.
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.16.1
+Version:        3.17.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -104,49 +104,29 @@ sleep 10
 xvfb-run pytest-3 tests/test_platform.py || exit 0
 %endif
 
+# Disable tests we cannot run using markers as per
 # https://github.com/pauldmccarthy/fslpy/issues/17
-# Ignore tests that have already been done
-# Ignore immv_imcp because it requires a "nobody" user
-# Ignore tests that require downloading data.
-# Ignore tests requiring trimesh
-# Ignore test using dcm2niix
-# Ignore intermittently failing test: https://github.com/pauldmccarthy/fslpy/issues/10
-# Ignore submit tests
-k="not longtest and not test_submit"
-k="${k} and not test_FEATFSFDesign_firstLevelVoxelwiseEV"
-k="${k} and not test_compressed_voxelwise_ev"
-k="${k} and not test_image_readonly_compressed"
-k="${k} and not test_runfunc"
-k="${k} and not test_fslmaths_load"
-k="${k} and not test_fileOrImage"
-k="${k} and not test_fileOrThing_outprefix"
-k="${k} and not test_fileOrThing_outprefix_pathlib"
-k="${k} and not test_fileOrThing_outprefix_differentTypes"
-k="${k} and not test_fileOrThing_outprefix_directory"
-k="${k} and not test_chained_fileOrImageAndArray"
-k="${k} and not test_fileOrThing_submit_cmdonly"
-k="${k} and not test_fileOrImage_all_tempfiles_cleared"
-k="${k} and not test_atlas"
-k="${k} and not test_read_nifti"
-k="${k} and not test_VoxelwiseEVs"
-k="${k} and not test_imcp_shouldPass"
-k="${k} and not test_immv_shouldPass"
-k="${k} and not test_fileOrThing_chained_outprefix"
+m="${m-}${m+ and }not fsltest"
+m="${m-}${m+ and }not dcm2niix"
+m="${m-}${m+ and }not wxtest"
+m="${m-}${m+ and }not noroottest"
+# Exclude tests requiring network (URLError)
+k="${k-}${k+ and }not test_installedVersion"
+k="${k-}${k+ and }not test_enabled"
+k="${k-}${k+ and }not test_scanDir"
+k="${k-}${k+ and }not test_loadSeries"
 # requires an FSL installation
-k="${k} and not test_cluster"
+k="${k-}${k+ and }not test_cluster"
 # unable to find tests module
-k="${k} and not test_func_to_cmd"
-%{pytest} fsl/tests  -k "${k}" \
-  --ignore=fsl/tests/test_idle.py --ignore=fsl/tests/test_platform.py \
-  --ignore=fsl/tests/test_atlases.py \
-  --ignore=fsl/tests/test_atlases_query.py \
-  --ignore=fsl/tests/test_scripts/test_atlasq_list_summary.py \
-  --ignore=fsl/tests/test_scripts/test_atlasq_ohi.py \
-  --ignore=fsl/tests/test_scripts/test_atlasq_query.py \
-  --ignore=fsl/tests/test_dicom.py \
-  --ignore=fsl/tests/test_scripts/test_fsl_apply_x5.py \
-  --ignore=fsl/tests/test_scripts/test_fsl_convert_x5.py \
-  --ignore=fsl/tests/test_scripts/test_immv_imcp.py
+k="${k-}${k+ and }not test_func_to_cmd"
+# RuntimeError (non-zero exit code)
+k="${k-}${k+ and }not test_runfunc"
+
+# Ignore tests we've already run
+%{pytest} fsl/tests -v ${k+-k }"${k-}" ${m+-m }"${m-}" \
+  --ignore=fsl/tests/test_idle.py \
+  --ignore=fsl/tests/test_platform.py
+
 
 %files -n python3-fslpy -f %{pyproject_files}
 %doc README.rst

@@ -1,5 +1,5 @@
 Name:             ipset
-Version:          7.20
+Version:          7.21
 Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Mon Feb 12 2024 Nicolas Chauvet <kwizart@gmail.com> - 7.21-1
+- Update to 7.21
+
 * Thu Feb 01 2024 Nicolas Chauvet <kwizart@gmail.com> - 7.20-1
 - Update to 7.20
 

@@ -2,8 +2,7 @@ Name:           sanlock
 Version:        3.9.0
 Release:        2%{?dist}
 Summary:        A shared storage lock manager
-
-License:        GPLv2 and GPLv2+ and LGPLv2+
+License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
 BuildRequires:  gcc
 BuildRequires:  libaio-devel

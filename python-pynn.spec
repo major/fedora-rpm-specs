@@ -37,15 +37,25 @@ Mailing list: https://groups.google.com/forum/?fromgroups#!forum/neuralensemble
 
 This package supports the NEURON, NEST, and Brian simulators.}
 
+%global forgeurl https://github.com/NeuralEnsemble/PyNN
+
 Name:           python-pynn
-Version:        0.11.0
+Version:        0.12.1
+
+%global tag %{version}
+%forgemeta
+
 Release:        %autorelease
 Summary:        A package for simulator-independent specification of neuronal network models
+
 
 # SPDX
 License:        CECILL-2.0
 URL:            http://neuralensemble.org/PyNN/
-Source0:        %pypi_source PyNN
+Source:         %forgesource
+# https://github.com/sanjayankur31/PyNN/tree/feat/v0.12.1
+# submitted upstream as: https://github.com/NeuralEnsemble/PyNN/pull/794
+Patch:          0001-fix-nest-correctly-use-namespaces.patch
 
 # Random123 does not build on these, so neither can NEURON, so nothing that
 # depends on NEURON supports them either
@@ -77,6 +87,7 @@ BuildRequires:  python3-cheetah
 BuildRequires:  %{py3_dist h5py}
 BuildRequires:  %{py3_dist lazyarray}
 BuildRequires:  %{py3_dist matplotlib}
+BuildRequires:  %{py3_dist morphio}
 BuildRequires:  %{py3_dist mock}
 BuildRequires:  %{py3_dist neo}
 BuildRequires:  %{py3_dist numpy}
@@ -133,13 +144,14 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n PyNN-%{version}
+%forgeautosetup -S git
 rm -rfv PyNN-%{version}/pyNN.egg-info
 
 # we install NEST libraries in standard directories, and that's where NEST expects to find extensions also
 sed -i 's|\${NEST_LIBDIR}/nest|\${NEST_LIBDIR}|' pyNN/nest/extensions/CMakeLists.txt
 
 %build
+# TODO: investigate using pyproject macros, or other new non setup.py tools
 %py3_build
 
 pushd ./build/lib/pyNN/neuron/nmodl/ || exit 1

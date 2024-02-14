@@ -1,8 +1,8 @@
 Summary:       An fdisk-like partitioning tool for GPT disks
 Name:          gdisk
 Version:       1.0.9
-Release:       8%{?dist}
-License:       GPLv2
+Release:       9%{?dist}
+License:       GPL-2.0-only
 URL:           http://www.rodsbooks.com/gdisk/
 Source0:       http://downloads.sourceforge.net/gptfdisk/gptfdisk-%{version}.tar.gz
 # https://sourceforge.net/p/gptfdisk/code/ci/6a8416cbd12d55f882bb751993b94f72d338d96f/
@@ -21,9 +21,7 @@ structures, recovery tools to help you deal with corrupt partition
 tables, and the ability to convert MBR disks to GPT format.
 
 %prep
-%setup -q -n gptfdisk-%{version}
-%patch0 -p1 -b .orig
-%patch1 -p1 -b .poptmisuse
+%autosetup -p1 -n gptfdisk-%{version}
 
 %build
 make CXXFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64" LDFLAGS="%{build_ldflags}"
@@ -50,6 +48,9 @@ make test
 %{_mandir}/man8/fixparts.8*
 
 %changelog
+* Mon Feb 12 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.0.9-9
+- Use a SPDX license tag
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

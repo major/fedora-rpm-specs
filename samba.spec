@@ -147,9 +147,9 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.20.0
-%global baserelease 2
+%global baserelease 3
 # This should be rc1 or %%nil
-%global pre_release rc1
+%global pre_release rc2
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -1814,6 +1814,7 @@ fi
 %{_mandir}/man1/smbget.1*
 %{_mandir}/man1/smbtar.1*
 %{_mandir}/man1/smbtree.1*
+%{_mandir}/man1/wspsearch.1*
 %{_mandir}/man7/traffic_learner.7.*
 %{_mandir}/man7/traffic_replay.7.*
 %{_mandir}/man8/cifsdd.8.*
@@ -4584,6 +4585,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 12 2024 Guenther Deschner <gdeschner@redhat.com> - 4.20.0rc2-3
+- resolves: #2263874 - Update to version 4.20.0rc2
+
 * Thu Feb 01 2024 Pete Walter <pwalter@fedoraproject.org> - 2:4.20.0-0.2.rc1
 - Rebuild for ICU 74
 

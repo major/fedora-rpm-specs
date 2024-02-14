@@ -1,6 +1,6 @@
 Name: lm_sensors
 Version: 3.6.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Hardware monitoring tools
 
 %define upstream_version %(echo %{version} | sed -e 's/\\./-/g')
@@ -33,6 +33,8 @@ Patch1: 0001-Change-PIDFile-path-from-var-run-to-run.patch
 Patch2: lm_sensors-3.6.0-allow_no_sensors.patch
 # Upstream commit 5deee7d0c301df779:
 Patch3: lm_sensors-3.6.0-sensors-detect-Add-support-for-AMD-CPU-Family-19h.patch
+# rrdtool has constified all argv
+Patch4: lm_sensors-3.6.0-rrd-const-argv.patch
 
 Requires: /usr/sbin/modprobe
 %ifarch %{ix86} x86_64
@@ -90,6 +92,9 @@ database, and warns of sensor alarms.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%patch -P4 -p1
+%endif
 
 # Remove currently unused files to make sure we've got the license right
 rm -f prog/init/sysconfig-lm_sensors-convert prog/hotplug/unhide_ICH_SMBus
@@ -212,6 +217,9 @@ fi
 
 
 %changelog
+* Sun Feb 11 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.6.0-17
+- Adapt to constification of argv parameters in rrdtool
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

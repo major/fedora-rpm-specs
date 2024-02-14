@@ -5,7 +5,7 @@
 
 Name:           pygobject3
 Version:        3.46.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
@@ -23,8 +23,9 @@ BuildRequires:  meson
 BuildRequires:  python3-devel >= %{python3_version}
 BuildRequires:  python3-setuptools
 # Test dependencies.
+# Keep TEST_GTK_VERSION in %%check in sync with gtk version used here
 BuildRequires:  python3dist(pytest)
-BuildRequires:  gtk4
+BuildRequires:  gtk3
 BuildRequires:  xorg-x11-server-Xvfb
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
@@ -86,7 +87,7 @@ This package contains files required to embed PyGObject
 %meson_install
 
 %check
-export TEST_GTK_VERSION=4.0
+export TEST_GTK_VERSION=3.0
 %{shrink:xvfb-run -s "-screen 0 1600x1200x24" %meson_test --timeout-multiplier=5}
 
 
@@ -113,6 +114,9 @@ export TEST_GTK_VERSION=4.0
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.46.0-4
+- Use gtk3 in tests
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           liblouis
 Version:        3.28.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Braille translation and back-translation library
 
 # LGPL-2.1-or-later: the project as a whole
@@ -13,8 +13,8 @@ License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            http://liblouis.org
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  fdupes
 BuildRequires:  gcc
+BuildRequires:  hardlink
 BuildRequires:  help2man
 BuildRequires:  libyaml-devel
 BuildRequires:  make
@@ -153,8 +153,8 @@ rm -rf %{buildroot}/%{_defaultdocdir}/%{name}/
 # Install internal.h for MuseScore
 install -pm 0644 liblouis/internal.h %{buildroot}%{_includedir}/%{name}
 
-# Replace table files with identical content by symlinks
-%fdupes -s %{buildroot}%{_datadir}/%{name}/tables/
+# Hardlink table files with identical content
+hardlink -t %{buildroot}%{_datadir}/%{name}/tables/
 
 cd python
 %pyproject_install
@@ -189,6 +189,9 @@ cd -
 
 
 %changelog
+* Mon Feb 12 2024 Jerry James <loganjerry@gmail.com> - 3.28.0-5
+- Hardlink, rather than symlink, duplicate table files
+
 * Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.28.0-4
 - Fix RHEL build after RPATH removal
 

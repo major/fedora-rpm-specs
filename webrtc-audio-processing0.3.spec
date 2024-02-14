@@ -1,19 +1,21 @@
-Name:           webrtc-audio-processing
-Version:        1.3
-Release:        1%{?dist}
+Name:           webrtc-audio-processing0.3
+Version:        0.3.1
+Release:        12%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
 URL:            http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
-Source0:        http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
+Source0:        http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-%{version}.tar.xz
 
-Patch0:         arches.patch
-Patch1:         65f002e.patch
+## upstream patches
 
-BuildRequires: meson
+Patch100:         webrtc-fix-typedefs-on-other-arches.patch
+# bz#1336466, https://bugs.freedesktop.org/show_bug.cgi?id=95738
+Patch104:         webrtc-audio-processing-0.2-big-endian.patch
+
+BuildRequires: make
+BuildRequires: autoconf automake libtool
 BuildRequires: gcc gcc-c++
-BuildRequires: abseil-cpp-devel
-#BuildRequires: neon-devel
 
 %description
 %{name} is a library derived from Google WebRTC project that 
@@ -29,18 +31,27 @@ The %{name}-devel package contains libraries and header
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n webrtc-audio-processing-%{version}
 
 %build
-%meson
-%meson_build \
-#%%ifarch %%{arm} aarch64
-#  -Dneon=no \
-#%endif
+# for patch1
+autoreconf -vif
+
+%configure \
+%ifarch %{arm} aarch64
+  --enable-neon=no \
+%endif
+  --disable-silent-rules \
+  --disable-static
+
+%make_build
 
 
 %install
-%meson_install
+%make_install
+
+# remove libtool archives
+find %{buildroot} -type f -name "*.la" -delete
 
 
 %ldconfig_scriptlets
@@ -48,21 +59,15 @@ files for developing applications that use %{name}.
 %files
 %doc NEWS AUTHORS README.md
 %license COPYING
-%{_libdir}/libwebrtc-audio-coding-1.so.3*
-%{_libdir}/libwebrtc-audio-processing-1.so.3*
+%{_libdir}/libwebrtc_audio_processing.so.1*
 
 %files devel
-%{_libdir}/libwebrtc-audio-coding-1.so
-%{_libdir}/libwebrtc-audio-processing-1.so
-%{_libdir}/pkgconfig/webrtc-audio-coding-1.pc
-%{_libdir}/pkgconfig/webrtc-audio-processing-1.pc
-%{_includedir}/webrtc-audio-processing-1/
+%{_libdir}/libwebrtc_audio_processing.so
+%{_libdir}/pkgconfig/webrtc-audio-processing.pc
+%{_includedir}/webrtc_audio_processing/
 
 
 %changelog
-* Fri Feb 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3-1
-- 1.3
-
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

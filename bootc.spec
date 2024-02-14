@@ -43,19 +43,13 @@ Recommends: bootupd
 
 %prep
 %autosetup -p1 -a1
-%if 0%{?rhel}
-%cargo_prep -V 1
-%else
 %cargo_prep -v vendor
-%endif
 
 %build
 %cargo_build
-%if !0%{?rhel}
 %cargo_vendor_manifest
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
-%endif
 
 %install
 %make_install INSTALL="install -p -c"
@@ -68,10 +62,8 @@ Recommends: bootupd
 %files
 %license LICENSE-MIT
 %license LICENSE-APACHE
-%if !0%{?rhel}
 %license LICENSE.dependencies
 %license cargo-vendor.txt
-%endif
 %doc README.md
 %{_bindir}/bootc
 %{_prefix}/lib/bootc/

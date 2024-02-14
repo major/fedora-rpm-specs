@@ -4,7 +4,7 @@
 Name:         ipmitool
 Summary:      Utility for IPMI control
 Version:      1.8.19
-Release:      6%{?dist}
+Release:      7%{?dist}
 License:      BSD-3-Clause-No-Nuclear-Warranty
 URL:          http://ipmitool.sourceforge.net/
 Source0:      https://github.com/%{name}/%{name}/archive/%{gitname}_%{gitversion}/%{name}-%{version}.tar.gz
@@ -22,6 +22,16 @@ Patch3:       ipmitool-1.8.19-set-kg-key.patch
 Patch4:       0004-slowswid.patch
 Patch5:       0005-sensor-id-length.patch
 Patch7:       0007-check-input.patch
+# https://github.com/ipmitool/ipmitool/issues/199
+# https://github.com/ipmitool/ipmitool/pull/214 - approved but not merged
+Patch14:      0014-lanplus-cipher-retry.patch
+
+# Debian patches, never applied upstream
+# https://bugs.launchpad.net/ubuntu/+source/ipmitool/+bug/633054
+# https://sourceforge.net/p/ipmitool/mailman/message/24405281/
+Patch100:     0100-fix_buf_overflow.patch
+# https://sourceforge.net/p/ipmitool/bugs/490/
+Patch105:     0105-sensor_reading.patch
 
 BuildRequires: openssl-devel readline-devel ncurses-devel
 %{?systemd_requires}
@@ -182,6 +192,17 @@ install -Dm 755 contrib/bmc-snmp-proxy         %{buildroot}%{_libexecdir}/bmc-sn
 %{_libexecdir}/bmc-snmp-proxy
 
 %changelog
+* Mon Feb 12 2024 Pavel Cahyna <pcahyna@redhat.com> - 1.8.19-7
+- Update IANA numbers
+- Apply patch from CentOS Stream, never applied upstream:
+  Disable retry of pre-session "Get cipher suites" command as some
+  BMCs are ignoring it (#1831158)
+- Apply patches from Debian, never applied upstream:
+  - fix tsol buffer overflow,
+    https://sourceforge.net/p/ipmitool/mailman/message/24405281/
+  - fix non-analog sensor readings, https://sourceforge.net/p/ipmitool/bugs/490/
+- Update /var/run to /run in ipmievd.service that systemd warns about (#2100475)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -191,7 +212,7 @@ install -Dm 755 contrib/bmc-snmp-proxy         %{buildroot}%{_libexecdir}/bmc-sn
 * Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Wed Jul 23 2023 Josef Ridky <jridky@redhat.com> - 1.8.19-3
+* Wed Jul 12 2023 Josef Ridky <jridky@redhat.com> - 1.8.19-3
 - Migrate to SPDX license
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.19-2

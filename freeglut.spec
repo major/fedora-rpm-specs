@@ -2,12 +2,14 @@
 Summary:        A freely licensed alternative to the GLUT library
 Name:           freeglut
 Version:        3.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 URL:            http://freeglut.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # For the manpages
 Source1:        https://downloads.sourceforge.net/openglut/openglut-0.6.3-doc.tar.gz
 Patch0:         common.patch
+# Patch for CVE-2024-24258 and CVE-2024-24259
+Patch1:         155.patch
 License:        MIT
 
 BuildRequires:  gcc
@@ -52,7 +54,8 @@ license.
 
 %prep
 %setup -q -a 1
-%patch0 -p0
+%patch -P 0 -p0
+%patch -P 1 -p1
 
 %build
 %{cmake} -DFREEGLUT_BUILD_STATIC_LIBS=OFF .
@@ -84,6 +87,9 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 %{_libdir}/cmake/FreeGLUT/*
 
 %changelog
+* Mon Feb 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-7
+- Patch for CVE-2024-24258 and CVE-2024-24259
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

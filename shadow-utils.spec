@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.14.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -131,7 +131,6 @@ autoreconf
         --with-selinux \
         --without-libbsd \
         --without-libcrack \
-        --without-libpam \
         --without-sssd \
         --enable-shared \
         --with-group-name-max-length=32 \
@@ -163,8 +162,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/groups
 rm $RPM_BUILD_ROOT%{_bindir}/login
 rm $RPM_BUILD_ROOT%{_bindir}/su
 rm $RPM_BUILD_ROOT%{_bindir}/faillog
-rm $RPM_BUILD_ROOT%{_sysconfdir}/login.access
-rm $RPM_BUILD_ROOT%{_sysconfdir}/limits
 rm $RPM_BUILD_ROOT%{_sbindir}/logoutd
 rm $RPM_BUILD_ROOT%{_sbindir}/nologin
 rm $RPM_BUILD_ROOT%{_mandir}/man1/chfn.*
@@ -179,14 +176,8 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/login.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/login.*
 rm $RPM_BUILD_ROOT%{_mandir}/man1/su.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man1/su.*
-rm $RPM_BUILD_ROOT%{_mandir}/man5/limits.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man5/limits.*
-rm $RPM_BUILD_ROOT%{_mandir}/man5/login.access.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man5/login.access.*
 rm $RPM_BUILD_ROOT%{_mandir}/man5/passwd.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man5/passwd.*
-rm $RPM_BUILD_ROOT%{_mandir}/man5/porttime.*
-rm $RPM_BUILD_ROOT%{_mandir}/*/man5/porttime.*
 rm $RPM_BUILD_ROOT%{_mandir}/man5/suauth.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man5/suauth.*
 rm $RPM_BUILD_ROOT%{_mandir}/man8/logoutd.*
@@ -201,6 +192,11 @@ rm $RPM_BUILD_ROOT%{_mandir}/man8/faillog.*
 rm $RPM_BUILD_ROOT%{_mandir}/*/man8/faillog.*
 
 # Remove PAM service files we don't use.
+rm $RPM_BUILD_ROOT%{_pam_confdir}/chfn
+rm $RPM_BUILD_ROOT%{_pam_confdir}/chsh
+rm $RPM_BUILD_ROOT%{_pam_confdir}/groupmems
+rm $RPM_BUILD_ROOT%{_pam_confdir}/login
+rm $RPM_BUILD_ROOT%{_pam_confdir}/su
 
 find $RPM_BUILD_ROOT%{_mandir} -depth -type d -empty -delete
 %find_lang shadow
@@ -282,6 +278,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Mon Feb 12 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-6
+- Build linking `libpam`
+
 * Thu Feb  1 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-5
 - passwd: Provide binary from this package. Enable libpam and
   disable account-tools-setuid. Provide passwd PAM service file.

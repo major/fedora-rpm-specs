@@ -1,12 +1,12 @@
 %global majorversion 0.4
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           xfce4-docklike-plugin
-Version:        0.4.0
-Release:        6%{?dist}
+Version:        0.4.2
+Release:        1%{?dist}
 Summary:        A modern, minimalist taskbar for Xfce
 
-License:        GPLv2+ and GPLv3+ and FSFUL
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND FSFUL
 URL:            https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{majorversion}/%{name}-%{version}.tar.bz2
 
@@ -28,36 +28,31 @@ and operating systems. Wherein all application windows are grouped
 together as an icon and can be pinned to act as a launcher when
 the application is not running. Commonly referred to as a dock.
 
-
 %prep
 %autosetup
 
 # remove empty files
 rm -f ChangeLog README
 
-
 %build
 %configure
 %make_build
 
-
 %install
 %make_install
 
-# remove libtool archives
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
 %find_lang %{name}
 
-	
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS AUTHORS
 %{_datadir}/xfce4/panel/plugins/docklike.desktop
 %{_libdir}/xfce4/panel/plugins/libdocklike.so
 
-
 %changelog
+* Mon Feb 12 2024 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.4.2-1
+- Update to 0.4.2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

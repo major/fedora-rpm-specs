@@ -77,8 +77,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.43.0
-Release:        3%{?dist}
+Version:        2.43.1
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -126,9 +126,6 @@ Patch1:         0001-t-lib-httpd-try-harder-to-find-a-port-for-apache.patch
 Patch2:         0002-t-lib-git-daemon-try-harder-to-find-a-port.patch
 # https://github.com/tmzullinger/git/commit/aa5105dc11
 Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2247532#c8
-Patch4:         0001-send-email-avoid-duplicate-specification-warnings.patch 
 
 # Configurates Apache test server to use `DavLockDBType sdbm`
 # Prevents t5540 failures on i686, s390x and ppc64le
@@ -827,13 +824,7 @@ find %{buildroot}%{_pkgdocdir} -name "*.html" -print0 | xargs -r0 linkchecker
 # t5559-http-fetch-smart-http2 runs t5551-http-fetch-smart with
 # HTTP_PROTO=HTTP/2.  Unfortunately, it fails quite regularly.
 # https://lore.kernel.org/git/Y4fUntdlc1mqwad5@pobox.com/
-#
-# t6300.35 t6300.107 t6300.108 are skipped due to them failing
-# with zlib-ng
-# https://bugzilla.redhat.com/show_bug.cgi?id=2253368
-# These tests will be enabled again in next git release, where
-# fix should be in place.
-GIT_SKIP_TESTS="t5559 t6300.35 t6300.107 t6300.108"
+GIT_SKIP_TESTS="t5559"
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 # Skip tests which require mod_http2 on el7
@@ -1054,6 +1045,10 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Mon Feb 12 2024 Ondřej Pohořelský <opohorel@redhat.com> - 2.43.1-1
+- update to 2.43.1
+- resolves: #2263575
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

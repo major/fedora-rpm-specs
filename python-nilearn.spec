@@ -20,14 +20,15 @@ Detailed documentation is available at http://nilearn.github.io/.}
 %global forgeurl https://github.com/nilearn/nilearn
 
 Name:           python-nilearn
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Python module for fast and easy statistical learning on NeuroImaging data
 
 %global tag %{version}
 %forgemeta
 
-License:        BSD
+# SPDX
+License:        BSD-3-Clause
 URL:            %forgeurl
 # Use GitHub tar: pypi does not include all test data
 Source0:        %forgesource
@@ -35,8 +36,14 @@ Source0:        %forgesource
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  git-core
+# For tests
+BuildRequires:  %{py3_dist matplotlib}
+BuildRequires:  %{py3_dist plotly}
 
-Recommends:  %{py3_dist matplotlib}
+# Dependencies of 'plotting' extra
+# To build the extra, we'd need kaleido in Fedora
+Recommends:     %{py3_dist matplotlib}
+Recommends:     %{py3_dist plotly}
 
 %description
 %{desc}
@@ -88,12 +95,12 @@ k="${k:-}${k:+ and} not test_load_confounds"
 k="${k:-}${k:+ and} not test_tfce_smoke"
 %endif
 
-# Disable tests failing after rebuild for Python 3.12
-# TODO: Needs investigation
-k="${k:-}${k:+ and} not test_fetch_atlas_talairach and not test_fetch_atlas_pauli_2017 \
-  and not test_fetch_atlas_schaefer_2018 and not test_fetch_atlas_schaefer_2018 \
-  and not test_decoder_error_unknown_scoring_metrics"
-%{pytest} -k "${k:-}" nilearn
+# Fails with obscure error:
+# _flapack.error: (liwork>=max(1,10*n)||liwork==-1) failed for 10th keyword liwork: dsyevr:liwork=1
+k="${k:-}${k:+ and} not test_percentile_range"
+# Requires kaleido (not available in Fedora)
+k="${k:-}${k:+ and} not test_plot_surf[plotly]"
+%{pytest} -v -k "${k:-}" nilearn
 
 %files -n python3-nilearn -f %{pyproject_files}
 %doc README.rst
