@@ -3,11 +3,11 @@
 %global srcname myrepos-utils
 
 Name:           python-%{srcname}
-Version:        0.0.2
+Version:        0.0.3
 Release:        %autorelease
 Summary:        Additional utilities for myrepos
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://git.sr.ht/~michel-slm/myrepos-utils
 Source0:        %{pypi_source}
 

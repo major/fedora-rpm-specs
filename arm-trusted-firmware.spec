@@ -3,17 +3,36 @@
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
 
+# This is a noarch package that can be built on any host architecture.
+# The default configuration is to allow building only on aarch64 via
+# "ExclusiveArch: aarch64".  Use "--with cross" to enable building on
+# any host.
+%bcond_with cross
+
+# Rockchip rk3588 support
+# https://gitlab.collabora.com/hardware-enablement/rockchip-3588/trusted-firmware-a.git
+## git archive --format=tar --prefix=arm-trusted-firmware-rk35-%{rk35tag}/ %{rk35tag} | xz > arm-trusted-firmware-rk35-%{rk35tag}.tar.xz
+%global rk35tag 002d8e85c
+
 Name:    arm-trusted-firmware
 Version: 2.10.0
-Release: 3%{?candidate:.%{candidate}}%{?dist}
+Release: 5%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
 Source0: https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
+Source2: arm-trusted-firmware-rk35-%{rk35tag}.tar.xz
 
-# At the moment we're only building on aarch64
+%if %{with cross}
+BuildRequires: gcc-aarch64-linux-gnu
+%define cross_compile aarch64-linux-gnu-
+%else
 ExclusiveArch: aarch64
+%define cross_compile %{nil}
+%endif
+
+BuildArch:     noarch
 
 BuildRequires: dtc
 BuildRequires: gcc
@@ -29,7 +48,6 @@ Boot Requirements (TBBR) and Secure Monitor.
 Note: the contents of this package are generally just consumed by bootloaders
 such as u-boot. As such the binaries aren't of general interest to users.
 
-%ifarch aarch64
 %package     -n arm-trusted-firmware-armv8
 Summary:     ARM Trusted Firmware for ARMv8-A
 
@@ -38,7 +56,6 @@ ARM Trusted Firmware binaries for various  ARMv8-A SoCs.
 
 Note: the contents of this package are generally just consumed by bootloaders
 such as u-boot. As such the binaries aren't of general interest to users.
-%endif
 
 %prep
 %autosetup -n %{name}-%{version}%{?candidate:-%{candidate}} -p1
@@ -46,36 +63,42 @@ such as u-boot. As such the binaries aren't of general interest to users.
 cp %SOURCE1 .
 # Fix the name of the cross compile for the rk3399 Cortex-M0 PMU
 sed -i 's/arm-none-eabi-/arm-linux-gnu-/' plat/rockchip/rk3399/drivers/m0/Makefile
+tar xf %{SOURCE2}
 
 %build
 
 %undefine _auto_set_build_flags
 
-%ifarch aarch64
-for soc in $(cat %{_arch}-bl31)
+for soc in $(cat aarch64-bl31)
 do
 # At the moment we're only making the secure firmware (bl31)
 case $(echo $soc) in
   "k3")
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=generic SPD=opteed bl31
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) TARGET_BOARD=lite SPD=opteed bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=generic SPD=opteed bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=lite SPD=opteed bl31
     ;;
   *)
-    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" PLAT=$(echo $soc) bl31
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) bl31
     ;;
 esac
 done
-%endif
 
+# Build rk35 fork
+pushd arm-trusted-firmware-rk35-%{rk35tag}
+for soc in rk3588
+do
+# At the moment we're only making the secure firmware (bl31)
+make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) bl31
+done
+popd
 
 %install
 
 mkdir -p %{buildroot}%{_datadir}/%{name}
 
-%ifarch aarch64
 # At the moment we just support adding bl31.bin
-for soc in $(cat %{_arch}-bl31)
+for soc in $(cat aarch64-bl31)
 do
 mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
  for file in bl31.bin
@@ -104,16 +127,32 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
  done
 done
 
-%endif
+# Install rk35 fork
+pushd arm-trusted-firmware-rk35-%{rk35tag}
+for soc in rk3588
+do
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}/$(echo $soc)/
+ for file in bl31/bl31.elf
+ do
+  if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
+    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /$RPM_BUILD_ROOT%{_datadir}/%{name}/$(echo $soc)/
+  fi
+ done
+done
+popd
 
-%ifarch aarch64
 %files -n arm-trusted-firmware-armv8
 %license license.rst
 %doc readme.rst
 %{_datadir}/%{name}
-%endif
 
 %changelog
+* Tue Feb 13 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-5
+- Add initial rk3588 support
+
+* Tue Feb 13 2024 Michael Brown <mbrown@fensystems.co.uk> - 2.10.0-4
+- Convert to BuildArch: noarch
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,13 @@
 Name:           rep-gtk
 Version:        0.90.8.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        GTK+ binding for librep Lisp environment
 License:        GPLv2+
 URL:            http://sawfish.wikia.com/
 Source0:        http://download.tuxfamily.org/librep/%{name}/%{name}_%{version}.tar.bz2
 Patch0: rep-gtk-c99.patch
+Patch1: gcc14.patch
+Patch2: gcc14-2.patch
 
 BuildRequires: make
 BuildRequires:  gtk2-devel
@@ -32,7 +34,7 @@ Link libraries and C header files for librep development.
 
 %build
 ./autogen.sh --nocfg
-%configure
+%configure CFLAGS="%{optflags} -Wno-incompatible-pointer-types"
 make %{?_smp_mflags}
 
 %install
@@ -49,6 +51,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 %{_libdir}/pkgconfig/rep-gtk.pc
 
 %changelog
+* Mon Feb 12 2024 Kim B. Heino <b@bbbs.net> - 0.90.8.3-20
+- Fix various functions related to gcc14, fixes rhbz#2256944, rhbz#2261650
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.8.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

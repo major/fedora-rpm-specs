@@ -1,15 +1,13 @@
-%global commit 9a7663496fc06f7a9439c752fd7666ca93328c20
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global debug_package %{nil}
 
 Name:           miniaudio
-Version:        0.11.14
-Release:        4%{?dist}
+Version:        0.11.21
+Release:        1%{?dist}
 Summary:        Audio playback and capture library
 
 License:        MIT-0
 URL:            https://miniaud.io/
-Source0:        https://github.com/mackron/miniaudio/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/mackron/%{name}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 %package devel
 Summary: %summary
@@ -23,7 +21,7 @@ BuildArch:      noarch
 %summary
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup
 
 
 %build
@@ -45,6 +43,9 @@ install -p %{name}.h %{buildroot}%{_includedir}/
 
 
 %changelog
+* Tue Feb 13 2024 Christian Birk <mail@birkc.de> - 0.11.21-1
+- Update to 0.11.21
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,8 @@ Name:                   libconfig
 Summary:                C/C++ configuration file library
 Version:                1.7.3
 Release:                8%{?dist}
-License:                LGPLv2+
+# lib/grammar.* are GPL-3.0-or-later WITH Bison-exception-2.2
+License:                LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 URL:                    http://www.hyperrealm.com/libconfig/
 Source0:                https://hyperrealm.github.io/%name/dist/%name-%version.tar.gz
 # Generated from libconfig 1.7.2 on Fedora 28 x86_64 (2018-07-18)

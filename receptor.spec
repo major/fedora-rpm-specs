@@ -5,7 +5,7 @@
 
 # https://github.com/ansible/receptor
 %global goipath         github.com/ansible/receptor
-Version:                1.4.3
+Version:                1.4.4
 
 %gometa -f
 
@@ -113,7 +113,6 @@ Source8:	receptor.sysusers
 Source9:	receptor.logrotate
 Source10:	receptor_tmp.conf
 # https://github.com/ansible/receptor/pull/816
-Patch:          golang-1.21.patch
 
 BuildRequires:  python3-devel
 # For Python tests

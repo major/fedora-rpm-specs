@@ -3,11 +3,12 @@
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.4.6
+Version:       2.5.3
 Release:       %autorelease
 Summary:       Console user interface library
 
-License:       LGPLv2+
+# examples/twisted_serve_ssh.py is MIT
+License:       LGPL-2.1-or-later AND MIT
 URL:           http://excess.org/urwid/
 Source0:       %{pypi_source urwid}
 

@@ -1,16 +1,17 @@
 Name: lm_sensors
 Version: 3.6.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Hardware monitoring tools
 
 %define upstream_version %(echo %{version} | sed -e 's/\\./-/g')
 
-# Some man pages are licensed Verbatim (lib/sensors.conf.5,
+# Some man pages are licensed Linux-man-pages-copyleft-var and Linux-man-pages-copyleft (lib/sensors.conf.5,
 # prog/sensors/sensors.1). Files from dist-git are licensed
 # MIT (according to the Fedora Project Contributor Agreement
-# https://fedoraproject.org/wiki/Licensing:Main#License_of_Fedora_SPEC_Files).
-# The rest is GPLv2+.
-License: GPLv2+ and Verbatim and MIT
+# https://docs.fedoraproject.org/en-US/legal/fedora-linux-license/).
+# lib/* are LGPL-2.1-or-later (in subpackage)
+# The rest is GPL-2.0-or-later.
+License: GPL-2.0-or-later AND Linux-man-pages-copyleft-var AND Linux-man-pages-copyleft AND MIT
 
 URL: http://github.com/lm-sensors/lm-sensors/
 
@@ -56,7 +57,7 @@ access and hardware monitoring.
 
 %package libs
 Summary: Lm_sensors core libraries
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description libs
 Core libraries for lm_sensors applications
@@ -65,8 +66,8 @@ Core libraries for lm_sensors applications
 %package devel
 Summary: Development files for programs which will use lm_sensors
 Requires: %{name}-libs = %{version}-%{release}
-# One manual page is licensed Verbatim (lib/libsensors.3). The rest is LGPLv2+.
-License: LGPLv2+ and Verbatim
+# One manual page is licensed Linux-man-pages-copyleft (lib/libsensors.3). The rest is LGPLv2+.
+License: LGPL-2.1-or-later AND Linux-man-pages-copyleft
 
 %description devel
 The lm_sensors-devel package includes a header files and libraries for use
@@ -77,9 +78,9 @@ when building applications that make use of sensor data.
 Summary: Daemon that periodically logs sensor readings
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-# One man page is licensed Verbatim (prog/sensord/sensord.8). Files from
+# One man page is licensed Linux-man-pages-copyleft (prog/sensord/sensord.8). Files from
 # dist-git are licensed MIT according to the FPCA. The rest is GPLv2+.
-License: GPLv2+ and Verbatim and MIT
+License: GPL-2.0-or-later AND Linux-man-pages-copyleft AND MIT
 
 %description sensord
 Daemon that periodically logs sensor readings to syslog or a round-robin
@@ -217,6 +218,9 @@ fi
 
 
 %changelog
+* Tue Feb 13 2024 Joe Orton <jorton@redhat.com> - 3.6.0-18
+- SPDX migration (Miroslav Suchý)
+
 * Sun Feb 11 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.6.0-17
 - Adapt to constification of argv parameters in rrdtool
 

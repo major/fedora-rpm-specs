@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -658,6 +658,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 13 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-7
+- Drop patch removing tools.jar from test classpath
+
 * Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-6
 - Fix source tarball URL
 

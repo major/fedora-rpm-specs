@@ -13,7 +13,7 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
 Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.0.tar.gz
@@ -51,6 +51,10 @@ provides a number of basic algorithms for numerical algebra.
 Summary: LAPACK development libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: blas-devel%{?_isa} = %{version}-%{release}
+%if 0%{?arch64}
+Requires: %{name}64%{?_isa} = %{version}-%{release}
+Requires: %{name}64_%{?_isa} = %{version}-%{release}
+%endif
 
 %description devel
 LAPACK development libraries (shared).
@@ -71,6 +75,10 @@ Summary: The Basic Linear Algebra Subprograms library
 Summary: BLAS development libraries
 Requires: blas%{?_isa} = %{version}-%{release}
 Requires: gcc-gfortran
+%if 0%{?arch64}
+Requires: blas64%{?_isa} = %{version}-%{release}
+Requires: blas64_%{?_isa} = %{version}-%{release}
+%endif
 
 %description -n blas-devel
 BLAS development libraries (shared).
@@ -399,6 +407,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Tue Feb 13 2024 Tom Callaway <spot@fedoraproject.org> - 3.12.0-5
+- Add explicit requires to the devel subpackages (thanks to Jakub Martisko)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

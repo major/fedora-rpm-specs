@@ -1,17 +1,18 @@
 Name:           perl-MIME-EncWords
-Version:        1.014.3
-Release:        28%{?dist}
+Version:        1.015.0
+Release:        1%{?dist}
 Summary:        Deal with RFC 2047 encoded words (improved)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-EncWords
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEZUMI/MIME-EncWords-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(base)
@@ -41,8 +42,9 @@ Requires:       perl(Encode) >= 1.98
 Requires:       perl(MIME::Base64) >= 2.13
 Requires:       perl(MIME::Charset) >= 1.10.1
 
-# Remove under-specfied dependencies
+# Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((MIME::Base64|MIME::Charset)\\)$
+
 
 %description
 MIME::EncWords is aimed to be another implementation of MIME::Words so that it
@@ -55,28 +57,15 @@ improvements (**) or changes and clarifications (*).
 %prep
 %setup -q -n MIME-EncWords-%{version}
 
-cat << \EOF > %{name}-prov
-#!/bin/sh
-%{__perl_provides} $* |\
-sed -e '/perl(MIME::EncWords)$/d'
-EOF
-
-%global __perl_provides %{_builddir}/MIME-EncWords-%{version}/%{name}-prov
-chmod +x %{__perl_provides}
-
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
+%make_build
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%make_install
+%{_fixperms} %{buildroot}/*
 
 
 %check
@@ -85,11 +74,21 @@ make test
 
 %files
 %doc ARTISTIC Changes GPL README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Encode/
+%{perl_vendorlib}/MIME/
+%{perl_vendorlib}/POD2/
+%{_mandir}/man3/Encode::MIME::EncWords.3pm*
+%{_mandir}/man3/MIME::EncWords.3pm*
+%{_mandir}/man3/POD2::JA::Encode::MIME::EncWords.3pm*
+%{_mandir}/man3/POD2::JA::MIME::EncWords.3pm*
 
 
 %changelog
+* Tue Feb 13 2024 Xavier Bachelot <xavier@bachelot.org> - 1.015.0-1
+- Update to 1.015.0 (RHBZ#2263833)
+- Convert License to SPDX
+- Modernize specfile
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.014.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           gir-to-d
-Version:        0.23.1
+Version:        0.23.2
 Release:        1%{?dist}
 Summary:        Tool to create D bindings from GObject introspection files
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/gtkd-developers/gir-to-d
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -20,8 +20,7 @@ written using GObject conventions with the D language.
 
 %prep
 %autosetup -p1
-# Set version correctly
-sed -e "s/version: '0.19.1'/version: '%{version}'/" -i meson.build
+
 
 %build
 # Pass -allinst to ldc to work around an undefined reference build issue
@@ -44,6 +43,9 @@ export LDFLAGS="-Wl,-z,relro"
 
 
 %changelog
+* Tue Feb 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.23.2-1
+- Update to 0.23.2
+
 * Sun Feb 11 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.23.1-1
 - Update to 0.23.1
 

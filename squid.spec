@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.6
-Release:  2%{?dist}
+Version:  6.7
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -38,6 +38,8 @@ Patch203: squid-6.1-perlpath.patch
 Patch204: squid-6.1-symlink-lang-err.patch
 # Upstream PR: https://github.com/squid-cache/squid/pull/1442
 Patch205: squid-6.1-crash-half-closed.patch
+# https://github.com/squid-cache/squid/pull/1673
+Patch206: squid-6.7-gcc-14.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -95,19 +97,8 @@ lookup program (dnsserver), a program for retrieving FTP data
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
 
-# Upstream patches
-
-# Backported patches
-# %patch101 -p1 -b .patch
-
-# Local patches
-%patch -P 201 -p1 -b .config
-%patch -P 202 -p1 -b .location
-%patch -P 203 -p1 -b .perlpath
-%patch -P 204 -p1 -b .symlink-lang-err
-%patch -P 205 -p1 -b .crash-half-closed
+%autosetup -p1
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1679526
 # Patch in the vendor documentation and used different location for documentation
@@ -335,6 +326,11 @@ fi
 
 
 %changelog
+* Mon Feb 12 2024 Luboš Uhliarik <luhliari@redhat.com> - 7:6.7-1
+- new version 6.7
+- switch to autosetup
+- fix FTBFS when using gcc14
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

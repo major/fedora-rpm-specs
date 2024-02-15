@@ -25,7 +25,7 @@
 
 Name:           bcc
 Version:        0.29.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
@@ -138,7 +138,7 @@ Command line libbpf tools for BPF Compiler Collection (BCC)
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DREVISION_LAST=%{version} -DREVISION=%{version} -DPYTHON_CMD=python3 \
-       -DCMAKE_USE_LIBBPF_PACKAGE:BOOL=TRUE \
+       -DCMAKE_USE_LIBBPF_PACKAGE:BOOL=TRUE -DENABLE_NO_PIE=OFF \
        %{?with_llvm_shared:-DENABLE_LLVM_SHARED=1}
 %cmake_build
 
@@ -241,6 +241,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Tue Feb 13 2024 Jerome Marchand <jmarchan@redhat.com> - 0.29.1-2
+- Don't use -no-pie flags.
+
 * Mon Feb 05 2024 Jerome Marchand <jmarchan@redhat.com> - 0.29.1-1
 - Rebase to the latest release version (#2253688)
 - Enable libbpf-tools on s390x (#2249458)

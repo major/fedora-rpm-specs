@@ -5,7 +5,11 @@
 %ifarch x86_64
 %bcond_without vmaf
 %endif
+%if 0%{?fedora} >= 40
+%bcond_with jpegxl
+%else
 %bcond_without jpegxl
+%endif
 %endif
 
 Name:       aom

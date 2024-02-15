@@ -24,7 +24,7 @@ Release: 4%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
-License: GPLv2+ and Public Domain
+License: GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 # hg snapshot created from http://dev.mutt.org/hg/mutt
 Source: ftp://ftp.mutt.org/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: mutt_ldap_query

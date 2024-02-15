@@ -17,7 +17,7 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -26,6 +26,9 @@ Source0:       https://github.com/containers/%{name}/releases/download/%{version
 
 # RHEL specific
 Source1:       %{name}.conf
+
+# Upstream
+Patch0:        toolbox-test-system-Unbreak-Podman-s-downstream-Fedora-CI.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -38,7 +41,7 @@ Patch202:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
 
 BuildRequires: gcc
 BuildRequires: go-md2man
-BuildRequires: golang >= 1.20
+BuildRequires: golang >= 1.22
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: shadow-utils-subid-devel
@@ -106,6 +109,8 @@ The %{name}-tests package contains system tests for %{name}.
 
 %prep
 %setup -q
+
+%patch -P0 -p1
 
 %if 0%{?fedora}
 %ifnarch ppc64
@@ -183,6 +188,10 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Feb 13 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-7
+- Unbreak Podman's downstream Fedora CI
+- Update the BuildRequires on golang to reflect reality
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.0.99.5-6
 - Rebuild for golang 1.22.0
 

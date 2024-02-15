@@ -1,5 +1,5 @@
 Name:		datefudge
-Version:	1.24
+Version:	1.26
 Release:	%{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:	Fake the system date
 

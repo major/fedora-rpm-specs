@@ -1,8 +1,8 @@
 %global pypi_name devtools
 
 Name:           python-%{pypi_name}
-Version:        0.11.0
-Release:        5%{?dist}
+Version:        0.12.2
+Release:        1%{?dist}
 Summary:        Dev tools for Python
 
 License:        MIT
@@ -71,6 +71,9 @@ rm -f tests/test_insert_assert.py
 
 
 %changelog
+* Tue Feb 13 2024 Jonathan Wright <jonathan@almalinux.org> - 0.12.2-1
+- update to 0.12.2 rhbz#2232792
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

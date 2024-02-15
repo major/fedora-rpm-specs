@@ -1,5 +1,5 @@
 Name:           zps
-Version:        1.2.9
+Version:        2.0.0
 Release:        %autorelease
 Summary:        A small utility for listing and cleaning up zombie processes
 

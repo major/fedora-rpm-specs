@@ -3,7 +3,13 @@ Version:        3.16
 Release:        3%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
-License:        BSD
+# src/cjson.{c,h} and src/net.{c,h} are MIT
+# part of the code is dtoa
+# part of src/net.c is BSD-3-Clause-HP
+# src/queue.h is BSD-3-Clause
+# src/units.{c.h} is NCSA
+# src/portable_endian.h is LicenseRef-Fedora-Public-Domain
+License:        BSD-3-Clause-LBNL AND MIT AND dtoa AND BSD-3-Clause AND NCSA AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/esnet/iperf
 Source0:        %{url}/archive/%{version}/iperf-%{version}.tar.gz
 # https://github.com/esnet/iperf/pull/1278

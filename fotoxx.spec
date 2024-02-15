@@ -1,12 +1,15 @@
 Name:    fotoxx
 Version: 23.82
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Photo editor
 
 License: GPL-3.0-or-later
 URL:     http://www.kornelix.com/fotoxx/fotoxx.html
 Source0: http://www.kornelix.net/downloads/downloads/fotoxx-%{version}-source.tar.gz
 Source1: %{name}.desktop
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
@@ -75,6 +78,9 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Tue Feb 13 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.82-4
+- Drop i686 support (leaf package)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

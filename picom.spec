@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           picom
-Version:        11.1
+Version:        11.2
 Release:        %autorelease
 Summary:        Lightweight compositor for X11
 
@@ -23,6 +23,7 @@ BuildRequires:  meson
 BuildRequires:  uthash-devel
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(libconfig)
 BuildRequires:  pkgconfig(libpcre2-8)

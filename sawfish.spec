@@ -1,6 +1,6 @@
 Name:           sawfish
 Version:        1.13.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An extensible window manager for the X Window System
 License:        GPLv2+ and Artistic 2.0
 # GPLv2+ is for Sawfish
@@ -72,12 +72,15 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 # Fix main.jl (sawfish-config) for rpmlint
 sed -i -e '/^\#!/,/^!\#/d' %{buildroot}%{_datadir}/sawfish/lisp/sawfish/cfg/main.jl
 
+rm %{buildroot}%{_datadir}/xsessions/sawfish-kde4.desktop
+rm -rf %{buildroot}%{_datadir}/ksmserver
+rm -rf %{buildroot}%{_datadir}/kde4
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/sawfish.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/sawfish-config.desktop
 desktop-file-validate %{buildroot}%{_datadir}/gnome/wm-properties/sawfish-wm.desktop
-desktop-file-validate %{buildroot}%{_kde4_appsdir}/ksmserver/windowmanagers/sawfish.desktop
 desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish.desktop
-desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-kde4.desktop
+desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-kde5.desktop
 desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-lumina.desktop
 desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-mate.desktop
 desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
@@ -85,8 +88,6 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 %files -f %{name}.lang
 %license COPYING COPYING.SOUNDS
 %doc README README.IMPORTANT doc/*
-%dir %{_kde4_appsdir}/ksmserver
-%dir %{_kde4_appsdir}/ksmserver/windowmanagers
 %{_bindir}/*
 %{rep_execdir}/sawfish
 %{_libdir}/sawfish
@@ -94,10 +95,7 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 %{_datadir}/applications/sawfish.desktop
 %{_datadir}/applications/sawfish-config.desktop
 %{_datadir}/gnome/wm-properties/sawfish-wm.desktop
-%{_kde4_appsdir}/ksmserver/windowmanagers/sawfish.desktop
-%{_datadir}/ksmserver/windowmanagers/sawfish.desktop
 %{_datadir}/xsessions/sawfish.desktop
-%{_datadir}/xsessions/sawfish-kde4.desktop
 %{_datadir}/xsessions/sawfish-kde5.desktop
 %{_datadir}/xsessions/sawfish-lumina.desktop
 %{_datadir}/xsessions/sawfish-mate.desktop
@@ -117,6 +115,9 @@ desktop-file-validate %{buildroot}%{_datadir}/xsessions/sawfish-xfce.desktop
 
 
 %changelog
+* Tue Feb 13 2024 Kim B. Heino <b@bbbs.net> - 1.13.0-6
+- Drop KDE4, fixes rhbz#2261678
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

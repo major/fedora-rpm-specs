@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 1.1.0
+%global version 1.1.1
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -12,7 +12,7 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: A git/github helper utility
 License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
@@ -59,6 +59,9 @@ mkdir -p %{buildroot}%{_bindir}
 cp -a ./%{_bindir}/* %{buildroot}%{_bindir}
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
+mkdir -p %{buildroot}%{bash_completions_dir}
+cp -a %{buildroot}%{gem_instdir}/extras/sugarjar_completion.bash %{buildroot}%{bash_completions_dir}/sugarjar_completion.bash
+
 %if %{with tests}
 %check
 pushd .%{gem_instdir}
@@ -78,16 +81,22 @@ rm -rf %{buildroot}
 %dir %{gem_instdir}
 %{_bindir}/sj
 %{gem_instdir}/bin
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/sugarjar_completion.bash
 %license %{gem_instdir}/LICENSE
 %doc %{gem_instdir}/README.md
 %{gem_libdir}
 %exclude %{gem_cache}
 %exclude %{gem_instdir}/{Gemfile,sugarjar.gemspec}
+%exclude %{gem_instdir}/extras
 # We don't have ri/rdoc in our sources
 %exclude %{gem_docdir}
 %{gem_spec}
 
 %changelog
+* Mon Feb 12 2024 Phil Dibowitz <phil@ipom.com> - 1.1.1-1
+- New upstream version
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

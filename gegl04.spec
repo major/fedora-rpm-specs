@@ -7,7 +7,7 @@
 %endif
 
 Name:           gegl04
-Version:        0.4.46
+Version:        0.4.48
 Release:        %autorelease
 Summary:        Graph based image processing framework
 

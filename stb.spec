@@ -1,5 +1,5 @@
-%global commit beebb24b945efdea3b9bba23affb8eb3ba8982e7
-%global snapdate 20231011
+%global commit ae721c50eaf761660b4f90cc590453cdb0c2acd0
+%global snapdate 20240213
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -80,15 +80,6 @@ Patch:          %{url}/pull/1236.patch
 # Fix Null pointer dereference in stbi__convert_format
 # https://github.com/nothings/stb/pull/1547
 Patch:          %{url}/pull/1454.patch
-
-# Fixed asan error on tiny input images
-# https://github.com/nothings/stb/pull/1561
-#
-# Fixes:
-#
-# stb_image_resize2.h: Address Sanitizer error
-# https://github.com/nothings/stb/issues/1526
-Patch:          %{url}/pull/1561.patch
 
 # Fix integer overflow
 # https://github.com/nothings/stb/pull/1530
@@ -200,9 +191,9 @@ Patch:          %{url}/pull/1553.patch
 %global stb_easy_font_version 1.1
 %global stb_herringbone_wang_tile_version 0.7
 %global stb_hexwave_version 0.5
-%global stb_image_version 2.28
+%global stb_image_version 2.29
 %global stb_image_resize_version 0.97
-%global stb_image_resize2_version 2.02
+%global stb_image_resize2_version 2.06
 %global stb_image_write_version 1.16
 %global stb_include_version 0.2
 %global stb_leakcheck_version 0.6

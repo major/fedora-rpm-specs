@@ -18,7 +18,7 @@ Release:        7%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
-License:        BSD and MIT
+License:        BSD-2-Clause and MIT
 URL:            https://github.com/uclouvain/openjpeg
 Source0:        https://github.com/uclouvain/openjpeg/archive/v%{version}/openjpeg-%{version}.tar.gz
 %if 0%{?runcheck}
@@ -199,6 +199,7 @@ Development files for OpenJPEG2 JPIP module
 
 %package jpip-tools
 Summary:        OpenJPEG2 JPIP module command line tools
+License:        BSD-2-Clause AND LGPL-2.0-or-later WITH WxWindows-exception-3.1
 Requires:       %{name}-jpip%{?_isa} = %{version}-%{release}
 Requires:       jpackage-utils
 Requires:       java

@@ -17,6 +17,7 @@ Patch:          lsd-fix-metadata-auto.diff
 # https://github.com/lsd-rs/lsd/pull/938
 # * relax stricter-than-SemVer version requirements
 # * bump chrono-humanize dependency from 0.1 to 0.2
+# * bump git2 dependency from 0.16 to 0.18
 # * bump lscolors dependency from 0.9 to 0.13
 # * bump sys-locale dependency from 0.2 to 0.3
 # * bump vsort dependency from 0.1 to 0.2

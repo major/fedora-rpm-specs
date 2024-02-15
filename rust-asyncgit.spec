@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/asyncgit
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump git2 dependency from 0.17 to 0.18
 # * drop feature for building against vendored OpenSSL sources
 Patch:          asyncgit-fix-metadata.diff
 

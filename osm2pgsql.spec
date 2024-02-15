@@ -1,6 +1,12 @@
+%global catch_version 2.13.10
+%global cli11_version 2.4.1
+%global fmt_version 10.2.1
+%global libosmium_version 2.20.0
+%global protozero_version 1.7.1
+
 Name:           osm2pgsql
-Version:        1.10.0
-Release:        5%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPL-2.0-or-later
@@ -15,16 +21,20 @@ BuildRequires:  cmake
 BuildRequires:  libtool
 BuildRequires:  boost-devel
 BuildRequires:  bzip2-devel
-BuildRequires:  catch2-devel catch2-static
+BuildRequires:  catch2-devel >= %{catch_version}
+BuildRequires:  catch2-static >= %{catch_version}
+BuildRequires:  cli11-devel >= %{cli11_version}
+BuildRequires:  cli11-static >= %{cli11_version}
 BuildRequires:  expat-devel
-BuildRequires:  fmt-devel
+BuildRequires:  fmt-devel >= %{fmt_version}
 BuildRequires:  json-devel
-BuildRequires:  libosmium-devel
+BuildRequires:  libosmium-devel >= %{libosmium_version}
 BuildRequires:  libpq-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  lua-devel
 BuildRequires:  proj-devel
-BuildRequires:  protozero-devel protozero-static
+BuildRequires:  protozero-devel >= %{protozero_version}
+BuildRequires:  protozero-static >= %{protozero_version}
 BuildRequires:  zlib-devel
 BuildRequires:  postgresql
 BuildRequires:  postgresql-contrib
@@ -48,6 +58,7 @@ ln -sf /usr/include/catch2 contrib/catch2/include
 
 %build
 %cmake \
+  -DEXTERNAL_CLI11=ON \
   -DEXTERNAL_FMT=ON \
   -DEXTERNAL_LIBOSMIUM=ON \
   -DEXTERNAL_PROTOZERO=ON \
@@ -71,6 +82,9 @@ LANG="C.UTF-8" %ctest -j1
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Feb 13 2024 Tom Hughes <tom@compton.nu> - 1.11.0-1
+- Update to 1.11.0 upstream release
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

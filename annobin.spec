@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.39
+Version: 12.40
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -534,6 +534,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 13 2024 Nick Clifron  <nickc@redhat.com> - 12.30-1
+- Annocheck: Improve heuristic for skipping LTO and FORTIFY tests.  (#2264000)
+
 * Fri Feb 09 2024 Nick Clifron  <nickc@redhat.com> - 12.39-1
 - Annocheck: Also skip property note test for i686 binaries. (#2258571)
 

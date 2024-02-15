@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.93.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -472,6 +472,9 @@ chrpath --delete %{buildroot}%{_kf6_qtplugindir}/phonon_platform/kde.so
 # General startplasma symlink
 ln -sr %{buildroot}%{_kf6_bindir}/startplasma-wayland %{buildroot}%{_kf6_bindir}/startplasma
 
+# Drop (Wayland) qualifier from plasma.desktop
+sed -E 's| \(.*\)||g' -i %{buildroot}%{_datadir}/wayland-sessions/plasma.desktop
+
 # make fedora-breeze sddm theme variant.
 cp -alf %{buildroot}%{_datadir}/sddm/themes/breeze/ \
         %{buildroot}%{_datadir}/sddm/themes/01-breeze-fedora
@@ -720,6 +723,9 @@ fi
 
 
 %changelog
+* Tue Feb 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.93.0-3
+- Drop qualifier from plasma.desktop
+
 * Mon Feb 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-2
 - Backport security patch
 

@@ -22,8 +22,8 @@
 %bcond_with sourcegit
 
 Name:           dnsmasq
-Version:        2.89
-Release:        9%{?extraversion:.%{extraversion}}%{?dist}
+Version:        2.90
+Release:        1%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -46,12 +46,6 @@ Patch1:         dnsmasq-2.77-underflow.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1852373
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
-# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;h=eb92fb32b746f2104b0f370b5b295bb8dd4bd5e5
-Patch4:         dnsmasq-2.89-edns0-size.patch
-# http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=33635d8564f96cedcef9bf9826cbbca76f28aa81
-Patch5:         dnsmasq-2.90-dbus-watchers-bz2186468.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2258062
-Patch6:         dnsmasq-2.90-local-service-host.patch
 
 
 Requires:       nettle
@@ -222,6 +216,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Tue Feb 13 2024 Petr Menšík <pemensik@redhat.com> - 2.90-1
+- Update to 2.90 (#2264049)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.89-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

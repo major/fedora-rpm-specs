@@ -1,17 +1,18 @@
 %bcond docs %{undefined rhel}
 
 Name:           python-netaddr
-Version:        0.10.1
-Release:        4%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
 URL:            https://github.com/drkjam/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
-# Remove once https://github.com/netaddr/netaddr/pull/345
-Source1:	THANKS
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+
 %if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-furo
@@ -46,10 +47,6 @@ Layer 2 addresses\
 
 %package -n python3-netaddr
 Summary: A pure Python network address representation and manipulation library
-BuildRequires:  python3-devel
-
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
 
 %description -n python3-netaddr
 %{desc}
@@ -73,12 +70,12 @@ find netaddr -name "*.py" | \
 # Make rpmlint happy, fix permissions on documentation files
 chmod 0644 README.rst AUTHORS CHANGELOG COPYRIGHT LICENSE PKG-INFO
 
-# Include missing THANKS file
-# Remove once https://github.com/netaddr/netaddr/pull/345
-mv %{SOURCE1} .
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 #docs
 %if %{with docs}
@@ -90,24 +87,27 @@ popd
 
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files netaddr
 
 %check
-py.test-%{python3_version}
+%pytest
 
-%files -n python3-netaddr
+%files -n python3-netaddr -f %{pyproject_files}
 %license COPYRIGHT
 %doc AUTHORS CHANGELOG README.rst
 %if %{with docs}
 %doc docs/python3/html
 %endif
-%{python3_sitelib}/*
 
 %files -n python3-netaddr-shell
 %{_bindir}/netaddr
 
 %changelog
+* Tue Feb 13 2024 John Eckersberg <jeckersb@redhat.com> - 1.0.0-1
+- New upstream release 1.0.0 (rhbz#2263598)
+- Cleanup and modernize spec file a bit
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

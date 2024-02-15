@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -226,6 +226,9 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 
 
 %changelog
+* Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 8.15.1-3
+- Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

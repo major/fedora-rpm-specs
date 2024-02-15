@@ -8,7 +8,7 @@
 %endif
 
 Name:               igraph
-Version:            0.10.9
+Version:            0.10.10
 Release:            1%{?dist}
 Summary:            Library for creating and manipulating graphs
 
@@ -81,6 +81,9 @@ export FLEXIBLAS=netlib
 %exclude %{_mandir}/man3/igraph.3*
 
 %changelog
+* Tue Feb 13 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.10.10-1
+- 0.10.10
+
 * Sat Feb 03 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.10.9-1
 - 0.10.9
 

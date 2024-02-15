@@ -1,6 +1,6 @@
 Name:           translate-toolkit
-Version:        3.9.2
-Release:        4%{?dist}
+Version:        3.12.2
+Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
 URL:            http://toolkit.translatehouse.org/
@@ -120,6 +120,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Tue Feb 13 2024 Sudip Shil <sshil@redhat.com> - 3.12.2-1
+- http://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/3.12.2.html
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

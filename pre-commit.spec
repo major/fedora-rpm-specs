@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 

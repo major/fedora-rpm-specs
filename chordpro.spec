@@ -1,6 +1,9 @@
 # -*- rpm-spec -*-
 
-%define FullName App-Music-ChordPro
+%global FullName App-Music-ChordPro
+
+# ABC source is only available as a snapshot.
+%global ABCSRC abc2svg-1f1e9ecb65
 
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
@@ -10,6 +13,9 @@ Release: 1%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 Source1: README.ABC
 Source2: README.LilyPond
+Source9: %{ABCSRC}.tar.gz
+Patch9: %{ABCSRC}-version.patch
+Obsoletes: chordpro-abc <= 6.042
 URL: https://www.chordpro.org
 
 # It's all plain perl, nothing architecture dependent.
@@ -80,7 +86,8 @@ suitable for printing on your nearest printer.
 To learn more about ChordPro, look for the man page or do
 chordpro --help for the list of options.
 
-ChordPro is a rewrite of the Chordii program.
+To use the integrated support for ABC, please install CPAN module
+JavaScript::QuickJS.
 
 For more information about ChordPro, see https://www.chordpro.org.
 
@@ -94,19 +101,6 @@ Requires: perl(Wx) >= 0.99
 
 %description gui
 This package contains the wxWidgets (GUI) extension for %{name}.
-
-%package abc
-
-Summary: Support for ChordPro ABC embedding 
-AutoReqProv: 0
-
-Requires: %{name} = %{version}-%{release}
-
-%description abc
-This package contains nothing.
-
-To use the integrated support for ABC, please install CPAN module
-JavaScript::QuickJS.
 
 %package lilypond
 
@@ -128,11 +122,30 @@ cp -a %{SOURCE2} .
 
 # Remove some stuff.
 rm lib/ChordPro/res/linux/setup_desktop.sh
+# LaTeX
 rm lib/ChordPro/Output/LaTeX.pm
+rm lib/ChordPro/res/templates/*.tt
+# MarkDown
 rm lib/ChordPro/Output/Markdown.pm
 rm t/73_md.t
+# ABC
+rm lib/ChordPro/res/abc/abc2svg/*
 
 %build
+
+# First, prepare ABC.
+tar xf %{SOURCE9}
+cd %{ABCSRC}
+# Fix version
+patch -p0 -N < %{PATCH9} -b -z .abcvv
+./build
+# Move in place.
+mv *-1.js tohtml.js ../lib/ChordPro/res/abc/abc2svg/
+# Add licenses.
+cp COPYING COPYING.LESSER MIT.txt ../lib/ChordPro/res/abc/abc2svg/
+cd ..
+
+# Main build.
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
@@ -191,7 +204,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 # End of install section.
 
 %files
-%doc Changes README.md
+%doc Changes README.md README.ABC
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_bindir}/chordpro
@@ -200,22 +213,22 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %exclude %{share}/lib/ChordPro/Wx.pm
 %exclude %{share}/lib/ChordPro/Wx
 %{_mandir}/man1/chordpro*
+# Exclude Lilypond files.
+%exclude %{share}/lib/ChordPro/Delegate/Lilypond.pm
 
 %files gui
 %{_bindir}/wxchordpro
 %{share}/lib/ChordPro/Wx.pm
-%{share}/lib/ChordPro/Wx/
+%{share}/lib/ChordPro/Wx
 %{_mandir}/man1/wxchordpro*
 %{_datadir}/applications/chordpro.desktop
 %{_datadir}/pixmaps/chordpro.png
 %{_datadir}/pixmaps/chordpro-doc.png
 %{_metainfodir}/chordpro.metainfo.xml
 
-%files abc
-%doc README.ABC
-
 %files lilypond
 %doc README.LilyPond
+%{share}/lib/ChordPro/Delegate/Lilypond.pm
 
 %post gui
 xdg-desktop-menu install --novendor %{share}/lib/ChordPro/res/linux/chordpro.desktop
@@ -237,6 +250,10 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Tue Feb 13 2024 Johan Vromans <jvromans@squirrel.nl> - 6.050-1
+- Upgrade to upstream.
+- Add ABC support, obsoletes package chordpro-abc.
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.030-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

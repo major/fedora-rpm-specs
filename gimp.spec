@@ -11,6 +11,8 @@
 %bcond_with libunwind
 %endif
 
+%global build_type_safety_c 0
+
 # skip tests known to be problematic in a specific version
 #global skip_checks_version X.Y.Z
 #global skip_checks test1 test2 test3

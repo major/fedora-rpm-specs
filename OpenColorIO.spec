@@ -1,8 +1,3 @@
-%if ! 0%{?bootstrap} && ! 0%{?rhel}
-%global docs 1
-%global tests 1
-%endif
-
 Name:           OpenColorIO
 Version:        2.2.1
 Release:        10%{?dist}
@@ -14,6 +9,7 @@ Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive
 
 Patch0:         94da59daeb4647faa9b134665ad156f37cfa021d.patch
 
+# OpenVDB no longer builds on i686
 ExcludeArch:    i686
 
 # OIIO is only built for these arches due to Libraw
@@ -45,15 +41,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  pystring-devel
 BuildRequires:  zlib-devel
-
-# WARNING: OpenColorIO and OpenImageIO are cross dependent.
-# If an ABI incompatible update is done in one, the other also needs to be
-# rebuilt.
-%if ! 0%{?bootstrap}
-BuildRequires:  cmake(OpenImageIO)
-BuildRequires:  OpenImageIO-iv
-BuildRequires:  OpenImageIO-utils
-%endif
 
 #######################
 # Unbundled libraries #

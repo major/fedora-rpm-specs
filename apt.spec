@@ -13,8 +13,8 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.7.6
-Release:        3%{?dist}
+Version:        2.7.11
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -310,6 +310,16 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Tue Feb 13 2024 Sérgio M. Basto <sergio@serjux.com> - 2.7.11-1
+- Release 2.7.11 (Julian Andres Klode)
+- Show a separate list of upgrades deferred due to phasing (Julian Andres Klode)
+- Add the ?security pattern (Julian Andres Klode)
+- Add a new ?phasing pattern (Julian Andres Klode)
+- Add public phased update API (Julian Andres Klode)
+- For phasing, check if current version is a security update, not just previous ones (Julian Andres Klode)
+- Support -a for setting host architecture in apt-get source -b (David Kalnischkies)
+- Remove erroneous -a flag from apt-get synopsis in manpage (David Kalnischkies)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

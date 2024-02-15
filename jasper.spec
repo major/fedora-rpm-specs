@@ -5,15 +5,12 @@
 
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
-Version: 4.1.0
-Release: 3%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 
 License: JasPer-2.0
 URL:     http://www.ece.uvic.ca/~frodo/jasper/
 Source0: https://github.com/jasper-software/%{name}/archive/refs/tags/version-%{version}.tar.gz
-
-# skip hard-coded prefix/lib rpath
-Patch1: jasper-4.1.0-rpath.patch
 
 # architecture related patches
 Patch100: jasper-2.0.2-test-ppc64-disable.patch
@@ -64,7 +61,6 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{name}-version-%{version}
 
-%patch 1 -p1 -b .rpath
 # Need to disable one test to be able to build it on ppc64 arch
 # At ppc64 this test just stuck (nothing happend - no exception or error)
 
@@ -130,6 +126,10 @@ make test -C builder
 
 
 %changelog
+* Tue Feb 13 2024 Josef Ridky <jridky@redhat.com> - 4.2.0-1
+- New upstream release 4.2.0 (#2252025)
+- Fix CVE-2023-51257 (#2258402)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           nvmetcli
 License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
 Version:        0.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 URL:            ftp://ftp.infradead.org/pub/nvmetcli/
 Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
 Patch00:        0001-nvmetcli-don-t-remove-ANA-Group-1-on-clear.patch
@@ -66,6 +66,9 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/nvmetcli.8.gz
 
 %changelog
+* Tue Feb 13 2024 Maurizio Lombardi <mlombard@redhat.com> - 0.7-13
+- Migrate to SPDX License
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

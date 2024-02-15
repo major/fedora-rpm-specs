@@ -6,10 +6,10 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        4.0.9
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Library for generating PDFs and graphics
-License:        BSD and GPLv2+
+License:        BSD-3-Clause AND BSD-4-Clause AND MIT
 URL:            https://www.reportlab.com/opensource/
 Source0:        %pypi_source
 BuildArch:      noarch

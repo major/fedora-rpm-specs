@@ -1,11 +1,11 @@
 %bcond_with gp2ddb
 
 %global udevdir %(pkg-config --variable=udevdir udev)
-%global port_version 0.12.1
+%global port_version 0.12.2
 
 Name:           libgphoto2
-Version:        2.5.30
-Release:        7%{?dist}
+Version:        2.5.31
+Release:        1%{?dist}
 Summary:        Library for accessing digital cameras
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND IJG-short AND (MIT OR Unlicense)
 URL:            http://www.gphoto.org/
@@ -160,6 +160,9 @@ rm -rf %{buildroot}%{_datadir}/libgphoto2_port/*/vcamera/
 %{_mandir}/man3/%{name}_port.3*
 
 %changelog
+* Tue Feb 13 2024 Josef Ridky <jridky@redhat.com> - 2.5.31-1
+- New upstream release (#2236966)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.30-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

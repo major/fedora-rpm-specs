@@ -3,8 +3,8 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.22
-Release: 4%{?dist}
+Version: 0.22.4
+Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -25,8 +25,8 @@ Source: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source2: msghack.py
 Source3: msghack.1
 
-Patch1: %{name}-%{version}-disable-libtextstyle.patch
-Patch2: %{name}-0.21.1-covscan.patch
+Patch1: gettext-0.22-disable-libtextstyle.patch
+Patch2: gettext-0.21.1-covscan.patch
 
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
@@ -175,7 +175,9 @@ Substitutes the values of environment variables.
 
 
 %prep
-%autosetup -p1
+%setup -q
+%patch 1 -p1 -b .orig~
+%patch 2 -p1 -b .orig~
 # patch 1
 automake
 
@@ -411,6 +413,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Fri Feb 9 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.4-1
+- update to 0.22.4 release
+- https://savannah.gnu.org/news/?id=10544
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

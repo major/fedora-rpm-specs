@@ -2,11 +2,12 @@
 
 Name:           libevent
 Version:        2.1.12
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Abstract asynchronous event notification library
 
-# arc4random.c, which is used in build, is ISC. The rest is BSD.
-License:        BSD and ISC
+# arc4random.c, which is used in build, is ISC. The rest is BSD-3-Clause.
+# evndns.* and include/event2/dns.h has part of LicenseRef-Fedora-Public-Domain
+License:        BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 URL:            http://libevent.org/
 Source0:        https://github.com/libevent/libevent/releases/download/release-%{version}-stable/libevent-%{version}-stable.tar.gz
 
@@ -60,11 +61,7 @@ BuildArch: noarch
 This package contains the development documentation for %{name}.
 
 %prep
-%setup -q -n libevent-%{version}-stable
-%patch01 -p1 -b .nonettests
-%patch02 -p1 -b .fix-install
-%patch03 -p1 -b .fix-install-2
-%patch04 -p1 -b .revert-problematic-change
+%autosetup -p1 -n libevent-%{version}-stable
 
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn test/check-dumpevents.py \
                                event_rpcgen.py
@@ -148,6 +145,10 @@ mkdir -p $RPM_BUILD_ROOT/%{develdocdir}/sample
 %doc %{develdocdir}/
 
 %changelog
+* Tue Feb 13 2024 Joe Orton <jorton@redhat.com> - 2.1.12-12
+- use autosetup
+- SPDX migration (Miroslav Suchý)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.12-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

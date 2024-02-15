@@ -7,7 +7,7 @@
 
 Name:           krdp
 Version:        5.27.80~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for creating an RDP server
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -53,6 +53,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %package server
 Summary:        Simple RDP server using %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       /usr/bin/openssl
 
 %description server
 %{summary}.
@@ -87,6 +88,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Feb 13 2024 Alessandro Astone <ales.astone@gmail.com> - 5.27.80~git20240131.f36bf16-4
+- krdp-server requires openssl binary
+
 * Fri Feb 09 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.27.80~git20240131.f36bf16-1
 - Bump to new git snapshot
 - Restrict to FreeRDP 2.x for now

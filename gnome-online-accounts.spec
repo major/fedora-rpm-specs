@@ -4,7 +4,7 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.49.1
+Version:	3.49.2
 Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
@@ -120,6 +120,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Tue Feb 13 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.2-1
+- 3.49.2
+
 * Mon Feb 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.1-1
 - 3.49.1
 

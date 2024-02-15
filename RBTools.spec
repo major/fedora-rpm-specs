@@ -1,6 +1,6 @@
 Name:           RBTools
 Version:        4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for use with ReviewBoard
 
 License:        MIT
@@ -11,6 +11,10 @@ Patch:          build_release.patch
 # Upstream is aware, but keeps using the deprecated method for
 # Python 2.7 compatibility, see commit fb453a9
 Patch:          RBTools-4.0-Fix-Python-3.12-compatibility.patch
+# Ignore DeprecationWarnings from pkg_resources in test_main.
+# Upstream moved to packaging+importlib.resources/.metadata in
+# https://github.com/reviewboard/rbtools/commit/3fa65df6f2a
+Patch:          ignore-pkg_resources-DeprecationWarnings-in-test_main.patch
 
 BuildArch:      noarch
 
@@ -79,6 +83,9 @@ cp rbtools/commands/conf/_rbt-zsh-completion \
 
 
 %changelog
+* Wed Feb 07 2024 Miro Hrončok <mhroncok@redhat.com> - 4.1-4
+- Make tests pass even when pkg_resources emits DeprecationWarnings
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,9 @@
-%global forgeurl https://github.com/Bitcoin-ABC/secp256k1
+%global forgeurl https://github.com/bitcoin-core/secp256k1
 
 Name:    libsecp256k1
-Version: 0.25.1
-Release: 6%{?dist}
+Epoch:   1
+Version: 0.4.1
+Release: 1%{?dist}
 Summary: Optimized C library for EC operations on curve secp256k1
 
 %forgemeta
@@ -21,7 +22,7 @@ BuildRequires: make
 
 Includes support for Schnorr signature.
 
-Uses the implementation maintained by Bitcoin-ABC.
+Uses the implementation maintained by Bitcoin Core.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -36,28 +37,23 @@ developing applications that use %{name}.
 %forgesetup
 
 %build
-# This package has a configure test which uses ASMs, but does not link the
-# resultant .o files.  As such the ASM test is always successful, even on
-# architectures were the ASM is not valid when compiling with LTO.
-#
-# -ffat-lto-objects is sufficient to address this issue.  It is the default
-# for F33, but is expected to only be enabled for packages that need it in
-# F34, so we use it here explicitly
-%define _lto_cflags -flto=auto -ffat-lto-objects
-
 ./autogen.sh
-%configure --disable-static \
-           --enable-module-recovery \
-           --enable-experimental \
-           --enable-module-ecdh
-
+%configure \
+    --disable-static \
+    --disable-benchmark \
+    --disable-coverage \
+    --enable-module-ecdh \
+    --enable-module-recovery \
+    --enable-module-extrakeys \
+    --enable-module-schnorrsig \
+    --enable-tests \
+    --enable-exhaustive-tests \
+    --with-gnu-ld
 
 %make_build
 
 %install
 %make_install
-
-find %{buildroot} -name '*.la' -delete
 
 %check
 make check
@@ -66,17 +62,25 @@ make check
 %files
 %license COPYING
 %doc README.md
-%{_libdir}/%{name}.so.0*
+%doc CHANGELOG.md
+%doc SECURITY.md
+%{_libdir}/%{name}.so.2
+%{_libdir}/%{name}.so.2.1.1
 
 %files devel
 %license COPYING
 %doc README.md
+%doc examples
 %{_includedir}/*
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Mon Feb 12 2024 Jonny Heggheim <hegjon@gmail.com> - 0.4.1-1
+- Using the implementation by Bitcoin Core
+- Set epoch to 1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

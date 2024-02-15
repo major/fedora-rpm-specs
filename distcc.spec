@@ -1,6 +1,8 @@
+%global _lto_cflags %nil
+
 Name:       distcc
 Version:    3.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
@@ -139,6 +141,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Tue Feb 13 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.4-4
+- Disable LTO to fix distccmon-gnome crash, 2263992.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

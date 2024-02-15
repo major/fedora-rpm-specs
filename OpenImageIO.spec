@@ -16,7 +16,7 @@ Source0:        https://github.com/AcademySoftwareFoundation/OpenImageIO/archive
 
 Patch0:         https://patch-diff.githubusercontent.com/raw/AcademySoftwareFoundation/OpenImageIO/pull/4143.patch
 
-# OpenVDB no longer build for i686
+# OpenVDB no longer builds for i686
 ExcludeArch:    i686
 
 # Needed until LibRaw is available on s390x and aarch64
@@ -55,6 +55,7 @@ BuildRequires:  cmake(OpenEXR)
 %else
 BuildRequires:  OpenEXR-devel ilmbase-devel
 %endif
+BuildRequires:  OpenColorIO-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  openvdb-devel
@@ -67,10 +68,6 @@ BuildRequires:  robin-map-devel
 BuildRequires:  tbb-devel
 BuildRequires:  zlib-devel
 
-# WARNING: OpenColorIO and OpenImageIO are cross dependent.
-# If an ABI incompatible update is done in one, the other also needs to be
-# rebuilt.
-#BuildRequires:  OpenColorIO-devel
 
 
 %description

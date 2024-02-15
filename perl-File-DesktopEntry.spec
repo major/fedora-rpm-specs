@@ -31,8 +31,11 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) 
 BuildRequires:  perl(utf8)
-%if %{with perl_File_DesktopEntry_enables_optional_test}
+%if %{with perl_File_DesktopEntry_enables_optional_test} && !%{defined perl_bootstrap}
 # Optional tests
+# Build cycle: perl-CPAN-Changes → perl-Path-Tiny → perl-Unicode-UTF8
+# → perl-Module-Install-ReadmeFromPod → perl-IO-All → perl-File-MimeInfo
+# → perl-File-DesktopEntry → perl-CPAN-Changes
 BuildRequires:  perl(Test::CPAN::Changes)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00

@@ -2,7 +2,9 @@
 %bcond_without check
 
 # reduce debuginfo verbosity to work around OOM problems on 32-bit arches
-%global rustflags_debuginfo 1
+%ifarch %{ix86}
+%global rustflags_debuginfo 0
+%endif
 
 %global crate cargo-c
 %global upstream_version 0.9.28+cargo-0.75.0

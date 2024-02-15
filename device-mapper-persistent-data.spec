@@ -10,8 +10,8 @@
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
 Version: 1.0.11
-Release: 1%{?dist}%{?release_suffix}
-License: GPLv3+
+Release: 3%{?dist}%{?release_suffix}
+License: GPL-3.0-only
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
@@ -37,52 +37,8 @@ are included and era check, dump, restore and invalidate to manage
 snapshot eras
 
 %prep
-%autosetup -p1 -n thin-provisioning-tools-%{version}%{?version_suffix}
-#%%cargo_prep
-#%%cargo_generate_buildrequires
-tar xf %{SOURCE1}
-mkdir -p .cargo
-(
-# Part from %%cargo_prep:
-set -euo pipefail
-/usr/bin/mkdir -p target/rpm
-/usr/bin/ln -s rpm target/release
-/usr/bin/rm -rf .cargo/
-/usr/bin/mkdir -p .cargo
-cat > .cargo/config << EOF
-[build]
-rustc = "/usr/bin/rustc"
-rustdoc = "/usr/bin/rustdoc"
-
-[profile.rpm]
-inherits = "release"
-opt-level = 3
-codegen-units = 1
-debug = 2
-strip = "none"
-
-[env]
-CFLAGS = "-O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -m64  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer "
-CXXFLAGS = "-O2 -flto=auto -ffat-lto-objects -fexceptions -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3 -Wp,-D_GLIBCXX_ASSERTIONS -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -m64  -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer "
-LDFLAGS = "-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -Wl,--build-id=sha1  "
-
-[install]
-root = "/home/mcsontos/rpmbuild/BUILDROOT/%{NAME}-%{VERSION}-%{RELEASE}.x86_64/usr"
-
-[term]
-verbose = true
-EOF
-
-# Our own part:
-cat >> .cargo/config <<END
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-
-END
-)
+%autosetup -p1 -n thin-provisioning-tools-%{version}%{?version_suffix} -a1
+%cargo_prep -v vendor
 echo %{version}-%{release} > VERSION
 
 %generate_buildrequires
@@ -90,6 +46,9 @@ echo %{version}-%{release} > VERSION
 %build
 #make %{?_smp_mflags} V=
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%cargo_vendor_manifest
 
 %if %{with check}
 %check
@@ -102,7 +61,10 @@ echo %{version}-%{release} > VERSION
 %make_install MANDIR=%{_mandir}
 
 %files
-%doc COPYING README.md
+%doc README.md
+%license COPYING
+%license LICENSE.dependencies
+%license cargo-vendor.txt
 %{_mandir}/man8/cache_check.8.gz
 %{_mandir}/man8/cache_dump.8.gz
 %{_mandir}/man8/cache_metadata_size.8.gz
@@ -149,6 +111,12 @@ echo %{version}-%{release} > VERSION
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Tue Feb 13 2024 Marian Csontos <mcsontos@redhat.com> - 1.0.11-3
+- SPDX migration
+
+* Thu Feb 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.11-2
+- Update Rust macro usage
+
 * Thu Feb 08 2024 Marian Csontos <mcsontos@redhat.com> - 1.0.11-1
 - Update to latest upstream release 1.0.11.
 

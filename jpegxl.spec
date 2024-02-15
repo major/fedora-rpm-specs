@@ -4,8 +4,8 @@
 
 # Uncomment for special build to rebuild aom on bumped soname.
 #global new_soname 1
-%global sover_old 0.7
-%global sover 0.8
+%global sover_old 0.8
+%global sover 0.9
 
 %global gdk_pixbuf_moduledir $(pkgconf gdk-pixbuf-2.0 --variable=gdk_pixbuf_moduledir)
 
@@ -20,7 +20,7 @@ decoder).}
 
 Name:           jpegxl
 Epoch:          1
-Version:        0.8.2
+Version:        0.9.2
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 
@@ -30,8 +30,7 @@ Summary:        JPEG XL image format reference implementation
 # skcms: BSD
 License:        BSD-3-Clause AND Apache-2.0 AND Zlib
 URL:            https://jpeg.org/jpegxl/
-VCS:            https://github.com/libjxl/libjxl
-Source0:        %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/libjxl/libjxl/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # set VERSION and run ./update_third_party.sh to get Source1
 Source1:        third_party-%{version}.tar.gz
@@ -169,7 +168,7 @@ rm -rf third_party/
 
 %install
 %cmake_install
-rm -v %{buildroot}%{_libdir}/*.a
+#rm -v %{buildroot}%{_libdir}/*.a
 
 %if 0%{?new_soname}
 cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
@@ -181,13 +180,15 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %doc CONTRIBUTING.md CONTRIBUTORS README.md
 %{_bindir}/cjxl
 %{_bindir}/djxl
-%{_bindir}/cjpeg_hdr
+%{_bindir}/cjpegli
+%{_bindir}/djpegli
 %{_bindir}/jxlinfo
 %{_mandir}/man1/cjxl.1*
 %{_mandir}/man1/djxl.1*
 
 %files -n libjxl-devtools
-%{_bindir}/fuzzer_corpus
+%{_bindir}/djxl_fuzzer_corpus
+%{_bindir}/jpegli_dec_fuzzer_corpus
 %{_bindir}/butteraugli_main
 %{_bindir}/decode_and_encode
 %{_bindir}/display_to_hlg
@@ -201,6 +202,7 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_bindir}/ssimulacra2
 %{_bindir}/xyb_range
 %{_bindir}/jxl_from_tree
+%{_bindir}/local_tone_map
 
 %files doc
 %doc doc/*.md
@@ -211,6 +213,8 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %license LICENSE
 %{_libdir}/libjxl.so.%{sover}*
 %{_libdir}/libjxl_threads.so.%{sover}*
+%{_libdir}/libjxl_cms.so.%{sover}*
+%{_libdir}/libjxl_extras_codec.so.%{sover}*
 %if 0%{?new_soname}
 %{_libdir}/libjxl.so.%{sover_old}*
 %{_libdir}/libjxl_threads.so.%{sover_old}*
@@ -224,8 +228,11 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_includedir}/jxl/
 %{_libdir}/libjxl.so
 %{_libdir}/libjxl_threads.so
+%{_libdir}/libjxl_cms.so
+%{_libdir}/libjxl_extras_codec.so
 %{_libdir}/pkgconfig/libjxl.pc
 %{_libdir}/pkgconfig/libjxl_threads.pc
+%{_libdir}/pkgconfig/libjxl_cms.pc
 
 %files -n jxl-pixbuf-loader
 %license LICENSE

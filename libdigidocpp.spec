@@ -1,13 +1,15 @@
 Name:           libdigidocpp
 
 Version:        3.16.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
 URL:            https://github.com/open-eid/libdigidocpp
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: make
 %if 0%{?el7}
@@ -124,6 +126,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Tue Feb 13 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.16.0-7
+- Drop i686 support (leaf package)
+
 * Mon Jan 29 2024 Lukas Javorsky <ljavorsk@redhat.com> - 3.16.0-6
 - Build with system minizip-ng-compat
 - Add missing zlib.h include in ZipSerialize.cpp

@@ -1,6 +1,6 @@
 Name:		qclib
-Version:	2.4.0
-Release:	6%{?dist}
+Version:	2.4.1
+Release:	1%{?dist}
 Summary:	Library for extraction of system information for Linux on z Systems
 License:	BSD-3-Clause
 URL:		https://github.com/ibm-s390-linux/qclib
@@ -61,7 +61,7 @@ make DESTDIR=%{buildroot} DOCDIR=%{_docdir} installdoc
 
 
 %check
-QC_CHECK_CONSISTENCY=0 make test-sh test
+make test-sh test
 
 
 %files
@@ -84,6 +84,9 @@ QC_CHECK_CONSISTENCY=0 make test-sh test
 
 
 %changelog
+* Tue Feb 13 2024 Dan Horák <dan[at]danny.cz> - 2.4.1-1
+- updated to 2.4.1
+
 * Tue Feb 06 2024 Dan Horák <dan[at]danny.cz> - 2.4.0-6
 - add missing Requires
 
