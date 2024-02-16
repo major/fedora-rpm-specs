@@ -12,7 +12,7 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:       pl
-Version:    9.2.0
+Version:    9.2.1
 Release:    1%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
@@ -159,6 +159,9 @@ Patch2:     swipl-8.2.0-unbundle-libstemmer.patch
 Patch3:     swipl-9.0.4-zlib.patch
 # Fix an LTO type mismatch
 Patch4:     swipl-9.2.0-lto-mismatch.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  findutils
@@ -606,6 +609,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 9.2.1-1
+- Version 9.2.1
+
 * Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 9.2.0-1
 - Version 9.2.0
 - Add patch to fix an LTO type mismatch

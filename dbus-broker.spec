@@ -4,7 +4,7 @@ Name:                 dbus-broker
 Version:              35
 Release:              %autorelease
 Summary:              Linux D-Bus Message Broker
-License:              Apache-2.0 AND LGPL-2.0-or-later and LGPL-2.1-or-later AND (Apache-2.0 OR LGPL-2.1-or-later)
+License:              Apache-2.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND (Apache-2.0 OR LGPL-2.1-or-later)
 URL:                  https://github.com/bus1/dbus-broker
 Source0:              https://github.com/bus1/dbus-broker/releases/download/v%{version}/dbus-broker-%{version}.tar.xz
 BuildRequires:        pkgconfig(audit)

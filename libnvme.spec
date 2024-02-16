@@ -3,18 +3,11 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.7.1
-Release: 4%{?dist}
+Version: 1.8
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# https://github.com/linux-nvme/libnvme/pull/765
-Patch0:  libnvme-1.8.0-initialize_autoclean_vars.patch
-# https://github.com/linux-nvme/libnvme/pull/780
-Patch1:  libnvme-1.8.0-initialize_autoclean_vars-2.patch
-# https://github.com/linux-nvme/libnvme/pull/766
-Patch2:  libnvme-1.8.0-nbft-parser-fixes-766.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -25,7 +18,7 @@ BuildRequires: json-c-devel >= 0.13
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: keyutils-libs-devel
-%if (0%{?rhel} == 0)
+%if (0%{?rhel} == 0) || (0%{?rhel} > 9)
 BuildRequires: kernel-headers >= 5.15
 %endif
 
@@ -82,9 +75,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.7.1
+%{_libdir}/libnvme.so.1.8.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.7.1
+%{_libdir}/libnvme-mi.so.1.8.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -104,6 +97,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Wed Feb 14 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.8-1
+- Upstream v1.8 release
+
 * Fri Feb 09 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.7.1-4
 - nbft: Fix SSNS HFI indexes parsing
 - cleanup: Explicitly initialize auto-cleanup variables

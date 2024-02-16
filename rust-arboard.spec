@@ -6,7 +6,7 @@
 %global crate arboard
 
 Name:           rust-arboard
-Version:        3.3.0
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Image and text handling for the OS clipboard
 
@@ -15,9 +15,6 @@ URL:            https://crates.io/crates/arboard
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          arboard-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * bump x11rb dependency from 0.12 to 0.13
-Patch:          arboard-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

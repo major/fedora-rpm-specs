@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -6,8 +6,8 @@
 %endif
 
 Name:     uboot-tools
-Version:  2024.01
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Version:  2024.04
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -19,9 +19,7 @@ Source1:  aarch64-boards
 
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   disable-VBE-by-default.patch
-Patch3:   Provide-a-fallback-to-smbios-tables.patch
 Patch5:   enable-bootmenu-by-default.patch
-Patch6:   uefi-Boot-var-automatic-management-for-removable-medias.patch
 Patch7:   Add-video-damage-tracking.patch
 
 # Board fixes and enablement
@@ -29,8 +27,6 @@ Patch7:   Add-video-damage-tracking.patch
 Patch10:  rpi-Switch-to-OF_HAS_PRIOR_STAGE-by-default.patch
 # Rockchips improvements
 Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
-# Lots more to do, mostly untested, definitely unsupported
-Patch12:  rpi5-initial-support.patch
 #Patch12: 0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
 
 BuildRequires:  bc
@@ -208,6 +204,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Wed Feb 14 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.2.rc2
+- Update to 2024.04 RC2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2024.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

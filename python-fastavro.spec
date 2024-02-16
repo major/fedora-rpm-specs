@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-fastavro
-Version:        1.8.4
+Version:        1.9.4
 Release:        %autorelease
 Summary:        Fast Avro for Python
 
@@ -23,10 +23,6 @@ Summary:        Fast Avro for Python
 License:        MIT AND Apache-2.0
 URL:            https://github.com/fastavro/fastavro
 Source:         %{pypi_source fastavro}
-
-# Don't run `python .../fastavro/__main__.py` in tests
-# It explodes when no .pth files are installed
-Patch:          https://github.com/fastavro/fastavro/pull/730.patch
 
 # Upstream does not test, nor support 32 bit systems
 # Issue: https://github.com/fastavro/fastavro/issues/526
@@ -155,12 +151,6 @@ ln -s '%{buildroot}%{python3_sitearch}/fastavro' .
 # the root cause, but it doesn’t seem to represent a real problem.
 k="${k-}${k+ and }not test_regular_vs_ordered_dict_map_typeerror"
 k="${k-}${k+ and }not test_regular_vs_ordered_dict_record_typeerror"
-
-# Two tests fail when the zlib implementation is zlib-ng (F40+): the compressed
-# block sizes are slightly different.
-# https://github.com/fastavro/fastavro/issues/740
-k="${k-}${k+ and }not test_block_iteration_deflated_disk"
-k="${k-}${k+ and }not test_block_iteration_deflated_memory"
 
 %pytest -k "${k-}"
 

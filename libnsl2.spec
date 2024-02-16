@@ -12,7 +12,7 @@ Version:    2.0.1
 Release:    1%{?relsuffix}%{?dist}
 Summary:    Public client interface library for NIS(YP) and NIS+
 
-License:    BSD and LGPLv2+
+License:    BSD-3-Clause AND LGPL-2.1-or-later
 URL:        https://github.com/thkukuk/libnsl
 
 Source0:    https://github.com/thkukuk/libnsl/archive/v%{version}.tar.gz

@@ -23,12 +23,17 @@ Patch:          0005-gate-definition-of-symmetric-equality-operators-on-i.patch
 Patch:          0006-do-not-define-operator-in-C-20.patch
 # Downstream-patch for gtest
 Patch:          0007-do-not-include-gtest_src_dir.patch
+# Make valgrind optional for riscv64
+# https://github.com/Tencent/rapidjson/pull/2263
+Patch:          0008-Make-valgrind-optional-for-riscv64.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	gtest-devel
+%ifarch %{valgrind_arches}
 BuildRequires:	valgrind
+%endif
 BuildRequires:	doxygen
 
 %description

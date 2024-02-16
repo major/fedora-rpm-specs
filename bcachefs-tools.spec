@@ -15,8 +15,8 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.4.1
-Release:        3%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -83,9 +83,9 @@ check, modify and correct any inconsistencies in the bcachefs filesystem.
 %files
 %license COPYING
 %if %{with rust}
-%license rust-src/LICENSE.rust-deps
+%license LICENSE.rust-deps
 %if %{with rust_vendorized}
-%license rust-src/cargo-vendor.txt
+%license cargo-vendor.txt
 %license COPYING.rust-dependencies
 %endif
 %endif
@@ -137,30 +137,22 @@ rm -rf vendor
 
 %if %{with rust} && ! %{with rust_vendorized}
 %generate_buildrequires
-cd rust-src
 %cargo_generate_buildrequires
 cd bch_bindgen
 %cargo_generate_buildrequires
-cd ../..
+cd ../
 %endif
 
 
 %build
+%make_build %{make_opts}
 %if %{with rust}
-pushd rust-src
-%cargo_prep -v ../vendor
+%cargo_prep %{?with_rust_vendorized:-v vendor}
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.rust-deps
-%if %{with rust_vendorized}
-%cargo_vendor_manifest
-# fix broken version string for forked bindgen
-sed -e 's|bindgen v0.64.0 (https://evilpiepirate.org/git/rust-bindgen.git#f773267b)|bindgen v0.64.0+bcfsmod.git20230227.f773267b|' -i cargo-vendor.txt
+%{?with_rust_vendorized:%cargo_vendor_manifest}
 %endif
-
-popd
-%endif
-%make_build %{make_opts}
 
 
 %install
@@ -177,6 +169,9 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.6.1-1
+- Update to 1.6.1
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

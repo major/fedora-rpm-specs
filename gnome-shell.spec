@@ -33,7 +33,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define adwaita_version 1.0.0
 %define mutter_version 46~beta
 %define polkit_version 0.100
-%define gsettings_desktop_schemas_version 42~beta
+%define gsettings_desktop_schemas_version 46~beta
 %define ibus_version 1.5.2
 %define gnome_bluetooth_version 1:42.3
 %define gstreamer_version 1.4.5
@@ -230,10 +230,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_userunitdir}/org.gnome.Shell.target
 %{_userunitdir}/org.gnome.Shell@wayland.service
 %{_userunitdir}/org.gnome.Shell@x11.service
-# Co own directory instead of pulling in xdg-desktop-portal - we
-# are providing a backend to the portal, not depending on it
-%dir %{_datadir}/xdg-desktop-portal/portals/
-%{_datadir}/xdg-desktop-portal/portals/gnome-shell.portal
 %{_libdir}/gnome-shell/
 %{_libexecdir}/gnome-shell-calendar-server
 %{_libexecdir}/gnome-shell-perf-helper

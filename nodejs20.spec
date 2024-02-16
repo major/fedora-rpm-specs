@@ -30,7 +30,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 11
-%global nodejs_patch 0
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -79,6 +79,12 @@
 # nghttp2 - from deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
 %global nghttp2_version 1.58.0
 
+# nghttp3 - from deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+%global nghttp3_version 0.7.0
+
+# ngtcp2 from deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+%global ngtcp2_version 0.8.1
+
 # ICU - from tools/icu/current_ver.dep
 %global icu_major 73
 %global icu_minor 2
@@ -88,6 +94,8 @@
 %{!?little_endian: %global little_endian %(%{python3} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
+# simdutf from deps/simdutf/simdutf.h
+%global simdutf_version 4.0.4
 
 # OpenSSL minimum version
 %global openssl11_minimum 1:1.1.1
@@ -214,6 +222,8 @@ Requires:      libuv >= 1:%{libuv_version}
 # Node.js frequently bumps this faster than Fedora can follow,
 # so we will bundle it.
 Provides: bundled(nghttp2) = %{nghttp2_version}
+Provides: bundled(nghttp3) = %{nghttp3_version}
+Provides: bundled(ngtcp2) = %{ngtcp2_version}
 
 # Temporarily bundle llhttp because the upstream doesn't
 # provide releases for it.
@@ -302,6 +312,7 @@ Provides: bundled(icu) = %{icu_version}
 # or there's no option to built it as a shared dependency, so we bundle them
 Provides: bundled(uvwasi) = %{uvwasi_version}
 Provides: bundled(histogram) = %{histogram_version}
+Provides: bundled(simdutf) = %{simdutf_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
@@ -311,7 +322,7 @@ Provides: bundled(ada) = 2.7.4
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
 %if %{with bootstrap}
 Provides: bundled(nodejs-cjs-module-lexer) = 1.2.2
-Provides: bundled(nodejs-undici) = 5.27.2
+Provides: bundled(nodejs-undici) = 5.28.3
 %else
 BuildRequires: nodejs-cjs-module-lexer nodejs-undici
 Requires: nodejs-cjs-module-lexer nodejs-undici

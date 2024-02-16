@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version:        5.115.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -74,6 +74,9 @@ image formats.
 
 
 %changelog
+* Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 5.115.0-2
+- Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

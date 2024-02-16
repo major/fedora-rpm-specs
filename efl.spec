@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -596,6 +596,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 1.27.0-7
+- Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
+
 * Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 1.27.0-6
 - Rebuilt for libavif 1.0.3
 

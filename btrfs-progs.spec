@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.7
+Version:        6.7.1
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -122,8 +122,8 @@ popd
 %{_sbindir}/btrfs
 %{_sbindir}/btrfs-map-logical
 %{_sbindir}/btrfs-find-root
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_mandir}/man5/*btrfs*
+%{_mandir}/man8/*btrfs*
 %{_udevrulesdir}/64-btrfs-dm.rules
 %{_udevrulesdir}/64-btrfs-zoned.rules
 %{_datadir}/bash-completion/completions/btrfs
@@ -137,7 +137,8 @@ popd
 %{_libdir}/libbtrfsutil.so.1*
 
 %files devel
-%{_includedir}/*
+%{_includedir}/btrfs/
+%{_includedir}/btrfsutil.h
 %{_libdir}/libbtrfs.so
 %{_libdir}/libbtrfsutil.so
 %{_libdir}/pkgconfig/libbtrfsutil.pc
@@ -148,6 +149,10 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.7.1-1
+- Update to 6.7.1
+- Make file list globs more specific
+
 * Mon Jan 22 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.7-1
 - Update to 6.7
 

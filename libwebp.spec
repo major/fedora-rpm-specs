@@ -14,11 +14,11 @@
 
 Name:          libwebp
 Version:       1.3.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
-License:       BSD
+License:       Apache-2.0 and LicenseRef-scancode-google-patent-license-webm and BSD-3-Clause and FSFULLRWD
 Source0:       http://downloads.webmproject.org/releases/webp/%{name}-%{version}.tar.gz
 Source1:       libwebp_jni_example.java
 # Fix build with freeglut
@@ -287,6 +287,9 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 
 
 %changelog
+* Wed Feb 14 2024 Martin Stransky <stransky@redhat.com> - 1.3.2-5
+- Migrated to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

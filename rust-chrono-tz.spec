@@ -5,7 +5,7 @@
 %global crate chrono-tz
 
 Name:           rust-chrono-tz
-Version:        0.8.5
+Version:        0.8.6
 Release:        %autorelease
 Summary:        TimeZone implementations for chrono from the IANA database
 
@@ -25,7 +25,7 @@ TimeZone implementations for chrono from the IANA database.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Provides:       bundled(tzdata) = 2023d
+Provides:       bundled(tzdata) = 2024a
 
 %description    devel %{_description}
 

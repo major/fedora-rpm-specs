@@ -2,7 +2,7 @@ Name:       ttembed
 Version:    1.1
 Release:    21%{?dist}
 Summary:    Remove embedding limitations from TrueType fonts
-License:    Public Domain
+License:    Unlicense
 URL:        https://github.com/hisdeedsaredust/ttembed
 Source0:    https://github.com/hisdeedsaredust/ttembed/archive/v%{version}.tar.gz
 

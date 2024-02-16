@@ -1,17 +1,11 @@
 Name:           glibd
-Version:        2.3.0
-Release:        13%{?dist}
+Version:        2.4.3
+Release:        1%{?dist}
 Summary:        D bindings for the GLib C Utility Library
 
 License:        LGPLv3+ with exceptions
 URL:            https://github.com/gtkd-developers/GlibD
 Source0:        %{url}/archive/v%{version}/GlibD-%{version}.tar.gz
-
-# Patches from upstream
-Patch0001:      0001-Fix-implementing-a-gobject-class-with-ImplementClass.patch
-Patch0002:      0002-Fix-building-for-GLib-2.68-Fedora-34.patch
-Patch0003:      0003-Make-sure-GlibD-builds-for-Glib-2.70.patch
-Patch0004:      0004-Glib-2.72.patch
 
 BuildRequires:  gcc
 BuildRequires:  ldc
@@ -22,7 +16,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  gir-to-d >= 0.17.0
+BuildRequires:  gir-to-d >= 0.23.2
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -73,6 +67,9 @@ export DFLAGS="%{_d_optflags}"
 
 
 %changelog
+* Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.4.3-1
+- Rebase to 2.4.3
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

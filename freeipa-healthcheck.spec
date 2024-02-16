@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.16
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -28,6 +28,8 @@ Source1:        ipahealthcheck.conf
 Patch0001:      0001-Remove-ipaclustercheck.patch
 Patch0002:      0002-Don-t-fail-if-a-service-name-cannot-be-looked-up-in-.patch
 Patch0003:      0003-Temporarily-disable-the-ipa-ods-exporter-service-sta.patch
+Patch0004:      0004-Skip-DogtagCertsConfigCheck-for-PKI-versions-11.5.0.patch
+Patch0005:      0005-test-Handle-PKI-11.5.0-not-storing-certs-in-CS.cfg.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -157,6 +159,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Wed Feb 14 2024 Rob Crittenden <rcritten@redhat.com> - 0.16-5
+- Skip DogtagCertsConfigCheck for PKI versions >= 11.5.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

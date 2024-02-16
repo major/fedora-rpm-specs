@@ -2,7 +2,7 @@
 
 Name:           weston
 Version:        %{apiver}.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -60,7 +60,7 @@ BuildRequires:  pkgconfig(xcb-xfixes)
 BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  pkgconfig(libpipewire-0.2)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  poppler-devel
 BuildRequires:  poppler-glib-devel
 BuildRequires:  gstreamer1-devel
@@ -195,6 +195,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 13.0.0-4
+- Use correct PipeWire dependency
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 13.0.0-3
 - Rebuilt for turbojpeg 3.0.2
 

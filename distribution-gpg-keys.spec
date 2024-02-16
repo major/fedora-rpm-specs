@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
-Version:	1.100
-Release:	3%{?dist}
+Version:	1.101
+Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,11 +53,10 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 14 2024 Miroslav Suchý <msuchy@redhat.com>
+- add F42 key and move rawhide link
+- update copr keys
+- update postgresql keys
 
 * Tue Jan 09 2024 Miroslav Suchý <msuchy@redhat.com> 1.100-1
 - update copr keys

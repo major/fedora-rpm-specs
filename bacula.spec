@@ -1,22 +1,29 @@
+# libs3
+%global commit 66885387c9f761253988321de9c4bbfc1660717d
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global uid 133
 %global username bacula
 
-%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
+%if 0%{?rhel} && 0%{?rhel} <= 10
+%bcond_with qt
+%endif
 
 Name:               bacula
-Version:            13.0.3
-Release:            5%{?dist}
+Version:            13.0.4
+Release:            3%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
-License:            AGPLv3 with exceptions
+License:            AGPL-3.0-only with exceptions
 URL:                http://www.bacula.org
 
+# AGPL-3.0-only with exceptions
 Source0:            http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 Source2:            quickstart_postgresql.txt
 Source3:            quickstart_mysql.txt
 Source4:            quickstart_sqlite3.txt
-Source5:            README.Redhat
+Source5:            README.md
 Source6:            %{name}.logrotate
 # Firewalld cumulative (bacula.xml) and fd (bacula-client.xml) services are in firewalld:
 Source7:            %{name}-storage.xml
@@ -28,6 +35,11 @@ Source15:           %{name}-fd.sysconfig
 Source16:           %{name}-dir.sysconfig
 Source17:           %{name}-sd.sysconfig
 Source19:           https://salsa.debian.org/bacula-team/bacula/-/raw/master/debian/additions/bacula-tray-monitor.png#/bacula-tray-monitor.png
+
+# LGPL-3.0-only - S3 libs with AWS glacier support
+# https://gitlab.bacula.org/bacula-community-edition/libs3/-/commits/master?ref_type=heads
+Source20:            https://gitlab.bacula.org/bacula-community-edition/libs3/-/archive/%{commit}/libs3-%{shortcommit}.tar.bz2
+Source21:            libs3-openssl.patch
 
 Patch1:             %{name}-openssl.patch
 Patch2:             %{name}-seg-fault.patch
@@ -56,6 +68,7 @@ BuildRequires:      gcc
 BuildRequires:      gcc-c++
 BuildRequires:      glibc-devel
 BuildRequires:      libacl-devel
+BuildRequires:      libcurl-devel
 BuildRequires:      libstdc++-devel
 BuildRequires:      libxml2-devel
 BuildRequires:      libcap-devel
@@ -74,19 +87,15 @@ BuildRequires:      systemd
 BuildRequires:      zlib-devel
 
 %if 0%{?fedora} || 0%{?rhel} > 7
+BuildRequires:      libpq-devel
 BuildRequires:      mariadb-connector-c-devel
 # https://fedoraproject.org/wiki/Changes/perl_Package_to_Install_Core_Modules
 BuildRequires:      perl-interpreter
 %else
 BuildRequires:      mysql-devel
 BuildRequires:      perl
-BuildRequires:      tcp_wrappers-devel
-%endif
-
-%if 0%{?fedora}
-BuildRequires:      libpq-devel
-%else
 BuildRequires:      postgresql-devel
+BuildRequires:      tcp_wrappers-devel
 %endif
 
 Requires(post):     firewalld-filesystem
@@ -189,6 +198,7 @@ Requires:           bacula-libs-sql%{?_isa} = %{version}-%{release}
 Requires:           mt-st
 Requires:           mtx
 Requires:           sdparm
+Provides:           bundled(libs3) = 4.1.bac
 # Storage backends merged into core.
 Provides:           bacula-storage-common = %{version}-%{release}
 Obsoletes:          bacula-storage-common < 5.2.2-2
@@ -290,7 +300,7 @@ Requires:           nagios-common%{?_isa}
 Provides check_bacula support for Nagios.
 
 %prep
-%autosetup -p1
+%autosetup -a20 -p1
 
 cp %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} .
 
@@ -303,12 +313,23 @@ autoconf -I autoconf/ -o configure autoconf/configure.in
 # Remove execution permissions from files we're packaging as docs later on
 find updatedb -type f | xargs chmod -x
 
-# Remove dash requirement:
-sed -i -e 's|/bin/dash|/bin/sh|g' scripts/baculabackupreport.in
-
 %build
+# Set correct build options for libs3 if not on EL10+ or Fedora:
+%if 0%{?rhel} < 10
+%set_build_flags
+export CFLAGS="%{optflags} -fPIC"
+export CXXFLAGS="%{optflags} -fPIC"
+%endif
+
+pushd libs3-%{commit}
+
+patch -p1 -i %{SOURCE21}
+%make_build exported
+
+popd
+
 export CFLAGS="%{optflags} -I%{_includedir}/ncurses"
-export CPPFLAGS="%{optflags} -I%{_includedir}/ncurses"
+export CXXFLAGS="%{optflags} -I%{_includedir}/ncurses"
 %if %{with qt}
 export PATH="$PATH:%{_qt5_bindir}"
 %endif
@@ -316,7 +337,6 @@ export PATH="$PATH:%{_qt5_bindir}"
 %configure \
     --disable-conio \
     --disable-rpath \
-    --disable-s3 \
     --docdir=%{_datadir}/bacula \
 %if %{with qt}
     --enable-bat \
@@ -350,6 +370,7 @@ export PATH="$PATH:%{_qt5_bindir}"
     --with-scriptdir=%{_libexecdir}/bacula \
     --with-sd-password=@@SD_PASSWORD@@ \
     --with-smtp-host=localhost \
+    --with-s3=`pwd`/libs3-%{commit}/build \
     --with-sqlite3 \
     --with-subsys-dir=%{_localstatedir}/lock/subsys \
 %if 0%{!?fedora} || 0%{!?rhel} > 7
@@ -372,6 +393,9 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # This will be managed through alternatives, as it requires the name to NOT
 # change between upgrades, so the versioned library name can not be used.
 rm -f %{buildroot}%{_libdir}/libbaccats.so
+
+# Remove placeholder
+rm -f %{buildroot}%{_libexecdir}/%{name}/baculabackupreport
 
 %if %{with qt}
 # Bat
@@ -518,7 +542,7 @@ exit 0
 %{_libdir}/libbacsql-%{version}.so
 
 %files common
-%doc README.Redhat quickstart_*
+%doc README.md quickstart_*
 %config(noreplace) %{_sysconfdir}/logrotate.d/bacula
 %dir %{_libdir}/%{name}
 %dir %{_localstatedir}/log/bacula %attr(750, bacula, bacula)
@@ -540,7 +564,6 @@ exit 0
 %config(noreplace) %{_sysconfdir}/bacula/query.sql %attr(640,root,bacula)
 %config(noreplace) %{_sysconfdir}/sysconfig/bacula-dir
 %{_libdir}/%{name}/ldap-dir.so
-%{_libexecdir}/%{name}/baculabackupreport
 %{_libexecdir}/%{name}/create_bacula_database
 %{_libexecdir}/%{name}/delete_catalog_backup
 %{_libexecdir}/%{name}/drop_bacula_database
@@ -590,6 +613,10 @@ exit 0
 %files storage
 %config(noreplace) %{_sysconfdir}/bacula/bacula-sd.conf %attr(640,root,root)
 %config(noreplace) %{_sysconfdir}/sysconfig/bacula-sd
+%{_libdir}/%{name}/bacula-sd-cloud-driver-%{version}.so
+%{_libdir}/%{name}/bacula-sd-cloud-driver.so
+%{_libdir}/%{name}/bacula-sd-cloud-s3-driver-%{version}.so
+%{_libdir}/%{name}/bacula-sd-cloud-s3-driver.so
 %{_libexecdir}/%{name}/disk-changer
 %{_libexecdir}/%{name}/isworm
 %{_libexecdir}/%{name}/mtx-changer
@@ -658,6 +685,16 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-3
+- Adjust build requirements and conditions to build on all supported EL/Fedora
+  releases.
+
+* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-2
+- Enable S3 support.
+
+* Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-1
+- Update to 13.0.4.
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

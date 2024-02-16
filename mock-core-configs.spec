@@ -3,8 +3,8 @@
 %endif
 
 Name:       mock-core-configs
-Version:    39.4
-Release:    3%{?dist}
+Version:    40.1
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -24,7 +24,7 @@ Provides: mock-configs
 # distribution-gpg-keys contains GPG keys used by mock configs
 Requires:   distribution-gpg-keys >= 1.98
 # specify minimal compatible version of mock
-Requires:   mock >= 5.0
+Requires:   mock >= 5.4.post1
 Requires:   mock-filesystem
 
 Requires(post): coreutils
@@ -151,11 +151,11 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 14 2024 Pavel Raiskup <praiskup@redhat.com>
+- new '{{ repo_arch }}' template variable used for Mageia
+- Mageia 7 is EOL (wally@mageia.org)
+- OpenMandriva i686 is EOL (frostyx@email.cz)
+- Fedora 40 branched
 
 * Thu Jan 11 2024 Pavel Raiskup <praiskup@redhat.com> 39.4-1
 - configure system_cachedir for dnf5

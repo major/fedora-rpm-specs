@@ -1,24 +1,19 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-# OCaml 5.x support was added after the most recent release
-%global commit  58459992ee9b3d56f09f6ff3dd434a52657b836c
-%global date    20230115
-%global forgeurl https://github.com/ocaml-obuild/obuild
-
 # The binary is OCaml bytecode
 %global debug_package %{nil}
 
 Name:           ocaml-obuild
-Version:        0.1.10
+Version:        0.1.11
 Summary:        Simple package build system for OCaml
 
 %forgemeta
 
-Release:        28%{?dist}
+Release:        1%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
-Source0:        %{forgesource}
+Source0:        https://github.com/ocaml-obuild/obuild/archive/refs/tags/obuild-v%{version}.tar.gz
 
 # Fix a partial function application
 # https://github.com/ocaml-obuild/obuild/issues/187
@@ -44,7 +39,7 @@ way of working, adapting parts where necessary to fully support OCaml.
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n obuild-obuild-v%{version}
 
 
 %build
@@ -81,6 +76,9 @@ help2man \
 
 
 %changelog
+* Wed Feb 14 2024 Andy Li <andy@onthewings.net> - 0.1.11-1
+- New upstream release (RHBZ#2247473).
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

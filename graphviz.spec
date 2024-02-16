@@ -27,13 +27,6 @@
 %global SHARP  0
 %endif
 
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-%ifnarch %{ix86}
-%global OCAML  1
-%else
-%global OCAML  0
-%endif
-
 %global DEVIL  1
 %global ARRRR  1
 
@@ -103,8 +96,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		9.0.0
-Release:		11%{?dist}
+Version:		10.0.1
+Release:		1%{?dist}
 License:		epl-1.0 AND cpl-1.0 AND bsd-3-clause AND mit AND gpl-3.0-or-later WITH bison-exception-2.2 AND apache-1.1 AND lgpl-2.0-or-later WITH libtool-exception AND smlnj AND hpnd-uc
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -171,9 +164,6 @@ BuildRequires:		DevIL-devel
 %if %{ARRRR}
 BuildRequires:		R-devel
 %endif
-%if %{OCAML}
-BuildRequires:		ocaml
-%endif
 %if %{QTAPPS}
 BuildRequires:		qt-devel
 %endif
@@ -205,9 +195,7 @@ BuildRequires:		golang
 %endif
 Requires:		urw-base35-fonts
 # rhbz#1838679
-Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
-# https://gitlab.com/graphviz/graphviz/-/issues/2448
-Patch1:			graphviz-9.0.0-doxygen-fix.patch
+Patch0:			graphviz-10.0.1-gvpack-neato-static.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -308,15 +296,6 @@ Requires:		%{name} = %{version}-%{release}
 
 %description ming
 Graphviz plugin for -Tswf (flash) renderer based on ming.
-%endif
-
-%if %{OCAML}
-%package ocaml
-Summary:		Ocaml extension for graphviz
-Requires:		%{name} = %{version}-%{release}
-
-%description ocaml
-Ocaml extension for graphviz.
 %endif
 
 %package perl
@@ -447,9 +426,6 @@ export CPPFLAGS=-I`ruby -e "puts File.join(RbConfig::CONFIG['includedir'], RbCon
 %endif
 %if ! %{SHARP}
 	--disable-sharp \
-%endif
-%if ! %{OCAML}
-	--disable-ocaml \
 %endif
 %if ! %{MING}
 	--without-ming \
@@ -598,7 +574,6 @@ php --no-php-ini \
 %exclude %{_libdir}/graphviz/*/*
 %exclude %{_libdir}/graphviz/libgvplugin_gd.*
 %if %{with gtk2}
-%exclude %{_libdir}/graphviz/libgvplugin_gtk.*
 %exclude %{_libdir}/graphviz/libgvplugin_gdk.*
 %endif
 %if %{DEVIL}
@@ -638,7 +613,6 @@ php --no-php-ini \
 
 %if %{with gtk2}
 %files gtk2
-%{_libdir}/graphviz/libgvplugin_gtk.so.*
 %{_libdir}/graphviz/libgvplugin_gdk.so.*
 %endif
 
@@ -667,12 +641,6 @@ php --no-php-ini \
 %files ming
 %{_libdir}/graphviz/libgvplugin_ming.so.*
 %{_libdir}/graphviz/*fdb
-%endif
-
-%if %{OCAML}
-%files ocaml
-%{_libdir}/graphviz/ocaml/
-%{_mandir}/man3/gv.3ocaml*
 %endif
 
 %files perl
@@ -730,6 +698,11 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Feb 14 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 10.0.1-1
+- New version
+  Resolves: rhbz#2263690
+- Dropped gtk and ocaml plugins (dropped upstream)
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 9.0.0-11
 - Rebuild for golang 1.22.0
 

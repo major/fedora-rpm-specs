@@ -1,8 +1,8 @@
 
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
-Version: 2.41
-Release: 34%{?dist}
+Version: 2.42
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -210,12 +210,12 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
 # Purpose:  Allow OS specific sections in section groups.
-# Lifetime: Fixed in 2.42 (maybe)
+# Lifetime: Fixed in 2.43 (maybe)
 Patch08: binutils-special-sections-in-groups.patch
 
 # Purpose:  Stop gold from aborting when input sections with the same name
 #            have different flags.
-# Lifetime: Fixed in 2.42 (maybe)
+# Lifetime: Fixed in 2.43 (maybe)
 Patch09: binutils-gold-mismatched-section-flags.patch
 
 # Purpose:  Change the gold configuration script to only warn about
@@ -231,7 +231,7 @@ Patch11: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
-# Lifetime: Fixed in 2.42 (maybe ?)
+# Lifetime: Fixed in 2.43 (maybe ?)
 Patch12: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
@@ -245,7 +245,7 @@ Patch14: binutils-update-linker-manual.patch
 %endif
 
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.42 (maybe)
+# Lifetime: Fixed in 2.43 (maybe)
 Patch15: binutils-gold-empty-dwp.patch
 
 # Purpose:  Fix binutils testsuite failures.
@@ -256,80 +256,33 @@ Patch16: binutils-testsuite-fixes.patch
 # Lifetime: Permanent, but varies with each rebase.
 Patch17: binutils-riscv-testsuite-fixes.patch
 
-# Purpose:  Fix the GOLD linker's handling of 32-bit PowerPC binaries.
-# Lifetime: Fixed in 2.42
-Patch18: binutils-gold-powerpc.patch
-
-# Purpose:  Fix a potential NULL pointer dereference when parsing corrupt
-#            ELF symbol version information.
-# Lifetime: Fixed in 2.42
-Patch19: binutils-handle-corrupt-version-info.patch
-
-# Purpose:  Add options to turn the bfd linker's warnings about executable
-#            stacks and rwx segments into errors.
-# Lifetime: Fixed in 2.42
-Patch20: binutils-execstack-error.patch
-
-# Purpose:  Accept and ignore R_BPF_64_NODYLD32 relocations.
-# Lifetime: Fixed in 2.42
-Patch21: binutils-BPF-reloc-4.patch
-
-# Purpose:  Allow for x86_64 build environments that use a base ISA of x86-64-v3.
-# Lifetime: Fixed in 2.42
-Patch22: binutils-x86-64-v3.patch
-
-# Purpose:  Fix mergeing strings in really big programs.
-# Lifetime: Fixed in 2.42
-Patch23: binutils-big-merge.patch
-
-# Purpose:  Fix linker generated call veneers for large AArch64 programs with BTI enabled.
-# Lifetime: Fixed in 2.42
-Patch24: binutils-aarch64-big-bti-programs.patch
-
 # Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch25: binutils-gold-pack-relative-relocs.patch
-
-# Purpose:  Add support for Intel's AVX10.1 architecture extension to gas.
-# Lifetime: Fixed in 2.42
-Patch26: i686-AVX10.1-part-1.patch
-Patch27: i686-AVX10.1-part-2.patch
-Patch28: i686-AVX10.1-part-3.patch
-Patch29: i686-AVX10.1-part-4.patch
-Patch30: i686-AVX10.1-part-5.patch
-Patch31: i686-AVX10.1-part-6.patch
-
-# Purpose: Fix: PR31179, The SET/ADD/SUB fix breaks ABI compatibility with 2.41 objects
-# Lifetime: Fixed in 2.42
-Patch32: binutils-riscv-SUB_ULEB128.patch
+# Lifetime: Fixed in 2.43 (maybe)
+Patch18: binutils-gold-pack-relative-relocs.patch
 
 # Purpose:  Let the gold lihnker ignore --error-execstack and --error-rwx-segments.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch33: binutils-gold-ignore-execstack-error.patch
-
-# Purpose:  Fix the allocation of space for DT_RELR relocations on PPC64.
-# Lifetime: Fixed in 2.42 (maybe)
-Patch34: binutils-ppc-dt_relr-relocs.patch
-
-# Purpose:  Add support for mangling used by gcc v14.
-# Lifetime: Fixed in 2.42
-Patch35: binutils-demangler-updates.patch
-
-# Purpose:  Add support for Intel's APX extensions (part 1)
-# Lifetime: Fixed in 2.42
-Patch36: binutils-Intel-APX-part-1.patch
+# Lifetime: Fixed in 2.43 (maybe)
+Patch19: binutils-gold-ignore-execstack-error.patch
 
 # Purpose:  Add support for IBM's Power11 architecture extensions
 # Lifetime: Fixed in 2.43
-Patch37: binutils-power-11.patch
+Patch20: binutils-power-11.patch
+
+# Purpose:  Have the bfd linker's --fatal-warnings option act consistently.
+# Lifetime: Fixed in 2.43
+Patch21: binutils-fatal-warnings.patch
+
+# Purpose:  Add missing scfi tests to the assembler.
+# Lifetime: Fixed in 2.43
+Patch22: binutils-scfi-tests-fix.patch
 
 # Purpose:  Fix support for Intel's APX extensions (part 1)
 # Lifetime: Fixed in 2.43
-Patch38: binutils-Intel-APX-part-1-fixes.patch
+Patch23: binutils-Intel-APX-part-1-fixes.patch
 
-# Purpose:  Import top-level multlib.am file.
-# Lifetime: Fixed in 2.42
-Patch39: binutils-multilib.am.patch
+# Purpose:  Fix the ar test of non-deterministic archives.
+# Lifetime: Fixed in 2.43
+Patch24: binutils-fix-ar-test.patch
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
@@ -1370,6 +1323,29 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Feb 14 2024 Nick Clifton  <nickc@redhat.com> - 2.42-2
+- Add support for PowerPC v11 architecture extensions.
+
+* Wed Feb 14 2024 Nick Clifton  <nickc@redhat.com> - 2.42-1
+- Rebase to GNU Binutils 2.42.
+- Retire: binutils-BPF-reloc-4.patch
+- Retire: binutils-Intel-APX-part-1.patch
+- Retire: binutils-aarch64-big-bti-programs.patch
+- Retire: binutils-big-merge.patch
+- Retire: binutils-demangler-updates.patch
+- Retire: binutils-execstack-error.patch
+- Retire: binutils-gold-powerpc.patch
+- Retire: binutils-handle-corrupt-version-info.patch
+- Retire: binutils-ppc-dt_relr-relocs.patch
+- Retire: binutils-riscv-SUB_ULEB128.patch
+- Retire: binutils-x86-64-v3.patch
+- Retire: i686-AVX10.1-part-1.patch
+- Retire: i686-AVX10.1-part-2.patch
+- Retire: i686-AVX10.1-part-3.patch
+- Retire: i686-AVX10.1-part-4.patch
+- Retire: i686-AVX10.1-part-5.patch
+- Retire: i686-AVX10.1-part-6.patch
+
 * Mon Feb 12 2024 Nick Clifton  <nickc@redhat.com> - 2.41-34
 - Backport commits 5a635f1f59ad and 41e115853eef to fix some APX issues.
 - Add top-level multilib.am file.

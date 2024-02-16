@@ -1,5 +1,5 @@
 Name:    dosbox-staging
-Version: 0.80.1
+Version: 0.81.0
 Release: %autorelease
 Summary: DOS/x86 emulator focusing on ease of use
 URL:     https://dosbox-staging.github.io/
@@ -135,7 +135,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %files
-%license COPYING
+%license %{_datadir}/licenses/%{name}/*
 %doc AUTHORS README THANKS
 %{_bindir}/dosbox
 %{_mandir}/man1/dosbox.*

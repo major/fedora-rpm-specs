@@ -5,7 +5,7 @@
 %global crate ahash
 
 Name:           rust-ahash
-Version:        0.8.7
+Version:        0.8.8
 Release:        %autorelease
 Summary:        Non-cryptographic hash function using AES-NI for high performance
 
@@ -176,12 +176,17 @@ rm tests/{bench.rs,map_tests.rs}
 
 %if %{with check}
 %check
+%ifarch x86_64 aarch64 ppc64le
+%cargo_test
+%endif
+%ifarch %{ix86}
+# * skip tests that cannot allocate enough memory
+%cargo_test -- -- --skip hash_quality_test::fallback_tests::fallback_test_no_full_collisions
+%endif
 %ifarch s390x
 # * one test fails only on s390x:
 #   https://github.com/tkaitchuck/aHash/issues/152
 %cargo_test -- -- --skip operations::test::test_add_length
-%else
-%cargo_test
 %endif
 %endif
 

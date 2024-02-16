@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
 Name:		yubico-piv-tool
-Version:	2.5.0
+Version:	2.5.1
 Release:	1%{?dist}
 Summary:	Tool for interacting with the PIV applet on a YubiKey
 
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libykcs11.{la,a}
 
 
 %changelog
+* Wed Feb 14 2024 Jakub Jelen <jjelen@redhat.com> - 2.5.1-1
+- New upstream release (#2264044)
+
 * Thu Feb 01 2024 Jakub Jelen <jjelen@redhat.com> - 2.5.0-1
 - New upstream release supporting larger RSA keys and ED25519 and X25519 (#2262179)
 

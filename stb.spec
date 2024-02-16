@@ -183,6 +183,11 @@ Patch:          0001-Fix-Null-pointer-dereference-because-of-an-uninitial.patch
 # https://github.com/nothings/stb/issues/1552
 Patch:          %{url}/pull/1553.patch
 
+
+# riscv64 compile fix
+# https://github.com/nothings/stb/pull/1610
+Patch: fix-riscv64-compile-uintptr.patch
+
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
 %global stb_divide_version 0.94

@@ -232,8 +232,6 @@ Requires: /usr/bin/pathchk
 %if 0%{?fedora} || 0%{?epel} <= 8
 # not available on epel9
 Requires: spax
-%else
-Recommends: spax
 %endif
 Requires: /usr/bin/pidof
 Requires: /usr/bin/pr
@@ -339,9 +337,6 @@ Requires: pango%{?_isa}
 # toolkit-qt is not in rhel
 Requires: qt%{?_isa}
 Requires: qt-x11%{?_isa}
-%else
-Recommends: qt%{?_isa}
-Recommends: qt-x11%{?_isa}
 %endif
 # xml
 Requires: libxml2%{?_isa}
@@ -388,12 +383,6 @@ Requires: perl(Class::ISA)
 Requires: perl(File::CheckTree)
 Requires: perl(Pod::LaTeX)
 Requires: perl(Pod::Plainer)
-%else
-Recommends: perl(B::Lint)
-Recommends: perl(Class::ISA)
-Recommends: perl(File::CheckTree)
-Recommends: perl(Pod::LaTeX)
-Recommends: perl(Pod::Plainer)
 %endif
 # python3
 Requires: /usr/bin/python3

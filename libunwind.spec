@@ -57,7 +57,7 @@ Patch1: libunwind-arm-default-to-exidx.patch
 Patch2: libunwind-1.3.1-multilib-fix.patch
 Patch5: libunwind-no-dl-iterate-phdr.patch
 
-ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64
+ExclusiveArch: %{arm} aarch64 hppa ia64 mips ppc %{power64} s390x %{ix86} x86_64 riscv64
 
 BuildRequires: automake libtool autoconf texlive-latex2man
 BuildRequires: make

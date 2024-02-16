@@ -1,6 +1,6 @@
 Name:			ppl
 Version:		1.2
-Release:		30%{?dist}
+Release:		31%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
 License:		GPL-3.0-or-later
 URL:			http://www.bugseng.com/ppl
@@ -11,6 +11,9 @@ Source2:		ppl_c.h
 Patch0:			configure.patch
 # Adapt to swipl 8.2.x
 Patch1:			%{name}-pl82.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:		gcc-c++
 BuildRequires:		automake
@@ -293,6 +296,10 @@ mv \
 %endif
 
 %changelog
+* Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 1.2-31
+- Rebuild for ppl 9.2.1
+- Stop building for 32-bit x86
+
 * Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 1.2-30
 - Rebuild for ppl 9.2.0
 

@@ -9,7 +9,7 @@
 %global tests_commit e407c1592df0f8e91664835324dea85146f20189
 
 Name:           python-editorconfig
-Version:        0.12.3
+Version:        0.12.4
 Release:        %autorelease
 Summary:        EditorConfig File Locator and Interpreter for Python
 

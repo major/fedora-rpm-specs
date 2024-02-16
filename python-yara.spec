@@ -1,21 +1,22 @@
 Name:           python-yara
-Version:        4.4.0
-%global         baserelease     3
+Version:        4.5.0
+%global         baserelease     1
 Summary:        Python binding for the YARA pattern matching tool
 License:        Apache-2.0
 URL:            https://github.com/VirusTotal/yara-python/
 VCS:            https://github.com/VirusTotal/yara-python/
+#               https://github.com/VirusTotal/yara-python/tags
 #               https://github.com/VirusTotal/yara-python/releases/
 
 # By default build from a release tarball.
-# If you want to rebuild from a unversioned commit from git do that with 
+# If you want to rebuild from a unversioned commit from git do that with
 # rpmbuild --rebuild python-yara.src.dpm --without release
 %bcond_without  release
 
 %global         gituser         VirusTotal
 %global         gitname         yara-python
-%global         commit          0dd0ed3fc513cbe1a22b7ca57c2469f37c502771
-%global         gitdate         20230917
+%global         gitdate         20240214
+%global         commit          3d5674a30808b26b44fc896dd059e94e704e4d63
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -150,6 +151,9 @@ pytest-3 -k "$EXCLUDE" tests.py -v
 
 #====================================================================
 %changelog
+* Wed Feb 14 2024 Michal Ambroz <rebus at, seznam.cz> - 4.5.0-1
+- bump to 4.5.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

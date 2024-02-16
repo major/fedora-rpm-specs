@@ -1,5 +1,5 @@
 Name:           tang
-Version:        14
+Version:        15
 Release:        %autorelease
 Summary:        Network Presence Binding Daemon
 
@@ -7,8 +7,6 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        tang.sysusers
-Patch: 0001-Add-support-for-building-with-llhttp-instead-of-http.patch
-Patch: 0002-Fix-issue-introduced-in-http-parser-llhttp-conversio.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson

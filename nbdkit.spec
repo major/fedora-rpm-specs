@@ -58,7 +58,7 @@
 
 Name:           nbdkit
 Version:        1.37.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -354,7 +354,8 @@ This package contains cURL (HTTP/FTP) support for %{name}.
 # which varies across architectures, RPM does not allow this.
 %package gcs-plugin
 Summary:        Gooogle Cloud Storage plugin %{name}
-Requires:       %{name}-python-plugin >= 1.38
+Requires:       %{name}-python-plugin%{?_isa} = %{version}-%{release}
+Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # XXX Should not need to add this.
 Requires:       python3-google-cloud-storage
 
@@ -481,7 +482,8 @@ This package lets you write Ruby plugins for %{name}.
 # which varies across architectures, RPM does not allow this.
 %package S3-plugin
 Summary:        Amazon S3 and Ceph plugin for %{name}
-Requires:       %{name}-python-plugin >= 1.22
+Requires:       %{name}-python-plugin%{?_isa} = %{version}-%{release}
+Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # XXX Should not need to add this.
 Requires:       python3-boto3
 
@@ -1497,6 +1499,9 @@ fi
 
 
 %changelog
+* Wed Feb 14 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.7-2
+- Fix gcs & S3 plugin requirements
+
 * Sun Feb 11 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.7-1
 - New upstream development version 1.37.7
 - New nbdkit-gcs-plugin for Google Cloud Storage

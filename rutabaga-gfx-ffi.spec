@@ -1,9 +1,9 @@
-%global gitdate 20230913
-%global gitversion c3ad0e43e
+%global gitdate 20240214
+%global gitversion ae733ceb2
 
 Name:	    rutabaga-gfx-ffi
-Version:    0.1.2
-Release:    3.%{gitdate}git%{gitversion}%{?dist}
+Version:    0.1.3
+Release:    1%{?dist}
 
 Summary:    Handling virtio-gpu protocols
 URL:        https://chromium.googlesource.com/crosvm/crosvm
@@ -23,10 +23,9 @@ Source1:    make-git-snapshot.sh
 
 # drop a Windows-specific dependency
 Patch0000:  drop-winapi.patch
-# set library SONAME correctly
-Patch0001:  set-soname.patch
+
 # set package.license
-Patch0002:  license.patch
+Patch0001:  license.patch
 
 BuildRequires:  cargo-rpm-macros
 
@@ -58,6 +57,7 @@ cd ..
 
 %build
 pushd ffi
+mkdir -p target/release/
 %cargo_build
 %cargo_license_summary
 %{cargo_license} > ../LICENSE.dependencies
@@ -68,7 +68,7 @@ pushd ffi
 install -D -m 755 target/rpm/librutabaga_gfx_ffi.so %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so.0.1.2
 ln -s librutabaga_gfx_ffi.so.0.1.2 %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so.0
 ln -s librutabaga_gfx_ffi.so.0.1.2 %{buildroot}%{_libdir}/librutabaga_gfx_ffi.so
-install -D -m 644 src/share/rutabaga_gfx_ffi.pc %{buildroot}%{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
+install -D -m 644 target/release/rutabaga_gfx_ffi.pc %{buildroot}%{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
 install -D -m 644 src/include/rutabaga_gfx_ffi.h %{buildroot}%{_includedir}/rutabaga_gfx/rutabaga_gfx_ffi.h
 popd
 
@@ -84,6 +84,9 @@ popd
 %{_libdir}/pkgconfig/rutabaga_gfx_ffi.pc
 
 %changelog
+* Wed Feb 14 2024 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.1.3-1.20240214gitae733ceb2
+- new version
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3.20230913gitc3ad0e43e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -17,6 +17,8 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
 
+Patch0:         0001-Add-scope-type-forever.patch
+
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-cabal-doctest-devel
 BuildRequires:  ghc-rpm-macros
@@ -114,6 +116,8 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
+
+%patch 0 -p1
 
 
 %build

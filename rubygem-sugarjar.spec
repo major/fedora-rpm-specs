@@ -12,7 +12,7 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A git/github helper utility
 License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Wed Feb 14 2024 Phil Dibowitz <phil@ipom.com> - 1.1.1-2
+- Release bump to handle f40 branch snafu
+
 * Mon Feb 12 2024 Phil Dibowitz <phil@ipom.com> - 1.1.1-1
 - New upstream version
 

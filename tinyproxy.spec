@@ -1,96 +1,87 @@
-%global _hardened_build 1
-
-%define tinyproxy_confdir %{_sysconfdir}/tinyproxy
-%define tinyproxy_datadir %{_datadir}/tinyproxy
-%define tinyproxy_rundir  /run/tinyproxy
-%define tinyproxy_logdir  %{_localstatedir}/log/tinyproxy
-%define tinyproxy_user    tinyproxy
-%define tinyproxy_group   tinyproxy
+# must be set to avoid noisy memory debug logging rhbz#1011783
+%global _distro_extra_cflags -DNDEBUG
 
 Name:           tinyproxy
-Version:        1.10.0
-Release:        14%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
+License:        GPL-2.0-or-later
+URL:            https://tinyproxy.github.io/
+Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/tinyproxy-%{version}.tar.xz
+Source1:        tinyproxy.service
 
-License:        GPLv2+
-URL:            https://github.com/tinyproxy/
-
-Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/%{name}-%{version}.tar.xz
-Source1:        %{name}.service
-Source2:        %{name}.conf
-Source3:        %{name}.logrotate
-Source4:        %{name}.tmpfiles
-
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  asciidoc
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
+
 
 %description
 tinyproxy is a small, efficient HTTP/SSL proxy daemon that is very useful in a
 small network setting, where a larger proxy like Squid would either be too
-resource intensive, or a security risk.  
+resource intensive, or a security risk.
+
 
 %prep
 %setup -q
+sed -e '/^User / s/nobody/tinyproxy/' \
+    -e '/^Group / s/nobody/tinyproxy/' \
+    -i etc/tinyproxy.conf.in
 
 
 %build
-%configure --sysconfdir=%{_sysconfdir} \
+%configure \
     --enable-reverse \
-    --enable-transparent 
+    --enable-transparent
 
-make LDFLAGS="%{?__global_ldflags}" CFLAGS="-DNDEBUG $RPM_OPT_FLAGS" %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
-%{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-%{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
-%{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%{__install} -p -D -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
-%{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_rundir}
-%{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_logdir}
+%make_install
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/tinyproxy.service
 
 
 %pre
-if [ $1 == 1 ]; then
-    %{_sbindir}/useradd -c "tinyproxy user" -s /bin/false -r -d %{tinyproxy_rundir} %{tinyproxy_user} 2>/dev/null || :
-fi
+getent group tinyproxy &> /dev/null || \
+groupadd -r tinyproxy &> /dev/null
+getent passwd tinyproxy &> /dev/null || \
+useradd -r -g tinyproxy -d %{_datadir}/tinyproxy -s /sbin/nologin -c 'tinyproxy user' tinyproxy &> /dev/null
+exit 0
 
 
 %post
-/bin/systemd-tmpfiles --create %{_tmpfilesdir}/%{name}.conf
-%systemd_post %{name}.service
-    
+%systemd_post tinyproxy.service
+
 
 %preun
-%systemd_preun %{name}.service
+%systemd_preun tinyproxy.service
 
 
 %postun
-%systemd_postun_with_restart %{name}.service
- 
+%systemd_postun_with_restart tinyproxy.service
 
 
 %files
-%doc AUTHORS COPYING README README.md NEWS docs/*.txt
-%{_bindir}/%{name}
-%{_mandir}/man8/%{name}.8.gz
-%{_mandir}/man5/%{name}.conf.5.gz
-%{_unitdir}/%{name}.service
-%{_tmpfilesdir}/%{name}.conf
-%{tinyproxy_datadir}
-%dir %{tinyproxy_confdir}
-%ghost %dir %{tinyproxy_rundir}
-%dir %{tinyproxy_logdir}
-%config(noreplace) %{tinyproxy_confdir}/%{name}.conf
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %ghost %dir %{tinyproxy_rundir}
-%attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
+%license COPYING
+%{_pkgdocdir}
+%{_bindir}/tinyproxy
+%{_mandir}/man8/tinyproxy.8*
+%{_mandir}/man5/tinyproxy.conf.5*
+%{_unitdir}/tinyproxy.service
+%{_datadir}/tinyproxy
+%dir %{_sysconfdir}/tinyproxy
+%config(noreplace) %{_sysconfdir}/tinyproxy/tinyproxy.conf
+
 
 %changelog
+* Wed Feb 14 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.11.1-1
+- Update to version 1.11.1 rhbz#2220885
+- Switch to SPDX license identifier and mark license file appropriately
+- Use upstream default config file with minimal changes
+- Log to journal instead of files
+- Run daemon in foreground to remove the need for pidfile tracking
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -11,7 +11,7 @@ Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  perl-generators
-%ifnarch s390 %{mips}
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
 %endif
 BuildRequires: make
@@ -32,7 +32,7 @@ developing applications that use %{name}.
 %setup -q
 
 # Override PAGESIZE, bz #1545539
-%ifarch %ix86 %arm x86_64 s390x
+%ifarch %ix86 %arm x86_64 s390x riscv64
 %define lg_page --with-lg-page=12
 %endif
 

@@ -18,7 +18,7 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: The Point-to-Point Protocol daemon
 # Add licenses:
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/441
@@ -41,8 +41,6 @@ Source6: ip-up
 Source7: ip-up.ipv6to4
 Source8: ipv6-down
 Source9: ipv6-up
-Source10: ifup-ppp
-Source11: ifdown-ppp
 Source12: ppp-watch.tar.xz
 Source13: ipv6-up.initscripts
 Source14: ipv6-down.initscripts
@@ -80,15 +78,6 @@ documentation for PPP support. The PPP protocol provides a method for
 transmitting datagrams over serial point-to-point links. PPP is
 usually used to dial in to an ISP (Internet Service Provider) or other
 organization over a modem and phone line.
-
-%package -n network-scripts-%{name}
-Summary: PPP legacy network service support
-Requires: network-scripts
-Supplements: (%{name} and network-scripts)
-
-%description -n network-scripts-%{name}
-This provides the ifup and ifdown scripts for use with the legacy network
-service.
 
 %package devel
 Summary: Headers for ppp plugin development
@@ -141,10 +130,6 @@ install -p %{SOURCE9} %{buildroot}%{_sysconfdir}/ppp/ipv6-up
 install -p %{SOURCE13} %{buildroot}%{_sysconfdir}/ppp/ipv6-down.initscripts
 install -p %{SOURCE14} %{buildroot}%{_sysconfdir}/ppp/ipv6-up.initscripts
 
-install -d %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/
-install -p %{SOURCE10} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/ifup-ppp
-install -p %{SOURCE11} %{buildroot}%{_sysconfdir}/sysconfig/network-scripts/ifdown-ppp
-
 # ghosts
 mkdir -p %{buildroot}%{_rundir}/ppp
 
@@ -193,16 +178,16 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %config(noreplace) %{_sysconfdir}/logrotate.d/ppp
 %{_tmpfilesdir}/ppp.conf
 
-%files -n network-scripts-%{name}
-%{_sysconfdir}/sysconfig/network-scripts/ifdown-ppp
-%{_sysconfdir}/sysconfig/network-scripts/ifup-ppp
-
 %files devel
 %{_includedir}/pppd
 %doc PLUGINS
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Tue Feb 13 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.0-6
+- Dropped network scripts
+  Resolves: rhbz#2262981
+
 * Wed Jan 24 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.0-5
 - Converted license to SPDX
 

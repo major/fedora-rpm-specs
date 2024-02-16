@@ -12,27 +12,43 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.8.3
-Release:        3%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
-License:        GPLv3+
+# See LICENSE.adoc for licenses of bundled codes
+# blake3 is Apache-2.0
+# minitrace.h is MIT
+# span.hpp is BSL-1.0
+# url.cpp/hpp is MIT
+License:        GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND MIT
 URL:            http://ccache.dev/
 Source0:        https://github.com/ccache/ccache/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.sh.in
 Source2:        %{name}.csh.in
+Patch1:         ccache-unbundle.patch
 
 BuildRequires:  /usr/bin/asciidoctor
 BuildRequires:  cmake
+# Uses a patched version and is missing on i686 in Fedora
+#BuildRequires:  blake3-devel
+BuildRequires:  cpp-httplib-devel
+BuildRequires:  doctest-devel
+BuildRequires:  expected-devel
+BuildRequires:  fmt-devel
 BuildRequires:  hiredis-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  perl perl(File::Spec)
+BuildRequires:  xxhash-devel
 # clang for additional tests
 BuildRequires:  clang clang-tools-extra
 # coreutils for triggerin, triggerpostun
 Requires:       coreutils
 # For groupadd
 Requires(pre):  shadow-utils
+Provides:       bundled(blake3) = 1.5.0
+Provides:       bundled(span-lite) = 0.10.3
+Provides:       bundled(cxxurl)
 
 %description
 ccache is a compiler cache.  It speeds up recompilation of C/C++ code
@@ -43,6 +59,11 @@ being done again.  The main focus is to handle the GNU C/C++ compiler
 
 %prep
 %setup -q
+%patch -P1 -p1 -b .unbundle
+find -name \*.[hc]pp \
+  -exec sed -i -E -e 's,third_party/(fmt/|httplib.h|tl/expected.hpp|xxhash.h),\1,' \
+                  -e 's,third_party/doctest.h,doctest/doctest.h,' {} +
+rm -r src/third_party/[ac-lo-tv-z]* src/third_party/minitrace.c
 sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
     %{SOURCE1} > %{name}.sh
 sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
@@ -56,8 +77,6 @@ sed -e 's|@LIBDIR@|%{_libdir}|g' -e 's|@CACHEDIR@|%{_var}/cache/ccache|g' \
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 %cmake_install
 
 install -Dpm 644 %{__cmake_builddir}/doc/ccache.1 $RPM_BUILD_ROOT%{_mandir}/man1/ccache.1
@@ -217,6 +236,12 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %changelog
+* Tue Feb 06 2024 Orion Poplawski <orion@nwra.com> - 4.9.1-1
+- Update to 4.9.1
+- Unbundle some libraries
+- Use SPDX license
+- Add licenses for bundled code
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

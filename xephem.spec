@@ -1,13 +1,13 @@
-#%%global gittag 4.1.0
-%global commit a2da14bfc6727b1255df6f31ac4ce89d4bd881c8
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20240205
+%global gittag 4.2.0
+#%%global commit a2da14bfc6727b1255df6f31ac4ce89d4bd881c8
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global date 20240205
 
 Name:           xephem
 %if "%{?gittag}"
-Version:        4.1.0
+Version:        %{gittag}
 %else
-Version:        4.1.0^3%{date}.git%{shortcommit}
+Version:        4.1.0^%{date}.git%{shortcommit}
 %endif
 Release:        %autorelease
 Summary:        Scientific-grade interactive astronomical ephemeris software

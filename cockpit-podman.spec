@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-podman
-Version:        83
-Release:        3%{?dist}
+Version:        84
+Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
 URL:            https://github.com/cockpit-project/cockpit-podman
@@ -38,14 +38,14 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.1.0
-Provides: bundled(npm(@patternfly/react-core)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-icons)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-styles)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-table)) = 5.1.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.1.2
+Provides: bundled(npm(@patternfly/patternfly)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-core)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-icons)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-styles)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-table)) = 5.2.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.2.0
 Provides: bundled(npm(attr-accept)) = 2.2.2
-Provides: bundled(npm(date-fns)) = 3.2.0
+Provides: bundled(npm(date-fns)) = 3.3.1
 Provides: bundled(npm(docker-names)) = 1.2.1
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 14 2024 Packit <hello@packit.dev> - 84-1
+- Bug fixes and stability improvements
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 83-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

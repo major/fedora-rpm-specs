@@ -1,8 +1,8 @@
 %global pypi_name responses
 
 Name:           python-%{pypi_name}
-Version:        0.24.1
-Release:        3%{?dist}
+Version:        0.25.0
+Release:        1%{?dist}
 Summary:        Python library to mock out calls with Python requests
 License:        ASL 2.0
 URL:            https://github.com/getsentry/responses
@@ -16,7 +16,7 @@ BuildRequires:  python3-devel
 # Patching setup.py is error prone as the patch file has to be regenerated
 # every time upstream bumps a version requirement.
 # Therefore just list the build requirements here explicitely.
-BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest python3-pytest-xdist
 
 %description
 A utility library for mocking out the requests Python library.
@@ -51,13 +51,16 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 
 %check
 # skipping tests due to missing dependencies: python3-pytest-httpserver
-%pytest
+%pytest -n auto
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Wed Feb 14 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.25.0-1
+- update to 0.25.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

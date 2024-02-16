@@ -2,16 +2,13 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.7.1
-Release:        4%{?dist}
+Version:        2.8
+Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# https://github.com/linux-nvme/nvme-cli/pull/2165
-Patch0:         nvme-cli-2.8.0-TP4126-lower_hostnqn_warnings.patch
 
 BuildRequires:  meson >= 0.50.0
 BuildRequires:  gcc gcc-c++
@@ -19,8 +16,11 @@ BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
+%if (0%{?rhel} == 0) || (0%{?rhel} > 9)
+BuildRequires:  kernel-headers
+%endif
 
-BuildRequires:  libnvme-devel >= 1.7
+BuildRequires:  libnvme-devel >= 1.8
 BuildRequires:  json-c-devel >= 0.13
 
 BuildRequires:  asciidoc
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Wed Feb 14 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.8-1
+- Update to 2.8
+
 * Fri Feb 09 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.7.1-4
 - Lower the verbosity of TP4126 hostnqn-hostid consistency checks
 

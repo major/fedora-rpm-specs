@@ -17,7 +17,7 @@ BuildRequires: python3-devel
 BuildRequires: python3-mako
 BuildRequires: orc-devel
 BuildRequires: sed
-%ifnarch s390x
+%ifnarch s390x riscv64
 BuildRequires: google-cpu_features-devel
 %endif
 Conflicts:     python3-gnuradio < 3.9.0.0

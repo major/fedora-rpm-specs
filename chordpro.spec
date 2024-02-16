@@ -9,7 +9,7 @@ Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
 Version: 6.050
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 Source1: README.ABC
 Source2: README.LilyPond
@@ -250,6 +250,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Wed Feb 14 2024 Johan Vromans <jvromans@squirrel.nl> - 6.050-2
+- Repackage ABC support (abc2svg 1.22.13).
+
 * Tue Feb 13 2024 Johan Vromans <jvromans@squirrel.nl> - 6.050-1
 - Upgrade to upstream.
 - Add ABC support, obsoletes package chordpro-abc.

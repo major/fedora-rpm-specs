@@ -33,6 +33,7 @@ Summary:	%{summary}
 sed -i -e 's/^import mock/from unittest import mock/' \
        -e 's/^from mock import /from unittest.mock import /' \
     tests/node/*.py
+sed -i '/            "mock",/d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r -x develop

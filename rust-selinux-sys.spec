@@ -5,7 +5,7 @@
 %global crate selinux-sys
 
 Name:           rust-selinux-sys
-Version:        0.6.7
+Version:        0.6.8
 Release:        %autorelease
 Summary:        Flexible Mandatory Access Control (MAC) for Linux
 

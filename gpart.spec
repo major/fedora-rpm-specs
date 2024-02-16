@@ -1,8 +1,8 @@
 Summary:        A program for recovering corrupt partition tables
 Name:           gpart
 Version:        0.3
-Release:        20%{?dist}
-License:        GPL-2.0-only
+Release:        21%{?dist}
+License:        GPL-2.0-or-later
 URL:            https://github.com/baruch/%{name}/
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -46,6 +46,9 @@ autoreconf -f -i
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Feb 14 2024 David Cantrell <dcantrell@redhat.com> - 0.3-21
+- Correct license to GPL-2.0-or-later
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

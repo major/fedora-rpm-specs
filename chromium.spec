@@ -300,7 +300,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 121.0.6167.160
+Version: 121.0.6167.184
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1240,6 +1240,14 @@ CXXFLAGS="$CFLAGS"
 CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
 %endif
+# reduce the size of relocations
+%if 0%{?fedora} || 0%{?rhel} > 9
+LDFLAGS="$LDFLAGS -Wl,-z,pack-relative-relocs"
+RUSTFLAGS=${RUSTFLAGS/--cap-lints/-Clink-arg=-Wl,-z,pack-relative-relocs --cap-lints}
+%if ! %{enable_debug}
+RUSTFLAGS=${RUSTFLAGS/debuginfo=?/debuginfo=0}
+%endif
+%endif
 
 %if %{clang}
 export CC=clang
@@ -1256,6 +1264,8 @@ export READELF=readelf
 %endif
 export CFLAGS
 export CXXFLAGS
+export LDFLAGS
+export RUSTFLAGS
 
 # enable toolset on el7
 %if 0%{?rhel} == 7
@@ -1922,6 +1932,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Feb 14 2024 Than Ngo <than@redhat.com> - 121.0.6167.184-1
+- update to 121.0.6167.184
+
 * Wed Feb 07 2024 Than Ngo <than@redhat.com> - 121.0.6167.160-1
 - update to 121.0.6167.160
   * High CVE-2024-1284: Use after free in Mojo

@@ -19,6 +19,7 @@ Patch:          zbus-fix-metadata-auto.diff
 # * drop unstable-only tracing feature from tokio
 # * remove features and dependencies for unused vsock support
 # * remove Windows-only windows-gdbus feature
+# * require nix's user feature
 Patch:          zbus-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

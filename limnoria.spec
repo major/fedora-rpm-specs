@@ -5,18 +5,18 @@
 %global python3 0
 %endif
 
-%global upstreamver 2023-02-11
+%global upstreamver 2023-12-09
 
 Name:           limnoria
-Version:        20230211
-Release:        5%{?dist}
+Version:        20231209
+Release:        1%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
-License:        BSD and GPLv2 and GPLv2+
+License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
 #
-# The bulk of the package is BSD. 
-# Parts of the Math plugin are GPLv2+
-# The Dict plugin is GPLv2+
+# The bulk of the package is BSD-3-Clause.
+# Parts of the Math plugin are GPL-2.0-only
+# The Dict plugin is GPL-2.0-or-later
 #
 URL:            https://github.com/ProgVal/Limnoria
 Source0:        https://github.com/ProgVal/Limnoria/archive/master-%{upstreamver}.tar.gz
@@ -41,7 +41,6 @@ BuildRequires:  python3-gnupg
 BuildRequires:  python3-feedparser
 BuildRequires:  python3-sqlalchemy
 BuildRequires:  python3-pysocks
-BuildRequires:  python3-mock
 BuildRequires:  python3-ecdsa
 BuildRequires:  python3-setuptools
 Requires:  python3-devel
@@ -52,7 +51,6 @@ Requires:  python3-gnupg
 Requires:  python3-feedparser
 Requires:  python3-sqlalchemy
 Requires:  python3-pysocks
-Requires:  python3-mock
 Requires:  python3-ecdsa
 %else
 BuildRequires:  python2-devel
@@ -139,6 +137,22 @@ export SOURCE_DATE_EPOCH
 %{_mandir}/man1/supybot-wizard.1.gz
 %{_mandir}/man1/supybot.1.gz
 %{_mandir}/man1/supybot-reset-password.1.gz
+%{_bindir}/limnoria
+%{_bindir}/limnoria-adduser
+%{_bindir}/limnoria-botchk
+%{_bindir}/limnoria-plugin-create
+%{_bindir}/limnoria-plugin-doc
+%{_bindir}/limnoria-test
+%{_bindir}/limnoria-wizard
+%{_bindir}/limnoria-reset-password
+%{_mandir}/man1/limnoria-adduser.1.gz
+%{_mandir}/man1/limnoria-botchk.1.gz
+%{_mandir}/man1/limnoria-plugin-create.1.gz
+%{_mandir}/man1/limnoria-plugin-doc.1.gz
+%{_mandir}/man1/limnoria-test.1.gz
+%{_mandir}/man1/limnoria-wizard.1.gz
+%{_mandir}/man1/limnoria.1.gz
+%{_mandir}/man1/limnoria-reset-password.1.gz
 %if %{python3}
 %{python3_sitelib}/*
 %else
@@ -146,6 +160,13 @@ export SOURCE_DATE_EPOCH
 %endif
 
 %changelog
+* Wed Feb 14 2024 Kevin Fenzi <kevin@scrye.com> - 20231209-1
+- Update to 2023-12-09.
+
+* Wed Feb 14 2024 Michel Lind <salimma@fedoraproject.org> - 20230211-6
+- Remove unused python3-mock test dependency
+- Use SPDX license identifiers
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230211-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

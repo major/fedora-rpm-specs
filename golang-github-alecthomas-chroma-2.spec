@@ -22,12 +22,16 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
+# https://github.com/alecthomas/chroma/pull/928
+Patch0:         chroma-2.12.0-fix-linefeed-test.patch
+
 %description %{common_description}
 
 %gopkg
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

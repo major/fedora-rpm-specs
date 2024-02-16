@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        8.2
-Release:        4%{?dist}
+Version:        8.3
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -267,6 +267,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Feb 14 2024 Sandro Mani <manisandro@gmail.com> - 8.3-1
+- Update to 8.3
+
 * Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 8.2-4
 - Relax pytz requirement
 

@@ -32,7 +32,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        11%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        12%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -345,6 +345,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 1.2.13-12
+- Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
+
 * Thu Feb 08 2024 Pete Walter <pwalter@fedoraproject.org> - 1.2.13-11
 - Rebuild for libvpx 1.14.x
 

@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        40.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,10 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+
+# https://github.com/weldr/lorax/pull/1379
+# Fix builds when using a repo file with $releasever
+Patch0:         0001-dnf5-set-releasever-in-the-base-object-s-vars.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -168,6 +172,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Wed Feb 14 2024 Adam Williamson <awilliam@redhat.com> - 40.5-2
+- Backport PR #1379 to fix builds when a repo uses %releasever
+
 * Tue Feb 06 2024 Brian C. Lane <bcl@redhat.com> 40.5-1
 - New lorax documentation - 40.5 (bcl@redhat.com)
 - maint: Switch default platform to F40 (bcl@redhat.com)

@@ -9,8 +9,8 @@
 
 Summary: Builds packages inside chroots
 Name: mock
-Version: 5.4
-Release: 3%{?dist}
+Version: 5.5
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -35,7 +35,7 @@ Conflicts: mock-core-configs < 33
 
 # Requires 'mock-core-configs', or replacement (GitHub PR#544).
 Requires: mock-configs
-Requires: %{name}-filesystem
+Requires: %{name}-filesystem = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 # This is still preferred package providing 'mock-configs'
 Suggests: mock-core-configs
@@ -289,11 +289,17 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 14 2024 Pavel Raiskup <praiskup@redhat.com>
+- allow chroot_scan to create archive instead of directory (tkopecek@redhat.com)
+- handle greedy options in Bash completion
+- fix root_cache invalidation (not) triggered by config changes
+- new '{{ repo_arch }}' Jinja2 template support
+- package_manager: disable %%-interpolation in dnf.conf parser
+- only `chown` the in-chroot home files with the --rebuild mode
+- all non-privileged actions performed wiht EGID=135 (mock group)
+- mock newly requires a precise version of mock-filesystem
+- allow shadow-utils to run in buildroot by exception if necessary (martjack@redhat.com)
+- hw_info now reports file system type (vondruch@redhat.com)
 
 * Thu Jan 04 2024 Pavel Raiskup <praiskup@redhat.com> 5.4-1
 - Fix installing rpmautospec plugin dependencies (yzhu@redhat.com)

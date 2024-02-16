@@ -34,7 +34,7 @@
 
 Name:           perl-Prima
 Version:        1.72
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -56,17 +56,20 @@ License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-grou
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
 # Fix Bool type to build with GCC 14, bug #2261449, CPAN RT#151523,
-# proposed to the upstream.
-Patch0:         Prima-1.71-Harmonize-Prima-Bool-type-with-X11-Bool-macro.patch
+# in upstream after 1.72.
+Patch0:         Prima-1.72-RT-151523-fix-compilation-for-32-bit-x86.patch
 # Rename /usr/bin/pod2pdf to prima-pod2pdf because it conflicts with
 # perl-podf2pdf, CPAN RT#151521, in upstream after 1.72.
 Patch1:         Prima-1.72-Rename-pod2pdf-to-prima-pod2pdf.patch
 # Fix WEBP decoding on big-endian platforms, bug #2262788, CPAN RT#151593,
-# proposed to the upstream.
+# in upstream after 1.72.
 Patch2:         Prima-1.72-Fix-WEBP-decoding-on-big-endian-platforms.patch
 # Fix memory handling in prima_fc_fonts(), bug #2262788, CPAN RT#151594,
-# proposed to the upstream.
+# in upstream after 1.72.
 Patch3:         Prima-1.72-Fix-memory-handling-in-prima_fc_fonts.patch
+# Fix a coredump when enumerating font-config fonts, CPAN RT#151594, in
+# upstream after 1.72
+Patch4:         Prima-1.72-RT-151594-coredump-fix.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}
@@ -337,6 +340,10 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 14 2024 Petr Pisar <ppisar@redhat.com> - 1.72-2
+- Fix a coredump when enumerating font-config fonts (CPAN RT#151594)
+- Use an upstream fix for a Bool type (bug #2261449)
+
 * Fri Feb 02 2024 Petr Pisar <ppisar@redhat.com> - 1.72-1
 - 1.72 bump
 

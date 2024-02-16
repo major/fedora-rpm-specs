@@ -5,7 +5,7 @@
 %global crate indexmap
 
 Name:           rust-indexmap
-Version:        2.2.1
+Version:        2.2.3
 Release:        %autorelease
 Summary:        Hash table with consistent order and fast iteration
 

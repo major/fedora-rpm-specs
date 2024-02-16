@@ -7,7 +7,7 @@
 
 Name:           sddm
 Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -24,12 +24,16 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hide keyboard layout picker in the wayland greeter
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239426
 # https://github.com/sddm/sddm/pull/1797
-Patch1: 1797.patch
+Patch1:         1797.patch
+
+# Parse desktop files manually to fix setting XDG_CURRENT_DESKTOP
+# From: https://github.com/sddm/sddm/commit/5b702ae986464fe6dbc8557d4b2da725ac1ed175
+Patch2:         0001-Session-Parse-.desktop-files-manually-again.patch
 
 ## upstreamable patches
 # Use Weston's kiosk shell instead of the deprecated fullscreen-shell
 # https://github.com/sddm/sddm/pull/1860
-Patch2:         0001-Switch-the-Wayland-greeter-default-to-use-Weston-s-K.patch
+Patch10:        0001-Switch-the-Wayland-greeter-default-to-use-Weston-s-K.patch
 
 # Fix race with logind restart, and start seat0 if !CanGraphical on timer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2011991
@@ -282,6 +286,9 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
 
 %changelog
+* Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-11
+- Add patch to fix desktop file parsing
+
 * Wed Jan 31 2024 Alessandro Astone <ales.astone@gmail.com> - 0.20.0-10
 - Remove LayerShellQt patch
 

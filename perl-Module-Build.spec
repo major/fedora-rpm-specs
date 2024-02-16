@@ -12,7 +12,7 @@
 Name:           perl-Module-Build
 Epoch:          2
 Version:        %{cpan_version_major}%{?cpan_version_minor:.%cpan_version_minor}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Build and install Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build
@@ -121,6 +121,14 @@ Requires:       perl(Pod::Text)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((ExtUtils::Install|File::Spec|Module::Build|Module::Metadata|Perl::OSType)\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(CPAN::Meta::YAML\\) >= 0.002$
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{__requires_exclude}|^perl\\(DistGen\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(MBTest\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Simple\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Software::License.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(Tie::CPHash\\)
+
 %description
 Module::Build is a system for building, testing, and installing Perl
 modules. It is meant to be an alternative to ExtUtils::MakeMaker.
@@ -132,8 +140,35 @@ so even platforms like MacOS (traditional) can use it fairly easily. Its
 only prerequisites are modules that are included with perl 5.6.0, and it
 works fine on perl 5.005 if you can install a few additional modules.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# Optional tests:
+%if !%{defined perl_bootstrap}
+%if %{with perl_Module_Build_enables_optional_test}
+Requires:       perl(Archive::Zip)
+Requires:       perl(File::ShareDir) >= 1.00
+Requires:       perl(PAR::Dist)
+%endif
+%endif
+Requires:       perl(TAP::Harness)
+Requires:       perl(TAP::Harness::Env)
+Requires:       perl(Text::ParseWords)
+Requires:       perl(version) >= 0.87
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %autosetup -p1 -n Module-Build-%{cpan_version}
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t -o -name *.pl`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor
@@ -142,6 +177,35 @@ perl Build.PL --installdirs=vendor
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
 %{_fixperms} -c %{buildroot}
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t _build %{buildroot}%{_libexecdir}/%{name}
+perl -pi -e 's#%{buildroot}##' %{buildroot}%{_libexecdir}/%{name}/_build/runtime_params
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/bin
+ln -s %{_bindir}/config_data %{buildroot}%{_libexecdir}/%{name}/bin
+# Requires copy of modules in test directory
+rm %{buildroot}%{_libexecdir}/%{name}/t/00-compile.t
+# Remove using of blib
+for F in `find %{buildroot}%{_libexecdir}/%{name}/t -name *.t -o -name *.pm`; do
+    perl -pi -e "s/^\s*blib_load\('([^']+)'\);/use \1;/" $F
+    perl -pi -e "s/^blib_load '([^']+)';/use \1;/" $F
+done
+perl -pi -e "s{'-Mblib', }{'-I'.\\N{U+0024}tmp.'/Simple/blib/lib', '-I'.\\N{U+0024}tmp.'/Simple/blib/arch', }x" \
+    %{buildroot}%{_libexecdir}/%{name}/t/xs.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 rm t/signature.t
@@ -155,7 +219,13 @@ LANG=C TEST_SIGNATURE=1 MB_TEST_EXPERIMENTAL=1 ./Build test
 %{_mandir}/man1/config_data.1*
 %{_mandir}/man3/Module::Build*.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Feb 14 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2:0.42.34-5
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.42.34-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

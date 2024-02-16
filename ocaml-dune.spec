@@ -8,7 +8,7 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.13.1
+Version:        3.14.0
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -76,7 +76,7 @@ Provides:       bundled(ocaml-notty) = 0.2.3
 Provides:       bundled(ocaml-opam) = 2.2.0~alpha2
 Provides:       bundled(ocaml-opam-0install) = 0.4.3
 Provides:       bundled(ocaml-opam-file-format) = 2.1.6
-Provides:       bundled(ocaml-re) = 1.9.0
+Provides:       bundled(ocaml-re) = 1.11.0
 Provides:       bundled(ocaml-sha) = 1.15.4
 Provides:       bundled(ocaml-spawn) = 0.15.1
 Provides:       bundled(ocaml-uutf) = 1.0.3
@@ -573,6 +573,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 3.14.0-1
+- Version 3.14.0
+
 * Tue Feb  6 2024 Jerry James <loganjerry@gmail.com> - 3.13.1-1
 - Version 3.13.1
 

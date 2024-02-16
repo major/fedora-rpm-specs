@@ -1,13 +1,13 @@
 Name:           bsf
 Version:        2.4.0
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Bean Scripting Framework
 License:        Apache-2.0
-URL:            http://commons.apache.org/bsf/
+URL:            https://commons.apache.org/bsf/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://apache.mirror.anlx.net//commons/%{name}/source/%{name}-src-%{version}.tar.gz
+Source0:        https://archive.apache.org/dist/commons/bsf/source/bsf-src-%{version}.tar.gz
 Source1:        %{name}-pom.xml
 
 Patch0:         build-file.patch
@@ -18,6 +18,8 @@ BuildRequires:  ant
 BuildRequires:  apache-parent
 BuildRequires:  xalan-j2
 BuildRequires:  apache-commons-logging
+
+%{?javadoc_package}
 
 %description
 Bean Scripting Framework (BSF) is a set of Java classes which provides
@@ -55,19 +57,22 @@ find -name \*.jar -delete
 %mvn_alias : org.apache.bsf:
 
 %build
-export CLASSPATH=$(build-classpath apache-commons-logging xalan-j2)
-ant -Dsource.level=1.7 -Dant.build.javac.target=1.7 jar
+build-jar-repository -s lib apache-commons-logging xalan-j2
+%ant -Dsource.level=1.8 -Dant.build.javac.target=1.8 jar javadocs
 
 %mvn_artifact %{SOURCE1} build/lib/%{name}.jar
 
 %install
-%mvn_install
+%mvn_install -J build/javadocs
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-52
+- Enable javadocs
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

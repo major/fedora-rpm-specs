@@ -1,6 +1,6 @@
 Name: libgbinder
-Version: 1.1.34
-Release: 4%{?dist}
+Version: 1.1.36
+Release: 1%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
@@ -82,6 +82,9 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Wed Feb 14 2024 Alessandro Astone <ales.astone@gmail.com> - 1.1.36-1
+- new version
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.34-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

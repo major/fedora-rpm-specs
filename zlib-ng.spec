@@ -98,7 +98,7 @@ cat <<_EOF_
 _EOF_
 
 # zlib-ng uses a different macro for library directory.
-%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON}
+%global cmake_param %{?with_sanitizers:-DWITH_SANITIZER=ON} -DWITH_RVV=OFF
 
 # Setting __cmake_builddir is not necessary in this step, but do it anyway for symmetry.
 %global __cmake_builddir %{_vpath_builddir}

@@ -1,8 +1,8 @@
 Summary: Enclosure LED Utilities
 Name: ledmon
 Version: 0.97
-Release: 5%{?dist}
-License: GPL-2.0-only and LGPL-2.1-only
+Release: 6%{?dist}
+License: GPL-2.0-only AND LGPL-2.1-only
 URL: https://github.com/intel/ledmon
 Source0: https://github.com/intel/ledmon/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -60,6 +60,9 @@ autoreconf -fiv
 %{_unitdir}/ledmon.service
 
 %changelog
+* Wed Feb 14 2024 Lukáš Zaoral <lzaoral@redhat.com> - 0.97-6
+- fix incorrect License field syntax
+
 * Fri Feb 09 2024 Dan Horák <dan@danny.cz> - 0.97-5
 - rebuilt for sg3_utils 1.48
 

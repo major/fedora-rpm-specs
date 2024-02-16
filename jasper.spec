@@ -83,6 +83,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 mkdir builder
 %cmake \
   -DJAS_ENABLE_DOC:BOOL=OFF \
+  -DALLOW_IN_SOURCE_BUILD:BOOL=ON \
   -B builder
 
 %make_build -C builder

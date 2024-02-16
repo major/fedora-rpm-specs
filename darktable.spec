@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.6.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -254,6 +254,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 4.6.0-5
+- Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
+
 * Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 4.6.0-4
 - Rebuilt for libavif 1.0.3
 
