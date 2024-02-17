@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -163,6 +163,7 @@ Patch104: qtbase-QTBUG-103393.patch
 # upstream security fixes
 Patch120: 0001-CVE-2023-51714-qtbase-5.15.patch
 Patch121: 0002-CVE-2023-51714-qtbase-5.15.patch
+Patch122: CVE-2024-25580-qtbase-5.15.patch
 
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
@@ -480,6 +481,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 ## upstream security fixes
 %patch -P120 -p1
 %patch -P121 -p1
+%patch -P122 -p1
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
@@ -1190,6 +1192,9 @@ fi
 
 
 %changelog
+* Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-5
+- Fix CVE-2024-25580: potential buffer overflow when reading KTX images
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 5.15.12-4
 - Rebuild for ICU 74
 

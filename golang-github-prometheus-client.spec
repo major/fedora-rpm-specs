@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/client_golang
 %global goipath         github.com/prometheus/client_golang
-Version:                1.17.0
+Version:                1.18.0
 
 %gometa -f
 
@@ -26,8 +26,8 @@ Summary:        Prometheus instrumentation library for Go applications
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
-# https://github.com/prometheus/client_golang/pull/1374
-Patch:          1374.patch
+# https://github.com/prometheus/client_golang/pull/1445
+Patch:          1445.patch
 
 %description %{common_description}
 

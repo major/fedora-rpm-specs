@@ -3,10 +3,13 @@
 
 Name:		uget
 Version:	%{mainver}
-Release:	11%{?minorver:.respin%minorver}%{?dist}
+Release:	12%{?minorver:.respin%minorver}%{?dist}
 Summary:	Download manager using GTK+ and libcurl
 
-License:	LGPLv2+
+# Overall		LGPL-2.1-or-later
+# uget/pwmd.c	GPL-2.0-or-later (unused)
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 URL:		http://ugetdm.com/
 Source0:	http://downloads.sourceforge.net/urlget/%{name}-%{mainver}%{?minorver:-%minorver}.tar.gz
 Patch0:		uget-2.2.3-gcc10-fno-common.patch
@@ -74,6 +77,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}/logo.png
 
 %changelog
+* Thu Feb 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.3-12.respin1
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-11.respin1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,22 +3,16 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache 2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.4.12
-Release:        10%{?dist}
+Version:        0.4.13
+Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
-URL:            https://github.com/fedora-iot/fido-device-onboard-rs
+URL:            https://github.com/fdo-rs/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 # See make-vendored-tarfile.sh in upstream repo
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
-Patch0:         0001-hack-drop-shadow.patch
-Patch1:         0001-fix-drop-unused-sha-crypt-dep.patch
-Patch3:         0001-fix-relabel-devcreds-before-onboarding.patch
-Patch4:         fdo-bump-devicemapper-libcryptosetup.patch
-
-# fixes for vendored dependencies
-Patch100:       fix-aws-nitro-enclaves-cose.patch
+Patch1:         0001-Revert-chore-use-git-fork-for-aws-nitro-enclaves-cos.patch
 
 # Because nobody cares
 ExcludeArch: %{ix86}
@@ -41,10 +35,6 @@ BuildRequires:  tpm2-tss-devel
 
 %prep
 %setup -q -n %{name}-rs-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P3 -p1
-%patch -P4 -p1
 
 %if 0%{?rhel}
 %if 0%{?rhel} >= 10
@@ -53,9 +43,8 @@ tar xf %{SOURCE1}
 %else
 %cargo_prep -V 1
 %endif
-# patch vendored dependencies
-%patch -P100 -p1
 %else
+%patch -P1 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires -a
@@ -95,6 +84,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/owner_onboarding_sessions
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/owner_vouchers
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/rendezvous_registered
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/rendezvous_sessions
+mkdir -p %{buildroot}%{_sysconfdir}/fdo/stores/serviceinfo_api_devices
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/manufacturing-server.conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/owner-onboarding-server.conf.d
 mkdir -p %{buildroot}%{_sysconfdir}/fdo/rendezvous-server.conf.d
@@ -141,6 +131,7 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_sysconfdir}/fdo/stores
 %dir %{_sysconfdir}/fdo/stores/owner_onboarding_sessions
 %dir %{_sysconfdir}/fdo/stores/owner_vouchers
+%dir %{_sysconfdir}/fdo/stores/serviceinfo_api_devices
 %{_libexecdir}/fdo/fdo-owner-onboarding-server
 %{_libexecdir}/fdo/fdo-serviceinfo-api-server
 %dir %{_localstatedir}/lib/fdo
@@ -214,6 +205,7 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_sysconfdir}/fdo/stores
 %dir %{_sysconfdir}/fdo/stores/manufacturer_keys
 %dir %{_sysconfdir}/fdo/stores/manufacturing_sessions
+%dir %{_sysconfdir}/fdo/stores/owner_vouchers
 %{_libexecdir}/fdo/fdo-manufacturing-server
 %dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
@@ -304,6 +296,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Mon Feb 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.13-1
+- Update to 0.4.13
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.4.12-10
 - Rebuild for golang 1.22.0
 
@@ -316,26 +311,11 @@ Requires: fdo-init = %{version}-%{release}
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Mon Jan 08 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-6
-- Rebuild for fixed dependencies
-
-* Fri Dec 01 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.12-5
-- Rebuild for openssl crate >= v0.10.60 (RUSTSEC-2023-0044, RUSTSEC-2023-0072)
-
-* Wed Aug 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-4
-- Ensure client service fix is applied
-
-* Tue Aug 22 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-3
-- Own var/lib/fdo, SELinux fixes
-
-* Thu Aug 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-2
-- Add client/init deps to fdo-admin-cli
-
-* Thu Jul 27 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-1
+* Wed Jul 26 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.12-1
 - Update to 0.4.12
 
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
+* Mon Jul 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.11-1
+- Update to 0.4.11
 
 * Mon Jul 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.10-2
 - Updates for eln/c9s building

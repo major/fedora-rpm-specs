@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 5.93.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -16,6 +16,8 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{versi
 # 5.93.0: Fix for kwin that causes some strange color glitches on RC2 (Will be fixed on final)
 # https://invent.kde.org/plasma/kwin/-/commit/fe2ead76443a8fb347b2a507ba3086606bd38237
 Patch0:  kwin-drm-use-correct-uniform-type.patch
+# https://invent.kde.org/plasma/kwin/-/merge_requests/5204
+Patch1:  kwin-fix-window-screencasts-being-vertically-mirrored-with-memfd.patch
 
 ## proposed patches
 
@@ -147,8 +149,12 @@ Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
 Provides:       %{name}-wayland-nvidia = %{version}-%{release}
 %if ! %{with x11}
 # Obsolete kwin-x11 as we are dropping the package
+%if 0%{?fedora}
+Obsoletes:      %{name}-x11 < 5.92.0
+%else
 Obsoletes:      %{name}-x11 < %{version}-%{release}
 Conflicts:      %{name}-x11 < %{version}-%{release}
+%endif
 %endif
 %description    wayland
 %{summary}.
@@ -289,6 +295,12 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Thu Feb 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-4
+- Stricter x11 obsoletes version
+
+* Thu Feb 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-3
+- Backport patch to fix window screencasts being vertically mirrored
+
 * Sat Feb 03 2024 Steve Cossette <farchord@gmail.com> - 5.93.0-2
 - Added patch that fixes kwin glitch with HDR and some other issues
 

@@ -6,8 +6,8 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        45.0
-Release:        3%{?dist}
+Version:        46~beta
+Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later
@@ -83,6 +83,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Thu Feb 15 2024 Marek Kasik <mkasik@redhat.com> - 46~beta-1
+- Update to 46.beta
+- Resolves: #2263688
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

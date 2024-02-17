@@ -1,5 +1,5 @@
 Name:           inxi
-Version:        3.3.32
+Version:        3.3.33
 Release:        1%{?dist}
 Summary:        A full featured system information script
 
@@ -81,6 +81,9 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Thu Feb 15 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.33-1
+- Update to 3.3.33
+
 * Tue Feb 06 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.32-1
 - Update to 3.3.32
 

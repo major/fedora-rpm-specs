@@ -5,7 +5,7 @@
 
 Name:           bash-completion
 Version:        2.11
-Release:        14%{?dist}
+Release:        15%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -28,6 +28,13 @@ Requires:       bash >= 4.1
 %description
 bash-completion is a collection of shell functions that take advantage
 of the programmable completion feature of bash.
+
+%package devel
+Summary: Development files for %{name}
+Requires: %{name} =  %{epoch}:%{version}-%{release}
+
+%description devel
+This package contains development files for %{name}.
 
 %prep
 %autosetup -p1
@@ -76,11 +83,16 @@ make -C completions check
 %doc doc/bash_completion.txt
 %config(noreplace) %{_sysconfdir}/profile.d/bash_completion.sh
 %{_datadir}/bash-completion/
+
+%files devel
 %{_datadir}/cmake/
 %{_datadir}/pkgconfig/bash-completion.pc
 
-
 %changelog
+* Thu Feb 15 2024 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.11-15
+- Move development files in devel subpackage
+  Resolves: #1457164
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

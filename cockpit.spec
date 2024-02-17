@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        310.2
+Version:        311
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -452,27 +452,28 @@ Provides: bundled(npm(array-buffer-byte-length)) = 1.0.1
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.6
-Provides: bundled(npm(call-bind)) = 1.0.5
-Provides: bundled(npm(date-fns)) = 3.2.0
+Provides: bundled(npm(call-bind)) = 1.0.7
+Provides: bundled(npm(date-fns)) = 3.3.1
 Provides: bundled(npm(deep-equal)) = 2.2.3
-Provides: bundled(npm(define-data-property)) = 1.1.1
+Provides: bundled(npm(define-data-property)) = 1.1.4
 Provides: bundled(npm(define-properties)) = 1.2.1
-Provides: bundled(npm(es-errors)) = 1.0.0
+Provides: bundled(npm(es-define-property)) = 1.0.0
+Provides: bundled(npm(es-errors)) = 1.3.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-selector)) = 0.6.0
 Provides: bundled(npm(focus-trap)) = 7.5.2
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.2
 Provides: bundled(npm(functions-have-names)) = 1.2.3
-Provides: bundled(npm(get-intrinsic)) = 1.2.3
+Provides: bundled(npm(get-intrinsic)) = 1.2.4
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
-Provides: bundled(npm(has-property-descriptors)) = 1.0.1
+Provides: bundled(npm(has-property-descriptors)) = 1.0.2
 Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
 Provides: bundled(npm(has-tostringtag)) = 1.0.2
-Provides: bundled(npm(hasown)) = 2.0.0
-Provides: bundled(npm(internal-slot)) = 1.0.6
+Provides: bundled(npm(hasown)) = 2.0.1
+Provides: bundled(npm(internal-slot)) = 1.0.7
 Provides: bundled(npm(is-arguments)) = 1.1.1
 Provides: bundled(npm(is-array-buffer)) = 3.0.4
 Provides: bundled(npm(is-bigint)) = 1.0.4
@@ -489,8 +490,8 @@ Provides: bundled(npm(is-symbol)) = 1.0.4
 Provides: bundled(npm(is-weakmap)) = 2.0.1
 Provides: bundled(npm(is-weakset)) = 2.0.2
 Provides: bundled(npm(isarray)) = 2.0.5
-Provides: bundled(npm(js-sha1)) = 0.6.0
-Provides: bundled(npm(js-sha256)) = 0.10.1
+Provides: bundled(npm(js-sha1)) = 0.7.0
+Provides: bundled(npm(js-sha256)) = 0.11.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -505,12 +506,12 @@ Provides: bundled(npm(react-dom)) = 18.2.0
 Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
-Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
+Provides: bundled(npm(regexp.prototype.flags)) = 1.5.2
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.0
-Provides: bundled(npm(set-function-length)) = 1.2.0
+Provides: bundled(npm(set-function-length)) = 1.2.1
 Provides: bundled(npm(set-function-name)) = 2.0.1
-Provides: bundled(npm(side-channel)) = 1.0.4
+Provides: bundled(npm(side-channel)) = 1.0.5
 Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
 Provides: bundled(npm(tabbable)) = 6.2.0
@@ -811,6 +812,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 14 2024 Packit <hello@packit.dev> - 311-1
+- Bug fixes and stability improvements
+
 * Wed Feb 07 2024 Packit <hello@packit.dev> - 310.2-1
 - selinux: Cover migration to /run
 - ws: Handle HEAD requests correctly, for curl 8.6.0

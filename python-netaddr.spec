@@ -1,7 +1,7 @@
 %bcond docs %{undefined rhel}
 
 Name:           python-netaddr
-Version:        1.0.0
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
@@ -15,6 +15,7 @@ BuildRequires:  python3-pytest
 
 %if %{with docs}
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx-issues
 BuildRequires:  python3-furo
 %endif
 
@@ -67,9 +68,6 @@ An IPython-based shell environment for the netaddr library
 find netaddr -name "*.py" | \
   xargs sed -i -e '1 {/^#!\//d}'
 
-# Make rpmlint happy, fix permissions on documentation files
-chmod 0644 README.rst AUTHORS CHANGELOG COPYRIGHT LICENSE PKG-INFO
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -94,8 +92,8 @@ popd
 %pytest
 
 %files -n python3-netaddr -f %{pyproject_files}
-%license COPYRIGHT
-%doc AUTHORS CHANGELOG README.rst
+%license COPYRIGHT.rst
+%doc AUTHORS.rst CHANGELOG.rst README.rst THANKS.rst
 %if %{with docs}
 %doc docs/python3/html
 %endif
@@ -104,6 +102,9 @@ popd
 %{_bindir}/netaddr
 
 %changelog
+* Thu Feb 15 2024 John Eckersberg <jeckersb@redhat.com> - 1.1.0-1
+- New upstream release 1.1.0 (rhbz#2264314)
+
 * Tue Feb 13 2024 John Eckersberg <jeckersb@redhat.com> - 1.0.0-1
 - New upstream release 1.0.0 (rhbz#2263598)
 - Cleanup and modernize spec file a bit

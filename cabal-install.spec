@@ -13,7 +13,7 @@
 Name:           %{pkg_name}
 Version:        3.8.1.0
 # can only be reset when all subpkgs bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD-3-Clause
@@ -253,6 +253,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Thu Feb 15 2024 Jens Petersen <petersen@redhat.com> - 3.8.1.0-7
+- rebuild to fix s390x segfault (#2248097)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

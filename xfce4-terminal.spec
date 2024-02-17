@@ -10,6 +10,9 @@ License:        GPLv2+
 URL:            http://docs.xfce.org/apps/terminal/start
 Source0:        http://archive.xfce.org/src/apps/xfce4-terminal/%{minorversion}/%{name}-%{version}.tar.bz2
 
+# https://gitlab.xfce.org/apps/xfce4-terminal/-/commit/177fda86451cdeaaea8ed409e6d711b670699a97
+Patch0:         xfce4-terminal-4.1.2-clipboard.patch
+
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  vte291-devel >= 0.38
@@ -31,7 +34,7 @@ with many advanced features including drop down, tabs, unlimited scrolling,
 full colors, fonts, transparent backgrounds, and more.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure

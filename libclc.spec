@@ -17,8 +17,6 @@ Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%
 Source1:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig
 Source2:        release-keys.asc
 
-ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 %{power64} s390x
-
 BuildRequires:  clang-devel >= %{version}
 BuildRequires:  libedit-devel
 BuildRequires:  llvm-devel >= %{version}

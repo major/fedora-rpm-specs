@@ -12,7 +12,7 @@
 
 Name:		libsmi
 Version:	0.4.8
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	A library to access SMI MIB information
 License:	GPL-2.0-or-later AND BSD-3-Clause
 URL:		http://www.ibr.cs.tu-bs.de/projects/libsmi/index.html
@@ -83,6 +83,7 @@ autoreconf -iv
     --enable-smi \
     --enable-sming \
     --enable-shared \
+    --with-yangdir=%{_datadir}/libsmi-yang/ \
     --disable-static
 make LIBTOOL=/usr/bin/libtool %{?_smp_mflags}
 
@@ -116,7 +117,7 @@ make check ||:
 %{_libdir}/*.so.*
 %{_datadir}/mibs/
 %{_datadir}/pibs/
-%{_datadir}/yang/
+%{_datadir}/libsmi-yang/
 %{_mandir}/man1/*.1*
 
 %files devel
@@ -128,6 +129,9 @@ make check ||:
 
 
 %changelog
+* Thu Feb 15 2024 Tom Callaway <spot@fedoraproject.org> - 0.4.8-39
+- move yang files to avoid conflict with frr
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

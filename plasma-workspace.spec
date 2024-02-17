@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.93.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -396,8 +396,12 @@ Requires:       qt6-qtwayland%{?_isa}
 Requires:       qt6-qttools
 Requires:       xdg-desktop-portal-kde
 %if ! %{with x11}
+%if 0%{?fedora}
+Obsoletes:      %{name}-x11 < 5.92.0
+%else
 Obsoletes:      %{name}-x11 < %{version}-%{release}
 Conflicts:      %{name}-x11 < %{version}-%{release}
+%endif
 %endif
 %description wayland
 %{summary}.
@@ -723,6 +727,9 @@ fi
 
 
 %changelog
+* Thu Feb 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-4
+- Stricter x11 obsoletes version
+
 * Tue Feb 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.93.0-3
 - Drop qualifier from plasma.desktop
 

@@ -1,6 +1,6 @@
 Name:           astyle
 Version:        3.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Source code formatter for C-like programming languages
 
 %global majorversion    3
@@ -38,8 +38,8 @@ This package contains the shared library.
 
 %prep
 %setup -q -n %{name}
-%patch1 -p1
-%patch2 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 # drop executable bit from all files
 find . -type f -exec chmod a-x {} \;
@@ -51,6 +51,7 @@ pushd src
     g++ %{build_cxxflags} -DASTYLE_LIB -fPIC -c ASBeautifier.cpp ASEnhancer.cpp ASFormatter.cpp ASResource.cpp astyle_main.cpp
     g++ %{build_ldflags} -shared -o libastyle.so.%{soversion} *.o -Wl,-soname,libastyle.so.%{majorversion}
     ln -s libastyle.so.%{soversion} libastyle.so
+    ln -s libastyle.so.%{soversion} libastyle.so.%{majorversion}
     g++ %{build_cxxflags} -c ASLocalizer.cpp astyle_main.cpp
     g++ %{build_ldflags} -o astyle ASLocalizer.o astyle_main.o -L. -lastyle
 popd
@@ -61,6 +62,7 @@ pushd src
 
     install -p -m 755 astyle %{buildroot}%{_bindir}
     install -p -m 755 libastyle.so.%{soversion} %{buildroot}%{_libdir}
+    install -p -m 755 libastyle.so.%{majorversion} %{buildroot}%{_libdir}
     cp -P libastyle.so %{buildroot}%{_libdir}
     install -p -m 644 astyle.h %{buildroot}%{_includedir}
 popd
@@ -79,6 +81,9 @@ popd
 %{_includedir}/astyle.h
 
 %changelog
+* Thu Feb 15 2024 Dan Horák <dan[at]danny.cz> - 3.1-22
+- explicitly add library %%{majorversion} symlink
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

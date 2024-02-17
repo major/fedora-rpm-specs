@@ -26,7 +26,7 @@ BuildRequires: libsodium-devel
 BuildRequires: lua-devel
 %define lua_implementation lua
 %else
-%ifarch aarch64 ppc64le s390x
+%ifarch aarch64 ppc64le s390x riscv64
 %define lua_implementation lua
 BuildRequires: lua-devel
 %else

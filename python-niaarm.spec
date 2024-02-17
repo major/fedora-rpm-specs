@@ -21,7 +21,7 @@ solved using the nature-inspired algorithms that come from the related
 framework called NiaPy.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.6
+Version:        0.3.7
 Release:        1%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
@@ -107,6 +107,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{pypi_name}.1
 %doc interest_measures.md
 
 %changelog
+* Thu Feb 15 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.7-1
+- Update to 0.3.7
+
 * Sun Jan 28 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.6-1
 - Update to 0.3.6
 

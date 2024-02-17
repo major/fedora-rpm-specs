@@ -1,3 +1,6 @@
+%global commit0 01210f488410a23838c54fcc22297cf08ac7de66
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 Name:           afflib
 Version:        3.7.20
 Release:        %autorelease
@@ -11,8 +14,8 @@ Summary:        Library to support the Advanced Forensic Format
 
 License:        BSD with advertising
 URL:            https://github.com/sshock/AFFLIBv3
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         Fix-build-with-gcc-14-Wincompatible-pointer-types.patch
+#Source0:        %%{url}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
+Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -109,7 +112,7 @@ basic metadata accessor functions. The binding is not currently complete.
 
 
 %prep
-%autosetup -p1 -n AFFLIBv3-%{version}
+%autosetup -p1 -n AFFLIBv3-%{commit0}
 # prevent internal lzma to be built - testing
 #rm -rf lzma443
 

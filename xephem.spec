@@ -90,6 +90,11 @@ rm -rf libXm/
 # Rename liblilxml license files
 cp liblilxml/LICENSE LICENSE.liblilxml
 
+# Change hardcoded resources directory for flatpak
+%if 0%{?flatpak}
+sed -i -e 's|/etc/XEphem|/app/etc/XEphem|g' GUI/xephem/{splash.c,xephem.c}
+%endif
+
 
 %build
 %if 0%{?epel}

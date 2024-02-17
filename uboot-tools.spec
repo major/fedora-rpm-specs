@@ -27,7 +27,6 @@ Patch7:   Add-video-damage-tracking.patch
 Patch10:  rpi-Switch-to-OF_HAS_PRIOR_STAGE-by-default.patch
 # Rockchips improvements
 Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
-#Patch12: 0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
 
 BuildRequires:  bc
 BuildRequires:  bison

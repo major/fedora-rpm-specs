@@ -1,9 +1,9 @@
 # git commit appears in the directory name of the tarball...
-%global commit c74317e68572d1da82fdce4210b005c2c1b1de53
+%global commit 0be5c56597d06f8bfc867cdd5cac232c21af40e7
 
 Name:           OpenMolcas
-Version:        23.10
-Release:        3%{?dist}
+Version:        24.02
+Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPLv2
 URL:            https://gitlab.com/Molcas/OpenMolcas
@@ -140,6 +140,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Thu Feb 15 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 24.02-1
+- Update to 24.02.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

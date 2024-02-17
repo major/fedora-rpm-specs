@@ -10,7 +10,10 @@ Patch0:         libxdg-basedir-leak.patch
 Patch1:         libxdg-basedir-valgrind-libtool.patch
 Patch2:         libxdg-basedir-basedir-bounds-error.patch 
 Patch3:         libxdg-basedir-home-undef.patch
-BuildRequires:  valgrind libtool
+%ifarch %{valgrind_arches}
+BuildRequires:  valgrind
+%endif
+BuildRequires:  libtool
 
 %description
 The XDG Base Directory Specification defines where should user files 
@@ -64,7 +67,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %check
+%ifarch %{valgrind_arches}
 make check USE_VALGRIND=1
+%else
+make check
+%endif
 #env -i make check USE_VALGRIND=1
 # Check that we get NULL for all things rooted in ENV{HOME} when running
 # with HOME unset

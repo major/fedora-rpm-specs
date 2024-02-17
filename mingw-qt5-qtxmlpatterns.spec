@@ -22,8 +22,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.11
-Release:        3%{?dist}
+Version:        5.15.12
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtXmlPatterns component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -138,6 +138,9 @@ done
 
 
 %changelog
+* Thu Feb 15 2024 Sandro Mani <manisandro@gmail.com> - 5.15.12-1
+- Update to 5.15.12
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

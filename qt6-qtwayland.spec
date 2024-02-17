@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.6.1
-Release: 5%{?dist}
+Version: 6.6.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -175,6 +175,9 @@ popd
 %endif
 
 %changelog
+* Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
+- 6.6.2
+
 * Thu Feb 08 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.1-5
 - Backport upstream fix: Fix Qt::KeypadModifier for key events
 

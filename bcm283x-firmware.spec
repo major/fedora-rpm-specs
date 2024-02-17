@@ -4,12 +4,12 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 93d3f79
+%define gitshort f01fa5f
 
 Name:          bcm283x-firmware
-Version:       20231123
-Release:       1.%{gitshort}%{?dist}
-Summary:       Firmware for the Broadcom bcm283x/bcm2711 used in the Raspberry Pi
+Version:       20240214
+Release:       2.%{gitshort}%{?dist}
+Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
 License:       Redistributable, no modification permitted
@@ -82,19 +82,25 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/overlays
 
 %files -n bcm2835-firmware
-%{efi_esp_root}/bcm2710-rpi-*
+%{efi_esp_root}/bcm2710*
 %{efi_esp_root}/fixup*
 %{efi_esp_root}/start*
 %exclude %{efi_esp_root}/fixup4*
 %exclude %{efi_esp_root}/start4*
 
 %files -n bcm2711-firmware
-%{efi_esp_root}/bcm2711-rpi-*
-%{efi_esp_root}/bcm2712-rpi-*
+%{efi_esp_root}/bcm2711*
+%{efi_esp_root}/bcm2712*
 %{efi_esp_root}/fixup4*
 %{efi_esp_root}/start4*
 
 %changelog
+* Thu Feb 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240214-2.f01fa5f
+- Update to latest firmware
+
+* Thu Feb 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240214-1.b208f8c
+- Update to latest firmware
+
 * Sat Nov 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20231123-1.93d3f79
 - Update to latest firmware
 - Updates to config.txt

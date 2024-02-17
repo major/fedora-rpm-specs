@@ -1,6 +1,6 @@
 Name:           podman-compose
 Version:        1.0.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -14,7 +14,6 @@ BuildRequires:  python%{python3_pkgversion}-pyyaml
 Requires:       python%{python3_pkgversion}
 Requires:       python%{python3_pkgversion}-pyyaml
 Requires:       podman
-Requires:       podman-plugins
 
 %description
 An implementation of docker-compose with podman backend.
@@ -42,6 +41,9 @@ sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 %{python3_sitelib}/podman_compose*
 
 %changelog
+* Thu Feb 15 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-6
+- Drop requirement on podman-plugins, no longer exists with podman >= 5.x
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

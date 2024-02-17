@@ -1,7 +1,7 @@
 %global        qt_module qtgraphs
 
 Name:          qt6-qtgraphs
-Version:       6.6.1
+Version:       6.6.2
 Release:       1%{?dist}
 
 %global        majmin %(echo %{version} | cut -d. -f1-2)
@@ -93,5 +93,8 @@ popd
 %{_qt6_examplesdir}/
 
 %changelog
+* Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
+- 6.6.2
+
 * Fri Jan 26 2024 Steve Cossette <farchord@gmail.com> - 6.6.1-1
 - Initital release of qtgraphs

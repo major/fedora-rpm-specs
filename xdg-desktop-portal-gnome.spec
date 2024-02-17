@@ -1,16 +1,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%global xdg_desktop_portal_version 1.17.0
+%global xdg_desktop_portal_version 1.18.2
 
 Name:           xdg-desktop-portal-gnome
-Version:        45.1
+Version:        46~beta
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GNOME
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
-Patch0: xdg-desktop-portal-gnome-c89.patch
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

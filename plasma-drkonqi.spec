@@ -3,7 +3,7 @@
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF6/Plasma6
 Version: 5.93.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
@@ -52,8 +52,6 @@ Requires: (dnf-command(debuginfo-install) if dnf)
 Requires: konsole
 Requires: polkit
 
-# owner of setsebool
-Requires(post): policycoreutils
 
 %description
 %{summary}
@@ -76,15 +74,6 @@ install -p -D -m755 src/doc/examples/installdbgsymbols_fedora.sh \
 grep drkonqi.mo all.lang > plasma-drkonqi.lang
 
 %post
-# make DrKonqi work by default by taming SELinux enough (suggested by dwalsh)
-# if KDE_DEBUG is set, DrKonqi is disabled, so do nothing
-# if it is unset (or empty), check if deny_ptrace is already disabled
-# if not, disable it
-if [ -z "$KDE_DEBUG" ] ; then
-if [ "`getsebool deny_ptrace 2>/dev/null`" == 'deny_ptrace --> on' ] ; then
-  setsebool -P deny_ptrace off &> /dev/null || :
-fi
-fi
 %systemd_user_post drkonqi-sentry-postman.service
 
 %preun
@@ -125,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.{drkonqi.cor
 %{_kf6_datadir}/polkit-1/actions/org.kde.drkonqi.policy
 
 %changelog
+* Thu Feb 15 2024 Alessandro Astone <ales.astone@gmail.com> - 5.93.0-2
+- Stop disabling selinux deny_ptrace
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

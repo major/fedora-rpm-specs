@@ -24,8 +24,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.11
-Release:        3%{?dist}
+Version:        5.15.12
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtTools component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -43,6 +43,8 @@ Patch0:         qttools-fix-qaxwidget-build.patch
 Patch1:         qttools-qt5-suffix.patch
 # gcc-11 related fixes
 Patch2:         qttools-gcc11.patch
+# Fix passing incompatible pointer
+Patch3:         qttools-incompatible-pointer.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -299,6 +301,9 @@ done
 
 
 %changelog
+* Thu Feb 15 2024 Sandro Mani <manisandro@gmail.com> - 5.15.12-1
+- Update to 5.15.12
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

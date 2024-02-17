@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:      mingw-gettext
-Version:   0.22
-Release:   4%{?dist}
+Version:   0.22.4
+Release:   1%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
 License:   GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -107,8 +107,12 @@ rm -rf %{buildroot}%{mingw64_infodir}
 rm -rf %{buildroot}%{mingw32_libdir}/gettext
 rm -rf %{buildroot}%{mingw64_libdir}/gettext
 
-# Drop all .la files
+# Drop all .la files and .a files
 find %{buildroot} -name "*.la" -delete
+rm %{buildroot}%{mingw32_libdir}/libgettextlib.a
+rm %{buildroot}%{mingw32_libdir}/libgettextsrc.a
+rm %{buildroot}%{mingw64_libdir}/libgettextlib.a
+rm %{buildroot}%{mingw64_libdir}/libgettextsrc.a
 
 %mingw_find_lang %{name} --all-name
 
@@ -122,9 +126,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-22.dll
+%{mingw32_bindir}/libgettextlib-0-22-4.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-22.dll
+%{mingw32_bindir}/libgettextsrc-0-22-4.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
@@ -163,9 +167,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-22.dll
+%{mingw64_bindir}/libgettextlib-0-22-4.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-22.dll
+%{mingw64_bindir}/libgettextsrc-0-22-4.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe
@@ -197,6 +201,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Feb 15 2024 Sandro Mani <manisandro@gmail.com> - 0.22.4-1
+- Update to 0.22.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

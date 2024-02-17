@@ -1,11 +1,11 @@
 Name:           sng
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Lossless editing of PNGs via a textual representation
 
-License:        zlib
-URL:            http://sng.sourceforge.net/
-Source0:        http://sourceforge.net/projects/sng/files/sng-%{version}.tar.gz
+License:        Zlib
+URL:            https://sng.sourceforge.net/
+Source0:        https://sourceforge.net/projects/sng/files/sng-%{version}.tar.xz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -29,11 +29,10 @@ translates between SNG and PNG.
 %autosetup
 
 %build
-%configure
 %make_build
 
 %install
-%make_install
+%make_install prefix=%{_prefix}
 
 %check
 # Upstream has a test suite, but the test files are not packaged.
@@ -42,7 +41,7 @@ translates between SNG and PNG.
 
 %files
 %license COPYING
-%doc NEWS README TODO
+%doc NEWS.adoc README TODO
 %doc %_mandir/man1/sng.1*
 %_bindir/sng
 

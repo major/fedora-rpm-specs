@@ -9,14 +9,17 @@
 
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
-Version: 1.4.4
-Release: 3%{?dist}
+Version: 1.4.6
+Release: 1%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
 Url: https://www.msweet.org/pappl
 
-# https://github.com/michaelrsweet/pappl/pull/320
-Patch001: 0001-device-network.c-Fix-crash-in-pappl_dnssd_list-with-.patch
+
+# Add listing raw sockets
+# https://github.com/michaelrsweet/pappl/pull/341
+Patch001: 0001-List-raw-sockets-during-printers-subcommand-if-avail.patch
+
 
 BuildRequires: avahi-devel
 BuildRequires: cups-devel
@@ -105,6 +108,9 @@ make test
 %{_mandir}/man3/pappl-system.3.gz
 
 %changelog
+* Thu Feb 15 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.6-1
+- 2260676 - pappl-1.4.6 is available
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -47,7 +47,7 @@ not test_install and \
 not test_install_hybrid and \
 not test_run \
 " \
--W "ignore:pkg_resources is deprecated as an API::pkg_resources"
+-W "ignore:pkg_resources is deprecated as an API:DeprecationWarning"
 # ^^^
 # Workaround pkg_resources deprecation warning leaking from
 # setuptools:

@@ -44,7 +44,7 @@
 
 # Determine if this should be the default version for this Fedora release
 # The default version will own /usr/bin/node and friends
-%if 0%{?fedora} == 39 || 0%{?fedora} == 40 || 0%{?rhel} == 10
+%if 0%{?fedora} == 39 || 0%{?fedora} == 40 || 0%{?rhel} == 10 || 0%{?fedora} == 41 || 0%{?rhel} >= 11
 %global nodejs_default %{nodejs_pkg_major}
 %endif
 

@@ -5,13 +5,15 @@
 %global uid 133
 %global username bacula
 
-%if 0%{?rhel} && 0%{?rhel} <= 10
-%bcond_with qt
+# RHEL 10 has only Qt 6.  EPEL 10 will have Qt 5 to start, but not
+# necessarily for its entire lifetime.
+%if !(0%{?rhel} >= 10 || 0%{?epel} >= 11)
+%bcond_without qt
 %endif
 
 Name:               bacula
 Version:            13.0.4
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPL-3.0-only with exceptions
@@ -685,6 +687,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Thu Feb 15 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-4
+- Adjust QT conditional.
+
 * Wed Feb 14 2024 Simone Caronni <negativo17@gmail.com> - 13.0.4-3
 - Adjust build requirements and conditions to build on all supported EL/Fedora
   releases.

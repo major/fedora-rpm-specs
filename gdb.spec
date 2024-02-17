@@ -112,7 +112,7 @@ Summary: A GNU source-level debugger for C, C++, Fortran, Go and other languages
 Obsoletes: gdb64 < 5.3.91
 %endif
 
-%ifarch %{arm}
+%ifarch %{arm} riscv64
 %global have_inproctrace 0
 %else
 %global have_inproctrace 1
@@ -398,7 +398,7 @@ BuildRequires: gcc-gnat
 BuildRequires: libgnat%{bits_local} libgnat%{bits_other}
 %endif
 %else
-%ifarch %{ix86} x86_64 ia64 ppc %{power64} alpha s390x %{arm} aarch64
+%ifarch %{ix86} x86_64 ia64 ppc %{power64} alpha s390x %{arm} aarch64 riscv64
 %if 0%{!?rhel:1}
 BuildRequires: gcc-gnat
 BuildRequires: libgnat%{bits_local} libgnat%{bits_other}
@@ -619,7 +619,7 @@ COMMON_GDB_CONFIGURE_FLAGS="\
 ,-Wno-format-overflow\
 %endif
 	--enable-build-with-cxx					\
-%ifnarch %{ix86} alpha ppc s390 s390x x86_64 ppc64 ppc64le sparc sparcv9 sparc64 %{arm} aarch64
+%ifnarch %{ix86} alpha ppc s390 s390x x86_64 ppc64 ppc64le sparc sparcv9 sparc64 %{arm} aarch64 riscv64
 	--disable-werror					\
 %else
 	--enable-werror						\
@@ -704,7 +704,7 @@ export PKG_CONFIG_PATH=%{_libdir}/pkgconfig
 %ifarch sparc sparcv9
 	sparc-%{_vendor}-%{_target_os}%{?_gnu}
 %else
-	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu	\
+	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu	\
 	%{_target_platform}
 %endif
 
@@ -807,7 +807,7 @@ $(: ppc64 host build crashes on ppc variant of libexpat.so )	\
 %ifarch sparc sparcv9
 	sparc-%{_vendor}-%{_target_os}%{?_gnu}
 %else
-	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu	\
+	--enable-targets=s390-linux-gnu,powerpc-linux-gnu,arm-linux-gnu,aarch64-linux-gnu,riscv64-linux-gnu	\
 	%{_target_platform}
 %endif
 

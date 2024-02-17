@@ -2,8 +2,8 @@
 
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
-Version:       1.2.2
-Release:       3%{?dist}
+Version:       1.3.0
+Release:       1%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # Apache-2.0
@@ -128,47 +128,5 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %ghost %attr(640,root,root) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}/%{name}.log
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Dec 27 2023 John Wass <jwass3@gmail.com> 1.2.2-1
-- Update to 1.2.2
-
-* Fri Nov 17 2023 John Wass <jwass3@gmail.com> 1.2.1-1
-- Update to 1.2.1
-
-* Mon Nov 06 2023 John Wass <jwass3@gmail.com> 1.2.0-1
-- Release 1.2.0
-
-* Thu Oct 26 2023 Fabio Valentini <decathorpe@gmail.com> - 1.1.0-3
-- Update packaging for latest Rust and Legal Guidelines.
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 John Wass <jwass3@gmail.com> 1.1.0-1
-- Release v1.1.0
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.3-2
-- Rebuilt for Python 3.12
-
-* Mon May 29 2023 John Wass <jwass3@gmail.com> 1.0.3-1
-- Release v1.0.3
-
-* Fri Apr 28 2023 John Wass <jwass3@gmail.com> 1.0.2-1
-- Release v1.0.2
-
-* Mon Apr 10 2023 John Wass <jwass3@gmail.com> 1.0.1-1
-- Release v1.0.1
-
-* Wed Mar 15 2023 John Wass <jwass3@gmail.com> 1.0.0-1
-- Release v1.0
-
-* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.6.8-2
-- Ensure standard Rust compiler flags are set.
-
-* Wed Jan 11 2023 John Wass <jwass3@gmail.com> 0.6.8-1
+* Sat Feb 03 2024 John Wass <jwass3@gmail.com> 1.3.0-1
 - New release

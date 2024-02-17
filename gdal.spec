@@ -71,6 +71,8 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
+# Fix passing incompatible pointer type
+Patch1:        gdal_incompatible-pointer-types.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

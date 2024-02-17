@@ -4,7 +4,7 @@
 %global crate cfonts
 
 Name:           rust-cfonts
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Sexy ANSI fonts for the console
 

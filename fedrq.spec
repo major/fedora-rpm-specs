@@ -79,6 +79,8 @@ install -Dpm 0644 fedrq.fish %{buildroot}%{fish_completions_dir}/fedrq.fish
 
 
 %check
+bash -x ./tests/test_data/build.sh
+
 FEDRQ_BACKEND=dnf %pytest -v -m "not no_rpm_mock"
 
 %if %{with libdnf5}

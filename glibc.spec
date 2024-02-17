@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.39
-%global glibcversion 2.39
+%global glibcsrcdir glibc-2.39.9000-33-gef7f4b1fef
+%global glibcversion 2.39.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2312,6 +2312,44 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Feb 15 2024 Carlos O'Donell <carlos@redhat.com> - 2.39.9000-1
+- Auto-sync with upstream branch master,
+  commit ef7f4b1fef67430a8f3cfc77fa6aada2add851d7:
+- Apply the Makefile sorting fix
+- sysdeps/x86_64/Makefile (tests): Add the end marker
+- sort-makefile-lines.py: Allow '_' in name and "^# name"
+- trivial doc fix: remove weird phrase "syscall takes zero to five arguments"
+- mips: Use builtins for ffs and ffsll
+- x86: Expand the comment on when REP STOSB is used on memset
+- x86: Do not prefer ERMS for memset on Zen3+
+- x86: Fix Zen3/Zen4 ERMS selection (BZ 30994)
+- x86/cet: fix shadow stack test scripts
+- test_printers_common.py: Remove invalid escape sequence
+- elf: Remove attempt at env handling in elf/tst-rtld-list-diagnostics.py
+- Add SOL_VSOCK from Linux 6.7 to bits/socket.h
+- localedata: ssy_ER: Fix syntax error
+- localedata: hr_HR: change currency to EUR/€
+- Change lv_LV collation to agree with the recent change in CLDR
+- Add new AArch64 HWCAP2 definitions from Linux 6.7 to bits/hwcap.h
+- string: Add hidden builtin definition for __strcpy_chk.
+- arm: Remove wrong ldr from _dl_start_user (BZ 31339)
+- LoongArch: Use builtins for ffs and ffsll
+- Remove sysdeps/ia64/math-use-builtins-ffs.h
+- Fix stringop-overflow warning in tst-strlcat2.
+- mips: FIx clone3 implementation (BZ 31325)
+- stdlib: fix qsort example in manual
+- soft-fp: Add brain format support
+- Rename c2x / gnu2x tests to c23 / gnu23
+- manual: Fix up stdbit.texi
+- string: Use builtins for ffs and ffsll
+- misc: tst-poll: Proper synchronize with child before sending the signal
+- math: Remove bogus math implementations
+- Refer to C23 in place of C2X in glibc
+- elf: Remove _dl_sysdep_open_object hook function
+- build-many-glibcs: relax version check to allow non-digit characters
+- Use gcc __builtin_stdc_* builtins in stdbit.h if possible
+- Open master branch for glibc 2.40 development
+
 * Wed Feb  7 2024 Florian Weimer <fweimer@redhat.com> - 2.39-2
 - Ignore symbolic links to . in sysroot construction
 

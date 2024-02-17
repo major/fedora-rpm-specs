@@ -3,10 +3,15 @@
 
 Name:		spacefm
 Version:	1.0.6
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
-License:	GPLv3+
+# overall		GPL-3.0-or-later
+# src/exo/		LGPL-3.0-or-later
+# src/libmd5-rfc/md5.c	Zlib
+# src/ptk/		LGPL-3.0-or-later
+# SPDX confirmed
+License:	GPL-3.0-or-later AND LGPL-3.0-or-later AND Zlib
 URL:		http://ignorantguru.github.io/spacefm/
 Source0:	https://github.com/IgnorantGuru/spacefm/archive/%{version}/%{name}-%{version}.tar.gz
 # Force x11 as gdk backend (bug 1438277)
@@ -110,6 +115,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Thu Feb 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.6-17
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

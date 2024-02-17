@@ -1,9 +1,9 @@
-%global commit0 37c204c31a8457d364dfdc13c7e84e13d1671680
+%global commit0 10c6b24e90e3dc9c2578290a7d82a87b7f4eb9a3
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       rbm
-Version:    0.4^20230626git%{shortcommit0}
-Release:    5%{?dist}
+Version:    0.4^20240215git%{shortcommit0}
+Release:    1%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -15,8 +15,11 @@ Source0:    %{name}-%{shortcommit0}.tar.gz
 # Install container script, proposed to an upstream,
 # <https://github.com/boklm/rbm/pull/8>.
 Patch0:     rbm-c485326-Install-container-script-as-rmbcontainer.patch
-# Remove tests which require the Internet, no suitable for an upstream.
+# Remove tests which require the Internet, not suitable for an upstream.
 Patch1:     rbm-37c204c-Remove-mozmill-automation-tests.patch
+# Install RBM::CaptureExec module, proposed to an upstream,
+# <https://gitlab.torproject.org/tpo/applications/rbm/-/merge_requests/59>
+Patch2:     rbm-10c6b24-Install-RBM-CaptureExec.patch
 BuildArch:  noarch
 BuildRequires:  asciidoc
 BuildRequires:  coreutils
@@ -38,8 +41,9 @@ BuildRequires:  perl(File::Copy::Recursive)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(IO::CaptureOutput)
+BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(open)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Sort::Versions)
 BuildRequires:  perl(strict)
@@ -85,6 +89,7 @@ Requires:       util-linux-core
 # wget in default configuration
 Requires:       wget
 Requires:       xz
+Requires:       zstd
 
 %description
 Reproducible Build Manager (rbm) is a tool that helps you create and build
@@ -148,6 +153,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 15 2024 Petr Pisar <ppisar@redhat.com> - 0.4^20240215git10c6b24-1
+- Rebase to a git snapshot taken on 2024-02-15
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20230626git37c204c-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

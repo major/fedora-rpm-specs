@@ -1,11 +1,12 @@
 Name:           perl-Alien-pkgconf
 Version:        0.19
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Discover pkgconf and libpkgconf
-# Other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
+# Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
-# pkgconf-1.3.9/aclocal.m4: GPL-3.0-or-later WITH Autoconf-exception-macro
+# patch/pkgconf-solaris-1.3.9.diff: GPL-3.0-or-later WITH Autoconf-exception-macro
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+SourceLicense:  (%{license}) AND GPL-3.0-or-later WITH Autoconf-exception-macro
 URL:            https://metacpan.org/release/Alien-pkgconf
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-pkgconf-%{version}.tar.gz
 # Accept pkgconf-1.9, we have patched perl-PkgConfig-LibPkgConf, bug #2172713
@@ -126,6 +127,13 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 15 2024 Petr Pisar <ppisar@redhat.com> - 0.19-9
+- Fix a priority in the source license value
+
+* Thu Feb 15 2024 Petr Pisar <ppisar@redhat.com> - 0.19-8
+- Rebuild against pkgconf 2.1.0 (bug #2264268)
+- Define a distinct license for the source package
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.10.0
-Release: 5%{?candidate:.%{candidate}}%{?dist}
+Release: 6%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
@@ -38,6 +38,7 @@ BuildRequires: dtc
 BuildRequires: gcc
 # This is needed for rk3399 which while aarch64 has an onboard Cortex-M0 base PMU
 BuildRequires: gcc-arm-linux-gnu
+BuildRequires: openssl-devel
 
 %description
 ARM Trusted firmware is a reference implementation of secure world software for
@@ -77,6 +78,9 @@ case $(echo $soc) in
     make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=generic SPD=opteed bl31
     make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=j784s4 SPD=opteed K3_USART=0x8 bl31
     make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) TARGET_BOARD=lite SPD=opteed bl31
+    ;;
+  "qemu_sbsa")
+    make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) all fip
     ;;
   *)
     make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) bl31
@@ -127,6 +131,18 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
  done
 done
 
+# qemu_sbsa wants bl1.bin and fip.bin
+for soc in qemu_sbsa
+do
+mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
+ for file in bl1.bin fip.bin
+ do
+  if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
+    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/
+  fi
+ done
+done
+
 # Install rk35 fork
 pushd arm-trusted-firmware-rk35-%{rk35tag}
 for soc in rk3588
@@ -147,6 +163,9 @@ popd
 %{_datadir}/%{name}
 
 %changelog
+* Thu Feb 15 2024 Michael Brown <mbrown@fensystems.co.uk> - 2.10.0-6
+- Add qemu_sbsa platform
+
 * Tue Feb 13 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-5
 - Add initial rk3588 support
 

@@ -24,8 +24,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.11
-Release:        3%{?dist}
+Version:        5.15.12
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -100,10 +100,13 @@ Patch18:        qt5-qtbase-link-openssl.patch
 # Fix missing qtsan_impl include
 Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 
+# Backport fix for CVE-2024-25580
+Patch20:        CVE-2024-25580-qtbase-5.15.patch
+
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.10..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
-Source100:      kde-5.15-rollup-20231006.patch.gz
+# git diff v5.15.12..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+Source100:      kde-5.15-rollup-20240102.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -813,6 +816,12 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Thu Feb 15 2024 Sandro Mani <manisandro@gmail.com> - 5.15.12-2
+- Backport fix for CVE-2024-25580
+
+* Thu Feb 15 2024 Sandro Mani <manisandro@gmail.com> - 5.15.12-1
+- Update to 5.15.12
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

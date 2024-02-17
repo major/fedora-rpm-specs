@@ -34,6 +34,7 @@ BuildRequires: gtk-doc
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: openssl-devel
+BuildRequires: composefs-devel
 %if %{with tests}
 BuildRequires: pkgconfig(libsoup-3.0)
 %endif

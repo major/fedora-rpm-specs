@@ -91,7 +91,7 @@ Summary:	Microcode updates for AMD CPUs
 License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n amd-ucode-firmware
-Microcode updates for AMD CPUs, ARM SEV amd TEE.
+Microcode updates for AMD CPUs, AMD SEV and AMD TEE.
 
 # WiFi/Bluetooth firmwares
 %package -n atheros-firmware

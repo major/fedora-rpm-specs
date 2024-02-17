@@ -3,7 +3,7 @@
 %global pypi_name yamllint
 
 Name:           %{pypi_name}
-Version:        1.34.0
+Version:        1.35.0
 Release:        1%{?dist}
 Summary:        A linter for YAML files
 
@@ -18,6 +18,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pathspec
 BuildRequires:  python3-PyYAML
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 
 %description
 A linter for YAML files.
@@ -61,6 +62,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Thu Feb 15 2024 Adrien Vergé <adrienverge@gmail.com> - 1.35.0-1
+- Update to latest upstream version
+
 * Tue Feb 06 2024 Adrien Vergé <adrienverge@gmail.com> - 1.34.0-1
 - Update to latest upstream version
 

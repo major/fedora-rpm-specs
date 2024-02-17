@@ -5,7 +5,7 @@
 %global crate reedline
 
 Name:           rust-reedline
-Version:        0.25.0
+Version:        0.27.1
 Release:        %autorelease
 Summary:        Readline-like crate for CLI text input
 

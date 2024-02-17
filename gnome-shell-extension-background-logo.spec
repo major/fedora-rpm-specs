@@ -2,7 +2,7 @@
 %global shell_version 45~beta
 
 Name:           gnome-shell-extension-background-logo
-Version:        45~beta
+Version:        46~beta
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 

@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -18,6 +18,7 @@ Source10:       wx-config
 Patch0:         %{name}-3.1.6-abicheck.patch
 Patch1:         tests-no-deprecated-copy-dtor.patch
 Patch2:         https://github.com/wxWidgets/wxWidgets/commit/1622a5c9c2f123ef27fc3a52938162a68892e725.patch
+Patch3:         fix-ftbfs-autoconf-2.72.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -321,6 +322,9 @@ fi
 %doc html
 
 %changelog
+* Fri Feb 16 2024 Scott Talbert <swt@techie.net> - 3.2.4-6
+- Fix FTBFS with autoconf 2.72 (#2264449)
+
 * Sun Feb 04 2024 Scott Talbert <swt@techie.net> - 3.2.4-5
 - Enable wxLZMAInputStream (#2258458)
 
