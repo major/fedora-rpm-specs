@@ -1,6 +1,6 @@
 Name:           cockpit-composer
-Version:        47
-Release:        3%{?dist}
+Version:        48
+Release:        1%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -42,6 +42,10 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 14 2024 Packit <hello@packit.dev> - 48-1
+- Fix rhsm bug
+- Update translations and minor dependencies
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 47-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

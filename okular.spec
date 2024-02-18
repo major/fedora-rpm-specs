@@ -15,7 +15,7 @@
 Name:    okular
 Summary: A document viewer
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -222,6 +222,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

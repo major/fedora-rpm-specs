@@ -1,11 +1,10 @@
 %global pypi_name treq
 
-
 %global with_doc 1
 
 Name:           python-%{pypi_name}
-Version:        21.5.0
-Release:        10%{?dist}
+Version:        23.11.0
+Release:        1%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -19,8 +18,9 @@ BuildRequires:  python3-sphinx
 %endif
  
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-incremental
+# For tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-httpbin
 
 %description
 treq is an HTTP library inspired by requests but written on top of
@@ -30,13 +30,7 @@ when using Twisted.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
- 
-Requires:       python3-incremental
-Requires:       python3-requests >= 2.1.0
-Requires:       python3-six
-Requires:       python3-twisted >= 16.3.0
-Requires:       python3-attrs
+
 %description -n python3-%{pypi_name}
 treq is an HTTP library inspired by requests but written on top of
 Twisted’s Agents.
@@ -53,11 +47,11 @@ Documentation for treq
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 %if 0%{?with_doc}
 # generate html docs
 export PYTHONPATH=%{python2_sitelib}:%{python3_sitelib}:src
@@ -67,14 +61,15 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files treq
+
+%check
+%pytest -v
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
@@ -83,6 +78,10 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Feb 15 2024 Orion Poplawski <orion@nwra.com> - 23.11.0-1
+- Update to 23.11.0
+- Use pyproject macros
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 21.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

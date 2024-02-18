@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -50,6 +50,7 @@ Patch20:    net-snmp-5.9.1-remove-des.patch
 Patch21:    net-snmp-libs-misunderstanding.patch
 Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
 Patch23:    net-snmp-5.9-rpmdb.patch
+Patch24:    net-snmp-5.9.4-autoconf.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -239,6 +240,7 @@ cp %{SOURCE10} .
 %patch 21 -p1
 %patch 22 -p1 -b .ipv6-disable-leak
 %patch 23 -p1 -b .rpmdbpatch
+%patch 24 -p1 
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -509,6 +511,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Fri Feb 16 2024 Josef Ridky <jridky@redhat.com> - 1:5.9.4-4
+- Autoconf upgrade (#2256768)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

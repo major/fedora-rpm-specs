@@ -8392,7 +8392,7 @@ export XPDF_LIBS="-lxpdfcore -lfofi -lgoo -lsplash $GLIB_LIBS $PAPER_LIBS $FONTC
 %else
 --with-system-xpdf \
 %endif
-%ifarch %{power64} s390 s390x
+%ifarch %{power64} s390 s390x riscv64
 --disable-luajittex --disable-mfluajit --disable-luajithbtex --disable-mfluajit-nowin \
 %endif
 %if %{without bootstrap} && ! 0%{?eln}
@@ -8762,7 +8762,7 @@ for i in afm2pl afm2tfm aleph bibtex bibtex8 bibtexu chkdvifont chktex ctie ctan
 chrpath --delete %{buildroot}%{_bindir}/$i
 done
 
-%ifnarch %{power64} s390 s390x
+%ifnarch %{power64} s390 s390x riscv64
 chrpath --delete %{buildroot}%{_bindir}/luajithbtex
 chrpath --delete %{buildroot}%{_bindir}/luajittex
 chrpath --delete %{buildroot}%{_bindir}/mfluajit
@@ -9928,7 +9928,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_includedir}/kpathsea/*
 %{_includedir}/synctex/
 %{_includedir}/texlua53/
-%ifnarch %{power64} s390 s390x
+%ifnarch %{power64} s390 s390x riscv64
 %{_includedir}/texluajit/
 %endif
 %{_libdir}/*.so
@@ -10012,7 +10012,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 
 %files -n %{shortname}-luajittex
 %license gpl2.txt
-%ifnarch %{power64} s390 s390x
+%ifnarch %{power64} s390 s390x riscv64
 %{_bindir}/luajittex
 %{_bindir}/luajithbtex
 %{_bindir}/texluajit
@@ -10133,7 +10133,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl2.txt
 %{_bindir}/mflua
 %{_bindir}/mflua-nowin
-%ifnarch %{power64} s390 s390x
+%ifnarch %{power64} s390 s390x riscv64
 %{_bindir}/mfluajit
 %{_bindir}/mfluajit-nowin
 %endif

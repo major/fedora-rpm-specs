@@ -1,7 +1,5 @@
+%global debug_package %{nil}
 %global npm_name yarn
-# name yarn would probably confict with cmdtest and hadoop-yarn
-# https://bugzilla.redhat.com/show_bug.cgi?id=1507312
-%global old_name nodejs-yarn
 
 %{?nodejs_find_provides_and_requires}
 
@@ -10,17 +8,17 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20230321
+%global bundledate 20240217
 
 Name:           yarnpkg
-Version:        1.22.19
-Release:        8%{?dist}
+Version:        1.22.21
+Release:        1%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
+License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
 # we need tarball with node_modules
 Source0:        %{name}-v%{version}-bundled-%{bundledate}.tar.gz
 Source1:        yarnpkg-tarball.sh
-License:        BSD
 
 # These are applied by yarnpkg-tarball.sh
 # async-CVE-2021-43138.prebundle.patch
@@ -28,23 +26,10 @@ License:        BSD
 # thenify-CVE-2020-7677.prebundle.patch
 # decode-uri-component-CVE-2022-38900.prebundle.patch
 
-# Backport fix for CVE-2021-35065 for bundled glob-parent
-Patch1:         glob-parent-CVE-2021-35065.patch
-
-BuildArch:      noarch
-ExclusiveArch:  %{nodejs_arches} noarch
+ExclusiveArch:  %{nodejs_arches}
 
 BuildRequires:  nodejs-packaging
-%if 0%{?fedora} >= 37
-BuildRequires:  nodejs-npm
-%else
-BuildRequires:  npm
-%endif
-
-# Package was renamed when Fedora 33 was rawhide
-# Don't remove this before Fedora 35
-Obsoletes:      %{old_name} < 1.22.4-1
-Provides:       %{old_name} = %{version}-%{release}
+BuildRequires:  yarnpkg
 
 %description
 Fast, reliable, and secure dependency management.
@@ -56,10 +41,8 @@ Fast, reliable, and secure dependency management.
 
 %build
 # use build script
-npm run build
+yarn build
 
-# remove build dependencies from node_modules
-npm prune --production
 
 %install
 mkdir -p %{buildroot}%{nodejs_sitelib}/%{npm_name}
@@ -70,7 +53,6 @@ cp -pr package.json lib bin node_modules \
 mkdir -p %{buildroot}%{_bindir}
 ln -sfr %{buildroot}%{nodejs_sitelib}/%{npm_name}/bin/yarn.js %{buildroot}%{_bindir}/yarnpkg
 ln -sfr %{buildroot}%{nodejs_sitelib}/%{npm_name}/bin/yarn.js %{buildroot}%{_bindir}/yarn
-ln -sfr %{buildroot}%{nodejs_sitelib}/%{npm_name}/bin/yarn.js %{buildroot}%{_bindir}/%{old_name}
 
 # Fix the shebang in yarn.js because brp-mangle-shebangs fails to detect this properly (rhbz#1998924)
 sed -e "s|^#!/usr/bin/env node$|#!/usr/bin/node|" \
@@ -86,7 +68,6 @@ find %{buildroot}%{nodejs_sitelib}/%{npm_name}/node_modules \
 %nodejs_symlink_deps --check
 if [[ $(%{buildroot}%{_bindir}/yarnpkg --version) == %{version} ]] ; then echo PASS; else echo FAIL && exit 1; fi
 if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS; else echo FAIL && exit 1; fi
-if [[ $(%{buildroot}%{_bindir}/%{old_name} --version) == %{version} ]] ; then echo PASS; else echo FAIL && exit 1; fi
 %endif
 
 
@@ -95,10 +76,12 @@ if [[ $(%{buildroot}%{_bindir}/%{old_name} --version) == %{version} ]] ; then ec
 %license LICENSE
 %{_bindir}/yarnpkg
 %{_bindir}/yarn
-%{_bindir}/%{old_name}
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Fri Feb 16 2024 Sandro Mani <manisandro@gmail.com> - 1.22.21-1
+- Update to 1.22.21
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

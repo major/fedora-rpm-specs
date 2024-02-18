@@ -7,7 +7,7 @@ Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
 # src/sphinx_theme_builder/_internal/passthrough.py is BSD-3-Clause.
-License:        MIT and BSD-3-Clause
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/pradyunsg/sphinx-theme-builder
 Source0:        %{url}/archive/%{version}%{prerel}/sphinx-theme-builder-%{version}%{prerel}.tar.gz
 

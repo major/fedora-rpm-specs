@@ -1,20 +1,21 @@
 Name:           perl-Image-PNG-Libpng
 Version:        0.58
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl interface to the libpng library
-# lib/Image/PNG/Const.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Image/PNG/Libpng.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Image/PNG/Const.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Image/PNG/Libpng.pod:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# t/libpng/PngSuite.LICENSE:    LicenseRef-Fedora-UltraPermissive
+#                               (bundled from contrib/pngsuite of libpng)
+#                               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/474>.
 ## Not in any binary package
 # Makefile.PL:              GPL-1.0-or-later OR Artistic-1.0-Perl
 # repackage.sh:             GPL-2.0-or-later
-# t/libpng/PngSuite.LICENSE:    FSFUL-like (contrib/pngsuite bundled from libpng)
-#                           TODO: Waiting on a license review
-#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/474>.
 ## Stripped from the source archive
 # examples/life.png:        CC-BY-NC-2.5
 # examples/life-gray.png:   CC-BY-NC-2.5
 # t/tantei-san.png:         "I don't have permission to disseminate it."
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+SourceLicense:  (%{license}) AND LicenseRef-Fedora-UltraPermissive AND GPL-2.0-or-later
 URL:            https://metacpan.org/release/Image-PNG-Libpng
 # Original archive from
 # <https://cpan.metacpan.org/authors/id/B/BK/BKB/Image-PNG-Libpng-%%{version}.tar.gz>
@@ -88,6 +89,7 @@ installed, you can also use it to examine PNG files on the web.
 
 %package tests
 Summary:        Tests for %{name}
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-UltraPermissive
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
@@ -116,8 +118,8 @@ perl Makefile.PL --check INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZ
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -156,6 +158,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 16 2024 Petr Pisar <ppisar@redhat.com> - 0.58-2
+- Correct a perl-Image-PNG-Libpng-tests license to
+  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-UltraPermissive
+
 * Thu Feb 01 2024 Petr Pisar <ppisar@redhat.com> - 0.58-1
 - 0.58 bump
 

@@ -1,23 +1,28 @@
+# Tests don't currently pass
+%bcond_with tests
+
 Name:      pyee
 Version:   9.0.4
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   A port of node.js's EventEmitter to python
 License:   MIT
 URL:       https://pypi.python.org/pypi/pyee
 Source0:   https://github.com/jfhbrook/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:    pyee-switch-to-unittest-mock.diff
 BuildArch: noarch
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: python3-flake8
-BuildRequires: python3-mock
 BuildRequires: python3-sphinx
 BuildRequires: python3-tox
 BuildRequires: python3-twisted
+%if %{with tests}
+BuildRequires: python3-flake8
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-asyncio
 BuildRequires: python3-pytest-runner
 BuildRequires: python3-pytest-trio
+%endif
 
 %description
 A port of node.js's EventEmitter to python.
@@ -39,13 +44,21 @@ A port of node.js's EventEmitter to python.
 %py3_install
 
 %check
-# %{__python3} setup.py test
+# currently segfaults
+# %%py3_check_import pyee
+%if %{with tests}
+%pytest -v
+%endif
 
 %files -n python3-ee
 %license LICENSE
 %{python3_sitelib}/*
 
 %changelog
+* Thu Feb 15 2024 Michel Lind <salimma@fedoraproject.org> - 9.0.4-9
+- Replace mock with unittest.mock
+- Use bcond to toggle tests and gate test BRs but keep them disabled for now
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -14,6 +14,8 @@ Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{ver
 Patch0:         h5py-3.10.0-ppc-float128.patch
 Patch1:         0001-Fix-compiling-fileobj-file-driver-with-Cython-3.0.patch
 Patch2:         h5py-3.10.0-python-crash-file-test2.patch
+# Properly cast const pointers - https://github.com/h5py/h5py/pull/2380
+Patch3:         h5py-const.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel
@@ -232,6 +234,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Fri Feb 16 2024 Orion Poplawski <orion@nwra.com> - 3.10.0-5
+- Add patch to properly cast const pointers (FTBFS bz#2261231)
+
 * Mon Feb 05 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.10.0-4
 - OpenMPI and MPICH have dropped i686 support
 

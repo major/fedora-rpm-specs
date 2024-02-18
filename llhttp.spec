@@ -26,8 +26,8 @@
 # additional source even if we do not do the re-generation ourselves.
 
 Name:           llhttp
-Version:        9.1.3
-%global so_version 9.1
+Version:        9.2.0
+%global so_version 9.2
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 
@@ -46,7 +46,7 @@ Source0:        %{url}/archive/v%{version}/llhttp-%{version}.tar.gz
 #   therefore, no bundled licenses text file is generated either
 Source1:        llhttp-packaging-bundler
 # Created with llhttp-packaging-bundler (Source1):
-Source2:        llhttp-%{version}-nm-dev.tgz
+Source2:        llhttp-%{version}-nm-dev.tar.xz
 
 # While nothing in the dev bundle is installed, we still choose to audit for
 # null licenses at build time and to keep manually-approved exceptions in a
@@ -107,7 +107,7 @@ sed -r -i 's@ -[Og].\b@@g' Makefile
 
 # Set up bundled (dev) node modules required to generate the C sources from the
 # TypeScript sources.
-tar -xzf '%{SOURCE2}'
+tar -xJf '%{SOURCE2}'
 mkdir -p node_modules
 pushd node_modules
 ln -s ../node_modules_dev/* .
@@ -156,6 +156,7 @@ popd
 # allowability.
 pattern="${pattern-}${pattern+|}UNKNOWN|(Apache|Python) License 2\\.0"
 pattern="${pattern-}${pattern+|}(MIT|ISC|BSD [023]-Clause) License"
+pattern="${pattern-}${pattern+|}BSD 2-Clause with views sentence"
 pattern="${pattern-}${pattern+|}MIT License and/or X11 License"
 pattern="${pattern-}${pattern+|}GNU General Public License"
 # The CC0-1.0 license is *not allowed* in Fedora for code, but the
@@ -188,7 +189,8 @@ if licensecheck -r node_modules_dev |
       $1 == "License:" { license = $0; next }
       $1 == "Score:" {
         if ( \
-          license ~ /: (MIT|ISC|0BSD|BSD-[23]-Clause) \(/ || \
+          license ~ /: (MIT|ISC) \(/ || \
+          license ~ /: (0BSD|BSD-2-Clause(-Views)?|BSD-3-Clause) \(/ || \
           license ~ /: (Apache-2\.0|Python-2\.0\.1) \(/ \
         ) {
           next # license is OK
@@ -226,10 +228,8 @@ fi
 export CXXFLAGS="${CXXFLAGS-} -fpermissive"
 export CFLAGS="${CFLAGS-} -fpermissive"
 export CLANG=gcc
-# See scripts.mocha in package.json:
-NODE_ENV=test ./node_modules/.bin/mocha \
-    -r ts-node/register/type-check \
-    test/*-test.ts
+# See scripts.test in package.json:
+NODE_ENV=test node -r ts-node/register/type-check ./test/md-test.ts
 
 
 %files

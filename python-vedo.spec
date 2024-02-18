@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/marcomusy/vedo
-Version:        2023.5.0
+Version:        2024.5.1
 %forgemeta
 
 Name:           python-vedo

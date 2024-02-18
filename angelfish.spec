@@ -6,7 +6,7 @@
 
 Name:           angelfish
 Version:        24.01.95
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -135,6 +135,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-3
+- Rebuild (qt6)
+
 * Mon Feb 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.95-2
 - Enable adblock
 

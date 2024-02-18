@@ -7,6 +7,8 @@ License:        GPL-2.0-or-later
 URL:            https://git-cola.github.io
 Source0:        https://github.com/git-cola/git-cola/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch:          polib.patch
+
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils

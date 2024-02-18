@@ -3,7 +3,7 @@ Version:        3.38.2
 Release:        10%{?dist}
 Summary:        A 2048 clone for GNOME
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/2048
 Source0:        https://download.gnome.org/sources/gnome-2048/3.38/gnome-2048-%{version}.tar.xz
 

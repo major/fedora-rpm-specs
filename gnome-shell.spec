@@ -40,7 +40,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define pipewire_version 0.3.0
 %define gnome_settings_daemon_version 3.37.1
 
-BuildRequires:  bash-completion
+BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  git

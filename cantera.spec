@@ -10,7 +10,7 @@ URL:           https://github.com/Cantera/%{name}/
 Source0:       %{url}archive/refs/tags/v%{version}.tar.gz
 
 # Python 3.12 currently in pre-release and not officially supported
-Patch0:        add-python3_12.patch
+Patch0:        add-python3_13.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  eigen3-devel

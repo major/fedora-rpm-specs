@@ -9,7 +9,7 @@ Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%
 Source2: charge.plymouth
 
 BuildRequires: meson
-BuildRequires: fedora-logos
+BuildRequires: system-logos
 BuildRequires: gcc libtool git
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(libevdev)

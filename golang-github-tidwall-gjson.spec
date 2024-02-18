@@ -4,7 +4,7 @@
 
 # https://github.com/tidwall/gjson
 %global goipath         github.com/tidwall/gjson
-Version:                1.17.0
+Version:                1.17.1
 
 %gometa -L -f
 
@@ -22,7 +22,6 @@ Summary:        Get JSON values quickly - JSON parser for Go
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
-Patch1:         0001-Fix-JSON-encoding-test-failure-for-Go-1.22.patch
 
 %description %{common_description}
 

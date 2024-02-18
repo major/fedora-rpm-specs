@@ -1,10 +1,10 @@
 Name:           ascii
-Version:        3.19
+Version:        3.20
 Release:        1%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
 BuildRequires:  xmlto, gcc
-BuildRequires: make
+BuildRequires:  make
 
 License:        BSD-2-Clause
 Summary:        Interactive ascii name and synonym chart
@@ -37,6 +37,9 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Fri Feb 16 2024 Didier Fabert <didier.fabert@gmail.com> - 3.20-1
+- Update to 3.20 version
+
 * Thu Feb 01 2024 Didier Fabert <didier.fabert@gmail.com> - 3.19-1
 - Update to 3.19 version
 

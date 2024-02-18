@@ -1,23 +1,12 @@
-%bcond snapshot 1
-
-%global srcver      1.1
-%global commit      2d683e0c53907ebca9abde876dd87af70719e42d
-%global shortcommit %(c=%{commit}; echo ${c:0:8})
-%global commitdate  20240129
-%global snapshotver %{commitdate}.%{shortcommit}
 
 Name:           qbe
-Version:        %{srcver}%{?with_snapshot:^%{snapshotver}}
+Version:        1.2
 Release:        %autorelease
 Summary:        A pure C embeddable compiler backend
 
 License:        MIT
 URL:            https://c9x.me/compile/
 Source0:        %{url}/release/%{name}-%{srcver}.tar.xz
-
-%if %{with snapshot}
-Patch:          0000-snapshot-%{srcver}-%{shortcommit}.patch
-%endif
 
 BuildRequires:  gcc
 BuildRequires:  make

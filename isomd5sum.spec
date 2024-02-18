@@ -1,12 +1,16 @@
+%global forgeurl https://github.com/rhinstaller/isomd5sum
+
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
-Version: 1.2.3
-Release: 23%{?dist}
+Version: 1.2.4
+Release: 1%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 
-Url:     https://github.com/rhinstaller/isomd5sum
-Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
+%global tag %{version}
+%forgemeta
+Url:     %{forgeurl}
+Source0: %{forgesource}
 
 BuildRequires: gcc
 BuildRequires: popt-devel
@@ -35,7 +39,7 @@ an md5sum implanted into an ISO9660 image.
 
 
 %prep
-%autosetup
+%forgeautosetup
 
 
 %build
@@ -63,6 +67,16 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Fri Feb 16 2024 Brian C. Lane <bcl@redhat.com> - 1.2.4-1
+- New Version 1.2.4 (bcl)
+- Add support for riscv64 (davidlt)
+- workflows: Update to use actions/checkout (bcl)
+- Fix checksum failure with small isos (bcl)
+- test: Update testing to include small iso and larger iso (bcl)
+- Add a GitHub Action to run tests (bcl)
+- Add mips64 (wangray1021)
+- testpyisomd5sum.py: Support genisoimage, Python 2 (ryan)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

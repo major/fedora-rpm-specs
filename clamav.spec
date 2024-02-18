@@ -120,7 +120,9 @@ BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 #for milter
 BuildRequires:  sendmail-devel
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 
 Requires:   clamav-filesystem = %{version}-%{release}
 Requires:   clamav-lib = %{version}-%{release}

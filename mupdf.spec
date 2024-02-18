@@ -116,6 +116,8 @@ find %{buildroot}/%{_mandir} -type f -exec chmod 0644 {} \;
 find %{buildroot}/%{_includedir} -type f -exec chmod 0644 {} \;
 cd %{buildroot}/%{_bindir} && ln -s %{name}-x11 %{name}
 
+chmod +x %{buildroot}/%{_libdir}/%{libname}.so.%{soname}
+
 %files
 %license COPYING
 %doc README CHANGES docs/*

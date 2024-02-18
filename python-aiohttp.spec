@@ -2,7 +2,7 @@
 
 Name:           python-aiohttp
 Version:        3.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -154,6 +154,9 @@ k="${k-}${k+ and }not test_send_compress_text"
 %doc README.rst
 
 %changelog
+* Fri Feb 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.9.3-2
+- Rebuilt for llhttp-9.2.0
+
 * Tue Jan 30 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.9.3-1
 - Update to 3.9.3, security update for CVE-2024-23334 and CVE-2024-23829 (fix
   RHBZ#2261891, fix RHBZ#2261910)

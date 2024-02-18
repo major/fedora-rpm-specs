@@ -1,6 +1,6 @@
 Name:           fedora-iot-config
-Version:        0.0
-Release:        7%{?dist}
+Version:        1
+Release:        1%{?dist}
 Summary:        Fedora IoT Configuration file
 
 License:        MIT
@@ -35,6 +35,15 @@ install -pm 0644 %{SOURCE1} %{buildroot}%{_unitdir}/
 install -d %{buildroot}%{_sbindir}
 install -pm 0755 %{SOURCE2} %{buildroot}%{_sbindir}
 
+%post
+%systemd_post fedora-iot-config-remote-fix.service
+
+%preun
+%systemd_preun fedora-iot-config-remote-fix.service
+
+%postun
+%systemd_postun fedora-iot-config-remote-fix.service
+
 %files
 %config %{_sysconfdir}/ostree/remotes.d/fedora-iot.conf
 %{_unitdir}/fedora-iot-config-remote-fix.service
@@ -42,6 +51,9 @@ install -pm 0755 %{SOURCE2} %{buildroot}%{_sbindir}
 
 
 %changelog
+* Fri Feb 16 2024 Paul Whalen <pwhalen@fedoraproject.org> - 1-1
+- add systemd scriptlets
+
 * Wed Feb 07 2024 Paul Whalen <pwhalen@fedoraproject.org> - 0.0-7
 - add script and service to detect and remove sysroot remote repo (issue#2)
 

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 40.21
-Release: 2%{?dist}
+Version: 41.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,11 +11,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
-
-# https://github.com/rhinstaller/anaconda/pull/5460
-# https://bugzilla.redhat.com/show_bug.cgi?id=2262892
-# Fix ostree installs to btrfs with util-linux 2.40+
-Patch: 0001-Resolve-symlinks-in-ostree-install-bind-mount-destin.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -45,7 +40,7 @@ Patch: 0001-Resolve-symlinks-in-ostree-install-bind-mount-destin.patch
 %define nmver 1.0
 %define pykickstartver 3.52-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.8.2-2
+%define pythonblivetver 1:3.9.0-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
@@ -470,6 +465,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 16 2024 Packit <hello@packit.dev> - 41.1-1
+- bump major version number for Rawhide after F40 branching (mkolman)
+
 * Tue Feb 06 2024 Adam Williamson <awilliam@redhat.com> - 40.21-2
 - Backport PR #5460 to fix ostree btrfs installs with new util-linux (#2262892)
 

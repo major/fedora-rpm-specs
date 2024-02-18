@@ -59,12 +59,9 @@ Patch8:             %{name}-docker-plugin.patch
 Patch9:             %{name}-autoconf.patch
 Patch10:            %{name}-scripts.patch
 
-BuildRequires:      desktop-file-utils
-BuildRequires:      perl-generators
-BuildRequires:      sed
-
 BuildRequires:      autoconf
 BuildRequires:      automake
+BuildRequires:      desktop-file-utils
 BuildRequires:      firewalld-filesystem
 BuildRequires:      gcc
 BuildRequires:      gcc-c++
@@ -79,6 +76,7 @@ BuildRequires:      make
 BuildRequires:      ncurses-devel
 BuildRequires:      openldap-devel
 BuildRequires:      openssl-devel
+BuildRequires:      perl-generators
 %if %{with qt}
 BuildRequires:      qt5-qtbase-devel
 %endif

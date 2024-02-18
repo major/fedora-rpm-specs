@@ -3,7 +3,7 @@
 %global srcname myrepos-utils
 
 Name:           python-%{srcname}
-Version:        0.0.3
+Version:        0.0.4.2
 Release:        %autorelease
 Summary:        Additional utilities for myrepos
 

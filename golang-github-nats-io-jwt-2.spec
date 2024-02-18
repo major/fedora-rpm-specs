@@ -4,7 +4,7 @@
 
 # https://github.com/nats-io/jwt
 %global goipath         github.com/nats-io/jwt
-Version:                2.5.3
+Version:                2.5.4
 
 %gometa -f
 

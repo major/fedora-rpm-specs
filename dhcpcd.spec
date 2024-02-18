@@ -15,6 +15,9 @@ Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
 
+# https://github.com/NetworkConfiguration/dhcpcd/pull/295
+Patch1:  dhcpcd-10.0.6-dhcp-redirect-len0.patch
+
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
 BuildRequires: chrony

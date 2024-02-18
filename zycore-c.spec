@@ -1,13 +1,16 @@
-%global sover 1.4
+%global forgeurl https://github.com/zyantific/zycore-c
+Version:        1.5.0
+%forgemeta
+
+%global sover %{echo %{version} | cut -d '.' -f 1,2}
 
 Name:           zycore-c
-Version:        1.4.1
 Release:        %autorelease
 Summary:        Zyan Core Library for C
 
 License:        MIT
-URL:            https://github.com/zyantific/zycore-c
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 # https://github.com/zyantific/zycore-c/issues/59
 ExcludeArch:    s390x
@@ -51,6 +54,8 @@ The %{name}-doc package contains the documentation for %{name}.
 
 %install
 %cmake_install
+
+rm -r %{buildroot}%{_mandir}/man3
 
 %check
 %ctest

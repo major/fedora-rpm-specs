@@ -2,7 +2,7 @@ Summary: A predictive text input system
 Name: dasher
 Version: 5.0.0
 Release: 0.23.beta%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://www.inference.phy.cam.ac.uk/dasher/
 Source0: https://github.com/ipomoena/dasher/archive/DASHER_5_0_0_beta.tar.gz
 

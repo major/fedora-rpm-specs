@@ -1,6 +1,6 @@
 Name:           kpublictransport
 Version:        24.01.95
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -64,6 +64,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

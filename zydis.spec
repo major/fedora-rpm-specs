@@ -1,16 +1,13 @@
+Version:        4.1.0
+%global sover %{echo %{version} | cut -d '.' -f 1,2}
+
 Name:           zydis
-Version:        4.0.0
 Release:        %autorelease
 Summary:        Fast and lightweight x86/x86-64 disassembler and code generation library
 
 License:        MIT
 URL:            https://github.com/zyantific/zydis
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# fix the installation location of man pages
-Patch0:         https://github.com/zyantific/zydis/commit/c683b1273104b19300a830889e7d827e727c43e9.patch
-# Add ZYDIS_BUILD_TESTS option and include tests in CMakeLists.txt
-Patch1:         https://github.com/zyantific/zydis/commit/a56a39f15efe64a41013ec142c028e6f72476232.patch
 
 ExcludeArch:    s390x
 
@@ -80,7 +77,7 @@ The %{name}-tools package contains tools about %{name}.
 
 %files
 %license LICENSE
-%{_libdir}/libZydis.so.4.0*
+%{_libdir}/libZydis.so.%{sover}*
 
 %files devel
 %doc README.md

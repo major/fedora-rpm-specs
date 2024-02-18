@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.11.0
+Version:        24.1.1
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -185,7 +185,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_ProgressiveFetchExtract_prefers_conda_v2_format, test_subdir_data_prefers_conda_to_tar_bz2,
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
-# tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
+# tests/env/test_create.py::test_create_update_remote_env_file requires network access
 # tests/cli/test_conda_argparse.py::test_list_through_python_api does not recognize /usr as a conda environment
 # tests/cli/test_main_{clean,info,list,list_reverse,rename}.py tests require network access
 # tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
@@ -207,16 +207,22 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/test_cli.py::test_run_returns_zero_errorlevel \
     --deselect=tests/test_cli.py::test_run_readonly_env \
     --deselect=tests/test_misc.py::test_explicit_missing_cache_entries \
-    --ignore=tests/conda_env/specs/test_binstar.py \
-    --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
+    --ignore=tests/env/specs/test_binstar.py \
+    --deselect=tests/env/test_create.py::test_create_update_remote_env_file \
     --deselect='tests/cli/test_common.py::test_is_active_prefix[active_prefix-True]' \
+    --deselect=tests/cli/test_config.py::test_conda_config_describe \
+    --deselect=tests/cli/test_config.py::test_conda_config_validate \
+    --deselect=tests/cli/test_config.py::test_conda_config_validate_sslverify_truststore \
     --deselect=tests/cli/test_conda_argparse.py::test_list_through_python_api \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_info.py::test_info_python_output \
     --deselect=tests/cli/test_main_info.py::test_info_conda_json \
     --deselect=tests/cli/test_main_list.py::test_list \
     --deselect=tests/cli/test_main_list.py::test_list_reverse \
     --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \
     --deselect=tests/cli/test_main_notices.py::test_notices_cannot_read_cache_files \
+    --deselect=tests/cli/test_main_remove.py::test_remove_all \
+    --deselect=tests/cli/test_main_remove.py::test_remove_all_keep_env \
     --deselect=tests/cli/test_main_rename.py \
     --deselect=tests/cli/test_main_run.py \
     --deselect=tests/cli/test_subcommands.py::test_create[libmamba] \
@@ -269,6 +275,9 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/models/test_prefix_graph.py::test_prefix_graph_2[libmamba] \
     --deselect=tests/models/test_prefix_graph.py::test_remove_youngest_descendant_nodes_with_specs[libmamba] \
     --deselect=tests/models/test_prefix_graph.py::test_deep_cyclical_dependency[libmamba] \
+    --deselect=tests/plugins/test_pre_solves.py::test_pre_solve_invoked \
+    --deselect=tests/plugins/test_post_solves.py::test_post_solve_action_raises_exception \
+    --deselect=tests/plugins/test_post_solves.py::test_post_solve_invoked \
     --deselect=tests/plugins/subcommands/doctor/test_cli.py::test_conda_doctor_with_test_environment \
     --deselect=tests/core/test_prefix_data.py::test_get_environment_env_vars \
     --deselect=tests/core/test_prefix_data.py::test_set_unset_environment_env_vars \

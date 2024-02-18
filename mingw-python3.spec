@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.6
-Release:       3%{?dist}
+Version:       3.11.8
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -66,6 +66,8 @@ Patch11:       mingw-python3_win-modules.patch
 Patch12:       mingw-python3_module-socket.patch
 # MinGW fix for select module
 Patch13:       mingw-python3_module-select.patch
+# Backport patch for CVE-2023-27043
+Patch14:       00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-parseaddr-111116.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -191,6 +193,9 @@ rm -f Python/thread_nt.h
 
 
 %build
+# FIXME: avoid incompatible-pointer-types errors
+export MINGW32_CFLAGS="%{mingw32_cflags} -fpermissive"
+export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
 export MINGW32_MAKE_ARGS="WINDRES=%{mingw32_target}-windres LD=%{mingw32_target}-ld DLLWRAP=%{mingw32_target}-dllwrap"
 export MINGW64_MAKE_ARGS="WINDRES=%{mingw64_target}-windres LD=%{mingw64_target}-ld DLLWRAP=%{mingw64_target}-dllwrap"
 
@@ -496,6 +501,10 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Fri Feb 16 2024 Sandro Mani <manisandro@gmail.com> - 3.11.8-1
+- Update to 3.11.8
+- Backport patch for CVE-2023-27043
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

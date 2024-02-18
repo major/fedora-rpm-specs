@@ -48,8 +48,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.6.1
-Release: 2%{?dist}
+Version: 6.6.2
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -81,11 +81,6 @@ Patch4: qtwebengine-ffmpeg-first_dts.patch
 # FTBS warning: elaborated-type-specifier for a scoped enum must not
 # use the 'class' keyword
 Patch50: qtwebengine-fix-build.patch
-
-# FTBFS Fix with Python 3.12 later on
-# Parts of the project are fine with zombie-imp, this one not, however
-# (It's messing with sys.path a lot)
-Patch60: Partial-migration-from-imp-to-importlib.patch
 
 ## Upstream patches:
 # https://webrtc-review.googlesource.com/c/src/+/285464
@@ -376,9 +371,6 @@ popd
 %patch4 -p1 -b .qtwebengine-ffmpeg-first_dts
 
 %patch50 -p1 -b .fix-build.patch
-%if 0%{?fedora} && 0%{?fedora} >= 39
-%patch60 -p1 -b .fix-py-imp.patch
-%endif
 
 ## upstream patches
 %patch100 -p1 -b .webrtc-dlopen-h264
@@ -671,6 +663,9 @@ done
 
 
 %changelog
+* Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
+- 6.6.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

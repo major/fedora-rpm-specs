@@ -1,5 +1,5 @@
-%global commit c045058ed70f4a5944c77c88c4c4f01f35fe80c8
-%global snapdate 20230910
+%global commit 7a365a26777c4d4de47e5d8db7e68f0974db5e20
+%global snapdate 20240216
 
 Name:           lexertl14
 Summary:        The Modular Lexical Analyser Generator
@@ -18,13 +18,8 @@ BuildRequires:  dos2unix
 %global debug_package %{nil}
 
 %global common_description %{expand:
-lexertl is a header-only library for writing lexical analysers. With lexertl
-you can:
-
-  • Build lexical analysers at runtime
-  • Scan Unicode and ASCII input
-  • Scan from files or memory
-  • Generate C++ code or even write your own code generator}
+This is the C++14 version of lexertl. Please prefer lexertl17 wherever
+possible.}
 
 %description %{common_description}
 

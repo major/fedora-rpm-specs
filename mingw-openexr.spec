@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.1.10
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD
@@ -12,7 +12,10 @@ URL:           http://www.openexr.com/
 BuildArch:     noarch
 Source0:       https://github.com/AcademySoftwareFoundation/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
-
+# Backport patch for CVE-2023-5841
+Patch0:        https://src.fedoraproject.org/rpms/openexr/raw/rawhide/f/openexr-3.1.10-CVE-2023-5841.patch
+# Fix build with gcc14 (incompatible-pointer-types)
+Patch1:        openexr-gcc14.patch
 
 BuildRequires: cmake
 BuildRequires: make
@@ -160,6 +163,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Fri Feb 16 2024 Sandro Mani <manisandro@gmail.com> - 3.1.10-4
+- Backport patch for CVE-2023-5841
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

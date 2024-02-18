@@ -1,8 +1,8 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.1.9
-Release:        3%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        BSD-3-Clause
 URL:            http://nco.sourceforge.net/
@@ -139,6 +139,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Sat Feb 17 2024 Orion Poplawski <orion@nwra.com> - 5.2.0-1
+- Update to 5.2.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

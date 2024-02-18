@@ -238,6 +238,9 @@ failing_tests="test_l64"
 # gaussfit - https://github.com/gnudatalanguage/gdl/issues/1695
 failing_tests="test_(byte_conversion|bytscl|finite|gaussfit|matrix_multiply)"
 %endif
+%ifarch riscv64
+failing_tests="test_(byte_conversion|bytscl|finite|tic_toc)"
+%endif
 %ifarch s390x
 # test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
 # save_restore - https://github.com/gnudatalanguage/gdl/issues/1655

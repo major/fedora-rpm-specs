@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.49.0
+Version:        0.49.1
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -48,6 +48,10 @@ One Git library to Rule!
 
 
 %changelog
+* Mon Feb 12 2024 Packit <hello@packit.dev> - 0.49.1-1
+- Interface for labels was unified and `labels` property for PullRequest and Issue now return list of PRLabel and IssueLabel respectively. (#839)
+- Resolves rhbz#2260529
+
 * Sat Jan 27 2024 Packit <hello@packit.dev> - 0.49.0-1
 - For Pagure there are 2 new methods available: one for getting users with specified access rights and one for getting members of a group. (#834)
 

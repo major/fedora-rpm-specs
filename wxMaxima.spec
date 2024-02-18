@@ -5,8 +5,8 @@
 
 Summary: Graphical user interface for Maxima
 Name:    wxMaxima
-Version: 20.12.1
-Release: 11%{?dist}
+Version: 24.02.1
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://wxmaxima-developers.github.io/wxmaxima/
@@ -89,7 +89,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %files -f wxMaxima.lang -f wxmaxima.lang
-%doc AUTHORS ChangeLog README
+%doc AUTHORS.md ChangeLog NEWS.md README.md
 %license COPYING
 %{_bindir}/wxmaxima
 %{_datadir}/wxMaxima/
@@ -104,6 +104,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.wxmaxima_de
 
 
 %changelog
+* Fri Feb 16 2024 José Matos <jamatos@fedoraproject.org> - 24.02.1-1
+- Update to 24.02.1
+- Use Markdow versions instead of simple text that are not updated anymore
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20.12.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

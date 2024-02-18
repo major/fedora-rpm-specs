@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a3
+%global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -73,7 +73,7 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 23.3.2
+%global pip_version 24.0
 %global setuptools_version 67.6.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
@@ -84,7 +84,7 @@ Provides: bundled(python3dist(cachecontrol)) = 0.13.1
 Provides: bundled(python3dist(certifi)) = 2023.7.22
 Provides: bundled(python3dist(chardet)) = 5.1
 Provides: bundled(python3dist(colorama)) = 0.4.6
-Provides: bundled(python3dist(distlib)) = 0.3.6
+Provides: bundled(python3dist(distlib)) = 0.3.8
 Provides: bundled(python3dist(distro)) = 1.8
 Provides: bundled(python3dist(idna)) = 3.4
 Provides: bundled(python3dist(msgpack)) = 1.0.5
@@ -124,7 +124,7 @@ Provides: bundled(python3dist(typing-extensions)) = 4.4
 Provides: bundled(python3dist(zipp)) = 3.7
 }
 # wheel
-#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt)
+#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
 %global wheel_bundled_provides %{expand:
 Provides: bundled(python3dist(packaging)) = 23
 }
@@ -384,16 +384,6 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00418 # 7044fbb05d0825f5fd9733a6491bb5bea904fab1
-# Don't generate sbom in make regen-all
-#
-# The script and make target, added in Python 3.13.0a3, assumes a fixed
-# location of pip wheel and other bundled libraries, resulting in an
-# error and failed build when not found.
-# Reported upstream: https://github.com/python/cpython/issues/114240
-# and https://github.com/python/cpython/issues/114244
-Patch418: 00418-don-t-generate-sbom-in-make-regen-all.patch
 
 # (New patches go here ^^^)
 #
@@ -768,13 +758,13 @@ extension modules.
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
-  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
 fi
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
-rm Lib/test/setuptools-%{setuptools_version}-py3-none-any.whl
-rm Lib/test/wheel-%{wheel_version}-py3-none-any.whl
+rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
+rm Lib/test/wheeldata/wheel-%{wheel_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1678,6 +1668,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Fri Feb 16 2024 Karolina Surma <ksurma@redhat.com> - 3.13.0~a4-1
+- Update to Python 3.13.0a4
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0~a3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,18 +4,16 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.19.0~a1
+Version:        0.19.0
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-Source:         %{pypi_source %{modname} 0.19.0a1}
+Source:         %{pypi_source %{modname} 0.19.0}
 
-# Bump starlette from 0.34.0 to 0.37.0
-# https://github.com/python-openapi/openapi-core/pull/775
-# Modified to omit changes to poetry.lock
-Patch:          openapi-core-0.19.0a1-starlette.patch
+# Accept python-fastapi 0.109.0
+Patch:          fastapi-109.patch
 
 BuildArch:      noarch
 
@@ -24,6 +22,7 @@ BuildRequires:  python3-devel
 # Test dependencies; see [tool.poetry.dev-dependencies], but note that this
 # contains both test dependencies and unwanted linters etc.
 BuildRequires:  python3dist(djangorestframework)
+BuildRequires:  python3dist(fastapi)
 BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-aiohttp)
@@ -45,18 +44,18 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
-%pyproject_extras_subpkg -n python3-openapi-core aiohttp django %{?with_falcon:falcon} flask requests starlette
+%pyproject_extras_subpkg -n python3-openapi-core aiohttp django %{?with_falcon:falcon} fastapi flask requests starlette
 
 
 %prep
-%autosetup -n %{modname}-0.19.0a1 -p1
+%autosetup -n %{modname}-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %generate_buildrequires
 
-%pyproject_buildrequires -x aiohttp -x django %{?with_falcon:-x falcon} -x flask -x requests -x starlette
+%pyproject_buildrequires -x aiohttp -x django %{?with_falcon:-x falcon} -x fastapi -x flask -x requests -x starlette
 
 
 %build

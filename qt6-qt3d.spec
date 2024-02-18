@@ -37,9 +37,11 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtshadertools-devel
 BuildRequires: qt6-qtimageformats
-# FIXME: enable with newer assimp
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} >= 40
+%global bundled_assimp 0
 BuildRequires: pkgconfig(assimp) >= 3.3.1
+%else
+%global bundled_assimp 1
 %endif
 Requires: qt6-qtimageformats%{?_isa} >= %{version}
 
@@ -75,7 +77,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
-  -DQT_FEATURE_qt3d_system_assimp=%{?fedora:ON}%{!?fedora:OFF}
+  -DQT_FEATURE_qt3d_system_assimp=%{?bundled_assimp:OFF}%{!?bundled_assimp:ON}
 
 %cmake_build
 

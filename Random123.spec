@@ -8,7 +8,9 @@ Summary:    Library of random number generators
 License:    BSD
 URL:        https://github.com/DEShawResearch/random123/
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:     0001-add-missing-headers.patch
+Patch:      0001-add-missing-headers.patch
+# https://github.com/DEShawResearch/random123/pull/12
+Patch:      enable-riscv.patch
 
 # gccfeatures.h mentions what arches are supported
 # these aren't on the list

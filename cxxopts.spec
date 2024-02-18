@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name: cxxopts
-Version: 3.1.1
-Release: 4%{?dist}
+Version: 3.2.0
+Release: 1%{?dist}
 
 Summary: Lightweight C++ command line option parser
 License: MIT
@@ -54,6 +54,9 @@ Requires: libstdc++-devel%{?_isa}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Feb 16 2024 Orion Poplawski <orion@nwra.com> - 3.2.0-1
+- Update to 3.2.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

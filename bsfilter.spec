@@ -3,26 +3,21 @@
 %global	mainver	1.0.19
 %undefine	prever
 
-%global	baserelease	4
+%global	baserelease	5
 
 Name:		bsfilter
 Version:	%{mainver}
-Release:	%{?prever:0.}%{baserelease}%{?prever:.%prever}%{?dist}.16
+Release:	%{?prever:0.}%{baserelease}%{?prever:.%prever}%{?dist}
 Summary:	Bayesian spam filter
 
 # bsfilter script
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-or-later
 URL:		http://sourceforge.jp/projects/bsfilter/
 Source0:	http://dl.sourceforge.jp/%{name}/%{repoid}/%{name}-%{version}%{?prever:.%prever}.tgz
 
-%if 0%{?fedora} >= 19
 BuildRequires:	ruby(release)
 Requires:		ruby(release)
-%else
-BuildRequires:	ruby
-# No abi specification needed
-Requires:		ruby
-%endif
 # Below is for %%check
 BuildRequires:	rubygem(minitest)
 BuildRequires:	ruby(mecab)
@@ -53,12 +48,15 @@ ruby ./test.rb || :
 
 %files
 # rpmlint warns about incorrect-fsf-address, need report to the upstream
-%doc	COPYING
+%license	COPYING
 %doc	htdocs/
 
 %{_bindir}/%{name}
 
 %changelog
+* Fri Feb 16 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.19-5
+- SPDX migration
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.19-4.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-persistent
-Version:        5.1
-Release:        3%{?dist}
+Version:        5.2
+Release:        1%{?dist}
 Summary:        Translucent persistent python objects
 
 License:        ZPL-2.1
@@ -71,7 +71,7 @@ Documentation for python3-persistent.
 sed -i "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x test,docs rtd.txt
+%pyproject_buildrequires -x test,docs
 
 %build
 %pyproject_wheel
@@ -113,6 +113,9 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Fri Feb 16 2024 Jerry James <loganjerry@gmail.com> - 5.2-1
+- Version 5.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

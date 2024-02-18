@@ -1,4 +1,5 @@
-%define gnome_online_accounts_version 3.25.3
+%define gcr_version 4.1.0
+%define gnome_online_accounts_version 3.49.1
 %define glib2_version 2.76.6
 %define gnome_desktop_version 44.0-7
 %define gsd_version 41.0
@@ -15,7 +16,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        46~alpha
+Version:        46~beta.2
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -33,7 +34,7 @@ BuildRequires:  pkgconfig(accountsservice)
 BuildRequires:  pkgconfig(colord)
 BuildRequires:  pkgconfig(colord-gtk4)
 BuildRequires:  pkgconfig(cups)
-BuildRequires:  pkgconfig(gcr-base-3)
+BuildRequires:  pkgconfig(gcr-4) >= %{gcr_version}
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gdk-wayland-3.0)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
@@ -204,8 +205,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 %{_datadir}/polkit-1/actions/org.gnome.controlcenter.*.policy
 %{_datadir}/polkit-1/rules.d/gnome-control-center.rules
 %{_datadir}/sounds/gnome/default/*/*.ogg
-%{_libexecdir}/cc-remote-login-helper
-%{_libexecdir}/gnome-control-center-goa-helper
 %{_libexecdir}/gnome-control-center-search-provider
 %{_libexecdir}/gnome-control-center-print-renderer
 

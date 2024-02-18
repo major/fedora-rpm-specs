@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.5.2
+Version:	1.5.5
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -44,6 +44,7 @@ Pepc Python libraries
 %license LICENSE.md
 %doc README.md CHANGELOG.md
 %{_bindir}/pepc
+%{_datadir}/pepc
 %{_mandir}/man1/pepc*
 
 %files -n python3-%{name} -f %{pyproject_files}

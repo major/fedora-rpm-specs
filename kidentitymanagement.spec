@@ -1,6 +1,6 @@
 Name:    kidentitymanagement
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KIdentityManagement Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -84,6 +84,9 @@ find ./po -type f -name libkpimidentities5.po -execdir mv {} libkpimidentities6.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

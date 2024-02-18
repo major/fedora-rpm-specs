@@ -3,7 +3,7 @@
 %global patch_version 6
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 0
+%global baserelease 1
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -14,6 +14,11 @@ Summary:        credentials-fetcher is a daemon that refreshes tickets or tokens
 License:        Apache-2.0
 URL:            https://github.com/aws/credentials-fetcher
 Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%{version}.tar.gz
+
+# fix protobuf detection for modern protobuf
+# https://github.com/aws/credentials-fetcher/pull/116
+# Cherry-picked to v.1.3.6 and re-created against the released archive
+Patch:          credentials-fetcher-1.3.6-fixprotobuf.patch
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel jsoncpp-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
@@ -40,7 +45,7 @@ The same method can be used to refresh other types of security tokens.
 This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 
 %prep
-%setup -q -n credentials-fetcher-v.%{version}
+%autosetup -n credentials-fetcher-v.%{version} -p1
 # abseil-cpp LTS 20230125 requires at least C++14; string_view requires C++17:
 sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 
@@ -68,6 +73,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Feb 15 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3.6-1
+- Patch for compatibility with current protobuf
+
 * Mon Feb 05 2024 Sai Kiran Akula <saakla@amazon.com> - 1.3.6
 - Create 1.3.6 release
 

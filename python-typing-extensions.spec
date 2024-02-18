@@ -1,11 +1,13 @@
 Name:      python-typing-extensions
 Version:   4.9.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
+# fix test_generic_protocols_special_from_protocol with latest Python
+Patch0:    https://github.com/python/typing_extensions/pull/324.patch
 
 BuildArch: noarch
 
@@ -41,7 +43,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-%{version}
+%autosetup -n typing_extensions-%{version} -p1
 
 
 %generate_buildrequires
@@ -70,6 +72,9 @@ cd src
 
 
 %changelog
+* Fri Feb 16 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-4
+- Fix test_generic_protocols_special_from_protocol with latest Python
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

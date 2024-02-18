@@ -28,7 +28,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.22.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -355,6 +355,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 1.22.9-3
+- Rebuild (qt6)
+
 * Tue Feb 13 2024 Pete Walter <pwalter@fedoraproject.org> - 1.22.9-2
 - Rebuild for libvpx 1.14.x
 

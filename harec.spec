@@ -1,5 +1,4 @@
 %global srcver  0.24.0
-%global srcpre  rc2
 %global pkgsrc  %{srcver}%{?srcpre:-%{srcpre}}
 
 Name:           harec

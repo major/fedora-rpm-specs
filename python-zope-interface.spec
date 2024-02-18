@@ -6,15 +6,12 @@
 %global _docdir_fmt %{name}
 
 Name:		python-zope-interface
-Version:	6.0
+Version:	6.2
 Release:	%autorelease
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
 URL:		https://pypi.io/project/zope.interface
 Source0:	https://pypi.io/packages/source/z/zope.interface/zope.interface-%{version}.tar.gz
-
-# Make test_document compatible with Python 3.13
-Patch:          https://github.com/zopefoundation/zope.interface/pull/281.patch
 
 %description
 Interfaces are a mechanism for labeling objects as conforming to a given API

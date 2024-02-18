@@ -65,6 +65,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
+# FIXME: avoid incompatible-pointer-types errors
+export MINGW32_CFLAGS="%{mingw32_cflags} -fpermissive"
+export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
 %mingw32_py3_build_wheel
 %mingw64_py3_build_wheel
 

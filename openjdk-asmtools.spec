@@ -9,7 +9,7 @@
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
 #Release:        0.6.%%{commitdate}.git%%{shortcommit}%%{?dist}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 License:        GPLv2+
@@ -66,7 +66,7 @@ sed "s/<<mainClass.*//" -i pom.xml
 
 %build
 cd maven
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+#export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 xmvn -version
 # there are two test failures
 %mvn_build --xmvn-javadoc --force
@@ -100,6 +100,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b09-5
+- experimental drop of java_home
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

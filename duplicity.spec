@@ -1,8 +1,3 @@
-# https://bugzilla.redhat.com/show_bug.cgi?id=2259243
-%ifarch s390x
-%global _lto_cflags %nil
-%endif
-
 %bcond_without check
 
 Name:           duplicity

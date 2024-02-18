@@ -1,5 +1,5 @@
 Name:           python-shapely
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -11,16 +11,6 @@ License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
 
-# Adjust tests for docstring indent stripping in Python 3.13
-# https://github.com/shapely/shapely/pull/1938
-#
-# Fixes:
-#
-# Test failure on Python 3.13 because it strips indents from docstrings
-# https://github.com/shapely/shapely/issues/1937
-#
-# Rebased on 2.0.2.
-Patch:          shapely-2.0.2-pr-1938.patch
 # Fix incompatible pointer type passed to GEOSPolygonize_r
 # https://github.com/shapely/shapely/pull/1945
 Patch:          %{url}/pull/1945.patch

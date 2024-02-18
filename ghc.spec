@@ -87,7 +87,7 @@ Version: 9.4.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 139%{?dist}
+Release: 140%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -152,6 +152,10 @@ Patch40: cabal-add-riscv64.patch
 # Enable GHCi support on riscv64
 # Upstream in >= 9.9.
 Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
+
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/SKVM4NSFZRWUT5MJKBS6IRUXCG3SCD34/
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12079
+Patch42: ghc-modern-c-fix.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -485,6 +489,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 #GHCi support
 %patch -P41 -p1 -b .orig
 %endif
+
+#Modern C fix
+%patch -P42 -p1 -b .orig
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -1029,6 +1036,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Thu Feb 15 2024 Richard W.M. Jones <rjones@redhat.com> - 9.4.5-140
+- Fix generated C for Modern C Initiative
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.5-139
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

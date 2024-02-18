@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          R Interface to 'Python'
 
 License:          ASL 2.0
@@ -23,7 +23,10 @@ Requires:         python3
 BuildRequires:    python3-devel
 BuildRequires:    python3-docutils
 BuildRequires:    python3-numpy
+%ifnarch %{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2263999
 BuildRequires:    python3-pandas
+%endif
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-Matrix
@@ -43,7 +46,9 @@ BuildRequires:    R-testthat
 BuildRequires:   python3dist(docutils)
 BuildRequires:   python3dist(matplotlib)
 BuildRequires:   python3dist(numpy)
+%ifnarch %{ix86}
 BuildRequires:   python3dist(pandas)
+%endif
 BuildRequires:   python3dist(scipy)
 
 %description
@@ -94,6 +99,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Feb 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.20-11
+- Do not test with Pandas on i686
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

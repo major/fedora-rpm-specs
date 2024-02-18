@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-expat
-Version:        2.5.0
-Release:        5%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        MinGW Windows port of expat XML parser library
 
 License:        MIT
@@ -11,13 +11,13 @@ Source0:        http://downloads.sourceforge.net/expat/expat-%{version}.tar.bz2
 
 BuildArch:      noarch
 
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-gcc
+BuildRequires:  make
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 
-BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 
 
@@ -89,6 +89,8 @@ find %{buildroot} -name "*.la" -delete
 # Remove documentation which duplicates that found in the native package.
 rm -r %{buildroot}%{mingw32_docdir}
 rm -r %{buildroot}%{mingw64_docdir}
+rm -r %{buildroot}%{mingw32_mandir}
+rm -r %{buildroot}%{mingw64_mandir}
 
 
 # Win32
@@ -123,6 +125,9 @@ rm -r %{buildroot}%{mingw64_docdir}
 
 
 %changelog
+* Fri Feb 16 2024 Sandro Mani <manisandro@gmail.com> - 2.6.0-1
+- Update to 2.6.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

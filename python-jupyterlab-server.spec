@@ -1,6 +1,6 @@
 Name:           python-jupyterlab-server
-Version:        2.25.2
-Release:        3%{?dist}
+Version:        2.25.3
+Release:        1%{?dist}
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause
 URL:            https://jupyterlab-server.readthedocs.io
@@ -68,6 +68,9 @@ sed -i '/"codecov/d' pyproject.toml
 %pyproject_extras_subpkg -n python3-jupyterlab-server test
 
 %changelog
+* Fri Feb 16 2024 Lumír Balhar <lbalhar@redhat.com> - 2.25.3-1
+- Update to 2.25.3 (rhbz#2264304)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global commit 6eb83814f54e29035edf71540a7c53144b1bc84c
-%global snapdate 20231210
+%global commit f72113681dc5fe685b8814ed6cd5e768f93ed529
+%global snapdate 20240215
 
 Name:           parsertl14
 Summary:        The Modular Parser Generator

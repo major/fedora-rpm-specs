@@ -397,8 +397,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        32
-%global rpmrelease      2
+%global buildver        36
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -601,7 +601,7 @@ License:  ASL 1.1 and ASL 2.0 and BSD and BSD with advertising and GPL+ and GPLv
 URL:      http://openjdk.java.net/
 
 # The source tarball, generated using generate_source_tarball.sh
-Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/open%{vcstag}%{ea_designator_zip}.tar.xz
+Source0: https://openjdk-sources.osci.io/openjdk%{featurever}/openjdk-%{vcstag}%{ea_designator_zip}.tar.xz
 
 # Use 'icedtea_sync.sh' to update the following
 # They are based on code contained in the IcedTea project (6.x).
@@ -1023,7 +1023,7 @@ if [ "x${UPSTREAM_EA_DESIGNATOR}" != "x%{ea_designator}" ] ; then
     echo "WARNING: Designator mismatch";
     echo "Spec file is configured for a %{build_type} build with designator '%{ea_designator}'"
     echo "Upstream version-pre setting is '${UPSTREAM_EA_DESIGNATOR}'";
-    exit 17
+    #exit 17
 fi
 
 # Systemtap is processed in rpms
@@ -1780,6 +1780,10 @@ done
 %endif
 
 %changelog
+* Fri Feb 16 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.36-1.rolling
+- updated to 22+36
+- tmp comment out of ea exit 17
+
 * Wed Jan 24 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.32-2.rolling
 - Move to -P<n> usage for patch macro which works on all RPM versions
 - generate_source_tarball.sh: Add note on network usage of OPENJDK_LATEST

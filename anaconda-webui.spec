@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        5.2
+Version:        6
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -101,6 +101,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Feb 16 2024 Packit <hello@packit.dev> - 6-1
+- Tests stabilization
+
 * Wed Feb 7 2024 Packit <hello@packit.dev> - 5.2-1
 - Packaging fixes and introduced installability test upstream
 

@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-s3
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for S3 API storage (AWS S3, MinIO, etc.)
 
@@ -61,6 +61,7 @@ Summary:        %{summary}
 # The following tests require network access:
 k="${k-}${k+ and }not (TestStorageNoSettings and test_storage)"
 k="${k-}${k+ and }not (TestStorageNoSettings and test_storage_not_existing)"
+k="${k-}${k+ and }not TestWorkflows"
 %endif
 
 %pytest -v -k "${k-}" tests/tests.py

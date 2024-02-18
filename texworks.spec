@@ -1,16 +1,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           texworks
-Version:        0.6.8
+Version:        0.6.9
 Release:        %autorelease
 Summary:        A simple IDE for authoring TeX documents
-# SPDX migration
-License:        GPL-2.0-or-later
-URL:            http://tug.org/texworks/
-Source0:        https://github.com/TeXworks/texworks/archive/release-%{version}/texworks-release-%{version}.tar.gz
 
-# Fix compilation when Qt >= 6.5
-Patch0:         https://github.com/TeXworks/texworks/commit/e6fb33b44f5736e98b8c34c5a3296a342394c3fa.patch
+License:        GPL-2.0-or-later
+URL:            https://tug.org/texworks/
+Source0:        https://github.com/TeXworks/texworks/archive/release-%{version}/texworks-release-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -42,16 +39,19 @@ BuildRequires:  urw-base35-fonts
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-# Description adopted from Debian with modification
 %description
 TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents,
 with a Unicode-based, TeX-aware editor, integrated PDF viewer, and a clean,
 simple interface accessible to casual and non-technical users.
 
-You may install the texlive-* packages to make this program useful.
+TeXworks is inspired by Dick Koch's award-winning TeXShop program for macOS,
+which has made quality typesetting through TeX accessible to a wider community
+of users, without a technical or intimidating face. The goal of TeXworks is to
+deliver a similarly integrated, easy-to-use environment for users on all
+platforms, especially GNU/Linux and Windows.
 
 %prep
-%autosetup -p1 -n %{name}-release-%{version}
+%autosetup -p1 -n texworks-release-%{version}
 
 %build
 %cmake \
@@ -67,7 +67,7 @@ You may install the texlive-* packages to make this program useful.
 
 %install
 %cmake_install
-rm %{buildroot}/%{_docdir}/%{name}/COPYING
+rm %{buildroot}%{_docdir}/%{name}/COPYING
 
 %check
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=111182097
@@ -84,9 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 %files
 %license COPYING
-%{_docdir}/%{name}/
+%doc %{_docdir}/%{name}/
 %{_bindir}/%{name}
-%dir %{_libdir}/%{name}/
+%dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*.so
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/applications/%{name}.desktop

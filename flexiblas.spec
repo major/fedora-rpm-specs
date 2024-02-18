@@ -1,5 +1,5 @@
 %bcond system_lapack 1
-%bcond atlas %{undefined rhel}
+%bcond atlas %[%{undefined rhel} && "%{_arch}" != "riscv64"]
 %bcond blis %{undefined rhel}
 %bcond openblas 1
 

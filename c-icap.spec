@@ -1,8 +1,8 @@
 %global     full_version C_ICAP_%{version}
 
 Name:       c-icap
-Version:    0.6.0
-Release:    5%{?dist}
+Version:    0.6.2
+Release:    1%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -14,10 +14,7 @@ Source4:    %{name}.service
 
 # Adjust some paths to standard Fedora/EPEL ones:
 Patch0:     %{name}-conf.in.patch
-# Avoid useless linking to libdb in Perl library:
-Patch1:     %{name}-libdb-path.patch
 # Patches from the c_icap_0_6_x branch:
-Patch2:     https://github.com/c-icap/c-icap-server/commit/6f21a68bee126c3c03412db983387960f0b2671c.patch
 Patch3: c-icap-configure-c99.patch
 
 BuildRequires:  autoconf
@@ -35,8 +32,6 @@ BuildRequires:  make
 BuildRequires:  openldap-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pcre2-devel
-BuildRequires:  perl-devel
-BuildRequires:  perl-generators
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 
@@ -65,25 +60,14 @@ Summary:    Libraries used by %{name}
 The c-icap-libs package contains all runtime libraries used by c-icap and the
 utilities.
 
-%package perl
-Summary:    The Perl handler for %{name}
-Requires:   %{name}%{?_isa} = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
-%description perl
-The c-icap-perl package contains the Perl handler for c-icap.
-
 %prep
 %autosetup -p1 -n c-icap-server-%{full_version}
 
 # See RECONF
-echo "master-%{shortcommit0}" > VERSION.m4
+echo "master-%{full_version}" > VERSION.m4
 autoreconf -vif
 
 %build
-# Do not explicitly link to libdb which is only brought in as a Perl dependency and not directly used
-sed -i 's/$Config{libs}//' configure.ac
-
 %configure \
   --sysconfdir=%{_sysconfdir}/%{name} \
   --enable-shared \
@@ -96,7 +80,6 @@ sed -i 's/$Config{libs}//' configure.ac
   --with-ldap \
   --with-lmdb \
   --with-openssl \
-  --with-perl \
   --with-zlib
 
 %make_build
@@ -209,10 +192,11 @@ exit 0
 %license COPYING
 %{_libdir}/libicapapi.so.*
 
-%files perl
-%{_libdir}/c_icap/perl_handler.so
-
 %changelog
+* Mon Jan 29 2024 Frank Crawford <frank@crawford.emu.id.au> - 0.6.2-1
+- Update to 0.6.2 release.
+- Drop perl RPM as removed upstream.
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,14 +3,14 @@
 %bcond_with lua
 %else
 # luajit is not available for some architectures
-%ifarch ppc64 ppc64le s390x
+%ifarch ppc64 ppc64le s390x riscv64
 %bcond_with lua
 %else
 %bcond_without lua
 %endif
 %endif
 
-%ifarch x86_64 ppc64 ppc64le aarch64 s390x
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x riscv64
 %bcond_without libbpf_tools
 %else
 %bcond_with libbpf_tools
@@ -36,7 +36,7 @@ Patch2:         Sync-with-latest-libbpf-repo-4889.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
-ExclusiveArch:  x86_64 %{power64} aarch64 s390x armv7hl
+ExclusiveArch:  x86_64 %{power64} aarch64 s390x armv7hl riscv64
 
 BuildRequires:  bison
 BuildRequires:  cmake >= 2.8.7

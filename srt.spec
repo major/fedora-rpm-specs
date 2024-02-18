@@ -5,7 +5,7 @@ Version:        1.5.3
 Release:        2%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://www.srtalliance.org
 Source0:        https://github.com/Haivision/srt/archive/v%{version}%{rc}/%{name}-%{version}%{rc}.tar.gz
 

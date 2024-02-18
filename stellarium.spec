@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        23.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 23.4-3
+- Rebuild (qt6)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

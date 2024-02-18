@@ -17,7 +17,7 @@ Source0:    %{name}-%{shortcommit0}.tar.gz
 Patch0:     rbm-c485326-Install-container-script-as-rmbcontainer.patch
 # Remove tests which require the Internet, not suitable for an upstream.
 Patch1:     rbm-37c204c-Remove-mozmill-automation-tests.patch
-# Install RBM::CaptureExec module, proposed to an upstream,
+# Install RBM::CaptureExec module, in upstream after 10c6b24 commit,
 # <https://gitlab.torproject.org/tpo/applications/rbm/-/merge_requests/59>
 Patch2:     rbm-10c6b24-Install-RBM-CaptureExec.patch
 BuildArch:  noarch

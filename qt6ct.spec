@@ -9,9 +9,9 @@
 Name:    qt6ct
 Version: 0.9
 %if 0%{?usesnapshot}
-Release: 0.7%{?snapshottag}%{?dist}
+Release: 0.8%{?snapshottag}%{?dist}
 %else
-Release: 6%{?dist}
+Release: 7%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 0.9-7
+- Rebuild (qt6)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

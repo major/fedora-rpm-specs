@@ -4,8 +4,8 @@
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.6.1
-Release: 3%{?dist}
+Version: 6.6.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -98,6 +98,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
+- 6.6.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

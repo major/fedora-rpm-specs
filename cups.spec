@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 10%{?dist}
+Release: 11%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -94,6 +94,8 @@ Patch1002: cups-colorman-leak.patch
 Patch1003: cups-unload-job-leak.patch
 # https://github.com/OpenPrinting/cups/pull/839
 Patch1004: 0001-httpAddrConnect2-Check-for-error-if-POLLHUP-is-in-va.patch
+# https://github.com/OpenPrinting/cups/commit/0003f78a107b39
+Patch1005: 0001-ppd-cache.c-Check-for-required-attributes-if-URF-or-.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -341,6 +343,8 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch -P 1003 -p1 -b .unloadjob
 # https://github.com/OpenPrinting/cups/pull/839
 %patch -P 1004 -p1 -b .httpaddrconnect-pollhup
+# https://github.com/OpenPrinting/cups/commit/0003f78a107b39
+%patch -P 1005 -p1 -b .check-required-attrs
 
 
 %if %{lspp}
@@ -815,6 +819,10 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Feb 16 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-11
+- 2263053 - CUPS/libppd PPD generators didn't check required attrs when deciding which driverless format to use,
+  causing PPD generation to fail
+
 * Wed Feb 14 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-10
 - require authselect-libs, since we use PAM modules password-auth or system-auth
 - got pam downstream patch upstream, use the commit from there

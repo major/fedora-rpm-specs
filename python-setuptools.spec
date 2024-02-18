@@ -45,13 +45,6 @@ Patch:          Remove-optional-or-unpackaged-test-deps.patch
 # adjust it, but only when $RPM_BUILD_ROOT is set
 Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 
-# Remove DeprecationWarning from pkg_resources.
-# The warning causes tests of dependant packages to fail
-# but their maintainers or developers are aware of that
-# so we are removing the warning here until they all switch
-# away from pkg_resources.
-Patch:          Remove-warning-from-pkg_resources.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

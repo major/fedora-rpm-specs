@@ -17,7 +17,9 @@ License:        MPL-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 # Use GNUInstallDirs; Fix install location of CMake config files
-Patch0:         https://github.com/yixuan/spectra/pull/169.patch
+# include CMakeFindDependencyMacro module
+# https://github.com/yixuan/spectra/pull/169
+Patch0:         spectra-fix-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -46,7 +48,6 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
 %if %{with check}
     -DBUILD_TESTS=ON \
 %endif

@@ -13,6 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
 BuildRequires:  maven-artifact-transfer
 BuildRequires:  maven-dependency-plugin
+BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-exec)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-compat)

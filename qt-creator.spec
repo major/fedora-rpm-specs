@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        12.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -212,6 +212,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Fri Feb 09 2024 Marie Loise Nolden <loise@kde.org> - 12.0.2-1
 - update to 12.0.2
 - add Recommends and Requires for usability out of the box

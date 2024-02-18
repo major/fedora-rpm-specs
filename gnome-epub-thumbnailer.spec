@@ -3,7 +3,7 @@ Version:        1.7
 Release:        5%{?dist}
 Summary:        Thumbnailers for EPub and MOBI books
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://git.gnome.org/browse/gnome-epub-thumbnailer
 Source0:        http://download.gnome.org/sources/%{name}/1.7/%{name}-%{version}.tar.xz
 

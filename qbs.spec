@@ -11,7 +11,7 @@ Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -151,6 +151,9 @@ rm %{buildroot}%{_bindir}/tst_*
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 1:2.2.2-2
+- Rebuild (qt6)
+
 * Sun Feb 11 2024 Sandro Mani <manisandro@gmail.com> - 1:2.2.2-1
 - Update to 2.2.2
 

@@ -15,7 +15,7 @@ application remains responsive.}
 
 Name: qcoro
 Version: 0.10.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -181,6 +181,9 @@ popd
 %endif
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 0.10.0-4
+- Rebuild (qt6)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

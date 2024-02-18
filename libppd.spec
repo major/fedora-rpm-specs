@@ -6,7 +6,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -18,6 +18,10 @@ Source0:        %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
+# https://github.com/OpenPrinting/libppd/commit/c7a62e8c4c3
+# https://github.com/OpenPrinting/libppd/commit/81e708f5a
+# https://github.com/OpenPrinting/libppd/commit/42ce356e8972
+Patch001: libppd-check-required-attrs.patch
 
 
 # for autogen.sh
@@ -190,6 +194,10 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Fri Feb 16 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-4
+- 2263053 - CUPS/libppd PPD generators didn't check required attrs when deciding which driverless format to use,
+  causing PPD generation to fail
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           krdp
 Version:        5.27.80~git%{commitdate}.%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for creating an RDP server
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -88,6 +88,9 @@ Requires:       /usr/bin/openssl
 
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.27.80~git20240131.f36bf16-5
+- Rebuild (qt6)
+
 * Tue Feb 13 2024 Alessandro Astone <ales.astone@gmail.com> - 5.27.80~git20240131.f36bf16-4
 - krdp-server requires openssl binary
 

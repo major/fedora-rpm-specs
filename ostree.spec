@@ -4,11 +4,6 @@
 %else
     %bcond_without tests
 %endif
-%if 0%{?rhel} < 10
-    %bcond_with composefs
-%else
-    %bcond_without composefs
-%endif
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
@@ -34,7 +29,7 @@ BuildRequires: gtk-doc
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: openssl-devel
-BuildRequires: composefs-devel
+BuildRequires: pkgconfig(composefs)
 %if %{with tests}
 BuildRequires: pkgconfig(libsoup-3.0)
 %endif
@@ -58,9 +53,6 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: /usr/bin/g-ir-scanner
 BuildRequires: dracut
 BuildRequires:  bison
-%if %{with composefs}
-BuildRequires: pkgconfig(composefs)
-%endif
 
 # Runtime requirements
 Requires: dracut
@@ -69,9 +61,7 @@ Requires: systemd-units
 Requires: %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 # Strictly speaking, this is not a current hard requirement, but it will
 # be in the future.
-%if %{with composefs}
 Requires: composefs
-%endif
 
 %description
 libostree is a shared library designed primarily for
@@ -127,7 +117,7 @@ env NOCONFIGURE=1 ./autogen.sh
            --with-curl \
            --with-openssl \
            --without-soup \
-           %{?with_composefs:--with-composefs} \
+           --with-composefs \
            %{?with_tests:--with-soup3} \
            %{?!with_tests:--without-soup3} \
            %{?with_tests:--enable-installed-tests=exclusive} \

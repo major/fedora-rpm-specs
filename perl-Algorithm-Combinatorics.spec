@@ -2,7 +2,7 @@ Name:           perl-Algorithm-Combinatorics
 Version:        0.27
 Release:        31%{?dist}
 Summary:        Efficient generation of combinatorial sequences
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Combinatorics
 Source0:        https://cpan.metacpan.org/modules/by-module/Algorithm/Algorithm-Combinatorics-%{version}.tar.gz
 

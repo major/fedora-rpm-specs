@@ -1,6 +1,6 @@
 %global forgeurl    https://gitlab.freedesktop.org/upower/%{name}
 
-Version:        0.13
+Version:        0.20
 %forgemeta
 
 Name:           power-profiles-daemon
@@ -73,8 +73,10 @@ fi
 %{_libexecdir}/%{name}
 %{_unitdir}/%{name}.service
 %{_datadir}/dbus-1/system.d/net.hadess.PowerProfiles.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.UPower.PowerProfiles.conf
 %{_datadir}/dbus-1/system-services/net.hadess.PowerProfiles.service
-%{_datadir}/polkit-1/actions/net.hadess.PowerProfiles.policy
+%{_datadir}/dbus-1/system-services/org.freedesktop.UPower.PowerProfiles.service
+%{_datadir}/polkit-1/actions/power-profiles-daemon.policy
 %{_localstatedir}/lib/power-profiles-daemon
 
 %files docs

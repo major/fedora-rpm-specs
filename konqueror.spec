@@ -5,7 +5,7 @@
 
 Name:    konqueror
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE File Manager and Browser
 
 License: GPLv2+ and LGPLv2+ and GFDL
@@ -208,6 +208,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

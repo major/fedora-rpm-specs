@@ -15,7 +15,14 @@
 
 Name:           gnome-initial-setup
 Version:        46.alpha
-Release:        %autorelease
+# the "-b 7" is because of the versioning mess with 46.alpha where we
+# initially versioned it wrongly as 46.alpha, then tried to switch to
+# the correct 46~alpha, but 46~alpha is lower than 46.alpha so we
+# reverted; the switch and reversion confused autorelease, so without
+# a cue, it picks a release lower than the highest we reached before
+# the mess (7). This tells autorelease to start counting at 7. when we
+# reach the next milestone this can and should be dropped
+Release:        %autorelease -b 7
 Summary:        Bootstrapping your OS
 
 License:        GPL-2.0-or-later
