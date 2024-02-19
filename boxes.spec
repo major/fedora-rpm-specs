@@ -1,9 +1,19 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
+# 390x arch:
+# Error in test case: 150_tag_config_invalid_tags.txt (top: actual; bottom:
+# expected)
+%ifnarch s390x
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 %bcond_without tests
+%endif
+%endif
 
 %global cfgfile %{_datadir}/%{name}/%{name}
 
 Name:           boxes
-Version:        2.2.1
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Command line ASCII boxes unlimited!
 
@@ -19,6 +29,7 @@ BuildRequires:  libunistring-devel
 BuildRequires:  make
 BuildRequires:  pcre2-devel
 BuildRequires:  vim-common
+BuildRequires:  pkgconfig(ncurses)
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:     %{name}-vim = %{version}-%{release}
@@ -64,6 +75,8 @@ Vim plugin for %{name}.
 
 %if %{with tests}
 %check
+# https://github.com/ascii-boxes/boxes/issues/124
+export TERM=xterm-color
 %make_build test
 %endif
 

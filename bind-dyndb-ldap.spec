@@ -12,7 +12,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPL-2.0-or-later
@@ -31,6 +31,9 @@ Patch4: bind-dyndb-ldap-11.10-bind-9.18.11.patch
 Patch5: bind-dyndb-ldap-11.10-bind-9.18.13.patch
 # https://pagure.io/bind-dyndb-ldap/pull-request/226
 Patch6: bind-dyndb-ldap-11.10-bind-9.18.19.patch
+# https://pagure.io/bind-dyndb-ldap/pull-request/229
+Patch7: bind-dyndb-ldap-11.10-dns_name_init.patch
+Patch8: bind-dyndb-ldap-11.10-bind-9.18.24.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
@@ -130,6 +133,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Sat Feb 17 2024 Petr Menšík <pemensik@redhat.com> - 11.10-27
+- Rebuild for BIND 9.18.24 (#2264032)
+
 * Fri Jan 26 2024 Rafael Jeffman <rjeffman@redhat.com> - 11.10-26
 - Migrated to SPDX license.
 

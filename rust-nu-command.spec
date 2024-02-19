@@ -2,6 +2,9 @@
 %bcond_without check
 %global debug_package %{nil}
 
+# make debuginfo generation pass on f38 ix86
+%global rustflags_debuginfo 1
+
 %global crate nu-command
 
 Name:           rust-nu-command

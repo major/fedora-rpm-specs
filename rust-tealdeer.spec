@@ -17,7 +17,6 @@ Source1:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/bas
 Source2:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/fish_tealdeer
 Source3:        https://github.com/dbrgn/tealdeer/raw/v%{version}/completion/zsh_tealdeer
 # Manually created patch for downstream crate metadata changes
-# * keep using app_dirs instead of app_dirs2 fork
 # * use native-tls instead of rustls in reqwest
 # * drop development-only logging feature
 Patch:          tealdeer-fix-metadata.diff
@@ -36,6 +35,7 @@ Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
@@ -43,7 +43,7 @@ Summary:        %{summary}
 # MIT OR Zlib OR Apache-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        Apache-2.0 AND BSD-3-Clause AND MIT AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

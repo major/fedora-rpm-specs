@@ -3,8 +3,8 @@
 %global srcname threadpoolctl
 
 Name: python-%{srcname}
-Version: 3.2.0
-Release: 6%{?dist}
+Version: 3.3.0
+Release: %autorelease
 Summary: Thread-pool Controls
 License: BSD-3-Clause
 
@@ -65,66 +65,4 @@ BuildRequires: python3dist(cython)
 %doc README.md multiple_openmp.md
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Jul 16 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.2.0-3
-- Remove test broken 
-
-* Sun Jul 16 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.2.0-2
-- Remove test broken in s390x
-
-* Fri Jul 14 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.2.0-1
-- New upstream release (3.2.0)
-- Use GPDX license
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.0-7
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jun 25 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 3.1.0-4
-- Skip command line tests for the momment
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 3.1.0-3
-- Rebuilt for Python 3.11
-
-* Mon Apr 25 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 3.1.0-2
-- New upstream release (3.1.0)
-- Rewrite spec whith new guidelines
-- Add Koji's POWER9 and Z14 to the list of test architectures
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.0.0-6
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-3
-- Rebuilt for Python 3.9
-
-* Thu May 21 2020 Sergio Pascual <sergiopr@fedoraproject.org> - 2.0.0-2
-- Package approved
-
-* Tue May 19 2020 Sergio Pascual <sergiopr@fedoraproject.org> - 2.0.0-1
-- Initial spec
+%autochangelog

@@ -6,7 +6,7 @@
 
 Name:           python-sphinx-copybutton
 Version:        0.5.2
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Add a copy button to code cells in Sphinx docs
 
 License:        MIT
@@ -56,87 +56,4 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Dec 15 2023 Michel Lind <salimma@fedoraproject.org> - 0.5.2-1
-- Update to 0.5.2 (rhbz#2186733)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.1-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 0.5.1-1
-- Update to 0.5.1 rhbz#2142964
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.5.0-2
-- Rebuilt for Python 3.11
-
-* Sat Feb  5 2022 Jerry James <loganjerry@gmail.com> - 0.5.0-1
-- Version 0.5.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jul  5 2021 Jerry James <loganjerry@gmail.com> - 0.4.0-1
-- Version 0.4.0
-
-* Thu Jul  1 2021 Jerry James <loganjerry@gmail.com> - 0.3.3-1
-- Version 0.3.3
-- Drop -doc subpackage due to missing dependencies
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.3.1-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Nov  2 2020 Jerry James <loganjerry@gmail.com> - 0.3.1-1
-- Version 0.3.1
-
-* Mon Oct  5 2020 Jerry James <loganjerry@gmail.com> - 0.3.0-4
-- Explicitly BR setuptools
-
-* Mon Sep 21 2020 Jerry James <loganjerry@gmail.com> - 0.3.0-3
-- Remove pyproject and tox bits, not supported by this package (bz 1881047)
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jul 25 2020 Jerry James <loganjerry@gmail.com> - 0.3.0-1
-- Version 0.3.0
-
-* Wed Jun 17 2020 Jerry James <loganjerry@gmail.com> - 0.2.12-1
-- Version 0.2.12
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.2.11-2
-- Rebuilt for Python 3.9
-
-* Thu Apr 23 2020 Jerry James <loganjerry@gmail.com> - 0.2.11-1
-- Version 0.2.11
-
-* Thu Apr  2 2020 Jerry James <loganjerry@gmail.com> - 0.2.10-1
-- Version 0.2.10
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Dec  6 2019 Jerry James <loganjerry@gmail.com> - 0.2.6-2
-- Ship the LICENSE file with the -doc subpackage too
-
-* Thu Dec  5 2019 Jerry James <loganjerry@gmail.com> - 0.2.6-1
-- Initial RPM
+%autochangelog

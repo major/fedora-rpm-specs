@@ -1,9 +1,8 @@
-
 Summary: Symbolic Computation Program
 Name:    maxima
-Version: 5.45.1
+Version: 5.47.0
 
-Release: 8%{?dist}
+Release: 1%{?dist}
 License: GPLv2
 URL:     http://maxima.sourceforge.net/
 Source:  http://downloads.sourceforge.net/sourceforge/maxima/maxima-%{version}%{?beta}.tar.gz
@@ -26,10 +25,13 @@ Patch51: maxima-5.30.0-build-fasl.patch
 # handle multiple ldflags in ecl build
 Patch52: maxima-ecl_ldflags.patch
 
-# Invoke python3 instead of python
-Patch53: maxima-5.43.2-python3.patch
+# fix matrix exponentiation
+# https://gitlab.archlinux.org/archlinux/packaging/packages/maxima/-/raw/main/matrixexp.patch
+Patch53: matrixexp.patch
 
-## upstream patches
+# Use GMP arithmetic with sbcl (Void Linux)
+# https://gitlab.archlinux.org/archlinux/packaging/packages/maxima/-/raw/main/maxima-sbcl-gmp.patch
+Patch54: maxima-sbcl-gmp.patch
 
 %define maxima_ver %{version}%{?beta}
 BuildRequires: make
@@ -123,7 +125,7 @@ BuildRequires: recode
 # texi2dvi
 BuildRequires: texinfo-tex
 BuildRequires: tex(latex)
-%if 0%{?fedora} > 17
+%if 0%{?fedora}
 BuildRequires: tex(fullpage.sty)
 %endif
 # /usr/bin/wish
@@ -204,6 +206,7 @@ Maxima compiled with Gnu Common Lisp (gcl)
 %package runtime-sbcl
 Summary: Maxima compiled with SBCL
 BuildRequires: sbcl
+BuildRequires: gmp-devel
 %if "%{?_enable_sbcl}" != "--enable-sbcl-exec"
 # requires the same sbcl it was built against
 %global sbcl_vr %(sbcl --version 2>/dev/null | cut -d' ' -f2)
@@ -234,12 +237,7 @@ Maxima compiled with Embeddable Common-Lisp (ecl).
 %endif
 
 %prep
-%setup -q  -n %{name}%{!?cvs:-%{version}%{?beta}}
-
-%patch -P50 -p1 -b .clisp-noreadline
-%patch -P51 -p1 -b .build-fasl
-%patch -P52 -p1 -b .ecl_ldflags
-%patch -P53 -p1 -b .python3
+%autosetup -n %{name}%{!?cvs:-%{version}%{?beta}} -p1
 
 # Extra docs
 install -p -m644 %{SOURCE10} .
@@ -341,11 +339,8 @@ fi
 %doc %lang(en) %{_datadir}/maxima/%{maxima_ver}/doc/html/*.h*
 %doc %lang(en) %{_datadir}/maxima/%{maxima_ver}/doc/share/
 %doc %lang(es) %{_datadir}/maxima/%{maxima_ver}/doc/html/es/
-%doc %lang(es) %{_datadir}/maxima/%{maxima_ver}/doc/html/es.utf8/
 %doc %lang(pt) %{_datadir}/maxima/%{maxima_ver}/doc/html/pt/
-%doc %lang(pt) %{_datadir}/maxima/%{maxima_ver}/doc/html/pt.utf8/
 %doc %lang(pt_BR) %{_datadir}/maxima/%{maxima_ver}/doc/html/pt_BR/
-%doc %lang(pt_BR) %{_datadir}/maxima/%{maxima_ver}/doc/html/pt_BR.utf8/
 %{_datadir}/maxima/%{maxima_ver}/share/
 %{_datadir}/mime/packages/x-mac.xml
 %{_datadir}/mime/packages/x-maxima-out.xml
@@ -361,9 +356,10 @@ fi
 %{_infodir}/drawutils.info*
 %{_infodir}/kovacicODE.info*
 %{_infodir}/logic.info*
+%{_infodir}/nelder_mead.info
+%{_infodir}/symplectic_ode.info
 %lang(es) %{_infodir}/es*
 %lang(pt) %{_infodir}/pt/
-%lang(pt) %{_infodir}/pt.utf8/
 %lang(pt_BR) %{_infodir}/pt_BR*
 %{_mandir}/man1/maxima.*
 %{_mandir}/*/man1/maxima.*
@@ -412,6 +408,11 @@ fi
 
 
 %changelog
+* Tue Feb  6 2024 José Matos <jamatos@fedoraproject.org> - 5.47.0-1
+- Update to 5.47.0
+- Clean spec a bit
+- Add patch to fix matrix exponentiation and GMP arithmetic with sbcl (thanks to Ilia Gradina)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.45.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

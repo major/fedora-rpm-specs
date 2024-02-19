@@ -76,6 +76,13 @@
 
 %global upstreamlsbrelver 2.0
 %global lsbrelver 5.0
+%global disclaimer This package is not compliance with LSB, because various \
+components are missing from Fedora or EPEL, so compliance is not possible. \
+Fedora or EPEL explicitly declines add support the missing components from LSB \
+5.0 or earlier because these components are very outdated and have been \
+removed from the repositories and possibly replaced with new ones. \
+This package tries its best to comply with the LSB. Hoping to be helpful and \
+continue to support the LSB project and software that uses it
 
 # for >= f28, __brp_ldconfig is added in __os_install_post, it removes the symlink %%{lsbldso}
 # and thus leading to the FTBS.
@@ -88,7 +95,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.7%{gver}%{?dist}
+Release: 0.8%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -110,10 +117,7 @@ will increase compatibility among Linux distributions. It is designed to be
 binary-compatible and produce a stable application binary interface (ABI) for
 independent software vendors.
 
-This package is not compliance with LSB, because various components are missing
-from Fedora, so compliance is not possible.
-Fedora explicitly declines add support the missing components of LSB 5.0 or
-earlier because they are completely obsolete.
+%{disclaimer}
 
 The lsb package provides utilities, libraries etc. needed for LSB Compliant 
 Applications. It also contains requirements that will ensure that all 
@@ -133,6 +137,11 @@ Requires: libgcc%{?_isa}
 Requires: libxcrypt-compat%{?_isa}
 #LSB requires libncurses.so.5 for some reason
 Requires: ncurses-compat-libs%{?_isa}
+# ncurses includes
+#    infocmp
+#    tic
+#    tput
+Requires: ncurses
 Requires: pam%{?_isa}
 Requires: zlib%{?_isa}
 
@@ -276,9 +285,12 @@ Requires: /usr/bin/xargs
 Requires: /usr/bin/zcat
 
 %description core
+%{disclaimer}
+
 The Linux Standard Base (LSB) Core module support provides the fundamental
 system interfaces, libraries, and runtime environment upon which all conforming
 applications and libraries depend.
+
 
 %package cxx
 Summary: LSB CXX module support
@@ -289,6 +301,8 @@ Provides: lsb-cxx-noarch = %{version}-%{release}
 Requires: libstdc++%{?_isa}
 
 %description cxx
+%{disclaimer}
+
 The Linux Standard Base (LSB) CXX module supports the core interfaces by
 providing system interfaces, libraries, and a runtime environment for
 applications built using the C++ programming language. These interfaces
@@ -342,6 +356,8 @@ Requires: qt-x11%{?_isa}
 Requires: libxml2%{?_isa}
 
 %description desktop
+%{disclaimer}
+
 The Linux Standard Base (LSB) Desktop Specifications define components that are
 required to be present on an LSB conforming system.
 
@@ -389,6 +405,8 @@ Requires: /usr/bin/python3
 # java
 
 %description languages
+%{disclaimer}
+
 The Linux Standard Base (LSB) Languages module supports components for runtime
 languages which are found on an LSB conforming system.
 
@@ -418,6 +436,8 @@ Requires: sil-abyssinica-fonts
 Requires: xorg-x11-server-Xvfb
 
 %description supplemental
+%{disclaimer}
+
 This subpackage brings in supplemental dependencies for components required for
 passing LSB (Linux Standard Base) certification testsuite, but not directly required
 to be on LSB conforming system.
@@ -515,6 +535,10 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %changelog
+* Sat Feb 17 2024 Sérgio Basto <sergio@serjux.com> - 5.0-0.8.20231006git8d00acdc
+- Globalize disclamer
+- Add Requires of ncurses which includes infocmp, tic and tput
+
 * Tue Feb 06 2024 Sérgio Basto <sergio@serjux.com> - 5.0-0.7.20231006git8d00acdc
 - Remove require of libpng12.so.0, lsb-desktop already require libpng
 - redhat-lsb now provides lsb_release, in future maybe we can remove the rest since LSB 5.0 is out of date

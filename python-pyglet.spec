@@ -4,8 +4,8 @@
 %bcond_without tests
 
 Name: python-%{srcname}
-Version: 1.5.27
-Release: 4%{?dist}
+Version: 2.0.10
+Release: 1%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD-3-Clause
@@ -19,9 +19,6 @@ URL: http://www.pyglet.org/
 # See the script for details.
 Source0: %{versionedname}-repacked.tar.gz
 Source1: pyglet-get-tarball.sh
-
-# Use importlib instead of imp
-Patch0: python-pyglet-imp.patch
 
 # Note that unbundling pypng removes "PNGImageDecoder", which is normally
 # available for advanced use cases. Instead of:
@@ -49,6 +46,11 @@ BuildRequires: gtk2-devel
 BuildRequires: gdk-pixbuf2-devel
 # libpurple has sound files unbundled in the repacked tarball
 BuildRequires: libpurple
+# These tests fail in koji, likely due to missing devices
+#BuildRequires: openal-soft
+# Some tests fail if this is present
+# https://github.com/pyglet/pyglet/issues/875
+#BuildRequires: python3-pytest-asyncio
 %endif
 
 
@@ -133,7 +135,7 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 # Interactive tests are skipped for obvious reasons.
 # Media player tests are skipped -- we don't have PulseAudio running.
 # test_find_font_match & test_have_font skipped -- they look for a font named 'arial'
-# test_freetype_face tests are is skipped -- they depend on non-free font we remove
+# test_font & test_freetype_face tests are skipped -- they depend on non-free font we remove
 # test_push_handlers_instance has broken mocking: https://github.com/pyglet/pyglet/issues/606
 # GdkPixBufTest.test_load_animation uses dinosaur.gif which we remove
 %pytest \
@@ -142,7 +144,7 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
     --ignore=tests/interactive \
     --ignore=tests/integration/media \
     -m 'not (requires_user_action or requires_user_validation or only_interactive)' \
-    -k 'not (test_find_font_match or test_have_font or test_freetype_face or test_push_handlers_instance)' \
+    -k 'not (test_find_font_match or test_font or test_have_font or test_freetype_face or test_push_handlers_instance)' \
     --deselect tests/integration/image/test_gdkpixbuf2.py::GdkPixBufTest::test_load_animation \
     tests
 %endif
@@ -150,12 +152,13 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 %files -n python3-%{srcname} -f %%{pyproject_files}
 %license LICENSE
-%doc README.md
-%doc RELEASE_NOTES
-%doc NOTICE
+%doc README.md RELEASE_NOTES
 
 
 %changelog
+* Sat Feb 17 2024 Orion Poplawski <orion@nwra.com> - 2.0.10-1
+- Update to 2.0.10
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.27-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.6.1
-Release:        3%{?dist}
+Version:        6.6.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -103,24 +103,14 @@ Fedora Windows cross-compiler.
 
 
 %build
-%ifarch ppc64le
-# FIXME: ICE
-export MINGW32_CFLAGS="%(echo %mingw32_cflags | sed 's/-O2/-O1/')"
-export MINGW32_CXXFLAGS="%(echo %mingw32_cflags | sed 's/-O2/-O1/')"
-export MINGW64_CFLAGS="%(echo %mingw64_cflags | sed 's/-O2/-O1/')"
-export MINGW64_CXXFLAGS="%(echo %mingw64_cflags | sed 's/-O2/-O1/')"
-%endif
-
+export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %mingw_cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %mingw_ninja
 
 
 %install
 %mingw_ninja_install
-
-# Drop files which should probably have not been installed
-rm -rf %{buildroot}%{mingw32_libdir}/objects-RelWithDebInfo/
-rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 # Win32
@@ -824,6 +814,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Sat Feb 17 2024 Sandro Mani <manisandro@gmail.com> - 6.6.2-1
+- Update to 6.6.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

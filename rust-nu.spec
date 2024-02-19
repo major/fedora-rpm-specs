@@ -65,7 +65,6 @@ License:        MIT AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND Apache-2.0 AND 
 
 %files       -n %{crate}
 %license LICENSE
-%license wix/License.rtf
 %license LICENSE.dependencies
 %doc CODE_OF_CONDUCT.md
 %doc CONTRIBUTING.md

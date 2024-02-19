@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        46~alpha
-Release:        2%{?dist}
+Version:        46~beta
+Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
@@ -71,6 +71,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

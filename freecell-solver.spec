@@ -50,7 +50,9 @@ BuildRequires: perl(Test::Data::Split::Backend::Hash)
 BuildRequires: perl(Test::Data::Split::Backend::ValidateHash)
 BuildRequires: perl(Test::Differences)
 BuildRequires: perl(Test::More)
+%ifarch %{valgrind_arches}
 BuildRequires: perl(Test::RunValgrind)
+%endif
 BuildRequires: perl(Test::TrailingSpace)
 BuildRequires: perl(Test::Trap)
 BuildRequires: perl(warnings)
@@ -69,7 +71,9 @@ BuildRequires: python3dist(pycotap)
 Requires: %{libname}%{?_isa} = %{version}-%{release}
 # BuildRequires: tap-devel
 BuildRequires: the_silver_searcher
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
+%endif
 
 %description
 The Freecell Solver package contains the fc-solve executable which is
@@ -156,6 +160,9 @@ Freecell Solver from within your programs.
 %cmake_build
 
 %check
+%ifnarch %{valgrind_arches}
+export FCS_TEST_WITHOUT_VALGRIND=1
+%endif
 %__rm -f t/t/py-flake8.t t/t/tidyall.t
 src="`pwd`"
 cd "%{__cmake_builddir}"

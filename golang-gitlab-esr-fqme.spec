@@ -5,7 +5,7 @@
 %global goipath         gitlab.com/esr/fqme
 %global forgeurl        https://gitlab.com/esr/fqme
 
-Version:                0.1.0
+Version:                1.0.0
 %global tag             v%{version}
 
 %gometa
@@ -18,7 +18,7 @@ discover your full name and email address.}
 %global godocs          README.adoc
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Go module that mines configuration files to discover full name and email address
 
 License:        BSD
@@ -45,6 +45,9 @@ rm -rf demo
 %gopkgfiles
 
 %changelog
+* Sat Feb 17 2024 Denis Fateyev <denis@fateyev.com> - 1.0.0-1
+- Update to version 1.0.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

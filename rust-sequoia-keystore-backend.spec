@@ -2,24 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# make debuginfo generation pass on f38 ix86
-%global rustflags_debuginfo 1
+%global crate sequoia-keystore-backend
 
-%global crate nu-cli
-
-Name:           rust-nu-cli
-Version:        0.88.1
+Name:           rust-sequoia-keystore-backend
+Version:        0.1.0
 Release:        %autorelease
-Summary:        CLI-related functionality for Nushell
+Summary:        Private key store for Sequoia
 
-License:        MIT
-URL:            https://crates.io/crates/nu-cli
+License:        LGPL-2.0-or-later
+URL:            https://crates.io/crates/sequoia-keystore-backend
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          sequoia-keystore-backend-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-CLI-related functionality for Nushell.}
+A private key store for Sequoia.}
 
 %description %{_description}
 
@@ -33,7 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,18 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+plugin-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+plugin-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "plugin" feature of the "%{crate}" crate.
-
-%files       -n %{name}+plugin-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -68,15 +56,15 @@ use the "plugin" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-%cargo_build
+# build with the default crypto backend (Nettle)
+%cargo_build -f sequoia-openpgp/crypto-nettle
 
 %install
 %cargo_install
 
 %if %{with check}
 %check
-# * other tests depend on unshipped fixtures
-%cargo_test -- --lib
+%cargo_test
 %endif
 
 %changelog

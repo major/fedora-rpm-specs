@@ -57,8 +57,8 @@
 %global source_directory 1.37-development
 
 Name:           nbdkit
-Version:        1.37.7
-Release:        2%{?dist}
+Version:        1.37.8
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -122,7 +122,7 @@ BuildRequires:  rb_libtorrent-devel
 %if 0%{?have_blkio}
 BuildRequires:  libblkio-devel
 %endif
-BuildRequires:  bash-completion
+BuildRequires:  bash-completion, bash-completion-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl(ExtUtils::Embed)
 %if 0%{?rhel} == 8
@@ -1499,6 +1499,9 @@ fi
 
 
 %changelog
+* Sat Feb 17 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.8-1
+- New upstream development version 1.37.8
+
 * Wed Feb 14 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.7-2
 - Fix gcs & S3 plugin requirements
 

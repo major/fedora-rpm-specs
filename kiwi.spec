@@ -12,7 +12,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        9.25.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -76,11 +76,6 @@ Provides:       kiwi-packagemanager:yum
 Requires:       microdnf
 Provides:       kiwi-packagemanager:microdnf
 %endif
-%if 0%{?fedora}
-# For building (open)SUSE based images
-Requires:       zypper
-Provides:       kiwi-packagemanager:zypper
-%endif
 # Offers GPG public keys for various RPM distros and third party repositories
 Recommends:     distribution-gpg-keys
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -110,6 +105,19 @@ Obsoletes:      python2-%{name} < %{version}-%{release}
 %description systemdeps-core
 This metapackage installs the necessary system dependencies
 to run KIWI.
+
+%if 0%{?fedora}
+%package systemdeps-pkgmgr-zypper
+Summary:        KIWI - Zypper package manager support
+# For building (open)SUSE based images
+Requires:       zypper
+Provides:       kiwi-packagemanager:zypper
+Requires:       %{name}-systemdeps-core = %{version}-%{release}
+
+%description systemdeps-pkgmgr-zypper
+This metapackage exposes support for Zypper as a package
+manager for image builds in KIWI.
+%endif
 
 %ifnarch ppc64 %{ix86}
 %package systemdeps-containers
@@ -295,6 +303,9 @@ Requires:       kiwi-systemdeps-disk-images = %{version}-%{release}
 Requires:       kiwi-systemdeps-iso-media = %{version}-%{release}
 %if ! 0%{?rhel}
 Requires:       kiwi-systemdeps-image-validation = %{version}-%{release}
+%endif
+%if 0%{?fedora}
+Recommends:     kiwi-systemdeps-pkgmgr-zypper = %{version}-%{release}
 %endif
 
 %description systemdeps
@@ -547,6 +558,11 @@ done
 %files systemdeps-core
 # Empty metapackage
 
+%if 0%{?fedora}
+%files systemdeps-pkgmgr-zypper
+# Empty metapackage
+%endif
+
 %files systemdeps-bootloaders
 # Empty metapackage
 
@@ -571,6 +587,9 @@ done
 # Empty metapackage
 
 %changelog
+* Sat Feb 17 2024 Neal Gompa <ngompa@fedoraproject.org> - 9.25.21-5
+- Break out Zypper support into a subpackage
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.25.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

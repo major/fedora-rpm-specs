@@ -1,6 +1,6 @@
 Name:           at-spi2-core
-Version:        2.51.0
-Release:        2%{?dist}
+Version:        2.51.90
+Release:        1%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
 License:        LGPL-2.1-or-later
@@ -17,9 +17,11 @@ BuildRequires:  gobject-introspection-devel
 BuildRequires:  meson
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(libei-1.0)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xtst)
 
 Requires:       dbus
@@ -161,6 +163,9 @@ install -Dpm 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/0
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 2.51.90-1
+- Update to 2.51.90
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.51.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

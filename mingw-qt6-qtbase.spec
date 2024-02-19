@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.6.1
-Release:        4%{?dist}
+Version:        6.6.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -154,6 +154,8 @@ rm -rf src/3rdparty/{freetype,libjpeg,libpng,pcre2,sqlite,zlib}
 
 
 %build
+export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %mingw_cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DQT_HOST_PATH=%{_prefix} \
@@ -540,6 +542,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Sat Feb 17 2024 Sandro Mani <manisandro@gmail.com> - 6.6.2-1
+- Update to 6.6.2
+
 * Mon Feb 05 2024 Sandro Mani <manisandro@gmail.com> - 6.6.1-4
 - Rebuild (icu)
 

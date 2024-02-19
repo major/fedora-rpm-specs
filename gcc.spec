@@ -1,5 +1,5 @@
-%global DATE 20240208
-%global gitrev b006f0561c0b004822f600ad0ea9a2b90fb29d7f
+%global DATE 20240217
+%global gitrev 09808932c51a9cccff3f40f23da744eda6ac28e1
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.6%{?dist}
+Release: %{gcc_release}.7%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -1691,8 +1691,8 @@ ln -sf ../../../libgo.so.23.* libgo.so
 ln -sf ../../../libquadmath.so.0.* libquadmath.so
 %endif
 %if %{build_d}
-ln -sf ../../../libgdruntime.so.4.* libgdruntime.so
-ln -sf ../../../libgphobos.so.4.* libgphobos.so
+ln -sf ../../../libgdruntime.so.5.* libgdruntime.so
+ln -sf ../../../libgphobos.so.5.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -1726,8 +1726,8 @@ ln -sf ../../../../%{_lib}/libgo.so.23.* libgo.so
 ln -sf ../../../../%{_lib}/libquadmath.so.0.* libquadmath.so
 %endif
 %if %{build_d}
-ln -sf ../../../../%{_lib}/libgdruntime.so.4.* libgdruntime.so
-ln -sf ../../../../%{_lib}/libgphobos.so.4.* libgphobos.so
+ln -sf ../../../../%{_lib}/libgdruntime.so.5.* libgdruntime.so
+ln -sf ../../../../%{_lib}/libgphobos.so.5.* libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -1872,10 +1872,10 @@ echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libquadmath.so.0.* | sed '
 %endif
 %if %{build_d}
 rm -f libgdruntime.so libgphobos.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgdruntime.so.4.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgdruntime.so.4.* | sed 's,^.*libg,libg,'`' )' > 64/libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgphobos.so.4.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.4.* | sed 's,^.*libg,libg,'`' )' > 64/libgphobos.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > 64/libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > 64/libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -1989,10 +1989,10 @@ echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libquadmath.so.0.* | sed '
 %endif
 %if %{build_d}
 rm -f libgdruntime.so libgphobos.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgdruntime.so.4.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgdruntime.so.4.* | sed 's,^.*libg,libg,'`' )' > 32/libgdruntime.so
-echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgphobos.so.4.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
-echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.4.* | sed 's,^.*libg,libg,'`' )' > 32/libgphobos.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgdruntime.so.5.* | sed 's,^.*libg,libg,'`' )' > 32/libgdruntime.so
+echo 'INPUT ( %{_prefix}/lib64/'`echo ../../../../lib64/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > libgphobos.so
+echo 'INPUT ( %{_prefix}/lib/'`echo ../../../../lib64/libgphobos.so.5.* | sed 's,^.*libg,libg,'`' )' > 32/libgphobos.so
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -2169,8 +2169,8 @@ chmod 755 %{buildroot}%{_prefix}/%{_lib}/libcc1.so.0.*
 chmod 755 %{buildroot}%{_prefix}/%{_lib}/libquadmath.so.0.*
 %endif
 %if %{build_d}
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgdruntime.so.4.*
-chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.4.*
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgdruntime.so.5.*
+chmod 755 %{buildroot}%{_prefix}/%{_lib}/libgphobos.so.5.*
 %endif
 %if %{build_m2}
 for i in cor iso log min pim; do
@@ -3059,8 +3059,8 @@ end
 %doc rpm.doc/gdc/*
 
 %files -n libgphobos
-%{_prefix}/%{_lib}/libgdruntime.so.4*
-%{_prefix}/%{_lib}/libgphobos.so.4*
+%{_prefix}/%{_lib}/libgdruntime.so.5*
+%{_prefix}/%{_lib}/libgphobos.so.5*
 %doc rpm.doc/libphobos/*
 
 %files -n libgphobos-static
@@ -3595,6 +3595,37 @@ end
 %endif
 
 %changelog
+* Sat Feb 17 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.7
+- update from trunk
+  - PRs analyzer/111266, c++/97202, c++/97990, c++/98388, c++/99573,
+	c++/107126, c++/111682, c++/112436, c++/112580, c++/113158,
+	c++/113332, c++/113545, c++/113612, c++/113649, c++/113658,
+	c++/113674, c++/113706, c++/113708, c++/113760, c++/113789,
+	c++/113834, c++/113853, c++/113908, c++/113929, d/104739, d/113125,
+	d/113667, d/113758, d/113772, fortran/99210, fortran/105847,
+	fortran/113799, fortran/113866, fortran/113883, fortran/113911,
+	ipa/98237, libfortran/107068, libgcc/113850, libgomp/113843,
+	libstdc++/87744, libstdc++/99117, libstdc++/100147,
+	libstdc++/113294, libstdc++/113806, libstdc++/113807,
+	libstdc++/113811, libstdc++/113931, libstdc++/113961,
+	middle-end/107385, middle-end/110754, middle-end/113415,
+	middle-end/113508, middle-end/113576, middle-end/113904,
+	middle-end/113921, modula2/113848, modula2/113888, other/113336,
+	sanitizer/113785, target/106543, target/109349, target/113742,
+	target/113780, target/113855, target/113871, target/113876,
+	target/113909, target/113927, testsuite/113278, testsuite/113448,
+	testsuite/113861, testsuite/113899, tree-optimization/108355,
+	tree-optimization/111054, tree-optimization/111156,
+	tree-optimization/113567, tree-optimization/113734,
+	tree-optimization/113774, tree-optimization/113783,
+	tree-optimization/113818, tree-optimization/113831,
+	tree-optimization/113849, tree-optimization/113863,
+	tree-optimization/113895, tree-optimization/113896,
+	tree-optimization/113898, tree-optimization/113902,
+	tree-optimization/113910
+  - fix bugs in Fortran allocatable character component assignments
+    (#2261826, PR fortran/113503)
+
 * Thu Feb  8 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.6
 - update from trunk
   - PRs c++/113814, c/113776, target/113711, target/113733, target/113824,

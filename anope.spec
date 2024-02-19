@@ -10,8 +10,8 @@
 
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
-Version:        2.1.1
-Release:        3%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
 # MIT: src/siphash.cpp
@@ -190,14 +190,14 @@ EXTRA_LIBS+=";%{_libdir}/openssl11"
 %endif
 
 # Build extra modules
-mv -f modules/extra/{m_regex_posix,m_sql_authentication,m_sql_log,m_sql_oper}.cpp modules/
-%{?with_ldap:mv -f modules/extra/{m_ldap,m_ldap_authentication,m_ldap_oper}.cpp modules/}
-%{?with_mysql:mv -f modules/extra/{m_mysql.cpp,stats} modules/}
-%{?with_pcre2:mv -f modules/extra/m_regex_pcre2.cpp modules/}
-%{?with_tre:mv -f modules/extra/m_regex_tre.cpp modules/}
-%{?with_sqlite:mv -f modules/extra/m_sqlite.cpp modules/}
-%{?with_gnutls:mv -f modules/extra/m_ssl_gnutls.cpp modules/}
-%{?with_openssl:mv -f modules/extra/m_ssl_openssl.cpp modules/}
+mv -f modules/extra/{regex_posix,sql_authentication,sql_log,sql_oper}.cpp modules/
+%{?with_ldap:mv -f modules/extra/{ldap,ldap_authentication,ldap_oper}.cpp modules/}
+%{?with_mysql:mv -f modules/extra/mysql.cpp modules/}
+%{?with_pcre2:mv -f modules/extra/regex_pcre2.cpp modules/}
+%{?with_tre:mv -f modules/extra/regex_tre.cpp modules/}
+%{?with_sqlite:mv -f modules/extra/sqlite.cpp modules/}
+%{?with_gnutls:mv -f modules/extra/ssl_gnutls.cpp modules/}
+%{?with_openssl:mv -f modules/extra/ssl_openssl.cpp modules/}
 
 # Default directories are not picked up during build process; this avoids
 # anope --confdir=/etc/anope --dbdir=/var/lib/anope --logdir=/var/log/anope \
@@ -253,6 +253,9 @@ rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/examples/example.chk
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/modules/webcpanel.so
 rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 
+# Remove MySQL related modules when built without MySQL
+%{!?with_mysql:rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/modules/{chanstats,cs_fantasy_stats,cs_fantasy_top,irc2sql}.so}
+
 %find_lang %{name}
 
 %pre
@@ -269,7 +272,7 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 
 %files -f %{name}.lang
 %license docs/COPYING
-%doc docs/BUGS docs/Changes docs/Changes.conf docs/DEFCON
+%doc docs/Changes docs/Changes.conf docs/DEFCON
 %doc docs/FAQ docs/MODULES docs/README docs/XMLRPC
 %doc %{_pkgdocdir}/examples/
 %dir %attr(0750,root,%{name}) %{_sysconfdir}/%{name}/
@@ -287,22 +290,22 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/*.so
 %if %{with ldap}
-%exclude %{_libdir}/%{name}/modules/m_ldap.so
-%exclude %{_libdir}/%{name}/modules/m_ldap_authentication.so
-%exclude %{_libdir}/%{name}/modules/m_ldap_oper.so
+%exclude %{_libdir}/%{name}/modules/ldap.so
+%exclude %{_libdir}/%{name}/modules/ldap_authentication.so
+%exclude %{_libdir}/%{name}/modules/ldap_oper.so
 %endif
 %if %{with mysql}
-%exclude %{_libdir}/%{name}/modules/m_mysql.so
-%exclude %{_libdir}/%{name}/modules/m_chanstats.so
+%exclude %{_libdir}/%{name}/modules/mysql.so
+%exclude %{_libdir}/%{name}/modules/chanstats.so
 %exclude %{_libdir}/%{name}/modules/cs_fantasy_stats.so
 %exclude %{_libdir}/%{name}/modules/cs_fantasy_top.so
 %exclude %{_libdir}/%{name}/modules/irc2sql.so
 %endif
-%{?with_pcre2:%exclude %{_libdir}/%{name}/modules/m_regex_pcre2.so}
-%{?with_tre:%exclude %{_libdir}/%{name}/modules/m_regex_tre.so}
-%{?with_sqlite:%exclude %{_libdir}/%{name}/modules/m_sqlite.so}
-%{?with_gnutls:%exclude %{_libdir}/%{name}/modules/m_ssl_gnutls.so}
-%{?with_openssl:%exclude %{_libdir}/%{name}/modules/m_ssl_openssl.so}
+%{?with_pcre2:%exclude %{_libdir}/%{name}/modules/regex_pcre2.so}
+%{?with_tre:%exclude %{_libdir}/%{name}/modules/regex_tre.so}
+%{?with_sqlite:%exclude %{_libdir}/%{name}/modules/sqlite.so}
+%{?with_gnutls:%exclude %{_libdir}/%{name}/modules/ssl_gnutls.so}
+%{?with_openssl:%exclude %{_libdir}/%{name}/modules/ssl_openssl.so}
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/backups/
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/runtime/
@@ -311,17 +314,17 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 
 %if %{with ldap}
 %files ldap
-%{_libdir}/%{name}/modules/m_ldap.so
-%{_libdir}/%{name}/modules/m_ldap_authentication.so
-%{_libdir}/%{name}/modules/m_ldap_oper.so
+%{_libdir}/%{name}/modules/ldap.so
+%{_libdir}/%{name}/modules/ldap_authentication.so
+%{_libdir}/%{name}/modules/ldap_oper.so
 %endif
 
 %if %{with mysql}
 %files mysql
 %config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/chanstats.conf
 %config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/irc2sql.conf
-%{_libdir}/%{name}/modules/m_mysql.so
-%{_libdir}/%{name}/modules/m_chanstats.so
+%{_libdir}/%{name}/modules/mysql.so
+%{_libdir}/%{name}/modules/chanstats.so
 %{_libdir}/%{name}/modules/cs_fantasy_stats.so
 %{_libdir}/%{name}/modules/cs_fantasy_top.so
 %{_libdir}/%{name}/modules/irc2sql.so
@@ -329,30 +332,33 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 
 %if %{with pcre2}
 %files pcre2
-%{_libdir}/%{name}/modules/m_regex_pcre2.so
+%{_libdir}/%{name}/modules/regex_pcre2.so
 %endif
 
 %if %{with tre}
 %files tre
-%{_libdir}/%{name}/modules/m_regex_tre.so
+%{_libdir}/%{name}/modules/regex_tre.so
 %endif
 
 %if %{with sqlite}
 %files sqlite
-%{_libdir}/%{name}/modules/m_sqlite.so
+%{_libdir}/%{name}/modules/sqlite.so
 %endif
 
 %if %{with gnutls}
 %files gnutls
-%{_libdir}/%{name}/modules/m_ssl_gnutls.so
+%{_libdir}/%{name}/modules/ssl_gnutls.so
 %endif
 
 %if %{with openssl}
 %files openssl
-%{_libdir}/%{name}/modules/m_ssl_openssl.so
+%{_libdir}/%{name}/modules/ssl_openssl.so
 %endif
 
 %changelog
+* Sat Feb 17 2024 Robert Scheck <robert@fedoraproject.org> 2.1.2-1
+- Upgrade to 2.1.2 (#2264678)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

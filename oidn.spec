@@ -1,20 +1,35 @@
+%bcond 		hip 0
+%bcond          ninja 0
+#%%global		prerelease rc
 Name:           oidn
-Version:        2.1.0
-Release:        %autorelease
+Version:        2.2.0
+Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0
 URL:            https://openimagedenoise.github.io/
 
-Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%{version}/%{name}-%{version}.src.tar.gz
+Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%{version}%{?prerelease:-%{prerelease}}/%{name}-%{version}%{?prerelease:-%{prerelease}}.src.tar.gz
 
 # Library only available on x86_64
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake >= 3.13.0
+# Enable HIP support
+%if %{with hip}
+BuildRequires:  clang-devel
+BuildRequires:  clang-tools-extra
+BuildRequires:  hipcc
+BuildRequires:  lld-devel
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-runtime
+%endif
 # Needed to remove rpath from apps
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  ispc
+%if %{with ninja}
+BuildRequires:  ninja-build
+%endif
 BuildRequires:  pkgconfig(OpenImageIO)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
@@ -50,8 +65,15 @@ The %{name}-docs package contains documentation for %{name}.
 
 %build
 %cmake \
+%if %{with ninja}
+    -G Ninja \
+%endif
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
-    -DOIDN_DEVICE_SYCL_AOT=OFF
+%if %{with hip}
+    -DOIDN_DEVICE_HIP=ON \
+    -DOIDN_DEVICE_HIP_COMPILER=%{_bindir}/hipcc \
+    -DROCM_PATH=%{_libdir}/libhsa-runtime64.so.1
+%endif
 %cmake_build
 
 %install

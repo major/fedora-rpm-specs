@@ -1,7 +1,7 @@
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD 
 URL:     https://www.kde.org/applications/graphics/kolourpaint/
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Sat Feb 17 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

@@ -6,7 +6,7 @@
 %endif
 
 Name: dnsdist
-Version: 1.8.3
+Version: 1.9.0
 Release: %autorelease
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 License: GPLv2
@@ -66,6 +66,7 @@ sed -i '/^ExecStart/ s/dnsdist/dnsdist -u dnsdist -g dnsdist/' dnsdist.service.i
     --disable-dependency-tracking \
     --disable-silent-rules \
     --enable-dnscrypt \
+    --enable-dns-over-https \
     --enable-dns-over-tls \
     --enable-unit-tests \
     --with-cdb \

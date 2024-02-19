@@ -41,7 +41,9 @@ BuildRequires: perl(warnings)
 BuildRequires: perl-devel
 BuildRequires: python3
 BuildRequires: rinutils-devel
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
+%endif
 BuildRequires: xxhash-devel
 
 %description
@@ -95,7 +97,7 @@ Development tools for the Black Hole Solitaire Solver.
 %cmake_build
 
 %check
-%ifarch %arm
+%ifarch %arm riscv64
 # valgrind suppression not working without glibc-debuginfo breaks it
 %__rm -f t/valgrind.t
 %endif

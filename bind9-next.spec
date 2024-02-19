@@ -333,6 +333,11 @@ for i in bin/named/Makefile.am; do
 done
 %endif
 
+%ifarch %{ix86}
+# f40 FTBFS on quota_test, bug #2261010
+  sed -e '/^\s*quota_test/ d' -i tests/isc/Makefile.am
+%endif
+
 :;
 
 

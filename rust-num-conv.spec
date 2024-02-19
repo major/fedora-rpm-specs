@@ -2,24 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# make debuginfo generation pass on f38 ix86
-%global rustflags_debuginfo 1
+%global crate num-conv
 
-%global crate nu-cli
-
-Name:           rust-nu-cli
-Version:        0.88.1
+Name:           rust-num-conv
+Version:        0.1.0
 Release:        %autorelease
-Summary:        CLI-related functionality for Nushell
+Summary:        Num_conv is a crate to convert between integer types without using as casts
 
-License:        MIT
-URL:            https://crates.io/crates/nu-cli
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/num-conv
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-CLI-related functionality for Nushell.}
+`num_conv` is a crate to convert between integer types without using
+`as` casts. This provides better certainty when refactoring, makes the
+exact behavior of code more explicit, and allows using turbofish syntax.}
 
 %description %{_description}
 
@@ -33,7 +32,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-Apache
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+plugin-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+plugin-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "plugin" feature of the "%{crate}" crate.
-
-%files       -n %{name}+plugin-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -75,8 +64,7 @@ use the "plugin" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * other tests depend on unshipped fixtures
-%cargo_test -- --lib
+%cargo_test
 %endif
 
 %changelog

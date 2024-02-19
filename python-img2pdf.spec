@@ -8,8 +8,8 @@ smaller PDF files than an ImageMagick convert command.\
 The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
-Version:        0.5.0
-Release:        3%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPLv3+
@@ -96,8 +96,9 @@ sed -i '1{/^#!\//d}' src/*.py
 sed -i '1i#!'%{__python3} src/img2pdf.py
 
 # cf. https://gitlab.mister-muffin.de/josch/img2pdf/issues/178
+#     https://gitlab.mister-muffin.de/josch/img2pdf/issues/187
 # XXX TODO enable again after issue is resolved
-PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and not jpg_2000_r'
+PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and not png_icc'
 
 %endif
 
@@ -112,6 +113,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and 
 
 
 %changelog
+* Sat Feb 17 2024 Georg Sauthoff <mail@gms.tf> - 0.5.1-1
+- Update to latest upstream version (fixes fedora#2251540, fixes fedora#2261573)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

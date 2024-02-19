@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-s3
-Version:        0.2.9
+Version:        0.2.10
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for S3 API storage (AWS S3, MinIO, etc.)
 
@@ -14,6 +14,9 @@ URL:            https://github.com/snakemake/snakemake-storage-plugin-s3
 # We use the GitHub archive instead of the PyPI sdist to get CHANGELOG.md and
 # the tests.
 Source:         %{url}/archive/v%{version}/snakemake-storage-plugin-s3-%{version}.tar.gz
+# Downstream-only: allow pre-2.0 urllib3 until it can be updated
+# (https://bugzilla.redhat.com/show_bug.cgi?id=2143021).
+Patch:          urllib3-v1.patch
 
 BuildArch:      noarch
 

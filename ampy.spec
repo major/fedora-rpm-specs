@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 Name:           ampy
 Version:        1.0.5
-Release:        20%{?dist}
+Release:        %autorelease
 Summary:        Command line tool to interact with a MicroPython board over a serial connection
 
 License:        MIT
@@ -63,80 +63,4 @@ sed -i '1d' $(grep -lr '#!/usr/')
 
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.5-17
-- Rebuilt for Python 3.12
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.0.5-14
-- Rebuilt for Python 3.11
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.0.5-11
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-8
-- Rebuilt for Python 3.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-6
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-5
-- Rebuilt for Python 3.8
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-4
-- Rebuilt for Python 3.8
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Aug 01 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0.5-1
-- Update to 1.0.5 (#1610571)
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-5
-- Rebuilt for Python 3.7
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-4
-- Rebuilt for Python 3.7
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Mar 14 2017 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-1
-- Initial package
+%autochangelog

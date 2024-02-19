@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 Name:           python-conda-index
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause
@@ -49,8 +49,6 @@ BuildRequires:  python%{python3_pkgversion}-sphinx-click
 %autosetup -p1 -n conda-index-%{version}
 # do not run coverage in pytest
 sed -i -E '/".*cov.*"/d' pyproject.toml
-# Upstream has removed this test that uses tlz
-rm tests/test_groupby_strategies.py
 
 
 %generate_buildrequires

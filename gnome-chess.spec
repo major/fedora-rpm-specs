@@ -3,13 +3,13 @@
 %global libadwaita_version 1.0.0.alpha.3
 
 Name:           gnome-chess
-Version:        43.2
-Release:        4%{?dist}
+Version:        46~beta
+Release:        1%{?dist}
 Summary:        GNOME Chess game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Chess
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Feb 17 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

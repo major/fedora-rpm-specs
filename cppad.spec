@@ -28,8 +28,8 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
-Version: 20240000.2
-Release: 3%{?dist}
+Version: 20240000.3
+Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -168,13 +168,10 @@ fi
 # because they are absolute paths. Relative values would be more flexible 
 # because they can be combined with %%{_prefix} to get absolute values.
 #
-# 2. The last argument to the cmake command is the directory created using 
-# the souce code tarball.
-#
-# 3. The debug_all is overridden for cppad_lib by the edit of
+# 2. The debug_all is overridden for cppad_lib by the edit of
 # cppad_lib/CMakeLists.txt above
 #
-# 4. The gnu c++ compiler seems to be generating an incorrect warning about
+# 3. The gnu c++ compiler seems to be generating an incorrect warning about
 # array bounds in thread_alloc.hpp. Use -Wno-array-bounds to suppress it.
 #
 # cppad_cxx_flags
@@ -268,6 +265,10 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Sat Feb 17 2024 Brad Bell <bradbell at seanet dot com> - 20240000.3-1
+- This fixes a long standing bug; see the heading 02-04 on
+- https://cppad.readthedocs.io/latest/whats_new_24.html
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240000.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -276,7 +277,7 @@ make %{?_smp_mflags} check
 
 * Wed Jan 17 2024 Brad Bell <bradbell at seanet dot com> - 20240000.2-1
 - Upstream moved i386 special cases into cmake script.
-- Checking that othr upstream changes do not affect Fedora install.
+- Checking that other upstream changes do not affect Fedora install.
 
 * Tue Jan 09 2024 Brad Bell <bradbell at seanet dot com> - 20240000.1-1
 - thread_alloc.hpp: i386 i686: fix allignment for doubles

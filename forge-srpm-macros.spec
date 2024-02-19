@@ -21,12 +21,14 @@ BuildRequires:  python3-pyyaml
 # For %%pytest definition
 BuildRequires:  python3-rpm-macros
 %endif
+
 # We require macros and lua defined in redhat-rpm-config
 # We constrain this to the version released after the code was split out that
 # doesn't contain the same files.
-
 %if (0%{?fedora} >= 40 || 0%{?rhel} >= 10)
 Requires:       redhat-rpm-config >= 266-1
+%elif 0%{?fedora} == 39
+Requires:       redhat-rpm-config >= 265-1
 %else
 # For testing purposes on older releases,
 # we can depend on any version of redhat-rpm-config.

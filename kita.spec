@@ -1,14 +1,15 @@
 %define     version     0.177.5
-%define	    repoid      32988
+%define     repoid      32988
 
 Summary:    2ch client for KDE
 Name:       kita
 Version:    %{version}
-Release:    38%{?dist}
+Release:    39%{?dist}
 Source:     http://downloads.sourceforge.jp/kita/%{repoid}/kita-%{version}.tar.gz
 #Patch0:     kita-0.177.3-nonweak-symbol.patch
 Patch10:    kita-0.177.5-g++44.patch
 Patch11:    kita-0.177.5-ui-include-fix.patch
+Patch12:    kita-0.177.5-acinclude-m4-syntax-fix.patch
 License:    GPLv2+
 URL:        http://sourceforge.jp/projects/kita/
 
@@ -33,8 +34,9 @@ Kita is a 2ch client for KDE.
 %setup -q
 
 #%%patch0 -p2 -b .link
-%patch10 -p1 -b .g++
-%patch11 -p1 -b .include
+%patch -P10 -p1 -b .g++
+%patch -P11 -p1 -b .include
+%patch -P12 -p1 -b .syntax
 
 # Support automake 1.11
 %{__sed} -i.automake \
@@ -140,6 +142,9 @@ done
 %{_datadir}/doc/HTML/en/kita/
 
 %changelog
+* Sat Feb 17 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.177.5-39
+- Fix acinclude.m4 syntax error detected by autoconf 2.72
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.5-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

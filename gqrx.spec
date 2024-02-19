@@ -1,6 +1,6 @@
 Name:           gqrx
 Version:        2.17.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 License:        GPLv3+ and GPLv2+ and BSD
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Sat Feb 17 2024 Jan Grulich <jgrulich@redhat.com> - 2.17.4-2
+- Rebuild (qt6)
+
 * Wed Feb 14 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.17.4-1
 - New version
   Resolves: rhbz#2263629

@@ -14,7 +14,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.2.0
-Release: 6%{?beta}%{?dist}
+Release: 7%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -350,6 +350,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sat Feb 17 2024 Jan Grulich <jgrulich@redhat.com> - 8.2.0-7
+- Rebuild (qt6)
+
 * Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 8.2.0-6
 - Rebuild for opencv 4.9.0
 

@@ -321,7 +321,7 @@
 %endif
 
 %ifarch %{systemtap_arches}
-%if (0%{?rhel} > 0)
+%if (0%{?rhel} > 0 && !0%{?epel})
 %global with_systemtap 1
 %else
 %global with_systemtap 0
@@ -338,7 +338,7 @@
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver 21
+%global buildjdkver 22
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -398,7 +398,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -1780,9 +1780,13 @@ done
 %endif
 
 %changelog
+* Fri Feb 16 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.36-2.rolling
+- bumped build jdk to 22
+
 * Fri Feb 16 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.36-1.rolling
 - updated to 22+36
 - tmp comment out of ea exit 17
+- fixed condition for taspets
 
 * Wed Jan 24 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.32-2.rolling
 - Move to -P<n> usage for patch macro which works on all RPM versions

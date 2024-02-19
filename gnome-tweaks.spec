@@ -2,8 +2,8 @@
 %global major_version %%(cut -d '.' -f 1 <<<%{tarball_version})
 
 Name:           gnome-tweaks
-Version:        45.0
-Release:        3%{?dist}
+Version:        46~beta
+Release:        1%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
@@ -15,13 +15,13 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
-BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  python3-devel
-Requires:       gnome-desktop3
+Requires:       gnome-desktop4
 Requires:       gobject-introspection
 Requires:       gsettings-desktop-schemas
-Requires:       gtk3
-Requires:       libhandy1
+Requires:       gtk4
+Requires:       libadwaita
+Requires:       libgudev
 Requires:       libnotify
 Requires:       pango
 Requires:       %{py3_dist pygobject}
@@ -56,8 +56,8 @@ and extension, etc.
 
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 
 
 %files -f %{name}.lang
@@ -70,10 +70,13 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.tweaks.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.tweaks-symbolic.svg
-%{_datadir}/metainfo/*.appdata.xml
+%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Feb 16 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

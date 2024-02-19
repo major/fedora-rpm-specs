@@ -23,7 +23,7 @@
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.6
+Version:        1.19.7
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -78,7 +78,7 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  glib2-devel
 
 # For bash-completion.
-BuildRequires:  bash-completion
+BuildRequires:  bash-completion, bash-completion-devel
 
 # Only for running the test suite.
 BuildRequires:  coreutils
@@ -231,6 +231,7 @@ autoreconf -i
 %configure \
     --disable-static \
     --with-tls-priority=@LIBNBD,SYSTEM \
+    --with-bash-completions \
     PYTHON=%{__python3} \
     --enable-python \
 %if 0%{?have_ocaml}
@@ -385,6 +386,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sat Feb 17 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.7-1
+- New upstream development version 1.19.7
+
 * Mon Feb 05 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.6-1
 - New upstream development version 1.19.6
 

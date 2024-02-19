@@ -1,7 +1,7 @@
 Name:    kturtle
 Summary: Educational Programming Environment 
 Version: 24.01.95
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://apps.kde.org/kturtle/
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Feb 17 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
+- Rebuild (qt6)
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

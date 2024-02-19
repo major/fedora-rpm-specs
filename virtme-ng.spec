@@ -1,11 +1,13 @@
 Name:           virtme-ng
-Version:        1.20
+Version:        1.21
 Release:        %autorelease
 Summary:        Quickly build and run kernels inside a virtualized snapshot of your live system
 
 License:        GPL-2.0-only
 URL:            https://github.com/arighi/%{name}
 Source:         %{pypi_source %{name}}
+
+Patch:          %{url}/pull/74.patch#/001-fix-setup.patch
 
 BuildArch:      noarch
 
@@ -44,7 +46,7 @@ running your tests and experiments.
 virtme-ng is based on virtme, written by Andy Lutomirski <luto@kernel.org>.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 # Remove bundled binary (optional optimized init program for the VM)
 rm -f virtme/guest/bin/virtme-ng-init

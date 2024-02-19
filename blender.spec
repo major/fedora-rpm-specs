@@ -1,14 +1,22 @@
 %global blender_api 4.0
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
+# not compatible with newer clang versions
+#%%if 0%%{?fedora} >= 38 || 0%%{?rhel} >= 8
+#%%global llvm_compat 16
+#%%endif
+
 %bcond clang	1
 %bcond draco	1
 # Needed to enable osl support for cycles rendering
 %bcond llvm	1
-%bcond manpage  1
+# Manpage is broken upstream
+%bcond manpage  0
+%bcond ninja 1
 %bcond openshading	1
 %bcond sdl	0
 %bcond system_eigen3	1
+%bcond vulkan 1
 %bcond wayland	1
 
 %ifarch x86_64 aarch64 ppc64le
@@ -50,16 +58,17 @@ Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{v
 # Rename macros extension to avoid clashing with upstream version
 Source2:        macros.%{name}-rpm
 
-Patch1:         %{name}-3.6.1-py312-pylongobject.patch
+#
+Patch:          %{name}-3.6.1-py312-pylongobject.patch
 
 # Development stuff
 BuildRequires:  boost-devel
 BuildRequires:  ccache
 %if %{with clang}
-BuildRequires:  clang
+BuildRequires:  clang%{?llvm_compat}-devel
 %endif
 %if %{with llvm}
-BuildRequires:  llvm-devel
+BuildRequires:  llvm%{?llvm_compat}-devel
 %endif
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -68,7 +77,9 @@ BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  libharu-devel
 BuildRequires:  libtool
+%if %{with ninja}
 BuildRequires:  ninja-build
+%endif
 BuildRequires:  pkgconfig(blosc)
 %if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
@@ -85,6 +96,9 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(python3) >= 3.7
+%if %{with vulkan}
+BuildRequires:  vulkan-headers
+%endif
 %if %{with wayland}
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
@@ -184,7 +198,6 @@ BuildRequires:  libappstream-glib
 
 # ROCm stuff
 %if %{with rocm}
-BuildRequires:  clang-tools-extra
 BuildRequires:  lld-devel
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
@@ -244,11 +257,19 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     build_files/cmake/platform/platform_unix.cmake
 
+# Remove/replace depreciated parameters from HIPcc command
+# https://projects.blender.org/blender/blender/pulls/118401
+sed -i "s|--hipcc-func-supp||g" intern/cycles/device/hip/device_impl.cpp \
+        intern/cycles/kernel/CMakeLists.txt
+sed -i "s|amdgpu-target|offload-arch|g" intern/cycles/device/hip/device_impl.cpp \
+        intern/cycles/kernel/CMakeLists.txt
 
 
 %build
 %cmake \
+%if %{with ninja}
     -G Ninja \
+%endif
     -D_ffmpeg_INCLUDE_DIR=%{_includedir}/ffmpeg \
 %if %{with openshading}
     -D_osl_LIBRARIES=%{_libdir} \
@@ -264,7 +285,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_SKIP_RPATH=ON \
 %if %{with clang}
     -DCLANG_INCLUDE_DIR=%{_includedir}/clang \
-    -D_CLANG_LIBRARIES=%{_libdir} \
+    -D_CLANG_LIBRARIES=%{_libdir}/libclang.so \
 %endif
     -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DPYTHON_VERSION=%{python3_version} \
