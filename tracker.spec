@@ -3,13 +3,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.7~alpha
-Release:        3%{?dist}
+Version:        3.7~beta
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/tracker/3.7/tracker-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/649
+Patch:          tracker-3.7.beta-bash-completion-name.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
@@ -19,6 +21,7 @@ BuildRequires:  meson
 BuildRequires:  python3-gobject
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
+BuildRequires:  pkgconfig(avahi-glib)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(icu-i18n)
@@ -131,11 +134,14 @@ The %{name}-devel package contains the documentation for %{name}.
 %license COPYING COPYING.GPL
 %doc AUTHORS NEWS README.md
 %{_bindir}/tracker3
-%{_libexecdir}/tracker3/
+%{_bindir}/tracker3-*
 %{_libexecdir}/tracker-xdg-portal-3
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/tracker3
+%dir %{_datadir}/tracker3
+%dir %{_datadir}/tracker3/commands
+%{_datadir}/tracker3/commands/tracker-*.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.portal.Tracker.service
 %{_mandir}/man1/tracker*.1*
 %{_userunitdir}/tracker-xdg-portal-3.service
@@ -166,6 +172,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 3.7~beta-1
+- Update to 3.7.beta
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.7~alpha-3
 - Rebuild for ICU 74
 

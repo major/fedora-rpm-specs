@@ -5,7 +5,7 @@
 %global crate winnow
 
 Name:           rust-winnow
-Version:        0.5.35
+Version:        0.5.40
 Release:        %autorelease
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
@@ -109,6 +109,18 @@ This package contains library source intended for building other packages which
 use the "unstable-doc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unstable-doc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-recover-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-recover-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-recover" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-recover-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

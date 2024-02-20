@@ -6,11 +6,10 @@
 %global crate jobserver
 
 Name:           rust-jobserver
-Version:        0.1.27
+Version:        0.1.28
 Release:        %autorelease
 Summary:        Implementation of the GNU make jobserver for Rust
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/jobserver
 Source:         %{crates_source}

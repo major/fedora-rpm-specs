@@ -12,6 +12,9 @@ Patch0002:      https://github.com/libxls/libxls/pull/96.patch
 Patch0003:      https://github.com/libxls/libxls/pull/97.patch
 # Fixes build with GCC 13
 Patch0004:      https://github.com/libxls/libxls/pull/118.patch
+# Fixes CVE-2023-38852
+Patch0005:      https://github.com/libxls/libxls/pull/129.patch
+Patch0006:      https://github.com/libxls/libxls/pull/131.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

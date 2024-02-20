@@ -3,8 +3,8 @@
 %global _lto_cflags %nil
 
 Name:          objfw
-Version:       1.0.8
-Release:       2%{?dist}
+Version:       1.0.9
+Release:       1%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       QPL-1.0 OR GPL-3.0-only OR GPL-2.0-only

@@ -5,7 +5,7 @@
 %global crate suggest
 
 Name:           rust-suggest
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Minimal library to provide similar name suggestions like "Did you mean?"
 

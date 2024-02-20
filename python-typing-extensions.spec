@@ -1,13 +1,11 @@
 Name:      python-typing-extensions
-Version:   4.9.0
-Release:   4%{?dist}
+Version:   4.10.0~rc1
+Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
-# fix test_generic_protocols_special_from_protocol with latest Python
-Patch0:    https://github.com/python/typing_extensions/pull/324.patch
 
 BuildArch: noarch
 
@@ -43,7 +41,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -n typing_extensions-%{version} -p1
+%autosetup -n typing_extensions-4.10.0rc1
 
 
 %generate_buildrequires
@@ -72,6 +70,9 @@ cd src
 
 
 %changelog
+* Sun Feb 18 2024 Jonny Heggheim <hegjon@gmail.com> - 4.10.0~rc1-1
+- Updated to version 4.10.0rc1
+
 * Fri Feb 16 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.0-4
 - Fix test_generic_protocols_special_from_protocol with latest Python
 

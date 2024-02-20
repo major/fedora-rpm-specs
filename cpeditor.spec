@@ -1,12 +1,25 @@
 Name:           cpeditor
-Version:        6.10.3
+Version:        7.0.1
 Release:        %autorelease
 Summary:        The Missing Editor for Competitive Programmers
-License:        GPL-3.0-only
+
+# Most source code of the application is under GPL-3.0-or-later, except:
+# the following source code file:
+# src/Editor/CodeEditor.cpp: GPL-3.0-or-later AND MIT
+# src/Editor/CodeEditor.hpp: GPL-3.0-or-later AND MIT
+# src/Editor/CodeEditorSideBar.cpp: GPL-3.0-or-later AND MIT
+# src/Editor/CodeEditorSideBar.hpp: GPL-3.0-or-later AND MIT
+# src/Editor/HighLighter.cpp: GPL-3.0-or-later AND MIT
+# src/Editor/HighLighter.hpp: GPL-3.0-or-later AND MIT
+# the following bundled third-party libraries:
+# diff_match_patch - Apache-2.0
+# lsp-cpp - Apache-2.0
+# qhttp - MIT
+# QtFindReplaceDialog - LGPL-2.1-only
+# singleapplication - MIT (not sure)
+License:        GPL-3.0-or-later AND Apache-2.0 AND LGPL-2.1-only AND MIT
 URL:            https://cpeditor.org/
 Source0:        https://github.com/cpeditor/cpeditor/releases/download/%{version}/cpeditor-%{version}-full-source.tar.gz
-# Use GNUInstallDirs; install translation files
-Patch0:         https://github.com/cpeditor/cpeditor/pull/1276.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -36,6 +49,8 @@ fetch test cases from different platforms and submit solutions to Codeforces.
 
 %prep
 %autosetup -p1 -n cpeditor-%{version}-full-source
+
+rm -r third_party/{extra-cmake-modules,syntax-highlighting}
 
 %build
 %cmake \

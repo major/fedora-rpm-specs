@@ -51,13 +51,16 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
 URL:			https://nwchemgit.github.io/
 # Nwchem changes naming convention of tarballs very often!
 Source0:		https://github.com/nwchemgit/nwchem/archive/%{git_hash}.tar.gz
+# Patch for implicit declaration of function ‘Py_SetProgramName' in Python 3.13 https://github.com/nwchemgit/nwchem/issues/950
+Patch0:			https://github.com/nwchemgit/nwchem/commit/997856ea3e784f2e1c25a094005421ca0e064347.patch
+Patch1:			https://github.com/nwchemgit/nwchem/commit/bc18d20d90ba1fd6efc894558bef2fdacaac28a8.patch
 
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Compiler_flags
 # One needs to patch gfortran/gcc makefiles in order to use
@@ -181,6 +184,8 @@ This package contains the data files.
 
 %prep
 %setup -q -n %{name}-%{git_hash}
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 # See bundling discussion at https://github.com/nwchemgit/nwchem/discussions/905
 # remove the whole src/libext
@@ -458,7 +463,7 @@ export FLEXIBLAS=openblas-openmp
 %if 0%{?el6}
 export TIMEOUT_OPTS='3600'
 %else
-export TIMEOUT_OPTS='--preserve-status --kill-after 10 1800'
+export TIMEOUT_OPTS='--preserve-status --kill-after 10 2700'
 %endif
 
 # To avoid replicated code define a macro
@@ -523,6 +528,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Feb 16 2024 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.2-5
+- Patch for implicit declaration of function ‘Py_SetProgramName' https://github.com/nwchemgit/nwchem/issues/950
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

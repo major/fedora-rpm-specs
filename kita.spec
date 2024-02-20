@@ -4,13 +4,17 @@
 Summary:    2ch client for KDE
 Name:       kita
 Version:    %{version}
-Release:    39%{?dist}
+Release:    40%{?dist}
 Source:     http://downloads.sourceforge.jp/kita/%{repoid}/kita-%{version}.tar.gz
 #Patch0:     kita-0.177.3-nonweak-symbol.patch
 Patch10:    kita-0.177.5-g++44.patch
 Patch11:    kita-0.177.5-ui-include-fix.patch
 Patch12:    kita-0.177.5-acinclude-m4-syntax-fix.patch
-License:    GPLv2+
+
+# Overall		GPL-2.0-or-later
+# kita/src/libkita/qcp932codec.cpp	MIT
+# SPDX confirmed
+License:    GPL-2.0-or-later AND MIT
 URL:        http://sourceforge.jp/projects/kita/
 
 
@@ -131,7 +135,12 @@ done
 
 %files -f %{name}.lang
 %defattr(-, root, root,-)
-%doc AUTHORS COPYING ChangeLog README README.2ch TODO
+%doc AUTHORS
+%license COPYING
+%doc ChangeLog
+%doc README
+%doc README.2ch
+%doc TODO
 %{_bindir}/*
 %{_libdir}/%{name}/
 %{_datadir}/apps/%{name}/
@@ -142,6 +151,9 @@ done
 %{_datadir}/doc/HTML/en/kita/
 
 %changelog
+* Sun Feb 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.177.5-40
+- SPDX migration
+
 * Sat Feb 17 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.177.5-39
 - Fix acinclude.m4 syntax error detected by autoconf 2.72
 

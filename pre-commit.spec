@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.6.1
+Version:        3.6.2
 Release:        %autorelease
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
@@ -96,6 +96,7 @@ k="${k-}${k+ and }not test_dotnet_csproj"
 k="${k-}${k+ and }not test_dotnet_csproj_prefix"
 k="${k-}${k+ and }not test_dotnet_hook"
 k="${k-}${k+ and }not test_dotnet_sln"
+k="${k-}${k+ and }not test_during_commit_all"
 k="${k-}${k+ and }not test_golang_default_version"
 k="${k-}${k+ and }not test_golang_hook"
 k="${k-}${k+ and }not test_golang_hook_still_works_when_gobin_is_set"
@@ -137,6 +138,7 @@ k="${k-}${k+ and }not test_reinstall"
 k="${k-}${k+ and }not test_repository_state_compatibility[v1]"
 k="${k-}${k+ and }not test_repository_state_compatibility[v2]"
 k="${k-}${k+ and }not test_ruby_additional_deps"
+k="${k-}${k+ and }not test_ruby_hook_default"
 k="${k-}${k+ and }not test_ruby_hook_language_version"
 k="${k-}${k+ and }not test_ruby_with_bundle_disable_shared_gems"
 k="${k-}${k+ and }not test_run_a_node_hook_default_version"

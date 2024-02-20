@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate tempfile
+%global crate askama_parser
 
-Name:           rust-tempfile
-Version:        3.10.0
+Name:           rust-askama_parser
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Library for managing temporary files and directories
+Summary:        Parser for Askama templates
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/tempfile
+URL:            https://crates.io/crates/askama_parser
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          tempfile-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A library for managing temporary files and directories.}
+Parser for Askama templates.}
 
 %description %{_description}
 
@@ -34,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+nightly-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+nightly-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
-
-%files       -n %{name}+nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

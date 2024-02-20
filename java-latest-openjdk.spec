@@ -332,7 +332,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        32
+%global buildver        36
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -2423,6 +2423,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Feb 19 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.36-1
+- Update to jdk-22.0.0.0.36
+
 * Mon Jan 29 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.32-1
 - Update to jdk-22.0.0.0.32-0.2
 - removed libsystemconf.so; not present in jdk?

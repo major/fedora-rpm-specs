@@ -6,7 +6,7 @@
 %global crate actix
 
 Name:           rust-actix
-Version:        0.13.2
+Version:        0.13.3
 Release:        %autorelease
 Summary:        Actor framework for Rust
 

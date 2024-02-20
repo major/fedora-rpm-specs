@@ -13,6 +13,7 @@ BuildRequires:  grep
 BuildRequires:  libpng-devel
 BuildRequires:  zlib-devel
 BuildRequires:  rgb
+BuildRequires:  rubygem-asciidoctor
 
 Requires:       rgb
 

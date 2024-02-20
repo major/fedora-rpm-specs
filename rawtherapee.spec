@@ -10,7 +10,7 @@ Name:           rawtherapee
 %if 0%{?development}
 Version:        5.9~20221002git%{shortcommit}
 %else
-Version:        5.10~rc1
+Version:        5.10
 %endif
 Release:        %autorelease
 Summary:        Raw image processing software
@@ -24,8 +24,8 @@ Source0:        https://github.com/Beep6581/RawTherapee/archive/%{commit}/RawThe
 Source1:        create_ReleaseInfo.sh
 Source2:        ReleaseInfo.cmake
 %else
-#Source0:        https://rawtherapee.com/shared/source/%%{name}-%%{version}.tar.xz
-Source0:        https://github.com/Beep6581/RawTherapee/releases/download/5.10-rc1/rawtherapee-5.10-rc1.tar.xz
+Source0:        https://rawtherapee.com/shared/source/%{name}-%{version}.tar.xz
+#Source0:        https://github.com/Beep6581/RawTherapee/releases/download/5.10-rc1/rawtherapee-5.10-rc1.tar.xz
 %endif
 
 BuildRequires:  cmake
@@ -73,7 +73,7 @@ to some common image format.
 %autosetup -p1 -n RawTherapee-%{commit}
 cp -p %SOURCE2 .
 %else
-%autosetup -p1 -n %{name}-5.10-rc1
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 # remove bundled KLT, so we're sure to use system provided KLT

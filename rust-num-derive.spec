@@ -5,7 +5,7 @@
 %global crate num-derive
 
 Name:           rust-num-derive
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Numeric syntax extensions
 

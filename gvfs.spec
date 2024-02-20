@@ -21,13 +21,13 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.53.1
-Release: 4%{?dist}
+Version: 1.53.90
+Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
-License: LGPL-2.0-or-later and GPL-3.0-only and MPL-2.0 and BSD-3-Clause-Sun
+License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
-URL: https://wiki.gnome.org/Projects/gvfs
+URL:     https://wiki.gnome.org/Projects/gvfs
 Source0: https://download.gnome.org/sources/gvfs/1.53/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
@@ -224,6 +224,7 @@ the functionality of the installed gvfs package.
 %build
 %meson -Dinstalled_tests=true \
        -Dman=true \
+       -Donedrive=false \
 %ifarch s390 s390x
        -Dafc=false \
 %endif
@@ -432,6 +433,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 1.53.90-1
+- Update to 1.53.90
+
 * Fri Feb 09 2024 Ondrej Holy <oholy@redhat.com> - 1.53.1-4
 - Migrate to SPDX license
 

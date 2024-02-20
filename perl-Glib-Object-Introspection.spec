@@ -1,17 +1,11 @@
 Name:           perl-Glib-Object-Introspection
-Version:        0.050
-Release:        7%{?dist}
+Version:        0.051
+Release:        1%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-Object-Introspection-%{version}.tar.gz
 Patch1:         perl-Glib-Object-Introspection_lib_pattern.patch
-# 1/2 Fix handling empty closure callbacks, bug #2181971, CPAN RT#147409,
-# in upstream after 0.050.
-Patch2:         Glib-Object-Introspection-0.050-Check-for-empty-closures.patch
-# 2/2 Fix handling empty closure callbacks, bug #2181971, CPAN RT#147409,
-# in upstream after 0.050.
-Patch3:         Glib-Object-Introspection-0.050-tests-Add-empty-callback.patch
 # Use system-wide compiler flags when building test libraries. It's silents
 # annocheck gating tests, CPAN RT#147466, proposed to the upstream.
 Patch4:         Glib-Object-Introspection-0.050-Use-CFLAGS-and-LDFLAGS-from-the-envirnoment-for-buil.patch
@@ -137,6 +131,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Feb 18 2024 Sérgio Basto <sergio@serjux.com> - 0.051-1
+- Update perl-Glib-Object-Introspection to 0.051 (#2235533)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

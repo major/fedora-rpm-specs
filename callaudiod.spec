@@ -1,9 +1,9 @@
 Name:       callaudiod
 Version:    0.1.9
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Daemon for dealing with audio routing during phone calls
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mobian1/callaudiod
 Source0:        https://gitlab.com/mobian1/callaudiod/-/archive/%{version}/%{name}-%{version}.tar.gz
 

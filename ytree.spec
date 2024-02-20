@@ -2,7 +2,7 @@
 
 Summary:	A filemanager similar to XTree
 Name:		ytree
-Version:	2.05
+Version:	2.07
 Release:	%autorelease
 License:	GPLv2+
 URL:		https://www.han.de/~werner/ytree.html

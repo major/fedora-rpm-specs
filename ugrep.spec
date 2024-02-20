@@ -1,10 +1,13 @@
 Name:           ugrep
-Version:        4.5.2
+Version:        5.0.0
 Release:        %autorelease
 Summary:        A more powerful, ultra fast, user-friendly, compatible grep
 License:        BSD-3-Clause
 URL:            https://github.com/Genivia/ugrep
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc-c++

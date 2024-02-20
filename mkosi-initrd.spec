@@ -14,8 +14,8 @@ BuildArch:      noarch
 
 Requires:       mkosi
 Requires:       rpm
-Requires:       dnf
-Requires:       dnf-command(download)
+Requires:       dnf5 or dnf
+Requires:       dnf5-command(download) or dnf-command(download)
 Requires:       cpio
 Requires:       python3dist(pyxattr)
 

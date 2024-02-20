@@ -1,5 +1,5 @@
 Name:           homebank
-Version:        5.7
+Version:        5.7.4
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all  
 
@@ -9,7 +9,7 @@ Source0:        http://homebank.free.fr/public/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  atk-devel cairo-devel desktop-file-utils gettext gtk3-devel
 BuildRequires:  intltool libappstream-glib libofx-devel perl(XML::Parser)
-BuildRequires:  libsoup-devel
+BuildRequires:  libsoup3-devel
 BuildRequires:  make
 
 %description

@@ -3,8 +3,8 @@
 %global optflags %(echo %{optflags} -I%{_includedir}/libev)
 
 Name:          python-%{modname}
-Version:       23.7.0
-Release:       4%{?dist}
+Version:       23.9.1
+Release:       1%{?dist}
 Summary:       A coroutine-based Python networking library
 
 License:       MIT
@@ -92,6 +92,9 @@ cd src/gevent/tests && GEVENT_FILE=thread %__python3 -mgevent.tests test__*subpr
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Sat Feb 17 2024 Orion Poplawski <orion@nwra.com> - 23.9.1-1
+- Update to 23.9.1 CVE-2023-41419 (bz#2242244)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

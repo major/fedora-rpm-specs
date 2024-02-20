@@ -8,8 +8,8 @@
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.51.0
-Release: 3%{?dist}
+Version: 1.51.2
+Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 1.51.2-1
+- Update to 1.51.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

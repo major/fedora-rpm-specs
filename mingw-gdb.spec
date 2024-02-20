@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        13.2
-Release:        4%{?dist}
+Version:        14.1
+Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
 # Same License tag as the native gdb package has:
@@ -22,6 +22,7 @@ BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-gmp
+BuildRequires:  mingw32-mpfr
 BuildRequires:  mingw32-win-iconv
 BuildRequires:  mingw32-zlib
 
@@ -31,6 +32,7 @@ BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-gmp
+BuildRequires:  mingw64-mpfr
 BuildRequires:  mingw64-win-iconv
 BuildRequires:  mingw64-zlib
 
@@ -110,6 +112,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Sun Feb 18 2024 Sandro Mani <manisandro@gmail.com> - 14.0.1-1
+- Update to 14.0.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

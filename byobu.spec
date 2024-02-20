@@ -5,13 +5,13 @@
 %define _iconsscaldir  %{_iconsbasedir}/scalable/apps
 
 Name:		byobu
-Version:	5.133
-Release:	11%{?dist}
+Version:	6.12
+Release:	1%{?dist}
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
 License:	GPLv3
-URL:		http://launchpad.net/byobu
-Source0:	http://code.launchpad.net/byobu/trunk/%{version}/+download/byobu_%{version}.orig.tar.gz
+URL:		https://github.com/dustinkirkland/byobu
+Source0:	https://github.com/dustinkirkland/byobu/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # default windows
 Source1:	fedoracommon
 
@@ -62,12 +62,13 @@ cp -p %{SOURCE1} usr/share/byobu/windows/common
 
 # fix path from lib to libexec by modified Makefile.am and in
 sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/Makefile.am
-sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/Makefile.in
+#sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/Makefile.in
 sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/include/Makefile.am
-sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/include/Makefile.in
+#sed -i "s#/lib/#/libexec/#g" usr/lib/byobu/include/Makefile.in
 
 %build
 export BYOBU_PYTHON=%{__python3}
+sh ./autogen.sh
 %configure
 %make_build
 
@@ -126,6 +127,9 @@ cp -p usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscaldir}
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Sun Feb 18 2024 Filipe Rosset <rosset.filipe@gmail.com> - 6.12-1
+- Update byobu to 6.12
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.133-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

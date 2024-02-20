@@ -1,21 +1,24 @@
 %global srcname visidata
 
 Name:           %{srcname}
-Version:        2.11.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Terminal interface for exploring and arranging tabular data
 
 License:        GPL-3.0-only
 URL:            https://visidata.org
 Source0:        %pypi_source %{srcname}
-# https://github.com/saulpw/visidata/pull/269
-Patch0001:      0001-Remove-extra-copy-of-man-page.patch
+# Fedora specific:
+Patch:          0001-Remove-extra-copy-of-man-page.patch
+# Fix Desktop file validation
+Patch:          https://github.com/saulpw/visidata/commit/3c4f032b72fb32c8e671b9d66f1e1edaa7181c4b.patch
 
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
+BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
@@ -76,6 +79,8 @@ a lightweight utility which can handle millions of rows with ease.
 %pyproject_install
 %pyproject_save_files %{srcname}
 
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{srcname}.desktop
+
 %check
 mkdir HOME
 touch HOME/.visidatarc  # Needed for TestCommands.test_baseCommands
@@ -84,9 +89,11 @@ export HOME=$PWD/HOME
 
 %files
 %{_bindir}/visidata
+%{_bindir}/vd2to3.vdx
 %{_bindir}/vd
 %{_mandir}/man1/vd.1*
 %{_mandir}/man1/visidata.1*
+%{_datadir}/applications/%{srcname}.desktop
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md

@@ -2,18 +2,19 @@
 
 %global glib2_version 2.79.0
 %global gnome_autoar_version 0.4.4
-%global gtk4_version 4.12.0
+%global gtk4_version 4.13.6
 %global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        46~alpha.1
+Version:        46~beta
 Release:        1%{?dist}
 Summary:        File manager for GNOME
 
-License:        GPL-3.0-or-later
-URL:            https://wiki.gnome.org/Apps/Nautilus
+# Sources are GPL-3.0-or-later and Appdata is CC0-1.0.
+License:        GPL-3.0-or-later AND CC0-1.0
+URL:            https://apps.gnome.org/Nautilus/
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
@@ -144,6 +145,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Mon Jan 29 2024 David King <amigadave@amigadave.com> - 46~alpha.1-1
 - Update to 46.alpha.1
 

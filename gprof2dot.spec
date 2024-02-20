@@ -1,10 +1,10 @@
 %global         usegit      1
-%global         baserelease     23
+%global         baserelease     24
 
-%global         githash     944151e0b4466caa349fb969c1525d9b0f7b9496
+%global         githash     a05b7bf0dcddbd39e62160ccb38326cd113dc4b5
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
-%global         gitdate     Fri, 29 Jul 2022 15:37:00 +0100
-%global         gitdate_num 20220729
+%global         gitdate     Sat Dec 23 21:53:02 2023 +0000
+%global         gitdate_num 20231223
 
 %if 0%{?usegit} >= 1
 %global         fedorarel   0.%{baserelease}.D%{gitdate_num}git%{shorthash}
@@ -29,10 +29,11 @@ Version:        1.0
 Release:       	%{fedorarel}%{?dist}
 Summary:        Generate dot graphs from the output of several profilers
 
-License:        LGPLv3+
+# SPDX confirmed
+License:        LGPL-3.0-or-later
 URL:            https://github.com/jrfonseca/gprof2dot
 Source0:        https://github.com/jrfonseca/gprof2dot/archive/%{githash}/%{name}-%{version}-D%{gitdate_num}git%{githash}.tar.gz
-BuildArch: noarch
+BuildArch:      noarch
 
 Obsoletes:      python2-%{name} < 1.0-0.17
 Obsoletes:      python3-%{name} < 1.0-0.17
@@ -63,12 +64,16 @@ python3 ./tests/test.py
 %files
 %license LICENSE.txt
 %doc README.md
-%doc sample.png
+%doc sample.svg
 %doc schema.json
 
 %{_bindir}/gprof2dot
 
 %changelog
+* Sun Feb 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.24.D20231223gita05b7bf0dc
+- Update to 2023.12.23
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.23.D20220729git944151e0b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

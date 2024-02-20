@@ -1,5 +1,5 @@
 Name:		converseen
-Version:	0.11.0.0
+Version:	0.12.1.0
 Release:	%autorelease
 Summary:	A batch image conversion tool written in C++ with Qt5 and Magick++
 License:	GPLv3
@@ -29,7 +29,6 @@ different formats!
 desktop-file-validate %{buildroot}/%{_datadir}/applications/net.fasterland.%{name}.desktop
 
 %files
-%doc COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/net.fasterland.%{name}.desktop
 %{_datadir}/converseen

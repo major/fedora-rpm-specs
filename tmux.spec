@@ -1,27 +1,15 @@
 %global _hardened_build 1
 
-
 Name:           tmux
-%global forgeurl https://github.com/tmux/%{name}
-%global commit   b202a2f1b517a3de7141fc35fbd9e39ed5ac5284
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%forgemeta
-
-Version:        3.3a
-# forge meta appends commit info
-Release:        8%{?dist}
+Version:        3.4
+Release:        1%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
 URL:            https://tmux.github.io/
-Source0:        %{forgesource}
+Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
-
-# don't crash instead of displaying certain glyphs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2253441
-# applied by upstream: https://github.com/tmux/tmux/issues/3729
-Patch0:         mitigate-character-length-crash.patch
 
 BuildRequires:  byacc
 BuildRequires:  gcc
@@ -43,14 +31,10 @@ intended to be a simple, modern, BSD-licensed alternative to programs such
 as GNU Screen.
 
 %prep
-%forgesetup
-%patch 0 -p0
+%autosetup
 
 %build
-%if "%0{?commit}" != "0"
-sh ./autogen.sh
-%endif
-%configure --enable-systemd
+%configure --enable-sixel --enable-systemd --enable-utempter
 %make_build
 
 
@@ -86,6 +70,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Sun Feb 18 2024 Filipe Rosset <rosset.filipe@gmail.com> - 3.4-1
+- Update to 3.4
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3a-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

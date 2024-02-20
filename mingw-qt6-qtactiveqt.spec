@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.6.1
-Release:        3%{?dist}
+Version:        6.6.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtActiveQt component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -86,6 +86,8 @@ Fedora Windows cross-compiler.
 
 
 %build
+export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
+export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 # Need QT_BUILD_TOOLS_WHEN_CROSSCOMPILING to avoid cmake aborting with Qt6::idc target not found
 %mingw_cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_BUILD_TOOLS_WHEN_CROSSCOMPILING=YES
 %mingw_ninja
@@ -179,6 +181,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Sun Feb 18 2024 Sandro Mani <manisandro@gmail.com> - 6.6.2-1
+- Update to 6.6.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

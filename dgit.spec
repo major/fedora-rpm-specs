@@ -1,5 +1,5 @@
 Name:           dgit
-Version:        11.3
+Version:        11.6
 Release:        %autorelease
 Summary:        Integration between git and Debian-style archives
 License:        GPLv3+

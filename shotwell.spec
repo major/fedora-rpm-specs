@@ -2,8 +2,8 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        0.32.4
-Release:        2%{?dist}
+Version:        0.32.6
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -117,9 +117,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %exclude %{_libdir}/libshotwell-plugin-dev-1.0.so
 %{_libexecdir}/shotwell/
 %{_datadir}/applications/org.gnome.Shotwell.desktop
+%{_datadir}/applications/org.gnome.Shotwell.Auth.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Shotwell.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
 %{_metainfodir}/org.gnome.Shotwell.appdata.xml
 %{_mandir}/man1/shotwell.1*
@@ -130,6 +132,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 0.32.6-1
+- Update to 0.32.6
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

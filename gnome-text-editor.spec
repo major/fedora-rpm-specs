@@ -2,16 +2,17 @@
 %global gtk4_version 4.7
 %global gtksourceview_version 5.5.0
 %global enchant_version 2.2.0
-%global libadwaita_version 1.4~alpha
+%global libadwaita_version 1.5~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	46~alpha
-Release:	3%{?dist}
+Version:	46~beta
+Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
-License:	GPL-3.0-or-later
+# Code is GPL-3.0-or-later and the Appdata is CC0-1.0
+License:	GPL-3.0-or-later AND CC0-1.0
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
 Source0:	https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
@@ -75,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 46~alpha-3
 - Rebuild for ICU 74
 

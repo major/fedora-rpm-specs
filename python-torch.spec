@@ -6,8 +6,8 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# The top of tree ~2/6/24
-%global commit0 064610d8ac53f3f5916a1dc8b43acbeeb2469c11
+# The top of tree ~2/18/24
+%global commit0 372d078f361e726bb4ac0884ac334b04c58179ef
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global pypi_version 2.3.0
@@ -47,6 +47,7 @@ URL:            https://pytorch.org/
 %if %{with gitcommit}
 Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
 Source1:        pyproject.toml
+Source2:        https://github.com/google/flatbuffers/archive/refs/tags/v23.3.3.tar.gz
 %else
 Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
 %endif
@@ -57,7 +58,6 @@ Patch0:        0001-no-third_party-foxi.patch
 Patch1:        0001-no-third_party-fmt.patch
 Patch2:        0001-no-third_party-FXdiv.patch
 Patch3:        0001-Stub-in-kineto-ActivityType.patch
-Patch4:        0001-Regenerate-flatbuffer-header.patch
 Patch5:        0001-disable-submodule-search.patch
 
 %if %{with rocm}
@@ -108,7 +108,9 @@ BuildRequires:  cmake
 BuildRequires:  cpuinfo-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  fmt-devel
+%if %{without gitcommit}
 BuildRequires:  flatbuffers-devel
+%endif
 BuildRequires:  FP16-devel
 BuildRequires:  fxdiv-devel
 BuildRequires:  gcc-c++
@@ -177,7 +179,10 @@ BuildRequires:  foxi-devel
 BuildRequires:  google-benchmark-devel
 %endif
 
+# Apache-2.0
+Provides:       bundled(flatbuffers) = 22.3.3
 Provides:       bundled(miniz) = 2.1.0
+
 
 %description
 PyTorch is a Python package that provides two high-level features:
@@ -226,13 +231,21 @@ rm -rf %{pypi_name}.egg-info
 # Overwrite with a git checkout of the pyproject.toml
 cp %{SOURCE1} .
 
+tar xf %{SOURCE2}
+cp -r flatbuffers-23.3.3/* third_party/flatbuffers/
+
 %if %{with rocm}
 # hipify
 ./tools/amd_build/build_amd.py
+# Fedora installs to /usr/include, not /usr/include/rocm-core
+sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' aten/src/ATen/hip/tunable/TunableGemm.h
 %endif
 
 %else
 %autosetup -p1 -n pytorch-v%{version}
+
+%endif
+
 
 %if %{with opencv}
 # Reduce requirements, *FOUND is not set 
@@ -259,6 +272,10 @@ mv third_party/build_bundled.py .
 mv third_party/googletest .
 %endif
 
+%if %{with gitcommit}
+mv third_party/flatbuffers .
+%endif
+
 # Remove everything
 rm -rf third_party/*
 # Put stuff back
@@ -267,6 +284,11 @@ mv miniz-2.1.0 third_party
 %if %{with test}
 mv googletest third_party
 %endif
+%if %{with gitcommit}
+mv flatbuffers third_party
+%endif
+
+
 #
 # Fake out pocketfft, and system header will be used
 mkdir third_party/pocketfft
@@ -279,8 +301,6 @@ cp %{_includedir}/valgrind/* third_party/valgrind-headers
 rm caffe2/contrib/opencl/OpenCL/cl.hpp
 rm caffe2/mobile/contrib/libopencl-stub/include/CL/*.h
 rm caffe2/mobile/contrib/libopencl-stub/include/CL/*.hpp
-
-%endif
 
 %build
 

@@ -1,14 +1,12 @@
 Name:           python-random2
-Version:        1.0.1
-Release:        33%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Python 2 compatible random module
 
 License:        Python-2.0.1
 URL:            http://pypi.python.org/pypi/random2
-Source0:        %{pypi_source random2 %version zip}
-# unittest.makeSuite() was removed from Python 3.13 - port to a supported
-# unittest.defaultTestLoader.loadTestsFromTestCase()
-Patch0:         Replace-unittest.makeSuite-removed-in-Python-3.13.patch
+Source0:        %{pypi_source random2 %version tar.gz}
+Patch0:         IndentationError.patch
 
 BuildArch:      noarch
 
@@ -56,9 +54,12 @@ sed -i '/self\.gen\.getrandbits, 0/d' src/tests.py
 %tox
 
 %files -n python%{python3_pkgversion}-random2 -f %{pyproject_files}
-%doc CHANGES.txt README.txt
+%doc CHANGES.rst README.rst
 
 %changelog
+* Mon Feb 19 2024 Sérgio Basto <sergio@serjux.com> - 1.0.2-1
+- Update python-random2 to 1.0.2 (#2255004)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

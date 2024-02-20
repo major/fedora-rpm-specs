@@ -1,16 +1,15 @@
 %global srcname sqlalchemy_schemadisplay
-%global gittag 1.4.dev0
+%global gittag 2.0
 
 Name:           python-%{srcname}
-Version:        1.4.dev0
+Version:        2.0
 Release:        %autorelease
 Summary:        Turn SQLAlchemy DB Model into a graph
 
 License:        MIT
 URL:            https://github.com/fschulze/%{srcname}
 Source0:        %{url}/archive/%{gittag}/%{srcname}-%{version}.tar.gz
-# https://github.com/fschulze/sqlalchemy_schemadisplay/pull/34
-Patch:          compatibility-fix-for-sqlalchemy2.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

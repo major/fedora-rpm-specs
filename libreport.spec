@@ -14,7 +14,7 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.14
+Version: 2.17.15
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -669,6 +669,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Sun Feb 18 2024 Packit <hello@packit.dev> - 2.17.15-1
+- Release version 2.17.15 (Michal Srb)
+- reporter-bugzilla: Make the supplementary bugs easily identifiable (Michal Srb)
+- reporter-bugzilla: Fix formatting in the supplementary bugs (Michal Srb)
+- reporter-bugzilla: Fix code comment (Michal Srb)
+
 * Mon Feb 12 2024 Packit <hello@packit.dev> - 2.17.14-1
 - Release version 2.17.14 (Michal Srb)
 - reporter-bugzilla: Reduce number of duplicate bug reports (Michal Srb)

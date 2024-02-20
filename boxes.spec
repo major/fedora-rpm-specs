@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 # Error in test case: 150_tag_config_invalid_tags.txt (top: actual; bottom:
 # expected)
 %ifnarch s390x
-%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+%if 0%{?fedora} >= 39 || 0%{?el8}
 %bcond_without tests
 %endif
 %endif
@@ -77,6 +77,9 @@ Vim plugin for %{name}.
 %check
 # https://github.com/ascii-boxes/boxes/issues/124
 export TERM=xterm-color
+%if 0%{?el8}
+export LANG=en_US.UTF-8
+%endif
 %make_build test
 %endif
 

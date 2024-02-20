@@ -5,7 +5,7 @@
 %global crate num-traits
 
 Name:           rust-num-traits
-Version:        0.2.17
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Numeric traits for generic mathematics
 
