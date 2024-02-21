@@ -8,8 +8,8 @@
 %bcond_without gnutls
 
 Name:           libsecret
-Version:        0.21.2
-Release:        4%{?dist}
+Version:        0.21.3
+Release:        1%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 # libsecret/mock/aes.py is Apache-2.0
@@ -19,8 +19,6 @@ Summary:        Library for storing and retrieving passwords and other secrets
 License:        LGPL-2.1-or-later AND Apache-2.0 AND AND (GPL-2.0-or-later OR LicenseRef-scancode-tgppl-1.0) AND LicenseRef-Fedora-Public-Domain
 URL:            https://wiki.gnome.org/Projects/Libsecret
 Source0:        https://download.gnome.org/sources/libsecret/%{release_version}/libsecret-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/libsecret/-/merge_requests/133
-Patch:          0001-tests-Remove-unnecessary-inclusion-of-gcrypt.h.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
@@ -108,6 +106,9 @@ rm -rf build/valgrind/
 
 
 %changelog
+* Mon Feb 19 2024 David King <amigadave@amigadave.com> - 0.21.3-1
+- Update to 0.21.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

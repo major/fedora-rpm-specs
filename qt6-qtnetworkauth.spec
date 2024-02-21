@@ -6,10 +6,12 @@
 %global prerelease rc2
 %endif
 
+%global examples 1
+
 Summary: Qt6 - NetworkAuth component
 Name:    qt6-%{qt_module}
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -43,19 +45,23 @@ Requires: qt6-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
+%if 0%{?examples}
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description examples
 %{summary}.
-
+%endif
 
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
 %build
-%cmake_qt6
+%cmake_qt6 \
+  -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
+
 
 %cmake_build
 
@@ -94,11 +100,16 @@ popd
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
+%if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/
+%endif
 
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

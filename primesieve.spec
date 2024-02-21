@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  11.2
-Release:  5%{?dist}
+Version:  12.0
+Release:  2%{?dist}
 Summary:  Fast prime number generator
 License:  BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -54,7 +54,7 @@ It also contains the API documentation of the library.
 
 %files -n primesieve-libs
 %license COPYING
-%{_libdir}/libprimesieve.so.11*
+%{_libdir}/libprimesieve.so.12*
 
 %files -n primesieve-devel
 %doc doc/C_API.md doc/CPP_API.md
@@ -71,6 +71,17 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Mon Feb 19 2024 Kim Walisch <walki@fedoraproject.org> - 12.0-2
+- Increase .so version to 12
+
+* Mon Feb 19 2024 Kim Walisch <walki@fedoraproject.org> - 12.0-1
+- New --stress-test[=MODE] command-line option
+- Faster Riemann R function implementation
+- New -R && --RiemannR command line options
+- New --RiemannR-inverse command line option
+- Add new --timeout option for stress testing
+- Improve command-line option handling
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:          giflib
 Summary:       A library and utilities for processing GIFs
-Version:       5.2.1
-Release:       19%{?dist}
+Version:       5.2.2
+Release:       1%{?dist}
 
 License:       MIT
 URL:           http://www.sourceforge.net/projects/%{name}/
@@ -14,12 +14,6 @@ Patch0:        giflib_quantize.patch
 Patch1:        giflib_coverity.patch
 # Generate HTML docs with consistent section IDs to avoid multilib difference
 Patch2:        giflib_html-docs-consistent-ids.patch
-# Backport fix for CVE-2022-28506
-# See https://sourceforge.net/u/mmuzila/giflib/ci/5b74cdd9c1285514eaa4675347ba3eea81d32c65/
-Patch3:        CVE-2022-28506.patch
-# Fix segmentation faults when invoking tools with incorrect arguments (CVE-2023-39742)
-# Taken from Debian package
-Patch4:        fix-get-args-segment-violation.patch
 
 
 BuildRequires: cmake
@@ -152,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Mon Feb 19 2024 Sandro Mani <manisandro@gmail.com> - 5.2.2-1
+- Update to 5.2.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

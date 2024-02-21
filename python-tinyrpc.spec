@@ -3,7 +3,7 @@
 
 Name:       python-%{library}
 Version:    1.1.4
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    A modular RPC library
 License:    MIT
 URL:        https://github.com/mbr/%{library}
@@ -29,10 +29,7 @@ Summary:    A modular RPC library
 BuildRequires:  git
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-funcsigs
 BuildRequires:  python3-gevent
-BuildRequires:  python3-greenlet
-BuildRequires:  python3-mock
 BuildRequires:  python3-msgpack
 BuildRequires:  python3-pika
 BuildRequires:  python3-py
@@ -45,7 +42,6 @@ BuildRequires:  python3-werkzeug
 BuildRequires:  python3-zmq
 
 Requires:  python3-gevent
-Requires:  python3-greenlet
 Requires:  python3-requests
 Requires:  python3-six
 Requires:  python3-werkzeug
@@ -57,10 +53,7 @@ tinyrpc is a library for making and handling RPC calls in python.
 %package -n python3-%{library}-tests
 Summary:    Tests for python2-tinyrpc library
 
-Requires:  python3-funcsigs
 Requires:  python3-gevent
-Requires:  python3-greenlet
-Requires:  python3-mock
 Requires:  python3-py
 Requires:  python3-pytest
 Requires:  python3-requests
@@ -81,7 +74,7 @@ rm -f requirements.txt
 %py3_build
 
 # generate html docs
-%{__python3} setup.py build_sphinx
+sphinx-build docs build/sphinx/html
 # remove the sphinx-build leftovers
 rm -rf build/sphinx/html/.{doctrees,buildinfo}
 
@@ -110,6 +103,10 @@ py.test-3 -rs
 %{python3_sitelib}/%{module}/tests
 
 %changelog
+* Sun Feb 18 2024 Orion Poplawski <orion@nwra.com> - 1.1.4-9
+- Use sphinx-build to build docs
+- Drop obsolete requires
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

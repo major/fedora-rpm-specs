@@ -1,17 +1,28 @@
 %global sname aiokafka
 %global owner aio-libs
 
+# crc32c does not support big-endian arch:
+# https://github.com/aio-libs/aiokafka/blob/bb15ecfb4c85026b2bded912ab7ba7c7e1db3271/aiokafka/record/_crecords/crc32c.c#L101
+%bcond c_extensions %["%{_arch}" != "s390x"]
+
+%{!?with_c_extensions:%global debug_package %{nil}}
+
 Name:       python-%{sname}
-Version:    0.8.1
-Release:    5%{?dist}
+Version:    0.10.0
+Release:    %autorelease
 Summary:    Asyncio client for Kafka
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
 URL:        https://github.com/%{owner}/%{sname}
-BuildArch:  noarch
 
-BuildRequires:  python3-devel python3-pytest python3-docker python3-snappy snappy-devel python3-lz4 python3-zstd
-Requires:       python3
+BuildRequires:  python3-devel
+BuildRequires:  gcc
+BuildRequires:  python3dist(docker)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pytest-mock)
+BuildRequires:  snappy-devel
+BuildRequires:  zlib-devel
 
 %description
 %{summary}
@@ -25,11 +36,19 @@ Summary:    %{summary}
 %prep
 %autosetup -p1 -n %{sname}-%{version}
 
+# According to pyproject.toml, Cython is too old on Fedora 38, however it builds fine
+%if 0%{?fedora} == 38
+sed -i "s/Cython >=.*/Cython/" pyproject.toml
+%endif
+
+%if %{without c_extensions}
+sed -i "s/    ext_modules/#    ext_modules/" setup.py
+%endif
+
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x snappy,lz4,zstd,gssapi,all
 
 %build
-rm aiokafka/record/_crecords/crc32c.[ch]
 %pyproject_wheel
 
 %install
@@ -37,36 +56,12 @@ rm aiokafka/record/_crecords/crc32c.[ch]
 %pyproject_save_files %{sname}
 
 %check
-# Some tests cannot be run due to incompatibility issues and lack of certificates
 # The flag 'no:warnings' was added since the 'distutils' is now deprecated in Python 3.10 and 3.11, to be removed in Python 3.12
-AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings\
- -k 'not test_read_write_serde_v0_v1_with_compression and not test_create_ssl_context and not test_txn_manager and not test_read_write_serde_v2 and not test_unavailable_codec' tests
+%{!?with_c_extensions:AIOKAFKA_NO_EXTENSIONS=1} %pytest --import-mode append -p no:warnings ${tests_dir}
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-2
-- Rebuilt for Python 3.12 (fedora#2220104)
-
-* Thu Jun 29 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-1
-- Update to 0.8.1 (resolve rhbz#2211696)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jan 10 2023 Italo Garcia <italo.garcia@aiven.io> - 0.8.0-1
-- Update to version 0.8.0
-
-* Tue Jul 12 2022 Italo Garcia <italo.garcia@aiven.io> - 0.7.2-1
-- Initial package
+%autochangelog

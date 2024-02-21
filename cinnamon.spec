@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        6.0.4
-Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -134,6 +134,7 @@ Requires:       %{name}-translations >= %{cinnamon_translations_version}
 Requires:       desktop-backgrounds-basic
 Requires:       desktop-backgrounds-gnome
 Requires:       gnome-backgrounds
+Recommends:     paper-icon-theme
 Requires:       system-logos
 
 # Theming
@@ -344,6 +345,9 @@ EOF
 %endif
 
 %changelog
+* Mon Feb 19 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.4-4
+- Use paper cursor theme as adwaita is broken
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

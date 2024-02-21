@@ -3,8 +3,8 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.4
-Release:        4%{?dist}
+Version:        3.12.5
+Release:        1%{?dist}
 Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
@@ -97,6 +97,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Mon Feb 19 2024 David King <amigadave@amigadave.com> - 1:3.12.5-1
+- Update to 3.12.5
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 1:3.12.4-4
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

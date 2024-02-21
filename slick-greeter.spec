@@ -3,7 +3,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -51,6 +51,7 @@ Requires: %{name} = %{version}-%{release}
 Requires:	desktop-backgrounds-basic
 Requires:	mint-y-icons
 Requires:	mint-y-theme
+Recommends: paper-icon-theme
 
 %description -n %{name}-cinnamon
 Slick-greeter customisation for the CINNAMON desktop.
@@ -136,6 +137,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Mon Feb 19 2024 Leigh Scott <leigh123linux@gmail.com> - 2.0.3-4
+- Use paper cursor theme as adwaita is broken
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

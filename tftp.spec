@@ -3,7 +3,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 5.2
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: http://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-%{version}.tar.bz2
@@ -23,6 +23,7 @@ Patch10: tftp-enhanced-logging.patch
 Patch11: tftp-hpa-5.2-gcc10.patch
 Patch12: tftp-off-by-one.patch
 Patch13: tftp-c99.patch
+Patch14: tftp-hpa-5.2-osh.patch
 
 BuildRequires: autoconf
 BuildRequires: gcc
@@ -66,6 +67,7 @@ systemd socket activation, and is disabled by default.
 %patch11 -p1 -b .gcc10
 %patch12 -p1 -b .off-by-one
 %patch13 -p1
+%patch14 -p1 -b .osh
 
 %build
 autoreconf
@@ -108,6 +110,9 @@ install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
 %{_unitdir}/*
 
 %changelog
+* Fri Feb 16 2024 Lukáš Zaoral <lzaoral@redhat.com> - 5.2-43
+- apply fixes to true positives reported by static analyzers from RHEL
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

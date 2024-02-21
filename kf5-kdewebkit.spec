@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module for QtWebKit
 
 License: LGPLv2+
@@ -11,6 +11,11 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %global majmin %majmin_ver_kf5
 %global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/portingAids/%{framework}-%{version}.tar.xz
+
+
+# Temporary revert commit that introduces a dependency on kf6 extra-cmake-modules
+Patch0: revert_feature_summary_ecm.patch
+
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-kconfig-devel >= %{majmin}
@@ -72,6 +77,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Feb 19 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-2
+- Add patch to remove dependency on KF6 extra-cmake-modules
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

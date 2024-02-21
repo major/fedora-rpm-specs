@@ -26,7 +26,7 @@ Features:
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{dist}
 Summary:        Go testing in the browser
 
 # Upstream license specification: MIT and Apache-2.0
@@ -55,12 +55,15 @@ BuildRequires:  golang(golang.org/x/tools/go/packages)
 %if %{with check}
 %check
 # This test fails with latest smartystreets/assertions
-%gochecks -d web/server/watch
+%gocheck -d web/server/watch -d web/server/system
 %endif
 
 %gopkgfiles
 
 %changelog
+* Mon Feb 19 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.6.4-10
+- Fix FTBFS rhbz#2225879 rhbz#2171540
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

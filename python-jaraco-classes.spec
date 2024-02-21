@@ -5,8 +5,8 @@
 %bcond_with doc
 
 Name:           python-%{pkg_name}
-Version:        3.3.0
-Release:        4%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 Summary:        Utility functions for Python class constructs
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Feb 14 2024 Dan Radez <dradez@redhat.com> - 3.3.1-1
+- Update to upstream 3.3.1 rhbz#2263343
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

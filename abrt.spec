@@ -49,7 +49,7 @@
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.17.4
+Version: 2.17.5
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -968,6 +968,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Mon Feb 19 2024 Michal Srb <michal@redhat.com> - 2.17.5-1
+- Update to upstream release 2.17.5
+
 * Mon Feb 12 2024 Michal Srb <michal@redhat.com> - 2.17.4-1
 - Update to upstream release 2.17.4
 

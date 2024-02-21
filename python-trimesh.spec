@@ -183,6 +183,8 @@ EOF
 #           that are not currently packaged unbundled from its assets
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 #   meshio: not yet packaged, https://github.com/nschloe/meshio
+#   pyglet: incompatible version 2.x, beginning with F41. See “Path to
+#           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
 #   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
 #              bundles MeshLab, which is a nontrivial package that has its own
 #              bundling; see “Support a system/external copy of meshlab?”
@@ -211,6 +213,9 @@ for pkg in \
     manifold3d \
     meshio \
     mypy \
+%if 0%{?fedora} > 40 || ! 0%{?fedora}
+    pyglet \
+%endif
     pyinstrument \
     pymeshlab \
     pytest-cov \

@@ -6,8 +6,8 @@
 %global goipath         github.com/osbuild/weldr-client/v2
 
 Name:      weldr-client
-Version:   35.11
-Release:   4%{?dist}
+Version:   35.12
+Release:   1%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
 Summary:   Command line utility to control osbuild-composer
@@ -130,21 +130,19 @@ composer-cli package.
 
 
 %changelog
-* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 35.11-4
-- Rebuild for golang 1.22.0
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 35.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 35.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 08 2023 Brian C. Lane <bcl@redhat.com> - 35.11-1
-- New release: 35.11 (bcl)
-- build(deps): bump github.com/BurntSushi/toml from 1.3.0 to 1.3.1 (49699333+dependabot[bot])
-- build(deps): bump github.com/stretchr/testify from 1.8.3 to 1.8.4 (49699333+dependabot[bot])
-- CI: Update terraform hash (bcl)
-- build(deps): bump github.com/BurntSushi/toml from 1.2.1 to 1.3.0 (49699333+dependabot[bot])
-- build(deps): bump github.com/stretchr/testify from 1.8.2 to 1.8.3 (49699333+dependabot[bot])
-- docs: fix typo/formatting in HACKING.md (idiez)
-- Add release creation documentation (bcl)
+* Mon Feb 19 2024 Brian C. Lane <bcl@redhat.com> - 35.12-1
+- New release: 35.12 (bcl)
+- Update documentation urls for new locations (bcl)
+- workflows: Stop using golint (bcl)
+- workflows: Add Go 1.21 and 1.22 to test matrix (bcl)
+- workflows: Update to golangci-lint 1.56.2 (bcl)
+- weldr: go fmt changes to a couple comments (bcl)
+- Go: Switch to go 1.19 (bcl)
+- weldr: Update ostree test for parentid with no url (bcl)
+- build(deps): bump actions/setup-go from 4 to 5 (49699333+dependabot[bot])
+- Makefile: Turn off seccomp for build-in-podman (bcl)
+- build(deps): bump github.com/spf13/cobra from 1.7.0 to 1.8.0 (49699333+dependabot[bot])
+- build(deps): bump actions/checkout from 3 to 4 (49699333+dependabot[bot])
+- Actions: add workflow for marking and closing stale issues and PRs (thozza)
+- composer-cli: Update doc links (simon.steinbeiss)
+- build(deps): bump github.com/BurntSushi/toml from 1.3.1 to 1.3.2 (49699333+dependabot[bot])

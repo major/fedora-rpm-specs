@@ -26,8 +26,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.8
-Release:           3%{?dist}
+Version:           2.6.9
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -254,6 +254,9 @@ done
 
 
 %changelog
+* Mon Feb 19 2024 David Sommerseth <davids@openvpn.net> - 2.6.9-1
+- Update to upstream OpenVPN 2.6.9
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

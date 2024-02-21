@@ -69,6 +69,9 @@ Patch0103:      0103-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 Patch1001:      obs-studio-30-cmake-3.20.patch
 ## Use fdk-aac by default
 Patch1002:      obs-studio-UI-use-fdk-aac-by-default.patch
+## Fix error: passing argument 4 of ‘query_dmabuf_modifiers’ from
+##            incompatible pointer type [-Wincompatible-pointer-types]
+Patch1003:      obs-studio-fix-incompatible-pointer-type.patch
 
 
 BuildRequires:  gcc

@@ -84,15 +84,27 @@ Recommends:     zstd
 Recommends:     xz
 
 %description
-A fancy wrapper around "dnf --installroot", "apt-get", "pacman", "zypper", and
-"emerge" to generate disk images with a number of bells and whistles.
+A fancy wrapper around "dnf --installroot", "apt", "pacman", and "zypper" that
+generates disk images with a number of bells and whistles.
 
-Generated images are tailored to the purpose. This means GPT disk labels are
-used and only systemd-based images may be generated.
+Generated images are tailored to the purpose: GPT partitions,
+systemd-boot or grub2, images for containers, VMs, initrd, and extensions.
 
-This package also provides a kernel-install plugin which allows mkosi to be used
-to build initrds and UKIs. Note that the kernel-install plugin is not enabled
-by default and has to be enabled explicitly in /etc/kernel/install.conf.
+Mkosi can boot an image via QEMU or systemd-nspawn, or simply start a shell in
+chroot, burn the image to a device, connect to a running VM via ssh, extract
+logs and coredumps, and also serve an image over HTTP.
+
+%package initrd
+Summary:       Build initrds locally using mkosi
+Requires:      %{name} = %{version}-%{release}
+Requires:      (dnf5 or dnf)
+
+%description initrd
+This package provides the plugin for kernel-install to build initrds with
+mkosi locally.
+
+After the package is installed, the plugin can be enabled by writing
+'initrd_generator=mkosi-initrd' to '/etc/kernel/install.conf'.
 
 %prep
 %autosetup -p1
@@ -113,7 +125,11 @@ mkdir -p %{buildroot}%{_mandir}/man1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/mkosi.1
 
-install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ kernel-install/50-mkosi.install
+# Install the kernel-install plugin
+install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
+         kernel-install/50-mkosi.install
+mkdir -p %{buildroot}%{_prefix}/lib/mkosi-initrd
+mkdir -p %{buildroot}%{_sysconfdir}/mkosi-initrd
 
 %files -f %pyproject_files
 %license LICENSE
@@ -121,6 +137,11 @@ install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ kernel-install/50-mkosi
 %_bindir/mkosi
 %_mandir/man1/mkosi.1*
 /usr/lib/kernel/install.d/50-mkosi.install
+
+%files initrd
+%_prefix/lib/kernel/install.d/50-mkosi.install
+%ghost %dir %{_prefix}/lib/mkosi-initrd
+%ghost %dir %{_sysconfdir}/mkosi-initrd
 
 %check
 %if %{with tests}

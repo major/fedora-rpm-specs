@@ -5,7 +5,7 @@
 %global crate dua-cli
 
 Name:           rust-dua-cli
-Version:        2.20.3
+Version:        2.28.0
 Release:        %autorelease
 Summary:        Tool to conveniently learn about the disk usage of directories
 
@@ -22,12 +22,17 @@ A tool to conveniently learn about the disk usage of directories, fast!.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
+# MIT OR Zlib OR Apache-2.0
+# Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        MIT AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib)
+License:        MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -150,30 +155,6 @@ use the "tui-react" feature of the "%{crate}" crate.
 %files       -n %{name}+tui-react-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tui-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tui-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tui-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tui-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tui-unix-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tui-unix-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tui-unix" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tui-unix-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+unicode-segmentation-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -184,6 +165,18 @@ This package contains library source intended for building other packages which
 use the "unicode-segmentation" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unicode-segmentation-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unicode-width-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unicode-width-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unicode-width" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unicode-width-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

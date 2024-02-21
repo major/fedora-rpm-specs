@@ -5,7 +5,7 @@
 %bcond_without ssh_agent
 
 Name:           gnome-keyring
-Version:        42.1
+Version:        46.1
 Release:        %autorelease
 Summary:        Framework for managing passwords and other secrets
 
@@ -13,10 +13,7 @@ Summary:        Framework for managing passwords and other secrets
 # pkcs11/ is MPL-1.1 OR GPL-2.0-or-later OR  LGPL-2.1-or-later
 License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND ((GPL-2.0-or-later OR LGPL-3.0-or-later) OR BSD-3-Clause) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/GnomeKeyring
-Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/52
-Patch0:         gnome-keyring-42.0-fix-strncpy.patch
-Patch1: gnome-keyring-c89.patch
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}

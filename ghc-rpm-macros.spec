@@ -7,8 +7,8 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.5
-Release:        3%{?dist}
+Version:        2.6.6
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPL-3.0-or-later
@@ -28,6 +28,7 @@ Source10:       Setup.hs
 Source11:       cabal-tweak-drop-dep
 Source12:       cabal-tweak-remove-upperbound
 Source13:       ghc-info.sh
+Source14:       macros.ghc-srpm-no-prof
 Requires:       redhat-rpm-config
 # ghc_version needs ghc-compiler or ghcX.Y-compiler-default
 Requires:       chrpath
@@ -45,6 +46,16 @@ Requires:       %{name} = %{version}-%{release}
 %description extra
 Extra macros used for subpackaging of Haskell libraries,
 for example in ghc and haskell-platform.
+
+
+%package no-prof
+Summary:        Disables building of ghc prof subpackages
+Requires:       %{name} = %{version}-%{release}
+
+%description no-prof
+Overrides ghc-srpm-macros to disable building ghc prof subpackages locally.
+
+This should not be used in official Fedora builds.
 
 
 %if 0%{?fedora} < 37
@@ -122,6 +133,7 @@ echo no build stage
 install -p -D -m 0644 %{SOURCE0} %{buildroot}%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{macros_dir}/macros.ghc-os
+install -p -D -m 0644 %{SOURCE14} %{buildroot}%{macros_dir}/macros.ghc-srpm-no-prof
 
 %if 0%{?fedora} < 38
 echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-os
@@ -169,6 +181,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{macros_dir}/macros.ghc-extra
 
 
+%files no-prof
+%{macros_dir}/macros.ghc-srpm-no-prof
+
+
 %if 0%{?fedora} < 37
 %files -n ghc-filesystem
 %dir %{_docdir}/ghc
@@ -179,12 +195,16 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %endif
 
 
-%if 0%{?fedora} >= 29
+%if 0%{?fedora}
 %files -n ghc-obsoletes
 %endif
 
 
 %changelog
+* Mon Feb 19 2024 Jens Petersen <petersen@redhat.com> - 2.6.6-1
+- new no-prof subpackage to disable building prof subpackages locally
+- cabal_test: drop conditional since it is in cabal-rpm
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

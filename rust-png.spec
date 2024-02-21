@@ -6,7 +6,7 @@
 %global crate png
 
 Name:           rust-png
-Version:        0.17.12
+Version:        0.17.13
 Release:        %autorelease
 Summary:        Decoding and encoding library in pure Rust
 

@@ -270,7 +270,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 10.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -332,7 +332,7 @@ BuildRequires: xen-devel
 BuildRequires: glib2-devel >= 2.56
 BuildRequires: libxml2-devel
 BuildRequires: readline-devel
-BuildRequires: bash-completion >= 2.0
+BuildRequires: pkgconfig(bash-completion) >= 2.0
 BuildRequires: libtasn1-devel
 BuildRequires: gnutls-devel
 BuildRequires: libattr-devel
@@ -2564,6 +2564,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 19 2024 Cole Robinson <crobinso@redhat.com> - 10.0.0-4
+- Rebuild for wireshark soname bump
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 %endif
 
 Name:    kio-extras-kf5
-Version: 24.01.90
-Release: 4%{?dist}
+Version: 24.01.95
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 License: GPLv2+
@@ -15,7 +15,7 @@ URL:     https://invent.kde.org/network/kio-extras
 
 %global srcname %{name}
 
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{srcname}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{srcname}-%{version}.tar.xz
 
 ## upstramable patches
 
@@ -173,6 +173,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Mon Feb 19 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.95-1
+- 24.01.95
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 24.01.90-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

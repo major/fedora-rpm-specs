@@ -1,6 +1,6 @@
 Name:           quisk
 Version:        4.2.29
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 License:        GPLv2 and BSD
@@ -25,6 +25,8 @@ BuildRequires:  hicolor-icon-theme
 Requires:       hicolor-icon-theme
 Requires:       python3-wxpython4
 Suggests:       codec2-devel
+# Patch sent upstream
+Patch0:         quisk-4.2.29-python313-fix.patch
 
 %description
 QUISK is a Software Defined Radio (SDR) which can control various
@@ -84,6 +86,10 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Mon Feb 19 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.29-2
+- Fixed FTBFS with python-3.13
+  Resolves: rhbz#2254186
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: mk-configure
 Version: 0.38.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A build system on top of bmake
 License: BSD-2-Clause AND BSD-4-Clause AND ISC
 # Licenses listed in the doc/LICENSE file
@@ -113,5 +113,7 @@ env bmake test-tests
 %doc %{_docdir}/mk-configure/examples
 
 %changelog
+* Mon Feb 19 2024 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 0.38.3-2
+- Remove concurrency in macro call because it is not well supported due to output redirects 
 * Sat Jan 6 2024 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 0.38.3-1
 - First release

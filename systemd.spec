@@ -33,13 +33,8 @@
 
 Name:           systemd
 Url:            https://systemd.io
-%if %{without upstream}
-Version:        255.3
-%else
-# determine the build information from local checkout
-Version:        %(tools/meson-vcs-tag.sh)
-%endif
-Release:        %autorelease
+Version:        %{?version}%{!?version:255.3}
+Release:        %{?release}%{!?release:%autorelease}
 
 %global stable %(c="%version"; [ "$c" = "${c#*.*}" ]; echo $?)
 
@@ -659,12 +654,11 @@ CONFIGURE_OPTS=(
         -Dnobody-group=nobody
         -Dcompat-mutable-uid-boundaries=true
         -Dsplit-bin=true
-        -Db_lto=%[%{with lto}?"true":"false"]
         -Db_ndebug=false
         -Dman=enabled
-        -Dversion-tag=%{version}-%{release}
+        -Dversion-tag=%{version}%[%{without upstream}?"-%{release}":""]
         # https://bugzilla.redhat.com/show_bug.cgi?id=1906010
-        -Dshared-lib-tag=%{version_no_tilde}-%{release}
+        -Dshared-lib-tag=%{version_no_tilde}%[%{without upstream}?"-%{release}":""]
         -Dfallback-hostname="localhost"
         -Ddefault-dnssec=no
         -Ddefault-dns-over-tls=no

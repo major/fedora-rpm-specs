@@ -5,7 +5,7 @@
 %global crate gix-hash
 
 Name:           rust-gix-hash
-Version:        0.13.1
+Version:        0.13.2
 Release:        %autorelease
 Summary:        Borrowed and owned git hash digests used to identify git objects
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

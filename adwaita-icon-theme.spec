@@ -2,12 +2,15 @@
 
 Name:           adwaita-icon-theme
 Version:        46~beta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adwaita icon theme
 
 License:        LGPL-3.0-only OR CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/adwaita-icon-theme
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+
+# Backported from upstream
+Patch:          0001-build-Reinstate-symlinks-from-X11-cursor-names-to-cl.patch
 
 BuildArch:      noarch
 
@@ -71,6 +74,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Mon Feb 19 2024 Kalev Lember <klember@redhat.com> - 46~beta-2
+- Backport upstream patch to reinstate symlinks for X11 cursor names
+  (rhbz#2264635)
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

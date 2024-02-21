@@ -1,13 +1,15 @@
 Name: dosfstools
-Summary: Utilities for making and checking MS-DOS FAT filesystems on Linux
 Version: 4.2
-Release: 10%{?dist}
+Release: 11%{?dist}
+Summary: Utilities for making and checking MS-DOS FAT filesystems on Linux
 License: GPL-3.0-or-later
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/dosfstools/dosfstools
 
 BuildRequires: gcc
 BuildRequires: make
+# For tests
+BuildRequires: xxd
 # rhbz#2021638
 Recommends: glibc-gconv-extra
 
@@ -17,7 +19,7 @@ which respectively make and check MS-DOS FAT filesystems on hard
 drives or on floppies.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --enable-compat-symlinks
@@ -26,17 +28,23 @@ drives or on floppies.
 %install
 %make_install PREFIX=%{_prefix}
 
-# license file is in the licenses not in the doc
-rm -f %{buildroot}%{_docdir}/%{name}/COPYING
+# license file is in the licenses dir, drop ancient/duplicate docs
+rm -f %{buildroot}%{_docdir}/%{name}/*
+
+%check
+make check
 
 %files
 %license COPYING
-%doc NEWS README ChangeLog doc/*
+%doc NEWS README
 %{_sbindir}/*
 %{_mandir}/man8/*
 
 
 %changelog
+* Mon Feb 19 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2-11
+- Don't ship ancient docs, run tests
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

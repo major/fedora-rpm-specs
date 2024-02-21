@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.7
-Release: 11%{?dist}
+Release: 12%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -139,10 +139,10 @@ BuildRequires: audit-libs-devel
 
 # /etc/cups was moved from main package to filesystem package
 # remove once CentOS Stream 10 is released
-Conflicts: %{name}-filesystem < 2.4.2-9
+Conflicts: %{name}-filesystem < 1:2.4.2-9
 # ippfind manpage was moved to cups-ipptool
 # remove once C10S is released
-Conflicts: %{name}-ipptool < 2.4.3-1
+Conflicts: %{name}-ipptool < 1:2.4.3-1
 
 # getaddrinfo from glibc needs nss-mdns or systemd-resolved for resolving
 # mdns .local addresses. Don't require a specific package for now and let
@@ -221,7 +221,7 @@ Summary: CUPS printing system - directory layout
 BuildArch: noarch
 # /etc/cups was moved from main package to filesystem package
 # remove once CentOS Stream 10 is released
-Conflicts: %{name} < 2.4.2-9
+Conflicts: %{name} < 1:2.4.2-9
 
 
 %package lpd
@@ -234,7 +234,7 @@ Provides: lpd
 Summary: CUPS printing system - tool for performing IPP requests
 # ippfind manpage was moved to cups-ipptool
 # remove once C10S is released
-Conflicts: %{name} < 2.4.3-1
+Conflicts: %{name} < 1:2.4.3-1
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # ippfind needs avahi for printer discovery
 Requires: avahi
@@ -819,6 +819,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Feb 19 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-12
+- add epochs into conflicts
+
 * Fri Feb 16 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.7-11
 - 2263053 - CUPS/libppd PPD generators didn't check required attrs when deciding which driverless format to use,
   causing PPD generation to fail

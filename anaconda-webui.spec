@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        6
+Version:        7
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -13,7 +13,7 @@ BuildRequires:  gettext
 
 %global anacondacorever 40.20
 %global cockpitver 275
-%global cockpitstorver 310
+%global cockpitstorver 311
 
 Requires: cockpit-storaged >= %{cockpitstorver}
 Requires: cockpit-bridge >= %{cockpitver}
@@ -101,6 +101,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Feb 19 2024 Packit <hello@packit.dev> - 7-1
+- storage: fix password visibility toggle when clicking on 'eye' button (#2250790)
+- storage: enhance integration between Anaconda Web UI and Cockpit storage (#2263971)
+- storage: inform user when oops happens in cockpit-storage (#2264041)
+- storage: do not force reformatting /
+- storage: add storage layout review text in the cockpit-storage exit dialog
+
 * Fri Feb 16 2024 Packit <hello@packit.dev> - 6-1
 - Tests stabilization
 

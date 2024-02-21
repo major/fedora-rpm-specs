@@ -32,8 +32,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.7~alpha
-Release:        4%{?dist}
+Version:        3.7~beta
+Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -41,8 +41,6 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/%{name}/3.7/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
-# bypass kernel landlock check for distribution builds
-Patch0:         https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/508.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -159,6 +157,7 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %if 0%{?with_rss}
 %config(noreplace) %{_sysconfdir}/xdg/autostart/tracker-miner-rss-3.desktop
 %endif
+%{_bindir}/tracker3-*
 %{_libdir}/tracker-miners-3.0/
 %{_libexecdir}/tracker*
 %{_datadir}/dbus-1/interfaces/org.freedesktop.Tracker3.Miner.Files.Index.xml
@@ -166,6 +165,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %{_datadir}/dbus-1/services/%{domain_ontology}.Tracker*
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/tracker3-miners/
+%dir %{_datadir}/tracker3
+%dir %{_datadir}/tracker3/commands
+%{_datadir}/tracker3/commands/tracker-*.desktop
 %{_mandir}/man1/tracker*.1*
 %if !0%{?flatpak}
 %{_userunitdir}/tracker*.service
@@ -177,6 +179,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Wed Feb 14 2024 David King <amigadave@amigadave.com> - 3.7~beta-1
+- Update to 3.7.beta
+
 * Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7~alpha-4
 - Bypass kernel landlock check during build
 

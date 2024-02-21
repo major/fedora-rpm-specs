@@ -5,7 +5,7 @@
 %global crate gix-features
 
 Name:           rust-gix-features
-Version:        0.36.0
+Version:        0.36.1
 Release:        %autorelease
 Summary:        Integrate various capabilities using compile-time feature flags
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

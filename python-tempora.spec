@@ -3,8 +3,8 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.5.0
-Release:        5%{?dist}
+Version:        5.5.1
+Release:        1%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
 License:        MIT
@@ -88,6 +88,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Mon Feb 19 2024 Dan Radez <dradez@redhat.com> - 5.5.1-1
+- update to 5.5.1 rhbz#2264858
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

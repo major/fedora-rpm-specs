@@ -15,8 +15,8 @@ The goal of Neo is to improve interoperability between Python tools for
 analyzing, visualizing and generating electrophysiology data (such as
 OpenElectrophy, NeuroTools, G-node, Helmholtz, PyNN) by providing a common,
 shared object model. In order to be as lightweight a dependency as possible,
-Neo is deliberately limited to represention of data, with no functions for data
-analysis or visualization.
+Neo is deliberately limited to representation of data, with no functions for
+data analysis or visualization.
 
 Neo implements a hierarchical data model well adapted to intracellular and
 extracellular electrophysiology and EEG data with support for multi-electrodes
@@ -27,14 +27,19 @@ checks for dimensional consistency and automatic unit conversion.
 
 Read the documentation at http://neo.readthedocs.io/}
 
+%global forgeurl  https://github.com/NeuralEnsemble/python-neo
+
 Name:       python-neo
-Version:    0.12.0
+Version:    0.13.0
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
+%global tag %{version}
+%forgemeta
+
 License:    BSD-3-Clause
-URL:        http://neuralensemble.org/neo/
-Source0:    https://github.com/neuralensemble/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:        %forgeurl
+Source0:    %forgesource
 %if %{with tests}
 # datalad clone of data obtained with these commands:
 # datalad clone https://gin.g-node.org/NeuralEnsemble/ephy_testing_data
@@ -69,7 +74,7 @@ Recommends:  %{py3_dist igor}
 %description -n python3-neo %{_description}
 
 %prep
-%autosetup
+%forgeautosetup
 # remove rpm's SPECPARTS file
 rm -rf SPECPARTS
 
@@ -96,7 +101,8 @@ pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 
 %check
 # do not export EPHY_TESTING_DATA_FOLDER, use ~
-%pyproject_check_import
+# exclude one that requires "zugbruecke" to open windows dlls?
+%pyproject_check_import -e *pypl2.pypl2lib*
 %if %{with tests}
 %pytest
 %endif

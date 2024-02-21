@@ -151,6 +151,7 @@ BuildRequires:  softhsm
 %if %{with SYSTEMTEST}
 # bin/tests/system dependencies
 BuildRequires:  perl(Net::DNS) perl(Net::DNS::Nameserver) perl(Time::HiRes) perl(Getopt::Long)
+BuildRequires:  python3-dns
 # manual configuration requires this tool
 BuildRequires:  iproute
 %endif

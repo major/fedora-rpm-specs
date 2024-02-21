@@ -1,11 +1,14 @@
 Name:           sofia-sip
 Version:        1.13.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sofia SIP User-Agent library
 
 License:        LGPLv2+
 URL:            http://sofia-sip.sourceforge.net/
 Source0:        https://github.com/freeswitch/%{name}/archive/refs/tags/v%{version}.tar.gz
+
+# https://github.com/freeswitch/sofia-sip/pull/249
+Patch0:         0001-Fix-incompatible-pointer-type-in-sip_basic.c.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -59,7 +62,7 @@ Command line utilities for the Sofia SIP UA library.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 sh autogen.sh

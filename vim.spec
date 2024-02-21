@@ -61,7 +61,7 @@ Epoch: 2
 # response here: https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/4UTW5GFDELGMG6K3NQ7NBU42LC2FJOB5/
 # resolution: take it as OPUBL-1.0, the license won't be added to allowed license list, but if a project uses it for documentation
 # and don't use license options mentioned in the OPUBL 1.0 license text (which both are the case for Vim), the license is allowed
-License: Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0
+License: Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0 AND Apache-2.0 WITH Swift-exception
 Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
 Source1: virc
 Source2: vimrc

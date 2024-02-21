@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.14.0
-Release: 6%{?dist}
+Version: 4.15.0rc2
+Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -19,20 +19,13 @@ Source7: passwd.pamd
 
 ### Patches ###
 # Misc manual page changes - non-upstreamable
-Patch0: shadow-4.14.0-manfix.patch
+Patch0: shadow-4.15.0-manfix.patch
 # Date parsing improvement - could be upstreamed
-Patch1: shadow-4.2.1-date-parsing.patch
+Patch1: shadow-4.15.0-date-parsing.patch
 # Audit message changes - partially upstreamed
-Patch2: shadow-4.14.0-audit-update.patch
-# https://github.com/shadow-maint/shadow/pull/812
-Patch3: shadow-4.14.0-useradd-def-usrtemplate-selinux-label.patch
+Patch2: shadow-4.15.0-audit-update.patch
 # Probably non-upstreamable
-Patch4: shadow-4.14.0-account-tools-setuid.patch
-# https://github.com/shadow-maint/shadow/commit/43b4e5a6c41f5c43cad18810f9229e40e8c4a57e
-# https://github.com/shadow-maint/shadow/commit/45f34ee8c196a98397504cb7ed8576b6f1825cf9
-Patch5: shadow-4.14.0-remove-libcrack.patch
-# https://github.com/shadow-maint/shadow/pull/927
-Patch6: shadow-4.14.0-passwd-stdin.patch
+Patch3: shadow-4.14.0-account-tools-setuid.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -107,7 +100,7 @@ cp -a %{SOURCE4} %{SOURCE5} .
 cp -a %{SOURCE6} man/login.defs.d/HOME_MODE.xml
 
 # Force regeneration of getdate.c
-rm libmisc/getdate.c
+rm lib/getdate.c
 
 %build
 %ifarch sparc64
@@ -193,9 +186,11 @@ rm $RPM_BUILD_ROOT%{_mandir}/*/man8/faillog.*
 
 # Remove PAM service files we don't use.
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chfn
+rm $RPM_BUILD_ROOT%{_pam_confdir}/chpasswd
 rm $RPM_BUILD_ROOT%{_pam_confdir}/chsh
 rm $RPM_BUILD_ROOT%{_pam_confdir}/groupmems
 rm $RPM_BUILD_ROOT%{_pam_confdir}/login
+rm $RPM_BUILD_ROOT%{_pam_confdir}/newusers
 rm $RPM_BUILD_ROOT%{_pam_confdir}/su
 
 find $RPM_BUILD_ROOT%{_mandir} -depth -type d -empty -delete
@@ -278,6 +273,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Fri Feb 16 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0rc2-1
+- Rebase to version 4.15.0rc2
+
 * Mon Feb 12 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-6
 - Build linking `libpam`
 

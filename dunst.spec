@@ -3,18 +3,22 @@
 %global   dunst_confdir %{_sysconfdir}/xdg
 
 Name:     dunst
-Version:  1.9.2
+Version:  1.10.0
 Release:  %autorelease
 Summary:  Lightweight and customizable notification-daemon
 License:  BSD-3-Clause
 URL:      https://dunst-project.org
-Source0:  https://github.com/dunst-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:   https://github.com/dunst-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix cursor names for Adwaita v46 (#1276)
+Patch:    dunst-1.10.0-Wayland-suport-GTK-CSS-cursor-names.patch
 
 Requires: dbus
 # Required for dunstctl
 Requires: /usr/bin/dbus-send
 # xdg-open is the default 'browser' for opening URLs
 Recommends: /usr/bin/xdg-open
+# jq is used in completion definitions
+Recommends: jq
 
 # keep this sorted please
 BuildRequires: /usr/bin/pod2man
@@ -63,6 +67,7 @@ love to customize to perfection.
     VERSION=%{version}
 }
 %set_build_flags
+%make_build %{make_options} wayland-protocols
 %make_build %{make_options}
 
 
@@ -71,9 +76,15 @@ love to customize to perfection.
 # create directory for config drop-in files
 install -d -m 0755 -pv %{buildroot}%{dunst_confdir}/%{name}/dunstrc.d
 # install completion definitions
-for compfile in _dunst _dunstctl; do
-    install -D -m 0644 -pv contrib/${compfile}.zshcomp \
-        %{buildroot}%{zsh_completions_dir}/${compfile}
+for compfile in dunst dunstctl; do
+    install -D -m 0644 -pv contrib/${compfile}.bashcomp \
+        %{buildroot}%{bash_completions_dir}/${compfile}
+    install -D -m 0644 -pv contrib/_${compfile}.zshcomp \
+        %{buildroot}%{zsh_completions_dir}/_${compfile}
+done
+for compfile in dunst dunstctl dunstify; do
+    install -D -m 0644 -pv contrib/${compfile}.fishcomp \
+        %{buildroot}%{fish_completions_dir}/${compfile}
 done
 
 
@@ -103,6 +114,8 @@ done
 %{_userunitdir}/%{name}.service
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/%{name}.5*
+%{bash_completions_dir}/dunst*
+%{fish_completions_dir}/dunst*
 %{zsh_completions_dir}/_dunst*
 
 %changelog

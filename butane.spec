@@ -10,7 +10,7 @@
 # https://github.com/coreos/butane
 %global goipath         github.com/coreos/butane
 %global gomodulesmode   GO111MODULE=on
-Version:                0.19.0
+Version:                0.20.0
 
 %gometa
 
@@ -22,7 +22,7 @@ configs for provisioning operating systems that use Ignition.}
 %global godocs          docs README.md
 
 Name:           butane
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Butane config transpiler
 
 License:        Apache-2.0
@@ -39,19 +39,19 @@ Provides:       fcct = %{version}-%{release}
 Provides: bundled(golang(github.com/clarketm/json)) = 1.17.1
 Provides: bundled(golang(github.com/coreos/go-semver/semver)) = 0.3.1
 Provides: bundled(golang(github.com/coreos/go-systemd/v22/unit)) = 22.5.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/doc)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/merge)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/errors)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/parse)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/validations)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/util)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_0/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_1/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_2/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_3/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_4/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_5_experimental/types)) = 2.16.2
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/validate)) = 2.16.2
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/doc)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/merge)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/errors)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/parse)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/validations)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/util)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_0/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_1/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_2/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_3/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_4/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_5_experimental/types)) = 2.17.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/validate)) = 2.17.0
 Provides: bundled(golang(github.com/coreos/vcontext/json)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/path)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/report)) = 0.0.0-20230201181013.gitd72178a18687
@@ -145,6 +145,9 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Mon Feb 19 2024 Steven Presti <spresti@redhat.com> - 0.20.0-1
+- New release
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.19.0-4
 - Rebuild for golang 1.22.0
 

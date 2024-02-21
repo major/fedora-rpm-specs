@@ -1,6 +1,6 @@
 Name:           python-fastjsonschema
-Version:        2.18.0
-Release:        4%{?dist}
+Version:        2.19.1
+Release:        1%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
 License:        BSD-3-Clause
@@ -45,6 +45,10 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Feb 13 2024 Packit <hello@packit.dev> - 2.19.1-1
+- Update to 2.19.1
+- Resolves rhbz#2241605
+
 * Fri Jan 26 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.18.0-4
 - Avoid tox dependency
 

@@ -2,7 +2,9 @@
 
 Name:          qt6-qtgraphs
 Version:       6.6.2
-Release:       1%{?dist}
+Release:       2%{?dist}
+
+%global examples 1
 
 %global        majmin %(echo %{version} | cut -d. -f1-2)
 %global        qt_version %(echo %{version} | cut -d~ -f1)
@@ -44,17 +46,22 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
+%if 0%{?examples}
 %package examples
 Summary:       Programming examples for %{name}
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 %description examples
 %{summary}
+%endif
 
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version} -p1
 
 %build
-%cmake_qt6
+%cmake_qt6 \
+  -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
+
 %cmake_build
 
 %install
@@ -89,10 +96,15 @@ popd
 %{_qt6_libdir}/libQt6Graphs.prl
 %{_qt6_libdir}/qt6/mkspecs/modules/qt_lib_graphs*.pri
 
+%if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/
+%endif
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

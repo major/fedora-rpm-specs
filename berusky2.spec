@@ -1,6 +1,6 @@
 Name:           berusky2
 Version:        0.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPLv2+
 Summary:        Sokoban clone
 Source:         http://www.anakreon.cz/download/%{name}-%{version}.tar.gz
@@ -19,7 +19,7 @@ BuildRequires:  freealut-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  libvorbis-devel
 BuildRequires: make
-ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 %{mips}
+ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 %{mips} riscv64
 
 %description
 Berusky 2 is a game that challenges your visual/spatial thinking
@@ -76,11 +76,11 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/appdata/
 %{_var}/games/%{name}/*
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-10
+* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+ Tue Nov 28 2023 Jiasheng Zhao <JasenChao@gmail.com> - 0.12-9
+- Add riscv64 support.
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.10.0
-Release: 6%{?candidate:.%{candidate}}%{?dist}
+Release: 7%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
@@ -99,21 +99,22 @@ popd
 
 %install
 
-mkdir -p %{buildroot}%{_datadir}/%{name}
+mkdir -p %{buildroot}/%{_datadir}/%{name}
 
-# At the moment we just support adding bl31.bin
+# At the moment we just support adding bl31.bin (except qemu_sbsa)
 for soc in $(cat aarch64-bl31)
 do
-mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
- for file in bl31.bin
+ for file in bl31.bin bl1.bin fip.bin
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/
+    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) %{buildroot}%{_datadir}/%{name}/$(echo $soc)/$(echo $file)
   elif [ $(echo $soc) = "k3" ]; then
     # TI K3 platforms have a different directory layout, binaries are in build/k3/$board directory
     for board in generic j784s4 lite
     do
-       install -pD -m 0644 build/$(echo $soc)/$(echo $board)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/$(echo $board)/$(echo $file)
+      if [ -f build/$(echo $soc)//$(echo $board)/release/$(echo $file) ]; then
+        install -pD -m 0644 build/$(echo $soc)/$(echo $board)/release/$(echo $file) %{buildroot}%{_datadir}/%{name}/$(echo $soc)-$(echo $board)/$(echo $file)
+      fi
     done
   fi
  done
@@ -122,23 +123,10 @@ done
 # Rockchips wants the bl31.elf, plus rk3399 wants power management co-processor bits
 for soc in rk3399 rk3368 rk3328
 do
-mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
  for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/
-  fi
- done
-done
-
-# qemu_sbsa wants bl1.bin and fip.bin
-for soc in qemu_sbsa
-do
-mkdir -p %{buildroot}%{_datadir}/%{name}/$(echo $soc)/
- for file in bl1.bin fip.bin
- do
-  if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /%{buildroot}%{_datadir}/%{name}/$(echo $soc)/
+    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/$(echo $file)
   fi
  done
 done
@@ -147,11 +135,10 @@ done
 pushd arm-trusted-firmware-rk35-%{rk35tag}
 for soc in rk3588
 do
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}/$(echo $soc)/
  for file in bl31/bl31.elf
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -p -m 0644 build/$(echo $soc)/release/$(echo $file) /$RPM_BUILD_ROOT%{_datadir}/%{name}/$(echo $soc)/
+    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/$(echo $file)
   fi
  done
 done
@@ -163,6 +150,9 @@ popd
 %{_datadir}/%{name}
 
 %changelog
+* Mon Feb 19 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-7
+- Minor build improvements and cleanups
+
 * Thu Feb 15 2024 Michael Brown <mbrown@fensystems.co.uk> - 2.10.0-6
 - Add qemu_sbsa platform
 

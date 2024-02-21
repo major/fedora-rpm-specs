@@ -7,7 +7,7 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.26.7
+Version:        0.26.8
 Release:        %autorelease
 Summary:        Generate Haskell bindings for GObject Introspection capable libraries
 
@@ -16,8 +16,6 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-
-Patch0:         0001-Add-scope-type-forever.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-cabal-doctest-devel
@@ -116,8 +114,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-
-%patch 0 -p1
 
 
 %build

@@ -8,11 +8,11 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20240217
+%global bundledate 20240219
 
 Name:           yarnpkg
 Version:        1.22.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -25,11 +25,14 @@ Source1:        yarnpkg-tarball.sh
 # minimatch-CVE-2022-3517.prebundle.patch
 # thenify-CVE-2020-7677.prebundle.patch
 # decode-uri-component-CVE-2022-38900.prebundle.patch
+Patch0:         CVE-2023-26136.patch
+Patch1:         CVE-2022-37599.patch
+Patch2:         CVE-2023-46234.patch
 
 ExclusiveArch:  %{nodejs_arches}
 
 BuildRequires:  nodejs-packaging
-BuildRequires:  yarnpkg
+BuildRequires:  nodejs-npm
 
 %description
 Fast, reliable, and secure dependency management.
@@ -41,7 +44,7 @@ Fast, reliable, and secure dependency management.
 
 %build
 # use build script
-yarn build
+npm run build
 
 
 %install
@@ -79,6 +82,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Mon Feb 19 2024 Sandro Mani <manisandro@gmail.com> - 1.22.21-2
+- Backport patches for CVE-2022-37599, CVE-2023-26136, CVE-2023-46234
+
 * Fri Feb 16 2024 Sandro Mani <manisandro@gmail.com> - 1.22.21-1
 - Update to 1.22.21
 

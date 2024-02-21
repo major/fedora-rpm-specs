@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -383,6 +383,7 @@ export MAKEFLAGS="%{?_smp_mflags}"
  %{?sqlite:-DQT_FEATURE_system_sqlite=ON} \
  -DBUILD_SHARED_LIBS=ON \
  -DQT_BUILD_EXAMPLES=%{?examples:ON}%{!?examples:OFF} \
+ -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF} \
  -DQT_BUILD_TESTS=%{?tests:ON}%{!?tests:OFF} \
  -DQT_QMAKE_TARGET_MKSPEC=%{platform}
 
@@ -837,6 +838,12 @@ make check -k ||:
 
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-3
+- Examples: also install source files
+
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

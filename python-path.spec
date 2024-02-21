@@ -1,8 +1,8 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        16.9.0
-Release:        3%{?dist}
+Version:        16.10.0
+Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -53,6 +53,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Wed Feb 14 2024 Dan Radez <dradez@redhat.com> - 16.10.0-1
+- update to upstream 16.10.0 rhbz#2262643
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

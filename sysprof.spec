@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        45.2
+Version:        46~beta
 Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-2-Clause-Patent
 URL:            http://www.sysprof.com
-Source0:        https://download.gnome.org/sources/sysprof/45/sysprof-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/sysprof/46/sysprof-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -166,6 +166,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Mon Feb 19 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 45.2-1
 - Update to 45.2
 

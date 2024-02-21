@@ -3,8 +3,8 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        40.5
-Release:        2%{?dist}
+Version:        40.6
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -15,16 +15,15 @@ URL:            https://github.com/weldr/lorax
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
 
-# https://github.com/weldr/lorax/pull/1379
-# Fix builds when using a repo file with $releasever
-Patch0:         0001-dnf5-set-releasever-in-the-base-object-s-vars.patch
-
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros
 
 Requires:       lorax-templates
+%if 0%{?rhel} >= 9
+Requires:       lorax-templates-rhel
+%endif
 
 Requires:       cpio
 Requires:       device-mapper
@@ -172,8 +171,11 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Wed Feb 14 2024 Adam Williamson <awilliam@redhat.com> - 40.5-2
-- Backport PR #1379 to fix builds when a repo uses %releasever
+* Mon Feb 19 2024 Brian C. Lane <bcl@redhat.com>
+- Add example use of lmc in github actions. (cjshowalter@alaska.edu)
+- Require lorax-templates-rhel when building for ELN, CentOS Stream and RHEL (sgallagh@redhat.com)
+- workflows: Switch to actions/checkout@v4 (bcl@redhat.com)
+- dnfbase: Fix substitutions (bcl@redhat.com)
 
 * Tue Feb 06 2024 Brian C. Lane <bcl@redhat.com> 40.5-1
 - New lorax documentation - 40.5 (bcl@redhat.com)

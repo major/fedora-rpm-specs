@@ -1,8 +1,3 @@
-%ifarch s390x
-# https://bugzilla.redhat.com/show_bug.cgi?id=2259004
-%global _lto_cflags %nil
-%endif
-
 # download path contains version without the last (fourth) digit
 %global libo_version 24.2.1
 # Should contain .alphaX / .betaX, if this is pre-release (actually

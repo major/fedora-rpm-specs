@@ -16,6 +16,11 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency 
 # * disable little-endian-only openexr feature
 Patch:          image-fix-metadata.diff
+# * include upstream patches to fix issues on s390x and i686:
+#   https://github.com/image-rs/image/issues/2097
+#   https://github.com/image-rs/image/issues/2098
+Patch:          https://github.com/image-rs/image/commit/14d4577.patch
+Patch:          https://github.com/image-rs/image/commit/1269c12.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -260,7 +265,7 @@ use the "webp" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests with missing test files (not included in published crates)
-%cargo_test -- -- --exact --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip codecs::qoi::tests::decode_test_image --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip imageops::sample::tests::test_sample_bilinear --skip imageops::sample::tests::test_sample_nearest --skip codecs::bmp::decoder::test::test_no_header
+%cargo_test -- -- --exact --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip codecs::qoi::tests::decode_test_image --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size --skip imageops::sample::tests::test_sample_bilinear --skip imageops::sample::tests::test_sample_nearest --skip codecs::bmp::decoder::test::test_no_header --skip tiff
 %endif
 
 %changelog

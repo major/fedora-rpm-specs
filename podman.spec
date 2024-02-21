@@ -57,7 +57,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.0.0~rc1
+Version: 5.0.0~rc2
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -248,7 +248,7 @@ LDFLAGS=''
 
 %install
 install -dp %{buildroot}%{_unitdir}
-PODMAN_VERSION=%{version} %{__make} PREFIX=%{buildroot}%{_prefix} ETCDIR=%{_sysconfdir} \
+PODMAN_VERSION=%{version} %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} \
        install.bin \
        install.man \
        install.systemd \
@@ -300,6 +300,7 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %files docker
 %{_bindir}/docker
 %{_mandir}/man1/docker*.1*
+%{_sysconfdir}/profile.d/%{name}-docker.*
 %{_tmpfilesdir}/%{name}-docker.conf
 %{_user_tmpfilesdir}/%{name}-docker.conf
 

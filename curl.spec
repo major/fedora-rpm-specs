@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.6.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -20,6 +20,9 @@ Patch002: 0002-curl-8.6.0-ignore-response-body-to-HEAD.patch
 # revert "receive max buffer" + add test case
 # it breaks pycurl tests suite
 Patch003: 0003-curl-8.6.0-vtls-revert-receive-max-buffer-add-test-case.patch
+
+# Fix: Leftovers after chunking should not be part of the curl buffer output
+Patch004: 0004-curl-8.6.0-http_chunks-fix-the-accounting-of-consumed-bytes.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -411,6 +414,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Feb 19 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-7
+- Fix: Leftovers after chunking should not be part of the curl buffer output (#2264220)
+
 * Mon Feb 12 2024 Jan Macku <jamacku@redhat.com> - 8.6.0-6
 - revert "receive max buffer" + add test case
 - temporarily disable test 0313

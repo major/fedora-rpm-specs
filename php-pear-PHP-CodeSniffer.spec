@@ -13,8 +13,9 @@
 
 %bcond_without       tests
 
-%global gh_commit    14f5fff1e64118595db5408e946f3a22c75807f7
+%global gh_commit    d63cee4890a8afaf86a22e51ad4d97c91dd4579b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+%global gh_date      2024-02-16
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
@@ -22,8 +23,8 @@
 
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.8.1
-Release:        3%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD 3-Clause
@@ -34,7 +35,6 @@ Source1:        makesrc.sh
 
 # RPM installation path
 Patch0:         %{name}-rpm.patch
-Patch1:         0001-skip-tests-requiring-git-repository.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.4
@@ -79,7 +79,6 @@ certain standards, such as PEAR, or user-defined.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
-%patch -P1 -p1 -b .nogit
 
 
 %build
@@ -112,12 +111,12 @@ YEAR=$(date +%Y)
 sed -e "/@copyright/s/2021/${YEAR}/" \
     -i src/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.1.*.fixed
 
-# Version 3.6.2: Tests: 1327, Assertions: 8476, Skipped: 8.
+# Version 3.9.0: Tests: 2276, Assertions: 10969, Warnings: 4, Skipped: 12.
 ret=0
 for cmdarg in "php %{phpunit}" php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
-    $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
+    $1 -d memory_limit=-1 ${2:-%{_bindir}/phpunit9} \
        || ret=1
   fi
 done
@@ -142,6 +141,10 @@ fi
 
 
 %changelog
+* Sat Feb 17 2024 Remi Collet <remi@remirepo.net> - 3.9.0-1
+- update to 3.9.0
+- drop patch merged upstream
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

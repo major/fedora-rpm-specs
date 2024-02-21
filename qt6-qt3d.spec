@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global examples 1
 
@@ -77,6 +77,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %cmake_qt6 \
   -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF} \
   -DQT_FEATURE_qt3d_system_assimp=%{?bundled_assimp:OFF}%{!?bundled_assimp:ON}
 
 %cmake_build
@@ -204,6 +205,9 @@ popd
 
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

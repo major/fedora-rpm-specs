@@ -1,12 +1,12 @@
 Name:		proxmark3
-Version:	4.17768
+Version:	4.18218
 Release:	%autorelease
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+
 URL:		https://github.com/RfidResearchGroup/proxmark3
 Source0:	https://github.com/RfidResearchGroup/proxmark3/archive/refs/tags/v%{version}.tar.gz
-BuildRequires:	make, gcc, g++, readline-devel, arm-none-eabi-gcc, arm-none-eabi-newlib, bzip2-devel, libatomic, openssl-devel, python3-devel, jansson-devel, bluez-libs-devel, qt5-qtbase-devel, lz4-devel
-Requires:	bzip2-libs, readline, python3, bluez, qt5-qtbase
+BuildRequires:	make, gcc, g++, readline-devel, arm-none-eabi-gcc, arm-none-eabi-newlib, bzip2-devel, libatomic, openssl-devel, python3-devel, jansson-devel, bluez-libs-devel, qt5-qtbase-devel, lz4-devel, gd-devel, gd
+Requires:	bzip2-libs, readline, python3, bluez, qt5-qtbase, gd
 ExcludeArch:	ppc64le s390x
 
 %description
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+* Sun Feb 18 2024 Marlin Soose <marlin.soose@esque.ca> - 4.18218
+- Bumping package to v4.18218
+
 * Tue Nov 7 2023 Marlin Soose <marlin.soose@esque.ca> - 4.17511
 - Bumping package to v4.17511
 
@@ -63,7 +66,7 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15864-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Mon Nov 14 2022 Marlin Soose <marlin.soose@laro.se> - 4.15864
+* Mon Nov 14 2022 Marlin Soose <marlin.soose@esque.ca> - 4.15864
 - Bumping package to v4.15864
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.14831-3
@@ -72,5 +75,5 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 4.14831-2
 - Rebuilt for Python 3.11
 
-* Tue Apr 19 2022 Marlin Soose <marlin.soose@laro.se> - 4.14831
+* Tue Apr 19 2022 Marlin Soose <marlin.soose@esque.ca> - 4.14831
 - Initial version of the package

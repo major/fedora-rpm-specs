@@ -60,10 +60,6 @@ Patch4:         openscap-1.3.9-c99-libxml2.patch
 # https://github.com/OpenSCAP/openscap/pull/2069
 Patch5:         openscap-1.3.9-c99-python.patch
 
-%if 0%{?rhel} && ! 0%{?eln}
-BuildRequires:  epel-rpm-macros
-%endif
-
 BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  make
@@ -159,7 +155,7 @@ Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-openscap }
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 BuildRequires:  python-rpm-macros
 %endif
 
@@ -273,7 +269,7 @@ ctest -V -E sce/test_sce_in_ds.sh
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # fix python shebangs
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 10
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %else
 pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm

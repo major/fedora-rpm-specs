@@ -19,7 +19,7 @@
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
 Version:      2.0.3
-Release:      12%{?dist}
+Release:      13%{?dist}
 License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
@@ -80,6 +80,10 @@ mkdir ZTS
 
 
 %build
+# See https://bugzilla.redhat.com/2264827
+# only "const" issues
+export CFLAGS="%{optflags} -Wno-incompatible-pointer-types"
+
 cd %{sources}
 %{__phpize}
 
@@ -167,6 +171,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Mon Feb 19 2024 Remi Collet <remi@remirepo.net> - 2.0.3-13
+- ignore incompatible-pointer-types see #2264827
+
 * Mon Jan 29 2024 Remi Collet <remi@remirepo.net> - 2.0.3-12
 - fix incompatible pointer types using patch from
   https://github.com/php/pecl-processing-rrd/pull/4

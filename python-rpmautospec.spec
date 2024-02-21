@@ -18,7 +18,7 @@
 %global srcname rpmautospec
 
 Name: python-%{srcname}
-Version: 0.6.1
+Version: 0.6.2
 Release: %autorelease
 Summary: Package and CLI tool to generate release fields and changelogs
 License: MIT

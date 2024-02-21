@@ -7,7 +7,7 @@ Summary:    Dynamic menu library and client program inspired by dmenu
 %global     soversion   %{version}
 
 # Library and bindings are LGPLv3+, other files are GPLv3+
-License:    GPLv3+ and LGPLv3+
+License:    GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:        https://github.com/Cloudef/bemenu
 Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc

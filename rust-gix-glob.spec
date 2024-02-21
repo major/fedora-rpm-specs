@@ -7,7 +7,7 @@
 %global crate gix-glob
 
 Name:           rust-gix-glob
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Glob pattern matching implementation for gix
 
@@ -34,7 +34,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

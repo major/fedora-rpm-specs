@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -45,6 +45,8 @@ Patch10:        pgadmin4_username.patch
 Patch11:        pgadmin4_sphinx_youtube.patch
 # Fix invalid parameters for sqlalchemy 1.x
 Patch12:        pgadmin4_sqlalchemy1.patch
+# Drop packageManager field from package.json to avoid yarn complaining about corepack
+Patch13:        pgadmin4_corepack.patch
 
 # Patch for building bundled mozjpeg
 %global mozjpeg_ver 4.1.1
@@ -91,7 +93,7 @@ Requires: (python3dist(psutil) >= 5.9 with python3dist(psutil) < 5.10)
 Requires: python3dist(psycopg) >= 3.1.12
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
-Requires: (python3dist(bcrypt) >= 4 with python3dist(bcrypt) < 4.1)
+Requires: python3dist(bcrypt) >= 4
 Requires: (python3dist(cryptography) >= 41 with python3dist(cryptography) < 41.1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
@@ -267,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Feb 19 2024 Sandro Mani <manisandro@gmail.com> - 8.3-2
+- Relax bcrypt requirement
+
 * Wed Feb 14 2024 Sandro Mani <manisandro@gmail.com> - 8.3-1
 - Update to 8.3
 

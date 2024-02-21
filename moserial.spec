@@ -1,7 +1,7 @@
 Summary:       Serial terminal for the gnome desktop
 Name:          moserial
 Version:       3.0.21
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       GPLv3+
 URL:           https://wiki.gnome.org/moserial/
 Source0:       http://ftp.gnome.org/pub/GNOME/sources/moserial/3.0/moserial-%{version}.tar.xz
@@ -23,19 +23,24 @@ Moserial is a clean, friendly gtk-based serial terminal for the gnome
 desktop. It is written in Vala for extra goodness.
 
 %prep
-%setup -q
-find -name *.c -print0 | xargs --null chmod 0644
+%autosetup
+find -name *.c -delete
+find -name moserial.vala.stamp -delete
 chmod 0644 AUTHORS ChangeLog* NEWS COPYING README
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 desktop-file-install --delete-original         \
     --dir %{buildroot}%{_datadir}/applications \
     %{buildroot}%{_datadir}/applications/moserial.desktop
+for dir in %{buildroot}%{_datadir}/help/[a-z]*/moserial/figures ; do
+    rm -rf $dir
+    ln -sv ../../../C/moserial/figures $dir
+done
 %find_lang moserial
 
 %files -f moserial.lang
@@ -49,6 +54,9 @@ desktop-file-install --delete-original         \
 %{_mandir}/man1/moserial.1*
 
 %changelog
+* Mon Feb 19 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.0.21-8
+- Fix FTBFS
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

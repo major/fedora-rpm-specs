@@ -1,6 +1,6 @@
 Name:           libgtop2
-Version:        2.41.2
-Release:        3%{?dist}
+Version:        2.41.3
+Release:        1%{?dist}
 Summary:        LibGTop library (version 2)
 
 License:        GPL-2.0-or-later
@@ -33,7 +33,7 @@ files to allow you to develop with LibGTop.
 
 %install
 %make_install
-find %{buildroot} -name '*.la' -delete
+find %{buildroot} -name '*.la' -print -delete
 
 
 %find_lang libgtop
@@ -52,7 +52,7 @@ find %{buildroot} -name '*.la' -delete
 %files devel
 %{_libdir}/libgtop-2.0.so
 %{_includedir}/libgtop-2.0
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/libgtop-2.0.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GTop-2.0.gir
 %dir %{_datadir}/gtk-doc
@@ -62,6 +62,9 @@ find %{buildroot} -name '*.la' -delete
 %exclude %{_datadir}/info
 
 %changelog
+* Mon Feb 19 2024 David King <amigadave@amigadave.com> - 2.41.3-1
+- Update to 2.41.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.41.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

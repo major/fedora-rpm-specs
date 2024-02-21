@@ -10,7 +10,7 @@ Version: 2.9.71%{?commitdate:^git%{commitdate}.%{shortcommit}}
 Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
-License: GPL-2.0-only or GPL-3.0-only
+License: GPL-2.0-only OR GPL-3.0-only
 Url:     https://amarok.kde.org/
 %if 0%{?commitdate}
 Source0: https://invent.kde.org/multimedia/amarok/-/archive/%{commit}/amarok-%{commit}.tar.bz2

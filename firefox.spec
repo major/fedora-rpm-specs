@@ -134,7 +134,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.95
+%global nss_version 3.97
 %global nss_build_version %{nss_version}
 %endif
 
@@ -178,13 +178,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        122.0.1
+Version:        123.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20240213.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20240219.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -258,11 +258,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-Patch408:        D167159.diff
 
-# Firefox 123 patches for PipeWire camera support
-# https://phabricator.services.mozilla.com/D200147
-Patch420:       libwebrtc-fix-serialization-of-cameraaccessstatus-enum.patch
 # Firefox 124 patches for PipeWire camera support
 # https://phabricator.services.mozilla.com/D200142
 Patch421:       libwebrtc-allow-videocapturemodulepipewire-be-shared-with-more-consumers.patch
@@ -571,9 +567,7 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
-%patch408 -p1 -b .D167159
 
-%patch420 -p1 -b .libwebrtc-fix-serialization-of-cameraaccessstatus-enum
 %patch421 -p1 -b .libwebrtc-allow-videocapturemodulepipewire-be-shared-with-more-consumers
 %patch422 -p1 -b .libwebrtc-simplify-thread-and-lock-annotations
 
@@ -1199,6 +1193,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Feb 19 2024 Martin Stransky <stransky@redhat.com>- 123.0-1
+- Update to 123.0
+
 * Tue Feb 13 2024 Martin Stransky <stransky@redhat.com>- 122.0.1-1
 - Update to 122.0.1
 
