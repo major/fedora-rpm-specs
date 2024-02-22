@@ -1,17 +1,16 @@
+%global commit be1e01ea173defc9837bd1b90dc72ed63c8131e7
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           mod_auth_cas
 Version:        1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Apache CAS Authentication Module for the JASIG/Apereo CAS Server
 
 License:        Apache-2.0
 URL:            https://github.com/apereo/mod_auth_cas
-Source0:        https://github.com/apereo/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:        https://github.com/apereo/mod_auth_cas/archive/%{commit}/%{name}-v%{version}.tar.gz
 Source1:        auth_cas_mod.conf
 Source2:        auth_cas_httpd.conf
-# https://github.com/apereo/mod_auth_cas/pull/210
-Patch0:         0001-Patch-obsolete-autotools-m4-macro.patch
-# https://github.com/apereo/mod_auth_cas/pull/209
-Patch1:         0002-Update-to-pcre2.patch
 
 BuildRequires:  openssl-devel
 BuildRequires:  httpd-devel
@@ -31,7 +30,7 @@ with an authentication server that conforms to the CAS version 1 or 2
 protocol or SAML protocol as used by the JASIG/Apereo CAS Server
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n mod_auth_cas-%{commit}
 
 %build
 autoreconf -vif #BZ926155 - support aarch64
@@ -54,6 +53,11 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/httpd/%{name}
 %dir %attr(-,apache,apache) %{_localstatedir}/cache/httpd/%{name}
 
 %changelog
+* Tue Feb 20 2024 Scott Williams <vwbusguy@fedoraproject.org> - 1.2-8
+- Rebase to upstream be1e01ea173defc9837bd1b90dc72ed63c8131e7
+- Remove patches that were merged upstream
+- BZ2249532 - Fix tilde operator
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

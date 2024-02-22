@@ -94,6 +94,8 @@ Mkosi can boot an image via QEMU or systemd-nspawn, or simply start a shell in
 chroot, burn the image to a device, connect to a running VM via ssh, extract
 logs and coredumps, and also serve an image over HTTP.
 
+See https://mkosi.systemd.io/ for documentation.
+
 %package initrd
 Summary:       Build initrds locally using mkosi
 Requires:      %{name} = %{version}-%{release}

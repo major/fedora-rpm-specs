@@ -16,6 +16,7 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(sphinx-gallery)
 BuildRequires:  python3dist(numpydoc)
+BuildRequires:  python3dist(matplotlib)
 BuildRequires:  graphviz-devel
 BuildRequires:  swig
 

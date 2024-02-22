@@ -2,7 +2,7 @@
 
 Name:           weston
 Version:        %{apiver}.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -68,12 +68,24 @@ BuildRequires:  gstreamer1-plugins-base-devel
 BuildRequires:  pipewire-devel
 BuildRequires:  libseat-devel
 
+Conflicts:      %{name} < 13.0.0-4
+Obsoletes:      %{name} < 13.0.0-4
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       mesa-dri-drivers
 
 %description
 Weston is the reference wayland compositor that can run on KMS, under X11
 or under another compositor.
+
+%package        session
+Summary:        Weston desktop session
+Conflicts:      %{name} < 13.0.0-4
+Obsoletes:      %{name} < 13.0.0-4
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
+
+%description    session
+Weston desktop session.
 
 %package        libs
 Summary:        Weston compositor libraries
@@ -97,7 +109,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Common headers for weston
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson
@@ -136,6 +148,8 @@ Common headers for weston
 %dir %{_datadir}/weston
 %{_datadir}/weston/*.png
 %{_datadir}/weston/wayland.svg
+
+%files session
 %{_datadir}/wayland-sessions/weston.desktop
 
 %files libs
@@ -195,6 +209,9 @@ Common headers for weston
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Tue Feb 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 13.0.0-5
+- Split desktop session into its own subpackage
+
 * Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 13.0.0-4
 - Use correct PipeWire dependency
 

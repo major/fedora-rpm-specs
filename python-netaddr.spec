@@ -1,12 +1,12 @@
 %bcond docs %{undefined rhel}
 
 Name:           python-netaddr
-Version:        1.1.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
-URL:            https://github.com/drkjam/netaddr
+URL:            https://github.com/netaddr/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -53,12 +53,11 @@ Summary: A pure Python network address representation and manipulation library
 %{desc}
 
 %package -n python3-netaddr-shell
-Summary: An IPython-based shell environment for the netaddr library
+Summary: An interactive shell environment for the netaddr library
 Requires:  python3-netaddr = %{version}-%{release}
-Requires:  python3-ipython
 
 %description -n python3-netaddr-shell
-An IPython-based shell environment for the netaddr library
+An interactive shell environment for the netaddr library
 
 %prep
 %autosetup -n netaddr-%{version} -p1
@@ -102,6 +101,12 @@ popd
 %{_bindir}/netaddr
 
 %changelog
+* Tue Feb 20 2024 John Eckersberg <jeckersb@redhat.com> - 1.2.1-1
+- New upstream release 1.2.1 (rhbz#2264686)
+- Remove hard dependency on ipython in the shell subpackage
+  (see https://github.com/netaddr/netaddr/commit/b75ea33b08c26cd8251a0d0cc1a8ee00d6a7e538)
+- Fix outdated upstream URL
+
 * Thu Feb 15 2024 John Eckersberg <jeckersb@redhat.com> - 1.1.0-1
 - New upstream release 1.1.0 (rhbz#2264314)
 

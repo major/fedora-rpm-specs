@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        307
+Version:        308
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -77,11 +77,12 @@ Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(array-buffer-byte-length)) = 1.0.1
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.6
-Provides: bundled(npm(call-bind)) = 1.0.6
+Provides: bundled(npm(call-bind)) = 1.0.7
 Provides: bundled(npm(date-fns)) = 3.3.1
 Provides: bundled(npm(deep-equal)) = 2.2.3
-Provides: bundled(npm(define-data-property)) = 1.1.2
+Provides: bundled(npm(define-data-property)) = 1.1.4
 Provides: bundled(npm(define-properties)) = 1.2.1
+Provides: bundled(npm(es-define-property)) = 1.0.0
 Provides: bundled(npm(es-errors)) = 1.3.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-saver)) = 1.3.8
@@ -93,11 +94,11 @@ Provides: bundled(npm(functions-have-names)) = 1.2.3
 Provides: bundled(npm(get-intrinsic)) = 1.2.4
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
-Provides: bundled(npm(has-property-descriptors)) = 1.0.1
+Provides: bundled(npm(has-property-descriptors)) = 1.0.2
 Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
 Provides: bundled(npm(has-tostringtag)) = 1.0.2
-Provides: bundled(npm(hasown)) = 2.0.0
+Provides: bundled(npm(hasown)) = 2.0.1
 Provides: bundled(npm(internal-slot)) = 1.0.7
 Provides: bundled(npm(is-arguments)) = 1.1.1
 Provides: bundled(npm(is-array-buffer)) = 3.0.4
@@ -130,7 +131,7 @@ Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(redux-thunk)) = 3.1.0
 Provides: bundled(npm(redux)) = 5.0.1
-Provides: bundled(npm(regexp.prototype.flags)) = 1.5.1
+Provides: bundled(npm(regexp.prototype.flags)) = 1.5.2
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(set-function-length)) = 1.2.1
 Provides: bundled(npm(set-function-name)) = 2.0.1
@@ -170,6 +171,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Feb 20 2024 Packit <hello@packit.dev> - 308-1
+- Add TPM when switching to EFI
+- Translation updates (RHEL-14230)
+
 * Wed Feb 14 2024 Packit <hello@packit.dev> - 307-1
 - Mass SPICE replacement
 - Pre-formatted Block Device storage pool support

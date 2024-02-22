@@ -3,7 +3,7 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache 2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.4.13
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
@@ -25,6 +25,7 @@ BuildRequires:  rust-packaging
 BuildRequires:  clang-devel
 BuildRequires:  cryptsetup-devel
 BuildRequires:  device-mapper-devel
+BuildRequires:  libpq-devel
 BuildRequires:  golang
 BuildRequires:  openssl-devel >= 3.0.1-12
 BuildRequires:  systemd-rpm-macros
@@ -37,8 +38,8 @@ BuildRequires:  tpm2-tss-devel
 %setup -q -n %{name}-rs-%{version}
 
 %if 0%{?rhel}
-%if 0%{?rhel} >= 10
 tar xf %{SOURCE1}
+%if 0%{?rhel} >= 10
 %cargo_prep -v vendor
 %else
 %cargo_prep -V 1
@@ -71,6 +72,13 @@ install -D -m 0755 -t %{buildroot}%{_bindir} target/release/fdo-owner-tool
 install -D -m 0755 -t %{buildroot}%{_bindir} target/release/fdo-admin-tool
 install -D -m 0644 -t %{buildroot}%{_unitdir} examples/systemd/*
 install -D -m 0644 -t %{buildroot}%{_docdir}/fdo examples/config/*
+# db sql files
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_manufacturing_server_postgres  migrations/migrations_manufacturing_server_postgres/2023-10-03-152801_create_db/*
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_manufacturing_server_sqlite  migrations/migrations_manufacturing_server_sqlite/2023-10-03-152801_create_db/*
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_owner_onboarding_server_postgres  migrations/migrations_owner_onboarding_server_postgres/2023-10-03-152801_create_db/*
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_owner_onboarding_server_sqlite  migrations/migrations_owner_onboarding_server_sqlite/2023-10-03-152801_create_db/*
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_rendezvous_server_postgres  migrations/migrations_rendezvous_server_postgres/2023-10-03-152801_create_db/*
+install -D -m 0644 -t %{buildroot}%{_docdir}/fdo/migrations/migrations_rendezvous_server_sqlite  migrations/migrations_rendezvous_server_sqlite/2023-10-03-152801_create_db/*
 # duplicates as needed by AIO command so link them
 ln -s %{_bindir}/fdo-owner-tool  %{buildroot}%{_libexecdir}/fdo/fdo-owner-tool
 ln -s %{_bindir}/fdo-admin-tool %{buildroot}%{_libexecdir}/fdo/fdo-admin-tool
@@ -139,6 +147,8 @@ Requires: openssl-libs >= 3.0.1-12
 %{_docdir}/fdo/device_specific_serviceinfo.yml
 %{_docdir}/fdo/serviceinfo-api-server.yml
 %{_docdir}/fdo/owner-onboarding-server.yml
+%{_docdir}/fdo/migrations/migrations_owner_onboarding_server_postgres/*
+%{_docdir}/fdo/migrations/migrations_owner_onboarding_server_sqlite/*
 %{_unitdir}/fdo-serviceinfo-api-server.service
 %{_unitdir}/fdo-owner-onboarding-server.service
 
@@ -175,6 +185,8 @@ License: %combined_license
 %dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/rendezvous-*.yml
+%{_docdir}/fdo/migrations/migrations_rendezvous_server_postgres/*
+%{_docdir}/fdo/migrations/migrations_rendezvous_server_sqlite/*
 %{_unitdir}/fdo-rendezvous-server.service
 
 %post -n fdo-rendezvous-server
@@ -210,6 +222,8 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_localstatedir}/lib/fdo
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/manufacturing-server.yml
+%{_docdir}/fdo/migrations/migrations_manufacturing_server_postgres/*
+%{_docdir}/fdo/migrations/migrations_manufacturing_server_sqlite/*
 %{_unitdir}/fdo-manufacturing-server.service
 
 %post -n fdo-manufacturing-server
@@ -296,6 +310,9 @@ Requires: fdo-init = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Tue Feb 20 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Mon Feb 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.13-1
 - Update to 0.4.13
 

@@ -3,8 +3,8 @@
 %global libqat_soversion  4
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          23.11.0
-Release:          4%{?dist}
+Version:          24.02.0
+Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -119,6 +119,7 @@ exit 0
 %attr(0754,-,qat) %{_bindir}/prime_sample
 %attr(0754,-,qat) %{_bindir}/hkdf_sample
 %attr(0754,-,qat) %{_bindir}/ec_montedwds_sample
+%attr(0754,-,qat) %{_bindir}/zuc_sample
 %{_datadir}/qat/calgary
 %{_datadir}/qat/calgary32
 %{_datadir}/qat/canterbury
@@ -131,6 +132,10 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Tue Feb 20 2024 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 24.02.0-1
+- Update to qatlib 24.02.0
+- Add zuc_sample to qatlib-tests package
+
 * Thu Feb 08 2024 Vladis Dronov <vdronov@redhat.com> - 23.11.0-4
 - Use proper SPDX license identifiers
 

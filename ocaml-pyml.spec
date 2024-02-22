@@ -3,11 +3,11 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pyml
 Version:        20231101
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
-License:        BSD-2-Clause and LGPL-2.1-or-later
+License:        BSD-2-Clause AND LGPL-2.1-or-later
 URL:            https://github.com/thierry-martinez/pyml
 Source0:        %{url}/archive/%{version}/pyml-%{version}.tar.gz
 # Fix various incompatibilities with python 3.13.  See:
@@ -82,6 +82,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 20231101-6
+- Fix the SPDX expression
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231101-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

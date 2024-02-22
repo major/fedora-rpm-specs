@@ -7,7 +7,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
 Version: 39.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -17,6 +17,8 @@ Source1: COPYING
 # Temporarily as a patch until f40 backgrounds exist to bump to 40
 Patch0:  0001-Add-initial-setup-configuration-with-kwin_wayland.patch
 Patch1:  0001-Revert-kwinrc-Disable-the-Blur-plugin-in-kwin-by-def.patch
+Patch2:  0001-kwinrc-Enable-maliit-keyboard-by-default.patch
+Patch3:  0001-Rebase-default-mimeapps-associations-over-upstream-s.patch
 
 BuildArch: noarch
 
@@ -46,6 +48,8 @@ Requires: pam
 Requires: xdg-user-dirs
 ## add breeze deps here? probably, need more too -- rex
 Requires: breeze-icon-theme
+# Baseline mimeapps associations, e.g. LibreOffice
+Requires: shared-mime-info
 
 %description
 %{summary}.
@@ -206,7 +210,6 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 # drop noreplace, so we can be sure to get the new kiosk bits
 %config %{_sysconfdir}/kderc
 %config %{_sysconfdir}/kde4rc
-%{_datadir}/applications/kde-mimeapps.list
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %exclude %{_datadir}/kde-settings/kde-profile/default/share/apps/plasma-desktop/init/00-defaultLayout.js
 %endif
@@ -246,6 +249,10 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Tue Feb 20 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-7
+- Enable maliit-keyboard by default
+- Provide default mimeapps associations overrides over plasma-desktop
+
 * Fri Feb 02 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-6
 - Re-enable kwin blur plugin
 

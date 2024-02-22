@@ -6,7 +6,7 @@
 
 Name: tpm2-abrmd-selinux
 Version: 2.3.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: SELinux policies for tpm2-abrmd
 
 License: BSD-2-Clause
@@ -26,7 +26,7 @@ BuildRequires: selinux-policy-%{selinuxtype}
 Requires(post): selinux-policy-base >= %{selinux_policyver}
 Requires(post): libselinux-utils
 Requires(post): policycoreutils
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires(post): policycoreutils-python-utils
 %else
 Requires(post): policycoreutils-python
@@ -75,6 +75,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Feb 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.1-11
+- Fix policycoreutils-python-utils dependency for RHEL 8+
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

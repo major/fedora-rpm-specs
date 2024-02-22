@@ -2,15 +2,14 @@
 %global mfx_ver_minor 10
 
 Name:           oneVPL-intel-gpu
-Version:        23.4.3
-Release:        3%{?dist}
+Version:        24.1.3
+Release:        1%{?dist}
 Summary:        Intel oneVPL GPU Runtime
-
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
-Source0:        https://github.com/oneapi-src/%{name}/archive/refs/tags/intel-onevpl-%{version}.tar.gz
-
 ExclusiveArch:  x86_64
+
+Source0:        https://github.com/oneapi-src/%{name}/archive/intel-onevpl-%{version}/intel-onevpl-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -19,8 +18,8 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4
 # Should be >= 1.9 but fails with libva < 2.12 (VAProcFilterCap3DLUT):
 # https://github.com/oneapi-src/oneVPL-intel-gpu/issues/198
 BuildRequires:  pkgconfig(libva) >= 1.12
-# Every other component has the 2022.x.x format:
-Requires:       oneVPL%{?_isa}
+
+Requires:       libvpl%{?_isa} >= 1:2.10.1
 
 %description
 Intel oneVPL GPU Runtime is a Runtime implementation of oneVPL API for Intel Gen
@@ -58,6 +57,10 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Tue Feb 20 2024 Simone Caronni <negativo17@gmail.com> - 24.1.3-1
+- Update to 24.1.3.
+- Adjust requirements after libvpl renaming.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

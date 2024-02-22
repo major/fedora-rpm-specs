@@ -1418,7 +1418,7 @@ see XSLoader module.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Encode
 Summary:        Character encodings in Perl
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0 AND UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
 Epoch:          4
 Version:        3.19
 %if %{defined perl_bootstrap}
@@ -1464,7 +1464,7 @@ The easiest and the best alternative is to write your script in UTF-8.
 
 %package Encode-devel
 Summary:        Character encodings in Perl
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
 Version:        3.19
 Requires:       %{name}-Encode = %{epoch}:%{version}-%{release}

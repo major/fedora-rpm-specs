@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global pypi_name oslo.service
 %global pkg_name oslo-service
@@ -10,8 +10,8 @@ oslo.service provides a framework for defining new long-running services \
 using the patterns established by other OpenStack applications.
 
 Name:           python-%{pkg_name}
-Version:        3.1.1
-Release:        10%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Oslo service library
 
 License:        ASL 2.0
@@ -149,6 +149,9 @@ rm -rf .testrepository
 %endif
 
 %changelog
+* Tue Feb 20 2024 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 3.3.0-1
+- Update 3.3.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

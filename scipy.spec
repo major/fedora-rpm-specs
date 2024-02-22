@@ -30,7 +30,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.11.3
-Release:    6%{?dist}
+Release:    7%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -70,13 +70,6 @@ BuildRequires: gcc-gfortran, gcc-c++
 
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel, python3-numpy-f2py
-
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-timeout
-%if ! 0%{?rhel}
-BuildRequires:  python3-pytest-xdist
-%endif
-BuildRequires:  python3-pooch
 
 %if %{with doc}
 BuildRequires:  python3-sphinx
@@ -162,8 +155,8 @@ for f in $(grep -Frl numpy.distutils); do
   rm $f.orig
 done
 
-# Do not do benchmarking or coverage testing for RPM builds
-sed -i '/^[[:blank:]]*"(asv|pytest-cov)"/d' pyproject.toml
+# Do not do benchmarking, coverage, or timeout testing for RPM builds
+sed -Ei '/^[[:blank:]]*"(asv|pytest-cov|pytest-timeout)"/d' pyproject.toml
 
 # No scikit-umfpack in Fedora
 sed -i '/^[[:blank:]]*"scikit-umfpack"/d' pyproject.toml
@@ -189,8 +182,26 @@ sed -i '/pybind11/s/2\.11\.1/2.12.0/' pyproject.toml
 # not a real function.  It is a weak alias to __open_memstream.
 sed -i "s/\('has_openmemstream', \)'0'/\1'1'/" scipy/_lib/meson.build
 
+# meson-python does not implement the prepare_metadata_for_build_wheel hook :(.
+# Instead of using -w and compiling the wheel, an expensive process, twice
+# (once to extract metadata, one for the final package), we can write the
+# static deps from pyproject.toml to a file, and use that with %%pyproject_buildrequires.
+#
+# See https://github.com/mesonbuild/meson-python/issues/236 for more discussion.
+
+# This could use tomcli, but we want to avoid pulling extra dependencies into ELN/RHEL.
+python3 -c '
+import tomllib
+from pathlib import Path
+
+with open("pyproject.toml", "rb") as fp:
+    data = tomllib.load(fp)
+Path("_install-requirements.txt").write_text("\n".join(data["project"]["dependencies"]))
+Path("_test-requirements.txt").write_text("\n".join(data["project"]["optional-dependencies"]["test"]))
+'
+
 %generate_buildrequires
-%pyproject_buildrequires -R
+%pyproject_buildrequires -R _install-requirements.txt _test-requirements.txt
 
 %build
 %pyproject_wheel
@@ -220,29 +231,20 @@ chmod 0755 %{buildroot}%{python3_sitearch}/scipy/sparse/linalg/_isolve/tests/tes
 # check against the reference BLAS/LAPACK
 export FLEXIBLAS=netlib
 
-# default test timeout
-TIMEOUT=500
-
 # TestDatasets try to download from the internet
 SKIP_ALL="not TestDatasets"
 export PYTEST_ADDOPTS="-k '$SKIP_ALL'"
-
-%ifarch ppc64le
-TIMEOUT=1000
-%endif
 
 %ifarch aarch64
 # TestConstructUtils::test_concatenate_int32_overflow is flaky on aarch64
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
 not test_concatenate_int32_overflow'"
-TIMEOUT=1000
 %endif
 
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=1959353
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
 not test_distance_transform_cdt05'"
-TIMEOUT=1000
 %endif
 
 %ifarch x86_64
@@ -260,8 +262,20 @@ not test_shifts and \
 not test_svdp'"
 %endif
 
+%ifarch riscv64
+export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
+not TestSchur and \
+not test_gejsv_general and \
+not test_kendall_p_exact_large and \
+not test_gejsv_edge_arguments and \
+not test_gh12999 and \
+not test_propack and \
+not test_milp and \
+not test_gejsv_NAG'"
+%endif
+
 pushd %{buildroot}/%{python3_sitearch}
-%{pytest} --timeout=${TIMEOUT} scipy %{?!rhel:--numprocesses=auto}
+%{pytest} scipy %{?!rhel:--numprocesses=auto}
 # Remove test remnants
 rm -rf gram{A,B}
 rm -rf .pytest_cache
@@ -287,6 +301,9 @@ popd
 %endif
 
 %changelog
+* Fri Feb 02 2024 Maxwell G <maxwell@gtmx.me> - 1.11.3-7
+- Use dynamic BuildRequires for python runtime dependencies
+
 * Tue Jan 30 2024 Miro Hrončok <mhroncok@redhat.com> - 1.11.3-6
 - Skip fewer tests during build
 

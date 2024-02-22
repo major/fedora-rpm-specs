@@ -107,7 +107,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   2
-Version: 115.7.0
+Version: 115.8.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -316,8 +316,7 @@ Extensions included to this version of IceCat:
    GNU LibreJS aims to address the JavaScript problem described in the article
    "The JavaScript Trap" of Richard Stallman.
    
- * JShelter
-   Mitigates potential threats from JavaScript, including fingerprinting,
+ * JShelter: Mitigates potential threats from JavaScript, including fingerprinting,
    tracking, and data collection. Slightly modifies the results of API calls,
    differently on different domains, so that the cross-site fingerprint is not
    stable. Applies security counter-measures that are likely not to break web pages.

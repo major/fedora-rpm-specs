@@ -65,8 +65,8 @@ ExcludeArch: i686
 %endif
 
 %global system_ffi        1
-%global system_av1        1
-%global system_libvpx     0
+%global system_av1        0
+%global system_libvpx     1
 %global system_jpeg       1
 %global system_pixman     1
 %global system_webp       1
@@ -580,8 +580,8 @@ This package contains results of tests executed during build.
 %endif
 %patch603 -p1 -b .inline
 
-%patch800 -p1 -b .system-av1
-%patch801 -p1 -b .system-av1-fixup
+#%patch800 -p1 -b .system-av1
+#%patch801 -p1 -b .system-av1-fixup
 
 %patch1200 -p1 -b .rustflags-commasplit
 
@@ -663,9 +663,9 @@ echo "ac_add_options --enable-system-pixman" >> .mozconfig
 %endif
 
 %if %{?system_av1}
-echo "ac_add_options --with-system-av1" >> .mozconfig
+#echo "ac_add_options --with-system-av1" >> .mozconfig
 %else
-echo "ac_add_options --without-system-av1" >> .mozconfig
+#echo "ac_add_options --without-system-av1" >> .mozconfig
 %endif
 
 %if %{?system_libvpx}
@@ -1195,6 +1195,7 @@ fi
 %changelog
 * Mon Feb 19 2024 Martin Stransky <stransky@redhat.com>- 123.0-1
 - Update to 123.0
+- disabled system AV1 due to build issues.
 
 * Tue Feb 13 2024 Martin Stransky <stransky@redhat.com>- 122.0.1-1
 - Update to 122.0.1

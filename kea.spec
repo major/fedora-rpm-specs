@@ -2,6 +2,9 @@
 %global sysrepo 0
 
 #%%global prever P1
+%global keama_version 4.5.0
+# Bundled version of Bind libraries linked into Keama
+%global bind_version 9.11.36
 
 Name:           kea
 Version:        2.4.1
@@ -12,13 +15,14 @@ License:        MPL-2.0 AND BSL-1.0
 URL:            http://kea.isc.org
 Source0:        https://downloads.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz
 Source1:        https://downloads.isc.org/isc/kea/%{version}%{?prever:-%{prever}}/kea-%{version}%{?prever:-%{prever}}.tar.gz.asc
-# Obtained from https://www.isc.org/pgpkey/
-Source2:        isc-keyblock.asc
-Source3:        kea-dhcp4.service
-Source4:        kea-dhcp6.service
-Source5:        kea-dhcp-ddns.service
-Source6:        kea-ctrl-agent.service
-Source7:        kea-tmpfiles.d.conf
+Source2:        https://downloads.isc.org/isc/keama/%{keama_version}/keama-%{keama_version}.tar.gz
+Source3:        https://downloads.isc.org/isc/keama/%{keama_version}/keama-%{keama_version}.tar.gz.asc
+Source10:       https://www.isc.org/docs/isc-keyblock.asc
+Source11:       kea-dhcp4.service
+Source12:       kea-dhcp6.service
+Source13:       kea-dhcp-ddns.service
+Source14:       kea-ctrl-agent.service
+Source15:       kea-tmpfiles.d.conf
 
 Patch1:         kea-openssl-version.patch
 
@@ -69,7 +73,6 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-
 %description
 DHCP implementation from Internet Systems Consortium, Inc. that features fully
 functional DHCPv4, DHCPv6 and Dynamic DNS servers.
@@ -116,10 +119,22 @@ Summary: Shared libraries used by Kea DHCP server
 This package contains shared libraries used by Kea DHCP server.
 
 
+%package keama
+Summary: Experimental migration assistant for Kea
+Provides: bundled(bind-libs) = %{bind_version}
+
+%description keama
+The KEA Migration Assistant is an experimental tool which helps to translate
+ISC DHCP configurations to Kea.
+
+
 %prep
 %if 0%{?fedora} || 0%{?rhel} > 8
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
+%{gpgverify} --keyring='%{S:10}' --signature='%{S:1}' --data='%{S:0}'
+%{gpgverify} --keyring='%{S:10}' --signature='%{S:3}' --data='%{S:2}'
 %endif
+
+%autosetup -T -b2 -N -n keama-%{keama_version}
 %autosetup -p1 -n kea-%{version}%{?prever:-%{prever}}
 rm -rf doc/sphinx/_build
 
@@ -137,7 +152,6 @@ autoreconf --verbose --force --install
     --disable-rpath \
     --disable-silent-rules \
     --disable-static \
-    --enable-debug \
     --enable-generate-parser \
     --enable-shell \
     --enable-generate-docs \
@@ -154,23 +168,42 @@ autoreconf --verbose --force --install
 
 %make_build
 
+# Configure & build Keama
+pushd ../keama-%{keama_version}
+%configure \
+    --disable-dependency-tracking \
+    --disable-silent-rules
+
+%make_build
+popd
+
 
 %install
 %make_install docdir=%{_pkgdocdir}
+
+# Install Keama
+pushd ../keama-%{keama_version}
+%make_install
+popd
+
+# Remove Keama's static library, dhcp headers and man pages
+rm -f %{buildroot}/%{_libdir}/libdhcp.a
+rm -rf %{buildroot}/%{_includedir}/omapip/
+rm -rf %{buildroot}%{_mandir}/man5/
 
 # Get rid of .la files
 find %{buildroot} -type f -name "*.la" -delete -print
 
 %if !%{sysrepo}
-# remove netconf files
+# Remove netconf files
 rm %{buildroot}%{_mandir}/man8/kea-netconf.8
 %endif
 
 # Install systemd units
-install -Dpm 0644 %{S:3} %{buildroot}%{_unitdir}/kea-dhcp4.service
-install -Dpm 0644 %{S:4} %{buildroot}%{_unitdir}/kea-dhcp6.service
-install -Dpm 0644 %{S:5} %{buildroot}%{_unitdir}/kea-dhcp-ddns.service
-install -Dpm 0644 %{S:6} %{buildroot}%{_unitdir}/kea-ctrl-agent.service
+install -Dpm 0644 %{S:11} %{buildroot}%{_unitdir}/kea-dhcp4.service
+install -Dpm 0644 %{S:12} %{buildroot}%{_unitdir}/kea-dhcp6.service
+install -Dpm 0644 %{S:13} %{buildroot}%{_unitdir}/kea-dhcp-ddns.service
+install -Dpm 0644 %{S:14} %{buildroot}%{_unitdir}/kea-ctrl-agent.service
 
 # Start empty lease databases
 mkdir -p %{buildroot}%{_sharedstatedir}/kea/
@@ -183,7 +216,7 @@ rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
 mkdir -p %{buildroot}/run
 install -dm 0755 %{buildroot}/run/kea/
 
-install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
+install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 
 
 %post
@@ -237,12 +270,12 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/AUTHORS
 %doc %{_pkgdocdir}/ChangeLog
-%doc %{_pkgdocdir}/README
-%doc %{_pkgdocdir}/examples
-%doc %{_pkgdocdir}/CONTRIBUTING.md
-%doc %{_pkgdocdir}/platforms.rst
 %doc %{_pkgdocdir}/code_of_conduct.md
+%doc %{_pkgdocdir}/CONTRIBUTING.md
+%doc %{_pkgdocdir}/examples
 %doc %{_pkgdocdir}/html
+%doc %{_pkgdocdir}/platforms.rst
+%doc %{_pkgdocdir}/README
 
 %files devel
 %{_includedir}/kea
@@ -278,6 +311,11 @@ install -Dpm 0644 %{S:7} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_libdir}/libkea-tcp.so.5*
 %{_libdir}/libkea-util-io.so.0*
 %{_libdir}/libkea-util.so.68*
+
+%files keama
+%license COPYING
+%{_bindir}/keama
+%{_mandir}/man8/keama.8*
 
 
 %changelog

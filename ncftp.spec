@@ -1,20 +1,16 @@
+%global build_type_safety_c 0
+
 Summary: Improved console FTP client
 Name: ncftp
-Version: 3.2.5
-Release: 31%{?dist}
+Version: 3.2.7
+Release: 1%{?dist}
 Epoch: 2
-License: BSD-3-Clause
+License: ClArtistic AND NTP
 URL: http://www.ncftp.com/ncftp/
-Source: ftp://ftp.ncftp.com/ncftp/ncftp-%{version}-src.tar.bz2
-Patch0: ftp://ftp.openbsd.com/ports/distfiles/ncftp-325-v6.diff.gz
-Patch1: ncftp-3.0.3-resume.patch
-Patch2: ncftp-3.1.5-pmeter.patch
-Patch3: ncftp-3.2.3-ncursesw.patch
-Patch4: ncftp-3.2.5-gcc10.patch
-Patch5: ncftp-configure-c99.patch
+Source: https://www.ncftp.com/public_ftp/ncftp/ncftp-%{version}-src.tar.xz
+BuildRequires: gcc
 BuildRequires: make
 BuildRequires: ncurses-devel
-BuildRequires: autoconf, automake, libtool
 
 %description
 Ncftp is an improved FTP client. Ncftp's improvements include support
@@ -24,30 +20,23 @@ anonymous logins, and more.
 
 %prep
 %setup -q
-%patch0 -p1 -b .ipv6
-%patch1 -p1 -b .res
-%patch2 -p1 -b .pmeter
-%patch3 -p1 -b .ncursesw
-%patch4 -p1 -b .gcc10
-%patch5 -p1 -b .configure-c99
 
 
 %build
-autoreconf --install --force -I autoconf_local
 %configure --enable-signals --enable-ipv6
 make STRIPFLAG=""
 
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}{%{_bindir},%{_mandir}/man1}
 make install DESTDIR=%{buildroot}
 
 
 
 %files
+%license doc/LICENSE.txt
 %doc README* doc/html/
-%doc doc/CHANGELOG.txt doc/FIREWALLS_AND_PROXIES.txt doc/LICENSE.txt
+%doc doc/CHANGELOG.txt doc/FIREWALLS_AND_PROXIES.txt
 %doc doc/READLINE.txt doc/what_changed_between_v2_v3.txt
 %{_bindir}/ncftp
 %{_bindir}/ncftpget
@@ -65,6 +54,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Mon Feb 19 2024 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.7-1
+- 3.2.7
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.2.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

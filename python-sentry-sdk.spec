@@ -28,14 +28,17 @@
 # It is used by sentry_sdk/db/explain_plan/sqlalchemy.py and is optional, drop it.
 %bcond sqlalchemy_during_tests 0
 
-Name:           python-sentry-sdk
+%global forgeurl https://github.com/getsentry/sentry-python
 Version:        1.39.1
-Release:        3%{?dist}
-Summary:        The new Python SDK for Sentry.io
+%global tag %{version}
+%forgemeta
 
+Name:           python-sentry-sdk
+Release:        %autorelease
+Summary:        The new Python SDK for Sentry.io
 License:        MIT
 URL:            https://sentry.io/for/python/
-Source0:        https://github.com/getsentry/sentry-python/archive/%{version}/sentry-python-%{version}.tar.gz
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -122,7 +125,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n sentry-python-%{version}
+%forgeautosetup
 
 # Verify all extras defined against setup.py
 defined_extra=$(echo "%extras_excluded" "%extras" | xargs -n1 | sort -u)
@@ -289,117 +292,4 @@ ignore="${ignore-} --ignore=tests/integrations/sqlalchemy"
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Dec 20 2023 Roman Inflianskas <rominf@aiven.io> - 1.39.1-1
-- Update to 1.39.1 (fedora#2238739)
-- Use bcond for conditionally excluded integrations, sqlalchemy during
-  tests, and for network-related tests
-- Verify all extras against setup.py
-- Improve testing by removing ignores for tests that pass and adding
-  comments with reasons for ignores
-- Remove patch for Python 3.12 which is unnecessary now
-- Add new integrations (extras)
-
-* Thu Oct 12 2023 Miro Hrončok <mhroncok@redhat.com> - 1.29.2-2
-- Explicitly BuildRequire python3dist(pysocks), as the tests fail without it
-
-* Mon Sep 04 2023 Roman Inflianskas <rominf@aiven.io> - 1.29.2-1
-- Update to 1.29.2 (fedora#2222617)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Roman Inflianskas <rominf@aiven.io> - 1.28.0-1
-- Update to 1.28.0 (fedora#2220929)
-- Tests: add support for Python 3.12 (fedora#2220496)
-
-* Thu Jul 13 2023 Python Maint <python-maint@redhat.com> - 1.27.0-2
-- Rebuilt for Python 3.12
-
-* Wed Jul 05 2023 Roman Inflianskas <rominf@aiven.io> - 1.27.0-1
-- Update to 1.27.0 (resolve rhbz#2219588)
-
-* Mon Jun 26 2023 Roman Inflianskas <rominf@aiven.io> - 1.26.0-1
-- Update to 1.26.0 (resolve rhbz#2216744)
-
-* Wed Jun 21 2023 Roman Inflianskas <rominf@aiven.io> - 1.25.1-1
-- Update to 1.25.1 (resolve rhbz#2211880)
-- Improve testing
-
-* Thu May 25 2023 Roman Inflianskas <rominf@aiven.io> - 1.24.0-1
-- Update to 1.24.0 (resolve rhbz#2196238)
-
-* Mon May 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.22.1-2
-- Add grpcio extra metapackage and test dependency
-- Add an explicit protobuf dependency for testing
-- Re-generate integration grpc test proto bindings; fixes FTBFS with
-  python-opentelemetry 1.18.0/0.39~b0
-
-* Mon May 08 2023 Roman Inflianskas <rominf@aiven.io> - 1.22.1-1
-- Update to 1.22.1 (resolve rhbz#2193365)
-
-* Tue May 02 2023 Roman Inflianskas <rominf@aiven.io> - 1.21.1-1
-- Update to 1.21.1 (resolve rhbz#2182365)
-
-* Mon Mar 27 2023 Roman Inflianskas <rominf@aiven.io> - 1.17.0-1
-- Update to 1.17.0 (resolve rhbz#2179098)
-
-* Tue Feb 28 2023 Roman Inflianskas <rominf@aiven.io> - 1.16.0-1
-- Update to 1.16.0 (resolve rhbz#2167733)
-- Switch to MIT license
-
-* Mon Jan 23 2023 Roman Inflianskas <rominf@aiven.io> - 1.14.0-1
-- Update to 1.14.0 (resolve rhbz#2163387)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 13 2023 Roman Inflianskas <rominf@aiven.io> - 1.13.0-1
-- Update to 1.13.0 (resolve rhbz#2160514)
-- Cleanup check section
-
-* Thu Jan 12 2023 Roman Inflianskas <rominf@aiven.io> - 1.12.1-1
-- Update to 1.12.1 (resolve rhbz#2153838)
-- Add fastapi, pymongo, and opentelemetry extras
-- Remove falcon extra
-- Check imports
-
-* Wed Nov 23 2022 Roman Inflianskas <rominf@aiven.io> - 1.11.1-1
-- Update to 1.11.1 (resolve rhbz#2144826)
-
-* Mon Nov 21 2022 Roman Inflianskas <rominf@aiven.io> - 1.11.0-1
-- Update to 1.11.0 (resolve rhbz#2142588)
-
-* Wed Oct 26 2022 Roman Inflianskas <rominf@aiven.io> - 1.10.1-1
-- Update to 1.10.1 (resolve rhbz#2136521)
-
-* Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.10-1
-- Update to 1.9.10 (resolve rhbz#2131775)
-
-* Wed Sep 28 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.9-1
-- Update to 1.9.9 (resolve rhbz#2115953)
-- Add falcon extra again
-
-* Fri Jul 29 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.0-1
-- Update to 1.9.0 (resolve rhbz#2111875)
-
-* Tue Jul 26 2022 Roman Inflianskas <rominf@aiven.io> - 1.8.0-2
-- Remove extras, which fail to install (resolve rhbz#2110754)
-
-* Sat Jul 23 2022 Roman Inflianskas <rominf@aiven.io> - 1.8.0-1
-- Update to 1.8.0 (resolve rhbz#2105940)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 01 2022 Roman Inflianskas <rominf@aiven.io> - 1.6.0-1
-- Update to 1.6.0
-- Remove falcon extra (resolve rhbz#2102851)
-
-* Fri Jun 10 2022 Roman Inflianskas <rominf@aiven.io> - 1.5.12-1
-- Initial package
+%autochangelog

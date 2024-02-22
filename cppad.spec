@@ -266,7 +266,7 @@ make %{?_smp_mflags} check
 # ----------------------------------------------------------------------------
 %changelog
 * Sat Feb 17 2024 Brad Bell <bradbell at seanet dot com> - 20240000.3-1
-- This fixes a long standing bug; see the heading 02-04 on
+- This fixes a long standing bug; see the heading 02-14 on
 - https://cppad.readthedocs.io/latest/whats_new_24.html
 
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20240000.2-3

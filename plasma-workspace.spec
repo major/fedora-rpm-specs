@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.93.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -29,8 +29,11 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream patches
-# https://invent.kde.org/plasma/plasma-workspace/-/commit/5377fe60c566593825acee09a38c29dc3053c660
-Patch100:       5377fe60c566593825acee09a38c29dc3053c660.patch
+# fix directory traversal vulnerability in plasma calendar integration (drop in 6.0)
+Patch100:       https://invent.kde.org/plasma/plasma-workspace/-/commit/5377fe60c566593825acee09a38c29dc3053c660.patch
+
+# backport rudimentary auto-launch apps on reboot from 6.1 (drop with 6.1)
+Patch101:       https://invent.kde.org/plasma/plasma-workspace/-/commit/660988b0e30ee8ccac98c0cf164b142d70709675.patch
 
 ## upstreamable Patches
 
@@ -564,6 +567,7 @@ fi
 %{_libexecdir}/kfontprint
 %{_libexecdir}/plasma-changeicons
 %{_libexecdir}/plasma-dbus-run-session-if-needed
+%{_libexecdir}/plasma-fallback-session-*
 %{_kf6_datadir}/plasma/avatars/
 %{_kf6_datadir}/plasma/plasmoids/
 %{_kf6_datadir}/plasma/wallpapers/
@@ -601,6 +605,7 @@ fi
 %{_kf6_datadir}/applications/org.kde.kcolorschemeeditor.desktop
 %{_kf6_datadir}/applications/org.kde.kfontview.desktop
 %{_kf6_datadir}/applications/org.kde.plasmawindowed.desktop
+%{_kf6_datadir}/applications/org.kde.plasma-fallback-session-save.desktop
 %{_kf6_datadir}/kio/servicemenus/installfont.desktop
 %{_kf6_datadir}/qlogging-categories6/*.categories
 %{_sysconfdir}/xdg/plasmanotifyrc
@@ -727,6 +732,9 @@ fi
 
 
 %changelog
+* Tue Feb 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.93.0-6
+- Backport rudimentary auto-launch apps on reboot from 6.1
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-5
 - Rebuild (qt6)
 

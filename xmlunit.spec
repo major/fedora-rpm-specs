@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        Apache-2.0
@@ -81,17 +81,17 @@ This package provides %{summary}.
 %prep
 %setup -q -n %{name}-%{version}-src
 
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1
+%patch 2 -p1
 
-%patch3 -p1
+%patch 3 -p1
 rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
  xmlunit-core/src/main/java/org/xmlunit/builder/JaxbBuilderFactory.java\
  xmlunit-core/src/main/java/org/xmlunit/builder/JaxbBuilderFactoryLocator.java\
  xmlunit-core/src/test/java/org/xmlunit/builder/javax_jaxb\
 ;
 
-%patch4 -p1
+%patch 4 -p1
 
 # Port to hamcrest 2.1
 %java_remove_annotations xmlunit-matchers -p org[.]hamcrest[.]Factory
@@ -112,7 +112,7 @@ rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
 rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.java,JaxbBuilderTest.java}
 
 %build
-%mvn_build -s
+%mvn_build -s -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -129,6 +129,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 2.9.0-8
+- Update Java source/target to 1.8
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

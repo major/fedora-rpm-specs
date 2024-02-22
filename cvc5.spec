@@ -7,7 +7,7 @@
 %global pcommit 1582d36944310a96cc8e2dfc01e3682745866812
 
 Name:           cvc5
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -16,6 +16,7 @@ Summary:        Automatic theorem prover for SMT problems
 #      cvc5_pythonic_api code derived from Z3
 License:        BSD-3-Clause AND MIT
 URL:            https://cvc5.github.io/
+VCS:            https://github.com/cvc5/cvc5
 Source0:        https://github.com/cvc5/cvc5/archive/%{name}-%{version}.tar.gz
 Source1:        https://github.com/cvc5/cvc5_pythonic_api/archive/%{pcommit}/%{pcommit}.zip
 # Do not override Fedora flags
@@ -133,10 +134,6 @@ Python 3 interface to %{name}.
 %autosetup -n %{name}-%{name}-%{version} -p1
 mkdir -p %{_vpath_builddir}/deps/src/CVC5PythonicAPI
 cp -p %{SOURCE1} %{_vpath_builddir}/deps/src
-
-# FIXME: cmake fails to find a version in the Fedora cryptominisat package
-# cmake files, causing the version check to fail
-sed -i 's/ \${CryptoMiniSat_FIND_VERSION}//' cmake/FindCryptoMiniSat.cmake
 
 # The Fedora editline library does not need libbsd
 sed -i 's/ bsd//' cmake/FindEditline.cmake

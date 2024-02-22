@@ -20,14 +20,15 @@ https://uqfoundation.github.io/project/pathos/query.}
 %global forgeurl https://github.com/uqfoundation/ppft/
 
 Name:           python-ppft
-Version:        1.7.6.7
+Version:        1.7.6.8
 Release:        %autorelease
 Summary:        Distributed and parallel python
 
-%global tag ppft-%{version}
+%global tag %{version}
 %forgemeta
 
-License:        BSD
+# spdx
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

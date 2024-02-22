@@ -2,17 +2,20 @@
 %global sum GNU Scientific Library Interface for python
 
 Name:          pygsl
-Version:       2.3.3
-Release:       4%{?dist}
+Version:       2.3.4
+Release:       1%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
 # GLPv2+: pygsl/odeiv.py and examples/siman_tsp.py
 License:       GPL-2.0-or-later
-Url:           https://pypi.python.org/pypi/pygsl
-Source:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch0:        pygsl-python312.patch
-Patch1:        pygsl-remove-distutils.patch
+Url:           https://github.com/pygsl/pygsl
+
+# The should be the canonical but the last release is only available on github
+#Source:	       %{pypi_source pygsl}
+
+# This should be temporary until upstream fixes this
+Source:	       pygsl-v.%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: gsl-devel
@@ -20,7 +23,6 @@ BuildRequires: python3-devel
 BuildRequires: python3-numpy-f2py
 
 BuildRequires: python3dist(pytest)
-
 # Only need if the generated sources are different from the version used in source
 BuildRequires: swig
 
@@ -58,7 +60,7 @@ Development files for pygsl
 
 
 %prep
-%autosetup -p1
+%autosetup -n pygsl-v.%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -68,6 +70,7 @@ Development files for pygsl
 # rm -f swig_src/gslwrap_wrap.c
 %__python3 setup.py gsl_wrappers
 %__python3 setup.py config
+%__python3 setup.py build_ext
 %pyproject_wheel
 
 
@@ -77,8 +80,7 @@ Development files for pygsl
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitearch} %pytest tests/ --ignore tests/odeiv2_test.py -k 'not test_levin_utrunk'
-
+%pytest
 
 %files
 
@@ -92,6 +94,11 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %pytest tests/ --ignore tests/odeiv2_
 %doc testing tests
 
 %changelog
+* Fri Feb 16 2024 José Matos <jamatos@fedoraproject.org> - 2.3.4-1
+- Update to 2.3.4
+- Remove upstream patches
+- Clean the spec file a bit
+
 * Mon Feb  5 2024 José Matos <jamatos@fedoraproject.org> - 2.3.3-4
 - Update the spec file to more modern Python guidelines
 

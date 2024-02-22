@@ -534,7 +534,7 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Feb 13 2024 Nick Clifron  <nickc@redhat.com> - 12.30-1
+* Tue Feb 13 2024 Nick Clifron  <nickc@redhat.com> - 12.40-1
 - Annocheck: Improve heuristic for skipping LTO and FORTIFY tests.  (#2264000)
 
 * Fri Feb 09 2024 Nick Clifron  <nickc@redhat.com> - 12.39-1

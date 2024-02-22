@@ -5,12 +5,12 @@
 
 Name:           python-pydata-sphinx-theme
 Version:        0.15.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
 # The bundled bootstrap JavaScript library is MIT.
-License:        BSD-3-Clause and MIT
+License:        BSD-3-Clause AND MIT
 BuildArch:      noarch
 URL:            https://pydata-sphinx-theme.readthedocs.io/
 Source0:        https://github.com/pydata/pydata-sphinx-theme/archive/v%{version}/pydata-sphinx-theme-%{version}.tar.gz
@@ -127,6 +127,9 @@ cd -
 %endif
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 0.15.2-4
+- Fix the SPDX expression
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.9
-Release:        6%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -344,6 +344,9 @@ pathfix.py -i %{__python3} -p -n %{buildroot}%{_bindir}/scap-as-rpm
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Mon Feb 19 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.3.9-8
+- preparations for RHEL10 fork
+
 * Sun Jan 21 2024 Michal Ambroz <rebus _AT seznam.cz> - 1:1.3.9-7
 - add conditionals to be able to rebuild with opendbx/apt even on EPEL+RHEL
 - cosmetics: rename patches, add comments, use buildroot macro instead of env

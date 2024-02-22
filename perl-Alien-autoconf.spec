@@ -3,7 +3,7 @@
 
 Name:           perl-Alien-autoconf
 Version:        0.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Find autoconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-autoconf
@@ -98,14 +98,22 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/Alien*
-%{perl_vendorarch}/auto/*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/Alien
+%{perl_vendorarch}/Alien/autoconf.pm
+%dir %{perl_vendorarch}/auto/Alien
+%{perl_vendorarch}/auto/Alien/autoconf
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/Alien-autoconf
+%{_mandir}/man3/Alien::autoconf.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 20 2024 Petr Pisar <ppisar@redhat.com> - 0.19-6
+- Rebuild against autoconf-2.72 (bug #2264959)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

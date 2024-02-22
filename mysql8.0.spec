@@ -72,9 +72,9 @@
 # Provide explicitly the 'community-mysql' names
 #   'community-mysql' names are deprecated and to be removed in future Fedora
 #   but we're leaving them here for compatibility reasons
-%bcond provides_community_mysql 1
+%bcond provides_community_mysql %{?mysql_default}
 # Obsolete the package 'community-mysql' and all its sub-packages
-%bcond obsoletes_community_mysql 1
+%bcond obsoletes_community_mysql %{?mysql_default}
 # This is the last version of the 'community-mysql' package production release
 %global obsolete_community_mysql_version 8.0.35-10
 %global community_mysql_version 8.0.36-1
@@ -84,7 +84,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          4%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1052,6 +1052,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 19 2024 Honza Horak <hhorak@redhat.com> - 8.0.36-4
+- Do not provide community-mysql* symbols if alternative
+
 * Mon Feb 05 2024 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.36-3
 - Apply demodularization
 - the default stream builds mysql.rpm

@@ -3,7 +3,7 @@
 
 Name:           py3c
 Version:        1.4
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Guide and compatibility macros for porting extensions to Python 3
 
 # Licences differ for subpackages
@@ -80,99 +80,4 @@ sed --in-place -e's!%{buildroot}!!' %{buildroot}%{_datadir}/pkgconfig/py3c.pc
 %doc %{_pkgdocdir}/
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Karolina Surma <ksurma@redhat.com> - 1.4-5
-- Migrate the License tags to SPDX expressions
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Oct 15 2021 Petr Viktorin <pviktori@redhat.com> - 1.4-1
-- Update to 1.4
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan 07 2021 Petr Viktorin <pviktori@redhat.com> - 1.3-2
-- No longer unbundle fonts
-
-* Sun Nov 29 2020 Petr Viktorin <pviktori@redhat.com> - 1.3-1
-- Update to 1.3
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jan 30 2020 Petr Viktorin <pviktori@redhat.com> - 1.2-1
-- Update to 1.2 to fix tests under Python 3.9
-- BuildRequire python3-setuptools explicitly
-
-* Thu Jan 30 2020 Petr Viktorin <pviktori@redhat.com> - 1.1-3
-- Drop tests and Suggests for Python 2; require python3-devel
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Oct 04 2019 Petr Viktorin <pviktori@redhat.com> - 1.1-1
-- Update to 1.1 to fix Python 3.8 compatibility in tests
-  https://bugzilla.redhat.com/show_bug.cgi?id=1758446
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0-3
-- Rebuilt for Python 3.7
-
-* Mon Feb 19 2018 Petr Viktorin <pviktori@redhat.com> - 1.0-2
-- Add BuildRequires: gcc
-
-* Sun Feb 11 2018 Petr Viktorin <pviktorin@redhat.com> - 1.0-1
-- Update to 1.0 (adds Py_UNREACHABLE, Py_RETURN_RICHCOMPARE, Py_UNUSED)
-- Strip buildroot name from the pkgconfig file
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-
-* Wed Feb 01 2017 Petr Viktorin <pviktorin@redhat.com> - 0.8-1
-- Update to 0.8:
-- Add backports for PyMem_Raw*
-
-* Thu May 19 2016 Petr Viktorin <pviktorin@redhat.com> - 0.7-1
-- Update to 0.7:
-- Fix file shim tests on big endian architectures
-  (bug in the test suite only, does not affect behavior)
-
-* Thu May 19 2016 Petr Viktorin <pviktorin@redhat.com> - 0.6-2
-- Initial package
+%autochangelog

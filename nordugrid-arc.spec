@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.18.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		CPL-1.0: src/services/acix/core/hashes.py
@@ -57,7 +57,10 @@ Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/
 
 Patch0:		0001-One-more-xmlsec-include-bug-seen-with-libxml2-2.12.patch
 Patch1:		0001-More-libxml-2.12-fixes.patch
-Patch2:		0001-Disable-ServiceEndpointRetrieverTest.py-not-compatib.patch
+# Updated code for SWIG 4.2.x
+# https://github.com/swig/swig/issues/2745
+Patch2:		0001-Restore-ServiceEndpointRetrieverTest.py-test-for-swi.patch
+Patch3:		0002-Restore-support-for-swig-4.2.0-and-earlier.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -809,6 +812,7 @@ management features on the worker nodes (WN).
 %patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
+%patch -P 3 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1767,6 +1771,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Mon Feb 19 2024 Jitka Plesnikova <jplesnik@redhat.com> - 6.18.0-6
+- Fix compilation with SWIG 4.2
+
 * Wed Feb 07 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.18.0-5
 - Disable test incompatible with SWIG 4.2
 

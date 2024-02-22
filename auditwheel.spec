@@ -1,6 +1,6 @@
 Name:           auditwheel
 Version:        5.4.0
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
 License:        MIT
@@ -89,51 +89,4 @@ done
 
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Aug 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 5.4.0-1
-- Update to 5.4.0
-Resolves: rhbz#2192317
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.3.0-3
-- Rebuilt for Python 3.12
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 13 2023 Miro Hrončok <mhroncok@redhat.com> - 5.3.0-1
-- Update to 5.3.0
-- Fixes: rhbz#2136978
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 5.1.2-3
-- Rebuilt for Python 3.11
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 11 2022 Miro Hrončok <mhroncok@redhat.com> - 5.1.2-1
-- Update to 5.1.2
-- Fixes: files are not compressed with ZIP_DEFLATED
-- Fixes: rhbz#2038537
-
-* Mon Jan 03 2022 Miro Hrončok <mhroncok@redhat.com> - 5.1.1-1
-- Update to 5.1.1
-- Fixes: rhbz#2036781
-
-* Mon Sep 20 2021 Miro Hrončok <mhroncok@redhat.com> - 5.0.0-1
-- Update to 5.0.0
-- Fixes: rhbz#2005582
-
-* Fri Aug 13 2021 Miro Hrončok <mhroncok@redhat.com> - 4.0.0-1
-- Initial package
-- Fixes: rhbz#1993535
+%autochangelog

@@ -11,14 +11,14 @@
 
 %global murmurhash murmur-hash-0.1.0.10
 %global peano peano-0.1.0.2
-%global vectorhashtables vector-hashtables-0.1.1.3
+%global vectorhashtables vector-hashtables-0.1.1.4
 
 %global subpkgs %{vectorhashtables} %{peano} %{murmurhash}
 
 Name:           %{pkg_name}
 Version:        2.6.4.1
 # can only be reset when all subpkgs bumped
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        A dependently typed functional programming language and proof assistant
 
 License:        MIT AND BSD-3-Clause
@@ -75,6 +75,9 @@ BuildRequires:  ghc-split-devel
 BuildRequires:  ghc-stm-devel
 BuildRequires:  ghc-strict-devel
 BuildRequires:  ghc-text-devel
+%if 0%{?fedora} >= 41
+BuildRequires:  ghc-text-icu-devel
+%endif
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-time-compat-devel
 BuildRequires:  ghc-transformers-devel
@@ -120,6 +123,7 @@ BuildRequires:  ghc-split-prof
 BuildRequires:  ghc-stm-prof
 BuildRequires:  ghc-strict-prof
 BuildRequires:  ghc-text-prof
+BuildRequires:  ghc-text-icu-prof
 BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-time-compat-prof
 BuildRequires:  ghc-transformers-prof
@@ -140,9 +144,6 @@ BuildRequires:  ghc-primitive-prof
 %endif
 # End cabal-rpm deps
 BuildRequires:  emacs(bin)
-
-# introduced for F23
-Obsoletes:      emacs-agda-el < 2.4.2.2-5
 Provides:       emacs-agda = %{version}-%{release}
 
 %description
@@ -230,6 +231,9 @@ This package provides the Haskell %{name} profiling library.
 # End cabal-rpm setup
 %if 0%{?fedora} >= 40
 cabal-tweak-flag optimise-heavily True
+%endif
+%if 0%{?fedora} >= 41
+cabal-tweak-flag enable-cluster-counting True
 %endif
 
 # check the Agda version in the emacs mode
@@ -325,6 +329,10 @@ rm -r %{buildroot}%{_datadir}/%{pkgver}/emacs-mode
 
 
 %changelog
+* Tue Feb 20 2024 Jens Petersen <petersen@redhat.com> - 2.6.4.1-47
+- rawhide: enable-cluster-counting with text-icu
+- update vector-hashtables to 0.1.1.4
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

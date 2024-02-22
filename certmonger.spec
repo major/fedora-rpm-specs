@@ -28,14 +28,15 @@
 
 Name:		certmonger
 Version:	0.79.19
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/certmonger/
 Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
-Patch0: certmonger-c99.patch
-Patch1: certmonger-c99-2.patch
+Patch0:		certmonger-c99.patch
+Patch1:		certmonger-c99-2.patch
+Patch2:		0001-Update-tests-to-be-compatible-with-OpenSSL-3.2.patch
 #Source1:	http://releases.pagure.org/certmonger/certmonger-%%{version}.tar.gz.sig
 
 BuildRequires:	autoconf
@@ -266,6 +267,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 20 2024 Rob Crittenden <rcritten@redhat.com> - 0.79.19-5
+- Update tests to be compatible with OpenSSL 3.2
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

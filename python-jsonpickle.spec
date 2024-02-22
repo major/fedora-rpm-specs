@@ -2,8 +2,8 @@ Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
-Version:        3.0.2
-Release:        3%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
@@ -34,7 +34,7 @@ Summary:        A module that allows any object to be serialized into JSON
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i \
-    -e 's/^([[:blank:]]*)(pytest-(black|checkdocs|cov|flake8))/\1# \2/' \
+    -e 's/^([[:blank:]]*)(pytest-(black|checkdocs|cov|flake8|enabler|ruff))/\1# \2/' \
     setup.cfg
 sed -r -i 's/[[:blank:]]--cov[^[:blank:]]*//g' pytest.ini
 
@@ -68,6 +68,12 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Tue Feb 20 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.0.3-1
+- 3.0.3
+
+* Mon Feb 19 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.0.2-4
+- Fix tests with Pandas 2.2 and Cython 3 
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

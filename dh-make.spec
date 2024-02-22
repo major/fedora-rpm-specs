@@ -1,8 +1,8 @@
 Name:           dh-make
 # Squeeze
-Version:        2.202302
+Version:        2.202304
 
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Tool that converts source archives into Debian package source
 
 License:        GPLv3+
@@ -52,6 +52,9 @@ install -m 644 -p dh_make.1 %{buildroot}/%{_mandir}/man1
 %{_datadir}/debhelper/dh_make
 
 %changelog
+* Tue Feb 20 2024 Sérgio Basto <sergio@serjux.com> - 2.202304-1
+- Update dh-make to 2.202304 (#2247136)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.202302-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

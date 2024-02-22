@@ -105,7 +105,11 @@ cd ~-
 
 %if %{with check}
 %check
-%meson_test
+%meson_test \
+%ifarch riscv64
+    --timeout-multiplier 10 \
+%endif
+    %{nil}
 
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.Snapshot.metainfo.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Snapshot.desktop

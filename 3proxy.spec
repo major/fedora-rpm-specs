@@ -2,12 +2,12 @@
 
 Name:             3proxy
 Version:          0.9.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 Summary:          Tiny but very powerful proxy
 Summary(ru):      Маленький, но крайне мощный прокси-сервер
 
-License:          BSD or ASL 2.0 or GPLv2+ or LGPLv2+
+License:          BSD-3-Clause OR Apache-2.0 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 Url:              http://3proxy.ru/?l=EN
 Source0:          https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source2:          3proxy.cfg
@@ -20,6 +20,8 @@ BuildRequires:    systemd-rpm-macros
 
 # I correct config path in man only. It is fully Fedora related.
 Patch0:           3proxy-0.6.1-config-path.patch
+# Fixes *_poll build error
+Patch1:           3proxy-0.9.4-poll-build.patch
 
 %description
 %{name} -- light proxy server.
@@ -89,6 +91,10 @@ done
 %{_unitdir}/%{name}.service
 
 %changelog
+* Tue Feb 20 2024 Tim Semeijn <tim@goat.re> - 0.9.4-2
+- Fix failing builds with *_poll build patch (3proxy-0.9.4-poll-build.patch)
+- Convert license to SPDX
+
 * Sun Feb 11 2024 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.9.4-1
 - Update to 0.9.4, fixes rhbz#1888503
 - Fix FTBFS, fixes rhbz#2261821

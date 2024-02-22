@@ -4,8 +4,8 @@
 %global         major_version           1.3
 
 Name:           mm3d
-Version:        1.3.13
-Release:        7%{?dist}
+Version:        1.3.14
+Release:        1%{?dist}
 Summary:        3D model editor
 
 License:        GPLv2+
@@ -14,6 +14,8 @@ Source0:        https://github.com/zturtleman/%{name}/archive/v%{version}/%{name
 Source10:       http://www.misfitcode.com/misfitmodel3d/download/plugins/ad3dsfilter-%{plugin_3ds_ver}.tar.gz
 Source11:       http://www.misfitcode.com/misfitmodel3d/download/plugins/imtex-%{plugin_imtex_ver}.tar.gz
 Patch0:         mm3d-1.3.11-sighandler.patch
+# https://github.com/zturtleman/mm3d/pull/193
+Patch1:         mm3d-1.3.14-autotools.patch
 Patch10:        mm3d-ad3dsfilter-make.patch
 Patch11:        mm3d-imtex-make.patch
 Patch12:        mm3d-imtex-gcc43.patch
@@ -45,11 +47,12 @@ with plugins and scripts.
 %prep
 %setup -q -a 10 -a 11
 
-%patch0 -p1 -b .sigh
+%patch -P 0 -p1 -b .sigh
+%patch -P 1 -p1 -b .autotools
 
-%patch10 -b .ad3ds
-%patch11 -b .imtex
-%patch12 -b .gcc43
+%patch -P 10 -b .ad3ds
+%patch -P 11 -b .imtex
+%patch -P 12 -b .gcc43
 
 autoreconf -vif
 
@@ -89,7 +92,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/plugins
 desktop-file-validate %{buildroot}%{_datadir}/applications/moe.clover.%{name}.desktop
 
 # docs
-cp -p AUTHORS COPYING ChangeLog README TODO %{buildroot}%{_datadir}/doc/%{name}
+cp -p AUTHORS COPYING ChangeLog README.md TODO %{buildroot}%{_datadir}/doc/%{name}
 
 
 %files
@@ -105,6 +108,9 @@ cp -p AUTHORS COPYING ChangeLog README TODO %{buildroot}%{_datadir}/doc/%{name}
 
 
 %changelog
+* Tue Feb 20 2024 Dan Horák <dan[at]danny.cz> - 1.3.14-1
+- update to 1.3.14
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

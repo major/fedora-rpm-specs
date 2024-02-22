@@ -20,12 +20,12 @@
 
 # **** release metadata ****
 # populated by envsubst in newrelease.sh
-%global gittag                  v1.29.1
-%global tar_ver                 1.29.1
+%global gittag                  v1.29.2
+%global tar_ver                 1.29.2
 %global k8s_name                kubernetes
-%global k8s_ver                 1.29.1
+%global k8s_ver                 1.29.2
 # golang 'built with' version
-%global golangver               1.21.6
+%global golangver               1.21.7
 
 # last release version of these rpms prior to F40 restructure
 # should not change once restructure goes into rawhide
@@ -38,7 +38,7 @@
 ##############################################
 Name:           %{k8s_name}
 Version:        %{k8s_ver}
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
 URL:            https://%{import_path}
@@ -58,17 +58,18 @@ Source110:      environ-kubelet.kubeconfig
 Source111:      environ-proxy
 Source112:      environ-scheduler
 Source113:      kubernetes-accounting.conf
-Source114:      kubeadm.conf
+Source114:      10-kubeadm.conf
 Source115:      kubernetes.conf
 Source116:      %{repo}.sysusers
 
 Patch3:         build-with-debug-info.patch
 
 ##############################################
-# main package components - installs kubelet, kubeadm and necessary
-# configuration files. Recommends kubernetes-client.
+# main package components - installs kubelet and necessary
+# configuration files. Recommends kubernetes-client and
+# kubernetes-kubeadm.
 
-# build requirements for kubelet, kubeadm
+# build requirements for kubelet
 BuildRequires: golang >= %{golangver}
 BuildRequires: make
 BuildRequires: go-md2man
@@ -88,28 +89,46 @@ Requires:   conntrack-tools
 Requires(pre): shadow-utils
 Requires:      socat
 Recommends:    %{name}-client = %{version}-%{release}
+Recommends:    %{name}-kubeadm = %{version}-%{release}
 
-# additional kubeadm requirements
-Requires: containernetworking-plugins
-Requires: cri-tools
+# require same version for kubernetes-kubeadm if installed
+Conflicts: %{name}-kubeadm < %{version}-%{release}
+Conflicts: %{name}-kubeadm > %{version}-%{release}
 
 # require same version for kubernetes-client if installed
 Conflicts: %{name}-client < %{version}-%{release}
 Conflicts: %{name}-client > %{version}-%{release}
 
 # provides and obsoletes kubernetes-node and kubernetes-kubeadm
-Provides: kubernetes-kubeadm = %{version}-%{release}
-Obsoletes: kubernetes-kubeadm < %{switchver}
 Provides: kubernetes-node = %{version}-%{release}
 Obsoletes: kubernetes-node < %{switchver}
 
 %description
 %{summary}
-Installs kubeadm and kubelet, the two basic components needed to
-bootstrap, and run a cluster. The kubernetes-client sub-package,
+Installs kubelet, the kubernetes agent on each machine in a
+cluster. The kubernetes-client sub-package,
 containing kubectl, is recommended but not strictly required.
 The kubernetes-client sub-package should be installed on
 control plane machines.
+
+##############################################
+%package  kubeadm
+Summary:  Kubernetes tool for standing up clusters
+Requires: kubernetes = %{version}-%{release}
+
+BuildRequires: golang >= %{golangver}
+BuildRequires: systemd
+Requires: containernetworking-plugins
+Requires: cri-tools
+
+# require same version for kubernetes
+Conflicts: %{name} < %{version}-%{release}
+Conflicts: %{name} > %{version}-%{release}
+
+%description kubeadm
+Kubernetes tool for standing up clusters. Not mandatory. If used,
+install on each machine in the cluster. Used to initialize each node,
+and to join new machines to an existing cluster.
 
 ##############################################
 %package client
@@ -204,9 +223,11 @@ source hack/lib/init.sh
 kube::golang::setup_env
 
 export KUBE_GIT_TREE_STATE="clean"
-export KUBE_GIT_COMMIT=%{commit}
-export KUBE_GIT_VERSION=v{version}
+export KUBE_GIT_VERSION=v%{version}
 export KUBE_EXTRA_GOPATH=$(pwd)/Godeps/_workspace
+
+# Use pie buildmode
+# export GOFLAGS="-buildmode=pie"
 
 # Build each binary separately to generate a unique build-id.
 # Otherwise: Duplicate build-ids /builddir/build/BUILDROOT/.../usr/bin/kube-apiserver and /builddir/build/BUILDROOT/.../usr/bin/kubeadm
@@ -345,12 +366,15 @@ fi
 %{_tmpfilesdir}/kubernetes.conf
 %verify(not size mtime md5) %attr(755, kube,kube) %dir /run/%{repo}
 
-# kubeadm
+##############################################
+%files kubeadm
+%license LICENSE
+%doc *.md
 %{_mandir}/man1/kubeadm.1*
 %{_mandir}/man1/kubeadm-*
 %{_bindir}/kubeadm
 %dir %{_unitdir}/kubelet.service.d
-%config(noreplace) %{_unitdir}/kubelet.service.d/kubeadm.conf
+%{_unitdir}/kubelet.service.d/10-kubeadm.conf
 
 ##############################################
 %files client

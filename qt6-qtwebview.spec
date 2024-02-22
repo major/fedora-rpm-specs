@@ -5,7 +5,7 @@
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -52,7 +52,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
+%cmake_qt6 \
+  -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
 
 %cmake_build
 
@@ -92,12 +94,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %if 0%{?examples}
 %files examples
-%dir %{_qt6_examplesdir}/webview/minibrowser
-%{_qt6_examplesdir}/webview/minibrowser/minibrowser
+%{_qt6_examplesdir}/
 %endif
 
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

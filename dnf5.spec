@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 12
+%global project_version_patch 13
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 10]
 
@@ -118,7 +118,11 @@ Provides:       dnf5-command(makecache)
 
 # ========== build requires ==========
 
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+BuildRequires:  bash-completion-devel
+%else
 BuildRequires:  bash-completion
+%endif
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gettext
@@ -252,6 +256,8 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %config %{_datadir}/dnf5/aliases.d/compatibility.conf
 %dir %{_libdir}/dnf5
 %dir %{_libdir}/dnf5/plugins
+%dir %{_datadir}/dnf5/dnf5-plugins
+%dir %{_sysconfdir}/dnf/dnf5-plugins
 %doc %{_libdir}/dnf5/plugins/README
 %dir %{_libdir}/libdnf5/plugins
 %dir %{_datadir}/bash-completion/
@@ -649,8 +655,8 @@ Package management service with a DBus interface.
 
 
 # ========== dnf5-plugins ==========
-
 %if %{with dnf5_plugins}
+
 %package -n dnf5-plugins
 Summary:        Plugins for dnf5
 License:        LGPL-2.1-or-later
@@ -669,11 +675,50 @@ Core DNF5 plugins that enhance dnf5 with builddep, changelog,
 config-manager, copr, and repoclosure commands.
 
 %files -n dnf5-plugins -f dnf5-plugin-builddep.lang -f dnf5-plugin-changelog.lang -f dnf5-plugin-config-manager.lang -f dnf5-plugin-copr.lang -f dnf5-plugin-needs-restarting.lang -f dnf5-plugin-repoclosure.lang
-%{_libdir}/dnf5/plugins/*.so
+%{_libdir}/dnf5/plugins/builddep_cmd_plugin.so
+%{_libdir}/dnf5/plugins/changelog_cmd_plugin.so
+%{_libdir}/dnf5/plugins/config-manager_cmd_plugin.so
+%{_libdir}/dnf5/plugins/copr_cmd_plugin.so
+%{_libdir}/dnf5/plugins/needs_restarting_cmd_plugin.so
+%{_libdir}/dnf5/plugins/repoclosure_cmd_plugin.so
 %{_mandir}/man8/dnf5-builddep.8.*
 %{_mandir}/man8/dnf5-copr.8.*
 %{_mandir}/man8/dnf5-needs-restarting.8.*
 %{_mandir}/man8/dnf5-repoclosure.8.*
+
+
+# ========== dnf5-automatic plugin ==========
+
+%package plugin-automatic
+Summary:        Package manager - automated upgrades
+License:        LGPL-2.1-or-later
+Requires:       dnf5%{?_isa} = %{version}-%{release}
+Requires:       libcurl-full%{?_isa}
+Provides:       dnf5-command(automatic)
+%if %{with dnf5_obsoletes_dnf}
+Provides:       dnf-automatic = %{version}-%{release}
+Obsoletes:      dnf-automatic < 5
+%else
+Conflicts:      dnf-automatic < 5
+%endif
+
+%description plugin-automatic
+Alternative command-line interface "dnf upgrade" suitable to be executed
+automatically and regularly from systemd timers, cron jobs or similar.
+
+%files plugin-automatic -f dnf5-plugin-automatic.lang
+%ghost %{_sysconfdir}/motd.d/dnf5-automatic
+%{_libdir}/dnf5/plugins/automatic_cmd_plugin.so
+%{_unitdir}/dnf5-automatic.service
+%{_unitdir}/dnf5-automatic.timer
+%{_unitdir}/dnf-automatic.service
+%{_unitdir}/dnf-automatic.timer
+%if %{with dnf5_obsoletes_dnf}
+%{_bindir}/dnf-automatic
+%else
+%exclude %{_bindir}/dnf-automatic
+%endif
+
 %endif
 
 
@@ -753,6 +798,7 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %endif
 
 %find_lang dnf5
+%find_lang dnf5-plugin-automatic
 %find_lang dnf5-plugin-builddep
 %find_lang dnf5-plugin-changelog
 %find_lang dnf5-plugin-config-manager
@@ -769,6 +815,20 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Tue Feb 20 2024 Packit <hello@packit.dev> - 5.1.13-1
+- Release 5.1.13
+- build: Adapt to changes in Fedora packaging of bash-completion
+- Change location of automatic.conf
+- Limit message log to one on dnf5 start
+- Implement waiting for network for dnf5 automatic
+- Write dnf5 commandline to the log
+- Implement dnf5-automatic: Tool for managing automatic upgrades
+- Parametrize output stream in transaction table
+- Add `download --srpm` option
+- Add missing dbus signal registations
+- Add new versionlock bindings
+- Implement `dnf5 versionlock` command
+
 * Fri Feb 09 2024 Packit <hello@packit.dev> - 5.1.12-1
 - Release 5.1.12
 - Update translations from weblate

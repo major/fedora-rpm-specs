@@ -5,7 +5,7 @@
 Name:		fontawesome4-fonts
 Epoch:		1
 Version:	4.7.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 
 Summary:	Iconic font set
 License:	OFL-1.1-RFN
@@ -31,7 +31,7 @@ This package contains OpenType and TrueType font files which are typically used
 locally.
 
 %package web
-License:	OFL-1.1-RFN and MIT
+License:	OFL-1.1-RFN AND MIT
 Requires:	%{fontname}-fonts = %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:	Iconic font set, web files
 
@@ -85,6 +85,9 @@ cp -a css less scss %{buildroot}%{_datadir}/font-awesome-web/
 %{_fontdir}/fontawesome-webfont.eot
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 1:4.7.0-22
+- Fix SPDX expression in web subpackage
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

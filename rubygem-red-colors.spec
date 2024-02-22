@@ -2,24 +2,20 @@
 %global gem_name red-colors
 
 Name:		rubygem-%{gem_name}
-Version:	0.3.0
-Release:	10%{?dist}
+Version:	0.4.0
+Release:	1%{?dist}
 
 Summary:	Red Colors provides a wide array of features for dealing with colors
+# SPDX confirmed
 License:	MIT
 
 URL:		https://github.com/red-data-tools/red-colors
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/red-data-tools/red-colors/pull/17
-# The above contains 2 commits
-Patch0:	%{name}-0.3.0-pr17-suppress-warnings.patch
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby
 BuildRequires:	rubygem(test-unit)
-%if 0%{?fedora} >= 36
 BuildRequires:	rubygem(matrix)
-%endif
 BuildArch:	noarch
 # red-colors contains some json files, reading them requires the below
 # also, file inclusion always requires this as:
@@ -41,14 +37,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch0 -p1
 mv ../%{gem_name}-%{version}.gemspec .
-# rubygem(matrix) is provided by system-default
-# On Fedora <= 35, this was in ruby-libs, removing dependency
-# On Fedora >= 36, this is provided by ruby-bundled-gems, so don't remove dependency
-%if 0%{?fedora} < 36
-%gemspec_remove_dep -s %{gem_name}-%{version}.gemspec -g matrix
-%endif
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -86,8 +75,13 @@ popd
 
 %files doc
 %doc	%{gem_docdir}
+%doc	%{gem_instdir}/doc/
 
 %changelog
+* Tue Feb 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0-1
+- 0.4.0
+- SPDX confirmation
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

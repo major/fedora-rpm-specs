@@ -1,10 +1,10 @@
 Name:           yices
 Version:        2.6.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SMT solver
 
 # The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
-License:        GPL-3.0-or-later and BSD-3-Clause
+License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            http://yices.csl.sri.com/
 Source0:        https://github.com/SRI-CSL/yices2/archive/Yices-%{version}.tar.gz
 # The CUDD web site disappeared in 2018.  The Fedora package was retired in 2019
@@ -185,6 +185,9 @@ make check MODE=debug
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-12
+- Fix the SPDX expression
+
 * Fri Feb  9 2024 Jerry James <loganjerry@gmail.com> - 2.6.4-11
 - Rebuild for cryptominisat 5.11.21
 

@@ -1,12 +1,12 @@
 Summary: NSS module to look up from files in /usr/lib as well
 Name: nss-altfiles
 Version: 2.23.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/flatcar/nss-altfiles/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch1: 0001-build-sys-Inherit-LDFLAGS.patch
 # From https://github.com/flatcar/nss-altfiles/commit/de2b32289bf701ce3c8167a1b58436866922085e
 Patch2: 0003-deprecate-RES_USE_INET6.patch
-License: LGPLv2+
+License: LGPL-2.1-or-later and MIT
 URL: https://github.com/flatcar/nss-altfiles
 
 BuildRequires: make
@@ -15,18 +15,18 @@ BuildRequires: gcc
 BuildRequires: git
 
 %description
-When installed, this package allows looking up users
-in %{prefix}/lib/passwd, and from respective files for all other NSS maps.
+When installed, this package allows looking up users in %{_prefix}/lib/passwd,
+and from respective files for all other NSS maps.
 
 %prep
 %autosetup -Sgit
 
 %build
 ./configure --with-types=all --prefix=%{_prefix} --libdir=%{_libdir} CFLAGS="%{optflags}" LDFLAGS="%{build_ldflags}"
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 %files
 %doc README.md
@@ -35,6 +35,11 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Tue Feb 20 2024 Timothée Ravier <tim@siosm.fr> - 2.23.0-4
+- Fix macro expansion in description
+- Use make macros: https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
+- Use SPDX identifiers for license: https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

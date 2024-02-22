@@ -8,12 +8,13 @@ Version:        %{cpan_version}
 # perl-encoding sub-package has independent version which does not change
 # often and consecutive builds would clash on perl-encoding NEVRA. This is the
 # same case as in perl.spec.
-Release:        503%{?dist}
+Release:        504%{?dist}
 Summary:        Character encodings in Perl
-# ucm:          UCD
+# ucm:          license in this repository can be ingored based on
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/30#note_1435176617
 # bin/encguess: Artistic-2.0
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0 AND UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
 URL:            https://metacpan.org/release/Encode
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/Encode-%{cpan_version}.tar.gz
 BuildRequires:  findutils
@@ -114,7 +115,7 @@ The easiest and the best alternative is to write your script in UTF-8.
 %package devel
 Summary:        Perl Encode Module Generator
 Version:        %{cpan_version}
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl)
 Requires:       %{name}%{?_isa} = %{epoch}:%{cpan_version}-%{release}
 Recommends:     perl-devel%{?_isa}
 Requires:       perl(Encode)
@@ -214,6 +215,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 20 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4:3.20-504
+- Update License tag
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.20-503
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

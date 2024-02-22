@@ -2,8 +2,8 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           environment-modules
-Version:        5.3.1
-Release:        4%{?dist}
+Version:        5.4.0
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -177,7 +177,7 @@ fi
 %{_datadir}/modulefiles
 %{_mandir}/man1/ml.1.gz
 %{_mandir}/man1/module.1.gz
-%{_mandir}/man4/modulefile.4.gz
+%{_mandir}/man5/modulefile.5.gz
 %{macrosdir}/macros.%{name}
 %{vimdatadir}/ftdetect/modulefile.vim
 %{vimdatadir}/ftplugin/modulefile.vim
@@ -187,6 +187,10 @@ fi
 
 
 %changelog
+* Tue Feb 20 2024 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.4.0-1
+- Update to 5.4.0 (#2265106)
+- Move modulefile man page to section 5
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

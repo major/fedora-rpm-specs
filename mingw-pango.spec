@@ -1,11 +1,11 @@
 %{?mingw_package_header}
 
 Name:           mingw-pango
-Version:        1.51.0
-Release:        3%{?dist}
+Version:        1.51.2
+Release:        1%{?dist}
 Summary:        MinGW Windows Pango library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.pango.org
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
@@ -171,6 +171,9 @@ mkdir -p %{buildroot}%{mingw64_sysconfdir}/pango/
 
 
 %changelog
+* Tue Feb 20 2024 Sandro Mani <manisandro@gmail.com> - 1.51.2-1
+- Update to 1.51.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

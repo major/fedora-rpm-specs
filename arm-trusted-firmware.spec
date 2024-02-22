@@ -16,7 +16,7 @@
 
 Name:    arm-trusted-firmware
 Version: 2.10.0
-Release: 7%{?candidate:.%{candidate}}%{?dist}
+Release: 8%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
@@ -126,7 +126,7 @@ do
  for file in bl31/bl31.elf m0/rk3399m0.bin m0/rk3399m0.elf
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/$(echo $file)
+    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) -t %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/
   fi
  done
 done
@@ -138,7 +138,7 @@ do
  for file in bl31/bl31.elf
  do
   if [ -f build/$(echo $soc)/release/$(echo $file) ]; then
-    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/$(echo $file)
+    install -pD -m 0644 build/$(echo $soc)/release/$(echo $file) -t %{buildroot}/%{_datadir}/%{name}/$(echo $soc)/
   fi
  done
 done
@@ -150,6 +150,9 @@ popd
 %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 20 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-8
+- Fix location of some rockchip files
+
 * Mon Feb 19 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-7
 - Minor build improvements and cleanups
 

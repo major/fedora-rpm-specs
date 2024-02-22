@@ -49,8 +49,8 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.73
-Release: 4%{?dist}
+Version: 1.4.74
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
@@ -328,7 +328,7 @@ for the directories.
 %prep
 %setup -q
 %patch -P 0 -p0 -b .defaultconf
-%patch -P 1 -p1
+#%%patch -P 1 -p1
 
 %build
 autoreconf -if
@@ -447,18 +447,6 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %{_sbindir}/lighttpd
 %{_sbindir}/lighttpd-angel
 %{_libdir}/lighttpd/
-%exclude %{_libdir}/lighttpd/mod_access.so
-%exclude %{_libdir}/lighttpd/mod_alias.so
-%exclude %{_libdir}/lighttpd/mod_evhost.so
-%exclude %{_libdir}/lighttpd/mod_expire.so
-%exclude %{_libdir}/lighttpd/mod_fastcgi.so
-%exclude %{_libdir}/lighttpd/mod_indexfile.so
-%exclude %{_libdir}/lighttpd/mod_redirect.so
-%exclude %{_libdir}/lighttpd/mod_rewrite.so
-%exclude %{_libdir}/lighttpd/mod_scgi.so
-%exclude %{_libdir}/lighttpd/mod_setenv.so
-%exclude %{_libdir}/lighttpd/mod_simple_vhost.so
-%exclude %{_libdir}/lighttpd/mod_staticfile.so
 %exclude %{_libdir}/lighttpd/mod_authn_dbi.so
 %exclude %{_libdir}/lighttpd/mod_authn_gssapi.so
 %exclude %{_libdir}/lighttpd/mod_authn_ldap.so
@@ -606,6 +594,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Tue Feb 20 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.4.74-1
+- 1.4.74
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.73-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

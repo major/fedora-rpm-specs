@@ -5,7 +5,7 @@
 %global crate cxx-gen
 
 Name:           rust-cxx-gen
-Version:        0.7.116
+Version:        0.7.117
 Release:        %autorelease
 Summary:        C++ code generator for integrating cxx crate into higher level tools
 

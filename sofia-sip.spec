@@ -1,9 +1,9 @@
 Name:           sofia-sip
 Version:        1.13.16
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Sofia SIP User-Agent library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://sofia-sip.sourceforge.net/
 Source0:        https://github.com/freeswitch/%{name}/archive/refs/tags/v%{version}.tar.gz
 
@@ -112,10 +112,4 @@ find . -name installdox -delete
 
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
 %autochangelog

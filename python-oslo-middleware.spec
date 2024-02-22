@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
+%global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
@@ -20,8 +20,8 @@ enhanced with functionality like add/delete/modification of http headers \
 and support for limiting size/connection etc.
 
 Name:           python-oslo-middleware
-Version:        5.1.1
-Release:        5%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        OpenStack Oslo Middleware library
 
 License:        Apache-2.0
@@ -156,6 +156,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_middleware/locale %{buildroot}%{_datadir}
 %license LICENSE
 
 %changelog
+* Tue Feb 20 2024 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 6.0.0-1
+- Update 6.0.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

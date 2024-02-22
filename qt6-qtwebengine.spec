@@ -46,10 +46,12 @@
 # and designer plugins
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
 
+%global examples 1
+
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -332,11 +334,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devtools
 Support for remote debugging.
 
+%if 0%{?examples}
 %package examples
 Summary: Example files for %{name}
-
 %description examples
 %{summary}.
+%endif
 
 %package -n qt6-qtpdf
 Summary: Qt6 - QtPdf components
@@ -436,7 +439,8 @@ export NINJA_PATH=%{__ninja}
   -DFEATURE_webengine_system_ffmpeg:BOOL=ON \
   -DFEATURE_webengine_webrtc:BOOL=ON \
   -DFEATURE_webengine_webrtc_pipewire:BOOL=ON \
-  -DQT_BUILD_EXAMPLES:BOOL=ON
+  -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
 
 %cmake_build
 
@@ -613,8 +617,10 @@ done
 %files devtools
 %{_qt6_datadir}/resources/qtwebengine_devtools_resources.pak
 
+%if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/webengine*
+%endif
 
 %if 0%{?docs}
 %files doc
@@ -658,11 +664,15 @@ done
 %{_qt6_libdir}/pkgconfig/Qt6PdfWidgets.pc
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_pdf*.pri
 
+%if 0%{?examples}
 %files -n qt6-qtpdf-examples
 %{_qt6_examplesdir}/pdf*
-
+%endif
 
 %changelog
+* Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
+- Examples: also install source files
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-1
 - 6.6.2
 

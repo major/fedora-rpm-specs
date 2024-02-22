@@ -1,6 +1,6 @@
 Name:           libtimezonemap
-Version:        0.4.5.2
-Release:        5%{?dist}
+Version:        0.4.5.3
+Release:        1%{?dist}
 Summary:        Time zone map widget for Gtk+
 
 License:        GPLv3
@@ -36,8 +36,8 @@ files used for building applications that use %{name}.
 %autosetup -n timezonemap-%{version}
 
 %build
-autoreconf -fiv
-%configure
+./autogen.sh
+%configure --disable-static
 make %{?_smp_mflags}
 
 %install
@@ -61,6 +61,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_datadir}/glade/catalogs/TimezoneMap.xml
 
 %changelog
+* Tue Feb 20 2024 David Shea <reallylongword@gmail.com> - 0.4.5.3-1
+- Clean up the autotools files and scripts
+- Remove the tests since the data they were testing has been removed
+- Import latest data from geonames.org
+- Restore some missing islands
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

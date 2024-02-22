@@ -1,6 +1,6 @@
 Name:           imv
-Version:        4.4.0
-Release:        8%{?dist}
+Version:        4.5.0
+Release:        1%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -8,8 +8,6 @@ URL:            https://sr.ht/~exec64/imv/
 Source:         https://git.sr.ht/~exec64/imv/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://lists.sr.ht/~exec64/imv-devel/patches/41580
 Patch:          imv-4.4.0-libheif-support-fixes.patch
-# https://todo.sr.ht/~exec64/imv/57
-Patch:          imv-4.4.0-fix-types-for-GCC-14.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils
@@ -88,6 +86,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Tue Feb 20 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 4.5.0-1
+- Update to 4.5.0 (#2265221)
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 4.4.0-8
 - Rebuilt for turbojpeg 3.0.2
 

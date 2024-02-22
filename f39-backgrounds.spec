@@ -6,7 +6,7 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.4
+Version:        %{relnum}.0.5
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 
@@ -18,13 +18,15 @@ Source0:        https://github.com/fedoradesign/backgrounds/releases/download/v%
 BuildArch:      noarch
 
 # for %%_kde4_* macros
+# Starting from Fedora 40 and onward
+%if 0%{?fedora} > 39
 BuildRequires:  kde4-filesystem
+%else
+BuildRequires:  kde-filesystem
+%endif
 BuildRequires:  make
 
-# for lossy optimization
-BuildRequires:  pngquant
-
-Requires:	%{name}-budgie = %{version}-%{release}
+Requires:       %{name}-budgie = %{version}-%{release}
 Requires:       %{name}-gnome = %{version}-%{release}
 Requires:       %{name}-kde = %{version}-%{release}
 Requires:       %{name}-xfce = %{version}-%{release}
@@ -62,7 +64,7 @@ Fedora  %{relnum} default theme.
 %package        kde
 Summary:        Fedora  %{relnum} default wallpaper for KDE
 Requires:       %{name}-base = %{version}-%{release}
-Requires:       kde-filesystem
+Requires:       kde4-filesystem
 
 %description    kde
 This package contains KDE desktop wallpaper for the Fedora  %{relnum}

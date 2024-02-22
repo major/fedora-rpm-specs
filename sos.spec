@@ -1,7 +1,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.6.1
-Release: 2%{?dist}
+Version: 4.7.0
+Release: 1%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -22,6 +22,8 @@ Recommends: python3-pyyaml
 Obsoletes: sos-collector <= 1.9
 # For the _tmpfilesdir macro.
 BuildRequires: systemd
+# Mandatory just for uploading to an S3 bucket:
+Recommends: python3-boto3
 
 %description
 Sos is a set of tools that gathers information about system
@@ -90,6 +92,10 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Tue Feb 20 2024 Sandro Bonazzola <sbonazzo@redhat.com> - 4.7.0-1
+- Update to 4.7.0
+- Resolves: fedora#2265050
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

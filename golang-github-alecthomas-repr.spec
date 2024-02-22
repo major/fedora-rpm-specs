@@ -3,7 +3,7 @@
 
 # https://github.com/alecthomas/repr
 %global goipath         github.com/alecthomas/repr
-Version:        0.3.0
+Version:        0.4.0
 
 %gometa
 

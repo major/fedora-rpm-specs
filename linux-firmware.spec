@@ -4,8 +4,8 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20240115
-Release:	2%{?dist}
+Version:	20240220
+Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -263,7 +263,7 @@ License:	Redistributable, no modification permitted
 Requires:	linux-firmware-whence
 %description -n intel-vsc-firmware
 Firmware files for Intel Visual Sensing Controller (IVSC) for
-Tiger Lake, Alder Lake and Raptor Lake SoCs.
+Tiger Lake, Alder Lake and Raptor Lake SoCs and the IPU3/6 firmware.
 
 # Sound codec hardware
 %package -n cirrus-audio-firmware
@@ -364,6 +364,8 @@ sed \
 	-i -e '/^intel\/catpt/d' \
 	-i -e '/^intel\/dsp_fw/d' \
 	-i -e '/^intel\/fw_sst/d' \
+	-i -e '/^intel\/ipu/d' \
+	-i -e '/^intel\/ipu3/d' \
 	-i -e '/^intel\/irci_irci/d' \
 	-i -e '/^intel\/vsc/d' \
 	-i -e '/^isdbt/d' \
@@ -552,8 +554,11 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 # Vision and ISP hardware
 %files -n intel-vsc-firmware
 %license LICENSE.ivsc
+%dir %{_firmwarepath}/intel/ipu/
 %dir %{_firmwarepath}/intel/vsc/
+%{_firmwarepath}/intel/ipu3-fw.bin*
 %{_firmwarepath}/intel/irci_irci_ecr-master_20161208_0213_20170112_1500.bin*
+%{_firmwarepath}/intel/ipu/*
 %{_firmwarepath}/intel/vsc/*
 
 # Sound codec hardware
@@ -588,6 +593,33 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Feb 20 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240220-1
+- Update to upstream 20240220
+- update firmware for en8811h 2.5G ethernet phy
+- add firmware for MT7996
+- xe: First GuC release for LNL and Xe
+- i915: Add GuC v70.20.0 for ADL-P, DG1, DG2, MTL and TGL
+- Add CS35L41 firmware for Lenovo Legion 7i gen7 laptop (16IAX7)
+- brcm: Add nvram for the Asus Memo Pad 7 ME176C tablet
+- ice: update ice DDP package to 1.3.36.0
+- Add CS35L41 firmware for additional ASUS Zenbook 2023 models
+- panthor: Add initial firmware for Gen10 Arm Mali GPUs
+- qcom: update venus firmware file for v5.4
+- Montage: add firmware for Mont-TSSE
+- Remove 2 HP laptops using CS35L41 Audio Firmware
+- Fix filenames for some CS35L41 firmwares for HP
+- wilc1000: update WILC1000 firmware to v16.1.2
+- rtl_nic: add firmware for RTL8126A
+- intel: Add IPU6 firmware binaries
+- ath11k: WCN6855 hw2.0: update to WLAN.HSP.1.1-03125-QCAHSPSWPL_V1_V2_SILICONZ_LITE-3.6510.37
+- qcom: Add Audio firmware for SM8550 HDK
+- brcm: Add brcmfmac43430-sdio.xxx.txt nvram for the Chuwi Hi8 (CWI509) tablet
+- qcom: Add Audio firmware for SM8650 MTP
+- Add firmware for Cirrus CS35L41 on HP Consumer Laptops
+- amdgpu: lots of firmware updates ¯\_(ツ)_/¯
+- Update AMD cpu microcode
+- RTL8192E: Remove old realtek WiFi firmware
+
 * Thu Jan 18 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240115-2
 - Update some firmware filters
 

@@ -1,20 +1,21 @@
 Summary:       Serial terminal for the gnome desktop
 Name:          moserial
 Version:       3.0.21
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPLv3+
 URL:           https://wiki.gnome.org/moserial/
 Source0:       http://ftp.gnome.org/pub/GNOME/sources/moserial/3.0/moserial-%{version}.tar.xz
-BuildRequires: make
-BuildRequires: vala
+BuildRequires: GConf2-devel
+BuildRequires: desktop-file-utils
+BuildRequires: gnome-doc-utils
+BuildRequires: gtk3-devel
 BuildRequires: intltool
 BuildRequires: itstool
-BuildRequires: gtk3-devel
-BuildRequires: GConf2-devel
-BuildRequires: rarian-compat
-BuildRequires: gnome-doc-utils
+BuildRequires: make
 BuildRequires: perl(XML::Parser)
-BuildRequires: desktop-file-utils
+BuildRequires: rarian-compat
+BuildRequires: sed
+BuildRequires: vala
 Requires:      yelp
 Requires:      lrzsz
 Requires:      hicolor-icon-theme
@@ -37,10 +38,14 @@ chmod 0644 AUTHORS ChangeLog* NEWS COPYING README
 desktop-file-install --delete-original         \
     --dir %{buildroot}%{_datadir}/applications \
     %{buildroot}%{_datadir}/applications/moserial.desktop
+
+for book in %{buildroot}%{_datadir}/help/[a-z]*/moserial/index.docbook ; do
+    sed -i -e 's|fileref="figures|fileref="../../C/moserial/figures|' $book
+done
 for dir in %{buildroot}%{_datadir}/help/[a-z]*/moserial/figures ; do
     rm -rf $dir
-    ln -sv ../../../C/moserial/figures $dir
 done
+
 %find_lang moserial
 
 %files -f moserial.lang
@@ -54,6 +59,9 @@ done
 %{_mandir}/man1/moserial.1*
 
 %changelog
+* Tue Feb 20 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.0.21-9
+- Avoid symlinks, patch docbook files instead
+
 * Mon Feb 19 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.0.21-8
 - Fix FTBFS
 

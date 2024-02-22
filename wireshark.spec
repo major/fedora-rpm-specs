@@ -6,7 +6,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
 Url:		http://www.wireshark.org/
@@ -159,11 +159,12 @@ mkdir -p "${IDIR}/epan/crypt"
 mkdir -p "${IDIR}/epan/ftypes"
 mkdir -p "${IDIR}/epan/dfilter"
 mkdir -p "${IDIR}/epan/dissectors"
-mkdir -p "${IDIR}/epan/wmem"
 mkdir -p "${IDIR}/wiretap"
 mkdir -p "${IDIR}/wsutil"
+mkdir -p "${IDIR}/wsutil/wmem"
 mkdir -p %{buildroot}%{_udevrulesdir}
 install -m 644 %{_vpath_builddir}/config.h epan/register.h	"${IDIR}/"
+install -m 644 %{_vpath_builddir}/ws_version.h    "${IDIR}/"
 install -m 644 cfile.h file.h		"${IDIR}/"
 install -m 644 epan/*.h			"${IDIR}/epan/"
 install -m 644 epan/crypt/*.h		"${IDIR}/epan/crypt"
@@ -172,8 +173,8 @@ install -m 644 epan/dfilter/*.h		"${IDIR}/epan/dfilter"
 install -m 644 epan/dissectors/*.h	"${IDIR}/epan/dissectors"
 install -m 644 wiretap/*.h		"${IDIR}/wiretap"
 install -m 644 wsutil/*.h		"${IDIR}/wsutil"
-install -m 644 include/ws_symbol_export.h    "${IDIR}/"
-install -m 644 include/ws_diag_control.h    "${IDIR}/"
+install -m 644 wsutil/wmem/*.h		"${IDIR}/wsutil/wmem"
+install -m 644 include/*.h              "${IDIR}/"
 install -m 644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
 install -Dpm 644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
 
@@ -279,6 +280,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Feb 18 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1:4.2.2-3
+- Install more devel headers
+
 * Sun Feb 11 2024 Michal Ruprich <mruprich@redhat.com> - 1:4.2.2-2
 - Making sure that wireshark.pc is created and installed
 

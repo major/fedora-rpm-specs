@@ -1,11 +1,13 @@
 Name:		brightnessctl
 Version:	0.5.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Read and control device brightness
 
 License:	MIT
 URL:		https://github.com/Hummer12007/brightnessctl
 Source0:	%{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Hummer12007/brightnessctl/commit/9a1af7e
+Patch:		brightnessctl-0.5.1-Support-displaying-brightness-as-a-percentage.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -39,6 +41,9 @@ export ENABLE_SYSTEMD=1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Feb 17 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.5.1-11
+- Backport upstream patch for percentage output
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

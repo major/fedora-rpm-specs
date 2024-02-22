@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 41.1
+Version: 41.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -465,6 +465,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 20 2024 Packit <hello@packit.dev> - 41.2-1
+- Test for task category and category API (akankovs)
+- Creating categories dbus API for installation phases (akankovs)
+
 * Fri Feb 16 2024 Packit <hello@packit.dev> - 41.1-1
 - bump major version number for Rawhide after F40 branching (mkolman)
 

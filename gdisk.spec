@@ -1,13 +1,10 @@
 Summary:       An fdisk-like partitioning tool for GPT disks
 Name:          gdisk
-Version:       1.0.9
-Release:       9%{?dist}
+Version:       1.0.10
+Release:       1%{?dist}
 License:       GPL-2.0-only
 URL:           http://www.rodsbooks.com/gdisk/
 Source0:       http://downloads.sourceforge.net/gptfdisk/gptfdisk-%{version}.tar.gz
-# https://sourceforge.net/p/gptfdisk/code/ci/6a8416cbd12d55f882bb751993b94f72d338d96f/
-Patch0:        gdisk-libuuid.patch
-Patch1:        gdisk-1.0.9-poptmisuse.patch
 BuildRequires: gcc-c++
 BuildRequires: libuuid-devel
 BuildRequires: make
@@ -48,6 +45,9 @@ make test
 %{_mandir}/man8/fixparts.8*
 
 %changelog
+* Tue Feb 20 2024 Terje Rosten <terje.rosten@ntnu.no> - 1.0.10-1
+- 1.0.10
+
 * Mon Feb 12 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.0.9-9
 - Use a SPDX license tag
 

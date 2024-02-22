@@ -56,7 +56,11 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tang.conf
 %{__mkdir_p} $RPM_BUILD_ROOT/%{_localstatedir}/db/%{name}
 
 %check
-%meson_test
+%meson_test \
+%ifarch riscv64
+    --timeout-multiplier 10 \
+%endif
+    %{nil}
 
 %pre
 %sysusers_create_compat %{SOURCE1}

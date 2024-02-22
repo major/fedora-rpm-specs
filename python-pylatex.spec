@@ -2,13 +2,13 @@
 # If the package needs to download data for the test which cannot be done in
 # koji, these can be disabled in koji by using `bcond_with` instead, but the
 # tests must be validated in mock with network enabled like so:
-# mock -r fedora-rawhide-x86_64 rebuild <srpm> --enable-network --rpmbuild-opts="--with tests"
-%bcond_without tests
+# mock -r fedora-rawhide-x86_64 rebuild <srpm> --enable-network --with tests
 
-# Enabled by default
-%bcond_without docs
+# Tested for 1.4.2: all tests and examples pass
+%bcond tests 0
 
-%global pypi_name pylatex
+# unable to use rpmautospec here---fedpkg fails to fetch sources
+
 %global fancy_name PyLaTeX
 
 %global _description %{expand:
@@ -16,24 +16,26 @@ PyLaTeX is a Python library for creating and compiling LaTeX files or snippets.
 The goal of this library is being an easy but extensible interface between
 Python and LaTeX.}
 
-Name:           python-%{pypi_name}
-Version:        1.4.1
-Release:        13%{?dist}
+%global forgeurl https://github.com/JelteF/PyLaTeX
+
+Name:           python-pylatex
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        Library for creating LaTeX files and snippets
 
-# https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
+%forgemeta
+
+# spdx
 License:        MIT
 URL:            https://jeltef.github.io/PyLaTeX/
-Source0:        https://github.com/JelteF/%{fancy_name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/JelteF/PyLaTeX/pull/372
-Patch0:         https://github.com/JelteF/PyLaTeX/commit/f6d6a1d2bea3b74e8837ba360accd93a788f0016.patch
+Source0:        %forgesource
 BuildArch:      noarch
 
 %description %_description
 
 %{?python_enable_dependency_generator}
 
-%package -n python3-%{pypi_name}
+%package -n python3-pylatex
 Summary:        %{summary}
 # Not picked up by dep generator
 Requires:       %{py3_dist matplotlib}
@@ -74,10 +76,8 @@ Requires:       tex(tikz.sty)
 Requires:       tex(xcolor.sty)
 Requires:       texlive
 
-BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  git-core
 %if %{with tests}
 # Explicit requirements for tests
 BuildRequires:  %{py3_dist matplotlib}
@@ -117,46 +117,27 @@ BuildRequires:  tex(xcolor.sty)
 BuildRequires:  texlive
 %endif
 
-%py_provides python3-{pypi_name}
+%py_provides python3-pylatex
 
-%description -n python3-%{pypi_name} %_description
-
-%if %{with docs}
-%package doc
-Summary:        %{summary}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist ordered-set}
-BuildRequires:  %{py3_dist sphinx_rtd_theme}
-
-%description doc
-Documentation for %{name}.
-%endif
+%description -n python3-pylatex %_description
 
 %prep
-%autosetup -p1 -n %{fancy_name}-%{version} -S git
-rm -rf %{fancy_name}.egg-info
+%forgesetup
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
-make -C docs SPHINXBUILD=sphinx-build-3 html
-pushd docs/build/html
-    # Remove unneeded dot files
-    rm -frv .doctrees
-    rm -frv .buildinfo
-    # Correct end of line
-    sed -i 's/\r$//' _static/favicons/browserconfig.xml
-    # convert to utf8
-    iconv -f iso8859-1 -t utf-8 objects.inv > objects.inv.conv && mv -f objects.inv.conv objects.inv
-    sed -i 's/\r$//' objects.inv
-popd
+%build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pylatex
 
 
 %check
@@ -172,19 +153,13 @@ done
 popd
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-pylatex -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{fancy_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}
-
-%if %{with docs}
-%files doc
-%license LICENSE
-%doc docs/build/html examples
-%endif
 
 %changelog
+* Tue Feb 20 2024 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.4.2-1
+- Update to latest release
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

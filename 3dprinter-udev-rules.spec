@@ -1,6 +1,6 @@
 Name:           3dprinter-udev-rules
 Version:        0.3
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Rules for udev to give regular users access to operate 3D printers
 License:        MIT-0
 URL:            https://github.com/hroncok/%{name}
@@ -50,75 +50,4 @@ install -D -p -m 644 %{file_name} %{buildroot}%_udevrulesdir/%{file_name}
 %_udevrulesdir/%{file_name}
 
 %changelog
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Aug 25 2022 Miro Hrončok <mhroncok@redhat.com> - 0.3-1
-- Update to 0.3
-- License changed to MIT-0
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Apr 12 2019 Miro Hrončok <mhroncok@redhat.com> - 0.2.2-1
-- Update to 0.2.2
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Jan 02 2017 Miro Hrončok <mhroncok@redhat.com> - 0.2.1-1
-- Update to 0.2.1
-
-* Thu Sep 08 2016 Miro Hrončok <mhroncok@redhat.com> - 0.2-1
-- Update to 0.2, with more strict rules rhbz#1370782
-
-* Sat Mar 05 2016 Miro Hrončok <mhroncok@redhat.com> - 0.1-2
-- Require systemd-udev, that now owns the directory
-
-* Fri Feb 26 2016 Miro Hrončok <mhroncok@redhat.com> - 0.1-1
-- Initial package
+%autochangelog

@@ -1,6 +1,6 @@
 %global _bundled_pcre2_version 10.42
 # read from libversion
-%global libversion 101
+%global libversion 102
 
 %bcond_without check
 
@@ -12,7 +12,7 @@
 %endif
 
 Name:           poco
-Version:        1.13.1
+Version:        1.13.2
 Release:        %autorelease
 Summary:        C++ class libraries for network-centric applications
 
@@ -20,9 +20,6 @@ License:        BSL-1.0
 URL:            https://pocoproject.org
 
 Source:         https://github.com/pocoproject/poco/archive/poco-%{version}-release/poco-%{version}.tar.gz
-
-# Fix detection of odbc and apache2 for Fedora
-Patch0:         poco-fix-to-find-libraries.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

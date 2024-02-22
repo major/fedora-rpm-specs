@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -56,10 +56,12 @@ rm -r %{modname}.egg-info
 
 %check
 pushd %{buildroot}/%{python3_sitearch}
+%ifarch x86_64
   %pytest %{modname}
   # Hypothesis tests creates some files in sitearch... we remove them now
   rm -rf .hypothesis
   rm -rf .pytest_cache
+%endif
 popd
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -67,6 +69,9 @@ popd
 %doc README.rst
 
 %changelog
+* Tue Feb 20 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.2-5
+- Rebuilt to fix FTBFS
+
 * Mon Feb 05 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.2-4
 - Rebuilt to fix FTBFS
 

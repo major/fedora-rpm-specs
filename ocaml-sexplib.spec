@@ -11,11 +11,11 @@ ExcludeArch: %{ix86}
 Name:           ocaml-sexplib
 Version:        0.16.0
 Epoch:          1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Automated S-expression conversion
 
 # The project as a whole is MIT, but code in the src subdirectory is BSD.
-License:        MIT and BSD-3-Clause
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/janestreet/sexplib
 Source0:        %{url}/archive/v%{version}/sexplib-%{version}.tar.gz
 
@@ -86,6 +86,9 @@ cp -p vim/syntax/sexplib.vim %{buildroot}%{vimfiles_root}/syntax
 %{vimfiles_root}/syntax/sexplib.vim
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 1:0.16.0-11
+- Fix the SPDX expression
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.16.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

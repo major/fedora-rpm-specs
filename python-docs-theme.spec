@@ -1,6 +1,6 @@
 Name:           python-docs-theme
-Version:        2023.9
-Release:        3%{?dist}
+Version:        2024.2
+Release:        %autorelease
 Summary:        The Sphinx theme for the CPython docs and related projects
 
 License:        PSF-2.0
@@ -39,68 +39,4 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Oct 26 2023 Karolina Surma <ksurma@redhat.com> - 2023.9-1
-- Update to 2023.9
-Resolves: rhbz#2241218
-
-* Mon Aug 14 2023 Karolina Surma <ksurma@redhat.com> - 2023.7-1
-- Update to 2023.7
-Resolves: rhbz#2229025
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2023.5-2
-- Rebuilt for Python 3.12
-
-* Wed May 24 2023 Karolina Surma <ksurma@redhat.com> - 2023.5-1
-- Update to 2023.5
-Resolves: rhbz#2203424
-
-* Mon Mar 27 2023 Karolina Surma <ksurma@redhat.com> - 2023.3.1-1
-- Update to 2023.3.1
-Resolves: rhbz#2177169
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2022.1-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 17 2022 Miro Hrončok <mhroncok@redhat.com> - 2022.1-1
-- Update to 2022.1
-Resolves: rhbz#2039234
-
-* Tue Nov 02 2021 Karolina Surma <ksurma@redhat.com> - 2021.11.1-1
-- Update to 2021.11.1
-Resolves: rhbz#2011890
-
-* Wed Sep 01 2021 Karolina Surma <ksurma@redhat.com> - 2021.8-1
-- Update to 2021.8
-Resolves: rhbz#1998331
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2021.5-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2021.5-2
-- Rebuilt for Python 3.10
-
-* Tue May 18 2021 Karolina Surma <ksurma@redhat.com> - 2021.5-1
-- Update to 2021.05
-Resolves: rhbz#1958505
-
-* Thu Mar 04 2021 Karolina Surma <ksurma@redhat.com> - 2020.12-1
-- Initial package.
+%autochangelog

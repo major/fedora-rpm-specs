@@ -7,14 +7,15 @@
 %global forgeurl https://github.com/uqfoundation/pox
 
 Name:           python-pox
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Utilities for filesystem exploration and automated builds
 
-%global tag     pox-%{version}
+%global tag     %{version}
 %forgemeta
 
-License:        BSD
+# spdx
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -53,7 +54,7 @@ determining what version the installed package is.
 
 pox also provides utilities to enable the abstraction of commands sent to a
 remote filesystem. In conjunction with a registry of environment variables and
-installed utilites, pox enables the user to interact with a remote filesystem
+installed utilities, pox enables the user to interact with a remote filesystem
 as if they were logged in locally.
 
 pox is part of pathos, a python framework for heterogeneous computing. pox is
@@ -72,7 +73,7 @@ pox provides utilities for discovering the user's environment:
 
 pox also provides utilities for filesystem exploration and manipulation:
 
-- discover the path to a file, exectuable, directory, or symbolic link
+- discover the path to a file, executable, directory, or symbolic link
 - discover the path to an installed package
 - parse operating system commands for remote shell invocation
 - convert text files to platform-specific formatting}
@@ -113,6 +114,9 @@ PYTHONPATH="${PWD}" sphinx-build -b latex %{?_smp_mflags} \
 %install
 %pyproject_install
 %pyproject_save_files -l pox
+
+# remove shebang from generated file
+sed -r -i '1{/^#!/d}' $RPM_BUILD_ROOT/%{python3_sitelib}/pox/__info__.py
 
 %check
 # There is a check in test_shutils that the user’s home directory ends with the

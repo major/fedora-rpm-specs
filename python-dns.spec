@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-dns
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        DNS toolkit for Python
 
@@ -86,8 +86,11 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Tue Feb 20 2024 Lumír Balhar <lbalhar@redhat.com> - 2.6.1-1
+- Update to 2.6.1 (rhbz#2263657) (refix for CVE-2023-29483)
+
 * Sat Feb 17 2024 Lumír Balhar <lbalhar@redhat.com> - 2.6.0-1
-- Update to 2.6.0 (rhbz#2263657)
+- Update to 2.6.0 (rhbz#2263657) (CVE-2023-29483)
 
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

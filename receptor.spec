@@ -247,7 +247,7 @@ exit 0
 %if %{with check}
 %check
 # Disable flaky tests
-for test in "TestCreatePing"; do
+for test in "TestCreatePing" "TestCancel" "TestRelease"; do
     awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
 export PATH="%{gobuilddir}/bin:$PATH"

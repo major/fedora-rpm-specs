@@ -1,11 +1,11 @@
 Name:           python-zodbpickle
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fork of Python 2 pickle module for ZODB
 
 # Code taken from the python 3 sources is covered by the PSF-2.0 license.
 # Additions to that code are covered by the ZPL-2.1 license.
-License:        PSF-2.0 and ZPL-2.1
+License:        PSF-2.0 AND ZPL-2.1
 URL:            https://pypi.python.org/pypi/zodbpickle
 Source0:        %pypi_source zodbpickle
 # Add patch for change in python 3.13a4
@@ -57,6 +57,9 @@ rst2html --no-datestamp README.rst README.html
 %exclude %{python3_sitearch}/zodbpickle/*.c
 
 %changelog
+* Tue Feb 20 2024 Jerry James <loganjerry@gmail.com> - 3.2-2
+- Fix the SPDX expression
+
 * Fri Feb 16 2024 Jerry James <loganjerry@gmail.com> - 3.2-1
 - Version 3.2
 - Add patch to fix build with python 3.13 (bz 2245801)

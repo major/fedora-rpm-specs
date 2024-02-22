@@ -11,7 +11,7 @@ Release:	25%{?dist}
 # Font exception
 # See: http://groups.google.com/group/bpg-fonts/web/gpl-gnu-license
 # No version of the GPL is specified.
-License:	GPL-1.0-or-later WITH Font-exception-2.0
+License:	GPL-2.0-or-later WITH Font-exception-2.0
 # Source was found here:
 # http://bpgfonts.wordpress.com/category/gpl-gnu/
 # But the link is annoying:

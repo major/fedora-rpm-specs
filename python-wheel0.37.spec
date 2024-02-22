@@ -1,6 +1,6 @@
 Name:           python-wheel0.37
 Version:        0.37.1
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        A built-package format for Python
 
 License:        MIT
@@ -79,21 +79,4 @@ export PYTHONPATH=%{buildroot}%{python_wheel_dir}/%{python_wheel_name}
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 0.37.1-2
-- Add missing bundled() Provides
-- Include RPM epoch int the Conflict with python-wheel-wheel
-
-* Mon Dec 12 2022 Miro Hrončok <mhroncok@redhat.com> - 0.37.1-1
-- Initial compatibility package
+%autochangelog

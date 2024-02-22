@@ -34,7 +34,7 @@
 
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
-Version:        1.0.3
+Version:        1.0.4
 Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
@@ -70,7 +70,11 @@ Requires:       libmodulemd%{?_isa} >= %{libmodulemd_version}
 %endif
 %endif
 Requires:       %{name}-libs = %{epoch_dep}%{version}-%{release}
+%if 0%{?fedora} > 40 || 0%{?rhel} > 10
+BuildRequires:  bash-completion-devel
+%else
 BuildRequires:  bash-completion
+%endif
 Requires: rpm >= 4.9.0
 %if %{with drpm}
 BuildRequires:  drpm-devel >= 0.4.0
@@ -202,6 +206,12 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Feb 20 2024 Jan Kolarik <jkolarik@redhat.com> - 1.0.4-1
+- Update to 1.0.4
+- Extend the --compatibility flag to cover other defaults
+- mergerepo_c and modifyrepo_c now make "pretty" indented xml
+- Fix building due to bash-completion repackaging
+
 * Fri Jan 26 2024 Jan Kolarik <jkolarik@redhat.com> - 1.0.3-1
 - Update to 1.0.3
 - Set compression level 10 for zstd and zck

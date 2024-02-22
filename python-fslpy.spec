@@ -50,11 +50,8 @@ Summary:        %{summary}
 %prep
 %forgesetup
 
-# remove pytest coverage etc bits
-sed -i -e '/"coverage"/ d' \
-    -e '/"pytest-cov"/ d' \
-    -e '/addopts/ d' \
-    pyproject.toml
+# Don't run coverage when calling `pytest`
+sed -i 's/--cov=fsl //' pyproject.toml
 
 # remove unneeded shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env python$/ d' {} 2>/dev/null ';'
@@ -63,18 +60,14 @@ sed -i '/^#![  ]*\/usr\/bin\/env python3$/ d' fsl/wrappers/tbss.py
 find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/usr\/bin\/python3/' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -x extra -x test
+%pyproject_buildrequires -x extra
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files fsl
-
-# Remove test packages that are installed in site packages
-rm -rvf %{buildroot}%{python3_sitelib}/fsl/tests
-sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
+%pyproject_save_files -l fsl
 
 # generate man pages
 # imglob does not have a --help
@@ -117,15 +110,17 @@ k="${k-}${k+ and }not test_scanDir"
 k="${k-}${k+ and }not test_loadSeries"
 # requires an FSL installation
 k="${k-}${k+ and }not test_cluster"
-# unable to find tests module
-k="${k-}${k+ and }not test_func_to_cmd"
-# RuntimeError (non-zero exit code)
-k="${k-}${k+ and }not test_runfunc"
 
 # Ignore tests we've already run
-%{pytest} fsl/tests -v ${k+-k }"${k-}" ${m+-m }"${m-}" \
+# Set import-mode according to upstream's `pyproject.toml`
+%{pytest} ${k+-k }"${k-}" ${m+-m }"${m-}" \
   --ignore=fsl/tests/test_idle.py \
   --ignore=fsl/tests/test_platform.py
+
+# Remove test packages that are installed in site packages
+# We do that here, since above tests require the installed tests and data
+rm -rvf %{buildroot}%{python3_sitelib}/fsl/tests
+sed -r -i '/\bfsl\/tests\b/d' %{pyproject_files}
 
 
 %files -n python3-fslpy -f %{pyproject_files}

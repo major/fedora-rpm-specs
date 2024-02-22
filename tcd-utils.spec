@@ -1,14 +1,14 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global	build_type_safety_c  2
-
 Name:		tcd-utils
 Version:	20120115
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	TCD (Tide Constituent Database) Utils
 
 License:	Public Domain
 URL:		http://www.flaterco.com/xtide/
 Source0:	ftp://ftp.flaterco.com/xtide/tcd-utils-%{version}.tar.bz2
+# Fix for -Werror=incompatible-pointer-types
+# Mailed to the upstream
+Patch0:	tcd-utils-20120115-pointer-types.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -23,6 +23,7 @@ TCD Utils includes:
 
 %prep
 %setup -q
+%patch -P0 -p1 -b .type
 
 %build
 %configure
@@ -33,12 +34,15 @@ TCD Utils includes:
  
 
 %files
-%doc COPYING
+%license COPYING
 %doc ChangeLog
 %doc README
 %{_bindir}/*
 
 %changelog
+* Tue Feb 20 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 20120115-26
+- Fix FTBFS with gcc14 -Werror=incompatible-pointer-types
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20120115-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

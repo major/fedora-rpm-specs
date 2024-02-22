@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-sedlex
 Version:        3.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -74,6 +74,9 @@ sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %changelog
+* Tue Feb 20 2024 Andy Li <andy@onthewings.net> - 3.2-9
+- ocaml-ppxlib rebuild for Fedora 41 (RHBZ#2264259)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
