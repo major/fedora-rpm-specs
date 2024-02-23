@@ -5,7 +5,7 @@
 %global crate sequoia-ipc
 
 Name:           rust-sequoia-ipc
-Version:        0.31.0
+Version:        0.33.0
 Release:        %autorelease
 Summary:        Interprocess communication infrastructure for Sequoia
 

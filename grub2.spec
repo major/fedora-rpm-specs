@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	118%{?dist}
+Release:	119%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -554,6 +554,11 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Feb 7 2024 Nicolas Frayer <nfrayer@redhat.com> - 2.06-119
+- grub-set-bootflag: Fix for CVE-2024-1048
+- (CVE-2024-1048)
+- Resolves: #2256678
+
 * Tue Jan 23 2024 Leo Sandoval <lsandova@redhat.com> - 2.06-118
 - xfs: include the 'directory extent parsing patch', otherwise
 XFS-formatted partitions do not boot. This change effectively

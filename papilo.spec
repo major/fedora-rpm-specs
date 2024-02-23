@@ -6,7 +6,7 @@
 %endif
 
 Name:           papilo
-Version:        2.1.4
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Parallel presolve for integer and linear optimization
 
@@ -15,8 +15,9 @@ Summary:        Parallel presolve for integer and linear optimization
 # Zlib: the header-only pdqsort project
 # MIT: the bundled fmt project
 License:        LGPL-3.0-or-later AND BSL-1.0 AND Zlib AND MIT
-URL:            https://github.com/scipopt/papilo/
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://www.scipopt.org/
+VCS:            https://github.com/scipopt/papilo/
+Source0:        %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Unbundle catch, LUSOL, pdqsort, and ska
 Patch0:         %{name}-unbundle.patch
 # Build a shared library instead of a static library
@@ -24,7 +25,6 @@ Patch1:         %{name}-shared.patch
 # The list of tests in CMakeLists.txt doesn't match the actual tests
 Patch2:         %{name}-test.patch
 # Avoid out-of-bounds vector access
-# https://github.com/scipopt/papilo/pull/42
 Patch3:         %{name}-vector-bounds.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

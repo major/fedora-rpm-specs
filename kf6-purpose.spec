@@ -2,7 +2,7 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -66,10 +66,10 @@ Requires: cmake(KF6CoreAddons)
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
-%{_kf6_libdir}/libKF6Purpose.so.5*
 %{_kf6_libdir}/libKF6Purpose.so.6
-%{_kf6_libdir}/libKF6PurposeWidgets.so.5*
+%{_kf6_libdir}/libKF6Purpose.so.%{version}
 %{_kf6_libdir}/libKF6PurposeWidgets.so.6
+%{_kf6_libdir}/libKF6PurposeWidgets.so.%{version}
 %{_kf6_libexecdir}/purposeprocess
 %{_kf6_datadir}/kf6/purpose/
 %{_kf6_datadir}/accounts/services/kde/*.service
@@ -87,6 +87,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

@@ -68,17 +68,13 @@
 # python-opentelemetry package, and the two packages must be updated together.
 %global stable_version 1.22.0
 %global prerel_version 0.43~b0
-# There are a few subpackages that have their *own* versioning scheme!
-%global aws_propagator_version 1.0.1
-%global aws_sdk_version 2.0.1
-%global rd_azure_version 0.1.0
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
 Epoch:          2
 # Keep incrementing the releae monotonically, unless the base package version
 # and the above versions all change at the same time.
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,
@@ -155,10 +151,7 @@ BuildRequires:  %{py3_dist pytest-benchmark}
     exporter/opentelemetry-exporter-richconsole
     opentelemetry-instrumentation
     opentelemetry-distro
-    propagator/opentelemetry-propagator-aws-xray
     propagator/opentelemetry-propagator-ot-trace
-    resource/opentelemetry-resource-detector-azure
-    sdk-extension/opentelemetry-sdk-extension-aws
     util/opentelemetry-util-http
     instrumentation/opentelemetry-instrumentation-aiohttp-client
     instrumentation/opentelemetry-instrumentation-aiopg
@@ -297,44 +290,12 @@ python3-opentelemetry-distro. It makes sure the dependencies are installed.
 %ghost %{python3_sitelib}/opentelemetry_distro-%{prerel_distinfo}
 
 
-%package -n python3-opentelemetry-propagator-aws-xray
-Summary:        AWS X-Ray Propagator for OpenTelemetry
-Version:        %{aws_propagator_version}
-License:        Apache-2.0
-
-%description -n python3-opentelemetry-propagator-aws-xray
-This library provides the propagator necessary to inject or extract a tracing
-context across AWS services.
-
-
 %package -n python3-opentelemetry-propagator-ot-trace
 Summary:        OT Trace Propagator for OpenTelemetry
 Version:        %{prerel_version}
 
 %description -n python3-opentelemetry-propagator-ot-trace
 OpenTelemetry OT Trace Propagator.
-
-
-%package -n python3-opentelemetry-resource-detector-azure
-Summary:        OpenTelemetry Resource detectors for Azure
-Version:        %{rd_azure_version}
-
-%description -n python3-opentelemetry-resource-detector-azure
-This library contains OpenTelemetry Resource Detectors for the following Azure
-resources:
-
-  • Azure App Service
-  • Azure Virtual Machines
-
-
-%package -n python3-opentelemetry-sdk-extension-aws
-Summary:        AWS SDK extension for OpenTelemetry
-Version:        %{aws_sdk_version}
-License:        Apache-2.0
-
-%description -n python3-opentelemetry-sdk-extension-aws
-This library provides components necessary to configure the OpenTelemetry SDK
-for tracing with AWS X-Ray.
 
 
 %package -n python3-opentelemetry-util-http
@@ -540,7 +501,6 @@ License:        Apache-2.0
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-Requires:       python3-opentelemetry-propagator-aws-xray = %{?epoch:%{epoch}:}%{aws_propagator_version}-%{release}
 
 %description -n python3-opentelemetry-instrumentation-aws-lambda
 This library provides an Instrumentor used to trace requests made by the Lambda
@@ -637,7 +597,6 @@ License:        Apache-2.0
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-Requires:       python3-opentelemetry-propagator-aws-xray = %{?epoch:%{epoch}:}%{aws_propagator_version}-%{release}
 
 %description -n python3-opentelemetry-instrumentation-botocore
 This library allows tracing requests made by the Botocore library.
@@ -1967,7 +1926,6 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   done
 ) | sed -r \
     -e '/\bopentelemetry-instrumentation\b/d' \
-    -e '/\bopentelemetry-propagator-aws-xray\b/d' \
     -e '/\bopentelemetry-util-http\b/d' \
   | sort -u
 
@@ -2094,11 +2052,6 @@ do
     # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2033#issuecomment-1836278182
     k="${k-}${k+ and }not (TestUrllibMetricsInstrumentation and test_metric_uninstrument)"
     ;;
-  resource/opentelemetry-resource-detector-azure)
-    # Test failure regression in TestAzureVMResourceDetector
-    # https://github.com/open-telemetry/opentelemetry-python-contrib/issues/2102
-    k="${k-}${k+ and }not TestAzureVMResourceDetector"
-    ;;
   opentelemetry-contrib-instrumentations)
     # This package has no tests; it is effectively a metapackage, and it is not
     # importable due to a hyphen in the ”package“ directory name.
@@ -2181,18 +2134,6 @@ done
 %{python3_sitelib}/opentelemetry_distro-%{prerel_distinfo}/
 
 
-%files -n python3-opentelemetry-propagator-aws-xray
-%license propagator/opentelemetry-propagator-aws-xray/LICENSE
-%doc propagator/opentelemetry-propagator-aws-xray/README.rst
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry/{,propagators/}
-
-%{python3_sitelib}/opentelemetry/propagators/aws/
-%global aws_propagator_distinfo %(echo '%{aws_propagator_version}' | tr -d '~^').dist-info
-%{python3_sitelib}/opentelemetry_propagator_aws_xray-%{aws_propagator_distinfo}/
-
-
 %files -n python3-opentelemetry-propagator-ot-trace
 %license LICENSE LICENSE.Apache LICENSE.BSD3
 %doc propagator/opentelemetry-propagator-ot-trace/README.rst
@@ -2202,30 +2143,6 @@ done
 
 %{python3_sitelib}/opentelemetry/propagators/ot_trace/
 %{python3_sitelib}/opentelemetry_propagator_ot_trace-%{prerel_distinfo}/
-
-
-%files -n python3-opentelemetry-resource-detector-azure
-%license resource/opentelemetry-resource-detector-azure/LICENSE
-%doc resource/opentelemetry-resource-detector-azure/README.rst
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry/{,resource/,resource/detector/}
-
-%{python3_sitelib}/opentelemetry/resource/detector/azure/
-%global rd_azure_distinfo %(echo '%{rd_azure_version}' | tr -d '~^').dist-info
-%{python3_sitelib}/opentelemetry_resource_detector_azure-%{rd_azure_distinfo}/
-
-
-%files -n python3-opentelemetry-sdk-extension-aws
-%license sdk-extension/opentelemetry-sdk-extension-aws/LICENSE
-%doc sdk-extension/opentelemetry-sdk-extension-aws/README.rst
-
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry/{,sdk/,sdk/extension/}
-
-%{python3_sitelib}/opentelemetry/sdk/extension/aws/
-%global aws_sdk_distinfo %(echo '%{aws_sdk_version}' | tr -d '~^').dist-info
-%{python3_sitelib}/opentelemetry_sdk_extension_aws-%{aws_sdk_distinfo}/
 
 
 %files -n python3-opentelemetry-util-http
@@ -2754,6 +2671,9 @@ done
 
 
 %changelog
+* Wed Feb 21 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-52
+- Split separately-versioned subpackages into new packages
+
 * Sun Feb 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-51
 - Add missing test dep. on requests for xray propagator
 

@@ -1,7 +1,7 @@
 %global framework solid
 
 Name:           kf6-%{framework}
-Version:        5.249.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
@@ -59,8 +59,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_bindir}/solid-hardware6
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
-%{_kf6_libdir}/libKF6Solid.so.5*
 %{_kf6_libdir}/libKF6Solid.so.6
+%{_kf6_libdir}/libKF6Solid.so.%{version}
 
 %files devel
 %{_kf6_includedir}/Solid/
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

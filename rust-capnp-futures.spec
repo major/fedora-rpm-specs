@@ -5,7 +5,7 @@
 %global crate capnp-futures
 
 Name:           rust-capnp-futures
-Version:        0.18.2
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Async serialization for Cap'n Proto messages
 

@@ -13,6 +13,9 @@ License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
+# Use Python 3.13.0a4 PyCFunctionFastWithKeywords
+Patch:          https://github.com/cython/cython/pull/6003.patch
+
 BuildRequires:  python3-devel
 
 %if %{with tests}

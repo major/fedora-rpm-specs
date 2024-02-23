@@ -1,7 +1,7 @@
 %global framework kbookmarks
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for bookmarks manipulation
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -63,8 +63,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_libdir}/libKF6Bookmarks.so.*
-%{_kf6_libdir}/libKF6BookmarksWidgets.so.5*
-%{_kf6_libdir}/libKF6BookmarksWidgets.so.6*
+%{_kf6_libdir}/libKF6BookmarksWidgets.so.6
+%{_kf6_libdir}/libKF6BookmarksWidgets.so.%{version}
+%{_kf6_libdir}/libKF6BookmarksWidgets.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/%{framework}widgets.categories
 
 %files devel
@@ -79,6 +80,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

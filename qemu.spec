@@ -361,7 +361,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 7
+%global baserelease 8
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -393,6 +393,11 @@ Patch: 0001-target-i386-do-not-re-compute-new-pc-with-CF_PCREL.patch
 # Fix builds on i686.
 # Sent upstream 29-01-2024
 Patch: 0001-block-blkio-Make-s-mem_region_alignment-be-64-bits.patch
+
+# Fix user-emulation of FIFREEZE and FITHAW ioctls
+# Posted upstream 20-02-2024
+# https://lists.nongnu.org/archive/html/qemu-devel/2024-02/msg03971.html
+Patch: qemu-fifreeze-fithaw.patch
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -3159,6 +3164,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Wed Feb 21 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-8
+- Fix user-emulation of FIFREEZE and FITHAW ioctls
+
 * Thu Feb 01 2024 Cole Robinson <crobinso@redhat.com> - 8.2.0-7
 - Enable PIE for qemu-user-static builds
 - Replace PVH build fix patch with version that should work on centos

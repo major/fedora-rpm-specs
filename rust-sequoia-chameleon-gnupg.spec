@@ -4,7 +4,7 @@
 %global crate sequoia-chameleon-gnupg
 
 Name:           rust-sequoia-chameleon-gnupg
-Version:        0.4.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Sequoia's reimplementation of the GnuPG interface
 
@@ -17,14 +17,8 @@ Source0:        %{crates_source}
 Source1:        gpgconf-sq.sh
 Source2:        activate.sh
 # Manually created patch for downstream crate metadata changes
-# * port from obsolete "home-dir" crate to "shellexpand"
-# * drop unavailable "interprocess" dev-dependency
 # * drop features for unavailable crypto backends
-# * build with OpenSSL crypto backend
 Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
-# * backport upstream patch to port from "home-dir" to "shellexpand":
-#   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/commit/03f23a7
-Patch:          0001-port-from-home-dir-to-shellexpand.patch
 # * fix running integration tests in release mode with prebuilt executable
 Patch:          0002-fix-running-integration-tests-in-release-mode-with-p.patch
 
@@ -79,11 +73,14 @@ Requires:       /usr/bin/gpgconf
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# * drop tests that depend on the missing "interprocess" crate
-rm -vr tests/
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%if %{with check}
+echo "/usr/bin/gpg"
+echo "/usr/bin/gpgv"
+echo "/usr/bin/gpgconf"
+%endif
 
 %build
 %cargo_build

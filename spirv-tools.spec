@@ -1,6 +1,6 @@
 %undefine __cmake_in_source_build
 
-%global sdkver 1.3.268.0
+%global sdkver 1.3.275.0
 
 Name:           spirv-tools
 Version:        2023.3

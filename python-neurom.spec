@@ -7,7 +7,7 @@ Documentation is available at https://neurom.readthedocs.io/
 %global forgeurl    https://github.com/BlueBrain/NeuroM
 
 Name:           python-neurom
-Version:        3.2.5
+Version:        3.2.8
 Release:        %autorelease
 Summary:        Neuronal Morphology Analysis Tool
 
@@ -28,6 +28,7 @@ ExcludeArch:    %{ix86}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %description -n python3-neurom %_description
 
@@ -47,9 +48,14 @@ Summary:        Documentation for %{name}
 # not sure why this was changed: https://github.com/BlueBrain/NeuroM/commit/dbc3bd069a6fbded6c4a64cc038adb37c0b06932
 sed -i 's|graft neurom/config|graft neurom/apps/config|' MANIFEST.in
 
+# Unpin setuptools_scm for <= f39
+%if %{fedora} <= 39
+sed -r -i 's/"(setuptools_scm).*"/"\1"/' pyproject.toml
+%endif
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -t -x plotly
+%pyproject_buildrequires -x plotly
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -58,7 +64,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %install
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
-%pyproject_save_files neurom
+%pyproject_save_files -l neurom
 
 # Remove spurious installed files
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/tests/
@@ -72,7 +78,7 @@ k="${k-}${k+ and }not test_extract_stats_scalar_feature"  # failing with 3.2.5
 k="${k-}${k+ and }not test_markers"  # failing with 3.2.5
 k="${k-}${k+ and }not test_single_neurite_no_soma"  # failing with 3.2.5
 k="${k-}${k+ and }not test_skip_header"  # failing with 3.2.5
-%tox -- -- -k "${k-}"
+PYTHONPATH=. %pytest -v -k "${k-}"
 
 %files -n python3-neurom -f %{pyproject_files}
 %doc AUTHORS.md

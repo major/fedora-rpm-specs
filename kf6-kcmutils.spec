@@ -1,7 +1,7 @@
 %global framework kcmutils
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
@@ -71,8 +71,8 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_kf6_libdir}/libKF6KCMUtilsCore.so.*
 %{_kf6_qmldir}/org/kde/kcmutils/
 %{_kf6_qtplugindir}/kcms/
-%{_libdir}/libKF6KCMUtilsQuick.so.5*
 %{_libdir}/libKF6KCMUtilsQuick.so.6
+%{_libdir}/libKF6KCMUtilsQuick.so.%{version}
 
 %files devel
 %{_kf6_includedir}/KCMUtils/
@@ -89,6 +89,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

@@ -497,6 +497,7 @@ The LibreOffice Spreadsheet application.
 Summary: LibreOffice Drawing Application
 Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-data = %{epoch}:%{version}-%{release}
+Requires: %{name}-ogltrans%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-pdfimport%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-pyuno%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-graphicfilter%{?_isa} = %{epoch}:%{version}-%{release}

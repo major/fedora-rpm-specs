@@ -1,6 +1,6 @@
-# Require network, so run locally in mock with --with=tests --enable-network
-# All tests pass
-%bcond_with tests
+# Tests requiring network are skipped (mostly dependent on docker)
+# So, let's run all tests by default.
+%bcond tests 1
 
 # Use forge macros for pulling from GitLab
 %global forgeurl https://gitlab.com/radiology/infrastructure/xnatpy
@@ -15,11 +15,13 @@ get, head, put, post, delete methods for more directly calling the REST
 API.}
 
 Name:           python-xnat
-Version:        0.5.1
+Version:        0.5.3
 Release:        %autorelease
 Summary:        XNAT client that exposes XNAT objects/functions as python objects/functions
 # Only expand forge macros in fedora >= 40 since %%forgesource is broken
 # in older releases.
+# Use `fedpkg ... mockbuild --srpm-mock ...` when building for >=40 on
+# system <40
 %if %{fedora} >= 40
 %forgemeta
 %endif
@@ -31,6 +33,13 @@ Source0:        %forgesource
 %else
 Source0:        https://gitlab.com/radiology/infrastructure/xnatpy/-/archive/%{version}/xnatpy-%{version}.tar.bz2
 %endif
+# xnat4tests is not available in Fedora. It's currently not possible to
+# package it either, since it's licensed under CC0-1.0
+# https://github.com/Australian-Imaging-Service/xnat4tests/issues/17
+Patch:          no_xnat4tests.patch
+# Fix %%Pyproject_check_import failing
+# https://gitlab.com/radiology/infrastructure/xnatpy/-/issues/57
+Patch:          https://gitlab.com/radiology/infrastructure/xnatpy/-/commit/bafa2c7ad0d12cf841446705b1d597059ce2a6b0.patch
 
 BuildArch:      noarch
 
@@ -42,6 +51,11 @@ Summary:        %{summary}
 
 BuildRequires: python3-devel
 BuildRequires: help2man
+%if %{with tests}
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-requests-mock
+%endif
 
 %description -n python3-xnat
 %{desc}
@@ -49,17 +63,16 @@ BuildRequires: help2man
 %prep
 %autosetup -p1 -n xnatpy-%{version}
 
-# Remove version locks etc.
-sed -i -e 's/pytest==.*/pytest/' -e 's/pytest-cov==.*/pytest-cov/' -e '/tox/ d' test_requirements.txt
-sed -i '/sphinx/d' requirements.txt
-
 # remove shebang from non executable scripts
 sed -i '1d' xnat/scripts/copy_project.py
 sed -i '1d' xnat/scripts/data_integrity_check.py
 sed -i '1d' xnat/scripts/import_experiment_dir.py
 
+# Don't try to import docker (we are not using it)
+sed -i '/import docker/d' xnat/tests/test_import.py
+
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests: -r requirements.txt test_requirements.txt}
+%pyproject_buildrequires -r requirements.txt
 
 %build
 %pyproject_wheel
@@ -80,7 +93,14 @@ done
 
 %check
 %if %{with tests}
-%{pytest}
+# Docker tests are skipped automatically if docker is not available.
+# To make it explicit of what is being skipped, I added it anyway.
+# Funtional tests require xnat4tests.
+%pytest -v -m 'not docker_test and not functional_test'
+%else
+# Import test currently fails
+# https://gitlab.com/radiology/infrastructure/xnatpy/-/issues/57
+%pyproject_check_import
 %endif
 
 %files -n python3-xnat -f %{pyproject_files}

@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -97,6 +97,7 @@ Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
 Patch13: postgresql-libxml2.patch
 Patch14: postgresql15-libxml2.patch
+Patch15: postgresql-openssl32.patch
 
 # This macro is used for package names in the files section
 %if %?postgresql_default
@@ -520,6 +521,7 @@ goal of accelerating analytics queries.
 %patch 9 -p1
 %patch 10 -p1
 %patch 13 -p1
+%patch 15 -p1
 
 
 %if ! %external_libpq
@@ -1336,6 +1338,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Feb 20 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1-6
+- Backport OpenSSL 3.2 fix from upstream master
+
 * Mon Feb 5 2024 Filip Janus <fjanus@redhat.com> - 16.1-5
 - Add versioned provide to the default version
 - Obsolete versioned is no more needed since only default stream provides

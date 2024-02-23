@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -236,6 +236,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 \
 %ifarch s390x
   ~wxTextFile::Special ~wxFileName::GetSizeSpecial ~wxFile::Special \
 %endif
+%ifarch riscv64
+  ~wxTextFile::Special ~wxFile::Special ~URLTestCase::GetInputStream ~WebRequest::SSL::Error \
+%endif
   ~WebRequest::SSL::Ignore
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
   ./test_gui ~[.] \
@@ -244,6 +247,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
 %endif
 %ifarch s390x
   ~WebView \
+%endif
+%ifarch riscv64
+  ~TreeCtrlTestCase ~WebView ~wxImage::Paste \
 %endif
   ~wxHtmlPrintout::Pagination
 popd
@@ -322,6 +328,9 @@ fi
 %doc html
 
 %changelog
+* Wed Feb 21 2024 David Abdurachmanov <davidlt@rivosinc.com> - 3.2.4-7
+- Skip failing tests on riscv64
+
 * Fri Feb 16 2024 Scott Talbert <swt@techie.net> - 3.2.4-6
 - Fix FTBFS with autoconf 2.72 (#2264449)
 

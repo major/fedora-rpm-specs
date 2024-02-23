@@ -5,7 +5,7 @@
 
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
@@ -134,6 +134,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/breeze-dark &>/dev/null || :
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

@@ -4,7 +4,7 @@
 %bcond docs %{defined fedora}
 
 Name:           python-%{pypi_name}
-Version:        1.23.24
+Version:        1.23.25
 Release:        %autorelease
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 

@@ -1,6 +1,3 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global		build_type_safety_c  2
-
 %global		use_release	0
 %global		use_git		0
 %global		use_gitbare	1
@@ -38,7 +35,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	3
+%global		baserelease	4
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -59,6 +56,9 @@ Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{main_versi
 Source100:		create-lxterminal-git-bare-tarball.sh
 # Fix segfault when closing window (bug 2207699)
 Patch0:		lxterminal-0.4.0-avoid-segv-on-window-close.patch
+# Fix FTBFS with -Werror=incompatible-pointer-types
+# https://github.com/lxde/lxterminal/pull/122
+Patch1:		lxterminal-pr122-fix-gcc14-incompatible-pointer-types.patch
 
 BuildRequires:	git
 
@@ -121,6 +121,7 @@ git add .
 git commit -m "base" -q
 %endif
 
+cat %PATCH1 | git am
 %patch -P0 -p1 -b .closewin
 
 sh autogen.sh
@@ -184,6 +185,9 @@ cd ..
 
 
 %changelog
+* Wed Feb 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0^20230917git9b4299c2-4
+- Apply upstream patch for gcc14 -Werror=incompatible-pointer-types
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0^20230917git9b4299c2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

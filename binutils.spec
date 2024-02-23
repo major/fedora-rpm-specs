@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.42
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -37,7 +37,9 @@ URL: https://sourceware.org/binutils
 # Generate a warning when linking creates a segment with read, write and execute permissions
 %define warn_for_rwx_segments 1
 
-# Turn the above warnings into errors.  Only effective if the warnings are enabled.
+# Turn the above warnings into errors.
+# Only effective if the warnings are enabled.
+# Disabled by default because this is now handled by a macro in redhat-rpm-config.
 %define error_for_executable_stacks 0
 %define error_for_rwx_segments 0
 
@@ -80,7 +82,27 @@ URL: https://sourceware.org/binutils
 # not just x86/x86_64.
 %define enable_separate_code 1
 
+# Enable the use of source tarballs created from specific upstream commits
+# rather than official GNU Binutils releases.  This supports the syncing
+# procedure documented here: https://fedoraproject.org/wiki/BinutilsRawhideSync
+%define use_commit_id_tarballs 1
+
 #----End of Configure Options------------------------------------------------
+
+# Default: Not bootstrapping.
+%bcond_with bootstrap
+# Default: Not debug
+%bcond_with debug
+# Default: support debuginfod.
+%bcond_without debuginfod
+# Default: Always build documentation.
+%bcond_without docs
+# Default: build binutils-gprofng package.
+%bcond_without gprofng
+# Default: Use the system supplied version of the zlib compression library.
+%bcond_without systemzlib
+# Default: Always run the testsuite.
+%bcond_without testsuite
 
 # Note - in the future the gold linker may become deprecated.
 %ifnarch riscv64
@@ -89,21 +111,6 @@ URL: https://sourceware.org/binutils
 # RISC-V does not have ld.gold thus disable by default.
 %bcond_with gold
 %endif
-
-# Default: Not bootstrapping.
-%bcond_with bootstrap
-# Default: Not debug
-%bcond_with debug
-# Default: Always build documentation.
-%bcond_without docs
-# Default: Always run the testsuite.
-%bcond_without testsuite
-# Default: support debuginfod.
-%bcond_without debuginfod
-# Default: build binutils-gprofng package.
-%bcond_without gprofng
-# Default: Use the system supplied version of the zlib compression library.
-%bcond_without systemzlib
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
@@ -134,7 +141,7 @@ URL: https://sourceware.org/binutils
 %define enable_shared 0
 %endif
 
-# GprofNG currenly onlly supports the x86 and AArch64 architectures.
+# GprofNG currenly only supports the x86 and AArch64 architectures.
 %ifnarch x86_64 aarch64
 %undefine with_gprofng
 %endif
@@ -153,11 +160,26 @@ URL: https://sourceware.org/binutils
 #----------------------------------------------------------------------------
 
 # Note - the Linux Kernel binutils releases are too unstable and contain
-# too many controversial patches so we stick with the official FSF version
+# too many controversial patches so we stick with the official GNU version
 # instead.
+#
 
+%if %{use_commit_id_tarballs}
+# We are using a tarball created after a specific commit to the upstream
+# GNU Binutils repository.  This tarball can be recreated by the following
+# commands (FIXME: there is probably a better way of doing this):
+#    git clone git://sourceware.org/git/binutils-gdb.git .
+#    git checkout <commit-id>
+#    ./src-release.sh -x -r `git log -1 --format=%cd --date=format:%F <commit-id>` binutils
+#
+# Note - we use Source0: rather than Source: here so that it can be found
+# and editted by a script.
+Source0: binutils-1b2c120daf9e2d935453f9051bbeafbac7f9f14d.tar.xz
+%else
 Source: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
-Source2: binutils-2.19.50.0.1-output-format.sed
+%endif
+
+Source1: binutils-2.19.50.0.1-output-format.sed
 
 #----------------------------------------------------------------------------
 
@@ -264,25 +286,9 @@ Patch18: binutils-gold-pack-relative-relocs.patch
 # Lifetime: Fixed in 2.43 (maybe)
 Patch19: binutils-gold-ignore-execstack-error.patch
 
-# Purpose:  Add support for IBM's Power11 architecture extensions
-# Lifetime: Fixed in 2.43
-Patch20: binutils-power-11.patch
-
-# Purpose:  Have the bfd linker's --fatal-warnings option act consistently.
-# Lifetime: Fixed in 2.43
-Patch21: binutils-fatal-warnings.patch
-
-# Purpose:  Add missing scfi tests to the assembler.
-# Lifetime: Fixed in 2.43
-Patch22: binutils-scfi-tests-fix.patch
-
-# Purpose:  Fix support for Intel's APX extensions (part 1)
-# Lifetime: Fixed in 2.43
-Patch23: binutils-Intel-APX-part-1-fixes.patch
-
 # Purpose:  Fix the ar test of non-deterministic archives.
 # Lifetime: Fixed in 2.43
-Patch24: binutils-fix-ar-test.patch
+Patch20: binutils-fix-ar-test.patch
 
 # Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
 # Lifetime: TEMPORARY
@@ -532,7 +538,12 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 #----------------------------------------------------------------------------
 
 %prep
+
+%if %{use_commit_id_tarballs}
+%autosetup -p1 -n binutils-%{version}.50
+%else
 %autosetup -p1 -n binutils-%{version}
+%endif
 
 # On ppc64 and aarch64, we might use 64KiB pages
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*ppc.c
@@ -673,6 +684,17 @@ compute_global_configuration()
     CARGS="$CARGS --enable-threads=yes"
 %else
     CARGS="$CARGS --enable-threads=no"
+%endif
+
+%if %{use_commit_id_tarballs}
+# Since commit-id tarballs are created directly from development sources
+# they will have "development=true" set in the bfd/development.sh file.
+# This enables -Werror by default, which is a problem because there is a
+# known issue with the libiberty library:
+#   libiberty/cp-demangle.c: In function 'd_demangle_callback.constprop':
+#   libiberty/cp-demangle.c:6794:1: error: stack usage might be unbounded [-Werror=stack-usage=]
+# So we explicitly disable werror for builds from these tarballs.
+    CARGS="$CARGS --enable-werror=no"
 %endif
 }
 
@@ -874,9 +896,9 @@ run_tests()
 	fi
     done
 
-    tar cjf binutils-$target.tar.xz  binutils-$target-*.{sum,log}
+    tar cjf binutils-$target.tar.xz  binutils-$target-*.log
     uuencode binutils-$target.tar.xz binutils-$target.tar.xz
-    rm -f binutils-$target.tar.xz    binutils-$target-*.{sum,log}
+    rm -f binutils-$target.tar.xz    binutils-$target-*.log
 
 %if %{with gold}
     if [ -f gold/testsuite/test-suite.log ]; then
@@ -1064,7 +1086,7 @@ install_binutils()
 	OUTPUT_FORMAT="\
 /* Ensure this .so library will not be used by a link for a different format
    on a multi-architecture system.  */
-$(gcc $CFLAGS $LDFLAGS -shared -x c /dev/null -o /dev/null -Wl,--verbose -v 2>&1 | sed -n -f "%{SOURCE2}")"
+$(gcc $CFLAGS $LDFLAGS -shared -x c /dev/null -o /dev/null -Wl,--verbose -v 2>&1 | sed -n -f "%{SOURCE1}")"
 
 	tee $local_libdir/libbfd.so <<EOH
 /* GNU ld script */
@@ -1323,6 +1345,14 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Feb 21 2024 Nick Clifton  <nickc@redhat.com> - 2.42-4
+- Spec File: Add support for using source tarballs created after a specific commit.
+- Rebase to commit 1b2c120daf9e2d935453f9051bbeafbac7f9f14d
+- Retire: binutils-power-11.patch
+- Retire: binutils-fatal-warnings.patch
+- Retire: binutils-scfi-tests-fix.patch
+- Retire: binutils-Intel-APX-part-1-fixes.patch 
+
 * Wed Feb 14 2024 Nick Clifton  <nickc@redhat.com> - 2.42-2
 - Add support for PowerPC v11 architecture extensions.
 

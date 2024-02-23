@@ -2,8 +2,8 @@
 
 Name:    kf6-%{framework}
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version: 5.249.0
-Release: 2%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 
 License: MIT AND CC0-1.0 AND BSD-3-Clause
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.249.0-2
 - Rebuild (qt6)
 

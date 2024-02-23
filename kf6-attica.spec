@@ -1,7 +1,7 @@
 %global		framework attica
 
 Name:		kf6-%{framework}
-Version:	5.249.0
+Version:	6.0.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only).txt
@@ -61,6 +61,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

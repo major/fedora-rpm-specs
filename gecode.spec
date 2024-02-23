@@ -2,7 +2,7 @@
 
 Name:           gecode
 Version:        6.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Generic constraint development environment
 
 License:        MIT
@@ -13,6 +13,7 @@ Patch1:         gecode-6.2.0-unbundle_boost.patch
 Patch2:         gecode-6.2.0-autoconf_builtin.patch
 Patch3:         gecode-6.2.0-builtin_unreachable.patch
 Patch4:         gecode-6.2.0-fix_warnings.patch
+Patch5:         gecode-6.2.0-const_removal.patch
 
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -64,6 +65,7 @@ The %{name}-examples package contains example code for %{name}.
 %patch -P2 -p1 -b .autoconf_builtin
 %patch -P3 -p1 -b .builtin_unreachable
 %patch -P4 -p1 -b .fix_warnings
+%patch -P5 -p1 -b .const_removal
 
 # Fix permissions
 find -O3 . \( -name '*.hh' -o -name '*.hpp' -o -name '*.cpp' -o \
@@ -157,6 +159,9 @@ make check
 %license LICENSE
 
 %changelog
+* Tue Feb  6 2024 Jerry James <loganjerry@gmail.com> - 6.2.0-16
+- Add const removal patch to fix FTBFS (rhbz#2261125)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,20 +1,16 @@
 %global git0 https://github.com/containers/%{name}
 
-%global built_tag v1.12
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
 %{!?_modulesloaddir:%global _modulesloaddir %{_usr}/lib/modules-load.d}
 
 Name: fuse-overlayfs
-Version: %{gen_version}
+Version: 1.13
 Release: %autorelease
-ExclusiveArch: %{arm64} ppc64le s390x x86_64
+ExclusiveArch: %{arm64} ppc64le s390x x86_64 riscv64
 License: GPL-3.0-or-later
 Summary: FUSE overlay+shiftfs implementation for rootless containers
 URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
-Source0: %{url}/archive/%{built_tag}.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz
 BuildRequires: autoconf
 BuildRequires: automake
 Requires: fuse3
@@ -41,7 +37,7 @@ building other packages which use import path with
 %{import_path} prefix.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit %{name}-%{version}
 
 %build
 ./autogen.sh

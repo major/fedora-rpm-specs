@@ -2,8 +2,8 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.206
-Release:	6%{?dist}
+Version:	2.209
+Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -87,6 +87,11 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Wed Feb 21 2024 Paul Howarth <paul@city-fan.org> - 2.209-1
+- Update to 2.209
+  - Fix for READMEmd target
+  - Raise skip count in t/001version.t (GH#11)
+
 * Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 2.206-6
 - Rebuild against xz 5.4.6 (RHBZ#2260521)
 

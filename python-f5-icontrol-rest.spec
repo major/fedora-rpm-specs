@@ -13,13 +13,15 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        1.3.15
-Release:        13%{?dist}
+Version:        1.3.16
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://github.com/F5Networks/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/F5Networks/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Use unittest.mock if available
+Patch0:         python-f5-icontrol-rest-mock.patch
 
 BuildArch:      noarch
 
@@ -36,13 +38,11 @@ BuildRequires:  python2-mock
 BuildRequires:  python2-pytest
 # Not packaged yet...
 #BuildRequires:  python2-pytest-symbols
-%{!?el7:BuildRequires:  python2-coveralls}
 %{!?el7:BuildRequires:  python2-flake8}
 %{?el7:BuildRequires:  python-flake8}
 BuildRequires:  python2-mccabe
 BuildRequires:  python2-pyflakes
 BuildRequires:  python2-requests-mock
-BuildRequires:  python2-pytest-cov
 %endif
 
 %if 0%{?with_python3}
@@ -54,13 +54,10 @@ BuildRequires:  python%{python3_pkgversion}-urllib3
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 # tests
-%{!?el7:BuildRequires:  python%{python3_pkgversion}-coveralls}
 %{!?el7:BuildRequires:  python%{python3_pkgversion}-flake8}
 BuildRequires:  python%{python3_pkgversion}-mccabe
-BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-pyflakes
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-cov
 # Not packaged yet...
 #BuildRequires:  python%{python3_pkgversion}-pytest-symbols
 %{!?el7:BuildRequires:  python%{python3_pkgversion}-requests-mock}
@@ -95,7 +92,7 @@ with BIG-IP® via the REST API.
 
 
 %prep
-%autosetup -n %{srcname}-python-%{version}
+%autosetup -p1 -n %{srcname}-python-%{version}
 # Remove functional tests, they need a real BIG-IP
 rm -rf icontrol/test/functional
 
@@ -106,7 +103,7 @@ rm -rf icontrol/test/functional
 %endif
 %if 0%{?with_python3}
 %py3_build
-%{!?el7:%{__python3} setup.py build_sphinx}
+%{!?el7:sphinx-build docs build/sphinx/html}
 %{!?el7:rm build/sphinx/html/.buildinfo}
 %endif
 
@@ -147,6 +144,9 @@ rm -rf icontrol/test/functional
 
 
 %changelog
+* Sun Feb 18 2024 Orion Poplawski <orion@nwra.com> - 1.3.16-1
+- Update to 1.3.16
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

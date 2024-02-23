@@ -1,6 +1,6 @@
 Name:           fedora-gnat-project-common
-Version:        3.18
-Release:        4%{?dist}
+Version:        3.19
+Release:        1%{?dist}
 Summary:        Files shared by Ada libraries
 Summary(sv):    Gemensamma filer för adabibliotek
 
@@ -53,6 +53,10 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 
 
 %changelog
+* Wed Feb 21 2024 Björn Persson <Bjorn@Rombobjörn.se> - 3.19-1
+- Added -Wtrampolines to help with diagnosing build failures caused by
+  restrictions on executable stacks.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

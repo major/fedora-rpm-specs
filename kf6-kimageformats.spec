@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version: 5.249.0
-Release: 2%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -52,6 +52,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 5.249.0-2
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

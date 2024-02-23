@@ -81,10 +81,13 @@ find . -type f -executable | xargs chmod -x
 
 %check
 # to avoid partially initialized zmq module from cwd
+# test_draft seems to get incorrectly run - https://github.com/zeromq/pyzmq/issues/1853
 cd %{_topdir}
 %pytest --pyargs zmq -v --asyncio-mode auto \
 %ifarch ppc64le
--k "not (test_green_device or (Green and (test_raw or test_timeout or test_poll)))"  # this crashes on Python 3.12, TODO investigate
+-k "not (test_draft or test_green_device or (Green and (test_raw or test_timeout or test_poll)))"  # this crashes on Python 3.12, TODO investigate
+%else
+-k "not test_draft"
 %endif
 
 

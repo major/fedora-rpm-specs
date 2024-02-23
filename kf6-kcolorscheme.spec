@@ -1,7 +1,7 @@
 %global framework kcolorscheme
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: Classes to read and interact with KColorScheme
 License: BSD-2-Clause and CC0-1.0 and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-3.0-only and (LGPL-2.1-only OR LGPL-3.0-only)
@@ -49,8 +49,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/kcolorscheme.categories
-%{_kf6_libdir}/libKF6ColorScheme.so.5*
-%{_kf6_libdir}/libKF6ColorScheme.so.6*
+%{_kf6_libdir}/libKF6ColorScheme.so.6
+%{_kf6_libdir}/libKF6ColorScheme.so.%{version}
 
 %files devel
 %{_kf6_includedir}/KColorScheme
@@ -62,6 +62,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

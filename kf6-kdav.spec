@@ -1,7 +1,7 @@
 %global framework kdav
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: A DAV protocol implementation with KJobs
 
@@ -59,7 +59,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*%{framework}.*
 %{_kf6_libdir}/libKF6DAV.so.6
-%{_kf6_libdir}/libKF6DAV.so.5*
+%{_kf6_libdir}/libKF6DAV.so.%{version}
 
 %files devel
 %{_kf6_includedir}/KDAV/
@@ -71,6 +71,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

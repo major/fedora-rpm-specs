@@ -5,7 +5,7 @@
 
 Name:		mold
 Version:	2.4.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A Modern Linker
 
 License:	MIT AND (Apache-2.0 OR MIT)
@@ -20,6 +20,10 @@ Patch1:		0002-ELF-S390X-Skip-tests-that-still-fail-with-GCC-14.patch
 
 # Possibly https://sourceware.org/bugzilla/show_bug.cgi?id=29655
 Patch2:		0003-ELF-S390X-Skip-another-test-that-fails-with-GCC-14.patch
+
+# Fix for linking issue with riscv64:
+# https://github.com/rui314/mold/issues/1197
+Patch3:         https://github.com/rui314/mold/commit/de696ba5a42b228fb9375b0521fe7695284e2aec.patch
 
 # Newer Fedora releases currently do not provide blake3-devel on i686
 %if 0%{?fedora} >= 39
@@ -121,6 +125,9 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Wed Feb 21 2024 Richard W.M. Jones <rjones@redhat.com> - 2.4.0-4
+- Fix linking issue with the tests on riscv64
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

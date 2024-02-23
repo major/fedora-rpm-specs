@@ -1,7 +1,7 @@
 %global framework kauth
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 module to perform actions as privileged user
 # LGPL-2.0-or-later is also in the project's LICENSES, but is unused according to reuse.
@@ -56,8 +56,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/dbus-1/system.d/org.kde.kf6auth.conf
 %{_kf6_datadir}/kf6/kauth/
 %{_kf6_datadir}/qlogging-categories6/%{framework}.*
-%{_kf6_libdir}/libKF6AuthCore.so.5*
 %{_kf6_libdir}/libKF6AuthCore.so.6
+%{_kf6_libdir}/libKF6AuthCore.so.%{version}
 %{_kf6_qtplugindir}/kf6/kauth/
 
 %files devel
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

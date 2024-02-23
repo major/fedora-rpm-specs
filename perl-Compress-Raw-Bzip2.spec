@@ -7,8 +7,8 @@
 
 Name:           perl-Compress-Raw-Bzip2
 Summary:        Low-level interface to bzip2 compression library
-Version:        2.206
-Release:        3%{?dist}
+Version:        2.209
+Release:        1%{?dist}
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unbundled
 # bzip2-src:    BSD
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 21 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.209-1
+- 2.209 bump (rhbz#2265215)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.206-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

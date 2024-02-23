@@ -18,16 +18,14 @@ interactively to inspect files, correct headers and so on, or in scripts and\
 larger software packages to provide basic MRC file I/O functions.
 
 Name: python-%{pname}
-Version: 1.4.3
-Release: 4%{?dist}
+Version: 1.5.0
+Release: %autorelease
 Summary: MRC2014 file format used in structural biology to store image and volume data
-License: BSD
-URL: https://github.com/ccpem/mrcfile
-Source0: https://github.com/ccpem/mrcfile/archive/v%{version}/%{pname}-%{version}.tar.gz
-# https://github.com/ccpem/mrcfile/issues/49
-Patch0: %{name}-issue-49.patch
+License: BSD-3-Clause
+URL: https://github.com/ccpem/%{pname}
+Source: https://github.com/ccpem/%{pname}/archive/v%{version}/%{pname}-%{version}.tar.gz
 # https://github.com/ccpem/mrcfile/issues/53
-Patch1: %{name}-issue-53.patch
+Patch: %{name}-issue-53.patch
 
 %description
 %{desc}
@@ -71,39 +69,4 @@ python3 -m unittest tests
 %{python3_sitelib}/%{pname}
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.4.3-1
-- update to 1.4.3
-- drop obsolete patches
-- skip test_data_is_not_copied_unnecessarily test (fails with numpy>=1.24.1)
-- skip test_data_is_not_read_if_dimensions_are_too_huge on 32-bit
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.0-7
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.0-4
-- Rebuilt for Python 3.11
-
-* Fri Jun 10 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.3.0-3
-- fix test failures with python 3.11 (due to changed error messages)
-
-* Wed Apr 27 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.3.0-2
-- backport upstream endiannes fixes
-- backport upstream numpy deprecation warning fix
-
-* Fri Mar 11 2022 Dominik Mierzejewski <dominik@greysector.net> 1.3.0-1
-- initial build
+%autochangelog

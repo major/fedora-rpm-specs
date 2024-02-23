@@ -1,44 +1,44 @@
+%global gitdate 20240221
+%global commit0 3047ed7d464ea1d1d27f2e08db24b2e70350a66d
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 %global orig_name org.kde.windowbuttons
 
 Name:           applet-window-buttons
-Version:        0.11.1
-Release:        9%{?dist}
-Summary:        Plasma 5 applet to show window buttons in panels
-License:        GPLv2+
-URL:            https://github.com/psifidotos/%{name}
-Source0:        https://github.com/psifidotos/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Version:        0.11.1^%{gitdate}.%{shortcommit0}
+Release:        1%{?dist}
+Summary:        Plasma 6 applet to show window buttons in panels
+License:        GPL-2.0-or-later
+URL:            https://github.com/moodyhunter/applet-window-buttons6
+Source0:        https://github.com/moodyhunter/applet-window-buttons6/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 
-# https://github.com/psifidotos/applet-window-buttons/pull/191
-Patch0:         191.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
 
-BuildRequires:  kf5-kconfig-devel
-BuildRequires:  kf5-kconfigwidgets-devel
-BuildRequires:  kf5-kdeclarative-devel
-BuildRequires:  kf5-kdoctools-devel
-BuildRequires:  kf5-kglobalaccel-devel
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-kwindowsystem-devel
-BuildRequires:  kf5-kxmlgui-devel
-BuildRequires:  libSM-devel
-BuildRequires:  kf5-plasma-devel
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Declarative)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(KDecoration2)
 
-BuildRequires:  cmake(KDecoration2) 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickWidgets)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5X11Extras)
-
+Provides:       applet-window-buttons6 = %{version}-%{release}
 
 %description
 This is a Plasma 5 applet that shows the current window appmenu in
@@ -46,34 +46,34 @@ one's panels. This plasmoid is coming from Latte land, but it can also
 support Plasma panels.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n applet-window-buttons6-%{commit0} -p1
 
 %build
-%cmake
+%cmake_kf6
 %cmake_build
 
 %install
 %cmake_install
 
+# Bad icon name
+sed -i "/<icon type=\"stock\">/d" %{buildroot}%{_datadir}/metainfo/%{orig_name}.appdata.xml
+
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/%{orig_name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{orig_name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/metadata.desktop
 
 %files
 %license LICENSE
-%dir %{_kf5_datadir}/plasma/plasmoids/%{orig_name}
-%{_kf5_datadir}/plasma/plasmoids/%{orig_name}
-%{_qt5_qmldir}/org/kde/appletdecoration
-%{_kf5_datadir}/kservices5/plasma-applet-%{orig_name}.desktop
-%{_kf5_metainfodir}/%{orig_name}.appdata.xml
-
-%{_kf5_datadir}/plasma/plasmoids/%{orig_name}/metadata.desktop
-%{_kf5_datadir}/plasma/plasmoids/%{orig_name}/contents/
-%{_kf5_datadir}/plasma/plasmoids/%{orig_name}/metadata.json
+%{_kf6_datadir}/plasma/plasmoids/%{orig_name}
+%{_qt6_qmldir}/org/kde/appletdecoration
+%{_kf6_metainfodir}/%{orig_name}.appdata.xml
 
 
 %changelog
+* Wed Feb 21 2024 Alessandro Astone <ales.astone@gmail.com> - 0.11.1^20240221.3047ed7-1
+- Switch to a fork compatible with Plasma 6
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -68,7 +68,7 @@ This package contains the development files of %{name}.
 %ifarch s390x
 %global testargs --exclude-regex KokkosCore_UnitTest_StackTraceTest
 %endif
-%ctest %{?testargs}
+%ctest %{?testargs} --timeout 6000
 
 %files
 %doc README.md

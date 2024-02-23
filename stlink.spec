@@ -5,13 +5,14 @@
 Name:           stlink
 Version:        1.8.0
 # Release:        0.1.%{date}git%{gitcommit}%{?dist}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        STM32 discovery line Linux programmer
 License:        BSD-3-Clause
 
 Url:            https://github.com/stlink-org/stlink
 # Source0:        %{url}/tarball/%{gitcommit_full}
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         6a6718b3342b6c5e282a4e33325b9f97908a0692.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake3
@@ -19,7 +20,7 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  desktop-file-utils
-# BuildRequires:  pandoc
+BuildRequires:  pandoc
 Requires:       pkgconfig(udev)
 
 %description
@@ -49,6 +50,8 @@ sed -i 's|find_package(libusb REQUIRED)|find_package(libusb REQUIRED)\nset(STLIN
 
 # sed -i 's|define STLINK_SERIAL_MAX_SIZE           64|define STLINK_SERIAL_MAX_SIZE           28|' include/stlink.h
 sed -i 's|static char serialnumber\[28\]|static char serialnumber\[STLINK_SERIAL_MAX_SIZE\]|' src/st-util/gdb-server.c
+
+sed -i 's|CMP0153|CMP0042|' CMakeLists.txt
 
 %build
 %cmake3 \
@@ -89,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 # %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Feb 20 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 1.8.0-2
+- Fix build with GCC 14
+
 * Fri Feb 02 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 1.8.0-1
 - Update to 1.8.0
 

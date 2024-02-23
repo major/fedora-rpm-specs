@@ -5,7 +5,7 @@
 %global crate sequoia-openpgp
 
 Name:           rust-sequoia-openpgp
-Version:        1.18.0
+Version:        1.19.0
 Release:        %autorelease
 Summary:        OpenPGP data types and associated machinery
 

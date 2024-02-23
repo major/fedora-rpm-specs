@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: cxxopts
-Version: 3.2.0
+Version: 3.2.1
 Release: 1%{?dist}
 
 Summary: Lightweight C++ command line option parser
@@ -54,6 +54,9 @@ Requires: libstdc++-devel%{?_isa}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 21 2024 Orion Poplawski <orion@nwra.com> - 3.2.1-1
+- Update to 3.2.1
+
 * Fri Feb 16 2024 Orion Poplawski <orion@nwra.com> - 3.2.0-1
 - Update to 3.2.0
 

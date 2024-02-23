@@ -1,8 +1,8 @@
 %global		framework ki18n
 
 Name:		kf6-%{framework}
-Version:	5.249.0
-Release:	2%{?dist}
+Version:	6.0.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbl-1.0
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -56,9 +56,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_libdir}/libKF6I18n.so.6
-%{_kf6_libdir}/libKF6I18n.so.5*
+%{_kf6_libdir}/libKF6I18n.so.%{version}
 %{_kf6_libdir}/libKF6I18nLocaleData.so.6
-%{_kf6_libdir}/libKF6I18nLocaleData.so.5*
+%{_kf6_libdir}/libKF6I18nLocaleData.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/*%{framework}*
 %{_kf6_qmldir}/org/kde/i18n/localeData/
 %{_kf6_qtplugindir}/kf6/ktranscript.so
@@ -89,6 +89,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Mon Feb 12 2024 Benson Muite <benson_muite@emailplus.org> - 5.249.0-2
 - Fix typo in license name
 - Add sonames to libraries

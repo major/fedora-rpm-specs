@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 12.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -387,11 +387,6 @@ export CLANG_TARGET_OPTIONS="-mbranch-protection=standard"
 %endif
 %endif
 
-%ifarch ppc ppc64 ppc64le
-# FIXME: This is a workaround for a problem with the Clang C++ headers.  It should not be needed.
-export CLANG_TARGET_OPTIONS="-mabi=ibmlongdouble"
-%endif
-
 CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" CXXFLAGS="$CFLAGS" %configure ${CONFIG_ARGS} || cat config.log
 
 %make_build
@@ -534,13 +529,16 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Feb 13 2024 Nick Clifron  <nickc@redhat.com> - 12.40-1
+* Tue Feb 20 2024 Tulio Magno Quites Machado Filho  <tuliom@redhat.com> - 12.40-2
+- Spec File: Remove a workaround for ppc64le.
+
+* Tue Feb 13 2024 Nick Clifton  <nickc@redhat.com> - 12.40-1
 - Annocheck: Improve heuristic for skipping LTO and FORTIFY tests.  (#2264000)
 
-* Fri Feb 09 2024 Nick Clifron  <nickc@redhat.com> - 12.39-1
+* Fri Feb 09 2024 Nick Clifton  <nickc@redhat.com> - 12.39-1
 - Annocheck: Also skip property note test for i686 binaries. (#2258571)
 
-* Tue Jan 23 2024 Nick Clifron  <nickc@redhat.com> - 12.38-1
+* Tue Jan 23 2024 Nick Clifton  <nickc@redhat.com> - 12.38-1
 - Annocheck: Also skip the entry point test for i686 binaries. (#2258571)
 
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.37-3
@@ -549,67 +547,67 @@ make check
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Wed Jan 17 2024 Nick Clifron  <nickc@redhat.com> - 12.37-1
+* Wed Jan 17 2024 Nick Clifton  <nickc@redhat.com> - 12.37-1
 - GCC Plugin: DO not use section groups with string format notes.
 
-* Tue Jan 16 2024 Nick Clifron  <nickc@redhat.com> - 12.36-2
+* Tue Jan 16 2024 Nick Clifton  <nickc@redhat.com> - 12.36-2
 - Spec File: NVR bump in order to allow building in side tag.
 
-* Tue Jan 16 2024 Nick Clifron  <nickc@redhat.com> - 12.36-1
+* Tue Jan 16 2024 Nick Clifton  <nickc@redhat.com> - 12.36-1
 - Annocheck: Disable cf-protection test for i686 architecture. (#2258571)
 
-* Mon Jan 15 2024 Nick Clifron  <nickc@redhat.com> - 12.35-4
+* Mon Jan 15 2024 Nick Clifton  <nickc@redhat.com> - 12.35-4
 - Spec File: NVR bump in order to allow building in side tag.
 
-* Mon Jan 15 2024 Nick Clifron  <nickc@redhat.com> - 12.35-3
+* Mon Jan 15 2024 Nick Clifton  <nickc@redhat.com> - 12.35-3
 - Spec File: Disable hard gcc check in order to allow builds with new version of gcc.
 
 * Thu Jan 11 2024 Songsong Zhang  <U2FsdGVkX1@gmail.com> - 12.35-2
 - Spec File: Do not install annocheck.1.gz when annocheck is disabled.
 
-* Thu Jan 04 2024 Nick Clifron  <nickc@redhat.com> - 12.35-1
+* Thu Jan 04 2024 Nick Clifton  <nickc@redhat.com> - 12.35-1
 - Annocheck: Improve detection of FIPS compliant GO binaries.
 
-* Fri Dec 15 2023 Nick Clifron  <nickc@redhat.com> - 12.34-1
+* Fri Dec 15 2023 Nick Clifton  <nickc@redhat.com> - 12.34-1
 - GCC Plugin: Fix recording of the -Wimplicit-int and -Wimplicit-function-declaration warnings.  Add active checks for when they are deliberately disabled.
 
-* Mon Dec 11 2023 Nick Clifron  <nickc@redhat.com> - 12.33-1
+* Mon Dec 11 2023 Nick Clifton  <nickc@redhat.com> - 12.33-1
 - Tests: Fix implicit-values test so that it will compile with gcc 14+.
 
-* Fri Nov 24 2023 Nick Clifron  <nickc@redhat.com> - 12.32-1
+* Fri Nov 24 2023 Nick Clifton  <nickc@redhat.com> - 12.32-1
 - GCC Plugin: Add support for -fhardended.
 
-* Wed Nov 15 2023 Nick Clifron  <nickc@redhat.com> - 12.31-1
+* Wed Nov 15 2023 Nick Clifton  <nickc@redhat.com> - 12.31-1
 - Update glibc detection heuristics for PPC64.  (RHEL-16453)
 
-* Wed Nov 01 2023 Nick Clifron  <nickc@redhat.com> - 12.30-1
+* Wed Nov 01 2023 Nick Clifton  <nickc@redhat.com> - 12.30-1
 - Fix another atexit test failure.  (#2247481)
 
-* Mon Oct 30 2023 Nick Clifron  <nickc@redhat.com> - 12.29-1
+* Mon Oct 30 2023 Nick Clifton  <nickc@redhat.com> - 12.29-1
 - Fix atexit test failure.
 - Notes: Add support for string format notes.
 
-* Fri Oct 06 2023 Nick Clifron  <nickc@redhat.com> - 12.28-1
+* Fri Oct 06 2023 Nick Clifton  <nickc@redhat.com> - 12.28-1
 - GCC Plugin: Record settings of -Wstrict-flex-arrays and -fstrict-flex-arrays
 - Annobin: Add future test of these options.
 
-* Tue Sep 26 2023 Nick Clifron  <nickc@redhat.com> - 12.27-1
+* Tue Sep 26 2023 Nick Clifton  <nickc@redhat.com> - 12.27-1
 - GCC Plugin: Record settings of -Wimplicit-int and -Wimplicit-function-declaration.
 - Annobin: Add test for these warnings.
 
-* Wed Sep 06 2023 Nick Clifron  <nickc@redhat.com> - 12.26-1
+* Wed Sep 06 2023 Nick Clifton  <nickc@redhat.com> - 12.26-1
 - LLVM Plugin: Fix building with LLVM version 17.
 
-* Wed Aug 30 2023 Nick Clifron  <nickc@redhat.com> - 12.25-1
+* Wed Aug 30 2023 Nick Clifton  <nickc@redhat.com> - 12.25-1
 - GCC Plugin: Enable string note format by default.
 
-* Fri Aug 04 2023 Nick Clifron  <nickc@redhat.com> - 12.24-1
+* Fri Aug 04 2023 Nick Clifton  <nickc@redhat.com> - 12.24-1
 - Annocheck: Change GO FIPS test to look for CGO_ENABLED markers.
 
-* Mon Jul 31 2023 Nick Clifron  <nickc@redhat.com> - 12.23-1
+* Mon Jul 31 2023 Nick Clifton  <nickc@redhat.com> - 12.23-1
 - Annocheck: Add test for FIPS compliant GO binaries.
 
-* Wed Jul 26 2023 Nick Clifron  <nickc@redhat.com> - 12.22-1
+* Wed Jul 26 2023 Nick Clifton  <nickc@redhat.com> - 12.22-1
 - Annocheck: Fix double free.  (#2226749)
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.21-2

@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20240201
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -321,7 +321,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Pahawh Hmong" },
     { alias="sans-serif", family="Sans Palmyrene" },
     { alias="sans-serif", family="Sans Pau Cin Hau" },
-    { alias="sans-serif", family="Sans PhagsPa" },
+    { alias="sans-serif", family="Sans PhagsPa",
+      obsoletes={ "sans-phags-pa" },
+    },
     { alias="sans-serif", family="Sans Phoenician",
       obsoletes={ "sans-phenician-vf" }
     },
@@ -1227,6 +1229,10 @@ done
 
 
 %changelog
+* Wed Feb 21 2024 Akira TAGOH <tagoh@redhat.com> - 20240201-2
+- Add Obsolsetes: google-noto-sans-phags-pa-fonts in google-noto-sans-phagspa-fonts
+  Resolves: rhbz#2265259
+
 * Fri Feb  9 2024 Akira TAGOH <tagoh@redhat.com> - 20240201-1
 - Updates to monthly release of 24.2.1
 

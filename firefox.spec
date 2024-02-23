@@ -85,7 +85,7 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-%global build_with_pgo    1
+%global build_with_pgo    0
 %endif
 %endif
 %if 0%{?flatpak}

@@ -1,7 +1,7 @@
 %global framework karchive
 
 Name:           kf6-%{framework}
-Version:        5.249.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with archive functions
 License:        LGPL-2.0-or-later AND BSD-2-Clause
@@ -59,8 +59,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc AUTHORS README.md
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/*categories
-%{_kf6_libdir}/libKF6Archive.so.5*
 %{_kf6_libdir}/libKF6Archive.so.6
+%{_kf6_libdir}/libKF6Archive.so.%{version}
 
 %files devel
 %{_kf6_includedir}/KArchive/
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

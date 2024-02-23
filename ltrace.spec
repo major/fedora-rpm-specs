@@ -5,7 +5,7 @@ Release: 50%{?dist}
 # In coordination with Juan Céspedes, upstream is now officially on gitlab.
 # We are going to being sending all of our Fedora patches upstream to gitlab.
 URL: https://gitlab.com/cespedes/ltrace
-License: GPLv2+
+License: GPL-2.0-or-later
 
 BuildRequires: elfutils-devel dejagnu
 BuildRequires: libselinux-devel

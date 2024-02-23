@@ -1,7 +1,7 @@
 %global		framework kconfig
 
 Name:		kf6-%{framework}
-Version:	5.249.0
+Version:	6.0.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with advanced configuration system
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND MIT
@@ -61,11 +61,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_bindir}/kwriteconfig6
 %{_kf6_datadir}/qlogging-categories6/%{framework}*
 %{_kf6_libdir}/libKF6ConfigCore.so.6*
-%{_kf6_libdir}/libKF6ConfigCore.so.5*
 %{_kf6_libdir}/libKF6ConfigQml.so.6*
-%{_kf6_libdir}/libKF6ConfigQml.so.5*
 %{_kf6_libdir}/libKF6ConfigGui.so.6*
-%{_kf6_libdir}/libKF6ConfigGui.so.5*
 %{_kf6_libexecdir}/kconf_update
 %{_kf6_libexecdir}/kconfig_compiler_kf6
 %{_kf6_libdir}/qt6/qml/org/kde/config/libkconfigqmlplugin.so
@@ -88,6 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

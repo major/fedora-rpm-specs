@@ -1,7 +1,7 @@
 %global framework kstatusnotifieritem
 
 Name:           kf6-%{framework}
-Version:        5.249.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        Implementation of Status Notifier Items
 
@@ -13,6 +13,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6WindowSystem)
@@ -62,6 +63,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

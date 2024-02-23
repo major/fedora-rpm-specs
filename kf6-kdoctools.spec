@@ -1,7 +1,7 @@
 %global framework kdoctools
 
 Name:    kf6-%{framework}
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 2 addon for generating documentation
 
@@ -59,8 +59,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_libdir}/libKF6DocTools.so.5*
 %{_kf6_libdir}/libKF6DocTools.so.6
+%{_kf6_libdir}/libKF6DocTools.so.%{version}
 %{_kf6_bindir}/checkXML6
 %{_kf6_bindir}/meinproc6
 %{_kf6_mandir}/man1/*.1*
@@ -77,6 +77,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

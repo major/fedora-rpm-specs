@@ -3,7 +3,7 @@
 %global framework networkmanager-qt
 
 Name:           kf6-%{framework}
-Version:        5.249.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        A Tier 1 KDE Frameworks 6 module that wraps NetworkManager DBus API
 License:        LGPL-2.0-or-later AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND CC0-1.0
@@ -60,8 +60,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*categories
-%{_kf6_libdir}/libKF6NetworkManagerQt.so.5*
 %{_kf6_libdir}/libKF6NetworkManagerQt.so.6
+%{_kf6_libdir}/libKF6NetworkManagerQt.so.%{version}
 %{_kf6_libdir}/qt6/qml/org/kde/networkmanager/kde-qmlmodule.version
 %{_kf6_libdir}/qt6/qml/org/kde/networkmanager/libnetworkmanagerqtqml.so
 %{_kf6_libdir}/qt6/qml/org/kde/networkmanager/networkmanagerqtqml.qmltypes
@@ -77,6 +77,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

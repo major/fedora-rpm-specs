@@ -1,6 +1,6 @@
 Name:           gifsicle
-Version:        1.94
-Release:        4%{?dist}
+Version:        1.95
+Release:        1%{?dist}
 Summary:        Powerful program for manipulating GIF images and animations
 
 License:        GPLv2+
@@ -75,6 +75,9 @@ slideshows or in real time,
 
 
 %changelog
+* Wed Feb 21 2024 Orion Poplawski <orion@nwra.com> - 1.95-1
+- Update to 1.95 CVE-2023-46009 (bz#2244935) CVE-2023-44821 (bz#2250064)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

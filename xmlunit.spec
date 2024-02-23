@@ -112,7 +112,7 @@ rm -r xmlunit-core/src/main/java/org/xmlunit/builder/javax_jaxb\
 rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.java,JaxbBuilderTest.java}
 
 %build
-%mvn_build -s -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -s -- -Dmaven.compile.source=1.8 -Dmaven.compile.target=1.8
 
 %install
 %mvn_install

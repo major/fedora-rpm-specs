@@ -1,7 +1,7 @@
 %global sname pyvat
 %global owner iconfinder
 %global forgeurl https://github.com/%{owner}/%{sname}
-Version:    1.3.17
+Version:    1.3.19
 %forgemeta
 
 Name:       python-%{sname}

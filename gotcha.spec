@@ -12,6 +12,8 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  python3dist(sphinx)
+# Exclude leaf architecture where build fails
+ExcludeArch:    %{ix86}
 
 %description
 Gotcha is a library that wraps functions. Tools can use gotcha to install hooks

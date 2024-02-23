@@ -7,8 +7,8 @@
 
 
 Name:           perl-Compress-Raw-Zlib
-Version:        2.206
-Release:        4%{?dist}
+Version:        2.208
+Release:        1%{?dist}
 Summary:        Low-level interface to the zlib compression library
 # Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 # Others:   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -33,7 +33,7 @@ BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(vars)
-BuildRequires:  zlib-devel >= 1.2.1
+BuildRequires:  zlib-devel >= 1.3
 # Module Runtime
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
@@ -142,6 +142,8 @@ perl -i -pe "s{DIR => '.'}{DIR => '/tmp'}" %{buildroot}/%{_libexecdir}/%{name}/t
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 unset PERL_CORE
+COMPRESS_ZLIB_RUN_MOST=1
+export COMPRESS_ZLIB_RUN_MOST
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
@@ -161,6 +163,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 21 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.208-1
+- 2.208 bump (rhbz#2265216)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.206-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

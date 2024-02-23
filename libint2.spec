@@ -12,14 +12,14 @@
 # We use -O2 for the compiler and -O1 for the library (these are given
 # in configure). The common flags are
 %global commonflags %(echo %{optflags} | sed "s|-O2||g")
-%global optflags %commonflags -O1
+%global optflags %commonflags -O1 -fno-var-tracking-assignments
 
 # API version provided. Increment this whenever you change the configure time flags.
-%global apiversion 0
+%global apiversion 1
 
 Name:		libint2
-Version:	2.6.0
-Release:	17%{?dist}
+Version:	2.8.2
+Release:	1%{?dist}
 Summary:	A library for efficient evaluation of electron repulsion integrals
 License:	GPLv2+
 URL:		https://github.com/evaleev/libint
@@ -36,12 +36,9 @@ Source0:	https://github.com/evaleev/libint/archive/v%{version}.tar.gz
 # generate the sources, run the generate-sources.sh script.
 Source1:	libint-%{version}.tgz
 # The programmers' manual is compiled from the LaTeX source by generate-sources.sh
-Source2:	progman.pdf
+Source2:	progman-%{version}.pdf
 # and the html documentation is extracted from the source code as well
 Source3:	libint-%{version}-classdoc.tar.bz2
-
-# Fix Fortran example
-Patch0:         libint-2.6.0-fexample.patch
 
 Provides:	libint2(api)%{?_isa} = %{apiversion}
 
@@ -50,9 +47,9 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  boost-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  python3-devel
-BuildRequires: make
-# Disabled until 2.7.0
-#BuildRequires:  eigen3-devel
+BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  eigen3-devel
 
 %description
 LIBINT computes the Coulomb and exchange integrals, which in electronic
@@ -65,45 +62,48 @@ computer implementation of such methods by implementing an optimizing compiler
 to generate automatically highly-specialized code that runs well on
 super-scalar architectures.
 
-%package doc
-Summary:	Documentation for libint
+%package data
+Summary:	Shared data for libint2
 Requires:	libint2 = %{version}-%{release}
+BuildArch:      noarch
+
+%description data
+This package contains shared data for libint2.
+
+%package doc
+Summary:	Documentation for libint2
+Requires:	libint2 = %{version}-%{release}
+BuildArch:      noarch
 
 %description doc
 This package contains a programmer's manual and doxygen documentation
 for the classes.
 
 %package devel
-Summary:	Development headers and libraries for libint
+Summary:	Development headers and libraries for libint2
 Requires:	libint2%{?_isa} = %{version}-%{release}
 # For dir ownership
 Requires:       cmake
 
 %description devel
-This package contains development headers and libraries for libint.
+This package contains development headers and libraries for libint2.
 
 %prep
 %setup -q -T -b 1 -n libint-%{version}
-%patch0 -p1 -b .fexample
 # Copy programmers manual and extract the html documentation
-cp -p %{SOURCE2} doc
+cp -p %{SOURCE2} doc/progman.pdf
 tar jxf %{SOURCE3}
 
 %build
 export CXX=g++
-
-%configure --enable-shared --disable-static --enable-fortran \
- --with-incdirs="-I%{_includedir}/eigen3" \
- --with-cxx-optflags="%{optflags}"
-%make_build
+%cmake -DENABLE_FORTRAN=ON -DENABLE_MPFR=ON -DLIBINT2_PYTHON=ON -DLIBINT2_INSTALL_LIBDIR=%{_libdir} -DLIBINT2_INSTALL_DATADIR=%{_datadir}/%{name}
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 find %{buildroot} -name *.la -delete
 # Make sure libraries are executable (otherwise they are not stripped)
-find %{buildroot} -name *.so.*.* -exec chmod 755 {} \;
-# Get rid of the basis set files that ship with libint
-find %{buildroot}%{_datadir}/libint -name \*.g94 -delete
+find %{buildroot} -name *.so* -exec chmod 755 {} \;
 
 # Create macro file
 mkdir -p %{buildroot}%{macrosdir}
@@ -122,8 +122,11 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %doc LICENSE COPYING
 %{_libdir}/libint*.so.*
 
+%files data
+%{_datadir}/libint2/
+
 %files doc
-%doc doc/progman.pdf html
+%doc doc/progman.pdf #html
 
 %files devel
 %{macrosdir}/macros.libint2
@@ -136,6 +139,9 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_fmoddir}/libint_f.mod
 
 %changelog
+* Wed Feb 21 2024 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.8.2-1
+- Update to 2.8.2.
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

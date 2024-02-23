@@ -10,7 +10,7 @@
 %endif
 
 Name:           python-hypothesis
-Version:        6.96.1
+Version:        6.98.8
 Release:        %autorelease
 Summary:        Library for property based testing
 

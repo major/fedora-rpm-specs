@@ -18,7 +18,7 @@ Name:    ppp
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
 Version: 2.5.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: The Point-to-Point Protocol daemon
 # Add licenses:
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/441
@@ -71,6 +71,9 @@ Requires: libpcap >= 14:0.8.3-6
 Requires: systemd
 Requires(pre): /usr/bin/getent
 Requires(pre): /usr/sbin/groupadd
+
+# Subpackage removed and obsoleted in F40
+Obsoletes: network-scripts-ppp < %{version}-%{release}
 
 %description
 The ppp package contains the PPP (Point-to-Point Protocol) daemon and
@@ -184,6 +187,9 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Wed Feb 21 2024 Kalev Lember <klember@redhat.com> - 2.5.0-7
+- Obsolete dropped network-scripts-ppp subpackage
+
 * Tue Feb 13 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.0-6
 - Dropped network scripts
   Resolves: rhbz#2262981

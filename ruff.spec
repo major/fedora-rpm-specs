@@ -4,7 +4,7 @@
 %constrain_build -m 4096
 
 Name:           ruff
-Version:        0.1.14
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
@@ -43,6 +43,8 @@ Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 Patch:          0003-remove-unavailable-custom-allocators.patch
 # * do not strip debuginfo from the built executable (non-upstreamable)
 Patch:          0004-do-not-strip-debuginfo-from-built-binary-executable.patch
+# * temporarily downgrade pyproject-toml dependency from 0.9 to 0.8.2 (non-upstreamable)
+Patch:          0005-temporarily-downgrade-pyproject-toml-dependnecy-from.patch
 
 ExcludeArch:	%{ix86}
 

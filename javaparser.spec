@@ -7,8 +7,8 @@
 %endif
 
 Name:          javaparser
-Version:       3.25.6
-Release:       4%{?dist}
+Version:       3.25.8
+Release:       1%{?dist}
 Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:       LGPL-2.0-or-later OR Apache-2.0
 URL:           https://javaparser.org
@@ -51,7 +51,6 @@ sed -i 's/\r//' readme.md
 # Remove plugins unnecessary for RPM builds
 %pom_remove_plugin -r :jacoco-maven-plugin
 %pom_remove_plugin :maven-source-plugin
-%pom_remove_plugin :coveralls-maven-plugin
 
 %if %{without bnd_maven_plugin}
 %pom_remove_plugin :bnd-maven-plugin javaparser-core
@@ -108,6 +107,10 @@ sed -i \
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog
+* Wed Feb 21 2024 Markku Korkeala <markku.korkeala@iki.fi> - 3.25.8-1
+- Update to upstream version 3.25.8, closes rhbz#2252668
+- Upstream removed plugin coveralls-maven-plugin
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

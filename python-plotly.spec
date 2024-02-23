@@ -40,7 +40,7 @@ standalone HTML files, or hosted online using Chart Studio Cloud.
 Documentation is available at https://plotly.com/python/}
 
 Name:       python-plotly
-Version:    5.18.0
+Version:    5.19.0
 Release:    %autorelease
 Summary:    An open-source, interactive data visualization library
 %global tag v%{version}
@@ -105,7 +105,7 @@ mv top/* .
 rmdir top
 
 # Extract `npm` generated Javascript files from PyPI tarball
-tar xzf %{SOURCE1} plotly-5.18.0/jupyterlab_plotly/labextension plotly-5.18.0/jupyterlab_plotly/nbextension/index.js* --strip-components=1
+tar xzf %{SOURCE1} plotly-%{version}/jupyterlab_plotly/labextension plotly-%{version}/jupyterlab_plotly/nbextension/index.js* --strip-components=1
 
 # Fix one file
 sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' _plotly_utils/png.py
@@ -125,7 +125,7 @@ sed -i "s/\"jupyterlab~=3.0;python_version>='3.6'\",//" pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files plotly _plotly_utils _plotly_future_ jupyterlab_plotly
+%pyproject_save_files -l plotly _plotly_utils _plotly_future_ jupyterlab_plotly
 
 install -m 0644 -p -d $RPM_BUILD_ROOT/%{_sysconfdir}/jupyter
 mv -v $RPM_BUILD_ROOT/%{_prefix}/etc/jupyter $RPM_BUILD_ROOT/%{_sysconfdir}/
@@ -152,6 +152,9 @@ ts="${ts-}${ts+ }plotly/tests/test_optional"
 k="${k-}${k+ and }not test_kaleido"
 # This optional test fails in koji (not in local mock build)
 k="${k-}${k+ and }not test_aggregation"
+# With pandas >= 2 additional tests will be enabled.
+# Some require vaex, which is not packaged in Fedora
+k="${k-}${k+ and }not from_vaex"
 %endif
 %if %{with test_orca}
 ts="${ts-}${ts+ }plotly/tests/test_orca"

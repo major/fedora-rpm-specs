@@ -4,16 +4,12 @@
 %endif
 
 Name:           centpkg
-Version:        0.8.1
-Release:        5%{?dist}
+Version:        0.8.2
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://git.centos.org/centos/centpkg
 Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
-# https://git.centos.org/centos/centpkg/issue/89
-Patch1:         0001-Mark-fork-tests-as-expected-failures.patch
-# https://git.centos.org/centos/centpkg/pull-request/92
-Patch2:         0002-Drop-Python-2-compatibility.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -82,6 +78,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Wed Feb 21 2024 Troy Dawson <tdawson@redhat.com> - 0.8.2-1
+- Update centpkg to accept java branches (CS-1956)
+- Set rhel-target to latest for c10s (CS-1971)
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

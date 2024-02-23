@@ -1,7 +1,7 @@
 %global framework syntax-highlighting
 
 Name:           kf6-%{framework}
-Version:        5.249.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Syntax highlighting engine for Kate syntax definitions
 License:        MIT AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later
@@ -61,8 +61,8 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %license LICENSES/*.txt
 %{_kf6_bindir}/ksyntaxhighlighter6
 %{_kf6_datadir}/qlogging-categories6/*categories
-%{_kf6_libdir}/libKF6SyntaxHighlighting.so.5*
 %{_kf6_libdir}/libKF6SyntaxHighlighting.so.6
+%{_kf6_libdir}/libKF6SyntaxHighlighting.so.%{version}
 %{_kf6_qmldir}/org/kde/syntaxhighlighting
 
 %files devel
@@ -75,6 +75,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

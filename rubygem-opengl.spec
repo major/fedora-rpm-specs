@@ -1,5 +1,5 @@
 # Skip -Werror=incompatilbe-pointer-types
-%global	build_type_safety_c  2
+#%%global	build_type_safety_c  2
 
 %global	gem_name	opengl
 
@@ -17,7 +17,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	28%{?dist}
+Release:	29%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -81,6 +81,10 @@ sed -i.minitest \
 	lib/opengl/test_case.rb
 
 %build
+# Only add -Wno-error=incompatible-pointer-types
+%global optflags_orig %optflags
+%global optflags %optflags -Wno-error=incompatible-pointer-types
+
 gem build %{gem_name}.gemspec
 %gem_install
 
@@ -160,6 +164,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Thu Feb 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-29
+- Explicitly add -Wno-error=incompatible-pointer-types only
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

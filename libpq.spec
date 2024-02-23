@@ -4,7 +4,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -17,6 +17,7 @@ Source1: https://ftp.postgresql.org/pub/source/v%{version}/postgresql-%{version}
 Patch1: libpq-10.3-rpm-pgsql.patch
 Patch2: libpq-10.3-var-run-socket.patch
 Patch3: libpq-12.1-symbol-versioning.patch
+Patch4: postgresql-openssl32.patch
 
 BuildRequires: gcc
 BuildRequires: glibc-devel bison flex gawk
@@ -131,6 +132,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Tue Feb 20 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1-4
+- Backport OpenSSL 3.2 fix from upstream master
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

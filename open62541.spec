@@ -1,5 +1,5 @@
 Name:     open62541
-Version:  1.3.4
+Version:  1.3.9
 Release:  5%{?dist}
 Summary:  OPC UA implementation
 License:  MPLv2.0
@@ -105,6 +105,9 @@ chmod 0644 examples/nodeset/Opc.Ua.POWERLINK.NodeSet2.bsd
 %doc examples/
 
 %changelog
+* Tue Feb 20 2024 Marie Loise Nolden <loise@kde.org> - 1.3.9-1
+- update to 1.3.9
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

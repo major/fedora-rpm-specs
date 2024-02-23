@@ -1,19 +1,18 @@
 # work around upstream versioning being decimal rather than v-string
-%global upstream_version 4.8
-%global extraversion 0
+%global upstream_version 4.81
+%global extraversion %{nil}
 %if "%{upstream_version}%{extraversion}" != "%{upstream_version}"
 Provides:	perl(IO::AIO) = %{upstream_version}%{extraversion}
 %endif
 
 Name:		perl-IO-AIO
 Version:	%{upstream_version}%{extraversion}
-Release:	6%{?dist}
+Release:	1%{?dist}
 Summary:	Asynchronous Input/Output
 License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-AIO
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-AIO-%{upstream_version}.tar.gz
 Patch0:		IO-AIO-4.4-shellbang.patch
-Patch1:		IO-AIO-4.8-ptrtype.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -44,7 +43,7 @@ BuildRequires:	perl(POSIX)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Test)
 BuildRequires:	perl(vars)
-# Runtime
+# Dependencies
 Requires:	perl(XSLoader)
 
 # Avoid provides for private shared objects
@@ -55,7 +54,7 @@ This module implements asynchronous I/O using whatever means your operating
 system supports.
 
 %package -n treescan
-Summary:	Scan directory trees, list dirs/files, stat, sync, grep
+Summary:	Scan directory trees, list directories/files, stat, sync, grep
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
@@ -73,9 +72,6 @@ If no paths are given, treescan will use the current directory.
 
 # Fix shellbang in treescan
 %patch -P 0
-
-# Fix use of incompatible pointer type in configure test for fexecve()
-%patch -P 1
 
 %build
 PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL \
@@ -103,6 +99,13 @@ make test
 %{_mandir}/man1/treescan.1*
 
 %changelog
+* Wed Feb 21 2024 Paul Howarth <paul@city-fan.org> - 4.81-1
+- Update to 4.81
+  - Work around a bug in musl w.r.t. to O_SEARCH and use EIO_O_PATH instead,
+    verifying the semantics against the subset of O_PATH and O_SEARCH
+  - aio_copy now tries to preallocate the destination file
+  - fexecve configure test used the wrong pointer type
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.80-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -64,7 +64,12 @@ Fedora  %{relnum} default theme.
 %package        kde
 Summary:        Fedora  %{relnum} default wallpaper for KDE
 Requires:       %{name}-base = %{version}-%{release}
+# Starting from Fedora 40 and onward
+%if 0%{?fedora} > 39
 Requires:       kde4-filesystem
+%else
+Requires:       kde-filesystem
+%endif
 
 %description    kde
 This package contains KDE desktop wallpaper for the Fedora  %{relnum}

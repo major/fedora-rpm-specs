@@ -39,6 +39,10 @@ Source0:        https://github.com/mne-tools/mne-python/archive/v%{version}/%{na
 
 #Source1:        https://s3.amazonaws.com/mne-python/datasets/MNE-sample-data-processed.tar.gz
 
+# Fix pandas test
+# https://github.com/mne-tools/mne-python/pull/12347
+Patch:          https://patch-diff.githubusercontent.com/raw/mne-tools/mne-python/pull/12347.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

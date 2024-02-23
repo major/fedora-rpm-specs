@@ -2,16 +2,16 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.3.7
-Release:    3%{?dist}
+Version:    0.3.8
+Release:    1%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 License:    Python
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
 
-# Handle deprecation removals in Python 3.13
-Patch:      https://github.com/pypa/distlib/commit/e27569b02d.patch
+# Update representation of interpreter in test for Python 3.13.0
+Patch:      https://github.com/pypa/distlib/commit/1c08845b05.patch
 
 BuildArch:  noarch
 
@@ -71,6 +71,10 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Tue Feb 20 2024 Karolina Surma <ksurma@redhat.com> - 0.3.8-1
+- Update to 0.3.8
+Resolves: rhbz#2254141
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

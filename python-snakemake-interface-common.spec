@@ -1,5 +1,5 @@
 Name:           python-snakemake-interface-common
-Version:        1.16.0
+Version:        1.17.1
 Release:        %autorelease
 Summary:        Common functions and classes for Snakemake and its plugins
 

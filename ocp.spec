@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit 6fc7e5c538d4f0bc41df7450e9daeb49b8b97d70
-%global commitdate 20230612
-%global gittag v0.2.106
+%global commit 2485703e7919bafb92e3327f27908c4f34af7cae
+%global commitdate 20240219
+%global gittag v0.2.107
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.106%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	3%{?dist}
+Version:	0.2.107%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -64,7 +64,7 @@ Requires:	unifont-fonts
 
 # Bundled code
 Provides:	bundled(timidity++) = 2.15.0
-Provides:	bundled(libsidplayfp) = 2.5.0a2
+Provides:	bundled(libsidplayfp) = 2.7.0b
 Provides:	bundled(adplug) = 2.3.4-beta
 Provides:	bundled(libbinio) = 1.5
 Provides:	bundled(reSID) = 1.0-pre2
@@ -177,6 +177,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Tue Feb 20 2024 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.107-1
+- Update to 0.2.107
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.106-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

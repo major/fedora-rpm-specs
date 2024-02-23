@@ -3,8 +3,8 @@
 
 Name:           libvpl
 Epoch:          1
-Version:        %{mfx_major}.%{mfx_minor}.1
-Release:        2%{?dist}
+Version:        2.10.2
+Release:        1%{?dist}
 Summary:        Intel Video Processing Library
 License:        MIT
 URL:            https://intel.github.io/libvpl/latest/index.html
@@ -12,7 +12,6 @@ ExclusiveArch:  x86_64
 
 Source0:        https://github.com/intel/libvpl/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-system-analyzer.patch
-Patch1:         %{name}-pkgconfig.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -105,6 +104,9 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl
 
 %changelog
+* Wed Feb 21 2024 Simone Caronni <negativo17@gmail.com> - 1:2.10.2-1
+- Update to 2.10.2.
+
 * Tue Feb 13 2024 Simone Caronni <negativo17@gmail.com> - 1:2.10.1-2
 - Switch from Intel® to Intel in pkgconfig file.
 

@@ -1,15 +1,15 @@
 # Header-only library
 %global debug_package %{nil}
 
-%global commit 137076b48013b7ba3dfce968076f09577e5d027a
+%global commit 36459f42a84207330eae706c47e6fab712e6a149
 %global shortcommit %%(c=%{commit}; echo ${c:0:7})
 
 Summary:  A toolkit for programming parallel shared memory algorithms 
 Name:     parlaylib
 License:  MIT
 #Version obtained from cmake config, but no tags upstream
-Version:  2.1.5^20230215git%{shortcommit}
-Release:  6%{?dist}
+Version:  2.3.1^20230215git%{shortcommit}
+Release:  1%{?dist}
 
 URL:      https://github.com/cmuparlay/parlaylib
 Source0:  %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -75,7 +75,7 @@ BuildArch:  noarch
 %cmake_install
 %check
 
-%ctest
+%ctest --timeout 3000
 
 
 %files devel
@@ -104,6 +104,10 @@ BuildArch:  noarch
 
 
 %changelog
+* Wed Feb 21 2024 Benson Muite <benson_muite@emailplus.org> - 2.3.1^20240217git36459f4-1
+- Update release
+- Ensure builds
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.5^20230215git137076b-6
 - Rebuilt for abseil-cpp-20240116.0
 

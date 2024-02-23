@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.26
-%global runtime_version 6.0.26
+%global host_version 6.0.27
+%global runtime_version 6.0.27
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.126
+%global sdk_version 6.0.127
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -86,8 +86,10 @@ Source11:       dotnet.sh.in
 Patch100:       runtime-arm64-lld-fix.patch
 # Mono still has a dependency on (now unbuildable) ILStrip which was removed from CoreCLR: https://github.com/dotnet/runtime/pull/60315
 Patch101:       runtime-mono-remove-ilstrip.patch
-# Add Fedora 40 RIDs
-Patch102:       runtime-fedora-40-rid.patch
+# Add Fedora 40 and 41 RIDs
+Patch102:       runtime-fedora-40-41-rid.patch
+# https://github.com/dotnet/runtime/pull/95218#issuecomment-1842799422
+Patch103:       runtime-re-enable-implicit-rejection.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -391,10 +393,19 @@ ln -s %{_libdir}/dotnet/source-built-artifacts/Private.SourceBuilt.Artifacts.*.t
 # Fix bad hardcoded path in build
 sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/hostmisc/pal.unix.cpp
 
+%if 0%{?fedora} == 41
+# Fix incorrectly using fedora.40 RIDs on fedora.41
+sed -i -E 's|(<PackAsTool>true</PackAsTool>)|\1<RuntimeIdentifier>%{runtime_id}</RuntimeIdentifier><SelfContained>false</SelfContained>|' \
+  src/aspnetcore/src/Tools/dotnet-dev-certs/src/dotnet-dev-certs.csproj \
+  src/aspnetcore/src/Tools/dotnet-user-secrets/src/dotnet-user-secrets.csproj \
+%endif
+
+
 pushd src/runtime
 %patch100 -p1
 %patch101 -p1
 %patch102 -p1
+%patch103 -p1
 popd
 
 pushd src/fsharp
@@ -443,6 +454,7 @@ cat /etc/os-release
 %if %{without bootstrap}
 # We need to create a copy because we will mutate this
 cp -a %{_libdir}/dotnet previously-built-dotnet
+sed -i -E 's|fedora.33|fedora.41|' previously-built-dotnet/sdk/6.0.*/RuntimeIdentifierGraph.json
 
 find previously-built-dotnet
 %endif
@@ -640,6 +652,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Feb 13 2024 Omair Majid <omajid@redhat.com> - 6.0.127-1
+- Update to .NET SDK 6.0.127 and Runtime 6.0.27
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.126-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

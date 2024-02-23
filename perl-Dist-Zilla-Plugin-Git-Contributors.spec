@@ -2,10 +2,10 @@
 %bcond_without perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test
 
 Name:           perl-Dist-Zilla-Plugin-Git-Contributors
-Version:        0.036
-Release:        11%{?dist}
+Version:        0.037
+Release:        1%{?dist}
 Summary:        Add contributor names from git to your distribution
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git-Contributors
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Dist-Zilla-Plugin-Git-Contributors-%{version}.tar.gz
 BuildArch:      noarch
@@ -14,6 +14,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -46,11 +47,11 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Needs)
 # Test::Warnings not used
 BuildRequires:  perl(utf8)
 %if %{with perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test}
 # Optional tests:
+BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Dist::Zilla::Plugin::PodWeaver)
 BuildRequires:  perl(Module::Runtime::Conflicts)
 BuildRequires:  perl(Moose::Conflicts)
@@ -65,15 +66,43 @@ Requires:       perl(Dist::Zilla::Role::PrereqSource)
 Requires:       perl(Git::Wrapper) >= 0.038
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Git::Wrapper\\)
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Git::Wrapper\\)(| >= 0\\.035)$
+
+# Hide private modules
+%global __requires_exclude %{__requires_exclude}|^perl\\(GitSetup\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((GitSetup|My::Git::Wrapper)\\)
 
 %description
 This is a Dist::Zilla plugin that extracts all names and email addresses
 from git commits in your repository and adds them to the distribution
 metadata under the x_contributors key.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+%if %{with perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test}
+Requires:       perl(Dist::Zilla::Plugin::PodWeaver)
+Requires:       perl(Module::Runtime::Conflicts)
+Requires:       perl(Moose::Conflicts)
+Requires:       perl(Pod::Weaver::Section::Contributors)
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Dist-Zilla-Plugin-Git-Contributors-%{version}
+%if !%{with perl_Dist_Zilla_Plugin_Git_Contributors_enables_optional_test}
+rm t/04-podweaver-warning.t
+perl -i -ne 'print $_ unless m{^t/04-podweaver-warning\.t}' MANIFEST
+%endif
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 export PERL_MM_FALLBACK_SILENCE_WARNING=1
@@ -83,18 +112,39 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENCE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Dist
+%dir %{perl_vendorlib}/Dist/Zilla
+%dir %{perl_vendorlib}/Dist/Zilla/Plugin
+%dir %{perl_vendorlib}/Dist/Zilla/Plugin/Git
+%{perl_vendorlib}/Dist/Zilla/Plugin/Git/Contributors.pm
+%{_mandir}/man3/Dist::Zilla::Plugin::Git::Contributors.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 21 2024 Petr Pisar <ppisar@redhat.com> - 0.037-1
+- 0.037 bump
+- Install the tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.036-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

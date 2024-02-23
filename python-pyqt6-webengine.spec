@@ -8,8 +8,7 @@ License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
 Source0:       %pypi_source
 
-# %%{qt6_qtwebengine_arches} is not yet defined
-ExclusiveArch: aarch64 x86_64
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
 ## downstream patches
 

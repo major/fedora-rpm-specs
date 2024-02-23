@@ -11,7 +11,7 @@
 
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
-Version: 5.249.0
+Version: 6.0.0
 Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
@@ -77,6 +77,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.249.0-1
 - 5.249.0
 

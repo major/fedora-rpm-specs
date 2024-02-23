@@ -3,7 +3,7 @@ Name:           xbyak
 License:        BSD-3-Clause
 
 Version:        7.05.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 URL:            https://github.com/herumi/xbyak
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
@@ -14,13 +14,13 @@ Group:          Development/Libraries
 BuildArch:      noarch
 ExclusiveArch:  x86_64
 
-BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  meson
 BuildRequires:  sed
 
 %bcond_with check
 %if %{with check}
-# check
-BuildRequires:  gcc-c++
 #  -m32
 BuildRequires:  glibc-devel(x86-32), libstdc++(x86-32)
 BuildRequires:  nasm, yasm
@@ -50,18 +50,15 @@ of the world.
 %autosetup -p1
 
 %build
-# nothing to build
+%meson
+%meson_build
 
 %install
-mkdir -p %{buildroot}%{_datadir}/xbyak
-cp COPYRIGHT %{buildroot}%{_datadir}/xbyak/
-cp readme.* %{buildroot}%{_datadir}/xbyak/
-cp doc/*.md %{buildroot}%{_datadir}/xbyak/
-# fix dos lines
-sed -i 's/\r$//' %{buildroot}%{_datadir}/xbyak/readme.txt
-cp -r sample %{buildroot}%{_datadir}/xbyak/
+%meson_install
 
-%make_install PREFIX=%{buildroot}/usr
+# Install samples
+mkdir -p %{buildroot}%{_datadir}/xbyak/
+cp -pr sample %{buildroot}%{_datadir}/xbyak/
 
 %if %{with check}
 %check
@@ -69,15 +66,19 @@ make test
 %endif
 
 %files devel
-%dir %{_datadir}/xbyak
-%dir %{_includedir}/xbyak
-%license %{_datadir}/xbyak/COPYRIGHT
-%doc %{_datadir}/xbyak/readme.txt
-%doc %{_datadir}/xbyak/*.md
-%{_datadir}/xbyak/sample/
-%{_includedir}/xbyak/*.h
+%license COPYRIGHT
+%doc readme.md doc/changelog.md doc/usage.md
+%doc %lang(jp) readme.txt
+%{_datadir}/%{name}/
+%{_includedir}/%{name}/
+%{_libdir}/cmake/%{name}/
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Feb 21 2024 Tom Rix <trix@redhat.com> - 7.05.1-2
+- Use meson to build
+- Suggested-by: Davide Cavalca
+
 * Tue Feb 20 2024 Tom Rix <trix@redhat.com> - 7.05.1-1
 - Update source
 

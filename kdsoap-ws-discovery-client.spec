@@ -1,11 +1,11 @@
 Name:           kdsoap-ws-discovery-client
-Version:        0.3.0
-Release:        4%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Library for finding WS-Discovery devices in the network using Qt6 and KDSoap
 
 License:        GPL-3.0-or-later AND LicenseRef-OASIS AND LicenseRef-WS-Addressing AND LicenseRef-Discovery AND W3C
 URL:            https://invent.kde.org/libraries/kdsoap-ws-discovery-client/
-Source0:        https://download.kde.org/unstable/%{name}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -60,6 +60,9 @@ Summary:        Developer Documentation files for %{name}
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Alessandro Astone <ales.astone@gmail.com> - 0.4.0-1
+- 0.4.0
+
 * Mon Jan 29 2024 Alessandro Astone <ales.astone@gmail.com> - 0.3.0-4
 - Add developer documentation in the doc subpackage
 

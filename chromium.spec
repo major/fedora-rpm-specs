@@ -300,7 +300,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 121.0.6167.184
+Version: 122.0.6261.57
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -319,7 +319,7 @@ Patch2: chromium-120-system-libusb.patch
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-119-norar.patch
+Patch6: chromium-122-norar.patch
 
 # Try to load widevine from other places
 Patch8: chromium-117-widevine-other-locations.patch
@@ -345,9 +345,6 @@ Patch65: chromium-91.0.4472.77-java-only-allowed-in-android-builds.patch
 
 # Update rjsmin to 1.2.0
 Patch69: chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
-
-# Update six to 1.16.0
-Patch70: chromium-105.0.5195.52-python-six-1.16.0.patch
 
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
@@ -411,7 +408,7 @@ Patch117: chromium-118-sigtrap_system_ffmpeg.patch
 Patch118: chromium-121-system-old-ffmpeg.patch
 
 # revert AV1 VAAPI video encode due to old libva on el9
-Patch130: chromium-121-revert-av1enc-el9.patch
+Patch130: chromium-122-revert-av1enc-el9.patch
 
 # file conflict with old kernel on el8/el9
 Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
@@ -432,22 +429,23 @@ Patch304: chromium-117-string-convert.patch
 
 Patch306: chromium-119-assert.patch
 
-# disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
-# not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch307: chromium-121-arm64-memory_tagging.patch
-
 # compiler errors on epel
-Patch308: chromium-121-v8-c++20.patch
-Patch309: chromium-121-constexpr.patch
+Patch307: chromium-122-clang16-buildflags.patch
+# revert it for old clang on rhel and f38
+Patch308: chromium-122-v8-c++20.patch
+Patch309: chromium-122-constexpr.patch
 
 # missing include header files
-Patch310: chromium-121-missing-header-files.patch
+Patch310: chromium-122-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-119-fstack-protector-strong.patch
+
+# fixed static assert error
+Patch313: chromium-122-static-assert.patch
 
 # build error
 Patch351: chromium-121-mnemonic-error.patch
@@ -464,19 +462,16 @@ Patch354: chromium-120-split-threshold-for-reg-with-hint.patch
 Patch355: chromium-121-nullptr_t-without-namespace-std.patch
 
 # disable FFmpegAllowLists by default to allow external ffmpeg
-patch356: chromium-120-disable-FFmpegAllowLists.patch
+patch356: chromium-122-disable-FFmpegAllowLists.patch
 
 # remove ldflags -Wl,-mllvm,-disable-auto-upgrade-debug-info which is not supported
-Patch357: chromium-120-clang16-disable-auto-upgrade-debug-info.patch
+Patch357: chromium-122-clang16-disable-auto-upgrade-debug-info.patch
 
 # set clang_lib path
 Patch358: chromium-121-rust-clang_lib.patch
 
-# python3-invalid-escape-sequence
-Patch359: chromium-121-python3-invalid-escape-sequence.patch
-
 # upstream patches
-Patch400: chromium-121-el8-support-64kpage.patch
+Patch400: chromium-122-el8-support-64kpage.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -1048,6 +1043,11 @@ udev.
 %patch -P8 -p1 -b .widevine-other-locations
 %patch -P11 -p1 -b .py3
 
+# Fedora branded user agent
+%if 0%{?fedora}
+%patch -P12 -p1 -b .fedora-user-agent
+%endif
+
 %patch -P20 -p1 -b .disable-font-test
 
 %if ! %{bundleminizip}
@@ -1057,7 +1057,6 @@ udev.
 
 %patch -P65 -p1 -b .java-only-allowed
 %patch -P69 -p1 -b .update-rjsmin-to-1.2.0
-%patch -P70 -p1 -b .update-six-to-1.16.0
 %patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -1074,11 +1073,6 @@ udev.
 %patch -P91 -p1 -b .system-opus
 %endif
 
-# Fedora branded user agent
-%if 0%{?fedora}
-%patch -P12 -p1 -b .fedora-user-agent
-%endif
-
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9 || 0%{?fedora} == 37
 %patch -P115 -p1 -b .ffmpeg-5.x-duration
@@ -1092,22 +1086,22 @@ udev.
 %if 0%{?rhel} == 7
 %patch -P100 -p1 -b .el7-memfd-fcntl-include
 %patch -P101 -p1 -b .wayland-strndup-error
-%patch -P102 -p1 -b .default-constructor-involving-anonymous-union
+#patch -P102 -p1 -b .default-constructor-involving-anonymous-union
 %patch -P103 -p1 -b .epel7-header-workarounds
 %patch -P104 -p1 -b .el7cups
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
-%patch -P107 -p1 -b .el7-extra-operator-equalequal
+#patch -P107 -p1 -b .el7-extra-operator-equalequal
 %patch -P108 -p1 -b .el7_v4l2_quantization
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
-%patch -P111 -p1 -b .constexpr
+#patch -P111 -p1 -b .constexpr
 %patch -P113 -p1 -b .el7-clang-version-warning
 %patch -P114 -p1 -R -b .clang-build-failure
-%patch -P300 -p1 -b .no_matching_constructor
+#patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
-%patch -P303 -p1 -b .typename
+#patch -P303 -p1 -b .typename
 %patch -P304 -p1 -b .string-convert
 %patch -P306 -p1 -b .assert
 %endif
@@ -1120,15 +1114,11 @@ udev.
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
-%ifarch aarch64
-%if 0%{?rhel} <= 8
-%patch -P307 -p1 -b .memory_tagging
-%endif
-%endif
-
-%if 0%{?rhel} || 0%{?fedora} < 39
-%patch -P308 -p1 -R -b .v8-c++20
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} < 39
+%patch -P307 -p1 -b .clang16-buildflag
+%patch -P308 -p1 -b .v8-c++20
 %patch -P309 -p1 -b .constexpr
+%patch -P313 -p1 -b .static-assert
 %endif
 
 %patch -P310 -p1 -b .missing-header-files
@@ -1148,7 +1138,6 @@ udev.
 %patch -P356 -p1 -b .disable-FFmpegAllowLists
 %patch -P357 -p1 -b .clang16-disable-auto-upgrade-debug-info
 %patch -P358 -p1 -b .rust-clang_lib
-%patch -P359 -p1 -b .python3-invalid-escape-sequence
 
 %%ifarch aarch64
 %if 0%{?rhel} == 8
@@ -1240,6 +1229,7 @@ CXXFLAGS="$CFLAGS"
 CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
 %endif
+
 # reduce the size of relocations
 %if 0%{?fedora} || 0%{?rhel} > 9
 LDFLAGS="$LDFLAGS -Wl,-z,pack-relative-relocs"
@@ -1932,6 +1922,20 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Feb 21 2024 Than Ngo <than@redhat.com> - 122.0.6261.57-1
+- update to 122.0.6261.57
+   * High CVE-2024-1669: Out of bounds memory access in Blink
+   * High CVE-2024-1670: Use after free in Mojo
+   * Medium CVE-2024-1671: Inappropriate implementation in Site Isolation
+   * Medium CVE-2024-1672: Inappropriate implementation in Content Security Policy
+   * Medium CVE-2024-1673: Use after free in Accessibility
+   * Medium CVE-2024-1674: Inappropriate implementation in Navigation
+   * Medium CVE-2024-1675: Insufficient policy enforcement in Download
+   * Low CVE-2024-1676: Inappropriate implementation in Navigation.
+
+* Sun Feb 18 2024 Than Ngo <than@redhat.com> - 122.0.6261.39-1
+- update to 122.0.6261.39
+
 * Wed Feb 14 2024 Than Ngo <than@redhat.com> - 121.0.6167.184-1
 - update to 121.0.6167.184
 

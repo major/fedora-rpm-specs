@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 284
+%global baserelease 285
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -261,6 +261,11 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Tue Feb 20 2024 Miro Hrončok <mhroncok@redhat.com> - 285-1
+- brp-mangle-shebangs: Strip env flags when mangling shebangs
+- For example, mangle "#!/usr/bin/env -S vd" to "#!/usr/bin/vd"
+- Fixes: rhbz#2265038
+
 * Wed Feb 14 2024 Florian Weimer <fweimer@redhat.com> - 284-1
 - Correct advise for disabling debuginfo packages (#2264161)
 

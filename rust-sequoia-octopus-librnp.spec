@@ -7,7 +7,7 @@
 %global __provides_exclude_from ^%{tb_plugindir}/.*\\.so$
 
 Name:           rust-sequoia-octopus-librnp
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Reimplementation of RNP's interface using Sequoia for use with Thunderbird
 
@@ -43,6 +43,7 @@ Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -57,7 +58,7 @@ Summary:        %{summary}
 # MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        LGPL-2.0-or-later AND Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (LGPL-3.0 OR GPL-2.0 OR GPL-3.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR LGPL-3.0-or-later) AND (Unlicense OR MIT)
+License:        LGPL-2.0-or-later AND Apache-2.0 AND BSD-3-Clause AND BSL-1.0 AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (LGPL-3.0 OR GPL-2.0 OR GPL-3.0) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT OR LGPL-3.0-or-later) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 Requires:       thunderbird%{?_isa}

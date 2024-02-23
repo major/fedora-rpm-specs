@@ -4,15 +4,17 @@
 %define mark64  ()(64bit)
 %endif
 
+%global upstream_name Chipcard-PCSC
+
 Name:           pcsc-perl
-Version:        1.4.14
-Release:        26%{?dist}
+Version:        1.4.16
+Release:        1%{?dist}
 Summary:        Perl interface to the PC/SC smart card library
 
 License:        GPLv2+
-URL:            http://ludovic.rousseau.free.fr/softwares/%{name}/
-Source0:        %{url}%{name}-%{version}.tar.bz2
-Source1:        %{url}%{name}-%{version}.tar.bz2.asc
+URL:            https://pcsc-perl.apdu.fr/
+Source0:        %{url}%{upstream_name}-v%{version}.tar.gz
+Source1:        %{url}%{upstream_name}-v%{version}.tar.gz.asc
 
 BuildRequires:  gcc
 BuildRequires:  coreutils
@@ -34,7 +36,7 @@ This library allows to communicate with a smart card using PC/SC
 interface (pcsc-lite) from a Perl script.
 
 %prep
-%setup -q
+%setup -q -n %{upstream_name}-v%{version}
 chmod 644 examples/* # avoid dependencies
 f=Changelog ; iconv -f iso-8859-1 -t utf-8 $f > $f.utf8 ; mv $f.utf8 $f
 
@@ -67,6 +69,9 @@ fi
 
 
 %changelog
+* Wed Feb 21 2024 Jakub Jelen <jjelen@redhat.com - 1.4.16-1
+- New upstream release (#2265317)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.14-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

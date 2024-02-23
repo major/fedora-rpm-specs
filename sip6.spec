@@ -1,8 +1,8 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.8.2
-Release:        2%{?dist}
+Version:        6.8.3
+Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
@@ -46,6 +46,9 @@ Python bindings for wxWidgets.}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Wed Feb 21 2024 Scott Talbert <swt@techie.net> - 6.8.3-1
+- Update to new upstream release 6.8.3 (#2263494)
+
 * Mon Feb 12 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.2-2
 - Rebuild (fixed SPDX license)
 

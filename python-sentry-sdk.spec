@@ -29,7 +29,7 @@
 %bcond sqlalchemy_during_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        1.39.1
+Version:        1.39.2
 %global tag %{version}
 %forgemeta
 
@@ -49,7 +49,7 @@ BuildRequires:  python3dist(gevent)
 BuildRequires:  python3dist(graphene)
 BuildRequires:  python3dist(jsonschema)
 BuildRequires:  python3dist(protobuf)
-BuildRequires:  python3dist(psycopg)
+BuildRequires:  python3dist(psycopg2)
 BuildRequires:  python3dist(pyramid)
 BuildRequires:  python3dist(pysocks)
 BuildRequires:  python3dist(pytest)

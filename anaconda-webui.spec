@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        7
+Version:        8
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -11,7 +11,16 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  gettext
 
-%global anacondacorever 40.20
+%global anacondacorever 0
+
+%if 0%{?fedora} >= 40
+%global anacondacorever 40.22.2
+%endif
+
+%if 0%{?fedora} >= 41
+%global anacondacorever 41.2
+%endif
+
 %global cockpitver 275
 %global cockpitstorver 311
 
@@ -101,6 +110,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 21 2024 Packit <hello@packit.dev> - 8-1
+- Change hardcoded installation phases to new API
+- Add bootloader partition early check based on mount point constraints
+
 * Mon Feb 19 2024 Packit <hello@packit.dev> - 7-1
 - storage: fix password visibility toggle when clicking on 'eye' button (#2250790)
 - storage: enhance integration between Anaconda Web UI and Cockpit storage (#2263971)

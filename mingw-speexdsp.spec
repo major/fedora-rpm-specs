@@ -3,8 +3,8 @@
 %global pkgname speexdsp
 
 Name:           mingw-%{pkgname}
-Version:        1.2.0
-Release:        13%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        A voice compression format (DSP)
 License:        BSD
 URL:            http://www.speex.org/
@@ -76,7 +76,6 @@ This is the DSP package, see the speex package for the codec part.
 %license COPYING
 %{mingw32_bindir}/libspeexdsp-1.dll
 %{mingw32_libdir}/libspeexdsp.dll.a
-%{mingw32_libdir}/libspeexdsp.la
 %{mingw32_libdir}/pkgconfig/speexdsp.pc
 %{mingw32_includedir}/speex/speex_echo.h
 %{mingw32_includedir}/speex/speex_jitter.h
@@ -90,7 +89,6 @@ This is the DSP package, see the speex package for the codec part.
 %license COPYING
 %{mingw64_bindir}/libspeexdsp-1.dll
 %{mingw64_libdir}/libspeexdsp.dll.a
-%{mingw64_libdir}/libspeexdsp.la
 %{mingw64_libdir}/pkgconfig/speexdsp.pc
 %{mingw64_includedir}/speex/speex_echo.h
 %{mingw64_includedir}/speex/speex_jitter.h
@@ -103,6 +101,10 @@ This is the DSP package, see the speex package for the codec part.
 # See https://fedoraproject.org/wiki/Packaging:MinGW
 
 %changelog
+
+* Wed Feb 21 2024 Michał Janiszewski <janisozaur+speexdspfedoramingw@gmail.com> - 1.2.1-1
+- Update to 1.2.1 and fix build issues
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate capnp-rpc
 
 Name:           rust-capnp-rpc
-Version:        0.18.0
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Implementation of the Cap'n Proto remote procedure call protocol
 
