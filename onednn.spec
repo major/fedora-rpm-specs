@@ -3,7 +3,7 @@ Version:        3.3.4
 Release:        1%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
-License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 URL:            https://github.com/oneapi-src/oneDNN/
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
 

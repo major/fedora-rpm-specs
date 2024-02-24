@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -384,6 +384,30 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00418 # 00835b95549d7107cb998a663631c22494db8529
+# Don't generate sbom in make regen-all
+#
+# The script and make target, modified in Python 3.13.0a4,
+# assumes the presence of expat and _decimal/libmpdec libraries, resulting in an
+# error and failed build when not found.
+# Reported upstream: https://github.com/python/cpython/issues/115663
+Patch418: 00418-don-t-generate-sbom-in-make-regen-all.patch
+
+# 00420 # 9493f930d1e64ecb947d77548ed9993bfb7cd7f0
+# gh-114626: Add again _PyCFunctionFastWithKeywords name (GH-115561)
+#
+# Keep the old private _PyCFunctionFastWithKeywords name (Python 3.7)
+# as an alias to the new public name PyCFunctionFastWithKeywords
+# (Python 3.13a4).
+#
+# _PyCFunctionWithKeywords doesn't exist in Python 3.13a3, whereas
+# _PyCFunctionFastWithKeywords was removed in Python 3.13a4.
+Patch420: 00420-gh-114626-add-again-_pycfunctionfastwithkeywords-name-gh-115561.patch
+
+# 00421 # 11c050c0763b7e67e783c1433e38dcc65070c60c
+# gh-115733: Fix crash involving exhausted list iterator (#115740)
+Patch421: 00421-gh-115733-fix-crash-involving-exhausted-list-iterator-115740.patch
 
 # (New patches go here ^^^)
 #
@@ -1668,6 +1692,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Feb 21 2024 Karolina Surma <ksurma@redhat.com> - 3.13.0~a4-2
+- Fix crash involving exhausted list iterator
+
 * Fri Feb 16 2024 Karolina Surma <ksurma@redhat.com> - 3.13.0~a4-1
 - Update to Python 3.13.0a4
 

@@ -49,7 +49,7 @@
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.22.0
+Version: 2.22.1
 Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
@@ -297,9 +297,6 @@ make html %{make_python_arg}
 %install
 make install DESTDIR=%{buildroot} DOCDIR=%{docdir} %{make_python_arg}
 make install-ppd DESTDIR=%{buildroot} DOCDIR=%{docdir} %{make_python_arg}
-%if 0%{?rhel}
-sed -i 's/\(dynamic_tuning[ \t]*=[ \t]*\).*/\10/' %{buildroot}%{_sysconfdir}/tuned/tuned-main.conf
-%endif
 
 %if ! 0%{?rhel}
 # manual
@@ -586,6 +583,14 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Thu Feb 22 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.22.1-1
+- new release
+  - rebased tuned to latest upstream
+    related: RHEL-17121
+  - renamed intel_uncore plugin to uncore
+  - network-throughput: increased net.ipv4.tcp_rmem default value
+    resolves: RHEL-25847
+
 * Fri Feb 16 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.22.0-1
 - new release
   - rebased tuned to latest upstream

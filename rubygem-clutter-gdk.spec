@@ -3,8 +3,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.2.0
-Release:	3%{?dist}
+Version:	4.2.1
+Release:	1%{?dist}
 
 Summary:	Ruby binding of GDK specific API of Clutter
 # SPDX confirmed
@@ -44,7 +44,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.2\.0|>= 4.2.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.1|>= 4.2.1|' %{gem_name}-%{version}.gemspec
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -79,6 +79,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

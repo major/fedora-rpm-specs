@@ -6,8 +6,8 @@ Name:             ldapjdk
 
 # Upstream version number:
 %global           major_version 5
-%global           minor_version 4
-%global           update_version 1
+%global           minor_version 5
+%global           update_version 0
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
@@ -26,8 +26,8 @@ Name:             ldapjdk
 Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
-Version:          5.4.1
-Release:          4%{?dist}
+Version:          %{major_version}.%{minor_version}.%{update_version}
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -63,10 +63,10 @@ ExclusiveArch:    %{java_arches} noarch
 
 BuildRequires:    ant
 BuildRequires:    %{java_devel}
-BuildRequires:    javapackages-local
-BuildRequires:    slf4j
-BuildRequires:    slf4j-jdk14
-BuildRequires:    jss = 5.4
+BuildRequires:    maven-local
+BuildRequires:    mvn(org.slf4j:slf4j-api)
+BuildRequires:    mvn(org.slf4j:slf4j-jdk14)
+BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
 
 %description
 The Mozilla LDAP SDKs enable you to write applications which access,
@@ -79,10 +79,9 @@ manage, and update the information stored in an LDAP directory.
 Summary:          LDAP SDK
 
 Requires:         %{java_headless}
-Requires:         jpackage-utils >= 0:1.5
-Requires:         slf4j
-Requires:         slf4j-jdk14
-Requires:         jss = 5.4
+Requires:         mvn(org.slf4j:slf4j-api)
+Requires:         mvn(org.slf4j:slf4j-jdk14)
+Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
 
 Obsoletes:        ldapjdk < %{version}-%{release}
 Provides:         ldapjdk = %{version}-%{release}
@@ -115,38 +114,40 @@ Javadoc for LDAP SDK
 
 %autosetup -n ldap-sdk-%{version}%{?phase:-}%{?phase} -p 1
 
+# flatten-maven-plugin is not available in RPM
+%pom_remove_plugin org.codehaus.mojo:flatten-maven-plugin
+
+# specify Maven artifact locations
+%mvn_file org.dogtagpki.ldap-sdk:ldapjdk     ldapjdk/ldapjdk    ldapjdk
+%mvn_file org.dogtagpki.ldap-sdk:ldapbeans   ldapjdk/ldapbeans  ldapbeans
+%mvn_file org.dogtagpki.ldap-sdk:ldapfilter  ldapjdk/ldapfilter ldapfilt
+%mvn_file org.dogtagpki.ldap-sdk:ldapsp      ldapjdk/ldapsp     ldapsp
+%mvn_file org.dogtagpki.ldap-sdk:ldaptools   ldapjdk/ldaptools  ldaptools
+
 ################################################################################
 %build
 ################################################################################
 
 export JAVA_HOME=%{java_home}
 
-./build.sh \
-    %{?_verbose:-v} \
-    --work-dir=%{_vpath_builddir} \
-    dist
+%mvn_build
 
 ################################################################################
 %install
 ################################################################################
 
-./build.sh \
-    %{?_verbose:-v} \
-    --work-dir=%{_vpath_builddir} \
-    --java-lib-dir=%{_javadir} \
-    --javadoc-dir=%{_javadocdir} \
-    --install-dir=%{buildroot} \
-    install
+%mvn_install
+
+ln -sf %{name}/ldapjdk.pom %{buildroot}%{_mavenpomdir}/JPP-ldapjdk.pom
+ln -sf %{name}/ldapsp.pom %{buildroot}%{_mavenpomdir}/JPP-ldapsp.pom
+ln -sf %{name}/ldapfilter.pom %{buildroot}%{_mavenpomdir}/JPP-ldapfilter.pom
+ln -sf %{name}/ldapbeans.pom %{buildroot}%{_mavenpomdir}/JPP-ldapbeans.pom
+ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
-%files -n %{product_id}
+%files -n %{product_id} -f .mfiles
 ################################################################################
 
-%{_javadir}/ldapjdk.jar
-%{_javadir}/ldapsp.jar
-%{_javadir}/ldapfilt.jar
-%{_javadir}/ldapbeans.jar
-%{_javadir}/ldaptools.jar
 %{_mavenpomdir}/JPP-ldapjdk.pom
 %{_mavenpomdir}/JPP-ldapsp.pom
 %{_mavenpomdir}/JPP-ldapfilter.pom
@@ -154,14 +155,14 @@ export JAVA_HOME=%{java_home}
 %{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
-%files -n %{product_id}-javadoc
+%files -n %{product_id}-javadoc -f .mfiles-javadoc
 ################################################################################
-
-%dir %{_javadocdir}/ldapjdk
-%{_javadocdir}/ldapjdk/*
 
 ################################################################################
 %changelog
+* Wed Feb 21 2024 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.5.0-1
+- Rebase to LDAP SDK 5.5.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

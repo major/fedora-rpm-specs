@@ -32,7 +32,7 @@ ExcludeArch:    %{ix86}
 %goprep
 
 # Upstream uses goreleaser to set the version, but we need to set it manually here.
-sed 's/"unknown"/"%{version}"/' -i internal/version/version.go
+sed 's/versionPrerelease = "dev"/versionPrerelease = ""/' -i internal/version/version.go
 
 %generate_buildrequires
 %go_generate_buildrequires

@@ -1,22 +1,21 @@
 # spec file for php-pecl-fann
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
-%global with_zts   0%{?__ztsphp:1}
-%global pecl_name  fann
-%global with_tests 0%{!?_without_tests:1}
-%global ini_name   40-%{pecl_name}.ini
+%global with_zts         0%{?__ztsphp:1}
+%global pecl_name        fann
+%global with_tests       0%{!?_without_tests:1}
+%global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 1.2.0
-%global upstream_prever  RC2
+#global upstream_prever  RC2
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 Summary:        Wrapper for FANN Library
 Name:           php-pecl-%{pecl_name}
@@ -24,7 +23,7 @@ Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:        7%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
-Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -50,15 +49,13 @@ Documentation: http://php.net/fann
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
-
 
 # Don't install tests
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_FANN_VERSION/{s/.* "//;s/".*$//;p}' php_fann.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -67,9 +64,9 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Create configuration file
@@ -80,17 +77,18 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
-    --with-php-config=%{_bindir}/php-config
+    --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
-    --with-php-config=%{_bindir}/zts-php-config
+    --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -112,43 +110,40 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
-cd NTS
+cd %{sources}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_tests}
 : Upstream test suite  for NTS extension
-TEST_PHP_EXECUTABLE=%{__php} \
-TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-%{__php} -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
+%{__php} -n run-tests.php -q --show-diff %{?_smp_mflags}
 %endif
 
 %if %{with_zts}
-cd ../ZTS
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_tests}
 : Upstream test suite  for ZTS extension
-TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
-TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-%{_bindir}/zts-php -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
+%{__ztsphp} -n run-tests.php -q --show-diff %{?_smp_mflags}
 %endif
 %endif
 
 
 %files
 %doc %{pecl_docdir}/%{pecl_name}
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 
 %{pecl_xmldir}/%{name}.xml
 %config(noreplace) %{php_inidir}/%{ini_name}
@@ -161,6 +156,11 @@ TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Feb 22 2024 Remi Collet <remi@remirepo.net> - 1.2.0-1
+- update to 1.2.0
+- build out of sources tree
+- run tests in parallel
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0~RC2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

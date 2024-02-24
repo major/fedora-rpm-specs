@@ -3,8 +3,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.93.0
-Release: 6%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -29,9 +29,6 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream patches
-# fix directory traversal vulnerability in plasma calendar integration (drop in 6.0)
-Patch100:       https://invent.kde.org/plasma/plasma-workspace/-/commit/5377fe60c566593825acee09a38c29dc3053c660.patch
-
 # backport rudimentary auto-launch apps on reboot from 6.1 (drop with 6.1)
 Patch101:       https://invent.kde.org/plasma/plasma-workspace/-/commit/660988b0e30ee8ccac98c0cf164b142d70709675.patch
 
@@ -732,6 +729,9 @@ fi
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Tue Feb 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 5.93.0-6
 - Backport rudimentary auto-launch apps on reboot from 6.1
 

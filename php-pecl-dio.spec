@@ -18,7 +18,7 @@
 
 Summary:        Direct I/O functions
 Name:           php-pecl-%{pecl_name}
-Version:        0.2.2
+Version:        0.3.0
 Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -61,7 +61,7 @@ sed -e 's/role="test"/role="src"/' \
 
 cd %{sources}
 # Sanity check, really often broken
-extver=$(sed -n '/#define PHP_DIO_VERSION/{s/.* "//;s/".*$//;p}' php7/php_dio.h)
+extver=$(sed -n '/#define PHP_DIO_VERSION/{s/.* "//;s/".*$//;p}' src/php_dio.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:-%{prever}}.
    exit 1
@@ -163,6 +163,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztysextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Feb 22 2024 Remi Collet <remi@fedoraproject.org> - 0.3.0-1
+- update to 0.3.0
+
 * Wed Jan 24 2024 Remi Collet <remi@fedoraproject.org> - 0.2.2-1
 - update to 0.2.2
 

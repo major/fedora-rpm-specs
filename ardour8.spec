@@ -1,8 +1,8 @@
 # the test scripts seem to be broken
-%bcond_with tests
+%bcond tests 0
 
 # whether to do a verbose build
-%bcond_without verbose_build
+%bcond verbose_build 1
 %if %{with verbose_build}
 %global _verbose -v
 %else
@@ -10,13 +10,13 @@
 %endif
 
 # whether to use system libraries
-%bcond_without system_libs
+%bcond system_libs 1
 
 # whether or not to apply 64-bit patches
 %if "%_lib" == "lib64"
-%bcond_without apply_64bit_patches
+%bcond apply_64bit_patches 1
 %else
-%bcond_with apply_64bit_patches
+%bcond apply_64bit_patches 0
 %endif
 
 # Don't generate provides for internal shared objects and plugins
@@ -26,7 +26,7 @@
 
 # This package is named ardour8 to allow parallel installation with older versions of Ardour.
 Name:       ardour8
-Version:    8.2.0
+Version:    8.4.0
 
 Release:    %autorelease
 Summary:    Digital Audio Workstation
@@ -39,10 +39,6 @@ Source0:    Ardour-%{version}.tar.bz2
 # BSD 2/3-clause, ISC licenses and GPLv3+ license terms used in some code files
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
-
-# Don’t build new_aaf_session tool which needs bundled libaaf library for now,
-# which is not packaged for Fedora yet.
-Patch:      ardour8-8.2.0-noaaf.patch
 
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
@@ -179,6 +175,7 @@ export LC_ALL=C.UTF-8
 %endif
     --cxx11 \
     --freedesktop \
+    --no-ytk \
     --with-backends=dummy,alsa,jack,pulseaudio
 
 ./waf build %{_verbose} %{?_smp_mflags}

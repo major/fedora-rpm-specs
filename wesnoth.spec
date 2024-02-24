@@ -1,5 +1,5 @@
 Name:           wesnoth
-Version:        1.17.25
+Version:        1.17.26
 Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
@@ -9,8 +9,6 @@ Source0:        http://www.%{name}.org/files/%{name}-%{version}.tar.bz2
 Source1:        wesnothd.service
 Source2:        %{name}.sysconfig
 Patch0:         scons-env.patch
-# https://github.com/wesnoth/wesnoth/pull/8280
-Patch1:         systemd-paths.patch
 
 Requires:       wesnoth-data = %{version}
 BuildRequires:  gcc-c++
@@ -186,6 +184,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Wed Feb 21 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.17.26-1
+- 1.17.26
+
 * Mon Jan 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.17.25-1
 - 1.17.25
 

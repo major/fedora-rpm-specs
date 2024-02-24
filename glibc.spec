@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.39.9000-33-gef7f4b1fef
+%global glibcsrcdir glibc-2.39.9000-40-gb881f1efcd
 %global glibcversion 2.39.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2312,6 +2312,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Feb 22 2024 DJ Delorie <dj@redhat.com> - 2.39.9000-2
+- Auto-sync with upstream branch master,
+  commit b881f1efcd1b30c2afab3599b41ce9cd4864c823.
+- elf: Add new LoongArch reloc types (110 to 126) into elf.h
+- build-many-glibcs.py: Add s390 --disable-multi-arch / multi-arch configurations.
+- sparc: Treat the version field in the FPU control word as reserved
+- Implement setcontext/getcontext/makecontext/swapcontext for Hurd x86_64
+- Use proc_getchildren_rusage when available in getrusage and times.
+- Linux: Switch back to assembly syscall wrapper for prctl (bug 29770)
+- i386: Use generic memrchr in libc (bug 31316)
+
 * Thu Feb 15 2024 Carlos O'Donell <carlos@redhat.com> - 2.39.9000-1
 - Auto-sync with upstream branch master,
   commit ef7f4b1fef67430a8f3cfc77fa6aada2add851d7:

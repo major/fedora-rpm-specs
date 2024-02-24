@@ -9,7 +9,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -99,8 +99,6 @@ Requires: python3-cups >= 1.9.60
 Requires: python3-dbus
 # for GUI
 Requires: python3-gobject
-# the app can download printer data from database with CURL
-Requires: python3-pycurl
 
 # s-c-p has a plug-in support for Samba, if the relevant package is installed
 Suggests: python3-smbc
@@ -295,6 +293,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Feb 22 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-8
+- get rid of dependency on pycurl (we use urllib from python3)
+
 * Tue Jan 23 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-7
 - 2259526 - FTBFS s-c-p due missing distutils
 

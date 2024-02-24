@@ -1,6 +1,6 @@
 Name:    kactivitymanagerd
 Summary: Plasma service to manage user's activities
-Version: 5.93.0
+Version: 6.0.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -68,6 +68,9 @@ Provides:       kactivities = %{version}-%{release}
 %{_qt6_plugindir}/kactivitymanagerd1/
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

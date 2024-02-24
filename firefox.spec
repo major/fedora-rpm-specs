@@ -179,7 +179,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        123.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -216,6 +216,7 @@ Source44:       print-error-reftest
 Source45:       run-wayland-compositor
 Source46:       org.mozilla.firefox.SearchProvider.service
 Source47:       org.mozilla.firefox.desktop
+Source48:       org.mozilla.firefox.appdata.xml.in
 
 # Build patches
 #Patch3:         mozilla-build-arm.patch
@@ -911,7 +912,7 @@ mkdir -p %{buildroot}%{_datadir}/dbus-1/services
 cp %{SOURCE46} %{buildroot}%{_datadir}/dbus-1/services
 %endif
 
-%if %{gnome_shell_search_provider}
+%if 0%{?fedora} >= 40
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE47}
 %else
 # We can't use desktop-file-install as it refuses to install firefox.desktop file.
@@ -1061,9 +1062,15 @@ cp %{SOURCE26} %{buildroot}%{mozappdir}/distribution
 
 # Install appdata file
 mkdir -p %{buildroot}%{_datadir}/metainfo
+%if 0%{?fedora} >= 40
+sed -e "s/__VERSION__/%{version}/" \
+    -e "s/__DATE__/$(date '+%F')/" \
+    %{SOURCE48} > %{buildroot}%{_datadir}/metainfo/org.mozilla.firefox.appdata.xml
+%else
 sed -e "s/__VERSION__/%{version}/" \
     -e "s/__DATE__/$(date '+%F')/" \
     %{SOURCE33} > %{buildroot}%{_datadir}/metainfo/firefox.appdata.xml
+%endif
 
 # Remove copied libraries to speed up build
 rm -f %{buildroot}%{mozappdirdev}/sdk/lib/libmozjs.so
@@ -1127,12 +1134,14 @@ fi
 %dir %{_sysconfdir}/%{name}/*
 %dir %{_datadir}/mozilla/extensions/*
 %dir %{_libdir}/mozilla/extensions/*
-%if %{gnome_shell_search_provider}
+%if 0%{?fedora} >= 40
 %{_datadir}/applications/org.mozilla.firefox.desktop
-%{_datadir}/dbus-1/services/*
-%{_datadir}/gnome-shell/search-providers/*.ini
 %else
 %{_datadir}/applications/firefox.desktop
+%endif
+%if %{gnome_shell_search_provider}
+%{_datadir}/dbus-1/services/*
+%{_datadir}/gnome-shell/search-providers/*.ini
 %endif
 %{_datadir}/metainfo/*.appdata.xml
 %dir %{mozappdir}
@@ -1193,6 +1202,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Feb 21 2024 Daniel Rusek <mail@asciiwolf.com>- 123.0-2
+- Add matching AppStream metadata for org.mozilla.firefox.desktop
+
 * Mon Feb 19 2024 Martin Stransky <stransky@redhat.com>- 123.0-1
 - Update to 123.0
 - disabled system AV1 due to build issues.

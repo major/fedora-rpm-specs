@@ -1,7 +1,7 @@
 Name:    plasma-browser-integration
 Summary: %{name} provides components necessary to integrate browsers into the Plasma Desktop
-Version: 5.93.0
-Release: 1%{?dist}
+Version: 6.0.0
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -76,6 +76,12 @@ https://community.kde.org/Plasma/Browser_Integration
 
 
 %changelog
+* Thu Feb 22 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-2
+- Remove unneeded BuildRequires
+
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A voice compression format (DSP)
 License:        BSD
 URL:            http://www.speex.org/
@@ -101,6 +101,9 @@ This is the DSP package, see the speex package for the codec part.
 # See https://fedoraproject.org/wiki/Packaging:MinGW
 
 %changelog
+
+* Thu Feb 22 2024 Michał Janiszewski <janisozaur+speexdspfedoramingw@gmail.com> - 1.2.1-2
+- Rebuild with properly uploaded sources
 
 * Wed Feb 21 2024 Michał Janiszewski <janisozaur+speexdspfedoramingw@gmail.com> - 1.2.1-1
 - Update to 1.2.1 and fix build issues

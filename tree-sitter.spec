@@ -1,7 +1,7 @@
 %global treesitter_so_version 0
 
 Name:           tree-sitter
-Version:        0.20.9
+Version:        0.21.0
 Release:        1%{?dist}
 Summary:        An incremental parsing system for programming tools
 
@@ -72,6 +72,10 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 
 
 %changelog
+* Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 0.21.0-1
+- Update to version 0.21.0
+  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.21.0
+
 * Fri Jan 26 2024 Andreas Schneider <asn@redhat.com> - 0.20.9-1
 - Update to version 0.20.9
   https://github.com/tree-sitter/tree-sitter/releases/tag/v0.20.9

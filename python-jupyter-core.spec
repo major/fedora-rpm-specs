@@ -3,7 +3,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-jupyter-core
-Version:        5.1.0
+Version:        5.7.1
 Release:        %autorelease
 Summary:        The base package for Jupyter projects
 
@@ -15,8 +15,10 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx-autodoc-typehints
 BuildRequires:  python3-sphinxcontrib-github-alt
 BuildRequires:  python3-myst-parser
+BuildRequires:  python3-pydata-sphinx-theme
 BuildRequires:  pyproject-rpm-macros
 
 %bcond_without tests
@@ -102,12 +104,12 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 # user install location path in Fedora, for reference see:
 # https://src.fedoraproject.org/rpms/python3.10/blob/rawhide/f/00251-change-user-install-location.patch
 %pytest -Wdefault -v \
-    --deselect "jupyter_core/tests/test_command.py::test_not_on_path" \
-    --deselect "jupyter_core/tests/test_command.py::test_path_priority" \
-    --deselect "jupyter_core/tests/test_command.py::test_argv0" \
-    --deselect "jupyter_core/tests/test_paths.py::test_jupyter_path_prefer_env" \
-    --deselect "jupyter_core/tests/test_paths.py::test_jupyter_path_user_site" \
-    --deselect "jupyter_core/tests/test_paths.py::test_jupyter_path_no_user_site" \
+    --deselect "tests/test_command.py::test_not_on_path" \
+    --deselect "tests/test_command.py::test_path_priority" \
+    --deselect "tests/test_command.py::test_argv0" \
+    --deselect "tests/test_paths.py::test_jupyter_path_prefer_env" \
+    --deselect "tests/test_paths.py::test_jupyter_path_user_site" \
+    --deselect "tests/test_paths.py::test_jupyter_path_no_user_site" \
 ;
 %endif
 
@@ -115,7 +117,7 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 %global _docdir_fmt %{name}
 
 %files -n python3-jupyter-core -f %{pyproject_files}
-%license COPYING.md
+%license LICENSE
 %doc README.md
 %{_bindir}/jupyter
 %{_bindir}/jupyter-migrate

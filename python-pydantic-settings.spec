@@ -2,9 +2,9 @@
 %global forgeurl https://github.com/pydantic/pydantic-settings
 
 Name:           python-pydantic-settings
-Version:        2.0.3
+Version:        2.2.0
 %forgemeta
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Settings management using pydantic
 
 License:        MIT
@@ -36,7 +36,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x yaml,toml
 
 
 %build
@@ -45,7 +45,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files pydantic_settings
+%pyproject_save_files -l pydantic_settings
 
 
 %check
@@ -56,10 +56,17 @@ Summary:        %{summary}
 
 %files -n python3-pydantic-settings -f %{pyproject_files}
 %doc README.md
-%license LICENSE
+
+
+%pyproject_extras_subpkg -n python3-pydantic-settings yaml toml
 
 
 %changelog
+* Mon Feb 19 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.0-1
+- Update to 2.2.0 (close RHBZ#2264579)
+- Add metapackages for new yaml and toml extras
+- Do not package a duplicate LICENSE file
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    powerdevil
-Version: 5.93.0
-Release: 2%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -110,6 +110,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_userunitdir}/plasma-powerprofile-osd.service
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-2
 - Rebuild (qt6)
 

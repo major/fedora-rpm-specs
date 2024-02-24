@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
-Version:	4.2.0
-Release:	5%{?dist}
+Version:	4.2.1
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -18,10 +18,6 @@ Release:	5%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/ruby-gnome/ruby-gnome/issues/1604
-# https://github.com/ruby-gnome/ruby-gnome/commit/b435e4963a578bd3fb3bb107632bb56338022151
-# Support GLib 2.79.0 gi change
-Patch0:   rubygem-gobject-introspection-b435e496-support-GLib-2_79_gir-change.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -63,13 +59,12 @@ Documentation for %{name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches
-%patch -P0 -p2 -b .newglib
 
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.2\.0|>= 4.2.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.1|>= 4.2.1|' %{gem_name}-%{version}.gemspec
 
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
@@ -147,6 +142,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

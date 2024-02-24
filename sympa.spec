@@ -83,7 +83,7 @@
 
 Name:        sympa
 Version:     6.2.72
-Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}.2
+Release:     %{?pre_rel:0.}4%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -110,13 +110,21 @@ Patch13:     sympa-6.2.57b.1-confdef.patch
 # https://github.com/sympa-community/sympa/commit/8e4d671.patch
 Patch14:     sympa-6.2.72-DKIM_workaround_for_EL7.patch
 
-BuildRequires: gcc, make
+BuildRequires: gcc
 BuildRequires: gettext
+BuildRequires: make
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: systemd-rpm-macros
+%else
 BuildRequires: systemd
+%endif
+BuildRequires: tzdata
 
 # Only for development
 %if %{with autoreconf}
-BuildRequires: autoconf, automake, gettext-devel
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gettext-devel
 %endif
 
 BuildRequires: perl-generators
@@ -220,7 +228,7 @@ BuildRequires: perl(Test::Pod::Spelling::CommonMistakes)
 %endif
 
 Requires(pre): shadow-utils
-
+%{?systemd_requires}
 Requires:    smtpdaemon
 Requires:    mhonarc
 Requires:    logrotate
@@ -870,6 +878,10 @@ fi
 
 
 %changelog
+* Thu Feb 22 2024 Xavier Bachelot <xavier@bachelot.org> 6.2.72-4
+- Tidy up BuildRequires/Requires
+- BR: tzdata, which is not pulled from dependencies on F39+ (RHBZ#2261742)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.72-3.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

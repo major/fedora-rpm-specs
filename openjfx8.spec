@@ -2,7 +2,7 @@
 
 Name:           openjfx8
 Version:        8.0.202
-Release:        38.b07%{?dist}
+Release:        39.b07%{?dist}
 Summary:        Rich client application platform for Java
 
 #fxpackager is BSD
@@ -50,13 +50,14 @@ Patch1:         0003-fix-cast-between-incompatible-function-types.patch
 Patch2:         0004-Fix-Compilation-Flags.patch
 Patch3:         0005-fxpackager-extract-jre-accept-symlink.patch
 Patch4:         openjfx8-c99.patch
+Patch5:         0006-openjfx8-fix-X11GLContext.patch
 
 ExclusiveArch:  x86_64
 
 Requires:       java-1.8.0-openjdk
 
 BuildRequires:  maven-local-openjdk8
-BuildRequires:	ant
+BuildRequires:  ant
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libstdc++-static
@@ -92,7 +93,7 @@ The swt module has been removed due to incompatible runtime version
 
 %package devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: java-devel
+Requires: java-1.8.0-openjdk-devel
 Summary: OpenJFX development tools and libraries
 
 %description devel
@@ -109,11 +110,12 @@ Summary: OpenJFX Source Bundle
 
 %prep
 %setup -q -n rt-8u202-b07
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -p1 0
+%patch -p1 1
+%patch -p1 2
+%patch -p1 3
+%patch -p1 4
+%patch -p1 5
  
 cp %{SOURCE1} .
 
@@ -136,7 +138,7 @@ mv pom-openjfx.xml pom.xml
 
 for MODULE in base graphics controls swing fxml media web builders fxpackager jmx
 do
-	mv pom-$MODULE.xml ./modules/$MODULE/pom.xml
+  mv pom-$MODULE.xml ./modules/$MODULE/pom.xml
 done
 
 #shade
@@ -155,7 +157,7 @@ cp -a %{_sourcedir}/buildSrc.xml ./buildSrc/pom.xml
 mkdir ./modules/graphics/{compileJava,compilePrismCompilers,compilePrismJavaShaders,compileDecoraCompilers,compileDecoraJavaShaders,libdecora,libjavafx_font,libjavafx_font_freetype,libjavafx_font_pango,libglass,libglassgtk2,libglassgtk3,libjavafx_iio,libprism_common,libprism_es2,libprism_sw}
 for GRAPHMOD in compileJava compilePrismCompilers compilePrismJavaShaders compileDecoraCompilers compileDecoraJavaShaders libdecora libjavafx_font libjavafx_font_freetype libjavafx_font_pango libglass libglassgtk2 libglassgtk3 libjavafx_iio libprism_common libprism_es2 libprism_sw
 do
-	mv pom-graphics_$GRAPHMOD.xml ./modules/graphics/$GRAPHMOD/pom.xml
+  mv pom-graphics_$GRAPHMOD.xml ./modules/graphics/$GRAPHMOD/pom.xml
 done
 
 #set VersionInfo
@@ -232,6 +234,9 @@ ln -s %{openjfxdir}/bin/javapackager %{buildroot}%{_bindir}
 %{openjfxdir}/javafx-src.zip
 
 %changelog
+* Thu Feb 22 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 8.0.202-39.b07
+- Fix FTBFS in Fedora rawhide (see 2261426) and fix openjfx8-devel (see 2262529)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.202-38.b07
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

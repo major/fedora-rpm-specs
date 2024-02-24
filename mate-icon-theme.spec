@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit cdb0d70862035cd1b65c4deb495ea1016ea2d206}
@@ -15,7 +15,7 @@
 Name:           mate-icon-theme
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        7%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.22%{?git_rel}%{?dist}
 %endif
@@ -71,6 +71,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

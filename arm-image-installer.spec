@@ -3,13 +3,12 @@
 # git archive --format=tar --prefix=%{name}-%{version}/ %{version} | xz > ~/%{name}-%{version}.tar.xz
 
 Name:		arm-image-installer
-Version:	3.9
-Release:	4%{?dist}
+Version:	4.0
+Release:	1%{?dist}
 Summary:	Writes binary image files to any specified block device
 License:	GPLv2+
 Url:		https://pagure.io/arm-image-installer
 Source0:	%{name}-%{version}.tar.xz
-Patch1:		rename.patch
 
 BuildArch:	noarch
 
@@ -60,6 +59,9 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Thu Feb 22 2024 Paul Whalen <pwhalen@fedoraproject.org> - 4.0-1
+- update to 4.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -18,6 +18,7 @@ Source1:        gpgconf-sq.sh
 Source2:        activate.sh
 # Manually created patch for downstream crate metadata changes
 # * drop features for unavailable crypto backends
+# * build with OpenSSL crypto backend
 Patch:          sequoia-chameleon-gnupg-fix-metadata.diff
 # * fix running integration tests in release mode with prebuilt executable
 Patch:          0002-fix-running-integration-tests-in-release-mode-with-p.patch
@@ -98,7 +99,13 @@ ln -s /usr/bin/gpgv-sq %{buildroot}/%{_datadir}/%{crate}/shims/gpgv
 
 %if %{with check}
 %check
+%ifarch %{ix86}
+# * skip one test that fails on i686:
+#   https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/44
+%cargo_test -- -- --skip gpg::decrypt::empty
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

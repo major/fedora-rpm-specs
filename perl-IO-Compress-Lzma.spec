@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-IO-Compress-Lzma
-Version:	2.206
-Release:	3%{?dist}
+Version:	2.207
+Release:	1%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-Compress-Lzma
@@ -103,6 +103,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Wed Feb 21 2024 Paul Howarth <paul@city-fan.org> - 2.207-1
+- Update to 2.207 (no functional changes)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.206-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

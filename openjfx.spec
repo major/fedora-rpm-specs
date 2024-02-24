@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/openjdk/jfx17u
 %global openjfxdir %{_jvmdir}/%{name}
-%global rtdir jfx17u-17.0.10-2
+%global rtdir jfx17u-17.0.11-0
 
 Name:           openjfx
 Epoch:          3
-Version:        17.0.10.2
-Release:        3%{?dist}
+Version:        17.0.11.0
+Release:        1%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -48,10 +48,10 @@ Patch2: openjfx-c99-3.patch
 
 ExclusiveArch:  %{java_arches}
 
-Requires:       (java-11-openjdk or java-17-openjdk or java-latest-openjdk)
+Requires:       java-headless
 
 BuildRequires:  javapackages-tools
-BuildRequires:  java-11-openjdk-devel
+BuildRequires:  java-devel
 BuildRequires:  maven-local
 BuildRequires:  ant
 BuildRequires:  gcc
@@ -136,8 +136,6 @@ rm -rf ./modules/javafx.web/src/main/native/Source/ThirdParty/icu
 
 %build
 
-#set openjdk11 for build
-export JAVA_HOME=%{_jvmdir}/java-11-openjdk
 export CFLAGS="${RPM_OPT_FLAGS}"
 export CXXFLAGS="${RPM_OPT_FLAGS}" 
 
@@ -166,6 +164,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Thu Feb 22 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.11.0-1
+- Bump to 17.0.11 and change build with fedora default java version
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

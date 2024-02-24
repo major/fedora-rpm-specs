@@ -30,11 +30,15 @@
 
 Name:  coin-or-%{module}
 Summary: Interior Point OPTimizer
-Version: 3.14.12
+Version: 3.14.14
 Release: %autorelease
-License: EPL-1.0
+License: EPL-2.0
 URL:  https://coin-or.github.io/%{module}/
 Source0: https://github.com/coin-or/Ipopt/archive/releases/%{version}/Ipopt-releases-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
+
 BuildRequires: %{?dts}gcc, %{?dts}gcc-c++
 BuildRequires: %{?dts}gcc-gfortran
 BuildRequires: %{blaslib}-devel
@@ -44,7 +48,7 @@ BuildRequires: make
 BuildRequires: MUMPS-devel
 BuildRequires: metis-devel
 %if 0%{?with_asl}
-BuildRequires: mp-devel
+BuildRequires: asl-devel
 %endif
 BuildRequires: openssh-clients
 BuildRequires: pkgconfig
@@ -179,16 +183,16 @@ cd Ipopt-releases-%{version}
 export LIBLAPACK=-l%{blaslib}
 export INCLAPACK=-I%{_includedir}/%{blaslib}
 
-OPT_CFLAGS="%{__global_ldflags}"
+OPT_CFLAGS="%{build_ldflags}"
 OPT_CXXFLAGS="%{build_cxxflags}"
 CPPFLAGS="-I%{_includedir}/MUMPS"
 CXXLIBS="-L%{_libdir} -ldmumps $LIBLAPACK -lmetis -ldl"
 %configure CC=gcc CXX=g++ F77=gfortran CFLAGS="%{build_cflags} $INCLAPACK" CXXFLAGS="%{build_cxxflags} $INCLAPACK" \
-           LDFLAGS="%{__global_ldflags}" CXXLIBS="$CXXLIBS" \
+           LDFLAGS="%{build_ldflags}" CXXLIBS="$CXXLIBS" \
  --with-mumps --with-mumps-cflags=-I%{_includedir}/MUMPS --with-mumps-lflags=-ldmumps \
  --with-lapack --with-lapack-lflags=$LIBLAPACK --enable-mpiinit \
 %if 0%{?with_asl}
- --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl -lmp" \
+ --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl" \
 %endif
  --enable-shared --disable-java
 
@@ -218,7 +222,7 @@ export LIBLAPACK=-l%{blaslib}
 export INCLAPACK=-I%{_includedir}/%{blaslib}
 CFLAGS="%{build_cxxflags} $INCLAPACK"
 OPT_CFLAGS="%{build_cflags} $INCLAPACK"
-LDFLAGS="%{__global_ldflags}"
+LDFLAGS="%{build_ldflags}"
 CXXFLAGS="%{build_cxxflags} $INCLAPACK"
 OPT_CXXFLAGS="%{build_cxxflags} $INCLAPACK"
 %if 0%{?rhel}
@@ -236,7 +240,7 @@ export F77=$MPI_BIN/mpif77
  --with-mumps --with-mumps-lflags="-L$MPI_LIB -ldmumps -lmumps_common" --with-mumps-cflags="-I$MPI_INCLUDE/MUMPS" \
  --with-lapack --with-lapack-lflags=$LIBLAPACK --disable-java --enable-mpiinit \
 %if 0%{?with_asl}
- --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl -lmp" \
+ --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl" \
 %endif
             MPICC=$MPI_BIN/mpicc \
             MPICXX=$MPI_BIN/mpic++ \
@@ -254,11 +258,7 @@ export F77=$MPI_BIN/mpif77
      -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
      -i libtool
 
-%if 0%{?rhel} && 0%{?rhel} < 7
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_LIB:%{_libdir}/mp
-%else
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_LIB
-%endif
 %make_build V=1 all
 %{_openmpi_unload}
 cd ..
@@ -274,7 +274,7 @@ export LIBLAPACK=-l%{blaslib}
 export INCLAPACK=-I%{_includedir}/%{blaslib}
 CFLAGS="%{build_cflags} $INCLAPACK"
 OPT_CFLAGS="%{build_cflags} $INCLAPACK"
-LDFLAGS="%{__global_ldflags}"
+LDFLAGS="%{build_ldflags}"
 CXXFLAGS="%{build_cxxflags} $INCLAPACK"
 OPT_CXXFLAGS="%{build_cxxflags} $INCLAPACK"
 CPPFLAGS="$(pkg-config --cflags mpich)"
@@ -287,7 +287,7 @@ export F77=$MPI_BIN/mpif77
  --with-mumps --with-mumps-lflags="-L$MPI_LIB -ldmumps -lmumps_common" --with-mumps-cflags="-I$MPI_INCLUDE/MUMPS" \
  --with-lapack --with-lapack-lflags=$LIBLAPACK --disable-java --enable-mpiinit \
 %if 0%{?with_asl}
- --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl -lmp" \
+ --with-asl-cflags=-I%{_includedir}/asl --with-asl-lflags="-lasl" \
 %endif
             MPICC=$MPI_BIN/mpicc \
             MPICXX=$MPI_BIN/mpic++ \
@@ -305,11 +305,7 @@ export F77=$MPI_BIN/mpif77
      -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
      -i libtool
 
-%if 0%{?rhel} && 0%{?rhel} < 7
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_LIB:%{_libdir}/mp
-%else
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_LIB
-%endif
 %make_build V=1 all
 %{_mpich_unload}
 cd ..

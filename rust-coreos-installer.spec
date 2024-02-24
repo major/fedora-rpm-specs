@@ -11,8 +11,8 @@
 %global crate coreos-installer
 
 Name:           rust-coreos-installer
-Version:        0.20.0
-Release:        4%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -185,6 +185,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Thu Feb 22 2024 Packit <hello@packit.dev> - 0.21.0-1
+- New upstream release
+
 * Sun Feb 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20.0-4
 - Update Rust macro usage
 

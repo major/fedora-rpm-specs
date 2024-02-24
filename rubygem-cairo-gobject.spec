@@ -4,8 +4,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.2.0
-Release:	4%{?dist}
+Version:	4.2.1
+Release:	1%{?dist}
 Summary:	Ruby binding of cairo-gobject
 
 # SPDX confirmed
@@ -47,7 +47,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.2\.0|>= 4.2.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.1|>= 4.2.1|' %{gem_name}-%{version}.gemspec
 # ???
 sed -i -e \
 	'\@gobject-introspection-test-utils@d' \
@@ -113,6 +113,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit a6a0a5879533b0915901ab69703eaf327bbca846 }
@@ -15,9 +15,9 @@
 Summary:       Shared code for mate-panel, mate-session, caja, etc
 Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
-Version:       %{branch}.2
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.20%{?git_rel}%{?dist}
 %endif
@@ -34,9 +34,6 @@ Source1:        mate-fedora-f34.gschema.override
 Source2:        mate-rhel.gschema.override
 Source3:        mate-mimeapps.list
 Source4:        80-mate-compiz.preset
-
-# https://github.com/mate-desktop/mate-desktop/commit/e9eb2ad
-Patch1:        mate-desktop_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
 
 BuildRequires: dconf-devel
 BuildRequires: desktop-file-utils
@@ -93,7 +90,7 @@ License:    LGPLv2+
 BuildArch:  noarch
 Requires:   %{name} = %{version}-%{release}
 %if 0%{?fedora}
-Recommends:  earlyoom
+Recommends: systemd-oomd-defaults
 %endif
 
 %description configs
@@ -164,7 +161,7 @@ install -D -m 0644 %SOURCE2 %{buildroot}%{_datadir}/glib-2.0/schemas/10_mate-rhe
 mkdir -p %{buildroot}%{_datadir}/applications
 install -m 644 %SOURCE3 %{buildroot}/%{_datadir}/applications/mate-mimeapps.list
 
-%if 0%{?fedora}
+%if 0%{?fedora} <= 39
 mkdir -p %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mate-compiz.preset
 %endif
@@ -190,8 +187,10 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 %{_libdir}/girepository-1.0/MateDesktop-2.0.typelib
 
 %files configs
-%if 0%{?fedora}
+%if 0%{?fedora} <= 39
 %{_prefix}/lib/systemd/system-preset/80-mate-compiz.preset
+%endif
+%if 0%{?fedora}
 %{_datadir}/glib-2.0/schemas/10_mate-fedora.gschema.override
 %endif
 %{_datadir}/applications/mate-mimeapps.list
@@ -209,6 +208,9 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.1-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

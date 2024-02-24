@@ -5,7 +5,7 @@
 %global watchdog_service_name amazon-efs-mount-watchdog
 
 Name:           efs-utils
-Version:        1.35.1
+Version:        1.35.2
 Release:        %autorelease
 Summary:        Utilities for Amazon Elastic File System (EFS)
 
@@ -71,10 +71,6 @@ sed -i 's/from mock/from unittest.mock/' test/common.py
 
 %build
 echo "Nothing to build"
-
-# Disable the automatic version checking.
-sed -i 's/enable_version_check = true/enable_version_check = false/' dist/efs-utils.conf
-grep version_check dist/efs-utils.conf
 
 %if 0%{?with_selinux}
 mkdir selinux

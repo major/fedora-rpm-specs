@@ -5,11 +5,11 @@
 %endif
 
 Name:		bleachbit
-Version:	4.4.2
-Release:	6%{?dist}
+Version:	4.6.0
+Release:	1%{?dist}
 Summary:	Remove sensitive data and free up disk space
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://www.bleachbit.org/
 Source:		https://github.com/bleachbit/bleachbit/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -27,6 +27,7 @@ BuildRequires:	python3-devel
 %if 0%{?rhel}  &&  0%{?rhel} < 8
 BuildRequires:	python3-rpm-macros
 %endif
+BuildRequires:	pkgconfig(systemd)
 
 Requires:	gtk3
 Requires:	python3-chardet
@@ -80,7 +81,6 @@ make -C po local
 
 %install
 %make_install prefix=%{_prefix}
-make -C po prefix=%{_prefix} INSTALL="%{_bindir}/install -Dp"
 
 desktop-file-install --dir=%{buildroot}/%{_datadir}/applications/ org.bleachbit.BleachBit.desktop
 install -Dp org.bleachbit.BleachBit.metainfo.xml %{buildroot}/%{_metainfodir}/
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.bleachbit
 
 
 %changelog
+* Thu Feb 22 2024 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 4.6.0-1
+- Update to 4.6.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

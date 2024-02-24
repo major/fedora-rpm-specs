@@ -1,6 +1,6 @@
 %global		module		CoinUtils
 
-%if 0%{?fedora} >= 33
+%if 0%{?fedora}
 %global blaslib flexiblas
 %else
 %global blaslib openblas
@@ -8,14 +8,15 @@
 
 Name:		coin-or-%{module}
 Summary:	Coin-or Utilities
-Version:	2.11.4
-Release:	12%{?dist}
-License:	EPL-1.0
+Version:	2.11.10
+Release:	1%{?dist}
+
+# The project as a whole is licensed EPL-2.0.  However, many source files still
+# claim to be licensed EPL-1.0.  This is probably an upstream oversight.
+License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
-BuildRequires:	bzip2-devel
-BuildRequires:	coin-or-Data-Netlib
-BuildRequires:	coin-or-Sample
+
 BuildRequires:	doxygen
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -24,14 +25,19 @@ BuildRequires:	glpk-devel
 BuildRequires:	make
 BuildRequires:	%{blaslib}-devel
 BuildRequires:	pkgconfig
-BuildRequires:	readline-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(bzip2)
+BuildRequires:	pkgconfig(coindatanetlib)
+BuildRequires:	pkgconfig(coindatasample)
+BuildRequires:	pkgconfig(readline)
+BuildRequires:	pkgconfig(zlib)
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
 
-# Prevent a segfault when a problem's status has not been set
-Patch1:		%{name}-status.patch
+# Remove uses of the register keyword, not allowed in ISO C++17
+# https://github.com/coin-or/CoinUtils/commit/1700ed92c2bc1562aabe65dee3b4885bd5c87fb9
+Patch1:		%{name}-register.patch
+
 Patch2:		coin-or-CoinUtils-configure-c99.patch
 
 %description
@@ -69,6 +75,7 @@ sed -i 's/ @COINUTILSLIB_PCLIBS@/\nLibs.private:&/' CoinUtils/coinutils.pc.in
 
 %build
 %configure \
+  --enable-coinutils-threads \
   --enable-gnu-packages \
   --with-blas-incdir=%{_includedir}/%{blaslib} \
   --with-blas-lib=-l%{blaslib} \
@@ -95,8 +102,6 @@ cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 
-%ldconfig_scriptlets
-
 %files
 %{_pkgdocdir}/
 %exclude %{_pkgdocdir}/html
@@ -115,6 +120,13 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/coinutils_doxy.tag
 
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 2.11.10-1
+- Version 2.11.10
+- Convert License tag to SPDX
+- Drop unneeded status patch
+- Drop support for Fedora < 33
+- Build with threading support
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

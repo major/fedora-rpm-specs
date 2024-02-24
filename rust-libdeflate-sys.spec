@@ -5,20 +5,13 @@
 %global crate libdeflate-sys
 
 Name:           rust-libdeflate-sys
-Version:        1.19.0
+Version:        1.19.2
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/libdeflate-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-#   - Add pkg-config dependency for finding the system libdeflate
-Patch:          libdeflate-sys-fix-metadata.diff
-# Use external/system libdeflate when pkgconfig can find it
-# https://github.com/adamkewley/libdeflater/pull/30
-# This version applies to the released libdeflate-sys crate.
-Patch:          libdeflate-sys-1.19.0-system-libdeflate.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

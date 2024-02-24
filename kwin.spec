@@ -2,8 +2,8 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 5.93.0
-Release: 5%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,12 +12,6 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
-
-# 5.93.0: Fix for kwin that causes some strange color glitches on RC2 (Will be fixed on final)
-# https://invent.kde.org/plasma/kwin/-/commit/fe2ead76443a8fb347b2a507ba3086606bd38237
-Patch0:  kwin-drm-use-correct-uniform-type.patch
-# https://invent.kde.org/plasma/kwin/-/merge_requests/5204
-Patch1:  kwin-fix-window-screencasts-being-vertically-mirrored-with-memfd.patch
 
 ## proposed patches
 
@@ -253,10 +247,10 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 %{_qt6_qmldir}/org/kde/kwin
 %{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-delete-desktop-switching-shortcuts
+%{_kf6_libdir}/kconf_update_bin/kwin-6.0-reset-active-mouse-screen
 %{_libexecdir}/kwin_killer_helper
 %{_libexecdir}/kwin-applywindowdecoration
 %{_datadir}/kconf_update/kwin.upd
-%{_datadir}/kconf_update/kwin-6.0-overview-activities-shortcuts.py
 %{_kf6_datadir}/knotifications6/kwin.notifyrc
 %{_kf6_datadir}/config.kcfg/kwin.kcfg
 %{_kf6_datadir}/config.kcfg/kwindecorationsettings.kcfg
@@ -295,6 +289,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-5
 - Rebuild (qt6)
 

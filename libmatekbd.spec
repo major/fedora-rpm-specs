@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 5e8b69cf7c6d031cbb0b0f01a7518e72146c0af1}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           libmatekbd
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.20%{?git_rel}%{?dist}
 %endif
@@ -64,7 +64,6 @@ NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
 %build
-
 %configure                   \
    --disable-static          \
    --disable-schemas-compile \
@@ -85,8 +84,8 @@ find %{buildroot} -name '*.la' -exec rm -fv {} ';'
 %files -f %{name}.lang
 %doc AUTHORS COPYING README
 %{_datadir}/glib-2.0/schemas/org.mate.peripherals-keyboard-xkb.gschema.xml
-%{_libdir}/libmatekbd.so.4*
-%{_libdir}/libmatekbdui.so.4*
+%{_libdir}/libmatekbd.so.6*
+%{_libdir}/libmatekbdui.so.6*
 %{_libdir}/girepository-1.0/Matekbd-1.0.typelib
 %{_datadir}/gir-1.0/Matekbd-1.0.gir
 
@@ -99,6 +98,9 @@ find %{buildroot} -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,45 +1,81 @@
-%global pypi_name httpx
+%bcond tests 1
 
-Name:           python-%{pypi_name}
+Name:           python-httpx
 Version:        0.26.0
 Release:        %autorelease
-Summary:        Python HTTP client
+Summary:        Next-generation HTTP client for Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/encode/httpx
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/httpx-%{version}.tar.gz
 BuildArch:      noarch
 
-%description
-HTTPX is a fully featured HTTP client for Python, which provides sync and
-async APIs, and support for both HTTP/1.1 and HTTP/2.
-
-%package -n     python3-%{pypi_name}
-Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+%if %{with tests}
+# See the Optional charset auto-detection group in requirements.txt:
+BuildRequires:  %{py3_dist chardet}
+# See the Tests & Linting group in requirements.txt:
+BuildRequires:  %{py3_dist cryptography}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist trio}
+BuildRequires:  %{py3_dist trustme}
+BuildRequires:  %{py3_dist uvicorn}
+%endif
+BuildRequires:  help2man
 
-%description -n python3-%{pypi_name}
+%global _description %{expand:
+HTTPX is a fully featured HTTP client library for Python 3. It includes an
+integrated command line client, has support for both HTTP/1.1 and HTTP/2, and
+provides both sync and async APIs.}
+
+
+%description %{_description}
+
+%package -n     python3-httpx
+Summary:        %{summary}
+
+%description -n python3-httpx %{_description}
 HTTPX is a fully featured HTTP client for Python, which provides sync and
 async APIs, and support for both HTTP/1.1 and HTTP/2.
+
+%pyproject_extras_subpkg -n python3-httpx brotli http2 socks
+
+%pyproject_extras_subpkg -n python3-httpx cli
+%{_bindir}/httpx
+%{_mandir}/man1/httpx.1*
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n httpx-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x brotli,cli,http2,socks
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files -l httpx
+install -d '%{buildroot}%{_mandir}/man1'
+PYTHONPATH='%{buildroot}%{python3_sitelib}' \
+    PATH="${PATH-}:%{buildroot}%{_bindir}" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    help2man --no-info --version-string='%{version}' \
+    --output='%{buildroot}%{_mandir}/man1/httpx.1' httpx
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%license LICENSE.md
+%check
+%pyproject_check_import
+%if %{with tests}
+# These require network access (DNS)
+k="${k-}${k+ and }not test_async_proxy_close"
+k="${k-}${k+ and }not test_sync_proxy_close"
+%pytest -k "${k-}" -v
+%endif
+
+%files -n python3-httpx -f %{pyproject_files}
+%doc CHANGELOG.md
 %doc README.md
-%attr(755, root, root) %{_bindir}/httpx
+%doc README_chinese.md
 
 %changelog
 %autochangelog

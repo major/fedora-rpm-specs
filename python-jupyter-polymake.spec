@@ -6,7 +6,7 @@
 
 Name:           python-jupyter-polymake
 Version:        0.16
-Release:        26.%{gitdate}.%{shortcommit}%{?dist}
+Release:        27.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Jupyter kernel for polymake
 
 # The code is WTFPL.  The JavaScript and image files are MIT.
@@ -17,7 +17,7 @@ Source0:        %{url}/archive/%{commit}/jupyter-polymake-%{shortcommit}.tar.gz
 # Polymake is no longer available on 32-bit platforms
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 BuildArch:      noarch
-ExclusiveArch:  noarch aarch64 ppc64le s390x x86_64
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipykernel}
@@ -69,6 +69,9 @@ rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
 %{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Thu Feb 22 2024 Zhengyu He <hezhy472013@gmail.com> - 0.16-27.20180129.7049940
+- Add support for riscv64
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-26.20180129.7049940
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

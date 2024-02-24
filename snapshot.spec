@@ -37,6 +37,12 @@ Patch:          0001-Disable-cargo-clippy-test.patch
 # https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/175
 Patch:          175.patch
 
+# Try and fix the app often failing to start correctly
+# https://gitlab.gnome.org/GNOME/snapshot/-/issues/122
+# https://gitlab.gnome.org/GNOME/snapshot/-/merge_requests/201
+# rediffed on 45.2
+Patch:          0001-window-Add-timeout-to-get-focus.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

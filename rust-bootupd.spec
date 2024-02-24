@@ -12,6 +12,8 @@ URL:            https://github.com/coreos/bootupd
 Source0:        %{url}/releases/download/v%{version}/bootupd-%{version}.crate
 Source1:        %{url}/releases/download/v%{version}/bootupd-%{version}-vendor.tar.zstd
 
+Patch0: 0001-grub2-source-in-a-console.cfg-file-if-exists.patch
+
 # For now, see upstream
 BuildRequires: make
 BuildRequires:  openssl-devel

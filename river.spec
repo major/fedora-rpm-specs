@@ -1,24 +1,19 @@
-# zig neither sets build-id nor allows to override the linker flags
-# ziglang/zig#3047
-%undefine  _missing_build_ids_terminate_build
-
-# rhbz#2142334: zig_arches is not defined in the srpm buildroot
-%if 0%{!?zig_arches:1}
-%global zig_arches x86_64 aarch64 riscv64 %{mips64}
-%endif
-
 Name:           river
-Version:        0.2.1
-Release:        5%{?dist}
+Version:        0.2.6
+Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
 # river: GPL-3.0-only
+# deps/zig-pixman: MIT
+# deps/zig-wayland: MIT
+# deps/zig-wlroots: MIT
+# deps/zig-xkbcommon: MIT
 # protocol/river-control-unstable-v1.xml: ISC
 # protocol/river-layout-v3.xml: ISC
 # protocol/river-status-unstable-v1.xml: ISC
 # protocol/wlr-layer-shell-unstable-v1.xml: HPND-sell-variant
 # protocol/wlr-output-power-management-unstable-v1.xml: MIT
-License:        GPL-3.0-only and HPND-sell-variant and ISC and MIT
+License:        GPL-3.0-only AND HPND-sell-variant AND ISC AND MIT
 URL:            https://github.com/riverwm/river
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
@@ -31,7 +26,7 @@ ExclusiveArch:  %{zig_arches}
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  scdoc
-BuildRequires:  (zig >= 0.9 with zig < 0.10)
+BuildRequires:  (zig >= 0.11 with zig < 0.12)
 BuildRequires:  zig-rpm-macros
 
 BuildRequires:  pkgconfig(libevdev)
@@ -118,9 +113,9 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/%{name}/init.example
 %{_datadir}/wayland-sessions/%{name}.desktop
 # shell completions
-%{_datadir}/bash-completion/completions/riverctl
-%{_datadir}/fish/vendor_completions.d/riverctl.fish
-%{_datadir}/zsh/site-functions/_riverctl
+%{bash_completions_dir}/riverctl
+%{fish_completions_dir}/riverctl.fish
+%{zsh_completions_dir}/_riverctl
 
 %files protocols-devel
 %{_datadir}/pkgconfig/river-protocols.pc
@@ -128,6 +123,9 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Mon Feb 12 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.6-1
+- Update to 0.2.6 (rhbz#2159117)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:    kinfocenter
-Version: 5.93.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

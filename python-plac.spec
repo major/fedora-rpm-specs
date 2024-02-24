@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-plac
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        The smartest command line arguments parser in the world
 

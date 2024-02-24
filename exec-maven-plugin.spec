@@ -1,11 +1,11 @@
 Name:           exec-maven-plugin
-Version:        3.1.1
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Exec Maven Plugin
 
 License:        ASL 2.0
 URL:            https://www.mojohaus.org/exec-maven-plugin/
-Source0:        https://repo1.maven.org/maven2/org/codehaus/mojo/exec-maven-plugin/%{version}/exec-maven-plugin-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/codehaus/mojo/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -49,6 +49,7 @@ find . -name *.jar -delete
 %pom_remove_dep :plexus-xml
 %pom_remove_dep :slf4j-simple
 
+%pom_remove_plugin :sisu-maven-plugin
 %pom_remove_plugin :maven-dependency-plugin
 
 rm -rf src/test/
@@ -64,6 +65,9 @@ rm -rf src/test/
 %dir %{_javadir}/%{name}
 
 %changelog
+* Thu Feb 22 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 3.2.0-1
+- Update to upstream version 3.2.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

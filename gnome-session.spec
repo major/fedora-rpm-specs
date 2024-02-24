@@ -79,6 +79,8 @@ Summary: Desktop file for gnome-session
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: xorg-x11-server-Xorg%{?_isa}
 Requires: gnome-shell
+# The X11 session is deprecated and eventually will be removed
+Provides: deprecated()
 
 %description xsession
 Desktop file to add GNOME to display manager session menu.

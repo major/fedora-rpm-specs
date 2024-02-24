@@ -29,8 +29,8 @@
 %global build_type_safety_c 2
 
 Name:           freerdp
-Version:        3.2.0
-Release:        4%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        Apache-2.0
@@ -79,6 +79,7 @@ BuildRequires:  pkgconfig(libpcsclite)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(sdl2)
@@ -234,6 +235,9 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_NEON=OFF \
 %endif
     -DUWAC_FORCE_STATIC_BUILD=%{?_with_static_uwac:ON}%{?!_with_static_uwac:OFF} \
+    -DWINPR_UTILS_IMAGE_PNG=ON \
+    -DWINPR_UTILS_IMAGE_WEBP=ON \
+    -DWINPR_UTILS_IMAGE_JPEG=ON \
     %{nil}
 
 %cmake_build
@@ -340,6 +344,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Thu Feb 22 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.3.0-1
+- Update to 3.3.0
+
 * Thu Feb 01 2024 Ondrej Holy <oholy@redhat.com> - 2:3.2.0-4
 - Enable KRB5 support
 

@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit ee0a62c8759040d84055425954de1f860bac8652}
@@ -14,9 +14,9 @@
 
 Name:        libmatemixer
 Summary:     Mixer library for MATE desktop
-Version:     %{branch}.1
+Version:     %{branch}.0
 %if 0%{?rel_build}
-Release:     3%{?dist}
+Release:     1%{?dist}
 %else
 Release:     0.19%{?git_rel}%{?dist}
 %endif
@@ -98,6 +98,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

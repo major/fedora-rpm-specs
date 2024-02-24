@@ -1,5 +1,5 @@
 Name:    sddm-kcm
-Version: 5.93.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: SDDM KDE configuration module
 
@@ -64,6 +64,9 @@ SDDM Display Manager
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

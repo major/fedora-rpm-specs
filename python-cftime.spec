@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Time-handling functionality from netcdf4-python
 
 # calendar calculation routines in _cftime.pyx derived from calcalcs.c by David
@@ -33,6 +33,9 @@ Time-handling functionality from netcdf4-python.
 %prep
 %autosetup -n %{srcname}-%{version}
 sed -i -e '/--cov/d' setup.cfg
+# Relax numpy requirement
+# https://github.com/Unidata/cftime/commit/c640b72781f1ac038cfa9c23f58e4a5591721275#commitcomment-138887748
+sed -i -e 's/1.26.0b1/1.24.4/' requirements.txt
 
 %build
 %py3_build
@@ -50,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v
 %{python3_sitearch}/%{srcname}/
 
 %changelog
+* Thu Feb 22 2024 Orion Poplawski <orion@nwra.com> - 1.6.3-4
+- Relax numpy requirement
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

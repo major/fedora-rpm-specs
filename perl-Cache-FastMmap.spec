@@ -1,6 +1,6 @@
 Name:           perl-Cache-FastMmap
 Version:        1.57
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/Cache::FastMmap
@@ -34,8 +34,8 @@ BuildRequires:  perl(Test::Deep)
 # Do not BR GTop to disable test t/6.t because it fails randomly against
 # Perl 5.24 on x86_64 arch (CPAN RT#39342)
 # BuildRequires:  perl(GTop)
-
-%{?perl_default_filter}
+BuildRequires:  perl(JSON)
+BuildRequires:  perl(Sereal)
 
 %description
 In multi-process environments (eg mod_perl, forking daemons, etc),
@@ -47,18 +47,15 @@ situation better.
 %setup -q -n Cache-FastMmap-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -67,6 +64,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb 22 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.57-10
+- Modernize spec.
+- Add BR: perl(JSON), perl(Sereal).
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

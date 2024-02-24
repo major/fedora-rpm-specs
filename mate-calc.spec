@@ -1,12 +1,10 @@
 Name:          mate-calc
-Version:       1.26.0
-Release:       8%{?dist}
+Version:       1.28.0
+Release:       1%{?dist}
 Summary:       MATE Desktop calculator
 License:       GPLv2+
 URL:           http://mate-desktop.org
-Source0:       http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-
-Patch1:        mate-calc_0001-fix-building-with-libxml_2.12.0.patch
+Source0:       http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
 
 BuildRequires: bison
 BuildRequires: desktop-file-utils
@@ -27,7 +25,8 @@ It uses a multiple precision package to do its arithmetic to give a high degree 
 %autosetup -p1
 
 %build
-%configure --disable-schemas-compile
+%configure \
+    --disable-schemas-compile
 
 make %{?_smp_mflags} V=1
 
@@ -55,6 +54,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

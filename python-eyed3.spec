@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
@@ -15,7 +15,6 @@ BuildRequires:  python3-filetype
 BuildRequires:  python3-setuptools
 # Test dependencies.
 BuildRequires:  python3-factory-boy
-BuildRequires:  python3-mock
 BuildRequires:  python3-nose
 BuildRequires:  python3-pytest
 BuildRequires:  python3-six
@@ -63,6 +62,9 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 
 
 %changelog
+* Sat Jan 27 2024 Maxwell G <maxwell@gtmx.me> - 0.9.7-5
+- Remove unused python3-mock test dependency
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

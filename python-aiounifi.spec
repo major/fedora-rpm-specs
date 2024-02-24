@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python library for communicating with Unifi Controller API
 
 License:        MIT
@@ -18,7 +18,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-cov)
@@ -50,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Feb 22 2024 Michel Lind <salimma@fedoraproject.org> - 23-13
+- Remove unnecessary and deprecated python3-mock BR
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

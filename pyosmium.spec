@@ -19,7 +19,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  python3-devel python3-setuptools
 BuildRequires:  python3-sphinx python3-sphinxcontrib-autoprogram
 BuildRequires:  python3-pytest python3-pytest-httpserver
-BuildRequires:  python3-mock
 BuildRequires:  python3-shapely
 BuildRequires:  python3-werkzeug
 BuildRequires:  pybind11-devel >= %{pybind_version}

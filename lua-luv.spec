@@ -20,7 +20,7 @@
 %global luajit_libdir %{_libdir}/luajit/%{luajit_version}
 %global luajit_builddir obj-luajit
 
-%global real_version 1.47.0
+%global real_version 1.48.0
 %global extra_version 0
 
 %if 0%{?rhel} && 0%{?rhel} < 9
@@ -44,7 +44,7 @@ BuildRequires:  lua5.1-compat53
 
 Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 License:        Apache-2.0
 Summary:        Bare libuv bindings for lua
@@ -54,14 +54,11 @@ Url:            https://github.com/luvit/luv
 Requires:       lua(abi) = %{lua_version}
 %endif
 
-Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_version}/luv-%{version}.tar.gz
+Source0:        https://github.com/luvit/luv/archive/v%{real_version}-%{extra_version}/luv-%{version}.tar.gz
 
 Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
 Patch1:         lua-luv-disable-udp-test.patch
-# Disable tty normal test, see https://github.com/luvit/luv/issues/687
-Patch2:         luv-1.47.0-fix-tty-normal-test.patch
-Patch3:         luv-1.47.0-fix-linux-detection.patch
 
 
 %description
@@ -245,6 +242,10 @@ rm luv.so
 %endif
 
 %changelog
+* Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 1.48.0.0-1
+- Update to version 1.48.0-0
+  * https://github.com/luvit/luv/releases/tag/v1.48.0-0
+
 * Thu Jan 25 2024 Andreas Schneider <asn@redhat.com> - 1.47.0.0-4
 - Update patches to upstream version
 

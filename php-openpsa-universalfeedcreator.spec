@@ -2,7 +2,7 @@
 %global composer_project  universalfeedcreator
 Name: php-%{composer_vendor}-%{composer_project}
 
-Version: 1.8.6
+Version: 1.9.0
 Release: 1%{?dist}
 
 Summary: RSS and Atom feed generator
@@ -19,7 +19,9 @@ BuildRequires: php-date
 BuildRequires: php-pcre
 BuildRequires: php-simplexml
 
-BuildRequires: php-composer(phpunit/phpunit)
+BuildRequires: php-composer(phpunit/phpunit) >= 10
+BuildRequires: php-composer(phpunit/phpunit) < 11
+
 BuildRequires: php-fedora-autoloader-devel
 
 Requires: php-date
@@ -37,7 +39,7 @@ Provides: php-composer(%{composer_vendor}/%{composer_project}) = %{version}
 
 %description
 RSS and Atom feed generator. Supported formats: RSS0.91, RSS1.0, RSS2.0,
-PIE0.1 (deprecated), MBOX, OPML, ATOM, ATOM0.3, HTML, JS, PHP.
+PIE0.1 (deprecated), MBOX, OPML, ATOM, ATOM0.3, HTML, JS, PHP, JSON.
 
 Autoloader: %{pkgdir}/autoload.php
 
@@ -66,9 +68,9 @@ cp autoload.php %{buildroot}%{pkgdir}/autoload.php
 
 %check
 # Fix outdated class names in tests
-find test/ -name '*.php' -exec sed -e 's/PHPUnit_Framework_/PHPUnit\\Framework\\/g' -i '{}' '+'
+find test/ -name '*.php' -exec sed -e 's/PHPUnit_Framework_/\\PHPUnit\\Framework\\/g' -i '{}' '+'
 
-phpunit --bootstrap %{buildroot}%{pkgdir}/autoload.php
+phpunit10 --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %files
@@ -79,6 +81,9 @@ phpunit --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Thu Feb 22 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.0-1
+- Update to v1.9.0
+
 * Tue Jan 23 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.6-1
 - Update to v1.8.6
 

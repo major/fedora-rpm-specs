@@ -1,6 +1,6 @@
 Name:       perl-SOAP-Lite
 Version:    1.27
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    Client and server side SOAP implementation
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/SOAP-Lite
@@ -112,8 +112,7 @@ lightweight interface to the Simple Object Access Protocol (SOAP) both on
 client and server side.
 
 %prep
-%setup -q -n SOAP-Lite-%{version}
-%patch0 -p1
+%autosetup -p1 -n SOAP-Lite-%{version}
 find examples -type f -exec chmod -c ugo-x {} +
 
 %build
@@ -137,6 +136,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 22 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.27-23
+- Replace deprecated patchN macro (eliminating a build warning)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

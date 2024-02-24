@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global ocamlver 501
 
 Name:           ocaml-merlin
-Version:        4.13.1
-Release:        5%{?dist}
+Version:        4.14
+Release:        1%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -21,7 +21,8 @@ Summary:        Context sensitive completion for OCaml
 # - upstream/ocaml_414/utils/domainstate.ml{,i}.c
 License:        MIT AND QPL-1.0 AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocaml.github.io/merlin/
-Source0:        https://github.com/ocaml/merlin/releases/download/v%{version}-%{ocamlver}/merlin-%{version}-%{ocamlver}.tbz
+VCS:            https://github.com/ocaml/merlin
+Source0:        %{vcs}/releases/download/v%{version}-%{ocamlver}/merlin-%{version}-%{ocamlver}.tbz
 
 # Fix the tests to work with /usr/lib64 as well as /usr/lib
 Patch0001:      0001-Use-usr-lib64-for-Fedora.patch
@@ -31,7 +32,7 @@ BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 5.1
+BuildRequires:  ocaml >= 5.1.1
 BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 2.9.0
@@ -147,6 +148,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Thu Feb 22 2024 Jerry James <loganjerry@gmail.com> - 4.14-1
+- Version 4.14
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

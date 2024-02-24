@@ -5,9 +5,9 @@
 %global crate sequoia-keystore-backend
 
 Name:           rust-sequoia-keystore-backend
-Version:        0.1.0
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Private key store for Sequoia
+Summary:        Traits for private key store backends
 
 License:        LGPL-2.0-or-later
 URL:            https://crates.io/crates/sequoia-keystore-backend
@@ -18,7 +18,7 @@ Patch:          sequoia-keystore-backend-fix-metadata-auto.diff
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A private key store for Sequoia.}
+Traits for private key store backends.}
 
 %description %{_description}
 

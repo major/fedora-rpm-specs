@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -41,6 +41,8 @@ Patch394:       prusa-slicer-pr-11769.patch
 Patch395:       prusa-slicer-opencascade-7.6.3.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/10390
 Patch397:       prusa-slicer-pr-10390.patch
+# https://github.com/prusa3d/PrusaSlicer/pull/10811
+Patch399:       24a5ebd65c9d25a0fd69a3716d079fd1b00eb15c.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le
@@ -386,6 +388,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Wed Feb 21 2024 Dennis Gilmore <dennis@ausil.us> - 2.6.1-2
+- add upstream patch for rhbz#2262724
+
 * Wed Jan 31 2024 Jan Pazdziora <adelton@fedoraproject.org> - 2.6.1-1
 - Rebase to 2.6.1.
 

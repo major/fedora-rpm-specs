@@ -200,7 +200,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        3%{?rc_version:.%rc_version}%{?dist}
+Release:        4%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -231,6 +231,8 @@ Patch0011:      0003-kdb-memory-leak.patch
 Patch0012:      0010-support-samba-4.20.patch
 Patch0013:      freeipa-support-389-ds-with-lmdb-backup.patch
 Patch0014:      freeipa-support-389-ds-with-lmdb-restore.patch
+Patch0015:      0015-rpcserver-validate-Kerberos-principal-name-before-ru.patch
+Patch0016:      0016-validate_principal-Don-t-try-to-verify-that-the-real.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1751,6 +1753,10 @@ fi
 %endif
 
 %changelog
+* Wed Feb 21 2024 Rob Crittenden <rcritten@redhat.com> - 4.11.1-4
+- Security release: CVE-2024-1481
+- Resolves: rhbz#2265129
+
 * Thu Feb 08 2024 Alexander Bokovoy <abokovoy@redhat.com> - 4.11.1-3
 - Support 389-ds with lmdb backend
 

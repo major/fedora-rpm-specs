@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Promises/A+ implementation for Python
 
 License:        MIT
@@ -27,7 +27,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-coveralls
-BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-benchmark
@@ -62,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-*-py%{python3_version}.egg-info
 
 %changelog
+* Thu Feb 22 2024 Michel Lind <salimma@fedoraproject.org> - 2.3.0-18
+- Remove unnecessary and deprecated python3-mock BR
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

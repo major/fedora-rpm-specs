@@ -1,19 +1,14 @@
 Name:           mate-media
-Version:        1.26.2
-Release:        3%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        MATE media programs
 License:        GPLv2+ and LGPLv2+
 URL:            http://mate-desktop.org
 Source0:        http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 
-# from upstream
-# https://github.com/mate-desktop/mate-media/commit/44df49d
-Patch1:        mate-media_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
-# https://github.com/mate-desktop/mate-media/commit/0ae3d7f
-Patch2:        mate-media_0001-gvc-stream-status-icon-fix-a-volume-rounding-error-1.patch
-
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
+BuildRequires: gtk-layer-shell-devel
 BuildRequires: libmatemixer-devel
 BuildRequires: libxml2-devel
 BuildRequires: libcanberra-devel
@@ -34,7 +29,10 @@ including a volume control.
 %configure \
         --disable-static \
         --disable-schemas-compile \
-        --enable-statusicon=yes
+        --enable-panelapplet=yes \
+        --enable-statusicon=yes \
+        --enable-wayland \
+        --enable-in-process
 
 make %{?_smp_mflags} V=1
 
@@ -62,12 +60,16 @@ rm -rf %{buildroot}%{_sysconfdir}/xdg/autostart/mate-volume-control-status-icon.
 %{_datadir}/mate-media/
 %{_datadir}/sounds/mate/
 %{_datadir}/applications/mate-volume-control.desktop
-%{_libexecdir}/mate-volume-control-applet
-%{_datadir}/dbus-1/services/org.mate.panel.applet.GvcAppletFactory.service
+%{_libdir}/libmate-volume-control-applet.so*
+#%%{_libexecdir}/mate-volume-control-applet
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.GvcAppletFactory.service
 %{_datadir}/mate-panel/applets/org.mate.applets.GvcApplet.mate-panel-applet
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

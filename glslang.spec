@@ -1,7 +1,7 @@
-%global sdkver 1.3.268.0
+%global sdkver 1.3.275.0
 
 Name:           glslang
-Version:        13.1.1
+Version:        14.0.0
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
@@ -61,8 +61,6 @@ popd
 
 %files devel
 %{_includedir}/glslang/
-%{_libdir}/libHLSL.a
-%{_libdir}/libOGLCompiler.a
 %{_libdir}/libOSDependent.a
 %{_libdir}/libSPIRV.a
 %{_libdir}/libSPVRemapper.a

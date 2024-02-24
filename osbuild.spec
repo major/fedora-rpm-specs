@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        106
+Version:        109
 
 %forgemeta
 
@@ -38,6 +38,12 @@ Requires:       tar
 Requires:       util-linux
 Requires:       python3-%{pypi_name} = %{version}-%{release}
 Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
+
+# This is required for `osbuild`, for RHEL-10 and above
+# the stdlib toml package can be used instead
+%if 0%{?rhel} < 10
+Requires:       python3-tomli
+%endif
 
 # Turn off dependency generators for runners. The reason is that runners are
 # tailored to the platform, e.g. on RHEL they are using platform-python. We
@@ -290,6 +296,41 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Thu Feb 22 2024 Packit <hello@packit.dev> - 109-1
+Changes with 109
+----------------
+  * Extend `grub2`/`grub2.legacy` stage default config options (#1601)
+    * Author: Tomáš Hozza, Reviewers: Michael Vogt, Ondřej Budai
+  * Fix developer guide link in README.md (#1602)
+    * Author: Adam Williamson, Reviewers: Brian C. Lane, Michael Vogt
+  * Stages/grub2.legacy: make config options a subset of grub2 stage (#1606)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Michael Vogt
+  * Systemd unit creation stage (#1578)
+    * Author: Sayan Paul, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  * osbuild-depsolve-dnf5: Fix url substitutions (#1597)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  * osbuild-depsolve-dnf5: module_hotfixes wasn't really set (#1598)
+    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  * sources,util: add containers-storage source (#1550)
+    * Author: Gianluca Zuccarelli, Reviewers: Nobody
+  * stages(dracut): add small unittest for initoverlayfs (#1607)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * stages(org.osbuild.systemd.unit.create): add small unit test (#1596)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * stages/bootc.install-to-fs: fix root mount handling (#1593)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * stages/dracut: Add functionality to build initoverlayfs with dracut (#1586)
+    * Author: Eric Curtin, Reviewers: Michael Vogt, Ondřej Budai
+  * stages/oscap.remediation: Mount host's /proc and /dev earlier (#1590)
+    * Author: Evgeny Kolesnikov, Reviewers: Gianluca Zuccarelli, Michael Vogt
+  * stages/ostree-container-deploy: make sure `/var/tmp` exists (#1605)
+    * Author: Gianluca Zuccarelli, Reviewers: Ondřej Budai, Tomáš Hozza
+  * tox,tools: add tools back to lintables (#1600)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane, Ondřej Budai
+
+— Somewhere on the Internet, 2024-02-22
+
+
 * Wed Jan 31 2024 Packit <hello@packit.dev> - 106-1
 Changes with 106
 ----------------

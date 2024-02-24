@@ -131,7 +131,7 @@ fi
 mv features/03_testing_frameworks/cucumber/disable_bundler.feature{,.skip}
 
 # Output changed with minitest 5.22.2, adjusting
-# Needs reporting upstream
+# https://github.com/cucumber/aruba/issues/920
 status=$(ruby -e "require 'minitest'; p Minitest::VERSION >= '5.22.0'")
 if [ $status == "true" ] ; then
 	sed -i features/06_use_aruba_cli/initialize_project_with_aruba.feature \

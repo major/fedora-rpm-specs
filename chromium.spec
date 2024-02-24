@@ -427,12 +427,16 @@ Patch303: chromium-121-typename.patch
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
 
+# disable memory tagging in epel7 and epel8 on aarch64 due to new feature IFUNC-Resolver
+# not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
+Patch305: chromium-122-arm64-memory_tagging.patch
+
 Patch306: chromium-119-assert.patch
 
 # compiler errors on epel
-Patch307: chromium-122-clang16-buildflags.patch
 # revert it for old clang on rhel and f38
-Patch308: chromium-122-v8-c++20.patch
+Patch307: chromium-121-v8-c++20-p1.patch
+Patch308: chromium-121-v8-c++20.patch
 Patch309: chromium-122-constexpr.patch
 
 # missing include header files
@@ -446,6 +450,7 @@ Patch312: chromium-119-fstack-protector-strong.patch
 
 # fixed static assert error
 Patch313: chromium-122-static-assert.patch
+Patch314: chromium-122-clang16-buildflags.patch
 
 # build error
 Patch351: chromium-121-mnemonic-error.patch
@@ -1114,11 +1119,18 @@ udev.
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
+%ifarch aarch64
+%if 0%{?rhel} <= 8
+%patch -P305 -p1 -b .memory_tagging
+%endif
+%endif
+
 %if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} < 39
-%patch -P307 -p1 -b .clang16-buildflag
-%patch -P308 -p1 -b .v8-c++20
+%patch -P307 -p1 -R -b .v8-c++20
+%patch -P308 -p1 -R -b .v8-c++20
 %patch -P309 -p1 -b .constexpr
 %patch -P313 -p1 -b .static-assert
+%patch -P314 -p1 -b .clang16-buildflag
 %endif
 
 %patch -P310 -p1 -b .missing-header-files

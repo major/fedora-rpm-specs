@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 5.93.0
-Release: 2%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -68,9 +68,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_bindir}/kscreen-doctor
 %{_kf6_libexecdir}/kscreen_backend_launcher
 %{_kf6_libdir}/libKF6Screen.so.8
-%{_kf6_libdir}/libKF6Screen.so.5.*
+%{_kf6_libdir}/libKF6Screen.so.%{version}
 %{_kf6_libdir}/libKF6ScreenDpms.so.8
-%{_kf6_libdir}/libKF6ScreenDpms.so.5.*
+%{_kf6_libdir}/libKF6ScreenDpms.so.%{version}
 %{_kf6_plugindir}/kscreen/
 %{_userunitdir}/plasma-kscreen.service
 
@@ -87,6 +87,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-2
 - Rebuild (qt6)
 

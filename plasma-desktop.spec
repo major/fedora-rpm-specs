@@ -5,8 +5,8 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 5.93.0
-Release: 2%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -173,6 +173,9 @@ Conflicts:      kdeplasma-addons < 5.6.0
 # kcm_activities.mo moved here (#1325724)
 Conflicts:      kde-l10n < 15.12.3-4
 
+# See https://pagure.io/fedora-kde/SIG/issue/455 for more information
+Conflicts:      kde-settings < 39.1-7
+
 %description
 %{summary}.
 
@@ -242,13 +245,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/*.so
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings_qwidgets/*.so
 %{_kf6_qtplugindir}/plasma/kcminit/kcm_touchpad_init.so
-%{_kf6_qtplugindir}/plasma5support/dataengine/plasma_engine_touchpad.so
 %{_kf6_plugindir}/kded/*.so
 %{_kf6_plugindir}/krunner/krunner*.so
 %{_kf6_qmldir}/org/kde/plasma/activityswitcher
 %{_kf6_qmldir}/org/kde/plasma/emoji/
 %{_kf6_qmldir}/org/kde/private/desktopcontainment/*
 %{_kf6_datadir}/plasma/*
+%{_kf6_datadir}/applications/kde-mimeapps.list
 %ifnarch s390 s390x
 # kcminput
 %{_kf6_bindir}/kapplymousetheme
@@ -292,6 +295,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-2
 - Rebuild (qt6)
 

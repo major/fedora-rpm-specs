@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of librsvg-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.2.0
-Release:	2%{?dist}
+Version:	4.2.1
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -74,7 +74,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.2\.0|>= 4.2.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.2\.1|>= 4.2.1|' %{gem_name}-%{version}.gemspec
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
 sed -i dependency-check/Rakefile \
@@ -147,6 +147,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

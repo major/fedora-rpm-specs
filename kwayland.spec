@@ -1,6 +1,6 @@
 Name:       kwayland
-Version:    5.93.0
-Release:    2%{?dist}
+Version:    6.0.0
+Release:    1%{?dist}
 Summary:    Qt-style API to interact with the wayland-client API
 
 License:    BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT-CMU AND MIT
@@ -65,8 +65,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/*categories
-%{_libdir}/libKWaylandClient.so.5*
 %{_libdir}/libKWaylandClient.so.6
+%{_libdir}/libKWaylandClient.so.%{version}
 
 %files devel
 %doc README.md
@@ -81,6 +81,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 5.93.0-2
 - Rebuild (qt6)
 

@@ -1,16 +1,18 @@
 Name:           perl-RDF-RDFa-Generator
-Version:        0.200
-Release:        19%{?dist}
+Version:        0.204
+Release:        1%{?dist}
 Summary:        Generate data in RDFa
-# COPYRIGHT:    Public Domain
-# other files:  GPL+ or Artistic
-License:        (GPL+ or Artistic) and Public Domain
+# COPYRIGHT:    LicenseRef-Fedora-Public-Domain
+# other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/RDF-RDFa-Generator
 Source0:        https://cpan.metacpan.org/authors/id/K/KJ/KJETILK/RDF-RDFa-Generator-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time:
@@ -38,33 +40,74 @@ BuildRequires:  perl(Test::Output)
 Requires:       perl(XML::LibXML) >= 1.60
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(XML::LibXML\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Attean|Test::More|XML::LibXML)\\)$
 
 %description
 These Perl modules allow you to generate RDFa (Resource Description Framework
 in Attributes) trees.
 
+%package tests
+Summary:        Tests for %{name}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Attean) >= 0.019
+Requires:       perl(RDF::Prefixes)
+Requires:       perl(Test::More) >= 0.96
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n RDF-RDFa-Generator-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes COPYRIGHT CREDITS examples README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/RDF
+%dir %{perl_vendorlib}/RDF/RDFa
+%{perl_vendorlib}/RDF/RDFa/Generator.pm
+%{perl_vendorlib}/RDF/RDFa/Generator
+%{_mandir}/man3/RDF::RDFa::Generator.*
+%{_mandir}/man3/RDF::RDFa::Generator::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 22 2024 Petr Pisar <ppisar@redhat.com> - 0.204-1
+- 0.204 bump
+
+* Thu Feb 22 2024 Petr Pisar <ppisar@redhat.com> - 0.202-1
+- 0.202 bump
+- Install the tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.200-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

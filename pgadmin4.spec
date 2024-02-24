@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -47,6 +47,8 @@ Patch11:        pgadmin4_sphinx_youtube.patch
 Patch12:        pgadmin4_sqlalchemy1.patch
 # Drop packageManager field from package.json to avoid yarn complaining about corepack
 Patch13:        pgadmin4_corepack.patch
+# Drop GET from WTF_CSRF_METHODS, it breaks the icons
+Patch14:        pgadmin4_no-get-csrf.patch
 
 # Patch for building bundled mozjpeg
 %global mozjpeg_ver 4.1.1
@@ -269,6 +271,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Feb 22 2024 Sandro Mani <manisandro@gmail.com> - 8.3-3
+- Add pgadmin4_no-get-csrf.patch
+
 * Mon Feb 19 2024 Sandro Mani <manisandro@gmail.com> - 8.3-2
 - Relax bcrypt requirement
 

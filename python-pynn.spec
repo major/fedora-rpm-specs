@@ -88,7 +88,6 @@ BuildRequires:  %{py3_dist h5py}
 BuildRequires:  %{py3_dist lazyarray}
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist morphio}
-BuildRequires:  %{py3_dist mock}
 BuildRequires:  %{py3_dist neo}
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  python3-nest >= 3.4
@@ -193,7 +192,7 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/pyNN/nest/_build
 # skip pyNN.nest because it looks for nest extensions outside the buildroot
 %py3_check_import pyNN pyNN.neuron pyNN.brian2
 
-%pytest test/unittests -k "not test_partitioning"
+%pytest test/unittests -k "not test_partitioning and not test_get"
 
 %if %{with mpich}
 %{_mpich_load}

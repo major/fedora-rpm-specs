@@ -10,8 +10,8 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3006.5
-Release: 2%{?dist}
+Version: 3006.7
+Release: 1%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: Apache-2.0
@@ -333,6 +333,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Thu Feb 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 3006.7-1
+- 3006.7
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3006.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

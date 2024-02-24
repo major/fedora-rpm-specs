@@ -24,10 +24,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 0a2b8eac80f164f10b2cbc126890db0d295790cd
-%global access 20240216
+%global commit 03d10f1657b4ddace618c34ab61b6357d1ae9c9a
+%global access 20240222
 %global shortcommit %(c='%{commit}'; echo "${c:0:12}")
-%global position 2146
+%global position 2149
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -50,7 +50,7 @@ Source2:        update-version
 
 # Stop overriding optimization flags; not sent upstream because this is
 # intentional on their part
-Patch:          gn-0153d369-no-O3.patch
+Patch:          gn-03d10f1657b4-no-O3.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

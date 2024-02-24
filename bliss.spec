@@ -1,17 +1,21 @@
 Name:           bliss
 Version:        0.77
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Compute automorphism groups and canonical labelings of graphs
 
 License:        LGPL-3.0-only
 URL:            https://users.aalto.fi/~tjunttil/bliss/
-Source0:        %{url}/downloads/%{name}-%{version}.zip
+VCS:            https://github.com/ds4dm/Bliss
+Source0:        %{vcs}/archive/v%{version}/Bliss-%{version}.tar.gz
 # Man page written by Jerry James using text borrowed from the sources.
 # The man page therefore has the same copyright and license as the sources.
 Source1:        bliss.1
 # Patch from Thomas Rehn, sent upstream 28 Oct 2011.  Fix one bug and add one
 # performance enhancement.
 Patch0:         bliss-rehn.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -70,13 +74,21 @@ A command-line bliss tool to access the functionality of the bliss
 library.
 
 %prep
-%autosetup -p0
+%autosetup -n Bliss-%{version} -p0
 
 # Do not override Fedora build flags.  The last sagemath version added an
-# soname.  Duplicate it for compatibility.  Link with GMP.
+# soname.  Duplicate it for compatibility.  Link the library with libgmp.
+# Hidden symbols hide ALL symbols, meaning we can't use the library.
 sed -e 's/ -O3//' \
-    -e '/POSITION_INDEPENDENT/aset_target_properties(bliss PROPERTIES VERSION 2.0.0 SOVERSION 2)\ntarget_link_libraries(bliss gmp)' \
+    -e '/POSITION_INDEPENDENT/a\ \ VERSION 2.0.0 SOVERSION 2' \
+    -e '/^install($/itarget_link_libraries(libbliss ${GMP_LIBRARIES})' \
+    -e '/VISIBILITY/d' \
     -i CMakeLists.txt
+
+# Fix installation directories
+if [ "%{_lib}" != "lib" ]; then
+  sed -i 's,\(DESTINATION \)lib,\1%{_lib},' CMakeLists.txt
+fi
 
 %build
 %cmake -DUSE_GMP:BOOL=ON
@@ -86,23 +98,7 @@ sed -e 's/ -O3//' \
 doxygen
 
 %install
-# %%cmake_install does nothing, so install manually
-
-# Install the binary
-cd %{_vpath_builddir}
-mkdir -p %{buildroot}%{_bindir}
-install -m 0755 -p bliss %{buildroot}%{_bindir}
-
-# Install the library
-mkdir -p %{buildroot}%{_libdir}
-install -m 0755 -p libbliss.so.2.0.0 %{buildroot}%{_libdir}
-ln -s libbliss.so.2.0.0 %{buildroot}%{_libdir}/libbliss.so.2
-ln -s libbliss.so.2 %{buildroot}%{_libdir}/libbliss.so
-cd ..
-
-# Install the header files
-mkdir -p %{buildroot}%{_includedir}/%{name}
-install -m 0644 -p src/*.hh %{buildroot}%{_includedir}/%{name}
+%cmake_install
 
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -117,12 +113,18 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/bliss.1
 %doc html
 %{_includedir}/bliss
 %{_libdir}/libbliss.so
+%{_libdir}/cmake/Bliss/
 
 %files libs
+%doc CHANGES.txt
 %license COPYING COPYING.LESSER
 %{_libdir}/libbliss.so.2*
 
 %changelog
+* Thu Feb 22 2024 Jerry James <loganjerry@gmail.com> - 0.77-8
+- Build the SCIP fork
+- Do not build for 32-bit x86
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

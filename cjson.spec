@@ -2,8 +2,9 @@ Name:           cjson
 Version:        1.7.15
 Release:        4%{?dist}
 Summary:        Ultralightweight JSON parser in ANSI C
- 
-License:        MIT and ASL 2.0
+
+# several files in tests/ are Apache-2.0 but are not packaged
+License:        MIT
 URL:            https://github.com/DaveGamble/cJSON
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
  

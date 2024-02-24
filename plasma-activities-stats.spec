@@ -1,6 +1,6 @@
 Name:    plasma-activities-stats
 Summary: Library to access the usage statistics data collected by the KDE activity manager
-Version: 5.93.0
+Version: 6.0.0
 Release: 1%{?dist}
 
 License: CC0-1.0, GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -62,7 +62,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*.txt
 %{_kf6_datadir}/qlogging-categories6/%{name}.*
 %{_kf6_libdir}/libPlasmaActivitiesStats.so.1
-%{_kf6_libdir}/libPlasmaActivitiesStats.so.5.*
+%{_kf6_libdir}/libPlasmaActivitiesStats.so.%{version}
 
 %files devel
 %{_includedir}/PlasmaActivitiesStats/
@@ -75,6 +75,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
+- 6.0.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.93.0-1
 - 5.93.0
 

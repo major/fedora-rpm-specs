@@ -6,8 +6,8 @@
 %{llvm_sb}
 %endif
 
-%global lit_version 17.0.6
-#global rc_ver 4
+%global lit_version 18.1.0
+%global rc_ver 3
 #global post_ver 0
 
 %global python_lit_srcdir %{srcname}-%{version}%{?rc_ver:rc%{rc_ver}}%{?post_ver:.post%{post_ver}}
@@ -22,7 +22,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -82,6 +82,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Wed Feb 21 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc3-1
+- 18.1.0-rc3 Release
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

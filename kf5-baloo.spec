@@ -12,7 +12,7 @@
 Name:    kf5-%{framework}
 Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search functionality
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://community.kde.org/Baloo
@@ -87,6 +87,7 @@ Requires:       qt5-qtbase-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%if %{without kf6_compat}
 %package        file
 Summary:        File indexing and search for Baloo
 # KDE e.V. may determine that future LGPL versions are accepted
@@ -97,12 +98,10 @@ Provides:       baloo-file = %{version}-%{release}
 %else
 Conflicts:      baloo-file < 5
 %endif
-%if %{with kf6_compat}
-Requires:       kf6-baloo-file%{?_isa}
-%endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description    file
 %{summary}.
+%endif
 
 %package        libs
 Summary:        Runtime libraries for %{name}
@@ -157,6 +156,10 @@ cat kio5_tags.lang kio5_baloosearch.lang kio5_timeline.lang \
 cat baloo_file5.lang baloo_file_extractor5.lang \
     > %{name}-file.lang
 
+%if %{with kf6_compat}
+cat %{name}-file.lang | xargs printf "%{buildroot}%.0s%s\n" | xargs rm
+%endif
+
 
 %check
 %if 0%{?tests}
@@ -178,8 +181,8 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %endif
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
 
-%files file -f %{name}-file.lang
 %if %{without kf6_compat}
+%files file -f %{name}-file.lang
 %{_prefix}/lib/sysctl.d/97-kde-baloo-filewatch-inotify.conf
 %config(noreplace) %{_sysconfdir}/xdg/plasma-workspace/shutdown/baloo_file.sh
 %{_kf5_bindir}/baloo_file
@@ -219,6 +222,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Feb 22 2024 Alessandro Astone <ales.astone@gmail.com> - 5.115.0-2
+- Drop kf5-baloo-file subpackage, obsoleted by kf6-baloo-file
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

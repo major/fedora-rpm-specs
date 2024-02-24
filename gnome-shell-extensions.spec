@@ -68,6 +68,18 @@ This package contains the required components for the GNOME Shell "classic"
 mode, which aims to provide a GNOME 2-like user interface.
 
 
+%package -n gnome-classic-session-xsession
+Summary:        GNOME "classic" mode session on X11
+License:        GPLv2+
+Requires:       gnome-classic-session = %{version}-%{release}
+# The X11 session is deprecated and eventually will be removed
+Provides:       deprecated()
+
+%description -n gnome-classic-session-xsession
+This package contains the required components for the GNOME Shell "classic"
+mode on X11, which aims to provide a GNOME 2-like user interface.
+
+
 %package -n %{pkg_prefix}-apps-menu
 Summary:        Application menu for GNOME Shell
 License:        GPLv2+
@@ -218,11 +230,15 @@ workspaces.
 
 %files -n gnome-classic-session
 %{_datadir}/gnome-shell/modes/classic.json
-%{_datadir}/xsessions/gnome-classic.desktop
-%{_datadir}/xsessions/gnome-classic-xorg.desktop
 %{_datadir}/wayland-sessions/gnome-classic.desktop
 %{_datadir}/wayland-sessions/gnome-classic-wayland.desktop
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.extensions.classic.gschema.override
+
+
+%files -n gnome-classic-session-xsession
+%{_datadir}/xsessions/gnome-classic.desktop
+%{_datadir}/xsessions/gnome-classic-xorg.desktop
+
 
 %files -n %{pkg_prefix}-apps-menu
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.apps-menu.gschema.xml

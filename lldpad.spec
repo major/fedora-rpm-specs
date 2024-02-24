@@ -7,9 +7,9 @@
 
 Name:               lldpad
 Version:            1.1.0
-Release:            10.git%{checkout}%{?dist}
+Release:            11.git%{checkout}%{?dist}
 Summary:            Intel LLDP Agent
-License:            GPLv2
+License:            GPL-2.0-only
 URL:                http://open-lldp.org/
 Source0:            %{name}-%{version}.tar.gz
 
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_libdir}/liblldp_clif.la
 %{_libdir}/liblldp_clif.so
 
 %changelog
+* Thu Feb 22 2024 Aaron Conole <aconole@redhat.com> - 1.1.0-11.git85e5583
+- Convert the license tag to SPDX format
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10.git85e5583
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

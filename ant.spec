@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -63,8 +63,7 @@ BuildRequires:  xmlto
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local
-BuildRequires:  java-devel >= 1:1.8.0
-BuildRequires:  ant >= 1.10.2
+BuildRequires:  ant
 BuildRequires:  ant-junit
 %endif
 
@@ -658,6 +657,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 22 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-8
+- Drop explicit build-requires on java-devel
+
 * Tue Feb 13 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-7
 - Drop patch removing tools.jar from test classpath
 

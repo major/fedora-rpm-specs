@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    0.9.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Dictdiffer is a module that helps you to diff and patch dictionaries
 License:    MIT
 URL:        https://github.com/inveniosoftware/dictdiffer
@@ -71,7 +71,6 @@ BuildRequires: python3-pytest-pep8
 %endif
 BuildRequires: python3-isort
 BuildRequires: python3-coverage
-BuildRequires: python3-mock
 BuildRequires: python3-tox
 %endif
 
@@ -177,6 +176,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 %endif
 
 %changelog
+* Thu Feb 22 2024 Michel Lind <salimma@fedoraproject.org> - 0.9.0-9
+- Remove unnecessary and deprecated python3-mock BR
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -186,7 +188,7 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Tue Jul 19 2023 Jason Montleon <jmontleo@redhat.com> - 0.9.0-6
+* Wed Jul 19 2023 Jason Montleon <jmontleo@redhat.com> - 0.9.0-6
 - Remove unneeded pydocstyle dependency preventing rebuild
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5

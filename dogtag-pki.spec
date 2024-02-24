@@ -8,13 +8,13 @@ Name:             dogtag-pki
 
 # Upstream version number:
 %global           major_version 11
-%global           minor_version 4
-%global           update_version 3
+%global           minor_version 5
+%global           update_version 0
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 2
+%global           release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -47,11 +47,7 @@ Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}
 #     > pki-VERSION-RELEASE.patch
 # Patch: pki-VERSION-RELEASE.patch
 
-# https://github.com/dogtagpki/pki/pull/4494
-# Fix pkiparser.py to work with Python 3.12
-Patch0: 0001-Handle-removal-of-ConfigParser.readfp-in-Python-3.12.patch
-
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%if 0%{?java_arches:1}
 ExclusiveArch: %{java_arches}
 %else
 ExcludeArch: i686
@@ -62,12 +58,6 @@ ExcludeArch: i686
 ################################################################################
 
 %global p11_kit_trust /usr/lib64/pkcs11/p11-kit-trust.so
-
-################################################################################
-# Python
-################################################################################
-
-%global python_executable /usr/bin/python3
 
 ################################################################################
 # Java
@@ -98,25 +88,14 @@ ExcludeArch: i686
 %bcond_without ca
 %bcond_without est
 %bcond_without kra
-%if 0%{?rhel}
-%bcond_with ocsp
-%bcond_with tks
-%bcond_with tps
-%bcond_with javadoc
-%bcond_with theme
-%bcond_with meta
-%bcond_with tests
-%bcond_with debug
-%else
 %bcond_without ocsp
 %bcond_without tks
 %bcond_without tps
 %bcond_without javadoc
 %bcond_without theme
-%bcond_without meta
 %bcond_without tests
+%bcond_without meta
 %bcond_without debug
-%endif
 
 # Don't build console unless --with console is specified.
 %bcond_with console
@@ -188,17 +167,23 @@ BuildRequires:    mvn(org.apache.commons:commons-lang3)
 BuildRequires:    mvn(commons-logging:commons-logging)
 BuildRequires:    mvn(commons-net:commons-net)
 BuildRequires:    mvn(org.slf4j:slf4j-api)
-BuildRequires:    mvn(org.slf4j:slf4j-jdk14)
-BuildRequires:    mvn(junit:junit)
-BuildRequires:    pki-resteasy >= 3.0.26
-BuildRequires:    jss = 5.4
-BuildRequires:    tomcatjss = 8.4
-BuildRequires:    ldapjdk = 5.4
-
-BuildRequires:    tomcat >= 1:9.0.31
+BuildRequires:    mvn(xml-apis:xml-apis)
+BuildRequires:    mvn(xml-resolver:xml-resolver)
+BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:    mvn(org.jboss.resteasy:resteasy-client)
+BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
+BuildRequires:    mvn(org.jboss.resteasy:resteasy-jaxrs)
+BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
+BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 9.0.62
+BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 9.0.62
+BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 9.0.62
+BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 9.0.62
+BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
+BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.5.0
+BuildRequires:    mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.5.0
 
 # Python build dependencies
-BuildRequires:    python3 >= 3.9
+BuildRequires:    python3 >= 3.6
 BuildRequires:    python3-devel
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-cryptography
@@ -235,8 +220,8 @@ BuildRequires:    freeipa-healthcheck-core
 BuildRequires:    nss-tools
 BuildRequires:    openssl
 
-# description for top-level package (if there is no separate meta package)
-%if %{without meta}
+# description for top-level package (if there is a separate meta package)
+%if "%{name}" != "%{product_id}"
 %description
 
 %{product_name} is an enterprise software system designed
@@ -252,8 +237,9 @@ to manage enterprise Public Key Infrastructure deployments.
   * Automatic Certificate Management Environment (ACME) Responder
   * Enrollment over Secure Transport (EST) Responder
 
-%else
+%endif
 
+%if %{with meta}
 %if "%{name}" != "%{product_id}"
 ################################################################################
 %package -n       %{product_id}
@@ -268,21 +254,63 @@ Obsoletes:        pki-console < %{version}
 Obsoletes:        pki-console-theme < %{version}
 Obsoletes:        idm-console-framework < 2.0
 
-# Make certain that this 'meta' package requires the latest version(s)
-# of ALL PKI theme packages
-Requires:         %{product_id}-theme = %{version}-%{release}
+%if %{with base}
+Requires:         %{product_id}-base = %{version}-%{release}
+Requires:         python3-%{product_id} = %{version}-%{release}
+Requires:         %{product_id}-java = %{version}-%{release}
+Requires:         %{product_id}-tools = %{version}-%{release}
+%endif
 
-# Make certain that this 'meta' package requires the latest version(s)
-# of ALL PKI core packages
+%if %{with server}
+Requires:         %{product_id}-server = %{version}-%{release}
+%endif
+
+%if %{with acme}
 Requires:         %{product_id}-acme = %{version}-%{release}
-Requires:         %{product_id}-ca = %{version}-%{release}
-Requires:         %{product_id}-est = %{version}-%{release}
-Requires:         %{product_id}-kra = %{version}-%{release}
-Requires:         %{product_id}-ocsp = %{version}-%{release}
-Requires:         %{product_id}-tks = %{version}-%{release}
-Requires:         %{product_id}-tps = %{version}-%{release}
+%endif
 
+%if %{with ca}
+Requires:         %{product_id}-ca = %{version}-%{release}
+%endif
+
+%if %{with est}
+Requires:         %{product_id}-est = %{version}-%{release}
+%endif
+
+%if %{with kra}
+Requires:         %{product_id}-kra = %{version}-%{release}
+%endif
+
+%if %{with ocsp}
+Requires:         %{product_id}-ocsp = %{version}-%{release}
+%endif
+
+%if %{with tks}
+Requires:         %{product_id}-tks = %{version}-%{release}
+%endif
+
+%if %{with tps}
+Requires:         %{product_id}-tps = %{version}-%{release}
+%endif
+
+%if %{with javadoc}
 Requires:         %{product_id}-javadoc = %{version}-%{release}
+%endif
+
+%if %{with console}
+Requires:         %{product_id}-console = %{version}-%{release}
+%endif
+
+%if %{with theme}
+Requires:         %{product_id}-theme = %{version}-%{release}
+%if %{with console}
+Requires:         %{product_id}-console-theme = %{version}-%{release}
+%endif
+%endif
+
+%if %{with tests}
+Requires:         %{product_id}-tests = %{version}-%{release}
+%endif
 
 # Make certain that this 'meta' package requires the latest version(s)
 # of ALL PKI clients -- except for s390/s390x where 'esc' is not built
@@ -353,7 +381,7 @@ Provides:         pki-base-python3 = %{version}-%{release}
 %{?python_provide:%python_provide python3-pki}
 
 Requires:         %{product_id}-base = %{version}-%{release}
-Requires:         python3 >= 3.9
+Requires:         python3 >= 3.6
 Requires:         python3-cryptography
 Requires:         python3-ldap
 Requires:         python3-lxml
@@ -385,10 +413,12 @@ Requires:         mvn(commons-logging:commons-logging)
 Requires:         mvn(commons-net:commons-net)
 Requires:         mvn(org.slf4j:slf4j-api)
 Requires:         mvn(org.slf4j:slf4j-jdk14)
-Requires:         jss = 5.4
-Requires:         ldapjdk = 5.4
+Requires:         mvn(org.jboss.resteasy:resteasy-client)
+Requires:         mvn(org.jboss.resteasy:resteasy-jackson2-provider)
+Requires:         mvn(org.jboss.resteasy:resteasy-jaxrs)
+Requires:         mvn(org.dogtagpki.jss:jss-base) >= 5.5.0
+Requires:         mvn(org.dogtagpki.ldap-sdk:ldapjdk) >= 5.5.0
 Requires:         %{product_id}-base = %{version}-%{release}
-Requires:         pki-resteasy >= 3.0.26
 
 %description -n   %{product_id}-java
 This package provides common and client libraries for Java.
@@ -440,6 +470,8 @@ Requires:         openldap-clients
 Requires:         openssl
 Requires:         %{product_id}-tools = %{version}-%{release}
 
+Requires:         %{java_devel}
+
 Requires:         keyutils
 
 Requires:         policycoreutils-python-utils
@@ -450,13 +482,14 @@ Requires:         python3-policycoreutils
 
 Requires:         selinux-policy-targeted >= 3.13.1-159
 
-Requires:         tomcat >= 1:9.0.31
+Requires:         mvn(org.jboss.resteasy:resteasy-servlet-initializer)
+Requires:         tomcat >= 1:9.0.62
+Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.5.0
 
 Requires:         systemd
 Requires(post):   systemd-units
 Requires(postun): systemd-units
 Requires(pre):    shadow-utils
-Requires:         tomcatjss = 8.4
 
 # pki-healthcheck depends on the following library
 %if 0%{?rhel}
@@ -729,12 +762,12 @@ This package provides %{product_name} API documentation.
 Summary:          %{product_name} Console Package
 BuildArch:        noarch
 
-BuildRequires:    idm-console-framework >= 2.0
+BuildRequires:    mvn(org.dogtagpki.console-framework:console-framework) >= 2.1.0
 
 Obsoletes:        pki-console < %{version}-%{release}
 Provides:         pki-console = %{version}-%{release}
 
-Requires:         idm-console-framework >= 2.0
+Requires:         mvn(org.dogtagpki.console-framework:console-framework) >= 2.1.0
 Requires:         %{product_id}-java = %{version}-%{release}
 Requires:         %{product_id}-console-theme = %{version}-%{release}
 
@@ -759,8 +792,10 @@ Obsoletes:        %{product_id}-server-theme < %{version}-%{release}
 Provides:         %{product_id}-server-theme = %{version}-%{release}
 
 %if 0%{?fedora} > 38 || 0%{?rhel} > 9
+BuildRequires:    fontawesome4-fonts-web
 Requires:         fontawesome4-fonts-web
 %else
+BuildRequires:    fontawesome-fonts-web
 Requires:         fontawesome-fonts-web
 %endif
 
@@ -823,6 +858,91 @@ This package provides test suite for %{product_name}.
 
 %autosetup -n pki-%{version}%{?phase:-}%{?phase} -p 1
 
+%if ! %{with base}
+%pom_disable_module common base
+%pom_disable_module tools base
+%endif
+
+%if ! %{with server}
+%pom_disable_module tomcat base
+%pom_disable_module tomcat-9.0 base
+%pom_disable_module server base
+%pom_disable_module server-webapp base
+%endif
+
+%if ! %{with ca}
+%pom_disable_module ca base
+%endif
+
+%if ! %{with kra}
+%pom_disable_module kra base
+%endif
+
+%if ! %{with ocsp}
+%pom_disable_module ocsp base
+%endif
+
+%if ! %{with tks}
+%pom_disable_module tks base
+%endif
+
+%if ! %{with tps}
+%pom_disable_module tps base
+%endif
+
+%if ! %{with acme}
+%pom_disable_module acme base
+%endif
+
+%if ! %{with est}
+%pom_disable_module est base
+%endif
+
+%if ! %{with console}
+%pom_disable_module console base
+%endif
+
+# flatten-maven-plugin is not available in RPM
+%pom_remove_plugin org.codehaus.mojo:flatten-maven-plugin
+
+# specify Maven artifact locations
+%mvn_file org.dogtagpki.pki:pki-common            pki/pki-common
+%mvn_file org.dogtagpki.pki:pki-tools             pki/pki-tools
+%mvn_file org.dogtagpki.pki:pki-server            pki/pki-server
+%mvn_file org.dogtagpki.pki:pki-server-webapp     pki/pki-server-webapp
+%mvn_file org.dogtagpki.pki:pki-tomcat            pki/pki-tomcat
+%mvn_file org.dogtagpki.pki:pki-tomcat-9.0        pki/pki-tomcat-9.0
+%mvn_file org.dogtagpki.pki:pki-ca                pki/pki-ca
+%mvn_file org.dogtagpki.pki:pki-kra               pki/pki-kra
+%mvn_file org.dogtagpki.pki:pki-ocsp              pki/pki-ocsp
+%mvn_file org.dogtagpki.pki:pki-tks               pki/pki-tks
+%mvn_file org.dogtagpki.pki:pki-tps               pki/pki-tps
+%mvn_file org.dogtagpki.pki:pki-acme              pki/pki-acme
+%mvn_file org.dogtagpki.pki:pki-est               pki/pki-est
+
+%if %{with console}
+%mvn_file org.dogtagpki.pki:pki-console           pki/pki-console
+%endif
+
+# specify Maven artifact packages
+%mvn_package org.dogtagpki.pki:pki-common         pki-java
+%mvn_package org.dogtagpki.pki:pki-tools          pki-tools
+%mvn_package org.dogtagpki.pki:pki-server         pki-server
+%mvn_package org.dogtagpki.pki:pki-server-webapp  pki-server
+%mvn_package org.dogtagpki.pki:pki-tomcat         pki-server
+%mvn_package org.dogtagpki.pki:pki-tomcat-9.0     pki-server
+%mvn_package org.dogtagpki.pki:pki-ca             pki-ca
+%mvn_package org.dogtagpki.pki:pki-kra            pki-kra
+%mvn_package org.dogtagpki.pki:pki-ocsp           pki-ocsp
+%mvn_package org.dogtagpki.pki:pki-tks            pki-tks
+%mvn_package org.dogtagpki.pki:pki-tps            pki-tps
+%mvn_package org.dogtagpki.pki:pki-acme           pki-acme
+%mvn_package org.dogtagpki.pki:pki-est            pki-est
+
+%if %{with console}
+%mvn_package org.dogtagpki.pki:pki-console        pki-console
+%endif
+
 ################################################################################
 %build
 ################################################################################
@@ -830,6 +950,83 @@ This package provides test suite for %{product_name}.
 # Set build flags for CMake
 # (see /usr/lib/rpm/macros.d/macros.cmake)
 %set_build_flags
+
+export JAVA_HOME=%{java_home}
+
+# build Java binaries and run unit tests with Maven
+%mvn_build %{!?with_test:-f} -j
+
+# create links to Maven-built JAR files for CMake
+mkdir -p %{_vpath_builddir}/dist
+pushd %{_vpath_builddir}/dist
+
+%if %{with base}
+ln -sf ../../base/common/target/pki-common.jar
+ln -sf ../../base/tools/target/pki-tools.jar
+%endif
+
+%if %{with server}
+ln -sf ../../base/tomcat/target/pki-tomcat.jar
+ln -sf ../../base/tomcat-9.0/target/pki-tomcat-9.0.jar
+ln -sf ../../base/server/target/pki-server.jar
+ln -sf ../../base/server-webapp/target/pki-server-webapp.jar
+%endif
+
+%if %{with ca}
+ln -sf ../../base/ca/target/pki-ca.jar
+%endif
+
+%if %{with kra}
+ln -sf ../../base/kra/target/pki-kra.jar
+%endif
+
+%if %{with ocsp}
+ln -sf ../../base/ocsp/target/pki-ocsp.jar
+%endif
+
+%if %{with tks}
+ln -sf ../../base/tks/target/pki-tks.jar
+%endif
+
+%if %{with tps}
+ln -sf ../../base/tps/target/pki-tps.jar
+%endif
+
+%if %{with acme}
+ln -sf ../../base/acme/target/pki-acme.jar
+%endif
+
+%if %{with est}
+ln -sf ../../base/est/target/pki-est.jar
+%endif
+
+%if %{with console}
+ln -sf ../../base/console/target/pki-console.jar
+%endif
+
+popd
+
+# Remove all symbol table and relocation information from the executable.
+C_FLAGS="-s"
+
+%if 0%{?fedora}
+# https://sourceware.org/annobin/annobin.html/Test-gaps.html
+C_FLAGS="$C_FLAGS -fplugin=annobin"
+
+%if 0%{?fedora} < 40
+# https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
+C_FLAGS="$C_FLAGS -fcf-protection=full"
+%endif
+
+# https://sourceware.org/annobin/annobin.html/Test-optimization.html
+C_FLAGS="$C_FLAGS -O2"
+
+# https://sourceware.org/annobin/annobin.html/Test-glibcxx-assertions.html
+C_FLAGS="$C_FLAGS -D_GLIBCXX_ASSERTIONS"
+
+# https://sourceware.org/annobin/annobin.html/Test-lto.html
+C_FLAGS="$C_FLAGS -fno-lto"
+%endif
 
 pkgs=base\
 %{?with_server:,server}\
@@ -846,6 +1043,7 @@ pkgs=base\
 %{?with_tests:,tests}\
 %{?with_debug:,debug}
 
+# build PKI console, Javadoc, and native binaries with CMake
 ./build.sh \
     %{?_verbose:-v} \
     --product-name="%{product_name}" \
@@ -860,35 +1058,31 @@ pkgs=base\
     --sysconf-dir=%{_sysconfdir} \
     --share-dir=%{_datadir} \
     --cmake=%{__cmake} \
+    --c-flags="$C_FLAGS" \
     --java-home=%{java_home} \
     --jni-dir=%{_jnidir} \
     --unit-dir=%{_unitdir} \
     --python=%{python3} \
     --python-dir=%{python3_sitelib} \
+    --without-java \
     --with-pkgs=$pkgs \
     %{?with_console:--with-console} \
-    %{!?with_test:--without-test} \
+    --without-test \
     dist
 
 ################################################################################
 %install
 ################################################################################
 
+# install Java binaries
+%mvn_install
+
+# install PKI console, Javadoc, and native binaries
 ./build.sh \
     %{?_verbose:-v} \
     --work-dir=%{_vpath_builddir} \
     --install-dir=%{buildroot} \
     install
-
-# Unbundle the FontAwesome fonts
-rm %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
-%if 0%{?fedora} > 38 || 0%{?rhel} > 9
-ln -s ../../../fonts/fontawesome4/fontawesome-webfont.woff \
-    %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
-%else
-ln -s ../../../fonts/fontawesome/fontawesome-webfont.woff \
-    %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
-%endif
 
 %if %{with server}
 
@@ -942,16 +1136,36 @@ then
     systemctl daemon-reload
 fi
 
+# Update the fapolicy rules for each PKI server instance
+for instance in $(ls /var/lib/pki)
+do
+    target="/etc/fapolicyd/rules.d/61-pki-$instance.rules"
+
+    sed -e "s/\[WORK_DIR\]/\/var\/lib\/pki\/$instance\/work/g" \
+        /usr/share/pki/server/etc/fapolicy.rules \
+        > $target
+
+    chown root:fapolicyd $target
+    chmod 644 $target
+done
+
+# Restart fapolicy daemon if it's active
+status=$(systemctl is-active fapolicyd)
+if [ "$status" = "active" ]
+then
+    systemctl restart fapolicyd
+fi
+
 # with server
 %endif
 
 %if %{with meta}
 %if "%{name}" != "%{product_id}"
 ################################################################################
-%files -n %{product_id}
+%files -n %{product_id} -f .mfiles
 ################################################################################
 %else
-%files
+%files -f .mfiles
 %endif
 
 %doc %{_datadir}/doc/pki/README
@@ -987,15 +1201,13 @@ fi
 %{_mandir}/man8/pki-upgrade.8.gz
 
 ################################################################################
-%files -n %{product_id}-java
+%files -n %{product_id}-java -f .mfiles-pki-java
 ################################################################################
 
 %license base/common/LICENSE
 %license base/common/LICENSE.LESSER
 %{_datadir}/pki/examples/java/
 %{_datadir}/pki/lib/*.jar
-%dir %{_javadir}/pki
-%{_javadir}/pki/pki-common.jar
 
 ################################################################################
 %files -n python3-%{product_id}
@@ -1009,7 +1221,7 @@ fi
 %{python3_sitelib}/pki
 
 ################################################################################
-%files -n %{product_id}-tools
+%files -n %{product_id}-tools -f .mfiles-pki-tools
 ################################################################################
 
 %license base/tools/LICENSE
@@ -1032,7 +1244,6 @@ fi
 %{_bindir}/CMCRevoke
 %{_bindir}/CMCSharedToken
 %{_bindir}/CRMFPopClient
-%{_bindir}/DRMTool
 %{_bindir}/ExtJoiner
 %{_bindir}/GenExtKeyUsage
 %{_bindir}/GenIssuerAltNameExt
@@ -1046,10 +1257,8 @@ fi
 %{_bindir}/PrettyPrintCert
 %{_bindir}/PrettyPrintCrl
 %{_bindir}/TokenInfo
-%{_javadir}/pki/pki-tools.jar
 %{_datadir}/pki/tools/
 %{_datadir}/pki/lib/p11-kit-trust.so
-%{_libdir}/tps/libtps.so
 %{_mandir}/man1/AtoB.1.gz
 %{_mandir}/man1/AuditVerify.1.gz
 %{_mandir}/man1/BtoA.1.gz
@@ -1057,7 +1266,6 @@ fi
 %{_mandir}/man1/CMCRequest.1.gz
 %{_mandir}/man1/CMCSharedToken.1.gz
 %{_mandir}/man1/CMCResponse.1.gz
-%{_mandir}/man1/DRMTool.1.gz
 %{_mandir}/man1/KRATool.1.gz
 %{_mandir}/man1/PrettyPrintCert.1.gz
 %{_mandir}/man1/PrettyPrintCrl.1.gz
@@ -1087,7 +1295,7 @@ fi
 
 %if %{with server}
 ################################################################################
-%files -n %{product_id}-server
+%files -n %{product_id}-server -f .mfiles-pki-server
 ################################################################################
 
 %license base/common/THIRD_PARTY_LICENSES
@@ -1116,8 +1324,6 @@ fi
 %dir %{_sysconfdir}/systemd/system/pki-tomcatd-nuxwdog.target.wants
 %attr(644,-,-) %{_unitdir}/pki-tomcatd-nuxwdog@.service
 %attr(644,-,-) %{_unitdir}/pki-tomcatd-nuxwdog.target
-%{_javadir}/pki/pki-server.jar
-%{_javadir}/pki/pki-tomcat.jar
 %dir %{_sharedstatedir}/pki
 %{_mandir}/man1/pkidaemon.1.gz
 %{_mandir}/man5/pki_default.cfg.5.gz
@@ -1142,20 +1348,15 @@ fi
 %{_mandir}/man8/pki-healthcheck.8.gz
 %{_datadir}/pki/setup/
 %{_datadir}/pki/server/
-%if %{without theme}
-%exclude %{_datadir}/pki/CS_SERVER_VERSION
-%exclude %{_datadir}/pki/common-ui/
-%endif
 
 # with server
 %endif
 
 %if %{with acme}
 ################################################################################
-%files -n %{product_id}-acme
+%files -n %{product_id}-acme -f .mfiles-pki-acme
 ################################################################################
 
-%{_javadir}/pki/pki-acme.jar
 %{_datadir}/pki/acme/
 
 # with acme
@@ -1163,11 +1364,10 @@ fi
 
 %if %{with ca}
 ################################################################################
-%files -n %{product_id}-ca
+%files -n %{product_id}-ca -f .mfiles-pki-ca
 ################################################################################
 
 %license base/ca/LICENSE
-%{_javadir}/pki/pki-ca.jar
 %{_datadir}/pki/ca/
 
 # with ca
@@ -1175,10 +1375,9 @@ fi
 
 %if %{with est}
 ################################################################################
-%files -n %{product_id}-est
+%files -n %{product_id}-est -f .mfiles-pki-est
 ################################################################################
 
-%{_javadir}/pki/pki-est.jar
 %{_datadir}/pki/est/
 
 # with est
@@ -1186,11 +1385,10 @@ fi
 
 %if %{with kra}
 ################################################################################
-%files -n %{product_id}-kra
+%files -n %{product_id}-kra -f .mfiles-pki-kra
 ################################################################################
 
 %license base/kra/LICENSE
-%{_javadir}/pki/pki-kra.jar
 %{_datadir}/pki/kra/
 
 # with kra
@@ -1198,11 +1396,10 @@ fi
 
 %if %{with ocsp}
 ################################################################################
-%files -n %{product_id}-ocsp
+%files -n %{product_id}-ocsp -f .mfiles-pki-ocsp
 ################################################################################
 
 %license base/ocsp/LICENSE
-%{_javadir}/pki/pki-ocsp.jar
 %{_datadir}/pki/ocsp/
 
 # with ocsp
@@ -1210,11 +1407,10 @@ fi
 
 %if %{with tks}
 ################################################################################
-%files -n %{product_id}-tks
+%files -n %{product_id}-tks -f .mfiles-pki-tks
 ################################################################################
 
 %license base/tks/LICENSE
-%{_javadir}/pki/pki-tks.jar
 %{_datadir}/pki/tks/
 
 # with tks
@@ -1222,11 +1418,10 @@ fi
 
 %if %{with tps}
 ################################################################################
-%files -n %{product_id}-tps
+%files -n %{product_id}-tps -f .mfiles-pki-tps
 ################################################################################
 
 %license base/tps/LICENSE
-%{_javadir}/pki/pki-tps.jar
 %{_datadir}/pki/tps/
 %{_mandir}/man5/pki-tps-connector.5.gz
 %{_mandir}/man5/pki-tps-profile.5.gz
@@ -1246,12 +1441,11 @@ fi
 
 %if %{with console}
 ################################################################################
-%files -n %{product_id}-console
+%files -n %{product_id}-console -f .mfiles-pki-console
 ################################################################################
 
 %license base/console/LICENSE
 %{_bindir}/pkiconsole
-%{_javadir}/pki/pki-console.jar
 
 # with console
 %endif
@@ -1263,6 +1457,8 @@ fi
 
 %license themes/%{theme}/common-ui/LICENSE
 %dir %{_datadir}/pki
+
+%if %{with server}
 %{_datadir}/pki/CS_SERVER_VERSION
 %{_datadir}/pki/common-ui/
 %{_datadir}/pki/server/webapps/pki/ca
@@ -1274,6 +1470,9 @@ fi
 %{_datadir}/pki/server/webapps/pki/ocsp
 %{_datadir}/pki/server/webapps/pki/pki.properties
 %{_datadir}/pki/server/webapps/pki/tks
+
+# with server
+%endif
 
 %if %{with console}
 ################################################################################
@@ -1301,6 +1500,9 @@ fi
 
 ################################################################################
 %changelog
+* Wed Feb 21 2024 Dogtag PKI Team <devel@lists.dogtagpki.org> 11.5.0-1
+- Rebase to PKI 11.5.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.3-2.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %global	gem_name	gdk4
 
-%global	gem_ver	4.2.0
+%global	gem_ver	4.2.1
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
-Version:	4.2.0
-Release:	3%{?dist}
+Version:	4.2.1
+Release:	1%{?dist}
 
 Summary:	Ruby/GDK4 is a Ruby binding of GDK-4.x
 # SPDX confirmed
@@ -101,6 +101,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

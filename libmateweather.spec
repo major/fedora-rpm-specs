@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 06e062693b16189373584801b056079eafac0034}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          libmateweather
-Version:       %{branch}.3
+Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.a' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
