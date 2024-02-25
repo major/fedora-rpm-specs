@@ -15,7 +15,7 @@ License:        LGPLv2+ and GFDL
 URL:            http://xfce.org/
 #VCS git:git://git.xfce.org/xfce/garcon
 Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
-Source1:        xfce-documentation.directory
+Source1:        Documentation.directory
 Patch0:         garcon-%{xfceversion}-fedora-menus.patch
 
 BuildRequires:  pkgconfig(glib-2.0) >= 2.30.0

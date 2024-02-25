@@ -2,7 +2,7 @@
 
 Name:           plexus-testing
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Testing
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-testing
@@ -46,5 +46,8 @@ rm src/test/java/org/codehaus/plexus/testing/PlexusTestJakartaTest.java
 %license LICENSE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.3.0-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Fri Feb 02 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3.0-1
 - Initial packaging

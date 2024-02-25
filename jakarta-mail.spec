@@ -2,7 +2,7 @@
 
 Name:           jakarta-mail
 Version:        2.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta Mail API
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://github.com/eclipse-ee4j/mail
@@ -63,6 +63,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.2-4
+- bump of release for for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

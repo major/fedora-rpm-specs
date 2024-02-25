@@ -1,18 +1,15 @@
 Name: libdap
-Summary: The C++ DAP2 library from OPeNDAP
-Version: 3.20.10
-Release: 6%{?dist}
+Summary: The C++ DAP2 and DAP4 library from OPeNDAP
+Version: 3.21.0.27
+Release: 1%{?dist}
+
+%global libdap_tag 3.21.0-27
 
 License: LGPL-2.1-or-later
 URL: http://www.opendap.org/
-Source0: http://www.opendap.org/pub/source/libdap-%{version}.tar.gz
+Source0: https://github.com/OPENDAP/libdap4/archive/%{libdap_tag}/%{name}-%{version}.tar.gz
 #Don't run HTTP tests - builders don't have network connections
 Patch0: libdap-offline.patch
-# Fix for i686 build
-Patch1: https://github.com/OPENDAP/libdap4/pull/192.patch
-# Add missing includes for gcc 13
-# https://github.com/OPENDAP/libdap4/pull/215
-Patch2: libdap-include.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -29,7 +26,7 @@ BuildRequires: libuuid-devel
 BuildRequires: libxml2-devel
 BuildRequires: openssl-devel
 BuildRequires: pkgconfig
-%ifnarch s390 %{mips}
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
 
@@ -37,11 +34,11 @@ Provides: bundled(gnulib)
 
 
 %description
-The libdap++ library contains an implementation of DAP2. This package
-contains the library, dap-config, and getdap. The script dap-config
-simplifies using the library in other projects. The getdap utility is a
-simple command-line tool to read from DAP2 servers. It is built using the
-library and demonstrates simple uses of it.
+The libdap++ library contains an implementation of DAP2 and DAP4. This
+package contains the library, dap-config, and getdap. The script
+dap-config simplifies using the library in other projects. The getdap
+utility is a simple command-line tool to read from DAP2 servers. It is
+built using the library and demonstrates simple uses of it.
 
 
 %package devel
@@ -66,7 +63,7 @@ Documentation of the libdap library.
 
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n libdap4-%{libdap_tag} -p1
 iconv -f latin1 -t utf8 < COPYRIGHT_W3C > COPYRIGHT_W3C.utf8
 touch -r COPYRIGHT_W3C COPYRIGHT_W3C.utf8
 mv COPYRIGHT_W3C.utf8 COPYRIGHT_W3C
@@ -134,6 +131,10 @@ make check || :
 
 
 %changelog
+* Fri Feb 23 2024 Richard W.M. Jones <rjones@redhat.com> - 3.21.0.27-1
+- New upstream version 3.21.0-27, required by bes (RHBZ#1328287)
+- Remove old patches
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

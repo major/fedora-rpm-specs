@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 922d0e0219b1bedcece8624e4b5fd7e15e7a9bd5}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          mate-control-center
-Version:       %{branch}.1
+Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.23%{?git_rel}%{?dist}
 %endif
@@ -33,10 +33,13 @@ BuildRequires: accountsservice-devel
 BuildRequires: dconf-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
+BuildRequires: libappindicator-gtk3-devel
 BuildRequires: libcanberra-devel
+BuildRequires: libgtop2-devel
 BuildRequires: libmatekbd-devel
 BuildRequires: librsvg2-devel
 BuildRequires: libSM-devel
+BuildRequires: libudisks2-devel
 BuildRequires: libXScrnSaver-devel
 BuildRequires: make
 BuildRequires: mate-common
@@ -45,6 +48,7 @@ BuildRequires: mate-menus-devel
 BuildRequires: mate-settings-daemon-devel
 BuildRequires: marco-devel
 BuildRequires: polkit-devel
+BuildRequires: systemd-devel
 
 Requires: gsettings-desktop-schemas
 # rhbz (#1234438)
@@ -95,7 +99,8 @@ NOCONFIGURE=1 ./autogen.sh
 %configure                           \
            --disable-static          \
            --disable-schemas-compile \
-           --disable-update-mimedb
+           --disable-update-mimedb   \
+           --enable-appindicator
 
 # remove unused-direct-shlib-dependency
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -124,9 +129,6 @@ rm %{buildroot}%{_datadir}/applications/mimeinfo.cache
 %doc AUTHORS COPYING README
 %config %{_sysconfdir}/xdg/menus/matecc.menu
 %{_bindir}/mate-*
-%{_libdir}/libmate-window-settings.so.*
-%{_libdir}/window-manager-settings/
-%{_libdir}/libmate-slab.so.*
 %{_sbindir}/mate-display-properties-install-systemwide
 %{_datadir}/applications/*.desktop
 %{_datadir}/desktop-directories/matecc.directory
@@ -146,17 +148,14 @@ rm %{buildroot}%{_datadir}/applications/mimeinfo.cache
 %dir %{_datadir}/mate-control-center/keybindings/
 
 %files devel
-%{_includedir}/mate-window-settings-2.0/
-%{_includedir}/libmate-slab/
-%{_libdir}/pkgconfig/mate-window-settings-2.0.pc
 %{_libdir}/pkgconfig/mate-default-applications.pc
 %{_libdir}/pkgconfig/mate-keybindings.pc
-%{_libdir}/pkgconfig/mate-slab.pc
-%{_libdir}/libmate-window-settings.so
-%{_libdir}/libmate-slab.so
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

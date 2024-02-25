@@ -1,8 +1,8 @@
 Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
@@ -12,7 +12,6 @@ URL:     https://www.kde.org/applications/graphics/gwenview/
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
-Patch0:  gwenview-reenable-kimageannotator-qt6.patch 
 
 ## upstreamable patches
 
@@ -121,6 +120,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 1:24.01.95-2
 - Rebuild (qt6)
 

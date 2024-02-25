@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 5bba3723566489763aafaad3669c77f60a23d2e0}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          atril
-Version:       %{branch}.2
+Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.21%{?git_rel}%{?dist}
 %endif
@@ -29,25 +29,21 @@ URL:           http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# https://github.com/mate-desktop/atril/commit/479e927
-Patch1:       atril_0002-fix-a-incompatible-pointer-type-warning-for-gcc14-1.26.patch
-# https://github.com/mate-desktop/atril/commit/d901a9d
-Patch2:       atril_0001-epub-Avoid-crash-when-index-list-has-extraneous-entr-1.26.patch
-
-BuildRequires: cairo-gobject-devel
-BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
-BuildRequires: gobject-introspection-devel
 BuildRequires: gtk3-devel
+BuildRequires: poppler-glib-devel
 BuildRequires: libarchive-devel
+BuildRequires: libXt-devel
 BuildRequires: libsecret-devel
 BuildRequires: libtiff-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libspectre-devel
-BuildRequires: libXt-devel
+BuildRequires: desktop-file-utils
+BuildRequires: gobject-introspection-devel
 BuildRequires: make
 BuildRequires: mate-common
-BuildRequires: poppler-glib-devel
+BuildRequires: mate-desktop-devel
+BuildRequires: cairo-gobject-devel
 BuildRequires: yelp-tools
 
 # for the xps back-end
@@ -200,6 +196,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Wed Jan 31 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-2
 - fix gcc14 build error and another epub crash
 - use https://github.com/mate-desktop/atril/commit/479e927

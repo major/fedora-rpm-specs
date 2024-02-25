@@ -37,7 +37,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-jsonpickle
 BuildRequires:  python3-chardet
-BuildRequires:  python3-mock
 BuildRequires:  python3-webcolors
 BuildRequires:  python3-xlrd
 BuildRequires:  python3-six

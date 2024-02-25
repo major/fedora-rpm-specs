@@ -1,5 +1,5 @@
 Name:           python-pebble
-Version:        5.0.3
+Version:        5.0.6
 Release:        %autorelease
 Summary:        Threading and multiprocessing eye-candy for Python
 License:        LGPL-3.0-or-later

@@ -6,7 +6,7 @@
 %endif
 
 Name:    kio-extras-kf5
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -173,6 +173,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Fri Feb 23 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Mon Feb 19 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.95-1
 - 24.01.95
 

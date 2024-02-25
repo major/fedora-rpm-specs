@@ -10,8 +10,8 @@ Source0: http://www.contextfreeart.org/download/ContextFreeSource%{version}.tgz
 BuildRequires: gcc-c++ libatomic libicu-devel
 BuildRequires: libpng-devel bison flex
 BuildRequires: make
+BuildRequires: sed
 Patch0:  cfdg-nostrip.patch
-Patch1:  cfdg-gcc.patch
 
 %description
 Context Free is a program that generates images from written instructions 
@@ -21,10 +21,10 @@ create images that can contain millions of shapes.
 %prep
 %setup -qcn ContextFreeSource%{version}
 
-%patch0 -p0
-%ifarch ppc64le
-%patch1 -p0
-%endif
+# Remove -march=native everywhere.
+find -type f -print0 | xargs -0 sed -i 's/-march=native//g'
+
+%patch -P0 -p0
 
 %build
 

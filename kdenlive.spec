@@ -2,8 +2,8 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 02 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 24.01.95-2
 - Drop i686 per fedora leaf package policy
 

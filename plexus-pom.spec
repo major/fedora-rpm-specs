@@ -2,7 +2,7 @@
 
 Name:          plexus-pom
 Version:       16
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Root Plexus Projects POM
 License:       Apache-2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
@@ -42,6 +42,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 16-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 16-1
 - Update to upstream version 16
 

@@ -2,7 +2,7 @@
 
 Name:           jaxb
 Version:        4.0.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JAXB Reference Implementation
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-ri
@@ -183,6 +183,9 @@ popd
 %endif
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.4-4
+- bump of release for for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

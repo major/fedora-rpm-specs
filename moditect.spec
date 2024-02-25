@@ -2,7 +2,7 @@
 
 Name:           moditect
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tooling for the Java Module System
 License:        Apache-2.0
 URL:            https://github.com/moditect/moditect
@@ -78,6 +78,9 @@ rm core/src/test/java/org/moditect/test/AddModuleInfoTest.java
 %license LICENSE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.0-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Marian Koncek <mkoncek@redhat.com> - 1.1.0-1
 - Update to upstream version 1.1.0
 

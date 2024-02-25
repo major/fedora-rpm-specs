@@ -11,7 +11,7 @@ patterns of your system or workloads and make data access-aware memory
 management optimizations.}
 
 Name:           python-%{srcname}
-Version:        2.2.1
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Data Access Monitoring Operator
 
@@ -22,8 +22,6 @@ URL:            https://github.com/awslabs/damo
 Source:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-# some tests assume 64-bit and fail on ix86
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x noarch
 
 %description %{_description}
 

@@ -5,8 +5,8 @@
 %bcond vendored_adblock 1
 
 Name:           angelfish
-Version:        24.01.95
-Release:        3%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -135,6 +135,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-3
 - Rebuild (qt6)
 

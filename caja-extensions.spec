@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 298c7255b82986eeba72fff06f59479deae0b9d0}
@@ -14,9 +14,9 @@
 
 Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        7%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.23%{?git_rel}%{?dist}
 %endif
@@ -32,18 +32,12 @@ URL:            http://mate-desktop.org
 Source1:       caja-share-setup-instructions
 Source2:       caja-share-smb.conf.example
 
-# rhbz (#2249632)
-Patch1:        caja-extensions_0001-Fix-missing-GtkRadioButton-id_1.26.patch
-# rhbz (#2145142)
-Patch2:        caja-extensions_0002-sendto-require-gupnp-1.6_1.26.patch
-# https://github.com/mate-desktop/caja-extensions/commit/91cc466
-Patch3:        caja-extensions_0003-xattr-tags-extension-avoid-check-xattr-for-mtp-and-g_1.26.patch
-
 BuildRequires: make
 BuildRequires: mate-common
 BuildRequires: caja-devel
 BuildRequires: mate-desktop-devel
 BuildRequires: dbus-glib-devel
+BuildRequires: gstreamer1-plugins-bad-free-devel
 BuildRequires: gtk3-devel
 BuildRequires: gupnp-devel
 BuildRequires: dbus-glib-devel
@@ -62,6 +56,14 @@ BuildArch:  noarch
 
 %description common
 %{summary}.
+
+%package -n caja-audio-video-properties
+Summary:    MATE file manager audio-video-properties extension
+Requires:   %{name}-common = %{version}-%{release}
+
+%description -n caja-audio-video-properties
+The caja-audio-video-properties extension allows you to
+view audio and video properties in Caja.
 
 %package -n caja-image-converter
 Summary:    MATE file manager image converter extension
@@ -145,9 +147,6 @@ cp %{SOURCE1} SETUP
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
-# patch 2
-NOCONFIGURE=1 ./autogen.sh
-
 %build
 %configure \
      --disable-schemas-compile \
@@ -157,11 +156,13 @@ NOCONFIGURE=1 ./autogen.sh
 %if 0%{?rhel} > 7
      --with-sendto-plugins=emailclient,caja-burn,pidgin,removable-devices,upnp \
 %else
-     --with-sendto-plugins=all \
+     --with-sendto-plugins=emailclient,gajim,caja-burn,pidgin,removable-devices,upnp \
 %endif
      --enable-share            \
+     --enable-totem-properties \
      --enable-gksu             \
      --enable-wallpaper        \
+     --enable-totem-properties \
      --disable-static
 
 make %{?_smp_mflags} V=1
@@ -180,6 +181,10 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 %files common -f %{name}.lang
 %doc AUTHORS COPYING README SETUP
 %dir %{_datadir}/caja-extensions
+
+%files -n caja-audio-video-properties
+%{_libdir}/caja/extensions-2.0/libcaja-av.so
+%{_datadir}/caja/extensions/libcaja-av.caja-extension
 
 %files -n caja-image-converter
 %{_libdir}/caja/extensions-2.0/libcaja-image-converter.so
@@ -234,6 +239,9 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

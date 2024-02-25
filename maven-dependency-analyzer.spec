@@ -2,7 +2,7 @@
 
 Name:           maven-dependency-analyzer
 Version:        1.13.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Maven dependency analyzer
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-dependency-analyzer/
@@ -59,6 +59,9 @@ Summary:        API documentation for %{name}
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.13.2-5
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

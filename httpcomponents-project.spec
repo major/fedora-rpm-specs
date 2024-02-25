@@ -3,7 +3,7 @@
 Name:           httpcomponents-project
 Summary:        Common POM file for HttpComponents
 Version:        13
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Apache-2.0
 URL:            https://hc.apache.org/
 Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
@@ -44,6 +44,9 @@ use it as runtime requirement.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 13-5
+- bump of release for for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

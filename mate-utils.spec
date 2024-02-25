@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit d3538696e2b4e4372e9f526a0a4e2e4be08fc832}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-utils
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.20%{?git_rel}%{?dist}
 %endif
@@ -31,6 +31,7 @@ URL:            http://mate-desktop.org
 
 BuildRequires: desktop-file-utils
 BuildRequires: e2fsprogs-devel
+BuildRequires: gtk-layer-shell-devel
 BuildRequires: hardlink
 BuildRequires: libcanberra-devel
 BuildRequires: libgtop2-devel
@@ -39,12 +40,16 @@ BuildRequires: libX11-devel
 BuildRequires: libXmu-devel
 BuildRequires: make
 BuildRequires: mate-common
+BuildRequires: mate-desktop-devel
 BuildRequires: mate-panel-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: popt-devel
 BuildRequires: usermode
 BuildRequires: yelp-tools
+
+%if 0%{?fedora} && 0%{?fedora} >= 29
 BuildRequires: gcc-c++
+%endif
 
 Requires: mate-dictionary = %{version}-%{release}
 Requires: mate-screenshot = %{version}-%{release}
@@ -136,6 +141,8 @@ NOCONFIGURE=1 ./autogen.sh
     --disable-static            \
     --disable-schemas-compile   \
     --enable-gdict-applet       \
+    --enable-in-process         \
+    --enable-wayland            \
     --enable-gtk-doc-html       \
     --enable-ipv6=yes           \
     --enable-maintainer-flags=no  \
@@ -226,12 +233,13 @@ desktop-file-install                          \
 %{_datadir}/applications/mate-dictionary.desktop
 %{_datadir}/mate-dict/
 %{_datadir}/mate-dictionary/
-%{_libexecdir}/mate-dictionary-applet
+#%%{_libexecdir}/mate-dictionary-applet
 %{_libdir}/libmatedict.so.*
+%{_libdir}/mate-utils/libmate-dictionary-applet.so*
 %{_mandir}/man1/mate-dictionary.1.*
 %{_datadir}/glib-2.0/schemas/org.mate.dictionary.gschema.xml
 %{_datadir}/mate-panel/applets/org.mate.DictionaryApplet.mate-panel-applet
-%{_datadir}/dbus-1/services/org.mate.panel.applet.DictionaryAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.DictionaryAppletFactory.service
 
 %files -n mate-search-tool -f mate-search-tool.lang
 %{_bindir}/mate-search-tool
@@ -257,6 +265,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

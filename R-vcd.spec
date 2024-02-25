@@ -2,7 +2,7 @@
 
 %global packname vcd
 %global ver 1.4
-%global packrel 11
+%global packrel 12
 
 %global _description %{expand:
 Visualization techniques, data sets, summary and inference procedures aimed
@@ -14,7 +14,7 @@ by Michael Friendly and David Meyer (2015).}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          5%{?dist}
+Release:          1%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.r-project.org/web/packages/vcd/index.html
@@ -64,6 +64,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 
 
 %changelog
+* Fri Feb 23 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.4.12-1
+- Update to 1.4-12
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

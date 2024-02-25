@@ -2,7 +2,7 @@
 %global sum     Modern password hashing for your software and your servers
 
 Name:               python-bcrypt
-Version:            4.0.1
+Version:            4.1.2
 Release:            %autorelease
 Summary:            %{sum}
 
@@ -10,7 +10,6 @@ Summary:            %{sum}
 License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:                http://pypi.python.org/pypi/bcrypt
 Source0:            %pypi_source bcrypt
-Patch0:             pyo3-0.19.2.patch
 
 %description
 %{sum}.
@@ -19,7 +18,7 @@ Patch0:             pyo3-0.19.2.patch
 %package -n python3-%{modname}
 Summary:            %{sum}
 # LICENSE.dependencies contains a full license breakdown
-License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT)
+License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 BuildRequires:      python3-devel
 BuildRequires:      rust-packaging
 

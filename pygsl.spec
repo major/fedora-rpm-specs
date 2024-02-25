@@ -17,6 +17,9 @@ Url:           https://github.com/pygsl/pygsl
 # This should be temporary until upstream fixes this
 Source:	       pygsl-v.%{version}.tar.gz
 
+# Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires: gcc
 BuildRequires: gsl-devel
 BuildRequires: python3-devel
@@ -67,7 +70,7 @@ Development files for pygsl
 
 %build
 # Only need if the generated sources are different from the version used in source
-# rm -f swig_src/gslwrap_wrap.c
+rm -f swig_src/gslwrap_wrap.c
 %__python3 setup.py gsl_wrappers
 %__python3 setup.py config
 %__python3 setup.py build_ext
@@ -80,7 +83,7 @@ Development files for pygsl
 
 
 %check
-%pytest
+%pytest tests/
 
 %files
 
@@ -98,6 +101,7 @@ Development files for pygsl
 - Update to 2.3.4
 - Remove upstream patches
 - Clean the spec file a bit
+- Drop ix686 arch
 
 * Mon Feb  5 2024 José Matos <jamatos@fedoraproject.org> - 2.3.3-4
 - Update the spec file to more modern Python guidelines

@@ -1,9 +1,9 @@
 Name:           coin-or-lemon
 Version:        1.3.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A C++ template library providing many common graph algorithms
 
-License:        Boost and BSD
+License:        BSL-1.0 AND BSD-3-Clause
 URL:            http://lemon.cs.elte.hu/trac/lemon
 Source0:        http://lemon.cs.elte.hu/pub/sources/lemon-%{version}.tar.gz
 
@@ -21,6 +21,12 @@ Patch2:         lemon-%{version}-template.patch
 # out of scope.
 Patch3:         lemon-%{version}-test.patch
 
+# Adapt to recent versions of SoPlex
+Patch4:         lemon-%{version}-soplex.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  bzip2-devel
 BuildRequires:  cmake
 BuildRequires:  coin-or-Cbc-devel
@@ -28,6 +34,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glpk-devel
 BuildRequires:  help2man
+BuildRequires:  libsoplex-devel
 BuildRequires:  make
 BuildRequires:  zlib-devel
 
@@ -79,8 +86,9 @@ sed -i 's/libemon\.a/libemon.so/' cmake/LEMONConfig.cmake.in
 
 
 %build
+export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/soplex'
 
-# CPLEX (aka ILOG) and SOPLEX are non-free, so don't try to detect them.
+# CPLEX (aka ILOG) is non-free, so don't try to detect it.
 #
 # We suppress detection of ghostscript, doxygen, and python to make
 # the build behave the same way with and without them installed -- we
@@ -92,7 +100,7 @@ sed -i 's/libemon\.a/libemon.so/' cmake/LEMONConfig.cmake.in
   -DLEMON_ENABLE_COIN:BOOL=YES \
   -DLEMON_ENABLE_GLPK:BOOL=YES \
   -DLEMON_ENABLE_ILOG:BOOL=NO \
-  -DLEMON_ENABLE_SOPLEX:BOOL=NO
+  -DLEMON_ENABLE_SOPLEX:BOOL=YES
 
 %cmake_build
 
@@ -153,6 +161,11 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.3.1-30
+- Build with SoPlex support
+- Convert License tag to SPDX
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

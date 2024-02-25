@@ -1,7 +1,10 @@
 
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
-Version: 2.42
+# Note - a version number of X.XX is an offical upstream GNU Binutils release.
+# A version number of X.XX.50 is a snapshot of the upstream development sources.
+# If X.XX.50 is in use then use_commit_id_tarballs should be enabled (see below).
+Version: 2.42.50
 Release: 4%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -83,8 +86,13 @@ URL: https://sourceware.org/binutils
 %define enable_separate_code 1
 
 # Enable the use of source tarballs created from specific upstream commits
-# rather than official GNU Binutils releases.  This supports the syncing
-# procedure documented here: https://fedoraproject.org/wiki/BinutilsRawhideSync
+# to the mainline development branch rather than official GNU Binutils
+# releases.  This supports the syncing procedure documented here:
+#
+#    https://fedoraproject.org/wiki/BinutilsRawhideSync
+#
+# Note - if this feature is enabled then the %%{version} number (defined above)
+# should end in .50
 %define use_commit_id_tarballs 1
 
 #----End of Configure Options------------------------------------------------
@@ -539,11 +547,7 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
 %prep
 
-%if %{use_commit_id_tarballs}
-%autosetup -p1 -n binutils-%{version}.50
-%else
 %autosetup -p1 -n binutils-%{version}
-%endif
 
 # On ppc64 and aarch64, we might use 64KiB pages
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*ppc.c
@@ -1345,6 +1349,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Feb 22 2024 Nick Clifton  <nickc@redhat.com> - 2.42.50-4
+- Spec File: Change the NVR to reflect the fact that these binutils are based upon development sources, rather than release sources.
+
 * Wed Feb 21 2024 Nick Clifton  <nickc@redhat.com> - 2.42-4
 - Spec File: Add support for using source tarballs created after a specific commit.
 - Rebase to commit 1b2c120daf9e2d935453f9051bbeafbac7f9f14d

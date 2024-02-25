@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit c1ca209172a8b3a0751ac0a1e2dbec33c1894290}
@@ -19,7 +19,7 @@ Summary:  Modules for the pluma text editor
 Name:     pluma-plugins
 Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  9%{?dist}
+Release:  1%{?dist}
 %else
 Release:  0.8%{?git_rel}%{?dist}
 %endif
@@ -31,9 +31,6 @@ URL:      https://mate-desktop.org
 %{?rel_build:Source0:     https://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    https://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# from upstream 1.26 branch
-Patch1:        pluma_plugins_0001-Fix-synctex-plugin-dependency-detection.patch
 
 BuildRequires: gcc
 BuildRequires: gtk3-devel
@@ -79,11 +76,6 @@ This package contains shared data needed for pluma-plugins.
 NOCONFIGURE=1 ./autogen.sh
 %endif
 
-# Until Patch1 is part of an upstream release
-NOCONFIGURE=1 ./autogen.sh
-
-sed -i "1d" plugins/synctex/synctex/atril_dbus.py
-
 %build
 %configure \
         --enable-verify-all   \
@@ -109,6 +101,7 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 %{_libdir}/pluma/plugins/*
 %{_datadir}/metainfo/pluma-bookmarks.metainfo.xml
 %{_datadir}/metainfo/pluma-codecomment.metainfo.xml
+%{_datadir}/metainfo/pluma-quickhighlight.metainfo.xml
 %{_datadir}/metainfo/pluma-synctex.metainfo.xml
 %{_datadir}/metainfo/pluma-terminal.metainfo.xml
 %{_datadir}/glib-2.0/schemas/org.mate.pluma.plugins.sourcecodebrowser.gschema.xml
@@ -122,6 +115,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

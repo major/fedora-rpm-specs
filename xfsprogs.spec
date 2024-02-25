@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	6.5.0
-Release:	3%{?dist}
+Version:	6.6.0
+Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -87,25 +87,27 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %files -f %{name}.lang
 %doc doc/CHANGES README
 %{_libdir}/*.so.*
-%dir %{_usr}/%{_lib}/xfsprogs
-%{_usr}/%{_lib}/xfsprogs/*
+%dir %{_libexecdir}/xfsprogs
+%{_libexecdir}/xfsprogs/*
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %{_sbindir}/*
 %{_unitdir}/*
 %{_datadir}/xfsprogs/mkfs/*.conf
+%exclude %{_datadir}/xfsprogs/xfs_scrub_all.cron
 %exclude %{_sbindir}/xfs_scrub*
 %exclude %{_mandir}/man8/xfs_scrub*
-%exclude %{_usr}/%{_lib}/xfsprogs/xfs_scrub*
+%exclude %{_libexecdir}/xfsprogs/xfs_scrub*
 %exclude %{_mandir}/man8/xfs_scrub_all*
 %exclude %{_unitdir}/xfs_scrub*
 
 %files xfs_scrub
 %{_sbindir}/xfs_scrub*
 %{_mandir}/man8/xfs_scrub*
-%{_usr}/%{_lib}/xfsprogs/xfs_scrub*
+%{_libexecdir}/xfsprogs/xfs_scrub*
 %{_unitdir}/xfs_scrub*
 %{_udevrulesdir}/64-xfs.rules
+%{_datadir}/xfsprogs/xfs_scrub_all.cron
 
 %files devel
 %{_mandir}/man2/*
@@ -127,6 +129,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Mon Feb 05 2024 Pavel Reichl <preichl@redhat.com> - 6.6.0-1
+- Rebase to upstream version 6.6.0
+- Related: rhbz#2262783
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 6.5.0-3
 - Rebuild for ICU 74
 

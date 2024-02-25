@@ -1,10 +1,10 @@
 Name:          mate-sensors-applet
-Version:       1.26.0
-Release:       7%{?dist}
+Version:       1.28.0
+Release:       1%{?dist}
 Summary:       MATE panel applet for hardware sensors
 License:       GPLv2+
 URL:           http://mate-desktop.org
-Source0:       http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
+Source0:       http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
 
 BuildRequires: gtk3-devel
 BuildRequires: libnotify-devel
@@ -43,6 +43,7 @@ developing applications that use mate-sensors-applet.
 %configure \
     --disable-static \
     --disable-schemas-compile \
+    --enable-in-process \
     --enable-libnotify \
     --with-nvidia
 
@@ -62,13 +63,13 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm -rf {} ';'
 
 %files -f %{name}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
-%{_libexecdir}/mate-sensors-applet
+#%%{_libexecdir}/mate-sensors-applet
 %{_libdir}/libmate-sensors-applet-plugin.so.*
 %{_libdir}/mate-sensors-applet/
 %{_datadir}/mate-sensors-applet/ui/
 %{_datadir}/pixmaps/mate-sensors-applet/
 %{_datadir}/icons/hicolor/*/*/*.png
-%{_datadir}/dbus-1/services/org.mate.panel.applet.SensorsAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.SensorsAppletFactory.service
 %{_datadir}/glib-2.0/schemas/org.mate.sensors-applet.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.mate.sensors-applet.sensor.gschema.xml
 %{_datadir}/mate-panel/applets/org.mate.applets.SensorsApplet.mate-panel-applet
@@ -79,6 +80,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm -rf {} ';'
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

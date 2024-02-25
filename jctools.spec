@@ -4,7 +4,7 @@
 
 Name:           jctools
 Version:        4.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Concurrency Tools for the JVM
 License:        Apache-2.0
 
@@ -101,6 +101,9 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.2-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.0.2-1
 - Update to upstream version 4.0.2
 

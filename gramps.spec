@@ -1,7 +1,6 @@
-#global		_beta 2
 Name:           gramps
-Version:        5.1.6
-Release:        5%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -62,11 +61,9 @@ cp -pr build/mo/* ${RPM_BUILD_ROOT}%{_datadir}/locale/
 rm -f ${RPM_BUILD_ROOT}%{_datadir}/%{name}/COPYING
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/mime/packages
-cp -p build/data/gramps.xml ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/application-registry
-cp -p data/gramps.applications ${RPM_BUILD_ROOT}%{_datadir}/application-registry/
+cp -p build/data/org.gramps_project.Gramps.xml ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/
 mkdir -p ${RPM_BUILD_ROOT}%{_metainfodir}/
-cp -p build/data/gramps.appdata.xml ${RPM_BUILD_ROOT}%{_metainfodir}/
+cp -p build/data/org.gramps_project.Gramps.appdata.xml ${RPM_BUILD_ROOT}%{_metainfodir}/
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
 cp -p build/data/man/gramps.1.gz ${RPM_BUILD_ROOT}%{_mandir}/man1/gramps.1.gz
 rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/gramps/
@@ -74,9 +71,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/gramps/
 echo -n %{_datadir} > $RPM_BUILD_ROOT%{python3_sitelib}/gramps/gen/utils/resource-path
 
 # fix the app id to match flathub
-appstream-util modify $RPM_BUILD_ROOT%{_metainfodir}/gramps.appdata.xml \
+appstream-util modify $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.appdata.xml \
   id org.gramps_project.Gramps
-appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/gramps.appdata.xml \
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.appdata.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/b.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/c.png \
@@ -86,23 +83,22 @@ appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/gramps.appdata
 
 desktop-file-install --delete-original  \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications   	\
-  build/data/%{name}.desktop
+  build/data/org.gramps_project.Gramps.desktop
 
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS FAQ NEWS TODO example/
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/application-registry/%{name}.applications
-%{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/mime-info/*
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/applications/org.gramps_project.Gramps.desktop
+%{_datadir}/mime/packages/org.gramps_project.Gramps.xml
+%{_datadir}/icons/hicolor/*/apps/org.gramps_project.Gramps.*
 %{_datadir}/icons/hicolor/*/mimetypes/*
 %{_mandir}/man1/%{name}.1.gz
-%{_metainfodir}/gramps.appdata.xml
+%{_metainfodir}/org.gramps_project.Gramps.appdata.xml
 %{python3_sitelib}/gramps*egg-info
 %{python3_sitelib}/gramps/__init*
+%{python3_sitelib}/gramps/__main*
 %{python3_sitelib}/gramps/grampsapp*
 %{python3_sitelib}/gramps/gui
 %{python3_sitelib}/gramps/test
@@ -114,6 +110,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Fri Feb 23 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.0-1
+- 5.2.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

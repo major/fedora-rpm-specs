@@ -5,7 +5,7 @@
 %global _lto_cflags %{nil}
 
 Name:    libkgapi
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary: Library to access to Google services
 
@@ -72,8 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_libdir}/sasl2/libkdexoauth2.so*
-%{_kf6_libdir}/libKPim6GAPI*.so.5*
-%{_kf6_libdir}/libKPim6GAPI*.so.6*
+%{_kf6_libdir}/libKPim6GAPI*.so.6
+%{_kf6_libdir}/libKPim6GAPI*.so.6.*
 
 %files devel
 %{_kf6_libdir}/libKPim6GAPI*.so
@@ -86,6 +86,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

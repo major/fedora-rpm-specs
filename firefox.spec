@@ -28,7 +28,6 @@ ExcludeArch: i686
 %global system_nss        1
 %global system_libevent   1
 %global build_with_asan   0
-%global test_on_wayland   0
 %ifarch x86_64 %{ix86}
 %global enable_replace_malloc 1
 %else
@@ -85,7 +84,7 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-%global build_with_pgo    0
+%global build_with_pgo    1
 %endif
 %endif
 %if 0%{?flatpak}
@@ -107,10 +106,10 @@ ExcludeArch: i686
 %endif
 
 %global launch_wayland_compositor 0
-%if %{build_with_pgo} && %{test_on_wayland}
+%if %{build_with_pgo}
 %global launch_wayland_compositor 1
 %endif
-%if %{run_firefox_tests} && %{test_on_wayland}
+%if %{run_firefox_tests}
 %global launch_wayland_compositor 1
 %endif
 
@@ -390,7 +389,7 @@ BuildRequires:  libasan-static
 %endif
 BuildRequires:  perl-interpreter
 BuildRequires:  fdk-aac-free-devel
-%if 0%{?test_on_wayland}
+%if 0%{?launch_wayland_compositor}
 BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
 BuildRequires:  gnome-settings-daemon
@@ -841,7 +840,7 @@ echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
 
-%if %{launch_wayland_compositor}
+%if %{build_with_pgo}
 cp %{SOURCE45} .
 . ./run-wayland-compositor
 %endif
@@ -857,15 +856,10 @@ tar xf %{SOURCE37}
 #Use python 3.11 for mach
 sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 
-%if %{build_with_pgo}
-%if %{test_on_wayland}
-env | grep "WAYLAND"
-MOZ_ENABLE_WAYLAND=1 ./mach build  -v 2>&1 | cat - || exit 1
-%else
-xvfb-run ./mach build -v 2>&1 | cat - || exit 1
-%endif
-%else
 ./mach build -v 2>&1 | cat - || exit 1
+
+%if %{build_with_pgo}
+kill $MUTTER_PID
 %endif
 
 #---------------------------------------------------------------------
@@ -873,21 +867,17 @@ xvfb-run ./mach build -v 2>&1 | cat - || exit 1
 # run Firefox test suite
 # Do we need it?
 # export MACH_NATIVE_PACKAGE_SOURCE=system
-%if %{launch_wayland_compositor}
+%if %{run_firefox_tests}
 cp %{SOURCE45} .
 . ./run-wayland-compositor
-%endif
 
-%if 0%{?run_firefox_tests}
 cp %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE38} %{SOURCE39} %{SOURCE43} %{SOURCE44} .
 mkdir -p test_results
-%if %{test_on_wayland}
 ./run-tests-wayland || true
-%else
-./run-tests-x11 || true
-%endif
 ./print_results > test_summary.txt 2>&1 || true
 ./print_failures || true
+
+kill $MUTTER_PID
 %endif
 
 # set up our default bookmarks
@@ -1202,6 +1192,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Feb 23 2024 Martin Stransky <stransky@redhat.com>- 123.0-2
+- Fixed PGO builds and enabled it again.
+
 * Wed Feb 21 2024 Daniel Rusek <mail@asciiwolf.com>- 123.0-2
 - Add matching AppStream metadata for org.mozilla.firefox.desktop
 

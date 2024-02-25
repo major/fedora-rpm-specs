@@ -2,22 +2,37 @@
 
 Name:		coin-or-%{module}
 Summary:	COIN-OR Open Solver Interface Library
-Version:	0.108.6
-Release:	11%{?dist}
-License:	EPL-1.0
+Version:	0.108.9
+Release:	1%{?dist}
+
+# The project as a whole is licensed EPL-2.0.  However, many source files still
+# claim to be licensed EPL-1.0.  This is probably an upstream oversight.
+License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
 # Fix build with glpk > 4.48
 Patch1:		%{name}-glpk.patch
+# Fix non-C99 constructs in the configure script
 Patch2:		%{name}-configure-c99.patch
+# Fix build with SoPlex >= 1.7
+Patch3:		%{name}-soplex.patch
+# ISO C++17 does not allow 'register' storage class specifier
+# https://github.com/coin-or/Osi/commit/aa793506344bdac1a681b2535253bc782a4361fb
+Patch4:         %{name}-register.patch
+# Upstream fix for objective offset being ignored when reading a .lp file
+# https://github.com/coin-or/Osi/commit/4071468cf9629d39660e49e4a28e1a91fe41018b
+Patch5:		%{name}-objective-offset.patch
 
 BuildRequires:	coin-or-CoinUtils-doc
 BuildRequires:	coin-or-Data-Netlib
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	glpk-devel
+%ifnarch %{ix86}
+BuildRequires:	libsoplex-devel
+%endif
 BuildRequires:	make
 BuildRequires:	pkgconfig(coinutils)
 
@@ -30,6 +45,9 @@ the supported solvers.
 Summary:	Development files for %{name}
 Requires:	coin-or-CoinUtils-devel%{?_isa}
 Requires:	glpk-devel%{?_isa}
+%ifnarch %{ix86}
+Requires:	libsoplex-devel%{?_isa}
+%endif
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
@@ -53,7 +71,12 @@ This package contains the documentation for %{name}.
 sed -i 's/ @OSILIB_PCLIBS@/\nLibs.private:&/' Osi/osi.pc.in
 
 %build
-%configure --with-glpk-incdir=%{_includedir} --with-glpk-lib=-lglpk
+export CPPFLAGS='-DNDEBUG'
+%configure \
+%ifnarch %{ix86}
+  --with-soplex-incdir=%{_includedir}/soplex --with-soplex-lib=-lsoplex \
+%endif
+  --with-glpk-incdir=%{_includedir} --with-glpk-lib=-lglpk
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -68,24 +91,26 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_install
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,osi_addlibs.txt}
-cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+cp -a doxydoc/{html,*.tag} README.md Osi/CHANGELOG %{buildroot}%{_docdir}/%{name}
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
-
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
-%{_docdir}/%{name}/README
+%{_docdir}/%{name}/README.md
 %{_libdir}/libOsi.so.1
 %{_libdir}/libOsi.so.1.*
 %{_libdir}/libOsiCommonTests.so.1
 %{_libdir}/libOsiCommonTests.so.1.*
 %{_libdir}/libOsiGlpk.so.1
 %{_libdir}/libOsiGlpk.so.1.*
+%ifnarch %{ix86}
+%{_libdir}/libOsiSpx.so.1
+%{_libdir}/libOsiSpx.so.1.*
+%endif
 
 %files		devel
 %{_includedir}/coin/*
@@ -95,12 +120,26 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/osi.pc
 %{_libdir}/pkgconfig/osi-glpk.pc
 %{_libdir}/pkgconfig/osi-unittests.pc
+%ifnarch %{ix86}
+%{_libdir}/libOsiSpx.so
+%{_libdir}/pkgconfig/osi-soplex.pc
+%endif
 
 %files		doc
+%{_docdir}/%{name}/CHANGELOG
 %{_docdir}/%{name}/html/
 %{_docdir}/%{name}/osi_doxy.tag
 
 %changelog
+* Tue Jan 30 2024 Jerry James <loganjerry@gmail.com> - 0.108.9-1
+- Version 0.108.9
+- Update the License from EPL-1.0 to EPL-2.0 AND EPL-1.0
+- Verify the license is valid SPDX
+- Enable the SoPlex interface, except on 32-bit x86
+- Define NDEBUG when building to exclude assertions
+- Add upstream patch to remove the register storage class specifier
+- Add upstream patch to fix reading objective offset from lp files
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.108.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

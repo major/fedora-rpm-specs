@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -169,6 +169,13 @@ rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 
 
 %changelog
+* Fri Feb 23 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.6.4-1
+- Update to 1.6.4
+- Drop backported patches
+
+* Fri Feb 23 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.6.3-2
+- Backport patches to fix the build
+
 * Tue Feb 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.6.3-1
 - Update to 1.6.3
 

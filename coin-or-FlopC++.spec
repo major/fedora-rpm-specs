@@ -3,15 +3,18 @@
 Name:		coin-or-%{module}
 Summary:	Algebraic modeling language
 Version:	1.2.5
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	EPL-1.0
-URL:		https://projects.coin-or.org/%{module}
+URL:		https://projects.coin-or.org/FlopCpp
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
 BuildRequires:	coin-or-Cbc-devel
 BuildRequires:	coin-or-Cbc-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	make
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
@@ -99,6 +102,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/flopcpp_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.2.5-14
+- Stop building for 32-bit x86
+- Verify the License field is valid SPDX
+- Correct the project URL
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

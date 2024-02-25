@@ -3,9 +3,9 @@
 Name:		coin-or-%{module}
 Summary:	Implementation of the dynamic simplex algorithm
 Version:	1.10.4
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	EPL-1.0
-URL:		http://projects.coin-or.org/%{module}
+URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
 BuildRequires:	coin-or-Data-Netlib
 BuildRequires:	coin-or-Osi-devel
@@ -21,7 +21,14 @@ Patch0:		%{name}-docdir.patch
 # Fix a sequence point error
 Patch1:		%{name}-seqpoint.patch
 
-Patch2:		coin-or-DyLP-configure-c99.patch
+# Avoid use of implicit function declarations in the configure script
+Patch2:		%{name}-configure-c99.patch
+
+# Check for isfinite() first before the deprecated finite() function
+Patch3:		%{name}-isfinite.patch
+
+# Do not provide incorrect isfinite and isnan macros
+Patch4:		%{name}-math-macros.patch
 
 %description
 DyLP is an implementation of the dynamic simplex algorithm. Briefly, dynamic
@@ -85,8 +92,6 @@ cp -p src/Dylp/dy_errmsgs.txt %{buildroot}%{_datadir}/coin
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test DYLP_ERRMSGDIR=$PWD/src/Dylp/
 
-%ldconfig_scriptlets
-
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
@@ -110,6 +115,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test DYLP_ERRMSGDIR=$PWD/src/Dylp/
 %{_docdir}/%{name}/dylp_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.10.4-14
+- Fix detection and use of the isfinite macro
+- Do not provide incorrect isfinite and isnan macros
+- Minor spec file cleanups
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

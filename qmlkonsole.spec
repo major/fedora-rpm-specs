@@ -1,6 +1,6 @@
 Name:           qmlkonsole
-Version:        24.01.95
-Release:        2%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Terminal app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/qmlkonsole
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/config.kcfg/terminalsettings.kcfg
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 24.01.95-2
 - Rebuilt for abseil-cpp-20240116.0
 

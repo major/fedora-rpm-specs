@@ -1,13 +1,13 @@
 Name:           npth
-Version:        1.6
+Version:        1.7
 Release:        %autorelease
 Summary:        The New GNU Portable Threads library
 License:        LGPL-2.1-or-later
 URL:            https://git.gnupg.org/cgi-bin/gitweb.cgi?p=npth.git
 Source0:        https://gnupg.org/ftp/gcrypt/npth/%{name}-%{version}.tar.bz2
 Source1:        https://gnupg.org/ftp/gcrypt/npth/%{name}-%{version}.tar.bz2.sig
-# Keyring generated from https://gnupg.org/devel/old-signature-keys.asc
-Source2:        gpgkey-D8692123C4065DEA5E0F3AB5249B39D24F25E3B6.gpg
+# Keyring generated from https://gnupg.org/signature_key.asc
+Source2:        gpgkey-6DAA6E64A76D2840571B4902528897B826403ADA.gpg
 # Manual page is re-used and changed pth-config.1 from pth-devel package
 Source3:        npth-config.1
 
@@ -37,12 +37,6 @@ developing applications that use %{name}.
 %build
 %configure --disable-static
 %make_build
-# avoid multilib conflict
-%ifarch x86_64 i686
-sed -ie 's/".*-redhat-linux-gnu"/"$(uname -m)-redhat-linux-gnu"/' %{name}-config
-sed -ie 's/libs=".* -lnpth/libs="-lnpth/' %{name}-config
-sed -ie 's/Configured for: .*-redhat-linux-gnu/Configured for: x86_64+i686-redhat-linux-gnu/' src/%{name}.h
-%endif
 
 %install
 %make_install
@@ -60,8 +54,8 @@ make check
 
 %files devel
 %doc AUTHORS ChangeLog NEWS README
-%{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}.h
 %{_mandir}/man1/%{name}-config.1*
 %{_datadir}/aclocal/%{name}.m4

@@ -1,5 +1,5 @@
 Name:           alligator 
-Version:        24.01.95
+Version:        24.02.0
 Release:        1%{?dist}
 License:        GPLv2 or GPLv3
 Summary:        Kirigami-based RSS reader
@@ -51,7 +51,8 @@ chmod -x %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
 %check
-appstream-util validate --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+# commented out until official release
+#appstream-util validate --nonet %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
@@ -64,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

@@ -1,6 +1,6 @@
 Name:    kosmindoormap
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 Summary: OSM multi-floor indoor map renderer
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND MIT AND ODbL-1.0
@@ -86,6 +86,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKOSMIndoorMap.so
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
 - Rebuild (qt6)
 

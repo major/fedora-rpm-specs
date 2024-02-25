@@ -7,8 +7,10 @@
 Summary:   Japanese Console for Linux Frame Buffer Device
 Name:      jfbterm
 Version:   0.4.7
-Release:   56%{?dist}
-License:   BSD
+Release:   57%{?dist}
+# COPYING		BSD-2-Clause
+# SPDX confirmed
+License:   BSD-2-Clause
 Source0:   http://downloads.sourceforge.jp/jfbterm/13501/jfbterm-%{version}.tar.gz
 Patch0:    jfbterm-0.4.6-conf.patch
 #Patch1:    jfbterm-0.4.6-Makefile.patch
@@ -26,7 +28,7 @@ Patch13:   jfbterm-0.4.7-pagemask_userspace.patch
 # (bug 698532)
 Patch15:   jfbterm-0.4.7-hang-on-utmp-refresh-with-invalid-utid.patch
 Patch16:   jfbterm-0.4.7-wrong-inline-gcc5.patch
-Patch17: jfbterm-configure-c99.patch
+Patch17:   jfbterm-configure-c99.patch
 
 URL:         http://jfbterm.sourceforge.jp/
 
@@ -65,19 +67,19 @@ Features:
 
 %prep
 %setup -q
-%patch0 -p1 -b .conf
-%patch1 -p1 -b .remove_sticky
-%patch5 -p1 -b .userspace
-%patch3 -p1 -b .infinite_loop
+%patch -P0 -p1 -b .conf
+%patch -P1 -p1 -b .remove_sticky
+%patch -P5 -p1 -b .userspace
+%patch -P3 -p1 -b .infinite_loop
 # ???
 #%%patch4 -p1 -b .conf_header
-%patch10 -p1 -b .remove_warn
-%patch11 -p1 -b .nmap_newkernel
-%patch12 -p1 -b .hang_onexit
-%patch13 -p1 -b .pagemask
-%patch15 -p1 -b .utid_with_refresh
-%patch16 -p1 -b .inline_gcc5
-%patch17 -p1
+%patch -P10 -p1 -b .remove_warn
+%patch -P11 -p1 -b .nmap_newkernel
+%patch -P12 -p1 -b .hang_onexit
+%patch -P13 -p1 -b .pagemask
+%patch -P15 -p1 -b .utid_with_refresh
+%patch -P16 -p1 -b .inline_gcc5
+%patch -P17 -p1
 
 #autoconf
 touch Makefile.in aclocal.m4 config.h.in configure stamp-h.in
@@ -182,7 +184,11 @@ iconv -f EUCJP -t UTF8 README.ja.orig > README.ja && \
 %{__rm} -rf %{buildroot}%{_datadir}/terminfo/
 
 %files
-%doc AUTHORS COPYING ChangeLog NEWS README*
+%doc AUTHORS
+%license COPYING
+%doc ChangeLog
+%doc NEWS
+%doc README*
 %doc jfbterm.termcap
 %{_bindir}/jfbterm
 %config(noreplace) %{_sysconfdir}/jfbterm.conf
@@ -193,6 +199,9 @@ iconv -f EUCJP -t UTF8 README.ja.orig > README.ja && \
 %{_mandir}/man5/jfbterm.conf.5*
 
 %changelog
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.7-57
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

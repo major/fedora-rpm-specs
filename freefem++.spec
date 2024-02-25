@@ -5,16 +5,8 @@
 %bcond_without serial
 
 # Allow disabling building with/against openmpi
-%if 0%{?fedora} >= 40
-%ifarch %{ix86}
-%bcond_with openmpi
-%else
 # Build with --without openmpi to not build openmpi
 %bcond_without openmpi
-%endif
-%else
-%bcond_without openmpi
-%endif
 
 # Allow disabling building with/against mpich
 # Build with --without openmpi to not build mpich
@@ -33,7 +25,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -108,6 +100,9 @@ Source6: https://www.ljll.math.upmc.fr/frey/ftp/archives/mshmet.2012.04.25.tgz
 Source7: http://mumps.enseeiht.fr/MUMPS_5.5.1.tar.gz
 
 License: LGPL-3.0-or-later
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 # for 3rdparty/getall
 BuildRequires: perl(strict) perl(Getopt::Std) perl(Digest::MD5)
@@ -458,6 +453,10 @@ done
 %endif
 
 %changelog
+* Thu Feb  8 2024 Jerry James <loganjerry@gmail.com> - 4.14-7
+- Rebuild for coin-or-Ipopt 3.14.14
+- Stop building for i686
+
 * Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 4.14-6
 - Rebuild with suitesparse 7.6.0
 

@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit c3b48ea39ab358b45048e300deafaa3f569748ad}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-applets
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        10%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.9%{?git_rel}%{?dist}
 %endif
@@ -29,9 +29,6 @@ URL:            http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# fix build with gcc14
-Patch1:        mate-applets_0001-command-fix-Wincompatible-pointer-types-warning-1.26.patch
-
 BuildRequires: gucharmap-devel
 BuildRequires: libgtop2-devel
 BuildRequires: libmateweather-devel
@@ -43,13 +40,14 @@ BuildRequires: libwnck3-devel
 BuildRequires: libxml2-devel
 BuildRequires: make
 BuildRequires: mate-common
+BuildRequires: mate-desktop-devel
 BuildRequires: mate-settings-daemon-devel
 BuildRequires: mate-notification-daemon
 BuildRequires: mate-panel-devel
 BuildRequires: polkit-devel
 BuildRequires: startup-notification-devel
 Buildrequires: upower-devel
-Buildrequires: gtksourceview3-devel
+Buildrequires: gtksourceview4-devel
 %ifnarch s390 s390x sparc64
 BuildRequires: kernel-tools-libs-devel
 %endif
@@ -60,7 +58,6 @@ ExcludeArch: i386 i686
 Provides:   mate-netspeed%{?_isa} = %{version}-%{release}
 Provides:   mate-netspeed = %{version}-%{release}
 Obsoletes:  mate-netspeed < %{version}-%{release}
-
 
 %description
 MATE Desktop panel applets
@@ -88,7 +85,8 @@ NOCONFIGURE=1 ./autogen.sh
     --enable-ipv6                            \
     --enable-stickynotes                     \
     --libexecdir=%{_libexecdir}/mate-applets \
-    --with-dbus-sys=%{_datadir}/dbus-1/system.d
+    --with-dbus-sys=%{_datadir}/dbus-1/system.d \
+    --enable-in-process
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2241946
 # fix linking gtksourceview
@@ -105,24 +103,25 @@ make %{?_smp_mflags} V=1
 %files -f %{name}.lang
 %doc AUTHORS COPYING README
 %{_bindir}/mate-cpufreq-selector
-%{_libexecdir}/mate-applets
+%{_libdir}/mate-applets
+#%%{_libexecdir}/mate-applets
 %config(noreplace) %{_sysconfdir}/sound/events/mate-battstat_applet.soundlist
 %{_datadir}/dbus-1/system.d/org.mate.CPUFreqSelector.conf
 %{_datadir}/mate-applets
 %{_datadir}/mate-panel/applets
-%{_datadir}/dbus-1/services/org.mate.panel.applet.CommandAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.TimerAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.AccessxStatusAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.BattstatAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.CharpickerAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.DriveMountAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.GeyesAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.StickyNotesAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.TrashAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.MateWeatherAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.MultiLoadAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.NetspeedAppletFactory.service
-%{_datadir}/dbus-1/services/org.mate.panel.applet.CPUFreqAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.CommandAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.TimerAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.AccessxStatusAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.BattstatAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.CharpickerAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.DriveMountAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.GeyesAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.StickyNotesAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.TrashAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.MateWeatherAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.MultiLoadAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.NetspeedAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.CPUFreqAppletFactory.service
 %{_datadir}/dbus-1/system-services/org.mate.CPUFreqSelector.service
 %{_datadir}/glib-2.0/schemas/org.mate.panel.applet.battstat.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.mate.panel.applet.charpick.gschema.xml
@@ -144,6 +143,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-10
 - rebuild to fix rhbz (2262518)
 

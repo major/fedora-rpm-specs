@@ -5,8 +5,8 @@
 %bcond vendored_adblock 1
 
 Name:    kdepim-addons
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
 # MIT
@@ -218,6 +218,9 @@ popd
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Mon Feb 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 24.01.95-2
 - Enable adblock
 

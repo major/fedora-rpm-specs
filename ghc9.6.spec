@@ -46,8 +46,8 @@
 %else
 %global llvm_major 14
 %endif
-%global ghc_llvm_archs armv7hl s390x
-%global ghc_unregisterized_arches s390 %{mips} riscv64
+%global ghc_llvm_archs armv7hl s390x riscv64
+%global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
 Version: 9.6.4
@@ -55,7 +55,7 @@ Version: 9.6.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -103,6 +103,18 @@ Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
 Patch30: https://src.opensuse.org/rpm/ghc/raw/branch/factory/sphinx7.patch
+
+# RISCV64 added to Cabal
+# See: https://github.com/haskell/cabal/pull/9062
+Patch40: cabal-add-riscv64.patch
+
+# Enable GHCi support on riscv64
+# Upstream in >= 9.9.
+Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
+
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/SKVM4NSFZRWUT5MJKBS6IRUXCG3SCD34/
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12079
+Patch42: ghc-modern-c-fix.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -403,7 +415,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P13 -p1 -b .orig
 %endif
 
-%ifarch %{ghc_unregisterized_arches}
+%ifarch %{ghc_unregisterized_arches} riscv64
 %patch -P16 -p1 -b .orig
 %endif
 # remove if epel9 ghc using llvm
@@ -423,6 +435,15 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P30 -p1 -b .orig
 %endif
 
+%ifarch riscv64
+#RISCV64 cabal support
+%patch -P40 -p1 -b .orig
+#GHCi support
+%patch -P41 -p1 -b .orig
+%endif
+
+#Modern C fix
+%patch -P42 -p1 -b .orig
 
 %build
 # patch5 and patch12
@@ -434,7 +455,9 @@ export CC=%{_bindir}/gcc
 # /usr/bin/debugedit: Cannot handle 8-byte build ID
 # https://bugzilla.redhat.com/show_bug.cgi?id=2116508
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
+%ifnarch riscv64
 export LD=%{_bindir}/ld.gold
+%endif
 
 export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
 
@@ -829,6 +852,9 @@ make test
 
 
 %changelog
+* Thu Feb 15 2024 Richard W.M. Jones <rjones@redhat.com> - 9.6.4-17
+- Fix generated C for Modern C Initiative
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

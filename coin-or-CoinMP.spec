@@ -3,18 +3,23 @@
 Name:		coin-or-%{module}
 Summary:	C-API interface to CLP, CBC and CGL
 Version:	1.8.4
-Release:	13%{?dist}
-License:	CPL
-URL:		http://projects.coin-or.org/%{module}
+Release:	14%{?dist}
+License:	CPL-1.0
+URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
 BuildRequires:	coin-or-Cbc-devel
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	make
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
-Patch1: coin-or-CoinMP-configure-c99.patch
+
+# Fix Modern C issues in the configure script
+Patch1:		%{name}-configure-c99.patch
 
 %description
 CoinMP is a C-API library that supports most of the functionality of CLP
@@ -39,6 +44,7 @@ for file in README AUTHORS examples/example.c LICENSE; do
 done
 
 %build
+export CPPFLAGS='-DNDEBUG'
 %configure
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -76,6 +82,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/coinmp.pc
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.8.4-14
+- Stop building for 32-bit x86
+- Convert License tag to SPDX
+- Build with NDEBUG
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

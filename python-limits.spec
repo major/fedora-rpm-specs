@@ -40,7 +40,7 @@ This package is a python library to perform rate limiting with commonly used
 storage backends (Redis, Memcached, MongoDB & Etcd).}
 
 Name:           python-%{pypi_name}
-Version:        3.7.0
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Rate limiting utilities
 %global tag %{version}
@@ -149,6 +149,9 @@ sed -r -i '/^[[:blank:]]*-K[[:blank:]]*/d' pytest.ini
 %if %{without benchmark}
 sed -i '/pytest-benchmark/d' requirements/test.txt
 %endif
+
+# Unpin pytest-asyncio
+sed -r -i 's/^(pytest-asyncio).*$/\1/' requirements/test.txt
 
 # filterwarnings = error is too strict for distribution packaging
 # Thanks @music!

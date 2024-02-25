@@ -10,10 +10,14 @@
 Name:		coin-or-%{module}
 Summary:	Decomposition for Integer Programming
 Version:	0.95.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
 Source0:	https://github.com/coin-or/%{module}/archive/releases/%{version}/%{module}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	coin-or-Alps-doc
 BuildRequires:	coin-or-Cbc-doc
 %if %{with_mpi}
@@ -25,7 +29,7 @@ BuildRequires:	doxygen-latex
 BuildRequires:	gcc-c++
 BuildRequires:	make
 %if %{with_asl}
-BuildRequires:	mp-devel
+BuildRequires:	asl-devel
 %endif
 %if %{with_mpi}
 BuildRequires:	pkgconfig(ompi)
@@ -49,7 +53,9 @@ Patch1:		%{name}-svnversion.patch
 
 # Fix a BibTeX commenting issue in the guide
 Patch2:		%{name}-bib.patch
-Patch3: coin-or-Dip-configure-c99.patch
+
+# Fix Modern C issues in the configure script
+Patch3:		%{name}-configure-c99.patch
 
 %description
 DIP (Decomposition for Integer Programming) is an open-source extensible
@@ -104,7 +110,7 @@ sed -i 's/ @DIPLIB_PCLIBS@/\nLibs.private:&/' Dip/dip.pc.in
 %endif
 %configure --enable-openmp	\
 %if %{with_asl}
-	--with-asl-lib="-lasl -lmp -lipoptamplinterface -lbonminampl" \
+	--with-asl-lib="-lasl -lipoptamplinterface -lbonminampl" \
 	--with-asl-incdir="%{_includedir}/asl"
 %endif
 
@@ -158,6 +164,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/dippy.pdf
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.95.0-13
+- Build with asl instead of mp
+- Verify that License is valid SPDX
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -179,7 +190,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org - 0.95.0-5
+* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 0.95.0-5
 - Rebuilt for Ipopt-3.14.4
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.0-4

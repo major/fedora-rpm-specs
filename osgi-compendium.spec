@@ -2,7 +2,7 @@
 
 Name:           osgi-compendium
 Version:        7.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Interfaces and Classes for use in compiling OSGi bundles
 License:        Apache-2.0
 URL:            http://www.osgi.org
@@ -90,6 +90,9 @@ rm -r src/main/java/org/osgi/service/transaction/control/jpa
 
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 7.0.0-19
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

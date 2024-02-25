@@ -2,13 +2,14 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
-Version:        2.3.1
-Release:        8%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
 URL:            https://realworldocaml.github.io/mdx/
-Source0:        https://github.com/realworldocaml/mdx/releases/download/%{version}/mdx-%{version}.tbz
+VCS:            https://github.com/realworldocaml/mdx
+Source0:        %{vcs}/releases/download/%{version}/mdx-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-alcotest-devel
@@ -82,6 +83,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+
 * Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 2.3.1-8
 - Rebuild for changed ocamlx hashes
 

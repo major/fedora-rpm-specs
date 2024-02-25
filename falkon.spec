@@ -2,8 +2,8 @@
 %bcond_with python
 
 Name:           falkon
-Version:        24.01.95
-Release:        2%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -178,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
 - Rebuild (qt6)
 

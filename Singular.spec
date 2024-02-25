@@ -1,7 +1,7 @@
 %global singulardir	%{_libdir}/Singular
-%global upstreamver	4-3-1
+%global upstreamver	4-3-2
 %global downstreamver	%(tr - . <<< %{upstreamver})
-%global patchver	p1
+%global patchver	p8
 
 %bcond_with python
 
@@ -14,9 +14,21 @@
 # of Singular cannot be installed.
 %bcond_with bootstrap
 
+# Starting with the 4.3.1p3 release, doc building has become problematic.  The
+# s390x build usually fails: while building the examples, Singular eventually
+# attempts to fork, gets back ENOMEM, and then doesn't handle the failure well.
+# The result is that the build stalls.  To avoid all this, we only build docs
+# for aarch64, x86_64, and ppc64le.  If you really need docs for s390x, help me
+# figure out how to avoid the problem described above.
+%ifarch %{arm64} x86_64 %{power64}
+%bcond_without docs
+%else
+%bcond_with docs
+%endif
+
 Name:		Singular
 Version:	%{downstreamver}%{?patchver}
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Computer Algebra System for polynomial computations
 # License analysis:
 # - The project as a whole is GPL-2.0-only OR GPL-3.0-only
@@ -38,6 +50,7 @@ BuildRequires:	boost-devel
 %if %{with python}
 BuildRequires:	boost-python2-devel
 %endif
+BuildRequires:	ccluster-devel
 BuildRequires:	cddlib-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
@@ -55,6 +68,7 @@ BuildRequires:	javapackages-tools
 %endif
 BuildRequires:	libgfan-devel
 BuildRequires:	libnormaliz-devel
+BuildRequires:	libspasm-devel
 BuildRequires:	libtool
 BuildRequires:	lrcalc
 BuildRequires:	make
@@ -93,9 +107,12 @@ Provides:       Singular-polymake = %{version}-%{release}
 # This can be removed when F41 reaches EOL
 Obsoletes:      Singular-surfex < 4.3.1-1
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # Support S390(x) architectures
 Patch0:		%{name}-arches.patch
-# Fix both underlinking and overlinking
+# Fix overlinking
 Patch1:		%{name}-link.patch
 # Fix the desktop files
 Patch2:		%{name}-desktop.patch
@@ -107,23 +124,24 @@ Patch4:		%{name}-format.patch
 Patch5:		%{name}-parens.patch
 # Unbundle gfanlib
 Patch6:		%{name}-gfanlib.patch
-# Fix code that violates the strict aliasing rules
-Patch7:		%{name}-alias.patch
 # Let ESingular read a compressed singular.info file
-Patch8:		%{name}-emacs.patch
+Patch7:		%{name}-emacs.patch
 # Fix a sequence point error
-Patch9:		%{name}-sequence-point.patch
+# https://github.com/Singular/Singular/pull/1200
+Patch8:		%{name}-sequence-point.patch
 # Avoid an unnecessary array comparison
-Patch10:	%{name}-array-compare.patch
+Patch9:		%{name}-array-compare.patch
 # Fix several "use after free" scenarios due to temporary objects
-Patch11:	%{name}-use-after-free.patch
+# https://github.com/Singular/Singular/pull/1201
+Patch10:	%{name}-use-after-free.patch
 # Fix mismatched type declarations
-Patch12:	%{name}-type-mismatch.patch
+Patch11:	%{name}-type-mismatch.patch
 # Change little-endian-specific code to endian-agnostic code
-Patch13:	%{name}-endian.patch
+Patch12:	%{name}-endian.patch
 # Disable examples that use the network to avoid hangs on the koji builders
-Patch14:	%{name}-doc-hang.patch
-Patch15: Singular-c99.patch
+Patch13:	%{name}-doc-hang.patch
+# Fix an off-by-one error in polymake.lib that leads to failed examples
+Patch14:	%{name}-polymake-lib.patch
 
 %description
 Singular is a computer algebra system for polynomial computations, with
@@ -219,6 +237,9 @@ sed -ri 's/(lboost_python)-\$\{PYTHON_VERSION\}/\1%{python2_version_nodots}/' \
 # Do not force the use of c++11, since the polymake code requires c++14
 sed -i 's/-std=c++11//' m4/ntl-check.m4
 
+# Do not add an rpath for ccluster
+sed -i 's@ -Wl,-rpath,\${CCLUSTER_HOME}/lib@@' m4/ccluster-check.m4
+
 # Regenerate configure due to patches 0, 1, and 6
 autoreconf -fi
 
@@ -227,7 +248,7 @@ sed -i '/countedref\.cc/s/\$(CXXFLAGS)/& -fno-strict-aliasing/g' Singular/Makefi
 
 
 %build
-export CPPFLAGS='-I%{_includedir}/flint -I%{_includedir}/gfanlib'
+export CPPFLAGS='-I%{_includedir}/arb -I%{_includedir}/flint -I%{_includedir}/gfanlib'
 %if %{with python}
 pyincdir=$(python2 -Esc "import sysconfig; print(sysconfig.get_paths()['include'])")
 CPPFLAGS="$CPPFLAGS -I$pyincdir"
@@ -248,16 +269,13 @@ module load lrcalc-%{_arch}
 	--enable-bigintm-module \
 	--enable-gfanlib-module \
 	--enable-Order-module \
-%if %{with polymake}
 	--enable-polymake-module \
-%else
-	--disable-polymake-module \
-%endif
 %if %{with python}
 	--enable-python-module \
 %else
 	--disable-python-module \
 %endif
+	--enable-sispasm-module \
 	--enable-streamio \
 	--with-gmp \
 	--with-ntl \
@@ -269,14 +287,13 @@ module load lrcalc-%{_arch}
 	--without-python \
 %endif
 	--with-readline \
-	--enable-doc \
+%if %{with docs}
+	--enable-doc-build \
+%endif
 	--with-malloc=system
 
 %make_build
 %make_build -C dox html
-%make_build -C Singular libparse
-make -C doc -j1 -f Makefile-docbuild singular.idx
-make -C doc -j1 all-local
 
 
 %install
@@ -314,9 +331,11 @@ mkdir -p %{buildroot}%{_mandir}/man1
 for cmd in ESingular Singular TSingular; do
   cp -p Singular/$cmd.man %{buildroot}%{_mandir}/man1/$cmd.1
 done
+%if %{with docs}
 cp -a doc/{html,singular.idx} %{buildroot}%{_datadir}/singular
 mkdir -p %{buildroot}%{_infodir}
 cp -p doc/singular.info %{buildroot}%{_infodir}
+%endif
 
 # remove script that calls surf; we don't ship it
 rm -f %{buildroot}%{singulardir}/singularsurf
@@ -368,7 +387,6 @@ make check
 %doc README.md
 %{_bindir}/Singular
 %{_bindir}/TSingular
-%{_infodir}/singular.info*
 %{_mandir}/man1/Singular.1*
 %{_mandir}/man1/TSingular.1*
 %{_datadir}/applications/Singular.desktop
@@ -376,8 +394,12 @@ make check
 %{_datadir}/ml_python/
 %{_datadir}/ml_singular/
 %{_datadir}/singular/singular.idx
+%{_infodir}/singular.info*
+%if %{with docs}
 %docdir %{_datadir}/singular/html/
 %{_datadir}/singular/html/
+%{singulardir}/libparse
+%endif
 %dir %{singulardir}
 %{singulardir}/Singular
 %{singulardir}/TSingular
@@ -458,6 +480,13 @@ make check
 
 
 %changelog
+* Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 4.3.2p8-1
+- Version 4.3.2p8
+- Drop upstreamed -alias and -c99 patches
+- Stop building for 32-bit x86
+- Build with ccluster and spasm support
+- Build docs only on x86_64 and ppc64le architectures
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1p1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

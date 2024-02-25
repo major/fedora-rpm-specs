@@ -3,7 +3,7 @@
 Name:           maven-resolver
 Epoch:          1
 Version:        1.9.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -120,6 +120,9 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.9.18-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.18-1
 - Update to upstream version 1.9.18
 

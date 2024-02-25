@@ -3,7 +3,7 @@
 Name:           sisu
 Epoch:          1
 Version:        0.3.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Eclipse dependency injection framework
 # sisu is EPL-1.0, the bundled asm is BSD
 License:        EPL-1.0 AND BSD-3-Clause
@@ -88,6 +88,9 @@ cp %{SOURCE102} sisu-plexus/pom.xml
 %license sisu-inject/LICENSE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1:0.3.5-12
+- bump of release for for java-21-openjdk as system jdk
+
 * Sat Feb 03 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:0.3.5-11
 - Add plexus-container-default alias
 

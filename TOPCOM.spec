@@ -1,6 +1,6 @@
 Name:           TOPCOM
-Version:        0.17.10
-Release:        6%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -8,16 +8,26 @@ Summary:        Triangulations Of Point Configurations and Oriented Matroids
 License:        GPL-2.0-or-later
 URL:            https://www.wm.uni-bayreuth.de/de/team/rambau_joerg/TOPCOM/
 Source0:        https://www.wm.uni-bayreuth.de/de/team/rambau_joerg/TOPCOM-Downloads/%{name}-%{upver}.tgz
-# Man pages, written by Jerry James using text from the sources.  Therefore,
-# these man pages have the same copyright and license as the sources.
-Source1:        %{name}-man.tar.xz
 # A replacement Makefile.  See the %%build section for more information.
-Source2:        %{name}-Makefile
+Source1:        %{name}-Makefile
+# Remove a pessimizing call to std::move
+Patch0:         %{name}-pessimizing-move.patch
+# Add virtual destructors where needed
+Patch1:         %{name}-virtual-destructor.patch
 
-BuildRequires:  cddlib-devel
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+BuildRequires:  boost-devel
 BuildRequires:  gcc-c++
-BuildRequires:  gmp-devel
+BuildRequires:  libsoplex-devel
 BuildRequires:  make
+BuildRequires:  pkgconfig(cddlib)
+BuildRequires:  pkgconfig(gmp)
+BuildRequires:  pkgconfig(mpfr)
+BuildRequires:  pkgconfig(tbb)
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  qsopt-ex-devel
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %global topcom_major %(cut -d. -f1 <<< %{version})
@@ -34,6 +44,7 @@ Summary:        Header files needed to build with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       cddlib-devel%{?_isa}
 Requires:       gmp-devel%{?_isa}
+Requires:       qsopt-ex-devel%{?_isa}
 
 %description devel
 Header files needed to build applications that use the %{name} library.
@@ -53,8 +64,7 @@ BuildArch:      noarch
 Example input and output files for TOPCOM.
 
 %prep
-%setup -q -n topcom-%{version}
-%setup -q -n topcom-%{version} -T -D -a 1
+%autosetup -n topcom-%{version} -p1
 
 # Fix character encoding
 iconv -f iso8859-1 -t utf8 -o README.utf8 README
@@ -69,29 +79,29 @@ sed "s|// \(q\.canonicalize\)|\1|" %{_includedir}/gmpxx.h > \
 %build
 # We cannot use upstream's build system.  It has the following problems.
 # (1) It builds two static libraries, libTOPCOM.a and libCHECKREG.a, then
-#     includes both libraries in each of the 38 binaries that it installs in
+#     includes both libraries in each of the 60 binaries that it installs in
 #     %%{_bindir}.
 # (2) Each of libTOPCOM.a and libCHECKREG.a refers to symbols defined by the
 #     other.
-# (3) It builds static gmp and cddlib libraries, which are also linked into
+# (3) It builds static cddlib and qsopt_ex libraries, which are also linked into
 #     all of the constructed binaries.  There is no way to make it use the
 #     installed versions of those libraries instead.
 # We could fix (3) with a little build system hackery.  We could fix (1) by
 # building shared libraries, but that doesn't help with (2).  Instead, we pull
 # in our own evilly constructed Makefile to build a single shared library
 # containing all of the object files in both libTOPCOM.a and libCHECKREG.a,
-# and link the binaries against that and the system gmp and cddlib libraries.
+# and link the binaries against that and the system cddlib and qsopt_ex
+# libraries.
 sed -e 's|@RPM_OPT_FLAGS@|%{build_cxxflags}|' \
     -e 's|@RPM_LD_FLAGS@|%{build_ldflags}|' \
     -e 's|@bindir@|%{_bindir}|' \
     -e 's|@libdir@|%{_libdir}|' \
-    -e 's|@mandir@|%{_mandir}|' \
     -e 's|@includedir@|%{_includedir}|' \
     -e 's|@version@|%{version}|' \
     -e 's|@major@|%{topcom_major}|' \
     -e 's|@minor@|%{topcom_minor}|' \
     -e 's|#version#|@version@|' \
-    %{SOURCE2} > Makefile
+    %{SOURCE1} > Makefile
 %make_build
 
 %install
@@ -102,29 +112,32 @@ rm -f examples/Makefile*
 
 # Rename binaries with common names
 for bin in cross cube cyclic hypersimplex lattice; do
-  mv $RPM_BUILD_ROOT%{_bindir}/$bin $RPM_BUILD_ROOT%{_bindir}/TOPCOM-$bin
+  mv %{buildroot}%{_bindir}/$bin %{buildroot}%{_bindir}/TOPCOM-$bin
 done
+
+# Do not package the check executable
+rm %{buildroot}%{_bindir}/check
+
+%check
+LD_LIBRARY_PATH=$PWD src/check
 
 %files
 %{_bindir}/B_A
 %{_bindir}/B_A_center
 %{_bindir}/B_D
+%{_bindir}/B_D_center
+%{_bindir}/B_S
+%{_bindir}/B_S_center
 %{_bindir}/TOPCOM*
+%{_bindir}/binomial
 %{_bindir}/checkregularity
 %{_bindir}/chiro2*
 %{_bindir}/cocircuits2facets
+%{_bindir}/Dnxk
+%{_bindir}/kDn
+%{_bindir}/permutahedron
 %{_bindir}/points2*
 %{_bindir}/santos_*
-%{_mandir}/man1/B_A.1*
-%{_mandir}/man1/B_A_center.1*
-%{_mandir}/man1/B_D.1*
-%{_mandir}/man1/TOPCOM*
-%{_mandir}/man1/checkregularity.1*
-%{_mandir}/man1/chiro2*
-%{_mandir}/man1/cocircuits2facets.1*
-%{_mandir}/man1/points2*
-%{_mandir}/man1/santos_*
-%{_mandir}/man7/TOPCOM.7*
 
 %files devel
 %{_includedir}/%{name}/
@@ -133,12 +146,18 @@ done
 %files libs
 %doc AUTHORS ChangeLog README
 %license COPYING
-%{_libdir}/libTOPCOM.so.0*
+%{_libdir}/libTOPCOM.so.1*
 
 %files examples
 %doc examples
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 1.1.2-1
+- Version 1.1.2
+- Drop the custom man pages due to lack of ability to maintain them
+- Build with soplex support
+- Stop building for 32-bit x86
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

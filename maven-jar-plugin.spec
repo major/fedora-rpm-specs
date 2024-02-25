@@ -2,7 +2,7 @@
 
 Name:           maven-jar-plugin
 Version:        3.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Maven JAR Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-jar-plugin/
@@ -58,6 +58,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.0-5
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

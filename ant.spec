@@ -40,7 +40,7 @@
 
 Name:           ant
 Version:        1.10.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Java build tool
 Summary(it):    Tool per la compilazione di programmi java
 Summary(fr):    Outil de compilation pour java
@@ -657,6 +657,9 @@ LC_ALL=C.UTF-8 %{ant} test
 # -----------------------------------------------------------------------------
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.10.14-9
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 22 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.10.14-8
 - Drop explicit build-requires on java-devel
 

@@ -1,15 +1,11 @@
 Summary: Caja extension for customizing the context menu
 Name:    caja-actions
-Version: 1.26.0
-Release: 8%{?dist}
+Version: 1.28.0
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 
 URL: https://github.com/raveit65/%{name}
 Source0: https://github.com/raveit65/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# upstream 1.26 branch
-# https://github.com/mate-desktop/caja-actions/commit/04d965a
-Patch1: caja-actions_0002-na-selected-info-fix-memory-leak.patch
 
 BuildRequires: caja-devel
 BuildRequires: dblatex
@@ -106,6 +102,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/cact.desktop
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 # git archive --format=tar --prefix=%{name}-%{version}/ %{version} | xz > ~/%{name}-%{version}.tar.xz
 
 Name:		arm-image-installer
-Version:	4.0
+Version:	4.1
 Release:	1%{?dist}
 Summary:	Writes binary image files to any specified block device
 License:	GPLv2+
@@ -29,7 +29,7 @@ destination block device should then be selected for final installation.
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 echo "skipping..."
@@ -59,6 +59,9 @@ ln -s /usr/bin/arm-image-installer %{buildroot}%{_bindir}/fedora-arm-image-insta
 %{_datadir}/arm-image-installer/
 
 %changelog
+* Fri Feb 23 2024 Paul Whalen <pwhalen@fedoraproject.org> - 4.1-1
+- limit lvm commands (bz#2265422)
+
 * Thu Feb 22 2024 Paul Whalen <pwhalen@fedoraproject.org> - 4.0-1
 - update to 4.0
 

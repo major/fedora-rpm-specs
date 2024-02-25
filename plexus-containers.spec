@@ -2,7 +2,7 @@
 
 Name:           plexus-containers
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Containers for Plexus
 # Most of the files are either under Apache-2.0 or MIT
 # The following files are under xpp:
@@ -84,6 +84,9 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.2.0-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Sat Feb 03 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.2.0-1
 - Update to upstream version 2.2.0
 - Drop obsolete plexus-containers-container-default

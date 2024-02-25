@@ -3,9 +3,9 @@
 Name:		coin-or-%{module}
 Summary:	Branch-Cut-Price Framework
 Version:	1.4.4
-Release:	14%{?dist}
-License:	CPL
-URL:		http://projects.coin-or.org/%{module}
+Release:	15%{?dist}
+License:	CPL-1.0
+URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
 BuildRequires:	coin-or-Cgl-devel
 BuildRequires:	coin-or-Cgl-doc
@@ -15,6 +15,9 @@ BuildRequires:	coin-or-Vol-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	make
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
@@ -52,7 +55,7 @@ This package contains the documentation for %{name}.
 %autosetup -p1 -n %{module}-%{version}
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+export CXXFLAGS="-std=c++14 %{build_cxxflags}"
 %configure
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -73,8 +76,6 @@ cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 
-%ldconfig_scriptlets
-
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
@@ -93,6 +94,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/bcp_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.4.4-15
+- Rebuild for coin-or-Clp 1.17.9 and coin-or-Cgl 0.60.8
+- Convert License to SPDX
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

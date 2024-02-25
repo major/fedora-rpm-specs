@@ -2,11 +2,15 @@
 
 Name:		coin-or-%{module}
 Summary:	Part of the COIN High Performance Parallel Search Framework
-Version:	0.94.5
-Release:	13%{?dist}
+Version:	0.95.1
+Release:	1%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-BiCePS
 Source0:	https://github.com/coin-or/CHiPPS-BiCePS/archive/releases/%{version}/CHiPPS-%{module}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	coin-or-Alps-devel
 BuildRequires:	coin-or-Alps-doc
 BuildRequires:	coin-or-Cgl-devel
@@ -14,10 +18,6 @@ BuildRequires:	coin-or-CoinUtils-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	make
-
-# Install documentation in standard rpm directory
-Patch0:		%{name}-docdir.patch
-Patch1:		coin-or-Bcps-configure-c99.patch
 
 %description
 BiCePS is one of the libraries that make up the CHiPPS (COIN High Performance
@@ -64,37 +64,42 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 %make_build all
-%make_build -C Bcps doxydoc
+doxygen doxydoc/doxygen.conf
 
 %install
 %make_install
 rm -f %{buildroot}%{_libdir}/*.la
-rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,bcps_addlibs.txt}
-cp -a Bcps/doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+rm %{buildroot}%{_datadir}/doc/coin-or-bcps/LICENSE
+cp -a doxydoc/html bcps_doxy.tag %{buildroot}%{_datadir}/doc/coin-or-bcps
 
 %check
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
-
-%ldconfig_scriptlets
+make test
 
 %files
 %license LICENSE
-%dir %{_docdir}/%{name}
-%{_docdir}/%{name}/AUTHORS
-%{_docdir}/%{name}/README
-%{_libdir}/libBcps.so.0
-%{_libdir}/libBcps.so.0.*
+%dir %{_datadir}/doc/coin-or-bcps/
+%{_datadir}/doc/coin-or-bcps/AUTHORS
+%{_datadir}/doc/coin-or-bcps/README
+%{_datadir}/doc/coin-or-bcps/README.md
+%{_libdir}/libBcps.so.1
+%{_libdir}/libBcps.so.1.*
 
 %files		devel
-%{_includedir}/coin/*
+%{_includedir}/coin-or/
 %{_libdir}/libBcps.so
 %{_libdir}/pkgconfig/bcps.pc
 
 %files		doc
-%{_docdir}/%{name}/html
-%{_docdir}/%{name}/bcps_doxy.tag
+%{_datadir}/doc/coin-or-bcps/html/
+%{_datadir}/doc/coin-or-bcps/bcps_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.95.1-1
+- Version 0.95.1
+- Verify that License is valid SPDX
+- Drop all patches
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.94.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

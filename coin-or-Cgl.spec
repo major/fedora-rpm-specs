@@ -2,9 +2,12 @@
 
 Name:		coin-or-%{module}
 Summary:	Cut Generation Library
-Version:	0.60.3
-Release:	12%{?dist}
-License:	EPL-1.0
+Version:	0.60.8
+Release:	1%{?dist}
+
+# The project as a whole is licensed EPL-2.0.  However, many source files still
+# claim to be licensed EPL-1.0.  This is probably an upstream oversight.
+License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
 BuildRequires:	coin-or-CoinUtils-doc
@@ -20,7 +23,12 @@ Patch0:		%{name}-docdir.patch
 
 # Fix use of uninitialized variables
 Patch1:		%{name}-uninit.patch
-Patch2: coin-or-Cgl-configure-c99.patch
+
+# Avoid implicit function declarations in the configure script
+Patch2:		%{name}-configure-c99.patch
+
+# Soplex lets a macro named EPS leak into the global namespace
+Patch3:		%{name}-undef-EPS.patch
 
 %description
 The COIN-OR Cut Generation Library (Cgl) is a collection of cut generators
@@ -50,6 +58,7 @@ This package contains the documentation for %{name}.
 %autosetup -p1 -n %{module}-releases-%{version}
 
 %build
+export CPPFLAGS='-DNDEBUG'
 %configure
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -65,18 +74,16 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_install
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,cgl_addlibs.txt}
-cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+cp -a README.md doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
-
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
-%{_docdir}/%{name}/README
+%{_docdir}/%{name}/README.md
 %{_libdir}/libCgl.so.1
 %{_libdir}/libCgl.so.1.*
 
@@ -90,6 +97,13 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cgl_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.60.8-1
+- Version 0.60.8
+- Change License from EPL-1.0 to EPL-2.0 AND EPL-1.0
+- Verify that the license is valid SPDX
+- Avoid build failure due to SoPlex macro named EPS
+- Build with NDEBUG for efficiency of the generated code
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

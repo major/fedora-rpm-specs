@@ -1,5 +1,5 @@
 Name:           konversation
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary:        A user friendly IRC client
 
@@ -133,6 +133,9 @@ fi
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

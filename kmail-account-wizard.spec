@@ -1,7 +1,7 @@
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/pim/%{name}
@@ -69,19 +69,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.accountwi
 %files -f %{name}.lang
 %license LICENSES/*
 %{_bindir}/accountwizard
-%{_libdir}/libaccountwizard.so.*
-%{_kf6_datadir}/qlogging-categories6/accountwizard.*
-%{_kf6_qmldir}/org/kde/pim/accountwizard/
-#%{_kf6_datadir}/knsrcfiles/%{name}.knsrc
-#%{_kf6_bindir}/accountwizard
-#%{_kf6_bindir}/ispdb
-#%{_kf6_datadir}/akonadi/accountwizard/
 %{_kf6_datadir}/applications/org.kde.accountwizard.desktop
-#%{_kf6_datadir}/mime/packages/accountwizard-mime.xml
-#%{_qt6_plugindir}/accountwizard_plugin.so
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
 - Rebuild (qt6)
 

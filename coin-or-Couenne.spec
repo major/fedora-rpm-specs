@@ -6,10 +6,14 @@
 Name:		coin-or-%{module}
 Summary:	An exact solver for nonconvex MINLPs
 Version:	0.5.8
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	coin-or-Bonmin-doc
 BuildRequires:	coin-or-Cbc-doc
 BuildRequires:	doxygen
@@ -21,7 +25,7 @@ BuildRequires:	make
 BuildRequires:	pkgconfig(bonmin)
 BuildRequires:	pkgconfig(nauty)
 %if %{with_asl}
-BuildRequires:	mp-devel
+BuildRequires:	asl-devel
 %endif
 %if %{with_mpi}
 BuildRequires:	openmpi-devel
@@ -36,9 +40,10 @@ Patch0:		%{name}-docdir.patch
 Patch1:		%{name}-signed.patch
 
 # Fix comparison operator signature
-Patch2:         %{name}-gcc11.patch
+Patch2:		%{name}-gcc11.patch
 
-Patch3:         coin-or-Couenne-configure-c99.patch
+# Avoid implicit function declarations in the configure script
+Patch3:		%{name}-configure-c99.patch
 
 %description
 Couenne (Convex Over and Under ENvelopes for Nonlinear Estimation) is a
@@ -95,7 +100,7 @@ sed -i 's/ @COUENNELIB_PCLIBS@/\nLibs.private:&/' couenne.pc.in
 %configure	\
 %if %{with_asl}
 	--with-asl-incdir="%{_includedir}/asl" \
-	--with-asl-lib="-lasl -lmp -lipoptamplinterface -lbonminampl" \
+	--with-asl-lib="-lasl -lipoptamplinterface -lbonminampl" \
 %endif
 	--with-nauty-incdir="%{_includedir}/nauty" \
 	--with-nauty-lib="-lnauty"
@@ -151,6 +156,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/couenne_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.5.8-15
+- Build with asl instead of mp
+- Verify that License is valid SPDX
+- BR asl-devel instead of mp-devel
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -172,7 +183,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org - 0.5.8-7
+* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 0.5.8-7
 - Rebuilt for Ipopt-3.14.4
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8-6

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   6de9e229aa4cc7c3131ff855f3ead39581127090
+%global commit   fd89d67b1b9a17a6dd212be0c91d0417b440f60a
 %forgemeta
 
 # Allow AAC to be played directly in the client rather than
@@ -9,7 +9,7 @@
 
 
 Name:            squeezelite
-Version:         2.0.0.1464
+Version:         2.0.0.1468
 Release:         %autorelease
 Summary:         Headless music player for streaming from Logitech Media Server
 
@@ -34,6 +34,7 @@ BuildRequires:   flac-devel
 BuildRequires:   gcc
 BuildRequires:   libgpiod-devel >= 2
 BuildRequires:   libmad-devel
+BuildRequires:   libogg-devel
 BuildRequires:   libvorbis-devel
 BuildRequires:   lirc-devel
 BuildRequires:   mpg123-devel
@@ -61,12 +62,12 @@ used in place of dedicated Squeezebox network music playing hardware.
 %build
 %set_build_flags
 
-export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO -DRPI -DFFMPEG %{?!with_faad:-DNO_FAAD} -DUSE_SSL -DOPUS"
-%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-alsa
+export OPTS="-DDSD -DLINKALL -DRESAMPLE -DVISEXPORT -DIR -DGPIO -DRPI -DFFMPEG %{?!with_faad:-DNO_FAAD} -DUSE_LIBOGG -DUSE_SSL -DOPUS"
+%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/ogg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-alsa
 %make_build clean
 
 export OPTS="$OPTS -DPULSEAUDIO"
-%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-pulse
+%make_build CPPFLAGS+="-I%{_includedir}/ffmpeg" CPPFLAGS+="-I%{_includedir}/ogg" CPPFLAGS+="-I%{_includedir}/opus" EXECUTABLE=%{name}-pulse
 
 pandoc --to=man --standalone --output=%{name}.service.7 %{SOURCE3}
 

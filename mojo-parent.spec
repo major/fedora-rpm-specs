@@ -2,7 +2,7 @@
 
 Name:           mojo-parent
 Version:        78
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Codehaus MOJO parent project pom file
 License:        Apache-2.0
 URL:            https://www.mojohaus.org/mojo-parent/
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 78-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 78-1
 - Update to upstream version 78
 

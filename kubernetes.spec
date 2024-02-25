@@ -71,6 +71,7 @@ Patch3:         build-with-debug-info.patch
 
 # build requirements for kubelet
 BuildRequires: golang >= %{golangver}
+BuildRequires: go-rpm-macros
 BuildRequires: make
 BuildRequires: go-md2man
 BuildRequires: systemd
@@ -226,18 +227,30 @@ export KUBE_GIT_TREE_STATE="clean"
 export KUBE_GIT_VERSION=v%{version}
 export KUBE_EXTRA_GOPATH=$(pwd)/Godeps/_workspace
 
-# Use pie buildmode
-# export GOFLAGS="-buildmode=pie"
+# macro that executes make all for given cmd argument
+%define makecmd(o:) make all WHAT="cmd/%1" GOLDFLAGS="-B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') $GLINK"
+
+# go internal linker does not provide build ids; use
+# KUBE_CGO_OVERRIDES to force external linker; consistent
+# with Fedora go standards
+export KUBE_CGO_OVERRIDES="kube-proxy kubeadm kube-apiserver kube-controller-manager kubelet kube-scheduler kubectl"
+
+# Use settings from gobuild macro to populate GOFLAGS and
+# GOLDFLAGS - see Makefile (make help) for more information
+export GOFLAGS="-buildmode=pie -compiler=gc -tags=rpm_crashtraceback${BUILDTAGS:+,}${BUILDTAGS:-}"
+
+# define temporary linker options for use in GOLDFLAGS
+GLINK="-compressdwarf=false -linkmode=external -extldflags '%{build_ldflags}'"
 
 # Build each binary separately to generate a unique build-id.
 # Otherwise: Duplicate build-ids /builddir/build/BUILDROOT/.../usr/bin/kube-apiserver and /builddir/build/BUILDROOT/.../usr/bin/kubeadm
-make WHAT="cmd/kube-proxy"
-make WHAT="cmd/kube-apiserver"
-make WHAT="cmd/kube-controller-manager"
-make WHAT="cmd/kubelet"
-make WHAT="cmd/kubeadm"
-make WHAT="cmd/kube-scheduler"
-make WHAT="cmd/kubectl"
+%makecmd kube-proxy
+%makecmd kube-apiserver
+%makecmd kube-controller-manager
+%makecmd kubelet
+%makecmd kubeadm
+%makecmd kube-scheduler
+%makecmd kubectl
 
 # Gen docs
 make WHAT="cmd/gendocs"

@@ -6,7 +6,7 @@
 
 Name: fail2ban
 Version: 1.0.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -67,7 +67,11 @@ BuildRequires: sqlite
 BuildRequires: systemd
 BuildRequires: selinux-policy-devel
 BuildRequires: make
+%if 0%{?fedora} >= 41
+BuildRequires: bash-completion-devel
+%else
 BuildRequires: bash-completion
+%endif
 BuildRequires: gnupg2
 
 # Default components
@@ -121,7 +125,7 @@ Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
 Requires: %{name}-selinux
 %endif
 # see note above in BuildRequires section
-%if v"0%{?python3_version}" >= v"3.12"
+%if 0%{?fedora} > 38
 Requires: python3-pyasyncore
 Requires: python3-pyasynchat
 %endif
@@ -241,7 +245,7 @@ by default.
 %autosetup -p1
 # this test uses smtpd which is removed in Python 3.12, rewriting it
 # isn't trivial
-%if v"0%{?python3_version}" >= v"3.12"
+%if 0%{?fedora} > 38
 rm -f fail2ban/tests/action_d/test_smtp.py
 %endif
 
@@ -456,6 +460,9 @@ fi
 
 
 %changelog
+* Thu Feb 22 2024 Orion Poplawski <orion@nwra.com> - 1.0.2-12
+- Allow watch on more logfiles
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

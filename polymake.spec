@@ -10,11 +10,11 @@
 # Build with the bundled version of jreality.  This currently includes bundled
 # versions of several other Java projects (e.g., bsh, janino, jinput), and also
 # itextpdf 5.3.2, whose license is problematic.
-%bcond_with jreality
+%bcond jreality 0
 
 Name:           polymake
 Version:        4.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -23,6 +23,7 @@ Release:        4%{?dist}
 License:        GPL-2.0-or-later AND MIT AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 Summary:        Algorithms on convex polytopes and polyhedra
 URL:            https://polymake.org/
+VCS:            https://github.com/polymake/polymake
 Source0:        https://polymake.org/lib/exe/fetch.php/download/%{name}-%{version}-minimal.tar.bz2
 # Man page written by Jerry James from text found in the sources.  Therefore,
 # the copyright and license are the same as for the sources.
@@ -44,6 +45,11 @@ Patch4:         %{name}-name-clash.patch
 Patch5:         %{name}-prefix.patch
 # Do not call back() on an empty string
 Patch6:         %{name}-empty-string.patch
+# Do not try to read soplex configuration from scip.  The Fedora soplex
+# package is independent of scip.
+Patch7:         %{name}-soplex.patch
+# Adapt to a changed function name in Singular 4.3.2
+Patch8:         %{name}-Singular-4.3.2.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -58,6 +64,8 @@ BuildRequires:  azove
 BuildRequires:  boost-devel
 BuildRequires:  cddlib-devel
 BuildRequires:  cmake
+BuildRequires:  cmake(scip)
+BuildRequires:  cmake(soplex)
 BuildRequires:  doxygen
 BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
@@ -247,14 +255,12 @@ export Arch=%{_arch}
   --with-nauty-src=%{_prefix} \
   --with-permlib=%{_prefix} \
   --with-ppl=%{_prefix} \
+  --with-scip=%{_prefix} \
   --with-singular=%{_prefix} \
+  --with-soplex=%{_prefix} \
   --with-sympol-include=%{_includedir}/sympol/ \
   --with-sympol-lib=%{_libdir} \
-%if %{with jreality}
-  --with-java=%{java_home} \
-%else
-  --without-java \
-%endif
+  %{?with_jreality:--with-java=%{java_home}}%{!?with_jreality:--without-java} \
   --without-javaview
 
 # No, really, we can't have the hardening flags on, and we do not want to
@@ -317,6 +323,10 @@ make test
 %doc doc/*
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 4.11-5
+- Build with soplex and scip support
+- Adapt to a changed function name in Singular 4.3.2
+
 * Fri Jan 26 2024 Jerry James <loganjerry@gmail.com> - 4.11-4
 - Adjust sed expressions to fix FTBFS
 - Drop unused perl::MongoDB BR

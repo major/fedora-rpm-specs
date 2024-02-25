@@ -2,7 +2,7 @@
 
 Name:           apache-commons-beanutils
 Version:        1.9.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Java utility methods for accessing and modifying the properties of arbitrary JavaBeans
 License:        Apache-2.0
 URL:            http://commons.apache.org/beanutils
@@ -57,6 +57,9 @@ sed -i 's/\r//' *.txt
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.9.4-18
+- bump of release for for java-21-openjdk as system jdk
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

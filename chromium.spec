@@ -300,7 +300,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 122.0.6261.57
+Version: 122.0.6261.69
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -451,6 +451,12 @@ Patch312: chromium-119-fstack-protector-strong.patch
 # fixed static assert error
 Patch313: chromium-122-static-assert.patch
 Patch314: chromium-122-clang16-buildflags.patch
+
+# assignment-expressions not suport in python < 3.8 on el 7/8
+Patch315: chromium-122-python3-assignment-expressions.patch
+
+# add -ftrivial-auto-var-init=zero and -fwrapv
+Patch316: chromium-122-clang-build-flags.patch
 
 # build error
 Patch351: chromium-121-mnemonic-error.patch
@@ -1119,8 +1125,9 @@ udev.
 %patch -P130 -p1 -b .revert-av1enc
 %endif
 
-%ifarch aarch64
 %if 0%{?rhel} <= 8
+%patch -P315 -p1 -b .assignment-expressions
+%ifarch aarch64
 %patch -P305 -p1 -b .memory_tagging
 %endif
 %endif
@@ -1136,6 +1143,7 @@ udev.
 %patch -P310 -p1 -b .missing-header-files
 %patch -P311 -p1 -b .clang-warnings
 %patch -P312 -p1 -b .fstack-protector-strong
+%patch -P316 -p1 -b .clang-build-flags
 
 %patch -P351 -p1 -b .mnemonic-error
 
@@ -1934,6 +1942,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Fri Feb 23 2024 Than Ngo <than@redhat.com> - 122.0.6261.69-1
+- update to 122.0.6261.69
+- fix build error on el8
+- bz#2265039, built with -fwrapv for improved memory safety
+- bz#2265043, built with -ftrivial-auto-var-init=zero for improved security and preditability
+
 * Wed Feb 21 2024 Than Ngo <than@redhat.com> - 122.0.6261.57-1
 - update to 122.0.6261.57
    * High CVE-2024-1669: Out of bounds memory access in Blink

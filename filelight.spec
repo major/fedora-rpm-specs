@@ -1,7 +1,7 @@
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_sysconfdir}/xdg/filelightrc
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:24.01.95-1
 - 24.01.95
 

@@ -1,6 +1,6 @@
 Name:    kompare
 Summary: Diff tool
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kompare.deskt
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Feb 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.01.95-1
 - 24.01.95 (still Qt5)
 

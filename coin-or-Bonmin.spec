@@ -4,11 +4,14 @@
 
 Name:		coin-or-%{module}
 Summary:	Basic Open-source Nonlinear Mixed INteger programming
-Version:	1.8.8
-Release:	15%{?dist}
-License:	EPL-1.0
-URL:		http://projects.coin-or.org/%{module}
-Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
+Version:	1.8.9
+Release:	1%{?dist}
+
+# EPL-1.0: the project as a whole
+# SMLNJ: Bonmin/src/Interfaces/Ampl/sos_kludge.cpp
+License:	EPL-1.0 AND SMLNJ
+URL:		https://projects.coin-or.org/%{module}
+Source0:	https://github.com/coin-or/Bonmin/archive/releases/%{version}/%{module}-%{version}.tar.gz
 BuildRequires:	coin-or-Cgl-doc
 BuildRequires:	coin-or-Clp-doc
 BuildRequires:	coin-or-Ipopt-common
@@ -22,7 +25,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	help2man
 BuildRequires:	make
 %if %{with_asl}
-BuildRequires:	mp-devel
+BuildRequires:	asl-devel
 %endif
 %if %{with_mpi}
 BuildRequires:	pkgconfig(ompi)
@@ -33,34 +36,22 @@ BuildRequires:	pkgconfig(cbc)
 BuildRequires:	tex(tex4ht.sty)
 BuildRequires:	tex(threeparttable.sty)
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
 
-# Fix a typo in the violation code
-Patch1:		%{name}-typo.patch
-
 # Fix mixed signed/unsigned operations
-Patch2:		%{name}-sign.patch
-
-# Fix calls to empty() that should be calls to clear()
-# https://github.com/coin-or/Bonmin/commit/3c51a306137f6f6f37825770987585b407919ff8
-Patch3:		%{name}-clear.patch
-
-# Avoid implicit cast from bool to int
-# https://github.com/coin-or/Bonmin/commit/fe6f493c1ac45373db1a6a29138d70c85a310a08
-Patch4:		%{name}-bool.patch
-
-# Fix C++ assertions
-# https://github.com/coin-or/Bonmin/commit/bce858f7874e1d2d9e57cc96ab8b8185e85a9651
-Patch5:		%{name}-assertions.patch
+Patch1:		%{name}-sign.patch
 
 # https://github.com/coin-or/Bonmin/issues/24
-Patch6:         %{name}-bug24.patch
+Patch2:         %{name}-bug24.patch
 
-Patch7:         %{name}-configure-c99.patch
+# Fix Modern C issues in the configure script
+Patch3:         %{name}-configure-c99.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2165475
-Patch8:         %{name}-fix_iFP_Ecp.patch
+%global _docdir_fmt %{name}
 
 %description
 Bonmin (Basic Open-source Nonlinear Mixed INteger programming) is an
@@ -114,11 +105,11 @@ Requires:	%{name} = %{version}-%{release}
 This package contains the documentation for %{name}.
 
 %prep
-%autosetup -p1 -n %{module}-%{version}
+%autosetup -p1 -n %{module}-releases-%{version}
 
 # The pkgconfig file lists transitive dependencies.  Those are necessary when
 # using static libraries, but not with shared libraries.
-sed -i 's/ @BONMINLIB_PCLIBS@/\nLibs.private:&/' bonmin.pc.in
+sed -i 's/ @BONMINLIB_PCLIBS@/\nLibs.private:&/' Bonmin/bonmin.pc.in
 
 %build
 %if %{with_mpi}
@@ -137,25 +128,24 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
     -i libtool
 
-%make_build all doxydoc
-make -C doc all
+%make_build all
+%make_build -C Bonmin doxydoc
 
 %install
 %make_install
 rm -f %{buildroot}%{_libdir}/*.la
-rm %{buildroot}%{_docdir}/%{name}/LICENSE
-cp -a AUTHORS README doxydoc/{html,*.tag} %{buildroot}%{_pkgdocdir}
+rm %{buildroot}%{_pkgdocdir}/LICENSE
+cp -a Bonmin/{AUTHORS,README} Bonmin/doxydoc/{bonmin_doxy.tag,html} \
+  %{buildroot}%{_pkgdocdir}
 mkdir -p %{buildroot}%{_mandir}/man1
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N src/Apps/.libs/bonmin > \
-  %{buildroot}%{_mandir}/man1/bonmin.1
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N \
+  Bonmin/src/Apps/.libs/bonmin > %{buildroot}%{_mandir}/man1/bonmin.1
 
 %check
 %if %{with_mpi}
 %_openmpi_load
 %endif
 LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
-
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
@@ -181,11 +171,17 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %endif
 
 %files doc
-%doc doc/html
 %{_pkgdocdir}/html/
 %{_pkgdocdir}/bonmin_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.8.9-1
+- Release 1.8.9
+- Convert License to SPDX
+- Drop upstreamed patches: -typo, -clear, -bool, -assertions, -fix_iFP_Ecp
+- BR asl-devel instead of mp-devel
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
@@ -195,7 +191,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org - 1.8.8-12
+* Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.8.8-12
 - Fix rhbz#2165475
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-11
@@ -210,10 +206,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org - 1.8.8-7
+* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.8.8-7
 - Patched for upstream bug #24
 
-* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org - 1.8.8-6
+* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 1.8.8-6
 - Rebuild for Ipopt-3.14.4
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-5

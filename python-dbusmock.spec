@@ -1,8 +1,8 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.30.2
-Release:          3%{?dist}
+Version:          0.31.1
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -52,6 +52,14 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Fri Feb 23 2024 Packit <hello@packit.dev> - 0.31.1-1
+- power_profiles_daemon: Move back to original D-Bus name to avoid breaking compatibility
+- Add upower_power_profiles_daemon template for version 0.20 API with new D-Bus name
+
+* Fri Feb 23 2024 Packit <hello@packit.dev> - 0.31.0-1
+- power-profiles-daemon: Move to org.freedesktop.UPower.PowerProfiles as in release 0.20.0 (API break!)
+- NetworkManager: Add stub ipv4/6 properties in AddWiFiConnection
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

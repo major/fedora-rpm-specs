@@ -1,6 +1,6 @@
 Name:           gfan
 Version:        0.6.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Software for Computing Gröbner Fans and Tropical Varieties
 License:        GPL-2.0-or-later
 URL:            https://math.au.dk/~jensen/software/gfan/gfan.html
@@ -13,12 +13,18 @@ Patch0:         %{name}-warning.patch
 Patch1:         %{name}-permissive.patch
 # Build a shared library
 Patch2:         %{name}-shared.patch
+# Adapt to the version of SoPlex packaged for Fedora
+Patch3:         %{name}-soplex.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cddlib-devel
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glibc-langpack-en
 BuildRequires:  gmp-devel
+BuildRequires:  libsoplex-devel
 BuildRequires:  make
 BuildRequires:  tex(latex)
 BuildRequires:  tex(ulem.sty)
@@ -87,10 +93,16 @@ rm -f src/minkowskisum.cpp.orig
 rm -f homepage/Makefile
 
 %build
+# Enable use of SoPlex
+sed -e 's|^\(SOPLEX_PATH = \).*|\1%{_prefix}|' \
+    -e 's|^\(SOPLEX_LINKOPTIONS = \).*|\1%{build_ldflags} -lsoplex -lclusol -lmpfr -ltbb|' \
+    -e 's|^\(SOPLEX_INCLUDEOPTIONS = \).*|\1|' \
+    -i Makefile
+
 %make_build CC=gcc CXX=g++ \
-  OPTFLAGS='%{build_cxxflags} -DGMPRATIONAL -I%{_includedir}/cddlib' \
+  OPTFLAGS='%{build_cxxflags} -DGMPRATIONAL -DNDEBUG -I%{_includedir}/cddlib' \
   PREFIX=%{_prefix} \
-  SOPLEX_LINKOPTIONS='%{build_ldflags}'
+  soplex=true
 
 # Build the manual
 cd doc
@@ -158,6 +170,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %changelog
+* Thu Feb 22 2024 Jerry James <loganjerry@gmail.com> - 0.6.2-19
+- Build with SoPlex support
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

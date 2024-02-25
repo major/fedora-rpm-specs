@@ -1,5 +1,5 @@
 Name:    libkdepim
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary: Library for common kdepim apps
 
@@ -52,8 +52,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
-%{_kf6_libdir}/libKPim6Libkdepim.so.5*
-%{_kf6_libdir}/libKPim6Libkdepim.so.6*
+%{_kf6_libdir}/libKPim6Libkdepim.so.6
+%{_kf6_libdir}/libKPim6Libkdepim.so.6.*
 
 %files devel
 %{_includedir}/KPim6/Libkdepim/
@@ -69,6 +69,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

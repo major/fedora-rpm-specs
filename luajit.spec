@@ -2,14 +2,14 @@
 
 %global luajit_version_major 2
 %global luajit_version_minor 1
-%global luajit_version_patch 1692716794
+%global luajit_version_patch 1707061634
 %global luajit_version %{luajit_version_major}.%{luajit_version_minor}.%{luajit_version_patch}
 
 
 Name:           luajit
 Version:        %{luajit_version}
 %global apiver %(v=%{version}; echo ${v%.${v#[0-9].[0-9].}})
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Just-In-Time Compiler for Lua
 License:        MIT
 URL:            http://luajit.org
@@ -22,7 +22,7 @@ Source2:        update_tarball.sh
 # Add 'make check'
 Patch0: luajit-2.1-make-check.patch
 # Patches from https://github.com/cryptomilk/LuaJIT/commits/v2.1-fedora
-# git format-patch --stdout -l1 --no-renames v2.1..v2.1-fedora > luajit-2.1-fedora.patch
+# git format-patch --stdout -l1 --no-renames origin/v2.1..v2.1-fedora > luajit-2.1-fedora.patch
 Patch1: luajit-2.1-fedora.patch
 
 # ppc64le and s390x patchsets doesn't apply or build anymore
@@ -100,6 +100,9 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 2.1.1707061634-1
+- Update to version 2.1.1707061634
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1692716794-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

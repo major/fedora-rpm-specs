@@ -2,7 +2,7 @@
 
 Name:           jsoup
 Version:        1.17.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java library for working with real-world HTML
 License:        MIT
 URL:            https://jsoup.org/
@@ -72,6 +72,9 @@ sed -i /org.jspecify/d src/main/java9/module-info.java
 %license LICENSE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.17.2-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.17.2-1
 - Update to upstream version 1.17.2
 

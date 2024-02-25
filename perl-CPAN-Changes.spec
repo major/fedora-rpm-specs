@@ -1,7 +1,10 @@
+# Extra tests require Test::Pod::Coverage::TrustMe, not yet available in Fedora
+%bcond_with perl_CPAN_Changes_enables_extra_test
+
 Name:		perl-CPAN-Changes
 Summary:	Read and write Changes files
-Version:	0.500002
-Release:	3%{?dist}
+Version:	0.500003
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Changes
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Changes-%{version}.tar.gz
@@ -37,8 +40,10 @@ BuildRequires:	perl(Test::More) >= 0.96
 # Optional Tests
 BuildRequires:	perl(Test::Differences)
 # Extra Tests
+%if %{with perl_CPAN_Changes_enables_extra_test}
 BuildRequires:	perl(Test::Pod) >= 1.00
-BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
+BuildRequires:	perl(Test::Pod::Coverage::TrustMe) => 0.002000
+%endif
 # Dependencies
 # (none)
 
@@ -68,7 +73,9 @@ find %{buildroot} -type f -name .packlist -delete
 
 %check
 make test
+%if %{with perl_CPAN_Changes_enables_extra_test}
 make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
+%endif
 
 %files
 %license LICENSE
@@ -86,6 +93,12 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::CPAN::Changes.3*
 
 %changelog
+* Fri Feb 23 2024 Paul Howarth <paul@city-fan.org> - 0.500003-1
+- Update to 0.500003
+  - Fix calling ->name on an unnamed group
+  - Fix ->set_changes call on groups
+- Disable extra tests for now
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.500002-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

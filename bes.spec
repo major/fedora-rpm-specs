@@ -4,24 +4,24 @@
 %global besuser %{name}
 %global besgroup %{name}
 
-%global commit 20781c060611626c4fbf9788510fd8a5794a2dcc
+%global bes_tag 3.21.0-46
 
 Name:           bes
-Version:        3.20.13
-Release:        13%{?dist}
+Version:        3.21.0.46
+Release:        1%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
 URL:            https://github.com/OPENDAP/bes
-Source0:        http://www.opendap.org/pub/source/bes-%{version}.tar.gz
+Source0:        https://github.com/OPENDAP/bes/archive/%{bes_tag}/%{name}-%{version}.tar.gz
 Source1:        bes.service
 # Fix link
 Patch1:         bes-link.patch
-# Use int32 type
-Patch2:         bes-int32.patch
-# Fix configure test compromised by LTO
-Patch3:		bes-config.patch
-Patch4: bes-c99.patch
+# Fix new libxml
+# https://github.com/OPENDAP/bes/issues/877#issuecomment-1961306762
+Patch2:         bes-libxml.patch
+# Various missing <cstring> headers
+Patch3:         bes-cstring.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -106,11 +106,10 @@ Documentation of OPeNDAP BES.
 
 
 %prep
-%setup -q -n bes-%{version}
-%patch1 -p1 -b .link
-%patch2 -p1 -b .int32
-%patch3 -p1 -b .config
-%patch4 -p1
+%setup -q -n bes-%{bes_tag}
+%patch -P1 -p1 -b .link
+%patch -P2 -p1 -b .xml
+%patch -P3 -p1 -b .cstring
 
 # Fixes rpaths
 autoreconf --install
@@ -120,7 +119,7 @@ chmod a-x dispatch/BESStreamResponseHandler*
 # We need to enable static builds so it can link against libdap_module.a
 %configure --disable-dependency-tracking \
   --with-cfits-inc=%{_includedir} --with-cfits-libdir=%{_libdir} \
-  CPPFLAGS="-I%{_includedir}/cfitsio -I%{_includedir}/tirpc" LDFLAGS=-L%{_libdir}/libdap LIBS=-ltirpc
+  CPPFLAGS="-I%{_includedir}/cfitsio -I%{_includedir}/tirpc -Wno-vla" LDFLAGS=-L%{_libdir}/libdap LIBS=-ltirpc
 # This fails currently: --without-dap-modules
 %make_build
 
@@ -233,6 +232,14 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Fri Feb 23 2024 Richard W.M. Jones <rjones@redhat.com> - 3.21.0.46-1
+- Update to bes 3.21.0-46 (RHBZ#1948252)
+- Use %%patch -P
+- Remove patches which are upstream
+- Fix for new libxml (RHBZ#2261005)
+- Fix various missing <cstring> headers
+- Don't warn about VLAs
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

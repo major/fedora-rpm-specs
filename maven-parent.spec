@@ -2,7 +2,7 @@
 
 Name:           maven-parent
 Version:        41
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Apache Maven parent POM
 License:        Apache-2.0
 URL:            https://maven.apache.org
@@ -45,6 +45,9 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 41-4
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 41-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

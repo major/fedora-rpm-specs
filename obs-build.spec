@@ -3,12 +3,12 @@
 
 # SUSE guys use OBS to automatically handle release numbers,
 # when rebasing check what they are using on
-# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_38/src/
+# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_39/src/
 # update the obsrel to match the upstream release number
-%global obsrel 439.1
+%global obsrel 443.1
 
 Name:           obs-build
-Version:        20240111
+Version:        20240221
 Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 

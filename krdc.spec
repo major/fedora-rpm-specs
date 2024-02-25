@@ -1,7 +1,7 @@
 Name:    krdc
 Summary: Remote desktop client
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://invent.kde.org/network/krdc
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Sun Feb 11 2024 Marie Loise Nolden <loise@kde.org> - 24.01.95-2
 - switch to qt6/kf6
 

@@ -37,8 +37,9 @@ Source0:	https://github.com/evaleev/libint/archive/v%{version}.tar.gz
 Source1:	libint-%{version}.tgz
 # The programmers' manual is compiled from the LaTeX source by generate-sources.sh
 Source2:	progman-%{version}.pdf
-# and the html documentation is extracted from the source code as well
-Source3:	libint-%{version}-classdoc.tar.bz2
+
+# The source tarball generator does not introduce all info in the CMake config for now, this patches in the missing info
+Patch0:         libint-2.8.2-fedoraver.patch
 
 Provides:	libint2(api)%{?_isa} = %{apiversion}
 
@@ -50,6 +51,7 @@ BuildRequires:  python3-devel
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  eigen3-devel
+BuildRequires:  pybind11-devel
 
 %description
 LIBINT computes the Coulomb and exchange integrals, which in electronic
@@ -90,9 +92,9 @@ This package contains development headers and libraries for libint2.
 
 %prep
 %setup -q -T -b 1 -n libint-%{version}
-# Copy programmers manual and extract the html documentation
+%patch 0 -p1 -b .fedora
+# Copy programmers manual
 cp -p %{SOURCE2} doc/progman.pdf
-tar jxf %{SOURCE3}
 
 %build
 export CXX=g++
@@ -126,7 +128,7 @@ mv %{buildroot}%{_includedir}/libint_f.mod %{buildroot}%{_fmoddir}/
 %{_datadir}/libint2/
 
 %files doc
-%doc doc/progman.pdf #html
+%doc doc/progman.pdf
 
 %files devel
 %{macrosdir}/macros.libint2

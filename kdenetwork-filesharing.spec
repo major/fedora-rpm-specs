@@ -1,7 +1,7 @@
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 24.01.95
-Release: 2%{?dist}
+Version: 24.02.0
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Thu Feb 15 2024 Steve Cossette <farchord@gmail.com> - 24.01.95-2
 - Added samba-usershares as a recommend
 - Switched licensing to SPDX

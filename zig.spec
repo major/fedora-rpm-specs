@@ -19,7 +19,7 @@
 
 Name:           zig
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT and NCSA and LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL and ZPLv2.1
@@ -179,6 +179,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Wed Feb 21 2024 Jan Drögehoff <sentrycraft123@gmail.com> - 0.11.0-2
+- Rebuilt for bootstrapping
+
 * Sat Jan 27 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.11.0-1
 - Update to 0.11.0
 

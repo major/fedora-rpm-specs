@@ -12,6 +12,12 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/merge_requests/75
+# https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/issues/55
+# https://bugzilla.redhat.com/show_bug.cgi?id=2265628
+# set default clock format back to 24hr for non-US locales
+Patch:          0001-Change-default-clock-format-back-to-24h-for-non-US-l.patch
+
 BuildRequires:  gettext
 BuildRequires:  glib2-devel >= 2.31.0
 BuildRequires:  gobject-introspection-devel

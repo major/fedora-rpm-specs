@@ -2,7 +2,7 @@
 
 Name:           beust-jcommander
 Version:        1.82
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java framework for parsing command line parameters
 License:        Apache-2.0
 URL:            http://jcommander.org/
@@ -62,6 +62,9 @@ cp -p %SOURCE1 pom.xml
 %license license.txt notice.md
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.82-8
+- bump of release for for java-21-openjdk as system jdk
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

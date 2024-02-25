@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Needed to break circular dependencies between mate-settings-daemon(-devel)
 # and mate-control-center(-filesystem), especially for new RHEL releases.
@@ -17,9 +17,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-settings-daemon
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.19%{?git_rel}%{?dist}
 %endif
@@ -37,12 +37,6 @@ URL:            http://mate-desktop.org
 %if 0%{?rhel}
 Patch0:         mate-settings-daemon_fix-xrdb-plugin-for-rhel.patch
 %endif
-
-# from upstream
-# https://github.com/mate-desktop/mate-settings-daemon/commit/babfbd3
-Patch1:        mate-settings-daemon_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
-# https://github.com/mate-desktop/mate-settings-daemon/commit/fa8a4d4
-Patch2:        mate-settings-daemon_0001-a11y-keyboard-atspi-Fix-memory-leak.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: dconf-devel
@@ -149,6 +143,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-settings-dae
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-5
 - add upstream patch to fix building with gcc14
 

@@ -49,7 +49,7 @@
 %endif
 
 Name:           xpra
-Version:        5.0.3
+Version:        5.0.6
 Release:        %autorelease
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
@@ -58,11 +58,6 @@ Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
 Patch1:         ignore_assert_pandoc.patch
-
-# GCC 14 Fix backport
-# https://github.com/Xpra-org/xpra/issues/4113
-# https://github.com/Xpra-org/xpra/commit/f12369ad493b0987cd62c1baca24b1067183e657
-Patch2:         0001-GCC-14.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel

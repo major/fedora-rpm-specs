@@ -3,20 +3,20 @@
 # git source
 # https://invent.kde.org/network/smb4k/
 # bug tracker
-# https://phabricator.kde.org/project/view/95/
+# https://bugs.kde.org/buglist.cgi?product=Smb4k
 
 # add -Wl,--as-needed if not exist
 %global optflags %(echo %{optflags} -Wl,--as-needed | sed "/-Wl,--as-needed/!s/$/ -Wl,--as-needed/")
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    3.2.4
-Release:    2%{?dist}
+Version:    3.2.5
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 License:    GPLv2+
-URL:        http://smb4k.sourceforge.net/
-Source0:    http://downloads.sourceforge.net/smb4k/Development/%{name}-%{version}.tar.xz
+URL:        https://smb4k.sourceforge.net/
+Source0:    https://downloads.sourceforge.net/smb4k/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake3 >= 2.6.0
 BuildRequires:  extra-cmake-modules
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %{_kf5_qmldir}/org/kde/smb4k/
 
 %changelog
+* Fri Feb 23 2024 Sérgio M. Basto <sergio@serjux.com> - 3.2.5-1
+- New release 3.2.5
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

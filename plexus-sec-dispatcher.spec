@@ -2,7 +2,7 @@
 
 Name:           plexus-sec-dispatcher
 Version:        2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Plexus Security Dispatcher Component
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-sec-dispatcher
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.0-12
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

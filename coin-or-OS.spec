@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Optimization Services
 Version:	2.10.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	https://github.com/coin-or/OS/archive/refs/tags/releases/%{version}/%{module}-releases-%{version}.tar.gz
@@ -18,19 +18,23 @@ BuildRequires:	doxygen
 BuildRequires:	dos2unix
 BuildRequires:	flex
 BuildRequires:	gcc-c++
+BuildRequires:	libsoplex-devel
 BuildRequires:	make
 BuildRequires:	pkgconfig(bcp)
 BuildRequires:	pkgconfig(couenne)
 BuildRequires:	pkgconfig(cppad)
 BuildRequires:	pkgconfig(symphony)
 %if %{with_asl}
-BuildRequires:	mp-devel
+BuildRequires:	asl-devel
 %endif
 %if %{with_mpi}
 BuildRequires:	openmpi-devel
 BuildRequires:	scalapack-openmpi-devel
 BuildRequires:	openssh-clients
 %endif
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
@@ -60,7 +64,8 @@ Patch8:		%{name}-uninitialized.patch
 # Fix some mixed signed/unsigned operations
 Patch9:		%{name}-signed.patch
 
-Patch10:	coin-or-OS-configure-c99.patch
+# Fix use of implicitly declared functions in the configure script
+Patch10:	%{name}-configure-c99.patch
 
 %description
 The objective of Optimization Services (OS) is to provide a set of standards
@@ -91,18 +96,8 @@ This package contains the documentation for %{name}.
 
 %prep
 %autosetup -N -n %{module}-releases-%{version}
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-
 dos2unix OS/src/OSParsers/OSParseosil.l
-%patch2 -p1 -b .backup
-%patch4 -p1 -b .backup
-%patch5 -p1 -b .backup
-%patch6 -p1 -b .backup
-%patch7 -p1 -b .backup
-%patch8 -p1 -b .backup
-%patch9 -p1 -b .backup
-%patch10 -p1
+%autopatch -p1
 
 # Fix a small typo
 sed -i 's/CyLP/DyLP/' configure
@@ -116,7 +111,7 @@ sed -i 's/ @OSLIB_PCLIBS@/\nLibs.private:&/' OS/os.pc.in
 # package is fully rebuildable from sources.
 %configure --enable-openmp --with-flex-bison \
 %if %{with_asl}
-	--with-asl-lib="-lasl -lmp -lipoptamplinterface -lbonminampl" \
+	--with-asl-lib="-lasl -lipoptamplinterface -lbonminampl -lmpfr -lgmp" \
 	--with-asl-incdir=%{_includedir}/asl \
 %endif
 	--with-csdp-lib="-lsdp" \
@@ -170,13 +165,21 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc doxydoc/* OS/doc/*
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.10.3-10
+- Build with soplex support
+- Verify that License is valid SPDX
+- BR asl-devel instead of mp-devel
+- Stop building for 32-bit x86
+- Avoid deprecated %%patchN usage
+- Fix damaged changelog entries
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Thu Jan 11 2024 Antonio Trande <sagitter@fedoraproject.org - 2.10.3-7
+* Thu Jan 11 2024 Antonio Trande <sagitter@fedoraproject.org> - 2.10.3-7
 - Rebuild for cppad-20240000.1
 
 * Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-6
@@ -194,14 +197,14 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org - 2.10.4-1
+* Tue Sep 21 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.10.3-1
 - Rebuilt for Ipopt-3.14.4
 - Release 2.10.3
 
-* Thu Sep 16 2021 Antonio Trande <sagitter@fedoraproject.org - 2.10.2-9
+* Thu Sep 16 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.10.2-9
 - Rebuilt for Ipopt-3.14.3
 
-* Thu Jul 29 2021 Antonio Trande <sagitter@fedoraproject.org - 2.10.2-8
+* Thu Jul 29 2021 Antonio Trande <sagitter@fedoraproject.org> - 2.10.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 - Explicitate the flag of ALS's include directory
 

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
@@ -49,6 +49,9 @@ Supplements:    (kf6-kwallet and signon)
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

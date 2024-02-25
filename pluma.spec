@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit c1ca209172a8b3a0751ac0a1e2dbec33c1894290}
@@ -14,9 +14,9 @@
 
 Summary:  Text editor for the MATE desktop
 Name:     pluma
-Version:  %{branch}.1
+Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  4%{?dist}
+Release:  1%{?dist}
 %else
 Release:  0.17%{?git_rel}%{?dist}
 %endif
@@ -29,9 +29,6 @@ URL:      http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# fix build for gcc14
-Patch1:        pluma_0001-filebrowser-fix-warning-Wincompatible-pointer-types-1.26.patch
-
 BuildRequires: desktop-file-utils
 BuildRequires: enchant-devel
 BuildRequires: libpeas1-devel
@@ -41,6 +38,7 @@ BuildRequires: iso-codes-devel
 BuildRequires: libSM-devel
 BuildRequires: make
 BuildRequires: mate-common
+BuildRequires: mate-desktop-devel
 BuildRequires: pygobject3-devel
 BuildRequires: python3-devel
 BuildRequires: (python3-setuptools if python3-devel >= 3.12)
@@ -152,6 +150,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-4
 - fix building with gcc14
 

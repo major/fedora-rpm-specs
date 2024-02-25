@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit f9aedafffba0ecc55072a933f28500c0e24c9bf1}
@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-notification-daemon
-Version:        %{branch}.1
+Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.23%{?git_rel}%{?dist}
 %endif
@@ -28,8 +28,6 @@ URL:            http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-Patch1:        mate-notification-daemon_0001-fix-building-with-libxml-2.12.0.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk-layer-shell-devel
@@ -64,7 +62,8 @@ NOCONFIGURE=1 ./autogen.sh
 %build
 %configure --disable-schemas-compile \
            --enable-x11 \
-           --enable-wayland
+           --enable-wayland \
+           --enable-in-process
 
 make %{?_smp_mflags} V=1
 
@@ -82,6 +81,8 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 # remove desktop file, no need of it
 rm -f  %{buildroot}%{_datadir}/applications/mate-notification-daemon.desktop
 
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-notification-daemon.desktop
+
 %find_lang %{name} --with-gnome --all-name
 
 
@@ -90,17 +91,21 @@ rm -f  %{buildroot}%{_datadir}/applications/mate-notification-daemon.desktop
 %{_bindir}/mate-notification-properties
 %{_datadir}/applications/mate-notification-properties.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.mate.Notifications.service
-%{_libexecdir}/mate-notification-applet
+#%%{_libexecdir}/mate-notification-applet
 %{_libexecdir}/mate-notification-daemon
-%{_datadir}/dbus-1/services/org.mate.panel.applet.MateNotificationAppletFactory.service
+#%%{_datadir}/dbus-1/services/org.mate.panel.applet.MateNotificationAppletFactory.service
 %{_datadir}/glib-2.0/schemas/org.mate.NotificationDaemon.gschema.xml
 %{_datadir}/mate-panel/applets/org.mate.applets.MateNotificationApplet.mate-panel-applet
 %{_datadir}/icons/hicolor/*/apps/mate-notification-properties.*
 %{_mandir}/man1/mate-notification-properties.1.gz
 %{_libdir}/mate-notification-daemon
+%{_sysconfdir}/xdg/autostart/mate-notification-daemon.desktop
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

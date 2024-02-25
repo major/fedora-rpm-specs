@@ -2,7 +2,7 @@
 
 Name:           maven-filtering
 Version:        3.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Shared component providing resource filtering
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/%{name}/index.html
@@ -65,6 +65,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.1-5
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

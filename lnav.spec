@@ -1,6 +1,6 @@
 Name:          lnav
-Version:       0.11.2
-Release:       4%{?dist}
+Version:       0.12.0
+Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 License:       BSD
 
@@ -49,6 +49,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Fri Feb 23 2024 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.12.0-1
+- resolves: #2262512
+  updated to 0.12.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

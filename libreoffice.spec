@@ -213,6 +213,9 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: unixODBC-devel
 BuildRequires: %{libo_python_executable}
 
+# Uncomment for backtraces
+#BuildRequires: gdb
+
 # libs / headers - conditional
 %if 0%{?fedora}
 BuildRequires: pkgconfig(libe-book-0.1)
@@ -1039,6 +1042,8 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 # Temporarily disable failing tests
 %ifarch ppc64le
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk
+# the following actually succeeded as of 2024-02-23, remove if it succeeds again.
+#sed -i -e s/CppunitTest_dbaccess_hsqldb_test// dbaccess/Module_dbaccess.mk
 %endif
 %ifarch aarch64
 # Nothing to do

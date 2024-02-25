@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit ac33ed09bb41ba717df3722cc71e25c1aa5134c5}
@@ -16,7 +16,7 @@ Summary:        Terminal emulator for MATE
 Name:           mate-terminal
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.19%{?git_rel}%{?dist}
 %endif
@@ -94,6 +94,9 @@ desktop-file-install                                                    \
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.1-1
+- update to 1.28.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 %endif
 
 # Don't generate provides for internal shared objects and plugins
-%global internal_libs_re (alsa_audiobackend|ardour.*|audiographer|canvas|dummy_audiobackend|evoral|gtkmm2ext|jack_audiobackend|midipp|pan[12]in2out|panbalance|panvbap|pbd|ptformat|pulseaudio_backend.so|qmdsp|temporal|timecode|waveview|widgets)
+%global internal_libs_re (aaf|alsa_audiobackend|ardour.*|audiographer|canvas|dummy_audiobackend|evoral|gtkmm2ext|jack_audiobackend|midipp|pan[12]in2out|panbalance|panvbap|pbd|ptformat|pulseaudio_backend.so|qmdsp|temporal|timecode|waveview|widgets)
 %global __provides_exclude_from ^%{_libdir}/(%{name}|lv2)/.*$
 %global __requires_exclude ^lib%{internal_libs_re}\.so.*$
 

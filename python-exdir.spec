@@ -3,19 +3,15 @@
 %global forgeurl  https://github.com/CINPLA/exdir
 
 Name:           python-exdir
-Version:        0.4.2
+Version:        0.5.0.1
 Release:        %{autorelease}
 Summary:        Directory structure standard for experimental pipelines
 %forgemeta
 
+# SPDX
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
-# Use updated Versioneer
-# AttributeError: module 'configparser' has no attribute 'SafeConfigParser'.
-# SafeConfigParser was deprecated in Python 3.12
-# https://github.com/CINPLA/exdir/pull/156
-Patch0:         %{forgeurl}/pull/156.patch
 
 BuildArch:      noarch
 
@@ -69,11 +65,15 @@ This package provides documentation for %{name}.
 # Use git for removal, so Versioneer is not marking version as dirty
 git rm -r 3rdparty
 
+# Unpin ruamel-yaml
+sed -r -i 's/(ruamel.yaml)[<=]=/\1>=/' setup.py
+git add setup.py
+
 # Versioneer, you are a pain in the bottocks!
 # Into submission wrangle you, I will!
 python3 versioneer.py setup
-git commit -m 'Did someone say versioneer? Into the void disappear!'
-git tag -a -m '%{name}-%{version}-%{release}' %{version}
+git commit -m 'Changes for Fedora RPM'
+git tag v%{version}
 
 
 %generate_buildrequires
@@ -88,7 +88,7 @@ rm -rf docs/_build/html/{.doctrees,.buildinfo} -vf
 
 %install
 %pyproject_install
-%pyproject_save_files exdir
+%pyproject_save_files -l exdir
 
 # Move jupyter bits to correct location
 mkdir -p -m 0755 %{buildroot}%{_sysconfdir}

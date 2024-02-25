@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktuberling
 Summary: Picture game for children
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

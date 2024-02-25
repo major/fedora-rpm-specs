@@ -3,14 +3,15 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-odoc
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
 # BSD-3-Clause: src/html_support_files/highlight.pack.js
 License:        ISC AND BSD-3-Clause
-URL:            https://github.com/ocaml/odoc
-Source0:        %{url}/releases/download/%{version}/odoc-%{version}.tbz
+URL:            https://ocaml.github.io/odoc/
+VCS:            https://github.com/ocaml/odoc
+Source0:        %{vcs}/releases/download/%{version}/odoc-%{version}.tbz
 
 BuildRequires:  jq
 BuildRequires:  ocaml >= 4.02.0
@@ -127,6 +128,9 @@ rm -fr %{buildroot}%{ocamldir}/odoc-bench
 %license LICENSE
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-3
+- Rebuild for ocaml-mdx 2.4.0
+
 * Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-2
 - Rebuild for changed ocamlx hashes
 

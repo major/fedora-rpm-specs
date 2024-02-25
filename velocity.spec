@@ -2,7 +2,7 @@
 
 Name:           velocity
 Version:        2.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java-based template engine
 License:        Apache-2.0
 URL:            http://velocity.apache.org/
@@ -96,6 +96,9 @@ sed 's/${project.version}/%{version}/' \
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.3-4
+- bump of release for for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

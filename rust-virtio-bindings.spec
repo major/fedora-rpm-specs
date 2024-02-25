@@ -15,7 +15,7 @@ Source0:        %{crates_source}
 Source1:        https://raw.githubusercontent.com/rust-vmm/vm-virtio/main/LICENSE-APACHE
 Source2:        https://raw.githubusercontent.com/rust-vmm/vm-virtio/main/LICENSE-BSD
 
-ExclusiveArch:  x86_64 aarch64 ppc64le
+ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 
 BuildRequires:  cargo-rpm-macros >= 24
 

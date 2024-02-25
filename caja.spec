@@ -2,7 +2,7 @@
 %global rel_build 1
 
 # This is needed, because src-url contains branched part of versioning-scheme.
-%global branch 1.26
+%global branch 1.28
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit ee0a62c8759040d84055425954de1f860bac8652}
@@ -14,9 +14,9 @@
 
 Name:        caja
 Summary:     File manager for MATE
-Version:     %{branch}.3
+Version:     %{branch}.0
 %if 0%{?rel_build}
-Release:     4%{?dist}
+Release:     1%{?dist}
 %else
 Release:     0.21%{?git_rel}%{?dist}
 %endif
@@ -29,14 +29,11 @@ URL:         http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-Patch0:        Enable-showing-in-Budgie-Desktop-and-XFCE.patch
-# fix libxml dependency
-Patch1:        caja_0001-fix-building-with-libxml-2.12.0.patch
-
 BuildRequires: dbus-glib-devel
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
 BuildRequires: gobject-introspection-devel
+BuildRequires: gtk-layer-shell-devel
 BuildRequires: cairo-gobject-devel
 BuildRequires: libexif-devel
 BuildRequires: libselinux-devel
@@ -114,7 +111,8 @@ NOCONFIGURE=1 ./autogen.sh
 %configure \
         --disable-static \
         --disable-schemas-compile \
-        --disable-update-mimedb
+        --disable-update-mimedb \
+        --enable-wayland
 
 #drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
@@ -183,6 +181,9 @@ EOF
 
 
 %changelog
+* Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
+- update to 1.28.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

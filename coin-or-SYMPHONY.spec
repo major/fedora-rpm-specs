@@ -2,11 +2,14 @@
 
 Name:		coin-or-%{module}
 Summary:	Solver for mixed-integer linear programs
-Version:	5.6.17
-Release:	13%{?dist}
-License:	EPL-1.0
+Version:	5.7.1
+Release:	1%{?dist}
+
+# The project as a whole is licensed EPL-2.0.  However, many source files still
+# claim to be licensed EPL-1.0.  This is probably an upstream oversight.
+License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
-Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
+Source0:	https://github.com/coin-or/%{module}/archive/releases/%{version}/%{module}-%{version}.tar.gz
 # The PDF manual cannot be built from source, missing BibTeX file (as of 5.6.17)
 Source1:	https://coin-or.github.io/%{module}/doc/%{module}-%{version}-Manual.pdf
 BuildRequires:	coin-or-Cgl-devel
@@ -18,6 +21,9 @@ BuildRequires:	gcc-c++
 BuildRequires:	glpk-devel
 BuildRequires:	make
 BuildRequires:	readline-devel
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
@@ -62,7 +68,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n %{module}-%{version}
+%autosetup -p1 -n %{module}-releases-%{version}
 
 %build
 %configure \
@@ -116,6 +122,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/symphony.pc
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 5.7.1-1
+- Version 5.7.1
+- Get source tarball from github
+- Convert License to SPDX
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.17-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

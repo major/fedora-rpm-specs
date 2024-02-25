@@ -2,8 +2,8 @@
 
 Name:           dolphin
 Summary:        KDE File Manager
-Version:        24.01.95
-Release:        2%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
@@ -140,6 +140,7 @@ xvfb-run -a bash -c "%ctest" || :
 %if 0%{?flatpak}
 %{_datadir}/icons/hicolor/*/apps/system-file-manager.*
 %endif
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.dolphin.svg
 
 %files libs
 %{_kf6_libdir}/libdolphinprivate.so.*
@@ -156,6 +157,9 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 24.01.95-2
 - Rebuild (qt6)
 

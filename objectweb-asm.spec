@@ -2,7 +2,7 @@
 
 Name:           objectweb-asm
 Version:        9.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD-3-Clause
 URL:            https://asm.ow2.org/
@@ -89,6 +89,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 9.6-4
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

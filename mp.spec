@@ -1,12 +1,12 @@
-%global __cmake_in_source_build 1
-
-%if 0%{?fedora} && 0%{?fedora} > 36
+%if 0%{?fedora}
 %ifarch %{java_arches}
 %global with_jacop     1
 %else
 %global with_jacop     0
 %endif
 %global with_gecode    1
+%global with_highs     1
+%global with_scip      1
 %endif
 
 %if 0%{?rhel}
@@ -16,6 +16,8 @@
 %else
 %global with_gecode    0
 %endif
+%global with_highs     0
+%global with_scip      0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -24,43 +26,42 @@
 %global blaslib openblas
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%{!?_modulesdir: %global _modulesdir %{_datadir}/Modules/modulefiles}
-%endif
-
-%global  commit      7fd4828c934fccf7367499c9e01cc9a1e90a2093
-%global  date        20200303
-%global  shortcommit %(c=%{commit}; echo ${c:0:7})
+# Upstream has stopped tagging releases.  For a list of recent releases, see
+# CHANGES.mp.md.
+%global commit      34afbd381c72af810c4313e5f4ee182dec93682e
+%global date        20240115
+%global forgeurl    https://github.com/ampl/mp
 
 Name: mp
-Version: 3.1.0
-Release: 45.%{date}git%{shortcommit}%{?dist}
-License: SMLNJ AND BSD-2-Clause AND BSD-3-Clause
+Version: 20240115
 Summary: An open-source library for mathematical programming
-URL: https://github.com/ampl/mp
-Source0: https://github.com/ampl/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
-Source1: %{name}.module.in
-# The documentation building step wants this.  It is a git checkout of
-# https://github.com/ampl/ampl.github.io.git, dated 21 Mar 2019,
-# commit ccf1ff9f109d09ea0d42c60b6f26323312a99c42
-Source2: ampl.github.io.tar.xz
-Patch0:  %{name}-strtod.patch
+
+%forgemeta
+
+# SMLNJ: the project as a whole
+# BSD-2-Clause: src/{format,rstparser}.cc,
+#               include/mp/{format,rstparser,safeint}.h
+# GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
+# GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
+License: SMLNJ AND BSD-2-Clause
+Release: 1%{?dist}
+URL: https://mp.ampl.com/
+Source0: %{forgesource}
+# Unbundle asl
+Patch0:  %{name}-unbundle-asl.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1333344
-Patch1:  %{name}-%{version}-jni.patch
+Patch1:  %{name}-3.1.0-jni.patch
 # Adapt to python 3
 Patch2:  %{name}-python3.patch
-# Avoid crashes due to ambiguous order of destructor execution
-# https://bugzilla.redhat.com/show_bug.cgi?id=1858054
-Patch3:  %{name}-jvm-destructor.patch
+# Remove redundant calls to std::move
+Patch3:  %{name}-redundant-move.patch
+# Complete an incomplete name change from ProblemInfo to NLProblemInfo
+Patch4:  %{name}-probleminfo.patch
+# Fix use of an int where a member of an enum is needed
+Patch5:  %{name}-enum-cast.patch
 
-# Fix compatibility with GCC-14
-Patch4:  %{name}-fix_gcc14.patch
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires: config(environment-modules)
-%else
-Requires: environment(modules)
-%endif
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %if 0%{?with_jacop}
 Requires: jacop
@@ -70,13 +71,11 @@ Requires: jacop
 # significantly since then, so porting is nontrivial.
 Provides: bundled(fmt) = 3.0.1
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires: config(environment-modules)
-%else
-BuildRequires: environment(modules)
+BuildRequires: asl-devel
+BuildRequires: cmake
+%if 0%{?with_scip}
+BuildRequires: cmake(scip)
 %endif
-BuildRequires: chrpath
-BuildRequires: cmake3
 BuildRequires: doxygen
 BuildRequires: gcc-c++
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -95,15 +94,14 @@ BuildRequires: java-devel
 BuildRequires: make
 %endif
 BuildRequires: %{blaslib}-devel
+%if 0%{?with_highs}
+BuildRequires: pkgconfig(highs)
+%endif
 BuildRequires: pkgconfig(gsl)
-%if 0%{?fedora}
-BuildRequires: pkgconfig(odbc)
-%endif
-%if 0%{?fedora} || 0%{?rhel} == 7
-BuildRequires: python%{python3_pkgversion}-breathe
-BuildRequires: python%{python3_pkgversion}-sphinx
-%endif
 BuildRequires: python3-devel
+
+# This can be removed when F43 reaches EOL
+Obsoletes:     %{name}-doc < 20240115
 
 %global majver %(cut -d. -f1 <<< %{version})
 
@@ -138,185 +136,123 @@ Features
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: asl-devel%{?_isa}
 
 %description devel
 This package contains the header files for %{name}.
 
-%package doc
-Summary: Documentation for %{name}
-
-%description doc
-This package contains the developer documentation for %{name}.
-
 %prep
-%autosetup -n %{name}-%{commit} -a 2 -p1
+%forgeautosetup -p1
 
 %if 0%{?with_jacop}
 jacopver=$(sed -n 's,^    <version>\(.*\)</version>,\1,p' %{_mavenpomdir}/jacop/jacop.pom)
 ln -s %{_javadir}/jacop/jacop.jar thirdparty/jacop/jacop-$jacopver.jar
 %endif
 
-fixtimestamp() {
-  touch -r $1.orig $1
-  rm -f $1.orig
-}
+# Fix library installation location
+if [ '%{_lib}' != 'lib' ]; then
+  sed -i 's/\(DESTINATION \)lib/\1%{_lib}/' CMakeLists.txt src/asl/CMakeLists.txt
+fi
 
-# Fix end of line and character encodings
-for fil in $(find ampl.github.io/models -type f); do
-  type=$(file $fil)
-  if [[ "$type" =~ "with CRLF" ]]; then
-    sed -i.orig 's/\r//' $fil
-    fixtimestamp $fil
-  fi
-  if [[ "$type" =~ "ISO-8859" ]]; then
-    mv $fil $fil.orig
-    iconv -f ISO8859-1 -t UTF-8 $fil.orig > $fil
-    fixtimestamp $fil
-  fi
-done
+# Install the AMPL function libraries in libexec
+sed -i 's,\(AMPL_LIBRARY_DIR \)bin,\1libexec/mp,' CMakeLists.txt
 
-# Fix the invocation name for sphinx
-%if 0%{?rhel} == 7
-sed -i 's,sphinx-build,&-3.6,' support/build-docs.py
+# Link with an optimized blas library
+sed -i 's/gslcblas/%{blaslib}/' src/gsl/CMakeLists.txt
+
+# Enable the gsl interface
+sed -i '/add_subdirectory(solvers)/i\\tadd_subdirectory(src/gsl)' CMakeLists.txt
+
+# Link the HiGHS interface with the actual HiGHS library
+%if 0%{?with_highs}
+sed -i '/target_link_libraries/s/\${RT_LIBRARY}/& -lhighs/' CMakeLists.txt
 %endif
 
-# python-breathe is broken in EPEL 7 and absent in EPEL 8, so skip building
-# sphinx docs for those distributions.
-%if 0%{?rhel}
-sed -i 's,returncode == 0,False,' support/build-docs.py
+# Link the SCIP interface with the actual SCIP library
+%if 0%{?with_scip}
+sed -i '/target_link_libraries/s/\${RT_LIBRARY}/& -lscip/' CMakeLists.txt
 %endif
 
 %build
-export LIBS="-lgsl -l%{blaslib}"
-mkdir -p build && pushd build
-BUILD="asl,gsl,smpswriter"
+BUILD='asl,smpswriter'
 %if 0%{?with_gecode}
 BUILD="gecode,$BUILD"
 %endif
 %if 0%{?with_jacop}
 BUILD="jacop,$BUILD"
 %endif
-export CPPFLAGS="-I$PWD/src/asl/solvers"
-export CFLAGS="%{optflags} -DNDEBUG"
-export CXXFLAGS="%{optflags} -DNDEBUG"
-# Let cmake create rpaths, so the jacop-using files can find libjvm.so.
-# We strip out the ones we don't want with chrpath at install time.
-%cmake3 -DCMAKE_INSTALL_PREFIX:PATH=%{_libdir}/%{name} \
+%if 0%{?with_highs}
+BUILD="highsmp,$BUILD"
+%endif
+%if 0%{?with_scip}
+BUILD="scipmp,$BUILD"
+%endif
+commonflags="-I%{_includedir}/asl -I$PWD/src/asl/solvers -I%{_includedir}/highs -I%{_includedir}/scip -DNDEBUG"
+export CFLAGS="%{build_cflags} $commonflags"
+export CXXFLAGS="%{build_cxxflags} $commonflags"
+%cmake \
  -DCMAKE_SHARED_LINKER_FLAGS:STRING="$LDFLAGS" \
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="$CXXFLAGS" \
  -DCMAKE_C_FLAGS_RELEASE:STRING="$CFLAGS" \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=NO \
  -DCMAKE_SKIP_RPATH:BOOL=NO \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=YES \
- -DGENERATE_ARITH:BOOL=YES \
  -DBUILD_SHARED_LIBS:BOOL=YES \
- -DBUILD:STRING=$BUILD ..
-%make_build
-make doc
-rm doc/ampl.github.io/models/*/.depend
-popd
+ -DBUILD:STRING=$BUILD
+%cmake_build
 
 %install
-mkdir -p %{buildroot}%{_modulesdir}
-sed 's#@BINDIR@#'%{_libdir}/%{name}'#g;' < %{SOURCE1} > \
-    %{buildroot}%{_modulesdir}/%{name}-%{_arch}
+%cmake_install
 
-mkdir -p %{buildroot}%{_libdir}/%{name}/bin/lib
-mkdir -p %{buildroot}%{_includedir}/asl
-cp -a include %{buildroot}%{_prefix}
-install -pm 644 src/asl/*.h %{buildroot}%{_includedir}/asl
-install -pm 644 src/asl/solvers/*.h build/src/asl/*.h %{buildroot}%{_includedir}/asl
+# We install the license file elsewhere
+rm -rf %{buildroot}%{_datadir}
 
-# Required by coin-or-Couenne
-install -pm 644 src/asl/solvers/{opcode,r_opn}.hd %{buildroot}%{_includedir}/asl
-
-%if 0%{?with_jacop}
-jacopver=$(sed -n 's,^    <version>\(.*\)</version>,\1,p' %{_mavenpomdir}/jacop/jacop.pom)
-install -pm 644 build/bin/ampljacop.jar %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/jacop %{buildroot}%{_libdir}/%{name}/bin
-ln -s %{_javadir}/jacop/jacop.jar %{buildroot}%{_libdir}/%{name}/bin/lib/jacop-$jacopver.jar
-install -pm 755 build/bin/libampljacop.so %{buildroot}%{_libdir}/%{name}/bin
-%endif
-install -pm 755 build/bin/amplgsl.dll %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/ampltabl.dll %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/arithchk %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/cp.dll %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/fullbit.dll %{buildroot}%{_libdir}/%{name}/bin
-%if 0%{?with_gecode}
-install -pm 755 build/bin/gecode %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/libamplgecode.so %{buildroot}%{_libdir}/%{name}/bin
-%endif
-install -pm 755 build/bin/gen-expr-info %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/gjh %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/gsl-info %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/libamplsmpswriter.so %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/simpbit.dll %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/smpswriter %{buildroot}%{_libdir}/%{name}/bin
-install -pm 755 build/bin/tableproxy%{__isa_bits} %{buildroot}%{_libdir}/%{name}/bin
-
-## Fix symbolic links
-install -pm 755 build/bin/libasl.so* %{buildroot}%{_libdir}
-ln -sf libasl.so.%{version} %{buildroot}%{_libdir}/libasl.so.%{majver}
-ln -sf libasl.so.%{majver} %{buildroot}%{_libdir}/libasl.so
-
-install -pm 755 build/bin/libmp.so* %{buildroot}%{_libdir}
-ln -sf libmp.so.%{version} %{buildroot}%{_libdir}/libmp.so.%{majver}
-ln -sf libmp.so.%{majver} %{buildroot}%{_libdir}/libmp.so
-
-chrpath --delete %{buildroot}%{_libdir}/libasl.so.%{version}
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/amplgsl.dll
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/ampltabl.dll
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/arithchk
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/cp.dll
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/fullbit.dll
-%if 0%{?with_gecode}
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/gecode
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/libamplgecode.so
-%endif
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/gen-expr-info
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/gjh
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/gsl-info
-%if 0%{?with_jacop}
-rpath=$(dirname $(find %{_jvmdir}/jre/lib -name libjvm.so))
-chrpath --replace $rpath %{buildroot}%{_libdir}/%{name}/bin/jacop
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/libampljacop.so
-%endif
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/libamplsmpswriter.so
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/simpbit.dll
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/smpswriter
-chrpath --delete %{buildroot}%{_libdir}/%{name}/bin/tableproxy%{__isa_bits}
-##
-
-%check
-pushd build
+# There are numerous tests that no longer match the behavior of the code.
+# Upstream appears to have allowed the test suite to bitrot.  Do not run
+# the tests until upstream gets them back in shape.
+#%%check
 # Some of the tests use the SAME FILENAME to store temporary results, so
 # running the tests in parallel leads to intermittent test failures, generally
 # in either os-test or solver-test.  Do not pass the parallel flags to ctest.
-ctest --force-new-ctest-process -j1
-popd
-
-%ldconfig_scriptlets
+#%%ctest -j1
 
 %files
 %doc README.rst
 %license LICENSE.rst
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/bin/
-%{_libdir}/libasl.so.3*
+%if 0%{?with_gecode}
+%{_bindir}/gecode
+%endif
+%if 0%{?with_highs}
+%{_bindir}/highsmp
+%endif
+%if 0%{?with_jacop}
+%{_bindir}/jacop
+%endif
+%if 0%{?with_jacop}
+%{_bindir}/scipmp
+%endif
+%{_bindir}/smpswriter
+%{_libdir}/libaslmp.so.3*
 %{_libdir}/libmp.so.3*
-%{_modulesdir}/%{name}-%{_arch}
+%{_libexecdir}/mp/
 
 %files devel
-%{_libdir}/libasl.so
+%{_libdir}/libaslmp.so
 %{_libdir}/libmp.so
 %{_includedir}/asl
 %{_includedir}/mp
 
-%files doc
-%license LICENSE.rst
-%doc build/doc/ampl.github.io/*
-
 %changelog
+* Wed Feb  7 2024 Jerry James <loganjerry@gmail.com> - 20240115-1
+- Update to latest release, with new version scheme
+- Unbundle asl
+- Stop building documentation
+- Drop support for Fedora < 37
+- Build with support for HiGHS and SCIP
+- Remove unused ODBC dependency
+- Remove unnecessary environment module; install to libexec instead
+- Stop building for 32-bit x86
+
 * Sat Feb 03 2024 Antonio Trande <sagitter@fedoraproject.org.com> - 3.1.0-45.20200303git7fd4828
 - Patched for GCC-14 (rhbz#2261393)
 - Switch to SPDX

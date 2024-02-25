@@ -2,7 +2,7 @@
 
 Name:           plexus-compiler
 Version:        2.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
 # parts of compiler-api are Apache-2.0/MIT
@@ -106,6 +106,9 @@ cp %{SOURCE2} LICENSE.MIT
 %license LICENSE LICENSE.MIT
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.14.2-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.14.2-1
 - Update to upstream version 2.14.2
 

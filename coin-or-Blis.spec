@@ -2,11 +2,15 @@
 
 Name:		coin-or-%{module}
 Summary:	BLIS (BiCePS Linear Integer Solver)
-Version:	0.94.8
-Release:	13%{?dist}
+Version:	0.95.0
+Release:	1%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-BLIS
 Source0:	https://github.com/coin-or/CHiPPS-BLIS/archive/releases/%{version}/CHiPPS-BLIS-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	coin-or-Bcps-devel
 BuildRequires:	coin-or-Bcps-doc
 BuildRequires:	coin-or-Cgl-devel
@@ -15,10 +19,6 @@ BuildRequires:	coin-or-Clp-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	make
-
-# Install documentation in standard rpm directory
-Patch0:		%{name}-docdir.patch
-Patch1:		coin-or-Blis-configure-c99.patch
 
 %description
 BLIS (BiCePS Linear Integer Solver) is an application developed on top of
@@ -60,13 +60,14 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 %make_build all
-%make_build -C Blis doxydoc
+%make_build doxygen-docs
 
 %install
 %make_install
+mv %{buildroot}%{_docdir}/coin-or-blis %{buildroot}%{_docdir}/%{name}
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,blis_addlibs.txt}
-cp -a Blis/doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+cp -a blis_doxy.tag doxydoc/html %{buildroot}%{_docdir}/%{name}
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
@@ -75,13 +76,13 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %license LICENSE
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/AUTHORS
-%doc %{_docdir}/%{name}/README
+%doc %{_docdir}/%{name}/README.md
 %{_bindir}/blis
-%{_libdir}/libBlis.so.0
-%{_libdir}/libBlis.so.0.*
+%{_libdir}/libBlis.so.1
+%{_libdir}/libBlis.so.1.*
 
 %files		devel
-%{_includedir}/coin/*
+%{_includedir}/coin-or/*
 %{_libdir}/libBlis.so
 %{_libdir}/pkgconfig/blis.pc
 
@@ -90,6 +91,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/blis_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.95.0-1
+- Version 0.95.0
+- Drop all patches
+- Verify that License is valid SPDX
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.94.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

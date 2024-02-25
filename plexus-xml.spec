@@ -2,7 +2,7 @@
 
 Name:           plexus-xml
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus XML Utilities
 # Licensing breakdown:
 # Apache-1.1: src/main/java/org/codehaus/plexus/util/xml/StringUtils.java
@@ -42,5 +42,8 @@ A collection of various utility classes to ease working with XML.
 %license NOTICE.txt LICENSE.txt
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.0-2
+- bump of release for for java-21-openjdk as system jdk
+
 * Fri Feb  2 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0-1
 - Initial packaging

@@ -1,12 +1,18 @@
 Name:    kwin-x11
-Version: 5.93.0
+Version: 6.0.0
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://userbase.kde.org/KWin
 
-Source0: http://download.kde.org/unstable/plasma/%{version}/kwin-%{version}.tar.xz
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
+Source0: http://download.kde.org/%{stable}/plasma/%{version}/kwin-%{version}.tar.xz
 
 ## upstream patches
 
@@ -169,6 +175,9 @@ sed -i \
 
 
 %changelog
+* Fri Feb 23 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.0-1
+- 6.0.0
+
 * Mon Feb 19 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 5.93.0-1
 - 5.93.0
 - Readd Provides: deprecated() as requested, with clarifying comment

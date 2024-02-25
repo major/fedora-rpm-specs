@@ -26,6 +26,7 @@ BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(lua)
 BuildRequires: perl-devel, perl-ExtUtils-Embed
 BuildRequires: python3-cffi
+BuildRequires: desktop-file-utils
 Requires:      python3-cffi
 Requires:      (enchant or enchant2)
 Recommends:    sound-theme-freedesktop
@@ -52,6 +53,8 @@ This package contains the development files for %{name}.
 %install
 %meson_install
 %find_lang %{name}
+
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_id}.desktop
 
 %files -f %{name}.lang
 %{_bindir}/hexchat

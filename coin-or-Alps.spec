@@ -1,34 +1,36 @@
 %global		module		Alps
 
-%if 0%{?fedora} >= 33
-%global blaslib flexiblas
-%else
-%global blaslib openblas
-%endif
-
 Name:		coin-or-%{module}
 Summary:	COIN-OR High-Performance Parallel Search Framework
-Version:	1.5.7
-Release:	14%{?dist}
+Version:	1.5.11
+Release:	1%{?dist}
+
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-ALPS
 Source0:	https://github.com/coin-or/CHiPPS-ALPS/archive/releases/%{version}/CHiPPS-ALPS-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
+
 BuildRequires:	coin-or-Cgl-devel
 BuildRequires:	coin-or-Clp-devel
 BuildRequires:	coin-or-CoinUtils-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
-BuildRequires:	gcc-gfortran
-BuildRequires:	glpk-devel
 BuildRequires:	make
-BuildRequires:	%{blaslib}-devel
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
 
 # Bad #define generated if svnversion is available
 Patch1:		%{name}-svnversion.patch
-Patch2: coin-or-Alps-configure-c99.patch
+
+# Fix C99 violations in the configure script
+Patch2:		%{name}-configure-c99.patch
+
+# std::unary_function is deprecated in C++14 and removed in C++17
+# mallinfo is deprecated in glibc 2.33
+Patch3:		%{name}-deprecated.patch
 
 %description
 CHiPPS is the COIN-OR High-Performance Parallel Search Framework, a framework
@@ -64,13 +66,8 @@ This package contains the documentation for %{name}.
 %autosetup -p1 -n CHiPPS-ALPS-releases-%{version}
 
 %build
-%configure \
-  --with-blas-incdir=%{_includedir}/%{blaslib} \
-  --with-blas-lib=-l%{blaslib} \
-  --with-glpk-incdir=%{_includedir} \
-  --with-glpk-lib=-lglpk \
-  --with-lapack-incdir=%{_includedir}/%{blaslib} \
-  --with-lapack-lib=-l%{blaslib}
+export CPPFLAGS='-DNDEBUG'
+%configure
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -80,26 +77,24 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
     -i libtool
 
 %make_build all
-%make_build -C Alps doxydoc
+%make_build doxygen-docs
 
 %install
 %make_install
-rm -f %{buildroot}%{_libdir}/*.la
-rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,alps_addlibs.txt}
-cp -a Alps/doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+rm %{buildroot}%{_libdir}/*.la
+rm %{buildroot}%{_docdir}/%{name}/{alps_addlibs.txt,LICENSE}
+cp -a doxydoc/{html,alps_doxy.tag} %{buildroot}%{_docdir}/%{name}
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
-
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
 %{_docdir}/%{name}/README
-%{_libdir}/libAlps.so.0
-%{_libdir}/libAlps.so.0.*
+%{_libdir}/libAlps.so.3
+%{_libdir}/libAlps.so.3.*
 
 %files		devel
 %{_includedir}/coin/*
@@ -111,6 +106,13 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/alps_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.5.11-1
+- Version 1.5.11
+- Verify the license is valid SPDX
+- Add patch to avoid deprecated std::unary_function and mallinfo
+- Stop building for 32-bit x86
+- Trim BuildRequires
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

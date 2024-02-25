@@ -10,7 +10,7 @@
 
 Name:           javacc-maven-plugin
 Version:        3.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        JavaCC Maven Plugin
 
 License:        Apache-2.0
@@ -80,6 +80,9 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.1-7
+- bump of release for for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

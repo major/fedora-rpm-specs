@@ -1,6 +1,6 @@
 Name:    powerdevil
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -50,6 +50,8 @@ BuildRequires:  cmake(PlasmaActivities)
 
 %ifnarch s390 s390x
 BuildRequires:  libddcutil-devel
+# udev rules
+Requires:       ddcutil
 %global DDCUTIL ON
 %else
 %global DDCUTIL OFF
@@ -110,6 +112,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_userunitdir}/plasma-powerprofile-osd.service
 
 %changelog
+* Fri Feb 23 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.0-2
+- Require ddcutil for udev rules
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

@@ -1,6 +1,6 @@
 Name:           shairport-sync
-Version:        3.3.9
-Release:        6%{?dist}
+Version:        4.3.2
+Release:        0%{?dist}
 Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 # MIT licensed except for tinysvcmdns under BSD, 
 # FFTConvolver/ under GPLv3+ and audio_sndio.c 
@@ -8,6 +8,7 @@ Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 License:        MIT and BSD and GPLv3+ and ISC
 URL:            https://github.com/mikebrady/shairport-sync
 Source0:        https://github.com/mikebrady/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         local-user.patch
 
 %{?systemd_requires}
 Requires: avahi
@@ -37,17 +38,19 @@ Shairport Sync does not support AirPlay video or photo streaming.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 autoreconf -i -f
-%configure --with-avahi --with-alsa --with-ssl=openssl --with-soxr \
-           --with-pipe --with-dummy --with-stdout --with-pa --with-metadata
+%configure --sysconfdir=/etc --with-alsa --with-pipe --with-dummy \
+           --with-stdout --with-pa --with-pq --with-metadata \
+           --with-soxr --with-avahi --with-systemd --with-ssl=openssl
+
 %make_build
 
 %install
 %make_install
 rm %{buildroot}/etc/shairport-sync.conf.sample
-install -p -m644 -D scripts/shairport-sync.service %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 
 %pre
@@ -55,7 +58,6 @@ getent group %{name} >/dev/null || groupadd --system %{name}
 getent passwd %{name} > /dev/null || useradd --system -c "%{name} User" \
         -d %{_sharedstatedir}/%{name} -g %{name} -s /sbin/nologin \
         -G audio %{name}
-exit 0
 
 %post
 %systemd_post %{name}.service
@@ -76,6 +78,9 @@ exit 0
 %attr(-, %{name}, %{name}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Fri Feb 23 2024 Bill Peck <bpeck@redht.com> - 4.3.2-0
+- New upstream release
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

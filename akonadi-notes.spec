@@ -1,5 +1,5 @@
 Name:    akonadi-notes
-Version: 24.01.95
+Version: 24.02.0
 Release: 1%{?dist}
 Summary: The Akonadi Notes Library
 
@@ -67,6 +67,9 @@ find ./po -type f -name akonadinotes5.po -execdir mv {} akonadinotes6.po \;
 
 
 %changelog
+* Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
+- 24.02.0
+
 * Wed Jan 31 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.01.95-1
 - 24.01.95
 

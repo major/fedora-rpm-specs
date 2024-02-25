@@ -1,6 +1,6 @@
 %global		module		Cbc
 
-%if 0%{?fedora} >= 33
+%if 0%{?fedora}
 %global blaslib flexiblas
 %else
 %global blaslib openblas
@@ -8,9 +8,12 @@
 
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
-Version:	2.10.5
-Release:	16%{?dist}
-License:	EPL-1.0
+Version:	2.10.11
+Release:	1%{?dist}
+
+# The project as a whole is licensed EPL-2.0.  However, many source files still
+# claim to be licensed EPL-1.0.  This is probably an upstream oversight.
+License:	EPL-2.0 AND EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
 BuildRequires:	coin-or-Cgl-doc
@@ -20,7 +23,7 @@ BuildRequires:	coin-or-Vol-doc
 BuildRequires:	doxygen
 BuildRequires:	gcc-c++
 BuildRequires:	make
-BuildRequires:	mp-devel
+BuildRequires:	asl-devel
 BuildRequires:	MUMPS-devel
 BuildRequires:  %{blaslib}-devel
 BuildRequires:	pkgconfig(cgl)
@@ -28,6 +31,9 @@ BuildRequires:	pkgconfig(clp)
 BuildRequires:	pkgconfig(coindatamiplib3)
 BuildRequires:	pkgconfig(coindatanetlib)
 BuildRequires:	pkgconfig(dylp)
+%ifnarch %{ix86}
+BuildRequires:  pkgconfig(highs)
+%endif
 BuildRequires:	pkgconfig(nauty)
 BuildRequires:	pkgconfig(vol)
 
@@ -40,13 +46,18 @@ Patch1:		%{name}-svnversion.patch
 # Do not catch polymorphic exceptions by value
 Patch2:		%{name}-exception.patch
 
-# Fix a possible buffer overflow
-Patch3:		%{name}-overflow.patch
+# Fix non-C99 code in the configure script
+Patch3:		%{name}-configure-c99.patch
 
-# Fix a mixed signed/unsigned operation
-Patch4:		%{name}-signed.patch
+# ISO C++17 does not allow 'register' storage class specifier
+# https://github.com/coin-or/Cbc/commit/a5b95995f8347e90c72a197224def415e4302d7b
+# https://github.com/coin-or/Cbc/commit/583acba8c6052d711f58d51294de61461a5bb3d5
+Patch4:		%{name}-register.patch
 
-Patch5:		coin-or-Cbc-configure-c99.patch
+# One test relies on Clp having been compiled without -DNDEBUG, so that it
+# throws an exception.  We compiled with -DNDEBUG, so the test segfaults.
+# Skip that test.
+Patch5:		%{name}-test.patch
 
 %description
 Cbc (Coin-or branch and cut) is an open-source mixed integer programming
@@ -93,7 +104,9 @@ This package contains the documentation for %{name}.
 sed -i 's/ @CBCLIB_PCLIBS@/\nLibs.private:&/' Cbc/cbc.pc.in
 
 %build
+export CPPFLAGS='-DNDEBUG'
 %configure \
+  --enable-cbc-parallel \
   --with-asl-incdir=%{_includedir}/asl \
   --with-asl-lib=-lasl \
   --with-blas-incdir=%{_includedir}/%{blaslib} \
@@ -120,18 +133,16 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_install
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,cbc_addlibs.txt}
-cp -a doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
+cp -a README.md doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
-
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
-%{_docdir}/%{name}/README
+%{_docdir}/%{name}/README.md
 %{_bindir}/cbc
 %{_libdir}/libCbc.so.3
 %{_libdir}/libCbc.so.3.*
@@ -153,6 +164,14 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.10.11-1
+- Version 2.10.11
+- Change License from EPL-1.0 to EPL-2.0 AND EPL-1.0
+- Verify that license is valid SPDX
+- BR asl-devel instead of mp-devel
+- Add coin-or-HiGHS support except on 32-bit x86
+- Drop support for Fedora < 33
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
