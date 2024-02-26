@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.34.3
-Release:        2%{?dist}
+Version:        3.36.0
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -28,8 +28,6 @@ Patch0:         %{name}-serverprefix.patch
 Patch1:         %{name}-yarn-offline.patch
 # Fix build against qwt-6.2
 Patch2:         %{name}-qwt.patch
-# Fix GCC13 FTBFS
-Patch3:         %{name}-gcc13.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -218,10 +216,6 @@ install -pm0644 images/icons/%{name}-mime-icon.png %{buildroot}%{_datadir}/pixma
 install -pd %{buildroot}%{_sysconfdir}/httpd/conf.d
 install -pm0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/httpd/conf.d/qgis-server.conf
 
-# See qgis-server-README.fedora
-rm -f %{buildroot}%{_libexecdir}/%{name}/wms_metadata.xml
-rm -f %{buildroot}%{_libexecdir}/%{name}/admin.sld
-
 # Remove install instructions
 rm -f %{buildroot}%{_datadir}/%{name}/doc/INSTALL*
 
@@ -298,7 +292,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 %exclude %{python3_sitearch}/%{name}/_server.so
 
 %files server
-%doc src/server/admin.sld src/server/wms_metadata.xml %{name}-server-README.fedora
+%doc %{name}-server-README.fedora
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}-server.conf
 %{_bindir}/qgis_mapserver
 %{_libdir}/%{name}/server/
@@ -310,6 +304,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Feb 23 2024 Sandro Mani <manisandro@gmail.com> - 3.36.0-1
+- Update to 3.36.0
+
 * Tue Jan 23 2024 Sandro Mani <manisandro@gmail.com> - 3.34.3-2
 - Rebuild (libdraco)
 

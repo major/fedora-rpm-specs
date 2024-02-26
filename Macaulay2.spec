@@ -52,7 +52,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.22
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -228,7 +228,7 @@ Source108: https://github.com/linbox-team/linbox/releases/download/v%{linboxver}
 Provides:  bundled(linbox) = %{linboxver}
 
 ## PATCHES FOR BUNDLED code
-# Fix a buffer overflow
+# Fix a buffer overflow and some constness issues
 # https://github.com/linbox-team/linbox/pull/307
 Source200: linbox-1.7.0.patch
 # MPFR bug fixes from mpfr upstream.
@@ -334,9 +334,9 @@ BuildRequires: pkgconfig(qd)
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(tbb)
 BuildRequires: pkgconfig(tinyxml2)
-# Polymake is currently uninstallable
-#BuildRequires: polymake
+BuildRequires: polymake
 BuildRequires: python3-devel
+BuildRequires: scip
 BuildRequires: texinfo
 BuildRequires: time
 BuildRequires: TOPCOM
@@ -361,6 +361,7 @@ Requires: TOPCOM
 Requires: xdg-utils
 
 Recommends: mathicgb
+Recommends: scip
 
 %if 0%{?common}
 Requires:  %{name}-common = %{version}-%{release}
@@ -377,7 +378,10 @@ Provides:  macaulay2 = %{version}-%{release}
 
 # Macaulay2 no longer builds successfully on 32-bit platforms
 # https://bugzilla.redhat.com/show_bug.cgi?id=1874318
-ExcludeArch: %{ix86} %{arm}
+#
+# Macaulay2 started segfaulting during the build on ppc64le just prior to
+# F40 Beta Freeze.  Disable it for now until we can diagnose the problem.
+ExcludeArch: %{ix86} ppc64le
 
 # Do not advertise the bundled mpfr
 %global __provides_exclude libmpfr.so*
@@ -422,6 +426,7 @@ tar -C submodules/mathic -xf %{SOURCE107} --strip-components=1
 sed -e 's,--with-blas,&=%{_includedir}/flexiblas --with-ntl,' \
     -i libraries/flint/Makefile.in
 cp -p %{SOURCE200} libraries/linbox/patch-%{linboxver}
+sed -i 's/^#\(PATCHFILE\)/\1/' libraries/linbox/Makefile.in
 sed -e '/^TARFILE =/iPATCHFILE = @abs_srcdir@/patch-$(VERSION)' \
     -i libraries/mpfr/Makefile.in
 cp -p %{SOURCE201} libraries/mpfr/patch-%{mpfrver}
@@ -623,6 +628,11 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 1.22-6
+- Build the polymake and scip examples
+- Recommend scip
+- Disable ppc64le build until segfaults can be diagnosed
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

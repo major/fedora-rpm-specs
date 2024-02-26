@@ -1,3 +1,5 @@
+%global forgeurl https://github.com/mtth/hdfs
+
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
@@ -5,37 +7,19 @@
 %bcond doc_pdf 1
 
 Name:           python-hdfs
-Version:        2.7.2
+Version:        2.7.3
 Release:        %autorelease
 Summary:        API and command line interface for HDFS
-
+%forgemeta
 # SPDX
 License:        MIT
-URL:            https://github.com/mtth/hdfs
-Source0:        %{url}/archive/v%{version}/hdfs-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 # Downstream man pages in groff_man(7) format. These were written for Fedora
 # based on the tools’ --help output and should be updated if the command-line
 # interface changes.
 Source1:        hdfscli.1
 Source2:        hdfscli-avro.1
-
-# Replace imp.load_source()
-# https://github.com/mtth/hdfs/pull/204
-#
-# Fixes:
-#
-# Support Python 3.12
-# https://github.com/mtth/hdfs/issues/203
-Patch:          %{url}/pull/204.patch
-
-# Adjust Sphinx copyright strings to “<YEAR>, <AUTHOR>” form
-# https://github.com/mtth/hdfs/pull/206
-#
-# Fixes:
-#
-# python-hdfs FTBFS with Sphinx 7.1+ in Fedora Rawhide (F40)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2232580
-Patch:          %{url}/pull/206.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -104,7 +88,7 @@ Summary:    Documentation and examples for %{name}
 
 
 %prep
-%autosetup -n hdfs-%{version} -p1
+%forgeautosetup -p1
 
 # Remove shebangs from non-script sources. The find-then-modify pattern keeps
 # us from discarding mtimes on sources that do not need modification.

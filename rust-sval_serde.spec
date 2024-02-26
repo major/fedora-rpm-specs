@@ -5,7 +5,7 @@
 %global crate sval_serde
 
 Name:           rust-sval_serde
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Integration between serde::Serialize and sval::Value
 

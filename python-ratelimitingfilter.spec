@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A rate limiting filter for the Python logging system
 
 License:        MIT
@@ -12,7 +12,6 @@ Source0:        https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
 BuildRequires:  python3-setuptools
 
 %description
@@ -52,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Feb 22 2024 Michel Lind <salimma@fedoraproject.org> - 1.5-10
+- Remove unnecessary and deprecated python3-mock BR
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

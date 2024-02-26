@@ -4,7 +4,7 @@
 %global crate libbpf-cargo
 
 Name:           rust-libbpf-cargo
-Version:        0.22.0
+Version:        0.22.1
 Release:        %autorelease
 Summary:        Cargo plugin to build bpf programs
 
@@ -33,7 +33,7 @@ Summary:        %{summary}
 # LGPL-2.1-only OR BSD-2-Clause
 # MIT
 # MIT OR Apache-2.0
-License:        (LGPL-2.1-only OR BSD-2-Clause) AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-3-Clause OR MIT OR Apache-2.0) AND MIT
+License:        (LGPL-2.1-only OR BSD-2-Clause) AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-3-Clause OR MIT OR Apache-2.0) AND MIT
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

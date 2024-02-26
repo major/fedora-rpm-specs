@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 23.08.5
+Release: 1%{?dist}
 Summary: The KMime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -91,6 +91,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Feb 24 2024 Alessandro Astone <ales.astone@gmail.com> - 23.08.5-1
+- 23.08.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

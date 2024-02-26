@@ -1,23 +1,26 @@
-%global git_version a0d77f18516d2da7468a96b0de3b737266f23176
-
 Name:       onnx
-Version:    1.14.0
-Release:    10%{?dist}
+Version:    1.14.1
+Release:    2%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
 URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
 # Build shared libraries and fix install location 
-Patch0:     onnx-install.patch
+Patch0:     0000-Build-shared-libraries-and-fix-install-location.patch
 # Add what is missing to run tox, disable tests that require network
-Patch1:     onnx-tox.patch
+Patch1:     0001-Add-what-is-missing-to-run-tox-disable-tests-that-re.patch
 # Use system protobuf and require parameterized
-Patch2:     onnx-requirements.patch
+Patch2:     0002-Use-system-protobuf-and-require-parameterized.patch
 # Let pyproject_wheel use binaries from cmake_build
-Patch3:     python-cmake-fix.patch 
+Patch3:     0003-Let-pyproject_wheel-use-binaries-from-cmake_build.patch
 # Add fixes for use with onnxruntime
-Patch4:     onnxruntime_fix.patch
+Patch4:     0004-Add-fixes-for-use-with-onnxruntime.patch
+# Backport of fix for CVE-2024-27318
+Patch5:     0005-Fix-path-sanitization-bypass-leading-to-arbitrary-re.patch
+# Backport of fix for CVE-2024-27319
+Patch6:     0006-Fix-Out-of-bounds-read-due-to-lack-of-string-termina.patch
+Patch7:     0007-Fix-test_external_data.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
@@ -112,6 +115,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Sat Feb 24 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.1-2
+- Backport of fixes for CVE-2024-27318 and CVE-2024-27319
+
+* Wed Feb 21 2024 Diego Herrera C <dherrera@redhat.com>- 1.14.1-1
+- Release 1.14.1
+
 * Tue Jan 23 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-10
 - Build using protobuf-devel
 

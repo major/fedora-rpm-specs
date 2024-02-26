@@ -5,7 +5,7 @@
 %global crate sval_dynamic
 
 Name:           rust-sval_dynamic
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Object-safe versions of sval::Stream and sval::Value
 

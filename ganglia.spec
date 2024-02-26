@@ -1,5 +1,5 @@
 %global gangver     3.7.2
-%global webver      3.7.5
+%global webver      3.7.6
 
 %global systemd         1
 %global _hardened_build 1
@@ -11,7 +11,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            45%{?dist}
+Release:            46%{?dist}
 License:            BSD
 URL:                http://ganglia.sourceforge.net/
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
@@ -25,7 +25,6 @@ Patch0:             ganglia-web-3.7.2-path.patch
 Patch1:             ganglia-3.7.2-apache.patch
 Patch2:             ganglia-3.7.2-sflow.patch
 Patch3:             ganglia-3.7.2-tirpc-hack.patch
-Patch4:             ganglia-web-5ee6b7.patch
 Patch5:             ganglia-3.7.2-gcc14-cast.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
@@ -157,7 +156,6 @@ install -m 0644 %{SOURCE3} gmetad/gmetad.service.in
 mv ganglia-web-%{webver} web
 pushd web
 %patch0 -p1
-%patch4 -p1
 popd
 
 %build
@@ -410,6 +408,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sat Feb 24 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-46
+- Upgrade to ganglia web 3.7.6
+
 * Mon Feb 05 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-45
 - Fix GCC 14 issue
 

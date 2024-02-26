@@ -7,7 +7,7 @@ Hypothesis strategies for generating Python programs, something like CSmith.}
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Hypothesis strategies for generating Python programs
 

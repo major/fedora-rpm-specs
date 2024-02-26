@@ -5,7 +5,7 @@
 %global crate value-bag-sval2
 
 Name:           rust-value-bag-sval2
-Version:        1.4.2
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Implementation detail for value-bag
 

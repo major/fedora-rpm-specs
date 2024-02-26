@@ -5,7 +5,7 @@
 %global crate sval_buffer
 
 Name:           rust-sval_buffer
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Value buffering for sval
 

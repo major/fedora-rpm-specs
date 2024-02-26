@@ -77,10 +77,10 @@ Version:        4.9.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
-License:        BSD-3-Clause and Apache-2.0 and ISC
+License:        BSD-3-Clause AND Apache-2.0 AND ISC
 URL:            https://opencv.org
 # TO PREPARE TARBALLS FOR FEDORA
 # Edit opencv-clean.sh and set VERSION, save file and run opencv-clean.sh
@@ -430,6 +430,12 @@ install -pm 0644 %{S:4} .cache/ade/
 # non available on Fedora: FFMPEG, XINE
 # disabling IPP because it is closed source library from intel
 
+# Workaround for "virtual memory exhausted: Cannot allocate memory"
+%ifarch %{ix86}
+export CFLAGS='%{build_cflags} -g1'
+export CXXFLAGS='%{build_cxxflags} -g1'
+%endif
+
 %cmake \
 %if 0%{?fedora} > 38
  -DCMAKE_CXX_STANDARD=17 \
@@ -498,7 +504,6 @@ install -pm 0644 %{S:4} .cache/ade/
  %{?with_vulkan: -DWITH_VULKAN=ON -DVULKAN_INCLUDE_DIRS=%{_includedir}/vulkan }
 
 %cmake_build
-
 
 %install
 %cmake_install
@@ -578,6 +583,11 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 4.9.0-3
+- Rebuild (coin-or-Clp)
+- Use uppercase connectives in SPDX expression
+- Reduce debuginfo level on i386 to avoid memory exhaustion
+
 * Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 4.9.0-2
 - Revert drop compat symlink to opencv.pc
 

@@ -5,7 +5,7 @@
 %global crate value-bag
 
 Name:           rust-value-bag
-Version:        1.4.2
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Anonymous structured values
 
@@ -95,6 +95,18 @@ This package contains library source intended for building other packages which
 use the "owned" feature of the "%{crate}" crate.
 
 %files       -n %{name}+owned-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+seq-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+seq-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "seq" feature of the "%{crate}" crate.
+
+%files       -n %{name}+seq-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

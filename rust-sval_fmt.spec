@@ -5,7 +5,7 @@
 %global crate sval_fmt
 
 Name:           rust-sval_fmt
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Integration between std::fmt::Debug and sval::Value
 

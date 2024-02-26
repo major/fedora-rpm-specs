@@ -4,8 +4,8 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.268.0
-Release:       3%{?dist}
+Version:       1.3.275.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-clause AND GPL-3.0-or-later AND Apache-2.0
@@ -14,8 +14,6 @@ URL:           https://github.com/KhronosGroup/%{pkgname}
 Source0:       %url/archive/vulkan-sdk-%{version}/%{pkgname}-vulkan-sdk-%{version}.tar.gz
 # Remove debug suffix for mingw builds
 Patch0:        glslang_debug-suffix.patch
-# Add missing cstdint include
-Patch1:        glslang_cstdint.h
 
 BuildRequires: make
 BuildRequires: cmake
@@ -73,9 +71,7 @@ MinGW Windows %{pkgname} library.
 %{mingw32_bindir}/spirv-remap.exe
 %{mingw32_includedir}/glslang/
 %{mingw32_libdir}/libGenericCodeGen.a
-%{mingw32_libdir}/libHLSL.a
 %{mingw32_libdir}/libMachineIndependent.a
-%{mingw32_libdir}/libOGLCompiler.a
 %{mingw32_libdir}/libOSDependent.a
 %{mingw32_libdir}/libSPIRV.a
 %{mingw32_libdir}/libSPVRemapper.a
@@ -89,9 +85,7 @@ MinGW Windows %{pkgname} library.
 %{mingw64_bindir}/spirv-remap.exe
 %{mingw64_includedir}/glslang/
 %{mingw64_libdir}/libGenericCodeGen.a
-%{mingw64_libdir}/libHLSL.a
 %{mingw64_libdir}/libMachineIndependent.a
-%{mingw64_libdir}/libOGLCompiler.a
 %{mingw64_libdir}/libOSDependent.a
 %{mingw64_libdir}/libSPIRV.a
 %{mingw64_libdir}/libSPVRemapper.a
@@ -101,6 +95,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Sat Feb 24 2024 Sandro Mani <manisandro@gmail.com> - 1:1.3.275.0-1
+- Update to 1.3.275.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.268.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

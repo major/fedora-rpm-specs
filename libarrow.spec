@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	15.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -872,6 +872,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 15.0.0-3
+- Rebuilt for libre2.so.11 bump
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 15.0.0-2
 - Rebuilt for abseil-cpp-20240116.0
 

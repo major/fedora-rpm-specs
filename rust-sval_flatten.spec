@@ -5,7 +5,7 @@
 %global crate sval_flatten
 
 Name:           rust-sval_flatten
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Value flattening for sval
 
@@ -13,7 +13,6 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/sval_flatten
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * add missing sval_derive_macros and sval_test dev-dependencies
 Patch:          sval_flatten-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

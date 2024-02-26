@@ -1,7 +1,7 @@
 Name:    kopete
 Summary: Instant messenger
-Version: 23.08.4
-Release: 3%{?dist}
+Version: 23.08.5
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.1-only
 URL:     https://www.kde.org/applications/internet/kopete/
@@ -67,7 +67,6 @@ BuildRequires: pkgconfig(libidn)
 BuildRequires: pkgconfig(libotr)
 BuildRequires: pkgconfig(libv4l2)
 BuildRequires: pkgconfig(libxslt)
-BuildRequires: pkgconfig(meanwhile)
 BuildRequires: pkgconfig(speex)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: libvncserver-devel
@@ -156,6 +155,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 
 
 %changelog
+* Sat Feb 24 2024 Alessandro Astone <ales.astone@gmail.com> - 23.08.5-1
+- 23.08.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

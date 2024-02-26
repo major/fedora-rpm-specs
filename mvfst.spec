@@ -1,5 +1,5 @@
 Name:           mvfst
-Version:        2024.01.22.00
+Version:        2024.02.19.00
 Release:        %autorelease
 Summary:        An implementation of the QUIC transport protocol
 

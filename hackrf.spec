@@ -1,6 +1,6 @@
 Name:           hackrf
-Version:        2023.01.1
-Release:        7%{?dist}
+Version:        2024.02.1
+Release:        1%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -136,6 +136,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Sat Feb 24 2024 Steven A. Falco <stevenfalco@gmail.com> - 2024.02.1-1
+- Update to 2024.02.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

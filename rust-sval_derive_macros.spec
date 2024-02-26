@@ -5,7 +5,7 @@
 %global crate sval_derive_macros
 
 Name:           rust-sval_derive_macros
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Minimal derive support for sval
 

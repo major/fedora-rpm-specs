@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/pydantic/pydantic-settings
 
 Name:           python-pydantic-settings
-Version:        2.2.0
+Version:        2.2.1
 %forgemeta
 Release:        1%{?dist}
 Summary:        Settings management using pydantic
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Feb 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.1-1
+- Update to 2.2.1
+
 * Mon Feb 19 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.2.0-1
 - Update to 2.2.0 (close RHBZ#2264579)
 - Add metapackages for new yaml and toml extras

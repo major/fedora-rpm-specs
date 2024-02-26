@@ -1,16 +1,16 @@
 # Upstream does not release tarballs.  Instead the code is copied directly
 # into the polymake distribution.  Therefore, we check out the code from git.
-%global commit  031cc3a0a7c125060951d9e8b0ca67a5091cc5ac
+%global commit  a6987c8bb455c172e80eed7b5b62a7c13bf85815
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20190509
+%global gitdate 20231204
 
 Name:           python-jupymake
 Version:        0.9
-Release:        28.%{gitdate}.%{shortcommit}%{?dist}
+Release:        29.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
 License:        GPL-2.0-or-later
-URL:            https://github.com/sebasguts/JuPyMake
+URL:            https://github.com/polymake/JuPyMake
 Source0:        %{url}/archive/%{commit}/JuPyMake-%{shortcommit}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -54,6 +54,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 0.9-29.20231204.a6987c8
+- Switch to new git repository
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-28.20190509.031cc3a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

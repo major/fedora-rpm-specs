@@ -7,13 +7,8 @@
 %global debug_package %{nil}
 %endif
 
-# mcrouter build process is very memory-hungry,
-# it fails unpredictably if some of the jobs get terminated
-# with no LTO and 1 build job memory usage peaks at ~ 44% with 16GB
-%global _lto_cflags %nil
-
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2024.01.22.00
+%global tag 2024.02.19.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 
 # lib/fbi/cpp/LowerBoundPrefixMap.cpp includes folly/container/tape.h

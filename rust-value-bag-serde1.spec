@@ -5,7 +5,7 @@
 %global crate value-bag-serde1
 
 Name:           rust-value-bag-serde1
-Version:        1.4.2
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Implementation detail for value-bag
 

@@ -1,9 +1,6 @@
-# Plasma module not yet ported to Plasma 6
-%global plasma_module 0
-
 Name:           calamares
-Version:        3.3.1
-Release:        5%{?dist}
+Version:        3.3.3
+Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -24,17 +21,21 @@ Source4:        calamares-auto_de.ts
 Source5:        calamares-auto_it.ts
 
 # Backports from upstream
+## From: https://github.com/calamares/calamares/commit/7a3bff5117ccdb259da6945f159429a30abb2c24
+Patch0001:       0001-libcalamares-repair-visibility-also-for-Boost-Python.patch
+## From: https://github.com/calamares/calamares/commit/34888edae140c7c6276ec752d3f752b827a27dcc
+Patch0002:       0002-libcalamares-repair-visibility-also-for-Boost-Python.patch
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
-Patch1001:       calamares-3.3.0-default-settings.patch
+Patch1001:       calamares-3.3.3-default-settings.patch
 ## use kdesu instead of pkexec (works around #1171779)
-Patch1002:       calamares-3.3.0-kdesu.patch
+Patch1002:       calamares-3.3.3-kdesu.patch
 
 
 # Calamares is only supported where live images (and GRUB) are. (#1171380)
 # This list matches the arches where grub2-efi is used to boot the system
-ExclusiveArch:  %{ix86} x86_64 aarch64
+ExclusiveArch:  %{ix86} x86_64 aarch64 riscv64
 
 # Macros
 BuildRequires:  git-core
@@ -105,7 +106,7 @@ Requires:       upower
 Requires:       NetworkManager
 Requires:       dracut
 Requires:       grub2
-%ifarch x86_64 aarch64
+%ifarch x86_64 aarch64 riscv64
 %ifarch x86_64
 # For x86 systems
 Requires:       grub2-efi-x64
@@ -133,9 +134,6 @@ Requires:       hicolor-icon-theme
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # webview module is no longer available
 Obsoletes:      %{name}-webview < 3.0.0~
-%if ! %{plasma_module}
-Obsoletes:      %{name}-plasmalnf < %{version}-%{release}
-%endif
 
 
 %description
@@ -165,7 +163,6 @@ Optional interactiveterminal module for the Calamares installer, based on the
 KonsolePart (from Konsole 6)
 
 
-%if %{plasma_module}
 %package        plasmalnf
 Summary:        Calamares plasmalnf module
 Requires:       %{name} = %{version}-%{release}
@@ -175,7 +172,6 @@ Requires:       plasma-desktop
 %description    plasmalnf
 Optional plasmalnf module for the Calamares installer, based on the KDE Plasma
 Desktop Workspace and its KDE Frameworks (KConfig, KPackage, Plasma)
-%endif
 
 
 %package        devel
@@ -306,9 +302,7 @@ EOF
 %{_datadir}/calamares/branding/auto/lang/
 %{_datadir}/calamares/modules/
 %exclude %{_datadir}/calamares/modules/interactiveterminal.conf
-%if %{plasma_module}
 %exclude %{_datadir}/calamares/modules/plasmalnf.conf
-%endif
 %{_datadir}/calamares/qml/
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/icons/hicolor/scalable/apps/calamares.svg
@@ -320,19 +314,15 @@ EOF
 %{_libdir}/libcalamaresui.so.*
 %{_libdir}/calamares/
 %exclude %{_libdir}/calamares/modules/interactiveterminal/
-%if %{plasma_module}
 %exclude %{_libdir}/calamares/modules/plasmalnf/
-%endif
 
 %files interactiveterminal
 %{_datadir}/calamares/modules/interactiveterminal.conf
 %{_libdir}/calamares/modules/interactiveterminal/
 
-%if %{plasma_module}
 %files plasmalnf
 %{_datadir}/calamares/modules/plasmalnf.conf
 %{_libdir}/calamares/modules/plasmalnf/
-%endif
 
 %files devel
 %{_includedir}/libcalamares/
@@ -342,6 +332,10 @@ EOF
 
 
 %changelog
+* Sat Feb 24 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.3-1
+- Update to 3.3.3
+- Backport fixes for Python module
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.3.1-5
 - Rebuild for ICU 74
 

@@ -3,7 +3,7 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.8.2
+Version:        6.8.3
 Release:        1%{?dist}
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -117,6 +117,9 @@ done
 
 
 %changelog
+* Sat Feb 24 2024 Sandro Mani <manisandro@gmail.com> - 6.8.3-1
+- Update to 6.8.3
+
 * Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 6.8.2-1
 - Update to 6.8.2
 

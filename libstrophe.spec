@@ -1,6 +1,6 @@
 Name:           libstrophe
-Version:        0.13.0
-Release:        2%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 Summary:        An XMPP library for C
 
 License:        MIT and GPLv3
@@ -109,6 +109,9 @@ cp -a coverage/ %{buildroot}%{_pkgdocdir}/html/
 
 
 %changelog
+* Sat Feb 24 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.1-1
+- Update to 0.13.1
+
 * Sat Feb 3 2024 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-2
 - Add zlib as new BuildRequires
 

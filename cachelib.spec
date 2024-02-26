@@ -9,7 +9,7 @@
 %bcond_with check
 
 %global forgeurl https://github.com/facebook/CacheLib
-%global tag 2024.01.22.00
+%global tag 2024.02.19.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 # disable forge macro snapinfo generation
 # https://pagure.io/fedora-infra/rpmautospec/issue/240

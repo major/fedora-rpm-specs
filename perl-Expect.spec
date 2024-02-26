@@ -1,6 +1,6 @@
 Name:		perl-Expect
-Version:	1.35
-Release:	23%{?dist}
+Version:	1.36
+Release:	1%{?dist}
 Summary:	Expect for Perl
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Expect
@@ -23,6 +23,7 @@ BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IO::Pty) >= 1.11
 BuildRequires:	perl(IO::Tty) >= 1.11
 BuildRequires:	perl(POSIX)
+BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
@@ -42,7 +43,7 @@ passwd, fsck, rlogin, tip, etc.
 %prep
 %setup -q -n Expect-%{version}
 sed -i 's|^#!/usr/local/bin/perl|#!/usr/bin/perl|' examples/kibitz/kibitz tutorial/[2-6].*
-chmod -c a-x examples/ssh.pl examples/kibitz/kibitz tutorial/[2-6].*
+chmod -c a-x Changes examples/*.pl examples/kibitz/* lib/Expect.pm LICENSE README.md tutorial/*
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -63,6 +64,10 @@ make test
 %{_mandir}/man3/Expect.3*
 
 %changelog
+* Sat Feb 24 2024 Paul Howarth <paul@city-fan.org> - 1.36-1
+- Update to 1.36
+  - Made timeouts optional and added qr// regex support
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

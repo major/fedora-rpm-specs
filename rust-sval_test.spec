@@ -5,7 +5,7 @@
 %global crate sval_test
 
 Name:           rust-sval_test
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Utilities for testing sval::Value implementations
 

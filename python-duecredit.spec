@@ -10,7 +10,7 @@ i.e. only references for actually used functionality will be presented back if
 software provides multiple citeable implementations.}
 
 Name:           python-duecredit
-Version:        0.9.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Automated collection and reporting of citations
 
@@ -28,6 +28,7 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  help2man
 
 
 %description -n python3-duecredit
@@ -50,13 +51,21 @@ Documentation for %{name}.
 
 %install
 %pyproject_install
-%pyproject_save_files duecredit
+%pyproject_save_files -l duecredit
+
+# Create man pages from --help and --version
+mkdir man
+%{py3_test_envvars} help2man --section 1 --no-discard-stderr \
+--no-info --output man/duecredit.1 duecredit
+mkdir -p %{buildroot}%{_mandir}/man1
+install -m 0644 man/duecredit.1 %{buildroot}%{_mandir}/man1
 
 %check
 PYTHONPATH=%{buildroot}/%{python3_sitelib} %{pytest} duecredit/tests --ignore=duecredit/tests/test_io.py
 
 %files -n python3-duecredit -f %{pyproject_files}
 %{_bindir}/duecredit
+%{_mandir}/man1/duecredit.1*
 
 %files doc
 %license LICENSE

@@ -5,7 +5,7 @@
 %global crate sval_derive
 
 Name:           rust-sval_derive
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Derive support for sval
 

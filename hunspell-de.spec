@@ -1,23 +1,13 @@
-%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
-%global dict_dirname hunspell
-%else
-%global dict_dirname myspell
-%endif
-
 Name:          hunspell-de
 Summary:       German hunspell dictionaries
-Version:       20161207
-Release:       8%{?dist}
+Version:       20240224
+Release:       1%{?dist}
 
 License:       GPL-2.0-only OR GPL-3.0-only
-URL:           https://www.j3e.de/ispell/igerman98/
-Source:        https://www.j3e.de/ispell/igerman98/dict/igerman98-%{version}.tar.bz2
+URL:           https://cgit.freedesktop.org/libreoffice/dictionaries/tree/de
+# ./make_source.sh
+Source0:       dict-de-%{version}.tar.xz
 BuildArch:     noarch
-
-BuildRequires: make
-BuildRequires: aspell
-BuildRequires: hunspell
-BuildRequires: perl-interpreter
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-de)
@@ -26,50 +16,42 @@ Supplements: (hunspell and langpacks-de)
 German (Germany, Switzerland, etc.) hunspell dictionaries.
 
 %prep
-%autosetup -p1 -n igerman98-%{version}
-sed -i -e "s/AFFIX_EXPANDER = ispell/AFFIX_EXPANDER = aspell/g" Makefile
+%autosetup -p1 -n dict-de-%{version}
+
 
 %build
-LC_ALL=C make hunspell/de_AT.dic hunspell/de_AT.aff \
-     hunspell/de_CH.dic hunspell/de_CH.aff \
-     hunspell/de_DE.dic hunspell/de_DE.aff
-cd hunspell
-for i in README_*.txt; do
-  if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
-    iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
-    touch -r $i $i.new
-    mv -f $i.new $i
-  fi
-  tr -d '\r' < $i > $i.new
-  touch -r $i $i.new
-  mv -f $i.new $i
-done
+# Nothing to build
+
 
 %install
-mkdir -p %{buildroot}%{_datadir}/%{dict_dirname}
-cd hunspell
-cp -p de_??.dic de_??.aff %{buildroot}%{_datadir}/%{dict_dirname}
+mkdir -p %{buildroot}%{_datadir}/hunspell
 
-pushd %{buildroot}%{_datadir}/%{dict_dirname}/
-de_DE_aliases="de_BE de_LU"
-for lang in $de_DE_aliases; do
-	ln -s de_DE.aff $lang.aff
-	ln -s de_DE.dic $lang.dic
-done
-de_CH_aliases="de_LI"
-for lang in $de_CH_aliases; do
-	ln -s de_CH.aff $lang.aff
-	ln -s de_CH.dic $lang.dic
-done
-popd
+install -pm 0644 de_AT_frami.aff %{buildroot}%{_datadir}/hunspell/de_AT.aff
+install -pm 0644 de_AT_frami.dic %{buildroot}%{_datadir}/hunspell/de_AT.dic
+
+install -pm 0644 de_CH_frami.aff %{buildroot}%{_datadir}/hunspell/de_CH.aff
+install -pm 0644 de_CH_frami.dic %{buildroot}%{_datadir}/hunspell/de_CH.dic
+install -pm 0644 de_DE_frami.aff %{buildroot}%{_datadir}/hunspell/de_LI.aff
+install -pm 0644 de_DE_frami.dic %{buildroot}%{_datadir}/hunspell/de_LI.dic
+
+install -pm 0644 de_DE_frami.aff %{buildroot}%{_datadir}/hunspell/de_DE.aff
+install -pm 0644 de_DE_frami.dic %{buildroot}%{_datadir}/hunspell/de_DE.dic
+install -pm 0644 de_DE_frami.aff %{buildroot}%{_datadir}/hunspell/de_BE.aff
+install -pm 0644 de_DE_frami.dic %{buildroot}%{_datadir}/hunspell/de_BE.dic
+install -pm 0644 de_DE_frami.aff %{buildroot}%{_datadir}/hunspell/de_LU.aff
+install -pm 0644 de_DE_frami.dic %{buildroot}%{_datadir}/hunspell/de_LU.dic
 
 
 %files
-%doc hunspell/README_de_??.txt
-%license hunspell/COPYING_GPLv2 hunspell/COPYING_GPLv3 hunspell/Copyright
-%{_datadir}/%{dict_dirname}/*
+%doc README_de_DE_frami.txt README_extension_owner.txt
+%license COPYING_GPLv2 COPYING_GPLv3
+%{_datadir}/hunspell/*
+
 
 %changelog
+* Sat Feb 24 2024 Sandro Mani <manisandro@gmail.com> - 20240224-1
+- Pull dictionaries from libreoffice git
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20161207-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

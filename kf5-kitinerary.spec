@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.08.2
-Release: 5%{?dist}
+Version: 23.08.5
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -136,6 +136,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Sat Feb 24 2024 Alessandro Astone <ales.astone@gmail.com> - 23.08.5-1
+- 23.08.5
+
 * Thu Feb 08 2024 Marek Kasik <mkasik@redhat.com> - 23.08.2-5
 - Rebuild for poppler 24.02.0
 

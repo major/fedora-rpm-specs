@@ -49,20 +49,18 @@ BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 # libavif is not available in EPEL 8
 %if (%{defined rhel} && 0%{?rhel} > 8) || (%{defined fedora} && 0%{?fedora} >= 33)
-BuildRequires: cmake(libavif) >= 0.8.2
+BuildRequires: cmake(libavif) >= 0.9.3
 %endif
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
 %if ((%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora})
 BuildRequires: libheif-devel >= 1.13.0
 %endif
-BuildRequires: libjasper-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel >= 0.7.0
 BuildRequires: libpng-devel
 BuildRequires: librsvg2-devel >= 2.26
 BuildRequires: libsecret-devel
-BuildRequires: libsoup-devel
 BuildRequires: libtiff-devel
 BuildRequires: libwebp-devel
 # llvm is optional

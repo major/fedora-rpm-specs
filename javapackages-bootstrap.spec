@@ -12,7 +12,7 @@
 
 %global         debug_package %{nil}
 
-%global javaHomePath %{_jvmdir}/java-17-openjdk
+%global javaHomePath %{_jvmdir}/java-21-openjdk
 %global mavenHomePath %{_datadir}/%{name}
 %global metadataPath %{mavenHomePath}/maven-metadata
 %global artifactsPath %{_jnidir}
@@ -22,7 +22,7 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.15.0
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -165,16 +165,18 @@ Source1118:     xmvn-generator.tar.xz
 Source1119:     xmvn.tar.xz
 Source1120:     xz-java.tar.xz
 
+Patch3:         0003-Use-modulemaker-maven-plugin-version-1.10-for-bundle.patch
+
 BuildRequires:  byaccj
 BuildRequires:  gcc
-BuildRequires:  java-17-openjdk-devel
+BuildRequires:  java-21-openjdk-devel
 BuildRequires:  jurand
 BuildRequires:  rpm-devel
 BuildRequires:  rpm-local-generator-support
 
 Requires:       bash
 Requires:       coreutils
-Requires:       java-17-openjdk-devel
+Requires:       java-21-openjdk-devel
 Requires:       procps-ng
 Requires:       lujavrite%{?_isa}
 
@@ -199,6 +201,7 @@ XMvn, allowing JPT to be used before one builds XMvn package.
 
 %prep
 %setup -q
+%patch 3 -p1
 # Dynamically generate bundled Provides
 %{SOURCE2} >bundled-provides.txt
 
@@ -273,6 +276,10 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Mon Feb 19 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.0-1
+- Update to upstream version 1.16.0
+- Switch from Java 17 to Java 21
+
 * Wed Feb 07 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.15.0-1
 - Update to upstream version 1.15.0
 

@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
 Version:    1.15.1
-Release:    8%{?dist}
+Release:    9%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -179,6 +179,9 @@ export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %{_docdir}/%{name}
 
 %changelog
+* Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 1.15.1-9
+- Rebuilt for libre2.so.11 bump
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.15.1-8
 - Rebuilt for abseil-cpp-20240116.0
 

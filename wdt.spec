@@ -3,9 +3,9 @@
 %bcond_with tests
 
 # last tagged release is from 2016 despite ongoing development
-%global commit f0c332447174ae5ca22b02ee07eded32c6b0599a
+%global commit d94b2d5df6f1c803f9f3b8ed9247b752fa853865
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20240115
+%global date 20240205
 
 Name:           wdt
 Version:        1.32.1910230^%{?date}git%{?shortcommit}

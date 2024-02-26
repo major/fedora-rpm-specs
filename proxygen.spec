@@ -15,7 +15,7 @@
 %global _static_builddir static_build
 
 Name:           proxygen
-Version:        2024.01.22.00
+Version:        2024.02.19.00
 Release:        %autorelease
 Summary:        A collection of C++ HTTP libraries including an easy to use HTTP server.
 

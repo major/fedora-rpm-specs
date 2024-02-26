@@ -91,7 +91,7 @@
 
 # while JDK is a techpreview(is_system_jdk=0), some provides are turned off. Once jdk stops to be an techpreview, move it to 1
 # as sytem JDK, we mean any JDK which can run whole system java stack without issues (like bytecode issues, module issues, dependencies...)
-%global is_system_jdk 1
+%global is_system_jdk 0
 
 %global aarch64         aarch64 arm64 armv8
 # we need to distinguish between big and little endian PPC64
@@ -331,7 +331,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -2409,6 +2409,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu Feb 15 2024 Petra Alice Mikova <pmikova@redhat.com> - 1:17.0.10.0.7-2
+- this package is no longer system jdk
+
 * Thu Jan 25 2024 Jiri Vanek <jvanek@redhat.com> - 1:17.0.10.0.7-1
 - bumped to repack use 10.0.7 portables
 

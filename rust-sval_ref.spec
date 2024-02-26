@@ -5,7 +5,7 @@
 %global crate sval_ref
 
 Name:           rust-sval_ref
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Variant of sval::Value for types with internal references
 

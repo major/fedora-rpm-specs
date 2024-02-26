@@ -21,12 +21,14 @@ sensor data with other researchers while mantaining people's privacy.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python package for reading, timeshifting and writing sensor data
 
 License:        MIT
 URL:            https://github.com/hpi-dhc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+# https://github.com/hpi-dhc/devicely/pull/63
+Patch:          0001-Fix-compatibility-with-Pandas-2.patch
 
 # It depends on pyedflib which is not available on s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046
@@ -104,6 +106,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %endif
 
 %changelog
+* Fri Feb 23 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.1-10
+- Fix compatibility with Pandas 2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

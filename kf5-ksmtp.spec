@@ -1,8 +1,8 @@
 %global framework ksmtp 
 
 Name:    kf5-%{framework}
-Version: 23.08.2
-Release: 3%{?dist}
+Version: 23.08.5
+Release: 1%{?dist}
 Summary: KDE SMTP libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -82,6 +82,9 @@ Requires:       kf5-kmime-devel >= %{version}
 
 
 %changelog
+* Sat Feb 24 2024 Alessandro Astone <ales.astone@gmail.com> - 23.08.5-1
+- 23.08.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

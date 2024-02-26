@@ -1,7 +1,7 @@
-%global tag     1.9-rc2
+%global tag     1.9
 
 Name:           sway
-Version:        1.9~rc2
+Version:        1.9
 Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
@@ -183,6 +183,9 @@ install -d -m755 -pv %{buildroot}%{_sysconfdir}/sway/config.d
 %{_datadir}/backgrounds/sway
 
 %changelog
+* Sat Feb 24 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9-1
+- Update to 1.9
+
 * Sun Feb 04 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9~rc2-1
 - Update to 1.9-rc2 (rhbz#2260566)
 

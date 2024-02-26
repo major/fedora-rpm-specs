@@ -1,5 +1,6 @@
 Name:           python-pyrate-limiter
-Version:        3.2.1
+Version:        2.10.0
+Epoch:          1
 Release:        %autorelease
 Summary:        The request rate limiter using Leaky-bucket algorithm
 License:        MIT
@@ -8,6 +9,7 @@ Source0:        %{pypi_source pyrate_limiter}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
 
 # Multiple packages are needed to run tests on this library that are either not packaged for Fedora,
 # or are way too old.

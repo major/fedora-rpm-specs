@@ -5,7 +5,7 @@
 %global crate sval_json
 
 Name:           rust-sval_json
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        JSON support for sval
 

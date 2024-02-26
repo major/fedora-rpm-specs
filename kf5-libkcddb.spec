@@ -1,8 +1,8 @@
 %global base_name libkcddb
 
 Name:    kf5-%{base_name}
-Version: 23.08.4
-Release: 4%{?dist}
+Version: 23.08.5
+Release: 1%{?dist}
 Summary: CDDB retrieval library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -96,6 +96,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Sat Feb 24 2024 Alessandro Astone <ales.astone@gmail.com> - 23.08.5-1
+- 23.08.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

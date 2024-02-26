@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -604,6 +604,9 @@ fi
 
 
 %changelog
+* Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 4.6.0-4
+- Rebuilt for libre2.so.11 bump
+
 * Tue Feb 06 2024 Peter Czanik <peter@czanik.hu> - 4.6.0-3
 - fix 32bit problem with 4816.patch
 

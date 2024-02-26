@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A size profiler for binaries
 
 # The entire source is Apache-2.0, except:
@@ -79,6 +79,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 bloaty.1
 
 
 %changelog
+* Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 1.1-28
+- Rebuilt for libre2.so.11 bump
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-27
 - Rebuild for abseil-cpp-20240116.0
 

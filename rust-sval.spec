@@ -5,7 +5,7 @@
 %global crate sval
 
 Name:           rust-sval
-Version:        2.10.2
+Version:        2.11.1
 Release:        %autorelease
 Summary:        Streaming, structured value serialization
 
