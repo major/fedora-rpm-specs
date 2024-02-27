@@ -1,10 +1,10 @@
 Name:           mate-media
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        MATE media programs
 License:        GPLv2+ and LGPLv2+
 URL:            http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -67,6 +67,9 @@ rm -rf %{buildroot}%{_sysconfdir}/xdg/autostart/mate-volume-control-status-icon.
 
 
 %changelog
+* Sun Feb 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.1-1
+- update to 1.28.1
+
 * Thu Feb 22 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
 - update to 1.28.0
 

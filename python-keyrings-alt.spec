@@ -1,13 +1,13 @@
 # Owns: /usr/lib/python3.10/site-packages/keyrings/__init__.py
 # So keep an eye out for any other packages that may also want to owns it.
 
-%bcond_without tests
+%bcond tests 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_with doc
+%bcond doc 0
 # Currently disabled, something missing:
 # Could not import extension jaraco.packaging.sphinx (exception: No module named 'domdf_python_tools')
 
@@ -23,15 +23,19 @@ For example, the PlaintextKeyring stores passwords in plain text on the file
 system, defeating the intended purpose of this library to encourage best
 practices for security.}
 
+%global forgeurl  https://github.com/jaraco/keyrings.alt
+
 Name:           python-keyrings-alt
 Version:        5.0.0
 Release:        %{autorelease}
 Summary:        Alternate keyring implementations
 
+%forgemeta
+
 # SPDX
 License:        MIT
-URL:            https://github.com/jaraco/keyrings.alt
-Source0:        %{pypi_source keyrings.alt}
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 
@@ -67,7 +71,7 @@ This package provides documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n keyrings.alt-%{version}
+%forgesetup
 
 # Remove backports, used for Py <=3.2
 sed -r -i '/backports\.unittest_mock/ d' setup.cfg
@@ -97,6 +101,7 @@ sed -i -e '/jaraco\.tidelift/ d' setup.cfg
 %endif
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires -r %{?with_tests:-x testing} %{?with_doc:-x docs}
 
 # gdata, keyczar are Py2 only
@@ -104,6 +109,7 @@ sed -i -e '/jaraco\.tidelift/ d' setup.cfg
 # Also skipped upstream though: https://github.com/jaraco/keyrings.alt/runs/3082737541?check_suite_focus=true
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %if %{with doc}
@@ -113,11 +119,13 @@ mv docs/_latex/python.pdf docs/_latex/keyringsalt.pdf
 %endif
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files -l keyrings
 
 %check
 %if %{with tests}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{pytest}
 %endif
 

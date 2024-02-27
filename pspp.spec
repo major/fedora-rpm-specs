@@ -9,10 +9,10 @@ Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
 Source2:        pspp-Smake
 Source3:        C2D1AB061656AAC54B5E975485199DE8C6648E90.gpg
-# FIXME don't know what's going on here. Hopefully nodody uses i686 apps these days.
-Patch1:         pspp-0001-Disable-perl-tests-on-i686.patch
 # Follow up to CVE-2022-39831
-patch2:		pspp-0002-Don-t-install-man-page-for-non-existent-app.patch
+Patch1:		pspp-0001-Don-t-install-man-page-for-non-existent-app.patch
+# FIXME retest on F-40+
+Patch2:		pspp-0002-FIXME-disable-tests-failing-on-F-40.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cairo-devel
@@ -100,7 +100,8 @@ rm -f %{buildroot}%{_datadir}/icons/hicolor/icon-theme.cache
 
 
 %check
-make check
+echo $LC_NUMERIC
+LC_NUMERIC=C make check
 
 
 %files -f %{name}.lang

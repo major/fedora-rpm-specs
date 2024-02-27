@@ -2,7 +2,7 @@
 
 Name:          jdom2
 Version:       2.0.6.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Java manipulation of XML made easy
 License:       Saxpath
 URL:           http://www.jdom.org/
@@ -18,7 +18,7 @@ Source4:       generate-tarball.sh
 Patch0:        0001-Adapt-build.patch
 
 %if %{with bootstrap}
-BuildRequires:  javapackages-bootstrap
+BuildRequires: javapackages-bootstrap
 %else
 BuildRequires: javapackages-local
 BuildRequires: ant
@@ -48,7 +48,7 @@ This package contains javadoc for %{name}.
 %prep
 %setup -q -n jdom-JDOM-%{version}
 
-%patch0 -p1
+%patch 0 -p1
 
 sed -i 's/\r//' LICENSE.txt
 
@@ -61,7 +61,7 @@ sed -i '/import org.jdom2.xpath.XPathFactory/d' core/src/java/org/jdom2/JDOMCons
 
 %build
 mkdir lib
-%ant -Dversion=%{version} -Dcompile.source=1.7 -Dcompile.target=1.7 -Dj2se.apidoc=%{_javadocdir}/java maven
+%ant -Dversion=%{version} -Dcompile.source=1.8 -Dcompile.target=1.8 -Dj2se.apidoc=%{_javadocdir}/java maven
 
 # Make jar into an OSGi bundle
 # XXX disabled until BND is fixed
@@ -81,6 +81,9 @@ mkdir lib
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 2.0.6.1-6
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

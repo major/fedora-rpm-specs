@@ -3,7 +3,7 @@
 Name:           maven-file-management
 Epoch:          1
 Version:        3.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Maven File Management API
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/file-management
@@ -38,7 +38,7 @@ API documentation for %{name}.
 %setup -q -n file-management-%{version}
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -50,6 +50,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:3.1.0-5
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

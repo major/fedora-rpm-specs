@@ -165,7 +165,7 @@ Source1118:     xmvn-generator.tar.xz
 Source1119:     xmvn.tar.xz
 Source1120:     xz-java.tar.xz
 
-Patch3:         0003-Use-modulemaker-maven-plugin-version-1.10-for-bundle.patch
+Patch3:         0003-Use-modulemaker-maven-plugin-version-1.11-for-bundle.patch
 
 BuildRequires:  byaccj
 BuildRequires:  gcc

@@ -1,6 +1,6 @@
 Name:           molsketch
-Version:        0.8.0
-Release:        4%{?dist}
+Version:        0.8.1
+Release:        1%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPL-2.0-or-later
 URL:            http://molsketch.sourceforge.net
@@ -9,12 +9,12 @@ Source0:        https://downloads.sourceforge.net/molsketch/Molsketch-%{version}
 # Mask for regular builds
 #Source0:        https://downloads.sourceforge.net/molsketch/Molsketch-latest-src.tar.gz
 # Alternative upstream repository for testing
-#Source0:        https://github.com/hvennekate/Molsketch/archive/master/Molsketch-master.tar.gz
+# Source0:        https://github.com/hvennekate/Molsketch/archive/master/Molsketch-main.tar.gz
 
-BuildRequires: make
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-linguist
+BuildRequires:  qt6-qttools-devel
 BuildRequires:  kdelibs-devel
 BuildRequires:  openbabel-devel
 BuildRequires:  pkgconfig(Qt6Svg)
@@ -67,12 +67,12 @@ applications that use %{name}.
 
 
 %build
-%{qmake_qt6} "MSK_PREFIX=%{_prefix}" "MSK_INSTALL_PREFIX=%{_prefix}" "MSK_INSTALL_DOCS=%{_docdir}/%{name}" "MSK_INSTALL_LIBS=%{_libdir}/%{name}" "MSK_INSTALL_INCLUDES=%{_includedir}" ./Molsketch.pro
-%make_build
+%cmake -DMSK_QT6=true
+%cmake_build
 
 
 %install
-%make_install INSTALL_ROOT="%{buildroot}"
+%cmake_install
 
 
 %check
@@ -103,6 +103,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Feb 25 2024 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.1-1
+- Update to 0.8.1
+
+* Mon Feb 19 2024 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.0-6^20240218git66afe01
+- 0.8.1 pre-release version
+- Fix structure scaling bug
+
+* Sun Feb 18 2024 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.0-5^20240217git3cef8a2
+- 0.8.1 pre-release version
+- Switch to cmake
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

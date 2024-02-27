@@ -9,16 +9,17 @@
 
 # Tests are off by default because some of the tests require more memory than
 # the koji builders have available.
-%bcond_with test
+%bcond test 0
 
 Name:           z3
-Version:        4.12.5
+Version:        4.12.6
 Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
-URL:            https://github.com/Z3Prover/z3
-Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
+URL:            https://github.com/Z3Prover/z3/wiki
+VCS:            https://github.com/Z3Prover/z3
+Source0:        %{vcs}/archive/%{name}-%{version}.tar.gz
 # Do not try to build or install native OCaml artifacts on bytecode-only arches
 Patch0:         %{name}-ocaml.patch
 
@@ -309,6 +310,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Sun Feb 25 2024 Jerry James <loganjerry@gmail.com> - 4.12.6-1
+- Version 4.12.6
+
 * Sat Jan 27 2024 Jerry James <loganjerry@gmail.com> - 4.12.5-1
 - Version 4.12.5
 

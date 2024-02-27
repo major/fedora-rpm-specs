@@ -4,19 +4,27 @@
 %global min_meson_ver 0.43.0
 %global min_glib2_ver 2.46
 %global min_jsonglib_ver 1.2
-%global min_libsoup_ver 2.32
+%global min_libsoup_ver 2.99.2
 %global min_gtkdoc_ver 1.20
 %global min_gi_ver 0.9.5
 %global min_vala_ver 0.16
 
+%global apiver 2
+
 Name:		snapd-glib
-Version:	1.58
-Release:	8%{?dist}
+Version:	1.64
+Release:	1%{?dist}
 Summary:	Library providing a GLib interface to snapd
 
-License:	LGPLv2 or LGPLv3
+License:	LGPL-2.0-only or LGPL-3.0-only
 URL:		https://github.com/snapcore/%{name}
 Source0:	https://github.com/snapcore/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+# Backports from upstream
+
+# Proposed upstream
+## From: https://github.com/snapcore/snapd-glib/pull/143
+Patch0101:      0101-qt-Port-to-Qt-6.patch
 
 BuildRequires:	gtk-doc >= %{min_gtkdoc_ver}
 BuildRequires:  meson >= %{min_meson_ver}
@@ -28,14 +36,14 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{min_glib2_ver}
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{min_glib2_ver}
 BuildRequires:  pkgconfig(glib-2.0) >= %{min_glib2_ver}
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{min_jsonglib_ver}
-BuildRequires:  pkgconfig(libsoup-2.4) >= %{min_libsoup_ver}
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(libsoup-3.0) >= %{min_libsoup_ver}
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Network)
+BuildRequires:  pkgconfig(Qt6Qml)
 BuildRequires:  vala >= %{min_vala_ver}
 
 # Ensure that weird Provides aren't generated
-%global __provides_exclude_from ^%{_qt5_qmldir}/Snapd/.*\\.so$
+%global __provides_exclude_from ^%{_qt6_qmldir}/Snapd/.*\\.so$
 
 %description
 %{name} is a library that provides an interface to communicate
@@ -58,7 +66,7 @@ This package provides the files for running the test programs
 for %{name} to verify the functionality of %{name}.
 
 %package -n snapd-qt
-Summary:	Library providing a Qt5 interface to snapd
+Summary:	Library providing a Qt6 interface to snapd
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n snapd-qt
@@ -66,7 +74,7 @@ snapd-qt is a library that provides an interface to communicate
 with snapd for Qt based applications.
 
 %package -n snapd-qt-qml
-Summary:	Library providing a Qt5 QML interface to snapd
+Summary:	Library providing a Qt6 QML interface to snapd
 Requires:	snapd-qt%{?_isa} = %{version}-%{release}
 
 %description -n snapd-qt-qml
@@ -101,51 +109,51 @@ for snapd-qt to verify the functionality of snapd-qt.
 %meson
 %meson_build
 
+
 %install
 %meson_install
-
-
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets -n snapd-qt
 
 
 %files
 %license COPYING.LGPL2 COPYING.LGPL3
 %doc NEWS
-%{_libdir}/libsnapd-glib.so.*
-%{_libdir}/girepository-1.0/Snapd-1.typelib
+%{_libdir}/libsnapd-glib-%{apiver}.so.*
+%{_libdir}/girepository-1.0/Snapd-%{apiver}.typelib
 
 %files devel
 %doc %{_datadir}/gtk-doc/html/snapd-glib
-%{_includedir}/snapd-glib
-%{_libdir}/libsnapd-glib.so
-%{_libdir}/pkgconfig/snapd-glib.pc
-%{_datadir}/vala/vapi/snapd-glib.*
-%{_datadir}/gir-1.0/Snapd-1.gir
+%{_includedir}/snapd-glib-%{apiver}/
+%{_libdir}/libsnapd-glib-%{apiver}.so
+%{_libdir}/pkgconfig/snapd-glib-%{apiver}.pc
+%{_datadir}/vala/vapi/snapd-glib-%{apiver}.*
+%{_datadir}/gir-1.0/Snapd-%{apiver}.gir
 
 %files tests
-%{_libexecdir}/installed-tests/snapd-glib/*-glib
-%{_datadir}/installed-tests/snapd-glib/*-glib.test
+%{_libexecdir}/installed-tests/snapd-glib-%{apiver}/*-glib
+%{_datadir}/installed-tests/snapd-glib-%{apiver}/*-glib.test
 
 %files -n snapd-qt
-%{_libdir}/libsnapd-qt.so.*
+%{_libdir}/libsnapd-qt-%{apiver}.so.*
 
 %files -n snapd-qt-qml
-%{_qt5_qmldir}/Snapd/
+%{_qt6_qmldir}/Snapd%{apiver}/
 
 %files -n snapd-qt-devel
-%{_includedir}/snapd-qt
-%{_libdir}/libsnapd-qt.so
-%{_libdir}/pkgconfig/snapd-qt.pc
-%{_libdir}/cmake/Snapd/
+%{_includedir}/snapd-qt-%{apiver}/
+%{_libdir}/libsnapd-qt-%{apiver}.so
+%{_libdir}/pkgconfig/snapd-qt-%{apiver}.pc
+%{_libdir}/cmake/Snapd%{apiver}/
 
 %files -n snapd-qt-tests
-%{_libexecdir}/installed-tests/snapd-glib/*-qt
-%{_datadir}/installed-tests/snapd-glib/*-qt.test
+%{_libexecdir}/installed-tests/snapd-glib-%{apiver}/*-qt
+%{_datadir}/installed-tests/snapd-glib-%{apiver}/*-qt.test
 
 
 %changelog
+* Sun Feb 25 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.64-1
+- Rebase to 1.64
+- Add patch to port snapd-qt to Qt 6
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.58-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

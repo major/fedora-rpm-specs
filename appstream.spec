@@ -1,7 +1,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.0.1
-Release: 3%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -125,11 +125,10 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 %posttrans
 %{_bindir}/appstreamcli refresh --force >& /dev/null ||:
 
-%dnl %{_datadir}/app-info/xmls will get dropped before 1.0 final
-%transfiletriggerin -- %{_datadir}/swcatalog/xml %{_datadir}/app-info/xmls
+%transfiletriggerin -- %{_datadir}/swcatalog/xml
 %{_bindir}/appstreamcli refresh --force >& /dev/null ||:
 
-%transfiletriggerpostun -- %{_datadir}/swcatalog/xml %{_datadir}/app-info/xmls
+%transfiletriggerpostun -- %{_datadir}/swcatalog/xml
 %{_bindir}/appstreamcli refresh --force >& /dev/null ||:
 
 %files -f appstream.lang
@@ -196,6 +195,10 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Sun Feb 25 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.0.2-1
+- Update to 1.0.2
+- Clean up some pre-1.0 scriptlet cruft
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

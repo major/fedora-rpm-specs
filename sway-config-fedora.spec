@@ -3,7 +3,7 @@
 %global sway_ver 1.8
 
 Name:           sway-config-fedora
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
@@ -40,9 +40,9 @@ Recommends: rofi-wayland
 Recommends: xdg-user-dirs
 Requires: /usr/bin/pgrep
 Requires: /usr/bin/pkill
+Requires: brightnessctl >= 0.5.1-11
 Requires: desktop-backgrounds-compat
 Requires: grimshot
-Requires: light
 Requires: lxqt-policykit
 Requires: playerctl
 Requires: pulseaudio-utils

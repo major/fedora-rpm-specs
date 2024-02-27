@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.6.0
+Version:        1.6.1
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Sun Feb 25 2024 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.6.1-400.1.1
+- New upstream release 1.6.1, fixes rhbz#2265732
+
 * Fri Jan 26 2024 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.6.0-400.1.4
 - New upstream release 1.6.0, fixes rhbz#2260508
 

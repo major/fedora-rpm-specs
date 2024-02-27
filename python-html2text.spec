@@ -6,8 +6,8 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 
 Name:           python-%{upname}
-Version:        2020.1.16
-Release:        12%{?dist}
+Version:        2024.2.25
+Release:        1%{?dist}
 Summary:        %{common_sum}
 
 License:        GPLv3
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Sun Feb 25 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2024.2.25-1
+- Update to 2024.2.25 (#2265896)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1.16-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

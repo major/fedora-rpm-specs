@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        8.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -120,6 +120,7 @@ Requires: python3dist(setuptools) >= 68
 
 # Undeclared dependencies
 Requires:  python3-rich
+Requires:  python3-keyring
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -271,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Feb 25 2024 Sandro Mani <manisandro@gmail.com> - 8.3-4
+- Require: python3-keyring
+
 * Thu Feb 22 2024 Sandro Mani <manisandro@gmail.com> - 8.3-3
 - Add pgadmin4_no-get-csrf.patch
 

@@ -1,11 +1,10 @@
 Name:           libdv
 Version:        1.0.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Software decoder for DV format video
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://libdv.sourceforge.net/
-
-Source:         http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
 Patch1:         %{name}-no-exec-stack.patch
 Patch2:         %{name}-pic.patch
@@ -42,7 +41,6 @@ support the IEEE 1394 (a.k.a. FireWire or i.Link) interface.
 %package devel
 Summary:        Development package for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       pkgconfig
 
 %description devel
 This package contains development files for %{name}.
@@ -84,6 +82,9 @@ find %{buildroot} -name "*.la" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Feb 25 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-42
+- Update libdv-pic patch for GCC-14 (rhbz#2261310)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

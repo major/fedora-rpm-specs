@@ -1,10 +1,10 @@
 Name:           mate-system-monitor
-Version:        1.28.0
+Version:        1.28.1
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 License:        GPLv2+
 URL:            http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc-c++
 BuildRequires: dbus-glib-devel
@@ -63,6 +63,9 @@ desktop-file-install --delete-original             \
 
 
 %changelog
+* Sun Feb 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.1-1
+- update to 1.28.1
+
 * Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
 - update to 1.28.0
 

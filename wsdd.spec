@@ -1,6 +1,6 @@
 Name:           wsdd
 Version:        0.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Web Services Dynamic Discovery host daemon
 License:        MIT 
 URL:            https://github.com/christgau/wsdd 
@@ -25,6 +25,9 @@ like Windows.
 %prep
 %autosetup -p1
 sed -i "s/;BindsTo=smb.service/BindsTo=smb.service/" etc/systemd/wsdd.service
+sed -i "s/EnvironmentFile=.*/EnvironmentFile=-\/etc\/sysconfig\/wsdd/" etc/systemd/wsdd.service
+sed -i "s/WSDD_PARAMS=/OPTIONS=/" etc/systemd/wsdd.defaults
+sed -i "s/\$WSDD_PARAMS/\$OPTIONS/" etc/systemd/wsdd.service
 
 
 %install
@@ -64,6 +67,9 @@ exit 0
 
 
 %changelog
+* Fri Feb 16 2024 Ondrej Holy <oholy@redhat.com> - 0.7.1-3
+- Fix backward compatibility (#2254986)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

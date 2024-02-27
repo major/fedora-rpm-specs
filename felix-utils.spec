@@ -4,7 +4,7 @@
 
 Name:           felix-utils
 Version:        1.11.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utility classes for OSGi
 License:        Apache-2.0
 URL:            https://felix.apache.org
@@ -38,16 +38,17 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -q -n %{bundle}-%{version}
-%patch0 -p1
+%patch 0 -p1
 
 %pom_remove_parent
 %pom_xpath_inject pom:project "<groupId>org.apache.felix</groupId>"
 %pom_remove_plugin :apache-rat-plugin
+%pom_remove_plugin :maven-compiler-plugin
 
 %mvn_file :%{bundle} "felix/%{bundle}"
 
 %build
-%mvn_build
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -60,6 +61,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.11.8-8
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

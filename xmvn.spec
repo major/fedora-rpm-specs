@@ -6,7 +6,7 @@
 
 Name:           xmvn
 Version:        4.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Local Extensions for Apache Maven
 License:        Apache-2.0
 URL:            https://fedora-java.github.io/xmvn/
@@ -76,7 +76,7 @@ Requires:       slf4j
 
 Requires:       maven-lib
 Requires:       maven-jdk-binding
-Suggests:       maven-openjdk17
+Suggests:       maven-openjdk21
 
 %description    minimal
 This package provides minimal version of XMvn, incapable of using
@@ -145,7 +145,7 @@ mver=$(sed -n '/<mavenVersion>/{s/.*>\(.*\)<.*/\1/;p}' \
 mkdir -p target/dependency/
 cp -a "${maven_home}" target/dependency/apache-maven-$mver
 
-# Workaround easymock incompatibility with Java 17that should be fixed
+# Workaround easymock incompatibility with Java 17 that should be fixed
 # in easymock 4.4: https://github.com/easymock/easymock/issues/274
 %pom_add_plugin :maven-surefire-plugin xmvn-connector "<configuration>
     <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine></configuration>"
@@ -262,6 +262,9 @@ end
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 16 2024 Marian Koncek <mkoncek@redhat.com> - 4.2.0-8
+- Suggest maven-openjdk21
+
 * Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.2.0-7
 - Drop versioned requires on Maven
 

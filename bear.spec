@@ -29,7 +29,9 @@ BuildRequires:  python3dist(lit)
 BuildRequires:  /usr/bin/more
 BuildRequires:  /usr/bin/xargs
 BuildRequires:  gcc-fortran
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 BuildRequires:  fakeroot
 
 # Work around RHBZ#1959600 (https://github.com/rizsotto/Bear/issues/309), which

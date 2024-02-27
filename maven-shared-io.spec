@@ -3,14 +3,14 @@
 Name:           maven-shared-io
 Epoch:          1
 Version:        3.0.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        API for I/O support like logging, download or file scanning
 License:        Apache-2.0
-URL:            http://maven.apache.org/shared/maven-shared-io
+URL:            https://maven.apache.org/shared/maven-shared-io
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 # Rejected upstream: https://issues.apache.org/jira/browse/MSHARED-490
 Patch0:         0001-Fix-running-tests-with-Maven-3.3.9.patch
@@ -41,10 +41,10 @@ API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch 0 -p1
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:3.0.0-24
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

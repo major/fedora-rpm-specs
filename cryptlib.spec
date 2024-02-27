@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.7  
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL     
@@ -281,10 +281,12 @@ cp %{SOURCE7} %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha1 %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha2 %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clkeys %{buildroot}%{_bindir}
+cp /%{buildroot}%{cryptlibdir}/tools/clsmime %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha1.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha2.1 %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 cp /%{buildroot}%{cryptlibdir}/tools/man/clkeys.1 %{buildroot}%{_mandir}/man1
+cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 %check
 # checks are performed after install
@@ -346,14 +348,19 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clkeys.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/clsha2
 %{_bindir}/claes
 %{_bindir}/clkeys
+%{_bindir}/clsmime
 %{_mandir}/man1/clsha2.1.gz
 %{_mandir}/man1/clsha1.1.gz
 %{_mandir}/man1/claes.1.gz
 %{_mandir}/man1/clkeys.1.gz
+%{_mandir}/man1/clsmime.1.gz
 
 
 
 %changelog
+* Sun Feb 25 2024 Ralf Senderek <innovation@senderek.ie> - 3.4.7-4
+- Add clsmime to cryptlib-tools
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

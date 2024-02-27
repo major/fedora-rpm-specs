@@ -3,10 +3,10 @@
 Name:           junit
 Epoch:          1
 Version:        4.13.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java regression test package
 License:        EPL-1.0
-URL:            http://www.junit.org/
+URL:            https://junit.org/junit4/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -15,6 +15,7 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        generate-tarball.sh
 
 Patch1:         0001-Port-to-hamcrest-2.2.patch
+Patch2:         0002-Port-to-OpenJDK-21.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -52,7 +53,8 @@ Javadoc for %{name}.
 %prep
 %setup -q -n junit4-r%{version}
 
-%patch1 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 # InaccessibleBaseClassTest fails with Java 8
 sed -i /InaccessibleBaseClassTest/d src/test/java/org/junit/tests/AllTests.java
@@ -70,7 +72,7 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %mvn_alias junit:junit junit:junit-dep
 
 %build
-%mvn_build -- -DjdkVersion=1.7 -P\!restrict-doclint
+%mvn_build -- -DjdkVersion=1.8 -P\!restrict-doclint
 
 %install
 %mvn_install
@@ -87,6 +89,9 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %doc doc/*
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:4.13.2-5
+- Port to OpenJDK 21
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

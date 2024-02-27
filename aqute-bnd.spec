@@ -8,7 +8,7 @@
 
 Name:           aqute-bnd
 Version:        6.3.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        BND Tool
 # Part of jpm is under BSD, but jpm is not included in binary RPM
 License:        Apache-2.0 OR EPL-2.0
@@ -34,6 +34,7 @@ Source8:        https://repo1.maven.org/maven2/biz/aQute/bnd/biz.aQute.bnd.util/
 Patch1:         0001-Disable-removed-commands.patch
 Patch2:         0002-Port-to-OSGI-7.0.0.patch
 Patch3:         0003-Remove-unmet-dependencies.patch
+Patch4:         0004-Port-to-OpenJDK-21.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -101,9 +102,10 @@ API documentation for %{name}.
 %prep
 %setup -q
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 # the commands pull in more dependencies than we want (felix-resolver, jetty)
 rm biz.aQute.bnd/src/aQute/bnd/main/{ExportReportCommand,MbrCommand,RemoteCommand,ReporterLogger,ResolveCommand,Shell}.java
@@ -244,6 +246,9 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %license LICENSE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 6.3.1-9
+- Port to OpenJDK 21
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

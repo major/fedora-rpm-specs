@@ -3,9 +3,9 @@
 Summary:        Fast Scanner Generator
 Name:           jflex
 Version:        1.7.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        BSD-3-Clause
-URL:            http://jflex.de/
+URL:            https://jflex.de/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -78,7 +78,7 @@ sed -i /%%inputstreamctor/d src/main/jflex/LexScan.flex
 %{?jpb_env}
 cup -parser LexParse -interface -destdir src/main/java src/main/cup/LexParse.cup
 jflex -d src/main/java/jflex --skel src/main/jflex/skeleton.nested src/main/jflex/LexScan.flex
-%mvn_build
+%mvn_build -- -P\!error-prone -Djflex.jdk.version=1.8
 
 %install
 %mvn_install
@@ -102,6 +102,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.7.0-17
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

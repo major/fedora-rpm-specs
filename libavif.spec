@@ -15,7 +15,7 @@
 %bcond_without check
 
 Name:           libavif
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Library for encoding and decoding .avif files
 

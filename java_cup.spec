@@ -4,7 +4,7 @@
 
 Name:           java_cup
 Version:        0.11b
-Release:        27%{?dist}
+Release:        28%{?dist}
 Epoch:          1
 Summary:        LALR parser generator for Java
 License:        SMLNJ
@@ -20,6 +20,7 @@ Source2:        %{name}-MANIFEST.MF
 Source4:        %{name}-runtime-MANIFEST.MF
 
 Patch0:         %{name}-build.patch
+Patch1:         0002-Set-Java-source-target-to-1.8.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -52,9 +53,8 @@ Documentation for java_cup.
 
 %prep
 %setup -q
-%patch0 -b .build
-
-sed -i '/<javac/s/1.5/1.7/g' build.xml
+%patch 0 -b .build
+%patch 1 -p1
 
 # remove all binary files
 find -name "*.class" -delete
@@ -100,6 +100,9 @@ jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 %license licence.txt
 
 %changelog
+* Wed Feb 21 2024 Marian Koncek <mkoncek@redhat.com> - 1:0.11b-28
+- Set OpenJDK version to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.11b-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

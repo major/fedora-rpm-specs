@@ -5,7 +5,7 @@
 %global crate archery
 
 Name:           rust-archery
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Abstract over the atomicity of reference-counting pointers
 
@@ -59,6 +59,18 @@ This package contains library source intended for building other packages which
 use the "fatal-warnings" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fatal-warnings-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+triomphe-devel

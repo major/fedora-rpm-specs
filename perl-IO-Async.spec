@@ -1,28 +1,28 @@
 Name:           perl-IO-Async
-Version:        0.802
-Release:        6%{?dist}
+Version:        0.803
+Release:        1%{?dist}
 Summary:        A collection of modules that implement asynchronous filehandle IO
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Async
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/IO-Async-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  make
+# build requirements
+BuildRequires:  coreutils
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-generators
-BuildRequires:  perl(base)
+BuildRequires:  perl-macros
+BuildRequires:  perl(Module::Build)
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(constant)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::stat)
-BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Future)
-BuildRequires:  perl(Future::IO)
+BuildRequires:  perl(Future::IO::ImplBase)
 BuildRequires:  perl(Future::Utils) >= 0.18
 BuildRequires:  perl(Heap::Elem)
 BuildRequires:  perl(Heap::Fibonacci)
@@ -30,28 +30,32 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IO::Poll)
 BuildRequires:  perl(IO::Socket)
-BuildRequires:  perl(IO::Socket::INET)
-BuildRequires:  perl(IO::Socket::IP)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Metrics::Any)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(Sereal::Decoder)
 BuildRequires:  perl(Sereal::Encoder)
-BuildRequires:  perl(Socket)
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Struct::Dumb)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::Future::IO::Impl)
-BuildRequires:  perl(Test::Identity)
-BuildRequires:  perl(Test::Metrics::Any)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Pod) >= 1.00
-BuildRequires:  perl(Test::Refcount)
-BuildRequires:  perl(Test::Warn)
-BuildRequires:  perl(threads)
+BuildRequires:  perl(Test2::IPC)
 BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(threads)
 BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Future::IO)
+BuildRequires:  perl(IO::Socket::INET)
+BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test::Pod) >= 1.00
+BuildRequires:  perl(Test::Future::IO::Impl)
+BuildRequires:  perl(Test::MemoryGrowth)
+BuildRequires:  perl(Test::Metrics::Any)
+BuildRequires:  perl(lib)
 Requires:       perl(threads)
 # All five are optional but preferred
 Requires:       perl(Heap::Elem)
@@ -84,7 +88,7 @@ A collection of modules that implement asynchronous filehandle IO
 
 
 %files
-%doc Changes
+%doc Changes examples
 %{perl_vendorlib}/Future/IO/Impl/IOAsync.pm
 %{perl_vendorlib}/IO*
 %{_mandir}/man3/Future::IO::Impl::IOAsync.3pm.gz
@@ -92,6 +96,12 @@ A collection of modules that implement asynchronous filehandle IO
 
 
 %changelog
+* Sun Feb 25 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.803-1
+- Update to 0.803
+- Migrate to SPDX license
+- Update BuildRequires
+- Add examples folder to the documentation
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.802-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

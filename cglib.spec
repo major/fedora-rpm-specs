@@ -4,7 +4,7 @@
 
 Name:           cglib
 Version:        3.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Code Generation Library for Java
 # ASM MethodVisitor is based on ASM code and therefore
 # BSD-licensed. Everything else is ASL 2.0.
@@ -39,7 +39,7 @@ Documentation for the cglib code generation library.
 
 %prep
 %setup -q -n %{name}-%{tarball_name}
-%patch0 -p1
+%patch 0 -p1
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -70,7 +70,7 @@ Documentation for the cglib code generation library.
 %build
 # 5 tests fail with OpenJDK 11
 # Forwarded upstream: https://github.com/cglib/cglib/issues/119
-%mvn_build -f -- -Djava.version.source=1.7 -Djava.version.target=1.7
+%mvn_build -f -- -Djava.version.source=1.8 -Djava.version.target=1.8
 
 %install
 %mvn_install
@@ -82,6 +82,9 @@ Documentation for the cglib code generation library.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.3.0-14
+- Update Java source/target to 1.8
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

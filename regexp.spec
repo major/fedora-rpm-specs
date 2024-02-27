@@ -1,7 +1,7 @@
 Name:           regexp
 Epoch:          1
 Version:        1.5
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Simple regular expressions API
 License:        Apache-2.0
 URL:            http://jakarta.apache.org/%{name}/
@@ -35,7 +35,7 @@ Javadoc for %{name}.
 
 %prep
 %setup -q -n jakarta-%{name}-%{version}
-%patch0
+%patch 0
 cp -p %{SOURCE2} MANIFEST.MF
 # remove all binary libs
 find . -name "*.jar" -exec rm -f {} \;
@@ -55,7 +55,7 @@ EOF
 
 %build
 mkdir lib
-%ant -Djakarta-site2.dir=. -Dant.build.javac.source=1.7 -Dant.build.javac.target=1.7 jar javadocs
+%ant -Djakarta-site2.dir=. -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar javadocs
 
 %mvn_artifact pom.xml build/*.jar
 
@@ -72,6 +72,9 @@ mkdir lib
 %doc LICENSE
 
 %changelog
+* Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1:1.5-46
+- Update Java source/target to 1.8
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

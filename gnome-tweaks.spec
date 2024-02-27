@@ -56,8 +56,8 @@ and extension, etc.
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.xml
 
 
 %files -f %{name}.lang

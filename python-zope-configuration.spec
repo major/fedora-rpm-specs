@@ -1,76 +1,69 @@
 %global modname zope.configuration
-%global desc The zope configuration system provides an extensible system for supporting\
-various kinds of configurations.\
-\
-It is based on the idea of configuration directives. Users of the configuration\
-system provide configuration directives in some language that express\
-configuration choices. The intent is that the language be pluggable. An XML\
-language is provided by default.
-%global sum Zope Configuration Markup Language (ZCML)
-
-
 
 Name:           python-zope-configuration
-Version:        4.4.1
-Release:        6%{?dist}
-Summary:        %{sum}
+Version:        5.0.1
+Release:        1%{?dist}
+Summary:        Zope Configuration Markup Language (ZCML)
 
-License:        ZPLv2.1
+License:        ZPL-2.1
 URL:            https://github.com/zopefoundation/zope.configuration
-Source0:        %{url}/archive/4.4.1/%{modname}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-zope-schema
-BuildRequires:  python3-zope-interface
-BuildRequires:  python3-zope-i18nmessageid
-BuildRequires:  python3-zope-testing
 
+%global _description %{expand:
+The zope configuration system provides an extensible system for supporting
+various kinds of configurations.
 
-%description
-%{desc}
+It is based on the idea of configuration directives. Users of the configuration
+system provide configuration directives in some language that express
+configuration choices. The intent is that the language be pluggable. An XML
+language is provided by default.}
+ 
+%description %_description
 
 
 %package -n python3-zope-configuration
-Summary:        %{sum}
+Summary:        %{summary}
 
-Requires:  python3-zope-schema
-Requires:  python3-zope-interface
-Requires:  python3-zope-i18nmessageid
+%description -n python3-zope-configuration %_description
 
-%{?python_provide:%python_provide python3-zope-configuration}
-
-
-%description -n python3-zope-configuration
-%{desc}
 
 %prep
-%setup -q -n %{modname}-%{version}
-rm -rf %{modname}.egg-info
+%autosetup -p1 -n %{modname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-rm -r %{buildroot}%{python3_sitelib}/zope/configuration/tests
+%pyproject_install
+%pyproject_save_files zope
 
 
-#check
-# The tests do not pass with Python 3.6 as has been documented upstream:
-# https://github.com/zopefoundation/zope.configuration/issues/16
-#{__python3} setup.py test
+%check
+%tox
 
 
-%files -n python3-zope-configuration
-%license COPYRIGHT.txt LICENSE.txt
+%files -n python3-zope-configuration -f %{pyproject_files}
+%license COPYRIGHT.txt
 %doc README.rst CHANGES.rst
-%{python3_sitelib}/zope/configuration/
-%{python3_sitelib}/%{modname}*
+%{python3_sitelib}/%{modname}-%{version}-py%{python3_version}-nspkg.pth
+
 
 %changelog
+* Sat Feb 24 2024 Michel Lind <salimma@fedoraproject.org> - 5.0.1-1
+- Update to 5.0.1 (rhbz#2193049)
+- Use SPDX license identifier
+- Modernize spec
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

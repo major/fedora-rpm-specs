@@ -1,6 +1,6 @@
 Name:           jzlib
 Version:        1.1.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Re-implementation of zlib in pure Java
 License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jzlib/
@@ -36,10 +36,10 @@ Requires:       %{name} = %{version}-%{release}
 
 %prep
 %setup -q
-%patch0
+%patch 0
 
-%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source" 1.7
-%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" 1.7
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source" 1.8
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" 1.8
 
 # Make into OSGi bundle
 %pom_xpath_inject "pom:project" "<packaging>bundle</packaging>"
@@ -67,6 +67,9 @@ cp -pr example/* %{buildroot}%{_datadir}/%{name}
 %doc %{_datadir}/%{name}
 
 %changelog
+* Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1.1.3-28
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

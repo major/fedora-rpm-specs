@@ -1,12 +1,8 @@
-%undefine __cmake_in_source_build
-
-%global kf5_version_min 5.82.0
-
 Name:           plasma-pass
-Version:        1.2.0
-Release:        9%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        Plasma applet to access passwords from the Pass password manager
-License:        LGPLv2+
+License:        CC0-1.0 AND LGPL-2.1-or-later
 URL:            https://invent.kde.org/plasma/%{name}.git
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
@@ -18,25 +14,23 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
 
-BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Qml)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5Widgets)
 
-BuildRequires:  cmake(KF5Plasma) >= %{kf5_version_min}
-BuildRequires:  cmake(KF5I18n) >= %{kf5_version_min}
-BuildRequires:  cmake(KF5ItemModels) >= %{kf5_version_min}
-BuildRequires:  cmake(KF5Service) >= %{kf5_version_min}
-BuildRequires:  cmake(KF5CoreAddons) >= %{kf5_version_min}
-BuildRequires:  cmake(KF5Package) >= %{kf5_version_min}
+BuildRequires:  cmake(Plasma)
+BuildRequires:  cmake(Plasma5Support)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6ItemModels)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Package)
 
-BuildRequires: cmake(QGpgme)
+BuildRequires:  cmake(QGpgmeQt6)
 
 BuildRequires:  gettext-devel
 BuildRequires:  gpgmepp-devel
@@ -60,31 +54,26 @@ password manager.
 
 
 %build
-%cmake_kf5
+%cmake_kf6 -DBUILD_WITH_QT6=ON
 %cmake_build
 
 %install
 %cmake_install
 
-%check
-desktop-file-validate %{buildroot}/%{_datadir}/kservices5/plasma-applet-org.kde.plasma.pass.desktop
-
-
 %find_lang plasma_applet_org.kde.plasma.pass
 
 %files -f plasma_applet_org.kde.plasma.pass.lang
-%license COPYING
+%license LICENSES/*
 %doc README.md
-%{_kf5_sysconfdir}/xdg/plasma-pass.categories
-%dir %{_kf5_qmldir}/org/kde/plasma/private/plasmapass/
-%{_kf5_qmldir}/org/kde/plasma/private/plasmapass/*
-%dir %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.pass/
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.pass/*
-%{_kf5_datadir}/kservices5/*.desktop
-%{_kf5_metainfodir}/*.xml
+%{_kf6_qmldir}/org/kde/plasma/private/plasmapass/
+%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.pass/
+%{_kf6_datadir}/qlogging-categories6/plasma-pass.categories
 
 
 %changelog
+* Sun Feb 25 2024 Alessandro Astone <ales.astone@gmail.com> - 1.2.2-1
+- 1.2.2 (Qt6, not functional yet)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

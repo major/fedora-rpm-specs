@@ -32,12 +32,12 @@
 
 Name:           jdom
 Version:        1.1.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Java alternative to DOM and SAX
 License:        Saxpath
 URL:            http://www.jdom.org/
 Source0:        http://jdom.org/dist/binary/archive/jdom-%{version}.tar.gz
-Source1:        http://repo1.maven.org/maven2/org/jdom/jdom/%{version}/jdom-%{version}.pom
+Source1:        https://repo1.maven.org/maven2/org/jdom/jdom/%{version}/jdom-%{version}.pom
 Patch0:         %{name}-crosslink.patch
 Patch1:         %{name}-1.1-OSGiManifest.patch
 
@@ -81,15 +81,15 @@ Demonstrations and samples for %{name}.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p0
-%patch1 -p0
-%patch100 -p1
+%patch 0 -p0
+%patch 1 -p0
+%patch 100 -p1
 # remove all binary libs
 find . -name "*.jar" -exec rm -f {} \;
 find . -name "*.class" -exec rm -f {} \;
 
 %build
-%ant -Dcompile.source=1.7 -Dcompile.target=1.7 -Dj2se.apidoc=%{_javadocdir}/java package javadoc-link
+%ant -Dcompile.source=1.8 -Dcompile.target=1.8 -Dj2se.apidoc=%{_javadocdir}/java package javadoc-link
 
 %install
 %mvn_file : %{name}
@@ -113,6 +113,9 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.1.3-36
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

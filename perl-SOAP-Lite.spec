@@ -1,6 +1,6 @@
 Name:       perl-SOAP-Lite
 Version:    1.27
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Client and server side SOAP implementation
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/SOAP-Lite
@@ -116,12 +116,12 @@ client and server side.
 find examples -type f -exec chmod -c ugo-x {} +
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -129,13 +129,20 @@ make test
 %files
 %license LICENSE
 %doc Changes HACKING README ReleaseNotes.txt examples
-%{_bindir}/*pl
+%{_bindir}/SOAPsh.pl
+%{_bindir}/stubmaker.pl
 %{perl_vendorlib}/SOAP
 %{perl_vendorlib}/Apache
-%{_mandir}/man3/*
-%{_mandir}/man1/*
+%{_mandir}/man3/Apache::SOAP.3pm{,.*}
+%{_mandir}/man3/SOAP::*.3pm{,.*}
+%{_mandir}/man1/SOAPsh.pl.1{,.*}
+%{_mandir}/man1/stubmaker.pl.1{,.*}
 
 %changelog
+* Sat Feb 24 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.27-24
+- Update to more modern perl build/install commands
+- Perform deglobbing of files per packaging guidelines
+
 * Thu Feb 22 2024 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.27-23
 - Replace deprecated patchN macro (eliminating a build warning)
 

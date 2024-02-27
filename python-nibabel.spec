@@ -1,3 +1,5 @@
+%global forgeurl https://github.com/nipy/nibabel
+
 %global _description %{expand:
 Read / write access to some common neuroimaging file formats
 
@@ -13,17 +15,14 @@ information and access to the image data is made available via NumPy arrays.
 }
 
 Name:           python-nibabel
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Python package to access a cacophony of neuro-imaging file formats
-
+%global tag %{version}
+%forgemeta
 License:        MIT and PDDL-1.0
 URL:            http://nipy.org/nibabel/
-Source0:        https://github.com/nipy/nibabel/archive/%{version}/nibabel-%{version}.tar.gz
-# distutils has been removed from Python 3.12
-# https://setuptools.pypa.io/en/latest/deprecated/distutils-legacy.html
-# https://github.com/nipy/nibabel/issues/1240
-Patch:          distutils.patch
+Source0:        %forgesource
 
 BuildArch:      noarch
 
@@ -47,7 +46,7 @@ Provides:       bundled(python%{python3_version}dist(netcdf))
 
 %prep
 # warning: don't use -S git/git_am here, or hatchling/hatch-vcs generates a wrong version
-%autosetup -p1 -n nibabel-%{version}
+%forgeautosetup -p1
 
 # delete shebangs from files that don't need it
 find nibabel/cmdline/  -name "*.py" -execdir sed -i '/^#!python/ d' '{}' \;
@@ -78,21 +77,7 @@ do
 done
 
 %check
-# TestCifti2ImageAPI.test_filenames fails due to setuptools-bundled distutils'
-# LooseVersion issue: https://github.com/pypa/distutils/issues/122
-# This can be worked around by setting the environment variable to point
-# to distutils from Python's standard library instead.
-# export SETUPTOOLS_USE_DISTUTILS=stdlib
-# These three tests, completely unrelated to the two patches fail on application of patches.
-# They're for deprecation etc., so ignore them for the moment
-# Remember to include in the next release when patches are not used
-#
-# Failing tests when using Python 3.12, which no longer has distutils in the stdlib
-# test_from_file_url, test_write_mgh, test_filename_exts, test_big_offset_exts, test_load_save
-# TODO: enable these tests again next release. They worked before.
-%{pytest} -v -k "not test_unremoved_module and not test_unremoved_object and not test_unremoved_attr \
-and not test_from_file_url and not test_write_mgh and not test_filename_exts \
-and not test_big_offset_exts and not test_load_save"
+%{pytest} -v
 
 %files -n python3-nibabel -f %{pyproject_files}
 %{_bindir}/parrec2nii

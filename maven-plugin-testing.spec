@@ -2,14 +2,14 @@
 
 Name:           maven-plugin-testing
 Version:        3.3.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Maven Plugin Testing
 License:        Apache-2.0
-URL:            http://maven.apache.org/plugin-testing/
+URL:            https://maven.apache.org/plugin-testing/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugin-testing/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 Patch0:         0001-Port-to-plexus-utils-3.0.21.patch
 Patch1:         0002-Port-to-current-maven-artifact.patch
@@ -50,9 +50,9 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-site-plugin
@@ -64,7 +64,7 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %mvn_alias : org.apache.maven.shared:
 
 %build
-%mvn_build -s -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -s -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -76,6 +76,9 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.3.0-32
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

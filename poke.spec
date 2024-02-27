@@ -2,7 +2,7 @@
 
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	3.90.3
+Version:	3.90.4
 Release:	%autorelease
 
 # Documentation under GFDL
@@ -33,10 +33,10 @@ BuildRequires:	dejagnu
 Requires:	%{name}-data = %{version}-%{release}
 Requires:	%{name}-libs = %{version}-%{release}
 
-# bundles gnulib commit 2c9ebdc358bfa4ede419a6e528ed0386ec6c6911
-Provides:	bundled(gnulib) = 20240128
+# bundles gnulib commit ac36c297e53ba38cd03db2ff51d4678310128118
+Provides:	bundled(gnulib) = 20240221
 # bundles jitter, should be packaged independently in the future
-Provides:	bundled(jitter) = 0.9.303
+Provides:	bundled(jitter) = 0.9.305
 
 %description
 GNU poke is an interactive, extensible editor for binary data. Not

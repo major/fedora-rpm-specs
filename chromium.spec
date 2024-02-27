@@ -366,7 +366,7 @@ Patch101: chromium-108-el7-wayland-strndup-error.patch
 
 # Workaround for old clang
 # error: defaulting this default constructor would delete it after its first declaration
-Patch102: chromium-121-el7-default-constructor-involving-anonymous-union.patch
+Patch102: chromium-122-el7-default-constructor-involving-anonymous-union.patch
 
 # Work around old and missing headers on EPEL7
 Patch103: chromium-110-epel7-old-headers-workarounds.patch
@@ -385,15 +385,13 @@ Patch105: chromium-120-el7-old-libdrm.patch
 Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 
 # Add additional operator== to make el7 happy.
-Patch107: chromium-120-el7-extra-operator.patch
+Patch107: chromium-122-el7-extra-operator.patch
 # old v4l2 on el7
 Patch108: chromium-118-el7_v4l2_quantization.patch 
-# workaround for clang bug on el7
+# workaround for old clang on el7
 Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
-Patch111: chromium-116-constexpr.patch
-# old clang on el7
-
+Patch111: chromium-122-el7-inline-function.patch
 Patch113: chromium-121-el7-clang-version-warning.patch
 Patch114: chromium-120-el7-clang-build-failure.patch
 
@@ -415,14 +413,14 @@ Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fixes for old clang version in fedora < 38 end epel < 8 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-121-no_matching_constructor.patch
+Patch300: chromium-122-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-121-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-122-workaround_clang_bug-structured_binding.patch
 
 # missing typename
-Patch303: chromium-121-typename.patch
+Patch303: chromium-122-typename.patch
 
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
@@ -448,8 +446,9 @@ Patch311: chromium-115-clang-warnings.patch
 # enable fstack-protector-strong
 Patch312: chromium-119-fstack-protector-strong.patch
 
-# fixed static assert error
+# upstream: libstdc++: fix static assertion in NodeUuidEquality
 Patch313: chromium-122-static-assert.patch
+
 Patch314: chromium-122-clang16-buildflags.patch
 
 # assignment-expressions not suport in python < 3.8 on el 7/8
@@ -457,6 +456,9 @@ Patch315: chromium-122-python3-assignment-expressions.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
+
+# upstream: ibstdc++: do not require including unique_ptr in header
+Patch317: chromium-122-unique_ptr.patch
 
 # build error
 Patch351: chromium-121-mnemonic-error.patch
@@ -1097,22 +1099,22 @@ udev.
 %if 0%{?rhel} == 7
 %patch -P100 -p1 -b .el7-memfd-fcntl-include
 %patch -P101 -p1 -b .wayland-strndup-error
-#patch -P102 -p1 -b .default-constructor-involving-anonymous-union
+%patch -P102 -p1 -b .default-constructor-involving-anonymous-union
 %patch -P103 -p1 -b .epel7-header-workarounds
 %patch -P104 -p1 -b .el7cups
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
-#patch -P107 -p1 -b .el7-extra-operator-equalequal
+%patch -P107 -p1 -b .el7-extra-operator-equalequal
 %patch -P108 -p1 -b .el7_v4l2_quantization
 %patch -P109 -p1 -b .wireless
 %patch -P110 -p1 -b .buildflag-el7
-#patch -P111 -p1 -b .constexpr
+%patch -P111 -p1 -b .inline-function-el7
 %patch -P113 -p1 -b .el7-clang-version-warning
 %patch -P114 -p1 -R -b .clang-build-failure
-#patch -P300 -p1 -b .no_matching_constructor
+%patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
-#patch -P303 -p1 -b .typename
+%patch -P303 -p1 -b .typename
 %patch -P304 -p1 -b .string-convert
 %patch -P306 -p1 -b .assert
 %endif
@@ -1143,8 +1145,11 @@ udev.
 %patch -P310 -p1 -b .missing-header-files
 %patch -P311 -p1 -b .clang-warnings
 %patch -P312 -p1 -b .fstack-protector-strong
-%patch -P316 -p1 -b .clang-build-flags
+%patch -P317 -p1 -b .unique_ptr.patch
 
+%if 0%{?rhel} >= 8 || 0%{?fedora}
+%patch -P316 -p1 -b .clang-build-flags
+%endif
 %patch -P351 -p1 -b .mnemonic-error
 
 %if %{disable_bti}

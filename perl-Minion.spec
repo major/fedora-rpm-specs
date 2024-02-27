@@ -1,17 +1,25 @@
 Name:           perl-Minion
-Version:        10.25
-Release:        6%{?dist}
+Version:        10.28
+Release:        1%{?dist}
 Summary:        High performance job queue for the Perl programming language
-License:        Artistic 2.0 and MIT and OFL
+# Minion itself is Artistic-2.0
+# Minion Artwork is CC-SA License, Version 4.0
+# Bootstrap is licensed under the MIT License
+# D3.js is licensed under the ISC License
+# epoch.js is licensed under the MIT License
+# Font Awesome is licensed under the MIT License and the SIL OFL 1.1
+# moment.js is licensed under the MIT License
+License:        Artistic-2.0 AND CC-BY-SA-4.0 AND MIT AND ISC
 
 URL:            https://metacpan.org/release/Minion
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SRI/Minion-%{version}.tar.gz
 
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-generators
+BuildRequires:  perl-macros
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -75,6 +83,10 @@ chmod -x lib/Mojolicious/Plugin/Minion/resources/public/minion/epoch/*
 %{_mandir}/man3/Mojolicious::Plugin::Minion*
 
 %changelog
+* Sun Feb 25 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 10.28-1
+- Update to 10.28
+- Migrate to SPDX license
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.25-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

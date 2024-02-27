@@ -5,8 +5,8 @@ functions like pickle, json or PyYAML module.}
 
 
 Name:           python-%{srcname}
-Version:        1.0.1
-Release:        3%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        S-expression parser for Python
 
 License:        BSD-2-Clause
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Feb 25 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.0.2-1
+- Update to 1.0.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

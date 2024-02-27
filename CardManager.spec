@@ -1,6 +1,6 @@
 Name:           CardManager
 Version:        3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Java application to allows you to play any, especially collectible, card game
 
 License:        BSD

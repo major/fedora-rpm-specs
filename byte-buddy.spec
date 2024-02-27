@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
 URL:            http://bytebuddy.net/
@@ -11,6 +11,7 @@ Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy
 # Patch the build to avoid bundling inside shaded jars
 Patch1:         0001-Avoid-bundling-asm.patch
 Patch2:         0002-Remove-dependencies.patch
+Patch3:         0003-Fix-broken-modular-jars.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -77,8 +78,9 @@ This package contains API documentation for %{name}.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 
-%patch1 -p1
-%patch2 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 find -name '*.class' -delete
 
@@ -131,7 +133,7 @@ rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTe
 # NOTE you can obtain valid profiles for precompilation by:
 # xmllint --xpath '//*[local-name()="profile"]/*[local-name()="id"]/text()' byte-buddy-dep/pom.xml | grep 'precompile$' | grep -v 'no-precompile$' | sed 's/\(.*\)/-P\1/'
 profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompile -Pjava-16-precompile -Pjava-17-precompile'
-%mvn_build -s -- -P'java8,!checks' "${profiles}" -Dsourcecode.test.version=1.8 -Dmaven.test.failure.ignore=true
+%mvn_build -s -- -P'java8,!checks' "${profiles}" -Dsourcecode.main.version=8 -Dsourcecode.test.version=8 -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
@@ -149,6 +151,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.14.2-7
+- Update Java source/target to 8
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

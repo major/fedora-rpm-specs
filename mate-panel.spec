@@ -15,7 +15,7 @@
 Name:           mate-panel
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Release:        0.20%{?git_rel}%{?dist}
 %endif
@@ -32,6 +32,11 @@ URL:            http://mate-desktop.org
 
 Source1:        mate-panel_fedora-30.layout
 Source2:        mate-panel_rhel.layout
+Source3:        mate-panel_fedora-40.layout
+
+# fixing mate-panel --replace
+Patch1:         mate-panel_0001-Revert-Main-menus-fix-missing-Places-System-icons.patch
+Patch2:         mate-panel_0002-Revert-replace-deprecated-gtk-image-menu-item.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 #for fish
@@ -85,6 +90,9 @@ Development files for mate-panel
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
+# Patch 1+2
+NOCONFIGURE=1 ./autogen.sh
+
 %build
 
 #libexecdir needed for gnome conflicts
@@ -114,8 +122,11 @@ desktop-file-install \
         --dir=%{buildroot}%{_datadir}/applications \
 %{buildroot}%{_datadir}/applications/mate-panel.desktop
 
-%if 0%{?fedora}
+%if 0%{?fedora} && 0%{?fedora} <= 39
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/mate-panel/layouts/fedora.layout
+%endif
+%if 0%{?fedora} && 0%{?fedora} >= 40
+install -D -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/mate-panel/layouts/fedora.layout
 %endif
 %if 0%{?rhel}
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.layout
@@ -155,6 +166,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Sun Feb 25 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-2
+- fix "mate-panel --replace" command
+
 * Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
 - update to 1.28.0
 

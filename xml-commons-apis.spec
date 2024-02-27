@@ -1,6 +1,6 @@
 Name:          xml-commons-apis
 Version:       1.4.01
-Release:       43%{?dist}
+Release:       44%{?dist}
 Summary:       APIs for DOM, SAX, and JAXP
 License:       Apache-2.0 AND W3C AND SAX-PD
 URL:           http://xml.apache.org/commons/
@@ -60,7 +60,7 @@ sed -i '/distributionManagement/,/\/distributionManagement/ {d}' *.pom
 %mvn_alias :xml-apis-ext xerces:dom3-xml-apis
 
 %build
-ant -Dant.build.javac.source=1.7 -Dant.build.javac.target=1.7 jar javadoc
+%ant -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8 jar javadoc
 
 # inject OSGi manifests
 jar ufm build/xml-apis.jar %{SOURCE1}
@@ -87,6 +87,9 @@ rm -rf build/docs/javadoc
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1.4.01-44
+- Update Java source/target to 1.8
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.01-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

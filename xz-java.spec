@@ -2,14 +2,14 @@
 
 Name:           xz-java
 Version:        1.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Java implementation of XZ data compression
 License:        LicenseRef-Fedora-Public-Domain
-URL:            http://tukaani.org/xz/java.html
+URL:            https://tukaani.org/xz/java.html
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://tukaani.org/xz/xz-java-%{version}.zip
+Source0:        https://tukaani.org/xz/xz-java-%{version}.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -42,7 +42,7 @@ This package contains the API documentation for %{name}.
 # package-list from oracle.com. Create a dummy package-list to prevent that.
 mkdir -p extdoc && touch extdoc/package-list
 
-%ant maven
+%ant -Dsourcever=8 maven
 
 %install
 %mvn_artifact build/maven/xz-%{version}.pom build/jar/xz.jar
@@ -57,6 +57,9 @@ mkdir -p extdoc && touch extdoc/package-list
 %license COPYING
 
 %changelog
+* Wed Feb 21 2024 Marian Koncek <mkoncek@redhat.com> - 1.9-9
+- Set OpenJDK version to 8
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

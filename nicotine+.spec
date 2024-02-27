@@ -2,8 +2,8 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.2.9
-Release:        5%{?dist}
+Version:        3.3.2
+Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
 # IP2Location Country Database (pynicotine/geoip/ipcountrydb.bin) is
@@ -17,15 +17,13 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 # Needed for tests
-# BuildRequires:  gtk4
-BuildRequires:  gtk3
+BuildRequires:  gtk4
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-xvfb}
 # Runtime dependencies are not declared in setup.py (except pygobject) but are
 # actually required (see doc/DEPENDENCIES.md)
 Requires:       gspell
-# Requires:       (gtk4 or gtk3)
-Requires:       gtk3
+Requires:       (gtk4 or gtk3)
 Requires:       hicolor-icon-theme
 BuildArch:      noarch
 
@@ -52,18 +50,16 @@ that users want and/or need.
 %pyproject_install
 %pyproject_save_files pynicotine
 
-%find_lang %{altname}
-
 
 %check
 # Tests requiring an Internet connection are disabled
-%pytest --deselect=test/unit/test_version.py
+%pytest -k "not test_update_check"
 
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{appdata_id}.desktop
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_id}.appdata.xml
 
 
-%files -f %{pyproject_files} -f %{altname}.lang
+%files -f %{pyproject_files}
 %doc AUTHORS.md NEWS.md README.md TRANSLATORS.md
 %license COPYING
 %{_bindir}/%{altname}
@@ -75,6 +71,12 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Sun Feb 25 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.2-1
+- Update to 3.3.2
+
+* Sun Feb 25 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.1-1
+- Update to 3.3.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

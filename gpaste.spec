@@ -2,7 +2,7 @@
 
 Name:           gpaste
 Version:        45
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -35,6 +35,8 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description
 GPaste is a clipboard management system.
@@ -199,6 +201,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sun Feb 25 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 45-4
+- Drop support for i686
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

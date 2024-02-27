@@ -2,7 +2,7 @@
 
 Name:           maven-wagon
 Version:        3.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tools to manage artifacts and deployment
 License:        Apache-2.0
 URL:            https://maven.apache.org/wagon
@@ -73,7 +73,7 @@ following providers:
 
 %build
 # tests are disabled because of missing dependencies
-%mvn_build -f
+%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 # Maven requires Wagon HTTP with classifier "shaded"
 %mvn_alias :wagon-http :::shaded:
@@ -86,6 +86,9 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.5.3-6
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

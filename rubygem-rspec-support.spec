@@ -1,6 +1,6 @@
 %global	gem_name	rspec-support
 
-%global	mainver	3.13.0
+%global	mainver	3.13.1
 %undefine	prever
 
 %global	baserelease	1
@@ -107,6 +107,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Feb 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.1-1
+- 3.13.1
+
 * Fri Feb 09 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.0-1
 - 3.13.0
 

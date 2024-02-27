@@ -2,7 +2,7 @@
 
 Name:           osgi-annotation
 Version:        8.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Annotations for use in compiling OSGi bundles
 License:        Apache-2.0
 URL:            https://www.osgi.org
@@ -63,7 +63,7 @@ cp -p %{SOURCE1} pom.xml
 %mvn_alias org.osgi:osgi.annotation org.osgi:org.osgi.annotation
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} pom.xml
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 8.1.0-5
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

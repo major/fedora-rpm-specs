@@ -8,11 +8,13 @@
 
 Name:          javaparser
 Version:       3.25.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:       LGPL-2.0-or-later OR Apache-2.0
 URL:           https://javaparser.org
 Source0:       https://github.com/javaparser/javaparser/archive/%{name}-parent-%{version}.tar.gz
+
+Patch1:        0001-Port-to-OpenJDK-21.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -45,6 +47,8 @@ This package contains API documentation for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-parent-%{version}
+
+%patch 1 -p1
 
 sed -i 's/\r//' readme.md
 
@@ -107,6 +111,9 @@ sed -i \
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog
+* Thu Feb 22 2024 Marian Koncek <mkoncek@redhat.com> - 3.25.8-2
+- Port to OpenJDK 21
+
 * Wed Feb 21 2024 Markku Korkeala <markku.korkeala@iki.fi> - 3.25.8-1
 - Update to upstream version 3.25.8, closes rhbz#2252668
 - Upstream removed plugin coveralls-maven-plugin

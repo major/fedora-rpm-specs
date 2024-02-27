@@ -9,14 +9,14 @@
 %global python_prefix python3
 %global python_interpreter %{?__python3}%{!?__python3:dummy}
 
-%global default_jdk %{_prefix}/lib/jvm/java-17-openjdk
-%global default_jre %{_prefix}/lib/jvm/jre-17-openjdk
+%global default_jdk %{_prefix}/lib/jvm/java-21-openjdk
+%global default_jre %{_prefix}/lib/jvm/jre-21-openjdk
 
 %global maven_home %{_usr}/share/xmvn
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
@@ -47,7 +47,7 @@ Requires:       coreutils
 Requires:       findutils
 Requires:       which
 # default JRE
-Requires:       java-17-openjdk-headless
+Requires:       java-21-openjdk-headless
 
 Provides:       jpackage-utils = %{version}-%{release}
 
@@ -103,7 +103,7 @@ packaging in Linux distributions
 Summary:        Non-essential macros and scripts for Java packaging support
 Requires:       javapackages-common = %{version}-%{release}
 # Java build systems don't have hard requirement on java-devel, so it should be there
-Requires:       java-17-openjdk-devel
+Requires:       java-21-openjdk-devel
 Requires:       xmvn-tools
 %if %{with xmvn_generator}
 Requires:       xmvn-generator
@@ -175,7 +175,7 @@ OpenJDK 21 toolchain for XMvn
 
 %prep
 %setup -q -n javapackages-%{version}
-%patch0 -p1
+%patch 0 -p1
 
 %build
 %configure --pyinterpreter=%{python_interpreter} \
@@ -257,6 +257,9 @@ ln -s %{_datadir}/java-utils %{buildroot}%{_usr}/share/java-utils
 %license LICENSE
 
 %changelog
+* Fri Feb 16 2024 Marian Koncek <mkoncek@redhat.com> - 6.2.0-9
+- Switch to OpenJDK 21 as default JDK/JRE
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

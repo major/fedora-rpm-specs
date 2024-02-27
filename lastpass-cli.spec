@@ -1,5 +1,5 @@
 Name:           lastpass-cli
-Version:        1.3.6
+Version:        1.3.7
 Release:        %autorelease
 Summary:        Command line interface to LastPass.com
 
@@ -8,8 +8,6 @@ URL:            https://github.com/LastPass/lastpass-cli
 Source:         %url/archive/v%{version}/lastpass-cli-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1457758
 Patch:          lastpass-cli-1.3.1-remove_reallocarray.patch
-# https://github.com/lastpass/lastpass-cli/pull/535
-Patch:          0001-Mark-global-variable-as-extern.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  cmake

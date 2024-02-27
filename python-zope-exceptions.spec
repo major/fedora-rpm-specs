@@ -2,12 +2,13 @@
 
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
-Version:    4.0.8
-Release:    29%{?dist}
-Source0:    http://pypi.python.org/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
-License:    ZPLv2.1
+Version:    5.0.1
+Release:    1%{?dist}
+VCS:        https://github.com/zopefoundation/zope.exceptions
+Source0:    %{VCS}/archive/%{version}/%{modname}-%{version}.tar.gz
+License:    ZPL-2.1
 BuildArch:  noarch
-URL:        http://pypi.python.org/pypi/zope.exceptions
+URL:        https://zopeexceptions.readthedocs.io/
 
 %description
 This package contains exception interfaces and implementations which are so
@@ -15,44 +16,39 @@ general purpose that they don't belong in Zope application-specific packages.
 
 %package -n python3-zope-exceptions
 Summary:    Zope Exceptions
-%{?python_provide:%python_provide python3-zope-exceptions}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-zope-interface
-
-Requires:       python3-zope-interface
 
 %description -n python3-zope-exceptions
 This package contains exception interfaces and implementations which are so
 general purpose that they don't belong in Zope application-specific packages.
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version}
 
-rm -rf %{modname}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files zope
 
-# As of python-zope-exceptions-4.0.6, the tests require
-# python-zope-testrunner which has not yet been packaged.
-#%%check
-#%%{__python3} setup.py test
+%check
+%tox
 
-%files -n python3-zope-exceptions
-%doc LICENSE.txt CHANGES.rst README.rst COPYRIGHT.txt
-%{python3_sitelib}/zope/exceptions/
-# Co-own %%{python3_sitelib}/zope/
-%dir %{python3_sitelib}/zope/
-%exclude %{python3_sitelib}/zope/exceptions/tests/
-%{python3_sitelib}/%{modname}-*.egg-info
+%files -n python3-zope-exceptions -f %{pyproject_files}
+%doc CHANGES.rst README.rst
+%license COPYRIGHT.txt LICENSE.txt
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 5.0.1-1
+- Version 5.0.1
+- Convert License tag to SPDX
+- Modernize the spec file
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

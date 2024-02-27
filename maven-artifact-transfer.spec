@@ -2,7 +2,7 @@
 
 Name:           maven-artifact-transfer
 Version:        0.13.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Epoch:          1
 Summary:        Apache Maven Artifact Transfer
 License:        Apache-2.0
@@ -48,9 +48,9 @@ This package provides %{summary}.
 %prep
 %setup -q
 find -name '*.java' -exec sed -i 's/\r//' {} +
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :maven-shade-plugin
@@ -61,7 +61,7 @@ find -name '*.java' -exec sed -i 's/\r//' {} +
 find -name Maven30\*.java -delete
 
 %build
-%mvn_build
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -73,6 +73,9 @@ find -name Maven30\*.java -delete
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:0.13.1-13
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

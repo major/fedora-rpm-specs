@@ -2,7 +2,7 @@
 
 Name:           waybar
 Version:        0.9.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -18,6 +18,11 @@ Summary:        Highly customizable Wayland bar for Sway and Wlroots based compo
 License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Downstream changes to the configuration:
+#  - Fix missing or incorrectly rendered icons
+#  - Remove several modules from the config
+#  - Switch font to monospace
+Patch:          waybar-fedora-config-changes.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -56,7 +61,8 @@ BuildRequires:  pkgconfig(wireplumber-0.4)
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
-Recommends:     (font(fontawesome6free) or font(fontawesome5free))
+Recommends:     font(fontawesome6free)
+Recommends:     font(fontawesome6brands)
 
 %description
 %{summary}.
@@ -101,6 +107,10 @@ done
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sat Feb 24 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.24-3
+- Patch default configuration to address several known issues
+- Fixes rhbz#2254813
+
 * Mon Jan 29 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.24-2
 - Disable wireplumber support in rawhide (rhbz#2260558)
 

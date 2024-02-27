@@ -2,7 +2,7 @@
 
 Name:           univocity-parsers
 Version:        2.9.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Collection of parsers for Java
 License:        Apache-2.0
 URL:            https://github.com/uniVocity/univocity-parsers
@@ -35,7 +35,7 @@ API documentation for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch 0 -p1
 
 %pom_remove_plugin :nexus-staging-maven-plugin
 %pom_remove_plugin :maven-compiler-plugin
@@ -43,7 +43,7 @@ API documentation for %{name}.
 
 %build
 # Tests require univocity-output-tester, which is not packaged yet.
-%mvn_build -f -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE-2.0.html
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 2.9.1-12
+- Update Java source/target to 1.8
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

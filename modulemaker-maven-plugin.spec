@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           modulemaker-maven-plugin
-Version:        1.9
-Release:        5%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        A plugin for creating module-info.class files
 License:        Apache-2.0
 URL:            https://github.com/raphw/modulemaker-maven-plugin
@@ -43,7 +43,7 @@ cp -p %{SOURCE1} .
 %pom_xpath_inject 'pom:dependency[pom:artifactId="maven-plugin-api"]' '<scope>provided</scope>'
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -56,6 +56,12 @@ cp -p %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1.11-1
+- Update to upstream version 1.11
+
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.9-6
+- Update Java source/target to 1.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

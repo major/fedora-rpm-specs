@@ -1,6 +1,3 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global		build_type_safety_c  2
-
 # review https://bugzilla.redhat.com/show_bug.cgi?id=502404
 # renamed from lxsession-lite. Original review at
 # https://bugzilla.redhat.com/show_bug.cgi?id=442268
@@ -35,7 +32,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -52,6 +49,9 @@ Source0:		%{name}-%{gittardate}T%{gittartime}.tar.gz
 %if 0%{?use_release}
 Source0:		http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
+# https://github.com/lxde/lxsession/pull/34
+# Fix compilation with gcc14 -Werror=incompatible-pointer-types
+Patch1:		lxsession-pr34-fix-gcc14-incompatible-pointer-types.patch
 #http://sourceforge.net/p/lxde/bugs/760/
 Patch1000:		lxsession-0.5.2-git9f8d6133-reload.patch
 Patch1002:		lxsession-0.5.2-notify-daemon-default.patch
@@ -168,6 +168,7 @@ git commit -m "base" -q
 %endif
 
 #%patch0 -p1 -b .dsofix
+cat %PATCH1 | git am
 %patch -P1000 -p1 -b .reload
 %patch -P1002 -p1 -b .notify
 %patch -P1005 -p1 -b .nullcheck
@@ -298,6 +299,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Sun Feb 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5^20230917gite0fffa66-4
+- Apply upstream PR for gcc14 -Werror=incompatible-pointer-types
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5^20230917gite0fffa66-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

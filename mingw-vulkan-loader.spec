@@ -6,8 +6,8 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.268.0
-Release:       3%{?dist}
+Version:       1.3.275.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       Apache-2.0
@@ -85,6 +85,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Sun Feb 25 2024 Sandro Mani <manisandro@gmail.com> - 1.3.275.0-1
+- Update to 1.3.275.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.268.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

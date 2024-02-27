@@ -11,6 +11,8 @@ URL: https://github.com/coreos/rpm-ostree
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
+Patch0: 0001-cliwrap-rpm-mark-eval-E-as-safe.patch
+
 ExclusiveArch: %{rust_arches}
 
 # ostree not on i686 for RHEL 10

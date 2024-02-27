@@ -2,7 +2,7 @@
 
 Name:           apache-commons-collections
 Version:        3.2.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Provides new interfaces, implementations and utilities for Java Collections
 License:        Apache-2.0
 URL:            http://commons.apache.org/collections/
@@ -13,6 +13,7 @@ Source0:        http://www.apache.org/dist/commons/collections/source/commons-co
 
 Patch0:         0001-Port-to-Java-8.patch
 Patch1:         0002-Port-to-OpenJDK-11.patch
+Patch2:         0003-Port-to-OpenJDK-21.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -58,8 +59,9 @@ Summary:        Javadoc for %{name}
 find . -name "*.jar" -exec rm -f {} \;
 find . -name "*.class" -exec rm -f {} \;
 
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 # Port to maven-antrun-plugin 3.0.0
 sed -i s/tasks/target/ pom.xml
@@ -87,6 +89,9 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.2.2-35
+- Port to OpenJDK 21
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
