@@ -20,7 +20,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.19.0.0
+%global base_ver 4.19.1.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.7.0.0
@@ -52,12 +52,12 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: 9.8.1
+Version: 9.8.2
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -77,8 +77,6 @@ ExcludeArch: armv7hl
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/24355
-Patch4: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10518.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
@@ -90,11 +88,6 @@ Patch13: text2-allow-ghc8-arm.patch
 
 # unregisterised
 Patch16: ghc-hadrian-s390x-rts--qg.patch
-
-# s390x
-# https://gitlab.haskell.org/ghc/ghc/-/issues/24163
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662
-Patch17: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/11662.patch
 
 # Debian patches:
 # bad according to upstream
@@ -110,10 +103,6 @@ Patch40: cabal-add-riscv64.patch
 # Enable GHCi support on riscv64
 # Upstream in >= 9.9.
 Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
-
-# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/SKVM4NSFZRWUT5MJKBS6IRUXCG3SCD34/
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12079
-Patch42: ghc-modern-c-fix.patch
 
 # https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 
@@ -332,12 +321,12 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.6.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.0.2
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.1.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.8
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.0.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.100.4
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.200.1
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
@@ -359,10 +348,10 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.2.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.21.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.6
-%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.1
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.0
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.4.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -398,7 +387,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %patch -P1 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P4 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 
@@ -418,8 +406,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 %endif
 
-%patch -P17 -p1 -b .orig
-
 #debian
 #%%patch -P24 -p1 -b .orig
 %patch -P26 -p1 -b .orig
@@ -432,8 +418,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P41 -p1 -b .orig
 %endif
 
-#Modern C fix
-%patch -P42 -p1 -b .orig
 
 %build
 # patch4
@@ -864,6 +848,10 @@ make test
 
 
 %changelog
+* Mon Feb 26 2024 Jens Petersen <petersen@redhat.com> - 9.8.2-8
+- https://downloads.haskell.org/~ghc/9.8.2/docs/users_guide/9.8.2-notes.html
+- minor bumps to bytestring, filepath, text, unix
+
 * Thu Feb 15 2024 Richard W.M. Jones <rjones@redhat.com> - 9.8.1-7
 - Fix generated C for Modern C Initiative
 

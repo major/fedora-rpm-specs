@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.12.3
-Release:   3%{?dist}
+Version:   1.12.5
+Release:   1%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
@@ -73,11 +73,8 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Mon Feb 26 2024 Bob Hepple <bob.hepple@gmail.com> - 1.12.5-1
+- new version
 
 * Fri Jul 21 2023 Bob Hepple <bob.hepple@gmail.com> - 1.12.3-1
 - new version

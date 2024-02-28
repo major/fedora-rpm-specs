@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -669,9 +669,11 @@ fi
 %{_kf6_datadir}/kconf_update/plasma6.0-remove-old-shortcuts.upd
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.upd
 %{_kf6_datadir}/kconf_update/migrate-calendar-to-plugin-id.py
+%{_kf6_datadir}/kconf_update/plasmashell-6.0-keep-custom-position-of-panels.upd
 %{_libdir}/kconf_update_bin/plasma6.0-remove-old-shortcuts
 %{_libdir}/kconf_update_bin/plasmashell-6.0-keep-default-floating-setting-for-plasma-5-panels
 %{_libdir}/kconf_update_bin/plasma6.0-remove-dpi-settings
+%{_libdir}/kconf_update_bin/plasmashell-6.0-keep-custom-position-of-panels
 %{_kf6_datadir}/kglobalaccel/org.kde.krunner.desktop
 
 %files geolocation
@@ -729,6 +731,9 @@ fi
 
 
 %changelog
+* Mon Feb 26 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.0-2
+- Respin 6.0.0
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

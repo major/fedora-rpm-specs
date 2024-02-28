@@ -1,5 +1,5 @@
 Name:           jmol
-Version:        16.1.51
+Version:        16.1.57
 Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
@@ -11,7 +11,8 @@ Summary:        Java viewer for chemical structures in 3D
 # The icon is CC0-1.0.
 # The Nuvola icons are GPL-2.0-only.
 License:        LGPL-2.1-or-later AND BSD-2-Clause AND IJG AND GPL-2.0-only WITH Classpath-exception-2.0 AND CC0-1.0 AND GPL-2.0-only
-URL:            http://www.jmol.org/
+URL:            https://jmol.sourceforge.net/
+VCS:            https://sourceforge.net/projects/jmol/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        http://downloads.sourceforge.net/%{name}/Jmol-%{version}-full.tar.gz
@@ -175,6 +176,9 @@ cd ../..
 %{_jsdir}/jsmol/
 
 %changelog
+* Mon Feb 26 2024 Jerry James <loganjerry@gmail.com> - 16.1.57-1
+- Version 16.1.57
+
 * Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 16.1.51-1
 - Version 16.1.51
 - Drop unneeded xslt and javadoc patches

@@ -1,13 +1,14 @@
 %global _docdir_fmt %{name}
 
 Name:           python-sphinx-autobuild
-Version:        2021.3.14
-Release:        8%{?dist}
+Version:        2024.02.04
+Release:        1%{?dist}
 Summary:        Autobuild a Sphinx directory when a change is detected
 
 License:        MIT
-URL:            https://github.com/executablebooks/sphinx-autobuild
-Source0:        %{pypi_source sphinx-autobuild}
+URL:            https://sphinx-autobuild.readthedocs.io/
+VCS:            https://github.com/sphinx-doc/sphinx-autobuild
+Source0:        %{vcs}/archive/%{version}/sphinx-autobuild-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -58,6 +59,7 @@ Documentation for sphinx-autobuild.
 %build
 %pyproject_wheel
 rst2html --no-datestamp NEWS.rst NEWS.html
+rst2html --no-datestamp README.rst README.html
 
 # Build the documentation
 mkdir html
@@ -77,8 +79,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %pytest
 
 %files -n python3-sphinx-autobuild -f %{pyproject_files}
-%doc AUTHORS NEWS.html README.md
-%license LICENSE
+%doc AUTHORS.rst NEWS.html README.html
+%license LICENSE.rst
 %{_bindir}/sphinx-autobuild
 %{_mandir}/man1/sphinx-autobuild.1*
 
@@ -86,6 +88,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %doc html
 
 %changelog
+* Mon Feb 26 2024 Jerry James <loganjerry@gmail.com> - 2024.02.04-1
+- Version 2024.02.04
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

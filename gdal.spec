@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.8.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -90,6 +90,7 @@ BuildRequires: gtest-devel
 BuildRequires: hdf-devel
 BuildRequires: hdf5-devel
 BuildRequires: json-c-devel
+BuildRequires: libarchive-devel
 %ifnarch %{ix86} %{arm}
 BuildRequires: libarrow-devel
 %endif
@@ -139,6 +140,7 @@ BuildRequires: mingw32-expat
 BuildRequires: mingw32-freexl
 BuildRequires: mingw32-geos
 BuildRequires: mingw32-giflib
+BuildRequires: mingw32-libarchive
 BuildRequires: mingw32-libgeotiff
 BuildRequires: mingw32-libgta
 BuildRequires: mingw32-libjpeg-turbo
@@ -169,6 +171,7 @@ BuildRequires: mingw64-expat
 BuildRequires: mingw64-freexl
 BuildRequires: mingw64-geos
 BuildRequires: mingw64-giflib
+BuildRequires: mingw64-libarchive
 BuildRequires: mingw64-libgeotiff
 BuildRequires: mingw64-libgta
 BuildRequires: mingw64-libjpeg-turbo
@@ -578,6 +581,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Mon Feb 26 2024 Sandro Mani <manisandro@gmail.com> - 3.8.4-2
+- BR: libarchive
+
 * Sun Feb 18 2024 Sandro Mani <manisandro@gmail.com> - 3.8.4-1
 - Update to 3.8.4
 

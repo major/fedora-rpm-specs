@@ -1,8 +1,9 @@
-%global srcname  Stockfish
-%global nnuehash 5af11540bbfe
+%global srcname   Stockfish
+%global nnuehash1 b1a57edbea57
+%global nnuehash2 baff1ede1f90
 
 Name:            stockfish
-Version:         16
+Version:         16.1
 Release:         %autorelease
 #Source0:        %%{url}/files/%%{name}-%%{version}-linux.zip
 Source0:         https://github.com/official-%{name}/%{srcname}/archive/sf_%{version}.zip
@@ -13,8 +14,9 @@ Summary:         Powerful open source chess engine
 License:         GPL-3.0-or-later AND CC0-1.0
 URL:             http://%{name}chess.org
 
-# the NN file
-Source1:         https://tests.stockfishchess.org/api/nn/nn-%nnuehash.nnue
+# the NN files
+Source1:         https://tests.stockfishchess.org/api/nn/nn-%nnuehash1.nnue
+Source2:         https://tests.stockfishchess.org/api/nn/nn-%nnuehash2.nnue
 
 # steal some documentation from ubuntu
 Source10:        https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/%{name}/vivid/download/head:/engineinterface.txt-20091204230329-yljoyxocuxhxg1ot-78/engine-interface.txt#/%{name}-interface.txt
@@ -38,13 +40,14 @@ information about how to use Stockfish with your GUI.
 
 %prep
 # verify the NNUE net checksum early to catch maintainer error
-test %nnuehash = "$(sha256sum %{SOURCE1} | cut -c1-12)"
+test %nnuehash1 = "$(sha256sum %{SOURCE1} | cut -c1-12)"
+test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
 
 #%%autosetup -n%%{name}-%%{version}-linux
 %autosetup -n%{srcname}-sf_%{version}
 
 cp -t. -p %{SOURCE10} %{SOURCE11}
-cp -tsrc -p %{SOURCE1}
+cp -tsrc -p %{SOURCE1} %{SOURCE2}
 
 # W: wrong-file-end-of-line-encoding
 sed -i 's,\r$,,' %{name}-interface.txt

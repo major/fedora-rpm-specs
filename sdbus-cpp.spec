@@ -1,19 +1,17 @@
 %undefine __cmake_in_source_build
 
 %global version_major 1
-%global version_minor 4
+%global version_minor 5
 %global version_micro 0
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
 URL:            https://github.com/Kistler-Group/sdbus-cpp
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Kistler-Group/sdbus-cpp/pull/380
-Patch0:         0001-fix-add-missing-algorithm-header.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc-c++
@@ -93,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Mon Feb 26 2024 Marek Blaha <mblaha@redhat.com> - 1.5.0-1
+- Update to release 1.5.0
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

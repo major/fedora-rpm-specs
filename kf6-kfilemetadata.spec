@@ -3,7 +3,7 @@
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Feb 26 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-2
+- Respin: 6.0.0 (New tarball released by KDE)
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

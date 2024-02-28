@@ -8,12 +8,12 @@
 # (such as ppc), so lets limit things to the known-good ones.
 ExclusiveArch: x86_64 aarch64 riscv64
 
-# edk2-stable202308
-%define GITDATE        20231122
-%define GITCOMMIT      8736b8fdca85
+# edk2-stable202402
+%define GITDATE        20240214
+%define GITCOMMIT      edc6681206c1
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT 10e2eb030de3
+%define PLATFORMS_COMMIT b5fa396700e7
 
 %define OPENSSL_VER    3.0.7
 %define OPENSSL_COMMIT db0287935122edceb91dcda8dfb53b4090734e22
@@ -109,13 +109,12 @@ Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
 Patch0011: 0011-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
 Patch0012: 0012-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 Patch0013: 0013-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
-Patch0015: 0015-CryptoPkg-CrtLib-add-stat.h.patch
-Patch0016: 0016-CryptoPkg-CrtLib-add-access-open-read-write-close-sy.patch
-Patch0017: 0017-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
+Patch0014: 0014-CryptoPkg-CrtLib-add-stat.h.patch
+Patch0015: 0015-CryptoPkg-CrtLib-add-access-open-read-write-close-sy.patch
+Patch0016: 0016-OvmfPkg-set-PcdVariableStoreSize-PcdMaxVolatileVaria.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-Patch0018: 0018-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
+Patch0017: 0017-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
-Patch0019: 0019-ArmVirt-Allow-memory-attributes-protocol-to-be-disab.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -146,7 +145,7 @@ BuildRequires:  xorriso
 
 # For generating the variable store template with the default certificates
 # enrolled.
-BuildRequires:  python3-virt-firmware >= 23.5
+BuildRequires:  python3-virt-firmware >= 24.2
 
 # endif build_ovmf
 %endif
@@ -441,11 +440,12 @@ for image in \
 	pcr="${image}"
 	pcr="${pcr%.fd}"
 	pcr="${pcr%.qcow2}"
-	pcr="${pcr}.pcr"
+	pcr="${pcr}.pcrlock"
 	python3 /usr/share/doc/python3-virt-firmware/experimental/measure.py \
 		--image "$image" \
 		--version "%{name}-%{version}-%{release}" \
-                --no-shim \
+                --no-shim --pcrlock \
+                --bank sha256 --bank sha384 \
 		> "$pcr"
 done
 
@@ -652,7 +652,7 @@ done
 %{_datadir}/%{name}/ovmf/OVMF_CODE_4M.secboot.qcow2
 %{_datadir}/%{name}/ovmf/OVMF_VARS_4M.qcow2
 %{_datadir}/%{name}/ovmf/OVMF_VARS_4M.secboot.qcow2
-%{_datadir}/%{name}/ovmf/*.pcr
+%{_datadir}/%{name}/ovmf/*.pcrlock
 %endif
 # endif build_ovmf
 %endif
@@ -730,7 +730,7 @@ done
 %{_datadir}/%{name}/experimental/*.fd
 %{_datadir}/%{name}/experimental/*.raw
 %{_datadir}/%{name}/experimental/*.qcow2
-%{_datadir}/%{name}/experimental/*.pcr
+%{_datadir}/%{name}/experimental/*.pcrlock
 
 %files ovmf-xen
 %common_files

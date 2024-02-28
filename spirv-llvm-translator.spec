@@ -1,15 +1,18 @@
 
-%global commit 854179a7451d04bd7fcde0ac200271482bfa8cd2
+%global commit ffdb454b89f5ef1fa1c6620119bcc6f750a9e233
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        17.0.0
-Release:        2%{?dist}
+Version:        18.0.0
+Release:        1%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
 URL:            https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# https://github.com/KhronosGroup/SPIRV-LLVM-Translator/pull/2380
+Patch01:        2380.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for phpunit10
 #
-# Copyright (c) 2010-2023 Remi Collet
+# Copyright (c) 2010-2024 Remi Collet
 #
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
@@ -17,8 +17,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    50b8e314b6d0dd06521dc31d1abffa73f25f850c
-%global gh_date      2024-02-04
+%global gh_commit    0d968f6323deb3dbfeba5bfd4929b9415eb7a9a4
+%global gh_date      2024-02-25
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -31,7 +31,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.10
+%global upstream_version 10.5.11
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -135,7 +135,10 @@ Requires:       (php-composer(sebastian/version) >= 4.0               with php-c
 #        "ext-soap": "*",
 Suggests:       php-soap
 # recommends latest versions
-#       none yet
+# Fedora 38+ only until 8.1 EOL
+%if 0%{?fedora} >= 38
+Recommends:     phpunit11
+%endif
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 10.0.0
@@ -266,6 +269,9 @@ exit $ret
 
 
 %changelog
+* Mon Feb 26 2024 Remi Collet <remi@remirepo.net> - 10.5.11-1
+- update to 10.5.11
+
 * Mon Feb  5 2024 Remi Collet <remi@remirepo.net> - 10.5.10-1
 - update to 10.5.10
 

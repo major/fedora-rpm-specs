@@ -18,7 +18,7 @@ BuildRequires: json-c-devel >= 0.13
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
 BuildRequires: keyutils-libs-devel
-%if (0%{?rhel} == 0) || (0%{?rhel} > 9)
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires: kernel-headers >= 5.15
 %endif
 

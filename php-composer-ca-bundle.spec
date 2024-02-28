@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-composer-ca-bundle
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    b66d11b7479109ab547f9405b97205640b17d385
+%global gh_commit    3ce240142f6d59b808dd65c1f52f7a1c252e6cfd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Mon Feb 26 2024 Remi Collet <remi@remirepo.net> - 1.4.1-1
+- update to 1.4.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

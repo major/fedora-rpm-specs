@@ -1,5 +1,5 @@
 Name:           cockpit-composer
-Version:        48
+Version:        50
 Release:        1%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
@@ -32,8 +32,8 @@ the cloud. It integrates into Cockpit as a frontend for osbuild.
 mkdir -p %{buildroot}/%{_datadir}/cockpit/composer
 cp -a public/* %{buildroot}/%{_datadir}/cockpit/composer
 mkdir -p %{buildroot}/%{_datadir}/metainfo/
-appstream-util validate-relax --nonet public/io.weldr.cockpit-composer.metainfo.xml
-cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/ 
+appstream-util validate-relax --nonet public/org.image-builder.cockpit-composer.metainfo.xml
+cp -a public/org.image-builder.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/ 
 
 %files
 %doc README.md
@@ -42,6 +42,15 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Mon Feb 26 2024 Packit <hello@packit.dev> - 50-1
+- Update metainfo.xml
+- Fix issue with some customizations not displaying
+- Set default language from cockpit's settings
+
+* Mon Feb 26 2024 Packit <hello@packit.dev> - 49-1
+- Update testing environment
+- Update translations
+
 * Wed Feb 14 2024 Packit <hello@packit.dev> - 48-1
 - Fix rhsm bug
 - Update translations and minor dependencies

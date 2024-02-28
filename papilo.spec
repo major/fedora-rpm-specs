@@ -5,6 +5,11 @@
 %global quadmath 0
 %endif
 
+# The papilo binary depends on several solvers that transitively depend on the
+# papilo library.  In a bootstrap situation, first build the binary without
+# solver support, build the solvers, then do a non-bootstrap build.
+%bcond bootstrap 0
+
 Name:           papilo
 Version:        2.2.0
 Release:        %autorelease
@@ -42,6 +47,12 @@ BuildRequires:  libquadmath-devel
 BuildRequires:  lusol-devel
 BuildRequires:  pdqsort-static
 BuildRequires:  pkgconfig(gmp)
+
+%if %{without bootstrap}
+# Solver support
+BuildRequires:  cmake(scip)
+BuildRequires:  cmake(soplex)
+%endif
 
 Requires:       libpapilo%{?_isa} = %{version}-%{release}
 

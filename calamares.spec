@@ -1,5 +1,5 @@
 Name:           calamares
-Version:        3.3.3
+Version:        3.3.4
 Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
@@ -21,10 +21,6 @@ Source4:        calamares-auto_de.ts
 Source5:        calamares-auto_it.ts
 
 # Backports from upstream
-## From: https://github.com/calamares/calamares/commit/7a3bff5117ccdb259da6945f159429a30abb2c24
-Patch0001:       0001-libcalamares-repair-visibility-also-for-Boost-Python.patch
-## From: https://github.com/calamares/calamares/commit/34888edae140c7c6276ec752d3f752b827a27dcc
-Patch0002:       0002-libcalamares-repair-visibility-also-for-Boost-Python.patch
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
@@ -332,6 +328,9 @@ EOF
 
 
 %changelog
+* Mon Feb 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.4-1
+- Update to 3.3.4
+
 * Sat Feb 24 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.3-1
 - Update to 3.3.3
 - Backport fixes for Python module

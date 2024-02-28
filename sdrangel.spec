@@ -1,8 +1,8 @@
 Name:		sdrangel
-Version:	7.18.0
+Version:	7.18.1
 Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	org.sdrangel.SDRangel.metainfo.xml
@@ -100,6 +100,11 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Mon Feb 26 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 7.18.1-1
+- New version
+  Resolves: rhbz#2265576
+- Converted license tag to SPDX
+
 * Mon Feb 19 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 7.18.0-1
 - New version
   Resolves: rhbz#2264781

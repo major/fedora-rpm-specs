@@ -1,18 +1,18 @@
 # Skip -Werror=incompatilbe-pointer-types
 %global	build_type_safety_c  2
 
-%global	urlver		3.4
-%global	mainver		3.4.1
+%global	urlver		3.5
+%global	mainver		3.5.0
 
-%global	core_least_ver	3.4.1
+%global	core_least_ver	3.5.0
 
-%global	use_git	1
+#%%global	use_git	1
 %global	gitdate	20210730
 %global	githash	f24f7699e69b0e25e5e7674c4841dcefc4e6b61d
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	49
+%global	baserelease	1
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -22,8 +22,8 @@
 %undefine _strict_symbol_defs_build
 
 Name:			cairo-dock-plug-ins
-Version:		%{mainver}
-Release:		%{baserelease}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}
+Version:		%{mainver}%{?use_git:^%{gitdate}git%{shorthash}}
+Release:		%{baserelease}%{?dist}
 Summary:		Plug-ins files for Cairo-Dock
 
 License:		GPLv3+
@@ -100,7 +100,7 @@ This package is a meta package for Cairo-Dock plugins.
 
 %package	base
 Summary:	Base files for Cairo-Dock plugins
-Requires:	cairo-dock-core%{?_isa} = %{core_least_ver}
+Requires:	cairo-dock-core%{?_isa} >= %{core_least_ver}
 Requires:	%{name}-common = %{version}-%{release}
 
 %description	base
@@ -241,7 +241,7 @@ sed -i.installdir \
 	CMakeLists.txt
 
 # Modify version forcely
-sed -i CMakeLists.txt -e '\@set (VERSION @s|VERSION.*|VERSION "%{version}")|'
+sed -i CMakeLists.txt -e '\@set (VERSION @s|VERSION.*|VERSION "%{mainver}")|'
 
 # Kill python2 explicitly
 sed -i.py2 CMakeLists.txt -e 's|python2)|python2-nono)|'
@@ -274,7 +274,7 @@ rm -f CMakeCache.txt
 %endif
 	.
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install \
@@ -417,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Mon Feb 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-49.20210730gitf24f769
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

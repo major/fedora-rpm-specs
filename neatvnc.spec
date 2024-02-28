@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     neatvnc
-Version:  0.7.1
-Release:  4%{?dist}
+Version:  0.8.0
+Release:  1%{?dist}
 Summary:  a liberally licensed VNC server library
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -61,6 +61,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Feb 26 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-1
+- new version
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 0.7.1-4
 - Rebuilt for turbojpeg 3.0.2
 

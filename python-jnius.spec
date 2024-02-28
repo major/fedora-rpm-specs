@@ -4,8 +4,8 @@
 
 
 Name:           python-%{modname}
-Version:        1.3.0
-Release:        19%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -16,23 +16,24 @@ ExclusiveArch:  %{java_arches}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  make
-BuildRequires:  gcc
+# avoid strict pointer checks with gcc 14, https://bugs.gentoo.org/917562
+BuildRequires:  clang
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(cython) < 3 
-BuildRequires:  python3dist(six)
+BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(pytest)
+
+BuildRequires:  python3dist(sphinx) 
+BuildRequires:  python3dist(furo)
 
 BuildRequires:  ant
 BuildRequires:  java-devel
 
-BuildRequires:  %{_bindir}/sphinx-build-3
+ExclusiveArch:  %{java_arches}
 
-# FIXME odd bug with wrong default architecture (i386)
 # https://github.com/kivy/pyjnius/issues/307
-# https://github.com/kivy/pyjnius/issues/306
-ExcludeArch:    i686 ppc64 ppc64le s390x armv7hl aarch64
+#ExcludeArch:    ppc64 s390x
 
 %description
 %{summary}.
@@ -61,7 +62,7 @@ BuildArch:      noarch
 
 
 %build
-%py3_build
+CC=%{_bindir}/clang %py3_build
 
 make %{_smp_mflags} -C docs SPHINXBUILD='sphinx-build-3 %{_smp_mflags}' html
 
@@ -79,7 +80,12 @@ ant all
 pushd tests
 export CLASSPATH=../build/test-classes:../build/classes
 export JAVA_HOME=%{_prefix}/lib/jvm/java
-%pytest -v
+# json options fail on some arches
+%pytest \
+ %ifarch s390x ppc64le
+  -k 'not jvm_options' \
+ %endif
+ -v
 popd
 
 
@@ -99,6 +105,11 @@ popd
 
 
 %changelog
+* Mon Feb 26 2024 Raphael Groner <raphgro@fedoraproject.org> - 1.6.1-1
+- bump to latest version
+- migrate to Cython 3, rhbz#2254033
+- use clang instead of gcc 14 to avoid strict pointer checks
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

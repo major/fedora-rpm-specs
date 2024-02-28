@@ -7,7 +7,7 @@
 
 Name:           perl-Compress-Raw-Bzip2
 Summary:        Low-level interface to bzip2 compression library
-Version:        2.209
+Version:        2.210
 Release:        1%{?dist}
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unbundled
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 26 2024 Paul Howarth <paul@city-fan.org> - 2.210-1
+- 2.210 bump (rhbz#2266016)
+
 * Wed Feb 21 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2.209-1
 - 2.209 bump (rhbz#2265215)
 

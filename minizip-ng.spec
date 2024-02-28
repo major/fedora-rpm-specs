@@ -13,12 +13,15 @@
 
 Name:           minizip-ng
 Version:        3.0.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        Zlib
 URL:            https://github.com/nmoinvaz/%{name}
 Source0:        https://github.com/nmoinvaz/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# Backport of https://github.com/zlib-ng/minizip-ng/commit/a7d612adf210353ba0391e20d1d1abbb72d1ad83
+# to make MZ_VERSION_BUILD a hex number
+Patch0:         minizip-ng-MZ_VERSION_BUILD.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -186,6 +189,9 @@ _EOF_
 
 
 %changelog
+* Thu Feb 15 2024 Orion Poplawski <orion@nwra.com> - 3.0.10-8
+- Backport upstream change of MZ_VERSION_BUILD to hex number
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

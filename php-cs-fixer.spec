@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-cs-fixer
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    8742f7aa6f72a399688b65e4f58992c2d4681fc2
+%global gh_commit    dbea11dcb6d9a1f6c8d51c0e580ab4a8876f524c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-02-02
+%global gh_date      2024-02-23
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.49.0
+Version:        3.50.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -66,12 +66,12 @@ Provides:       bundled(php-symfony-event-dispatcher-contracts) = v3.0.2
 Provides:       bundled(php-symfony-filesystem) = v6.0.19
 Provides:       bundled(php-symfony-finder) = v6.0.19
 Provides:       bundled(php-symfony-options-resolver) = v6.0.19
-Provides:       bundled(php-symfony-polyfill-ctype) = v1.28.0
-Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.28.0
-Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.28.0
-Provides:       bundled(php-symfony-polyfill-mbstring) = v1.28.0
-Provides:       bundled(php-symfony-polyfill-php80) = v1.28.0
-Provides:       bundled(php-symfony-polyfill-php81) = v1.28.0
+Provides:       bundled(php-symfony-polyfill-ctype) = v1.29.0
+Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.29.0
+Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.29.0
+Provides:       bundled(php-symfony-polyfill-mbstring) = v1.29.0
+Provides:       bundled(php-symfony-polyfill-php80) = v1.29.0
+Provides:       bundled(php-symfony-polyfill-php81) = v1.29.0
 Provides:       bundled(php-symfony-process) = v6.0.19
 Provides:       bundled(php-symfony-service-contracts) = v3.0.2
 Provides:       bundled(php-symfony-stopwatch) = v6.0.19
@@ -148,14 +148,14 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Feb 26 2024 Remi Collet <remi@remirepo.net> - 3.50.0-1
+- update to 3.50.0
+
 * Mon Feb  5 2024 Remi Collet <remi@remirepo.net> - 3.49.0-1
 - update to 3.49.0
 
 * Mon Jan 22 2024 Remi Collet <remi@remirepo.net> - 3.48.0-1
 - update to 3.48.0
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

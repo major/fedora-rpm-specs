@@ -22,6 +22,8 @@ Patch:          0002-Fix-tests-with-Matplotlib-3.7.patch
 # https://github.com/ResidentMario/geoplot/issues/283
 # https://bugzilla.redhat.com/show_bug.cgi?id=2148633
 Patch:          https://github.com/ResidentMario/%{srcname}/pull/285.patch
+# Fix issue with Pandas 2.
+Patch:          https://github.com/ResidentMario/%{srcname}/pull/293.patch
 
 BuildArch:      noarch
  

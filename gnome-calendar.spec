@@ -3,18 +3,21 @@
 %global edataserver_version 3.45.1
 %global glib2_version 2.67.5
 %global gtk4_version 4.11.2
-%global libadwaita_version 1.4~alpha
+%global libadwaita_version 1.5~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        45.1
+Version:        46~beta
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
-License:        GPL-3.0-or-later
+# Sources are GPL-3.0-or-later, Appdata is CC0-1.0.
+License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calendar
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/426
+Patch:          gnome-calendar-46.beta-fix-pointer-types.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -64,7 +67,7 @@ Features:
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Calendar.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Calendar.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Calendar.appdata.xml
 
 %files -f %{name}.lang
 %doc NEWS README.md

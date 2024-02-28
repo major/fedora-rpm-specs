@@ -12,8 +12,8 @@
 %bcond_without single_tests
 
 Name:           python-pandas
-Version:        1.5.3
-Release:        10%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -73,83 +73,20 @@ License:        BSD-3-Clause AND (Apache-2.0 OR BSD-2-Clause) AND (BSD-3-Clause 
 URL:            https://pandas.pydata.org/
 # The GitHub archive contains tests; the PyPI sdist does not.
 Source0:        https://github.com/pandas-dev/pandas/archive/v%{version}/pandas-%{version}.tar.gz
-
-# Fix some little-endian assumptions in the tests
-# https://github.com/pandas-dev/pandas/pull/49913
-Patch:          https://github.com/pandas-dev/pandas/pull/49913.patch
-
-# [PATCH] Backport PR #50925 on branch 1.5.x (TST: Remove fsspec internals from
-# tests) (#51038)
-#
-# TST: Remove fsspec internals from tests (#50925)
-# https://github.com/pandas-dev/pandas/commit/e73d4d29203dab20e001beb1090d07683de583d6
-#   fixes:
-# ERROR at setup of test_to_read_gcs[…]
-Patch:          https://github.com/pandas-dev/pandas/commit/e73d4d29203dab20e001beb1090d07683de583d6.patch
-
-# Fix/mpl37 compat
-# https://github.com/pandas-dev/pandas/pull/52150
-#   Fixes:
-# python-pandas: FTBFS in Fedora rawhide/f38
-# https://bugzilla.redhat.com/show_bug.cgi?id=2171682
-Patch:          https://github.com/pandas-dev/pandas/pull/52150.patch
-
-# CI: Unpin pyarrow<10
-# https://github.com/pandas-dev/pandas/pull/50314
-#
-# Merged upstream as 4878dfe551da2fa8e2bc33e774b595f099bfa74e:
-#   CI: Unpin pyarrow<10 (#50314)
-#   * CI: Unpin pyarrow<10
-#   * Skip test
-#
-# ----
-#
-# Add pandas.compat.pa_version_under11p0, required for pyarrow 11 support, from
-# the following PR/commit, but without the other associated changes:
-#
-# ENH: support reductions for pyarrow temporal types (#50998)
-# https://github.com/pandas-dev/pandas/pull/50998
-#
-# Merged upstream as 52306d957cb77a3823624679bb9606e244e7faa8:
-#   ENH: support reductions for pyarrow temporal types
-#   * unit check
-#   * lint fixup
-#
-# ----
-#
-# CI: unpin pyarrow, fix failing test
-# https://github.com/pandas-dev/pandas/pull/51175
-#
-# Merged upstream as 5f584bd29be7203db64bdf8619991927e29c74bc:
-#   CI: unpin pyarrow, fix failing test (#51175)
-#   * unpin pyarrow, fix failing test
-#   * cleanup
-#   * handle NaT/NaN
-#
-# ----
-#
-# CI: Test pyarrow nightly instead of intermediate versions
-# https://github.com/pandas-dev/pandas/pull/52211
-#
-# Merged upstream as 4a2c06c8a5e4b12f7850b834eb10f1fa1f302f92:
-#   CI: Test pyarrow nightly instead of intermediate versions
-#   * Change format
-#   * Pin, remove hardcoded channel
-#   * Try pip
-#   * Fix some tests
-#   * Address more tests
-#   * Fix test condition
-#   * Fix another condidition
-#   * Cleanup name
-#   * Remove boto3
-#
-# ----
-#
-# All commits cherry-picked to tag v1.5.3 and combined into a single patch.
-Patch:          pandas-1.5.3-pyarrow-10-11-12.patch
-
-# Fix deprecation warning with Python 3.12.
-Patch:          https://github.com/pandas-dev/pandas/pull/54188.patch
+# https://github.com/pandas-dev/pandas/pull/57389
+Patch:          0001-TST-Ensure-Matplotlib-is-always-cleaned-up.patch
+# https://github.com/pandas-dev/pandas/pull/57391
+Patch:          0002-Fix-evaluations-on-Python-3.12.patch
+# Fix big-endian issues:
+# https://github.com/pandas-dev/pandas/pull/57393
+Patch:          0003-TST-Fix-IntervalIndex-constructor-tests-on-big-endia.patch
+# https://github.com/pandas-dev/pandas/issues/57373
+# https://github.com/pandas-dev/pandas/pull/57394
+Patch:          0004-TST-Fix-test_str_encode-on-big-endian-machines.patch
+# https://github.com/pandas-dev/pandas/pull/57397
+Patch:          0005-TST-Add-missing-skips-for-unavailable-pyarrow.patch
+# https://github.com/pandas-dev/pandas/pull/57548
+Patch:          0006-Fix-accidental-loss-of-precision-for-to_datetime-str.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -287,117 +224,122 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  python3-devel
 
-# Since numpy is imported in setup.py, we need it to generate BR’s. This only
-# becomes obvious during bootstrapping, in which the many optional dependencies
-# that indirectly require numpy are removed.
-BuildRequires:  python3dist(numpy)
+# Runtime dependencies
+BuildRequires:  python3dist(numpy) >= 1.26
+BuildRequires:  python3dist(python-dateutil) >= 2.8.2
+BuildRequires:  python3dist(pytz) >= 2020.1
+
+%if %{with tests}
+# From the [test] extra
+BuildRequires:  python3dist(hypothesis)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
+%endif
 
 %if %{without bootstrap}
 
 # doc/source/getting_started/install.rst “Recommended dependencies”
 # Since these provide large speedups, we make them hard dependencies except
 # during bootstrapping.
-BuildRequires:  python3dist(numexpr) >= 2.7.3
-Requires:       python3dist(numexpr) >= 2.7.3
-BuildRequires:  python3dist(bottleneck) >= 1.3.2
-Requires:       python3dist(bottleneck) >= 1.3.2
+BuildRequires:  python3dist(numexpr) >= 2.8.4
+Requires:       python3dist(numexpr) >= 2.8.4
+BuildRequires:  python3dist(bottleneck) >= 1.3.6
+Requires:       python3dist(bottleneck) >= 1.3.6
 
 # doc/source/getting_started/install.rst “Optional dependencies”
 # We BR all weak dependencies to ensure they are installable.
 
 # Timezones
-BuildRequires:  tzdata >= 2022a
-Recommends:     tzdata >= 2022a
+BuildRequires:  tzdata >= 2022g
+Recommends:     tzdata >= 2022g
 
 # Visualization
-BuildRequires:  python3dist(matplotlib) >= 3.3.2
-Recommends:     python3dist(matplotlib) >= 3.3.2
-BuildRequires:  python3dist(jinja2) >= 3
-Recommends:     python3dist(jinja2) >= 3
-BuildRequires:  python3dist(tabulate) >= 0.8.9
-Recommends:     python3dist(tabulate) >= 0.8.9
+BuildRequires:  python3dist(matplotlib) >= 3.6.3
+Recommends:     python3dist(matplotlib) >= 3.6.3
+BuildRequires:  python3dist(jinja2) >= 3.1.2
+Recommends:     python3dist(jinja2) >= 3.1.2
+BuildRequires:  python3dist(tabulate) >= 0.9
+Recommends:     python3dist(tabulate) >= 0.9
 
 # Computation
-BuildRequires:  python3dist(scipy) >= 1.7.1
-Recommends:     python3dist(scipy) >= 1.7.1
+BuildRequires:  python3dist(scipy) >= 1.10
+Recommends:     python3dist(scipy) >= 1.10
 # python-numba is not currently packaged:
-# BuildRequires:  python3dist(numba) >= 0.46
-# Recommends:     python3dist(numba) >= 0.46
-BuildRequires:  python3dist(xarray) >= 1.19
-Recommends:     python3dist(xarray) >= 1.19
+# BuildRequires:  python3dist(numba) >= 0.56.4
+# Recommends:     python3dist(numba) >= 0.56.4
+BuildRequires:  python3dist(xarray) >= 2022.12.0
+Recommends:     python3dist(xarray) >= 2022.12.0
 
 # Excel files
 BuildRequires:  python3dist(xlrd) >= 2.0.1
 Recommends:     python3dist(xlrd) >= 2.0.1
-BuildRequires:  python3dist(xlwt) >= 1.3
-Recommends:     python3dist(xlwt) >= 1.3
-BuildRequires:  python3dist(xlsxwriter) >= 1.4.3
-Recommends:     python3dist(xlsxwriter) >= 1.4.3
-BuildRequires:  python3dist(openpyxl) >= 3.0.7
-Recommends:     python3dist(openpyxl) >= 3.0.7
+BuildRequires:  python3dist(xlsxwriter) >= 3.0.5
+Recommends:     python3dist(xlsxwriter) >= 3.0.5
+BuildRequires:  python3dist(openpyxl) >= 3.1
+Recommends:     python3dist(openpyxl) >= 3.1
+# python-calamine is not currently packaged:
+# BuildRequires:  python3dist(python-calamine) >= 0.1.7
+# Recommends:     python3dist(python-calamine) >= 0.1.7
 # python-pyxlsb is not currently packaged:
-# BuildRequires:  python3dist(pyxlsb) >= 1.0.8
-# Recommends:     python3dist(pyxlsb) >= 1.0.8
+# BuildRequires:  python3dist(pyxlsb) >= 1.0.10
+# Recommends:     python3dist(pyxlsb) >= 1.0.10
 # Not in doc/source/getting_started/install.rst, but in environment.yml and in
 # some doc-strings:
 BuildRequires:  python3dist(odfpy) >= 1.4.1
 Recommends:     python3dist(odfpy) >= 1.4.1
 
 # HTML
-BuildRequires:  python3dist(beautifulsoup4) >= 4.9.3
-Recommends:     python3dist(beautifulsoup4) >= 4.9.3
+BuildRequires:  python3dist(beautifulsoup4) >= 4.11.2
+Recommends:     python3dist(beautifulsoup4) >= 4.11.2
 BuildRequires:  python3dist(html5lib) >= 1.1
 Recommends:     python3dist(html5lib) >= 1.1
 # lxml handled below:
 
 # XML
-BuildRequires:  python3dist(lxml) >= 4.6.3
-Recommends:     python3dist(lxml) >= 4.6.3
+BuildRequires:  python3dist(lxml) >= 4.9.2
+Recommends:     python3dist(lxml) >= 4.9.2
 
 # SQL databases
-BuildRequires:  python3dist(sqlalchemy) >= 1.4.16
-Recommends:     python3dist(sqlalchemy) >= 1.4.16
-BuildRequires:  python3dist(psycopg2) >= 2.8.6
-Recommends:     python3dist(psycopg2) >= 2.8.6
+BuildRequires:  python3dist(sqlalchemy) >= 2
+Recommends:     python3dist(sqlalchemy) >= 2
+BuildRequires:  python3dist(psycopg2) >= 2.9.6
+Recommends:     python3dist(psycopg2) >= 2.9.6
 BuildRequires:  python3dist(pymysql) >= 1.0.2
 Recommends:     python3dist(pymysql) >= 1.0.2
 
 # Other data sources
-BuildRequires:  python3dist(tables) >= 3.6.1
-Recommends:     python3dist(tables) >= 3.6.1
+%if 0%{?__isa_bits} != 32
+# blosc2 does not support 32-bit architectures:
+BuildRequires:  python3dist(tables) >= 3.8
+Recommends:     python3dist(tables) >= 3.8
+%endif
 # Dependencies on blosc and zlib are indirect, via PyTables, so we do not
 # encode them here. Note also that the minimum blosc version in the
 # documentation seems to be that of the blosc C library, not of the blosc PyPI
 # package.
 # python-fastparquet is not currently packaged:
-# BuildRequires:  python3dist(fastparquet) >= 0.4
-# Recommends:     python3dist(fastparquet) >= 0.4
+# BuildRequires:  python3dist(fastparquet) >= 2022.12.0
+# Recommends:     python3dist(fastparquet) >= 2022.12.0
 # libarrow does not support 32-bit architectures:
 %if 0%{?__isa_bits} != 32
-BuildRequires:  python3dist(pyarrow) >= 1.0.1
-Recommends:     python3dist(pyarrow) >= 1.0.1
+BuildRequires:  python3dist(pyarrow) >= 10.0.1
+Recommends:     python3dist(pyarrow) >= 10.0.1
 %endif
 # python-pyreadstat is not currently packaged:
-# BuildRequires:  python3dist(pyreadstat) >= 1.1.2
-# Recommends:     python3dist(pyreadstat) >= 1.1.2
+# BuildRequires:  python3dist(pyreadstat) >= 1.2
+# Recommends:     python3dist(pyreadstat) >= 1.2
 
 # Access data in the cloud
-BuildRequires:  python3dist(fsspec) >= 2021.7
-Recommends:     python3dist(fsspec) >= 2021.7
-# python-gcsfs is packaged, but is badly out of date in F37 and older:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2136233
-# Since we will not package pandas 1.5.x for F36 and older, the conditional
-# checks for F37 only.
-%if !0%{?fc37}
-BuildRequires:  python3dist(gcsfs) >= 2021.7
-Recommends:     python3dist(gcsfs) >= 2021.7
-%endif
+BuildRequires:  python3dist(fsspec) >= 2022.11
+Recommends:     python3dist(fsspec) >= 2022.11
+BuildRequires:  python3dist(gcsfs) >= 2022.11
+Recommends:     python3dist(gcsfs) >= 2022.11
 # python-pandas-gbq is not currently packaged:
-# BuildRequires:  python3dist(pandas-gbq) >= 0.15
-# Recommends:     python3dist(pandas-gbq) >= 0.15
+# BuildRequires:  python3dist(pandas-gbq) >= 0.19
+# Recommends:     python3dist(pandas-gbq) >= 0.19
 # python-s3fs is not currently packaged:
-# BuildRequires:  python3dist(s3fs) >= 2021.8
-# Recommends:     python3dist(s3fs) >= 2021.8
+# BuildRequires:  python3dist(s3fs) >= 2022.11
+# Recommends:     python3dist(s3fs) >= 2022.11
 
 # Clipboard
 BuildRequires:  python3dist(pyqt5)
@@ -410,12 +352,8 @@ BuildRequires:  xsel
 Recommends:     xsel
 
 # Compression
-BuildRequires:  python3dist(brotli) >= 0.7
-Recommends:     python3dist(brotli) >= 0.7
-BuildRequires:  python3dist(python-snappy) >= 0.6
-Recommends:     python3dist(python-snappy) >= 0.6
-BuildRequires:  python3dist(zstandard) >= 0.15.2
-Recommends:     python3dist(zstandard) >= 0.15.2
+BuildRequires:  python3dist(zstandard) >= 0.19
+Recommends:     python3dist(zstandard) >= 0.19
 
 # This is just an “ecosystem” package in the upstream documentation, but there
 # is an integration test for it. This package historically had a weak
@@ -459,9 +397,6 @@ Recommends:     python3dist(flask)
 # Already covered by “test” extra
 # BuildRequires:  python3dist(pytest) >= 5.0.1
 # Requires:       python3dist(pytest) >= 5.0.1
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-# BuildRequires:  python3dist(pytest-cov)
-# Recommends:     python3dist(pytest-cov)
 # Already covered by “test” extra
 # BuildRequires:  python3dist(pytest-xdist) >= 1.21
 # Requires:       python3dist(pytest-xdist) >= 1.21
@@ -523,21 +458,29 @@ These are the tests for python3-pandas. This package:
 %prep
 %autosetup -n pandas-%{version} -p1
 
+# Let versioneer know what version this is
+echo '__version__="%{version}"' > _version_meson.py
+
 # Ensure Cython-generated sources are re-generated
 rm -vf $(grep -rl '/\* Generated by Cython')
 
 # We just want to build with the numpy in Fedora:
 sed -r -i '/\boldest-supported-numpy\b/d' pyproject.toml
-%if 0%{?fc37}
-# We have Python 3.11, but we do not have the numpy version that Pandas upstrem
-# wants for Python 3.11.
-sed -r -i "s/(numpy>=)1\\.23\\.2(; python_version>='3\\.11')/\\11.22.0\\2/" \
-    setup.cfg
-%endif
 
+# We don't need the python tzdata package because we have the system tzdata package
+sed -i '/tzdata>=2022.7/d' pyproject.toml
+
+# Unpin meson
+sed -i 's/meson-python==0.13.1/meson-python>=0.13.1/' pyproject.toml
+sed -i 's/meson==1.2.1/meson>=1.2.1/' pyproject.toml
+
+# Unpin Cython
+sed -i 's/Cython==3.0.5/Cython>=3.0.5/' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test}
+# the build is expensive, so we don't use -w
+# we list the runtime and test BuildRequires manually
+%pyproject_buildrequires -R
 
 
 %build
@@ -551,7 +494,11 @@ sed -r -i "s/(numpy>=)1\\.23\\.2(; python_version>='3\\.11')/\\11.22.0\\2/" \
 
 %check
 %if %{with tests}
-
+m="${m-}${m+ and }not network"
+m="${m-}${m+ and }not db"
+%if %{without slow_tests}
+m="${m-}${m+ and }not slow"
+%endif
 # Clipboard tests don’t run without a graphical session, and it’s not worth
 # using xvfb-run just for them.
 m="${m-}${m+ and }not clipboard"
@@ -572,22 +519,9 @@ k="${k-}${k+ and }not test_bytes_exceed_2gb"
 # easier just to skip it.
 k="${k-}${k+ and }not test_html_template_extends_options"
 
-%ifarch ppc64le s390x
-# TODO: Why does this fail? The differences are large!
-k="${k-}${k+ and }not test_rolling_var_numerical_issues"
-%endif
-
 %ifarch %{ix86}
 # These failures are i686-specific; most are likely 32-bit issues. It’s not
 # really worth trying to fix them.
-
-# This “high-memory” test is just not appropriate for 32-bit platforms:
-# E       OverflowError: join() result is too long for a Python string
-k="${k-}${k+ and }not test_bytes_exceed_2gb[c_high]"
-
-# E           assert 243.164 == 243.16400000000002
-# Fails for both [c_high] and [c_low].
-k="${k-}${k+ and }not test_float_precision_options"
 
 # E   AssertionError: DataFrame.iloc[:, 2] (column name="C") are different
 # E
@@ -595,6 +529,13 @@ k="${k-}${k+ and }not test_float_precision_options"
 # E   [index]: [0, 1, …
 # Fails for [left], [right], [outer], and [inner]
 k="${k-}${k+ and }not (TestMerge and test_int64_overflow_how_merge)"
+
+# E       AssertionError: DataFrame.index are different
+# E
+# E       Attribute "dtype" are different
+# E       [left]:  int32
+# E       [right]: int64
+k="${k-}${k+ and }not (TestMerge and test_int64_overflow_sort_false_order)"
 
 # E           AssertionError: Attributes of DataFrame.iloc[:, 1] (column name="b") are different
 # E
@@ -607,20 +548,8 @@ k="${k-}${k+ and }not test_frame_setitem_dask_array_into_new_col"
 k="${k-}${k+ and }not (TestPivotTable and test_pivot_number_of_levels_larger_than_int32)"
 k="${k-}${k+ and }not (TestStackUnstackMultiLevel and test_unstack_number_of_levels_larger_than_int32)"
 
-# E       OverflowError: timestamp out of range for platform time_t
-# These fail only for the [tzlocal()] case, but it’s not clear how to validly
-# name those in a pytest keyword expression due to the parentheses in tzlocal()
-k="${k-}${k+ and }not (TestTimestampProperties and test_is_leap_year)"
-k="${k-}${k+ and }not (TestBusinessDay and test_apply_out_of_range)"
-k="${k-}${k+ and }not (TestBusinessHour and test_apply_out_of_range)"
-k="${k-}${k+ and }not (TestCustomBusinessDay and test_apply_out_of_range)"
-k="${k-}${k+ and }not (TestCustomBusinessHour and test_apply_out_of_range)"
-k="${k-}${k+ and }not (TestWeek and test_apply_out_of_range)"
-
-# E       AssertionError: Index are different
-# E
-# E       Index length are different
-k="${k-}${k+ and }not (TestDateRanges and test_date_range_int64_overflow_stride_endpoint_different_signs)"
+# [XPASS(strict)] Floating point error
+k="${k-}${k+ and }not (TestTimedeltas and test_to_timedelta_float)"
 %endif
 
 %ifarch s390x
@@ -634,14 +563,19 @@ k="${k-}${k+ and }not (TestDateRanges and test_date_range_int64_overflow_stride_
 # E                   OverflowError: Python int too large to convert to C int
 k="${k-}${k+ and }not test_flush"
 
+# TODO: Why does this fail? The differences are large!
+k="${k-}${k+ and }not test_rolling_var_numerical_issues"
+
 # These are a cluster of similar pyarrow/parquet tests with apparent endianness
 # issues. It is not immediately obvious where the bug is—in the library or in
 # the tests?
-k="${k-}${k+ and }not (TestBasic and test_write_index[pyarrow])"
+k="${k-}${k+ and }not (TestBasic and test_dtype_backend[pyarrow])"
 k="${k-}${k+ and }not (TestBasic and test_multiindex_with_columns)"
-k="${k-}${k+ and }not (TestBasic and test_write_column_multiindex_string)"
+k="${k-}${k+ and }not (TestBasic and test_write_column_index_nonstring[pyarrow])"
 k="${k-}${k+ and }not (TestBasic and test_write_column_index_string)"
-k="${k-}${k+ and }not (TestBasic and test_use_nullable_dtypes[pyarrow])"
+k="${k-}${k+ and }not (TestBasic and test_write_column_multiindex[pyarrow])"
+k="${k-}${k+ and }not (TestBasic and test_write_column_multiindex_nonstring[pyarrow])"
+k="${k-}${k+ and }not (TestBasic and test_write_column_multiindex_string)"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_basic)"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_to_bytes_without_path_or_buf_provided)"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_categorical)"
@@ -649,7 +583,10 @@ k="${k-}${k+ and }not (TestParquetPyArrow and test_additional_extension_arrays)"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_pyarrow_backed_string_array[python])"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_pyarrow_backed_string_array[pyarrow])"
 k="${k-}${k+ and }not (TestParquetPyArrow and test_additional_extension_types)"
-k="${k-}${k+ and }not (TestParquetPyArrow and test_timezone_aware_index[timezone_aware_date_list0])"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_infer_string_large_string_type)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_read_dtype_backend_pyarrow_config)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_read_dtype_backend_pyarrow_config_index)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_roundtrip_decimal)"
 k="${k-}${k+ and }not test_to_read_gcs[parquet]"
 
 # Similarly, there are a cluster of similar stata test failures for which the
@@ -659,11 +596,11 @@ k="${k-}${k+ and }not (TestStata and test_convert_strl_name_swap)"
 k="${k-}${k+ and }not (TestStata and test_strl_latin1)"
 # Fails for [118], [119], and [None]
 k="${k-}${k+ and }not (TestStata and test_utf8_writer)"
+
+# These crash, and are probably a blosc2 or PyTables issue.
+k="${k-}${k+ and }not test_complibs[blosc2"
 %endif
 
-# TODO: Why does this fail?
-# E           assert 0 == 1
-k="${k-}${k+ and }not test_switch_options"
 
 %ifarch x86_64
 # These are brittle and fail with tiny floating-point differences on COPR
@@ -677,25 +614,6 @@ k="${k-}${k+ and }not test_switch_options"
 k="${k-}${k+ and }not (TestSeriesPlots and test_bar_log)"
 k="${k-}${k+ and }not (TestDataFramePlotsSubplots and test_bar_log_no_subplots)"
 k="${k-}${k+ and }not (TestDataFramePlotsSubplots and test_bar_log_subplots)"
-%endif
-
-%if 0%{?fedora} > 37
-# TODO: Why does this fail? Does it need a slightly older version of dask?
-# E           AssertionError: Caused unexpected warning(s): [('RuntimeWarning', RuntimeWarning('invalid value encountered in cast'), '/builddir/build/BUILDROOT/python-pandas-1.5.3-1.fc39.x86_64/usr/lib64/python3.11/site-packages/pandas/core/dtypes/cast.py', 1836)]
-k="${k-}${k+ and }not test_construct_dask_float_array_int_dtype_match_ndarray"
-
-# Incompatibility with python-xarray ≥ 2023.01.0. See:
-# https://github.com/pydata/xarray/blob/v2023.02.0/doc/whats-new.rst#breaking-changes-1
-# CFTimeIndex.get_loc() got an unexpected keyword argument 'method'
-k="${k-}${k+ and }not test_xarray_cftimeindex_nearest"
-%endif
-
-%if 0%{?fc37}
-# TODO: Why do these fail on F37 but not on F38?
-
-# E       AssertionError: Did not use numexpr as expected.
-# E       assert []
-k="${k-}${k+ and }not (TestExpressions and test_run_binary)"
 %endif
 
 # Ensure pytest doesn’t find the “un-built” library. We can get away with this
@@ -722,9 +640,8 @@ export PYTHONHASHSEED="$(
 # the number of concurrent tests to e.g. 8 in order to prevent memory
 # exhaustion.
 %pytest -v '%{buildroot}%{python3_sitearch}/pandas' \
-    %{?!with_slow_tests:--skip-slow} \
-    --skip-network \
-    --skip-db \
+    -o cache_dir="$PWD/pytest-cache" \
+    --no-strict-data-files \
     -m "${m-}" \
     -k "${k-}" \
     -n 1 \
@@ -750,7 +667,6 @@ export PYTHONHASHSEED="$(
 # the package without the overall license file in it.
 %license LICENSE LICENSES/
 %doc README.md
-%doc RELEASE.md
 %exclude %{python3_sitearch}/pandas/tests
 
 
@@ -760,6 +676,15 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri Feb 23 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.2.1-1
+- Update to 2.2.1
+
+* Mon Feb 12 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.2.0-1
+- Update to 2.2.0
+
+* Fri Feb 9 2024 Miro Hrončok <mhroncok@redhat.com> - 2.1.4-1
+- Update to 2.1.4
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,15 +1,15 @@
-%global	urlver	3.4
-%global	mainver	3.4.1
+%global	urlver	3.5
+%global	mainver	3.5.0
 
-%global	plugin_least_ver	3.4.1
+%global	plugin_least_ver	3.5.0
 
-%global	use_git	1
+#%%global	use_git	0
 %global	gitdate	20210327
 %global	githash	6c569e67a2a366e7634224a0133ede51755629cb
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	22
+%global	baserelease	1
 
 
 %undefine _ld_strict_symbol_defs
@@ -25,8 +25,8 @@
 ##########################################
 
 Name:			cairo-dock
-Version:		3.4.1
-Release:		%{baserelease}%{?use_git:.D%{gitdate}git%{shorthash}}%{?dist}%{flagrel}
+Version:		%{mainver}%{?use_git:^%{gitdate}git%{shorthash}}
+Release:		%{baserelease}%{?dist}%{flagrel}
 Summary:		Light eye-candy fully themable animated dock
 
 License:		GPLv3+
@@ -248,6 +248,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Mon Feb 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-22.D20210327git6c569e6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

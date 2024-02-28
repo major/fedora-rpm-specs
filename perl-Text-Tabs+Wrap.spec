@@ -1,6 +1,6 @@
 Name:           perl-Text-Tabs+Wrap
-Version:        2023.0511
-Release:        5%{?dist}
+Version:        2024.001
+Release:        1%{?dist}
 Summary:        Expand tabs and do simple line wrapping
 License:        TTWL
 URL:            https://metacpan.org/release/Text-Tabs%2BWrap
@@ -74,14 +74,17 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc CHANGELOG README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/Text*
+%{_mandir}/man3/Text::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 26 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2024.001-1
+- 2024.001 bump (rhbz#2265313)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.0511-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

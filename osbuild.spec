@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        109
+Version:        110
 
 %forgemeta
 
@@ -296,6 +296,17 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Mon Feb 26 2024 Packit <hello@packit.dev> - 110-1
+Changes with 110
+----------------
+  * Add coreos.platforms stage (#1589)
+    * Author: Renata Ravanelli, Reviewers: Nobody
+  * Sources/containers-storage: make the code Python 3.6 compliant (#1610)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+
+— Somewhere on the Internet, 2024-02-26
+
+
 * Thu Feb 22 2024 Packit <hello@packit.dev> - 109-1
 Changes with 109
 ----------------

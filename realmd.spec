@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -11,6 +11,7 @@ Patch0002: 0002-service-fix-error-message-when-removing-host-from-AD.patch
 Patch0003: 0003-doc-fix-reference-in-realmd.conf-man-page.patch
 Patch0004: 0001-sssd-package-fix.patch
 Patch0005: 0001-tools-fix-ccache-handling-for-leave-operation.patch
+Patch0006: 0001-ipa-Propagate-hostname-error.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -97,6 +98,10 @@ make check
 %doc ChangeLog
 
 %changelog
+* Mon Feb 26 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-10
+- Propagate FreeIPA hostname error
+  Resolves: rhbz#2264944
+
 * Fri Feb 09 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-9
 - fix ccache handling for leave operation
   Resolves: jira#SSSD-6420

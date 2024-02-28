@@ -38,7 +38,7 @@ Summary:    %{summary}
 
 # According to pyproject.toml, Cython is too old on Fedora 38, however it builds fine
 %if 0%{?fedora} == 38
-sed -i "s/Cython >=.*/Cython/" pyproject.toml
+sed -i 's/Cython >=.*"\]/Cython"\]/' pyproject.toml
 %endif
 
 %if %{without c_extensions}

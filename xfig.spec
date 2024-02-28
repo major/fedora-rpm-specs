@@ -3,7 +3,7 @@
 Summary: An X Window System tool for drawing basic vector graphics
 Name: xfig
 Version: 3.2.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL:     https://en.wikipedia.org/wiki/Xfig
 Source0: http://downloads.sourceforge.net/mcj/xfig-%{version}.tar.xz
@@ -17,7 +17,12 @@ Patch0:  Sanitize-a-call-to-realloc-ticket-165.patch
 # https://sourceforge.net/p/mcj/tickets/163/
 # https://sourceforge.net/p/mcj/xfig/ci/a4a2f3f3aa29ec7fc84f9d782306b37bbe75025c/
 Patch1:  Fix-exporting-only-active-layers-ticket-163.patch
-
+# https://sourceforge.net/p/mcj/tickets/159/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2260359
+# https://sourceforge.net/p/mcj/xfig/ci/1e2d842875502b4ce0e74ec779454304c71efe54/
+Patch2: 0001-Map-symbol-and-dingbat-glyphs-to-their-unicode-locat.patch
+# compile fix for above patch
+Patch3: xfig-3.2.9-compile-fix.patch
 #Patch0: xfig-3.2.5a-default-apps.patch
 #Patch1: xfig-3.2.5-urwfonts.patch
 
@@ -115,6 +120,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 26 2024 Hans de Goede <hdegoede@redhat.com> - 3.2.9-4
+- Fix missing Dingbats and Symbol glyphs
+- Resolves: rhbz#2260359
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

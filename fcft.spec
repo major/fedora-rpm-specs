@@ -1,8 +1,8 @@
 %global abi_ver 4
 
 Name:           fcft
-Version:        3.1.7
-Release:        3%{?dist}
+Version:        3.1.8
+Release:        1%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
@@ -86,6 +86,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Mon Feb 26 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.8-1
+- Update to 3.1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

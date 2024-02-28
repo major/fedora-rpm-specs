@@ -2,8 +2,8 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.39
-Release:        4%{?dist}
+Version:        0.40
+Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-URandom
@@ -18,6 +18,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(FileHandle)
@@ -100,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 26 2024 Petr Pisar <ppisar@redhat.com> - 0.40-1
+- 0.40 bump
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

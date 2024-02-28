@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.15
-Release: 2%{?dist}
+Version: 7.0.3
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -18,15 +18,15 @@ Patch3: suricata-5.0.4-geolite-path-fixup.patch
 # The log path has an extra '/' at the end
 Patch4: suricata-6.0.3-log-path-fixup.patch
 # Build fails with ambiguous python shebang
-Patch5: suricata-6.0.9-python.patch
+Patch5: suricata-7.0.2-python.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
-BuildRequires: cargo rust >= 1.33
+BuildRequires: cargo rust >= 1.63
 BuildRequires: rust-packaging
 BuildRequires: libyaml-devel python3-pyyaml
 BuildRequires: libnfnetlink-devel libnetfilter_queue-devel libnet-devel
-BuildRequires: zlib-devel pcre-devel libcap-ng-devel
+BuildRequires: zlib-devel pcre2-devel libcap-ng-devel
 BuildRequires: lz4-devel libpcap-devel
 BuildRequires: nspr-devel nss-devel nss-softokn-devel file-devel
 BuildRequires: jansson-devel libmaxminddb-devel python3-devel lua-devel
@@ -82,6 +82,7 @@ sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
 %endif
+find rust/ -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 autoreconf -fv --install
 
 %build
@@ -189,6 +190,12 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Mon Feb 26 2024 Steve Grubb <sgrubb@redhat.com> 7.0.3-1
+- New security and bugfix release
+
+* Wed Jan 31 2024 Steve Grubb <sgrubb@redhat.com> 7.0.2-1
+- New major release
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

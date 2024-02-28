@@ -1,6 +1,7 @@
 # Work around a series of circular test dependencies:
 #
-#         ⬐───╮
+#    python-snakemake-interface-report-plugins
+#    ￬￪   ⬐───╮
 # snakemake → python-snakemake-interface-executor-plugins⬎
 #    ￪￪ │ ⬑────────────────────python-snakemake-executor-plugin-cluster-generic
 #    ││ ↳python-snakemake-interface-storage-plugins────────────────╮
@@ -11,13 +12,15 @@
 # A good build order is:
 #
 #   1. BOOTSTRAP: python-snakemake-interface-executor-plugins,
-#      python-snakemake-interface-storage-plugins
+#      python-snakemake-interface-storage-plugins,
+#      python-snakemake-interface-report-plugins
 #   2. BOOTSTRAP: snakemake
 #   3. python-snakemake-executor-plugin-cluster-generic,
 #      python-snakemake-storage-plugin-http,
 #      python-snakemake-storage-plugin-s3
 #   4. snakemake, python-snakemake-interface-executor-plugins,
-#      python-snakemake-interface-storage-plugins
+#      python-snakemake-interface-storage-plugins,
+#      python-snakemake-interface-report-plugins
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}
 
@@ -30,7 +33,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        8.4.12
+Version:        8.5.3
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 

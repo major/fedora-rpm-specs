@@ -1,8 +1,8 @@
 Name:          volk
-Version:       3.1.1
+Version:       3.1.2
 Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
 Source0:       https://github.com/gnuradio/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:       https://github.com/gnuradio/volk/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
@@ -111,6 +111,11 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Mon Feb 26 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.2-1
+- New version
+  Resolves: rhbz#2266046
+- Converted license tag to SPDX
+
 * Thu Feb  1 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 3.1.1-1
 - New version
   Resolves: rhbz#2262148

@@ -3,12 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        46~alpha
+Version:        46~beta
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
-License:        GPL-2.0-or-later
-URL:            https://wiki.gnome.org/Apps/Contacts
+# Sources are GPL-2.0-or-later, Appdata is CC0-1.0, icon is CC-BY-SA-4.0.
+License:        GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
+URL:            https://apps.gnome.org/Contacts
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 Patch0:         216.patch
 

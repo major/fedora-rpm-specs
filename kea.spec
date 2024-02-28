@@ -50,7 +50,7 @@ BuildRequires: log4cplus-devel
 BuildRequires: sysrepo-devel
 %endif
 
-%ifnarch s390 %{mips}
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind-devel
 %endif
 # src/lib/testutils/dhcp_test_lib.sh

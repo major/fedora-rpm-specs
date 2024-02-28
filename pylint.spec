@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 3.0.4
+%global basever 3.1.0
 #%%global prever b0
-Version:        3.0.4
+Version:        3.1.0
 %forgemeta
 
 Name:           pylint
@@ -15,7 +15,6 @@ License:        GPL-2.0-or-later
 URL:            https://github.com/pylint-dev/pylint
 Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
-Patch1:         isort.patch
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
@@ -92,7 +91,7 @@ done
 #mkdir src
 #mv pylint src
 # Skip benchmarks
-#%%{__python3} -m pytest -v -k "not benchmark"
+#%%{__python3} -m pytest -v --ignore=benchmark
 
 %files
 %doc CONTRIBUTORS.txt

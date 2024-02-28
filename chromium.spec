@@ -327,9 +327,6 @@ Patch8: chromium-117-widevine-other-locations.patch
 # Tell bootstrap.py to always use the version of Python we specify
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 
-# Add "Fedora" to the user agent string
-Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
-
 # debian patch, disable font-test 
 Patch20: chromium-disable-font-tests.patch
 
@@ -1056,11 +1053,6 @@ udev.
 %patch -P8 -p1 -b .widevine-other-locations
 %patch -P11 -p1 -b .py3
 
-# Fedora branded user agent
-%if 0%{?fedora}
-%patch -P12 -p1 -b .fedora-user-agent
-%endif
-
 %patch -P20 -p1 -b .disable-font-test
 
 %if ! %{bundleminizip}
@@ -1227,6 +1219,9 @@ sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channe
 # Fix hardcoded path in remoting code
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
 
+# bz#2265957, add correct platform
+sed -i "s/Linux x86_64/Linux %{_arch}/" content/common/user_agent.cc
+ 
 %build
 # utf8 issue on epel7, Internal parsing error 'ascii' codec can't
 # decode byte 0xe2 in position 474: ordinal not in range(128)

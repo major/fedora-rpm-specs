@@ -48,7 +48,11 @@ Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
 
 BuildRequires:  make
+%if 0%{?fedora} >= 41
+BuildRequires:  bash-completion-devel
+%else
 BuildRequires:  bash-completion
+%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  emacs
 BuildRequires:  emacs-el

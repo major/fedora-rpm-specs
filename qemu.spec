@@ -361,7 +361,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 8
+%global baserelease 9
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -398,6 +398,11 @@ Patch: 0001-block-blkio-Make-s-mem_region_alignment-be-64-bits.patch
 # Posted upstream 20-02-2024
 # https://lists.nongnu.org/archive/html/qemu-devel/2024-02/msg03971.html
 Patch: qemu-fifreeze-fithaw.patch
+
+# ppc/spapr: Initialize max_cpus limit to SPAPR_IRQ_NR_IPIS
+# https://bugzilla.redhat.com/show_bug.cgi?id=2265982
+Patch: https://github.com/qemu/qemu/commit/2df5c1f5b014126595a26c6797089d284a3b211c.patch
+Patch: https://github.com/qemu/qemu/commit/c4f91d7b7be76c47015521ab0109c6e998a369b0.patch
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -3164,6 +3169,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Mon Feb 26 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-9
+- ppc/spapr: Initialize max_cpus limit to SPAPR_IRQ_NR_IPIS (RHBZ#2265982)
+
 * Wed Feb 21 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-8
 - Fix user-emulation of FIFREEZE and FITHAW ioctls
 

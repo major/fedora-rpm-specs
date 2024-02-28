@@ -20,7 +20,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spreadsheet-ParseExcel
 Source0:        https://cpan.metacpan.org/modules/by-module/Spreadsheet/Spreadsheet-ParseExcel-%{version}.tar.gz
 # Test Test95.xls from t/excel_files. Required to have the tests relocatable
-# without a duplicating Test95.xls. Proposed to the upstream,
+# without a duplicating Test95.xls. In upstream after 0.66,
 # <https://github.com/jmcnamara/spreadsheet-parseexcel/pull/11>.
 Patch0:         Spreadsheet-ParseExcel-0.66-Test-Test95.xls-from-t-excel_files.patch
 # Build

@@ -1,11 +1,12 @@
 Name:           python-furo
-Version:        2023.09.10
-Release:        3%{?dist}
+Version:        2024.01.29
+Release:        1%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
 License:        MIT
 URL:            https://pradyunsg.me/furo/
-Source0:        https://github.com/pradyunsg/furo/archive/%{version}/furo-%{version}.tar.gz
+VCS:            https://github.com/pradyunsg/furo
+Source0:        %{vcs}/archive/%{version}/furo-%{version}.tar.gz
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        furo-%{version}-vendor.tar.xz
 Source2:        furo-%{version}-vendor-licenses.txt
@@ -113,6 +114,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Mon Feb 26 2024 Jerry James <loganjerry@gmail.com> - 2024.01.29-1
+- Version 2024.01.29
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.09.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

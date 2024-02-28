@@ -5,7 +5,7 @@
 
 Name: armacycles-ad
 Version: 0.2.9.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A lightcycle game in 3D
 
 License: GPL-2.0-or-later
@@ -13,6 +13,8 @@ URL: %{forgeurl}
 Source0: %{forgesource}
 Source1: armacycles-logo.jpg
 Source2: armacycles-ad.desktop
+
+Patch0: tlist_02911.patch
 
 BuildRequires: libxml2-devel >= 2.6.12, SDL_image-devel, SDL_mixer-devel
 BuildRequires: libpng-devel, desktop-file-utils, autoconf, automake, gcc-c++
@@ -41,6 +43,8 @@ the internet and/or the LAN.
 
 %prep
 %forgesetup
+
+%patch -P0 -p1
 
 #insert modified logo
 cp %{SOURCE1} textures/title.jpg
@@ -161,6 +165,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/armacyclesad-dedicated/language/update.py
 
 
 %changelog
+* Mon Feb 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.2.9.1.1-4
+- Patch to fix network play.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

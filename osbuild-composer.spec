@@ -7,9 +7,12 @@
 # This is used internally during nightly pipeline testing!
 %bcond_with relax_requires
 
+# The minimum required osbuild version
+%global min_osbuild_version 109
+
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        100
+Version:        101
 
 %gometa
 
@@ -22,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -52,19 +55,19 @@ BuildRequires:  btrfs-progs-devel
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
 Provides: bundled(golang(cloud.google.com/go)) = 0.112.0
-Provides: bundled(golang(cloud.google.com/go/compute)) = 1.23.4
+Provides: bundled(golang(cloud.google.com/go/compute)) = 1.24.0
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
-Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.5
-Provides: bundled(golang(cloud.google.com/go/storage)) = 1.37.0
+Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.6
+Provides: bundled(golang(cloud.google.com/go/storage)) = 1.38.0
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.9.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.9.2
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azidentity)) = 1.5.1
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.5.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.5.2
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5)) = 5.5.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources)) = 1.2.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)) = 1.5.0
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.2.1
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.3.0
 Provides: bundled(golang(github.com/Azure/go-autorest)) = 14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest)) = 0.11.29
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest/adal)) = 0.9.22
@@ -82,7 +85,7 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.12.0-rc.1
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.50.9
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.50.24
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -111,6 +114,7 @@ Provides: bundled(golang(github.com/docker/go-units)) = 0.5.0
 Provides: bundled(golang(github.com/dougm/pretty)) = 2ee9d74
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/getkin/kin-openapi)) = 0.93.0
+Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.26.0
 Provides: bundled(golang(github.com/ghodss/yaml)) = 1.0.0
 Provides: bundled(golang(github.com/go-jose/go-jose/v3)) = 3.0.1
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.1
@@ -139,8 +143,8 @@ Provides: bundled(golang(github.com/google/go-intervals)) = 0.0.2
 Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.7
 Provides: bundled(golang(github.com/google/uuid)) = 1.6.0
 Provides: bundled(golang(github.com/googleapis/enterprise-certificate-proxy)) = 0.3.2
-Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.0
-Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.8.0
+Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.1
+Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.9.0
 Provides: bundled(golang(github.com/gorilla/css)) = 1.0.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.0
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
@@ -177,7 +181,7 @@ Provides: bundled(golang(github.com/mattn/go-runewidth)) = 0.0.15
 Provides: bundled(golang(github.com/mattn/go-shellwords)) = 1.0.12
 Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.18
 Provides: bundled(golang(github.com/matttproud/golang_protobuf_extensions/v2)) = 2.0.0
-Provides: bundled(golang(github.com/microcosm-cc/bluemonday)) = 1.0.18
+Provides: bundled(golang(github.com/microcosm-cc/bluemonday)) = 1.0.23
 Provides: bundled(golang(github.com/miekg/pkcs11)) = 1.1.1
 Provides: bundled(golang(github.com/mistifyio/go-zfs/v3)) = 3.0.1
 Provides: bundled(golang(github.com/mitchellh/go-homedir)) = 1.1.0
@@ -193,7 +197,7 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.398
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.35.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.40.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = e969a9d
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -228,32 +232,32 @@ Provides: bundled(golang(github.com/valyala/bytebufferpool)) = 1.0.0
 Provides: bundled(golang(github.com/valyala/fasttemplate)) = 1.2.2
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.11.5
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.6.2
-Provides: bundled(golang(github.com/vmware/govmomi)) = 0.34.2
+Provides: bundled(golang(github.com/vmware/govmomi)) = 0.35.0
 Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.11.3
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = 33d0574
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = 0.47.0
-Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.47.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.22.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.22.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.22.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.18.0
+Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = 0.48.0
+Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.48.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.23.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.23.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.23.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.19.0
 Provides: bundled(golang(golang.org/x/exp)) = 7918f67
 Provides: bundled(golang(golang.org/x/mod)) = 0.13.0
-Provides: bundled(golang(golang.org/x/net)) = 0.20.0
-Provides: bundled(golang(golang.org/x/oauth2)) = 0.16.0
+Provides: bundled(golang(golang.org/x/net)) = 0.21.0
+Provides: bundled(golang(golang.org/x/oauth2)) = 0.17.0
 Provides: bundled(golang(golang.org/x/sync)) = 0.6.0
-Provides: bundled(golang(golang.org/x/sys)) = 0.16.0
-Provides: bundled(golang(golang.org/x/term)) = 0.16.0
+Provides: bundled(golang(golang.org/x/sys)) = 0.17.0
+Provides: bundled(golang(golang.org/x/term)) = 0.17.0
 Provides: bundled(golang(golang.org/x/text)) = 0.14.0
 Provides: bundled(golang(golang.org/x/time)) = 0.5.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.14.0
-Provides: bundled(golang(google.golang.org/api)) = 0.161.0
+Provides: bundled(golang(google.golang.org/api)) = 0.166.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.8
-Provides: bundled(golang(google.golang.org/genproto)) = a9fa171
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 1f4bbc5
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = a9fa171
-Provides: bundled(golang(google.golang.org/grpc)) = 1.61.0
+Provides: bundled(golang(google.golang.org/genproto)) = 31a09d3
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 31a09d3
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 012b6fc
+Provides: bundled(golang(google.golang.org/grpc)) = 1.61.1
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.32.0
 Provides: bundled(golang(gopkg.in/go-jose/go-jose.v2)) = 2.6.1
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
@@ -311,6 +315,8 @@ export LDFLAGS="${LDFLAGS} -X 'github.com/osbuild/osbuild-composer/internal/comm
 
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-composer %{goipath}/cmd/osbuild-composer
 %gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-worker %{goipath}/cmd/osbuild-worker
+%gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-jobsite-manager %{goipath}/cmd/osbuild-jobsite-manager
+%gobuild ${GOTAGS:+-tags=$GOTAGS} -o _bin/osbuild-jobsite-builder %{goipath}/cmd/osbuild-jobsite-builder
 
 make man
 
@@ -345,7 +351,8 @@ go build -tags="integration${GOTAGS:+,$GOTAGS}" -ldflags="${TEST_LDFLAGS}" -o _b
 install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/osbuild-composer
 install -m 0755 -vp _bin/osbuild-composer                          %{buildroot}%{_libexecdir}/osbuild-composer/
 install -m 0755 -vp _bin/osbuild-worker                            %{buildroot}%{_libexecdir}/osbuild-composer/
-install -m 0755 -vp dnf-json                                       %{buildroot}%{_libexecdir}/osbuild-composer/
+install -m 0755 -vp _bin/osbuild-jobsite-manager                   %{buildroot}%{_libexecdir}/osbuild-composer/
+install -m 0755 -vp _bin/osbuild-jobsite-builder                   %{buildroot}%{_libexecdir}/osbuild-composer/
 
 # Only include repositories for the distribution and release
 install -m 0755 -vd                                                %{buildroot}%{_datadir}/osbuild-composer/repositories
@@ -502,7 +509,9 @@ cd $PWD/_build/src/%{goipath}
 
 %package core
 Summary:    The core osbuild-composer binary
-Requires:   %{name}-dnf-json = %{version}-%{release}
+Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
+Provides:   %{name}-dnf-json = %{version}-%{release}
+Obsoletes:  %{name}-dnf-json < %{version}-%{release}
 
 %description core
 The core osbuild-composer binary. This is suitable both for spawning in containers and by systemd.
@@ -515,17 +524,21 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 98
-Requires:   osbuild-ostree >= 98
-Requires:   osbuild-lvm2 >= 98
-Requires:   osbuild-luks2 >= 98
-Requires:   %{name}-dnf-json = %{version}-%{release}
+Requires:   osbuild >= %{min_osbuild_version}
+Requires:   osbuild-ostree >= %{min_osbuild_version}
+Requires:   osbuild-lvm2 >= %{min_osbuild_version}
+Requires:   osbuild-luks2 >= %{min_osbuild_version}
+Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
+Provides:   %{name}-dnf-json = %{version}-%{release}
+Obsoletes:  %{name}-dnf-json < %{version}-%{release}
 
 %description worker
 The worker for osbuild-composer
 
 %files worker
 %{_libexecdir}/osbuild-composer/osbuild-worker
+%{_libexecdir}/osbuild-composer/osbuild-jobsite-manager
+%{_libexecdir}/osbuild-composer/osbuild-jobsite-builder
 %{_unitdir}/osbuild-worker@.service
 %{_unitdir}/osbuild-remote-worker@.service
 
@@ -546,25 +559,6 @@ fi
 %postun worker
 # restart all the worker services
 %systemd_postun_with_restart "osbuild-worker@*.service" "osbuild-remote-worker@*.service"
-
-%package dnf-json
-Summary: The dnf-json binary used by osbuild-composer and the workers
-
-# Conflicts with older versions of composer that provide the same files
-# this can be removed when RHEL 8 reaches EOL
-Conflicts: osbuild-composer <= 35
-
-%description dnf-json
-The dnf-json binary used by osbuild-composer and the workers.
-
-%files dnf-json
-%{_libexecdir}/osbuild-composer/dnf-json
-
-%post dnf-json
-# Fix ownership of the rpmmd cache files from previous versions where it was owned by root:root
-if [ -e /var/cache/osbuild-composer/rpmmd ]; then
-    chown -f -R --from root:root _osbuild-composer:_osbuild-composer /var/cache/osbuild-composer/rpmmd
-fi
 
 %if %{with tests} || 0%{?rhel}
 
@@ -637,6 +631,65 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Mon Feb 26 2024 Packit <hello@packit.dev> - 101-1
+Changes with 101
+----------------
+  * Add minimal-raw and clean up the compose handler a bit (#3962)
+    * Author: Ondřej Budai, Reviewers: Achilleas Koutsou
+  * RHEL-16006: improve error on missing package name (#3964)
+    * Author: Florian Schüller, Reviewers: Ondřej Budai, Tomáš Hozza
+  * Support configuring distro aliases via ENV and set aliases in the composer template. (#3927)
+    * Author: Tomáš Hozza, Reviewers: Ondřej Budai, Sanne Raymaekers
+  * Tag rhel 9.2+ with SEV_LIVE_MIGRATABLE_V2 (#3970)
+    * Author: Amelia Crate, Reviewers: Ondřej Budai, Tomáš Hozza
+  * Update osbuild/images to v0.40.0 (#3973)
+    * Author: Tomáš Hozza, Reviewers: Gianluca Zuccarelli, Simon de Vlieger
+  * cloud/awscloud: create secure instance in the same subnet (#3961)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * cloud/awscloud: describe security groups using filters (#3965)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli, Ondřej Budai
+  * cloud/awscloud: max 4 overrides are allowed when creating a fleet (#3946)
+    * Author: Sanne Raymaekers, Reviewers: Ondřej Budai
+  * cloud/awscloud: remove restricting egress rule from SG (#3954)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * cloud/awscloud: take instance type from host (#3947)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon Steinbeiß, Simon de Vlieger
+  * cmd/osbuild-jobsite-builder: actually assign the stdout buffer (#3958)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * cmd/osbuild-jobsite: capture osbuild's stdout (#3953)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * composer: glitchtip integration (#3907)
+    * Author: Diaa Sami, Reviewers: Ondřej Budai
+  * errors-level logs to glitchtip (#3934)
+    * Author: Diaa Sami, Reviewers: Ondřej Budai
+  * jobsite/manager: create export directory (#3955)
+    * Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+  * jobsite/manager: turn off compression (#3957)
+    * Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+  * jobsite: `manager` and `builder` (#3937)
+    * Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+  * osbuild-runner: run osbuild in an ec2 vm (#3939)
+    * Author: Sanne Raymaekers, Reviewers: Nobody
+  * osbuildexecutor/aws.ec2: pass the manifest to the job manager (#3948)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  * switch to images/pkg/dnfjson and remove internal copy (#3828)
+    * Author: Diaa Sami, Reviewers: Nobody
+  * templates/packer: let the executor listen on all interfaces (#3949)
+    * Author: Sanne Raymaekers, Reviewers: Ondřej Budai
+  * templates/packer: rename executor log group (#3959)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * templates/packer: set -builder-path to /var/cache/osbuild-builder (#3950)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou
+  * templates/packer: setup vector in osbuild-executor (#3952)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou
+  * tools/appsre-build-fedora: wait until rpms are built upstream (#3971)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * worker-executor followups: fix oneshot service and secure instance for non-default vpcs (#3945)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+
+— Somewhere on the Internet, 2024-02-26
+
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 100-2
 - Rebuild for golang 1.22.0
 

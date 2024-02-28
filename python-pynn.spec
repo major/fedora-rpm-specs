@@ -40,7 +40,7 @@ This package supports the NEURON, NEST, and Brian simulators.}
 %global forgeurl https://github.com/NeuralEnsemble/PyNN
 
 Name:           python-pynn
-Version:        0.12.1
+Version:        0.12.2
 
 %global tag %{version}
 %forgemeta
@@ -53,9 +53,6 @@ Summary:        A package for simulator-independent specification of neuronal ne
 License:        CECILL-2.0
 URL:            http://neuralensemble.org/PyNN/
 Source:         %forgesource
-# https://github.com/sanjayankur31/PyNN/tree/feat/v0.12.1
-# submitted upstream as: https://github.com/NeuralEnsemble/PyNN/pull/794
-Patch:          0001-fix-nest-correctly-use-namespaces.patch
 
 # Random123 does not build on these, so neither can NEURON, so nothing that
 # depends on NEURON supports them either

@@ -1,7 +1,7 @@
 %global framework ki18n
 
 Name:    kf5-%{framework}
-Version: 5.115.0
+Version: 5.115.1
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon for localization
 
@@ -95,6 +95,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Feb 26 2024 Alessandro Astone <ales.astone@gmail.com> - 5.115.1-1
+- 5.115.1
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

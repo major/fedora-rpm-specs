@@ -2,8 +2,8 @@
 %global pypi_name pydyf
 
 Name:           python-pydyf
-Version:        0.8.0
-Release:        3%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Mon Feb 26 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.9.0-1
+- update to 0.9.0
+
 * Thu Jan 25 2024 Felix Schwarz <fschwarz@fedoraproject.org> - 0.8.0-3
 - use just flit-core as build dependency
 

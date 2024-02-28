@@ -5,7 +5,7 @@ Version:        6.338.2
 Release:        %autorelease
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/haasn/libplacebo
 Source0:        %{url}/archive/v%{version}%{?prerelease}/%{name}-%{version}%{?prerelease}.tar.gz
 
@@ -64,17 +64,14 @@ developing applications that use %{name}.
 %meson_install
 
 
-%ldconfig_scriptlets
-
-
 %files
 %license LICENSE
 %doc README.md
 %{_libdir}/libplacebo.so.338
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/libplacebo
+%{_libdir}/libplacebo.so
 %{_libdir}/pkgconfig/libplacebo.pc
 
 

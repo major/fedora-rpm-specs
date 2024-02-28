@@ -1,6 +1,6 @@
 Name:           libmamba
-Version:        1.5.3
-Release:        4%{?dist}
+Version:        1.5.6
+Release:        1%{?dist}
 Summary:        C++ API for mamba depsolving library
 
 License:        BSD-3-Clause
@@ -8,8 +8,8 @@ URL:            https://github.com/mamba-org/mamba
 Source0:        https://github.com/mamba-org/mamba/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Force the install to be arch dependent
 Source1:        setup.py
-# https://github.com/mamba-org/mamba/pull/3013
-Patch0:         libmamba-version.patch
+# Upstream fix for csh file
+Patch0:         libmamba-csh.patch
 # https://github.com/mamba-org/mamba/pull/3016
 Patch1:         libmamba-deps.patch
 # Use Fedora versions of yaml-cpp and zstd
@@ -165,6 +165,9 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Feb 23 2024 Orion Poplawski <orion@nwra.com> - 1.5.6-1
+- Update to 1.5.6
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

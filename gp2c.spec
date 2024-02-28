@@ -1,7 +1,7 @@
 %global upver 0.0.13
 
 Name:           gp2c
-Version:        %(sed s/pl/./ <<< %{upver})
+Version:        %{gsub %{upver} pl .}
 Release:        %autorelease
 Summary:        PARI/GP script to C program translator
 
@@ -16,8 +16,8 @@ Summary:        PARI/GP script to C program translator
 #   - config/install-sh is X11
 License:        GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 URL:            https://pari.math.u-bordeaux.fr/
-Source0:        %{url}pub/pari/GP2C/%{name}-%{upver}.tar.gz
-Source1:        %{url}pub/pari/GP2C/%{name}-%{upver}.tar.gz.asc
+Source0:        %{url}pub/pari/GP2C/gp2c-%{upver}.tar.gz
+Source1:        %{url}pub/pari/GP2C/gp2c-%{upver}.tar.gz.asc
 # Public key 0x4522e387, Bill Allombert <Bill.Allombert@math.u-bordeaux.fr>
 Source2:        gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
 
@@ -51,7 +51,7 @@ This package contains documentation for GP2C.
 
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
-%autosetup -n %{name}-%{upver}
+%autosetup -n gp2c-%{upver}
 
 # Convert to Unicode
 iconv -f ISO8859-1 -t UTF-8 ChangeLog > ChangeLog.utf8
@@ -81,7 +81,7 @@ cd -
 %make_install
 
 # We will install the files we want with %%doc below
-rm -vrf '%{buildroot}%{_docdir}/%{name}'
+rm -vrf '%{buildroot}%{_docdir}/gp2c'
 
 
 %check

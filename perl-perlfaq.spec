@@ -1,6 +1,6 @@
 Name:           perl-perlfaq
-Version:        5.20230812
-Release:        3%{?dist}
+Version:        5.20240218
+Release:        1%{?dist}
 Summary:        Frequently asked questions about Perl
 # Code examples are Public Domain
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 26 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.20240218-1
+- 5.20240218 bump (rhbz#2265230)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.20230812-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

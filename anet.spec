@@ -1,23 +1,23 @@
 Name:           anet
-Version:        0.4.1
-Release:        18%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Ada Networking Library
 
-License:        GPLv2+ with exceptions
+License:        GPL-2.0-or-later WITH GNAT-exception
 URL:            https://www.codelabs.ch/anet/
 Source:         https://www.codelabs.ch/download/libanet-%{version}.tar.bz2
 Source2:        https://www.codelabs.ch/download/libanet-%{version}.tar.bz2.sig
-Source3:        https://www.codelabs.ch/keys/0xBB793815pub.asc
-# Fedora-specific patch to use the directories project:
-Patch1:         anet-0.4.1-directories_gpr.patch
+Source5:        https://www.codelabs.ch/keys/0xDBF6D7E1095FD0D9.asc
 # Disable one test that doesn't work in Koji:
-Patch2:         anet-0.3.3-no_IPv6_multicast_test.patch
+Patch:          anet-0.3.3-no_IPv6_multicast_test.patch
 
-BuildRequires:  gcc-gnat fedora-gnat-project-common make asciidoc ahven-devel
+BuildRequires:  gcc-gnat fedora-gnat-project-common make ahven-devel
 BuildRequires:  gprbuild
 BuildRequires:  gnupg2
 # gpgverify was introduced in redhat-rpm-config 129.
 BuildRequires:  redhat-rpm-config >= 129
+BuildRequires:  asciidoctor
+BuildRequires:  sed
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
 
@@ -39,6 +39,8 @@ länklagersocketar och Netlink.
 %package devel
 Summary:        Development files for Anet
 Summary(sv):    Filer för programmering med Anet
+License:        GPL-2.0-or-later WITH GNAT-exception AND MIT
+# Asciidoctor inserts an MIT-licensed stylesheet in the manual.
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       fedora-gnat-project-common
 
@@ -54,24 +56,47 @@ för att utveckla program som använder Anet.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
-%setup -q -n libanet-%{version}
-%patch1 -p 1
-%patch2
+%{gpgverify} --keyring='%{SOURCE5}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
+%autosetup -n libanet-%{version} -p0
 
 
-%define all_the_flags "GNAT_BUILDER_FLAGS=%{GNAT_builder_flags}" "ADAFLAGS=%{build_adaflags}" "LDFLAGS=%{build_ldflags}"
+# Override the upstream usage of control-flow checking with Fedora's arch-
+# dependent choice because GCC doesn't offer control-flow checking for all
+# arches.
+%global fix_cf_protection %([[ '%{build_adaflags}' = *-fcf-protection* ]] || echo -fcf-protection=none)
+# This expands to an empty string if "-fcf-protection" is found among Fedora's
+# compiler flags, and to "-fcf-protection=none" if it's not found.
+
+%define all_the_flags "GNAT_BUILDER_FLAGS=%{GNAT_builder_flags}" "ADAFLAGS=%{build_adaflags} %{fix_cf_protection}" "LDFLAGS=%{build_ldflags}"
 # define makes the macro lazily expanded, unlike global.
 
 
 %build
 make %{all_the_flags}
-make doc
+make build-doc
 
 
 %install
 # Pass all_the_flags here too to ensure that GPRbuild won't recompile anything.
-%{make_install} %{all_the_flags} prefix=%{_prefix} libdir=%{_libdir} gprdir=%{_GNAT_project_dir}
+%{make_install} %{all_the_flags} GPRINSTALLFLAGS='%{GPRinstall_flags}'
+
+# Make the generated usage project file architecture-independent.
+sed --regexp-extended --in-place \
+    '--expression=1i with "directories";' \
+    '--expression=/^--  This project has been generated/d' \
+    '--expression=s|^( *for +Source_Dirs +use +).*;$|\1(Directories.Includedir \& "/%{name}");|i' \
+    '--expression=s|^( *for +Library_Dir +use +).*;$|\1Directories.Libdir;|i' \
+    '--expression=s|^( *for +Library_ALI_Dir +use +).*;$|\1Directories.Libdir \& "/%{name}";|i' \
+    %{buildroot}%{_GNAT_project_dir}/*.gpr
+# The Sed commands are:
+# 1: Insert a with clause before the first line to import the directories
+#    project.
+# 2: Delete a comment that mentions the architecture.
+# 3: Replace the value of Source_Dirs with a pathname based on
+#    Directories.Includedir.
+# 4: Replace the value of Library_Dir with Directories.Libdir.
+# 5: Replace the value of Library_ALI_Dir with a pathname based on
+#    Directories.Libdir.
 
 
 %check
@@ -92,10 +117,13 @@ make tests %{all_the_flags}
 %{_libdir}/*.so
 %{_libdir}/%{name}
 %{_GNAT_project_dir}/*
-%doc README TODO doc/html examples
+%doc README TODO obj/html examples
 
 
 %changelog
+* Sun Feb 25 2024 Björn Persson <Bjorn@Rombobjörn.se> - 0.5.0-1
+- Upgraded to version 0.5.0.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

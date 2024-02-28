@@ -12,6 +12,14 @@
 %endif
 %endif
 
+%if 0%{?rhel} >= 10
+# Use mutter on RHEL 10+ since it's the only shipped compositor
+%global wlheadless_compositor mutter
+%else
+# Use the simple reference compositor to simplify dependencies
+%global wlheadless_compositor weston
+%endif
+
 %global platform linux-g++
 
 %if 0%{?use_clang}
@@ -38,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -186,7 +194,7 @@ BuildRequires: qt6-rpm-macros
 BuildRequires: dbus-x11
 BuildRequires: mesa-dri-drivers
 BuildRequires: time
-BuildRequires: xorg-x11-server-Xvfb
+BuildRequires: (wlheadless-run and %{wlheadless_compositor})
 %endif
 
 Requires: %{name}-common = %{version}-%{release}
@@ -497,7 +505,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_qt6_libdir}
 # dbus tests error out when building if session bus is not available
 dbus-launch --exit-with-session \
 %make_build sub-tests  -k ||:
-xvfb-run -a --server-args="-screen 0 1280x1024x32" \
+wlheadless-run -c %{wlheadless_compositor} -- \
 dbus-launch --exit-with-session \
 time \
 make check -k ||:
@@ -838,6 +846,9 @@ make check -k ||:
 
 
 %changelog
+* Fri Feb 23 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.6.2-4
+- Use wlheadless-run for tests instead of xvfb-run
+
 * Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-3
 - Examples: also install source files
 

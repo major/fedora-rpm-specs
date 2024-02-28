@@ -1,12 +1,13 @@
 Name:           pari
-Version:        2.15.4
-Release:        4%{?dist}
+Version:        2.15.5
+Release:        1%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
 %global majver %(cut -d. -f1-2 <<< %{version})
 
 License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/
+VCS:            https://pari.math.u-bordeaux.fr/cgi-bin/gitweb.cgi?p=pari.git
 Source0:        https://pari.math.u-bordeaux.fr/pub/pari/unix/%{name}-%{version}.tar.gz
 Source1:        https://pari.math.u-bordeaux.fr/pub/pari/unix/%{name}-%{version}.tar.gz.asc
 # Public key 0x4522e387, Bill Allombert <Bill.Allombert@math.u-bordeaux.fr>
@@ -189,6 +190,9 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Mon Feb 26 2024 Jerry James <loganjerry@gmail.com> - 2.15.5-1
+- Version 2.15.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

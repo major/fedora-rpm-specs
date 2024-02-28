@@ -1,6 +1,6 @@
-%global commit 8c308f7fb1eaa860350e282811bb02fb3b458d6b
+%global commit f5a5edc5b3813cd9b087455cfd86d15895ffcfce
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20231125
+%global gitdate 20240218
 
 %global app_id  org.kde.atlantik
 
@@ -29,6 +29,7 @@ BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6Notifications)

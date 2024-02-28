@@ -14,8 +14,9 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  meson
 
-# svg pixbuf loader
+# svg and jxl pixbuf loaders
 Requires: (librsvg2 if gdk-pixbuf2)
+Requires: (jxl-pixbuf-loader if gdk-pixbuf2)
 
 %description
 The gnome-backgrounds package contains the default

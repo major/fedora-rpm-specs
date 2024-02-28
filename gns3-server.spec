@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.45
-Release:        3%{?dist}
+Version:        2.2.46
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -25,13 +25,12 @@ BuildRequires: systemd
 BuildRequires: python3-sphinx
 BuildRequires: make
 
-Requires(post): busybox
 Requires(post): edk2-ovmf
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends: docker
+Recommends: docker busybox
 Recommends: qemu-kvm
 %else
-Requires: docker
+Requires: docker busybox
 Requires: qemu-kvm
 %endif
 Requires: ubridge >= 0.9.14
@@ -58,20 +57,18 @@ Requires: %{name} = %{version}-%{release}
 
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
-sed -i -r 's/distro>=1.8.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=5.9.6/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
+sed -i -r 's/psutil>=5.9.8/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=23.2.1,<23.3/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/aiohttp>=3.8.5,<3.9; python_version <= \x273.7\x27/aiohttp>=3.8.5/' requirements.txt
-sed -i -r 's/aiohttp>=3.9.0,<3.10; python_version > \x273.7\x27//g' requirements.txt
-sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=2.11.3/' requirements.txt
+sed -i -r 's/aiohttp>=3.8.6,<3.9; python_version >= \x273.7\x27/aiohttp>=3.8.5/' requirements.txt
+sed -i -r 's/aiohttp>=3.9.3,<3.10; python_version > \x273.7\x27//g' requirements.txt
+sed -i -r 's/Jinja2>=3.1.3,<3.2/jinja2>=2.11.3/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
+sed -i -r 's/async-timeout>=4.0.3,<4.1/async-timeout>=4.0.2/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r 's/truststore.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
-
-# Don't bundle busybox with the package
-sed -i -r '/^copy_busybox/d' setup.py
 
 %build
 %py3_build
@@ -105,7 +102,6 @@ rm -fv %{buildroot}/%{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 %license LICENSE
 %doc README.md AUTHORS CHANGELOG
 %{python3_sitelib}/gns3_server*.egg-info/
-%ghost %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
 %ghost %{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
 %ghost %{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
 %{python3_sitelib}/gns3server/
@@ -130,9 +126,6 @@ exit 0
 [ -d "/var/lib/gns3" ] && chown -R gns3:gns3 %{_sharedstatedir}/gns3
 %systemd_post gns3.service
 
-# Replace bundled busybox with Fedora one
-cp -fp %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
-
 # Replace bundled OVMF_CODE.fd OVMF_VARS.fd with Fedora ones
 cp -fp %{_datadir}/edk2/ovmf/OVMF_CODE.fd %{python3_sitelib}/gns3server/disks/OVMF_CODE.fd
 cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OVMF_VARS.fd
@@ -144,6 +137,12 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Mon Feb 26 2024 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.46-2
+- /usr/sbin/busybox copied in ~/.local/share/GNS3 at runtime
+
+* Mon Feb 26 2024 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.46-1
+- Update to 2.2.46
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.45-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Name:          gnubg
 License:       GPL-3.0-only
 Summary:       A backgammon game and analyser
 Epoch:         1
-Version:       1.08.001
+Version:       1.08.002
 Release:       1%{?dist}
 Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
@@ -115,6 +115,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/Shaders/
 
 %changelog
+* Mon Feb 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:1.08.002-1
+- 1.08.002
+
 * Mon Feb 05 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:1.08.001-1
 - 1.08.001
 

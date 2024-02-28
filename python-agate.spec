@@ -12,7 +12,7 @@ agate was previously known as journalism.
 
 Name:           python-%{pypi_name}
 Version:        1.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
@@ -31,7 +31,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3-nose
 BuildRequires:  python3-coverage >= 3.7.1
-BuildRequires:  python3-mock >= 1.3.0
 BuildRequires:  python3-lxml >= 3.6.0
 BuildRequires:  python3-cssselect
 BuildRequires:  python3dist(six) >= 1.9
@@ -105,6 +104,9 @@ nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclud
 
 
 %changelog
+* Thu Feb 22 2024 Michel Lind <salimma@fedoraproject.org> - 1.9.0-4
+- Remove unnecessary and deprecated python3-mock BR
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

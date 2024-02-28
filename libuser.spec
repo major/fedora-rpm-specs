@@ -1,6 +1,6 @@
 Name: libuser
 Version: 0.64
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: LGPL-2.0-or-later
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -24,6 +24,7 @@ BuildRequires: libtool
 BuildRequires: gettext-devel
 BuildRequires: gtk-doc
 BuildRequires: audit-libs-devel
+Provides: deprecated()
 
 Summary: A user and group account administration library
 
@@ -41,6 +42,7 @@ suite are included.
 Summary: Files needed for developing applications which use libuser
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: glib2-devel%{?_isa}
+Provides: deprecated()
 
 %description devel
 The libuser-devel package contains header files, static libraries, and other
@@ -53,6 +55,7 @@ Provides: libuser-python3 = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides: libuser-python3%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes: libuser-python3 < 0.63-4
 %{?python_provide:%python_provide python3-libuser}
+Provides: deprecated()
 
 %description -n python3-libuser
 The python3-libuser package contains the Python bindings for
@@ -116,6 +119,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Mon Feb 26 2024 Tomas Halman <thalman@redhat.com> - 0.64-8
+- Deprecating libuser (https://fedoraproject.org/wiki/Changes/LibuserDeprecation)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           toppler
 Version:        1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Platform game
 License:        GPL-3.0-only
 URL:            https://gitlab.com/roever/toppler/
@@ -11,6 +11,8 @@ Source1:        toppler.desktop
 Patch2:         toppler-1.1.5-highscore.patch
 Patch100:       toppler-1.3-fix_makefile.patch
 Patch101:       toppler-1.3-format_security.patch
+Patch102:       toppler-1.3-head.patch
+Patch103:       toppler-1.3-missing_include.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -42,6 +44,8 @@ target you need to avoid a lot of strange robots that guard the tower.
 #patch -P2 -p1
 %patch -P100 -p1
 %patch -P101 -p1
+%patch -P102 -p1
+%patch -P103 -p1
 
 
 %build
@@ -83,6 +87,9 @@ install -p -m 0644 dist/toppler*.xpm %{buildroot}%{_datadir}/pixmaps/
 
 
 %changelog
+* Mon Feb 16 2023 Xavier Bachelot <xavier@bachelot.org> - 1.3-3
+- Add patches to update to current git and fix missing includes (RHBZ#2261760)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

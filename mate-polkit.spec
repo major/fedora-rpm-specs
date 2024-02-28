@@ -13,7 +13,7 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:       mate-polkit
-Version:    %{branch}.0
+Version:    %{branch}.1
 %if 0%{?rel_build}
 Release:    1%{?dist}
 %else
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/polkit-mate-authe
 
 
 %changelog
+* Mon Feb 26 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.1-1
+- update to 1.28.1
+
 * Fri Feb 23 2024 Wolfgang Ulbrich <fedora@raveit.de> - 1.28.0-1
 - update to 1.28.0
 

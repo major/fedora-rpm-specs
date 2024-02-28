@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        8.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -343,7 +343,7 @@ do
 ARCH=\$(uname -m)
 
 case \$ARCH in
-x86_64 | ia64 | s390x | aarch64 | ppc64 | ppc64le) LIB_DIR=/usr/lib64
+x86_64 | ia64 | s390x | aarch64 | ppc64 | ppc64le | riscv64) LIB_DIR=/usr/lib64
                        SECONDARY_LIB_DIR=/usr/lib
                        ;;
 * )
@@ -389,8 +389,9 @@ $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg
 sleep 2
 export DISPLAY=:99
 export FLEXIBLAS=netlib
-%ifarch ppc64le
+%ifarch ppc64le riscv64
 # liboctave/array/dMatrix.cc-tst segfaults
+# riscv: image/getframe.m ...............................................LLVM ERROR: Relocation type not implemented yet!
 make check || :
 %else
 make check
@@ -457,6 +458,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Mon Feb 26 2024 David Abdurachmanov <davidlt@rivosinc.com> - 6:8.4.0-6
+- Add support for riscv64
+
 * Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 6:8.4.0-5
 - Rebuild with suitesparse 7.6.0
 

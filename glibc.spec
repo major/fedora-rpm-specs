@@ -2312,7 +2312,7 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
-* Thu Feb 22 2024 DJ Delorie <dj@redhat.com> - 2.39.9000-2
+* Thu Feb 22 2024 DJ Delorie <dj@redhat.com> - 2.39.9000-3
 - Auto-sync with upstream branch master,
   commit b881f1efcd1b30c2afab3599b41ce9cd4864c823.
 - elf: Add new LoongArch reloc types (110 to 126) into elf.h

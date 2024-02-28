@@ -1,6 +1,6 @@
 Name:		libnfs
-Version:	5.0.2
-Release:	5%{?dist}
+Version:	5.0.3
+Release:	1%{?dist}
 Summary:	Client library for accessing NFS shares over a network
 # The library is licensed as LGPL-2.1-or-later
 # The protocol definition is BSD-2-Clause
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Sun Feb 11 2024 Xavier Bachelot <xavier@bachelot.org> - 5.0.3-1
+- Update to 5.0.3 (RHBZ#2263724)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -124,8 +124,8 @@
 %endif
 
 Name:           pidgin
-Version:        2.14.12
-Release:        8%{?dist}
+Version:        2.14.13
+Release:        1%{?dist}
 License:        BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
 # GPLv2 - novell prpls
@@ -164,10 +164,7 @@ Patch0:         pidgin-NOT-UPSTREAM-2.5.2-rhel4-sound-migration.patch
 Patch1:         pidgin-2.14.4-valgrind.patch
 
 ## Patches 100+: To be Included in Future Upstream
-# upstream ticket https://developer.pidgin.im/ticket/16593
-Patch100:       pidgin-2.14.7-do-not-disable-wall.patch
-# https://issues.imfreedom.org/issue/PIDGIN-17850/pidgin-2.14.12-gcc-14-build-failure
-Patch101:       pidgin-2.14.12-gcc-14-fix.patch
+
 
 Summary:        A Gtk+ based multiprotocol instant messaging client
 
@@ -466,9 +463,6 @@ echo "FEDORA=%{fedora} RHEL=%{rhel}"
 
 ## Patches 100+: To be Included in Future Upstream
 
-# https://developer.pidgin.im/ticket/16593
-%patch100 -p1 -b .do-not-disable-wall
-%patch101 -p1 -b .gcc-14-fix
 
 # Our preferences
 cp %{SOURCE1} prefs.xml
@@ -703,6 +697,10 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Mon Feb 26 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.13-1
+- New version
+  Resolves: rhbz#2265633
+
 * Wed Jan 31 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-8
 - Updated gcc-14 patch by upstream version
 

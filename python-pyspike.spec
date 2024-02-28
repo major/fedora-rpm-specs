@@ -1,17 +1,40 @@
-# Require deprecated nose so disabled
-# we test in mock though and all tes pass
-# Upstream issue filed:
-# https://github.com/mariomulansky/PySpike/issues/48
-%bcond_with tests
+Name:           python-pyspike
+Version:        0.8.0
+Release:        %autorelease
+Summary:        Library for the numerical analysis of spike train similarity
+
+License:        BSD-2-Clause
+URL:            https://github.com/mariomulansky/PySpike
+Source:         %{url}/archive/%{version}/PySpike-%{version}.tar.gz
+
+# Adapt numpy_include proxy for Cython 3 by making it an os.PathLike
+# https://github.com/mariomulansky/PySpike/pull/75
+# See also:
+# https://github.com/mariomulansky/PySpike/pull/68
+Patch:          %{url}/pull/75.patch
+# Exclude tests from packages
+# https://github.com/mariomulansky/PySpike/pull/76
+Patch:          %{url}/pull/76.patch
+# In setup.cfg, replace deprecated metadata.description-file
+# https://github.com/mariomulansky/PySpike/pull/77
+Patch:          %{url}/pull/77.patch
+
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist Cython}
+BuildRequires:  gcc
+
+# Test dependencies are documented in Readme.rst:
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist scipy}
 
 %global _description %{expand:
 PySpike is a Python library for the numerical analysis of spike train
-similarity. Its core functionality is the implementation of the ISI-distance
-[1] and SPIKE-distance [2] as well as SPIKE-Synchronization [3]. It provides
-functions to compute multivariate profiles, distance matrices, as well as
-averaging and general spike train processing. All computation intensive parts
-are implemented in C via Cython to reach a competitive performance (factor
-100-200 over plain Python).
+similarity. Its core functionality is the implementation of the ISI-distance[1]
+and SPIKE-distance[2], SPIKE-Synchronization [3], as well as their adaptive
+generalizations[4]. It provides functions to compute multivariate profiles,
+distance matrices, as well as averaging and general spike train processing. All
+computation intensive parts are implemented in C via Cython to reach a
+competitive performance (factor 100-200 over plain Python).
 
 PySpike provides the same fundamental functionality as the SPIKY framework for
 Matlab, which additionally contains spike-train generators, more spike train
@@ -20,13 +43,12 @@ distance measures and many visualization routines.
 If you use PySpike in your research, please cite our SoftwareX publication on
 PySpike:
 
-Mario Mulansky, Thomas Kreuz, PySpike - A Python library for analyzing spike
-train synchrony, SoftwareX, (2016), ISSN 2352-7110,
-http://dx.doi.org/10.1016/j.softx.2016.07.006.
+Mario Mulansky, Thomas Kreuz, *PySpike - A Python library for analyzing spike
+train synchrony*, Software X 5, 183 (2016)
 
 Additionally, depending on the used methods: ISI-distance [1], SPIKE-distance
-[2] or SPIKE-Synchronization [3], please cite one or more of the following
-publications:
+[2], SPIKE-Synchronization [3], or their adaptive generalizations [4], please
+cite one or more of the following publications:
 
 [1] Kreuz T, Haas JS, Morelli A, Abarbanel HDI, Politi A, Measuring spike train
 synchrony. J Neurosci Methods 165, 151 (2007)
@@ -34,73 +56,53 @@ synchrony. J Neurosci Methods 165, 151 (2007)
 [2] Kreuz T, Chicharro D, Houghton C, Andrzejak RG, Mormann F, Monitoring spike
 train synchrony. J Neurophysiol 109, 1457 (2013)
 
-[3] Kreuz T, Mulansky M and Bozanic N, SPIKY: A graphical user interface for
-monitoring spike train synchrony, J Neurophysiol, JNeurophysiol 113, 3432
-(2015)
+[3] Kreuz T, Mulansky M and Bozanic N, *SPIKY: A graphical user interface for
+monitoring spike train synchrony*, J Neurophysiol 113, 3432 (2015)
 
-Documentation is available at http://mariomulansky.github.io/PySpike/
-}
+[4] Satuvuori E, Mulansky M, Bozanic N, Malvestio I, Zeldenrust F, Lenk K, and
+Kreuz T, Measures of spike train synchrony for data with multiple time-scales,
+J Neurosci Methods 287, 25 (2017)
 
-Name:           python-pyspike
-Version:        0.7.0
-Release:        %autorelease
-Summary:        Library for the numerical analysis of spike train similarity
-
-License:        BSD
-URL:            https://github.com/mariomulansky/PySpike/
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  python3-devel
+Documentation is available at http://mariomulansky.github.io/PySpike/}
 
 %description %_description
 
 %package -n python3-pyspike
 Summary:        %{summary}
-# Use compat package
-# https://github.com/mariomulansky/PySpike/issues/70
-BuildRequires:  python3-Cython < 3~~
-BuildRequires:  gcc
-
-%if %{with tests}
-BuildRequires:  python3-nose
-BuildRequires:  %{py3_dist scipy}
-%endif
 
 %description -n python3-pyspike %_description
 
 %prep
-%autosetup -n PySpike-%{version}
+%autosetup -n PySpike-%{version} -p1
+
+# Remove Cythonized C sources
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_using_cython
+find . -type f -exec grep -FrinIl 'Generated by Cython' '{}' '+' |
+  xargs -r -t rm -v
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
-
-# Tests require these to be built in-place
-# https://github.com/mariomulansky/PySpike/blob/master/.travis.yml
-%if %{with tests}
-%{set_build_flags}
-%{python3} %{py_setup} %{?py_setup_args} build_ext --inplace
-%endif
 
 %install
 %pyproject_install
 %pyproject_save_files pyspike
 
 %check
-%if %{with tests}
-# https://github.com/mariomulansky/PySpike/blob/master/.travis.yml
-nosetests
-nosetests test/numeric
-%endif
+%pytest -v
 
 %files -n python3-pyspike -f %{pyproject_files}
 %license License.txt
-%doc Readme.rst Changelog Contributors.txt 
+%doc Readme.rst
+%doc Changelog
+%doc Contributors.txt
+%doc examples/
 
 %changelog
 %autochangelog

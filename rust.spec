@@ -83,9 +83,20 @@ ExclusiveArch:  %{rust_arches}
 %bcond_with disabled_libssh2
 %endif
 
-%if 0%{?__isa_bits} == 32
 # Reduce rustc's own debuginfo and optimizations to conserve 32-bit memory.
 # e.g. https://github.com/rust-lang/rust/issues/45854
+%global reduced_debuginfo 0
+%if 0%{?__isa_bits} == 32
+%global reduced_debuginfo 1
+%endif
+# Also on current riscv64 hardware, although future hardware will be
+# able to handle it.
+# e.g. http://fedora.riscv.rocks/koji/buildinfo?buildID=249870
+%ifarch riscv64
+%global reduced_debuginfo 1
+%endif
+
+%if 0%{?reduced_debuginfo}
 %global enable_debuginfo --debuginfo-level=0 --debuginfo-level-std=2
 %global enable_rust_opts --set rust.codegen-units-std=1
 %bcond_with rustc_pgo

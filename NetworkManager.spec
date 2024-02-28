@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.45.91
+%global real_version 1.46.0
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -1259,6 +1259,9 @@ fi
 
 
 %changelog
+* Mon Feb 26 2024 Beniamino Galvani <bgalvani@redhat.com> - 1:1.46.0-1
+- Update to 1.46.0 release
+
 * Tue Feb 20 2024 Beniamino Galvani <bgalvani@redhat.com> - 1:1.45.91-1
 - Update to 1.46-rc2 (1.45.91) release
 - Enable stable MAC address based on SSID for Wi-Fi connections (rh #2258088)

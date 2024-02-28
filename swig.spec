@@ -57,7 +57,7 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.2.0
+Version: 4.2.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
@@ -69,20 +69,6 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
-# OCaml 5.0 support
-# https://github.com/swig/swig/pull/2649
-Patch0: swig-ocaml-5.0.patch
-# Fix missing fragment dependency, in upstream since 4.2.1
-# https://github.com/swig/swig/pull/2744
-Patch1: swig-Python-Regression-fix-add-in-missing-SwigPyIterator_.patch
-# Fix -external-runtime output, in upstream since 4.2.1
-# https://github.com/swig/swig/pull/2751
-Patch2: swig-Ruby-Tcl-Fix-external-runtime-output.patch
-Patch3: swig-Ruby-Adjust-external-runtime-fix.patch
-# Fix seg fault handling friend constructor/destructor declarations
-# https://github.com/swig/swig/issues/2749
-Patch4: swig-Fix-seg-fault-handling-friend-constructor-destructor.patch
-Patch5: swig-Friends-testcase-fix.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -366,6 +352,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Mon Feb 26 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.1-1
+- 4.2.1 bump (rhbz#2265786)
+
 * Tue Jan 23 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.0-1
 - 4.2.0 bump
 

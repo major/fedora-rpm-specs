@@ -1,16 +1,12 @@
 # -*-Mode: rpm-spec -*-
 
 Name: wlogout
-Version: 1.1.1
-Release: 13%{?dist}
+Version: 1.2
+Release: 1%{?dist}
 Summary: Wayland based logout menu
 License: MIT
 URL:     https://github.com/ArtsyMacaw/wlogout
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# appears to be from https://github.com/zserge/jsmn at git tag
-# cdcfaafa49ffe5661978292a55cec7fd459571e4 and MIT license:
-Provides: bundled(jsmn) = cdcfaafa49ffe5661978292a55cec7fd459571e4
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -49,6 +45,9 @@ A wayland based logout menu.
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Mon Feb 26 2024 Bob Hepple <bob.hepple@gmail.com> - 1.2-1
+- new version
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

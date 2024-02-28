@@ -1,13 +1,11 @@
 Name:           virtme-ng
-Version:        1.21
+Version:        1.22
 Release:        %autorelease
 Summary:        Quickly build and run kernels inside a virtualized snapshot of your live system
 
 License:        GPL-2.0-only
 URL:            https://github.com/arighi/%{name}
 Source:         %{pypi_source %{name}}
-
-Patch:          %{url}/pull/74.patch#/001-fix-setup.patch
 
 BuildArch:      noarch
 
