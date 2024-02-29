@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -16,6 +16,8 @@ Patch1:         0001-Fix-compiling-fileobj-file-driver-with-Cython-3.0.patch
 Patch2:         h5py-3.10.0-python-crash-file-test2.patch
 # Properly cast const pointers - https://github.com/h5py/h5py/pull/2380
 Patch3:         h5py-const.patch
+# Use libc.stdint to fix i686
+Patch4:         https://github.com/h5py/h5py/pull/2382.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel
@@ -30,11 +32,6 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-mpi
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-sphinx
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if 0%{?fedora} > 39
-ExcludeArch: %{ix86}
-%endif
 
 # MPI builds
 %ifarch %{ix86}
@@ -239,6 +236,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Tue Feb 27 2024 Orion Poplawski <orion@nwra.com> - 3.10.0-7
+- Re-enable ix86
+
 * Thu Feb 22 2024 Christoph Junghans <junghans@votca.org> - 3.10.0-6
 - Re-enable openmpi build and drop ix86
 

@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -381,6 +381,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.10.1-14
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 4.10.1-13
 - Rebuild for golang 1.22.0
 

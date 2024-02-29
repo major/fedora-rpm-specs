@@ -1,6 +1,6 @@
 Name:           CFR
 Version:        0.151
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        CFR - Another Java Decompiler
 
 License:        MIT
@@ -71,6 +71,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.151-15
+- Rebuilt for java-21-openjdk as system jdk
+
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.151-14
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.151-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

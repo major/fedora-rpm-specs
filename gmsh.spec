@@ -9,7 +9,7 @@
 %endif
 %bcond_without mpich
 
-%global sover 4.12
+%global sover 4.13
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -17,7 +17,7 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.12.2
+Version:    4.13.0
 Release:    1%{?dist}
 
 # gmsh is GPLv2+ with exceptions, see LICENSE.txt
@@ -403,6 +403,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 4.13.0-1
+- Update to 4.13.0
+
 * Tue Jan 23 2024 Sandro Mani <manisandro@gmail.com> - 4.12.2-1
 - Update to 4.12.2
 

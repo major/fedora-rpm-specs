@@ -59,6 +59,12 @@ This package contains some example applications.
 # Skip the same timing-related tests that upstream skips when run in Travis CI.
 # https://github.com/tornadoweb/tornado/commit/abc5780a06a1edd0177a399a4dd4f39497cb0c57
 export TRAVIS=true
+
+# Increase timeout for tests on riscv64
+%ifarch riscv64
+export ASYNC_TEST_TIMEOUT=80
+%endif
+
 %{py3_test_envvars} %{python3} -m tornado.test
 
 %files -n python3-%{srcname} -f %{pyproject_files}

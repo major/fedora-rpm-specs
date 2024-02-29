@@ -3,7 +3,7 @@
 
 Name:           gnome-shell-extension-%{extension}
 Version:        16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNOME Shell extension for no overview at start-up
 License:        GPL-3.0-only
 URL:            https://extensions.gnome.org/extension/4099/no-overview/
@@ -11,6 +11,7 @@ Source0:        https://extensions.gnome.org/extension-data/no-overviewfthx.v%{v
 Source1:        https://raw.githubusercontent.com/fthx/no-overview/main/LICENSE#/%{extension}-LICENSE
 Source2:        https://raw.githubusercontent.com/fthx/no-overview/main/README.md#/%{extension}-README.md
 #Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 BuildArch:      noarch
 # rhbz#2001561 Delete to require gnome-shell-extension-common
 #Requires:       gnome-shell-extension-common
@@ -43,6 +44,9 @@ cp -rp *.js metadata.json \
 
 
 %changelog
+* Wed Feb 28 2024 Takao Fujiwara <tfujiwar@redhat.com> - 16-4
+- Add gnome-shell-46
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

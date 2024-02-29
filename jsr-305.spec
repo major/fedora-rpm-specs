@@ -2,7 +2,7 @@
 
 Name:           jsr-305
 Version:        3.0.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Correctness annotations for Java code
 
 # The majority of code is BSD-licensed, but some Java sources
@@ -67,6 +67,9 @@ sed -i 's|<artifactId>jsr305</artifactId>|<artifactId>ri</artifactId>|' ri/pom.x
 %doc sampleUses
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.2-15
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.2-14
 - bump of release for for java-21-openjdk as system jdk
 

@@ -33,7 +33,7 @@
 Summary:        A library for instantiating Java objects
 Name:           objenesis
 Version:        3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        Apache-2.0
 URL:            http://objenesis.org/
 BuildArch:      noarch
@@ -110,6 +110,9 @@ rm tck/src/test/java/org/objenesis/tck/OsgiTest.java
 %doc LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.3-8
 - bump of release for for java-21-openjdk as system jdk
 

@@ -1355,7 +1355,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{javaver}.%{updatever}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2581,6 +2581,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.402.b06-1.1
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Jan 30 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.402.b06-1
 - updated to repack u402.b06
 - debuginfo si probably broken due to wrong b05 in source tarball in comapre with b06

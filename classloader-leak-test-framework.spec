@@ -3,7 +3,7 @@
 Name:		classloader-leak-test-framework
 %global nwname classloader-leak-prevention-parent
 Version:	2.7.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Detection and verification of Java ClassLoader leaks
 License:	Apache-2.0
 URL:		https://github.com/mjiderhamn/classloader-leak-prevention/tree/master/%{name}
@@ -61,6 +61,9 @@ cat pom.xml | grep -B 3 -A 3 -e 1.6 -e 8
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.7.0-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

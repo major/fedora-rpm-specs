@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -59,6 +59,10 @@ BuildRequires:  python-gobject-base
 %if %{build_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-gobject-base
+%endif
+%if 0%{?fedora} >= 40 && 0%{?fedora} < 42
+# glib2 version with g_once_init_enter_pointer symbol, bug #2265336
+Requires:       glib2 >= 2.79.0-2
 %endif
 
 
@@ -184,6 +188,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Tue Feb 27 2024 Petr Pisar <ppisar@redhat.com> - 2.15.0-9
+- Require glib2 version with g_once_init_enter_pointer symbol (bug #2265336)
+
 * Mon Jan 29 2024 Petr Pisar <ppisar@redhat.com> - 2.15.0-8
 - Fix building with glib2-doc 2.79.0
 

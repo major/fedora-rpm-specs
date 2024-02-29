@@ -3,9 +3,14 @@
 %endif
 
 Name:           eccodes
-Version:        2.33.0
-Release:        3%{?dist}
+Version:        2.34.1
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
+
+# NOTE: dont use version 2.34.0
+# This has some code issues when compiled with the g++ flag "-flto=auto"
+# (which is default at the moment) and this makes the library and tools
+# unusable.
 
 # force the shared libraries to have these so versions
 %global so_version       0.1
@@ -14,7 +19,7 @@ Summary:        WMO data format decoding and encoding
 # note that the test_data package provided on the ECMWF version
 # is unversioned, so use the download date to discriminate
 # between different versions.
-%global datapack_date    20231216
+%global datapack_date    20240217
 
 # latest fedora-38/rawhide grib_api version is 1.27.0-18
 # but this version number is to be updated as soon as we know
@@ -357,6 +362,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Tue Feb 27 2024 Jos de Kloe <josdekloe@gmail.com> - 2.34.1-1
+- Update to 2.34.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.33.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

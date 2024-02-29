@@ -1,6 +1,6 @@
 Name:           ansible-collection-community-general
-Version:        8.2.0
-Release:        3%{?dist}
+Version:        8.4.0
+Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
 # rg --pcre2 -g '!tests/sanity/extra/licenses.py' 'SPDX-License-Identifier: (?!GPL-3\.0-or-later)' | sort | sed 's|^|# |'
@@ -86,6 +86,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst*
 
 %changelog
+* Tue Feb 27 2024 Maxwell G <maxwell@gtmx.me> - 8.4.0-1
+- Update to 8.4.0. Fixes rhbz#2261960.
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

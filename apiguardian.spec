@@ -2,7 +2,7 @@
 
 Name:           apiguardian
 Version:        1.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        API Guardian Java annotation
 License:        Apache-2.0
 URL:            https://github.com/apiguardian-team/apiguardian
@@ -111,6 +111,9 @@ mv src/module/java/* src/main/java
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.2-12
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.2-11
 - bump of release for for java-21-openjdk as system jdk
 

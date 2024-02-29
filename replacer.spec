@@ -1,6 +1,6 @@
 Name:          replacer
 Version:       1.6
-Release:       29%{?dist}
+Release:       30%{?dist}
 Summary:       Replacer Maven Mojo
 License:       MIT
 URL:           https://github.com/beiliubei/maven-replacer-plugin
@@ -73,6 +73,9 @@ done
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.6-30
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6-29
 - Port to maven-plugin-annotations from Javadoc tags
 

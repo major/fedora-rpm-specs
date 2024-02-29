@@ -1,6 +1,6 @@
 Name:           perl-Number-Fraction
-Version:        3.0.4
-Release:        10%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Perl extension to model fractions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Fraction
@@ -10,14 +10,15 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(:VERSION) >= 5.10
 # Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Moo)
-BuildRequires:  perl(MooX::Types::MooseLike::Base)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
@@ -79,6 +80,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.1.0-1
+- 3.1.0 bump (rhbz#2265887)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

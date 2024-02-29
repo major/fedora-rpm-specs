@@ -1,6 +1,6 @@
 Name:           xmlstreambuffer
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Stream Based Representation for XML Infoset
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/metro-xmlstreambuffer
@@ -57,6 +57,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.0-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

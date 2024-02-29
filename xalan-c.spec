@@ -15,13 +15,14 @@ Summary:        Xalan XSLT processor for C/C++
 # libtiff, but is a build-system file that does not contribute to the licenses
 # of the binary RPMs.
 License:        Apache-2.0
-URL:            http://xalan.apache.org/xalan-c/
-%global tag Xalan-C_%(echo '%{version}' | tr . _)
+URL:            https://apache.github.io/xalan-c/
+%global tag Xalan-C_%{gsub %{version} . _}
 %global tar_name xalan_c-%(echo %{version} | cut -d . -f -2)
-%global release_url https://github.com/apache/xalan-c/releases/download/%{tag}
-Source0:        %{release_url}/%{tar_name}.tar.gz
-Source1:        %{release_url}/%{tar_name}.tar.gz.asc
-Source2:        %{release_url}/KEYS
+%global forgeurl https://github.com/apache/xalan-c/
+%global releaseurl %{forgeurl}/releases/download/%{tag}
+Source0:        %{releaseurl}/%{tar_name}.tar.gz
+Source1:        %{releaseurl}/%{tar_name}.tar.gz.asc
+Source2:        %{releaseurl}/KEYS
 
 BuildRequires:  gnupg2
 BuildRequires:  cmake

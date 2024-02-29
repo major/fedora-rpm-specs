@@ -2,7 +2,7 @@
 
 Name:          apache-%{short_name}
 Version:       2.1
-Release:       29%{?dist}
+Release:       30%{?dist}
 Summary:       XML to Java object mapping module
 License:       ASL 2.0
 URL:           http://commons.apache.org/digester/
@@ -49,6 +49,9 @@ This package contains the %{summary}.
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1-30
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 31 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1-29
 - Port to apache-commons-parent 65
 

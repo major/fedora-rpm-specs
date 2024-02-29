@@ -48,6 +48,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man --no-info \
     -o %{buildroot}%{_mandir}/man1/%{name}-%{version}.1 \
     %{buildroot}%{_bindir}/%{name}
 
+# Remove libtool archives
+find %{buildroot} -name "*.la" -delete
+
 %files
 %license COPYING
 %{_bindir}/%{name}

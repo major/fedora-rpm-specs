@@ -2,8 +2,8 @@
 
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
-Version: 4.04
-Release: 11%{?dist}
+Version: 4.05
+Release: 1%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -53,7 +53,7 @@ Patch11: xpdf-4.01-crash.patch
 Patch12: xpdf-4.01-64bit.patch
 Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
-Patch26: xpdf-4.02-urw-base35-fonts.patch
+Patch26: xpdf-4.05-urw-base35-fonts.patch
 Patch28: xpdf-4.04-GlobalParams-null-fix.patch
 # https://forum.xpdfreader.com/viewtopic.php?t=42521
 Patch29: xpdf-4.04-shared-xpdf-lib.patch
@@ -210,7 +210,6 @@ cp -a goo/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/goo/
 cp -a splash/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/splash/
 cp -a xpdf/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 cp -a %{__cmake_builddir}/aconf.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
-cp -a aconf2.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 
 %if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
@@ -335,6 +334,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Tue Feb 27 2024 Than Ngo <than@redhat.com> - 4.05-1
+- fixed bz#2263444, update to 4.05
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.04-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

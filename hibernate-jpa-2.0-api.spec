@@ -3,7 +3,7 @@
 
 Name:             hibernate-jpa-2.0-api
 Version:          1.0.1
-Release:          39%{?dist}
+Release:          40%{?dist}
 Summary:          Java Persistence 2.0 (JSR 317) API
 License:          EPL and BSD
 URL:              http://www.hibernate.org/
@@ -54,6 +54,9 @@ This package contains the API documentation for %{name}.
 %license license.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0.1-40
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           aqute-bnd
 Version:        6.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        BND Tool
 # Part of jpm is under BSD, but jpm is not included in binary RPM
 License:        Apache-2.0 OR EPL-2.0
@@ -246,6 +246,9 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6.3.1-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 6.3.1-9
 - Port to OpenJDK 21
 

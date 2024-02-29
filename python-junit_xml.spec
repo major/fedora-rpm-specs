@@ -5,7 +5,7 @@
 
 Name:           python-junit_xml
 Summary:        Python module for creating JUnit XML test result documents
-Version:        1.9^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        1.9^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 # SPDX

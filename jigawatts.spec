@@ -8,7 +8,7 @@
 
 Name:    %{uname}
 Version: 0.2
-Release: 0.11.%{commitdate}%{shortcommit}%{?dist}
+Release: 0.12.%{commitdate}%{shortcommit}%{?dist}
 Summary: Java CRIU helper
 License: GPLv2 with exceptions
 URL:     https://github.com/chflood/%{uname}
@@ -84,6 +84,9 @@ cp ./target/libJigawatts.so %{buildroot}/%{_libdir}/
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.2-0.12.202108276c78499
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-0.11.202108276c78499
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

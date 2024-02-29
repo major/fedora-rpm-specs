@@ -2,7 +2,7 @@
 
 Name:           apache-commons-beanutils
 Version:        1.9.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Java utility methods for accessing and modifying the properties of arbitrary JavaBeans
 License:        Apache-2.0
 URL:            http://commons.apache.org/beanutils
@@ -57,6 +57,9 @@ sed -i 's/\r//' *.txt
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.9.4-19
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.9.4-18
 - bump of release for for java-21-openjdk as system jdk
 

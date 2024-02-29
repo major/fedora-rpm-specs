@@ -18,7 +18,7 @@
 
 Name:           gcl
 Version:        2.6.14
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -45,6 +45,7 @@ Summary:        GNU Common Lisp
 # - lsp/gcl_loop.lsp
 License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND LOOP
 URL:            https://www.gnu.org/software/gcl/
+VCS:            http://git.savannah.gnu.org/cgit/gcl.git
 Source0:        https://www.gnu.org/software/gcl/%{name}-%{version}.tar.gz
 Source1:        https://www.gnu.org/software/gcl/%{name}-%{version}.tar.gz.sig
 Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
@@ -56,6 +57,8 @@ Source3:        gcl.el
 Patch0:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre1
 Patch1:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre2
 Patch2:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre3
+Patch3:         https://sources.debian.org/data/main/g/gcl/2.6.14-6/debian/patches/Version_2_6_15pre4
+Patch4:         https://sources.debian.org/data/main/g/gcl/2.6.14-6/debian/patches/Version_2_6_15pre5
 
 ### Fedora patches
 
@@ -112,7 +115,7 @@ BuildRequires:  tex(latex)
 BuildRequires:  tex-ec
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
-BuildRequires:  emacs-nox
+BuildRequires:  emacs-nw
 
 Requires:       gcc
 Requires:       util-linux%{?_isa}
@@ -165,7 +168,7 @@ cp -p %{_texmf_main}/tex/texinfo/texinfo.tex info
 
 # The archive is so full of spurious executable bits that we just remove them
 # all here, then add back the ones that should exist
-find . -type f -perm /0111 | xargs chmod a-x
+find . -type f -perm /0111 -exec chmod a-x {} +
 chmod a+x add-defs add-defs1 config.guess config.sub configure install.sh
 chmod a+x bin/info bin/info1 gcl-tk/gcltksrv.in gcl-tk/ngcltksrv mp/gcclab
 chmod a+x o/egrep-def utils/replace xbin/*
@@ -248,6 +251,9 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Tue Feb 27 2024 Jerry James <loganjerry@gmail.com> - 2.6.14-6
+- Update to 2.6.15pre5
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

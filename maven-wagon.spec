@@ -2,7 +2,7 @@
 
 Name:           maven-wagon
 Version:        3.5.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tools to manage artifacts and deployment
 License:        Apache-2.0
 URL:            https://maven.apache.org/wagon
@@ -86,6 +86,9 @@ following providers:
 %doc DEPENDENCIES
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.5.3-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.5.3-6
 - Update Java source/target to 1.8
 

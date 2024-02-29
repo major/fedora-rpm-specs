@@ -3,8 +3,8 @@
 
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
-Version:        4.9.0
-Release:        7%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 Requires(pre):  /usr/sbin/groupadd
@@ -21,9 +21,6 @@ Patch1:         screen-4.3.1-libs.patch
 Patch2:         screen-4.3.1-screenrc.patch
 Patch3:         screen-E3.patch
 Patch4:         screen-4.3.1-suppress_remap.patch
-Patch5:         screen-4.3.1-crypt.patch
-Patch6:         screen-4.9.0-braille.patch
-Patch7:         screen-configure-c99.patch
 
 %description
 The screen utility allows you to have multiple logins on just one
@@ -117,6 +114,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %endif
 
 %changelog
+* Tue Feb 27 2024 Josef Ridky <jridky@redhat.com> - 4.9.1-1
+- New upstream release 4.9.1 (#2232623)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

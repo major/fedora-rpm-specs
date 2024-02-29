@@ -1,7 +1,7 @@
 %global srcname dirq
 Name:		java-dirq
 Version:	1.8
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Directory based queue
 License:	ASL 2.0
 URL:		https://github.com/cern-mig/%{name}
@@ -55,6 +55,9 @@ This package contains the API documentation for %{name}.
 %doc CHANGES readme.md todo.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.8-24
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

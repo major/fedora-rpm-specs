@@ -5,7 +5,7 @@ Name:           c4project
 Summary:        Useful CMake scripts
 # This project has never been assigned a version. The author really intends it
 # for use as a git submodule rather than for system-wide installation.
-Version:        0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/cmake

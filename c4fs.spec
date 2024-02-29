@@ -6,7 +6,7 @@
 
 Name:           c4fs
 Summary:        C++ file system utilities
-Version:        0.0.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.0.1^%{snapdate}git%{sub %{commit} 1 7}
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.0.1

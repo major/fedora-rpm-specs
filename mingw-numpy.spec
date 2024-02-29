@@ -7,8 +7,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.26.2
-Release:       6%{?dist}
+Version:       1.26.4
+Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -118,6 +118,9 @@ done
 
 
 %changelog
+* Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 1.26.4-1
+- Update to 1.26.4
+
 * Sat Feb 17 2024 Sandro Mani <manisandro@gmail.com> - 1.26.2-6
 - Also install __ufunc_api.h
 

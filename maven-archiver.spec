@@ -2,7 +2,7 @@
 
 Name:           maven-archiver
 Version:        3.6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Maven Archiver
 License:        Apache-2.0
 URL:            http://maven.apache.org/shared/maven-archiver/
@@ -51,6 +51,9 @@ Javadoc for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.6.1-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.6.1-5
 - bump of release for for java-21-openjdk as system jdk
 

@@ -2,7 +2,7 @@
 
 Name:           jakarta-el
 Version:        4.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Jakarta Expression Language
 License:        EPL-2.0 or GPLv2 with exceptions
 
@@ -108,6 +108,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.0-14
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

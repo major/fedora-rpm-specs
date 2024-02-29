@@ -2,7 +2,7 @@
 
 Name:           objectweb-asm
 Version:        9.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD-3-Clause
 URL:            https://asm.ow2.org/
@@ -89,6 +89,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 9.6-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 9.6-4
 - bump of release for for java-21-openjdk as system jdk
 

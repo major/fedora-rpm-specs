@@ -2,7 +2,7 @@
 
 Name:           testng
 Version:        7.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java-based testing framework
 License:        Apache-2.0
 URL:            https://testng.org/doc/
@@ -90,6 +90,9 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 7.8.0-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 7.8.0-4
 - bump of release for for java-21-openjdk as system jdk
 

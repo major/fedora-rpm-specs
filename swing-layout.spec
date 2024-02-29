@@ -1,6 +1,6 @@
 Name:           swing-layout
 Version:        1.0.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Natural layout for Swing panels
 License:        LGPLv2
 URL:            https://swing-layout.dev.java.net/
@@ -53,6 +53,9 @@ cat %{SOURCE1} | sed "s|<version>1.0.3</version>|<version>%{version}</version>|"
 %license COPYING
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0.4-30
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

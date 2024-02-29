@@ -1,6 +1,6 @@
 Name:           jcip-annotations
 Version:        1
-Release:        42.20060626%{?dist}
+Release:        43.20060626%{?dist}
 Summary:        Java annotations for multithreaded software
 
 License:        CC-BY-2.5
@@ -71,6 +71,9 @@ cd ..
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1-43.20060626
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1-42.20060626
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

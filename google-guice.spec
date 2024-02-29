@@ -2,7 +2,7 @@
 
 Name:           google-guice
 Version:        5.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lightweight dependency injection framework for Java 5 and above
 License:        Apache-2.0
 URL:            https://github.com/google/guice
@@ -201,6 +201,9 @@ and above. This package provides Bill of Materials module for Guice.
 %files -n guice-bom -f .mfiles-guice-bom
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.1.0-11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 5.1.0-10
 - bump of release for for java-21-openjdk as system jdk
 

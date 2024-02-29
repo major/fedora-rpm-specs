@@ -2,7 +2,7 @@
 
 Name:           maven-dependency-plugin
 Version:        3.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plugin to manipulate, copy and unpack local and remote artifacts
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/%{name}
@@ -95,6 +95,9 @@ sed -i '/doSpecialTest( "analyze-report" );/d' src/test/java/org/apache/maven/pl
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.6.1-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.6.1-2
 - bump of release for for java-21-openjdk as system jdk
 

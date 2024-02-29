@@ -2,7 +2,7 @@
 
 Name:           pcfi
 Version:        2010.08.09
-Release:        29.20111103git%{commit}%{?dist}
+Release:        30.20111103git%{commit}%{?dist}
 Summary:        PDF Core Font Information
 
 License:        BSD
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2010.08.09-30.20111103gitbd245c9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-29.20111103gitbd245c9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storageapis.wordpress.com/projects/blivet
-Version: 3.9.0
+Version: 3.9.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 3%{?prerelease}%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,9 +16,6 @@ Source1: http://github.com/storaged-project/blivet/archive/%{realname}-%{realver
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
-
-Patch1: 0002-Fix-crash-when-scanning-degraded-not-fully-assembled.patch
-Patch2: 0003-Fix-UnboundLocalError-in-MD-populator.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -117,6 +114,16 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Tue Feb 27 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.1-1
+- Try to assemble MD arrays during populate (#2236356) (vtrefny)
+- Fix UnboundLocalError in MD populator (vtrefny)
+- Fix crash when scanning degraded/not fully assembled MD arrays (vtrefny)
+- pylint: Remove some old false positives (vtrefny)
+- tests: Skip MD storage tests on RHEL/CentOS 9 (vtrefny)
+- misc: Bump libblockdev version for Debian (vtrefny)
+- Fix typos (vtrefny)
+- Remove unused import (vtrefny)
+
 * Mon Feb 12 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.0-3
 - Fix UnboundLocalError in MD populator (#2263668)
 

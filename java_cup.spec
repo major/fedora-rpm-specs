@@ -4,7 +4,7 @@
 
 Name:           java_cup
 Version:        0.11b
-Release:        28%{?dist}
+Release:        29%{?dist}
 Epoch:          1
 Summary:        LALR parser generator for Java
 License:        SMLNJ
@@ -100,6 +100,9 @@ jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 %license licence.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:0.11b-29
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb 21 2024 Marian Koncek <mkoncek@redhat.com> - 1:0.11b-28
 - Set OpenJDK version to 1.8
 

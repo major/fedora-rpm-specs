@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2024a
 %define tzdata_version 2024a
 %define tzcode_version 2024a
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -112,6 +112,9 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2024a-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Patsy Griffin <patsy@redhat.com> - 2024a-2
 - Correct the bz# for the tzdata-2024 commit.
 

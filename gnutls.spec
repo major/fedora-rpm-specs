@@ -19,6 +19,7 @@ Patch: gnutls-3.2.7-rpath.patch
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
 Patch: gnutls-3.8.3-kernel_version_check.patch
+Patch: gnutls-3.8.3-fix-mingw-build.patch
 
 %bcond_without bootstrap
 %bcond_without dane

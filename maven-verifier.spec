@@ -3,7 +3,7 @@
 
 Name:           maven-verifier
 Version:        2.0.0~M1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Apache Maven Verifier Component
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-verifier
@@ -59,6 +59,9 @@ rm src/test/java/org/apache/maven/shared/verifier/Embedded3xLauncherTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.0~M1-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.0~M1-6
 - bump of release for for java-21-openjdk as system jdk
 

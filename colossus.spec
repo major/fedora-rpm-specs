@@ -3,7 +3,7 @@ Name:           colossus
 %global         revdate    20130917
 Version:        0.14.0
 %global         branch    %{nil}
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Allows people to play Titan against each other or AIs
 
 License:        GPLv2
@@ -180,6 +180,9 @@ EOF
 %{_javadocdir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.14.0-27
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

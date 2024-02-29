@@ -1,23 +1,9 @@
 Name:           python-email-validator
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        A robust email syntax and deliverability validation library
 
-# The CC0-1.0 license is *not allowed* in Fedora for code, but this package
-# falls under the following blanket exception:
-#
-#   Existing uses of CC0-1.0 on code files in Fedora packages prior to
-#   2022-08-01, and subsequent upstream versions of those files in those
-#   packages, continue to be allowed. We encourage Fedora package maintainers
-#   to ask upstreams to relicense such files.
-#
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
-#
-# Upstream was asked to consider relicensing:
-#
-# Please consider an alternative license
-# https://github.com/JoshData/python-email-validator/issues/113
-License:        CC0-1.0
+License:        Unlicense
 URL:            https://github.com/JoshData/python-email-validator
 Source:         %{url}/archive/v%{version}/python-email-validator-%{version}.tar.gz
 
@@ -37,8 +23,8 @@ email message).
 
 Key features:
 
-  • Checks that an email address has the correct syntax – good for
-    registration/login forms or other uses related to identifying users.
+  • Checks that an email address has the correct syntax – great for
+    email-based registration/login forms or validing data.
   • Gives friendly English error messages when validation fails that you can
     display to end-users.
   • Checks deliverability (optional): Does the domain name resolve? (You can
@@ -73,12 +59,7 @@ Summary:        %{summary}
 %pyproject_save_files -l email_validator
 
 %check
-# Even though we have disabled the “network” mark, these still require DNS.
-ignore="${ignore-} --ignore=tests/test_deliverability.py"
-ignore="${ignore-} --ignore=tests/test_main.py"
-%pytest -v tests -m 'not network' ${ignore-}
-# Just to be sure, since we have disabled some tests:
-%pyproject_check_import
+%pytest -v tests -m 'not network'
 
 %files -n python3-email-validator -f %{pyproject_files}
 %doc CHANGELOG.md README.md

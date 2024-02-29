@@ -2,7 +2,7 @@
 
 Name:          fasterxml-oss-parent
 Version:       58
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
@@ -53,6 +53,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 58-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Feb 19 2024 Packit <hello@packit.dev> - 58-1
 - [maven-release-plugin] prepare release oss-parent-58 (Tatu Saloranta)
 - Add property `version.junit5` (at 5.10.2) (Tatu Saloranta)

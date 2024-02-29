@@ -2,7 +2,7 @@
 
 Name:           cdi-api
 Version:        2.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        CDI API
 License:        Apache-2.0
 URL:            https://github.com/eclipse-ee4j/cdi
@@ -49,6 +49,9 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.2-14
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.2-13
 - bump of release for for java-21-openjdk as system jdk
 

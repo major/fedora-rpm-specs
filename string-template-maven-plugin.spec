@@ -1,6 +1,6 @@
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -76,6 +76,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1-13
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Jerry James <loganjerry@gmail.com> - 1.1-12
 - Add descriptor patch to fix FTBFS
 

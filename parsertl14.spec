@@ -4,7 +4,7 @@
 Name:           parsertl14
 Summary:        The Modular Parser Generator
 # Upstream has never versioned the library.
-Version:        0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 License:        BSL-1.0

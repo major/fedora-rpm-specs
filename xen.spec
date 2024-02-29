@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.18.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -117,6 +117,7 @@ Patch52: xen.gcc14.fixes.patch
 Patch53: newlib.gcc14.fixes.patch
 Patch54: xsa449.patch
 Patch55: xsa450.patch
+Patch56: xsa451-4.18.patch
 
 
 %if %build_qemutrad
@@ -334,6 +335,7 @@ manage Xen virtual machines.
 %patch 53 -p1
 %patch 54 -p1
 %patch 55 -p1
+%patch 56 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -940,6 +942,10 @@ fi
 %endif
 
 %changelog
+* Tue Feb 27 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-6
+- x86: shadow stack vs exceptions from emulation stubs - [XSA-451,
+	CVE-2023-46841] (#2266326)
+
 * Sun Feb 04 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-5
 - pci: phantom functions assigned to incorrect contexts [XSA-449,
         CVE-2023-46839]

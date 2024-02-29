@@ -2,7 +2,7 @@
 
 Name:           jakarta-xml-ws
 Version:        4.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Jakarta XML Web Services API
 # spec and enterprise-ws-spec is under EPL-2.0 but it is not shipped
 License:        BSD
@@ -63,6 +63,9 @@ cd -
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

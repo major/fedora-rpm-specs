@@ -30,7 +30,7 @@
 
 Name:           nekohtml
 Version:        1.9.22
-Release:        25%{?dist}
+Release:        26%{?dist}
 Epoch:          0
 Summary:        HTML scanner and tag balancer
 License:        ASL 2.0
@@ -141,6 +141,9 @@ ant -Dcompile.source=1.8 -Dcompile.target=1.8 \
 %files demo -f .mfiles-demo
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.9.22-26
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.9.22-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Epoch:          1
 Name:           kawa
 Version:        3.1.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Scheme programming language
 License:        MIT
 URL:            https://www.gnu.org/software/kawa/
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_datadir}/kawa/bin
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:3.1.1-19
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

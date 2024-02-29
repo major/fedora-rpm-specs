@@ -3,7 +3,7 @@
 Name:           junit
 Epoch:          1
 Version:        4.13.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java regression test package
 License:        EPL-1.0
 URL:            https://junit.org/junit4/
@@ -89,6 +89,9 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %doc doc/*
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:4.13.2-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:4.13.2-5
 - Port to OpenJDK 21
 

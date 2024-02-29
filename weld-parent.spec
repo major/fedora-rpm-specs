@@ -1,6 +1,6 @@
 Name:           weld-parent
 Version:        46
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Parent POM for Weld
 License:        ASL 2.0
 
@@ -36,6 +36,9 @@ Parent POM for Weld
 %files -f .mfiles
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 46-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

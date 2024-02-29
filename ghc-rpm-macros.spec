@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.6
+Version:        2.6.7
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -201,6 +201,11 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Tue Feb 27 2024 Jens Petersen <petersen@redhat.com> - 2.6.7-1
+- fix no-prof subpackage to undefine with_ghc_prof properly
+- cabal_configure: when subpackaging print subpackage header
+- cabal_configure: use --enable-library-profiling instead of -p
+
 * Mon Feb 19 2024 Jens Petersen <petersen@redhat.com> - 2.6.6-1
 - new no-prof subpackage to disable building prof subpackages locally
 - cabal_test: drop conditional since it is in cabal-rpm

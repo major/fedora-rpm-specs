@@ -3,7 +3,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        1.12.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -268,6 +268,9 @@ sed -i '/doxia-module-itext/d' doxia-modules/pom.xml
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.12.0-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.12.0-6
 - Fix build with plexus-containers 2.2.0
 

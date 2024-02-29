@@ -7,7 +7,7 @@
 
 Name:           junit5
 Version:        5.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java regression testing framework
 License:        EPL-2.0
 URL:            https://junit.org/junit5/
@@ -131,6 +131,9 @@ ln -s ../../javadoc/junit5 documentation/src/docs/api
 %doc documentation/src/docs/*
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.10.2-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 5.10.2-1
 - Update to upstream version 5.10.2
 

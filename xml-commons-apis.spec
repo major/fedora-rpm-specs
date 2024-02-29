@@ -1,6 +1,6 @@
 Name:          xml-commons-apis
 Version:       1.4.01
-Release:       44%{?dist}
+Release:       45%{?dist}
 Summary:       APIs for DOM, SAX, and JAXP
 License:       Apache-2.0 AND W3C AND SAX-PD
 URL:           http://xml.apache.org/commons/
@@ -87,6 +87,9 @@ rm -rf build/docs/javadoc
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.4.01-45
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1.4.01-44
 - Update Java source/target to 1.8
 

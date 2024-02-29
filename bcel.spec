@@ -1,6 +1,6 @@
 Name:           bcel
 Version:        6.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Byte Code Engineering Library
 License:        Apache-2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
@@ -60,6 +60,9 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6.8.1-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.8.1-1
 - Update to upstream version 6.8.1
 

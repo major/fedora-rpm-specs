@@ -4,7 +4,7 @@
 %global snapdate 20210806
 
 Name:           python-pytest-grpc
-Version:        0.8.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.8.0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Allow testing gRPC with pytest
 

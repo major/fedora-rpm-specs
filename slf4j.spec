@@ -32,7 +32,7 @@
 
 Name:           slf4j
 Version:        1.7.32
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple Logging Facade for Java
 # the log4j-over-slf4j and jcl-over-slf4j submodules are ASL 2.0, rest is MIT
 License:        MIT AND Apache-2.0
@@ -205,6 +205,9 @@ cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 %{_defaultdocdir}/%{name}-manual
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.32-12
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.32-11
 - bump of release for for java-21-openjdk as system jdk
 

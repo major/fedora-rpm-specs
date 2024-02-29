@@ -17,7 +17,7 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -28,7 +28,8 @@ Source0:       https://github.com/containers/%{name}/releases/download/%{version
 Source1:       %{name}.conf
 
 # Upstream
-Patch0:        toolbox-test-system-Unbreak-Podman-s-downstream-Fedora-CI.patch
+Patch0:        toolbox-test-system-new.patch
+Patch1:        toolbox-test-system-Unbreak-Podman-s-downstream-Fedora-CI.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -111,6 +112,7 @@ The %{name}-tests package contains system tests for %{name}.
 %setup -q
 
 %patch -P0 -p1
+%patch -P1 -p1
 
 %if 0%{?fedora}
 %ifnarch ppc64
@@ -188,6 +190,10 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Feb 27 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-8
+- Unbreak Podman's downstream Fedora CI (part 2)
+- Backport some new upstream tests
+
 * Tue Feb 13 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-7
 - Unbreak Podman's downstream Fedora CI
 - Update the BuildRequires on golang to reflect reality

@@ -3,7 +3,7 @@
 
 Name:           icu4j
 Version:        74.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
 License:        Unicode-DFS-2016
@@ -118,6 +118,9 @@ rm %{buildroot}%{_mavenpomdir}/icu4j/{common_tests,demos,framework,perf-tests,sa
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:74.2-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:74.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

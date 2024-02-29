@@ -4,7 +4,7 @@
 
 Name:           cglib
 Version:        3.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Code Generation Library for Java
 # ASM MethodVisitor is based on ASM code and therefore
 # BSD-licensed. Everything else is ASL 2.0.
@@ -82,6 +82,9 @@ Documentation for the cglib code generation library.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.0-15
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.3.0-14
 - Update Java source/target to 1.8
 

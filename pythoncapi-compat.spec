@@ -13,7 +13,7 @@
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
 # Upstream has never versioned this project.
-Version:        0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 License:        0BSD

@@ -30,6 +30,9 @@
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	ninja -j %{numjobs} -C '%1' '%2'
 
+# enable|disable chromedriver
+%global build_chromedriver 1
+
 # enable|disable headless client build
 %global build_headless 1
 
@@ -301,7 +304,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 122.0.6261.69
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1572,7 +1575,10 @@ mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
 
 %build_target %{builddir} chrome
 %build_target %{builddir} chrome_sandbox
+
+%if %{build_chromedriver}
 %build_target %{builddir} chromedriver
+%endif
 
 %if %{build_clear_key_cdm}
 %build_target %{builddir} clear_key_cdm
@@ -1661,9 +1667,11 @@ pushd %{builddir}
 		%endif
 	%endif
 
-	# chromedriver
-	cp -a chromedriver %{buildroot}%{chromium_path}/chromedriver
-	ln -s ../..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
+	%if %{build_chromedriver}
+		# chromedriver
+		cp -a chromedriver %{buildroot}%{chromium_path}/chromedriver
+		ln -s ../..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
+	%endif
 
 	%if %{build_remoting}
 		# Remote desktop bits
@@ -1935,13 +1943,21 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 /var/lib/chrome-remote-desktop/
 %endif
 
+%if %{build_chromedriver}
 %files -n chromedriver
 %doc AUTHORS
 %license LICENSE
 %{_bindir}/chromedriver
 %{chromium_path}/chromedriver
+%endif
 
 %changelog
+* Tue Feb 27 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 122.0.6261.69-3
+- Make building of chromedriver optional
+
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 122.0.6261.69-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Than Ngo <than@redhat.com> - 122.0.6261.69-1
 - update to 122.0.6261.69
 - fix build error on el8
@@ -3610,4 +3626,3 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 * Mon Sep 9 2013 Tomas Popela <tpopela@redhat.com> 29.0.1547.65-1
 - Initial version based on Tom Callaway's <spot@fedoraproject.org> work
-

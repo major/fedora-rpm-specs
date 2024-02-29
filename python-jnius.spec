@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -105,6 +105,9 @@ popd
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.6.1-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Feb 26 2024 Raphael Groner <raphgro@fedoraproject.org> - 1.6.1-1
 - bump to latest version
 - migrate to Cython 3, rhbz#2254033

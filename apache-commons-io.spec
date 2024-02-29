@@ -3,7 +3,7 @@
 Name:           apache-commons-io
 Epoch:          1
 Version:        2.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utilities to assist with developing IO functionality
 License:        Apache-2.0
 URL:            https://commons.apache.org/io
@@ -70,6 +70,9 @@ rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFil
 %doc RELEASE-NOTES.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:2.13.0-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1:2.13.0-7
 - bump of release for for java-21-openjdk as system jdk
 

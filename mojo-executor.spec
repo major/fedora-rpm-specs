@@ -4,7 +4,7 @@
 
 Name:           mojo-executor
 Version:        2.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Execute other plugins within a maven plugin
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ This package contains %{summary}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.0-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

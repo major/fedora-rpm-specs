@@ -1,6 +1,6 @@
 Name:           ini2toml
 Version:        0.12
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Automatic conversion of .ini/.cfg files to TOML equivalents
 
 License:        MPLv2.0
@@ -61,33 +61,4 @@ sed -i '/validate-pyproject/d' setup.cfg
 
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Aug 28 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.12-1
-- Update to 0.12
-Resolves: rhbz#2179431
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Python Maint <python-maint@redhat.com> - 0.10-6
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 0.10-4
-- Handle test dependencies automatically and hence BuildRequire python3-tomli
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 0.10-2
-- Rebuilt for Python 3.11
-
-* Tue May 03 2022 Charalampos Stratakis <cstratak@redhat.com> - 0.10-1
-- Initial package
+%autochangelog

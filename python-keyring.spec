@@ -3,7 +3,7 @@
 %bcond xvfb_tests 0
 
 Name:           python-keyring
-Version:        24.3.0
+Version:        24.3.1
 Release:        %autorelease
 Summary:        Store and access your passwords safely
 

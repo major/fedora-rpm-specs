@@ -1,6 +1,6 @@
 Name:           spec-version-maven-plugin
 Version:        2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Spec Version Maven Plugin
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 
@@ -50,6 +50,9 @@ chmod a+x src/main/resources/checkVersion.sh
 %doc README.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.2-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

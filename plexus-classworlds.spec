@@ -2,7 +2,7 @@
 
 Name:           plexus-classworlds
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
 License:        Apache-2.0 AND Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
@@ -51,6 +51,9 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.jupiter.api.Disabled/ s
 %license LICENSE.txt LICENSE-Codehaus.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.8.0-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.8.0-2
 - bump of release for for java-21-openjdk as system jdk
 

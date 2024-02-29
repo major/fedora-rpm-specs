@@ -1,5 +1,5 @@
 Name:           python-uvloop
-Version:        0.18.0
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Ultra fast implementation of asyncio event loop on top of libuv
 
@@ -8,10 +8,7 @@ URL:            https://github.com/MagicStack/uvloop
 Source:         %{url}/archive/v%{version}/uvloop-%{version}.tar.gz
 
 # Fix compatibility with Cython 3.
-# Notice that it doesn't work with older Cython (<3).
-# From https://github.com/MagicStack/uvloop/issues/586#issuecomment-1862458472
-# Amended metadata changes to BuildRequire Cython>=3.
-Patch:          cython3.patch
+Patch:          https://github.com/MagicStack/uvloop/pull/587.patch
 
 BuildRequires:  gcc
 BuildRequires:  libuv-devel
@@ -58,7 +55,10 @@ sed -r -i \
 
 # We don’t have aiohttp==3.9.0b0; see if we can make do with the packaged
 # version.
-sed -r -i 's/aiohttp==3.9.0b0;/aiohttp>=3.8.5;/' pyproject.toml
+sed -r -i 's/aiohttp==3.9.0b0;/aiohttp>=3.9.0b0;/' pyproject.toml
+
+# Require Cython 3.x
+sed -i 's/\(Cython\)(>=0.29.36,<0.30.0)/\1>=3/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -88,7 +88,10 @@ mkdir -p _empty
 cd _empty
 ln -s ../tests/ .
 
-%pytest -v ${ignore-}
+# test_getaddrinfo_8 and _9 run getaddrinfo with zero-length inputs
+# libuv 1.48.0+ rejects that
+# reported as https://github.com/MagicStack/uvloop/issues/596
+%pytest -v ${ignore-} -k "not test_getaddrinfo_8 and not test_getaddrinfo_9"
 
 %files -n python3-uvloop -f %{pyproject_files}
 #license LICENSE-APACHE LICENSE-MIT

@@ -2,7 +2,7 @@
 
 Name:           extra-enforcer-rules
 Version:        1.7.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extra rules for maven-enforcer-plugin
 License:        Apache-2.0
 URL:            https://github.com/mojohaus/extra-enforcer-rules
@@ -57,6 +57,9 @@ Javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.0-5
 - bump of release for for java-21-openjdk as system jdk
 

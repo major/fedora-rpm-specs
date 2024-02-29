@@ -2,7 +2,7 @@
 
 Name:           velocity
 Version:        2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java-based template engine
 License:        Apache-2.0
 URL:            http://velocity.apache.org/
@@ -96,6 +96,9 @@ sed 's/${project.version}/%{version}/' \
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.3-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.3-4
 - bump of release for for java-21-openjdk as system jdk
 

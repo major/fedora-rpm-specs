@@ -3,7 +3,7 @@
 
 Name:           log4j
 Version:        2.20.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -309,6 +309,9 @@ rm log4j-core/src/main/java/org/apache/logging/log4j/core/filter/MutableThreadCo
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.20.0-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.20.0-6
 - bump of release for for java-21-openjdk as system jdk
 

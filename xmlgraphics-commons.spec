@@ -1,6 +1,6 @@
 Name:           xmlgraphics-commons
 Version:        2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
@@ -68,6 +68,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:2.9-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

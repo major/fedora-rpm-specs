@@ -13,7 +13,7 @@
 
 Name:           xstream
 Version:        1.4.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java XML serialization library
 License:        BSD
 URL:            https://x-stream.github.io
@@ -213,6 +213,9 @@ rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/
 %doc README.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.4.20-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

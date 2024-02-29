@@ -7,7 +7,7 @@
 Summary:        Java CIM Client library
 Name:           sblim-cim-client
 Version:        1.3.9.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/%{name}/%{version}/%{name}-%{version}-src.zip
@@ -114,6 +114,9 @@ cp -pr %{archive_folder_name}/doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3.9.3-33
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

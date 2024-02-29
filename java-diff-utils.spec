@@ -1,6 +1,6 @@
 Name:           java-diff-utils
 Version:        4.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java library for performing diff operations
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ difference algorithms.
 %files jgit -f .mfiles-java-diff-utils-jgit
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.12-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

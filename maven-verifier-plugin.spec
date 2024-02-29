@@ -1,6 +1,6 @@
 Name:           maven-verifier-plugin
 Version:        1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Maven Verifier Plugin
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

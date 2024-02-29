@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-testing
 Version:        3.3.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Maven Plugin Testing
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugin-testing/
@@ -76,6 +76,9 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.0-33
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.3.0-32
 - Update Java source/target to 1.8
 

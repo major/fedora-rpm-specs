@@ -126,12 +126,14 @@ This package contains GTK3 developer tools.
 
 %if %{with check}
 %check
-%define _vpath_builddir build-gtk3
-xvfb-run -a %{shrink:%ctest}
+pushd build-gtk3 >/dev/null
+xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process %{?_smp_mflags}
+popd >/dev/null
 
 %if %{with gtk2}
-%define _vpath_builddir build-gtk2
-xvfb-run -a %{shrink:%ctest}
+pushd build-gtk2 >/dev/null
+xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process %{?_smp_mflags}
+popd >/dev/null
 %endif
 %endif
 

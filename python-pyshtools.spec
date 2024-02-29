@@ -7,28 +7,44 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        4.10.4
+Version:        4.11.10
 Release:        %autorelease
 Summary:        Tools for working with spherical harmonics
 
 License:        BSD-3-Clause
 URL:            https://shtools.github.io/SHTOOLS/
-Source0:        %pypi_source
-# https://github.com/numpy/numpy/issues/20941
-Patch:          0001-Add-default-include-path-for-FFTW.patch
-# We don't need these requirements as Cartopy is already built.
-Patch:          0002-Remove-cartopy-build-time-dependencies.patch
+Source0:        %pypi_source %{srcname}
+# https://github.com/SHTOOLS/SHTOOLS/pull/448
+Patch:          0001-Remove-cartopy-build-time-dependencies.patch
+# We don't need oldest-supported-numpy as NumPy is always built for "this" Python.
+Patch:          0002-Use-normal-numpy-as-build-dependency.patch
+# https://github.com/SHTOOLS/SHTOOLS/commit/f76fd884910829350e23beebdece9c38484b1ed1
+Patch:          0003-Add-jupyter-to-build-system.requires.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  fftw3-devel
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-f2py
+
+# Runtime dependencies (we can't use automatic build requires due to build issues).
+BuildRequires:  python3dist(scipy) >= 0.14
+BuildRequires:  python3dist(matplotlib) >= 3.3
+BuildRequires:  python3dist(astropy) >= 4
+BuildRequires:  python3dist(xarray)
+BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(pooch) >= 1.1
+BuildRequires:  python3dist(tqdm)
+
+# Optional dependencies.
+BuildRequires:  python3dist(cartopy) >= 0.18
+BuildRequires:  python3dist(ducc0) >= 0.15
 
 %description
 pysthools is a Python library that can be used to perform spherical
@@ -55,22 +71,19 @@ operations on global gravitational and magnetic field data.
 %prep
 %autosetup -n %{srcname}-%{version}
 
-# Don't make f2py silent.
-sed -i -e '/f2py_options/d' setup.py
-
 %generate_buildrequires
-%pyproject_buildrequires -x cartopy,ducc
+%pyproject_buildrequires -R
 
 %build
-%pyproject_wheel
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel -Csetup-args=-Dblas=%{blaslib} -Csetup-args=-Dlapack=%{blaslib}
 
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
 
 %check
-export MPLBACKEND=Agg
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
+export MPLBACKEND=Agg %py3_test_envvars
 make -C examples/python -f Makefile no-timing PYTHON=%{python3}
 
 %files -n python3-%{srcname} -f %{pyproject_files}

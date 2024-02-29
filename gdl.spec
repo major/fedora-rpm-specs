@@ -31,7 +31,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNU Data Language
 
 License:        GPL-2.0-or-later
@@ -269,6 +269,9 @@ cat xorg.log
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0.4-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

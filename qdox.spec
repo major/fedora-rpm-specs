@@ -2,7 +2,7 @@
 
 Name:           qdox
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extract class/interface/method definitions from sources
 License:        Apache-2.0
 URL:            https://github.com/paul-hammant/qdox
@@ -84,6 +84,9 @@ jar ufm target/%{name}-%{version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.0-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.0-2
 - bump of release for for java-21-openjdk as system jdk
 

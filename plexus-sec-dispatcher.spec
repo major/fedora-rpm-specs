@@ -2,7 +2,7 @@
 
 Name:           plexus-sec-dispatcher
 Version:        2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Plexus Security Dispatcher Component
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-sec-dispatcher
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0-13
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.0-12
 - bump of release for for java-21-openjdk as system jdk
 

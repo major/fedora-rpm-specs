@@ -1,6 +1,6 @@
 Name:           exec-maven-plugin
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Exec Maven Plugin
 
 License:        ASL 2.0
@@ -65,6 +65,9 @@ rm -rf src/test/
 %dir %{_javadir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.0-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 22 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 3.2.0-1
 - Update to upstream version 3.2.0
 

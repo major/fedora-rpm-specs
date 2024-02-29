@@ -2,7 +2,7 @@
 
 Name:           maven-enforcer
 Version:        3.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Maven Enforcer
 License:        Apache-2.0
 URL:            https://maven.apache.org/enforcer
@@ -111,6 +111,9 @@ find -name EvaluateBeanshell.java -delete
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.4.1-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.4.1-2
 - bump of release for for java-21-openjdk as system jdk
 

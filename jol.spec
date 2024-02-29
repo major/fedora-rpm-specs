@@ -1,6 +1,6 @@
 Name:           jol
 Version:        0.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java Object Layout
 
 # GPL-2.0-only: the project as a whole
@@ -83,6 +83,9 @@ This package contains a command line interface to JOL.
 %files cli -f .mfiles-jol-cli
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.17-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

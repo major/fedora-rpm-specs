@@ -23,7 +23,7 @@
 
 Name:           javapackages-bootstrap
 Version:        1.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        Apache-1.1 AND Apache-2.0 AND (Apache-2.0 OR EPL-2.0) AND (Apache-2.0 OR LGPL-2.0-or-later) AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-2.5 AND CC0-1.0 AND CPL-1.0 AND EPL-1.0 AND EPL-2.0 AND (EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0) AND LicenseRef-Fedora-Public-Domain AND MIT AND Plexus AND SMLNJ AND Saxpath AND xpp
@@ -276,6 +276,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.16.0-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Feb 19 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.16.0-1
 - Update to upstream version 1.16.0
 - Switch from Java 17 to Java 21

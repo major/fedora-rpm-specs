@@ -1,6 +1,6 @@
 Name:           vecmath1.2
 Version:        1.14
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Free version of vecmath from the Java3D 1.2 specification
 License:        MIT
 URL:            http://www.objectclub.jp/download/vecmath_e
@@ -67,6 +67,9 @@ cp -r docs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}/
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.14-36
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

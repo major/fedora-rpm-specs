@@ -20,7 +20,7 @@ doi:10.3389/fninf.2014.00079
 
 Name:           jneuroml-core
 Version:        1.6.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        The NeuroML 2 Schema and ComponentType definitions in LEMS
 
 License:        LGPLv3
@@ -68,6 +68,9 @@ rm -fv LEMSexamples/test/.test*
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.6.1-14
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

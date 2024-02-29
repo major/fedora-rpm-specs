@@ -1,7 +1,7 @@
 %bcond_with     groovy
 Name:           maven-script-interpreter
 Version:        1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Maven Script Interpreter
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-script-interpreter/
@@ -62,6 +62,9 @@ sed -i /GroovyScriptInterpreter/d src/main/java/org/apache/maven/shared/scriptin
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

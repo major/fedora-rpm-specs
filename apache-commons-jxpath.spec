@@ -2,7 +2,7 @@
 
 Name:           apache-commons-jxpath
 Version:        1.3
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Simple XPath interpreter
 License:        Apache-2.0
 URL:            http://commons.apache.org/jxpath/
@@ -68,6 +68,9 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3-52
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.3-51
 - bump of release for for java-21-openjdk as system jdk
 

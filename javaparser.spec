@@ -8,7 +8,7 @@
 
 Name:          javaparser
 Version:       3.25.8
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:       LGPL-2.0-or-later OR Apache-2.0
 URL:           https://javaparser.org
@@ -111,6 +111,9 @@ sed -i \
 %license LICENSE LICENSE.APACHE LICENSE.GPL LICENSE.LGPL
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.25.8-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 22 2024 Marian Koncek <mkoncek@redhat.com> - 3.25.8-2
 - Port to OpenJDK 21
 

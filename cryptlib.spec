@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.7  
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL     
@@ -358,6 +358,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.4.7-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sun Feb 25 2024 Ralf Senderek <innovation@senderek.ie> - 3.4.7-4
 - Add clsmime to cryptlib-tools
 

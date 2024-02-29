@@ -3,7 +3,7 @@
 Name:           maven-file-management
 Epoch:          1
 Version:        3.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Maven File Management API
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/file-management
@@ -50,6 +50,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:3.1.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:3.1.0-5
 - Update Java source/target to 1.8
 

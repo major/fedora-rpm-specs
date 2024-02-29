@@ -1,7 +1,7 @@
 Name:           apache-commons-collections4
 Summary:        Extension of the Java Collections Framework
 Version:        4.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        Apache-2.0
 
 URL:            http://commons.apache.org/proper/commons-collections/
@@ -51,6 +51,9 @@ This package provides %{summary}.
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.4-15
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

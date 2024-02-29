@@ -2,7 +2,7 @@
 
 Name:           osgi-annotation
 Version:        8.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Annotations for use in compiling OSGi bundles
 License:        Apache-2.0
 URL:            https://www.osgi.org
@@ -75,6 +75,9 @@ cp -p %{SOURCE1} pom.xml
 %license META-INF/LICENSE META-INF/NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 8.1.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 8.1.0-5
 - Update Java source/target to 1.8
 

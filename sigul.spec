@@ -1,15 +1,21 @@
 Summary: A signing server and related software client
 Name: sigul
 
-Version: 1.1
-Release: 9%{?dist}
+Version: 1.2
+Release: 1%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
-Source0: https://pagure.io/releases/sigul/sigul-%{version}.tar.bz2
+Source0: https://pagure.io/sigul/archive/v%{version}/sigul-v%{version}.tar.gz
 Source1: sigul_bridge.service
 Source2: sigul_server.service
 Source3: sigul.logrotate
+# Upstream patch to avoid error with older python-cryptography in epel9
+Patch0: https://github.com/sigul-project/sigul/commit/2b5cc2054417a3deaea8bc2c4fa7cbcad1a27dc7.patch
+# Upstream patch to fix the constraints on the ca certs
+Patch1: https://github.com/sigul-project/sigul/commit/ff4f3aa2cad9ce9699c44c9a78a82b09ab40e999.patch
+# Always add AuthorityKeyIdentifier on certicates
+Patch2: https://github.com/sigul-project/sigul/commit/23f65929474dce5ff060ec929ed9aa92174f644b.patch
 
 BuildRequires: make
 BuildRequires: nss-tools
@@ -18,6 +24,8 @@ Requires: python3
 Requires: python3-nss >= 0.11
 BuildRequires: python3-nss, gnupg, koji, python3-pexpect, python3-gpg, python3, python3-fedora
 BuildRequires: rpm-sign python3-urlgrabber python3-sqlalchemy git
+BuildRequires: systemd-rpm-macros autoconf automake
+BuildRequires: python3-cryptography
 
 Requires: logrotate
 Requires: koji
@@ -31,14 +39,13 @@ BuildRequires: gnupg
 BuildRequires: systemd
 BuildRequires: ostree
 BuildRequires: ostree-devel
-%ifnarch ppc64
-# Skopeo is not built on ppc64
 BuildRequires: skopeo
-%endif
 
 %if 0%{?rhel}
 # There is no ostree package for RHEL other than x86_64, as that's in Atomic Host
 ExclusiveArch: x86_64
+%elif 0%{?fedora}
+ExcludeArch: %{ix86}
 %endif
 
 %description
@@ -50,11 +57,9 @@ that connects the two.
 %package server
 Summary: Sigul server component
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-sqlite2
-%endif
 Requires: gnupg
 
+Requires: python3-cryptography
 Requires: python3-gpg
 Requires: python3-pexpect
 Requires: python3-sqlalchemy >= 0.5
@@ -87,16 +92,15 @@ The bridge part of sigul that facilitates connection between the client and serv
 
 
 %prep
-%setup -q
+%autosetup -p1 -n sigul-v%{version}
 
 %build
+autoreconf -i
 %configure
 make %{?_smp_mflags}
 
 %check
 exit 0
-%ifnarch ppc64
-# Skopeo is not built on ppc64
 %if 0%{?fedora}
     if make check; then
         echo "Tests passed"
@@ -106,7 +110,6 @@ exit 0
         cat testsuite.dir/*/{testsuite.log,bridge/sigul_bridge.log,server/sigul_server.log}
         exit 1
     fi
-%endif
 %endif
 
 %install
@@ -186,6 +189,13 @@ exit 0
 
 
 %changelog
+* Tue Feb 27 2024 Kevin Fenzi <kevin@scrye.com> - 1.2-1
+- Update to v1.2
+- Fix ftbfs. rhbz#2226426
+- Add patch to always set AuthorityKeyIdentifier
+- Add patch for constraints on ca cert.
+- Add patch for older python-cryptography in rhel9
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

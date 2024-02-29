@@ -9,7 +9,7 @@
 %bcond autoreconf 1
 
 Name:           libcsv
-Version:        3.0.3^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        3.0.3^%{snapdate}git%{sub %{commit} 1 7}
 %global so_version 3
 Release:        %autorelease
 Summary:        Fast and flexible CSV library written in pure ANSI C

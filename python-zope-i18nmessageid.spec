@@ -1,59 +1,69 @@
-%global modname zope.i18nmessageid
+Name:           python-zope-i18nmessageid
+Version:        6.1.0
+Release:        1%{?dist}
+Summary:        Message Identifiers for internationalization
 
-Summary: Message Identifiers for internationalization
-Name: python-zope-i18nmessageid
-Version: 4.0.3
-Release: 32%{?dist}
-Source0: http://pypi.python.org/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
-License: ZPLv2.1
-URL: http://pypi.python.org/pypi/zope.i18nmessageid
+# Check if the automatically generated License and its spelling is correct for Fedora
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
+License:        ZPL-2.1
+URL:            https://github.com/zopefoundation/zope.i18nmessageid
+Source:         %{pypi_source zope.i18nmessageid}
 
-# Drop the use of the deprecated setuptools Features
-# https://github.com/zopefoundation/zope.i18nmessageid/pull/19
-Patch1: new-setuptools.patch
+BuildRequires:  python3-devel
+BuildRequires:  python3-docs
+BuildRequires:  gcc
 
-%description
-This module provides message identifiers for internationalization.
 
-%package -n python3-zope-i18nmessageid
-Summary:    Message Identifiers for internationalization
-%{?python_provide:%python_provide python3-zope-i18nmessageid}
-BuildRequires: gcc
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+%global _description %{expand:
+This module provides message identifiers for internationalization.}
 
-%description -n python3-zope-i18nmessageid
-This module provides message identifiers for internationalization.
+%description %_description
+
+%package -n     python3-zope-i18nmessageid
+Summary:        %{summary}
+
+%description -n python3-zope-i18nmessageid %_description
 
 
 %prep
-%autosetup -p1 -n %{modname}-%{version}
+%autosetup -p1 -n zope.i18nmessageid-%{version}
 
-rm -rf %{modname}.egg-info
+# Use local objects.inv for intersphinx
+sed -i "s|\('http://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files zope
 
-# remove contained source file(s)
-find $RPM_BUILD_ROOT -name '*.c' -type f -print0 | xargs -0 rm -fv
 
 %check
-%{__python3} setup.py test
+%pyproject_check_import
+%ifnarch %{ix86}
+# zope-testrunner fails with this on i686 - could be a bug there
+# ModuleNotFoundError: No module named 'zope.i18nmessageid'
+%tox
+%endif
 
-%files -n python3-zope-i18nmessageid
-%doc CHANGES.rst README.rst COPYRIGHT.txt
-%license LICENSE.txt
-# Co-own %%{python3_sitearch}/zope/
-%dir %{python3_sitearch}/zope/
-%{python3_sitearch}/zope/i18nmessageid/
-%{python3_sitearch}/%{modname}-*.egg-info
-%{python3_sitearch}/%{modname}-*-nspkg.pth
+
+%files -n python3-zope-i18nmessageid -f %{pyproject_files}
+%{python3_sitearch}/zope.i18nmessageid-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Mon Feb 26 2024 Michel Lind <salimma@fedoraproject.org> - 6.1.0-1
+- Update to 6.1.0 (rhbz#2140411)
+- Use SPDX license identifier
+- Modernize spec
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,22 +1,12 @@
 Name:           perl-Excel-Writer-XLSX
-Version:        1.11
-Release:        5%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Summary:        Create a new file in the Excel 2007+ XLSX format
-# lib/Excel/Writer/XLSX.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
-#                           (An Artistic-1.0-Perl only part in LICENSE POD
-#                           section was a mistake corrected after 1.11
-#                           <https://github.com/jmcnamara/excel-writer-xlsx/issues/285>)
-# LICENSE:      Artistic-1.0-Perl text
-# other files which declares a license: GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE_Artistic_Perl:    Artistic-1.0-Perl text
+# LICENSE_GPL_1.0:          GPL-1.0 text
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Excel-Writer-XLSX
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-%{version}.tar.gz
-# Grant a license for lib/Excel/Writer/XLSX.pm
-# <https://github.com/jmcnamara/excel-writer-xlsx/issues/285>
-Source1:        license_clarification
-# Fix regenerating a documentation with examples, in upstream after 1.11,
-# <https://github.com/jmcnamara/excel-writer-xlsx/pull/286>.
-Patch0:         Excel-Writer-XLSX-1.11-Adjust-make-mydocs-invocation-to-Perl-without-dot-in.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -85,7 +75,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Excel-Writer-XLSX-%{version}
-install -m 0644 %{SOURCE1} ./
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -117,7 +106,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%license LICENSE license_clarification
+%license LICENSE_Artistic_Perl LICENSE_GPL_1.0
 # ./examples is compiled and packaged as Excel::Writer::XLSX::Examples
 %doc Changes CONTRIBUTING.md README
 %dir %{perl_vendorlib}/Excel
@@ -133,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Petr Pisar <ppisar@redhat.com> - 1.12-1
+- 1.12 bump
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           prometheus-jmx-exporter
 Version:        0.16.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Prometheus JMX Exporter
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ OpenJDK 17 binding package for %{name}
 # empty files for the binding package
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.16.1-13
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

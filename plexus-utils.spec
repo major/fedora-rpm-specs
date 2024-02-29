@@ -2,7 +2,7 @@
 
 Name:           plexus-utils
 Version:        3.5.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Plexus Common Utilities
 # ASL 1.1: several files in src/main/java/org/codehaus/plexus/util/
 # xpp: src/main/java/org/codehaus/plexus/util/xml/pull directory
@@ -52,6 +52,9 @@ is like a J2EE application server, without all the baggage.
 %license NOTICE.txt LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.5.1-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.5.1-6
 - bump of release for for java-21-openjdk as system jdk
 

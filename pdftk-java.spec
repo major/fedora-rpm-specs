@@ -3,7 +3,7 @@
 Summary:        GCJ-free toolkit for manipulating PDF documents
 Name:           pdftk-java
 Version:        3.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 # pdftk-java itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # LGPL-2.0-or-later: java/com/gitlab/pdftk_java/com/lowagie/
 # APAFML: java/com/gitlab/pdftk_java/com/lowagie/text/pdf/fonts/*.{afm,txt}
@@ -98,6 +98,9 @@ set -euo pipefail
 %{_mandir}/man1/pdftk.1*
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.3-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

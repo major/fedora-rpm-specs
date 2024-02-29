@@ -2,7 +2,7 @@
 
 Name:           jgit
 Version:        6.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A pure java implementation of git
 
 # We don't ship the EPL-licensed Eclipse features in this package
@@ -131,6 +131,9 @@ EOF
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6.1.0-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

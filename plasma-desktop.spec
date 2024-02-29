@@ -6,7 +6,7 @@
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -89,7 +89,6 @@ BuildRequires:  cmake(AppStreamQt)
 %endif
 BuildRequires:  intltool
 BuildRequires:  cmake(KAccounts6)
-BuildRequires:  cmake(KF6UserFeedback)
 BuildRequires:  PackageKit-Qt6-devel
 BuildRequires:  libcanberra-devel
 BuildRequires:  boost-devel
@@ -151,6 +150,9 @@ BuildRequires:  kf6-qqc2-desktop-style
 Requires:       kf6-qqc2-desktop-style%{?_isa}
 BuildRequires:  kpipewire
 Requires:       kpipewire%{?_isa}
+BuildRequires:  signon-plugin-oauth2-devel
+Requires:       signon-plugin-oauth2%{?_isa}
+
 
 # for kimpanel-ibus-panel and kimpanel-ibus-panel-launcher
 Recommends: ibus
@@ -295,6 +297,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Tue Feb 27 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- minor BR fixes
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

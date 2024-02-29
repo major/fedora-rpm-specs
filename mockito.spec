@@ -2,7 +2,7 @@
 
 Name:           mockito
 Version:        5.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tasty mocking framework for unit tests in Java
 License:        MIT
 URL:            https://site.mockito.org/
@@ -142,6 +142,9 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.8.0-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 5.8.0-4
 - bump of release for for java-21-openjdk as system jdk
 

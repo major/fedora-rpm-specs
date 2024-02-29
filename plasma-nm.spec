@@ -1,13 +1,16 @@
 Name:    plasma-nm
 Summary: Plasma for managing network connections
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 
+# 6.0.0: fix for issue with removing connections in network settings
+# REF: https://bugzilla.redhat.com/show_bug.cgi?id=2266317
+Patch0:  6.0.0-issue-with-removing-connection.patch
 
 %ifarch %{qt6_qtwebengine_arches}
 %bcond openconnect 1
@@ -282,6 +285,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Tue Feb 27 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-2
+- Added patch for connections being able to be removed
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

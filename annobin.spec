@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.40
-Release: 2%{?dist}
+Version: 12.41
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -529,6 +529,11 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Feb 27 2024 Nick Clifton  <nickc@redhat.com> - 12.41-1
+- Clang Plugin: Fix building with Clang 18.  (#31414)
+- GCC Plugin: Add support for MIPS specific target functions.
+- GCC Plugin: Use .dc.a for address expressions in 64-bit ELF format notes.
+
 * Tue Feb 20 2024 Tulio Magno Quites Machado Filho  <tuliom@redhat.com> - 12.40-2
 - Spec File: Remove a workaround for ppc64le.
 
@@ -548,7 +553,7 @@ make check
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Wed Jan 17 2024 Nick Clifton  <nickc@redhat.com> - 12.37-1
-- GCC Plugin: DO not use section groups with string format notes.
+- GCC Plugin: Do not use section groups with string format notes.
 
 * Tue Jan 16 2024 Nick Clifton  <nickc@redhat.com> - 12.36-2
 - Spec File: NVR bump in order to allow building in side tag.

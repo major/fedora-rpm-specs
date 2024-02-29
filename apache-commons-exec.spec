@@ -3,7 +3,7 @@
 
 Name:           apache-commons-exec
 Version:        1.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        Apache-2.0
 URL:            http://commons.apache.org/exec/
@@ -74,6 +74,9 @@ chmod a+x src/test/scripts/*.sh
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3-31
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 31 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.3-30
 - Port to apache-commons-parent 65
 

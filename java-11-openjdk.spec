@@ -1261,7 +1261,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2419,6 +2419,9 @@ end
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:11.0.22.0.7-1.1
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:11.0.22.0.7-1
 - updated to OpenJDK 11.0.22 (2024-01-16)
 - removed removal of /test/jdk/sun/management/jmxremote/bootstrap/solaris-sparcv9/launcher

@@ -1,6 +1,6 @@
 Name:           maven-clean-plugin
 Version:        3.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maven Clean Plugin
 License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-clean-plugin/
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.2-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

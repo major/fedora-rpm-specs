@@ -2,7 +2,7 @@
 
 Name:          xerces-j2
 Version:       2.12.2
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Java XML parser
 # Most of the source is ASL 2.0
 # W3C licensed files:
@@ -179,6 +179,9 @@ ln -sf %{name}.jar %{_javadir}/jaxp_parser_impl.jar
 %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.12.2-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           jakarta-servlet
 Version:        5.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Server-side API for handling HTTP requests and responses
 # most of the project is EPL-2.0 or GPLv2 w/exceptions,
 # but some files still have Apache-2.0 license headers:
@@ -75,6 +75,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %doc README.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.0.0-18
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 5.0.0-17
 - bump of release for for java-21-openjdk as system jdk
 

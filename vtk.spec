@@ -54,7 +54,7 @@
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
 Version: 9.2.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: BSD-3-Clause
 Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
 Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
@@ -590,11 +590,11 @@ export CXXFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
 export CPPFLAGS=-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H
 %if %{with java}
 export JAVA_HOME=/usr/lib/jvm/java
-%ifarch %{arm} s390x
+%ifarch %{arm} s390x riscv64
 # getting "java.lang.OutOfMemoryError: Java heap space" during the build
 export JAVA_TOOL_OPTIONS=-Xmx2048m
 %endif
-%ifarch %{arm}
+%ifarch %{arm} riscv64
 # Likely running out of memory during build
 %global _smp_ncpus_max 2
 %endif
@@ -844,6 +844,9 @@ cat xorg.log
 
 
 %changelog
+* Sat Feb 24 2024 David Abdurachmanov <davidlt@rivosinc.com> - 9.2.6-13
+- Reduce memory and ncpu usage during riscv64 builds
+
 * Wed Jan 24 2024 Orion Poplawski <orion@nwra.com> - 9.2.6-12
 - Drop mpi4py-mpich BR on i686 (bz#2259594)
 

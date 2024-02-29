@@ -27,7 +27,7 @@ Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -160,6 +160,9 @@ ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.5.0-1.1
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb 21 2024 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.5.0-1
 - Rebase to LDAP SDK 5.5.0
 

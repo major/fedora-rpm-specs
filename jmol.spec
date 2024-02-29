@@ -1,6 +1,6 @@
 Name:           jmol
 Version:        16.1.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
 # JSpecView, JMol, and Sparsh-UI are all LGPL-2.1-or-later.
@@ -176,6 +176,9 @@ cd ../..
 %{_jsdir}/jsmol/
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 16.1.57-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Feb 26 2024 Jerry James <loganjerry@gmail.com> - 16.1.57-1
 - Version 16.1.57
 

@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 9
+%global baserelease 10
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond_with bootstrap
@@ -352,6 +352,9 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:3.5.3-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb  1 2024 Avi Kivity <avi@scylladb.com> - 1:3.5.3-9
 - Remove const specifiers in templates that are now flagged by gcc 14.
 

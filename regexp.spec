@@ -1,7 +1,7 @@
 Name:           regexp
 Epoch:          1
 Version:        1.5
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Simple regular expressions API
 License:        Apache-2.0
 URL:            http://jakarta.apache.org/%{name}/
@@ -72,6 +72,9 @@ mkdir lib
 %doc LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.5-47
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1:1.5-46
 - Update Java source/target to 1.8
 

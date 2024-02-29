@@ -1,6 +1,6 @@
 Name:           jackson-core
 Version:        2.16.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -55,6 +55,9 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.16.1-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 09 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.16.1-3
 - Rebuild
 

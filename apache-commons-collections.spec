@@ -2,7 +2,7 @@
 
 Name:           apache-commons-collections
 Version:        3.2.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Provides new interfaces, implementations and utilities for Java Collections
 License:        Apache-2.0
 URL:            http://commons.apache.org/collections/
@@ -89,6 +89,9 @@ sed -i 's/\r//' LICENSE.txt PROPOSAL.html README.txt NOTICE.txt
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.2-36
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 3.2.2-35
 - Port to OpenJDK 21
 

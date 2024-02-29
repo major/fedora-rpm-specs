@@ -6,7 +6,7 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 
 Name:           python-%{upname}
-Version:        2024.2.25
+Version:        2024.2.26
 Release:        1%{?dist}
 Summary:        %{common_sum}
 
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Tue Feb 27 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2024.2.26-1
+- Update to 2024.2.26 (#2266431)
+
 * Sun Feb 25 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2024.2.25-1
 - Update to 2024.2.25 (#2265896)
 

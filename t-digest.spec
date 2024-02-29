@@ -2,7 +2,7 @@
 
 Name:           t-digest
 Version:        3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A new data structure for on-line accumulation of statistics
 License:        ASL 2.0
 URL:            %{url}
@@ -57,6 +57,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICES
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

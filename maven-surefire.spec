@@ -2,7 +2,7 @@
 
 Name:           maven-surefire
 Version:        3.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Test framework project
 License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
@@ -173,6 +173,9 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.2-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.2-4
 - bump of release for for java-21-openjdk as system jdk
 

@@ -1,6 +1,6 @@
 Name:           jakarta-json
 Version:        2.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta JSON Processing
 
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
@@ -64,6 +64,9 @@ ln -s api/.mfiles-javadoc .
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.3-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

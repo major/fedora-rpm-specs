@@ -1,6 +1,6 @@
 Name:          BareBonesBrowserLaunch
 Version:       3.1
-Release:       32%{?dist}
+Release:       33%{?dist}
 Summary:       Simple library to launch a browser window from Java
 License:       Public Domain
 URL:           http://www.centerkey.com/java/browser/
@@ -44,6 +44,9 @@ rm -rf doc/*
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.1-33
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

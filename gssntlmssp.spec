@@ -1,13 +1,11 @@
 Name:		gssntlmssp
-Version:	1.2.0
+Version:	1.3.1
 Release:	%autorelease
 Summary:	GSSAPI NTLMSSP Mechanism
 
 License:	LGPLv3+
 URL:		https://github.com/gssapi/gss-ntlmssp
 Source0:        https://github.com/gssapi/gss-ntlmssp/releases/download/v%{version}/%{name}-%{version}.tar.gz
-
-Patch01: 0001-Fix-potential-crash-when-no-target-name-is-present.patch
 
 Requires: krb5-libs%{?_isa} >= 1.19
 
@@ -21,7 +19,7 @@ BuildRequires: docbook-style-xsl
 BuildRequires: doxygen
 BuildRequires: gettext-devel
 BuildRequires: pkgconfig
-BuildRequires: krb5-devel >= 1.11.2
+BuildRequires: krb5-devel >= 1.19
 BuildRequires: libunistring-devel
 BuildRequires: openssl-devel
 BuildRequires: pkgconfig(wbclient)
@@ -41,7 +39,6 @@ Adds a header file with definition for custom GSSAPI extensions for NTLMSSP
 
 %prep
 %setup -q
-%patch01 -p1 -b .crash
 
 %build
 autoreconf -fiv

@@ -1,6 +1,6 @@
 Name: libserializer
 Version: 1.1.2
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: JFreeReport General Serialization Framework
 License: LGPL-2.1-or-later
 #Original source: http://downloads.sourceforge.net/jfreereport/libserializer-%%{version}.zip
@@ -58,6 +58,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.2-42
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

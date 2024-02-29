@@ -30,7 +30,7 @@
 
 Name:           tagsoup
 Version:        1.2.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Epoch:          0
 Summary:        A SAX-compliant HTML parser written in Java 
 # AFL/GPLv2+ license for src/java/org/ccil/cowan/tagsoup/PYXScanner.java is
@@ -100,6 +100,9 @@ install -m 644 %{name}.1 %{buildroot}%{_mandir}/man1/
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.2.1-32
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.2.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

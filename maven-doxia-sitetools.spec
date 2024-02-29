@@ -3,7 +3,7 @@
 
 Name:           %{parent}-%{subproj}
 Version:        1.11.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -111,6 +111,9 @@ rm -rf $(find -type d -name itext)
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.11.1-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Jan 26 2024 Jerry James <loganjerry@gmail.com> - 1.11.1-9
 - Adapt to plexus-velocity 2.0
 

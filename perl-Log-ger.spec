@@ -1,5 +1,5 @@
 Name:           perl-Log-ger
-Version:        0.041
+Version:        0.042
 Release:        1%{?dist}
 Summary:        Lightweight, flexible logging framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.042-1
+- 0.042 bump (rhbz#2265610)
+
 * Mon Feb 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.041-1
 - 0.041 bump (rhbz#2262717)
 

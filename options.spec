@@ -1,6 +1,6 @@
 Name:           options
 Version:        1.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library for managing sets of JVM properties to configure an app or library
 License:        ASL 2.0
 URL:            https://github.com/headius/%{name}
@@ -35,6 +35,9 @@ configuration for an application or library.
 %doc README.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.7-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           easymock
 Version:        4.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Easy mock objects
 License:        Apache-2.0
 URL:            https://www.easymock.org
@@ -127,6 +127,9 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
 %license core/LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.3-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 4.3-7
 - bump of release for for java-21-openjdk as system jdk
 

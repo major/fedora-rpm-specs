@@ -2,7 +2,7 @@
 
 Name:           apache-commons-compress
 Version:        1.25.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java API for working with compressed files and archivers
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/commons-compress/
@@ -87,6 +87,9 @@ rm src/test/java/org/apache/commons/compress/archivers/tar/TarMemoryFileSystemTe
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.25.0-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.25.0-4
 - bump of release for for java-21-openjdk as system jdk
 

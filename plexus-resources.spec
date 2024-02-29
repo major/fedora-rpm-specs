@@ -2,7 +2,7 @@
 
 Name:           plexus-resources
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Resource Manager
 License:        Apache-2.0 AND MIT
 URL:            https://github.com/codehaus-plexus/plexus-resources
@@ -52,6 +52,9 @@ API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3.0-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.3.0-2
 - bump of release for for java-21-openjdk as system jdk
 

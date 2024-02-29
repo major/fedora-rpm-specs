@@ -13,7 +13,7 @@
 
 Name:           openni
 Version:        1.5.7.10
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Library for human-machine Natural Interaction
 
 License:        ASL 2.0 and BSD
@@ -228,6 +228,9 @@ fi
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.5.7.10-33
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7.10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

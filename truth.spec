@@ -3,7 +3,7 @@
 
 Name:           truth
 Version:        1.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An assertion framework for Java unit tests
 License:        ASL 2.0
 URL:            https://github.com/google/truth
@@ -114,6 +114,9 @@ find -name '*.java' | xargs sed -ri \
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0.1-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

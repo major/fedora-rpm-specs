@@ -6,7 +6,7 @@
 Name:           clojure-spec-alpha
 Epoch:          1
 Version:        0.3.218
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Spec is a Clojure library to describe the structure of data and functions
 
 Group:          Development/Languages
@@ -96,6 +96,9 @@ use generative testing to test functions.
 %license LICENSE
 %doc CHANGES.md README.md CONTRIBUTING.md
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:0.3.218-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.218-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

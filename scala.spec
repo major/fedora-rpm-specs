@@ -16,7 +16,7 @@
 
 Name:           scala
 Version:        2.13.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -455,6 +455,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.13.12-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

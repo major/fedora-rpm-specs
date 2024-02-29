@@ -3,7 +3,7 @@
 Name:           aopalliance
 Epoch:          0
 Version:        1.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Java/J2EE AOP standards
 License:        LicenseRef-Fedora-Public-Domain
 URL:            http://aopalliance.sourceforge.net/
@@ -55,6 +55,9 @@ jar umf %{SOURCE2} build/%{name}.jar
 %files -f .mfiles
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.0-39
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.0-38
 - bump of release for for java-21-openjdk as system jdk
 

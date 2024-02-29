@@ -4,7 +4,7 @@
 
 Name:           felix-utils
 Version:        1.11.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Utility classes for OSGi
 License:        Apache-2.0
 URL:            https://felix.apache.org
@@ -61,6 +61,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.11.8-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.11.8-8
 - Update Java source/target to 1.8
 

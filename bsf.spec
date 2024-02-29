@@ -1,6 +1,6 @@
 Name:           bsf
 Version:        2.4.0
-Release:        52%{?dist}
+Release:        54%{?dist}
 Summary:        Bean Scripting Framework
 License:        Apache-2.0
 URL:            https://commons.apache.org/bsf/
@@ -70,6 +70,12 @@ build-jar-repository -s lib apache-commons-logging xalan-j2
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.0-54
+- Rebuilt for java-21-openjdk as system jdk
+
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.0-53
+- bump of release for for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.4.0-52
 - Enable javadocs
 

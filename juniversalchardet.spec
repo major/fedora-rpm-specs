@@ -1,6 +1,6 @@
 Name:           juniversalchardet
 Version:        2.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
@@ -49,6 +49,9 @@ rm README.md.orig
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.0-12
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

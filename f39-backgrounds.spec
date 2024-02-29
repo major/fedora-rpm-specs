@@ -17,13 +17,7 @@ Source0:        https://github.com/fedoradesign/backgrounds/releases/download/v%
 
 BuildArch:      noarch
 
-# for %%_kde4_* macros
-# Starting from Fedora 40 and onward
-%if 0%{?fedora} > 39
-BuildRequires:  kde4-filesystem
-%else
 BuildRequires:  kde-filesystem
-%endif
 BuildRequires:  make
 
 Requires:       %{name}-budgie = %{version}-%{release}
@@ -64,12 +58,7 @@ Fedora  %{relnum} default theme.
 %package        kde
 Summary:        Fedora  %{relnum} default wallpaper for KDE
 Requires:       %{name}-base = %{version}-%{release}
-# Starting from Fedora 40 and onward
-%if 0%{?fedora} > 39
-Requires:       kde4-filesystem
-%else
 Requires:       kde-filesystem
-%endif
 
 %description    kde
 This package contains KDE desktop wallpaper for the Fedora  %{relnum}
@@ -157,7 +146,7 @@ This package contains  supplemental wallpapers for XFCE
 %{_datadir}/backgrounds/%{bgname}/default/%{bgname}*.{png,xml}
 
 %files kde
-%{_kde4_datadir}/wallpapers/%{Bg_Name}/
+%{_datadir}/wallpapers/%{Bg_Name}/
 %dir %{_datadir}/plasma/
 %dir %{_datadir}/plasma/desktoptheme/
 %{_datadir}/plasma/desktoptheme/%{Bg_Name}/
@@ -187,7 +176,7 @@ This package contains  supplemental wallpapers for XFCE
 %{_datadir}/gnome-background-properties/%{bgname}-extras.xml
 
 %files extras-kde
-%{_kde4_datadir}/wallpapers/%{Bg_Name}_*/
+%{_datadir}/wallpapers/%{Bg_Name}_*/
 
 %files extras-mate
 %{_datadir}/mate-background-properties/%{bgname}-extras.xml

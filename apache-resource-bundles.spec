@@ -3,7 +3,7 @@
 Name:           apache-resource-bundles
 Epoch:          1
 Version:        1.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Apache Resource Bundles
 License:        Apache-2.0
 URL:            https://maven.apache.org/apache-resource-bundles/
@@ -47,6 +47,9 @@ and notices for all Apache releases.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.5-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.5-6
 - bump of release for for java-21-openjdk as system jdk
 

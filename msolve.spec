@@ -1,5 +1,5 @@
 Name:           msolve
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 
@@ -10,7 +10,8 @@ Summary:        Polynomial System Solving through Algebraic Methods
 # - src/fglm/berlekamp_massey.c
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://msolve.lip6.fr/
-Source0:        https://github.com/algebraic-solving/msolve/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/algebraic-solving/msolve
+Source0:        %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Detect AVX2 support at runtime instead of compile time
 Patch0:         %{name}-avx2.patch
 
@@ -121,8 +122,8 @@ make check
 %files libs
 %doc AUTHORS README.md
 %license COPYING
-%{_libdir}/libmsolve-0.6.4.so
-%{_libdir}/libneogb-0.6.4.so
+%{_libdir}/libmsolve-0.6.5.so
+%{_libdir}/libneogb-0.6.5.so
 
 %files devel
 %{_includedir}/msolve/

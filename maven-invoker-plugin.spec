@@ -2,7 +2,7 @@
 
 Name:           maven-invoker-plugin
 Version:        3.2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Maven Invoker Plugin
 License:        ASL 2.0
 URL:            https://maven.apache.org/plugins/maven-invoker-plugin/
@@ -70,6 +70,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.2-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

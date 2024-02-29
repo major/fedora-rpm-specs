@@ -2,7 +2,7 @@
 
 Name:           maven-source-plugin
 Version:        3.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plugin creating source JAR
 License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-source-plugin/
@@ -57,6 +57,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.0-5
 - bump of release for for java-21-openjdk as system jdk
 

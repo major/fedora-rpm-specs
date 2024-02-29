@@ -1,6 +1,6 @@
 Name:           jsch
 Version:        0.1.55
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Pure Java implementation of SSH2
 License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jsch/
@@ -44,7 +44,7 @@ Summary:        Javadoc for %{name}
 %pom_xpath_set pom:project/pom:version %{version}
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 # inject the OSGi Manifest
 mkdir META-INF
@@ -65,6 +65,12 @@ zip target/%{name}-%{version}.jar plugin.properties
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.1.55-15
+- Rebuilt for java-21-openjdk as system jdk
+
+* Sat Feb 24 2024 Petra Alice Mikova <pmikova@redhat.com> - 0.1.55-14
+- Update Java source/target to 1.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.55-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           pcg-cpp
 Summary:        PCG Random Number Generation, C++ Edition
-Version:        0.98.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.98.1^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 # The entire package is (MIT OR Apache-2.0), except that any data files are

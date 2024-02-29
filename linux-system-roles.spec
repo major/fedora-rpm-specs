@@ -18,7 +18,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.75.0
+Version: 1.75.1
 Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
@@ -113,7 +113,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 9 1.2.2
 
 %global rolename10 logging
-%deftag 10 1.12.4
+%deftag 10 1.12.5
 
 %global rolename11 nbde_server
 %deftag 11 1.4.3
@@ -145,7 +145,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 19 1.7.4
 
 %global rolename20 cockpit
-%deftag 20 1.5.4
+%deftag 20 1.5.5
 
 %global rolename21 podman
 %deftag 21 1.4.7
@@ -160,7 +160,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 24 1.2.3
 
 %global rolename25 postgresql
-%deftag 25 1.3.4
+%deftag 25 1.3.5
 
 %global rolename26 systemd
 %deftag 26 1.1.2
@@ -172,7 +172,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 28 1.1.1
 
 %global rolename29 bootloader
-%deftag 29 1.0.1
+%deftag 29 1.0.3
 
 %global rolename30 snapshot
 %deftag 30 1.3.1
@@ -672,6 +672,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Feb  27 2024 Packit <hello@packit.dev> - 1.75.1-1
+- Update to upstream version 1.75.1
+
 * Thu Feb  22 2024 Packit <hello@packit.dev> - 1.75.0-1
 - Update to upstream version 1.75.0
 

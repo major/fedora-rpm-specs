@@ -30,7 +30,7 @@
 
 Name:           bsh
 Version:        2.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          0
 Summary:        Lightweight Scripting for Java
 URL:            http://www.beanshell.org/
@@ -161,6 +161,9 @@ cat scripts/bshdoc.bsh >> %{buildroot}%{_bindir}/bshdoc
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:2.1.0-12
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

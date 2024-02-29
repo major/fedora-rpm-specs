@@ -1,7 +1,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           lucene
 Version:        9.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          0
 # License breakdown is present in NOTICE.txt file
 License:        ASL 2.0 and MIT and BSD
@@ -306,6 +306,9 @@ popd
 %files suggest -f .mfiles-lucene-suggest
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:9.9.2-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 31 2024 Ding-Yi Chen <dchen@redhat.com> - 0:9.9.2-1
 - Update to upstream version 9.9.2
 

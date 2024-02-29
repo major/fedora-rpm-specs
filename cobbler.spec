@@ -1,22 +1,23 @@
 %global tftpboot_dir %{_sharedstatedir}/tftpboot/
 
-%global commit0 172b8a0f79d110dcac1f50acfe412e0a01ff20ab
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global commit 700eb5bdfb28baba4de5e4083bec9e132a763bcb
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global selinuxtype targeted
 
 Name:           cobbler
-Version:        3.3.3
-Release:        9%{?dist}
+Version:        3.3.4
+Release:        1%{?dist}
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
 License:        GPLv2+
 Source0:        https://github.com/cobbler/cobbler/archive/v%{version}/%{name}-%{version}.tar.gz
-#Source0:        https://github.com/cobbler/cobbler/archive/%{commit0}/%{name}-%{commit0}.tar.gz
 Source1:        migrate-settings.sh
+Source2:        %{name}.te
+Source3:        %{name}.if
+Source4:        %{name}.fc
+
 # Do not run coverage tests
 Patch0:         cobbler-nocov.patch
-# Fix build with Sphinx 7
-# Backport of https://github.com/cobbler/cobbler/pull/3465.patch
-Patch1:         cobbler-sphinx7.patch
 BuildArch:      noarch
 
 BuildRequires: make
@@ -44,6 +45,10 @@ BuildRequires: python%{python3_pkgversion}-simplejson
 # For docs
 BuildRequires: python%{python3_pkgversion}-sphinx
 %endif
+
+# This ensures that the *-selinux package and all it’s dependencies are not pulled
+# into containers and other systems that do not use SELinux
+Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
 
 Requires: httpd
 Requires: tftp-server
@@ -97,21 +102,50 @@ built-in DHCP/DNS Management. Cobbler has a XML-RPC API for integration
 with other applications.
 
 
+%package selinux
+Summary:        SELinux policies for %{name}
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
+BuildRequires:  selinux-policy-devel
+BuildArch:      noarch
+%{?selinux_requires}
+
+
+%description selinux
+SELinux policies for %{name}.
+
+
 %package tests
 Summary:        Unit tests for cobbler
 Requires:       cobbler = %{version}-%{release}
 
 %description tests
-Unit test files from the Cobbler project
+Unit test files from the Cobbler project.
+
+
+%package tests-containers
+Summary:        Dockerfiles and scripts to setup testing containers
+Requires:       cobbler = %{version}-%{release}
+
+%description tests-containers
+Dockerfiles and scripts to setup testing containers.
 
 
 %prep
 %autosetup -p1
+mkdir -p selinux
+cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} selinux/
+
 
 %build
 . ./distro_build_configs.sh
 %py3_build
 make man
+
+# SELinux
+make -f %{_datadir}/selinux/devel/Makefile %{name}.pp
+bzip2 -9 %{name}.pp
+
 
 %install
 . ./distro_build_configs.sh
@@ -136,6 +170,15 @@ touch %{buildroot}%{_sharedstatedir}/cobbler/web.ss
 
 # migrate-settings.sh
 install -p -m0755 %SOURCE1 %{buildroot}%{_datadir}/cobbler/bin/migrate-settings.sh
+
+# SELinux
+install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
+
+
+%check
+# These require an installed system with root access
+#pytest -v
 
 
 %pre
@@ -170,6 +213,8 @@ chgrp apache %{_sysconfdir}/cobbler/users.conf
 chgrp apache %{_sysconfdir}/cobbler/users.digest
 chgrp apache %{_sysconfdir}/cobbler/settings.d
 chgrp apache %{_sysconfdir}/cobbler/settings.d/*
+# Change from apache
+chown root %{_sharedstatedir}/cobbler/web.ss
 
 %posttrans
 # Migrate pre-3.2.1 settings to settings.yaml
@@ -193,6 +238,25 @@ fi
 
 %postun
 %systemd_postun_with_restart cobblerd.service
+
+
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+%selinux_relabel_post -s %{selinuxtype}
+
+if [ "$1" -le "1" ]; then # First install
+   # the daemon needs to be restarted for the custom label to be applied
+   %systemd_postun_with_restart %{name}.service
+fi
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{name}
+    %selinux_relabel_post -s %{selinuxtype}
+fi
 
 
 %files
@@ -247,15 +311,40 @@ fi
 %{_unitdir}/cobblerd.service
 %{tftpboot_dir}/*
 /var/www/cobbler
-%config(noreplace) %{_sharedstatedir}/cobbler
+%dir %{_sharedstatedir}/cobbler
+%ghost %attr(0755,root,root) %{_sharedstatedir}/cobbler/backup/
+%config(noreplace) %{_sharedstatedir}/cobbler/collections/
+%config(noreplace) %{_sharedstatedir}/cobbler/distro_signatures.json
+%config(noreplace) %{_sharedstatedir}/cobbler/grub_config/
+%config(noreplace) %{_sharedstatedir}/cobbler/loaders/
+%config(noreplace) %{_sharedstatedir}/cobbler/scripts/
+%config(noreplace) %{_sharedstatedir}/cobbler/snippets/
+%config(noreplace) %{_sharedstatedir}/cobbler/templates/
+%config(noreplace) %{_sharedstatedir}/cobbler/triggers/
+%ghost %attr(0644,root,root) %{_sharedstatedir}/cobbler/lock
+# Currently used for cli auth
+%ghost %attr(0644,root,root) %{_sharedstatedir}/cobbler/web.ss
 /var/log/cobbler
 
+%files selinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{name}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+
 %files tests
-%dir %{_datadir}/cobbler/tests
-%{_datadir}/cobbler/tests/*
+%{_datadir}/cobbler/tests/
+
+%files tests-containers
+%{_datadir}/cobbler/docker/
 
 
 %changelog
+* Mon Feb 26 2024 Orion Poplawski <orion@nwra.com> - 3.3.4-1
+- Update to 3.3.4
+- Add local SELinux policy and allow cobbler to check service statuses,
+  run mkfs.fat, and check for reposync and yumdownloader (bz#2251220)
+- Change owndership of web.ss to root (bz#2247653)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

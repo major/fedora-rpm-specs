@@ -67,7 +67,8 @@ developing applications that use %{name}-gtk3.
 
 %if %{with check}
 %check
-xvfb-run -a %{shrink:%ctest}
+cd %_vpath_builddir
+xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process %{?_smp_mflags}
 %endif
 
 

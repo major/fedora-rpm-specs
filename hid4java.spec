@@ -1,6 +1,6 @@
 Name: hid4java
 Version: 0.7.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Java wrapper for the hidapi library
 
 License: MIT
@@ -60,6 +60,9 @@ find -name '*.dll' -print -delete
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.7.0-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

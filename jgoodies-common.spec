@@ -2,7 +2,7 @@
 
 Name:           jgoodies-common
 Version:        1.8.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Common library shared by JGoodies libraries and applications
 
 License:        BSD
@@ -78,6 +78,9 @@ done
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.8.1-21
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

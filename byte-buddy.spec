@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.14.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
 URL:            http://bytebuddy.net/
@@ -151,6 +151,9 @@ profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompil
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.14.2-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.14.2-7
 - Update Java source/target to 8
 

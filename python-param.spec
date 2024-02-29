@@ -16,6 +16,9 @@ Source:         %{url}/archive/v%{version}/param-%{version}.tar.gz
 # This makes sense for upstream development and CI, but is too strict and
 # brittle for distribution packaging.
 Patch:          0001-Downstream-only-don-t-fail-tests-on-warnings.patch
+# Tests: compatibility with Pandas 3.0
+# https://github.com/holoviz/param/pull/905
+Patch:          %{url}/pull/905.patch
 
 # The binary package is noarch, and there is no compiled code, but we allow the
 # base package to be arched due to a history of platform-dependent test
@@ -31,7 +34,7 @@ BuildRequires:  python3-devel
 # directly because it includes tests-examples dependencies, and python-nbval
 # and python-panel are not packaged.
 BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pandas}
+BuildRequires:  %{py3_dist pandas} > 2~~
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jsonschema}
 # Upgrade gmpy support to gmpy2
@@ -97,17 +100,26 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check
-# Based on testing in a virtualenv, all of the following go away when pandas is
-# upgraded past 2.0.
-#
-# E           ImportError: Can't determine version for tables
-k="${k-}${k+ and }not (TestFileDeserialization and test_data_frame_hdf5)"
 # E       Failed: DID NOT RAISE <class 'Exception'>
+# Not reported upstream because we can’t reproduce it in a virtualenv and
+# haven’t been able to pin down a root cause.
 k="${k-}${k+ and }not test_parameterized_warns_explicit_no_ref"
 
 %ifarch s390x
-# Probably either a pandas bug or a pyarrow one. TODO: does this go away when
-# pandas >= 2.0?
+# Probably either a pandas bug or a pyarrow one.
+# _______________ TestFileDeserialization.test_data_frame_parquet ________________
+# self = <tests.testfiledeserialization.TestFileDeserialization testMethod=test_data_frame_parquet>
+#     @pd_skip
+#     @parquet_skip
+#     def test_data_frame_parquet(self):
+#         path = '{}/val.parquet'.format(self.temp_dir)
+#         P.data_frame.to_parquet(path)
+# >       self._test_deserialize_array(P, path, 'data_frame')
+# tests/testfiledeserialization.py:197:
+# _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+# tests/testfiledeserialization.py:99: in _test_deserialize_array
+#     self.assertTrue(np.array_equal(deserialized, getattr(obj, pname)))
+# E   AssertionError: False is not true
 k="${k-}${k+ and }not (TestFileDeserialization and test_data_frame_parquet)"
 %endif
 

@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.17%{dotreltag}%{?dist}
+Release:       0.18%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 License:       ASL 2.0 and MIT
 Url:           https://github.com/mojohaus/maven-native/
@@ -129,6 +129,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0-0.18.alpha.11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.17.alpha.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

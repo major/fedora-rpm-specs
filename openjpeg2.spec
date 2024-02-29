@@ -13,12 +13,12 @@
 %endif
 
 Name:           openjpeg2
-Version:        2.5.0
-Release:        7%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
-License:        BSD-2-Clause and MIT
+License:        BSD-2-Clause AND MIT
 URL:            https://github.com/uclouvain/openjpeg
 Source0:        https://github.com/uclouvain/openjpeg/archive/v%{version}/openjpeg-%{version}.tar.gz
 %if 0%{?runcheck}
@@ -28,9 +28,6 @@ Source1:        data.tar.xz
 
 # Rename tool names to avoid conflicts with openjpeg-1.x
 Patch0:         openjpeg2_opj2.patch
-# Backport proposed patch for heap buffer overflow (#1957616)
-# See https://github.com/uclouvain/openjpeg/issues/1347
-Patch1:         heap-buffer-overflow.patch
 
 
 BuildRequires:  cmake
@@ -355,9 +352,8 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %dir %{_includedir}/openjpeg-2.5/
 %{_includedir}/openjpeg-2.5/openjpeg.h
 %{_includedir}/openjpeg-2.5/opj_config.h
-%{_includedir}/openjpeg-2.5/opj_stdint.h
 %{_libdir}/libopenjp2.so
-%{_libdir}/openjpeg-2.5/
+%{_libdir}/cmake/openjpeg-2.5/
 %{_libdir}/pkgconfig/libopenjp2.pc
 
 %files devel-docs
@@ -421,8 +417,8 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %{mingw32_bindir}/libopenjp2.dll
 %{mingw32_libdir}/libopenjp2.dll.a
 %{mingw32_includedir}/openjpeg-2.5/
-%{mingw32_libdir}/openjpeg-2.5/
 %{mingw32_libdir}/pkgconfig/libopenjp2.pc
+%{mingw32_libdir}/cmake/openjpeg-2.5/
 
 %files -n mingw32-%{name}-tools
 %{mingw32_bindir}/opj2_compress.exe
@@ -434,8 +430,8 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 %{mingw64_bindir}/libopenjp2.dll
 %{mingw64_libdir}/libopenjp2.dll.a
 %{mingw64_includedir}/openjpeg-2.5/
-%{mingw64_libdir}/openjpeg-2.5/
 %{mingw64_libdir}/pkgconfig/libopenjp2.pc
+%{mingw64_libdir}/cmake/openjpeg-2.5/
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/opj2_compress.exe
@@ -445,6 +441,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 2.5.1-1
+- Update to 2.5.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

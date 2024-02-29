@@ -3,7 +3,7 @@
 
 Name:             apache-%{short_name}
 Version:          2.0.1
-Release:          39%{?dist}
+Release:          40%{?dist}
 Summary:          Model MBeans utility classes
 License:          ASL 2.0
 URL:              http://commons.apache.org/%{base_name}/
@@ -72,6 +72,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.1-40
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.1-39
 - Port to apache-commons-logging 1.3.0
 

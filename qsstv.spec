@@ -1,6 +1,6 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 License:        GPLv2+
@@ -63,8 +63,8 @@ export INSTALL_ROOT=%{buildroot}
 make install 
 
 # Install icon
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
-install -pm 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
+install -pm 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
@@ -86,7 +86,7 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 %license COPYING
 %doc README.txt
 %{_bindir}/* 
-%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/applications/*%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 %{?fedora:%{_metainfodir}/*.metainfo.xml}
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Mon Feb 26 2024 Daniel Rusek <mail@asciiwolf.com> - 9.5.8-18
+- Added better quality desktop icon
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.8-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

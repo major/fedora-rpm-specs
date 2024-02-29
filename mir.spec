@@ -11,16 +11,14 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.15.0
-Release:        5%{?dist}
+Version:        2.16.3
+Release:        1%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
 Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-# https://github.com/MirServer/mir/pull/3191
-Patch0:         %{name}-gcc14-headers.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc-c++
@@ -235,6 +233,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/mir/server-platform/graphics-wayland.so.*
 %{_libdir}/mir/server-platform/input-evdev.so.*
 %{_libdir}/mir/server-platform/renderer-egl-generic.so.*
+%{_libdir}/mir/server-platform/server-virtual.so.*
 %{_libdir}/mir/server-platform/server-x11.so.*
 
 %files test-tools
@@ -258,13 +257,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %doc README.md
 %{_bindir}/mir_demo_*
 %{_bindir}/miral-*
-%{_bindir}/mir-shell
 %{_datadir}/applications/miral-shell.desktop
-%{_datadir}/wayland-sessions/mir-shell.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ubuntu-logo.svg
 
 
 %changelog
+* Tue Feb 27 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.16.3-1
+- Update to 2.16.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -44,7 +44,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://mp.ampl.com/
 Source0: %{forgesource}
 # Unbundle asl
@@ -243,6 +243,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 20240115-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb  7 2024 Jerry James <loganjerry@gmail.com> - 20240115-1
 - Update to latest release, with new version scheme
 - Unbundle asl

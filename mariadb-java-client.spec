@@ -2,7 +2,7 @@
 
 Name:           mariadb-java-client
 Version:        3.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
 License:        LGPL-2.1-only
@@ -110,6 +110,9 @@ opts="-j"
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.3-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb 21 2024 Zuzana Miklankova <zmiklank@redhat.com> - 3.3.3-1
 - Rebase to version 3.3.3
 

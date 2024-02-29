@@ -5,7 +5,7 @@
 
 Name:       fernflower
 Version:    211.7442.40
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    JIdea's java decompiler
 License:    ASL 2.0 
 URL:        https://github.com/JetBrains/intellij-community/tree/master/plugins/java-decompiler/engine
@@ -105,6 +105,9 @@ cp %{name}.zip $RPM_BUILD_ROOT/%{_javadocdir}/
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 211.7442.40-11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 211.7442.40-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           freecol
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Turn-based multi-player strategy game
 License:        GPL-1.0-or-later
 URL:            http://www.freecol.org/
@@ -150,6 +150,9 @@ install -p -m 644 packaging/common/freecol.svg \
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.0-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 %global commit 809e2919d86241948b743fea741501f31674805a
 %global snapdate 20221003
 
-%global shortcommit %(c='%{commit}'; echo "${c:0:7}")
+%global shortcommit %{sub %{commit} 1 7}
 
 Name:           python-colorcet
 Version:        %{pypi_version}^%{snapdate}git%{shortcommit}

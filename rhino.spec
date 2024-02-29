@@ -4,7 +4,7 @@
 
 Name:           rhino
 Version:        1.7.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Rhino
 
 # rhino itself is MPLv2.0 but use other codes, breakdown:
@@ -285,6 +285,9 @@ install -m 644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md CODE_OF_CONDUCT.md RELEASE-NOTES.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.14-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

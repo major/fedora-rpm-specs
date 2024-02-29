@@ -1,6 +1,6 @@
 Name:           jaxb-stax-ex
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extended StAX API
 License:        BSD-3-Clause
 
@@ -50,6 +50,9 @@ the following areas:
 %doc README.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.0-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

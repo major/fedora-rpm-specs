@@ -2,7 +2,7 @@
 
 Name:           plexus-cipher
 Version:        2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 License:        Apache-2.0
 # project moved to GitHub and it looks like there is no official website anymore
@@ -43,6 +43,9 @@ Plexus Cipher: encryption/decryption Component
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0-11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 2.0-10
 - Update Java source/target to 1.8
 

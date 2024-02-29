@@ -2,7 +2,7 @@
 
 Name:             decentxml
 Version:          1.4
-Release:          34%{?dist}
+Release:          35%{?dist}
 Summary:          XML parser optimized for round-tripping and code reuse
 License:          BSD
 # Google Code has shut down.
@@ -82,6 +82,9 @@ sed -i '/not_wf_sa_16[89] /d' src/test/java/de/pdark/decentxml/XMLConformanceTes
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.4-35
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

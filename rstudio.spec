@@ -47,7 +47,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -351,6 +351,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2023.12.1+402-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 02 2024 Iñaki Úcar <iucar@fedoraproject.org> - 2023.12.1+402-1
 - Update to 2023.12.1+402
 

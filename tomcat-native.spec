@@ -1,7 +1,7 @@
 Name:           tomcat-native
 Epoch:          1
 Version:        1.2.36
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tomcat native library
 
 License:        ASL 2.0
@@ -64,6 +64,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_includedir}/*.h
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.2.36-4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

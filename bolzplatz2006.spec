@@ -7,7 +7,7 @@
 
 Name:           bolzplatz2006
 Version:        1.0.3
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Slam Soccer 2006 is a funny football game in 3D-comic-style
 Summary(fr):    Coup de Foot 2006 est un jeu comique en 3D
 Summary(de):    Bolzplatz 2006 ist ein spaßiges Fußballspiel im 3D-Comic-Stil
@@ -221,6 +221,9 @@ install -p -m 644 %{name}-functions.sh %{SOURCE8} %{SOURCE9} \
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0.3-58
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

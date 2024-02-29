@@ -2,7 +2,7 @@
 
 Name:           plexus-archiver
 Version:        4.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Archiver Component
 License:        Apache-2.0
 URL:            https://codehaus-plexus.github.io/plexus-archiver
@@ -88,6 +88,9 @@ rm src/test/java/org/codehaus/plexus/archiver/manager/ArchiverManagerTest.java
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.9.1-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 4.9.1-2
 - bump of release for for java-21-openjdk as system jdk
 

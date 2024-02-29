@@ -1,49 +1,46 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global	build_type_safety_c  2
-
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=567257
 
 # Upstream git:
 # git://pcmanfm.git.sourceforge.net/gitroot/pcmanfm/libfm
 # add bootstrap, need to build menu-cache in epel7
-%global         userelease  1
-%global         usegitbare  0
+%global         use_release  0
+%global         use_gitbare  1
 
-%if 0%{?usegitbare} < 1
+%if 0%{?use_gitbare} < 1
 # force
-%global         userelease  1
+%global         use_release  0
 %endif
+
+%global		git_version	%{nil}
+%global		git_ver_rpm	%{nil}
+%global		git_builddir	%{nil}
+
+%global         main_version	1.3.2
+
+%if 0%{?use_gitbare}
+%global		gittardate		20240227
+%global		gittartime		1529
+
+%global		gitbaredate	20230916
+%global		git_rev		5346a5390a0881d5713a71e15f371132680056ee
+%global		git_short		%(echo %{git_rev} | cut -c-8)
+%global		git_version	%{gitbaredate}git%{git_short}
+
+%global		git_ver_rpm	^%{git_version}
+%global		git_builddir	-%{git_version}
+%endif
+
+
+%global		main_version	1.3.2
 
 %global         bootstrap   0
-%global         mainver     1.3.2
-%undefine       prever
-%global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
-
-%global         baserelease     7
-
-%if 0%{?usegitbare} >= 1
-%global         gitcommit   54cd5fc0af2407a70717ed3e8577d3ae9ae1a849
-%global         gitdate		20210202
-%global         shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
-
-%global         tarballdate	20210204
-%global         tarballtime	1524
-%endif
-
-%if 0%{?userelease} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
-%endif
-%if 0%{?usegitbare} >= 1
-%global         fedorarel   %{?prever:0.}%{baserelease}.D%{gitdate}git%{shortcommit}
-%endif
-
 %global         build_doc   1
 
 %undefine        _changelog_trimtime
 
 Name:           libfm
-Version:        %{mainver}
-Release:        %{fedorarel}%{?dist}
+Version:        %{main_version}%{git_ver_rpm}
+Release:        1%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -65,12 +62,12 @@ Summary:        GIO-based library for file manager-like programs
 # SPDX confirmed
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            http://pcmanfm.sourceforge.net/
-%if 0%{?userelease} >= 1
+%if 0%{?use_release} >= 1
 Source0:        http://downloads.sourceforge.net/pcmanfm/%{name}-%{mainver}%{?prever}.tar.xz
 Source1:        https://raw.githubusercontent.com/lxde/libfm/master/autogen.sh
 %endif
-%if 0%{?usegitbare} >= 1
-Source0:        libfm-%{tarballdate}T%{tarballtime}.tar.gz
+%if 0%{?use_gitbare} >= 1
+Source0:        libfm-%{gittardate}T%{gittartime}.tar.gz
 %endif
 Source10:       create-libfm-git-bare-tarball.sh
 
@@ -78,6 +75,8 @@ Source10:       create-libfm-git-bare-tarball.sh
 # when subsequent config file does not contain such key but previous key had
 # (related to bug 2011471)
 Patch1:         libfm-1.3.2-0001-fm_config_load_from_key_file-don-t-replace-string-va.patch
+# Support gcc14 -Werror=incompatible-pointer-types
+Patch2:         libfm-1.3.2-0002-FIX-support-gcc14-Werror-incompatible-pointer-types.patch
 # http://sourceforge.net/p/pcmanfm/feature-requests/385/
 #Patch1000:      http://sourceforge.net/p/pcmanfm/feature-requests/_discuss/thread/0a50a386/597e/attachment/libfm-1.2.3-moduledir-gtkspecific-v02.patch
 Patch1000:      libfm-1.3.0.2-moduledir-gtkspecific-v03.patch
@@ -212,32 +211,32 @@ This package containg development documentation files for %{name}.
 
 
 %prep
-%if 0%{?userelease} >= 1
-%setup -q -n %{name}-%{version}%{?prever}
+%if 0%{?use_release} >= 1
+%setup -q -n %{name}-%{main_version}%{?prever}
 cp -a %{SOURCE1} .
 #%%patch0 -p1 -b .orig
 git init
 %endif
 
-%if 0%{?usegitbare} >= 1
-%setup -q -c -T -a 0
-git clone ./libfm.git/
-cd libfm
+%if 0%{?use_gitbare}
+%setup -q -c -T -n %{name}-%{main_version}%{git_builddir} -a 0
+git clone ./%{name}.git/
+cd %{name}
 cp -a [A-Z]* ..
 %endif
 
 git config user.name "libfm Fedora maintainer"
 git config user.email "libfm-maintainer@fedoraproject.org"
 
-%if 0%{?userelease} >= 1
+%if 0%{?use_release} >= 1
 # Once call autogen.sh to make git status clean
 sh autogen.sh
 git add .
 git commit -m "Init tree" -q
 %endif
 
-%if 0%{?usegitbare} >= 1
-git checkout -b %{version}-fedora %{gitcommit}
+%if 0%{?use_gitbare} >= 1
+git checkout -b %{main_version}-fedora %{git_rev}
 cat > GITHASH <<EOF
 EOF
 
@@ -249,6 +248,7 @@ done
 %endif
 
 cat %PATCH1 | git am
+cat %PATCH2 | git am
 %patch -P1000 -p1 -Z
 # Patch1000 needs below
 sh autogen.sh
@@ -259,14 +259,17 @@ git commit -m "Use gtk version specific module directory" -a
 sed -i.libdir_syssearch \
   -e '/sys_lib_dlsearch_path_spec/s|/usr/lib |/usr/lib /usr/lib64 /lib /lib64 |' \
   configure
-git commit -m "Tweak library search path spec not to inject rpath" -a
+git commit -m "Tweak library search path spec not to inject rpath" -a || true
+
+# Tell vala to regenerate C source
+find . -name \*.vala | xargs touch
 
 %build
-%if 0%{?usegitbare} >= 1
+%if 0%{?use_gitbare} >= 1
 cd libfm
 %endif
 
-%if 0%{?usegitbare} >= 1
+%if 0%{?use_gitbare} >= 1
 # Workaround
 # Once generate files anyway
 ./configure
@@ -309,7 +312,7 @@ done
 %install
 TOPDIR=$(pwd)
 
-%if 0%{?usegitbare} >= 1
+%if 0%{?use_gitbare} >= 1
 cd libfm
 %endif
 
@@ -370,7 +373,7 @@ popd
 /usr/lib/rpm/check-rpaths
 
 %check
-%if 0%{?usegitbare} >= 1
+%if 0%{?use_gitbare} >= 1
 cd libfm
 %endif
 
@@ -469,6 +472,14 @@ fi
 %endif
 
 %changelog
+* Tue Feb 27 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20230916git5346a539-1
+- Update to the latest git (20230916git5346a539)
+
+* Fri Feb 23 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2-8
+- Handle gcc14 -Werror=incompatible-pointer-types
+- Make vala regenerate C source related to -Werror=incompatible-pointer-types
+  workaround for vala source
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

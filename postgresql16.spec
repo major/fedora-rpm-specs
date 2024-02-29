@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -814,10 +814,6 @@ install -d $RPM_BUILD_ROOT/etc/pam.d
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT/etc/pam.d/postgresql
 %endif
 
-# Create the directory for sockets.
-install -d -m 755 $RPM_BUILD_ROOT%{?_localstatedir}/run/postgresql
-
-# ... and make a tmpfiles script to recreate it at reboot.
 mkdir -p $RPM_BUILD_ROOT%{_tmpfilesdir}
 install -m 0644 %{SOURCE9} $RPM_BUILD_ROOT%{_tmpfilesdir}/postgresql.conf
 
@@ -1237,7 +1233,7 @@ make -C postgresql-setup-%{setup_version} check
 %attr(644,postgres,postgres) %config(noreplace) %{?_localstatedir}/lib/pgsql/.bash_profile
 %attr(700,postgres,postgres) %dir %{?_localstatedir}/lib/pgsql/backups
 %attr(700,postgres,postgres) %dir %{?_localstatedir}/lib/pgsql/data
-%attr(755,postgres,postgres) %dir %{?_localstatedir}/run/postgresql
+%ghost %attr(755,postgres,postgres) %dir %{_rundir}/postgresql
 %if %pam
 %config(noreplace) /etc/pam.d/postgresql
 %endif
@@ -1338,6 +1334,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Mon Feb 26 2024 Filip Janus <fjanus@redhat.com> - 16.1-7
+- Remove /var/run/postgresql
+
 * Tue Feb 20 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1-6
 - Backport OpenSSL 3.2 fix from upstream master
 

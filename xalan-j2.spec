@@ -1,6 +1,6 @@
 Name:           xalan-j2
 Version:        2.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        Apache-2.0 AND W3C
@@ -122,6 +122,9 @@ jar ufm build/xalan-interpretive.jar %{SOURCE5}
 %doc build/docs/*
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.7.3-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 02 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.3-1
 - Update to upstream version 2.7.3
 - Remove alternatives post striplet

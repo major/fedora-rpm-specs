@@ -2,7 +2,7 @@
 
 Name:           plexus-build-api
 Version:        1.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plexus Build API
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-build-api
@@ -56,6 +56,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.2.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.2.0-5
 - bump of release for for java-21-openjdk as system jdk
 

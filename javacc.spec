@@ -33,7 +33,7 @@
 
 Name:           javacc
 Version:        7.0.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 
@@ -152,6 +152,9 @@ ln -s javacc %{buildroot}%{_bindir}/javacc.sh
 %doc examples
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:7.0.13-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 0:7.0.13-4
 - bump of release for for java-21-openjdk as system jdk
 

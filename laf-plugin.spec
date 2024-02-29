@@ -1,6 +1,6 @@
 Name:           laf-plugin
 Version:        1.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Generic plugin framework for Java look-and-feels
 
 License:        BSD and zlib
@@ -45,6 +45,9 @@ install -m644 drop/%{name}-50.jar -D %{buildroot}%{_javadir}/%{name}.jar
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0-35
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

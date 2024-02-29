@@ -3,7 +3,7 @@
 Name:           maven-shared-io
 Epoch:          1
 Version:        3.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        API for I/O support like logging, download or file scanning
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-shared-io
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:3.0.0-25
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1:3.0.0-24
 - Update Java source/target to 1.8
 

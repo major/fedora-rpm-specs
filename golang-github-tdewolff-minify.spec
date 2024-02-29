@@ -3,7 +3,7 @@
 
 # https://github.com/tdewolff/minify
 %global goipath         github.com/tdewolff/minify
-Version:                2.12.9
+Version:                2.20.18
 
 %gometa
 
@@ -34,7 +34,7 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
-BuildRequires:  (golang(github.com/tdewolff/parse/v2) >= 2.6.8 with golang(github.com/tdewolff/parse/v2) < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2) >= 2.7.12 with golang(github.com/tdewolff/parse/v2) < 3)
 
 %description %{common_description}
 

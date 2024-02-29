@@ -2,7 +2,7 @@
 
 Name:           openjfx8
 Version:        8.0.202
-Release:        39.b07%{?dist}
+Release:        40.b07%{?dist}
 Summary:        Rich client application platform for Java
 
 #fxpackager is BSD
@@ -234,6 +234,9 @@ ln -s %{openjfxdir}/bin/javapackager %{buildroot}%{_bindir}
 %{openjfxdir}/javafx-src.zip
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 8.0.202-40.b07
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 22 2024 Nicolas De Amicis <deamicis@bluewin.ch> - 8.0.202-39.b07
 - Fix FTBFS in Fedora rawhide (see 2261426) and fix openjfx8-devel (see 2262529)
 

@@ -171,35 +171,61 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
-# In general, GPLv2+ is used by programs, LGPLv2+ is used for
-# libraries.
+# Licenses:
 #
-# LGPLv2+ with exceptions is used for things that are linked directly
-# into dynamically linked programs and shared libraries (e.g. crt
-# files, lib*_nonshared.a).  Historically, this exception also applies
-# to parts of libio.
+# High level license status of the glibc source tree:
 #
-# GPLv2+ with exceptions is used for parts of the Arm unwinder.
+# * In general, GPLv2+ is used by programs, LGPLv2+ is used for
+#   libraries.
 #
-# GFDL is used for the documentation.
+# * LGPLv2+ with exceptions is used for things that are linked directly
+#   into dynamically linked programs and shared libraries (e.g. crt
+#   files, lib*_nonshared.a).  Historically, this exception also applies
+#   to parts of libio.
 #
-# Some other licenses are used in various places (BSD, Inner-Net,
-# ISC, Public Domain).
+# * LGPLv2 is used in a couple of places (e.g. time/timespec_get.c, by
+#   mistake).
 #
-# HSRL and FSFAP are only used in test cases, which currently do not
-# ship in binary RPMs, so they are not listed here.  MIT is used for
-# scripts/install-sh, which does not ship, either.
+# * GPLv2+ with exceptions is used for parts of the Arm unwinder.
 #
-# GPLv3+ is used by manual/texinfo.tex, which we do not use.
+# * GFDL is used for the documentation.
 #
-# LGPLv3+ is used by some Hurd code, which we do not build.
+# * Some other licenses are used in various places (BSD, Inner-Net,
+#   ISC, Public Domain, etc.).
 #
-# LGPLv2 is used in one place (time/timespec_get.c, by mistake), but
-# it is not actually compiled, so it does not matter for libraries.
-License: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL
+# Licenses that make an appearance in the source tree but are not used:
+#
+# * HSRL and FSFAP are only used in test cases, which currently do not
+#   ship in binary RPMs, so they are not listed here.
+#
+# * GPLv3+ is used by manual/texinfo.tex, which we do not use and a test and
+#   some scripts that we do not ship, and so it is not listed here.
+#
+# * LGPLv3+ is used by some Hurd code, which we do not build.
+#
+# * A copyleft license is used in posix/runtests.c, but it is only a test
+#   case and so the license is not listed here.
+#
+# * A "PCRE License" is used by PCRE.tests, but it is only a test case and
+#   so the license is not listed here.
+#
+# * BSL-1.0 is only used by a test from boost and so the license is not
+#   listed here.
+#
+# * Unlicense is used in an OpenRISC 1000 file which we don't support.
+#
+# SPDX references:
+# https://spdx.org/licenses
+# https://docs.fedoraproject.org/en-US/legal/allowed-licenses
+# https://gitlab.com/fedora/legal/fedora-license-data
+#
+# SPDX license string based on evaluation of glibc-2.39 sources by
+# ScanCode toolkit (https://github.com/nexB/scancode-toolkit),
+# and accounting for exceptions listed above:
+License: LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.1-only AND LGPL-2.0-or-later AND Unicode-DFS-2015 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only
 
 URL: http://www.gnu.org/software/glibc/
 Source0: %{?glibc_release_url}%{glibcsrcdir}.tar.xz
@@ -2312,6 +2338,13 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Feb 27 2024 Arjun Shankar <arjun@redhat.com> - 2.39.9000-4
+- Analyse glibc-2.39 sources for license information
+- Migrate License field to SPDX identifiers for
+  https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+  https://docs.fedoraproject.org/en-US/legal/update-existing-packages
+  (#2222074)
+
 * Thu Feb 22 2024 DJ Delorie <dj@redhat.com> - 2.39.9000-3
 - Auto-sync with upstream branch master,
   commit b881f1efcd1b30c2afab3599b41ce9cd4864c823.

@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -1500,6 +1500,9 @@ fi
 
 ################################################################################
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 11.5.0-1.1
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb 21 2024 Dogtag PKI Team <devel@lists.dogtagpki.org> 11.5.0-1
 - Rebase to PKI 11.5.0
 

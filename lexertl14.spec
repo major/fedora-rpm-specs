@@ -3,7 +3,7 @@
 
 Name:           lexertl14
 Summary:        The Modular Lexical Analyser Generator
-Version:        0.1.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.1.0^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 
 License:        BSL-1.0

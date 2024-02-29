@@ -3,7 +3,7 @@
 Summary:        Fast Scanner Generator
 Name:           jflex
 Version:        1.7.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        BSD-3-Clause
 URL:            https://jflex.de/
 BuildArch:      noarch
@@ -102,6 +102,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.7.0-18
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 1.7.0-17
 - Update Java source/target to 1.8
 

@@ -1,6 +1,6 @@
 Name:           plexus-velocity
 Version:        2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plexus Velocity Component
 License:        ASL 2.0
 URL:            https://codehaus-plexus.github.io/plexus-velocity/
@@ -54,6 +54,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0-6
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0-5
 - Fix build with plexus-containers 2.2.0
 

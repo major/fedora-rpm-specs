@@ -1,6 +1,6 @@
 Name:           python-httptools
 Version:        0.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A collection of framework independent HTTP protocol utils
 
 # httptools is MIT
@@ -54,6 +54,10 @@ mv vendor/llhttp/LICENSE-MIT LICENSE.llhttp
 sed -i 's/use_system_http_parser = False/use_system_http_parser = True/' setup.py
 rm -r vendor/http-parser
 
+# Build with Cython 3 works in Fedora 40
+# Upstream queried: https://github.com/MagicStack/httptools/issues/98
+sed -i 's/Cython(>=0.29.24,<0.30.0)/Cython(>=0.29.24,<4)/' setup.py
+
 
 %generate_buildrequires
 # NB: At least in 0.20 and 0.3.0 the [test] extra installs only Cython :/
@@ -85,6 +89,9 @@ mv _httptools httptools
 
 
 %changelog
+* Tue Feb 06 2024 Karolina Surma <ksurma@redhat.com> - 0.6.0-4
+- Allow to build with Cython 3.0+
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -386,6 +386,13 @@ Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-par
 # Reported upstream: https://github.com/python/cpython/issues/114240
 # and https://github.com/python/cpython/issues/114244
 Patch418: 00418-don-t-generate-sbom-in-make-regen-all.patch
+
+# 00422 # a353cebef737c41420dc7ae2469dd657371b8881
+# gh-115133: Fix tests for XMLPullParser with Expat 2.6.0
+#
+# Feeding the parser by too small chunks defers parsing to prevent
+# CVE-2023-52425. Future versions of Expat may be more reactive.
+Patch422: 00422-gh-115133-fix-tests-for-xmlpullparser-with-expat-2-6-0.patch
 
 # (New patches go here ^^^)
 #
@@ -1696,6 +1703,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Feb 21 2024 Miro Hrončok <mhroncok@redhat.com> - 3.12.2-2
+- Fix tests for XMLPullParser with Expat 2.6.0
+
 * Wed Feb 07 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.2-1
 - Update to 3.12.2
 

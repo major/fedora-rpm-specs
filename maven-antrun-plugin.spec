@@ -2,7 +2,7 @@
 
 Name:           maven-antrun-plugin
 Version:        3.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Maven AntRun Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-antrun-plugin/
@@ -55,6 +55,9 @@ This package contains the API documentation for %{name}.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.1.0-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 3.1.0-8
 - bump of release for for java-21-openjdk as system jdk
 

@@ -1,6 +1,6 @@
 Name:           jaxb-istack-commons
 Version:        4.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        iStack Common Utility Code
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-istack-commons
@@ -91,6 +91,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.2.0-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

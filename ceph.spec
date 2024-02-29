@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2639,6 +2639,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2:18.2.1-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2:18.2.1-9
 - Rebuild for ICU 74
 

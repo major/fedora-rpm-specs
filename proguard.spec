@@ -1,6 +1,6 @@
 Name:           proguard
 Version:        6.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java class file shrinker, optimizer, obfuscator and preverifier
 
 License:        GPLv2+
@@ -100,6 +100,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6.2.2-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

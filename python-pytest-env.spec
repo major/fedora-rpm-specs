@@ -5,7 +5,7 @@
 %global snapdate 20170617
 
 Name:           python-pytest-env
-Version:        0.6.2^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
+Version:        0.6.2^%{snapdate}git%{sub %{commit} 1 7}
 Release:        %autorelease
 Summary:        Plugin for pytest that allows you to add environment variables
 

@@ -2,7 +2,7 @@
 
 Name:           osgi-core
 Version:        8.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        OSGi Core API
 
 License:        Apache-2.0
@@ -82,6 +82,9 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 8.0.0-13
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 8.0.0-12
 - bump of release for for java-21-openjdk as system jdk
 

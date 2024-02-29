@@ -1,6 +1,6 @@
 Name:           apache-commons-pool
 Version:        1.6
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Apache Commons Pool Package
 License:        ASL 2.0
 URL:            http://commons.apache.org/pool/
@@ -39,6 +39,9 @@ interface that makes these implementations interchangeable.
 %doc README.txt RELEASE-NOTES.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.6-37
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 31 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.6-36
 - Port to apache-commons-parent 65
 

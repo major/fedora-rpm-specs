@@ -1,6 +1,6 @@
 Name:           plexus-i18n
 Version:        1.0
-Release:        0.30.b10.4%{?dist}
+Release:        0.31.b10.4%{?dist}
 Summary:        Plexus I18N Component
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-i18n
@@ -51,6 +51,9 @@ is like a J2EE application server, without all the baggage.
 %files -f .mfiles
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.0-0.31.b10.4
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 06 2024 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.0-0.30.b10.4
 - Fix build with plexus-containers 2.2.0
 

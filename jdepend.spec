@@ -1,6 +1,6 @@
 Name:           jdepend
 Version:        2.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Java Design Quality Metrics
 License:        MIT
 URL:            https://github.com/clarkware/jdepend
@@ -53,6 +53,9 @@ find . -type d -exec chmod 755 {} \;
 %license LICENSE.md
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.10-9
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 2.10-8
 - Update Java source/target to 1.8
 

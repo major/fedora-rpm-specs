@@ -1,6 +1,6 @@
 Name:           cortado
 Version:        0.6.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Java media framework
 URL:            http://www.theora.org/cortado/
 # The codecs are all LGPLv2+, the jst framework is mixed, the player applet GPL
@@ -65,6 +65,9 @@ cp -a doc $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.6.0-32
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

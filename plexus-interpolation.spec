@@ -2,7 +2,7 @@
 
 Name:           plexus-interpolation
 Version:        1.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Interpolation API
 # Most of the code is ASL 2.0, a few source files are ASL 1.1 and some tests are MIT
 License:        Apache-2.0 AND Apache-1.1 AND MIT
@@ -49,6 +49,9 @@ related projects.
 %files -f .mfiles
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.27-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 1.27-2
 - bump of release for for java-21-openjdk as system jdk
 

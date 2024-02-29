@@ -2,7 +2,7 @@
 
 Name:           jaxb
 Version:        4.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        JAXB Reference Implementation
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-ri
@@ -183,6 +183,9 @@ popd
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.4-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.4-4
 - bump of release for for java-21-openjdk as system jdk
 

@@ -2,7 +2,7 @@
 
 Name:           felix-parent
 Version:        8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parent POM file for Apache Felix Specs
 License:        Apache-2.0
 URL:            https://felix.apache.org/
@@ -44,6 +44,9 @@ Parent POM file for Apache Felix Specs.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 8-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 8-4
 - bump of release for for java-21-openjdk as system jdk
 

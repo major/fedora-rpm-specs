@@ -2,7 +2,7 @@
 
 Name:           xbean
 Version:        4.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java plugin based web server
 License:        Apache-2.0
 URL:            https://geronimo.apache.org/xbean/
@@ -91,6 +91,9 @@ sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apac
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.24-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

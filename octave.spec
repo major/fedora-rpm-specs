@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        8.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -458,6 +458,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6:8.4.0-7
+- Rebuilt for java-21-openjdk as system jdk
+
 * Mon Feb 26 2024 David Abdurachmanov <davidlt@rivosinc.com> - 6:8.4.0-6
 - Add support for riscv64
 

@@ -4,7 +4,7 @@ Name:           jaxen
 Summary:        An XPath engine written in Java
 Epoch:          0
 Version:        1.2.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        BSD
 
 URL:            https://github.com/jaxen-xpath/jaxen
@@ -90,6 +90,9 @@ cp -pr src/java/samples/* %{buildroot}%{_datadir}/%{name}/samples
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0:1.2.0-17
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

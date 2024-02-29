@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -829,6 +829,9 @@ sudo -u cyrus LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl %{?_smp_mflags
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Tue Feb 27 2024 Martin Osvald <mosvald@redhat.com> - 3.8.1-10
+- Do not create mail group to prevent dependency loop (rhbz#2266335)
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 3.8.1-9
 - Rebuild for ICU 74
 

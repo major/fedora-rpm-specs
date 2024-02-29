@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            1.14.0
+%global tag            1.16.1
 Version:               %{tag}
 %else
 %global date           20210813
@@ -14,7 +14,7 @@ Version:               1.4.0
 
 %forgemeta
 
-Release:               2%{?dist}
+Release:               1%{?dist}
 Summary:               Read the wireless mbus protocol to acquire utility meter readings
 License:               GPLv3+
 Url:                   %{forgeurl}
@@ -29,11 +29,12 @@ BuildRequires:         /usr/bin/git
 BuildRequires:         /usr/bin/make
 BuildRequires:         gcc-c++
 BuildRequires:         systemd-rpm-macros
-BuildRequires:         ncurses-devel
-BuildRequires:         rtl-sdr-devel
-BuildRequires:         libusbx-devel
+BuildRequires:         pkgconfig(ncurses)
+BuildRequires:         pkgconfig(librtlsdr)
+BuildRequires:         pkgconfig(libusb-1.0)
+BuildRequires:         pkgconfig(libxml-2.0)
 
-Requires:              /usr/bin/rtl_wmbus
+Requires:              rtl-wmbus >= 0-18
 
 
 %description
@@ -101,6 +102,11 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Fri Feb 23 2024 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.16.1-1
+- Update to 1.16.1 (rhbz#2264357)
+- Switch to use pkgconfig for BuildRequires
+- Specify Require for rtl-wmbus which supports needed -f option
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

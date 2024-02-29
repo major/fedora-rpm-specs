@@ -6,7 +6,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -212,6 +212,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 20240201-2.git9f501f3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Feb 01 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20240201-1.git9f501f3
 - fips-finish-install: make sure ostree is detected in chroot
 - fips-mode-setup: make sure ostree is detected in chroot

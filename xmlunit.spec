@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        Apache-2.0
@@ -129,6 +129,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.9.0-10
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.9.0-9
 - bump of release for for java-21-openjdk as system jdk
 

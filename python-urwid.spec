@@ -1,9 +1,10 @@
 %bcond_without tests
+%global debug_package %{nil}
 
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.5.3
+Version:       2.6.5
 Release:       %autorelease
 Summary:       Console user interface library
 
@@ -27,12 +28,14 @@ Summary: %summary
 %{?python_provide:%python_provide python3-urwid}
 BuildRequires: gcc
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-setuptools_scm
-# needed by selftest suite for test.support
-BuildRequires: python3-test
+BuildRequires: python3-pytest
+BuildRequires: python3-pytest-cov
+BuildRequires: python3-tox
 
 %description -n python3-%{srcname} %_description
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %prep
 %autosetup -n %{srcname}-%{version}
@@ -40,24 +43,21 @@ find urwid -type f -name "*.py" -exec sed -i -e '/^#!\//, 1d' {} \;
 find urwid -type f -name "*.py" -exec chmod 644 {} \;
 
 %build
-%py3_build
-
+%pyproject_wheel
 find examples -type f -exec chmod 0644 \{\} \;
 
 %check
 %if %{with tests}
-# tests are failing: https://github.com/urwid/urwid/issues/344
-PYTHON=%{__python3} %{__python3} setup.py test || :
+%pytest tests/
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license COPYING
 %doc README.rst examples docs
-%{python3_sitearch}/urwid/
-%{python3_sitearch}/urwid-%{version}*.egg-info/
 
 %changelog
 %autochangelog

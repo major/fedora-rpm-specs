@@ -2,7 +2,7 @@
 
 Name:           univocity-parsers
 Version:        2.9.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Collection of parsers for Java
 License:        Apache-2.0
 URL:            https://github.com/uniVocity/univocity-parsers
@@ -56,6 +56,9 @@ API documentation for %{name}.
 %license LICENSE-2.0.html
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.9.1-13
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 2.9.1-12
 - Update Java source/target to 1.8
 

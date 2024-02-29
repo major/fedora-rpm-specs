@@ -18,7 +18,7 @@
 
 Name:           jline
 Version:        3.23.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            https://github.com/jline/jline3
@@ -261,6 +261,9 @@ cd -
 %files remote-telnet -f .mfiles-jline-remote-telnet
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.23.0-5
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

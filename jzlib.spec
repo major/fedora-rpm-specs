@@ -1,6 +1,6 @@
 Name:           jzlib
 Version:        1.1.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Re-implementation of zlib in pure Java
 License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jzlib/
@@ -67,6 +67,9 @@ cp -pr example/* %{buildroot}%{_datadir}/%{name}
 %doc %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.3-29
+- Rebuilt for java-21-openjdk as system jdk
+
 * Sat Feb 24 2024 Marian Koncek <mkoncek@redhat.com> - 1.1.3-28
 - Update Java source/target to 1.8
 

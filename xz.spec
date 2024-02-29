@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
-Version:	5.4.6
+Version:	5.6.0
 Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -170,6 +170,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Tue Feb 27 2024 Jindrich Novy <jnovy@redhat.com> - 5.6.0-1
+- Rebase to version 5.6.0
+
 * Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 5.4.6-1
 - New version 5.4.6 (RHBZ#2260521)
 - Fix Source URLs.

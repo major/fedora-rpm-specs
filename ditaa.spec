@@ -1,7 +1,7 @@
 Summary:        Diagrams Through ASCII Art
 Name:           ditaa
 Version:        0.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        GPLv2+
 URL:            http://ditaa.sourceforge.net/
 Source0:        https://github.com/stathissideris/ditaa/archive/v%{version}.tar.gz
@@ -55,6 +55,9 @@ install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 %{_javadir}/%{name}.jar
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.10-24
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

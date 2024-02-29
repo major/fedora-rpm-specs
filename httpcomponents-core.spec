@@ -3,7 +3,7 @@
 Name:           httpcomponents-core
 Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.16
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        Apache-2.0
 URL:            http://hc.apache.org/
 Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
@@ -101,6 +101,9 @@ rm httpcore-nio/src/test/java/org/apache/http/impl/nio/TestContentChannel.java
 %doc README.txt RELEASE_NOTES.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.4.16-8
+- Rebuilt for java-21-openjdk as system jdk
+
 * Tue Feb 20 2024 Marian Koncek <mkoncek@redhat.com> - 4.4.16-7
 - Port to OpenJDK 21
 

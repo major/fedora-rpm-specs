@@ -2,7 +2,7 @@
 
 Name:           jni-inchi
 Version:        0.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        International Chemical Identifiers for Java
 
 License:        LGPL-3.0-or-later
@@ -104,6 +104,9 @@ cp -p target/native/*.so %{buildroot}%{_libdir}/%{name}
 %{_libdir}/%{name}/
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.8-11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,11 @@ Summary:        Client-server storage implementation for ZODB
 
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
+VCS:            https://github.com/zopefoundation/ZEO
 Source0:        %pypi_source ZEO
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python-ZODB-doc
@@ -98,6 +102,9 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Tue Feb 27 2024 Jerry James <loganjerry@gmail.com> - 6.0.0-3
+- Stop building for 32-bit x86
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

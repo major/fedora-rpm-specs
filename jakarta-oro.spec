@@ -32,7 +32,7 @@
 
 Name:           jakarta-oro
 Version:        2.0.8
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Full regular expressions API
 License:        Apache-1.1
 Source0:        http://archive.apache.org/dist/jakarta/oro/%{name}-%{version}.tar.gz
@@ -92,6 +92,9 @@ ant -Dfinal.name=%{base_name} jar javadocs -Dant.build.javac.source=1.8 -Dant.bu
 %license LICENSE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.8-43
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

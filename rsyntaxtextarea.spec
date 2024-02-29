@@ -2,7 +2,7 @@
 
 Name:           rsyntaxtextarea
 Version:        3.1.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A syntax highlighting, code folding text editor for Java Swing applications
 
 License:        BSD
@@ -76,6 +76,9 @@ popd
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.1.3-11
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

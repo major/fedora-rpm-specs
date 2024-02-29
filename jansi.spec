@@ -2,7 +2,7 @@
 
 Name:             jansi
 Version:          2.4.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Generate and interpret ANSI escape sequences in Java
 License:          Apache-2.0
 URL:              http://fusesource.github.io/jansi/
@@ -95,6 +95,9 @@ cp -p src/main/native/libjansi.so %{buildroot}%{_prefix}/lib/%{name}
 %license license.txt
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.1-3
+- Rebuilt for java-21-openjdk as system jdk
+
 * Fri Feb 23 2024 Jiri Vanek <jvanek@redhat.com> - 2.4.1-2
 - bump of release for for java-21-openjdk as system jdk
 

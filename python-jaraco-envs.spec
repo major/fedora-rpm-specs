@@ -6,8 +6,8 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        2.4.0
-Release:        6%{?dist}
+Version:        2.6.0
+Release:        %autorelease
 Summary:        Classes for orchestrating Python (virtual) environments
 
 License:        MIT
@@ -94,55 +94,5 @@ rm -rf html/.{doctrees,buildinfo}
 %endif # with docs
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+%autochangelog
 
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.4.0-3
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Sep 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.4.0-1
-- Update to 2.4.0
-Resolves: rhbz#2080532
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.3.0-2
-- Rebuilt for Python 3.11
-
-* Wed Mar 16 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.3.0-1
-- Update to 2.3.0
-Resolves: rhbz#2059021
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Dec 08 2021 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.2.0-1
-- Update to 2.2.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.0.0-5
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 05 2020 Charalampos Stratakis <cstratak@redhat.com> - 2.0.0-2
-- Packaging fixes
-
-* Tue Jun 02 2020 Charalampos Stratakis <cstratak@redhat.com> - 2.0.0-1
-- Initial package.

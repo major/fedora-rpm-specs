@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-rpm
 Version:        1.0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        CIM access to installed software packages (currently RPMs)
 
 License:        CPL-1.0
@@ -10,6 +10,7 @@ Patch0:         sblim_cmpi_rpm_ldl_library.patch
 Patch1:         sblim-cmpi-rpm-1.0.1-docdir.patch
 Patch2:         sblim-cmpi-rpm-1.0.1-page-size.patch
 Patch3:         sblim-cmpi-rpm-configure-c99.patch
+Patch4:         sblim-cmpi-rpm-1.0.1-gcc14-fix.patch
 BuildRequires: make
 BuildRequires:  sblim-cmpi-base-devel sblim-cmpi-devel rpm-devel
 BuildRequires:  gcc
@@ -163,6 +164,10 @@ fi
 
 
 %changelog
+* Tue Feb 27 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.1-38
+- Fix FTBFS with gcc 14
+  Resolves: #2261679
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

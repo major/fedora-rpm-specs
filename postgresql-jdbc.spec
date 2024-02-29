@@ -49,7 +49,7 @@
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
 Version:	42.7.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD-2-Clause
 URL:		http://jdbc.postgresql.org/
 
@@ -173,6 +173,9 @@ opts="-f"
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 42.7.2-2
+- Rebuilt for java-21-openjdk as system jdk
+
 * Wed Feb 21 2024 Zuzana Miklankova <zmiklank@redhat.com> - 42.7.2-1
 - rebase to version 42.7.2 (bz#2265257)
 

@@ -2,7 +2,7 @@
 
 Name:           maven-mapping
 Version:        3.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Apache Maven Mapping
 License:        Apache-2.0
 
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.0-25
+- Rebuilt for java-21-openjdk as system jdk
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

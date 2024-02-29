@@ -57,7 +57,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.8.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -836,6 +836,10 @@ fi
 %endif
 
 %changelog
+* Tue Feb 27 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.5-4
+- Dropped mail group configuration / creation, it is provided by setup
+  Resolves: rhbz#2244744
+
 * Thu Feb 01 2024 Pete Walter <pwalter@fedoraproject.org> - 2:3.8.5-3
 - Rebuild for ICU 74
 

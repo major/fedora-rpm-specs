@@ -3,14 +3,15 @@
 
 Name:           cpp-jwt
 Version:        1.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        JSON Web Token library for C++
 
 License:        MIT
 URL:            https://github.com/arun11299/cpp-jwt
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         cmake-project-version.patch
+Patch0:          cmake-project-version.patch
+Patch1:          side-channel-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -38,7 +39,7 @@ Provides:       %{name}-static = %{version}-%{release}
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -66,6 +67,9 @@ Provides:       %{name}-static = %{version}-%{release}
 
 
 %changelog
+* Tue Feb 27 2024 Jonathan Wright <jonathan@almalinux.org> - 1.4-7
+- Fix side channel vulnerability rhbz#2263329
+
 * Thu Feb 01 2024 Teoh Han Hui <teohhanhui@gmail.com> - 1.4-6
 - Provide cmake config
 

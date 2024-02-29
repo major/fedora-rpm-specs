@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -27,6 +27,9 @@ Patch3:         %{name}-unittest.patch
 # skip unit test with numerical instabilities
 # https://github.com/espressomd/espresso/issues/4853
 Patch4:         %{name}-numerical.patch
+# fix several occurrences of undefined behavior
+# https://github.com/espressomd/espresso/issues/4856
+Patch5:         %{name}-mpi.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -122,28 +125,31 @@ This package contains %{name} compiled against MPICH2.
 %patch 2 -p1
 %patch 3 -p1
 %patch 4 -p1
+%patch 5 -p1
 
 %build
 %global defopts \\\
  -DWITH_PYTHON=ON \\\
- -DPYTHON_EXECUTABLE=%{__python3} \\\
  -DWITH_TESTS=ON \\\
  -DCMAKE_SKIP_RPATH=ON \\\
  -DINSTALL_PYPRESSO=OFF \\\
+ -DCTEST_ARGS=%{?_smp_mflags} \\\
+ -DWITH_CUDA=OFF \\\
+ -DWITH_HDF5=OFF \\\
+ -DWITH_GSL=ON \\\
+ -DPYTHON_INSTDIR=${MPI_PYTHON3_SITEARCH} \\\
+ -DPYTHON_EXECUTABLE=%{__python3} \\\
  -DCYTHON_EXECUTABLE=%{cython}
 %global _vpath_builddir ${mpi:-serial}
 
 # https://github.com/espressomd/espresso/issues/3396
 %global _lto_cflags %{nil}
 
-#save some memory using -j1
-%global _smp_mflags -j1
-
 for mpi in mpich openmpi ; do
    module load mpi/${mpi}-%{_arch}
    old_LDFLAGS="${LDFLAGS}"
    export LDFLAGS="${LDFLAGS} -Wl,-rpath,${MPI_PYTHON3_SITEARCH}/%{name}md"
-   %{cmake3} %{defopts} -DPYTHON_INSTDIR=${MPI_PYTHON3_SITEARCH} -DWITH_CUDA=OFF -DWITH_HDF5=OFF -DWITH_GSL=ON
+   %{cmake3} %{defopts}
    export LD_LIBRARY_PATH=$PWD/${mpi:-serial}/src/config
    %cmake3_build
    export LDFLAGS="${old_LDFLAGS}"
@@ -179,6 +185,10 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Tue Feb 27 2024 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-11
+- Fix several occurrences of undefined behavior
+- Build and test with all available cores
+
 * Tue Jan 23 2024 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-10
 - Skip unit test with numerical instabilities
 

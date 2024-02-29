@@ -1,6 +1,6 @@
 Name:           nethack-vultures
 Version:        2.1.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        NetHack - Vulture's Eye and Vulture's Claw
 
 License:        NGPL
@@ -18,6 +18,8 @@ Patch6:         format-fix.patch
 Patch7:         parser-fix.patch
 Patch8:         make-bison.patch
 Patch9:         nethack-vultures-c99.patch
+Patch10:	objtype.patch
+Patch11:	doorfix.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -65,6 +67,8 @@ Claw, which is based on the Slash'Em core.
 %patch7 -p0 -b .parser-fix
 %patch8 -p0 -b .make-bison
 %patch9 -p1
+%patch 10 -p0
+%patch 11 -p0
 sed -i -e 's|/usr/games/lib/nethackdir|%{_prefix}/games/vultureseye|g' \
     nethack/doc/{nethack,recover}.6 nethack/include/config.h
 sed -i -e 's|/var/lib/games/nethack|%{_var}/games/vultureseye|g' \
@@ -199,6 +203,9 @@ done
 
 
 %changelog
+* Tue Feb 27 2024 Bruno Wolff III <bruno@wolff.to> - 2.1.2-39
+- Fix some mismatched types
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

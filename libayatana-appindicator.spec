@@ -7,6 +7,17 @@
 %bcond_without gtk2
 %endif
 
+# No gtk-sharp in RHEL
+%if 0%{?rhel}
+%bcond_with mono
+%else
+%bcond_without mono
+%endif
+
+%ifnarch %{mono_arches}
+%global with_mono 0
+%endif
+
 %global nsversion   0.1
 %global gtknver2    ayatana-appindicator
 %global gtknver3    ayatana-appindicator3
@@ -46,7 +57,7 @@ BuildRequires:  pkgconfig(ayatana-indicator-0.4)
 BuildRequires:  pkgconfig(dbusmenu-gtk-0.4)
 %endif
 
-%ifarch %{mono_arches}
+%if %{with mono}
 BuildRequires:  mono-devel
 BuildRequires:  pkgconfig(gapi-3.0)
 BuildRequires:  pkgconfig(gtk-sharp-3.0)
@@ -101,7 +112,7 @@ and header files for developing applications that use
 %{name}-gtk3.
 
 
-%ifarch %{mono_arches}
+%if %{with mono}
 %if %{with gtk2}
 %package gtk2-sharp
 Summary:        Mono C# bindings for %{name}-gtk2
@@ -153,8 +164,9 @@ and headerfiles for developing applications that use
 %define _vpath_builddir build-gtk3
 %cmake -DENABLE_GTKDOC=ON \
 %if %{with check}
-    -DENABLE_TESTS=ON
+    -DENABLE_TESTS=ON \
 %endif
+    -DENABLE_BINDINGS_MONO=%{?with_mono:ON}%{!?with_mono:OFF} \
 
 %cmake_build
 
@@ -162,8 +174,9 @@ and headerfiles for developing applications that use
 %define _vpath_builddir build-gtk2
 %cmake -DFLAVOUR_GTK2=ON -DENABLE_GTKDOC=ON \
 %if %{with check}
-    -DENABLE_TESTS=ON
+    -DENABLE_TESTS=ON \
 %endif
+    -DENABLE_BINDINGS_MONO=%{?with_mono:ON}%{!?with_mono:OFF} \
 
 %cmake_build
 %endif
@@ -172,33 +185,40 @@ and headerfiles for developing applications that use
 %install
 %define _vpath_builddir build-gtk3
 %cmake_install
+
+%if %{with mono}
 mkdir -p %{buildroot}/%{_monogacdir}
 gacutil \
     -i %{buildroot}%{_libdir}/ayatana-appindicator3-sharp-%{nsversion}/ayatana-appindicator3-sharp.dll \
     -package ayatana-appindicator3-sharp \
     -root %{buildroot}/usr/lib
+%endif
 
 %if %{with gtk2}
 %define _vpath_builddir build-gtk2
 %cmake_install
+
+%if %{with mono}
 gacutil \
     -i %{buildroot}%{_libdir}/ayatana-appindicator-sharp-%{nsversion}/ayatana-appindicator-sharp.dll \
     -package ayatana-appindicator-sharp \
     -root %{buildroot}/usr/lib
 %endif
+%endif
 
 
 %if %{with check}
 %check
-# Tests fail randomly when running in parallel
-%undefine _smp_mflags
+# Tests fail randomly when running in parallel!
 
-%define _vpath_builddir build-gtk3
-xvfb-run -a %{shrink:%ctest}
+pushd build-gtk3 >/dev/null
+xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process
+popd >/dev/null
 
 %if %{with gtk2}
-%define _vpath_builddir build-gtk2
-xvfb-run -a %{shrink:%ctest}
+pushd build-gtk2 >/dev/null
+xvfb-run -a %__ctest --output-on-failure --force-new-ctest-process
+popd >/dev/null
 %endif
 %endif
 
@@ -248,7 +268,7 @@ xvfb-run -a %{shrink:%ctest}
 %{_libdir}/pkgconfig/ayatana-appindicator3-%{nsversion}.pc
 
 
-%ifarch %{mono_arches}
+%if %{with mono}
 %if %{with gtk2}
 %files gtk2-sharp
 %dir %{_libdir}/ayatana-appindicator-sharp-%{nsversion}/

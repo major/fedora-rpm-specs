@@ -2,8 +2,8 @@
 
 
 Name:           python-%{pkg_name}
-Version:        5.3.3
-Release:        3%{?dist}
+Version:        5.4.1
+Release:        1%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -16,12 +16,8 @@ Patch0:         python-flask-security-too_testdeps.patch
 Patch1:         python-flask-security-too_phonenumbers.patch
 # Don't fail on warnings in tests
 Patch2:         python-flask-security-too_ignorewarnings.patch
-# Pydantic isn't realy required, relax the version
-Patch3:         0001-Pydantic-Relax-required-version.patch
 # importlib is a backport from newer pythons
-Patch4:         0001-Use-importlib_resources-backport-only-on-old-Pythons.patch
-# sqla 1.x works just fine with the package
-Patch5:         0001-sqlalchemy-relax.patch
+Patch3:         0001-Use-importlib_resources-backport-only-on-old-Pythons.patch
 
 BuildRequires:  python3-devel
 
@@ -72,6 +68,9 @@ rm -rf Flask_Security_Too.egg-info
 
 
 %changelog
+* Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 5.4.1-1
+- Update to 5.4.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
