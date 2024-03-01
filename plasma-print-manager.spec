@@ -32,6 +32,7 @@ BuildRequires: cmake(KF6WidgetsAddons)
 BuildRequires: cmake(KF6WindowSystem)
 
 BuildRequires: qt6-qtbase-devel
+
 BuildRequires: cmake(Qt6Core5Compat)
 BuildRequires: cmake(Qt6Qml)
 
@@ -39,6 +40,7 @@ BuildRequires: cmake(Plasma)
 
 BuildRequires: cups-devel >= 1.5.0
 # /usr/bin/smbspool (runtime dep, but checked-for at build-time)
+BuildRequires: cups
 BuildRequires: samba-client
 
 # Renamed from kde-print-manager

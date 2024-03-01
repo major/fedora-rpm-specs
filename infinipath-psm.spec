@@ -1,10 +1,10 @@
 %global git_version 26_g604758e_open
-%global MAKEARG PSM_HAVE_SCIF=0 MIC=0
+%global MAKEARG PSM_HAVE_SCIF=0 MIC=0 arch=$(uname -m)
 
 Name:           infinipath-psm
 Summary:        Intel Performance Scaled Messaging (PSM) Libraries
 Version:        3.3
-Release:        %{git_version}.6%{?dist}.10
+Release:        %{git_version}.6%{?dist}.11
 License:        GPLv2 or BSD
 ExclusiveArch:  x86_64
 URL:            https://github.com/01org/psm
@@ -91,6 +91,10 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_udevrulesdir}/60-ipath.rules
 %{_includedir}/psm_mq.h
 
 %changelog
+* Thu Feb 29 2024 Honggang Li <honggangli@163.com> - 3.3-26_g604758e_open.6.11
+- Fix FTBFS in Fedora rawhide/f41
+- Resolves: bz2225925
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-26_g604758e_open.6.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

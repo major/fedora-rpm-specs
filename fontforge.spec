@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -10,6 +10,9 @@ URL:            http://fontforge.github.io/
 Source0:        https://github.com/fontforge/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Fix translations with gettext-0.22, https://github.com/fontforge/fontforge/pull/5257
 Patch0:         0001-Fix-errors-in-French-and-Italian-translations.patch
+# https://github.com/fontforge/fontforge/pull/5367
+# Fixes CVE-2024-25081 and CVE-2024-25082
+Patch1:         https://patch-diff.githubusercontent.com/raw/fontforge/fontforge/pull/5367.patch#/Fix_Splinefont_shell_invocation.patch
 
 Requires:       xdg-utils
 Requires:       (autotrace or potrace)
@@ -70,6 +73,7 @@ This package contains documentation files for %{name}.
 %prep
 %setup -q
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 # Remove tests that requires Internet access
 sed -i '45d;82d;101d;127d' tests/CMakeLists.txt
@@ -125,6 +129,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Feb 28 2024 Parag Nemade <pnemade AT redhat DOT com> - 20230101-11
+- Resolves: CVE-2024-25081 and CVE-2024-25082
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -51,11 +51,37 @@ BuildRequires:  cmake(Qt6Core5Compat)
 Requires:       hicolor-icon-theme
 Requires:       kf5-kservice
 Requires:       kf5-filesystem
-Requires:       ncurses-base
+Requires:       ncurses-term
 
 %description
 Contour is a modern and actually fast, modal, virtual terminal emulator,
 for everyday use. It is aiming for power users with a modern feature mindset.
+
+- Available on all 4 major platforms, Linux, macOS, FreeBSD, Windows.
+- GPU-accelerated rendering.
+- Font ligatures support (such as in Fira Code).
+- Unicode: Emoji support (-: 🌈 💝 😛 👪 - including ZWJ, VS15, VS16 emoji :-)
+- Unicode: Grapheme cluster support
+- Bold and italic fonts
+- High-DPI support.
+- Vertical Line Markers (quickly jump to markers in your history!)
+- Vi-like input modes for improved selection and copy'n'paste experience and Vi-like scrolloff feature.
+- Blurred behind transparent background support for Windows 10 and above as well as the KDE and GNOME desktop environment on Linux.
+- Blurrable Background image support.
+- Runtime configuration reload
+- 256-color and Truecolor support
+- Key binding customization
+- Color Schemes
+- Profiles (grouped customization of: color scheme, login shell, and related behaviours)
+- Synchronized rendering (via SM ? 2026 / RM ? 2026)
+- Text reflow (configurable via SM ? 2028 / RM ? 2028)
+- Clickable hyperlinks via OSC 8
+- Clipboard setting via OSC 52
+- Sixel inline images
+- Terminal page buffer capture VT extension to quickly extract contents.
+- Builtin Fira Code inspired progress bar support.
+- Read-only mode, protecting against accidental user-input to the running application, such as Ctrl+C.
+- VT320 Host-programmable and Indicator status line support.
 
 %prep
 %autosetup -p1 -n contour-%{version}
@@ -73,6 +99,8 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 
 rm %{buildroot}%{_datadir}/contour/LICENSE.txt
 rm %{buildroot}%{_datadir}/contour/README.md
+# already included in ncurses-term package
+rm %{buildroot}%{_datadir}/terminfo/c/contour
 
 %check
 %ctest
@@ -91,7 +119,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/contour/shell-integration/shell-integration.fish
 %{_datadir}/contour/shell-integration/shell-integration.tcsh
 %{_datadir}/contour/shell-integration/shell-integration.zsh
-%{_datadir}/terminfo/c/contour*
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_metainfodir}/*.xml
 

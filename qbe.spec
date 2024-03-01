@@ -6,7 +6,7 @@ Summary:        A pure C embeddable compiler backend
 
 License:        MIT
 URL:            https://c9x.me/compile/
-Source0:        %{url}/release/%{name}-%{srcver}.tar.xz
+Source0:        %{url}/release/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -22,7 +22,7 @@ never-ending path of diminishing returns.
 
 
 %prep
-%autosetup -n %{name}-%{srcver} -p 1
+%autosetup -n %{name}-%{version} -p 1
 
 
 %build

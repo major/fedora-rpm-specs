@@ -1,5 +1,5 @@
 Name:           hyprland
-Version:        0.35.0
+Version:        0.36.0
 Release:        %autorelease
 Summary:        Dynamic tiling Wayland compositor that doesn't sacrifice on its looks
 
@@ -29,6 +29,7 @@ BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(hyprland-protocols)
+BuildRequires:  pkgconfig(hyprlang)
 BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libinput) >= 1.23.0
@@ -60,7 +61,7 @@ BuildRequires:  pkgconfig(xwayland)
 # Upstream insists on always building against very current snapshots of
 # wlroots, and doesn't provide a method for building against a system copy.
 # https://github.com/hyprwm/Hyprland/issues/302
-Provides:       bundled(wlroots) = 0.18.0~1.git00b869c
+Provides:       bundled(wlroots) = 0.18.0~1.git0cb091f
 
 # udis86 is packaged in Fedora, but the copy bundled here is actually a
 # modified fork.
@@ -91,14 +92,16 @@ plugin system and more.
 Summary:        Header files for %{name}
 License:        BSD-3-Clause AND MIT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       meson
 Requires:       cmake
+Requires:       cpio
+Requires:       meson
 Requires:       ninja-build
 Requires:       pkgconfig(cairo)
 Requires:       pkgconfig(egl)
 Requires:       pkgconfig(gbm)
 Requires:       pkgconfig(glesv2)
 Requires:       pkgconfig(hwdata)
+Requires:       pkgconfig(hyprlang)
 Requires:       pkgconfig(libdisplay-info)
 Requires:       pkgconfig(libdrm)
 Requires:       pkgconfig(libinput) >= 1.23.0
@@ -111,7 +114,6 @@ Requires:       pkgconfig(pixman-1) >= 0.42.0
 Requires:       pkgconfig(wayland-client)
 Requires:       pkgconfig(wayland-scanner)
 Requires:       pkgconfig(wayland-server) >= 1.22.0
-Requires:       pkgconfig(xcb)
 Requires:       pkgconfig(xcb-composite)
 Requires:       pkgconfig(xcb-dri3)
 Requires:       pkgconfig(xcb-icccm)
@@ -122,6 +124,7 @@ Requires:       pkgconfig(xcb-res)
 Requires:       pkgconfig(xcb-shm)
 Requires:       pkgconfig(xcb-xfixes)
 Requires:       pkgconfig(xcb-xinput)
+Requires:       pkgconfig(xcb)
 Requires:       pkgconfig(xkbcommon)
 Requires:       pkgconfig(xwayland)
 Recommends:     git-core

@@ -1,6 +1,6 @@
 Name:           perl-IO-Async
 Version:        0.803
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of modules that implement asynchronous filehandle IO
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,8 +10,8 @@ Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/IO-Async-%{vers
 BuildArch:      noarch
 # build requirements
 BuildRequires:  coreutils
+BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-macros
 BuildRequires:  perl(Module::Build)
 # runtime requirements
 BuildRequires:  perl(Carp)
@@ -96,6 +96,9 @@ A collection of modules that implement asynchronous filehandle IO
 
 
 %changelog
+* Wed Feb 28 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.803-2
+- Fix provided files
+
 * Sun Feb 25 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.803-1
 - Update to 0.803
 - Migrate to SPDX license

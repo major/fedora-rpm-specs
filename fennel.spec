@@ -1,16 +1,11 @@
 Name:           fennel
-Version:        1.4.0
+Version:        1.4.2
 Release:        %autorelease
 Summary:        A Lisp that compiles to Lua
 
 License:        MIT
 URL:            https://fennel-lang.org/
 Source:         https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://lists.sr.ht/~technomancy/fennel/patches/47643
-Patch:          fennel-replace_deprecated_math_pow.diff
-# not upstreaming, test expects luaX.Y to exist which is not unreasonable
-# follow up with other Fedora Lua maintainers when revamping packaging
-Patch1:         fennel-unversioned_lua.diff
 
 BuildArch:      noarch
 

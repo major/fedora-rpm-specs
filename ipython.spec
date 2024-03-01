@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.21.0
+Version:        8.22.1
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 
@@ -102,7 +102,7 @@ BuildRequires:  python3-jedi >= 0.10
 BuildRequires:  python3-pexpect
 BuildRequires:  python3-pickleshare
 BuildRequires:  python3-prompt-toolkit >= 2
-BuildRequires:  python3-traitlets >= 4.2
+BuildRequires:  python3-traitlets >= 5.13.0
 Requires:       (tex(amsmath.sty) if /usr/bin/dvipng)
 Requires:       (tex(amssymb.sty) if /usr/bin/dvipng)
 Requires:       (tex(amsthm.sty)  if /usr/bin/dvipng)

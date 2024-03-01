@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -75,7 +75,8 @@ BuildRequires:  pam-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  pipewire-devel
-BuildRequires:  unity-gtk2-module
+BuildRequires:  unity-gtk3-module
+Requires:       unity-gtk3-module
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
@@ -189,6 +190,11 @@ Requires:       kf6-kglobalaccel
 Requires:       kf6-kquickcharts
 Requires:       kf6-kirigami
 Requires:       kf6-kirigami-addons
+BuildRequires:  kf6-kirigami-addons
+Requires:       kio-extras
+BuildRequires:  kio-extras
+Requires:       kio-fuse
+BuildRequires:  kio-fuse
 
 # The new volume control for PulseAudio
 Recommends:       plasma-pa
@@ -731,6 +737,9 @@ fi
 
 
 %changelog
+* Wed Feb 28 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-3
+- Updated package's build/runtime requirements
+
 * Mon Feb 26 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.0-2
 - Respin 6.0.0
 

@@ -38,8 +38,8 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    5.1
-Release:    3%{?dist}
+Version:    5.3
+Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -88,6 +88,8 @@ Source5: resalloc-agent-spawner.service
 Source2: logrotate
 Source3: merge-hook-logs
 Source4: cron.hourly
+# GPL-2.0-or-later too
+Source6: https://raw.githubusercontent.com/praiskup/wait-for-ssh/main/wait-for-ssh
 
 %description
 %desc
@@ -101,6 +103,7 @@ Summary:    %sum - server part
 Requires: crontabs
 Requires: logrotate
 Requires:   %default_python-%srcname = %version-%release
+Requires:   %srcname-helpers = %version-%release
 %if %{with python3}
 Requires: python3-alembic
 Requires: python3-six
@@ -119,6 +122,17 @@ Requires(pre): /usr/sbin/useradd
 
 The %name-server package provides the resalloc server, and
 some tooling for resalloc administrators.
+
+
+%package helpers
+Summary:    %sum - helper/library scripts
+
+%description helpers
+%desc
+
+Helper and library-like scripts for external Resalloc plugins like resalloc-aws,
+resalloc-openstack, etc.
+
 
 %if %{with python3}
 %package webui
@@ -144,6 +158,9 @@ Summary: %sum - daemon starting agent-like resources
 
 Requires(pre): /usr/sbin/useradd
 Requires: python3-copr-common
+Requires: python3-daemon
+Requires: python3-redis
+Requires: python3-setproctitle
 
 %description agent-spawner
 %desc
@@ -204,10 +221,13 @@ rm -r resalloc_agent_spawner
 
 %build
 %if %{with python2}
+python=%__python2
 %py2_build
 %else
 %py3_build
+python=%__python3
 %endif
+sed "1c#! $python" %SOURCE6 > %{name}-wait-for-ssh
 
 
 %install
@@ -238,6 +258,7 @@ install -d -m 755 %buildroot/%_libexecdir
 install -p -m 755 %SOURCE3 %buildroot/%_libexecdir/%name-merge-hook-logs
 install -d %buildroot%_sysconfdir/cron.hourly
 install -p -m 755 %SOURCE4 %buildroot%_sysconfdir/cron.hourly/resalloc
+install -p -m 755 %name-wait-for-ssh %buildroot%_bindir/%name-wait-for-ssh
 
 %if %{without python3}
 rm %buildroot%_bindir/%name-agent-*
@@ -314,7 +335,6 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 %{default_sitelib}/%{name}server
 %{_bindir}/%{name}-server
 %{_bindir}/%{name}-maint
-%{_bindir}/%{name}-check-vm-ip
 %attr(0750, %sysuser, %sysgroup) %dir %{_sysconfdir}/%{name}server
 %config(noreplace) %{_sysconfdir}/%{name}server/*
 %_unitdir/resalloc.service
@@ -325,6 +345,14 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 %config %_sysconfdir/logrotate.d/resalloc-server
 %_libexecdir/resalloc-merge-hook-logs
 %config %attr(0755, root, root) %{_sysconfdir}/cron.hourly/resalloc
+
+
+%files helpers
+%doc %doc_files
+%license COPYING
+%{_bindir}/%{name}-check-vm-ip
+%{_bindir}/%{name}-wait-for-ssh
+
 
 %if %{with python3}
 %files agent-spawner
@@ -345,6 +373,12 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> - 5.3-1
+- New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.3
+
+* Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> - 5.2-1
+- New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

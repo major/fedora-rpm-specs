@@ -30,6 +30,9 @@ achieve report decoupling from the Maven 3 core.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup
 
+# Compile for JDK 8 at a minimum
+%pom_xpath_set '//pom:javaVersion' 8
+
 # Fix end of line encoding
 sed -i.orig 's/\\r//' README.md
 touch -r README.md.orig README.md
@@ -46,6 +49,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Wed Feb 28 2024 Jerry James <loganjerry@gmail.com> - 1:3.1.1-6
+- Build for JDK 8 at a minimum (rhbz#2266673)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:3.1.1-6
 - Rebuilt for java-21-openjdk as system jdk
 

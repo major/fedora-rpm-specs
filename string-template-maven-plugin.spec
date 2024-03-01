@@ -1,21 +1,21 @@
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
 URL:            https://kevinbirch.github.io/%{name}/
+VCS:            https://github.com/kevinbirch/%{name}
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-Source0:        https://github.com/kevinbirch/%{name}/archive/%{name}-%{version}.tar.gz
+Source0:        %{vcs}/archive/%{name}-%{version}.tar.gz
 # The license file was added to git after the last release
 Source1:        https://raw.githubusercontent.com/kevinbirch/%{name}/master/LICENSE
 # Update org.sonatype.aether to org.eclipse.aether
 # https://github.com/kevinbirch/string-template-maven-plugin/pull/12
 Patch0:         %{name}-aether.patch
-# Tell javadoc about maven mojo tags
-# https://github.com/kevinbirch/string-template-maven-plugin/pull/13
-Patch1:         %{name}-javadoc.patch
+# Use maven plugin annotations instead of magic javadoc comments
+Patch1:         %{name}-annotations.patch
 # Work around https://issues.apache.org/jira/browse/MNG-5346
 Patch2:         %{name}-descriptor.patch
 
@@ -23,6 +23,7 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.antlr:ST4)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.twdata.maven:mojo-executor-maven-plugin)
 
@@ -76,6 +77,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Wed Feb 28 2024 Jerry James <loganjerry@gmail.com> - 1.1-14
+- Use maven plugin annotations
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1-13
 - Rebuilt for java-21-openjdk as system jdk
 

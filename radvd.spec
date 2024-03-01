@@ -3,8 +3,7 @@ Name: radvd
 Version: 2.19
 Release: 13%{?dist}
 
-# The code includes the advertising clause, so it's GPL-incompatible
-License: BSD with advertising
+License: radvd
 URL: http://www.litech.org/radvd/
 Source0: %{url}dist/%{name}-%{version}.tar.xz
 Source1: radvd.sysusers

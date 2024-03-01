@@ -1,20 +1,18 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
-Version:    1.7
-Release:    3%{?dist}
+Version:    1.8
+Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-aws
 BuildArch:  noarch
 
-Requires: awscli
+Requires:   awscli
+Requires:   resalloc-helpers
 
 # Source is created by:
 # git clone %%url && cd copr
 # tito build --tgz --tag %%name-%%version-%%release
 Source0: %{name}-%{version}.tar.gz
-
-# This one is bundled, though it is GPLv2+, too.
-Source1: https://raw.githubusercontent.com/praiskup/wait-for-ssh/main/wait-for-ssh
 
 
 %description
@@ -37,7 +35,6 @@ might be used separately.
 
 
 %build
-sed '1c#! %{__python3}' %SOURCE1 > %{name}-wait-for-ssh
 
 
 %install
@@ -46,7 +43,6 @@ install -p -m 0755 bin/resalloc-aws-new %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-delete %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-list %{buildroot}%{_bindir}
 install -p -m 0755 bin/resalloc-aws-minimal-spot-zone %{buildroot}%{_bindir}
-install -p -m 0755 %{name}-wait-for-ssh %{buildroot}%{_bindir}/resalloc-aws-wait-for-ssh
 
 
 %files
@@ -56,15 +52,11 @@ install -p -m 0755 %{name}-wait-for-ssh %{buildroot}%{_bindir}/resalloc-aws-wait
 %{_bindir}/%{name}-new
 %{_bindir}/%{name}-list
 %{_bindir}/%{name}-minimal-spot-zone
-%{_bindir}/%{name}-wait-for-ssh
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> 1.8-1
+- The wait-for-ssh script moved to resalloc-helpers
 
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 1.7-1
 - resalloc-aws-new: run playbook with stdin=/dev/null

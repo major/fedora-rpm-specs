@@ -3,7 +3,7 @@ Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.40
 Release: %autorelease -p -e rc1
-License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
+License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
@@ -98,7 +98,9 @@ Patch0: login-lastlog-create.patch
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
 
+#### Upstream
 Patch2: 0001-setpriv-apply-landlock-without-configuration.patch
+Patch3: 0001-docs-use-proper-XSPD-identifier-for-GPL-2.0.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -109,7 +111,8 @@ program.
 
 %package -n util-linux-core
 Summary: The most essential utilities from the util-linux suite
-License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
+License: GPL-2.0-only AND GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
+
 Provides: /bin/dmesg
 Provides: /bin/kill
 Provides: /bin/more
@@ -135,7 +138,7 @@ minimal installations.
 
 %package -n libfdisk
 Summary: Partitioning library for fdisk-like programs
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description -n libfdisk
 This is library for fdisk-like programs, part of util-linux.
@@ -143,7 +146,7 @@ This is library for fdisk-like programs, part of util-linux.
 
 %package -n libfdisk-devel
 Summary:  Partitioning library for fdisk-like programs
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libfdisk%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -154,7 +157,7 @@ part of util-linux.
 
 %package -n libsmartcols
 Summary: Formatting library for ls-like programs
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description -n libsmartcols
 This is library for ls-like terminal programs, part of util-linux.
@@ -162,7 +165,7 @@ This is library for ls-like terminal programs, part of util-linux.
 
 %package -n libsmartcols-devel
 Summary: Formatting library for ls-like programs
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libsmartcols%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -173,7 +176,7 @@ part of util-linux.
 
 %package -n libmount
 Summary: Device mounting library
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libblkid%{?_isa} = %{version}-%{release}
 Requires: libuuid%{?_isa} = %{version}-%{release}
 Conflicts: filesystem < 3
@@ -184,7 +187,7 @@ This is the device mounting library, part of util-linux.
 
 %package -n libmount-devel
 Summary: Device mounting library
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libmount%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -195,7 +198,7 @@ part of util-linux.
 
 %package -n libblkid
 Summary: Block device ID library
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libuuid%{?_isa} = %{version}-%{release}
 Conflicts: filesystem < 3
 
@@ -205,7 +208,7 @@ This is block device identification library, part of util-linux.
 
 %package -n libblkid-devel
 Summary: Block device ID library
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libblkid%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -216,7 +219,7 @@ part of util-linux.
 
 %package -n libuuid
 Summary: Universally unique ID library
-License: BSD
+License: BSD-3-Clause
 Conflicts: filesystem < 3
 
 %description -n libuuid
@@ -233,7 +236,7 @@ See also the "uuid" package, which is a separate implementation.
 
 %package -n libuuid-devel
 Summary: Universally unique ID library
-License: BSD
+License: BSD-3-Clause AND LGPL-2.1-or-later
 Requires: libuuid%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -254,7 +257,7 @@ See also the "uuid-devel" package, which is a separate implementation.
 %package -n uuidd
 Summary: Helper daemon to guarantee uniqueness of time-based UUIDs
 Requires: libuuid = %{version}-%{release}
-License: GPLv2
+License: GPL-2.0-only
 Requires(pre): shadow-utils
 %{?systemd_ordering}
 
@@ -267,7 +270,7 @@ SMP systems.
 %package -n %{pypkg}-libmount
 Summary: Python bindings for the libmount library
 Requires: libmount%{?_isa} = %{version}-%{release}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description -n %{pypkg}-libmount
 The libmount-python package contains a module that permits applications
@@ -279,7 +282,7 @@ mountinfo, etc) and mount filesystems.
 %package -n util-linux-i18n
 Summary: Internationalization pack for util-linux
 Requires: util-linux = %{version}-%{release}
-License: GPLv2
+License: GPL-2.0-or-later
 
 %description -n util-linux-i18n
 Internationalization pack with translated messages and manual pages for
@@ -777,6 +780,7 @@ fi
 
 
 %files -n util-linux-core
+%license Documentation/licenses/*
 %attr(4755,root,root)	%{_bindir}/mount
 %attr(4755,root,root)	%{_bindir}/umount
 %{_bindir}/chrt
@@ -868,7 +872,7 @@ fi
 
 
 %files -n uuidd
-%license Documentation/licenses/COPYING.GPL-2.0-or-later
+%license Documentation/licenses/COPYING.GPL-2.0-only
 %{_mandir}/man8/uuidd.8*
 %{_sbindir}/uuidd
 %{_unitdir}/uuidd.*
@@ -879,41 +883,44 @@ fi
 
 
 %files -n libfdisk
-%license Documentation/licenses/COPYING.LGPL-2.1-or-later libfdisk/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libfdisk.so.*
 
 %files -n libfdisk-devel
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libfdisk.so
 %{_includedir}/libfdisk
 %{_libdir}/pkgconfig/fdisk.pc
 
 
 %files -n libsmartcols
-%license Documentation/licenses/COPYING.LGPL-2.1-or-later libsmartcols/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libsmartcols.so.*
 
 %files -n libsmartcols-devel
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libsmartcols.so
 %{_includedir}/libsmartcols
 %{_libdir}/pkgconfig/smartcols.pc
 
 
 %files -n libmount
-%license Documentation/licenses/COPYING.LGPL-2.1-or-later libmount/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libmount.so.*
 
 %files -n libmount-devel
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libmount.so
 %{_includedir}/libmount
 %{_libdir}/pkgconfig/mount.pc
 
 
 %files -n libblkid
-%doc libblkid/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libblkid.so.*
 
 %files -n libblkid-devel
-%doc libblkid/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libblkid.so
 %{_includedir}/blkid
 %{_mandir}/man3/libblkid.3*
@@ -921,10 +928,11 @@ fi
 
 
 %files -n libuuid
-%license Documentation/licenses/COPYING.BSD-3-Clause libuuid/COPYING
+%license Documentation/licenses/COPYING.BSD-3-Clause
 %{_libdir}/libuuid.so.*
 
 %files -n libuuid-devel
+%license Documentation/licenses/COPYING.BSD-3-Clause Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/libuuid.so
 %{_includedir}/uuid
 %{_mandir}/man3/uuid.3*
@@ -942,10 +950,11 @@ fi
 %{_libdir}/pkgconfig/uuid.pc
 
 %files -n %{pypkg}-libmount
-%license Documentation/licenses/COPYING.LGPL-2.1-or-later libmount/COPYING
+%license Documentation/licenses/COPYING.LGPL-2.1-or-later
 %{_libdir}/python*/site-packages/libmount/
 
 %files -n util-linux-i18n -f %{name}.lang
+%license Documentation/licenses/COPYING.GPL-2.0-or-later
 
 %changelog
 %autochangelog

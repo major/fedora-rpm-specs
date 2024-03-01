@@ -1,11 +1,11 @@
-Name:    fotoxx
-Version: 23.82
-Release: 4%{?dist}
+Name:    fotocx
+Version: 24.11
+Release: 2%{?dist}
 Summary: Photo editor
 
 License: GPL-3.0-or-later
-URL:     http://www.kornelix.com/fotoxx/fotoxx.html
-Source0: http://www.kornelix.net/downloads/downloads/fotoxx-%{version}-source.tar.gz
+URL:     http://www.kornelix.com/fotocx/fotocx.html
+Source0: http://www.kornelix.net/downloads/downloads/fotocx-%{version}-source.tar.gz
 Source1: %{name}.desktop
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -36,9 +36,13 @@ Suggests: growisofs
 Suggests: hugin
 Suggests: libwebp-tools
 
+# Drop after Fedora 43
+Provides: fotoxx = %{version}-%{release}
+Obsoletes: fotoxx < 23.82-5
+
 %description
-Fotoxx is a free open source Linux program for editing image files
-from a digital camera. The goal of fotoxx is to meet most image editing
+Fotocx is a free open source Linux program for editing image files
+from a digital camera. The goal of fotocx is to meet most image editing
 needs while remaining easy to use.
 
 %prep
@@ -49,7 +53,7 @@ needs while remaining easy to use.
 # Misc. environment tweaks to let Makefile honor %%{optflags}
 make %{?_smp_mflags} PREFIX=%{_prefix} \
     CXXFLAGS="%{optflags}" \
-    LDFLAGS="%{optflags}"
+    LDFLAGS="%{build_ldflags}"
 
 %install
 make install DESTDIR=%{buildroot} PREFIX=%{_prefix} DOCDIR=%{_pkgdocdir}
@@ -61,14 +65,12 @@ desktop-file-install --vendor="" \
     --dir %{buildroot}%{_datadir}/applications/ \
     %{SOURCE1}
 
-#mkdir -p %{buildroot}/%{_datadir}/appdata/
-#install -m 644 metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
-
 #symlink identical binaries
-rm -f %{buildroot}%{_bindir}/fotoxx-snap
-ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
+rm -f %{buildroot}%{_bindir}/fotocx-snap
+ln -s %{_bindir}/fotocx %{buildroot}%{_bindir}/fotocx-snap
 
 %files
+%license doc/licenses doc/copyright
 %doc doc/*
 %{_mandir}/man1/%{name}.1*
 %{_bindir}/%{name}*
@@ -78,6 +80,12 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Wed Feb 28 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.11-2
+- Review fixes.
+
+* Tue Feb 27 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.11-1
+- 24.11, rename Fotoxx->Fotocx
+
 * Tue Feb 13 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.82-4
 - Drop i686 support (leaf package)
 
@@ -163,7 +171,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 - 22.16
 
 * Sun Apr 03 2022 Sérgio Basto <sergio@serjux.com> - 22.15-1
-- Update fotoxx to 22.15
+- Update fotocx to 22.15
 
 * Thu Mar 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 22.14-1
 - 22.14
@@ -199,7 +207,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
 * Sat Jul 10 2021 Sérgio Basto <sergio@serjux.com> - 21.44-2
-- Adjustment of build requires and requires based on doc/README and fotoxx.cc
+- Adjustment of build requires and requires based on doc/README and fotocx.cc
   line 402
 - Patch to use opj2_decompress provided by openjpeg2 package
 
@@ -461,7 +469,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 
 * Mon Aug 19 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 13.04-4
 - Reflect docdir changes (Fix FTBFS, RHBZ#992281).
-- Drop fotoxx-13.01-pthread-dep.patch (not required, anymore).
+- Drop fotocx-13.01-pthread-dep.patch (not required, anymore).
 - Add tweaks to let package honour %%optflags.
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 13.04-3
@@ -503,7 +511,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 
 * Thu Nov 4 2010 Pavel Alexeev <Pahan@Hubbitus.info> - 10.11.1-7
 - Major update (BZ#644023)
-- Remove outdated patch - fotoxx-8.0-mandir.patch.
+- Remove outdated patch - fotocx-8.0-mandir.patch.
 - Add BR libtiff-devel
 - Adjust some pathes for new version.
 - Remove %%doc mark from man.
@@ -516,7 +524,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 - Delete old patches.
 - Remove rm libfreeimage.a, name of dir in %%setup.
 - Replace all $RPM_BUILD_ROOT by %%{buildroot}
-- Add Patch0: fotoxx-8.0-mandir.patch
+- Add Patch0: fotocx-8.0-mandir.patch
 - Add new file %%doc %%{_mandir}/man1/%%{name}.1*
 
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.0-4
@@ -533,7 +541,7 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 - Adjust Source0 url (inspired by Kevin Fenzi in fedora-devel-list: https://www.redhat.com/archives/fedora-devel-list/2009-February/msg01622.html ).
 
 * Wed Feb 25 2009 Pavel Alexeev <Pahan [ at ] Hubbitus [ DOT ] spb [ dOt.] su> - 5.8-2
-- Add patch0 fotoxx-5.8.constchar.patch
+- Add patch0 fotocx-5.8.constchar.patch
 - Reformat spec with tabs, remove trailing spaces.
 
 * Sun Jan  4 2009 Nicoleau Fabien <nicoleau.fabien@gmail.com> - 5.8-1

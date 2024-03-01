@@ -7,7 +7,8 @@ Version:        0.2.6
 Release:        %autorelease
 Summary:        Measures number of Terminal column cells of wide-character codes
 
-License:        MIT
+# part of the code is under HPND-Markus-Kuhn
+License:        MIT AND HPND-Markus-Kuhn
 URL:            https://github.com/jquast/wcwidth
 Source0:        %pypi_source
 BuildArch:      noarch

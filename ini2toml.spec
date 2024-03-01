@@ -1,5 +1,5 @@
 Name:           ini2toml
-Version:        0.12
+Version:        0.13
 Release:        %autorelease
 Summary:        Automatic conversion of .ini/.cfg files to TOML equivalents
 

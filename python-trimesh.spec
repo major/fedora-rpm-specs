@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.1.5
+Version:        4.1.6
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -205,6 +205,7 @@ EOF
 #   pyinstrument: not packaged; see preceding “stub” patch
 #   pytest-cov: linters/coverage/etc.
 #   ruff: linters/coverage/etc.
+#   typeguard: linters/coverage/etc.
 for pkg in \
     black \
     coveralls \
@@ -221,6 +222,7 @@ for pkg in \
     pytest-cov \
     python-fcl \
     ruff \
+    typeguard \
     %{?without_skimage:scikit-image} \
     xatlas \
     %{nil}

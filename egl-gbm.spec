@@ -1,6 +1,7 @@
 Name:           egl-gbm
+Epoch:          2
 Version:        1.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Nvidia egl gbm libary
 
 License:        MIT
@@ -34,6 +35,9 @@ rm %{buildroot}%{_libdir}/libnvidia-egl-gbm.so
 %{_libdir}/libnvidia-egl-gbm.so.1*
 
 %changelog
+* Wed Feb 28 2024 Leigh Scott <leigh123linux@gmail.com> - 2:1.1.1-4
+- Add an epoch as some fool addded an epoch to their thirdparty repo!
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

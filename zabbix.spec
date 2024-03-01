@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.25
-Release:        2%{?dist}
+Version:        6.0.27
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2
@@ -50,7 +50,6 @@ Patch1:         %{srcname}-out-of-tree.patch
 # Enforce Fedora Crypto Policy
 Patch2:         %{srcname}-crypto-policy.patch
 Patch3:		%{srcname}-configure-sscanf.patch
-Patch4:         ZBX-23738-6.0.patch
 
 # Patch1 patches automake files so we need to autoreconf
 BuildRequires:   libtool
@@ -795,6 +794,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Wed Feb 28 2024 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.27-1
+- Update to 6.0.27
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

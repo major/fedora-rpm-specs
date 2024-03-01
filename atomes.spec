@@ -1,7 +1,7 @@
 Name:           atomes
 %global upname Atomes-GNU
-Version:        1.1.12
-Release:        4%{?dist}
+Version:        1.1.13
+Release:        1%{?dist}
 Summary:        An atomistic toolbox
 License:        AGPL-3.0-or-later
 Source0:        https://github.com/Slookeur/%{upname}/archive/refs/tags/v%{version}.tar.gz
@@ -60,11 +60,6 @@ step by step to achieve this crucial step.
 %autosetup -n %{upname}-%{version}
 
 %build
-%ifarch aarch64
-# Temporary fix for bug: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111528
-#                        https://bugzilla.redhat.com/show_bug.cgi?id=2241139 
-  FCFLAGS=`echo $FCFLAGS|sed 's/-fstack-protector-strong//1'`
-%endif
 %configure
 #make %%{?_smp_mflags}
 %make_build
@@ -92,11 +87,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/fr.ipcms.%{nam
 %{_metainfodir}/fr.ipcms.%{name}.appdata.xml
 
 %changelog
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 28 2024 Sébastien Le Roux <sebastien.leroux@ipcms.unistra.fr> - 1.1.13-1
+- Bug corrections and improvements (see: https://github.com/Slookeur/Atomes-GNU/releases/tag/v1.1.13)
 
 * Mon Sep 18 2023 Sébastien Le Roux <sebastien.leroux@ipcms.unistra.fr> - 1.1.12-2
 - Package metadata update

@@ -3,7 +3,7 @@
 
 Name:           authselect
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -233,7 +233,7 @@ fi
 if test -e /run/ostree-booted; then
     for PROFILE in `ls %{_datadir}/authselect/default`; do
         %{_bindir}/authselect create-profile $PROFILE --vendor --base-on $PROFILE --symlink-pam --symlink-dconf --symlink=REQUIREMENTS --symlink=README &> /dev/null
-        %__sed -ie 's/{if "with-altfiles":altfiles \[SUCCESS=merge\] }/altfiles [SUCCESS=merge] /g' %{_datadir}/authselect/vendor/$PROFILE/nsswitch.conf &> /dev/null
+        %__sed -i -e 's/{if "with-altfiles":\([^}]\+\)}/\1/g' %{_datadir}/authselect/vendor/$PROFILE/nsswitch.conf &> /dev/null
     done
 fi
 
@@ -259,6 +259,9 @@ done
 exit 0
 
 %changelog
+* Tue Feb 27 2024 Jonathan Lebon <jonathan@jlebon.com> - 1.5.0-5
+- Fix altfiles rendering on OSTree variants
+
 * Fri Feb 23 2024 Pavel Březina <pbrezina@redhat.com> - 1.5.0-4
 - Add back with-files-access-provider
 - Remove outdated scriptlets

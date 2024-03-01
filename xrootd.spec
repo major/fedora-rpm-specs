@@ -13,12 +13,15 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.6.7
+Version:	5.6.8
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0:		0001-XrdCl-Fix-logic-error-when-upgrading-connections-to-.patch
+Patch1:		0002-XrdCl-Stop-Poller-before-TaskManager.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3
@@ -297,6 +300,9 @@ This package contains the API documentation of the xrootd libraries.
 %prep
 %setup -q
 
+%patch -P 0 -p 1
+%patch -P 1 -p 1
+
 %build
 %if %{?rhel}%{!?rhel:0} == 7
 . /opt/rh/devtoolset-7/enable
@@ -438,7 +444,27 @@ cp -pr bindings/python/docs/build/html %{buildroot}%{_pkgdocdir}/python
 rm %{buildroot}%{_pkgdocdir}/python/.buildinfo
 
 %check
-%ctest3
+touch testfile
+if ( setfattr -n user.testattr -v testvalue testfile ) ; then
+    %ctest3
+else
+    echo "Extended file attributes not supported by file system"
+    echo "Don't run tests that require them"
+    %ctest3 -- -E "\
+XrdCl::FileCopyTest|\
+XrdCl::FileSystemTest.PlugInTest|\
+XrdCl::FileSystemTest.ServerQueryTest|\
+XrdCl::FileSystemTest.XAttrTest|\
+XrdCl::FileTest.XAttrTest|\
+XrdCl::LocalFileHandlerTest.XAttrTest|\
+XrdCl::ThreadingTest|\
+XrdCl::WorkflowTest.CheckpointTest|\
+XrdCl::WorkflowTest.XAttrWorkflowTest|\
+XrdCl::XrdEcTests|\
+XrdEc::|\
+XRootD::smoke-test-cluster"
+fi
+rm testfile
 
 %ldconfig_scriptlets libs
 
@@ -708,6 +734,11 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Feb 24 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.8-1
+- Update to version 5.6.8
+- Disable tests that require file attributes if the file system doesn't
+  support them
+
 * Tue Feb 06 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.6.7-1
 - Update to version 5.6.7
 

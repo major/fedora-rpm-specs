@@ -7,7 +7,7 @@
 %global tag %{version}
 
 Name:    distrobox
-Version: 1.6.0.1
+Version: 1.7.0
 
 %forgemeta
 
@@ -86,6 +86,7 @@ done
 %{_datadir}/icons/hicolor/scalable/apps/terminal-distrobox-icon.svg
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/%{name}*
+%{_datadir}/zsh/site-functions
 
 %changelog
 %autochangelog

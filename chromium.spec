@@ -303,8 +303,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 122.0.6261.69
-Release: 3%{?dist}
+Version: 122.0.6261.94
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1952,6 +1952,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Feb 28 2024 Than Ngo <than@redhat.com> - 122.0.6261.94-1
+- upstream security release 122.0.6261.94
+  * High : Type Confusion in V8
+- fixed bz#2265957, added correct platform in chromium use agent
+
 * Tue Feb 27 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com> - 122.0.6261.69-3
 - Make building of chromedriver optional
 

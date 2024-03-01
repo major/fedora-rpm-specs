@@ -19,7 +19,7 @@
 %endif
 Name:           ibus-chewing
 Version:        1.6.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        The Chewing engine for IBus input platform
 Summary(zh_TW): IBus新酷音輸入法
 License:        GPL-2.0-or-later
@@ -27,6 +27,8 @@ URL:            https://github.com/definite/ibus-chewing
 Source0:        https://github.com/definite/%{name}/releases/download/%{version}/%{name}-%{version}-Source.tar.gz
 Patch1:         %{name}-1799517-no-gob2.patch
 Patch2:         %{name}-1863869-cmake-build.patch
+# https://src.fedoraproject.org/rpms/ibus-chewing/pull-request/2
+Patch3:         %{name}-backport-ignore-mod4.patch
 
 BuildRequires:  cmake >= 2.6.2
 BuildRequires:  pkgconfig
@@ -141,6 +143,9 @@ fi
 %{_libexecdir}/ibus-setup-chewing
 
 %changelog
+* Sun Feb 11 2024 Kan-Ru Chen <kanru@kanru.info> - 1.6.1-25
+- backport upstream fix for ignore mod4 key combination
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

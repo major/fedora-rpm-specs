@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,10 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Wed Feb 28 2024 Derek Weitzel <dweitzel@unl.edu> - 1.1.1-1
+- Improve error handling around the sqlite3 library
+- Fix test failures and compiler warnings
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

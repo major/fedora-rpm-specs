@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     wayvnc
-Version:  0.7.2
-Release:  3%{?dist}
+Version:  0.8.0
+Release:  1%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -58,6 +58,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Wed Feb 28 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-1
+- new version
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 0.7.2-3
 - Rebuilt for turbojpeg 3.0.2
 

@@ -1,5 +1,5 @@
-%global DATE 20240217
-%global gitrev 09808932c51a9cccff3f40f23da744eda6ac28e1
+%global DATE 20240228
+%global gitrev cfee1bffd9e3a742d713f50e3270da172d2c2b75
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.7%{?dist}
+Release: %{gcc_release}.8%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3595,6 +3595,38 @@ end
 %endif
 
 %changelog
+* Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8
+- update from trunk
+  - PRs ada/113893, analyzer/110483, analyzer/110520, analyzer/111289,
+	analyzer/111802, analyzer/111881, analyzer/113983, analyzer/113998,
+	analyzer/113999, c++/113083, c++/113966, c++/113970, c/114007,
+	c/114042, fortran/105658, fortran/107071, fortran/114012,
+	fortran/114024, ipa/61159, ipa/70582, ipa/111960, ipa/113476,
+	libfortran/105456, libfortran/105473, middle-end/112344,
+	middle-end/114070, middle-end/114073, middle-end/114084,
+	modula2/113749, modula2/113889, modula2/114026, modula2/114055,
+	other/109668, other/113957, rtl-optimization/54052,
+	rtl-optimization/114044, rtl-optimization/114054, target/90785,
+	target/108120, target/109987, target/112103, target/112375,
+	target/112397, target/113220, target/113295, target/113613,
+	target/113696, target/113805, target/113912, target/113971,
+	target/113995, target/114017, target/114028, target/114094,
+	target/114097, target/114098, testsuite/111462,
+	tree-optimization/91567, tree-optimization/109804,
+	tree-optimization/113205, tree-optimization/113967,
+	tree-optimization/113988, tree-optimization/113993,
+	tree-optimization/114027, tree-optimization/114038,
+	tree-optimization/114040, tree-optimization/114041,
+	tree-optimization/114048, tree-optimization/114068,
+	tree-optimization/114074, tree-optimization/114081,
+	tree-optimization/114090, tree-optimization/114099
+  - fix up handling of C++ inline var specializations
+    (#2264986, PR c++/114013)
+  - punt on vectorization of +- with non-integral emulated vectors
+    (#2265489, PR tree-optimization/114075)
+  - fix up handling of references of comdat local symbols forced into
+    memory (#2260416, PR rtl-optimization/113617)
+
 * Sat Feb 17 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.7
 - update from trunk
   - PRs analyzer/111266, c++/97202, c++/97990, c++/98388, c++/99573,

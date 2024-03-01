@@ -17,8 +17,8 @@
 %endif
 
 Name:           ibus-anthy
-Version:        1.5.15
-Release:        6%{?dist}
+Version:        1.5.16
+Release:        1%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -26,7 +26,6 @@ Source0:        https://github.com/ibus/ibus-anthy/releases/download/%{version}/
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
 BuildRequires:  anthy-unicode-devel
@@ -157,6 +156,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Wed Feb 28 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.16-1
+- Bump to 1.5.16
+
 * Wed Jan 31 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.15-6
 - Fix make check with GitHub action
 

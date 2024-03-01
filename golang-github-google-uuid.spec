@@ -4,19 +4,14 @@
 
 # https://github.com/google/uuid
 %global goipath         github.com/google/uuid
-Version:                1.5.0
+Version:                1.6.0
 
 %gometa -L
 
 
 %global common_description %{expand:
-The Uuid package generates and inspects UUIDs based on RFC 4122 and DCE 1.1:
-Authentication and Security Services.
-
-This package is based on the github.com/pborman/uuid package (previously named
-code.google.com/p/go-uuid). It differs from these earlier packages in that a
-UUID is a 16 byte array rather than a byte slice. One loss due to this change is
-the ability to represent an invalid UUID (vs a NIL UUID).}
+Go package for UUIDs based on RFC 4122 and DCE 1.1: Authentication and Security
+Services.}
 
 %global golicenses      LICENSE
 %global godocs          CHANGELOG.md CONTRIBUTING.md CONTRIBUTORS README.md
@@ -34,7 +29,7 @@ Source:         %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

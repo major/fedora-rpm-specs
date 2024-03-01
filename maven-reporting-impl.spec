@@ -50,6 +50,9 @@ rm README.md.orig
 # and therefore they don't work in Koji
 %pom_remove_plugin :maven-invoker-plugin
 
+# Compile for JDK 8 at a minimum
+%pom_xpath_set '//pom:javaVersion' 8
+
 %build
 %mvn_build
 
@@ -61,6 +64,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Wed Feb 28 2024 Jerry James <loganjerry@gmail.com> - 3.2.0-6
+- Build for JDK 8 at a minimum (rhbz#2266674)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.0-6
 - Rebuilt for java-21-openjdk as system jdk
 

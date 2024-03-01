@@ -4,8 +4,8 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        2.0
-Release:        3%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
 License:        GPL-2.0-or-later
@@ -15,6 +15,7 @@ Source0:        %{url}/archive/refs/tags/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
+Requires:       resalloc-helpers
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
@@ -51,11 +52,9 @@ BuildRequires:  pyproject-rpm-macros
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> 2.1-1
+- The wait-for-ssh script was moved to resalloc-helpers
+- releng: release to all active Fedora releases
 
 * Tue Jan 16 2024 Pavel Raiskup <praiskup@redhat.com>
 - don't try to remove attached volumes

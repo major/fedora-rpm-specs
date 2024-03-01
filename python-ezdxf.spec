@@ -4,10 +4,6 @@
 # We can generate PDF documentation as a substitute.
 %bcond doc_pdf 1
 
-# As of 2022-12-12, PySide6 (https://pypi.org/project/PySide6/) is not yet
-# packaged in Fedora. When it is, we should use it.
-%bcond qt6 0
-
 Name:           python-ezdxf
 Version:        1.1.4
 Release:        %autorelease
@@ -131,7 +127,7 @@ Provides:       bundled(python3dist(py3dbp))
 # Note extra “all” is “draw”+“dev”+“test”, and “all5” is “draw5”+“dev”+“test”.
 # Since it does not really make sense to package extras metapackages for dev
 # and test dependencies, we omit these two extras as well.
-%pyproject_extras_subpkg -n python3-ezdxf %{?with_qt6:draw},draw5
+%pyproject_extras_subpkg -n python3-ezdxf draw,draw5
 
 
 %package        doc
@@ -168,14 +164,14 @@ sed -r -i '1{/^#!/d}' src/ezdxf/addons/drawing/qtviewer.py
 # We don’t need to run typecheckers, and we must build documentation with
 # whichever sphinx-rtd-theme version we have.
 sed -r \
-    -e 's/^(typing_extensions%{?!with_qt6:|pyside6})\b/# \1/' \
+    -e 's/^(typing_extensions)\b/# \1/' \
     -e 's/^(sphinx-rtd-theme)<.*$/\1/' \
     requirements-dev.txt | tee requirements-dev-filtered.txt
 
 
 %generate_buildrequires
 # Note extra “all” is “draw”+“dev”+“test”, and “all5” is “draw5”+“dev”+“test”.
-%pyproject_buildrequires -x all%{?!with_qt6:5} requirements-dev-filtered.txt
+%pyproject_buildrequires -x draw,draw5,dev,test requirements-dev-filtered.txt
 
 
 %build

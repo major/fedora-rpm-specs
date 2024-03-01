@@ -35,6 +35,7 @@ BuildRequires: systemd
 Requires: composefs
 # For OS updates
 Requires: skopeo
+Requires: podman
 # For bootloader updates
 Recommends: bootupd
 

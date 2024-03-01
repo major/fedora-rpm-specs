@@ -11,7 +11,7 @@ Summary:        Accessing and Modifying INI files
 #   lib/python-2.3/ConfigParser.py and lib/python-2.3/test/test_cfgparse.py
 #   respectively.  Other code may contain small snippets from those two files
 #   as well.  The Python license (LICENSE-PSF) applies to that code.
-License:        MIT and Python
+License:        MIT AND Python-2.0.1
 URL:            https://github.com/candlepin/python-iniparse
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/candlepin/python-iniparse/pull/24

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: Python
 
 
@@ -397,6 +397,13 @@ Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-par
 #
 # zlib-ng defines the version as "1.3.0.zlib-ng".
 Patch419: 00419-gh-112769-test_zlib-fix-comparison-of-zlib_runtime_version-with-non-int-suffix-gh-112771-gh-112774.patch
+
+# 00422 # 3363cf965ad5749742569d341919724c9e69accf
+# gh-115133: Fix tests for XMLPullParser with Expat 2.6.0
+#
+# Feeding the parser by too small chunks defers parsing to prevent
+# CVE-2023-52425. Future versions of Expat may be more reactive.
+Patch422: 00422-gh-115133-fix-tests-for-xmlpullparser-with-expat-2-6-0.patch
 
 # (New patches go here ^^^)
 #
@@ -1824,6 +1831,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Feb 28 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.9.18-7
+- Fix tests for XMLPullParser with Expat 2.6.0
+
 * Mon Jan 29 2024 Karolina Surma <ksurma@redhat.com> - 3.9.18-6
 - Fix test_zlib when building with zlib-ng-compat
 

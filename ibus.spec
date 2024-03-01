@@ -57,7 +57,7 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.30~beta1
+Version:        1.5.30~rc1
 Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
@@ -580,7 +580,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
-* Tue Feb 13 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.29~beta1-1
+* Wed Feb 28 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~rc1-1
+- Add some bug fixes & translation updates
+
+* Tue Feb 13 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~beta1-1
 - Implement ibus start/restart for Plasma Wayland
 - Show preferences menu item in activate menu in Plasma Wayland
 - Fix typing freeze with barcode reader

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        110
+Version:        111
 
 %forgemeta
 
@@ -296,6 +296,17 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Feb 28 2024 Packit <hello@packit.dev> - 111-1
+Changes with 111
+----------------
+  * many: tweak `containers-storage` implementation (#1609)
+    * Author: Michael Vogt, Reviewers: Gianluca Zuccarelli, Ondřej Budai
+  * stages/org.osbuild.tar: add sparse option (#1614)
+    * Author: Luke Yang, Reviewers: Brian C. Lane, Michael Vogt
+
+— Somewhere on the Internet, 2024-02-28
+
+
 * Mon Feb 26 2024 Packit <hello@packit.dev> - 110-1
 Changes with 110
 ----------------

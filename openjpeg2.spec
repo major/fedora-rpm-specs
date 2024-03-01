@@ -13,7 +13,7 @@
 %endif
 
 Name:           openjpeg2
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        C-Library for JPEG 2000
 
@@ -441,6 +441,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Wed Feb 28 2024 Sandro Mani <manisandro@gmail.com> - 2.5.2-1
+- Update to 2.5.2
+
 * Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 2.5.1-1
 - Update to 2.5.1
 

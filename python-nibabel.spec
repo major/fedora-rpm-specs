@@ -72,7 +72,7 @@ rm -fv nibabel/{tests/data/,}.gitignore
 for binary in "parrec2nii" "nib-conform" "nib-convert" "nib-diff" "nib-dicomfs" "nib-ls" "nib-nifti-dx" "nib-roi" "nib-stats" "nib-tck2trk" "nib-trk2tck"
 do
     echo "Generating man page for ${binary}"
-    PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --output="${binary}.1" "${binary}"
+    %py3_test_envvars help2man --no-info --no-discard-stderr --output="${binary}.1" "${binary}"
     install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary}.1"
 done
 

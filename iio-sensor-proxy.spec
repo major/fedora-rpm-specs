@@ -3,7 +3,8 @@ Version:        3.5
 Release:        3%{?dist}
 Summary:        IIO accelerometer sensor to input device proxy
 
-License:        GPLv3+
+# tests/unittest_inspector.py is LGPL-2.1-or-later but it is not packaged
+License:        GPL-3.0-or-later
 URL:            https://github.com/hadess/iio-sensor-proxy
 Source0:        https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/uploads/ae095b693b6317f14dfa4212c5c36c1a/iio-sensor-proxy-3.5.tar.xz
 
@@ -25,6 +26,7 @@ BuildRequires:  python3-dbusmock
 
 %package docs
 Summary:        Documentation for %{name}
+License:        GFDL-1.1-or-later
 BuildArch:      noarch
 
 %description docs

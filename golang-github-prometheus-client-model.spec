@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/client_model
 %global goipath         github.com/prometheus/client_model
-Version:                0.5.0
+Version:                0.6.0
 
 %gometa
 

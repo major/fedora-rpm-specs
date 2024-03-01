@@ -5,7 +5,7 @@
 
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
-Version: 4.2.0
+Version: 4.2.1
 Release: 1%{?dist}
 
 License: JasPer-2.0
@@ -127,6 +127,9 @@ make test -C builder
 
 
 %changelog
+* Wed Feb 28 2024 Josef Ridky <jridky@redhat.com> - 4.2.1-1
+- New upstream release 4.2.1 (#2265201)
+
 * Tue Feb 13 2024 Josef Ridky <jridky@redhat.com> - 4.2.0-1
 - New upstream release 4.2.0 (#2252025)
 - Fix CVE-2023-51257 (#2258402)

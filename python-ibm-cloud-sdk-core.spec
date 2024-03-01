@@ -1,5 +1,5 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.19.1
+Version:        3.19.2
 Release:        1%{?dist}
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -54,6 +54,13 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
+* Wed Feb 28 2024 Packit <hello@packit.dev> - 3.19.2-1
+- chore(release): 3.19.2 release notes (semantic-release-bot)
+- Bump version: 3.19.1 → 3.19.2 (semantic-release-bot)
+- fix: adjust IAM token expiration time (#189) (Phil Adams)
+- build: pin black to 24.x.x (#188) (Phil Adams)
+- Resolves rhbz#2266688
+
 * Wed Jan 24 2024 Packit <hello@packit.dev> - 3.19.1-1
 - chore(release): 3.19.1 release notes (semantic-release-bot)
 - Bump version: 3.19.0 → 3.19.1 (semantic-release-bot)

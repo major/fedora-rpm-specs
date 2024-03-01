@@ -3,7 +3,7 @@ Version:        2.1
 Release:        10%{?dist}
 Summary:        Monitors low-memory conditions
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.freedesktop.org/hadess/low-memory-monitor
 Source0:        https://gitlab.freedesktop.org/hadess/low-memory-monitor/uploads/9c201566253ed52a9054f514f9904e48/low-memory-monitor-2.1.tar.xz
 
@@ -22,6 +22,7 @@ the kernel's OOM killer when memory is running really low.
 
 %package doc
 Summary:        Documentation for %{name}
+License:        GFDL-1.1-or-later
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 

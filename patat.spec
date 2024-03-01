@@ -5,10 +5,10 @@
 %global pkgver %{pkg_name}-%{version}
 
 # version bounds
-%bcond_with tests
+%bcond_without tests
 
 Name:           %{pkg_name}
-Version:        0.9.2.0
+Version:        0.11.0.0
 Release:        %autorelease
 Summary:        Terminal-based presentations using Pandoc
 
@@ -39,11 +39,13 @@ BuildRequires:  ghc-optparse-applicative-devel
 BuildRequires:  ghc-pandoc-devel
 BuildRequires:  ghc-pandoc-types-devel
 BuildRequires:  ghc-process-devel
+BuildRequires:  ghc-random-devel
 BuildRequires:  ghc-skylighting-devel
 BuildRequires:  ghc-terminal-size-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-unordered-containers-devel
+BuildRequires:  ghc-vector-devel
 BuildRequires:  ghc-wcwidth-devel
 BuildRequires:  ghc-yaml-devel
 %if %{with ghc_prof}
@@ -65,11 +67,13 @@ BuildRequires:  ghc-optparse-applicative-prof
 BuildRequires:  ghc-pandoc-prof
 BuildRequires:  ghc-pandoc-types-prof
 BuildRequires:  ghc-process-prof
+BuildRequires:  ghc-random-prof
 BuildRequires:  ghc-skylighting-prof
 BuildRequires:  ghc-terminal-size-prof
 BuildRequires:  ghc-text-prof
 BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-unordered-containers-prof
+BuildRequires:  ghc-vector-prof
 BuildRequires:  ghc-wcwidth-prof
 BuildRequires:  ghc-yaml-prof
 %endif

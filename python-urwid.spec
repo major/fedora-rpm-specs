@@ -1,10 +1,9 @@
 %bcond_without tests
-%global debug_package %{nil}
 
 %global srcname urwid
 
 Name:          python-%{srcname}
-Version:       2.6.5
+Version:       2.6.7
 Release:       %autorelease
 Summary:       Console user interface library
 
@@ -12,6 +11,8 @@ Summary:       Console user interface library
 License:       LGPL-2.1-or-later AND MIT
 URL:           http://excess.org/urwid/
 Source0:       %{pypi_source urwid}
+
+BuildArch:     noarch
 
 %global _description\
 Urwid is a Python library for making text console applications.  It has\
@@ -26,11 +27,8 @@ control.
 %package -n python3-%{srcname}
 Summary: %summary
 %{?python_provide:%python_provide python3-urwid}
-BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
-BuildRequires: python3-pytest-cov
-BuildRequires: python3-tox
 
 %description -n python3-%{srcname} %_description
 
@@ -39,6 +37,7 @@ BuildRequires: python3-tox
 
 %prep
 %autosetup -n %{srcname}-%{version}
+sed -i -e 's/--cov=urwid//' pyproject.toml
 find urwid -type f -name "*.py" -exec sed -i -e '/^#!\//, 1d' {} \;
 find urwid -type f -name "*.py" -exec chmod 644 {} \;
 

@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/common
 %global goipath         github.com/prometheus/common
-Version:                0.46.0
+Version:                0.48.0
 
 %gometa
 

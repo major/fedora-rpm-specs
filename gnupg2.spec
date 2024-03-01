@@ -153,6 +153,9 @@ mkdir -p $HOME/.gnupg
 # gpgconf.conf
 mkdir -p %{buildroot}%{_sysconfdir}/gnupg
 touch %{buildroot}%{_sysconfdir}/gnupg/gpgconf.conf
+mkdir -p %{buildroot}%{_sysconfdir}/profile.d
+echo "export GPG_TTY=\$(tty)" > %{buildroot}%{_sysconfdir}/profile.d/gnupg2.sh
+echo "setenv GPG_TTY \`tty\`" > %{buildroot}%{_sysconfdir}/profile.d/gnupg2.csh
 
 # more docs
 install -m644 -p AUTHORS NEWS THANKS TODO \
@@ -188,6 +191,8 @@ make -k check
 %{_pkgdocdir}
 %dir %{_sysconfdir}/gnupg
 %ghost %config(noreplace) %{_sysconfdir}/gnupg/gpgconf.conf
+%{_sysconfdir}/profile.d/gnupg2.sh
+%{_sysconfdir}/profile.d/gnupg2.csh
 ## docs say to install suid root, but fedora/rh security folk say not to
 %{_bindir}/gpg2
 %{_bindir}/gpgv2
@@ -221,6 +226,9 @@ make -k check
 
 
 %changelog
+* Wed Feb 28 2024 Jakub Jelen <jjelen@redhat.com> - 2.4.4-1
+- Set GPG_TTY in profile.d (#2264985)
+
 * Fri Jan 26 2024 Jakub Jelen <jjelen@redhat.com> - 2.4.4-1
 - New upstream release (#2260333)
 

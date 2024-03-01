@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 262
+%global baseversion 263
 
 %undefine _auto_set_build_flags
 
@@ -39,6 +39,7 @@ BuildRequires:  jack-audio-connection-kit
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXinerama-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  lua-devel >= 5.3.0
 BuildRequires:  make
 BuildRequires:  portaudio-devel
@@ -151,6 +152,7 @@ rm -rf \
     3rdparty/tap-windows6 \
     3rdparty/utf8proc \
     3rdparty/zlib \
+    3rdparty/zstd \
     docs/themes
 
 install -pm 644 %{SOURCE1} whatsnew_0%{baseversion}.txt
@@ -234,6 +236,7 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     USE_SYSTEM_LIB_SQLITE3=1 \
     USE_SYSTEM_LIB_UTF8PROC=1 \
     USE_SYSTEM_LIB_ZLIB=1 \
+    USE_SYSTEM_LIB_ZSTD=1 \
     USE_WAYLAND=1 \
     SDL_INI_PATH="%{_sysconfdir}/%{name};" \
     TOOLS=1 \

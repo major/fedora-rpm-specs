@@ -11,7 +11,7 @@ Version: 4.1
 Release: 5%{?dist}
 Summary: JDKs configuration files copier
 
-License:  BSD
+License:  BSD-4.3TAHOE
 URL:      https://pagure.io/%{project}
 Source0:  %{URL}/blob/%{htag}/f/%{file}
 Source1:  %{URL}/blob/%{htag}/f/LICENSE

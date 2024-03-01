@@ -1,7 +1,7 @@
 %global srcname traitlets
 
 Name:           python-%{srcname}
-Version:        5.11.2
+Version:        5.14.1
 Release:        %autorelease
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
@@ -32,6 +32,9 @@ This package powers the config system of IPython and Jupyter.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+
+# Remove tests of type annotations
+rm tests/test_typing.py
 
 %generate_buildrequires
 %pyproject_buildrequires

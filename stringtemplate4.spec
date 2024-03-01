@@ -4,12 +4,15 @@ Release:        4%{?dist}
 Summary:        A Java template engine
 License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
+VCS:            https://github.com/antlr/stringtemplate4
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/antlr/stringtemplate4/archive/ST4-%{version}/%{name}-%{version}.tar.gz
+Source0:        %{vcs}/archive/ST4-%{version}/%{name}-%{version}.tar.gz
 # Adapt to JDK 11
 Patch0:         %{name}-java11.patch
+# Adapt tests to JDK 21
+Patch1:         %{name}-java21.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
@@ -51,6 +54,9 @@ xvfb-run -d %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Wed Feb 28 2024 Jerry James <loganjerry@gmail.com> - 4.3.4-4
+- Adapt expected test output to JDK 21 (rhbz#2266689)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.3.4-4
 - Rebuilt for java-21-openjdk as system jdk
 

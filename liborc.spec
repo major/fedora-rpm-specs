@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 1.9.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -79,7 +79,8 @@ library.
 %build
 
 echo "RPM_OPT_FLAGS: $RPM_OPT_FLAGS"
-export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference"
+# https://src.fedoraproject.org/rpms/protobuf/pull-request/26#comment-183002
+export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference -Wno-error=stringop-overflow"
 
 %cmake \
     -DOVERRIDE_INSTALL_PREFIX=/usr \
@@ -128,6 +129,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Wed Feb 14 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.2-5
+- Add -Wno-error=stringop-overflow
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

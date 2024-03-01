@@ -1,33 +1,26 @@
-#Todo: stop using local copy of libdnet, once system distributed version 
-#supports sctp (grep sctp /usr/include/dnet.h)
-
-%global _hardened_build 1
-
 Name: nmap
 Epoch: 3
-Version: 7.93
+Version: 7.94
 #global prerelease TEST5
-Release: 6%{?dist}
+Release: 1%{?dist}
 Summary: Network exploration tool and security scanner
 URL: http://nmap.org/
-# Uses combination of licenses based on GPL license, but with extra modification
-# so it got its own license tag rhbz#1055861
-License: Nmap
+# TODO: Currently, the Nmap license is not allowed on Fedora:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/147
+License: LicenseRef-NPSL-0.94
 
 Source0: http://nmap.org/dist/%{name}-%{version}%{?prerelease}.tar.bz2
 Source1: https://nmap.org/dist/sigs/%{name}-%{version}.tar.bz2.asc
 Source2: https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt
 
-
 #prevent possible race condition for shtool, rhbz#158996
 Patch1: nmap-4.03-mktemp.patch
-
 #don't suggest to scan microsoft
 Patch2: nmap-4.52-noms.patch
-
 # upstream provided patch for rhbz#845005, not yet in upstream repository
 Patch3: ncat_reg_stdin.diff
-Patch4: nmap-6.25-displayerror.patch
+# TODO: review after GUI gets enabled again
+#Patch4: nmap-6.25-displayerror.patch
 # https://github.com/nmap/nmap/pull/2247
 Patch7: nmap_resolve_config.patch
 # backport of upstream pcre2 migration, rhbz#2128336
@@ -50,8 +43,8 @@ BuildRequires: zlib-devel
 BuildRequires: gnupg2
 Requires: %{name}-ncat = %{epoch}:%{version}-%{release}
 
-Obsoletes: nmap-frontend
-Obsoletes: nmap-ndiff
+Obsoletes: nmap-frontend < 7.70-1
+Obsoletes: nmap-ndiff < 7.70-1
 
 %define pixmap_srcdir zenmap/share/pixmaps
 
@@ -73,7 +66,9 @@ Requires(post): %{_sbindir}/alternatives
 Requires(preun): %{_sbindir}/alternatives
 Obsoletes: nc < 1.109.20120711-2
 Obsoletes: nc6 < 1.00-22
-Provides: nc nc6
+Provides: nc = %{epoch}:%{version}-%{release}
+Provides: nc6 = %{epoch}:%{version}-%{release}
+Provides: ncat = %{epoch}:%{version}-%{release}
 
 %description ncat
 Ncat is a feature packed networking utility which will read and
@@ -90,10 +85,10 @@ uses.
 %autosetup -p1
 autoconf -f
 
-
+#TODO: stop using local copy of libdnet, once system distributed version
+#supports sctp (grep sctp /usr/include/dnet.h)
 #be sure we're not using tarballed copies of some libraries
 #rm -rf liblua libpcap libpcre macosx mswin32 ###TODO###
-
 rm -rf libpcap libpcre macosx mswin32 libssh2 libz
 
 %build
@@ -156,6 +151,10 @@ fi
 %{_mandir}/man1/ncat.1.gz
 
 %changelog
+* Tue Feb 27 2024 Martin Osvald <mosvald@redhat.com> - 3:7.94-1
+- New version 7.94 (rhbz#2208804)
+- Provide ncat in nmap-ncat for convenience (rhbz#2214073)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3:7.93-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

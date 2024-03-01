@@ -2,13 +2,13 @@
 
 Name:    kuserfeedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
-Version: 1.3.0
-Release: 4%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 
 License: MIT
-URL:     https://invent.kde.org/libraries/%{name}
-Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
-Source1: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
+URL:     https://invent.kde.org/frameworks/%{name}
+Source0: https://download.kde.org/stable/frameworks/6.0/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/stable/frameworks/6.0/%{name}-%{version}.tar.xz.sig
 Source2: gpgkey-E0A3EB202F8E57528E13E72FD7574483BB57B18D.gpg
 
 ## upstream patches
@@ -17,20 +17,20 @@ BuildRequires: cmake
 BuildRequires: gnupg2
 BuildRequires: gcc-c++
 
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5Charts)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5LinguistTools)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Charts)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6LinguistTools)
 
 BuildRequires: bison
 BuildRequires: flex
@@ -41,8 +41,8 @@ BuildRequires: flex
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       cmake(Qt5Network)
-Requires:       cmake(Qt5Widgets)
+Requires:       cmake(Qt6Network)
+Requires:       cmake(Qt6Widgets)
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -51,8 +51,8 @@ developing applications that use %{name}.
 %package        console
 Summary:        Analytics and administration tool for UserFeedback servers
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-BuildRequires:  qt5-qtbase-private-devel
-Requires:       qt5-qtcharts%{?_isa}
+BuildRequires:  qt6-qtbase-private-devel
+Requires:       qt6-qtcharts%{?_isa}
 
 %description    console
 Analytics and administration tool for UserFeedback servers.
@@ -64,7 +64,7 @@ Analytics and administration tool for UserFeedback servers.
 
 
 %build
-%cmake_kf5 \
+%cmake_kf6 \
    -DENABLE_DOCS:BOOL=OFF \
    %{?with_kf6_compat:-DENABLE_CLI=OFF}
 
@@ -74,42 +74,47 @@ Analytics and administration tool for UserFeedback servers.
 %install
 %cmake_install
 
-%find_lang userfeedbackconsole5 --with-qt
-%find_lang userfeedbackprovider5 --with-qt
+%find_lang userfeedbackconsole6 --with-qt
+%find_lang userfeedbackprovider6 --with-qt
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback-console.desktop
 
 
-%files -f userfeedbackprovider5.lang
+%files -f userfeedbackprovider6.lang
 %doc README.md
 %license COPYING.LIB
 %if %{without kf6_compat}
 %{_bindir}/userfeedbackctl
 %endif
-%{_libdir}/libKUserFeedbackCore.so.1*
-%{_libdir}/libKUserFeedbackWidgets.so.1*
-%{_kf5_qmldir}/org/kde/userfeedback/
-%{_kf5_datadir}/qlogging-categories5/org_kde_UserFeedback.categories
+%{_kf6_libdir}/libKF6UserFeedbackCore.so.6*
+%{_kf6_libdir}/libKF6UserFeedbackWidgets.so.6*
+%{_kf6_qmldir}/org/kde/userfeedback/
+%{_kf6_datadir}/qlogging-categories6/org_kde_UserFeedback.categories
 
 
 %files devel
-%{_includedir}/KUserFeedback/
-%{_libdir}/libKUserFeedbackCore.so
-%{_libdir}/libKUserFeedbackWidgets.so
-%{_kf5_libdir}/cmake/KUserFeedback/
-%{_kf5_archdatadir}/mkspecs/modules/qt_KUserFeedback*.pri
+%{_kf6_libdir}/libKF6UserFeedbackCore.so
+%{_kf6_libdir}/libKF6UserFeedbackWidgets.so
+%{_kf6_libdir}/cmake/KF6UserFeedback/
+%{_kf6_includedir}/KUserFeedback/
+%{_kf6_includedir}/KUserFeedbackCore/
+%{_kf6_includedir}/KUserFeedbackWidgets/
+%{_kf6_archdatadir}/mkspecs/modules/qt_KF6UserFeedback*.pri
 
 
-%files console -f userfeedbackconsole5.lang
+%files console -f userfeedbackconsole6.lang
 %{_bindir}/UserFeedbackConsole
 %{_datadir}/applications/org.kde.kuserfeedback-console.desktop
-%{_kf5_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
+%{_kf6_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
 
 
 %changelog
+* Wed Feb 28 2024 Yaroslav Sidlovsky <zawertun@gmail.com> - 6.0.0-1
+- update to 6.0.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

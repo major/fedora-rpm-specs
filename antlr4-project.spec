@@ -18,7 +18,8 @@ Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
 URL:            https://www.antlr.org/
-Source0:        https://github.com/antlr/antlr4/archive/%{version}/antlr4-%{version}.tar.gz
+VCS:            https://github.com/antlr/antlr4
+Source0:        %{vcs}/archive/%{version}/antlr4-%{version}.tar.gz
 # Fix some javadoc problems
 # https://github.com/antlr/antlr4/pull/2960
 Patch0:         antlr4-javadoc.patch

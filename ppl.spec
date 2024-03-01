@@ -1,6 +1,6 @@
 Name:			ppl
 Version:		1.2
-Release:		31%{?dist}
+Release:		32%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
 License:		GPL-3.0-or-later
 URL:			http://www.bugseng.com/ppl
@@ -296,6 +296,9 @@ mv \
 %endif
 
 %changelog
+* Wed Feb 28 2024 Zhengyu He <hezhy472013@gmail.com> - 1.2-32
+- Add support for riscv64
+
 * Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 1.2-31
 - Rebuild for ppl 9.2.1
 - Stop building for 32-bit x86

@@ -15,12 +15,12 @@
 
 %global major_version 3
 %global minor_version 4
-%global patch_version 1
+%global patch_version 2
 %global laapi_version 3.11.0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -438,6 +438,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Wed Feb 28 2024 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.2-1
+- Update to 3.4.2 (rhbz#2264712)
+
 * Fri Feb 09 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.1-4
 - Disable ATLAS and BLIS in RHEL builds
 

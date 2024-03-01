@@ -1,6 +1,6 @@
 Name:           hyperhdr
 Version:        20.0.0.0
-Release:        0.4%{?dist}
+Release:        0.6%{?dist}
 Summary:        Ambient lighting
 
 License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
@@ -38,7 +38,6 @@ for USB grabbers.
 %package        common
 Summary:        LUT files for %{name}
 Requires:       %{name} = %{version}-%{release}
-BuildArch:      noarch
 
 %description    common
 The %{name}-common package contains LUT files for
@@ -92,6 +91,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}
 
 %changelog
+* Wed Feb 28 2024 Vasiliy Glazov <vascom2@gmail.com> - 20.0.0.0-0.6
+- Revert to 20.0.0.0.beta1
+
+* Wed Feb 28 2024 Vasiliy Glazov <vascom2@gmail.com> - 20.0.0.0-0.5
+- Update to 20.0.0.0.beta2
+
 * Tue Feb 06 2024 František Zatloukal <fzatlouk@redhat.com> - 20.0.0.0-0.4
 - Rebuilt for turbojpeg 3.0.2
 

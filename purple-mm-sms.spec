@@ -1,6 +1,6 @@
 Name:           purple-mm-sms
 Version:        0.1.7
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        A libpurple plugin for sending and receiving SMS via ModemManager
 
 License:        GPLv3+
@@ -41,32 +41,4 @@ cp %{SOURCE1} .
 %license COPYING
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jan 29 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.7-2
-- Update for initial push
-
-* Sun Aug 16 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.7-1
-- Update to 0.1.7
-
-* Thu Mar  5 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.3-1
-- Initial packaging
+%autochangelog

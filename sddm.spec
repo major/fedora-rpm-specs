@@ -1,40 +1,21 @@
 # Disable X11 for RHEL 10+
 %bcond x11 %[%{undefined rhel} || 0%{?rhel} < 10]
 
-#global commit e6524335a54ca469401ee9487adc4ae973860aad
-#global commitdate 20230404
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           sddm
-Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        11%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
-Url:            https://github.com/sddm/sddm
-%if 0%{?commitdate}
-Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%else
+URL:            https://github.com/sddm/sddm
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Broken: https://github.com/sddm/sddm/pull/1743
-#Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-%endif
 
 ## upstream patches
-# Hide keyboard layout picker in the wayland greeter
-# https://bugzilla.redhat.com/show_bug.cgi?id=2239426
-# https://github.com/sddm/sddm/pull/1797
-Patch1:         1797.patch
-
-# Parse desktop files manually to fix setting XDG_CURRENT_DESKTOP
-# From: https://github.com/sddm/sddm/commit/5b702ae986464fe6dbc8557d4b2da725ac1ed175
-Patch2:         0001-Session-Parse-.desktop-files-manually-again.patch
+# Port all themes to Qt 6
+# Submitted: https://github.com/sddm/sddm/pull/1876
+Patch1:         sddm-PR1876.patch
 
 ## upstreamable patches
-# Use Weston's kiosk shell instead of the deprecated fullscreen-shell
-# https://github.com/sddm/sddm/pull/1860
-Patch10:        0001-Switch-the-Wayland-greeter-default-to-use-Weston-s-K.patch
-
 # Fix race with logind restart, and start seat0 if !CanGraphical on timer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2011991
 # https://bugzilla.redhat.com/show_bug.cgi?id=2016310
@@ -49,6 +30,9 @@ Patch103:       sddm-0.18.0-environment_file.patch
 
 # Workaround for https://pagure.io/fedora-kde/SIG/issue/87
 Patch104:       sddm-rpmostree-tmpfiles-hack.patch
+
+# Workaround lack of Qt 5 greeter build
+Patch105:       sddm-0.21.0-qt6greeter.patch
 
 # Shamelessly stolen from gdm
 Source11:       sddm.pam
@@ -210,6 +194,12 @@ cp -a %{buildroot}%{_datadir}/sddm/scripts/* \
 # we're using /etc/X11/xinit/Xsession (by default) instead
 rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
+%if 0%{?fedora} && 0%{?fedora} < 43
+# Provide unversioned greeter until F40 is EOL
+ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greeter
+%endif
+
+
 %pre
 %sysusers_create_compat %{SOURCE17}
 
@@ -228,11 +218,14 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
    %{_sysconfdir}/sddm.conf
 ) ||:
 
+
 %preun
 %systemd_preun sddm.service
 
+
 %postun
 %systemd_postun sddm.service
+
 
 %files
 %license LICENSE
@@ -246,10 +239,9 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 %config(noreplace)   %{_sysconfdir}/pam.d/sddm-autologin
 %config(noreplace)   %{_sysconfdir}/pam.d/sddm-greeter
 %config(noreplace) %{_sysconfdir}/sysconfig/sddm
-# it's under /etc, sure, but it's not a config file -- rex
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %{_bindir}/sddm
-%{_bindir}/sddm-greeter
+%{_bindir}/sddm-greeter*
 %{_libexecdir}/sddm-helper
 %{_libexecdir}/sddm-helper-start-wayland
 %{_libexecdir}/sddm-helper-start-x11user
@@ -265,19 +257,22 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 %{_datadir}/sddm/scripts/
 %dir %{_datadir}/sddm/themes/
 # %%lang'ify? they're small, probably not worth it -- rex
-%{_datadir}/sddm/translations/
+%{_datadir}/sddm/translations*/
 %{_mandir}/man1/sddm.1*
 %{_mandir}/man1/sddm-greeter.1*
 %{_mandir}/man5/sddm.conf.5*
 %{_mandir}/man5/sddm-state.conf.5*
 
+
 %files wayland-generic
 # No files since default configuration
+
 
 %if %{with x11}
 %files x11
 %{_prefix}/lib/sddm/sddm.conf.d/x11.conf
 %endif
+
 
 %files themes
 %{_datadir}/sddm/themes/elarun/
@@ -286,6 +281,9 @@ rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
 
 %changelog
+* Wed Feb 28 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-1
+- Update to 0.21.0
+
 * Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-11
 - Add patch to fix desktop file parsing
 

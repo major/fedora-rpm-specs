@@ -1,8 +1,8 @@
 %global srcname wikitcms
 
 Name:           python-%{srcname}
-Version:        2.6.10
-Release:        5%{?dist}
+Version:        2.6.11
+Release:        1%{?dist}
 Summary:        Fedora QA wiki test management Python library
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ sed -i -e 's., "setuptools-git"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Wed Feb 28 2024 Adam Williamson <awilliam@redhat.com> - 2.6.11-1
+- New release 2.6.11: better error when compose failed
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
