@@ -2,7 +2,7 @@
 
 Name:     neatvnc
 Version:  0.8.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  a liberally licensed VNC server library
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -61,6 +61,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Feb 29 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-2
+- rebuilt
+
 * Mon Feb 26 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-1
 - new version
 

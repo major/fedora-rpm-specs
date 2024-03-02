@@ -4,7 +4,7 @@
 # https://github.com/golang/arch
 %global goipath  golang.org/x/arch
 %global forgeurl https://github.com/golang/arch
-Version:         0.3.0
+Version:         0.7.0
 
 %gometa
 
@@ -28,6 +28,9 @@ Source0:        %{gosource}
 
 BuildRequires:  golang(rsc.io/pdf)
 
+# See https://github.com/golang/go/issues/66005
+Patch01:	disable-tests.patch
+
 %description
 %{common_description}
 
@@ -35,6 +38,7 @@ BuildRequires:  golang(rsc.io/pdf)
 
 %prep
 %goprep
+%autopatch -v -p1
 
 %install
 %gopkginstall

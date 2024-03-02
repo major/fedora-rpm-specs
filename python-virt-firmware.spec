@@ -70,9 +70,9 @@ mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -ar tests %{buildroot}%{_datadir}/%{name}
 # uki-direct
 install -m 755 -d  %{buildroot}%{_unitdir}
-install -m 755 -d  %{buildroot}%{_libdir}/kernel/install.d
+install -m 755 -d  %{buildroot}%{_prefix}/lib/kernel/install.d
 install -m 644 systemd/kernel-bootcfg-boot-successful.service %{buildroot}%{_unitdir}
-install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/install.d
+install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kernel/install.d
 
 %post -n uki-direct
 %systemd_post kernel-bootcfg-boot-successful.service
@@ -101,6 +101,7 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 %{_mandir}/man1/kernel-bootcfg.1*
 %{_mandir}/man1/uefi-boot-menu.1*
 %{_mandir}/man1/pe-*.1*
+%dir %{python3_sitelib}/virt
 %{python3_sitelib}/virt/firmware
 %{python3_sitelib}/virt/peutils
 %{python3_sitelib}/virt_firmware-%{pypi_version}-py%{python3_version}.egg-info
@@ -110,7 +111,7 @@ install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_libdir}/kernel/i
 
 %files -n uki-direct
 %{_unitdir}/kernel-bootcfg-boot-successful.service
-%{_libdir}/kernel/install.d/99-uki-uefi-setup.install
+%{_prefix}/lib/kernel/install.d/99-uki-uefi-setup.install
 
 %changelog
 %autochangelog

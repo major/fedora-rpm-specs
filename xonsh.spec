@@ -5,7 +5,7 @@ Summary:        A general purpose, Python-ish shell
 
 # xonsh is BSD-2-Clause.
 # xonsh/winutils.py and xonsh/xoreutils/_which.py contain MIT code.
-License:        BSD-2-Clause and MIT
+License:        BSD-2-Clause AND MIT
 URL:            https://xon.sh
 Source0:        %pypi_source
 BuildArch:      noarch

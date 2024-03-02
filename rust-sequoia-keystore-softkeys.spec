@@ -2,21 +2,26 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cached_proc_macro
+%global crate sequoia-keystore-softkeys
 
-Name:           rust-cached_proc_macro
-Version:        0.20.0
+Name:           rust-sequoia-keystore-softkeys
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Generic cache implementations and simplified function memoization
+Summary:        Soft key (in-memory key) backend for Sequoia's private key store
 
-License:        MIT
-URL:            https://crates.io/crates/cached_proc_macro
+License:        LGPL-2.0-or-later
+URL:            https://crates.io/crates/sequoia-keystore-softkeys
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          sequoia-keystore-softkeys-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * enable missing "sequoia-openpgp/compression" feature
+Patch:          sequoia-keystore-softkeys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Generic cache implementations and simplified function memoization.}
+A soft key (in-memory key) backend for Sequoia's private key store.}
 
 %description %{_description}
 
@@ -30,7 +35,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,7 +59,8 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
-%cargo_build
+# build with the default crypto backend (Nettle)
+%cargo_build -f sequoia-openpgp/crypto-nettle
 
 %install
 %cargo_install

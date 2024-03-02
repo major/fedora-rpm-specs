@@ -4,13 +4,13 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global lldb_version 17.0.6
-#global rc_ver 4
+%global lldb_version 18.1.0
+%global rc_ver 4
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -18,11 +18,6 @@ URL:		http://lldb.llvm.org/
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
-
-# Backport from https://github.com/llvm/llvm-project/pull/70443
-Patch:		0001-lldb-Replace-the-usage-of-module-imp-with-module-imp.patch
-# Backport from https://github.com/llvm/llvm-project/pull/70445
-Patch:		0001-lldb-Adapt-code-to-Python-3.13.patch
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -139,6 +134,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

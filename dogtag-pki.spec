@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -63,9 +63,9 @@ ExcludeArch: i686
 # Java
 ################################################################################
 
-%global java_devel java-17-openjdk-devel
-%global java_headless java-17-openjdk-headless
-%global java_home %{_jvmdir}/jre-17-openjdk
+%global java_devel java-21-openjdk-devel
+%global java_headless java-21-openjdk-headless
+%global java_home %{_jvmdir}/jre-21-openjdk
 
 ################################################################################
 # Application Server
@@ -1500,6 +1500,9 @@ fi
 
 ################################################################################
 %changelog
+* Thu Feb 29 2024 Adam Williamson <awilliam@redhat.com> - 11.5.0-2.fc41
+- Really build against java-21-openjdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 11.5.0-1.1
 - Rebuilt for java-21-openjdk as system jdk
 

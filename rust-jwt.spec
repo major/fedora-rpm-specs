@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cached_proc_macro
+%global crate jwt
 
-Name:           rust-cached_proc_macro
-Version:        0.20.0
+Name:           rust-jwt
+Version:        0.16.0
 Release:        %autorelease
-Summary:        Generic cache implementations and simplified function memoization
+Summary:        JSON Web Token library
 
 License:        MIT
-URL:            https://crates.io/crates/cached_proc_macro
+URL:            https://crates.io/crates/jwt
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Generic cache implementations and simplified function memoization.}
+JSON Web Token library.}
 
 %description %{_description}
 
@@ -44,6 +44,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+openssl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

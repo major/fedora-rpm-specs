@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cached_proc_macro
+%global crate unscanny
 
-Name:           rust-cached_proc_macro
-Version:        0.20.0
+Name:           rust-unscanny
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Generic cache implementations and simplified function memoization
+Summary:        Painless string scanning
 
-License:        MIT
-URL:            https://crates.io/crates/cached_proc_macro
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/unscanny
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Generic cache implementations and simplified function memoization.}
+Painless string scanning.}
 
 %description %{_description}
 
@@ -30,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -1,17 +1,13 @@
 # All package versioning is found here:
-# the actual version is composed from these below, including leading 0 for release candidates
+# the actual version is composed from these below
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
-#   bzrrc: release candidate version, if any, line starts with % for rc, # for stable releas (no %).
-#   baserelease: rpm release number (0.N for rc candidates, N for stable releases)
 %global brzmajor 3.3
 %global brzminor .3
-#global brzrc b6
-%global baserelease 3
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
-Release:        %{baserelease}%{?brzrc:.}%{?brzrc}%{?dist}
+Release:        %autorelease
 Summary:        Friendly distributed version control system
 
 # breezy is GPL-2.0-or-later, but it has Rust dependencies
@@ -25,7 +21,6 @@ Source2:        brz-icon-64.png
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  zlib-devel
-BuildRequires:  bash-completion
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  make
@@ -110,8 +105,7 @@ chmod 0644 contrib/bzr_ssh_path_limiter  # note the bzr here
 chmod 0644 contrib/brz_access
 chmod 0755 %{buildroot}%{python3_sitearch}/%{name}/*.so
 
-bashcompdir=$(pkg-config --variable=completionsdir bash-completion)
-install -Dpm 0644 contrib/bash/brz %{buildroot}$bashcompdir/brz
+install -Dpm 0644 contrib/bash/brz %{buildroot}%{bash_completions_dir}/brz
 rm contrib/bash/brz
 
 install -d %{buildroot}%{_datadir}/pixmaps
@@ -147,7 +141,7 @@ echo ".so man1/git-remote-brz.1" > %{buildroot}%{_mandir}/man1/git-remote-bzr.1
 %{_mandir}/man1/*
 %{python3_sitearch}/%{name}/
 %{python3_sitearch}/*.egg-info/
-%{_datadir}/bash-completion/
+%{bash_completions_dir}/brz
 %{_datadir}/pixmaps/brz.png
 
 
@@ -157,87 +151,4 @@ echo ".so man1/git-remote-brz.1" > %{buildroot}%{_mandir}/man1/git-remote-bzr.1
 
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jul 24 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.3.3-1
-- Update to 3.3.3
-- Modernizes specfile, now using automatic buildrequires
-- Resolves: #2219952, #2133259
-
-* Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 3.2.2-10
-- Rebuilt for Python 3.12
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jun 26 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.2.2-8
-- Migrate license to SPDX format
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.2.2-5
-- Rebuilt for Python 3.11
-
-* Tue Jun 07 2022 Ondrej Pohorelsky <opohorel@redhat.com> - 3.2.2-4
-- Update to 3.2.2
-- Resolves: #2070029
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jul 13 2021 Ondrej Pohorelsky <opohorel@redhat.com> - 3.2.1-1
-- Update to 3.2.1
-- Resolves: #1980401
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.2.0-2
-- Rebuilt for Python 3.10
-
-* Wed May 05 2021 Ondrej Pohorelsky <opohorel@redhat.com> - 3.2.0-1
-- Update to 3.2.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Oct 26 2020 Ondrej Pohorelsky <opohorel@redhat.com> - 3.1.0-1
-- Update to 3.1.0
-
-* Thu Oct 22 2020 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-5
-- Replace bazaar in ELN as well
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 23 2020 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-3
-- Rebuilt for Python 3.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Dec 01 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-1
-- Update to 3.0.2
-
-* Thu Oct 24 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.1-4
-- On Fedora 32+, replace bazaar with breezy
-  https://fedoraproject.org/wiki/Changes/ReplaceBazaarWithBreezy
-
-* Thu Oct 17 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.1-3
-- Reenable all extension modules
-
-* Thu Oct 10 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.1-2
-- Disable the _static_tuple_c extension module to workaround Python 3.8 problems (#1760260)
-- Other disabled modules depending on the above:
-  _chk_map_pyx, _dirstate_helpers_pyx, _bencode_pyx, _btree_serializer_pyx
-
-* Wed Sep 04 2019 Miro Hrončok <mhroncok@redhat.com> - 3.0.1-1
-- Package breezy
+%autochangelog

@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf6-%{framework}
-Version: 6.0.0
-Release: 1%{?dist}
+Version:        6.0.0
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -26,6 +26,7 @@ BuildRequires:	pkgconfig(libjxl) >= 0.7.0
 BuildRequires:	pkgconfig(libjxl_threads) >= 0.7.0
 BuildRequires:	pkgconfig(libraw)
 BuildRequires:	pkgconfig(libraw_r)
+BuildRequires:	pkgconfig(libheif)
 BuildRequires:	libxkbcommon-devel
 
 Requires:       kf6-filesystem
@@ -40,7 +41,8 @@ image formats.
 %autosetup -n %{framework}-%{version} -p1
 
 %build
-%cmake_kf6
+%cmake_kf6 \
+  -DKIMAGEFORMATS_HEIF:BOOL=ON
 %cmake_build
 
 %install
@@ -52,6 +54,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- add libheif plugin support
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

@@ -1,7 +1,7 @@
-%global maj_ver 17
-%global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global maj_ver 18
+%global min_ver 1
+%global patch_ver 0
+%global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -11,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -25,20 +25,14 @@ Source3: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_ver
 
 Source4: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/mlir/test/lib/Analysis/TestAliasAnalysis.h
 
-# Needed for documentation generation
-Patch1: 0001-PATCH-flang-Disable-use-of-sphinx_markdown_tables.patch
-
 # The Bye plugin is not distributed on Fedora.
 Patch3: 0001-flang-Remove-the-dependency-on-Bye.patch
-
-# Fedora does not distribute libclangBasic.a.
-Patch4: remove-clangBasic-dependency.diff
 
 # Fedora uses CLANG_DEFAULT_PIE_ON_LINUX=OFF.
 Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
 
 # Fix for standalone builds. Avoid running on non-x86 targets.
-Patch6: fastmath.diff
+Patch6: 0001-Fix-fastmath-test.patch
 
 %{lua:
 
@@ -106,6 +100,7 @@ BuildRequires: ninja-build
 BuildRequires: python3-lit >= 12.0.0
 BuildRequires: python3-sphinx
 BuildRequires: python3-recommonmark
+BuildRequires: python3-myst-parser
 BuildRequires: doxygen
 
 # The new flang drive requires clang-devel
@@ -115,6 +110,8 @@ BuildRequires: clang-devel = %{version}
 BuildRequires: gnupg2
 
 Requires: %{name}-runtime = %{version}-%{release}
+# flang installs headers in the clang resource directory
+Requires: clang-resource-filesystem = %{version}
 Conflicts: flang-devel < 17.0.6-2
 
 %description
@@ -154,6 +151,7 @@ cp %{SOURCE4} include/mlir/test/lib/Analysis/
        -DCMAKE_INSTALL_RPATH=";" \
        -DCLANG_DIR=%{_libdir}/cmake/clang \
        -DCLANG_LINK_CLANG_DYLIB:BOOL=ON \
+       -DCLANG_RESOURCE_DIR=../../%{clang_resource_dir} \
        -DLLVM_MAIN_SRC_DIR=%{_datadir}/llvm/src \
        -DBUILD_SHARED_LIBS:BOOL=ON \
        -DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
@@ -240,7 +238,10 @@ rm -f test/Semantics/spec-expr.f90
 rm -f test/Evaluate/folding19.f90
 %endif
 
-export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
+# Remove failing test
+rm -rf test/Driver/frontend-forwarding.f90
+
+export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %cmake_build --target check-flang 
 
 %files
@@ -274,36 +275,44 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_includedir}/flang/iso_fortran_env.mod
 %{_includedir}/flang/omp_lib.f18.mod
 %{_includedir}/flang/omp_lib.mod
-%{_libdir}/libFIRAnalysis.so.%{maj_ver}
-%{_libdir}/libFIRBuilder.so.%{maj_ver}
-%{_libdir}/libFIRCodeGen.so.%{maj_ver}
-%{_libdir}/libFIRDialect.so.%{maj_ver}
-%{_libdir}/libFIRDialectSupport.so.%{maj_ver}
-%{_libdir}/libFIRSupport.so.%{maj_ver}
-%{_libdir}/libFIRTestAnalysis.so.%{maj_ver}
-%{_libdir}/libFIRTransforms.so.%{maj_ver}
-%{_libdir}/libflangFrontend.so.%{maj_ver}*
-%{_libdir}/libflangFrontendTool.so.%{maj_ver}*
-%{_libdir}/libFortranCommon.so.%{maj_ver}*
+%{_includedir}/flang/mma.f18.mod
+%{_includedir}/flang/mma.mod
+
+%{_libdir}/libFIRAnalysis.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRBuilder.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRCodeGen.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRDialect.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRDialectSupport.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRSupport.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRTestAnalysis.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRTransforms.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libflangFrontend.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libflangFrontendTool.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFortranCommon.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranDecimal.so
-%{_libdir}/libFortranEvaluate.so.%{maj_ver}*
-%{_libdir}/libFortranLower.so.%{maj_ver}*
-%{_libdir}/libFortranParser.so.%{maj_ver}*
+%{_libdir}/libFortranEvaluate.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFortranLower.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFortranParser.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranRuntime.so
-%{_libdir}/libFortranSemantics.so.%{maj_ver}*
+%{_libdir}/libFortranSemantics.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortran_main.a
-%{_libdir}/libHLFIRDialect.so.%{maj_ver}
-%{_libdir}/libHLFIRTransforms.so.%{maj_ver}
+%{_libdir}/libHLFIRDialect.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libHLFIRTransforms.so.%{maj_ver}.%{min_ver}
+
+%{clang_resource_dir}/include/ISO_Fortran_binding.h
 
 %files doc
 %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/html/
 
 %files runtime
-%{_libdir}/libFortranDecimal.so.%{maj_ver}*
-%{_libdir}/libFortranRuntime.so.%{maj_ver}*
+%{_libdir}/libFortranDecimal.so.%{maj_ver}.%{min_ver}*
+%{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

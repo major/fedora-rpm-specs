@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 81%{?dist}
+Release: 82%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -11115,6 +11115,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Thu Feb 29 2024 Tom Callaway <spot@fedoraproject.org> - 11:20230311-82
+- rebuild for new xpdf
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 11:20230311-81
 - Rebuild for ICU 74
 

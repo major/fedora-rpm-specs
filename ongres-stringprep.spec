@@ -47,7 +47,7 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %mvn_package com.ongres.stringprep:codegenerator __noinstall
 
 %build
-%mvn_build
+%mvn_build -- -Djava.version=1.8
 
 %install
 %mvn_install

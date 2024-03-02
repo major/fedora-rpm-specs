@@ -16,7 +16,7 @@ Version:            3.17.0
 %endif
 
 Name:           python-%{pypi_name}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -26,6 +26,11 @@ Source0:        %{forgesource}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+# epel is missing full poetry and light packages needed for tests
+%if 0%{?rhel >= 8}
+#Patch:		disable-poetry-light.patch
+%endif
 
 # required to run the test suite
 %if %{with tests}
@@ -137,7 +142,7 @@ rm -rf %{pypi_name}.egg-info
 %if %{with extras}
 %pyproject_buildrequires -r -t -e light -x gransy,localzone,oci,route53
 %else
-%pyproject_buildrequires -r -t -e light
+%pyproject_buildrequires -r
 %endif
 
 
@@ -211,6 +216,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Thu Feb 29 2024 Jonathan Wright <jonathan@almalinux.org> - 3.17.0-4
+- Update spec for building on epel9
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

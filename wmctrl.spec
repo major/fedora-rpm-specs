@@ -1,9 +1,11 @@
 Name:           wmctrl
 Version:        1.07
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Command line tool to interact with an X Window Manager
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+# URL and Source URL is dead now.
+# New hosting can be used as https://github.com/Conservatory/wmctrl
 URL:            http://sweb.cz/tripie/utils/wmctrl
 Source0:        http://sweb.cz/tripie/utils/wmctrl/dist/%{name}-%{version}.tar.gz
 BuildRequires: make
@@ -27,9 +29,7 @@ application that is able to run a command in response to an event.
 
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 
 %build
@@ -38,16 +38,20 @@ make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot}
 
 
 %files
-%doc AUTHORS COPYING README
+%doc AUTHORS README
+%license COPYING
 %{_bindir}/*
 %{_mandir}/man1/*
 
 
 %changelog
+* Wed Feb 28 2024 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.07-37
+- Migrate to SPDX license expression
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

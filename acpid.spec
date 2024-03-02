@@ -8,7 +8,7 @@
 Summary: ACPI Event Daemon
 Name: acpid
 Version: 2.0.34
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 Source: http://downloads.sourceforge.net/acpid2/%{name}-%{version}.tar.xz
 Source2: acpid.video.conf
@@ -19,7 +19,7 @@ Source6: acpid.sysconfig
 Source7: acpid.socket
 # https://sourceforge.net/p/acpid2/tickets/14/
 Patch0: acpid-2.0.32-kacpimon-dynamic-connections.patch
-ExclusiveArch: ia64 x86_64 %{ix86} %{arm} aarch64
+ExclusiveArch: ia64 x86_64 %{ix86} %{arm} aarch64 riscv64
 URL: http://sourceforge.net/projects/acpid2/
 BuildRequires: systemd, gcc
 BuildRequires: make
@@ -100,6 +100,9 @@ fi
 	/bin/systemctl try-restart acpid.service >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 23 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 2.0.34-8
+- Add riscv64 support
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.34-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.83%{?prerel}%{?dist}
+Release:        0.84%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPL-2.0-only AND BSD-3-Clause
@@ -36,6 +36,9 @@ Patch6:         qtwebkit-icu68.patch
 Patch7:         webkit-offlineasm-warnings-ruby27.patch
 Patch8:         qtwebkit-cstdint.patch
 Patch9:         qtwebkit-fix-build-gcc14.patch
+
+# Enable RISC-V (riscv64)
+Patch10:        https://github.com/qtwebkit/qtwebkit/commit/d9824ec806b6c6171862a7ba758fc28e6a20aada.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -156,7 +159,7 @@ test -f Source/WebCore/Resources/textAreaResizeCorner.png
 
 # Decrease debuginfo even on ix86 because of:
 # https://bugs.webkit.org/show_bug.cgi?id=140176
-%ifarch s390 s390x %{arm} %{ix86} ppc %{power64} %{mips}
+%ifarch s390 s390x %{arm} %{ix86} ppc %{power64} %{mips} riscv64
 # Decrease debuginfo verbosity to reduce memory consumption even more
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
@@ -169,6 +172,11 @@ test -f Source/WebCore/Resources/textAreaResizeCorner.png
 CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ;
 CXXFLAGS="${CXXFLAGS:-%optflags} -fpermissive" ; export CXXFLAGS ;
 %{?__global_ldflags:LDFLAGS="${LDFLAGS:-%__global_ldflags}" ; export LDFLAGS ;}
+
+%ifarch riscv64
+export LDFLAGS="${LDFLAGS} -latomic"
+%endif
+
 # We cannot use default cmake macro here as it overwrites some settings queried
 # by qtwebkit cmake from qmake
 %cmake \
@@ -178,7 +186,7 @@ CXXFLAGS="${CXXFLAGS:-%optflags} -fpermissive" ; export CXXFLAGS ;
        -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \
        -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \
        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
-%ifarch s390 s390x ppc %{power64}
+%ifarch s390 s390x ppc %{power64} riscv64
        -DENABLE_JIT=OFF \
 %endif
 %ifarch s390 s390x ppc %{power64}
@@ -260,6 +268,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Thu Feb 29 2024 David Abdurachmanov <david.abdurachmanov@gmail.com> - 5.212.0-0.84alpha4
+- add support for RISC-V (riscv64)
+
 * Tue Feb 06 2024 Jan Grulich <jgrulich@redhat.com> - 5.212.0-0.83alpha4
 - Fix build with GCC 14
 

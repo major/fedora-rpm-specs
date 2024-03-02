@@ -2,13 +2,13 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 17.0.6
-#global rc_ver 4
+%global libclc_version 18.1.0
+%global rc_ver 4
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
@@ -94,6 +94,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

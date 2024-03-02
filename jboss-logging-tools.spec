@@ -3,7 +3,7 @@
 
 Name:             jboss-logging-tools
 Version:          2.2.1
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          JBoss Logging I18n Annotation Processor
 # Not available license file https://issues.jboss.org/browse/LOGTOOL-107
 # ./annotations/src/main/java/org/jboss/logging/annotations/*.java: Apache (v2.0)
@@ -11,9 +11,10 @@ License:          Apache-2.0 and LGPL-2.0-or-later
 URL:              https://github.com/jboss-logging/jboss-logging-tools
 Source0:          %{url}/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
 Source1:          http://www.apache.org/licenses/LICENSE-2.0.txt
+Patch1:           0001-Add-getEnclosingMethod-to-DelegatingExecutableElemen.patch
 
 BuildArch:        noarch
-ExclusiveArch:  %{java_arches} noarch
+ExclusiveArch:    %{java_arches} noarch
 
 BuildRequires:    maven-local
 BuildRequires:    mvn(junit:junit)
@@ -25,7 +26,7 @@ BuildRequires:    mvn(org.jboss.logging:jboss-logging)
 This pacakge contains JBoss Logging I18n Annotation Processor
 
 %prep
-%setup -q -n %{name}-%{namedversion}
+%autosetup -n %{name}-%{namedversion} -p 1
 
 cp %{SOURCE1} .
 
@@ -49,6 +50,9 @@ rm processor/src/test/java/org/jboss/logging/processor/generated/GeneratedSource
 %doc README.adoc
 
 %changelog
+* Thu Feb 29 2024 Chris Kelley <ckelley@redhat.com> - 2.2.1-16
+- Patched to work with java-21-openjdk as system jdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.2.1-15
 - Rebuilt for java-21-openjdk as system jdk
 

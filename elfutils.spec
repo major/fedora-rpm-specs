@@ -92,7 +92,7 @@ elfcompress (to compress or decompress ELF sections).
 
 %package libs
 Summary: Libraries to handle compiled objects
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libs%{depsuffix} = %{version}-%{release}
 %endif
@@ -115,7 +115,7 @@ libraries.
 
 %package devel
 Summary: Development libraries to handle compiled objects
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-devel%{depsuffix} = %{version}-%{release}
 %endif
@@ -136,7 +136,7 @@ assembler interface.
 
 %package libelf
 Summary: Library to read and write ELF files
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libelf%{depsuffix} = %{version}-%{release}
 %endif
@@ -150,7 +150,7 @@ elfutils package use it also to generate new ELF files.
 
 %package libelf-devel
 Summary: Development support for libelf
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-libelf-devel%{depsuffix} = %{version}-%{release}
 %endif
@@ -167,7 +167,7 @@ different sections of an ELF file.
 %if %{provide_yama_scope}
 %package default-yama-scope
 Summary: Default yama attach scope sysctl setting
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 Provides: default-yama-scope
 BuildArch: noarch
 # For the sysctl_apply macro we need systemd as build requires.
@@ -201,7 +201,7 @@ profiling) of processes.
 
 %package debuginfod-client
 Summary: Library and command line client for build-id HTTP ELF/DWARF server
-License: GPL-3.0-or-later and (GPL-2.0-or-later or LGPL-3.0-or-later)
+License: GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)
 %if 0%{!?_isa:1}
 Provides: elfutils-debuginfod-client%{depsuffix} = %{version}-%{release}
 %endif
@@ -211,7 +211,7 @@ Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 
 %package debuginfod-client-devel
 Summary: Libraries and headers to build debuginfod client applications
-License: GPL-2.0-or-later or LGPL-3.0-or-later
+License: GPL-2.0-or-later OR LGPL-3.0-or-later
 %if 0%{!?_isa:1}
 Provides: elfutils-debuginfod-client-devel%{depsuffix} = %{version}-%{release}
 %endif

@@ -3,10 +3,9 @@
 Summary: Emacs Speech interface
 Name: emacspeak
 Version: %{major_ver}.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # main lisp files are GPL2+
-# lisp/atom-blogger and lisp/g-client are BSD
-License: GPLv2+ and BSD
+License: GPL-2.0-or-later AND BSD-3-Clause
 Source: https://github.com/tvraman/emacspeak/releases/download/%{major_ver}/%{name}-%{version}.tar.bz2
 URL: http://emacspeak.sourceforge.net/
 BuildRequires: emacs
@@ -80,6 +79,9 @@ cp -p info/*.info* %{buildroot}%{_infodir}
 
 
 %changelog
+* Thu Feb 29 2024 Parag Nemade <pnemade AT fedoraproject DOT org> - 59.0-3
+- Migrate existing license tag to SPDX expression
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 59.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

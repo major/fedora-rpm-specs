@@ -4,9 +4,36 @@
 
 Name:		libffi
 Version:	3.4.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A portable foreign function interface library
-License:	MIT
+# The following SPDX licenses are extracted from the sources using
+# ScanCode 32.0.8 on build libffi-3.4.4-7.fc40:
+#
+# MIT - Most of the project sources (Required)
+# CC-PDDC - src/dlmalloc.c (Required)
+# mit OR gpl-3.0 - ltmain.sh (Ignored)
+# mit OR gpl-1.0-plus - ltmain.sh (Ignored)
+# gpl-2.0-plus WITH libtool-exception-2.0 - ltmain.sh, libtool.m4, configure (Ignored, not shipped)
+# warranty-disclaimer - ltmain.sh (Ignored)
+# unknown-license-reference - ltmain.sh (Ignored)
+# gpl-2.0-plus - Used by build system only (Ignored)
+# gpl-2.0 - Used by build system only (Ignored)
+# free-unknown - config.guess, config.sub (Ignored)
+# fsf-ap - Used by build system only (Ignored)
+# fsf-free - Used by build system only (Ignored)
+# fsf-unlimited - Used by build system only (Ignored)
+# fsf-unlimited-no-warranty - Used by build system only (Ignored)
+# gpl-1.0-plus - False positive in texinfo.tex (Ignored)
+# gpl-3.0-plus WITH tex-exception - texinfo.tex used in libffi-devel docs (Required)
+# gpl-2.0-plus WITH autoconf-simple-exception-2.0 - Used by build system only (Ignored)
+# gpl-3.0 - Used by build system only (Ignored)
+# gpl-3.0-plus - Used by the testsuite only (Ignored)
+# gpl-3.0-plus WITH autoconf-exception-2.0 - Used by build system only (Ignored)
+# gpl-3.0-plus WITH autoconf-simple-exception - Used by build system only (Ignored)
+# mpl-1.1 OR gpl-2.0-plus OR lgpl-2.1-plus - Not used in build (Ignored)
+# public-domain - Used by build system only (Ignored)
+# x11-xconsortium - Used by build system only (Ignored)
+License:	MIT AND CC-PDDC AND (GPL-3.0-or-later WITH Texinfo-exception)
 URL:		http://sourceware.org/libffi
 
 Source0:	https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz
@@ -117,6 +144,13 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Thu Feb 29 2024 Carlos O'Donell <carlos@redhat.com> - 3.4.4-8
+- Analyze libffi-3.4.4-7.fc40 sources for license information
+- Migrate License field to SPDX identifiers for
+  https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+  https://docs.fedoraproject.org/en-US/legal/update-existing-packages
+  (#2222084)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

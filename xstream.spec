@@ -200,7 +200,7 @@ rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/
 %mvn_package :%{name}-parent __noinstall
 
 %build
-%mvn_build -s -f -- -Dversion.java.source=1.8 -Dversion.java.target=1.8
+%mvn_build -s -f -- -Dversion.java.5=1.8 -Dversion.java.6=1.8 -Dversion.java.source=1.8 -Dversion.java.target=1.8
 
 %install
 %mvn_install

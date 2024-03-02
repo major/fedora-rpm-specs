@@ -2,7 +2,7 @@
 
 Name:          jdom2
 Version:       2.0.6.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Java manipulation of XML made easy
 License:       Saxpath
 URL:           http://www.jdom.org/
@@ -81,6 +81,9 @@ mkdir lib
 %license LICENSE.txt
 
 %changelog
+* Thu Feb 29 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.6.1-8
+- bump of release for for java-21-openjdk as system jdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.0.6.1-7
 - Rebuilt for java-21-openjdk as system jdk
 

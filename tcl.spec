@@ -1,11 +1,11 @@
 %define majorver 8.6
-%define	vers %{majorver}.13
+%define	vers %{majorver}.14
 %{!?sdt:%define sdt 1}
 
 Summary: Tool Command Language, pronounced tickle
 Name: tcl
 Version: %{vers}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 License: TCL AND GPL-3.0-or-later WITH bison-exception-2.2 AND BSD-3-Clause
 URL: http://tcl.sourceforge.net/
@@ -19,7 +19,6 @@ Obsoletes: tcl-tcldict <= %{vers}
 Provides: tcl-tcldict = %{vers}
 Patch0: tcl-8.6.12-autopath.patch
 Patch1: tcl-8.6.12-conf.patch
-Patch2: tcl-8.6.13-hidden.patch
 Patch3: tcl-8.6.13-tcltests-path-fix.patch
 Patch4: tcl-8.6.13-configure-c99.patch
 
@@ -139,6 +138,10 @@ rm -rf %{buildroot}/%{_datadir}/%{name}%{majorver}/ldAix
 %{_datadir}/%{name}%{majorver}/tclAppInit.c
 
 %changelog
+* Thu Feb 29 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.14-1
+- New version
+  Resolves: rhbz#2267019
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

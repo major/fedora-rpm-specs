@@ -6,7 +6,7 @@
 
 Name:           python-pynamodb
 Summary:        A pythonic interface to Amazon’s DynamoDB
-Version:        5.5.1
+Version:        6.0.0
 Release:        %autorelease
 
 # SPDX
@@ -15,10 +15,6 @@ URL:            https://github.com/pynamodb/PynamoDB
 # We use the GitHub tarball instead of the PyPI tarball to get documentation
 # and tests.
 Source:         %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
-
-# In setup.cfg, avoid deprecated license_file
-# https://github.com/pynamodb/PynamoDB/pull/1207
-Patch:          %{url}/pull/1207.patch
 
 BuildArch:      noarch
 
@@ -68,12 +64,10 @@ Summary:        Documentation and examples for PynamoDB
   # Get non-CI dev dependencies (no coverage/linting)
   awk '/^# only used in CI/ {ci=1}; !ci' requirements-dev.txt
 } | tee requirements-filtered.txt
-# Don’t generate (unfiltered) dev dependencies for tox:
-sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x signals -t requirements-filtered.txt
+%pyproject_buildrequires -x signals requirements-filtered.txt
 
 
 %build
@@ -91,7 +85,11 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 
 
 %check
-%tox
+# The integration tests need to connect to a local copy of DynamoDB; see the
+# “Run dynamodb_local” step in .github/workflows.test.yaml. We can’t use a
+# pre-compiled Java application for testing, and only a negligible number of
+# integration tests can work without it, so we skip the integration tests.
+%pytest --ignore-glob='tests/integration/*' -v
 
 
 %files -n python3-pynamodb -f %{pyproject_files}

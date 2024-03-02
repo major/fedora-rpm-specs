@@ -1,5 +1,5 @@
 Name:           python-pykeepass
-Version:        4.0.6
+Version:        4.0.7
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -12,6 +12,12 @@ License:        GPL-3.0-only AND MIT
 URL:            https://github.com/libkeepass/pykeepass
 # The GitHub archive has tests; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
+# Remove shebang line from pykeepass/deprecated.py
+# https://github.com/libkeepass/pykeepass/pull/377
+Patch:          %{url}/pull/377.patch
+# Fix missing pykeepass.kdbx_parsing when built with modern tools
+# https://github.com/libkeepass/pykeepass/pull/378
+Patch:          %{url}/pull/378.patch
 
 BuildArch:      noarch
  
@@ -30,14 +36,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n pykeepass-%{version}
-
-# Convert exact-version pins, which we cannot respect, to lower bounds.
-sed -r -i 's/==/>=/' requirements.txt
+%autosetup -n pykeepass-%{version} -p1
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
@@ -50,6 +53,11 @@ sed -r -i 's/==/>=/' requirements.txt
 
 
 %check
+# This is worthwhile even though we run the tests; tests did not catch a
+# missing pykeepass.kdbx_parsing package in the 4.0.7 release, but an import
+# check would have.
+%pyproject_check_import
+
 %{python3} -m unittest discover -s tests -v
 
 

@@ -9,17 +9,18 @@
 %global	tarballdate	20221008
 %global	tarballtime	2308
 
-%global toolchain clang
+%global	toolchain	clang
 
 Name:			clover2
 
 # For Version, see README.md and so on
 Version:		%{mainver}
-#Release:		10.D%{gitdate}git%{shortcommit}%{?dist}
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		Yet another compiler language
 
-License:		GPLv2
+# app-sample/	unused
+# SPDX confirmed
+License:		GPL-2.0-only
 URL:			https://github.com/ab25cq/clover2/wiki
 #Source0:		https://github.com/ab25cq/%{name}/archive/%{gitcommit}/%{name}-%{version}-git%{shortcommit}.tar.gz
 Source0:		%{name}-%{tarballdate}T%{tarballtime}.tar.gz
@@ -144,6 +145,9 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Thu Feb 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.0.0-6
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

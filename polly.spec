@@ -1,6 +1,6 @@
 %global toolchain clang
-%global polly_version 17.0.6
-#global rc_ver 4
+%global polly_version 18.1.0
+%global rc_ver 4
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -9,7 +9,7 @@
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
 License: NCSA
@@ -21,6 +21,7 @@ Source2: release-keys.asc
 Patch0: 0001-PATCH-polly-Portability-of-subproject-extension.patch
 
 BuildRequires: cmake
+BuildRequires: zlib-devel
 BuildRequires: llvm-devel = %{version}
 BuildRequires: llvm-cmake-utils = %{version}
 BuildRequires: llvm-test = %{version}
@@ -107,6 +108,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -31,7 +31,7 @@ API documentation for %{name}.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-cd api
+pushd api
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
 # remove unnecessary maven plugins
@@ -42,14 +42,17 @@ cd api
 %mvn_alias jakarta.xml.soap:jakarta.xml.soap-api javax.xml.soap:saaj-api
 # add compatibility symlink for old classpath
 %mvn_file : %{name}/jakarta.xml.soap-api geronimo-saaj
-cd -
+
+# TODO remove when https://github.com/jakartaee/saaj-api/issues/134 is resolved
+%pom_xpath_remove 'pom:plugin[pom:artifactId="maven-compiler-plugin"]/pom:configuration/pom:compilerArgs/pom:arg[text()="-Werror"]'
+popd
 
 %build
-cd api
+pushd api
 # - skip tests because metro-saaj is not packaged for fedora yet:
 #   https://github.com/eclipse-ee4j/metro-saaj
 %mvn_build -f
-cd -
+popd
 
 %install
 pushd api

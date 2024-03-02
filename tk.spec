@@ -1,10 +1,10 @@
 %define majorver 8.6
-%define vers %{majorver}.13
+%define vers %{majorver}.14
 
 Summary: The graphical toolkit for the Tcl scripting language
 Name: tk
 Version: %{vers}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Epoch:   1
 License: TCL AND HPND-Pbmplus AND CC-BY-SA-3.0 AND MIT-open-group AND MIT
 URL: http://tcl.sourceforge.net
@@ -102,6 +102,10 @@ sed -i -e "s|$PWD/unix|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{bu
 %{_datadir}/%{name}%{majorver}/tkAppInit.c
 
 %changelog
+* Thu Feb 29 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1:8.6.14-1
+- New version
+  Related: rhbz#2267019
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.6.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

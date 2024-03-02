@@ -7,7 +7,7 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
@@ -58,6 +58,9 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(YAML)
 %endif
 Requires:       perl(Carp)
+# libpkgconf.so.4() changed an ABI without changing SONAME
+# <https://github.com/pkgconf/pkgconf/issues/347>
+Requires:       libpkgconf >= 2.1.0
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
@@ -125,14 +128,21 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/PkgConfig*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/PkgConfig
+%{perl_vendorarch}/auto/PkgConfig/LibPkgConf
+%dir %{perl_vendorarch}/PkgConfig
+%{perl_vendorarch}/PkgConfig/LibPkgConf
+%{perl_vendorarch}/PkgConfig/LibPkgConf.pm
+%{_mandir}/man3/PkgConfig::LibPkgConf.*
+%{_mandir}/man3/PkgConfig::LibPkgConf::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 29 2024 Petr Pisar <ppisar@redhat.com> - 0.11-18
+- Rebuild against pkgconf-2.1.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

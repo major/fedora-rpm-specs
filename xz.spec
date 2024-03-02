@@ -5,8 +5,10 @@ Summary:	LZMA compression utilities
 Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
+# do this on a side tag, according to
+# https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages
 Version:	5.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -170,6 +172,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Thu Feb 29 2024 Adam Williamson <awilliam@redhat.com> - 5.6.0-2
+- Rebuild on a side tag to create a coherent update
+
 * Tue Feb 27 2024 Jindrich Novy <jnovy@redhat.com> - 5.6.0-1
 - Rebase to version 5.6.0
 

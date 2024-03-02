@@ -7,6 +7,8 @@ URL:           https://diffoscope.org/
 #Source0:       https://files.pythonhosted.org/packages/source/d/diffoscope/diffoscope-%%{version}.tar.gz
 Source0:       https://salsa.debian.org/reproducible-builds/diffoscope/-/archive/%{version}/diffoscope-%{version}.tar.gz
 
+Patch:         https://salsa.debian.org/reproducible-builds/diffoscope/-/commit/466523ac6fbd1437635f8393fb93c37ff59341b3.patch
+
 # The package is arched due to architecture-dependent BR’s and Recommends;
 # however, there is no compiled code, so no debug package will be generated.
 %global debug_package %{nil}

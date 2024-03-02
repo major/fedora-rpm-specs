@@ -31,11 +31,11 @@
 
 %global major_version 4
 %global minor_version 3
-%global patch_version 2
+%global patch_version 3
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -135,32 +135,32 @@ Provides:       R(ABI) = %{bootstrap_abi}
   print("Provides: R(" .. name .. ") = " .. rpm_version)
 }
 %add_submodule  base %{version}
-%add_submodule  boot 1.3-28.1
+%add_submodule  boot 1.3-29
 %add_submodule  class 7.3-22
-%add_submodule  cluster 2.1.4
+%add_submodule  cluster 2.1.6
 %add_submodule  codetools 0.2-19
 %add_submodule  compiler %{version}
 %add_submodule  datasets %{version}
-%add_submodule  foreign 0.8-85
+%add_submodule  foreign 0.8-86
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
 %add_submodule  KernSmooth 2.23-22
-%add_submodule  lattice 0.21-9
-%add_submodule  MASS 7.3-60
-%add_submodule  Matrix 1.6-1.1
+%add_submodule  lattice 0.22-5
+%add_submodule  MASS 7.3-60.0.1
+%add_submodule  Matrix 1.6-5
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
-%add_submodule  mgcv 1.9-0
-%add_submodule  nlme 3.1-163
+%add_submodule  mgcv 1.9-1
+%add_submodule  nlme 3.1-164
 %add_submodule  nnet 7.3-19
 %add_submodule  parallel %{version}
-%add_submodule  rpart 4.1.21
+%add_submodule  rpart 4.1.23
 %add_submodule  spatial 7.3-17
 %add_submodule  splines %{version}
 %add_submodule  stats %{version}
 %add_submodule  stats4 %{version}
-%add_submodule  survival 3.5-7
+%add_submodule  survival 3.5-8
 %add_submodule  tcltk %{version}
 %add_submodule  tools %{version}
 %add_submodule  translations %{version}
@@ -214,7 +214,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.6.1.1
+Provides:       R-Matrix-devel = 1.6.5
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -715,7 +715,6 @@ TZ="Europe/Paris" make check
 %lang(de) %{_libdir}/R/library/mgcv/po/de/
 %lang(en) %{_libdir}/R/library/mgcv/po/en*/
 %lang(fr) %{_libdir}/R/library/mgcv/po/fr/
-%lang(it) %{_libdir}/R/library/mgcv/po/it/
 %lang(ko) %{_libdir}/R/library/mgcv/po/ko/
 %lang(pl) %{_libdir}/R/library/mgcv/po/pl/
 %{_libdir}/R/library/mgcv/R/
@@ -934,6 +933,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Thu Feb 29 2024 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.3-1
+- Update to 4.3.3
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 4.3.2-5
 - Rebuild for ICU 74
 

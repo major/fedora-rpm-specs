@@ -13,6 +13,8 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/cache-padded
 Source:         %{crates_source}
 
+Patch1:         0001-Add-riscv64-support.patch
+
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:

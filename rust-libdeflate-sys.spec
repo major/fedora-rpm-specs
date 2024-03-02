@@ -5,13 +5,27 @@
 %global crate libdeflate-sys
 
 Name:           rust-libdeflate-sys
-Version:        1.19.2
+Version:        1.19.3
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/libdeflate-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# - Make the dependency on crate(pkg-config) non-optional instead of
+#   associating it with the “dynamic” feature, since we patch the crate to
+#   always link dynamically with the system libdeflate, regardless of the
+#   selected features.
+Patch:          libdeflate-sys-fix-metadata.diff
+# Downstream-only: always link dynamically with the system libdeflate,
+# regardless of the selected features, and do not pin an exact version of
+# libdeflate.
+#
+# Together with libdeflate-sys-fix-metadata.diff, this effectively reverts:
+#   Dynamic Linking Constraints
+#   https://github.com/adamkewley/libdeflater/pull/32
+Patch:          libdeflate-sys-1.19.3-unconditional-pkg-config.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -47,6 +61,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dynamic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dynamic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dynamic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dynamic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+freestanding-devel

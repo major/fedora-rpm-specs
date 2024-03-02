@@ -1,21 +1,23 @@
 Name:           gumbo-parser
 Epoch:          1
-Version:        0.10.1
-Release:        31%{?dist}
+Version:        0.12.1
+Release:        0%{?dist}
 Summary:        A HTML5 parser
 
 License:        Apache-2.0
-URL:            https://github.com/google/gumbo-parser
+# Original URL
+# URL:            https://github.com/google/gumbo-parser
+URL:		https://codeberg.org/grisha/gumbo-parser/
+Source0:	https://codeberg.org/grisha/gumbo-parser/archive/gumbo-parser-%{version}.tar.gz
 
-Source0:        https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz#/gumbo-parser-0.10.1.tar.gz
 # Fix up Doxyfile
 Patch1:         0001-Doxygen-tweaks.patch
-# Autotool generated sources
-Patch2:         0002-Autotool-generated-sources.patch
 
 # For the tests
 BuildRequires:  gcc-c++
-BuildRequires: gtest-devel
+BuildRequires:	gtest-devel
+# Upstream favors autogen.sh
+BuildRequires: libtool automake autoconf
 
 # For the docs
 BuildRequires: doxygen
@@ -48,17 +50,10 @@ BuildArch:      noarch
 Python bindings to %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch1 -p1
+%setup -q -n %{name}
+%patch -P1 -p1
 
-# Package has autotools compatibility issues
-# Use prebuilt autotool generated sources
-%patch2 -p1
-# Fix up permissions
-chmod +x config.guess config.sub configure \
-depcomp install-sh missing test-driver
-# Fix up timestamps
-touch -r aclocal.m4 configure m4/*.m4 Makefile.in
+./autogen.sh
 
 # Update Doxyfile
 doxygen -u Doxyfile
@@ -69,10 +64,6 @@ touch footer.html
 doxygen -w html /dev/null footer.html /dev/null Doxyfile
 sed -i -e 's,\$generatedby,Generated on $date for $projectname by,' footer.html
 
-
-# Propagate the version number into setup.py
-# to fix egg version number
-sed -i -e 's,{{VERSION}},%version,' setup.py
 
 %build
 %configure --disable-static --disable-silent-rules --docdir=%{_pkgdocdir}
@@ -96,7 +87,8 @@ install -m 644 docs/man/man3/*.3 ${RPM_BUILD_ROOT}%{_mandir}/man3
 
 install -m 755 -d ${RPM_BUILD_ROOT}%{_pkgdocdir}
 cp -r docs/html ${RPM_BUILD_ROOT}%{_pkgdocdir}
-install -m 644 {COPYING,*.md} ${RPM_BUILD_ROOT}%{_pkgdocdir}
+install -m 644 doc/COPYING ${RPM_BUILD_ROOT}%{_pkgdocdir}
+install -m 644 doc/*.md ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
 # python bindings
 %py3_install
@@ -122,6 +114,11 @@ install -m 644 {COPYING,*.md} ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{python3_sitelib}/*
 
 %changelog
+* Thu Feb 29 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 1:0.12.1-1
+- Update to 0.12.1.
+- Reflect Source0:-URL having changed.
+- Use autogen.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

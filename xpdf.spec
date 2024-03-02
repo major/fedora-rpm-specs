@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.05
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -16,7 +16,7 @@ Source0: http://www.xpdfreader.com/dl/%{name}-%{version}.tar.gz
 # CMap/GBpc-EUC-UCS2
 # CMap/GBpc-EUC-UCS2C
 # Source3: http://www.xpdfreader.com/dl/xpdf-chinese-simplified.tar.gz
-Source3: xpdf-chinese-simplified-2020-dec-22-NOCMAP.tar.gz
+Source3: xpdf-chinese-simplified-2023-dec-05-NOCMAP.tar.gz
 # CMap/Adobe-CNS1-UCS2
 # CMap/B5pc-UCS2
 # CMap/B5pc-UCS2C
@@ -34,7 +34,7 @@ Source5: xpdf-japanese-2020-dec-22-NOCMAP.tar.gz
 # CMap/KSCpc-EUC-UCS2
 # CMap/KSCpc-EUC-UCS2C
 # Source6: http://www.xpdfreader.com/dl/xpdf-korean.tar.gz
-Source6: xpdf-korean-2020-dec-22-NOCMAP.tar.gz
+Source6: xpdf-korean-2023-dec-05-NOCMAP.tar.gz
 # cyrillic and thai don't have CMap files to worry about.
 Source7: ftp://ftp.foolabs.com/pub/xpdf/xpdf-cyrillic-2011-aug-15.tar.gz
 Source8: ftp://ftp.foolabs.com/pub/xpdf/xpdf-thai-2011-aug-15.tar.gz
@@ -334,6 +334,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Thu Feb 29 2024 Tom Callaway <spot@fedoraproject.org> - 4.05-2
+- update langpacks
+
 * Tue Feb 27 2024 Than Ngo <than@redhat.com> - 4.05-1
 - fixed bz#2263444, update to 4.05
 

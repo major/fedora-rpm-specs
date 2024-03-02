@@ -24,10 +24,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 5787e994aa4cb6cdb09c2c72ae6f1c6a7f1cf91a
-%global access 20240226
+%global commit 88e8054aff7bd0cb2295c7d9361d2be0b7355f27
+%global access 20240301
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2150
+%global position 2154
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -128,7 +128,7 @@ AR='gcc-ar'; export AR
     --no-last-commit-position \
     --no-strip \
     --no-static-libstdc++
-ninja -C out -v
+ninja -j %{_smp_build_ncpus} -C out -v
 
 %if %{with html_docs}
 # There is a script, misc/help_as_html.py, that generates some HTML help, but

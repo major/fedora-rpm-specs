@@ -5,18 +5,21 @@
 %{llvm_sb}
 %endif
 
-%global maj_ver 17
-%global libomp_version %{maj_ver}.0.6
-#global rc_ver 4
+%global maj_ver 18
+%global min_ver 1
+%global libomp_version %{maj_ver}.%{min_ver}.0
+%global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
-%global so_suffix %{maj_ver}
+%global so_suffix %{maj_ver}.%{min_ver}
 
 %if %{with snapshot_build}
 %undefine rc_ver
 %global maj_ver %{llvm_snapshot_version_major}
 %global libomp_version %{llvm_snapshot_version}
-%global so_suffix %{maj_ver}%{llvm_snapshot_version_suffix}
+%global so_suffix %{maj_ver}.%{min_ver}%{llvm_snapshot_version_suffix}
 %endif
+
+%global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
 %global toolchain clang
 
@@ -32,7 +35,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -65,9 +68,6 @@ BuildRequires: llvm-devel
 BuildRequires: llvm-cmake-utils
 
 Requires: elfutils-libelf%{?isa}
-
-# libomp does not support s390x.
-ExcludeArch: s390x
 
 %description
 OpenMP runtime for clang.
@@ -123,14 +123,18 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 %ifnarch %{ix86} %{arm}
 # libomptarget is not supported on 32-bit systems.
+# s390x does not support the offloading plugins.
+%ifnarch s390x
 %{_libdir}/libomptarget.rtl.amdgpu.so.%{so_suffix}
 %{_libdir}/libomptarget.rtl.cuda.so.%{so_suffix}
 %{_libdir}/libomptarget.rtl.%{libomp_arch}.so.%{so_suffix}
+%endif
 %{_libdir}/libomptarget.so.%{so_suffix}
 %endif
 
 %files devel
 %{_prefix}/lib/clang/%{maj_ver}/include/omp.h
+%{_prefix}/lib/clang/%{maj_ver}/include/ompx.h
 %ifnarch %{arm}
 %{_prefix}/lib/clang/%{maj_ver}/include/omp-tools.h
 %{_prefix}/lib/clang/%{maj_ver}/include/ompt.h
@@ -139,9 +143,12 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libdir}/cmake/openmp/FindOpenMPTarget.cmake
 %ifnarch %{ix86} %{arm}
 # libomptarget is not supported on 32-bit systems.
+# s390x does not support the offloading plugins.
+%ifnarch s390x
 %{_libdir}/libomptarget.rtl.amdgpu.so
 %{_libdir}/libomptarget.rtl.cuda.so
 %{_libdir}/libomptarget.rtl.%{libomp_arch}.so
+%endif
 %{_libdir}/libomptarget.devicertl.a
 %{_libdir}/libomptarget-amdgpu-*.bc
 %{_libdir}/libomptarget-nvptx-*.bc
@@ -149,6 +156,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %changelog
+* Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

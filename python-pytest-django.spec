@@ -1,34 +1,34 @@
 %global pypi_name pytest-django
 
 Name:           python-%{pypi_name}
-Version:        4.1.0
-Release:        12%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        A Django plugin for pytest
 
 License:        BSD
 URL:            https://pytest-django.readthedocs.io/
-Source0:        %{pypi_source}
-BuildArch:      noarch
+Source:         %{pypi_source %{pypi_name}}
 
-%description
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+
+%global _description %{expand:
 pytest-django allows you to test your Django project/applications with the
-pytest testing tool.
+pytest testing tool.}
+
+%description %_description
+
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-django
-BuildRequires:  python3-django-configurations
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-six
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 pytest-django allows you to test your Django project/applications with the
 pytest testing tool.
+
 
 %package -n python-%{pypi_name}-doc
 Summary:        Documentation for %{name}
@@ -39,37 +39,44 @@ BuildRequires:  python3-sphinx_rtd_theme
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
 
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
-sed -i -e '/NAME/s|/|/var/tmp/|' pytest_django_test/settings_sqlite{,_file}.py
+%autosetup -n %{pypi_name}-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
+%pyproject_wheel
 PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
 
+
 %install
-%py3_install
+%pyproject_install
 
-#%check
-#export PYTHONPATH="%{buildroot}%{python3_sitelib}:$PWD"
-#for settings in sqlite sqlite_file; do
-#  export DJANGO_SETTINGS_MODULE=pytest_django_test.settings_${settings}
-#  %python3 -m pytest -v tests
-#done
+%pyproject_save_files -l pytest_django
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+
+%check
+%tox
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/pytest_django/
-%{python3_sitelib}/pytest_django-%{version}-py*.egg-info/
 
 %files -n python-%{pypi_name}-doc
 %doc html
 %license LICENSE
 
+
 %changelog
+* Thu Feb 29 2024 Michel Lind <salimma@fedoraproject.org> - 4.8.0-1
+- Update to 4.8.0 (rhbz#2261956)
+- Modernize spec file
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

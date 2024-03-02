@@ -4,16 +4,16 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 17
-%global libcxx_version %{maj_ver}.0.6
-#global rc_ver 4
+%global maj_ver 18
+%global libcxx_version %{maj_ver}.1.0
+%global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libunwind_srcdir libunwind-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -29,6 +29,7 @@ Source8:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc
 Source9:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/runtimes/cmake/Modules/WarningFlags.cmake
 
 Patch0: standalone.patch
+Patch1: 0001-libcxxabi-Remove-unwinder-check.patch
 
 BuildRequires:	clang llvm-devel llvm-cmake-utils cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
@@ -240,6 +241,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate libdeflater
 
 Name:           rust-libdeflater
-Version:        1.19.2
+Version:        1.19.3
 Release:        %autorelease
 Summary:        Bindings to libdeflate for DEFLATE
 
@@ -52,6 +52,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dynamic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dynamic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dynamic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dynamic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+freestanding-devel

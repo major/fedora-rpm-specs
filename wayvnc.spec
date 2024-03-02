@@ -2,7 +2,7 @@
 
 Name:     wayvnc
 Version:  0.8.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -15,7 +15,7 @@ BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(glesv2)
 BuildRequires: pkgconfig(gnutls)
 BuildRequires: pkgconfig(libdrm)
-BuildRequires: pkgconfig(neatvnc) >= 0.6.0
+BuildRequires: pkgconfig(neatvnc) >= 0.8.0
 BuildRequires: pam-devel
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(wayland-client)
@@ -58,6 +58,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Thu Feb 29 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-2
+- require neatvnc >= 0.8.0
+
 * Wed Feb 28 2024 Bob Hepple <bob.hepple@gmail.com> - 0.8.0-1
 - new version
 

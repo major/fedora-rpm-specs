@@ -23,16 +23,20 @@ Patch:          0001-Skip-test_encoding_gh601-on-big-endian-machines.patch
 # Fedora-specific patch.
 Patch:          0002-Skip-coverage-testing.patch
 # Drop after dropping 32-bit support.
+# https://github.com/dask/dask/pull/10971
 Patch:          0003-TST-Increase-maximum-for-sizeof-test-to-pass-32-bit.patch
 # https://github.com/dask/dask/pull/10451
 Patch:          0004-Fix-test_pandas_timestamp_overflow_pyarrow-condition.patch
 # https://github.com/dask/dask/issues/10423
-Patch:          https://salsa.debian.org/python-team/packages/dask/-/raw/08ffea1b7b53e9c71c9a926d5786288c2e6c1b5b/debian/patches/force-little-endian-random.patch
-Patch:          0005-Allow-older-versioneer.patch
+# https://github.com/dask/dask/pull/10970
+Patch:          0005-Force-initializing-the-random-seed-with-the-same-byt.patch
+Patch:          0006-Allow-older-versioneer.patch
 # Ignore warnings from Pandas.
 # Upstream had https://github.com/dask/dask/pull/10307 but reverted it because
 # a new Pandas was released that fixed the warning, but we don't have it yet.
-Patch:          0006-Ignore-NumPy-warnings-from-Pandas.patch
+Patch:          0007-Ignore-NumPy-warnings-from-Pandas.patch
+# https://github.com/dask/dask/pull/10969
+Patch:          0008-TST-Add-missing-skip-for-pyarrow.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.

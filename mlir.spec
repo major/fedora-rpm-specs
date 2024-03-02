@@ -1,8 +1,8 @@
 %global toolchain clang
-%global maj_ver 17
-%global min_ver 0
-%global patch_ver 6
-#global rc_ver 4
+%global maj_ver 18
+%global min_ver 1
+%global patch_ver 0
+%global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -190,6 +190,14 @@ rm -rf test/mlir-tblgen
 %ifarch s390x
 # s390x does not support half-float
 rm test/python/execution_engine.py
+
+# https://discourse.llvm.org/t/mlir-s390x-linux-failure/76695/25
+rm test/Target/LLVMIR/llvmir.mlir
+rm test/python/ir/array_attributes.py
+%endif
+
+%ifarch ppc64le
+rm test/python/execution_engine.py
 %endif
 
 %ifarch %{ix86}
@@ -239,6 +247,8 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %files
 %license LICENSE.TXT
 %{_libdir}/libMLIR*.so.%{maj_ver}*
+%{_libdir}/libmlir_arm_runner_utils.so.%{maj_ver}*
+%{_libdir}/libmlir_arm_sme_abi_stubs.so.%{maj_ver}*
 %{_libdir}/libmlir_async_runtime.so.%{maj_ver}*
 %{_libdir}/libmlir_c_runner_utils.so.%{maj_ver}*
 %{_libdir}/libmlir_float16_utils.so.%{maj_ver}*
@@ -257,8 +267,12 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{_bindir}/mlir-reduce
 %{_bindir}/mlir-tblgen
 %{_bindir}/mlir-translate
+%{_bindir}/mlir-query
 %{_bindir}/tblgen-lsp-server
+%{_bindir}/tblgen-to-irdl
 %{_libdir}/libMLIR*.so
+%{_libdir}/libmlir_arm_runner_utils.so
+%{_libdir}/libmlir_arm_sme_abi_stubs.so
 %{_libdir}/libmlir_async_runtime.so
 %{_libdir}/libmlir_c_runner_utils.so
 %{_libdir}/libmlir_float16_utils.so
@@ -271,6 +285,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{python3_sitearch}/mlir/
 
 %changelog
+* Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
+- 18.1.0-rc4 Release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

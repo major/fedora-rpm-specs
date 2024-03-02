@@ -4,7 +4,7 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -69,6 +69,7 @@ This package contains Python bindings for libnvme.
 mv %{buildroot}%{_pkgdocdir}/nvme/html %{buildroot}%{_pkgdocdir}/html
 rm -rf %{buildroot}%{_pkgdocdir}/nvme
 mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
+rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 
 %ldconfig_scriptlets
 
@@ -97,6 +98,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Wed Feb 28 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 1.8-2
+- Do not package doctrees to make the package build reproducible
+
 * Wed Feb 14 2024 Tomas Bzatek <tbzatek@redhat.com> - 1.8-1
 - Upstream v1.8 release
 

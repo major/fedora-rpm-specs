@@ -1,11 +1,11 @@
-# Some tests fail. Pass --with failedtests to retry
-%bcond_with failedtests
+# Some tests fail. Pass --with all_tests to retry
+%bcond_with all_tests
 
 %global srcname django-allauth
 %global forgeurl https://github.com/pennersr/%{srcname}
 
 Name:           python-%{srcname}
-Version:        0.54.0
+Version:        0.61.1
 Release:        %autorelease
 Summary:        Integrated set of Django authentication apps
 License:        MIT
@@ -56,8 +56,6 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 %if %{without failedtests}
-# remove failing tests
-rm allauth/socialaccount/providers/cern/tests.py
 %endif
 
 
@@ -75,11 +73,15 @@ rm allauth/socialaccount/providers/cern/tests.py
 
 
 %check
-%tox
+%pytest -v \
+%if %{without all_tests}
+  --deselect allauth/socialaccount/providers/openid/tests.py::OpenIDTests::test_login \
+  --deselect allauth/socialaccount/providers/openid/tests.py::OpenIDTests::test_login_with_extra_attributes \
+%endif
+;
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
-%license LICENSE
 %doc AUTHORS ChangeLog.rst README.rst
 
 

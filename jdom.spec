@@ -32,7 +32,7 @@
 
 Name:           jdom
 Version:        1.1.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Java alternative to DOM and SAX
 License:        Saxpath
 URL:            http://www.jdom.org/
@@ -113,6 +113,9 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 %license LICENSE.txt
 
 %changelog
+* Thu Feb 29 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.3-38
+- bump of release for for java-21-openjdk as system jdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1.3-37
 - Rebuilt for java-21-openjdk as system jdk
 

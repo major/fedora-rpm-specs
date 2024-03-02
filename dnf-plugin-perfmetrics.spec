@@ -9,7 +9,7 @@ Name:           dnf-plugin-%{srcname}
 Version:        1.0
 Release:        %autorelease
 Summary:        DNF plugin for Performance Metrics
-License:        GPLv2
+License:        GPL-2.0-or-later
 BuildArch:      noarch
 URL:            https://github.com/filbranden/dnf-plugins-perfmetrics
 Source0:        %{url}/archive/v%{version}/dnf-plugins-%{srcname}-%{version}.tar.gz
@@ -19,12 +19,14 @@ Patch0:         %{url}/commit/9243a252c1d8bf64bc71afdf5de378eca4236ea5.patch
 BuildRequires:  cmake
 BuildRequires:  python3-devel
 BuildRequires:  python3-dnf >= %{dnf_lowest_compatible}
+BuildRequires:  python3-psutil
 
 %description    %{_description}
 
 %package -n     python3-%{name}
 Summary:        %{summary}
 Requires:       python3-dnf >= %{dnf_lowest_compatible}
+Requires:       python3-psutil
 
 %description -n python3-%{name} %{_description}
 

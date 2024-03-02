@@ -14,7 +14,7 @@
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.8.0
+Version:                1.9.0
 
 %gometa -f
 

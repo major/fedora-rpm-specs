@@ -17,15 +17,20 @@ URL:            http://qmc2.batcom-it.net
 Source0:        %{forgesource}
 #Fedora-specific configuration
 Patch1:         %{name}-ini.patch
+#Fixes and improvements from upstream git
+Patch10:        0001-fix-MachineListDatabase-wasn-t-saved-to-qmc2.ini.patch
+Patch11:        0001-new-added-a-Brasilian-Portuguese-translation-thanks-.patch
+Patch12:        0001-imp-Added-history.xml-support-and-use-XML-parser-to-.patch
+Patch13:        41.patch
+Patch14:        42.patch
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  git
 BuildRequires:  libarchive-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  make
-#https://bugzilla.redhat.com/show_bug.cgi?id=1998742
-%if 0%{?fedora} >= 38
 BuildRequires:  minizip-ng-compat-devel
-%endif
+BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtscript-devel
 BuildRequires:  qt5-qtsvg-devel
@@ -34,11 +39,7 @@ BuildRequires:  qt5-qtxmlpatterns-devel
 BuildRequires:  rsync
 BuildRequires:  SDL2-devel
 Requires:       games-menus
-Provides:       bundled(lzma-sdk) = 21.07
-#https://bugzilla.redhat.com/show_bug.cgi?id=1998742
-%if 0%{?fedora} < 38
-Provides:       bundled(minizip) = 3.0.5
-%endif
+Provides:       bundled(lzma-sdk) = 23.01
 Provides:       PDF.js = 3f320f0b
 
 %description
@@ -65,10 +66,9 @@ the games"
 
 
 %prep
-%forgeautosetup -p1
+%forgeautosetup -p1 -S git
 #ensure system minizip and zlib are used
-#https://bugzilla.redhat.com/show_bug.cgi?id=1998742
-#rm -rf src/minizip
+rm -rf src/minizip
 rm -rf src/zlib
 #fix opening documentation from the menu
 sed -i s@doc/html/@doc/@ src/qmc2main.cpp
@@ -78,19 +78,11 @@ sed -i s@doc/html/@doc/@ src/qmc2main.cpp
 #https://bugzilla.redhat.com/show_bug.cgi?id=1998742
 %make_build DISTCFG=1 CC_FLAGS="$RPM_OPT_FLAGS" CXX_FLAGS="$RPM_OPT_FLAGS" \
     L_FLAGS="$RPM_LD_FLAGS" \
-%if 0%{?fedora} >= 38
     SYSTEM_MINIZIP=1 \
-%else
-    SYSTEM_MINIZIP=0 \
-%endif
     SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
 %make_build arcade DISTCFG=1 CC_FLAGS="$RPM_OPT_FLAGS" CXX_FLAGS="$RPM_OPT_FLAGS" \
     L_FLAGS="$RPM_LD_FLAGS"  \
-%if 0%{?fedora} >= 38
     SYSTEM_MINIZIP=1 \
-%else
-    SYSTEM_MINIZIP=0 \
-%endif
     SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
 %make_build qchdman DISTCFG=1 CXX_FLAGS="$RPM_OPT_FLAGS" L_FLAGS="$RPM_LD_FLAGS" \
     GIT_REV=0

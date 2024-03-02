@@ -1,17 +1,18 @@
-%global		upstream_name    scram
-%global		upstream_version 2.1
+%global         upstream_name scram
+%global         upstream_version 2.1
 
-Name:		ongres-%upstream_name
-Version:	%(echo %upstream_version | sed 's/-/~/g')
-Release:	13%{?dist}
-Summary:	Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
-License:	MIT AND BSD-2-Clause
-URL:           https://github.com/ongres/%upstream_name
-Source0:       https://github.com/ongres/%upstream_name/archive/%upstream_version/%upstream_name-%upstream_version.tar.gz
-BuildRequires:	maven-local
-BuildRequires:  ongres-stringprep
-BuildRequires:  junit
-BuildArch:	noarch
+Name:           ongres-%upstream_name
+Version:        %(echo %upstream_version | sed 's/-/~/g')
+Release:        13%{?dist}
+Summary:        Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
+License:        MIT AND BSD-2-Clause
+URL:            https://github.com/ongres/%upstream_name
+Source0:        https://github.com/ongres/%upstream_name/archive/%upstream_version/%upstream_name-%upstream_version.tar.gz
+BuildRequires:  maven-local
+BuildRequires:  mvn(com.ongres.stringprep:saslprep)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  jurand
+BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 %description
@@ -21,21 +22,21 @@ Authentication and Security Layer (SASL, RFC 4422) authentication
 mechanisms. It is described as part of RFC 5802 and RFC7677.
 
 %package client
-Summary:	Client for %{name}
-License:	BSD
+Summary:    Client for %{name}
+License:    BSD
 
 %description client
 This package contains the client for %{name}
 
 %package javadoc
-Summary:	Javadoc for %{name}
+Summary:    Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}
 
 %package parent
-Summary:	Parent POM of %{name}
-License:	BSD
+Summary:    Parent POM of %{name}
+License:    BSD
 
 %description parent
 This package contains the %{name} parent POM.
@@ -50,10 +51,10 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 
 # Retired in Fedora; not required for build
 %pom_remove_dep com.google.code.findbugs:annotations
-sed -i 's/.*SuppressFBWarnings.*//' common/src/main/java/com/ongres/scram/common/message/ServerFinalMessage.java
+%java_remove_annotations . -s -n SuppressFBWarnings
 
 %build
-%mvn_build -s
+%mvn_build -s -- -Djava.version=1.8
 
 %install
 %mvn_install

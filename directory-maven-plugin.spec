@@ -1,12 +1,15 @@
 Name:       directory-maven-plugin
-Version:    0.3.1
-Release:    13%{?dist}
+Version:    1.0
+Release:    1%{?dist}
 Summary:    Establish locations for files in multi-module builds
 
 License:    ASL 2.0
 URL:        https://github.com/jdcasey/directory-maven-plugin
 
 Source0:    https://github.com/jdcasey/directory-maven-plugin/archive/directory-maven-plugin-%{version}.tar.gz
+# Fixes bz 2261062 - no mojo definition build error
+# https://github.com/knight-of-ni/directory-maven-plugin/commit/ce51a6ea81b583c7b7b75e859bb1a508eb713fbe.patch
+Patch0:     directory-maven-plugin-fix-no-mojo-definition.patch
 
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -35,9 +38,12 @@ Summary:  Javadoc for %{name}
 %{summary}.
 
 %prep
-%autosetup -n directory-maven-plugin-directory-maven-plugin-0.3.1
+%autosetup -n directory-maven-plugin-directory-maven-plugin-%{version}
 
 %pom_remove_parent
+
+# Bump Java source option
+sed -i 's/1.7/1.8/g' pom.xml
 
 %build
 %mvn_build
@@ -54,6 +60,13 @@ Summary:  Javadoc for %{name}
 %license LICENSE
 
 %changelog
+* Thu Feb 29 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.0-1
+- 1.0 release
+
+* Thu Feb 29 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.3.1-14
+- bump java source/target to 1.8, fixes 2266639
+- patch pom.xml, fixes bz 2261062
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.3.1-13
 - Rebuilt for java-21-openjdk as system jdk
 
