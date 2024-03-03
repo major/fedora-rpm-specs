@@ -76,6 +76,7 @@ Source10:       create-libfm-git-bare-tarball.sh
 # (related to bug 2011471)
 Patch1:         libfm-1.3.2-0001-fm_config_load_from_key_file-don-t-replace-string-va.patch
 # Support gcc14 -Werror=incompatible-pointer-types
+# https://github.com/lxde/libfm/pull/101
 Patch2:         libfm-1.3.2-0002-FIX-support-gcc14-Werror-incompatible-pointer-types.patch
 # http://sourceforge.net/p/pcmanfm/feature-requests/385/
 #Patch1000:      http://sourceforge.net/p/pcmanfm/feature-requests/_discuss/thread/0a50a386/597e/attachment/libfm-1.2.3-moduledir-gtkspecific-v02.patch

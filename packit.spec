@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.92.0
+Version:        0.93.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Feb 26 2024 Packit <hello@packit.dev> - 0.93.0-1
+- Packit now checks the version to propose against the version in specfile and doesn't create downgrade PRs. (#2239)
+
 * Mon Feb 19 2024 Packit <hello@packit.dev> - 0.92.0-1
 - Packit now supports `trigger: ignore` which can be used for templating by using the YAML. (#2234)
 - Packit now searches for bugzilla about new release created by Upstream Release Monitoring to reference each time it syncs the release downstream. (#2229)

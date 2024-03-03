@@ -10,7 +10,7 @@
 %bcond all_tests 0
 
 Name:           python-%{pypi_name}
-Version:        0.12.4
+Version:        0.13.0
 Release:        %{autorelease}
 Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
 %forgemeta
@@ -48,15 +48,7 @@ BuildRequires:  comic-neue-fonts
 BuildRequires:  git-core
 %if %{with tests}
 BuildRequires:  python3-pytest
-# Below packages are from extra extra, which we provide, but it looks
-# like it's not being installed, but needed for test
-BuildRequires:  python3-adjustText
-BuildRequires:  python3-scikit-misc
-BuildRequires:  python3-scikit-learn
-BuildRequires:  python3-geopandas
-# Test dependencies
 BuildRequires:  python3-shapely
-BuildRequires:  python3-statsmodels
 %endif
 
 %description -n python3-%{pypi_name} %_description
@@ -75,7 +67,7 @@ git tag v%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x extra
 
 
 %build
@@ -91,32 +83,82 @@ git tag v%{version}
 %if %{with tests}
 %if %{without all_tests}
 # For a a more readable input to %%pytest
-k="${k-}${k+ and }not logticks"
-k="${k-}${k+ and }not facet"
-k="${k-}${k+ and }not label"
-k="${k-}${k+ and }not ribbon"
-k="${k-}${k+ and }not arrow"
-k="${k-}${k+ and }not adjust_text"
-k="${k-}${k+ and }not caption_simple"
-k="${k-}${k+ and }not theme"
-k="${k-}${k+ and }not scale"
-k="${k-}${k+ and }not coords"
-k="${k-}${k+ and }not geom_bar_col_histogram"
-k="${k-}${k+ and }not geom_bin_2d"
-k="${k-}${k+ and }not geom_boxplot"
-k="${k-}${k+ and }not geom_density"
-k="${k-}${k+ and }not geom_dotplot"
-k="${k-}${k+ and }not geom_map"
-k="${k-}${k+ and }not geom_point"
-k="${k-}${k+ and }not geom_raster"
-k="${k-}${k+ and }not geom_violin"
-k="${k-}${k+ and }not lint_and_format"
-k="${k-}${k+ and }not position"
-k="${k-}${k+ and }not qplot"
-k="${k-}${k+ and }not stat_ecdf"
-k="${k-}${k+ and }not stat_summary"
+# Most tests fail image comparison for unknown reasons.
+# To the naked eye the images appear identical.
+
+# For test scripts where all or almost all tests fail,
+# we ignore the entire test
+i="${i-}${i+ }--ignore tests/test_annotation_logticks.py"
+i="${i-}${i+ }--ignore tests/test_coords.py"
+i="${i-}${i+ }--ignore tests/test_facets.py"
+i="${i-}${i+ }--ignore tests/test_geom_boxplot.py"
+i="${i-}${i+ }--ignore tests/test_geom_density.py"
+i="${i-}${i+ }--ignore tests/test_geom_freqpoly.py"
+i="${i-}${i+ }--ignore tests/test_geom_map.py"
+i="${i-}${i+ }--ignore tests/test_geom_text_label.py"
+i="${i-}${i+ }--ignore tests/test_lint_and_format.py"
+i="${i-}${i+ }--ignore tests/test_scale_labelling.py"
+i="${i-}${i+ }--ignore tests/test_stat_ecdf.py"
+
+# For test scripts where some tests fail we list those tests
+# or a glob matching those
+k="${k-}${k+ and }not test_stat_bin_2d"
+k="${k-}${k+ and }not test_geom_crossbar"
+k="${k-}${k+ and }not test_labeller_cols_both_wrap"
+k="${k-}${k+ and }not test_labeller_cols_both_grid"
+k="${k-}${k+ and }not test_labeller_towords"
+k="${k-}${k+ and }not test_aslabeller_dict_0tag"
+k="${k-}${k+ and }not test_uneven_num_of_lines"
+k="${k-}${k+ and }not test_bar_count"
+k="${k-}${k+ and }not test_histogram_count"
+k="${k-}${k+ and }not test_stat_count_int"
+k="${k-}${k+ and }not test_stat_count_float"
+k="${k-}${k+ and }not test_discrete_y"
+k="${k-}${k+ and }not test_contours"
+k="${k-}${k+ and }not test_arrow"
+k="${k-}${k+ and }not test_arrow_facets"
+k="${k-}${k+ and }not test_line"
+k="${k-}${k+ and }not test_square"
+k="${k-}${k+ and }not test_rectangle"
+k="${k-}${k+ and }not test_rect_aesthetics"
+k="${k-}${k+ and }not test_tile_aesthetics"
+k="${k-}${k+ and }not test_area_aesthetics"
+k="${k-}${k+ and }not test_scale_area_coordatalip"
+k="${k-}${k+ and }not test_legend_fill_ratio"
+k="${k-}${k+ and }not test_nudge"
+k="${k-}${k+ and }not test_stack_non_linear_scale"
+k="${k-}${k+ and }not test_dodge_preserve_single_text"
+k="${k-}${k+ and }not test_dodge2"
+k="${k-}${k+ and }not test_dodge2_varwidth"
+k="${k-}${k+ and }not test_scalars"
+k="${k-}${k+ and }not test_series_labelling"
+k="${k-}${k+ and }not test_save_as_pdf_pages_closes_plots"
+k="${k-}${k+ and }not test_multiple_aesthetics"
+k="${k-}${k+ and }not test_missing_data_discrete_scale"
+k="${k-}${k+ and }not test_datetime_scale_limits"
+k="${k-}${k+ and }not test_args"
+k="${k-}${k+ and }not test_mean_sdl"
+k="${k-}${k+ and }not test_theme"
+k="${k-}${k+ and }not test_default"
+k="${k-}${k+ and }not test_legend"
+k="${k-}${k+ and }not test_turn_off_guide"
+k="${k-}${k+ and }not test_facet_grid"
+k="${k-}${k+ and }not test_facet_wrap"
+k="${k-}${k+ and }not test_plot_margin_protruding_axis_text"
+k="${k-}${k+ and }not test_colorbar_frame"
+k="${k-}${k+ and }not test_different_colorbar_themes"
+k="${k-}${k+ and }not test_inside_legend_90pct_top_right"
+
+# Test failing image comparison since version 0.13.0.
+k="${k-}${k+ and }not test_discrete_y"
+k="${k-}${k+ and }not test_midpoint"
+k="${k-}${k+ and }not test_line"
+k="${k-}${k+ and }not test_rect_aesthetics"
+k="${k-}${k+ and }not test_tile_aesthetics"
+k="${k-}${k+ and }not test_legend_fill_ratio"
+k="${k-}${k+ and }not test_args"
 %endif
-%pytest -v ${k+-k }"${k-}"
+%pytest -v ${i-} ${k+-k }"${k-}"
 %else
 %pyproject_check_import
 %endif

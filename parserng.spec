@@ -12,6 +12,7 @@ URL: https://github.com/gbenroscience/ParserNG
 # git clone https://github.com/gbenroscience/ParserNG &&  cd ParserNG  && git checkout f619fad1fefa21116bab4a0abba2dd0ebe719e45 && tar -cJf parserng-0.1.9.tar.xz *
 Source0: %{name}-%{version}.tar.xz
 Source1: parserng
+Patch1: jdk21rounding.patch
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -46,7 +47,11 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -c %{name}-%{version}
-
+%patch1 -p1
+for x in `find | grep pom.xml` ; do
+    sed "s;<maven.compiler.source>.*7.*;<maven.compiler.source>8</maven.compiler.source>;g" -i $x;
+    sed "s;<maven.compiler.target>.*7.*;<maven.compiler.target>8</maven.compiler.target>;g" -i $x;
+done
 
 %build
 %pom_remove_plugin :maven-jar-plugin
@@ -72,6 +77,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/
 %changelog
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.1.9-6
 - Rebuilt for java-21-openjdk as system jdk
+- fixed source/target
+- added patch to cover slightly different rounding on jdk21
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

@@ -19,7 +19,7 @@
 %endif
 
 Name:           fcitx5-configtool
-Version:        5.1.3
+Version:        5.1.4
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 License:        GPLv2+

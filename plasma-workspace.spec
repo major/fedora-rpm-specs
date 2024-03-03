@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -401,6 +401,8 @@ Requires:       qt6-qtwayland%{?_isa}
 # startplasmacompositor deps
 Requires:       qt6-qttools
 Requires:       xdg-desktop-portal-kde
+# Enables X11 apps to screenshare a Wayland environment
+Recommends:     xwaylandvideobridge
 %if ! %{with x11}
 %if 0%{?fedora}
 Obsoletes:      %{name}-x11 < 5.92.0
@@ -737,6 +739,9 @@ fi
 
 
 %changelog
+* Fri Mar 01 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.0.0-4
+- Add Recommends on xwaylandvideobridge for -wayland
+
 * Wed Feb 28 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-3
 - Updated package's build/runtime requirements
 

@@ -3,7 +3,7 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -88,8 +88,8 @@ It provides a clear and simple graphical user interface using the Qt framework.
 # unifying
 mv %{name}-0.5 %{name}-%{version}
 cd %{name}-%{version}
-%patch1 -p1
-%patch2 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 cp -a %{name}-%{version} build-qt5
@@ -110,7 +110,7 @@ sed -i "s/Name=qpdfview/Name=qpdfview (Qt5)/g" miscellaneous/qpdfview-qt5.deskto
     APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
-    FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
+    FITZ_PLUGIN_LIBS="-lmupdf -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
 %endif
     qpdfview.pro
 make %{?_smp_mflags}
@@ -135,7 +135,7 @@ sed -i "s/Name=qpdfview/Name=qpdfview (Qt6)/g" miscellaneous/qpdfview-qt6.deskto
     APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
-    FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
+    FITZ_PLUGIN_LIBS="-lmupdf -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
 %endif
     qpdfview.pro
 make %{?_smp_mflags}
@@ -200,6 +200,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Fri Mar 01 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.5.0-9
+- Remove references to mupdf-third.
+- Use %%patch -P <N> instead of %%patch<N>.
+- Rebuild against gumbo-parser-0.12.1.
+
 * Sun Jan 28 2024 Sandro Mani <manisandro@gmail.com> - 0.5.0-8
 - Rebuild (tesseract)
 

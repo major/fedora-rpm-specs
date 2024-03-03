@@ -29,7 +29,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:    cppad
 Version: 20240000.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 #
 License: EPL-2.0 OR GPL-2.0-or-later
@@ -131,6 +131,10 @@ mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
 sed -i.bak CppAD-%{version}/cppad_lib/CMakeLists.txt \
     -e "s|print_variable(soversion)|SET(soversion %{soversion} )\n&|" \
     -e "s|\${cppad_debug_which}|debug_none|"
+#
+# Bug fix to version 20240000.3 (not necessary in version 20240000.4 or higher)
+sed -z -i.bak CppAD-%{version}/include/cppad/local/val_graph/fun2val.hpp \
+   -e 's|\n *break;\(\n[^\n]*}\n[^\n]*-\n[^\n]*else switch(var_op)\n\)|\1|'
 #
 # ----------------------------------------------------------------------------
 # Print machine epsilon before any other testing
@@ -265,6 +269,10 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Fri Mar 01 2024 Brad Bell <bradbell at seanet dot com> - 20240000.3-2
+- This fixes a bug in fun2val.hpp. This change will not be necessary
+- once the upstream source advances to 20240000.4.
+
 * Sat Feb 17 2024 Brad Bell <bradbell at seanet dot com> - 20240000.3-1
 - This fixes a long standing bug; see the heading 02-14 on
 - https://cppad.readthedocs.io/latest/whats_new_24.html

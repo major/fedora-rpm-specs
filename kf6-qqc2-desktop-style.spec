@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuickControls2 style for consistency between QWidget and QML apps 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LicenseRef-KFQF-Accepted-GPL
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -23,7 +23,7 @@ BuildRequires: cmake(KF6Sonnet)
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: qt6-qtbase-private-devel
 
-Requires:      kf6-kirigami2
+Requires:      kf6-sonnet
 
 %description
 This is a style for QtQuickControls 2 that uses QWidget's QStyle for
@@ -50,6 +50,9 @@ between QWidget-based and QML-based apps.
 %{_kf6_plugindir}/kirigami/platform/org.kde.desktop.so
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- fix Requires for kf6-sonnet (qml runtime dependency)
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

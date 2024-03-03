@@ -8,8 +8,8 @@
 %bcond_without perl_B_Hooks_EndOfScope_enables_optional_test
 
 Name:		perl-B-Hooks-EndOfScope
-Version:	0.26
-Release:	9%{?dist}
+Version:	0.28
+Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Execute code after scope compilation finishes
 URL:		https://metacpan.org/release/B-Hooks-EndOfScope
@@ -88,7 +88,8 @@ BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Spelling), hunspell-en
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module allows you to execute code when Perl has finished compiling the
@@ -98,7 +99,7 @@ surrounding scope.
 %setup -q -n B-Hooks-EndOfScope-%{version}
 
 # Remove shellbangs from tests to placate rpmlint
-%patch0
+%patch -P 0
 
 # British-English spelling LICENCE upsets US spell checker
 echo LICENCE >> xt/author/pod-spell.t
@@ -130,6 +131,12 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/B::Hooks::EndOfScope::XS.3*
 
 %changelog
+* Fri Mar  1 2024 Paul Howarth <paul@city-fan.org> - 0.28-1
+- Update to 0.28
+  - Add optional prereqs to metadata to help prereq analysis tools
+    (CPAN RT#151992)
+- Avoid use of deprecated patch syntax
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

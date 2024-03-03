@@ -2,7 +2,7 @@
 
 Name:           maven-mapping
 Version:        3.0.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Apache Maven Mapping
 License:        Apache-2.0
 
@@ -34,8 +34,8 @@ This package provides %{summary}.
 
 %prep
 %setup -q
-%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.target" "1.7" pom.xml
-%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.source" "1.7" pom.xml
+%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.target" "1.8" pom.xml
+%pom_xpath_set "pom:project/pom:properties/pom:maven.compiler.source" "1.8" pom.xml
 
 %build
 %mvn_build
@@ -50,6 +50,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Mar 01 2024 Markku Korkeala <markku.korkeala@iki.fi> - 3.0.0-26
+- Set maven java source and target to 1.8, closes rhbz#2266671
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.0-25
 - Rebuilt for java-21-openjdk as system jdk
 

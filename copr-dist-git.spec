@@ -1,8 +1,8 @@
 %global copr_common_version 0.20.1.dev1
 
 Name:       copr-dist-git
-Version:    0.68
-Release:    3%{?dist}
+Version:    0.69
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -140,11 +140,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.68-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 0.69-1
+- keep logs 6 weeks instead of 13
+- rename dispatcher scripts
 
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 0.68-1
 - use the renamed HashWorkerLimit instead of GroupWorkerLimit

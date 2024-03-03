@@ -1,7 +1,7 @@
 %global framework kirigami-addons
 
 Name:           kf6-%{framework}
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -73,6 +73,9 @@ or Plasma).
 %{_kf6_libdir}/cmake/KF6KirigamiAddons
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 1.0.1-1
+- 1.0.1
+
 * Thu Feb 22 2024 Alessandro Astone <ales.astone@gmail.com> - 1.0.0-1
 - 1.0.0
 

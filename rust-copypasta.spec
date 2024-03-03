@@ -5,9 +5,9 @@
 %global crate copypasta
 
 Name:           rust-copypasta
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
-Summary:        Cross-platform library for getting and setting the contents of the OS-level clipboard
+Summary:        Cross-platform library for accessing the OS-level clipboard
 
 # Upstream license specification: MIT / Apache-2.0
 License:        MIT OR Apache-2.0

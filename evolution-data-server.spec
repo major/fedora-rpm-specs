@@ -49,22 +49,21 @@
 %global dbus_service_name_sources	org.gnome.evolution.dataserver.Sources5
 %global dbus_service_name_user_prompter	org.gnome.evolution.dataserver.UserPrompter0
 
-%if "%{?_eds_dbus_services_prefix}" != ""
-%global dbus_service_name_address_book	%{?_eds_dbus_services_prefix}.%{dbus_service_name_address_book}
-%global dbus_service_name_calendar	%{?_eds_dbus_services_prefix}.%{dbus_service_name_calendar}
-%global dbus_service_name_sources	%{?_eds_dbus_services_prefix}.%{dbus_service_name_sources}
-%global dbus_service_name_user_prompter	%{?_eds_dbus_services_prefix}.%{dbus_service_name_user_prompter}
-%endif
-
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.51.2
+Version: 3.51.3
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
+
+# 0-99: General patches
+
+# 100-199: Flatpak-specific patches
+# https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/144
+Patch100: Make-DBUS_SERVICES_PREFIX-runtime-configurable.patch
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -201,7 +200,15 @@ The %{name}-tests package contains tests that can be used to verify
 the functionality of the installed %{name} package.
 
 %prep
-%autosetup -p1 -S gendiff
+%autosetup -p1 -S gendiff -N
+
+# General patches
+%autopatch -p1 -m 0 -M 99
+
+# Flatpak-specific patches
+%if 0%{?flatpak}
+%autopatch -p1 -m 100 -M 199
+%endif
 
 %build
 
@@ -280,9 +287,6 @@ export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -Wno-d
 	-DENABLE_INSTALLED_TESTS=ON \
 	-DWITH_LIBDB=OFF \
         -DWITH_SYSTEMDUSERUNITDIR=%{_userunitdir} \
-	%if "%{?_eds_dbus_services_prefix}" != ""
-	-DDBUS_SERVICES_PREFIX=%{?_eds_dbus_services_prefix} \
-	%endif
 	%ldap_flags %krb5_flags %ssl_flags %webkitgtk_flags \
 	%largefile_flags %gtkdoc_flags %phonenum_flags \
 	%{nil}
@@ -352,6 +356,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_libexecdir}/evolution-data-server/evolution-alarm-notify
 %{_libexecdir}/evolution-data-server/evolution-oauth2-handler
 %{_libexecdir}/evolution-data-server/list-sources
+%if 0%{?flatpak}
+%{_libexecdir}/evolution-data-server/set-dbus-prefix
+%endif
 
 %{_sysconfdir}/xdg/autostart/org.gnome.Evolution-alarm-notify.desktop
 %{_datadir}/applications/org.gnome.Evolution-alarm-notify.desktop
@@ -504,6 +511,15 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Mar 01 2024 Milan Crha <mcrha@redhat.com> - 3.51.3-1
+- Update to 3.51.3
+
+* Fri Mar 01 2024 Owen Taylor <otaylor@redhat.com> - 3.51.2-2
+- Add patch to allow reconfiguring the dbus-prefix without rebuilding;
+  this is needed to make EDS work with the new Flatpak infrastructure.
+- Remove support _eds_dbus_services_prefix - this was only used by
+  F38 and earlier Flatpak builds.
+
 * Fri Feb 09 2024 Milan Crha <mcrha@redhat.com> - 3.51.2-1
 - Update to 3.51.2
 

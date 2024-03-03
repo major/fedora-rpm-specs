@@ -1,5 +1,5 @@
 Name:           python-scikit-build-core
-Version:        0.8.0
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Build backend for CMake based projects
 

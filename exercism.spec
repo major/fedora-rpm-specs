@@ -3,7 +3,7 @@
 
 # https://github.com/exercism/cli
 %global goipath         github.com/exercism/cli
-Version:                3.2.0
+Version:                3.3.0
 
 %gometa
 
@@ -23,20 +23,18 @@ URL:            %{gourl}
 Source0:        %{gosource}
 
 # Remove the github.com/inconshreveable/go-update dependency
-Patch0001:      0001-Disable-self-update.patch
-# https://github.com/exercism/cli/pull/1066
-Patch0002:      0002-Fix-tests-with-Go1.17.patch
+Patch:          0001-Disable-self-update.patch
 
 BuildRequires:  golang(github.com/blang/semver)
-BuildRequires:  golang(github.com/spf13/cobra)
-BuildRequires:  golang(github.com/spf13/pflag) >= 1
-BuildRequires:  golang(github.com/spf13/viper)
-BuildRequires:  golang(golang.org/x/net/html/charset)
-BuildRequires:  golang(golang.org/x/text/transform)
+BuildRequires:  golang(github.com/spf13/cobra) >= 1.7
+BuildRequires:  golang(github.com/spf13/pflag) >= 1.0.5
+BuildRequires:  golang(github.com/spf13/viper) >= 1.15
+BuildRequires:  golang(golang.org/x/net/html/charset) >= 0.4
+BuildRequires:  golang(golang.org/x/text/transform) >= 0.5
 
 %if %{with check}
 # Tests
-BuildRequires:  golang(github.com/stretchr/testify/assert) >= 1.1.4
+BuildRequires:  golang(github.com/stretchr/testify/assert) >= 1.8.4
 %endif
 
 %description

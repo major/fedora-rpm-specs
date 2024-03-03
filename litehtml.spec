@@ -1,6 +1,6 @@
 Name:           litehtml
 Version:        0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD-3-Clause
@@ -73,6 +73,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Fri Mar 01 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.9.2
+- Rebuild against gumbo-parser-0.12.1.
+
 * Sat Feb 03 2024 Sandro Mani <manisandro@gmail.com> - 0.9-1
 - Update to 0.9
 

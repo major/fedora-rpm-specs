@@ -2,14 +2,14 @@
 
 Summary:        SpamAssassin plugin to lookup e-mail checksums in blacklists
 Name:           spamassassin-%{pkgname}
-Version:        2.05
-Release:        25%{?dist}
-License:        ASL 2.0
-URL:            http://mailfud.org/%{pkgname}/
-Source0:        http://mailfud.org/%{pkgname}/%{pkgname}-%{version}.tar.gz
+Version:        4.00
+Release:        1%{?dist}
+License:        Apache-2.0
+URL:            https://mailfud.org/%{pkgname}/
+Source0:        https://mailfud.org/%{pkgname}/%{pkgname}-%{version}.tar.gz
 Source1:        spamassassin-iXhash2.eml
-Patch0:         spamassassin-iXhash2-2.05-conf.patch
-Requires:       spamassassin >= 3.2
+Patch0:         spamassassin-iXhash2-4.00-conf.patch
+Requires:       spamassassin >= 4.0.0
 Provides:       spamassassin-iXhash = 1.5.5-2
 Obsoletes:      spamassassin-iXhash < 1.5.5-2
 BuildRequires:  %{_bindir}/perldoc
@@ -28,7 +28,7 @@ DCC software packages from within SpamAssassin.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
-%patch0 -p1 -b .conf
+%patch -P0 -p1 -b .conf
 cp -pf %{SOURCE1} iXhash2.eml
 
 %build
@@ -48,6 +48,9 @@ perldoc %{pkgname}.pm > $RPM_BUILD_ROOT%{_mandir}/man3/Mail::SpamAssassin::Plugi
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Mar 01 2024 Robert Scheck <robert@fedoraproject.org> 4.00-1
+- Upgrade to 4.00 (#2222974)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          bolt
-Version:       0.9.6
-Release:       4%{?dist}
+Version:       0.9.7
+Release:       1%{?dist}
 Summary:       Thunderbolt device manager
 License:       LGPL-2.1-or-later
 URL:           https://gitlab.freedesktop.org/bolt/bolt
@@ -77,6 +77,11 @@ mentioned tasks.
 %ghost %dir %{_localstatedir}/lib/boltd
 
 %changelog
+* Fri Mar 1 2024 Kate Hsuan <hpa@redhat.com> - 0.9.7-1
+- bolt 0.9.7 release
+- Support 'nopcie' security level
+- Bug fixes
+
 * Thu Feb 1 2024 Kate Hsuan <hpa@redhat.com> - 0.9.6-4
 - Update SPDX license
 

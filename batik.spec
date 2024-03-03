@@ -141,6 +141,13 @@ for pom in `find -mindepth 2 -name pom.xml -not -path ./batik-all/pom.xml`; do
     %pom_xpath_inject pom:project '<packaging>bundle</packaging>' $pom
 done
 
+	
+for x in `find | grep pom.xml` ; do
+  if cat $x | grep -e "<java.version>.*7" ; then
+    sed "s;<java.version>.*7.*;<java.version>8</java.version>;g" -i $x;
+  fi
+done
+
 # The "old-test" module cannot be built due to missing deps in Fedora
 %pom_disable_module batik-test-old
 

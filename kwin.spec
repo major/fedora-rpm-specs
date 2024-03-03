@@ -3,7 +3,7 @@
 
 Name:    kwin
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -21,7 +21,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
-BuildRequires:  qaccessibilityclient-devel
+BuildRequires:  cmake(QAccessibilityClient6)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-static
 # KWinQpaPlugin (and others?)
@@ -289,6 +289,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Fri Mar 1 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- use BuildRequires: cmake(QAccessibilityClient6) for Qt6 version
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

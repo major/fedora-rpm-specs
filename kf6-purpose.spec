@@ -3,7 +3,7 @@
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -25,17 +25,20 @@ BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Kirigami2)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6Notifications)
-BuildRequires: cmake(KF6Prison)
-BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KAccounts6)
 BuildRequires: pkgconfig(Qt6Network)
 BuildRequires: pkgconfig(Qt6Qml)
 
 BuildRequires: accounts-qml-module-qt6
 Requires:      accounts-qml-module-qt6
+BuildRequires: cmake(KF6Declarative)
+Requires:      kf6-kdeclarative
+BuildRequires: cmake(KF6Prison)
+Requires:      kf6-prison
+
 
 Requires: hicolor-icon-theme
-Requires: kf6-bluez-qt >= %{majmin_ver_kf6}
+Requires: kf6-bluez-qt >= %{version}
 
 %description
 Purpose offers the possibility to create integrate services and actions on
@@ -87,6 +90,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- add kf6-prison and kf6-kdeclarative runtime Requires
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

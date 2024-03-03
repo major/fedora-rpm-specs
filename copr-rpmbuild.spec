@@ -4,7 +4,7 @@
 %global rpm_python      python3-rpm
 %global sitelib         %python3_sitelib
 
-%global copr_common_version 0.12.1.dev
+%global copr_common_version 0.21.1.dev
 
 # do not build debuginfo sub-packages
 %define debug_package %nil
@@ -14,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 0.70
+Version: 0.71
 Summary: Run COPR build tasks
-Release: 4%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -72,6 +72,7 @@ Requires: sed
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends: rpkg
 Recommends: python-srpm-macros
+Recommends: copr-distgit-client
 Suggests: tito
 Suggests: rubygem-gem2rpm
 Suggests: pyp2rpm
@@ -244,6 +245,7 @@ EOF
 
 install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 man/copr-rpmbuild.1 %{buildroot}/%{_mandir}/man1/
+install -p -m 755 bin/copr-builder %buildroot%_bindir
 install -p -m 755 bin/copr-builder-cleanup %buildroot%_bindir
 install -p -m 755 bin/copr-sources-custom %buildroot%_bindir
 install -p -m 755 bin/copr-rpmbuild-cancel %buildroot%_bindir
@@ -300,6 +302,7 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 %files -n copr-builder
 %license LICENSE
+%_bindir/copr-builder
 %_bindir/copr-update-builder
 %_bindir/copr-builder-cleanup
 %_sysconfdir/copr-builder
@@ -320,14 +323,12 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.70-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.70-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Pavel Raiskup <praiskup@redhat.com> - 0.70-2
-- rebuild to test https://fedoraproject.org/wiki/Changes/BuildWithDNF5
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 0.71-1
+- don't set bootstrap_image_ready for rawhide
+- no Jinja-vars in config_opts keys (mock-core-configs 40.2 compat)
+- allow user SSH to builders
+- fix copr-rpmbuild --dump-configs
+- install copr-distgit-client with copr-rpmbuild
 
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 0.70-1
 - collect and compress fedora-review logs after run

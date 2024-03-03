@@ -6,16 +6,13 @@
 %global crate x11-clipboard
 
 Name:           rust-x11-clipboard
-Version:        0.8.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        X11 clipboard support for Rust
 
 License:        MIT
 URL:            https://crates.io/crates/x11-clipboard
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump x11rb dependency from 0.12 to 0.13
-Patch:          x11-clipboard-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

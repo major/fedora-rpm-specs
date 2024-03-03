@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.41
+Version: 12.42
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -342,8 +342,8 @@ CONFIG_ARGS="$CONFIG_ARGS --with-debuginfod"
 CONFIG_ARGS="$CONFIG_ARGS --without-debuginfod"
 %endif
 
-%if %{with clangplugin}
-CONFIG_ARGS="$CONFIG_ARGS --with-clang"
+%if %{without clangplugin}
+CONFIG_ARGS="$CONFIG_ARGS --without-clang-plugin"
 %endif
 
 %if %{without gccplugin}
@@ -352,8 +352,8 @@ CONFIG_ARGS="$CONFIG_ARGS --without-gcc-plugin"
 CONFIG_ARGS="$CONFIG_ARGS --with-gcc-plugin-dir=%{ANNOBIN_GCC_PLUGIN_DIR}"
 %endif
 
-%if %{with llvmplugin}
-CONFIG_ARGS="$CONFIG_ARGS --with-llvm"
+%if %{without llvmplugin}
+CONFIG_ARGS="$CONFIG_ARGS --without-llvm-plugin"
 %endif
 
 %if %{without tests}
@@ -529,6 +529,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Mar 01 2024 Nick Clifton  <nickc@redhat.com> - 12.42-1
+- Annocheck: Improve heuristics for locating debug info files.  (#2267097)
+- Configure: Harmonize configure options.    
+
 * Tue Feb 27 2024 Nick Clifton  <nickc@redhat.com> - 12.41-1
 - Clang Plugin: Fix building with Clang 18.  (#31414)
 - GCC Plugin: Add support for MIPS specific target functions.

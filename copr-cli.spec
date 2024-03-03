@@ -9,8 +9,8 @@
 %global min_python_copr_version 1.128.1
 
 Name:       copr-cli
-Version:    1.110
-Release:    3%{?dist}
+Version:    1.111
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -128,11 +128,11 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.110-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.110-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 1.111-1
+- correctly check CoprDir name before uploading large SRPM
+- assign fallback value from self.username
+- fix `copr build` +args --help output
+- typo in --namespace help output
 
 * Tue Aug 15 2023 Pavel Raiskup <praiskup@redhat.com> 1.110-1
 - priority=X support for copr DNF repositories added

@@ -1,6 +1,6 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.15.0rc2
+Version: 4.15.0rc3
 Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
@@ -273,6 +273,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Fri Mar  1 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0rc3-1
+- Rebase to version 4.15.0rc3
+
 * Fri Feb 16 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0rc2-1
 - Rebase to version 4.15.0rc2
 

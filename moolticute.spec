@@ -1,5 +1,13 @@
 %bcond_without  tests
 
+%if 0%{?fedora} >= 40
+%global qtver 6
+%else
+%global qtver 5
+%endif
+
+%global qmake %{expand:%{qmake_qt%{qtver}}}
+
 %global forgeurl    https://github.com/mooltipass/%{name}
 %global tag         v1.03.2-testing
 
@@ -30,6 +38,8 @@ Source0:        %{forgesource}
 # QSimpleUpdater is licensed under DBAD, which isn't approved. The updater isn't used anyway, so this patch removes it
 # until it is fixed upstream: https://github.com/alex-spataru/QSimpleUpdater/issues/28
 Patch0:         0001-remove-updater.patch
+# https://github.com/mooltipass/moolticute/pull/1214
+Patch1:         0002-remove-window-size-workaround.patch
 
 Requires:       systemd
 Requires:       hicolor-icon-theme
@@ -39,18 +49,18 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5WebSockets)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  qt5-linguist
+BuildRequires:  pkgconfig(Qt%{qtver}Core)
+BuildRequires:  pkgconfig(Qt%{qtver}DBus)
+BuildRequires:  pkgconfig(Qt%{qtver}Gui)
+BuildRequires:  pkgconfig(Qt%{qtver}Network)
+BuildRequires:  pkgconfig(Qt%{qtver}WebSockets)
+BuildRequires:  pkgconfig(Qt%{qtver}Widgets)
+BuildRequires:  qt%{qtver}-linguist
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 %if %{with tests}
-BuildRequires:  pkgconfig(Qt5Test)
+BuildRequires:  pkgconfig(Qt%{qtver}Test)
 %endif
 
 %description
@@ -79,7 +89,7 @@ EOF
 
 
 %build
-%{qmake_qt5} PREFIX=%{_prefix} Moolticute.pro -o build/
+%qmake PREFIX=%{_prefix} Moolticute.pro -o build/
 %make_build -C build
 
 %install

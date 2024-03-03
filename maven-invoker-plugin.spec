@@ -2,7 +2,7 @@
 
 Name:           maven-invoker-plugin
 Version:        3.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Maven Invoker Plugin
 License:        ASL 2.0
 URL:            https://maven.apache.org/plugins/maven-invoker-plugin/
@@ -57,6 +57,8 @@ API documentation for %{name}.
 %pom_remove_dep ':${groovy-artifactId}'
 %endif
 
+%pom_xpath_set "pom:project/pom:properties/pom:javaVersion" "8" pom.xml
+
 %build
 %mvn_build -f 
 
@@ -70,6 +72,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Mar 01 2024 Markku Korkeala <markku.korkeala@iki.fi> - 3.2.2-11
+- Set maven javaVersion to 8, closes rhbz#2266670
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.2-10
 - Rebuilt for java-21-openjdk as system jdk
 

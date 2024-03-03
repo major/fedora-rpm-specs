@@ -1,6 +1,6 @@
 Name:           maven-invoker
 Version:        3.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Fires a maven build in a clean environment
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-invoker/
@@ -52,6 +52,8 @@ sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTes
 %patch -P 2 -p1
 %pom_change_dep javax.inject:javax.inject:1  org.eclipse.sisu:org.eclipse.sisu.inject
 
+%pom_xpath_set "pom:project/pom:properties/pom:javaVersion" "8" pom.xml
+
 %build
 %mvn_build -f
 
@@ -66,6 +68,9 @@ sed -i 's/\r$//' src/test/java/org/apache/maven/shared/invoker/DefaultInvokerTes
 
 
 %changelog
+* Fri Mar 01 2024 Markku Korkeala <markku.korkeala@iki.fi> - 3.1.0-13
+- Set maven javaVersion to 8, closes rhbz#2266668
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.1.0-12
 - Rebuilt for java-21-openjdk as system jdk
 

@@ -10,6 +10,8 @@ Source0:       http://archive.apache.org/dist/pdfbox/%{version}/pdfbox-%{version
 Patch0:        pdfbox-use-system-liberation-font.patch
 # Use system icc profiles
 Patch1:        pdfbox-use-system-icc-profiles-openicc.patch
+# bumped jdi setup to 1.8
+Patch2:        1.8.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
@@ -143,6 +145,9 @@ find -name '*.ttf' -print -delete
 
 %patch 0 -p1 -b .font
 %patch 1 -b .openicc
+%patch2 -p1
+mkdir .xmvn
+echo 8 > .xmvn/javapackages-rule-index
 
 # Don't build apps (it's just a bundle of everything)
 %pom_disable_module preflight-app
@@ -215,7 +220,13 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 # Integration tests all require internet access to download test resources, so skip
 # Use compat version of lucene
 # Ignore test failures on F28 and earlier due to liberation fonts being too old
-%mvn_build -s -- -DskipITs -Dlucene.version=4 -Dmaven.test.failure.ignore=true -P !jdkGte9
+##[INFO] --- xmvn-mojo:4.2.0:javadoc (default-cli) @ pdfbox-reactor ---
+##[INFO] Ignoring JPMS as source level 1.7 is below 9
+##[INFO] error: Source option 7 is no longer supported. Use 8 or later.
+##[INFO] error: Target option 7 is no longer supported. Use 8 or later.
+##[INFO] 2 errors
+# No idea where this is from. Disabling javadoc 
+%mvn_build -f --skip-javadoc -s -- -DskipITs -Dlucene.version=4 -Dmaven.test.failure.ignore=true -P !jdkGte9
 
 %install
 %mvn_install
@@ -250,9 +261,6 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 
 %files -n xmpbox -f .mfiles-xmpbox
 %doc xmpbox/README.txt
-%license LICENSE.txt NOTICE.txt
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt NOTICE.txt
 
 %changelog

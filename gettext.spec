@@ -1,10 +1,11 @@
 %bcond_with jar
 %bcond_with java
+%bcond libtextstyle %[0%{?fedora} > 40]
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.22.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -19,14 +20,14 @@ Release: 1%{?dist}
 # - libasprintf info files
 # - libtextstyle info files
 # Everything else is GPLv3+
-License: GPL-3.0-or-later and LGPL-2.0-or-later and GFDL-1.2-or-later
+License: GPL-3.0-or-later AND LGPL-2.0-or-later AND GFDL-1.2-or-later
 URL: https://www.gnu.org/software/gettext/
 Source: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source2: msghack.py
 Source3: msghack.1
 
-Patch1: gettext-0.22-disable-libtextstyle.patch
-Patch2: gettext-0.21.1-covscan.patch
+Patch1: gettext-0.21.1-covscan.patch
+Patch2: gettext-0.22-disable-libtextstyle.patch
 
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
@@ -89,7 +90,7 @@ programs.
 
 %package runtime
 Summary: GNU runtime libraries and programs for producing multi-lingual messages
-License: GPL-3.0-or-later and LGPL-2.0-or-later
+License: GPL-3.0-or-later AND LGPL-2.0-or-later
 # Depend on the exact version of the library sub package
 Requires: %{name}-libs%{_isa} = %{version}-%{release}
 Requires: %{name}-envsubst = %{version}-%{release}
@@ -117,7 +118,7 @@ Summary: Development files for %{name}
 # autopoint is GPLv3+
 # libasprintf is LGPLv2+
 # libgettextpo is GPLv3+
-License: LGPL-2.0-or-later and GPL-3.0-or-later and GFDL-1.2-or-later
+License: LGPL-2.0-or-later AND GPL-3.0-or-later AND GFDL-1.2-or-later
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libs = %{version}-%{release}
 Requires: %{name}-common-devel = %{version}-%{release}
@@ -138,12 +139,31 @@ want to add gettext support for your project.
 Summary: Libraries for %{name}
 # libasprintf is LGPLv2+
 # libgettextpo is GPLv3+
-License: LGPL-2.0-or-later and GPL-3.0-or-later
+License: LGPL-2.0-or-later AND GPL-3.0-or-later
 Obsoletes: libtextstyle < %{version}-%{release}
 
 %description libs
 This package contains libraries used internationalization support.
 
+%if %{with libtextstyle}
+%package -n libtextstyle
+Summary: Text styling library
+License: GPL-3.0-or-later
+
+%description -n libtextstyle
+Library for producing styled text to be displayed in a terminal
+emulator.
+
+%package -n libtextstyle-devel
+Summary: Development files for libtextstyle
+License: GPL-3.0-or-later AND GFDL-1.2-or-later
+Requires: libtextstyle%{?_isa} = %{version}-%{release}
+
+%description -n libtextstyle-devel
+This package contains all development related files necessary for
+developing or compiling applications/libraries that needs text
+styling.
+%endif
 
 %package -n emacs-%{name}
 Summary: Support for editing po files within GNU Emacs
@@ -177,9 +197,10 @@ Substitutes the values of environment variables.
 %prep
 %setup -q
 %patch 1 -p1 -b .orig~
+%if %{without libtextstyle}
 %patch 2 -p1 -b .orig~
-# patch 1
-automake
+%endif
+autoreconf
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
 # indicate this is done because the libtextstyle authors do not want
@@ -204,6 +225,7 @@ export CFLAGS="$RPM_OPT_FLAGS -D__SUPPORT_SNAN__"
 export CPPFLAGS="-I%{_includedir}/libxml2"
 # Side effect of unbundling libxml2 from libtextstyle.
 export LIBS="-lxml2"
+export CFLAGS="$CFLAGS -Wformat"
 %configure --enable-nls --disable-static \
     --enable-shared --disable-csharp --disable-rpath \
 %if %{with java}
@@ -401,6 +423,18 @@ make check LIBUNISTRING=-lunistring
 %{_datadir}/%{name}/libintl.jar
 %endif
 
+%if %{with libtextstyle}
+%files -n libtextstyle
+%{_libdir}/libtextstyle.so.0*
+
+%files -n libtextstyle-devel
+%{_docdir}/libtextstyle/
+%{_includedir}/textstyle/
+%{_includedir}/textstyle.h
+%{_infodir}/libtextstyle*
+%{_libdir}/libtextstyle.so
+%endif
+
 %files -n emacs-%{name}
 %dir %{_emacs_sitelispdir}/%{name}
 %{_emacs_sitelispdir}/%{name}/*.elc
@@ -413,6 +447,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Feb 21 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.4-2
+- Add back libtextstyle library for rawhide (#2264128)
+
 * Fri Feb 9 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.4-1
 - update to 0.22.4 release
 - https://savannah.gnu.org/news/?id=10544

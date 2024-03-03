@@ -46,8 +46,8 @@
 }
 
 Name:       copr-frontend
-Version:    1.202
-Release:    3%{?dist}
+Version:    1.203
+Release:    1%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -86,6 +86,7 @@ BuildRequires: python3dist(templated-dictionary)
 BuildRequires: python3dist(flask-caching)
 BuildRequires: python3dist(flask-openid)
 BuildRequires: python3dist(flask-sqlalchemy)
+BuildRequires: python3dist(flask-session)
 BuildRequires: python3dist(flask-whooshee)
 BuildRequires: python3dist(flask-wtf)
 BuildRequires: python3dist(flask-restx)
@@ -95,6 +96,7 @@ BuildRequires: python3dist(html5-parser)
 BuildRequires: python3dist(humanize)
 BuildRequires: python3dist(lxml)
 BuildRequires: python3dist(markdown)
+BuildRequires: python3dist(markupsafe)
 BuildRequires: python3dist(munch)
 BuildRequires: python3dist(netaddr)
 BuildRequires: python3dist(python-openid-teams)
@@ -142,6 +144,7 @@ Requires: python3dist(flask)
 Requires: python3dist(flask-caching)
 Requires: python3dist(flask-openid)
 Requires: python3dist(flask-sqlalchemy)
+Requires: python3dist(flask-session)
 Requires: python3dist(flask-whooshee)
 Requires: python3dist(flask-wtf)
 Requires: python3dist(flask-restx)
@@ -151,6 +154,7 @@ Requires: python3dist(html5-parser)
 Requires: python3dist(humanize)
 Requires: python3dist(lxml)
 Requires: python3dist(markdown)
+Requires: python3dist(markupsafe)
 Requires: python3dist(mod-wsgi)
 Requires: python3dist(munch)
 Requires: python3dist(netaddr)
@@ -381,11 +385,28 @@ usermod -L copr-fe
 
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 1.203-1
+- big RFE: allow user SSH to builders
+- correctly check CoprDir before upload
+- migrate projects, build-chroots, monitor, modules, mock_chroots,
+  webhooks enpoints to restx
+- add button for feeding log-detective.com
+- add runtime dependency on flask-session and markupsafe
+- keep logs 6 weeks instead of 13
+- clean expired projects (by cron) even without user permission
+- atomic increments for repo accesses, and fix racy counter tracebacks
+- fix fedora-messaging consumer for the new flask
+- allow ignoring project-exists errors during creation
+- compatibility with Werkzeug/Flask 3
+- fix race condition when creating CoprDir
+- specify 4xx status codes for ApiError exceptions
+- convert eror message to binary text before emitting
+- oidc: add OIDC_USERNAME_CLAIM
+- oidc: clean up duplicate return code
+- show unknown badge when a package has no builds yet
+- allow dot and plus characters in chroot denylist
+- more precise description for manual createrepo
+- add backref relationship between Package and Build
 
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 1.202-1
 - make alembic working on F39+

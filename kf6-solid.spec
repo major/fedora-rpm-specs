@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
 URL:            https://solid.kde.org/
@@ -18,8 +18,13 @@ BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6Tools)
 BuildRequires:  libupnp-devel
 BuildRequires:  systemd-devel
+BuildRequires:  libmount-devel
 BuildRequires:  flex
 BuildRequires:  bison
+BuildRequires:  pkgconfig(libplist++-2.0)
+BuildRequires:  pkgconfig(libimobiledevice-1.0)
+
+BuildRequires:  media-player-info
 Recommends:     media-player-info
 Recommends:     udisks2
 Recommends:     upower
@@ -72,6 +77,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- add libmount, imobiledevice, plist support
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

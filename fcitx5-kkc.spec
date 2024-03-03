@@ -1,7 +1,19 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
+%if 0%{?fedora} >= 40
+%global use_qt6 1
+%else
+%global use_qt6 0
+%endif
+
+%if %{use_qt6}
+%define qt_major_ver 6
+%else
+%define qt_major_ver 5
+%endif
+
 Name:           fcitx5-kkc
-Version:        5.1.1
+Version:        5.1.2
 Release:        %autorelease
 Summary:        Libkkc input method support for Fcitx5
 License:        GPLv3+
@@ -19,9 +31,9 @@ BuildRequires:  cmake(Fcitx5Core)
 BuildRequires:  cmake(Fcitx5Qt5WidgetsAddons)
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(kkc-1.0)
-BuildRequires:  pkgconfig(Qt5Core) >= 5.7
-BuildRequires:  pkgconfig(Qt5Gui) >= 5.7
-BuildRequires:  pkgconfig(Qt5Widgets) >= 5.7
+BuildRequires:  pkgconfig(Qt%{qt_major_ver}Core)
+BuildRequires:  pkgconfig(Qt%{qt_major_ver}Gui)
+BuildRequires:  pkgconfig(Qt%{qt_major_ver}Widgets)
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -39,7 +51,12 @@ This provides libkkc input method support for fcitx5. Released under GPL3+.
 %autosetup -p1
 
 %build
-%cmake -GNinja
+%cmake -GNinja \
+%if %{use_qt6}
+  -DUSE_QT6=On
+%else
+  -DUSE_QT6=Off
+%endif
 %cmake_build
 
 %install
@@ -60,7 +77,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc README.md
 %license LICENSES/GPL-3.0-or-later.txt
 %{_libdir}/fcitx5/kkc.so
-%{_libdir}/fcitx5/qt5/libfcitx5-kkc-config.so
+%{_libdir}/fcitx5/qt%{qt_major_ver}/libfcitx5-kkc-config.so
 
 %{_datadir}/fcitx5/addon/kkc.conf
 %{_datadir}/fcitx5/inputmethod/kkc.conf

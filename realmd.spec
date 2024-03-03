@@ -1,6 +1,6 @@
 Name:    realmd
 Version: 0.17.1
-Release: 10%{?dist}
+Release: 12%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPL-2.1-or-later
 URL:     https://gitlab.freedesktop.org/realmd/realmd
@@ -98,6 +98,12 @@ make check
 %doc ChangeLog
 
 %changelog
+* Fri Mar 01 2024 Adam Williamson <awilliam@redhat.com> - 0.17.1-12
+- Revert security hardening for now (it broke domain enrolment)
+
+* Thu Feb 29 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-11
+- Update Systemd security settings as part of https://fedoraproject.org/wiki/Changes/SystemdSecurityHardening
+
 * Mon Feb 26 2024 Sumit Bose <sbose@redhat.com> - 0.17.1-10
 - Propagate FreeIPA hostname error
   Resolves: rhbz#2264944

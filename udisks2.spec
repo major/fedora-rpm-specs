@@ -24,7 +24,7 @@
 Name:    udisks2
 Summary: Disk Manager
 Version: 2.10.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
 Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{version}/udisks-%{version}.tar.bz2
@@ -32,6 +32,7 @@ Source0: https://github.com/storaged-project/udisks/releases/download/udisks-%{v
 Patch0:  udisks-2.11.0-BLKRRPART_harder.patch
 Patch1:  udisks-2.11.0-targetcli_config.json_netif_timeout.patch
 Patch2:  udisks-2.11.0-udiskslinuxmanager_use_after_free.patch
+Patch3:  udisks-2.11.0-udiskslinuxblock_survive_missing_fstab.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -336,6 +337,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 01 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.10.1-5
+- udiskslinuxblock: Survive a missing /etc/fstab (#2264922)
+
 * Mon Feb 12 2024 Tomas Bzatek <tbzatek@redhat.com> - 2.10.1-4
 - Use SPDX license tags for subpackages
 

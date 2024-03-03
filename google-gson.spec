@@ -76,7 +76,7 @@ for x in `find | grep pom.xml` ; do
     sed "s;<maven.compiler.release>.*7.*;<maven.compiler.release>8</maven.compiler.release>;g" -i $x;
   fi
   if cat $x | grep -e "<failOnWarning>.*true" ; then
-    sed "s;<failOnWarning>.*true.*;<failOnWarning>false</failOnWarning>;g" -i $x;z
+    sed "s;<failOnWarning>.*true.*;<failOnWarning>false</failOnWarning>;g" -i $x;
   fi
 done
 

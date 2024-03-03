@@ -62,6 +62,8 @@ Patch1:   unbound-fedora-config.patch
 Patch2:   unbound-1.19-b.root-servers.net.patch
 # https://github.com/NLnetLabs/unbound/pull/993
 Patch3:   unbound-1.19-b.root-servers.net-conf.patch
+# https://github.com/NLnetLabs/unbound/commit/ccbe31c21f91ae96e759547be264a34ac63f4f90
+Patch4: unbound-1.19-EDE-cpu-lock.patch
 
 BuildRequires: gcc, make
 BuildRequires: flex, openssl-devel

@@ -7,7 +7,7 @@
 Summary:        Java CIM Client library
 Name:           sblim-cim-client
 Version:        1.3.9.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/%{name}/%{version}/%{name}-%{version}-src.zip
@@ -53,7 +53,7 @@ Manual and sample code for sblim-cim-client.
 %setup -q -n %{archive_folder_name}
 rm version.txt
 %setup -q -T -D -b 1 -n %{archive_folder_name}
-%patch -p1 -b .fix-for-java-11-openjdk
+%autopatch -p1
 
 %build
 export ANT_OPTS="-Xmx256m"
@@ -114,6 +114,11 @@ cp -pr %{archive_folder_name}/doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Fri Mar 01 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.3.9.3-34
+- Fix patch application
+- Fix to build with java-21-openjdk
+  Resolves: #2266687
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3.9.3-33
 - Rebuilt for java-21-openjdk as system jdk
 

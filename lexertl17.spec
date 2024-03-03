@@ -1,14 +1,18 @@
-%global commit 30972462cb07ac98dca4987d4d011e38ee86ea40
+# Post-release snapshot with fixes for examples
+# https://github.com/BenHanson/lexertl17/pull/2
+# https://github.com/BenHanson/lexertl17/commit/fc939f3d401753caa4c4c8b4442b169d7fef584d
+%global commit fc939f3d401753caa4c4c8b4442b169d7fef584d
 %global snapdate 20240301
 
-Name:           lexertl14
+Name:           lexertl17
 Summary:        The Modular Lexical Analyser Generator
-Version:        0.1.0^%{snapdate}git%{sub %{commit} 1 7}
+Version:        2024.02.17%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
 Release:        %autorelease
 
 License:        BSL-1.0
-URL:            https://github.com/BenHanson/lexertl14
-Source:         %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
+URL:            https://github.com/BenHanson/lexertl17
+%global srcversion %{?!commit:%{version}}%{?commit:%{commit}}
+Source:         %{url}/archive/%{srcversion}/lexertl17-%{srcversion}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -18,8 +22,13 @@ BuildRequires:  dos2unix
 %global debug_package %{nil}
 
 %global common_description %{expand:
-This is the C++14 version of lexertl. Please prefer lexertl17 wherever
-possible.}
+lexertl is a header-only library for writing lexical analyzers. With lexertl
+you can:
+
+- Build lexical analyzers at runtime
+- Scan Unicode and ASCII input
+- Scan from files or memory
+- Generate C++ code or even write your own code generator}
 
 %description %{common_description}
 
@@ -28,18 +37,15 @@ possible.}
 Summary:        %{summary}
 
 # Header-only library:
-Provides:       lexertl14-static = %{version}-%{release}
+Provides:       lexertl17-static = %{version}-%{release}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
-Conflicts:      lexertl17-devel
-
-Provides:       lexertl14-examples = %{version}%{release}
-Obsoletes:      lexertl14-examples < 0.1.0^20240216git7a365a2-5
+Conflicts:      lexertl14-devel
 
 %description devel %{common_description}
 
 
 %prep
-%autosetup -n lexertl14-%{commit} -p1
+%autosetup -n lexertl17-%{srcversion}
 
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |

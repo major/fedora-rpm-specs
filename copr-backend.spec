@@ -6,11 +6,11 @@
 %global tests_version 5
 %global tests_tar test-data-copr-backend
 
-%global copr_common_version 0.20.1.dev1
+%global copr_common_version 0.21.1.dev1
 
 Name:       copr-backend
-Version:    1.173
-Release:    3%{?dist}
+Version:    1.174
+Release:    1%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -57,6 +57,7 @@ BuildRequires: python3-setproctitle
 BuildRequires: python3-sphinx
 BuildRequires: python3-tabulate
 BuildRequires: python3-zstandard
+BuildRequires: python3-cachetools
 BuildRequires: modulemd-tools >= 0.6
 BuildRequires: prunerepo >= %prunerepo_version
 BuildRequires: dnf
@@ -95,6 +96,7 @@ Requires:   python3-retask
 Requires:   python3-setproctitle
 Requires:   python3-tabulate
 Requires:   python3-boto3
+Requires:   python3-cachetools
 Requires:   redis
 Requires:   rpm-sign
 Requires:   rsync
@@ -238,11 +240,14 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.173-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.173-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 1.174-1
+- allow user SSH to builders
+- drop ActionResult and use BackendResultEnum from copr-common
+- replace backend-specific ActionType with ActionTypeEnum from copr-common
+- limit the stdout/stderr of ssh.run_expensive() commands
+- backend now periodically checks if the resalloc ticket isn't failed
+- keep logs 6 weeks instead of 13
+- rename dispatcher scripts
 
 * Thu Nov 23 2023 Pavel Raiskup <praiskup@redhat.com> 1.173-1
 - enforce createrepo_c gzip compression (f39+ switched to zstd)

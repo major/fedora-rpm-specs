@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -94,7 +94,7 @@ BuildRequires: aqute-bnd
 BuildRequires: aqute-bndlib
 BuildRequires: systemd
 
-Requires:      (java-headless >= 1:1.8 or java-1.8.0-headless or java-11-headless or java-17-headless or java >= 1:1.8)
+Requires:      (java-headless >= 1:1.8 or java-1.8.0-headless or java-11-headless or java-17-headless or java-21-headless or java >= 1:1.8)
 Requires:      javapackages-tools
 Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -550,6 +550,9 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Thu Feb 29 2024 Adam Williamson <awilliam@redhat.com> - 1:9.0.83-4
+- Accept java-21-headless as one of the alternatives for java
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:9.0.83-3
 - Rebuilt for java-21-openjdk as system jdk
 

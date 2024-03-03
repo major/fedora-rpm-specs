@@ -95,7 +95,7 @@
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    6.6.2
+Version:    6.7.0
 Release:    %autorelease
 License:    BSD-3-Clause
 URL:        https://computation.llnl.gov/projects/%{name}/
@@ -109,8 +109,6 @@ Patch1:     %{name}-5.5.0-set_superlumt64_name.patch
 
 Patch2:     %{name}-change_petsc_variable.patch
 Patch3:     %{name}-klu64.patch
-# Upstream fix for SOVERSIONs https://github.com/LLNL/sundials/pull/343
-Patch4:     %{name}-soversion.patch
 
 BuildRequires: make
 %if 0%{?with_fortran}
@@ -262,8 +260,6 @@ pushd %{name}-%{version}
 %if 0%{?with_klu64}
 %patch 3 -p1 -b .klu64
 %endif
-
-%patch 4 -p1 -b .soversion
 
 mv src/arkode/README.md src/README-arkode.md
 mv src/cvode/README.md src/README-cvode.md
@@ -783,6 +779,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sunmatrix/
 %{_includedir}/sunlinsol/
 %{_includedir}/sunnonlinsol/
+%{_includedir}/sunadaptcontroller/
+%{_includedir}/sunmemory/
 %{_includedir}/arkode/
 %{_includedir}/cvode/
 %{_includedir}/cvodes/
@@ -816,7 +814,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sundials/sundials_nonlinearsolver.hpp
 %{_includedir}/sundials/sundials_nvector.hpp
 %{_includedir}/sundials/sundials_profiler.h
-%{_includedir}/sunmemory/sunmemory_system.h
+%{_includedir}/sundials/sundials_adaptcontroller.h
+%{_includedir}/sundials/sundials_profiler.hpp
 
 %if 0%{?with_openmpi}
 %files openmpi
@@ -876,6 +875,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/openmpi-%{_arch}/sunmatrix/
 %{_includedir}/openmpi-%{_arch}/sunnonlinsol/
 %{_includedir}/openmpi-%{_arch}/sunmemory/
+%{_includedir}/openmpi-%{_arch}/sunadaptcontroller/
 %if 0%{?with_fortran}
 %{_fmoddir}/openmpi/%{name}/
 %{_libdir}/openmpi/lib/libsundials_f*[_mod].so
@@ -968,6 +968,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/mpich-%{_arch}/sunmatrix/
 %{_includedir}/mpich-%{_arch}/sunnonlinsol/
 %{_includedir}/mpich-%{_arch}/sunmemory/
+%{_includedir}/mpich-%{_arch}/sunadaptcontroller/
 %if 0%{?with_fortran}
 %{_fmoddir}/mpich/%{name}/
 %{_libdir}/mpich/lib/libsundials_f*[_mod].so

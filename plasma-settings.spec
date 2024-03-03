@@ -1,10 +1,10 @@
-Name:           plasma-settings 
-Version:        23.01.0
-Release:        5%{?dist}
+Name:           plasma-settings
+Version:        24.02.0
+Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
 Url:            https://invent.kde.org/plasma-mobile/plasma-settings
-Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/plasma-settings/%{name}-%{version}.tar.xz
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -13,26 +13,21 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  libappstream-glib
+BuildRequires:  kf6-rpm-macros
 
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
 
-BuildRequires:  cmake(KF5Auth)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5Declarative)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5ModemManagerQt)
-BuildRequires:  cmake(KF5NetworkManagerQt)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5Solid)
-
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Service)
+BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6KirigamiAddons)
 
 BuildRequires:  pkgconfig(gobject-2.0)
 
@@ -49,7 +44,7 @@ modules are provided separately, by plasma-nm.
 %autosetup
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -57,21 +52,19 @@ modules are provided separately, by plasma-nm.
 %find_lang %{name} --all-name
 
 %check
-desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.mobile.plasmasettings.desktop
+desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/org.kde.mobile.plasmasettings.desktop
 
 %files -f %{name}.lang
 %doc README.md
-
 %license LICENSES/*
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.mobile.plasmasettings.svg
+%{_kf6_bindir}/plasma-settings
+%{_kf6_datadir}/applications/org.kde.mobile.plasmasettings.desktop
 
-%{_kf5_bindir}/plasma-settings
-
-%{_kf5_datadir}/applications/org.kde.mobile.plasmasettings.desktop
-%{_kf5_datadir}/kpackage/
-
-%{_qt5_plugindir}/kcms/*.so
- 
 %changelog
+* Sat Mar 02 2024 Steve Cossette <farchord@gmail.com> - 24.02.0-1
+- 24.02.0
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-LWP-MediaTypes
 Version:        6.04
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Guess media type for a file or a URL
 # lib/LWP/media.types:      CC0-1.0
 # lib/LWP/MediaTypes.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -58,7 +58,7 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n LWP-MediaTypes-%{version}
 %if %{with perl_LWP_MediaTypes_enables_mailcap}
 # Use system-wide mailcap database
-sed -i -e '/my @priv_files = ();/ s|()|("%{_sysconfdir}/mime.types")|' \
+sed -i -e '/my @priv_files = ();/ s|()|("/etc/mime.types")|' \
     lib/LWP/MediaTypes.pm
 %endif
 # Help generators to recognize Perl scripts
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 28 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 6.04-18
+- Use fixed location for /etc/mime.types
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

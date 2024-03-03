@@ -43,7 +43,7 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.51.2
+Version: 3.51.3
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
@@ -51,6 +51,12 @@ URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
+
+# 0-99: General patches
+
+# 100-199: Flatpak-specific patches
+# https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/144
+Patch100: configurable-dbus-prefix.patch
 
 # Approximate version number
 Provides: bundled(libgnomecanvas) = 2.30.0
@@ -241,7 +247,15 @@ the functionality of the installed %{name} package.
 %endif
 
 %prep
-%autosetup -p1 -S gendiff
+%autosetup -p1 -S gendiff -N
+
+# General patches
+%autopatch -p1 -m 0 -M 99
+
+# Flatpak-specific patches
+%if 0%{?flatpak}
+%autopatch -p1 -m 100 -M 199
+%endif
 
 # Remove the welcome email from Novell
 for inbox in src/mail/default/*/Inbox; do
@@ -579,6 +593,13 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Mar 01 2024 Milan Crha <mcrha@redhat.com> - 3.51.3-1
+- Update to 3.51.3
+
+* Fri Mar 01 2024 Owen Taylor <otaylor@redhat.com> - 3.51.2-2
+- Add patch to fix backup tool for F39-style Flatpaks where the
+  EDS D-Bus service name prefix is set at container creation time.
+
 * Fri Feb 09 2024 Milan Crha <mcrha@redhat.com> - 3.51.2-1
 - Update to 3.51.2
 

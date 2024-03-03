@@ -34,7 +34,7 @@ sed -i -e '1{\@^#!@d}' cvdupdate/__main__.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build

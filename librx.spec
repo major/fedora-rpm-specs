@@ -1,7 +1,7 @@
 Summary: POSIX regexp functions
 Name: librx
 Version: 1.5
-Release: 46%{?dist}
+Release: 47%{?dist}
 License: GPLv2+
 URL: http://www.gnu.org/software/rx/rx.html
 # Originally downloaded from ftp://ftp.gnu.org/gnu/rx/rx-1.5.tar.bz2
@@ -36,7 +36,7 @@ This package contains files needed for development with librx.
 %setup -q -n rx-%{version}
 %patch0 -p1
 %patch1 -p1 -b .texipatch
-%ifarch x86_64 s390x ia64 %{power64} alpha sparc64 aarch64 %{mips64}
+%ifarch x86_64 s390x ia64 %{power64} alpha sparc64 aarch64 %{mips64} riscv64
 %patch2 -p1 -b .64bit
 %endif
 %patch3 -p1 -b .libtoolmode
@@ -75,6 +75,9 @@ chmod -x ${RPM_BUILD_ROOT}%{_includedir}/rxposix.h
 %{_libdir}/*.so
 
 %changelog
+* Fri Mar 01 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.5-47
+- Enable libdir64 patch for riscv64
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

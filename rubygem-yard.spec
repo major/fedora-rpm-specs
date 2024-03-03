@@ -1,8 +1,8 @@
 %global	gem_name	yard
 
 Name:		rubygem-%{gem_name}
-Version:	0.9.34
-Release:	5%{?dist}
+Version:	0.9.36
+Release:	1%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
 
@@ -20,12 +20,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created by $ bash %%SOURCE2 %%version
 Source2:	yard-create-missing-test-files.sh
-# https://github.com/lsegal/yard/pull/1510
-Patch0:	yard-pr1510-fixup-BOM-encoding.patch
-# https://github.com/lsegal/yard/issues/1514
-# https://github.com/lsegal/yard/pull/1519
-# Testsuite: remove invalid yield usage from spec (for ruby3.3)
-Patch1:	yield-issue1514-remove-invalid-yield-usage.patch
 
 # The 'irb/notifier' might be required for parsing of some old Ruby code.
 # https://github.com/lsegal/yard/blob/v0.9.24/lib/yard/parser/ruby/legacy/irb/slex.rb#L13
@@ -64,9 +58,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
 mv ../%{gem_name}-%{version}.gemspec .
-
-%patch -P0 -p1
-%patch -P1 -p1
 
 %build
 gem build ./%{gem_name}-%{version}.gemspec
@@ -120,6 +111,9 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Fri Mar 01 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.36-1
+- 0.9.36
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

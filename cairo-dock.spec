@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	1
+%global	baserelease	2
 
 
 %undefine _ld_strict_symbol_defs
@@ -29,7 +29,11 @@ Version:		%{mainver}%{?use_git:^%{gitdate}git%{shorthash}}
 Release:		%{baserelease}%{?dist}%{flagrel}
 Summary:		Light eye-candy fully themable animated dock
 
-License:		GPLv3+
+# Overall:		GPL-3.0-or-later
+# data/scripts/cairo-dock-package-theme.sh	GPL-2.0-or-later
+# src/gldit/gtk3imagemenuitem.c		LGPL-3.0-or-later
+# SPDX confirmed
+License:		GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later
 URL:			http://glx-dock.org/
 # Source0:		http://launchpad.net/cairo-dock-core/%%{urlver}/%%{mainver}/+download/cairo-dock-%%{mainver}.tar.gz
 # Modified due to some may-be-patent-infringement issue
@@ -248,6 +252,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Fri Mar 01 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-2
+- SPDX confirmation
+
 * Mon Feb 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-1
 - Update to 3.5.0
 

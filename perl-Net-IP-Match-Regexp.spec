@@ -1,13 +1,12 @@
 Name:           perl-Net-IP-Match-Regexp
 Version:        1.01
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Efficiently match IP addresses against ranges
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-IP-Match-Regexp
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-IP-Match-Regexp-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
@@ -37,26 +36,27 @@ module useful for mapping IP ranges to names or codes or anything else.
 %setup -q -n Net-IP-Match-Regexp-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+/usr/bin/perl Build.PL installdirs=vendor
 ./Build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 ./Build test
 
 %files
-%doc CHANGES LICENSE README
+%doc CHANGES README
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 01 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 1.01-36
+- Use /usr/bin/perl instead of %%{__perl}
+- Use %%license for the LICENSE file
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

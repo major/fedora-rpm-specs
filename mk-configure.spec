@@ -7,7 +7,7 @@ License: BSD-2-Clause AND BSD-4-Clause AND ISC
 URL: https://github.com/cheusov/mk-configure/
 
 
-Source0: https://github.com/cheusov/mk-configure/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/cheusov/mk-configure/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: mkcmake.macros
 
 Patch0: 0001-ignore-incompatible-pointer-types-errors.patch

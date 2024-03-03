@@ -3,38 +3,40 @@ Name:           opae
 Vendor:         Intel Corporation
 License:        BSD
 
-Version:        2.2.0
-%define opae_release 1
+Version:        2.12.0
+%define opae_release 4
 %define patch_level 1
-Release:        %{opae_release}.%{patch_level}%{?dist}.8
+Release:        %{opae_release}.%{patch_level}%{?dist}
 
 URL:            https://github.com/OPAE/%{name}-sdk
-Source0:        https://github.com/OPAE/opae-sdk/releases/download/%{version}-%{opae_release}/%{name}-%{version}-%{opae_release}.tar.gz
+Source0:        https://github.com/OPAE/opae-sdk/archive/refs/tags/%{version}-%{opae_release}.tar.gz
 
 Group:          Development/Libraries
 ExclusiveArch:  x86_64
 
-BuildRequires:  make
+BuildRequires:  cli11-devel
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  hwloc-devel
 BuildRequires:  json-c-devel
+BuildRequires:  libedit-devel
 BuildRequires:  libuuid-devel
+BuildRequires:  make
+BuildRequires:  numactl-devel
+BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-jsonschema
 BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pyyaml
 BuildRequires:  python3-pybind11
+BuildRequires:  python3-pyyaml
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  rpm-build
+BuildRequires:  spdlog-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tbb-devel
-BuildRequires:  hwloc-devel
-BuildRequires:  pybind11-devel
-BuildRequires:  cli11-devel
-BuildRequires:  spdlog-devel
-BuildRequires:  libedit-devel
 
 
 %description
@@ -73,13 +75,8 @@ This package contains OPAE extra tools binaries,
 software tools for accelerators
 
 
-%{?python_disable_dependency_generator}
-# Workaround a problem with pybind11 *.so not having build-id's
-%undefine _missing_build_ids_terminate_build
-
-
 %prep
-%setup -q -n %{name}-%{version}-%{opae_release}
+%setup -q -n %{name}-sdk-%{version}-%{opae_release}
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=/usr \
@@ -87,6 +84,16 @@ software tools for accelerators
        -DOPAE_BUILD_PYTHON_DIST=ON \
        -DOPAE_BUILD_FPGABIST=ON
 
+# Tell pip install to use pre-installed build dependencies, instead of
+# trying to download and install the build dependencies, which fails
+# when building without network access, e.g., using Fedora's mock.
+#
+# https://github.com/OFS/meta-ofs/issues/1
+# https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-no-build-isolation
+#
+# PIP_NO_CACHE_DIR and PIP_NO_BUILD_ISOLATION behave opposite to how they read
+# https://github.com/pypa/pip/issues/5735
+export PIP_NO_BUILD_ISOLATION=off
 %cmake_build
 
 
@@ -96,87 +103,47 @@ cp RELEASE_NOTES.md %{buildroot}%{_datadir}/opae/RELEASE_NOTES.md
 cp LICENSE %{buildroot}%{_datadir}/opae/LICENSE
 cp COPYING %{buildroot}%{_datadir}/opae/COPYING
 
-mkdir -p %{buildroot}%{_usr}/src/opae/cmake/modules
-cp cmake/modules/*.cmake %{buildroot}%{_usr}/src/opae/cmake/modules
-chmod a+x %{buildroot}%{_usr}/src/opae/cmake/modules/*.cmake
-
-mkdir -p %{buildroot}%{_usr}/src/opae/samples
-mkdir -p %{buildroot}%{_usr}/src/opae/samples/hello_fpga/
-mkdir -p %{buildroot}%{_usr}/src/opae/samples/hello_events/
-mkdir -p %{buildroot}%{_usr}/src/opae/samples/object_api/
-mkdir -p %{buildroot}%{_usr}/src/opae/samples/n5010-test/
-
-cp samples/hello_fpga/hello_fpga.c %{buildroot}%{_usr}/src/opae/samples/hello_fpga/
-cp samples/hello_events/hello_events.c %{buildroot}%{_usr}/src/opae/samples/hello_events/
-cp samples/object_api/object_api.c %{buildroot}%{_usr}/src/opae/samples/object_api/
-cp samples/n5010-test/n5010-test.c %{buildroot}%{_usr}/src/opae/samples/n5010-test/
-
-
+export PIP_NO_BUILD_ISOLATION=off
 %cmake_install
 
-prev=$PWD
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/opae.io
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/hssi
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/fpgadiag
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/%__cmake_builddir/libraries/pyopae/stage
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/%__cmake_builddir/libraries/pyopaeuio/stage
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/python/opae.admin
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/python/pacsign
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/python/packager
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/ofs.uio
-%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
-popd
-
 # Make rpmlint happy about install permissions
-# admin tools
-for file in %{buildroot}%{python3_sitelib}/opae/admin/tools/{fpgaflash,fpgaotsu,fpgaport,fpgasupdate,ihex2ipmi,rsu,super_rsu,bitstream_info,opaevfio,pci_device,fpgareg}.py; do
+
+for file in %{buildroot}%{python3_sitelib}/opae/admin/tools/{fpgaflash,fpgaotsu,fpgaport,fpgasupdate,ihex2ipmi,rsu,super_rsu,bitstream_info,opaevfio,pci_device,fpgareg,n5010tool}.py; do
    chmod a+x $file
 done
-# ethernet
+
 for file in %{buildroot}%{python3_sitelib}/ethernet/{hssicommon,hssiloopback,hssimac,hssistats}.py; do
    chmod a+x $file
 done
-# diag
+
 for file in %{buildroot}%{python3_sitearch}/opae/diag/{common,fecmode,fpgadiag,fpgalpbk,fpgamac,fpgastats,fvlbypass,mactest,mux}.py; do
    chmod a+x $file
 done
 
-# packager
+for file in %{buildroot}%{python3_sitearch}/opae/fpga/tools/opae_mem.py; do
+   chmod a+x $file
+done
+
 for file in %{buildroot}%{python3_sitelib}/packager/tools/{afu_json_mgr,packager}.py; do
    chmod a+x $file
 done
+
+for file in %{buildroot}%{python3_sitelib}/platmgr/tools/{afu_platform_config,afu_platform_info,afu_synth_setup,rtl_src_config}.py; do
+   chmod a+x $file
+done
+
+for file in %{buildroot}%{python3_sitelib}/uio/ofs_uio.py; do
+   chmod a+x $file
+done
+
+chmod a+x %{buildroot}%{_usr}/src/opae/cmake/modules/*.cmake
+chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 
 %files
 %dir %{_datadir}/opae
 %doc %{_datadir}/opae/RELEASE_NOTES.md
 %license %{_datadir}/opae/LICENSE
 %license %{_datadir}/opae/COPYING
-
-%{_datadir}/doc/opae.admin/LICENSE
 
 %config(noreplace) %{_sysconfdir}/opae/opae.cfg*
 %config(noreplace) %{_sysconfdir}/sysconfig/fpgad.conf*
@@ -203,6 +170,7 @@ done
 %{_libdir}/libopaevfio.so.*
 %{_libdir}/opae/libboard_a10gx.so
 %{_libdir}/opae/libboard_c6100.so
+%{_libdir}/opae/libboard_cmc.so
 %{_libdir}/opae/libboard_d5005.so
 %{_libdir}/opae/libboard_n3000.so
 %{_libdir}/opae/libboard_n5010.so
@@ -210,6 +178,7 @@ done
 %{_libdir}/opae/libfpgad-vc.so
 %{_libdir}/opae/libfpgad-xfpga.so
 %{_libdir}/opae/libmodbmc.so
+%{_libdir}/opae/libopae-u.so
 %{_libdir}/opae/libopae-v.so
 %{_libdir}/opae/libxfpga.so
 %{_unitdir}/fpgad.service
@@ -247,10 +216,12 @@ done
 %{_bindir}/mmlink
 %{_bindir}/n5010-ctl
 %{_bindir}/n5010-test
+%{_bindir}/n5010tool
 %{_bindir}/nlb0
 %{_bindir}/nlb3
 %{_bindir}/nlb7
 %{_bindir}/object_api
+%{_bindir}/opae-mem
 %{_bindir}/opaeuiotest
 %{_bindir}/opaevfio
 %{_bindir}/opaevfiotest
@@ -298,6 +269,7 @@ done
 %{python3_sitelib}/hssi_ethernet*
 %{python3_sitelib}/packager*
 %{python3_sitelib}/pacsign*
+%{python3_sitelib}/platmgr*
 
 %files extra-tools
 
@@ -309,6 +281,9 @@ done
 %{_bindir}/bist_dma.py
 %{_bindir}/bist_nlb0.py
 %{_bindir}/bist_nlb3.py
+%{_bindir}/cxl_hello_fpga
+%{_bindir}/cxl_host_exerciser
+%{_bindir}/cxl_mem_tg
 %{_bindir}/dummy_afu
 %{_bindir}/fecmode
 %{_bindir}/fpgabist
@@ -336,6 +311,12 @@ done
 %{python3_sitelib}/uio*
 
 %changelog
+* Mon Feb 26 2024 Peter Colberg <peter.colberg@intel.com> - 2.12.0-4.1
+- Update tarball to 2.12.0-4
+- Add numactl-devel and python3-wheel to BuildRequires
+- Set PIP_NO_BUILD_ISOLATION=off during build and install
+- Drop redundant install of cmake modules, opae samples, and python modules
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-1.1.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

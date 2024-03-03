@@ -9,7 +9,7 @@
 Name:           luajit
 Version:        %{luajit_version}
 %global apiver %(v=%{version}; echo ${v%.${v#[0-9].[0-9].}})
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Just-In-Time Compiler for Lua
 License:        MIT
 URL:            http://luajit.org
@@ -24,9 +24,12 @@ Patch0: luajit-2.1-make-check.patch
 # Patches from https://github.com/cryptomilk/LuaJIT/commits/v2.1-fedora
 # git format-patch --stdout -l1 --no-renames origin/v2.1..v2.1-fedora > luajit-2.1-fedora.patch
 Patch1: luajit-2.1-fedora.patch
+# If the patch doesn't apply, send a mail to:
+# Ilya Leoshkevich <iii@de.ibm.com> or Andreas.Krebbel@de.ibm.com
+# https://bugzilla.redhat.com/show_bug.cgi?id=2222911
+Patch2: https://github.com/luajit/luajit/pull/631.patch#/luajit-2.1-s390x-support.patch
 
-# ppc64le and s390x patchsets doesn't apply or build anymore
-ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64
+ExcludeArch:    riscv64 ppc64 ppc64le
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -100,6 +103,10 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Mar 01 2024 Andreas Schneider <asn@redhat.com> - 2.1.1707061634-2
+- Add support for s390x
+  resolves: rhbz#2222911
+
 * Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 2.1.1707061634-1
 - Update to version 2.1.1707061634
 
@@ -109,7 +116,7 @@ make check
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1692716794-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Sat Aug 26 2023 Andreas Schneider <asn@redhat.com> - 2.1.1692716794
+* Sat Aug 26 2023 Andreas Schneider <asn@redhat.com> - 2.1.1692716794-1
 - Update to rolling release version of luajit
 - Adapted patches and cleaned up spec file
 

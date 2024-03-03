@@ -28,7 +28,7 @@
 %endif
 
 Name:           fcitx5-chinese-addons
-Version:        5.1.3
+Version:        5.1.4
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 License:        LGPLv2+

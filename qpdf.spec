@@ -1,7 +1,7 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 11.8.0
-Release: 3%{?dist}
+Version: 11.9.0
+Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c, but those are not compiled in (GNUTLS is used)
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
@@ -133,7 +133,7 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 %doc README.md TODO.md ChangeLog
 %license Artistic-2.0 LICENSE.txt NOTICE.md
 %{_libdir}/libqpdf.so.29
-%{_libdir}/libqpdf.so.29.8.0
+%{_libdir}/libqpdf.so.29.9.0
 
 %files devel
 %doc examples/*.cc examples/*.c
@@ -146,6 +146,10 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Fri Mar 01 2024 Zdenek Dohnal <zdohnal@redhat.com> - 11.9.0-1
+- 2267205 - TRIAGE CVE-2024-24246 qpdf - Heap Buffer Overflow vulnerability in qpdf [fedora-all]
+- 2265854 - qpdf-11.9.0 is available
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

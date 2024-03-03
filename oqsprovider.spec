@@ -1,7 +1,7 @@
 %global oqs_version 0.5.3
 Name:       oqsprovider
 Version:    %{oqs_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    oqsprovider is an OpenSSL provider for quantum-safe algorithms based on liboqs
 
 License:    Apache-2.0 AND MIT
@@ -33,7 +33,7 @@ provided via the encode/decode mechanism and X.509 data structures.
 
 %check
 cd "%{_vpath_builddir}"
-ctest -V
+OPENSSL_CONF=/dev/null ctest -V
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ossl-modules
@@ -46,6 +46,9 @@ install %{_vpath_builddir}/lib/oqsprovider.so $RPM_BUILD_ROOT/%{_libdir}/ossl-mo
 %{_libdir}/ossl-modules/oqsprovider.so
 
 %changelog
+* Fri Mar 01 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.5.3-2
+- We run tests with specially crafted OpenSSL configuration, not the system one
+
 * Thu Feb 01 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.5.3-1
 - Update to 0.5.3 version
   Enable KEM encoders

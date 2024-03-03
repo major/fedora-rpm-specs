@@ -1,6 +1,6 @@
 Name:           remind
-Version:        04.02.09
-Release:        %autorelease
+Version:        04.03.02
+Release:        1%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
 # GPL-2.0-only: main software
@@ -13,7 +13,6 @@ URL:            https://dianne.skoll.ca/projects/remind/
 Source:         %url/download/%{name}-%{version}.tar.gz
 Source:         %url/download/%{name}-%{version}.tar.gz.sig
 Source:         685A5A5E511D30E2.gpg
-Source:         tkremind.desktop
 # stolen from Debian
 Patch:          use-system-libjsonparser.diff
 
@@ -104,7 +103,7 @@ rm src/json.c
 %install
 %make_install
 
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE3}
+desktop-file-validate %{buildroot}%{_datadir}/applications/tkremind.desktop
 
 %check
 # NOTE(neil): 2024-01-09 disabling tz.rem as it is broken
@@ -142,6 +141,44 @@ make test
 %attr(0755,-,-) %{_bindir}/tkremind
 %{_mandir}/man1/tkremind.1*
 %{_datadir}/applications/tkremind.desktop
+%{_datadir}/pixmaps/tkremind.png
 
 %changelog
-%autochangelog
+* Fri Mar 01 2024 Neil Hanlon <neil@shrug.pw> - 04.03.02-1
+- update to 04.03.02 (fedora#2267323)
+- stop moving desktop file
+
+* Thu Feb 29 2024 Neil Hanlon <neil@shrug.pw> - 04.03.01-1
+- update to 04.03.01 (fedora#1655289)
+- switch off of rpmautospec
+- include icon and desktop file from upstream
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.09-2
+- remove patch included upstream
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.09-1
+- update to 04.02.09 (fedora#2246133)
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.08-5
+- fix final review comments
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.08-4
+- fix rpmlint errors by integrating upstream patch to change fsf address
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.08-3
+- don't include %{__isa} in Requires for tkremind
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.08-2
+- Add tests, split documentation into subpkg
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.08-1
+- update to 04.02.08 and address review comments
+
+* Wed Feb 07 2024 Neil Hanlon <neil@shrug.pw> - 04.02.07-1
+- update to eclipseo's work on the spec
+
+* Wed Feb 07 2024 Kurt Keller <kurt@pinboard.jp> - 04.02.06-2
+- take care of missing tcllib auto-dependency
+
+* Wed Feb 07 2024 Fedora Release Engineering <releng@fedoraproject.org> - 03.01.15-10
+- Unretirement releng issue: https://pagure.io/releng/issue/11917

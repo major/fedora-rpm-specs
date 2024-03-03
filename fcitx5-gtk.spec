@@ -1,5 +1,5 @@
 Name:           fcitx5-gtk
-Version:        5.1.1
+Version:        5.1.2
 Release:        %autorelease
 Summary:        Gtk im module and glib based dbus client library
 License:        LGPLv2+
@@ -7,9 +7,6 @@ URL:            https://github.com/fcitx/fcitx5-gtk
 Source:         https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.xz.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
-
-# FTBFS with GCC 14
-Patch0:         0001-Add-missing-header-to-fix-building-with-GCC-14.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  cmake

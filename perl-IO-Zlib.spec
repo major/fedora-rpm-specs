@@ -1,8 +1,8 @@
 Name:           perl-IO-Zlib
 # To compete with perl.spec
 Epoch:          1
-Version:        1.14
-Release:        502%{?dist}
+Version:        1.15
+Release:        1%{?dist}
 Summary:        Perl IO:: style interface to Compress::Zlib
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Zlib
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar  1 2024 Paul Howarth <paul@city-fan.org> - 1:1.15-1
+- 1.15 bump (rhbz#2267126)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14-502
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

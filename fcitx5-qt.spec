@@ -3,7 +3,7 @@
 %global build_qt6 1
 
 Name:           fcitx5-qt
-Version:        5.1.4
+Version:        5.1.5
 Release:        %autorelease
 Summary:        Qt library and IM module for fcitx5
 # Fcitx5Qt{4,5}DBusAddons Library and Input context plugin are released under BSD.
@@ -136,6 +136,7 @@ Development files for %{name}
 
 %files qt5gui -f %{name}.lang
 %license LICENSES/LGPL-2.1-or-later.txt
+%{_libdir}/fcitx5/qt5/
 %{_libexecdir}/fcitx5-qt5-gui-wrapper
 %{_datadir}/applications/org.fcitx.fcitx5-qt5-gui-wrapper.desktop
 

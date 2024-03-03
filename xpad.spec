@@ -1,6 +1,6 @@
 Name:           xpad
 Version:        5.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sticky notepad for GTK
 
 License:        GPLv3+
@@ -15,7 +15,7 @@ BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  gtksourceview4-devel
-BuildRequires:  libappindicator-devel
+BuildRequires:  libayatana-appindicator-gtk3-devel
 BuildRequires:  autoconf
 BuildRequires:  libappstream-glib
 
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Feb 29 2024 Arthur Bols <arthur@bols.dev> - 5.8.0-6
+- Switch to libayatana-appindicator Fixes rhbz#2175545
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,8 +7,8 @@ Package also provides several convenience methods for working with \
 copr messages.
 
 Name:       copr-messaging
-Version:    0.10
-Release:    5%{?dist}
+Version:    0.11
+Release:    1%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -86,17 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.10-2
-- Rebuilt for Python 3.12
+* Fri Mar 01 2024 Pavel Raiskup <praiskup@redhat.com> 0.11-1
+- handle namespaced usernames
+- set the agent_name and usernames properties
 
 * Mon May 22 2023 Jakub Kadlcik <frostyx@email.cz> 0.10-1
 - Derive all message classes from _CoprMessage

@@ -124,6 +124,10 @@ install -m 644 %{SOURCE1} %{buildroot}/%{_unitdir}/sockd.service
 %doc doc/rfc* doc/SOCKS4.protocol
 %{_libdir}/dante/libsocks.so
 %{_includedir}/socks.h
+# Older RPM versions (<4.17) do not automatically remove *.la files
+%if 0%{?rhel}
+%exclude %{_libdir}/dante/*.la
+%endif
 
 %changelog
 %autochangelog

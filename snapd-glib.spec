@@ -16,7 +16,7 @@ Version:	1.64
 Release:	1%{?dist}
 Summary:	Library providing a GLib interface to snapd
 
-License:	LGPL-2.0-only or LGPL-3.0-only
+License:	LGPL-2.0-only OR LGPL-3.0-only
 URL:		https://github.com/snapcore/%{name}
 Source0:	https://github.com/snapcore/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 

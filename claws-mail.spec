@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -642,6 +642,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Fri Mar 01 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.2.0-4
+- Rebuild against gumbo-parser-0.12.1.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

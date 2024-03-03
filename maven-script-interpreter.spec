@@ -1,7 +1,7 @@
 %bcond_with     groovy
 Name:           maven-script-interpreter
 Version:        1.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Maven Script Interpreter
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-script-interpreter/
@@ -48,6 +48,8 @@ rm src/test/java/org/apache/maven/shared/scriptinterpreter/ScriptRunnerTest.java
 sed -i /GroovyScriptInterpreter/d src/main/java/org/apache/maven/shared/scriptinterpreter/ScriptRunner.java
 %endif
 
+%pom_xpath_set "pom:project/pom:properties/pom:javaVersion" "8" pom.xml
+
 %build
 %mvn_build
 
@@ -62,6 +64,9 @@ sed -i /GroovyScriptInterpreter/d src/main/java/org/apache/maven/shared/scriptin
 
 
 %changelog
+* Fri Mar 01 2024 Markku Korkeala <markku.korkeala@iki.fi> - 1.3-9
+- Set maven javaVersion to 8, closes rhbz#2266675
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.3-8
 - Rebuilt for java-21-openjdk as system jdk
 

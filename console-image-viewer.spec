@@ -4,7 +4,7 @@
 Name:    console-image-viewer
 
 Version: 1.2
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Terminal image viewer
 
 License:  MIT
@@ -18,7 +18,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires: java-devel
 BuildRequires: ant
 
-Requires: java-headless
+Requires: java
 Requires: javapackages-tools
 
 %description
@@ -61,6 +61,10 @@ gzip -c %{SOURCE1}  > $RPM_BUILD_ROOT/%{_mandir}/man1/%{launcher}.1.gz
 
 
 %changelog
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.2-23
+- requiring full jre, instead of headless
+- RHBZ#2123726
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.2-22
 - Rebuilt for java-21-openjdk as system jdk
 

@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        8.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -458,6 +458,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Fri Mar 01 2024 Antonio Trande <sagitter@fedoraproject.org> - 6:8.4.0-8
+- Rebuild for sundials-6.7.0
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 6:8.4.0-7
 - Rebuilt for java-21-openjdk as system jdk
 

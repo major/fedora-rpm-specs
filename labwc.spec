@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.7.0
+Version:    0.7.1
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
@@ -32,6 +32,7 @@ BuildRequires: (pkgconfig(wlroots) >= 0.17.0 with pkgconfig(wlroots) < 0.18.0)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 
+Requires:   hicolor-icon-theme
 Requires:   xorg-x11-server-Xwayland
 Requires:   xdg-desktop-portal-wlr
 
@@ -95,6 +96,7 @@ session. Nor does it depend on any UI toolkits such as Qt or GTK.
 %doc NEWS.md
 %{_bindir}/%{name}
 %{_datadir}/wayland-sessions/%{name}.desktop
+%{_datadir}/icons/hicolor/*/*/%{name}*.svg
 %{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*

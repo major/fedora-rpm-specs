@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.04
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -17,10 +17,17 @@ ExcludeArch: s390x
 Source0:  https://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:  aarch64-boards
 
+# This is now legacy, most devices use bootflow, we keep this for the laggards
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
-Patch2:   disable-VBE-by-default.patch
+# Identify VFAT partitions as ESP, allows EFI setvar on our images
+Patch2:   uefi-Add-all-options-for-EFI-System-Partitions.patch
+# New function to find fdt for loading from disk
+#Patch3:   
+# Fedora patches to enable/disable features
+Patch4:   disable-VBE-by-default.patch
 Patch5:   enable-bootmenu-by-default.patch
-Patch7:   Add-video-damage-tracking.patch
+# Should be upstream but it's taking time
+Patch6:   Add-video-damage-tracking.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
@@ -86,22 +93,27 @@ do
   mkdir builds/$(echo $board)/
 
   # ATF selection, needs improving, suggestions of ATF SoC to Board matrix welcome
-  sun50i=(a64-olinuxino amarula_a64_relic bananapi_m2_plus_h5 bananapi_m64 libretech_all_h3_cc_h5 nanopi_a64 nanopi_neo2 nanopi_neo_plus2 orangepi_pc2 orangepi_prime orangepi_win orangepi_zero_plus orangepi_zero_plus2 pine64-lts pine64_plus pinebook pinephone pinetab sopine_baseboard teres_i)
+  sun50i=(a64-olinuxino a64-olinuxino-emmc amarula_a64_relic bananapi_m2_plus_h5 bananapi_m64 libretech_all_h3_cc_h5 nanopi_a64 nanopi_neo2 nanopi_neo_plus2 oceanic_5205_5inmfd orangepi_pc2 orangepi_prime orangepi_win orangepi_zero_plus orangepi_zero_plus2 pine64-lts pine64_plus pinebook pinephone pinetab sopine_baseboard teres_i)
   if [[ " ${sun50i[*]} " == *" $board "* ]]; then
     echo "Board: $board using sun50i_a64"
-    cp /usr/share/arm-trusted-firmware/sun50i_a64/* builds/$(echo $board)/
+    cp /usr/share/arm-trusted-firmware/sun50i_a64/bl31.bin builds/$(echo $board)/atf-bl31
   fi
-  sun50h6=(beelink_gs1 orangepi_3 orangepi_lite2 orangepi_one_plus orangepi_zero2 pine_h64 tanix_tx6)
+  sun50h6=(beelink_gs1 emlid_neutis_n5_devboard orangepi_3 orangepi_lite2 orangepi_one_plus pine_h64 tanix_tx6)
   if [[ " ${sun50h6[*]} " == *" $board "* ]]; then
     echo "Board: $board using sun50i_h6"
-    cp /usr/share/arm-trusted-firmware/sun50i_h6/* builds/$(echo $board)/
+    cp /usr/share/arm-trusted-firmware/sun50i_h6/bl31.bin builds/$(echo $board)/atf-bl31
   fi
-  rk3328=(evb-rk3328 nanopi-r2s-rk3328 rock64-rk3328 rock-pi-e-rk3328 roc-cc-rk3328)
+  sun50i_h616=(orangepi_zero2 orangepi_zero3 transpeed-8k618-t x96_mate)
+  if [[ " ${sun50i_h616[*]} " == *" $board "* ]]; then
+    echo "Board: $board using sun50i_h616"
+    cp /usr/share/arm-trusted-firmware/sun50i_h616/bl31.bin builds/$(echo $board)/atf-bl31
+  fi
+  rk3328=(evb-rk3328 nanopi-r2c-plus-rk3328 nanopi-r2c-rk3328 nanopi-r2s-rk3328 orangepi-r1-plus-lts-rk3328 orangepi-r1-plus-rk3328 roc-cc-rk3328 rock64-rk3328 rock-pi-e-rk3328)
   if [[ " ${rk3328[*]} " == *" $board "* ]]; then
     echo "Board: $board using rk3328"
     cp /usr/share/arm-trusted-firmware/rk3328/bl31.elf builds/$(echo $board)/atf-bl31
   fi
-  rk3399=(evb-rk3399 ficus-rk3399 firefly-rk3399 khadas-edge-captain-rk3399 khadas-edge-rk3399 khadas-edge-v-rk3399 leez-rk3399 nanopc-t4-rk3399 nanopi-m4-2gb-rk3399 nanopi-m4b-rk3399 nanopi-m4-rk3399 nanopi-neo4-rk3399 nanopi-r4s-rk3399 orangepi-rk3399 pinebook-pro-rk3399 pinephone-pro-rk3399 puma-rk3399 rock960-rk3399 rock-pi-4c-rk3399 rock-pi-4-rk3399 rock-pi-n10-rk3399pro rockpro64-rk3399 roc-pc-mezzanine-rk3399 roc-pc-rk3399 eaidk-610-rk3399)
+  rk3399=(eaidk-610-rk3399 evb-rk3399 ficus-rk3399 firefly-rk3399 khadas-edge-captain-rk3399 khadas-edge-rk3399 khadas-edge-v-rk3399 leez-rk3399 nanopc-t4-rk3399 nanopi-m4-2gb-rk3399 nanopi-m4b-rk3399 nanopi-m4-rk3399 nanopi-neo4-rk3399 nanopi-r4s-rk3399 orangepi-rk3399 pinebook-pro-rk3399 pinephone-pro-rk3399 puma-rk3399 rock960-rk3399 rock-pi-4c-rk3399 rock-pi-4-rk3399 rock-pi-n10-rk3399pro rockpro64-rk3399 roc-pc-mezzanine-rk3399 roc-pc-rk3399)
   if [[ " ${rk3399[*]} " == *" $board "* ]]; then
     echo "Board: $board using rk3399"
     cp /usr/share/arm-trusted-firmware/rk3399/* builds/$(echo $board)/
@@ -112,17 +124,6 @@ do
   BINMAN_ALLOW_MISSING=1 make $(echo $board)_defconfig O=builds/$(echo $board)/
   BINMAN_ALLOW_MISSING=1 %make_build HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="" O=builds/$(echo $board)/
 
-  # build spi images for rockchip boards with SPI flash
-  rkspi=(rock64-rk3328)
-  if [[ " ${rkspi[*]} " == *" $board "* ]]; then
-    echo "Board: $board with SPI flash"
-    builds/$(echo $board)/tools/mkimage -n rk3328 -T rkspi -d builds/$(echo $board)/tpl/u-boot-tpl.bin:builds/$(echo $board)/spl/u-boot-spl.bin builds/$(echo $board)/idbloader.spi
-  fi
-  rkspi=(evb-rk3399 khadas-edge-captain-rk3399 khadas-edge-rk3399 khadas-edge-v-rk3399 nanopc-t4-rk3399 pinebook-pro-rk3399 pinephone-pro-rk3399 rockpro64-rk3399 roc-pc-mezzanine-rk3399 roc-pc-rk3399)
-  if [[ " ${rkspi[*]} " == *" $board "* ]]; then
-    echo "Board: $board with SPI flash"
-    builds/$(echo $board)/tools/mkimage -n rk3399 -T rkspi -d builds/$(echo $board)/tpl/u-boot-tpl.bin:builds/$(echo $board)/spl/u-boot-spl.bin builds/$(echo $board)/idbloader.spi
-  fi
 done
 
 %endif
@@ -137,39 +138,24 @@ mkdir -p %{buildroot}%{_datadir}/uboot/
 %ifarch aarch64
 for board in $(ls builds)
 do
- mkdir -p %{buildroot}%{_datadir}/uboot/$(echo $board)/
- for file in u-boot.bin u-boot.dtb u-boot.img u-boot-dtb.img u-boot.itb u-boot-sunxi-with-spl.bin u-boot-rockchip.bin idbloader.img idbloader.spi spl/boot.bin spl/sunxi-spl.bin
+ for file in u-boot.bin u-boot.img u-boot-dtb.img u-boot.itb u-boot-sunxi-with-spl.bin u-boot-rockchip.bin idbloader.img idbloader-spi.img spl/boot.bin
  do
   if [ -f builds/$(echo $board)/$(echo $file) ]; then
-    install -p -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/
+    install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
   fi
  done
 done
 
-# For Apple M1 we also need the nodtb variant
-install -p -m 0644 builds/apple_m1/u-boot-nodtb.bin %{buildroot}%{_datadir}/uboot/apple_m1/u-boot-nodtb.bin
-%endif
+# For Apple M-series we also need the nodtb variant
+install -pD -m 0644 builds/apple_m1/u-boot-nodtb.bin %{buildroot}%{_datadir}/uboot/apple_m1/u-boot-nodtb.bin
 
 # Bit of a hack to remove binaries we don't use as they're large
-%ifarch aarch64
 for board in $(ls builds)
 do
   rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.dtb
   if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot-sunxi-with-spl.bin ]; then
     rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot{,-dtb}.*
-  fi
-  if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/MLO ]; then
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.bin
-  fi
-  if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/SPL ]; then
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.bin
-  fi
-  if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.imx ]; then
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.bin
-  fi
-  if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot-spl.kwb ]; then
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.*
-    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot-spl.bin
+    rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/sunxi-spl.bin
   fi
   if [ -f %{buildroot}%{_datadir}/uboot/$(echo $board)/idbloader.img ]; then
     rm -f %{buildroot}%{_datadir}/uboot/$(echo $board)/u-boot.bin
@@ -193,16 +179,23 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %doc doc/develop/uefi doc/usage doc/arch/arm64.rst
 %{_bindir}/*
 %{_mandir}/man1/mkimage.1*
-%dir %{_datadir}/uboot/
 
 %if %{with toolsonly}
 %ifarch aarch64
 %files -n uboot-images-armv8
+%dir %{_datadir}/uboot/
 %{_datadir}/uboot/*
 %endif
 %endif
 
 %changelog
+* Thu Feb 29 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.3.rc3
+- Update to 2024.04 RC3
+- Enable a number of new upstream devices
+- Upstream now builds Rockchip SPI artifacts
+- Various cleanups
+- Fix ESP partition detection to enable EFI vars
+
 * Wed Feb 14 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.2.rc2
 - Update to 2024.04 RC2
 

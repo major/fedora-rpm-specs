@@ -2,7 +2,7 @@
 
 Name:           jakarta-server-pages
 Version:        2.3.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Jakarta Server Pages (JSP)
 # some files have Apache-2.0 license headers
 # https://github.com/eclipse-ee4j/jsp-api/issues/180
@@ -81,10 +81,14 @@ This package contains the API documentation for %{name}.
 
 # reset jsp-api version from 2.3.7-SNAPSHOT to 2.3.6 (no code changes)
 sed -i "s/2\.3\.7-SNAPSHOT/2.3.6/" api/pom.xml
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source" "1.8" api
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" "1.8" api
 
 # ant and ecj should be optional OSGi requirements
 %pom_xpath_inject "pom:dependency[pom:groupId='org.apache.ant']" "<optional>true</optional>" impl
 %pom_xpath_inject "pom:dependency[pom:groupId='org.eclipse.jdt']" "<optional>true</optional>" impl
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source" "1.8" impl
+%pom_xpath_set "pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target" "1.8" impl
 
 # this source file is excluded by maven-compiler-plugin configuration;
 # remove it entirely to fix building javadocs
@@ -125,6 +129,9 @@ rm impl/src/main/java/org/apache/jasper/runtime/PerThreadTagHandlerPool.java
 
 
 %changelog
+* Fri Mar 01 2024 Markku Korkeala <markku.korkeala@iki.fi> - 2.3.6-15
+- Set maven java source and target to 1.8, closes rhbz#2266653
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.3.6-14
 - Rebuilt for java-21-openjdk as system jdk
 

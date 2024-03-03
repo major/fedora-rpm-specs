@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name: wlogout
-Version: 1.2
+Version: 1.2.1
 Release: 1%{?dist}
 Summary: Wayland based logout menu
 License: MIT
@@ -45,6 +45,9 @@ A wayland based logout menu.
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Fri Mar 01 2024 Bob Hepple <bob.hepple@gmail.com> - 1.2.1-1
+- new version
+
 * Mon Feb 26 2024 Bob Hepple <bob.hepple@gmail.com> - 1.2-1
 - new version
 

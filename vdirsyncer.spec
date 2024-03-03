@@ -10,12 +10,14 @@
 
 Name:       vdirsyncer
 Version:    0.19.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    %{sum}
 
 License:    BSD
 URL:        https://github.com/pimutils/%{name}
 Source0:    %{pypi_source}
+
+Patch0:     aiostream-version-bump.patch
 
 BuildArch:  noarch
 Obsoletes:  python2-%{srcname} <= 0.12.1
