@@ -1,7 +1,7 @@
 %global module_name pgactivity
 
 Name:           pg_activity
-Version:        3.4.2
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Command line tool for PostgreSQL server activity monitoring
 

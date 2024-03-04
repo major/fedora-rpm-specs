@@ -64,6 +64,9 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
+# Needed because Fedora's openssl does not support elliptic curves using custom parameters.
+# Request to enable them was denied: https://bugzilla.redhat.com/show_bug.cgi?id=2259403
+# It is currently not clear if the legacy API works by accident or by design. It does work as of January 2024.
 Patch01001:       %{name}-2.0.1-use-legacy-openssl-api.patch
 
 BuildRequires:    cmake

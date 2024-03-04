@@ -1,41 +1,36 @@
-%if 0%{?rhel} > 6 || 0%{?fedora} >= 16
-%bcond_with         fedora
-%bcond_without      systemd
-%else
-%bcond_without      fedora
-%bcond_with         systemd
-%endif
 %global _hardened_build 1
 # Do no change username -- hardcoded in dictd.c
 %global username    dictd
 %global homedir     %{_datadir}/dict/dictd
 %global selinux_variants mls targeted
-%define libmaaVersion 1.3.2
 
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
-Version:   1.12.1
-Release:   36%{?dist}
-License:   GPL+ and zlib and MIT
-Source0:   http://downloads.sourceforge.net/dict/%{name}-%{version}.tar.gz
+Version:   1.13.1
+Release:   1%{?dist}
+License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-PublicDomain
+Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
-Source2:   libmaa-%{libmaaVersion}.tar.gz
-Source3:   dictd2.te
-Source4:   dictd.init
-Patch0:    dictd-1.12.1-unused-return.patch
-Patch1:    dictd-1.12.1-maa-bufsize.patch
-Patch2:    dictd-c99.patch
+Source2:   dictd2.te
+Source3:   dictd.conf
+Patch0:    0001-Fix-C99-compatibility-issues-in-lexer-parser-integra.patch
 URL:       http://www.dict.org/
 
-BuildRequires:  flex bison libtool libtool-ltdl-devel byacc
-BuildRequires:  libdbi-devel, zlib-devel, gawk, gcc
-%if %{with systemd}
-BuildRequires:  systemd
-%endif
-BuildRequires:	checkpolicy, selinux-policy-devel
-BuildRequires: make
-# , /usr/share/selinux/devel/policyhelp
-Requires(pre):  shadow-utils
+BuildRequires: flex
+Buildrequires: autoconf
+BuildRequires: bison
+BuildRequires: libtool
+BuildRequires: libtool-ltdl-devel
+BuildRequires: libmaa-devel
+BuildRequires: byacc
+BuildRequires: libdbi-devel
+BuildRequires: zlib-devel
+BuildRequires: gawk
+BuildRequires: gcc
+BuildRequires: pkgconfig(systemd)
+BuildRequires: checkpolicy, selinux-policy-devel
+
+Requires(pre): shadow-utils
 
 %description
 Command-line client for the DICT protocol.  The Dictionary Server
@@ -45,15 +40,9 @@ language dictionary databases.
 
 %package server
 Summary: Server for the Dictionary Server Protocol (DICT)
-%if %{with systemd}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-%else
-Requires(post):  chkconfig
-Requires(preun): chkconfig
-Requires(postun): initscripts
-%endif
 %if "%{_selinux_policy_version}" != ""
 Requires:       selinux-policy >= %{_selinux_policy_version}
 %endif
@@ -65,63 +54,32 @@ ftp://ftp.dict.org/pub/dict/pre/
 More information can be found in the INSTALL file in this package.
 
 %prep
-%setup -q
-tar xzf %{SOURCE2}
-mv libmaa-%{libmaaVersion} libmaa
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1
+
+autoreconf -fv
 mkdir SELinux
-cp -p %{SOURCE3} SELinux
+cp -p %{SOURCE2} SELinux
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -fPIC"
-export LDFLAGS="%{?__global_ldflags}" CPPFLAGS="$RPM_OPT_FLAGS -fPIC"
-pushd libmaa
-# Required for aarch64 support:
-%configure
-make %{?_smp_mflags}
-popd
-
-cd SELinux
+pushd SELinux
 for selinuxvariant in %{selinux_variants}
 do
   make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
   mv dictd2.pp dictd2.pp.${selinuxvariant}
   make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
-cd -
+popd
 
-export LDFLAGS="%{?__global_ldflags} -Llibmaa/.libs" CPPFLAGS="-Ilibmaa $RPM_OPT_FLAGS -fPIC"
 %configure --enable-dictorg --disable-plugin
 make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-mkdir -p $RPM_BUILD_ROOT%{homedir}
-%if %{with systemd}
-mkdir -p $RPM_BUILD_ROOT%{_unitdir}
-install -m 755 %{SOURCE1} $RPM_BUILD_ROOT/%{_unitdir}/dictd.service
-%else
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d
-install -m 755 %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}/rc.d/init.d/dictd
-%endif
-
-cat <<EOF > $RPM_BUILD_ROOT/%{_sysconfdir}/dictd.conf
-global {
-    #syslog
-    #syslog_facility daemon
-}
-
-# Add database definitions here...
-
-# We stop the search here
-database_exit
-
-# Add hidden database definitions here...
-
-EOF
+%make_install
+mkdir -p %{buildroot}%{homedir}
+mkdir -p %{buildroot}%{_unitdir}
+install -m 755 %{SOURCE1} %{buildroot}%{_unitdir}/dictd.service
+mkdir -p %{buildroot}%{_sysconfdir}
+install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/dictd.conf
 
 for selinuxvariant in %{selinux_variants}
 do
@@ -132,33 +90,13 @@ done
 
 
 %post server
-%if %{with systemd}
 %systemd_post dictd.service
-%else
-if [ $1 = 1 ]; then
-   /sbin/chkconfig --add dictd
-fi
-%endif
 
 %preun server
-%if %{with systemd}
 %systemd_preun dictd.service
-%else
-if [ $1 = 0 ]; then
-   # Stop the service (otherwise userdel will fail)
-   /etc/rc.d/init.d/dictd stop &>/dev/null || :
-   /sbin/chkconfig --del dictd
-fi
-%endif
 
 %postun server
-%if %{with systemd}
 %systemd_postun_with_restart dictd.service
-%else
-if [ $1 -ge 1 ] ; then
-   /sbin/service dictd condrestart > /dev/null 2>&1 || :
-fi
-%endif
 
 %pre
 getent group %{username} >/dev/null || groupadd -r %{username}
@@ -168,31 +106,44 @@ getent passwd %{username} >/dev/null || \
 exit 0
 
 %files
-%doc ANNOUNCE COPYING ChangeLog README doc/rfc2229.txt doc/security.doc
+%doc ANNOUNCE COPYING README doc/rfc2229.txt doc/security.doc
 %doc examples/dict1.conf
 %{_bindir}/dict
 %{_mandir}/man1/dict.1*
 
-
 %files server
-%doc ANNOUNCE COPYING INSTALL ChangeLog README doc/rfc2229.txt doc/security.doc
+%doc ANNOUNCE COPYING INSTALL README doc/rfc2229.txt doc/security.doc
 %doc examples/dictd*
 %exclude %{_mandir}/man1/dict.1*
 %exclude %{_bindir}/dict
-%{_bindir}/*
-%{_sbindir}/*
-%{_mandir}/man?/*
-%if %{with systemd}
+%{_bindir}/dict_lookup
+%{_bindir}/dictfmt
+%{_bindir}/dictfmt_index2suffix
+%{_bindir}/dictfmt_index2word
+%{_bindir}/dictl
+%{_bindir}/dictunformat
+%{_bindir}/dictzip
+%{_bindir}/colorit
+%{_sbindir}/dictd
+%{_mandir}/man1/colorit.1*
+%{_mandir}/man1/dict_lookup.1*
+%{_mandir}/man1/dictfmt.1*
+%{_mandir}/man1/dictfmt_index2suffix.1*
+%{_mandir}/man1/dictfmt_index2word.1*
+%{_mandir}/man1/dictl.1*
+%{_mandir}/man1/dictunformat.1*
+%{_mandir}/man1/dictzip.1*
+%{_mandir}/man8/dictd.8*
 %attr(0644,root,root) %{_unitdir}/dictd.service
-%else
-%{_sysconfdir}/rc.d/init.d/*
-%endif
 %{homedir}
 %config(noreplace) %{_sysconfdir}/dictd.conf
 %doc SELinux
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Sat Mar 02 2024 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 1.13.1-1
+- Update to version 1.13.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond docs %{defined fedora}
 
 Name:           python-%{pypi_name}
-Version:        1.23.25
+Version:        1.23.26
 Release:        %autorelease
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -105,6 +105,7 @@ SKIP="$SKIP and not test_insert and not test_3087"
 
 %files -n python3-%{pypi_name}
 %license COPYING
+%{_bindir}/pymupdf
 %{python3_sitearch}/%{module_name}/
 %{python3_sitearch}/PyMuPDF*
 

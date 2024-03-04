@@ -1,13 +1,23 @@
 Name:           dia
 Version:        0.97.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Epoch:          1
 Summary:        Diagram drawing program
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Dia
 Source0:        https://download.gnome.org/sources/dia/0.97/%{name}-%{version}.tar.xz
-Patch0:         dia-0.9.3-cve-2019-19451.patch
+# Upstream from https://gitlab.gnome.org/GNOME/dia/-/commit/baa2df853f9fb770eedcf3d94c7f5becebc90bb9
+Patch0:         https://gitlab.gnome.org/GNOME/dia/-/commit/baa2df853f9fb770eedcf3d94c7f5becebc90bb9.patch#/dia-0.97.3-cve-2019-19451.patch
+# Downstream patch
 Patch1:         dia-configure-c99.patch
+# Backport from https://gitlab.gnome.org/GNOME/dia/-/commit/f57ea2685034ddbafc19f35d9b525a12283d7c24
+Patch2:         dia-0.97.3-get_data_size.patch
+# Upstream from https://gitlab.gnome.org/GNOME/dia/-/commit/e5557aa1d396bc3ca80240f7b5c0a1831a5cf209
+Patch3:         https://gitlab.gnome.org/GNOME/dia/-/commit/e5557aa1d396bc3ca80240f7b5c0a1831a5cf209.patch#/dia-0.97.3-const-ft_vector.patch
+# Backport from https://gitlab.gnome.org/GNOME/dia/-/commit/caddfcab250fe677ecf294fad835b71e6b10cf26
+Patch4:         dia-0.97.3-g_test_add_data_func_1.patch
+# Backport from https://gitlab.gnome.org/GNOME/dia/-/commit/9c481f649414190bf8d6741cbca1777e9766756b
+Patch5:         dia-0.97.3-g_test_add_data_func_2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -34,9 +44,7 @@ EPS, SVG, XFIG, PDF, PNG and others.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .cve-2019-19451
-%patch1 -p1 -b .configure-c99
+%autosetup -p1
 
 sed -i 's|libdia_la_LDFLAGS = -avoid-version|libdia_la_LDFLAGS = -avoid-version $(shell pkg-config --libs gtk+-2.0 libxml-2.0 libart-2.0)|' \
   lib/Makefile.*
@@ -140,6 +148,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Sun Mar 03 2024 Robert Scheck <robert@fedoraproject.org> - 1:0.97.3-27
+- Added upstream patches for -Wincompatible-pointer-types (#2261060)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.97.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

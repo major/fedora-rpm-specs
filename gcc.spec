@@ -63,7 +63,7 @@
 %else
 %global build_libquadmath 0
 %endif
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
 %global build_libasan 1
 %else
 %global build_libasan 0
@@ -73,17 +73,17 @@
 %else
 %global build_libhwasan 0
 %endif
-%ifarch x86_64 ppc64 ppc64le aarch64 s390x
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x riscv64
 %global build_libtsan 1
 %else
 %global build_libtsan 0
 %endif
-%ifarch x86_64 ppc64 ppc64le aarch64 s390x
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x riscv64
 %global build_liblsan 1
 %else
 %global build_liblsan 0
 %endif
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
 %global build_libubsan 1
 %else
 %global build_libubsan 0
@@ -93,7 +93,7 @@
 %else
 %global build_libatomic 0
 %endif
-%ifarch %{ix86} x86_64 %{arm} alpha ppc ppc64 ppc64le ppc64p7 s390 s390x aarch64
+%ifarch %{ix86} x86_64 %{arm} alpha ppc ppc64 ppc64le ppc64p7 s390 s390x aarch64 riscv64
 %global build_libitm 1
 %else
 %global build_libitm 0
@@ -104,7 +104,7 @@
 %global build_isl 1
 %endif
 %global build_libstdcxx_docs 1
-%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 %{mips}
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 %{mips} riscv64
 %global attr_ifunc 1
 %else
 %global attr_ifunc 0
@@ -1055,6 +1055,13 @@ ISL_FLAG_PIC=-fPIC
 ISL_FLAG_PIC=-fpic
 %endif
 cd isl-build
+
+%ifarch riscv64
+# Update config.{sub,guess} scripts for riscv64 (the original ones are too old)
+cp -f -v /usr/lib/rpm/%{_vendor}/config.guess ../../isl-%{isl_version}/config.guess
+cp -f -v /usr/lib/rpm/%{_vendor}/config.sub ../../isl-%{isl_version}/config.sub
+%endif
+
 sed -i 's|libisl\([^-]\)|libgcc%{gcc_major}privateisl\1|g' \
   ../../isl-%{isl_version}/Makefile.{am,in}
 ../../isl-%{isl_version}/configure \
@@ -2661,6 +2668,12 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/htmxlintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/vecintrin.h
 %endif
+%ifarch riscv64
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_vector.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_crypto.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_bitmanip.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/riscv_th_vector.h
+%endif
 %if %{build_libasan}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/sanitizer
 %endif
@@ -3595,6 +3608,9 @@ end
 %endif
 
 %changelog
+* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> 14.0.1-0.8
+- Enable support for riscv64
+
 * Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8
 - update from trunk
   - PRs ada/113893, analyzer/110483, analyzer/110520, analyzer/111289,

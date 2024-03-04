@@ -11,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -112,7 +112,10 @@ BuildRequires: gnupg2
 Requires: %{name}-runtime = %{version}-%{release}
 # flang installs headers in the clang resource directory
 Requires: clang-resource-filesystem = %{version}
-Conflicts: flang-devel < 17.0.6-2
+# Up to version 17.0.6-1, flang used to provide a flang-devel package.
+# This changed in 17.0.6-2 and all development-related files are now
+# distributed in the main flang package.
+Obsoletes: flang-devel < 17.0.6-2
 
 %description
 
@@ -310,6 +313,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Fri Mar 01 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 18.1.0~rc4-2
+- Fix relationship with flang-devel. Fixes rhbz#2267221.
+
 * Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -74,6 +74,9 @@ done
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Sat Mar 2 2024 Tom Rix <trix@redhat.com> 1.0-12
+- Add PYTHONPATH
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,15 +2,15 @@
 %global debug_package %{nil}
 
 Name:           glm
-Version:        0.9.9.8
-Release:        9%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
 URL:            http://glm.g-truc.net/
 Source0:        https://github.com/g-truc/glm/archive/%{version}.tar.gz
-Patch0:         glm-0.9.9.8-install.patch
-Patch1:         glm-0.9.9.8-noarch.patch
+Patch0:         glm-1.0.1-noarch.patch
+Patch1:         glm-1.0.1-without-werror.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -83,33 +83,26 @@ sed -i 's/\r//' glm/detail/setup.hpp
 sed -i 's/\r//' glm/simd/platform.h
 sed -i 's/\r//' test/core/core_setup_message.cpp
 
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
 
 %build
+
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
-%{cmake} -DGLM_TEST_ENABLE=ON
+%{cmake} -DGLM_TEST_ENABLE=ON -DGLM_BUILD_LIBRARY=OFF -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir}/cmake
 %cmake_build
 
 %check
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 
 # Some tests are disabled due to failing tests (to be reported)
-# - test-core_func_common fails on aarch64
 # - test-gtc_packing      fails on s390x
-%ctest -- --output-on-failure -E '(test-core_func_common|test-gtc_packing)'
+%ctest -- --output-on-failure -E 'test-gtc_packing'
 
 %install
 %cmake_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name CMakeLists.txt -exec rm -f {} ';'
-
-# The cmake config files seem architecture independent and since
-# also glm-devel is otherwise noarch, it is desired to ship the
-# cmake configuration files under /usr/share.
-mkdir -pv $RPM_BUILD_ROOT%{_datadir}
-mv $RPM_BUILD_ROOT%{_libdir}/cmake $RPM_BUILD_ROOT%{_datadir}/cmake
-rmdir $RPM_BUILD_ROOT%{_libdir}
 
 # The library can get installed into the include directory - seen on EPEL8
 rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
@@ -120,13 +113,16 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 %files devel
 %doc readme.md
 %{_includedir}/%{name}
-%{_datadir}/cmake
+%{_datadir}/cmake/%{name}
 
 %files doc
 %doc doc/manual.pdf
 %doc doc/api/
 
 %changelog
+* Sat Mar 02 2024 Joonas Sarajärvi <muep@iki.fi> - 1.0.1-1
+- Update to upstream GLM version 1.0.1
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

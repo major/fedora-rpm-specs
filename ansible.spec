@@ -32,7 +32,7 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        9.2.0
+Version:        9.3.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
@@ -57,6 +57,10 @@ License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Claus
 Source0:        %{pypi_source %{name} %{uversion}}
 Source1:        ansible-prep.sh
 Source2:        ansible-install-licenses.sh
+
+# podman pod info: handle return being list in Podman 5 #713 from containers.podman
+Patch0:         https://github.com/containers/ansible-podman-collections/pull/713.patch#/podman-pod-info-5.patch
+
 Url:            https://ansible.com
 BuildArch:      noarch
 
@@ -86,7 +90,11 @@ to ansible-core.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{uversion}
+%autosetup -N -n %{name}-%{uversion}
+
+cd ansible_collections/containers/podman
+%patch -P0 -p1
+cd -
 
 # Relax ansible-core dependency to avoid FTI bugs on EPEL
 #
@@ -168,6 +176,10 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Sat Mar 02 2024 Maxwell G <maxwell@gtmx.me> - 9.3.0-1
+- Update to 9.3.0.
+- Backport "podman pod info" patch to containers.podman
+
 * Thu Feb 01 2024 Maxwell G <maxwell@gtmx.me> - 9.2.0-1
 - Update to 9.2.0.
 

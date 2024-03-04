@@ -1,11 +1,11 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        9.0.3
-Release:        2%{?dist}
+Version:        9.0.5
+Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
-License:        GPLv2
+License:        GPL-2.0-or-later WITH GPL-3.0-linking-source-exception
 URL:            http://seafile.com/
 Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -85,6 +85,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Feb 29 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.5-1
+- Update to 9.0.5
+- Convert License tag to SPDX
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

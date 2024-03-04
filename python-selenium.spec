@@ -1,7 +1,7 @@
 %global srcname selenium
 
 Name:          python-%{srcname}
-Version:       4.17.2
+Version:       4.18.1
 Release:       %autorelease
 Summary:       Python bindings for Selenium
 License:       Apache-2.0

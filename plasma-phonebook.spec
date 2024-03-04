@@ -1,43 +1,40 @@
-
-%global kf5_min_version 5.88.0
-
 Name:           plasma-phonebook
-Version:        23.01.0
-Release:        4%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
 Url:            https://invent.kde.org/plasma-mobile/%{name}
-Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  appstream
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros          >= %{kf5_min_version}
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Widgets)
 
-BuildRequires:  cmake(KF5Kirigami2)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Contacts)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5People)        >= %{kf5_min_version}
-BuildRequires:  cmake(KF5PeopleVCard)   >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Config)        >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)          >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Codecs)        >= %{kf5_min_version}
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6People)
+BuildRequires:  cmake(KF6Contacts)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6KirigamiAddons)
 
-Requires:       kf5-kirigami2
-Requires:       kf5-kcontacts
-Requires:       kf5-kcoreaddons
+Requires:       kf6-kirigami
+Requires:       kf6-kcontacts
+Requires:       kf6-kcoreaddons
 Requires:       kpeoplevcard
 
 
@@ -48,7 +45,7 @@ Contacts application which allows adding, modifying and removing contacts.
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -58,13 +55,16 @@ Contacts application which allows adding, modifying and removing contacts.
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/{CC0-1.0.txt,GPL-2.0-only,GPL-3.0-only,GPL-3.0-or-later,LGPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.phonebook.svg
-%{_kf5_datadir}/applications/org.kde.phonebook.desktop
-%{_kf5_metainfodir}/org.kde.phonebook.metainfo.xml
-%{_qt5_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.phonebook.svg
+%{_kf6_datadir}/applications/org.kde.phonebook.desktop
+%{_kf6_metainfodir}/org.kde.phonebook.metainfo.xml
+%{_qt6_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Sat Mar 02 2024 Steve Cossette <farchord@gmail.com> - 24.02.0-1
+- 24.02.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

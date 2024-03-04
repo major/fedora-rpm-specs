@@ -36,7 +36,6 @@ Patch7:            icedtea-web-1.8.8-java18-no-pack200.patch
 ExclusiveArch:     %{java_arches}
 BuildRequires:     autoconf
 BuildRequires:     automake
-BuildRequires:     bash-completion
 BuildRequires:     bc
 BuildRequires:     cargo
 BuildRequires:     desktop-file-utils
@@ -44,6 +43,7 @@ BuildRequires:     java-%{java_version}-openjdk-devel
 BuildRequires:     javapackages-local
 BuildRequires:     javapackages-tools
 BuildRequires:     libappstream-glib
+BuildRequires:     pkgconfig(bash-completion)
 BuildRequires:     tagsoup
 BuildRequires:     zip
 Recommends:        bash-completion

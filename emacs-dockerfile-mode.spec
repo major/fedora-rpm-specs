@@ -1,11 +1,11 @@
 %global pkg dockerfile-mode
 
 Name:           emacs-%{pkg}
-Version:        1.8
-Release:        5%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        An emacs mode for handling Dockerfiles
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/spotify/%{pkg}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{pkg}-init.el
@@ -45,6 +45,10 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Sat Mar 02 2024 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.9-1
+- Update to 1.9
+- Migrate to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

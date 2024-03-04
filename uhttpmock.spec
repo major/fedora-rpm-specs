@@ -1,76 +1,94 @@
 %global glib2_version 2.38.0
-%global libsoup_version 2.47.3
+%global libsoup_version 3.1.2
 
 # Packagers: This is the API version of libuhttpmock, as it allows
 # for parallel installation of different major API versions (e.g. like
 # GTK+ 2 and 3).
-%global uhm_api_version 0.0
+%global somajor 1
+%global apiver %{somajor}.0
 
 Name:           uhttpmock
-Version:        0.5.5
-Release:        5%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        HTTP web service mocking library
-License:        LGPLv2
-URL:            https://gitlab.com/groups/uhttpmock
-Source0:        https://gitlab.freedesktop.org/pwithnall/uhttpmock/-/archive/%{version}/uhttpmock-%{version}.tar.bz2
+
+License:        LGPL-2.1-or-later
+URL:            https://gitlab.freedesktop.org/pwithnall/uhttpmock
+Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  meson
-BuildRequires:  glib2-devel >= %{glib2_version}
-BuildRequires:  libsoup-devel >= %{libsoup_version}
-BuildRequires:  intltool
-BuildRequires:  gobject-introspection-devel
-BuildRequires:  gtk-doc
-BuildRequires:  vala
-
-Requires:       glib2%{?_isa} >= %{glib2_version}
-Requires:       libsoup%{?_isa} >= %{libsoup_version}
+BuildRequires:  gcc
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
+BuildRequires:  glib-networking
+BuildRequires:  pkgconfig(libsoup-3.0) >= %{libsoup_version}
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(gtk-doc)
+BuildRequires:  /usr/bin/vapigen
 
 %description
 uhttpmock is a project for mocking web service APIs which use HTTP or HTTPS.
 It provides a library, libuhttpmock, which implements recording and
 playback of HTTP request–response traces.
 
-%package devel
+%package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description devel
-This package contains libraries, header files and documentation for
+%description    devel
+The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        doc
+Summary:        Documentation files for %{name}
+Enhances:       %{name}-devel = %{version}-%{release}
+BuildArch:      noarch
+
+%description    doc
+The %{name}-doc package contains documentation for
+developing applications that use %{name}.
+
+
 %prep
-%setup -q
+%autosetup
+
 
 %build
 %meson -Dgtk_doc=true -Dintrospection=true -Dvapi=enabled
 %meson_build
 
-%check
-%meson_test
 
 %install
 %meson_install
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
-%ldconfig_scriptlets
+%check
+%meson_test
+
 
 %files
 %license COPYING
 %doc README NEWS AUTHORS
-%{_libdir}/libuhttpmock-%{uhm_api_version}.so.0*
-%{_libdir}/girepository-1.0/Uhm-%{uhm_api_version}.typelib
+%{_libdir}/lib%{name}-%{apiver}.so.%{somajor}{,.*}
+%{_libdir}/girepository-1.0/Uhm-%{apiver}.typelib
 
 %files devel
-%{_libdir}/libuhttpmock-%{uhm_api_version}.so
-%{_includedir}/libuhttpmock-%{uhm_api_version}/
-%{_libdir}/pkgconfig/libuhttpmock-%{uhm_api_version}.pc
-%{_datadir}/gir-1.0/Uhm-%{uhm_api_version}.gir
-%{_datadir}/vala/vapi/libuhttpmock-%{uhm_api_version}.deps
-%{_datadir}/vala/vapi/libuhttpmock-%{uhm_api_version}.vapi
-%doc %{_datadir}/gtk-doc/html/libuhttpmock-%{uhm_api_version}/
+%{_includedir}/lib%{name}-%{apiver}/
+%{_libdir}/lib%{name}-%{apiver}.so
+%{_libdir}/pkgconfig/lib%{name}-%{apiver}.pc
+%{_datadir}/gir-1.0/Uhm-%{apiver}.gir
+%{_datadir}/vala/vapi/lib%{name}-%{apiver}.*
+
+%files doc
+%license COPYING
+%{_datadir}/gtk-doc/html/lib%{name}-%{apiver}/
+
 
 %changelog
+* Fri Mar 01 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.9.0-1
+- Rebase to 0.9.0 (rhbz#2264130, rhbz#1217971)
+- Modernize spec
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

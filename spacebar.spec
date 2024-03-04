@@ -1,10 +1,10 @@
 Name:           spacebar
-Version:        23.01.0
-Release:        8%{?dist}
+Version:        24.02.0
+Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 ExclusiveArch:  %{java_arches}
 
@@ -15,40 +15,41 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
 BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
 
-BuildRequires:  cmake(KF5Codecs)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5Contacts)
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5KirigamiAddons)
-BuildRequires:  cmake(KF5ModemManagerQt)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5People)
+BuildRequires:  cmake(QCoro6)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Sql)
 
-BuildRequires:  cmake(QCoro5)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5QmlModels)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Sql)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Contacts)
+BuildRequires:  cmake(KF6People)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6ModemManagerQt)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(libphonenumber)
 
 BuildRequires:  pkgconfig(libcares)
 BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  cmake(FutureSQL6)
 
 Requires:       hicolor-icon-theme
-Requires:       kf5-kirigami2
+Requires:       kf6-kirigami
 Requires:       telepathy-mission-control
 
 %description
@@ -58,7 +59,7 @@ Spacebar is a telepathy-qt based SMS application that primarily targets Plasma M
 %autosetup -n spacebar-%{version} -p1
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 %install
@@ -66,22 +67,25 @@ Spacebar is a telepathy-qt based SMS application that primarily targets Plasma M
 %find_lang %{name}
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/{GPL-2.0-or-later,LicenseRef-KDE-Accepted-GPL}.txt
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
-%{_kf5_datadir}/knotifications5/%{name}.notifyrc
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
 
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 %{_libexecdir}/%{name}-daemon
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Sat Mar 02 2024 Steve Cossette <farchord@gmail.com> - 24.02.0-1
+- 24.02.0
+
 * Sun Feb 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.01.0-8
 - Rebuilt for abseil-cpp-20240116.0
 

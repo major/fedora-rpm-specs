@@ -1,8 +1,5 @@
-%{!?_httpd_apxs: %{expand: %%global _httpd_apxs %%{_sbindir}/apxs}}
-%{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn || echo 0-0)}}
-# /etc/httpd/conf.d with httpd < 2.4 and defined as /etc/httpd/conf.modules.d with httpd >= 2.4
-%{!?_httpd_modconfdir: %{expand: %%global _httpd_modconfdir %%{_sysconfdir}/httpd/conf.d}}
-%{!?_httpd_moddir:     %{expand: %%global _httpd_moddir     %%{_libdir}/httpd/modules}}
+# Module Magic Number
+%{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2> /dev/null || echo 0-0)}
 
 %global pkgname CGI-SpeedyCGI
 
@@ -13,7 +10,8 @@ Release:        54%{?dist}
 License:        GPLv3+
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/modules/by-authors/id/H/HO/HORROCKS/%{pkgname}-%{version}.tar.gz
-Source1:        speedycgi.conf
+Source1:        10-speedycgi.conf
+Source2:        example.conf
 Patch0:         perl-CGI-SpeedyCGI-2.22-documentation.patch
 Patch1:         perl-CGI-SpeedyCGI-2.22-empty_param.patch
 Patch2:         perl-CGI-SpeedyCGI-2.22-strerror.patch
@@ -57,17 +55,8 @@ The SpeedyCGI module for the Apache HTTP Server. It can be used to run
 perl scripts for web application persistently to make them more quickly.
 
 %prep
-%setup -q -n %{pkgname}-%{version}
-%patch0 -p1 -b .documentation
-%patch1 -p1 -b .empty_param
-%patch2 -p1 -b .strerror
-%patch3 -p1 -b .brigade_foreach
-%patch4 -p1 -b .exit_messages
-%patch5 -p1 -b .perl_510
-%patch6 -p1 -b .c99_inline
-%patch7 -p1 -b .inc
-%patch8 -p1 -b .gcc10
-%patch9 -p1 -b .c99
+%autosetup -p1 -n %{pkgname}-%{version}
+cp -pf %{SOURCE2} .
 
 %build
 sed -i 's@apxs -@%{_httpd_apxs} -@g' Makefile.PL src/SpeedyMake.pl \
@@ -75,7 +64,7 @@ sed -i 's@apxs -@%{_httpd_apxs} -@g' Makefile.PL src/SpeedyMake.pl \
 sed -i 's@APXS=apxs@APXS=%{_httpd_apxs}@g' mod_speedycgi/Makefile.tmpl
 
 echo yes | perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-make OPTIMIZE="$RPM_OPT_FLAGS" # doesn't understand %{?_smp_mflags}
+make OPTIMIZE="$RPM_OPT_FLAGS -Wno-incompatible-pointer-types" # doesn't understand %{?_smp_mflags}
 
 %install
 make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
@@ -86,12 +75,8 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -exec rm -f {} ';'
 %endif
 chmod -R u+w $RPM_BUILD_ROOT/*
 
-install -D -p -m 755 mod_speedycgi2/mod_speedycgi.so $RPM_BUILD_ROOT%{_httpd_moddir}/mod_speedycgi.so
-
-sed -n /^LoadModule/p %{SOURCE1} > 10-speedycgi.conf
-sed    /^LoadModule/d %{SOURCE1} > example.conf
-touch -c -r %{SOURCE1} 10-speedycgi.conf example.conf
-install -D -p -m 644 10-speedycgi.conf $RPM_BUILD_ROOT%{_httpd_modconfdir}/10-speedycgi.conf
+install -D -p -m 0755 mod_speedycgi2/mod_speedycgi.so $RPM_BUILD_ROOT%{_httpd_moddir}/mod_speedycgi.so
+install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_httpd_modconfdir}/10-speedycgi.conf
 
 %files
 %license COPYING

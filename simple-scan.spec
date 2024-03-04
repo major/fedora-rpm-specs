@@ -1,14 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           simple-scan
-Version:        44.0
-Release:        3%{?dist}
+Version:        46~beta
+Release:        1%{?dist}
 Summary:        Simple scanning utility
 
 # Sources are under GPLv3+, icon and help are under CC-BY-SA.
 License:        GPL-3.0-or-later AND CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/simple-scan
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  sane-backends-devel
@@ -18,9 +18,9 @@ BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 BuildRequires:  /usr/bin/valac
 BuildRequires:  pkgconfig(colord)
-BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gudev-1.0)
-BuildRequires:  pkgconfig(libhandy-1)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libwebpmux)
 %if ! 0%{?flatpak}
 BuildRequires:  pkgconfig(packagekit-glib2)
@@ -45,7 +45,7 @@ scanner and quickly have the image/document in an appropriate format.
 %find_lang %{name} --with-man --with-gnome
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.gnome.SimpleScan.appdata.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 %files -f %{name}.lang
@@ -55,11 +55,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.SimpleScan.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.SimpleScan-symbolic.svg
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/org.gnome.SimpleScan.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.SimpleScan.gschema.xml
 
 %changelog
+* Sat Mar 02 2024 David King <amigadave@amigadave.com> - 46~beta-1
+- Update to 46.beta
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

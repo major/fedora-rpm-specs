@@ -135,6 +135,9 @@ sed -i "s/, '-static-libstdc++'//" \
 
 %build
 %meson \
+    -Dmangoapp=true \
+    -Dmangoapp_layer=true \
+    -Dmangohudctl=true \
     -Dinclude_doc=true \
     -Duse_system_spdlog=enabled \
     -Dwith_wayland=enabled \
@@ -169,11 +172,13 @@ sed -i "s@#!/usr/bin/env python@#!/usr/bin/python3@" \
 %license LICENSE
 %doc README.md presets.conf.example
 %{_bindir}/%{name}*
+%{_bindir}/mangoapp
 %{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_datadir}/vulkan/implicit_layer.d/*Mango*.json
 %{_docdir}/%{name}/%{appname}.conf.example
 %{_libdir}/%{name}/
 %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/mangoapp.1*
 %{_metainfodir}/*.metainfo.xml
 
 %files mangoplot

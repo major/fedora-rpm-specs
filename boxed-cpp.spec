@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/contour-terminal/boxed-cpp
-Version:        1.3.0
+Version:        1.4.0
 %forgemeta
 
 Name:           boxed-cpp

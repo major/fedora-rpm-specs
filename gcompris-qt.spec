@@ -1,6 +1,6 @@
 Name:           gcompris-qt
-Version:        3.3
-Release:        4%{?dist}
+Version:        4.0
+Release:        1%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPLv3
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gc
 
 
 %changelog
+* Sat Feb 24 2024 Andrea Musuruane <musuruan@gmail.com> - 4.0-1
+- Updated to new upstream release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

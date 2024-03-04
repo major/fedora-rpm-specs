@@ -14,7 +14,7 @@
 
 Name:		jglobus
 Version:	2.1.0
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Globus Java client libraries
 
 #		Everything is Apache 2.0 except for one file that is MIT:
@@ -226,6 +226,7 @@ This package contains the API documentation for %{name}.
 # Don't do source and release
 %pom_remove_plugin org.apache.maven.plugins:maven-release-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
+%pom_remove_plugin org.apache.maven.plugins:maven-compiler-plugin
 
 %if %{?fedora}%{!?fedora:0} >= 33 || %{?rhel}%{!?rhel:0} >= 8
 # F33+ and EPEL8+ doesn't use the maven-javadoc-plugin to generate javadoc
@@ -243,7 +244,7 @@ This package contains the API documentation for %{name}.
 
 %build
 # Many tests requires network connections and a valid proxy certificate
-%mvn_build -f -s -- -Ptomcat7 -Dproject.build.sourceEncoding=UTF-8
+%mvn_build -f -s -- -Ptomcat7 -Dproject.build.sourceEncoding=UTF-8 -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -280,6 +281,9 @@ This package contains the API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Mar 01 2024 Petra Alice Mikova <pmikova@redhat.com> - 2.1.0-35
+- Set Java source/target to 1.8
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.1.0-34
 - Rebuilt for java-21-openjdk as system jdk
 

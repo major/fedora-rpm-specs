@@ -60,14 +60,27 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 
 
 %build
+# This is needed on EPEL9 and older. On Fedora, it happens automatically (and
+# the explicit macro invocation has no further effect).
+%set_build_flags
+
 # default to general-64, which also works for s390x
 %global sfarch general-64
 
 %ifarch x86_64
+%if 0%{?rhel} >= 9
+# RHEL9 requires x86_64v2.
+# As of 2024-02, it is unclear whether or not RHEL10 will require x86_64v3,
+# which would correspond to the x86-64-bmi2 Stockfish architecture.
+%global sfarch x86-64-sse41-popcnt
+%else
 %global sfarch x86-64
 %endif
+%endif
 %ifarch i686
-%global sfarch x86-32
+# Since 32-bit packages are multilib-only, we can assume x86_64 hardware and
+# therefore SSE2.
+%global sfarch x86-32-sse2
 %endif
 %ifarch ppc64le
 %global sfarch ppc-64
@@ -75,16 +88,16 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 %ifarch aarch64
 %global sfarch armv8
 %endif
-%ifarch armv7hl
-%global sfarch armv7
+%ifarch riscv64
+%global sfarch riscv64
 %endif
 
 # NOTE: The upstream Makefile adds some flags on top of the Fedora ones.
 # Most of them are harmless/redundant except -O3. However, benchmarks
 # (based on the duration of `stockfish bench` in koji builders) support
 # the use of -O3 here:
-# Architecture | armv7hl | i686 | x86_64 | aarch64 | ppc64le | s390x
-# -O3 speedup  |     1%% | 14%% |   13%% |    10%% |    31%% |   1%%
+# Architecture | i686 | x86_64 | aarch64 | ppc64le | s390x
+# -O3 speedup  | 14%% |   13%% |    10%% |    31%% |   1%%
 %if 0%{?el8}
 %ifarch s390x
 # (EPEL8 only):
@@ -98,7 +111,7 @@ sed -e 's,\(EngineDir = \).*,\1%{_bindir},' \
 sed -r -i 's/-O3//' src/Makefile
 %endif
 %endif
-%make_build -C src build ARCH=%sfarch \
+%make_build -C src profile-build ARCH=%sfarch \
     EXTRACXXFLAGS="%{build_cxxflags}" \
     EXTRALDFLAGS="%{build_ldflags}"
 

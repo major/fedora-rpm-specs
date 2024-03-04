@@ -10,7 +10,7 @@
 
 Name: cyrus-imapd
 Version: 3.8.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -89,6 +89,10 @@ Patch6: patch-cyrus-pcre2
 # https://github.com/cyrusimap/cyrus-imapd/pull/4745
 # https://github.com/cyrusimap/cyrus-imapd/pull/4768
 Patch7: patch-cyrus-libxml212
+# https://bugzilla.redhat.com/show_bug.cgi?id=2256083
+Patch8: patch-cyrus-imap-pop3d-TLS-shutdown-crash
+# https://bugzilla.redhat.com/show_bug.cgi?id=2267210
+Patch9: patch-cyrus-cyr_info-conf-all-default-crash
 
 BuildRequires: autoconf automake bison flex gcc gcc-c++ git glibc-langpack-en
 BuildRequires: groff libtool make pkgconfig rsync systemd transfig
@@ -829,6 +833,10 @@ sudo -u cyrus LD_LIBRARY_PATH=%buildroot/%_libdir ./testrunner.pl %{?_smp_mflags
 %{_mandir}/man3/Cyrus::SIEVE::managesieve.3pm*
 
 %changelog
+* Fri Mar 01 2024 Martin Osvald <mosvald@redhat.com> - 3.8.1-11
+- imapd/pop3d crashing on TLS shutdown (rhbz#2256083)
+- cyr_info crashes while printing conf-all/default confugiration (rhbz#2267210)
+
 * Tue Feb 27 2024 Martin Osvald <mosvald@redhat.com> - 3.8.1-10
 - Do not create mail group to prevent dependency loop (rhbz#2266335)
 

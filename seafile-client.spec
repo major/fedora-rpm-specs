@@ -1,20 +1,25 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        9.0.3
-Release:        2%{?dist}
+Version:        9.0.5
+Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache-2.0
-# quazip:       LGPL-2.1-or-later with static linking exception
 # QtAwesome:    MIT
 # FontAwesome:  OFL-1.1
-License:        ASL 2.0 and LGPLv2+ and MIT and OFL
+#
+# Third-party sources that are not used during the build:
+# QuaZip:       LGPL-2.1-or-later with static linking exception
+# WinSparkle:   MIT
+License:        Apache-2.0 AND MIT AND OFL-1.1
 URL:            https://www.seafile.com/
 Source0:        https://github.com/haiwen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        seafile.appdata.xml
+# Disable unused feature that requires bundled QuaZip
+Patch:          https://github.com/haiwen/seafile-client/pull/1506.patch#/Add-ENABLE_LOG_UPLOADER-CMake-option.patch
 
-ExclusiveArch:  %{qt5_qtwebengine_arches}
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -22,6 +27,15 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6WebEngineCore)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(libseafile) = %{version}
@@ -29,14 +43,10 @@ BuildRequires:  pkgconfig(libsearpc)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebengine-devel
 
 # 3.x.unidentified with local changes
 Provides:       bundled(QtAwesome)
 Provides:       bundled(fontawesome-fonts) = 3.2.1
-Provides:       bundled(quazip) = 0.9.1^20200820git2ea6bdf
 Requires:       seafile = %{version}
 
 
@@ -50,10 +60,15 @@ to enable easy collaboration around documents within a team.
 
 %prep
 %autosetup -p1
+# ensure that these third-party sources are not used during the build
+rm -rf third_party/{WinSparkle-0.5.3,quazip}
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHIBBOLETH_SUPPORT=ON
+%cmake \
+    -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DBUILD_LOG_UPLOADER:BOOL=OFF     \
+    -DBUILD_SHIBBOLETH_SUPPORT:BOOL=ON
 %cmake_build
 
 
@@ -84,6 +99,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Thu Feb 29 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 9.0.5-1
+- Update to 9.0.5
+- Exclude bundled QuaZip from build
+- Convert License tag to SPDX
+- Build with Qt6
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

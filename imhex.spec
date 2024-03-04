@@ -1,5 +1,5 @@
 Name:           imhex
-Version:        1.33.0
+Version:        1.33.1
 Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
@@ -182,6 +182,9 @@ done
 
 
 %changelog
+* Sat Mar 02 2024 Jonathan Wright <jonathan@almalinux.org> - 1.33.1-1
+- update to 1.33.1 rhbz#2267471
+
 * Sun Feb 25 2024 Jonathan Wright <jonathan@almalinux.org> - 1.33.0-1
 - update to 1.33.0
 

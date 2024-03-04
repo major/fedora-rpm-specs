@@ -44,7 +44,7 @@
 
 Name:		%{pkg_name}
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -77,7 +77,11 @@ BuildRequires:	zlib-devel
 # For gpg source verification
 BuildRequires:	gnupg2
 
+%if %{with compat_build}
+Requires: clang%{maj_ver}-resource-filesystem%{?isa} = %{version}
+%else
 Requires: clang-resource-filesystem%{?isa} = %{version}
+%endif
 Provides: %{name}(major) = %{maj_ver}
 
 %description
@@ -161,6 +165,9 @@ ln -s i386-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{_t
 #%endif
 
 %changelog
+* Sat Mar 02 2024 Tom Stellard <tstellar@redhat.com> - 17.0.6-6
+- Depend on clang-resource-filesystem from clang compat
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

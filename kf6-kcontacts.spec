@@ -30,6 +30,8 @@ BuildRequires:  pkgconfig(xkbcommon)
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6CoreAddons)
+Requires:       cmake(KF6I18n)
+Requires:       cmake(KF6Codecs)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.

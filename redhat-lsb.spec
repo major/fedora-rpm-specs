@@ -95,7 +95,7 @@ continue to support the LSB project and software that uses it
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 5.0
-Release: 0.8%{gver}%{?dist}
+Release: 0.9%{gver}%{?dist}
 URL: https://wiki.linuxfoundation.org/lsb/start
 # https://github.com/LinuxStandardBase/lsb-samples/
 Source0: redhat-lsb-%{snapshot}.tar.gz
@@ -107,9 +107,10 @@ BuildRequires: perl(Getopt::Long)
 Provides: lsb = %{version}-%{release}
 Provides: lsb-%{archname} = %{version}-%{release}
 Provides: lsb-noarch = %{version}-%{release}
-Obsoletes: redhat-lsb-trialuse <= 5
-Obsoletes: redhat-lsb-submod-multimedia <= 5
-Obsoletes: redhat-lsb-submod-security <= 5
+Obsoletes: redhat-lsb-trialuse < 5
+Obsoletes: redhat-lsb-submod-multimedia < 5
+Obsoletes: redhat-lsb-submod-security < 5
+Conflicts: lsb_release
 
 %description
 The Linux Standard Base (LSB) is an attempt to develop a set of standards that
@@ -535,6 +536,9 @@ ln -snf ../../../sbin/chkconfig %{buildroot}/usr/lib/lsb/remove_initd
 
 
 %changelog
+* Sat Mar 02 2024 Sérgio Basto <sergio@serjux.com> - 5.0-0.9.20231006git8d00acdc
+- Add conflicts required by Fedora package guidelines
+
 * Sat Feb 17 2024 Sérgio Basto <sergio@serjux.com> - 5.0-0.8.20231006git8d00acdc
 - Globalize disclamer
 - Add Requires of ncurses which includes infocmp, tic and tput
