@@ -1,4 +1,3 @@
-
 %global qt_module qttools
 
 #global unstable 1
@@ -11,7 +10,7 @@
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
 Version: 6.6.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -113,15 +112,6 @@ Requires: %{name}-libs-designer%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs-designercomponents%{?_isa} = %{version}-%{release}
 %description -n qt6-designer
 %{summary}.
-
-%if 0%{?webkit}
-%package -n qt6-designer-plugin-webkit
-Summary: Qt6 designer plugin for WebKit
-BuildRequires: pkgconfig(Qt6WebKitWidgets)
-Requires: %{name}-libs-designer%{?_isa} = %{version}-%{release}
-%description -n qt6-designer-plugin-webkit
-%{summary}.
-%endif
 
 %package -n qt6-linguist
 Summary: Qt6 Linguist Tools
@@ -242,19 +232,13 @@ popd
 %files common
 %license LICENSES/LGPL*
 
-%ldconfig_scriptlets libs-designer
-
 %files  libs-designer
 %{_qt6_libdir}/libQt6Designer.so.6*
 %dir %{_qt6_libdir}/cmake/Qt6Designer/
 %{_qt6_plugindir}/designer/*
 
-%ldconfig_scriptlets libs-designercomponents
-
 %files  libs-designercomponents
 %{_qt6_libdir}/libQt6DesignerComponents.so.6*
-
-%ldconfig_scriptlets libs-help
 
 %files  libs-help
 %{_qt6_libdir}/libQt6Help.so.6*
@@ -264,7 +248,6 @@ popd
 %{_qt6_bindir}/assistant*
 %{_datadir}/applications/*assistant.desktop
 %{_datadir}/icons/hicolor/*/apps/assistant*.*
-
 
 %files -n qt6-doctools
 %{_bindir}/qdoc*
@@ -279,13 +262,6 @@ popd
 %{_qt6_bindir}/designer*
 %{_datadir}/applications/*designer.desktop
 %{_datadir}/icons/hicolor/*/apps/designer*.*
-
-%if 0%{?webkit}
-%files -n qt6-designer-plugin-webkit
-%{_qt6_plugindir}/designer/libqwebview.so
-%{_qt6_libdir}/cmake/Qt6Designer/Qt6Designer_QWebViewPlugin.cmake
-%endif
-
 
 %files -n qt6-linguist
 %{_bindir}/linguist*
@@ -382,11 +358,13 @@ popd
 %if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/
-%dir %{_qt6_libdir}/cmake/Qt6Designer
 %endif
 
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-3
+- minor cleanups
+
 * Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
 - Examples: also install source files
 

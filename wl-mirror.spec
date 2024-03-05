@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.16.1
+Version:        0.16.2
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 
@@ -41,7 +41,8 @@ rm -rf proto/wayland-protocols
 %build
 %cmake \
     -DFORCE_SYSTEM_WL_PROTOCOLS:BOOL=ON \
-    -DINSTALL_DOCUMENTATION:BOOL=ON
+    -DINSTALL_DOCUMENTATION:BOOL=ON \
+    -DINSTALL_EXAMPLE_SCRIPTS:BOOL=ON
 %cmake_build
 
 
@@ -52,8 +53,10 @@ rm -rf proto/wayland-protocols
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1*
+%{_bindir}/wl-mirror
+%{_bindir}/wl-present
+%{_mandir}/man1/wl-mirror.1*
+%{_mandir}/man1/wl-present.1*
 
 
 %changelog

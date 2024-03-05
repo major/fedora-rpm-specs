@@ -6,7 +6,7 @@
 %global adwaita_version 1.4.0
 
 Name:          gnome-extensions-app
-Version:       46~alpha
+Version:       46~rc
 Release:       %autorelease
 Summary:       Manage GNOME Shell extensions
 
@@ -64,6 +64,7 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 %{_bindir}/%{exec_name}
 %{_datadir}/applications/%{bus_name}.desktop
 %{_datadir}/dbus-1/services/%{bus_name}.service
+%{_datadir}/glib-2.0/schemas/%{bus_name}.gschema.xml
 %{_datadir}/metainfo/%{bus_name}.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{bus_name}.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{bus_name}.Devel.svg

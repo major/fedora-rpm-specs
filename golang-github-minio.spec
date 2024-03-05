@@ -4,7 +4,7 @@
 
 # https://github.com/minio/minio-go
 %global goipath         github.com/minio/minio-go
-Version:                7.0.66
+Version:                7.0.68
 
 %gometa -L -f
 

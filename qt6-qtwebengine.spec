@@ -51,7 +51,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.6.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -498,9 +498,6 @@ done
 
 %files
 %license LICENSE.*
-%if 0%{?docs}
-%license src/webengine/doc/src/qtwebengine-3rdparty.qdoc
-%endif
 %{_qt6_libdir}/libQt6WebEngineCore.so.*
 %{_qt6_libdir}/libQt6WebEngineQuick.so.*
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.so.*
@@ -510,7 +507,6 @@ done
 %{_qt6_libdir}/qt6/libexec/QtWebEngineProcess
 %dir %{_qt6_libdir}/qt6/qml/QtWebEngine
 %{_qt6_libdir}/qt6/qml/QtWebEngine/*
-%{_qt6_plugindir}/designer/libqwebengineview.so
 %dir %{_qt6_datadir}/resources/
 %{_qt6_datadir}/resources/v8_context_snapshot.bin
 %{_qt6_datadir}/resources/qtwebengine_resources.pak
@@ -613,6 +609,7 @@ done
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineQuickDelegatesQml.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebEngineWidgets.pc
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_webengine*.pri
+%{_qt6_plugindir}/designer/libqwebengineview.so
 
 %files devtools
 %{_qt6_datadir}/resources/qtwebengine_devtools_resources.pak
@@ -620,11 +617,6 @@ done
 %if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/webengine*
-%endif
-
-%if 0%{?docs}
-%files doc
-%{_qt6_docdir}/*
 %endif
 
 %files -n qt6-qtpdf
@@ -670,6 +662,10 @@ done
 %endif
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-3
+- move qt designer plugin to -devel 
+- remove old doc package code (docs are in qt6-doc)
+
 * Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
 - Examples: also install source files
 

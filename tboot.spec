@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
-Version:       1.11.1
-Release:       6%{?dist}
+Version:       1.11.2
+Release:       7%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -74,6 +74,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Sun Mar 03 2024 Jun Miao <jun.miao@intel.com> - 1:1.11.2-7
+- Update to v1.11.2 release
+
 * Mon Jan 29 2024 Florian Weimer <fweimer@redhat.com> - 1:1.11.1-6
 - Suppress GCC 14 allocation size warning
 

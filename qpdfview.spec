@@ -3,7 +3,7 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -24,14 +24,6 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(ddjvuapi)
 %if %{with_fitz}
 BuildRequires:	mupdf-devel
-# tesseract-devel
-BuildRequires:	pkgconfig(tesseract)
-# openjpeg2-devel
-BuildRequires:	pkgconfig(libopenjp2)
-# jbig2dec-devel
-BuildRequires:	pkgconfig(jbig2dec)
-# gumbo-parser-devel
-BuildRequires:	pkgconfig(gumbo)
 %endif
 
 %description
@@ -110,7 +102,7 @@ sed -i "s/Name=qpdfview/Name=qpdfview (Qt5)/g" miscellaneous/qpdfview-qt5.deskto
     APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
-    FITZ_PLUGIN_LIBS="-lmupdf -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
+    FITZ_PLUGIN_LIBS="-lmupdf" \
 %endif
     qpdfview.pro
 make %{?_smp_mflags}
@@ -135,7 +127,7 @@ sed -i "s/Name=qpdfview/Name=qpdfview (Qt6)/g" miscellaneous/qpdfview-qt6.deskto
     APPDATA_INSTALL_PATH="%{_metainfodir}" \
 %if %{with_fitz}
     CONFIG+=with_fitz \
-    FITZ_PLUGIN_LIBS="-lmupdf -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
+    FITZ_PLUGIN_LIBS="-lmupdf" \
 %endif
     qpdfview.pro
 make %{?_smp_mflags}
@@ -200,6 +192,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Fri Mar 01 2024 Michael J Gruber <mjg@fedoraproject.org> - 0.5.0-10
+- adjust to mupdf shared.
+
 * Fri Mar 01 2024 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.5.0-9
 - Remove references to mupdf-third.
 - Use %%patch -P <N> instead of %%patch<N>.

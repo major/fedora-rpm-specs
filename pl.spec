@@ -12,7 +12,7 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:       pl
-Version:    9.2.1
+Version:    9.2.2
 Release:    1%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
@@ -143,7 +143,8 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #bench/simple_analyzer.pl               Free for non-commercial
 License:    BSD-2-Clause AND BSD-3-Clause AND (Brian-Gladman-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH SWI-Exception AND (GPL-2.0-or-later WITH SWI-Exception OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.3a AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib AND dtoa
 URL:        https://www.swi-prolog.org/
-# Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
+VCS:        https://github.com/SWI-Prolog/swipl
+# Source0: %%{url}/download/stable/src/swipl-%%{version}.tar.gz
 # To create the repackaged archive, use ./repackage.sh %%{version}
 Source0:    swipl-%{version}_repackaged.tar.gz
 Source1:    %{url}download/xpce/doc/userguide/userguide.html.tgz
@@ -216,6 +217,8 @@ BuildRequires:  junit
 %endif
 # nlp
 BuildRequires:  libstemmer-devel
+# sweep
+BuildRequires:  emacs-devel
 # uuid
 BuildRequires:  pkgconfig(ossp-uuid)
 # win
@@ -609,6 +612,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Sun Mar  3 2024 Jerry James <loganjerry@gmail.com> - 9.2.2-1
+- Version 9.2.2
+
 * Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 9.2.1-1
 - Version 9.2.1
 

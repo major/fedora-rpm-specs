@@ -4,7 +4,7 @@
 
 Name:           jFormatString
 Version:        0
-Release:        0.48.20131227git%{shortcommit}%{?dist}
+Release:        0.49.20131227git%{shortcommit}%{?dist}
 Summary:        Java format string compile-time checker
 
 License:        GPL-2.0-only WITH Classpath-exception-2.0

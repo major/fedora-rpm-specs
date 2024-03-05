@@ -1,6 +1,6 @@
 Name:             umockdev
-Version:          0.17.18
-Release:          2%{?dist}
+Version:          0.18.0
+Release:          1%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Mar 03 2024 Packit <hello@packit.dev> - 0.18.0-1
+- Record and restore SELinux context for mocked /dev nodes
+- preload: wrap fstatfs() and statfs() on musl
+- Fix build with meson 1.4
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

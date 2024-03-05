@@ -6,10 +6,10 @@
 %endif
 
 %global pv_maj 5
-%global pv_min 11
-%global pv_patch 2
+%global pv_min 12
+%global pv_patch 0
 %global pv_majmin %{pv_maj}.%{pv_min}
-#global rcsuf RC1
+#global rcsuf RC3
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
@@ -19,7 +19,16 @@
 %bcond_with openmpi
 %else
 %bcond_without mpich
+# No openmpi on i668 with openmpi 5 in Fedora 40+
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 %endif
 
 # cgnslib is too old on EL8
@@ -60,6 +69,14 @@
 # We need pugixml >= 1.9
 %global system_pugixml 1
 %global vtk_use_system_pugixml -DVTK_MODULE_USE_EXTERNAL_VTK_pugixml:BOOL=ON
+
+# Not packaged?
+%bcond_with token
+%if %{with token}
+%global vtk_use_system_token -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=ON
+%else
+%global vtk_use_system_token -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=OFF
+%endif
 
 Name:           paraview
 Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
@@ -103,6 +120,7 @@ BuildRequires:  cli11-devel
 BuildRequires:  gdal-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  tk-devel
+BuildRequires:  fast_float-devel
 BuildRequires:  freetype-devel, libtiff-devel, zlib-devel
 BuildRequires:  expat-devel
 BuildRequires:  glew-devel
@@ -150,7 +168,6 @@ BuildRequires:  glibc-langpack-en
 
 Requires: hdf5%{?_hdf5_version: = %{_hdf5_version}}
 Requires: %{name}-data = %{version}-%{release}
-#Recommends: python3-pygments
 Requires: python3-pygments
 Requires: python3-six
 Requires: python3-netcdf4
@@ -247,7 +264,6 @@ ExcludeArch: %{ix86}
         -DPARAVIEW_INSTALL_DEVELOPMENT_FILES:BOOL=ON \\\
         -DVTK_PYTHON_VERSION=3 \\\
         -DPARAVIEW_BUILD_WITH_EXTERNAL:BOOL=ON \\\
-        -DVTK_MODULE_USE_EXTERNAL_ParaView_vtkcatalyst:BOOL=OFF \\\
         %{?vtk_use_system_cgnslib} \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk:BOOL=OFF \\\
 %if !%{with fmt} \
@@ -259,6 +275,7 @@ ExcludeArch: %{ix86}
         -DVTK_MODULE_USE_EXTERNAL_VTK_libharu=OFF \\\
         %{?vtk_use_system_protobuf} \\\
         %{?vtk_use_system_pugixml} \\\
+        %{?vtk_use_system_token} \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
         -DBUILD_EXAMPLES:BOOL=ON \\\
         -DBUILD_TESTING:BOOL=OFF \\\
@@ -272,15 +289,12 @@ ExcludeArch: %{ix86}
         -DCMAKE_INSTALL_LIBDIR:PATH=lib/%{name} \\\
         -DHDF5_INCLUDE_DIRS:PATH=$MPI_INCLUDE \\\
         -DPYTHON_INSTALL_DIR=PATH=$MPI_PYTHON3_SITEARCH \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_diy2=OFF \\\
-        -DVTK_MODULE_USE_EXTERNAL_VTK_icet=OFF \\\
         -DQtTesting_INSTALL_LIB_DIR=lib/%{name} \\\
         -DQtTesting_INSTALL_CMAKE_DIR=lib/%{name}/CMake \\\
         -DPARAVIEW_USE_MPI:BOOL=ON \\\
         -DICET_BUILD_TESTING:BOOL=ON \\\
 %if %{with VisitBridge} \
         -DPARAVIEW_USE_VISITBRIDGE=ON \\\
-        -DVTK_MODULE_USE_EXTERNAL_ParaView_VisItLib:BOOL=OFF \\\
         -DVISIT_BUILD_READER_CGNS=ON \\\
 %endif \
         %{paraview_cmake_options}
@@ -455,10 +469,12 @@ rm -r VTK/ThirdParty/pugixml/vtkpugixml
 %endif
 # TODO - loguru
 # TODO - verdict - This is a kitware library so low priority
-for x in vtk{cli11,doubleconversion,eigen,expat,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}glew,hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,ogg,pegtl,png,sqlite,theora,tiff,zfp,zlib}
+for x in vtk{cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}glew,hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zfp,zlib}
 do
   rm -r VTK/ThirdParty/*/${x}
 done
+# Remove version requirements
+sed -i -e '/VERSION *"/d' VTK/ThirdParty/fast_float/CMakeLists.txt
 # jsoncpp
 %if 0%{system_jsoncpp}
 rm -r VTK/ThirdParty/jsoncpp/vtkjsoncpp
@@ -472,7 +488,8 @@ cp %SOURCE2 VTK/CMake/FindPEGTL.cmake
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
 
-%build
+
+%conf
 # Try to limit memory consumption on some arches
 %ifarch %{arm}
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
@@ -487,6 +504,16 @@ cp %SOURCE2 VTK/CMake/FindPEGTL.cmake
         -DQtTesting_INSTALL_LIB_DIR=%{_lib}/%{name} \
         -DQtTesting_INSTALL_CMAKE_DIR=%{_lib}/%{name}/CMake \
         %{paraview_cmake_options}
+
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
+  %cmake -Wno-dev %{paraview_cmake_mpi_options}
+  module purge
+done
+
+
+%build
 %cmake_build
 export LANG=en_US.UTF-8
 # Built-in Python modules were not found, set pythonpath as workaround
@@ -496,7 +523,6 @@ export PYTHONPATH=$PWD/%{_lib}/paraview/python%{python3_version}/site-packages:%
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  %cmake -Wno-dev %{paraview_cmake_mpi_options}
   %cmake_build
   module purge
 done
@@ -570,7 +596,7 @@ fi
 %exclude %{_libdir}/%{name}/*.a
 
 %files data
-%license Copyright.txt License_v1.2.txt
+%license Copyright.txt
 %dir %{_pkgdocdir}
 %{_pkgdocdir}/README.md
 %{_pkgdocdir}/README-VisItBridge.md
@@ -597,7 +623,7 @@ fi
 %{_libdir}/openmpi/bin/[ps]*
 %{_libdir}/openmpi/lib/%{name}/
 %exclude %{_libdir}/openmpi/lib/%{name}/*.a
-%{_libdir}/openmpi/share/licenses/
+%license %{_libdir}/openmpi/share/licenses/
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}/%{name}/
@@ -612,7 +638,7 @@ fi
 %{_libdir}/mpich/bin/[ps]*
 %{_libdir}/mpich/lib/%{name}/
 %exclude %{_libdir}/mpich/lib/%{name}/*.a
-%{_libdir}/mpich/share/licenses/
+%license %{_libdir}/mpich/share/licenses/
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}/%{name}/

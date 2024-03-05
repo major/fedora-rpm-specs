@@ -1,16 +1,13 @@
 %global srcname jenkins
 
 Name:           python-%{srcname}
-Version:        1.8.0
-Release:        3%{?dist}
+Version:        1.8.2
+Release:        2%{?dist}
 Summary:        Python bindings for the remote Jenkins API
 
 License:        BSD
 URL:            https://python-jenkins.readthedocs.org/en/latest
 Source0:        https://opendev.org/jjb/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# Contributed at https://review.opendev.org/c/jjb/python-jenkins/+/881904
-Patch0:         0001-Fix-compatibility-with-setuptools-66.patch
 
 BuildRequires: make
 BuildRequires:  %{_bindir}/sphinx-build
@@ -28,6 +25,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-kerberos
 BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-multi_key_dict
+BuildRequires:  python%{python3_pkgversion}-multiprocess
 BuildRequires:  python%{python3_pkgversion}-nose
 BuildRequires:  python%{python3_pkgversion}-pbr >= 0.8.2
 BuildRequires:  python%{python3_pkgversion}-requests
@@ -94,6 +92,10 @@ install -D -m0644 -p doc/build/man/pythonjenkins.1 %{buildroot}%{_mandir}/man1/p
 
 
 %changelog
+* Sun Mar 03 2024 Christoph Erhardt <fedora@sicherha.de> - 1.8.2-1
+- Update to 1.8.2 (rhbz#2233791)
+- Drop upstreamed patch
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

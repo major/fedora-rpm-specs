@@ -2,7 +2,7 @@
 
 Name:           jni-inchi
 Version:        0.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        International Chemical Identifiers for Java
 
 License:        LGPL-3.0-or-later
@@ -83,7 +83,7 @@ rm README.orig
 %build
 # Set the build flags.  This cannot be done in %%prep.  See
 # https://bugzilla.redhat.com/show_bug.cgi?id=2044028
-sed -e 's|@CFLAGS@|%{build_cflags}|' \
+sed -e 's|@CFLAGS@|%{build_cflags} -I%{_includedir}/inchi|' \
     -e 's|@LDFLAGS@|%{build_ldflags}|' \
     -i src/main/native/Makefile
 
@@ -104,6 +104,9 @@ cp -p target/native/*.so %{buildroot}%{_libdir}/%{name}
 %{_libdir}/%{name}/
 
 %changelog
+* Sun Mar  3 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8-12
+- Fix inchi inclusion for flatpaks
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.8-11
 - Rebuilt for java-21-openjdk as system jdk
 

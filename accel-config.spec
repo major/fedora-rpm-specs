@@ -1,8 +1,8 @@
 %global	project_name	idxd-config
 
 Name:		accel-config
-Version:	4.1.1
-Release:	4%{?dist}
+Version:	4.1.2
+Release:	5%{?dist}
 Summary:	Configure accelerator subsystem devices
 License:	GPL-2.0
 URL:		https://github.com/intel/%{project_name}
@@ -84,6 +84,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Sun Mar 03 2024 Jun Miao <jun.miao@intel.com> - 4.1.2-5
+- Update to v4.1.2 release
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/adah1972/libunibreak
 
 Name:           libunibreak
-Version:        5.1
+Version:        6.1
 Release:        %autorelease
 Summary:        A Unicode line-breaking library
 # Upstream uses tags of the form `libunibreak_X_Y`
@@ -11,15 +11,12 @@ Summary:        A Unicode line-breaking library
 License:        Zlib
 URL:            %forgeurl
 Source0:        %forgesource
-# test files
-Source1:        LineBreakTest.txt
-Source2:        WordBreakTest.txt
-Source3:        GraphemeBreakTest.txt
+# test files from Unicode, see `download_sources_for_offline_build.sh`
+# License: Unicode-3.0
+Source1:        libunibreak-test-data.tar.gz
 
 # don't download test data
 Patch:          offline_files.patch
-# update list of broken tests
-Patch:          disable_broken_tests.patch
 # remove unused var and other build fixes
 Patch:          remove_unused_var.patch
 
@@ -48,9 +45,13 @@ developing applications that use %{name}.
 
 %prep
 %forgeautosetup -p1
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} src/
-sed -r -i 's|^(#!/usr/bin/)env (python)|\1\23|' src/generate_linebreakdata.py
-sed -r -i 's|^(#!/usr/bin/)env (python)|\1\23|' src/sort_numeric_hex.py
+
+# Install test data files
+tar xzf %{SOURCE1}
+
+# Fix shebang and permissions of Python scripts
+sed -r -i 's|^(#!/usr/bin/)env (python)|\1\23|' src/*.py
+chmod a+x src/*.py
 
 
 %build

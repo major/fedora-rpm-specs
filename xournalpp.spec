@@ -1,16 +1,15 @@
 %global         __cmake_in_source_build 0
-%global         _with_cppunit 1
-%global		_gtest 1
-#%%global	profiling 0
+%global         with_cppunit 1
+%global	        gtest 1
+%global         profiling 1
 
 Name:           xournalpp
-Version:        1.2.2
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:	GPLv2+
 URL:            https://github.com/%{name}/%{name}
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils
@@ -19,18 +18,20 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  help2man
 BuildRequires:  libappstream-glib
-  
-%{?_with_cppunit:
+%if 0%{?with_cppunit}
 BuildRequires:  pkgconfig(cppunit) >= 1.12-0
-}
+%endif
 BuildRequires:  pkgconfig(glib-2.0) >= 2.32.0
+%if 0%{?gtest}
+BuildRequires:  pkgconfig(gtest)
+%endif
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.19.9
 BuildRequires:  pkgconfig(gtksourceview-4) >= 4.0.0
 BuildRequires:  pkgconfig(librsvg-2.0)
-%{?profiling:
+%if 0%{?profiling}
 BuildRequires:  pkgconfig(libprofiler) >= 2.5
 BuildRequires:  pkgconfig(libtcmalloc) >= 2.5
-}
+%endif
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.0.0
 BuildRequires:  pkgconfig(libzip) >= 1.0.1
 BuildRequires:  pkgconfig(lua) >= 5.3
@@ -67,9 +68,8 @@ The %{name}-ui package contains a graphical user interface for  %{name}.
 %build
 %cmake \
         -DDISTRO_CODENAME="Fedora Linux" \
-        %{?_with_cppunit: -DENABLE_CPPUNIT=ON} \
-        -DENABLE_MATHTEX=ON \
-        -DMAC_INTEGRATION=OFF 
+        -DENABLE_GTEST=%{gtest} \
+        -DENABLE_PROFILING=%{profiling}
 
 %cmake_build
 

@@ -1,5 +1,5 @@
 Name:           perl-Test2-Tools-PerlCritic
-Version:        0.07
+Version:        0.08
 Release:        1%{?dist}
 Summary:        Testing tools to enforce Perl::Critic policies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ the configuration of the policy as he is addressing violations.
 %{_mandir}/man3/Test2*
 
 %changelog
+* Sun Mar 03 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.08-1
+- Update to 0.08
+
 * Sun Feb 18 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 0.07-1
 - Update to 0.07
 

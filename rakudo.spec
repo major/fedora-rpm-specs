@@ -16,11 +16,11 @@ BuildRequires:  libtommath-devel
 BuildRequires:  libffi-devel
 BuildRequires:  mimalloc-devel
 
-BuildRequires:  moarvm-devel
-BuildRequires:  nqp
+BuildRequires:  moarvm-devel >= %{version}
+BuildRequires:  nqp >= %{version}
 
-Requires:       moarvm
-Requires:       nqp
+Requires:       moarvm >= %{version}
+Requires:       nqp >= %{version}
 
 %description
 Rakudo is a Raku Programming Language compiler for the MoarVM, JVM and
@@ -37,8 +37,8 @@ perl Configure.pl --prefix=%{_prefix} --backends=moar
 %make_install
 
 mkdir -p %{buildroot}%{_mandir}/man1
-pod2man --center="Rakudo Manual" --release="Raku" --section=1 --name=%{name} \
-    docs/running.pod | gzip -c > %{buildroot}%{_mandir}/man1/%{name}.1.gz
+pod2man --center="Rakudo Manual" --release="Raku" --section=1 --name=rakudo \
+    docs/running.pod | gzip -c > %{buildroot}%{_mandir}/man1/rakudo.1.gz
 ln -s rakudo.1.gz %{buildroot}%{_mandir}/man1/raku.1.gz
 
 install -pDm755 tools/install-dist.raku %{buildroot}%{_bindir}/raku-install-dist
@@ -61,14 +61,6 @@ rm -r %{buildroot}%{_datadir}/perl6/core/precomp/
 rm %{buildroot}%{_datadir}/perl6/core/repo.lock
 
 %check
-# https://kojipkgs.fedoraproject.org//work/tasks/2785/109212785/build.log
-%ifarch x86_64
-rm t/09-moar/00-misc.t
-%endif
-# https://kojipkgs.fedoraproject.org//work/tasks/9417/112489417/build.log
-%ifarch i686
-rm t/06-telemetry/01-basic.t
-%endif
 make test
 
 %files
@@ -77,13 +69,11 @@ make test
 %{_bindir}/perl6*
 %{_bindir}/raku
 %{_bindir}/raku-debug
-%{_bindir}/%{name}*
+%{_bindir}/rakudo*
 %{_bindir}/raku-install-dist
-
 %{_datadir}/perl6/
-
-%{_mandir}/man1/raku.1.gz
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/raku.1*
+%{_mandir}/man1/rakudo.1*
 %{_rpmconfigdir}/macros.d/macros.raku
 
 %changelog

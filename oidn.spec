@@ -1,8 +1,8 @@
-%bcond 		hip 0
+%bcond 	        hip 0
 %bcond          ninja 0
 #%%global		prerelease rc
 Name:           oidn
-Version:        2.2.0
+Version:        2.2.1
 Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        Apache-2.0

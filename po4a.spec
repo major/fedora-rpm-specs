@@ -1,5 +1,5 @@
 Name: po4a
-Version: 0.70
+Version: 0.71
 Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 
@@ -9,7 +9,7 @@ License: GPL-2.0-or-later
 URL: https://po4a.org/
 
 Source0: https://github.com/mquinson/po4a/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:  https://github.com/mquinson/po4a/commit/20f421dec3bb93d8d7e6be47b39617c17a339e4a.patch
+Patch0:  https://github.com/mquinson/po4a/commit/b70d42ae5acf4b7fcc806935d97215b679ed843b.patch
 
 BuildArch: noarch
 BuildRequires: /usr/bin/xsltproc
@@ -68,9 +68,10 @@ BuildRequires: perl(Text::WrapI18N)
 BuildRequires: perl(Unicode::GCString)
 
 # Required by the tests:
-BuildRequires: perl(Test::More)
-BuildRequires: perl(YAML::Tiny)
 BuildRequires: perl(Syntax::Keyword::Try)
+BuildRequires: perl(Test::More)
+BuildRequires: perl(Test::Pod)
+BuildRequires: perl(YAML::Tiny)
 
 
 Requires: /usr/bin/xsltproc
@@ -137,6 +138,12 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Mon Mar 04 2024 Sérgio Basto <sergio@serjux.com> - 0.71-2
+- Add upstream patch Fix the --translate-only option
+
+* Sat Mar 02 2024 Packit <hello@packit.dev> - 0.71-1
+- New release 0.71
+
 * Sun Feb 25 2024 Sérgio Basto <sergio@serjux.com> - 0.70-2
 - Fix the parsing of nested simple and double quotes
 - Enable build tests

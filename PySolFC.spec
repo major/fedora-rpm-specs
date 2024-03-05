@@ -2,7 +2,7 @@
 
 Name:           PySolFC
 Version:        2.21.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
@@ -75,7 +75,6 @@ mv $RPM_BUILD_ROOT%{_bindir}/pysol.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}/pysol
 cp -a PySolFC-Cardsets--Minimal-%{cardsets_minimal_ver}/cardset-* $RPM_BUILD_ROOT%{_datadir}/PySolFC
 find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl -ln -i -E 'say if (not (($. == 1) and (m&^#![ \t]*/usr/&)))'
-%py3_shebang_fix $RPM_BUILD_ROOT%{_bindir}/*
 
 %find_lang pysol
 
@@ -91,6 +90,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Sun Mar 03 2024 Sérgio Basto <sergio@serjux.com> - 2.21.0-6
+- py3_shebang_fix is not needed and fix epel-7 build
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

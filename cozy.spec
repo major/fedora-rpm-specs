@@ -4,8 +4,8 @@ Name: cozy
 Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
-Version: 1.2.1
-Release: 8%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,26 +18,17 @@ Patch0: 0000--unbundle-inject.patch
 # The appdata XML file does not pass validation
 Patch1: 0001-fix-appdata-file.patch
 
-# Fix crash at startup
-# See: https://bugzilla.redhat.com/show_bug.cgi?id=2182220
-#      https://github.com/geigi/cozy/issues/756
-Patch2: 0002-fix-invalid-version-none.patch
-
 BuildArch: noarch
 
-%global req_dazzle  3.34.0
-%global req_granite 5.3.0
-%global req_gtk3    3.22
-%global req_handy   1.0.0
-%global req_meson   0.4.0
+%global req_adwaita 1.4.0
+%global req_py_inject 4.3.1
+%global req_py_peewee 3.9.6
 
 BuildRequires: desktop-file-utils
 BuildRequires: glib2-devel
-BuildRequires: granite-devel >= %{req_granite}
-BuildRequires: gtk3-devel >= %{req_gtk3}
 BuildRequires: libappstream-glib
-BuildRequires: libhandy1-devel >= %{req_handy}
-BuildRequires: meson >= %{req_meson}
+BuildRequires: libadwaita-devel >= %{req_adwaita}
+BuildRequires: meson >= 0.59.0
 BuildRequires: python3-devel
 
 %global with_tests 1
@@ -46,10 +37,9 @@ BuildRequires: python3-devel
 BuildRequires: gstreamer1-plugins-base
 
 BuildRequires: python3dist(distro)
-BuildRequires: python3dist(inject) >= 4.3.1
+BuildRequires: python3dist(inject) >= %{req_py_inject}
 BuildRequires: python3dist(mutagen)
-BuildRequires: python3dist(packaging)
-BuildRequires: python3dist(peewee) >= 3.9.6
+BuildRequires: python3dist(peewee) >= %{req_py_peewee}
 BuildRequires: python3dist(pygobject)
 BuildRequires: python3dist(pytest-runner)
 BuildRequires: python3dist(pytest-mock)
@@ -59,9 +49,7 @@ BuildRequires: python3dist(requests)
 
 Requires: file
 Requires: glib2
-Requires: granite >= %{req_granite}
-Requires: libdazzle >= %{req_dazzle}
-Requires: libhandy >= %{req_handy}
+Requires: libadwaita >= %{req_adwaita}
 Requires: gstreamer1-plugins-bad-free
 Requires: gstreamer1-plugins-good
 Requires: gstreamer1-plugins-ugly-free
@@ -70,10 +58,9 @@ Requires: hicolor-icon-theme
 # For whatever reason, the Python dependency generator doesn't seem to work
 # for this RPM, so we'll just copy-paste the BuildRequires list
 Requires: python3dist(distro)
-Requires: python3dist(inject) >= 4.3.1
+Requires: python3dist(inject) >= %{req_py_inject}
 Requires: python3dist(mutagen)
-Requires: python3dist(packaging)
-Requires: python3dist(peewee) >= 3.9.6
+Requires: python3dist(peewee) >= %{req_py_peewee}
 Requires: python3dist(pygobject)
 Requires: python3dist(pytz)
 Requires: python3dist(requests)
@@ -113,7 +100,6 @@ rm -rf cozy/ext/inject
 
 # Apply other patches
 %patch 1 -p1
-%patch 2 -p1
 
 
 %build
@@ -161,6 +147,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Sun Mar 03 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.3.0-1
+- Update to v1.3.0
+- Drop Patch2 (fix crash at startup - merged upstream)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

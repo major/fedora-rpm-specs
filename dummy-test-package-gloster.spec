@@ -3,7 +3,7 @@
 Name:           dummy-test-package-gloster
 
 Version:        0
-Release:        12282%{?dist}
+Release:        12303%{?dist}
 Summary:        Dummy Test Package called Gloster
 License:        CC0
 URL:            http://fedoraproject.org/wiki/DummyTestPackages
@@ -32,6 +32,69 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Mon Mar 04 2024 packagerbot <admin@fedoraproject.org> - 0-12303
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12302
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12301
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12300
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12299
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12298
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12297
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12296
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12295
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12294
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12293
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12292
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12291
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12290
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12289
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12288
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12287
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12286
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12285
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12284
+- rebuilt
+
+* Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12283
+- rebuilt
+
 * Sun Mar 03 2024 packagerbot <admin@fedoraproject.org> - 0-12282
 - rebuilt
 

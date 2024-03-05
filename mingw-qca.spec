@@ -3,8 +3,8 @@
 %global pkgname qca
 
 Name:           mingw-%{pkgname}
-Version:        2.3.7
-Release:        3%{?dist}
+Version:        2.3.8
+Release:        1%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
 
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sun Mar 03 2024 Sandro Mani <manisandro@gmail.com> - 2.3.8-1
+- Update to 2.3.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

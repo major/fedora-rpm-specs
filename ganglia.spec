@@ -11,7 +11,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            46%{?dist}
+Release:            47%{?dist}
 License:            BSD
 URL:                http://ganglia.sourceforge.net/
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
@@ -26,6 +26,7 @@ Patch1:             ganglia-3.7.2-apache.patch
 Patch2:             ganglia-3.7.2-sflow.patch
 Patch3:             ganglia-3.7.2-tirpc-hack.patch
 Patch5:             ganglia-3.7.2-gcc14-cast.patch
+Patch6:             ganglia-web-3.7.6-pr-379.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
@@ -156,6 +157,7 @@ install -m 0644 %{SOURCE3} gmetad/gmetad.service.in
 mv ganglia-web-%{webver} web
 pushd web
 %patch0 -p1
+%patch6 -p1
 popd
 
 %build
@@ -408,6 +410,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sun Mar 03 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-47
+- Add more PHP8 patches
+
 * Sat Feb 24 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-46
 - Upgrade to ganglia web 3.7.6
 

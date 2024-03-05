@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.7.11
+Version:        2.7.12
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -310,6 +310,77 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Tue Feb 20 2024 Packit <hello@packit.dev> - 2.7.12-1
+- Release 2.7.12 (Julian Andres Klode)
+- Release 2.7.12 (Julian Andres Klode)
+- Move systemd units to /usr/lib (Julian Andres Klode)
+- test-snapshot: Add test case for automatic snapshot (Julian Andres Klode)
+- test-snapshot: Fix a test case (Julian Andres Klode)
+- Delete SHADOWED metaIndex if we don't actually use snapshots (Julian Andres Klode)
+- Automatically enable snapshots where supported (Julian Andres Klode)
+- Modernize standard library includes (Julian Andres Klode)
+- Bump Ubuntu apt-key deprecation notice to 24.04 (Julian Andres Klode)
+- Release 2.7.11 (Julian Andres Klode)
+- Show a separate list of upgrades deferred due to phasing (Julian Andres Klode)
+- Add the ?security pattern (Julian Andres Klode)
+- Add a new ?phasing pattern (Julian Andres Klode)
+- Add public phased update API (Julian Andres Klode)
+- For phasing, check if current version is a security update, not just previous ones (Julian Andres Klode)
+- Add documentation of autoremove to apt.conf (5) (Wesley Schwengle)
+- Fix bug where ./git-clang-format.sh errors incorrectly (Wesley Schwengle)
+- Configure the amount of kernels to keep (Wesley Schwengle)
+- Support -a for setting host architecture in apt-get source -b (David Kalnischkies)
+- Remove erroneous -a flag from apt-get synopsis in manpage (David Kalnischkies)
+- Release 2.7.10 (Julian Andres Klode)
+- Add Conflicts: apt-verify (Julian Andres Klode)
+- pkgcachegen: Use placement new to construct header (Julian Andres Klode)
+- Release 2.7.9 (Julian Andres Klode)
+- Document 'dist-clean' (Gábor Németh)
+- CI: Pull from testing, unstable broken atm (Julian Andres Klode)
+- Accept file system disorder in test-ignored-files (David Kalnischkies)
+- Typos in integration tests (Gábor Németh)
+- Release 2.7.8 (Julian Andres Klode)
+- Revert "Merge branch 'distclean-doc-an-test' into 'main'" (Julian Andres Klode)
+- test: Disable valgrind on armhf, incompatible with stack clash protector (Julian Andres Klode)
+- Do not store .diff_Index files in update (David Kalnischkies)
+- Improve and test distclean implementation (David Kalnischkies)
+- Prevent infinite loop in `ReadConfigFile` (Adam Saponara)
+- apt.8: summarise remaining verbs (Closes: #827785) (наб)
+- Test and document 'dist-clean' (Gábor Németh)
+- Add 'dist-clean' to 'apt-get' too (Gábor Németh)
+- Do not silently ignore directories for reserved file names (Julian Andres Klode)
+- apt-pkg/cacheset.cc: set ShowErrors to true when no version matched (Tianyu Chen)
+- Have Grp.FindPreferredPkg return very foreign pkgs as last resort (David Kalnischkies)
+- apt-key: remove carriage returns from armored keyrings before dearmoring (Kenyon Ralph)
+- Release 2.7.7 (Julian Andres Klode)
+- Fix the test suite by adding new "m" flags to debug output (Julian Andres Klode)
+- Add 'dist-clean' command to remove packages and list files (Gábor Németh)
+- Restore ?garbage by calling MarkAndSweep before parsing (Julian Andres Klode)
+- Use different variable name in GTest source path detection (David Kalnischkies)
+- Raise cmake_minimum_required to 3.13 to avoid warnings (David Kalnischkies)
+- Dutch program translation update (Frans Spiesschaert)
+- Bump Priority to required to match Debian archive (Julian Andres Klode)
+- s/AlreadDownloaded/AlreadyDownloaded/ in doc/progress-reporting.md (Julian Andres Klode)
+- Revert "Do not fail on systems running in FIPSmode." (Julian Andres Klode)
+- Stop calculating Description-md5 if missing (Julian Andres Klode)
+- Release 2.7.6 (Julian Andres Klode)
+- Downgrade unmerged-usr from error to two warnings (Julian Andres Klode)
+- Portuguese manpages translation update (Américo Monteiro)
+- Release 2.7.5 (Julian Andres Klode)
+- doc/po/nl.po: Fix spurious translation of docbook tag (Julian Andres Klode)
+- Release 2.7.4 (Julian Andres Klode)
+- updated German translation (Helge Kreutzmann)
+- Dutch documentation translation update (Frans Spiesschaert)
+- Dutch translation update (Frans Spiesschaert)
+- Remove unnecessary explicit st_dev check for merged-usr (Julian Andres Klode)
+- Drop alternatives to the gpgv dependency (Julian Andres Klode)
+- Only accept installs of usrmerge on unmerged-usr systems (Julian Andres Klode)
+- methods: store: Use APT_BUFFER_SIZE (64k) instead of 4k buffers (Julian Andres Klode)
+- Update fr.po (add a missing dot) (Patrice Duroux)
+- CI: Do not require UID 1000 for our test user (Julian Andres Klode)
+- Fix incorrect time unit comment for PulseInterval (sid)
+- Resolves rhbz#2257250
+
 * Tue Feb 13 2024 Sérgio M. Basto <sergio@serjux.com> - 2.7.11-1
 - Release 2.7.11 (Julian Andres Klode)
 - Show a separate list of upgrades deferred due to phasing (Julian Andres Klode)

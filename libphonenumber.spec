@@ -1,5 +1,5 @@
 Name: libphonenumber
-Version: 8.13.30
+Version: 8.13.31
 Release: 1%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
@@ -80,6 +80,16 @@ popd
 
 
 %changelog
+* Sun Feb 25 2024 Packit <hello@packit.dev> - 8.13.31-1
+- [maven-release-plugin] prepare release v8.13.31 (Mandali Reddy)
+- Revert "Kkeshava maven update (#3403)" (#3405) (kkeshava)
+- Update java runtime version to support App Engine (#3404) (mandlil)
+- Kkeshava maven update (#3403) (kkeshava)
+- Metadata updates for release 8.13.31 (#3402) (kkeshava)
+- Mandlil maven update (#3399) (mandlil)
+- Update README.md (#3400) (mandlil)
+- Resolves rhbz#2265930
+
 * Fri Feb 09 2024 Packit <hello@packit.dev> - 8.13.30-1
 - [maven-release-plugin] prepare release v8.13.30 (Mandali Reddy)
 - Metadata updates for release 8.13.30 (#3398) (mandlil)

@@ -19,7 +19,7 @@
 %global cname   CloudCompare
 Name:           cloudcompare
 Version:        2.11.3
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        3D point cloud and mesh processing software
 
 # Main part is GPLv2+
@@ -286,106 +286,4 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
 %doc doc
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Dec 24 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-10
-- Rebuild (shapelib)
-
-* Thu Nov 16 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-9
-- Rebuild (gdal)
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 2.11.3-7
-- Rebuild (gdal)
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 2.11.3-5
-- Rebuild (gdal)
-
-* Thu Aug 25 2022 Miro Hrončok <mhroncok@redhat.com> - 2.11.3-4
-- Security fix for CVE-2021-21897
-- Fixes: rhbz#2080986
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat May 21 2022 Sandro Mani <manisandro@gmail.com> - 2.11.3-2
-- Rebuild for gdal-3.5.0 and/or openjpeg-2.5.0
-
-* Tue Mar 29 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.11.3-1
-- Update to 2.11.3
-- Fixes: rhbz#2045263
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Nov 25 2021 Orion Poplawski <orion@nwra.com> - 2.9.1-17
-- Rebuild for vtk 9.1.0
-
-* Thu Nov 11 2021 Sandro Mani <manisandro@gmail.com> - 2.9.1-16
-- Rebuild (gdal)
-
-* Fri Aug 20 2021 Björn Esser <besser82@fedoraproject.org> - 2.9.1-15
-- Rebuild (pcl)
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri May 07 2021 Sandro Mani <manisandro@gmail.com> - 2.9.1-13
-- Rebuild (gdal)
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Nov  6 21:48:57 CET 2020 Sandro Mani <manisandro@gmail.com> - 2.9.1-11
-- Rebuild (proj, gdal)
-
-* Thu Aug 13 2020 Miro Hrončok <mhroncok@redhat.com> - 2.9.1-10
-- Rebuilt for pcl 1.11
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 05 2020 Miro Hrončok <mhroncok@redhat.com> - 2.9.1-8
-- Enable Point Cloud Library (.pcd) files support (#1827531)
-
-* Thu May 21 2020 Sandro Mani <manisandro@gmail.com> - 2.9.1-7
-- Rebuild (gdal)
-
-* Tue Mar 03 2020 Sandro Mani <manisandro@gmail.com> - 2.9.1-6
-- Rebuild (gdal)
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Feb 22 2018 Miro Hrončok <mhroncok@redhat.com> - 2.9.1-1
-- Updated to 2.9.1
-- Remove merged patch
-- Removed obsolete icon scriptlets
-- Require hicolor-icon-theme
-- Use make macros
-- Split doc to doc subpackage
-- Add fix for "other" arches, but exclude BE for now
-
-* Sat Sep 09 2017 Miro Hrončok <mhroncok@redhat.com> - 2.8.1-1
-- Updated to 2.8.1
-
-* Mon Jan 16 2017 Miro Hrončok <mhroncok@redhat.com> - 2.8.0-1
-- Initial package adapted from openSUSE package
+%autochangelog

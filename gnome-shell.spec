@@ -2,7 +2,7 @@
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell
-Version:        46~beta
+Version:        46~rc
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -31,7 +31,7 @@ Patch: 0003-status-keyboard-Use-gnome-desktop-API-for-getting-de.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 46~beta
+%define mutter_version 46~rc
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 46~beta
 %define ibus_version 1.5.2

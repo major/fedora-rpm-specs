@@ -17,8 +17,8 @@
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
-Version:        1.0.79
-Release:        9%{?dist}
+Version:        1.0.91
+Release:        1%{?dist}
 License:        GPLv2
 URL:            http://stgt.sourceforge.net/
 Source0:        https://github.com/fujita/tgt/archive/v%{version}/tgt-v%{version}.tar.gz
@@ -30,7 +30,7 @@ Source5:        tgtd.conf
 Patch1:         0002-remove-check-for-xsltproc.patch
 Patch2:         0003-default-config.patch
 # Adapt to glusterfs-api 7.6.3, not tested
-Patch8:         tgt-1.0.79-Adapt-to-glusterfs-api-7.6.3.patch
+Patch3:         tgt-1.0.79-Adapt-to-glusterfs-api-7.6.3.patch
 BuildRequires: make
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
@@ -76,10 +76,7 @@ Adds support for the Gluster glfs backstore to scsi-target-utils.
 %endif
 
 %prep
-%setup -q -n %{oname}-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch8 -p1
+%autosetup -p1 -n %{oname}-%{version}
 
 %build
 %{__sed} -i -e 's|-g -O2 -fno-strict-aliasing|%{optflags} -fcommon|' -e 's| -Werror | |' usr/Makefile
@@ -112,7 +109,7 @@ pushd usr
 %systemd_postun tgtd.service
 
 %files
-%doc README doc/README.iscsi doc/README.iser doc/README.lu_configuration doc/README.mmc doc/README.ssc
+%doc README.md doc/README.iscsi doc/README.iser doc/README.lu_configuration doc/README.mmc doc/README.ssc
 %{_sbindir}/tgtd
 %{_sbindir}/tgtadm
 %{_sbindir}/tgt-setup-lun
@@ -121,8 +118,8 @@ pushd usr
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %{_unitdir}/tgtd.service
-%{_sysconfdir}/tgt
-%{_sysconfdir}/tgt/conf.d
+%dir %{_sysconfdir}/tgt
+%dir %{_sysconfdir}/tgt/conf.d
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/tgtd
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/tgt/targets.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/tgt/tgtd.conf
@@ -141,6 +138,9 @@ pushd usr
 %endif
 
 %changelog
+* Sun Mar 03 2024 Terje Rosten <terje.rosten@ntnu.no> - 1.0.91-1
+- 1.0.91
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.79-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

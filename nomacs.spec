@@ -4,18 +4,14 @@
 
 Name:		nomacs
 Summary:	Lightweight image viewer
-Version:	3.16
-Release:	20%{?dist}
+Version:	3.17.2295
+Release:	1%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
-Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{git_build}/%{name}-%{version}.%{git_build}.tar.gz
-Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/%{version}/%{name}-plugins-%{version}.tar.gz
-# desktop entries rename (https://github.com/nomacs/nomacs/issues/528)
-Patch0:		%{name}-%{version}.%{git_build}-desktop.diff
-# plugins search path (https://github.com/nomacs/nomacs/issues/531)
-Patch1:		%{name}-%{version}.%{git_build}-pluginspath.diff
+Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
+Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/refs/tags/%{name}-plugins-3.16.tar.gz
 # plugins install path (https://github.com/nomacs/nomacs-plugins/issues/34)
-Patch2:		%{name}-plugins-%{version}-instpath.diff
+Patch0:		%{name}-plugins-3.16-instpath.diff
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -62,17 +58,13 @@ Some usefull plugins for nomacs:
 
 
 %prep
-%setup -n %{name}-%{version}.%{git_build}
-%patch -P 0
-%patch -P 1
-%setup -T -D -a 1 -n %{name}-%{version}.%{git_build}
+%setup
+%setup -T -D -a 1 -n %{name}-%{version}
 # plug them in
-mv nomacs-plugins-%{version}/* ImageLounge/plugins/
-%patch2
+mv nomacs-plugins-3.16/* ImageLounge/plugins/
+%patch 0
 # Be sure
 rmdir {3rd-party/*,3rd-party}
-# wrong lang code (https://github.com/nomacs/nomacs/issues/529)
-rm -fv ImageLounge/translations/nomacs_als.ts
 
 
 %build
@@ -94,7 +86,7 @@ sed -i -e 's|Image Lounge|Image?Lounge|g' %{name}.lang
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLounge.desktop
 
 
 %files -f %{name}.lang
@@ -106,9 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/Image?Lounge/themes/
 %dir %{_datadir}/%{name}/Image?Lounge/
 %dir %{_datadir}/%{name}/Image?Lounge/translations/
-%{_metainfodir}/%{name}.appdata.xml
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_metainfodir}/*.appdata.xml
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_mandir}/man1/%{name}.*
 
 %files	plugins
@@ -117,6 +109,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Mar 03 2024 TI_Eugene <ti.eugene@gmail.com> - 3.17.2295-1
+- Version bump
+
 * Mon Feb 05 2024 Sérgio Basto <sergio@serjux.com> - 3.16-20
 - Rebuild for opencv 4.9.0
 

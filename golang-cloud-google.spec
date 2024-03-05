@@ -41,6 +41,8 @@ Source:         %{gosource}
 find . ! \( -name internal -o -name civil -o -name "*.md" -o -name LICENSE -o -name _build \) -maxdepth 1 -exec rm -rf {} \;
 # Remove modules requiring extra deps
 rm -rf internal/postprocessor internal/gapicgen
+# Remove generated snippets
+rm -rf internal/generated
 
 %if %{without bootstrap}
 %generate_buildrequires

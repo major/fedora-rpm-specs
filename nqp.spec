@@ -9,7 +9,7 @@ Source0:        %{url}/releases/download/%{version}/nqp-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl
-BuildRequires:  moarvm-devel
+BuildRequires:  moarvm-devel >= %{version}
 
 %description
 This is "Not Quite Perl" -- a lightweight Raku-like environment for virtual

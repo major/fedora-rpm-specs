@@ -69,7 +69,7 @@
 
 %global major_version 3
 %global minor_version 28
-%global patch_version 2
+%global patch_version 3
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
@@ -549,6 +549,9 @@ popd
 
 
 %changelog
+* Tue Feb 27 2024 Orion Poplawski <orion@nwra.com> - 3.28.3-1
+- Update to 3.28.3 (should fix bz#2261013)
+
 * Thu Feb 01 2024 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.28.2-1
 - cmake-3.28.2 (fixes RHBZ#2261037 and RHBZ#2243343)
 

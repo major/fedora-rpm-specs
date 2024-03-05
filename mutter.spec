@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       46~beta
+Version:       46~rc
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -171,7 +171,7 @@ the functionality of the installed %{name} package.
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build
-%meson -Degl_device=true -Dwayland_eglstream=true
+%meson -Degl_device=true -Dwayland_eglstream=true -Dlibdisplay_info=disabled
 %meson_build
 
 %install

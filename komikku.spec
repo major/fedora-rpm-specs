@@ -2,9 +2,10 @@
 %global uuid    info.febvre.%{appname}
 %global gtk4_version        4.12.1
 %global libadwaita_version  1.4.0
+%global pure_protobuf_version 3.0.0
 
 Name:           komikku
-Version:        1.36.0
+Version:        1.39.0
 %forgemeta
 Release:        %autorelease
 Summary:        A manga reader for GNOME
@@ -51,7 +52,7 @@ Requires:       python3-natsort
 Requires:       python3dist(file-magic)
 Requires:       python3-piexif
 Requires:       python3-pillow
-Requires:       python3-pure-protobuf
+Requires:       python3-pure-protobuf >= %{pure_protobuf_version}
 Requires:       python3-rarfile
 Requires:       python3-requests
 Requires:       python3-unidecode

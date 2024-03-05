@@ -29,8 +29,8 @@
 
 Summary: An ImageMagick fork, offering faster image generation and better quality
 Name: GraphicsMagick
-Version: 1.3.40
-Release: 7%{?dist}
+Version: 1.3.42
+Release: 1%{?dist}
 
 License: MIT
 Source0: http://downloads.sourceforge.net/sourceforge/graphicsmagick/GraphicsMagick-%{version}.tar.xz
@@ -40,7 +40,7 @@ Url: http://www.graphicsmagick.org/
 
 ## downstream patches
 # workaround multilib conflicts with GraphicsMagick-config
-Patch100: GraphicsMagick-1.3.16-multilib.patch
+Patch100: GraphicsMagick-1.3.42-multilib.patch
 
 ## upstreamable patches
 Patch50: GraphicsMagick-1.3.31-perl_linkage.patch
@@ -173,8 +173,8 @@ tar --directory=urw-fonts/ -xf %{SOURCE1}
 rm -f urw-fonts/ChangeLog urw-fonts/README* urw-fonts/fonts*
 %endif
 
-%patch50 -p1 -b .perl_linkage
-%patch100 -p1 -b .multilib
+%patch -P 50 -p1 -b .perl_linkage
+%patch -P 100 -p1 -b .multilib
 
 for f in ChangeLog.{2006,2008,2009,2012} NEWS.txt ; do
     iconv -f iso-8859-2 -t utf8 < $f > $f.utf8
@@ -356,6 +356,9 @@ exit 1
 
 
 %changelog
+* Wed Feb 28 2024 Orion Poplawski <orion@nwra.com> - 1.3.42-1
+- Update to 1.3.42 (FTBFS bz#2264352)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.40-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,23 +1,20 @@
 # Break dependency loops in a bootstrap situation
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 # Disable Maven reporting in bootstrap mode and in RHEL
-%if %{with bootstrap} || 0%{?rhel}
-%bcond_with maven_reporting
-%else
-%bcond_without maven_reporting
-%endif
+%bcond maven_reporting %[!(%{with bootstrap} || 0%{?rhel})]
 
 Name:           javacc-maven-plugin
-Version:        3.0.1
-Release:        8%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        JavaCC Maven Plugin
 
 License:        Apache-2.0
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-URL:            https://github.com/mojohaus/javacc-maven-plugin
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+URL:            https://www.mojohaus.org/javacc-maven-plugin/
+VCS:            https://github.com/mojohaus/javacc-maven-plugin
+Source0:        %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
@@ -26,12 +23,15 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
+BuildRequires:  mvn(org.apache.maven:maven-artifact)
+BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-xml)
 %endif
 
 %if %{with maven_reporting}
@@ -47,7 +47,7 @@ Maven Plugin for processing JavaCC grammar files.
 %javadoc_package
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
+%autosetup
 cp -p %{SOURCE1} .
 
 # Do not use jtb, which is unmaintained.  It is accessed only via reflection to
@@ -62,12 +62,10 @@ rm -fr src/it
 rm -fr src/site
 
 # In bootstrap mode, disable documentation and reporting
-# Add in a formerly transitive dependency that is still needed
 %if %{without maven_reporting}
 %pom_remove_dep org.apache.maven.doxia:
 %pom_remove_dep org.apache.maven.reporting:
 rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
-%pom_add_dep org.apache.maven:maven-core:3.8.6
 %endif
 
 %build
@@ -80,6 +78,9 @@ rm src/main/java/org/codehaus/mojo/javacc/JJDocMojo.java
 %license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Sun Mar  3 2024 Jerry James <loganjerry@gmail.com> - 3.1.0-1
+- Version 3.1.0
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.1-8
 - Rebuilt for java-21-openjdk as system jdk
 
