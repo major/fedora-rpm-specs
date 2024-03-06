@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Plugin-Sysdeps
-Version:        0.73
-Release:        1%{?dist}
+Version:        0.75
+Release:        2%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Plugin-Sysdeps
@@ -29,12 +29,20 @@ BuildRequires:  perl(warnings)
 BuildRequires:  rpm
 # Optional run-time:
 BuildRequires:  perl(Hash::Util)
+# The code prefers parsing /etc/os-release
+%if 0%{?rhel}
+BuildRequires:  redhat-release
+%else
+BuildRequires:  fedora-release-common
+%endif
 # sudo not used at tests
 # Tests:
 # CPAN::Distribution || CPAN
 BuildRequires:  perl(CPAN::Distribution)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
@@ -44,6 +52,11 @@ Recommends:     perl(Hash::Util)
 Requires:       perl(IPC::Open3)
 Requires:       perl(Symbol)
 Requires:       rpm
+%if 0%{?rhel}
+Recommends:     redhat-release
+%else
+Recommends:     fedora-release-common
+%endif
 Recommends:     sudo
 
 # Filter private modules
@@ -112,6 +125,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 04 2024 Petr Pisar <ppisar@redhat.com> - 0.75-2
+- Depend on fedora-release-common instead of system-release(releasever)
+
+* Mon Mar 04 2024 Petr Pisar <ppisar@redhat.com> - 0.75-1
+- 0.75 bump
+
 * Wed Feb 21 2024 Petr Pisar <ppisar@redhat.com> - 0.73-1
 - 0.73 bump
 

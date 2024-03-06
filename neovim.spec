@@ -5,7 +5,7 @@
 %endif
 
 %bcond_with jemalloc
-%ifarch %{arm} %{ix86} x86_64 %{mips}
+%ifarch %{arm} %{ix86} x86_64 %{mips} s390x
   %bcond_without luajit
 %else
   %ifarch aarch64
@@ -35,7 +35,7 @@
 
 Name:           neovim
 Version:        0.9.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -1949,6 +1949,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Mon Mar 04 2024 Andreas Schneider <asn@redhat.com> - 0.9.5-4
+- resolves: #2222911 - Build with luajit on s390x
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

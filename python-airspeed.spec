@@ -1,11 +1,14 @@
+%global forgeurl https://github.com/purcell/airspeed
+
 Name:           python-airspeed
-Version:        0.5.20
+Version:        0.6.0
 Release:        %autorelease
 Summary:        A lightweight template engine compatible with Velocity
-
+%global tag %{version}
+%forgemeta
 License:        BSD-2-Clause
-URL:            https://github.com/purcell/airspeed
-Source0:        %{url}/archive/%{version}/airspeed-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
 BuildArch:      noarch
 
@@ -35,7 +38,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n airspeed-%{version} -p1
+%forgeautosetup -p1
 
 
 %generate_buildrequires

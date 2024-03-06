@@ -1,112 +1,59 @@
-%global srcname  pytest-testinfra
-%global pkgname  python-pytest-testinfra
-%global slugname pytest_testinfra
-%global forgeurl https://github.com/pytest-dev/pytest-testinfra
+Name:           python-pytest-testinfra
+Version:        10.1.0
+Release:        1
+Summary:        Unit testing for config-managed server state
 
-%global common_description %{expand:
+License:        Apache-2.0
+URL:            https://github.com/pytest-dev/pytest-testinfra
+Source:         %{pypi_source pytest-testinfra}
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+%global _description %{expand:
 With Testinfra you can write unit tests in Python to test actual state of your
 servers configured by management tools like Salt, Ansible, Puppet, Chef and so
 on.
-
 Testinfra aims to be a Serverspec equivalent in python and is written as a
 plugin to the powerful Pytest test engine.}
 
-%bcond_without doc
-%bcond_without tests
+%description %_description
 
-Name:           %{pkgname}
-Version:        7.0.0
-%forgemeta
-Release:        %autorelease
-Summary:        Unit testing for config-managed server state
-URL:            %{forgeurl}
-Source:         %{pypi_source}
-License:        Apache-2.0
-BuildArch:      noarch
+%package -n     python3-pytest-testinfra
+Summary:        %{summary}
 
-########################################################################
-# Package info                                                         #
-########################################################################
-%description %{common_description}
-%package -n python3-%{srcname}
-Summary: %summary
+# Replace Suggests with Recommends if desired
+Suggests:       python3-pytest-testinfra+ansible
+Suggests:       python3-pytest-testinfra+paramiko
+Suggests:       python3-pytest-testinfra+salt
+Suggests:       python3-pytest-testinfra+winrm
 
-########################################################################
-# Package requirements                                                 #
-########################################################################
-BuildRequires: python3-devel
-# testing requirements
-%if %{with tests}
-BuildRequires: python3dist(salt)
-BuildRequires: python3dist(pywinrm)
-%{?fedora:BuildRequires: python3dist(ansible)}
-%{?rhel:BuildRequires: python3dist(ansible-core)}
-BuildRequires: python3dist(paramiko)
-%endif
-# docs requirements
-%if %{with doc}
-BuildRequires: python3dist(sphinx)
-%endif
+%description -n python3-pytest-testinfra %_description
 
-%py_provides python3-%{srcname}
-%description -n python3-%{srcname} %{common_description}
+%pyproject_extras_subpkg -n python3-pytest-testinfra ansible,paramiko,salt,winrm
+
+%prep
+%autosetup -p1 -n pytest-testinfra-%{version}
+
+# types-paramiko package is not available and is not needed for build tests
+sed -i '/types-paramiko/d' test-requirements.txt
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x test} %{?with_doc:-x docs}
+%pyproject_buildrequires -t 
 
-# Requires: (python3dist(ansible-core) or python3dist(ansible))
-# Requires: python3dist(pywinrm)
-# Requires: python3dist(paramiko)
-# Suggests: python3dist(pytest-xdist)
-########################################################################
-# Prep                                                                 #
-########################################################################
-%prep
-%autosetup -n %{srcname}-%{version}
-########################################################################
-# Build                                                                #
-########################################################################
 %build
 %pyproject_wheel
 
-# generate html docs
-%if %{with doc}
-sphinx-build-3 doc/source html
-rm -vr html/.{doctrees,buildinfo}
-%endif
-
-########################################################################
-# Install                                                              #
-########################################################################
 %install
 %pyproject_install
+%pyproject_save_files testinfra 
 
-########################################################################
-# Tests                                                                #
-########################################################################
-%if %{with tests}
 %check
-%if v"0%{?python3_version}" >= v"3.12"
-# salt is broken with Python 3.12: https://bugzilla.redhat.com/2222805
-%global skips not test_backend_importables
-%endif
-%{pytest} test -v %{?skips:-k %{shescape:%{skips}}}
-%endif
+%pyproject_check_import
+%tox
 
-########################################################################
-# Python package files                                                 #
-########################################################################
-%files -n python3-%{srcname}
-%license LICENSE
-%doc *.rst
-%if %{with doc}
-%doc html
-%endif
-%{python3_sitelib}/testinfra/
-%{python3_sitelib}/%{slugname}-%{version}.dist-info
+%files -n python3-pytest-testinfra -f %{pyproject_files}
+%doc README.rst
 
-########################################################################
-# Changelog                                                            #
-########################################################################
 %changelog
 %autochangelog

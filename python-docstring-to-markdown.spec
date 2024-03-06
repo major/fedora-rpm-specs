@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/python-lsp/docstring-to-markdown
 
 Name:           python-%{pypi_name}
-Version:        0.14
+Version:        0.15
 Release:        %{autorelease}
 Summary:        On the fly conversion of Python docstrings to Markdown
 %forgemeta
@@ -49,7 +49,7 @@ sed -i -e '/--[cov|flake]/d' setup.cfg
 
 %install
 %pyproject_install
-%pyproject_save_files %{module_name}
+%pyproject_save_files -l %{module_name}
 
 
 %check

@@ -1,5 +1,5 @@
 Name:           python-snakemake-executor-plugin-cluster-generic
-Version:        1.0.7
+Version:        1.0.8
 Release:        %autorelease
 Summary:        Generic cluster executor for Snakemake
 

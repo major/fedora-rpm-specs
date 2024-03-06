@@ -1,13 +1,14 @@
 Name:           OpenColorIO
-Version:        2.2.1
-Release:        10%{?dist}
+Version:        2.3.2
+Release:        1%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 License:        BSD
 URL:            http://opencolorio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         94da59daeb4647faa9b134665ad156f37cfa021d.patch
+# Change MZ_VERSION_BUILD to hex
+# https://github.com/AcademySoftwareFoundation/OpenColorIO/pull/1954
+Patch0:         OpenColorIO-mzver.patch
 
 # OpenVDB no longer builds on i686
 ExcludeArch:    i686
@@ -149,7 +150,7 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 %doc CHANGELOG.md COMMITTERS.md CONTRIBUTING.md GOVERNANCE.md PROCESS.md
 %doc README.md SECURITY.md THIRD-PARTY.md
 %{_libdir}/*.so.*
-%{python3_sitearch}/*.so
+%{python3_sitearch}/PyOpenColorIO/
 
 %files tools
 %{_bindir}/*
@@ -169,6 +170,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Sun Mar 03 2024 Orion Poplawski <orion@nwra.com> - 2.3.2-1
+- Update to 2.3.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

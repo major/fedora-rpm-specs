@@ -194,6 +194,8 @@ Documentation for the LLVM compiler infrastructure.
 
 %package libs
 Summary:	LLVM shared libraries
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %description libs
 Shared libraries for the LLVM compiler infrastructure.
@@ -448,7 +450,14 @@ rm test/tools/dsymutil/X86/swift-interface.test
 LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath_builddir}
 %endif
 
-%ldconfig_scriptlets libs
+%if %{with compat_build}
+# Packages that install files in /etc/ld.so.conf have to manually run
+# ldconfig.
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2001328 and
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_linker_configuration_files
+%post -p /sbin/ldconfig libs
+%postun -p /sbin/ldconfig libs
+%endif
 
 %post devel
 %{_sbindir}/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}

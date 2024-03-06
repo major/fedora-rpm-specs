@@ -1,15 +1,14 @@
 Summary: A version of the MIT Athena widget set for X
 Name: Xaw3d
-Version: 1.6.5
-Release: 2%{?dist}
+Version: 1.6.6
+Release: 1%{?dist}
 Source0: https://xorg.freedesktop.org/archive/individual/lib/libXaw3d-%{version}.tar.xz
 Source1: https://xorg.freedesktop.org/archive/individual/lib/libXaw3d-%{version}.tar.xz.sig
-Source2: matt.turner.asc
+Source2: alan.coopersmith.asc
 Patch5: Xaw3d-1.5-debian-fixes.patch
 Patch7: Xaw3d-1.6.1-3Dlabel.patch
 Patch10: Xaw3d-1.6.5-fontset.patch
 Patch11: Xaw3d-1.6.1-hsbar.patch
-Patch12: Xaw3d-c99-2.patch
 
 License: MIT AND X11 AND GPL-3.0-or-later
 URL: http://xorg.freedesktop.org/
@@ -67,7 +66,6 @@ package.
 %patch -P 7 -p1 -b .3Dlabel
 %patch -P 10 -p1 -b .fontset
 %patch -P 11 -p1 -b .hsbar
-%patch -P 12 -p1
 
 
 %build
@@ -99,6 +97,9 @@ rm -r $RPM_BUILD_ROOT%{_docdir}
 %{_includedir}/X11/Xaw3d
 
 %changelog
+* Sun Mar 03 2024 Orion Poplawski <orion@nwra.com> - 1.6.6-1
+- Update to 1.6.6
+
 * Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.6.5-2
 - SPDX license tags.
 

@@ -1,13 +1,12 @@
 Name: elfutils
-Version: 0.190
-%global baserelease 6
+Version: 0.191
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
-License: GPL-3.0-or-later and (GPL-2.0-or-later or LGPL-3.0-or-later) and GFDL-1.3-no-invariants-or-later
+License: GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GFDL-1.3-no-invariants-or-later
 Source: %{?source_url}%{name}-%{version}.tar.bz2
 Source1: elfutils-debuginfod.sysusers
-Source2: testcore-noncontig.bz2
 Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 
 # Needed for isa specific Provides and Requires.
@@ -75,12 +74,6 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-# PR30975: Fix handling of corefiles with non-contiguous .so segments.
-Patch2: elfutils-0.190-fix-core-noncontig.patch
-# Remove obscure tests that can fail on i386.
-Patch3: elfutils-0.190-remove-ET_REL-unstrip-test.patch
-# tests: fix build against gcc-14 (-Werror=calloc-transposed-args)
-Patch4: elfutils-0.190-gcc-14.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -264,8 +257,6 @@ autoreconf -f -v -i
 # In case the above patches added any new test scripts, make sure they
 # are executable.
 find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
-
-cp %{SOURCE2} tests
 
 %build
 # Remove -Wall from default flags.  The makefiles enable enough warnings
@@ -451,12 +442,22 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Mon Mar  4 2024 Aaron Merey <amerey@fedoraproject.org> - 0.191-2
+- Update SPDX license.
+
+* Mon Mar  4 2024 Aaron Merey <amerey@fedoraproject.org> - 0.191-1
+- Upgrade to upstream elfutils 0.191
+- Drop upstreamed patches
+  elfutils-0.190-fix-core-noncontig.patch
+  elfutils-0.190-gcc-14.patch
+  elfutils-0.190-remove-ET_REL-unstrip-test.patch
+- Drop testcore-noncontig.bz2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.190-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.190-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 
 * Tue Nov 28 2023 Aaron Merey <amerey@fedoraproject.org> - 0.190-4
 - Add elfutils-0.190-remove-ET_REL-unstrip-test.patch

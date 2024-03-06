@@ -1,6 +1,6 @@
 Summary:        Library for accessing USB devices
 Name:           libusb1
-Version:        1.0.26
+Version:        1.0.27
 Release:        %autorelease
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2
 License:        LGPL-2.1-or-later
@@ -9,6 +9,7 @@ BuildRequires:  systemd-devel doxygen libtool
 BuildRequires:  umockdev-devel
 BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  patchelf
 # libusbx was removed in F34
 Provides:       libusbx = %{version}-%{release}
 Obsoletes:      libusbx < %{version}-%{release}
@@ -75,8 +76,15 @@ popd
 
 %install
 %{make_install}
+patchelf --remove-rpath tests/init_context
+patchelf --remove-rpath tests/set_option
+patchelf --remove-rpath tests/stress
+patchelf --remove-rpath tests/stress_mt
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install -m 755 tests/.libs/stress $RPM_BUILD_ROOT%{_bindir}/libusb-test-stress
+install -m 755 tests/init_context $RPM_BUILD_ROOT%{_bindir}/libusb-test-init_context
+install -m 755 tests/set_option $RPM_BUILD_ROOT%{_bindir}/libusb-test-set_option
+install -m 755 tests/stress $RPM_BUILD_ROOT%{_bindir}/libusb-test-stress
+install -m 755 tests/stress_mt $RPM_BUILD_ROOT%{_bindir}/libusb-test-stress_mt
 install -m 755 tests/.libs/umockdev $RPM_BUILD_ROOT%{_bindir}/libusb-test-umockdev
 install -m 755 examples/.libs/testlibusb \
     $RPM_BUILD_ROOT%{_bindir}/libusb-test-libusb
@@ -91,6 +99,8 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %check
 LD_LIBRARY_PATH=libusb/.libs ldd $RPM_BUILD_ROOT%{_bindir}/libusb-test-stress
+LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-test-init_context
+LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-test-set_option
 LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-test-stress
 LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-test-umockdev
 LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-test-libusb
@@ -117,7 +127,10 @@ LD_LIBRARY_PATH=libusb/.libs $RPM_BUILD_ROOT%{_bindir}/libusb-example-listdevs
 %{_bindir}/libusb-example-fxload
 %{_bindir}/libusb-example-listdevs
 %{_bindir}/libusb-example-xusb
+%{_bindir}/libusb-test-init_context
+%{_bindir}/libusb-test-set_option
 %{_bindir}/libusb-test-stress
+%{_bindir}/libusb-test-stress_mt
 %{_bindir}/libusb-test-umockdev
 %{_bindir}/libusb-test-libusb
 

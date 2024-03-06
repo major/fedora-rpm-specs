@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 2
+%global           release_number 3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -63,9 +63,16 @@ ExcludeArch: i686
 # Java
 ################################################################################
 
-%global java_devel java-21-openjdk-devel
-%global java_headless java-21-openjdk-headless
-%global java_home %{_jvmdir}/jre-21-openjdk
+%global java_devel java-devel
+%global java_headless java-headless
+# where the find approach may be more readable, it is not friendly in case of
+# local rpm builds, where _jvmdir is dirty
+#%%global java_home %%(find  {_jvmdir} -maxdepth 1 | grep "jre-[0-9]\+$")
+%global java_home %(
+                  source /usr/share/java-utils/java-functions ;
+                  _prefer_jre=true ;
+                  set_javacmd ;
+                  echo $JAVA_HOME )
 
 ################################################################################
 # Application Server
@@ -858,6 +865,8 @@ This package provides test suite for %{product_name}.
 
 %autosetup -n pki-%{version}%{?phase:-}%{?phase} -p 1
 
+echo "Java home is: %{java_home}"
+
 %if ! %{with base}
 %pom_disable_module common base
 %pom_disable_module tools base
@@ -1500,6 +1509,13 @@ fi
 
 ################################################################################
 %changelog
+* Mon Mar 04 2024 Jiri Vanek <jvanek@redhat.com> - 11.5.0-3
+- properly, dynamically follow system jdk
+-- requiring version-less, thus sytem jdk, as in:
+--- https://docs.fedoraproject.org/en-US/packaging-guidelines/Java/
+-- detecting java home it via javapackages-tools
+--- https://fedoraproject.org/wiki/Changes/Decouple_system_java_setting_from_java_command_setting
+
 * Thu Feb 29 2024 Adam Williamson <awilliam@redhat.com> - 11.5.0-2.fc41
 - Really build against java-21-openjdk
 

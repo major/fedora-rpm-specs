@@ -1,21 +1,28 @@
 # glibc32 is maintained by the glibc team with support from tools.
 %define original_name glibc
-%define original_version 2.38
-%define original_release 10
-%define original_dist .fc39
+%define original_version 2.39
+%define original_release 3
+%define original_dist .fc40
 # Increase build_number in each new build.
 # When original version and/or release changes, set it back to 1.
-%global baserelease 1
+%global baserelease 2
 
 %define debug_package %{nil}
 Summary: The GNU libc libraries (32-bit)
 Name: %{original_name}32
 Version: %{original_version}
 Release: %{original_release}.%{baserelease}%{?dist}
-License: LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL
 Group: System Environment/Libraries
 Source: %{name}-%{original_version}-%{original_release}%{?original_dist}.tar.bz2
 ExclusiveArch: x86_64
+
+# glibc's License string was migrated to SPDX in glibc-2.39-3.fc40.
+#
+# SPDX references:
+# https://spdx.org/licenses
+# https://docs.fedoraproject.org/en-US/legal/allowed-licenses
+# https://gitlab.com/fedora/legal/fedora-license-data
+License: LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.1-only AND LGPL-2.0-or-later AND Unicode-DFS-2015 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only
 
 # Prevent installation attempts alongside with glibc.i686.  This
 # prevents installations of the glibc32 package on systems that use
@@ -68,6 +75,14 @@ rm -rf "$RPM_BUILD_ROOT"
 /usr/include/*
 
 %changelog
+* Fri Mar  1 2024 Arjun Shankar <arjun@redhat.com> - 2.39-3.2
+- Migrate License field to SPDX identifiers for
+  https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+  https://docs.fedoraproject.org/en-US/legal/update-existing-packages
+
+* Fri Mar  1 2024 Arjun Shankar <arjun@redhat.com> - 2.39-3.1
+- Upgrade to glibc 2.39
+
 * Mon Nov 13 2023 Florian Weimer <fweimer@redhat.com> - 2.38-10.1
 - Upgrade to glibc 2.38. (#2246731)
 

@@ -57,7 +57,7 @@ Version: 14.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1250,6 +1250,10 @@ fi
 %endif
 
 %changelog
+* Mon Mar 4 2024 Alexandra Hájková <ahajkova@redhat.com> - 14.1-10
+- Replace zlib to zlib-ng package in a debug-toolset-binary Fedora CI
+  test (RHBZ 2266910).
+
 * Wed Feb 21 2024 Richard W.M. Jones <rjones@redhat.com>
 - Bump and rebuild for riscv64
 

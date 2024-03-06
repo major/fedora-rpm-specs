@@ -1,11 +1,13 @@
 Summary: A tool for generating SELinux security policies for containers
 Name: udica
 Version: 0.2.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/containers/udica/archive/v%{version}.tar.gz
 #git format-patch -N v0.2.8 -- . ':!.cirrus.yml' ':!.github'
 Patch0001: 0001-Add-option-to-generate-custom-policy-for-a-confined-.patch
 Patch0002: 0002-Add-tests-covering-confined-user-policy-generation.patch
+Patch0003: 0003-confined-make-l-non-optional.patch
+Patch0004: 0004-confined-allow-asynchronous-I-O-operations.patch
 License: GPL-3.0-or-later
 BuildArch: noarch
 Url: https://github.com/containers/udica
@@ -64,6 +66,9 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %endif
 
 %changelog
+* Mon Feb 12 2024 Vit Mojzis <vmojzis@redhat.com> - 0.2.8-4
+- confined: make "-l" non optional
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

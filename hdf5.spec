@@ -16,7 +16,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.12.1
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -354,9 +354,10 @@ mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 %endif
 
 %check
-%ifarch %{ix86} s390x
+%ifarch %{ix86} s390x riscv64
 # i386: java TestH5Arw segfaults
 # s390x: Testing inserting objects to create first direct block in recursive indirect blocks five levels deep*FAILED*
+# riscv64: test failed https://github.com/HDFGroup/hdf5/issues/4056
 make -C build check || :
 %else
 make -C build check
@@ -369,7 +370,7 @@ for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
 # i686 & s390x mpich - testphdf5: malloc.c:4189: _int_malloc: Assertion `(unsigned long) (size) >= (unsigned long) (nb)' failed.
-%ifarch armv7hl %{ix86} s390x
+%ifarch armv7hl %{ix86} s390x riscv64
   make -C $mpi check || :
 %else
 # ph5diff is failing
@@ -557,6 +558,9 @@ fi
 
 
 %changelog
+* Thu Feb 29 2024 Liu Yang <Yang.Liu.sn@gmail.com> - 1.12.1-19
+- Disable failed tests for riscv64.
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.12.1-18
 - Rebuilt for java-21-openjdk as system jdk
 

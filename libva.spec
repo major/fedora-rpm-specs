@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.20.0
-Release:	4%{?dist}
+Release:	6%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
 # va/x11/va_dri* are ICU
@@ -49,6 +49,7 @@ developing applications that use %{name}.
 %build
 %meson \
  -Dwith_legacy=nvctrl \
+ -Ddriverdir="%{_libdir}/dri-nonfree:%{_libdir}/dri-freeworld:%{_libdir}/dri" \
 %{?_without_xorg: -Dwith_glx=no -Dwith_x11=no} \
 %{?_without_wayland: -Dwith_wayland=no}
 
@@ -57,12 +58,20 @@ developing applications that use %{name}.
 %install
 %meson_install
 
+# Don't break assumption, set driverdir as one single dir
+sed -i -e 's|driverdir=.*|driverdir=%{_libdir}/dri|' %{buildroot}%{_libdir}/pkgconfig/libva-drm.pc
+
+# Owns the alternates directories
+mkdir -p %{buildroot}%{_libdir}/dri-{freeworld,nonfree}
+
+
 %ldconfig_scriptlets
 
 %files
 %doc NEWS
 %license COPYING
 %ghost %{_sysconfdir}/libva.conf
+%dir %{_libdir}/dri-*
 %{_libdir}/libva.so.2*
 %{_libdir}/libva-drm.so.2*
 %{!?_without_wayland:
@@ -79,6 +88,12 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Mon Mar 04 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.20.0-6
+- Own the alternates directories
+
+* Tue Feb 27 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.20.0-5
+- Alternatives search path - rfbz#6861
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

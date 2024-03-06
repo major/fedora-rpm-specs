@@ -49,7 +49,7 @@
 
 Name:		%{pkg_name}
 Version:	%{lld_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -62,8 +62,6 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 %endif
-
-ExcludeArch:	s390x
 
 # Bundle libunwind header need during build for MachO support
 Patch1:		0002-PATCH-lld-Import-compact_unwind_encoding.h-from-libu.patch
@@ -220,6 +218,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Sat Mar 02 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-2
+- Enable s390x arch
+
 * Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

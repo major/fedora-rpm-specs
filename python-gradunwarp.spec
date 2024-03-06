@@ -1,14 +1,25 @@
+%global forgeurl https://github.com/Washington-University/gradunwarp
+
+# NumPy emits deprecation warning, but it seems turning that off makes
+# things worse (more errors).
+# There are some incompatible pointer warnings, but I don't have a clue
+# how to go about fixing those.
+# Ergo: Disable build type safety (at least for now)
+%global build_type_safety_c 0
+
 Name:           python-gradunwarp
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Gradient Unwarping
 
+%global tag %{version}
+%forgemeta
+
+# SPDX
 License:        MIT
-URL:            https://github.com/Washington-University/gradunwarp
-Source0:        %{url}/archive/v%{version}/gradunwarp-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 Source1:        gradient_unwarp.1
-# numpy.distutils has been removed from numpy
-Patch:          numpy.distutils.patch
 
 BuildRequires:  gcc
 
@@ -36,7 +47,7 @@ Python/Numpy package used to unwarp the distorted volumes (due to the gradient
 field inhomogenities).
 
 %prep
-%autosetup -p1 -n gradunwarp-%{version}
+%forgeautosetup -p1
 # correct version string
 # remove extra compilation flags
 sed -i -e "s/HCP-%{version}/%{version}/" \
@@ -65,7 +76,10 @@ find %{buildroot}%{python3_sitearch}/gradunwarp/ -name '*.so' -exec chmod 755 {}
 install -m 0644 %{SOURCE1} -Dt $RPM_BUILD_ROOT/%{_mandir}/man1/
 
 %check
-%pytest
+# See: https://github.com/Washington-University/gradunwarp/blob/master/.github/workflows/test.yml
+%pytest --pyargs gradunwarp
+# Run import test in addition
+%pyproject_check_import
 
 %files -n python3-gradunwarp -f %{pyproject_files}
 %exclude %{python3_sitearch}/gradunwarp/core/gradient_unwarp.py

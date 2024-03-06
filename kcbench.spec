@@ -1,9 +1,9 @@
 Name:           kcbench
-Version:        0.9.8
-Release:        3%{?dist}
+Version:        0.9.9
+Release:        1%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
-License:        MIT
+License:        MIT:Modern Style with sublicense
 URL:            https://gitlab.com/knurd42/kcbench
 Source0:        https://gitlab.com/knurd42/kcbench/-/archive/v%{version}/kcbench-v%{version}.tar.bz2
 
@@ -52,6 +52,10 @@ echo "Nothing to build"
 %{_docdir}/kcbench/
 
 %changelog
+* Mon Mar 4 2024 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.9-1
+- Update to 0.9.9
+- migrated to SPDX license
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

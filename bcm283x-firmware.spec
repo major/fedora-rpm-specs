@@ -4,11 +4,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort f01fa5f
+%define gitshort dc94391
 
 Name:          bcm283x-firmware
-Version:       20240214
-Release:       2.%{gitshort}%{?dist}
+Version:       20240229
+Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -26,6 +26,14 @@ Requires:      bcm2711-firmware
 
 Source0:       %{name}-%{gitshort}.tar.xz
 Source1:       config.txt
+
+# This reverts a FW DT commit that doesn't have the corresponding change in the upstream kernel
+# https://github.com/raspberrypi/linux/commit/0491a0aecb999b1a013ad4a6ad3816c535ac6e73
+Source2:       bcm2711-rpi-400.dtb
+Source3:       bcm2711-rpi-4-b.dtb
+Source4:       bcm2711-rpi-cm4.dtb
+Source5:       bcm2711-rpi-cm4-io.dtb
+Source6:       bcm2711-rpi-cm4s.dtb
 
 %description
 Firmware for the Broadcom bcm283x and bcm2711 series of systems on a chip as
@@ -66,11 +74,12 @@ install -p *bin %{buildroot}%{efi_esp_root}
 install -p *dat %{buildroot}%{efi_esp_root}
 install -p *elf %{buildroot}%{efi_esp_root}
 install -p bcm2710*dtb %{buildroot}%{efi_esp_root}
-install -p bcm2711*dtb %{buildroot}%{efi_esp_root}
+# install -p bcm2711*dtb %{buildroot}%{efi_esp_root}
 install -p bcm2712*dtb %{buildroot}%{efi_esp_root}
 install -p overlays/README %{buildroot}%{efi_esp_root}/overlays
 install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 
+install -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{buildroot}%{efi_esp_root}
 
 %files
 # DT Overlays covered under Linux Kernel GPLv2
@@ -95,6 +104,10 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/start4*
 
 %changelog
+* Thu Feb 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240229-1.dc94391
+- Update to latest firmware
+- Rebuild RPi4 FW DT to fix dma40 sound/display issue
+
 * Thu Feb 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240214-2.f01fa5f
 - Update to latest firmware
 

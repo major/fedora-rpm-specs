@@ -23,13 +23,17 @@ execution based on our experiences using notebooks at scale in data pipelines.}
 
 
 Name:           python-papermill
-Version:        2.4.0
+Version:        2.5.0
 Release:        %{autorelease}
 Summary:        Parameterize and run Jupyter and nteract Notebooks
 
 License:        BSD-3-Clause
 URL:            https://pypi.org/pypi/papermill
 Source0:        %{pypi_source papermill}
+# Fix broken build using upstream commit as patch
+# https://github.com/nteract/papermill/commit/e3bf26b706ad6b9e24865ba675defaa36d0e7104
+# Rebased onto 2.5.0
+Patch:          fix-broken-build.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -56,18 +60,20 @@ BuildRequires:  %{py3_dist pyarrow}
 %pyproject_extras_subpkg -n python3-papermill all s3 azure gcs hdfs github black
 
 %prep
-%autosetup -n papermill-%{version}
+%autosetup -n papermill-%{version} -p1
 
 sed -i 's/parametrize/parameterize/' setup.py
+
+# Unpin aiohttp
+sed -r -i 's/^(aiohttp).*$/\1/' requirements.txt
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
+
 %generate_buildrequires
-# all does not include github
-# https://github.com/nteract/papermill/pull/715
-%pyproject_buildrequires -x all,github
+%pyproject_buildrequires -x all
 
 
 %build

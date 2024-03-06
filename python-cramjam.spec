@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-cramjam
-Version:        2.8.1
+Version:        2.8.2
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -15,9 +15,6 @@ URL:            https://github.com/milesgranger/cramjam
 # the GitHub source archive.
 Source:         %{url}/archive/v%{version}/cramjam-%{version}.tar.gz
 
-# Remove relative libcramjam dep for python builds
-# See: https://github.com/milesgranger/cramjam/pull/131
-Patch:          %{url}/commit/ccea06b962959b69596eada330c5acc055a5f195.patch
 # Do not strip the compiled Python module; we need useful debuginfo. Upstream
 # set this intentionally, so this makes sense to keep downstream-only.
 Patch:          0001-Downstream-only-do-not-strip-the-compiled-Python-ext.patch

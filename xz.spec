@@ -8,7 +8,7 @@ Name:		xz
 # do this on a side tag, according to
 # https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages
 Version:	5.6.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -34,6 +34,7 @@ BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	gnupg2
 BuildRequires:	perl-interpreter
+BuildRequires:	autoconf automake libtool gettext-devel
 
 
 %description
@@ -90,6 +91,7 @@ commands that deal with the older LZMA format.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
+autoreconf -fi
 
 
 %build
@@ -101,7 +103,10 @@ export CFLAGS="%optflags"
   CFLAGS="$CFLAGS -Wa,--generate-missing-build-notes=yes"
 %endif
 
-%configure
+# --disable-ifunc is temporarily required to work around
+# https://bugzilla.redhat.com/show_bug.cgi?id=2267598
+# Can be removed when we understand what is really causing that bug.
+%configure --disable-ifunc
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
@@ -172,6 +177,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Mon Mar 04 2024 Richard W.M. Jones <rjones@redhat.com> - 5.6.0-3
+- --disable-ifunc (workaround for 2267598)
+
 * Thu Feb 29 2024 Adam Williamson <awilliam@redhat.com> - 5.6.0-2
 - Rebuild on a side tag to create a coherent update
 

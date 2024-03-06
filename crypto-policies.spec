@@ -1,12 +1,12 @@
-%global git_date 20240201
-%global git_commit 9f501f30f2a0a92e82e224cbd1b031c042e96386
+%global git_date 20240304
+%global git_commit 0375239a6d43f9d10b114428c2c9d5b141101982
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -19,19 +19,12 @@ BuildRequires: asciidoc
 BuildRequires: libxslt
 BuildRequires: openssl
 BuildRequires: nss-tools
-BuildRequires: gnutls-utils >= 3.6.0
+BuildRequires: gnutls-utils
+BuildRequires: openssh-clients
 BuildRequires: java-devel
 BuildRequires: bind
-BuildRequires: perl-interpreter
-BuildRequires: perl-generators
-BuildRequires: perl(File::pushd), perl(File::Temp), perl(File::Copy)
-BuildRequires: perl(File::Which)
-BuildRequires: python3-devel >= 3.6
+BuildRequires: python3-devel >= 3.9
 BuildRequires: python3-pytest
-BuildRequires: python3-pylint
-BuildRequires: python3-flake8
-BuildRequires: python3-coverage
-BuildRequires: codespell
 BuildRequires: make
 BuildRequires: krb5-devel
 BuildRequires: sequoia-policy-config
@@ -77,9 +70,6 @@ to enable or disable the system FIPS mode.
 %autopatch -p1
 
 %build
-sed -i "s/MIN_RSA_DEFAULT = .*/MIN_RSA_DEFAULT = 'RequiredRSASize'/" \
-    python/policygenerators/openssh.py
-grep "MIN_RSA_DEFAULT = 'RequiredRSASize'" python/policygenerators/openssh.py
 %make_build
 
 %install
@@ -116,7 +106,7 @@ done
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/crypto-policies/python
 
 %check
-make test %{?_smp_mflags}
+make test %{?_smp_mflags} SKIP_LINTING=1
 
 %post -p <lua>
 if not posix.access("%{_sysconfdir}/crypto-policies/config") then
@@ -212,6 +202,12 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Mon Mar 04 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20240304-1.git0375239
+- packaging: remove perl build-dependency, it's not needed anymore
+- packaging: stop linting at check-time, relying on upstream CI instead
+- packaging: drop stale workarounds
+- libreswan: do not use up pfs= / ikev2= keywords for default behaviour
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 20240201-2.git9f501f3
 - Rebuilt for java-21-openjdk as system jdk
 

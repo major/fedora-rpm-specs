@@ -13,7 +13,7 @@
 %global forgeurl https://github.com/mtrojnar/%{name}
 
 Name:       osslsigncode
-Version:    2.7
+Version:    2.8
 Release:    %autorelease
 Summary:    OpenSSL based Authenticode signing for PE/MSI/Java CAB files
 

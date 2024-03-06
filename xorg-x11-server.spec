@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   32%{?gitdate:.%{gitdate}}%{?dist}
+Release:   33%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 # SPDX
 License:   Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -306,6 +306,7 @@ License: MIT and GPLv2
 Requires: xorg-x11-server-common >= %{version}-%{release}
 # required for xvfb-run
 Requires: xorg-x11-xauth
+Requires: util-linux
 Provides: Xvfb
 
 %description Xvfb
@@ -591,6 +592,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Mon Mar 04 2024 José Expósito <jexposit@redhat.com> - 1.20.14-33
+- Add util-linux as a dependency of Xvfb
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.14-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

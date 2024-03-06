@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.22.0
-%global prerel_version 0.43~b0
+%global stable_version 1.23.0
+%global prerel_version 0.44~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
@@ -46,23 +46,6 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 # .proto files for python3-opentelemetry-proto, so we must include it.
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
-
-# Allow testing with opentracing 2.x versions after 2.2.x
-# https://github.com/open-telemetry/opentelemetry-python/pull/3641
-#
-# Cherry-picked to v1.22.0
-Patch:          0001-Allow-testing-with-opentracing-2.x-versions-after-2..patch
-# Don’t pin an exact version of responses for testing
-# https://github.com/open-telemetry/opentelemetry-python/pull/3642
-Patch:          %{url}/pull/3642.patch
-# Remove useless shebang lines
-# https://github.com/open-telemetry/opentelemetry-python/pull/3650
-#
-# Fixes:
-#
-# Non-executable files with shebangs in the repository
-# https://github.com/open-telemetry/opentelemetry-python/issues/3643
-Patch:          %{url}/pull/3650.patch
 
 BuildArch:      noarch
 
@@ -540,48 +523,8 @@ PYTHONPATH="${PWD}/build/lib" %make_build -C docs latex \
 %check
 for pkgdir in %{?with_prerelease:%{prerel_pkgdirs}} %{stable_pkgdirs}
 do
-  # Note we do not attempt to run tests for opentelemetry-test-utils, i.e.
-  # tests/opentelemetry-test-utils; there are none in practice, and pytest would
-  # indicate failure.
-  if [[ "${pkgdir}" = 'tests/opentelemetry-test-utils' ]]
-  then
-    continue
-  fi
   unset k
   case "${pkgdir}" in
-  opentelemetry-api)
-    # This is some kind of metadata issue with
-    # pkg_resources.iter_entry_points(). It is probably specific to the RPM
-    # build environment. The entry points are found just fine if we set
-    # PYTHONPATH='%%{buildroot}%%{python3_sitelib}' and run a Python snippet
-    # like:
-    #   from pkg_resources import iter_entry_points
-    #   print(list(iter_entry_points("opentelemetry_propagator", "tracecontext")))
-    # without using pytest.
-    #
-    # _ ERROR collecting opentelemetry-api/tests/propagators/test_global_httptextformat.py _
-    # opentelemetry-api/tests/propagators/test_global_httptextformat.py:20: in <module>
-    #     from opentelemetry.propagate import extract, inject
-    # ../../BUILDROOT/python-opentelemetry-1.13.0-2.fc38.x86_64/usr/lib/python3.11/site-packages/opentelemetry/propagate/__init__.py:136: in <module>
-    #     next(  # type: ignore
-    # E   StopIteration
-    echo "Skipping tests for ${pkgdir}; see spec file comments." 1>&2
-    continue
-    ;;
-  opentelemetry-sdk)
-    # Still more entry point issues
-    k="${k-}${k+ and }not (TestGlobals and test_sdk_log_emitter_provider)"
-    k="${k-}${k+ and }not (TestGlobals and test_sdk_logger_provider)"
-    k="${k-}${k+ and }not (TestImportExporters and test_console_exporters)"
-    k="${k-}${k+ and }not (TestLoggingInit and test_initialize_components_resource)"
-    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
-    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
-    # Sometimes fails (flakily) with AssertionError: 974 != 1024; this is
-    # probably just a runtime performance issue, but it was pointed out to
-    # upstream in:
-    # https://github.com/open-telemetry/opentelemetry-python/issues/3370#issuecomment-1710557877
-    k="${k-}${k+ and }not (TestBatchSpanProcessor and test_batch_span_processor_many_spans)"
-    ;;
   esac
 
   %pytest "${pkgdir}" ${ignore-} -k "${k-}"

@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Font Querying tool for Fedora
 License:        MIT
 URL:            https://github.com/fedora-i18n/fontquery
@@ -30,6 +30,8 @@ This package contains Python library for %{srcname}.
 %package -n %{srcname}
 Summary: %{summary}
 Requires: python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
+Obsoletes: %{srcname}-builder < 1.8-2
+Recommends: podman
 
 %description -n %{srcname} %_description
 
@@ -38,6 +40,7 @@ This package contains the end-user executables for %{srcname}.
 %package -n %{srcname}-builder
 Summary: Image build tools for Font Querying tool
 Requires: python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
+Requires: buildah podman
 
 %description -n %{srcname}-builder %_description
 
@@ -66,16 +69,22 @@ This package contains the image build tools for %{srcname}.
 %license LICENSE
 %doc README.md
 %{_bindir}/fontquery
+%{_bindir}/fontquery-container
 %{_bindir}/fontquery-diff
 %{_bindir}/fq2html
 
 %files -n %{srcname}-builder
 %license LICENSE
 %doc README.md
-%{_bindir}/fontquery-container
 %{_bindir}/fontquery-build
 
 %changelog
+* Mon Mar  4 2024 Akira TAGOH <tagoh@redhat.com> - 1.8-2
+- Move fontquery-container from fontquery-builder to fontquery package.
+  Resolves: rhbz#2267616
+- Add podman as Recommends to fontquery.
+- Add podman and buildah as Requires to fontquery-builder.
+
 * Thu Feb  1 2024 Akira TAGOH <tagoh@redhat.com> - 1.8-1
 - New upstream release.
 

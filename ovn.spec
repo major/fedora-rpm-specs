@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 112%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 131%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -433,6 +433,67 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Mon Mar 04 2024 Numan Siddique <numans@ovn.org> - 23.09.0-131
+- Sync to upstream OVN branch-23.09. Below are the commits since
+last update (23.09.0-109)
+
+- northd: Don't create fair Sb meters for ACLs with logging disabled.
+[Upstream: 215d53ea1436f03ab26a1a65df0824b319e6a4c3]
+
+- ci: Update crun in GitHub actions runner.
+[Upstream: 5bf1773c90ef7b61a85946027a987184e8d74fa0]
+
+- ci: Update crun in Cirrus CI cloud image.
+[Upstream: afa3da7677ed4d484612b820d8f09642d5821bd4]
+
+- controller: ofctrl: Use index for meter lookups.
+[Upstream: 683fb6dd2fc3c2ab025b1dd87ba2883e40d6d775]
+
+- tests: Fix "router port type update and then ...".
+[Upstream: c463d1de1a0c2cd368a4809f0d9eda9792b79851]
+
+- tests: Fix "ovn-controller - Chassis other_config".
+[Upstream: cbd4f2fcd0223a96c739dd07eded753f8f9b2a30]
+
+- tests: Fix "ofctrl wait before clearing flows".
+[Upstream: 81486b62bcac0d081ca907533ae34d826605b485]
+
+- tests: Fix flaky "ovn-controller-vtep - binding 1".
+[Upstream: 48a08a447340b095e8472d40aaaac5156320b4c1]
+
+- tests: Fix flaky "options:requested-chassis ...".
+[Upstream: a088df5aa75a7207ccdd751d2167e1536113737f]
+
+- tests: Fix typos in tests.
+[Upstream: 0a5726652b202add51d1dc8b6557268673e6cc51]
+
+- tests: Have tests fail when adding veth peer fails.
+[Upstream: 609a943e33c734d368f2019e7d3b41e31bb31d6f]
+
+- pinctrl: dns: Ignore additional records.
+[Upstream: 511f5a214226be84ae3b9434ffcab973e37295eb]
+
+- ovn-ic: Fix global blacklist filter for IPv6 addresses.
+[Upstream: 27d23712260b9faba23018ce973010743e30ccf7]
+
+- tests: Fix macro OVN_CHECK_PACKETS_CONTAIN.
+[Upstream: 28b0eddff68c5a64b80071a9a27cb79e3fac792a]
+
+- features.c: Always wait on the rconn.
+[Upstream: c0c9e507470439c3220b99c361f71e0cff3406fc]
+
+- ci: Bump CirrusCI Ubuntu image version
+[Upstream: 41e7f01872dae61b9ffcc1d3871865313ff90619]
+
+- Documentation: Fix broken links in ovn-sandbox.rst.
+[Upstream: 99d22a176f45971516803129f08c7a37a50bc4a1]
+
+- ovn-sb.xml: Remove IPv4-only restriction from Service Monitors.
+[Upstream: 97fca0f846bf6839144fc04fed6f0873198b4f89]
+
+- github: Update versions of action dependencies (Node.js 20).
+[Upstream: 2981936b61e0e0694c16df979b986dd1cb60b147]
+
 * Fri Feb 9 2024 Dumitru Ceara <dceara@redhat.com> - 23.09.0-112
 - Sync to upstream OVN branch-23.09. Below are the commits since
 last update (23.09.0-109)

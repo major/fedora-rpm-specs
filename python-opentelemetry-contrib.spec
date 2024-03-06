@@ -10,7 +10,7 @@
 # 3.24, < 4.0; both are not packaged
 %bcond cassandra 0
 
-# A subpackage needs confluent-kafka >= 1.8.2, < 2.2.0; F40 has 1.6.1
+# A subpackage needs confluent-kafka >= 1.8.2, < 2.3.0; F40 has 1.6.1
 # https://bugzilla.redhat.com/show_bug.cgi?id=1697392
 %bcond confluent_kafka 0
 
@@ -66,15 +66,13 @@
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.22.0
-%global prerel_version 0.43~b0
+%global stable_version 1.23.0
+%global prerel_version 0.44~b0
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
 Epoch:          2
-# Keep incrementing the releae monotonically, unless the base package version
-# and the above versions all change at the same time.
-Release:        52%{?dist}
+Release:        %autorelease
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,
@@ -91,29 +89,6 @@ Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{src
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       opentelemetry-bootstrap.1
 Source11:       opentelemetry-instrument.1
-
-# Downstream-only: patch out opentelemetry-instrumentation-aiohttp-server dependencies
-#
-# These were incompletely removed in “Remove unreleaseable packages”:
-# https://github.com/open-telemetry/opentelemetry-python-contrib/commit/8c9df875e4bdbde95f22d874ee5be53ec7de3306
-Patch:          0001-Downstream-only-patch-out-opentelemetry-instrumentat.patch
-
-# Feature/support for flask 3.0.0
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2013
-# Backported to v0.43b0
-Patch:          0001-Feature-support-for-flask-3.0.0-2013.patch
-# Allow Werkzeug 3. This is done upstream via a larger change,
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2127, so
-# we carry a small downstream-only patch until the next release.
-Patch:          0001-Allow-Werkzeug-3.patch
-
-# Drop obsolete parameterized test dependency
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2134
-# Rebased on v0.43b0.
-Patch:          0001-Drop-obsolete-parameterized-test-dependency.patch
-# Remove useless shebangs
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2135
-Patch:          %{url}/pull/2135.patch
 
 # Support SQLAlchemy 2 (in tests and doc strings)
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/2160
@@ -154,10 +129,12 @@ BuildRequires:  %{py3_dist pytest-benchmark}
     propagator/opentelemetry-propagator-ot-trace
     util/opentelemetry-util-http
     instrumentation/opentelemetry-instrumentation-aiohttp-client
+    instrumentation/opentelemetry-instrumentation-aiohttp-server
     instrumentation/opentelemetry-instrumentation-aiopg
     %{?with_aio_pika:instrumentation/opentelemetry-instrumentation-aio-pika}
     %{?with_cassandra:instrumentation/opentelemetry-instrumentation-cassandra}
     instrumentation/opentelemetry-instrumentation-asgi
+    instrumentation/opentelemetry-instrumentation-asyncio
     instrumentation/opentelemetry-instrumentation-asyncpg
     instrumentation/opentelemetry-instrumentation-aws-lambda
     instrumentation/opentelemetry-instrumentation-boto
@@ -339,6 +316,37 @@ dependencies (the packages that are instrumented) are installed.
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo}
 
 
+%package -n python3-opentelemetry-instrumentation-aiohttp-server
+Summary:        OpenTelemetry aiohttp server instrumentation
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+# Ensure we have fully-versioned dependencies (to release) across subpackages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
+Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aiohttp-server
+This library allows tracing HTTP requests made by the aiohttp server library.
+
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiohttp-server -i %%{python3_sitelib}/opentelemetry_instrumentation_aiohttp_server-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-aiohttp-server+instruments
+Summary:        Metapackage for OpenTelemetry aiohttp server instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-aiohttp-server = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aiohttp-server+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-aiohttp-server. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-aiohttp-server+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_server-%{prerel_distinfo}
+
+
 %package -n python3-opentelemetry-instrumentation-aiopg
 Summary:        OpenTelemetry aiopg instrumentation
 Version:        %{prerel_version}
@@ -375,6 +383,10 @@ python3-opentelemetry-instrumentation-aiopg. It makes sure the dependencies
 Summary:        OpenTelemetry Aio-pika instrumentation
 Version:        %{prerel_version}
 License:        Apache-2.0
+
+# Ensure we have fully-versioned dependencies (to release) across subpackages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
+Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 
 %description -n python3-opentelemetry-instrumentation-aio-pika
 This library allows tracing requests made by the Aio-pika library.
@@ -461,6 +473,40 @@ packages that are instrumented) are installed.
 
 %files -n python3-opentelemetry-instrumentation-asgi+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_asgi-%{prerel_distinfo}
+
+
+%package -n python3-opentelemetry-instrumentation-asyncio
+Summary:        OpenTelemetry instrumentation for asyncio
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+# Ensure we have fully-versioned dependencies (to release) across subpackages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
+Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-asyncio
+AsyncioInstrumentor: Tracing Requests Made by the Asyncio Library
+
+The opentelemetry-instrumentation-asyncio package allows tracing asyncio
+applications. It also includes metrics for duration and counts of coroutines
+and futures. Metrics are generated even if coroutines are not traced.
+
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-asyncio -i %%{python3_sitelib}/opentelemetry_instrumentation_asyncio-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-asyncio+instruments
+Summary:        Metapackage for OpenTelemetry asyncio instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-asyncio = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-asyncio+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-asyncio. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-asyncio+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_asyncio-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-asyncpg
@@ -1730,8 +1776,10 @@ Obsoletes:      python3-opentelemetry-instrumentation-aio-pika < 0.36~b0-1
 Obsoletes:      python3-opentelemetry-instrumentation-aio-pika+instruments < 0.36~b0-1
 %endif
 Requires:       python3-opentelemetry-instrumentation-aiohttp-client = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+Requires:       python3-opentelemetry-instrumentation-aiohttp-server = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-aiopg = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-asgi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+Requires:       python3-opentelemetry-instrumentation-asyncio = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-asyncpg = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-aws-lambda = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-boto = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -2167,6 +2215,17 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo}/
 
 
+%files -n python3-opentelemetry-instrumentation-aiohttp-server
+%license LICENSE LICENSE.Apache LICENSE.BSD3
+%doc instrumentation/opentelemetry-instrumentation-aiohttp-server/README.rst
+
+# Shared namespace directories
+%dir %{python3_sitelib}/opentelemetry/{,instrumentation/}
+
+%{python3_sitelib}/opentelemetry/instrumentation/aiohttp_server/
+%{python3_sitelib}/opentelemetry_instrumentation_aiohttp_server-%{prerel_distinfo}/
+
+
 %files -n python3-opentelemetry-instrumentation-aiopg
 %license instrumentation/opentelemetry-instrumentation-aiopg/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-aiopg/README.rst
@@ -2200,6 +2259,17 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/asgi/
 %{python3_sitelib}/opentelemetry_instrumentation_asgi-%{prerel_distinfo}/
+
+
+%files -n python3-opentelemetry-instrumentation-asyncio
+%license instrumentation/opentelemetry-instrumentation-asyncio/LICENSE
+%doc instrumentation/opentelemetry-instrumentation-asyncio/README.rst
+
+# Shared namespace directories
+%dir %{python3_sitelib}/opentelemetry/{,instrumentation/}
+
+%{python3_sitelib}/opentelemetry/instrumentation/asyncio/
+%{python3_sitelib}/opentelemetry_instrumentation_asyncio-%{prerel_distinfo}/
 
 
 %files -n python3-opentelemetry-instrumentation-asyncpg
@@ -2671,179 +2741,4 @@ done
 
 
 %changelog
-* Wed Feb 21 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-52
-- Split separately-versioned subpackages into new packages
-
-* Sun Feb 11 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-51
-- Add missing test dep. on requests for xray propagator
-
-* Sat Feb 10 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-50
-- Stop usuing rpmautospec due to issues parsing the spec file in Koji
-
-* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-49
-- Restore i686 support
-
-* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-48
-- Skip another flaky/timing-dependent FastAPI test
-
-* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-47
-- Enable async tests with SQLAlchemy 2
-- Updates the patch for upstream PR#2160
-
-* Fri Feb 09 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-46
-- Support SQLAlchemy 2 (fix tests)
-
-* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-44
-- Greatly simplify BuildRequires handling
-
-* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-43
-- Send a PR upstream for removal of useless shebangs
-
-* Tue Jan 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-42
-- Send PR upstream to drop parameterized test dependency
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.22.0-40
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-38
-- Backport Flask 3 support and allow Werkzeug 3
-- Fixes RHBZ#2257256
-
-* Sat Jan 06 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-37
-- F40+: drop Flask instrumentation due to Flask 3 incompatibility (fix
-  RHBZ#2257108)
-
-* Wed Dec 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-36
-- Patch out opentelemetry-instrumentation-aiohttp-server dependencies
-- Fix RHBZ#2255977
-
-* Thu Dec 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-35
-- Fix monotonic release versioning
-
-* Thu Dec 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.22.0-33
-- Update to 1.22.0/0.43~b0
-
-* Fri Dec 01 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.21.0-34
-- Skip a flaky test
-
-* Mon Nov 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2:1.21.0-33
-- Update to 1.21.0/0.42~b0
-- Bump Epoch since resource-detector-azure got its own version (0.1.0) for
-  its initial PyPI release, and it’s less than 0.42~b0
-
-* Fri Sep 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-15
-- Replace a patch with an equivalent that was actually merged upstream
-
-* Wed Sep 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-14
-- Use the tagged upstream release now that it’s available
-
-* Tue Sep 12 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-13
-- Fix instrumentations subpackage requiring Cassandra (fix RHBZ#2238525)
-
-* Fri Sep 08 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.20.0-12
-- Update to 1.20.0/0.41~b0
-- Drop grpc instrumentation subpackages until grpc can be updated
-
-* Thu Sep 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.19.0-13
-- Forward compatibility with protobuf4 even before we set the bcond
-
-* Thu Sep 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.19.0-12
-- Update to 1.19.0/0.40~b0
-
-* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-26
-- Enable the httpx21 tox environment
-
-* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-25
-- Revert "Drop and Obsolete httpx support subpackages (…)"
-
-* Thu Aug 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-24
-- Relax httpx version to allow >= 0.18.0 (fix RHBZ#2232605)
-
-* Wed Jul 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-23
-- Revert "Disable kafka instrumentation while python-kafka FTBFS"
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.18.0-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-21
-- Update spec-file comments regarding build conditionals
-
-* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-20
-- Rebuilt for Python 3.12 (close RHBZ#2220379)
-
-* Thu Jul 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-19
-- Disable kafka instrumentation while python-kafka FTBFS
-
-* Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-18
-- Test with django 4, not 3
-
-* Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-17
-- Fix accidental BuildRequires on python3dist(falcon)
-
-* Tue Jun 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-16
-- Use new (rpm 4.17.1+) bcond style
-
-* Wed May 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-15
-- Stop patching in explicit/direct dependencies on yarl
-
-* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-14
-- Fix release number
-
-* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-12
-- Fix update to 1.18.0/0.39~b0
-
-* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.18.0-11
-- Update to 1.18.0/0.39~b0
-
-* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-12
-- Fix excludes for old sqlalchemy version environments in tox.ini
-
-* Tue May 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-11
-- Drop and Obsolete httpx support subpackages (close RHBZ#2209296)
-
-* Wed Mar 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-10
-- Fix release number (again)
-
-* Wed Mar 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.17.0-9
-- Update to 1.17.0/0.38~b0
-
-* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.16.0-9
-- Fix release number
-
-* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:1.16.0-7
-- Define extras metapackages manually
-- Ensure the License fields and RPM version numbers match the subpackages
-  to which they correspond
-- Slightly improve the summaries and descriptions
-- Unfortunately, because we are fixing some “wrong” version numbers, an
-  Epoch is introduced
-
-* Sun Mar 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-9
-- Update a couple of comments regarding dependency versions
-
-* Fri Mar 17 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-8
-- Don’t assume %%_smp_mflags is -j%%_smp_build_ncpus
-
-* Thu Mar 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-7
-- Ensure monotonic release for separately-versioned subpackages
-
-* Fri Feb 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.16.0-1
-- Update to 1.16.0/0.37~b0
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36~b0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 11 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-5
-- Fix a dependency in a disabled (in F38) subpackage
-
-* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-4
-- Obsolete the datadog exporter, removed upstream
-
-* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-3
-- Improve a spec file comment
-
-* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-2
-- Obsolete disabled subpackages
-
-* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36~b0-1
-- Initial package (close RHBZ#2156749)
+%autochangelog

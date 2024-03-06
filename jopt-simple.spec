@@ -1,6 +1,6 @@
 Name:           jopt-simple
 Version:        5.0.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A Java command line parser
 License:        MIT
 URL:            http://jopt-simple.github.io/jopt-simple
@@ -35,10 +35,11 @@ This package contains the API documentation for %{name}.
 %pom_remove_plugin org.codehaus.mojo:cobertura-maven-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-pmd-plugin
 %pom_remove_plugin :animal-sniffer-maven-plugin
+%pom_remove_plugin org.apache.maven.plugins:maven-compiler-plugin
 
 %build
 # Unit testing is disabled due to a missing dependency in Fedora of continuous-testing-toolkit
-%mvn_build -f
+%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -50,6 +51,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Mon Mar 04 2024 Petra Alice Mikova <pmikova@redhat.com> - 5.0.4-21
+- Set Java source/target to 1.8
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 5.0.4-20
 - Rebuilt for java-21-openjdk as system jdk
 

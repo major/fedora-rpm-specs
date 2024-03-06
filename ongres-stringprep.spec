@@ -2,7 +2,7 @@
 
 Name:       ongres-%upstream_name
 Version:    1.1
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    RFC 3454 Preparation of Internationalized Strings in pure Java
 License:    BSD-2-Clause AND Apache-2.0
 URL:            https://github.com/ongres/%upstream_name
@@ -34,8 +34,8 @@ This package contains javadoc for %{name}
 find \( -name '*.jar' -o -name '*.class' \) -delete
 
 # velocity-2 dependencies
-%pom_add_dep org.apache.commons:commons-lang3 stringprep
-%pom_add_dep org.slf4j:slf4j-simple stringprep
+%pom_add_dep org.apache.commons:commons-lang3 codegenerator
+%pom_add_dep org.slf4j:slf4j-simple codegenerator
 
 %pom_remove_dep :velocity-tools codegenerator
 
@@ -59,6 +59,9 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %license LICENSE
 
 %changelog
+* Thu Feb 29 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1-12
+- Move velocity-2 dependencies to codegenerator
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.1-11
 - Rebuilt for java-21-openjdk as system jdk
 

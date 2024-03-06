@@ -9,7 +9,7 @@
 %global _vpath_builddir %{_vendor}-%{_target_os}-build
 
 Name: dpdk
-Version: 22.11.1
+Version: 23.11
 Release: 4%{?dist}
 Epoch: 2
 URL: http://dpdk.org
@@ -138,6 +138,12 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 %install
 %meson_install
 
+# Taken from debian/rules
+rm -f %{buildroot}%{docdir}/html/.buildinfo
+rm -f %{buildroot}%{docdir}/html/objects.inv
+rm -rf %{buildroot}%{docdir}/html/.doctrees
+find %{buildroot}%{_mandir}/ -type f -a ! -iname "*rte_*" -delete
+
 %files
 # BSD
 %{_bindir}/dpdk-testpmd
@@ -155,6 +161,7 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 #BSD
 %{incdir}/
 %{sdkdir}
+%{_mandir}
 %ghost %{sdkdir}/mk/exec-env/bsdapp
 %ghost %{sdkdir}/mk/exec-env/linuxapp
 %if %{with tools}
@@ -178,6 +185,7 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 %if %{with tools}
 %files tools
 %{_bindir}/dpdk-dumpcap
+%{_bindir}/dpdk-graph
 %{_bindir}/dpdk-pdump
 %{_bindir}/dpdk-test
 %{_bindir}/dpdk-test-*
@@ -191,6 +199,9 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 %endif
 
 %changelog
+* Wed Feb 21 2024 Timothy Redaelli <tredaelli@redhat.com> - 2:23.11-1
+- Update to 23.11 (bz2183522)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:22.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

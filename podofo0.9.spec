@@ -1,6 +1,6 @@
 Name:           podofo0.9
 Version:        0.9.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Podofo 0.9.x compatibility library
 
 # The library is licensed under the LGPL.
@@ -53,6 +53,13 @@ Conflicts:      podofo-devel
 Development files for the %{name} library.
 
 
+%package tools
+Summary:        Tools for %{name}
+
+%description tools
+Tools for %{name}.
+
+
 %prep
 %autosetup -p1 -n podofo-%{version}
 
@@ -73,10 +80,6 @@ rm cmake/modules/FindZLIB.cmake
 %install
 %cmake_install
 
-# Remove files which we don't want to provide in the compat package
-rm -rf %{buildroot}%{_mandir}
-rm -rf %{buildroot}%{_bindir}
-
 
 %files libs
 %license COPYING.LIB COPYING.exception
@@ -87,8 +90,15 @@ rm -rf %{buildroot}%{_bindir}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/libpodofo.pc
 
+%files tools
+%{_bindir}/podofo*
+%{_mandir}/man1/podofo*.1*
+
 
 %changelog
+* Mon Mar 04 2024 Sandro Mani <manisandro@gmail.com> - 0.9.8-4
+- Add tools
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
-Version:        4.61
-Release:        3%{?dist}
+Version:        4.62
+Release:        1%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
 URL:            https://metacpan.org/release/CGI
@@ -24,6 +24,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 # Text::ParseWords not used at tests
+BuildRequires:  perl(URI) >= 1.76
 BuildRequires:  perl(warnings)
 # Apache modules are optional
 # Tests:
@@ -44,11 +45,13 @@ Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(File::Temp) >= 0.17
 Requires:       perl(HTML::Entities) >= 3.69
 Requires:       perl(Text::ParseWords)
+Requires:       perl(URI) >= 1.76
 
 %{?perl_default_filter}
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((File::Spec)\\)$
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((File::Temp)\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((URI)\\)$
 # Remove false dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Fh)\\)
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(MultipartBuffer\\)$
@@ -121,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 04 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.62-1
+- 4.62 bump (rhbz#2267294)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.61-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

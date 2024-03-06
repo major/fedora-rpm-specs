@@ -1,16 +1,14 @@
 %global srcname jenkins-job-builder
 
 Name:           python-%{srcname}
-Version:        5.0.4
-Release:        4%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
 License:        Apache-2.0
 URL:            https://jenkins-job-builder.readthedocs.io/en/latest/
 Source:         %{pypi_source}
-
-Patch0:         0001-Fix-compatibility-with-setuptools-66.patch
 
 BuildArch:      noarch
 
@@ -64,6 +62,10 @@ export PBR_VERSION=%{version}
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Mon Mar 04 2024 Christoph Erhardt <fedora@sicherha.de> - 1:6.0.0-1
+- Update to 6.0.0 (rhbz#2259846)
+- Drop upstreamed patch
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

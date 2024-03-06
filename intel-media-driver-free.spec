@@ -49,9 +49,6 @@ https://01.org/intel-media-for-linux
 %package -n     libva-intel-media-driver
 Summary:        The Intel Media Driver for VAAPI.
 
-# The full intel-media-driver and this "free" variant in Fedora repos aren't co-installable
-Conflicts: intel-media-driver
-
 %description -n libva-intel-media-driver
 %{description}
 
@@ -112,7 +109,7 @@ chmod +x %{buildroot}%{_libdir}/dri/iHD_drv_video.so
 
 # install AppData and add modalias provides
 mkdir -p %{buildroot}%{_metainfodir}
-install -pm 0644 %{SOURCE1} %{buildroot}%{_metainfodir}
+install -pm 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 # TODO - have pci based hw detection
 %if 0
@@ -124,7 +121,7 @@ fn=%{buildroot}%{_metainfodir}/intel-media-driver.metainfo.xml
 %doc README.md
 %license LICENSE.md
 %{_libdir}/dri/iHD_drv_video.so
-%{_metainfodir}/intel-media-driver.metainfo.xml
+%{_metainfodir}/%{name}.metainfo.xml
 
 %files -n libigfxcmrt
 %{_libdir}/libigfxcmrt.so.*

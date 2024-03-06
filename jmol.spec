@@ -1,6 +1,6 @@
 Name:           jmol
-Version:        16.1.57
-Release:        2%{?dist}
+Version:        16.1.63
+Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
 # JSpecView, JMol, and Sparsh-UI are all LGPL-2.1-or-later.
@@ -16,7 +16,9 @@ VCS:            https://sourceforge.net/projects/jmol/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        http://downloads.sourceforge.net/%{name}/Jmol-%{version}-full.tar.gz
-Source1:        http://biomodel.uah.es/Jmol/logos/Jmol_icon13.svg
+# Original version: http://biomodel.uah.es/Jmol/logos/Jmol_icon13.svg
+# This was resized in Inkscape to 128x128
+Source1:        Jmol_icon13.svg
 Source2:        org.jmol.jmol.desktop
 Source3:        org.jmol.jmol.metainfo.xml
 # The ant build file, of all things, was omitted from the 16.1.51 release
@@ -27,6 +29,8 @@ Patch0:         %{name}-build.patch
 Patch1:         %{name}-java9.patch
 # Avoid deprecated interfaces
 Patch2:         %{name}-deprecated.patch
+# Fix code that is invalid with JDK 21+
+Patch3:         %{name}-java21.patch
 
 BuildRequires:  ant
 BuildRequires:  ant-contrib
@@ -176,6 +180,14 @@ cd ../..
 %{_jsdir}/jsmol/
 
 %changelog
+* Mon Mar  4 2024 Jerry James <loganjerry@gmail.com> - 16.1.63-1
+- Version 16.1.63 (rhbz#2262900)
+- Add patch for JDK 21 (rhbz#2266663)
+
+* Sun Mar 03 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 16.1.57-3
+- Standardize icon
+- Fix metainfo
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 16.1.57-2
 - Rebuilt for java-21-openjdk as system jdk
 

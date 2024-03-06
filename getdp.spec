@@ -80,8 +80,8 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %files
 %license LICENSE.txt CREDITS.txt
 %{_bindir}/%{name}
-%{_libdir}/libgetdp.so.3.5
-%{_libdir}/libgetdp.so.3.5.0
+%{_libdir}/libgetdp.so.3.6
+%{_libdir}/libgetdp.so.3.6.0
 %{_mandir}/man1/%{name}.1*
 
 %files devel

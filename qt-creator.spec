@@ -1,17 +1,17 @@
-#define prerelease beta1
+%define prerelease beta2
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        12.0.2
-Release:        2%{?dist}
+Version:        13.0.0
+Release:        0.2%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/12.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/13.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # In Fedora, the ninja command is called ninja-build
@@ -22,10 +22,10 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # Fix debuginfod detection
 Patch3:         qt-creator-debuginfod.patch
-%if 0%{?fedora}
-# Fix build against litehtml-0.8
-Patch4:         qt-creator-litehtml.patch
-%endif
+# Fix build
+Patch4:         qt-creator_build.patch
+# Drop refereces to unbundled yaml-cpp
+Patch5:         qt-creator_unbundle.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -212,6 +212,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Mon Mar 04 2024 Sandro Mani <manisandro@gmail.com> - 13.0.0-0.2.beta2
+- Update to 13.0.0-beta2
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

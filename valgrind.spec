@@ -5,7 +5,14 @@ Name: %{?scl_prefix}valgrind
 Version: 3.22.0
 Release: 6%{?dist}
 Epoch: 1
-License: GPLv2+ AND BSD
+
+# This ignores licenses that are only found in the test or perf sources
+# we only care about those license statements found in sources that end
+# up in the binary packages. One piece of code for which we don't have
+# a license specifier is in coregrind/m_main.c for some Hacker's Delight
+# public domain code, which is only compiled into Darwin binaries, which
+# we don't create. Also some subpackages have their own license tags.
+License: GPL-2.0-or-later AND bzip2-1.0.6 AND GFDL-1.2-or-later AND (GPL-2.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later AND ISC) AND (GPL-2.0-or-later AND Unlicense) AND (GPL-2.0-or-later AND Zlib) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later AND BSD-3-Clause) AND (GPL-2.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-2.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-2.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later AND (GPL-2.0-or-later OR MPL-2.0)) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
 URL: https://www.valgrind.org/
 
 # Are we building for a Software Collection?
@@ -192,7 +199,7 @@ Summary: Development files for valgrind aware programs
 # https://fedoraproject.org/wiki/Licensing:BSD#Hybrid_BSD_(half_BSD,_half_zlib)
 # But that doesnt have a SPDX identifier yet
 # https://gitlab.com/fedora/legal/fedora-license-data/-/issues/422
-License: BSD
+License: bzip2-1.0.6
 Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -211,7 +218,8 @@ Header files and libraries for development of valgrind tools.
 %if %{build_openmpi}
 %package openmpi
 Summary: OpenMPI support for valgrind
-License: BSD
+# See above, Hybrid-BSD like.
+License: bzip2-1.0.6
 Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 
 %description openmpi
@@ -448,6 +456,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Mar  4 2024 Mark Wielaard <mjw@fedoraproject.org>
+- Update Fedora license tags to spdx license tags
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

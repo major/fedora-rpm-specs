@@ -1391,7 +1391,8 @@ CC="`$ANNOBIN_FLAGS --build-cc`" CXX="`$ANNOBIN_FLAGS --build-cxx`" \
   CFLAGS="$ANNOBIN_CFLAGS1 $ANNOBIN_CFLAGS2 $ANNOBIN_LDFLAGS" \
   CXXFLAGS="$ANNOBIN_CFLAGS1 `$ANNOBIN_FLAGS --build-includes` $ANNOBIN_CFLAGS2 $ANNOBIN_LDFLAGS" \
   ./configure --with-gcc-plugin-dir=%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/plugin \
-	      --without-annocheck --without-tests --without-docs --disable-rpath --without-debuginfod
+	      --without-annocheck --without-tests --without-docs --disable-rpath --without-debuginfod \
+	      --without-clang-plugin --without-llvm-plugin
 make
 cd ../..
 %endif
@@ -3608,8 +3609,11 @@ end
 %endif
 
 %changelog
-* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> 14.0.1-0.8
-- Enable support for riscv64
+- add --without-clang-plugin --without-llvm-plugin to annobin configure
+  options
+
+* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com>
+- enable support for riscv64
 
 * Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8
 - update from trunk

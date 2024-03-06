@@ -17,7 +17,7 @@
     aiosqlite
 
 Name:           python-sqlalchemy1.4
-Version:        1.4.51
+Version:        1.4.52
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease

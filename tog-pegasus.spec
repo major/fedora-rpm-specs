@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        72%{?dist}
+Release:        73%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -108,6 +108,8 @@ Patch45:	pegasus-2.14.1-add-pegwsmserver-to-ldd-libs.patch
 Patch46:        pegasus-2.14.1-build-fixes-2.patch
 # 47: disable DES no longer supported in net-snmp
 Patch47:        pegasus-2.14.1-snmp-disable-des.patch
+# 48: add RISC-V support
+Patch48:        add-riscv64-support.patch
 
 BuildRequires:  procps, libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -198,6 +200,9 @@ The OpenPegasus WBEM tests for the OpenPegasus %{version} Linux rpm.
 %ifarch aarch64
 %global PEGASUS_HARDWARE_PLATFORM LINUX_AARCH64_GNU
 %endif
+%ifarch riscv64
+%global PEGASUS_HARDWARE_PLATFORM LINUX_RISCV64_GNU
+%endif
 
 %global PEGASUS_ARCH_LIB %{_lib}
 %global OPENSSL_HOME /usr
@@ -262,6 +267,7 @@ yes | mak/CreateDmtfSchema 238 %{SOURCE9} cim_schema_2.38.0
 %patch45 -p1 -b .add-pegwsmserver-to-ldd-libs
 %patch46 -p1 -b .build-fixes-2
 %patch47 -p1 -b .snmp-disable-des
+%patch48 -p1 -b .add-riscv64-support
 
 
 %build
@@ -568,6 +574,9 @@ fi
 
 
 %changelog
+* Fri Mar 01 2024 misaka00251 <liuxin@iscas.ac.cn> - 2:2.14.1-73
+- Add riscv64 support
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

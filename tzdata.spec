@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2024a
 %define tzdata_version 2024a
 %define tzcode_version 2024a
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -84,7 +84,7 @@ JAVA_FILES="rearguard/africa rearguard/antarctica rearguard/asia \
 
 # Java 8 tzdata
 pushd javazic-1.8
-/usr/lib/jvm/java-17-openjdk/bin/javac -source 1.8 -target 1.8 -classpath . `find . -name \*.java`
+javac -source 1.8 -target 1.8 -classpath . `find . -name \*.java`
 popd
 
 java -classpath javazic-1.8 build.tools.tzdb.TzdbZoneRulesCompiler \
@@ -112,6 +112,9 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Sat Mar 02 2024 Andrew Hughes <gnu.andrew@redhat.com> - 2024a-4
+- Remove hardcoded versioned path to javac
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2024a-3
 - Rebuilt for java-21-openjdk as system jdk
 

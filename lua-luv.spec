@@ -1,6 +1,6 @@
 %bcond_without test
 
-%ifarch %{arm} %{ix86} x86_64 %{mips} aarch64
+%ifarch %{arm} %{ix86} x86_64 %{mips} aarch64 s390x
 %bcond_without luajit
 %else
 %bcond_with luajit
@@ -21,7 +21,7 @@
 %global luajit_builddir obj-luajit
 
 %global real_version 1.48.0
-%global extra_version 0
+%global extra_version 2
 
 %if 0%{?rhel} && 0%{?rhel} < 9
 # EPEL8's cmake macros have _vpath_builddir defined
@@ -242,6 +242,11 @@ rm luv.so
 %endif
 
 %changelog
+* Sat Mar 02 2024 Andreas Schneider <asn@redhat.com> - 1.48.0.2-1
+- Update to version 1.48.0-2
+  * https://github.com/luvit/luv/releases/tag/v1.48.0-2
+- Build with luajit on s390x
+
 * Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 1.48.0.0-1
 - Update to version 1.48.0-0
   * https://github.com/luvit/luv/releases/tag/v1.48.0-0

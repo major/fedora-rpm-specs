@@ -112,6 +112,7 @@ Requires:       pkgconfig(pango)
 Requires:       pkgconfig(pangocairo)
 Requires:       pkgconfig(pixman-1) >= 0.42.0
 Requires:       pkgconfig(wayland-client)
+Requires:       pkgconfig(wayland-protocols)
 Requires:       pkgconfig(wayland-scanner)
 Requires:       pkgconfig(wayland-server) >= 1.22.0
 Requires:       pkgconfig(xcb-composite)

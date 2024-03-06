@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.6.1
+Version:        0.6.2
 Release:        %{autorelease}
 Summary:        Operations and utilities for Genomic Interval Dataframes
 %forgemeta
@@ -66,10 +66,6 @@ Summary:        %{summary}
 %if %{with tests}
 # Disable tests requiring network
 k="${k-}${k+ and }not test_fetch"
-# Disable failing tests (probably due to Python 3.12)
-k="${k-}${k+ and }not test_make_chromarms"
-k="${k-}${k+ and }not test_trim"
-k="${k-}${k+ and }not test_assign_view"
 %pytest -v ${k+-k }"${k-}"
 %endif
 

@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
-Version:        6.94
-Release:        3%{?dist}
+Version:        6.95
+Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -123,6 +123,13 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 01 2024 Packit <hello@packit.dev> - 6.95-1
+- Release: v6.95 (Sullivan Beck)
+- Checkpoint: v6.95 (Sullivan Beck)
+- Added POSIX handling (Sullivan Beck)
+- Initial checkin of next release cycle: 6.95 (Sullivan Beck)
+- Resolves rhbz#2267329
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.94-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

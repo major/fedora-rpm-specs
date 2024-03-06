@@ -57,7 +57,7 @@ ExcludeArch:    %{ix86}
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.1
+Version:        %{libo_version}.2
 %if 0%{?libo_prerelease}
 Release:        %autorelease -e %{?libo_prerelease}
 %else
@@ -227,6 +227,13 @@ BuildRequires: kf5-kdelibs4support-devel
 BuildRequires: kf5-ki18n-devel
 BuildRequires: kf5-kio-devel
 BuildRequires: kf5-kwindowsystem-devel
+
+BuildRequires: qt6-qtbase-devel
+BuildRequires: kf6-kconfig-devel
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-ki18n-devel
+BuildRequires: kf6-kio-devel
+BuildRequires: kf6-kwindowsystem-devel
 %endif
 
 BuildRequires: gpgmepp-devel
@@ -678,6 +685,21 @@ Supplements: (%{name}-core%{?_isa} and plasma-workspace)
 %description kf5
 A plug-in for LibreOffice that enables integration into the KDE Frameworks 5.
 
+%package kf6
+Summary: LibreOffice KDE Frameworks 6 integration plug-in
+Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}-ure%{?_isa} = %{epoch}:%{version}-%{release}
+Provides: %{name}-plugin = %{epoch}:%{version}-%{release}
+Provides: %{name}-plugin%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes: libreoffice-kde4 < 1:6.3.0.0
+Obsoletes: libreoffice-kde5 < 1:6.4.7.3
+Obsoletes: libreoffice-kde4-debuginfo < 1:6.3.0.0
+Obsoletes: libreoffice-kde5-debuginfo < 1:6.4.7.3
+Supplements: (%{name}-core%{?_isa} and plasma-workspace)
+
+%description kf6
+A plug-in for LibreOffice that enables integration into the KDE Frameworks 6.
+
 %endif
 
 %package -n libreofficekit
@@ -1085,14 +1107,14 @@ done
 ARCH_FLAGS="$ARCH_FLAGS -g1"
 %endif
 export ARCH_FLAGS
-export CFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn"
-export CXXFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn"
+export CFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn -I%{_includedir}/KF6/KConfig/"
+export CXXFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn -I%{_includedir}/KF6/KConfig/"
 
 %if 0%{?rhel}
 %define distrooptions --disable-eot --disable-firebird-sdbc
 %else
 # fedora
-%define distrooptions --enable-eot --enable-kf5
+%define distrooptions --enable-eot --enable-kf5 --enable-kf6
 %endif
 
 %ifarch %{java_arches}
@@ -2261,6 +2283,10 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{baseinstdir}/program/libkf5be1lo.so
 %{baseinstdir}/program/libvclplug_kf5lo.so
 %{baseinstdir}/program/libvclplug_qt5lo.so
+
+%files kf6
+%{baseinstdir}/program/libvclplug_kf6lo.so
+%{baseinstdir}/program/libvclplug_qt6lo.so
 
 %endif
 

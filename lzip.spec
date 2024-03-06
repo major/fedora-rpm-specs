@@ -1,5 +1,5 @@
 Name:           lzip
-Version:        1.24
+Version:        1.24.1
 Release:        1%{?dist}
 Summary:        LZMA compressor with integrity checking
 
@@ -49,6 +49,9 @@ make check
 
 
 %changelog
+* Mon Mar 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24.1-1
+- 1.24.1
+
 * Tue Jan 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24-1
 - 1.24
 

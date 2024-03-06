@@ -1,9 +1,9 @@
-%global commit ded463732db1f9baf461be6f3fe5b8bb683c41cd
+%global commit f1da55589ce568119a5b4cb5707af2ec403b3cd7
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.11%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.12%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD and Boost
@@ -22,10 +22,10 @@ Patch1:         liblas_gdal3.patch
 
 # Fix incorrect libgeotiff pkgconfig require resulting in broken dependencies
 # Fix incorrect includedir and libdir paths
-Patch6:         liblas_pkgconfig.patch
+Patch2:         liblas_pkgconfig.patch
 
 # Fix FTBFS with boost 1.73
-Patch7:         liblas_boost173.patch
+Patch3:         liblas_boost173.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  boost-devel >= 1.53
@@ -102,6 +102,9 @@ libLAS utility applications.
 
 
 %changelog
+* Mon Mar 04 2024 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.12.gitf1da555
+- Update to git f1da555, fixes CVE-2024-27507
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-0.11.gitded4637
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

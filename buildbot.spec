@@ -20,8 +20,8 @@
 %endif
 
 Name:           buildbot
-Version:        3.11.0
-Release:        2%{?dist}
+Version:        3.11.1
+Release:        1%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -41,6 +41,7 @@ Source8:        %{pypi_source buildbot-pkg}
 Source10:       buildbot-master@.service
 Source11:       buildbot-worker@.service
 Patch1:         undo-importlib.patch
+Patch2:         sqlalchemy-pin.patch
 
 BuildArch:      noarch
 
@@ -53,7 +54,7 @@ BuildRequires:  python3dist(twisted) >= 17.9
 BuildRequires:  python3dist(jinja2) >= 2.1
 BuildRequires:  python3dist(zope-interface) >= 4.1.1
 BuildRequires:  python3dist(future)
-BuildRequires:  python3dist(sqlalchemy) >= 1.2.0
+BuildRequires:  python3dist(sqlalchemy)
 BuildRequires:  python3dist(sqlalchemy-migrate) >= 0.9
 BuildRequires:  python3dist(python-dateutil) >= 1.5
 BuildRequires:  python3dist(txaio) >= 2.2.2
@@ -333,6 +334,7 @@ Summary:        Buildbot documentation
 %prep
 %setup -q -b0 -b1 -b2 -b3 -b4 -b5 -b6 -b7 -b8
 %patch -P 1 -p0 -b .importlib
+%patch -P 2 -p0 -b .sqlalchemy
 cd ..
 
 
@@ -410,6 +412,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Mon Mar 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.11.1-1
+- 3.11.1
+
 * Fri Jan 26 2024 Orion Poplawski <orion@nwra.com> - 3.11.0-2
 - Fix database upgrade action
 

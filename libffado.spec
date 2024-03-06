@@ -1,12 +1,18 @@
 %if ! 0%{?rhel} || 0%{?rhel} > 8
-%global needs_scons_quirk 0
+%bcond scons_quirk 0
 %else
-%global needs_scons_quirk 1
+%bcond scons_quirk 1
+%endif
+
+%if %{without scons_quirk}
+%global scons scons
+%else
+%global scons scons-3
 %endif
 
 Summary:        Free firewire audio driver library
 Name:           libffado
-Version:        2.4.7
+Version:        2.4.8
 Release:        %autorelease
 License:        GPLv2 or GPLv3
 URL:            http://www.ffado.org/
@@ -18,10 +24,8 @@ Source9:        libffado-snapshot.sh
 Patch0:         libffado-2.4.4-no-test-apps.patch
 Patch1:         libffado-2.4.4-icon-name.patch
 Patch2:         libffado-2.4.4-scons-quirk.patch
-# Patch for python3.12 imp module removal
+# Patch for Python 3.12 imp module removal
 Patch3:         libffado-2.4.7-python312-imp-removal.patch
-# Patch for Python 3.12 configparser changes
-Patch4:         libffado-2.4.7-configparser.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-c++-devel
@@ -41,11 +45,13 @@ BuildRequires:  libxml++-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-qt5-devel
 BuildRequires:  python3-devel
-%if ! %needs_scons_quirk
+%if %{without scons_quirk}
 BuildRequires:  python3-scons >= 3.0.2
 %else
 BuildRequires:  python3-scons
 %endif
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  rpm_macro(py3_shebang_fix)
 ExcludeArch:    s390 s390x
 
 
@@ -78,17 +84,16 @@ Applications and utilities for use with libffado.
 
 
 %prep
-%autosetup -N
+%autosetup -N -n %{name}-%{version}/libffado
 %patch -P0 -p1 -b .no-test-apps
 %patch -P1 -p1 -b .icon-name
-%if %needs_scons_quirk
+%if %{with scons_quirk}
 %patch -P2 -p1 -b .scons-quirk
 %endif
-%patch -P3 -p1 -b .py312
-%patch -P4 -p1 -b .configparser
+%patch -P3 -p1 -b .py312-imp-removal
 
 # Fix Python shebangs
-sed -i 's|/usr/bin/.*python$|/usr/bin/python3|' \
+%py3_shebang_fix \
     admin/*.py doc/SConscript tests/python/*.py tests/*.py \
     support/mixer-qt4/ffado-mixer* support/mixer-qt4/SConscript \
     support/tools/*.py support/tools/SConscript
@@ -97,7 +102,7 @@ sed -i 's|/usr/bin/.*python$|/usr/bin/python3|' \
 export CFLAGS="%{optflags} -ffast-math"
 export CXXFLAGS="%{optflags} -ffast-math --std=gnu++11"
 export LDFLAGS="%{build_ldflags}"
-scons-3 %{?_smp_mflags} \
+%{scons} %{?_smp_mflags} \
       DETECT_USERSPACE_ENV=False \
       ENABLE_SETBUFFERSIZE_API_VER=True \
       ENABLE_OPTIMIZATIONS=True \
@@ -116,7 +121,7 @@ scons-3 %{?_smp_mflags} \
 export CFLAGS="%{optflags} -ffast-math"
 export CXXFLAGS="%{optflags} -ffast-math --std=gnu++11"
 export LDFLAGS="%{build_ldflags}"
-scons-3 DESTDIR=%{buildroot} PREFIX=%{_prefix}\
+%{scons} DESTDIR=%{buildroot} PREFIX=%{_prefix}\
       install
 
 # We need to install the xdg stuff manually

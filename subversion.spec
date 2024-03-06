@@ -60,7 +60,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -205,7 +205,7 @@ This package includes the Perl bindings to the Subversion libraries.
 %package javahl
 Summary: JNI bindings to the Subversion libraries
 Requires: subversion = %{version}-%{release}
-BuildRequires: java-17-openjdk-devel
+BuildRequires: java-devel
 # JAR repacking requires both zip and unzip in the buildroot
 BuildRequires: zip, unzip
 # For the tests
@@ -589,6 +589,9 @@ make check-javahl
 %endif
 
 %changelog
+* Mon Mar 04 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.14.3-6
+- Really rebuild for java-21-openjdk as system jdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.14.3-5
 - Rebuilt for java-21-openjdk as system jdk
 

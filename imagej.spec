@@ -1,6 +1,6 @@
 Name:           imagej
-Version:        1.54h
-Release:        4%{?dist}
+Version:        1.54i
+Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 
 # From https://imagej.nih.gov/ij/disclaimer.html:
@@ -128,6 +128,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Mon Mar 04 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54i-1
+- Update to 1.54i (close RHBZ#2267596)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.54h-4
 - Rebuilt for java-21-openjdk as system jdk
 

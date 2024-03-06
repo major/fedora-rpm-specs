@@ -1,10 +1,11 @@
 Name:           perl-SNMP-Info
-Version:        3.95
-Release:        3%{?dist}
+%global cpan_version 3.970001
+Version:        3.970.1
+Release:        1%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/SNMP-Info
-Source0:        https://cpan.metacpan.org/authors/id/O/OL/OLIVER/SNMP-Info-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/O/OL/OLIVER/SNMP-Info-%{cpan_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -45,7 +46,7 @@ SNMP::Info gives an object oriented interface to information obtained
 through SNMP.
 
 %prep
-%setup -q -n SNMP-Info-%{version}
+%setup -q -n SNMP-Info-%{cpan_version}
 find contrib -type f | xargs chmod -x 
 
 %build
@@ -66,6 +67,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/SNMP::Info*
 
 %changelog
+* Mon Mar 04 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.970.1-1
+- 3.970001 bump (rhbz#2266126)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.95-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

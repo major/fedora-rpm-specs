@@ -5,8 +5,8 @@ ExclusiveArch: %{ocaml_native_compiler}
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        28.0
-Release:        4%{?dist}
+Version:        28.1
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Nickel
@@ -41,7 +41,7 @@ BuildRequires:  alt-ergo
 BuildRequires:  clang
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
-BuildRequires:  emacs-nox
+BuildRequires:  emacs-nw
 BuildRequires:  flamegraph
 BuildRequires:  graphviz
 BuildRequires:  libappstream-glib
@@ -266,6 +266,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Mon Mar  4 2024 Jerry James <loganjerry@gmail.com> - 28.1-1
+- Version 28.1
+
 * Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 28.0-4
 - Rebuild for why3 1.7.1
 

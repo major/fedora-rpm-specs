@@ -13,7 +13,7 @@
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -29,7 +29,6 @@ Source8:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc
 Source9:	https://github.com/llvm/llvm-project/raw/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/runtimes/cmake/Modules/WarningFlags.cmake
 
 Patch0: standalone.patch
-Patch1: 0001-libcxxabi-Remove-unwinder-check.patch
 
 BuildRequires:	clang llvm-devel llvm-cmake-utils cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
@@ -156,6 +155,7 @@ export ASMFLAGS=$CFLAGS
 	-DLIBCXX_INCLUDE_BENCHMARKS=OFF \
 	-DLIBCXX_STATICALLY_LINK_ABI_IN_STATIC_LIBRARY=ON \
 	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON \
+	-DLIBCXXABI_USE_LLVM_UNWINDER=OFF \
 	-DLLVM_BUILD_DOCS=ON \
 	-DLLVM_ENABLE_SPHINX=ON \
 	-DLIBUNWIND_INCLUDE_DOCS=ON \
@@ -241,6 +241,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Mar 04 2024 Nikita Popov <npopov@redhat.com> - 18.1.0~rc4-2
+- Disable LIBCXXABI_USE_LLVM_UNWINDER (rhbz#2267690)
+
 * Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

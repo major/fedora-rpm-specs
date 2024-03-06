@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.97.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -47,6 +47,12 @@ Patch1: exim-4.94-libdir.patch
 Patch2: exim-4.97-dlopen-localscan.patch
 Patch3: exim-4.96-pic.patch
 Patch4: exim-4.97-mailq-old-format-message-id.patch
+Patch5: exim-4.97-Appendfile-release-regex-match-store-every-thousand-.patch
+Patch6: exim-4.97-ACL-in-regex-condition-release-store-every-thousand-.patch
+Patch7: exim-4.97-Use-non-releaseable-memory-for-regex-match-strings.-.patch
+Patch8: exim-4.97-use-dynamic-mem-for-regex_match_string.patch
+Patch9: exim-4.97-Use-non-releasable-memory-for-regex-line-buffer.patch
+Patch10: exim-4.97-regex-avoid-releasing-built-RE-midloop.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -493,6 +499,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Mar  4 2024 David Woodhouse <dwmw2@infradead.org> 4.97.1-5
+- Fix PCRE2 memory use explosion (Exim bug 3047)
+  Resolves: rhbz#2259382
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.97.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %global min_libzypp_ver 17.31.7
 
 Name:           zypper
-Version:        1.14.59
-Release:        3%{?dist}
+Version:        1.14.68
+Release:        1%{?dist}
 Summary:        Command line package manager using libzypp
 
 License:        GPLv2+
@@ -106,11 +106,6 @@ ln -sf zypp-aptitude %{buildroot}%{_bindir}/zypp-apt-get
 rm %{buildroot}%{_bindir}/apt
 ln -sf zypp-aptitude %{buildroot}%{_bindir}/zypp-apt
 
-# Move the bash completion file
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
-mv %{buildroot}%{_sysconfdir}/bash_completion.d/zypper.sh %{buildroot}%{_datadir}/bash-completion/completions/zypper
-rm -rf %{buildroot}%{_sysconfdir}/bash_completion.d/
-
 # Remove conflicting man page and rename needs-restarting
 rm %{buildroot}%{_mandir}/man1/needs-restarting.1*
 mv %{buildroot}%{_bindir}/needs-restarting %{buildroot}%{_bindir}/zypp-needs-restarting
@@ -154,6 +149,9 @@ popd
 
 
 %changelog
+* Mon Mar 04 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.14.68-1
+- Update to 1.14.68
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.59-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

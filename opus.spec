@@ -10,8 +10,8 @@
 %endif
 
 Name:     opus
-Version:  1.4
-Release:  4%{?candidate:.%{candidate}}%{?dist}
+Version:  1.5.1
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Summary:  An audio codec for use in low-delay speech and audio communication
 License:  BSD-3-Clause AND BSD-2-Clause
 URL:      https://www.opus-codec.org/
@@ -121,7 +121,7 @@ make -C build_native check %{?_smp_mflags} V=1
 
 %files
 %license COPYING
-%{_libdir}/libopus.so.*
+%{_libdir}/libopus.so.0*
 
 %files devel
 %doc README build_native/doc/html rfc6716.txt rfc8251.txt
@@ -152,6 +152,9 @@ make -C build_native check %{?_smp_mflags} V=1
 %endif
 
 %changelog
+* Mon Mar 04 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.1-1
+- Update to 1.5.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

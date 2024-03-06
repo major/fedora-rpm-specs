@@ -4,7 +4,7 @@
 
 Name:           sblim-cim-client2
 Version:        2.2.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Java CIM Client library
 
 License:        EPL-1.0
@@ -48,7 +48,7 @@ Manual and sample code for %{name}.
 
 %prep
 %setup -q -n %{project_folder}
-%patch0 -p1 -b .fix-for-java-11-openjdk
+%autopatch -p1
 
 dos2unixConversion() {
         fileName=$1
@@ -112,6 +112,11 @@ cp -pr %{archive_folder}/doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Mar 04 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.5-29
+- Fix patch application
+- Fix to build with java-21-openjdk
+  Resolves: #2266686
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.2.5-28
 - Rebuilt for java-21-openjdk as system jdk
 

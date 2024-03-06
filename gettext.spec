@@ -4,8 +4,8 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.22.4
-Release: 2%{?dist}
+Version: 0.22.5
+Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -447,6 +447,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Mon Mar 4 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.5-1
+- update to 0.22.5 release
+- https://savannah.gnu.org/news/?id=10597
+
 * Wed Feb 21 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.4-2
 - Add back libtextstyle library for rawhide (#2264128)
 

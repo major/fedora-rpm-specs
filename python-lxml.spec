@@ -16,6 +16,10 @@ URL:            https://github.com/lxml/lxml
 Source0:        lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:        get-lxml-source.sh
 
+# Fix test_elementtree with Expat 2.6.0
+# Merged upstream
+Patch:          https://github.com/lxml/lxml/pull/407.patch
+
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel

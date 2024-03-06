@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.39.9000-40-gb881f1efcd
+%global glibcsrcdir glibc-2.39.9000-92-gb6e3898194
 %global glibcversion 2.39.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2338,6 +2338,62 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Mar 04 2024 Patsy Griffin <patsy@redhat.com> - 2.39.9000-5
+- Auto-sync with upstream branch master,
+  commit b6e3898194bbae78910bbe9cd086937014961e45.
+- x86-64: Simplify minimum ISA check ifdef conditional with if
+- manual/tunables - Add entry for enable_secure tunable.
+- NEWS: Move enable_secure_tunable from 2.39 to 2.40.
+- riscv: Add and use alignment-ignorant memcpy
+- riscv: Add ifunc helper method to hwprobe.h
+- riscv: Enable multi-arg ifunc resolvers
+- riscv: Add __riscv_hwprobe pointer to ifunc calls
+- riscv: Add hwprobe vdso call support
+- linux: Introduce INTERNAL_VSYSCALL
+- riscv: Add Linux hwprobe syscall support
+- rtld: Add glibc.rtld.enable_secure tunable.
+- x86-64: Update _dl_tlsdesc_dynamic to preserve AMX registers
+- x86_64: Suppress false positive valgrind error
+- x86: Don't check XFD against /proc/cpuinfo
+- x86-64: Don't use SSE resolvers for ISA level 3 or above
+- x86: Update _dl_tlsdesc_dynamic to preserve caller-saved registers
+- sysdeps/unix/sysv/linux/x86_64/Makefile: Add the end marker
+- cdefs: Drop access attribute for _FORTIFY_SOURCE=3 (BZ #31383)
+- s390: Improve static-pie configure tests
+- x86: Change ENQCMD test to CHECK_FEATURE_PRESENT
+- debug: Improve mqueue.h fortify warnings with clang
+- debug: Improve fcntl.h fortify warnings with clang
+- wcsmbs: Improve fortify with clang
+- syslog: Improve fortify with clang
+- socket: Improve fortify with clang
+- unistd: Improve fortify with clang
+- stdlib: Improve fortify with clang
+- string: Improve fortify with clang
+- libio: Improve fortify with clang
+- cdefs.h: Add clang fortify directives
+- Update SHARED-FILES and license for Unicode 15.1.0.
+- aarch64/fpu: Sync libmvec routines from 2.39 and before with AOR
+- S390: Do not clobber r7 in clone [BZ #31402]
+- x86_64: Exclude SSE, AVX and FMA4 variants in libm multiarch
+- hurd: Reformat Makefile.
+- htl/tests: Reformat Makefile.
+- htl: Reformat Makefile.
+- hesiod: Reformat Makefile.
+- gmon: Reformat Makefile.
+- dlfcn: Reformat Makefile.
+- dirent: Reformat Makefile.
+- ctype: Reformat Makefile.
+- csu: Reformat Makefile.
+- conform: Reformat Makefile.
+- Support compiling .S files with additional options
+- x86-64: Save APX registers in ld.so trampoline
+- benchtests: Add more benchtests for rounding functions.
+- tests: gracefully handle AppArmor userns containment
+- treewide: python-scripts: use `is None` for none-equality
+- powerpc: Remove power7 strstr optimization
+- arm: Use _dl_find_object on __gnu_Unwind_Find_exidx (BZ 31405)
+- math: Update mips64 ulps
+
 * Tue Feb 27 2024 Arjun Shankar <arjun@redhat.com> - 2.39.9000-4
 - Analyse glibc-2.39 sources for license information
 - Migrate License field to SPDX identifiers for

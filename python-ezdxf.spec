@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-ezdxf
-Version:        1.1.4
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Python package to create/manipulate DXF drawings
 
@@ -30,14 +30,24 @@ Summary:        Python package to create/manipulate DXF drawings
 #   tag.
 #     * ezdxf/addons/binpacking.py
 #
-# Various fonts in the fonts/ directory are each under one of:
+# Various fonts directly in the fonts/ directory are each under one of:
 #   - Apache-2.0
 #   - Bitstream-Vera AND LicenseRef-Fedora-Public-Domain
 #   - OFL-1.0
 #   - LicenseRef-Liberation
-# so they can all be redistributed, but they are used only for testing and do
-# not contribute to the licenses of the binary RPMs. We double-check for
-# incorrectly-installed font files in %%check.
+#   - LicenseRef-Fedora-UltraPermissive
+#
+# Fonts in fonts/strokefonts/ are under some mixture of
+# LicenseRef-Fedora-UltraPermissive (the KST32B license,
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/492),
+# GPL-2.0-only (from LibreCAD), and/or perhaps LicenseRef-Fedora-Public-Domain
+# to the extent they are derived from
+# https://commons.wikimedia.org/wiki/File:ISO3098.svg.
+#
+# All of these fonts are thus under acceptable licenses for redistribution in
+# Fedora, but they are used only for testing and do not contribute to the
+# licenses of the binary RPMs. We double-check for incorrectly-installed font
+# files in %%check.
 License:        MIT AND ISC AND AGPL-3.0-only
 URL:            https://ezdxf.mozman.at/
 %global forgeurl https://github.com/mozman/ezdxf
@@ -56,6 +66,15 @@ Source17:       ezdxf-info.1
 Source18:       ezdxf-pp.1
 Source19:       ezdxf-strip.1
 Source20:       ezdxf-view.1
+
+# fix #1042 pass tests 613 with disabled C-extensions
+# https://github.com/mozman/ezdxf/commit/90aceafc1a1cbea1c6e6e30cab3b800c600f8e56
+#
+# Fixes:
+#
+# Some tests fail when EZDXF_DISABLE_C_EXT=1 is set
+# https://github.com/mozman/ezdxf/issues/1042
+Patch:          %{forgeurl}/commit/90aceafc1a1cbea1c6e6e30cab3b800c600f8e56.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
@@ -139,7 +158,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n ezdxf-%{version}
+%autosetup -n ezdxf-%{version} -p1
 # Note that C++ sources in the GitHub tarball are *not* Cython-generated, and
 # we must not remove them.
 

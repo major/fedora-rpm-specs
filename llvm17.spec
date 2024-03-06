@@ -93,7 +93,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -200,6 +200,9 @@ Summary:	LLVM shared libraries
 
 %description libs
 Shared libraries for the LLVM compiler infrastructure.
+
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 
 %package static
 Summary:	LLVM static libraries
@@ -452,7 +455,14 @@ rm test/tools/dsymutil/X86/swift-interface.test
 LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath_builddir}
 %endif
 
-%ldconfig_scriptlets libs
+%if %{with compat_build}
+# Packages that install files in /etc/ld.so.conf have to manually run
+# ldconfig.
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2001328 and
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_linker_configuration_files
+%post -p /sbin/ldconfig libs
+%postun -p /sbin/ldconfig libs
+%endif
 
 %post devel
 %{_sbindir}/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
@@ -576,6 +586,9 @@ fi
 
 
 %changelog
+* Fri Mar 01 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 17.0.6-7
+- Force ldconfig execution in compat packages. Fixes rhbz#2001328.
+
 %{?llvm_snapshot_changelog_entry}
 
 * Thu Feb 01 2024 Nikita Popov <npopov@redhat.com> - 17.0.6-6

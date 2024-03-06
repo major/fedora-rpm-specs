@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -21,13 +21,51 @@ BuildRequires:	qt6-qttools-devel
 BuildRequires:	zlib-devel
 BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(aspell)
 BuildRequires:	pkgconfig(hunspell)
+BuildRequires:	hspell-devel
+BuildRequires:	pkgconfig(libvoikko)
+
 
 Requires:	kf6-filesystem
-Recommends:	hunspell
+Recommends:	%{name}-hunspell
 
 %description
 KDE Frameworks 6 Tier 1 solution for spell checking.
+
+
+%package	aspell
+Summary:	aspell plugin for %{name}
+Requires:	%{name} = %{version}-%{release}
+%description	aspell
+The %{name}-aspell package contains the aspell spellchecking
+plugin for %{name}.
+
+%package	hunspell
+Summary:	hunspell plugin for %{name}
+Requires:	%{name} = %{version}-%{release}
+%description	hunspell
+The %{name}-hunspell package contains the hunspell spellchecking
+plugin for %{name}.
+
+%package	hspell
+Summary:	hspell plugin for %{name}
+Supplements:	(%{name} and langpacks-he)
+Requires:	%{name} = %{version}-%{release}
+Requires:	hunspell-he
+
+%description	hspell
+The %{name}-hspell package contains the Hebrew hspell spellchecking
+plugin for %{name}.
+
+%package	voikko
+Summary:	voikko plugin for %{name}
+Supplements:	(%{name} and langpacks-fi)
+Requires:	%{name} = %{version}-%{release}
+%description	voikko
+The %{name}-voikko package contains the Finnish voikko spellchecking
+plugin for %{name}.
+
 
 %package	devel
 Summary:	Development files for %{name}
@@ -60,10 +98,24 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKF6SonnetCore.so.*
 %{_kf6_bindir}/parsetrigrams6
 %{_kf6_qmldir}/org/kde/sonnet/
+%{_kf6_libdir}/libKF6SonnetUi.so.*
+
+%files aspell
+%dir %{_kf6_plugindir}/sonnet
+%{_kf6_plugindir}/sonnet/sonnet_aspell.so
+
+%files hunspell
 %dir %{_kf6_plugindir}/sonnet
 %{_kf6_plugindir}/sonnet/sonnet_hunspell.so
-%{_kf6_libdir}/libKF6SonnetUi.so.*
-%{_kf6_qtplugindir}/designer/*6widgets.so
+
+%files hspell
+%dir %{_kf6_plugindir}/sonnet
+%{_kf6_plugindir}/sonnet/sonnet_hspell.so
+
+%files voikko
+%dir %{_kf6_plugindir}/sonnet
+%{_kf6_plugindir}/sonnet/sonnet_voikko.so
+
 
 %files devel
 %doc README.md
@@ -74,12 +126,19 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/cmake/KF6Sonnet/
 %{_kf6_libdir}/libKF6SonnetCore.so
 %{_kf6_libdir}/libKF6SonnetUi.so
+%{_kf6_qtplugindir}/designer/sonnet6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- add aspell, hspell, voikko (finnish)
+- make spellchecking engine plugins separate packages as they link
+  to the library of that engine
+- recommend hunspell plugin as a default install
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 
