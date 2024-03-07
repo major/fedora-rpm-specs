@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-object-reflector
 #
-# Copyright (c) 2017-2023 Remi Collet
+# Copyright (c) 2017-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    9b8772b9cbd456ab45d4a598d2dd1a1bced6363d
+%global gh_commit    1d439c229e61f244ff1f211e5c99737f90c67def
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   object-reflector
@@ -26,13 +26,14 @@
 # NOTICE: used by phpunit 6, 7 and 8
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.1.2
-Release:        11%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        Allows reflection of object attributes, version 1
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.0
@@ -91,7 +92,7 @@ find tests/ -name \*php -exec sed -e 's/setUp()/setUp():void/'  -i {} \;
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     %{_bindir}/php -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
     %{_bindir}/phpunit8	  --verbose || ret=1
@@ -111,6 +112,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 1.1.3-1
+- update to 1.1.3 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,13 +3,18 @@
 
 Name:           gnome-tweaks
 Version:        46~beta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Tweaks
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-tweaks/-/merge_requests/133
+# https://gitlab.gnome.org/GNOME/gnome-tweaks/-/issues/461
+# https://bugzilla.redhat.com/show_bug.cgi?id=2266153
+# make gnome-tweaks work with pygobject 3.46
+Patch:          133.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -41,7 +46,7 @@ and extension, etc.
 
 
 %prep
-%autosetup -n %{name}-%{tarball_version}
+%autosetup -n %{name}-%{tarball_version} -p1
 
 
 %build
@@ -74,6 +79,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 
 
 %changelog
+* Tue Mar 05 2024 Adam Williamson <awilliam@redhat.com> - 46~beta-2
+- Backport MR #133 to fix compatibility with our current pygobject (#2266153)
+
 * Fri Feb 16 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

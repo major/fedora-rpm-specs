@@ -1,6 +1,6 @@
 Name:		orc
-Version:	0.4.33
-Release:	5%{?dist}
+Version:	0.4.38
+Release:	1%{?dist}
 Summary:	The Oil Run-time Compiler
 
 License:	BSD-2-Clause AND BSD-3-Clause
@@ -46,7 +46,7 @@ The Orc compiler, to produce optimized code.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson -D default_library=shared
@@ -60,16 +60,15 @@ find %{buildroot}/%{_libdir} -name \*.a -delete
 rm -rf %{buildroot}/%{_libdir}/orc
 
 %check
-%ifnarch s390 s390x ppc %{power64} %{arm} i686 aarch64
 %meson_test
-%endif
 
 %ldconfig_scriptlets
 
 
 %files
-%doc COPYING README
-%{_libdir}/liborc-*.so.*
+%license COPYING
+%doc README
+%{_libdir}/liborc-0.4.so.0*
 %{_bindir}/orc-bugreport
 
 %files doc
@@ -78,16 +77,21 @@ rm -rf %{buildroot}/%{_libdir}/orc
 %files devel
 %doc examples/*.c
 %{_includedir}/%{name}-0.4/
-%{_libdir}/liborc-*.so
+%{_libdir}/liborc-0.4.so
+%{_libdir}/liborc-test-0.4.so*
 %{_libdir}/pkgconfig/orc-0.4.pc
 %{_libdir}/pkgconfig/orc-test-0.4.pc
-%{_datadir}/aclocal/orc.m4
 
 %files compiler
 %{_bindir}/orcc
 
 
 %changelog
+* Tue Mar 05 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.38-1
+- Update to 0.4.38
+- Version the library to catch bumps
+- Cleanup spec, use license var
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.33-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

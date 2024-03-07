@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-timer2
 #
-# Copyright (c) 2010-2023 Christof Damian, Remi Collet
+# Copyright (c) 2010-2024 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -8,7 +8,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    2454ae1765516d20c4ffe103d85a58a9a3bd5662
+%global gh_commit    a691211e94ff39a34811abd521c31bd5b305b0bb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-timer
@@ -28,13 +28,14 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.1.3
-Release:        10%{?dist}
+Version:        2.1.4
+Release:        1%{?dist}
 Summary:        PHP Utility class for timing
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.2
@@ -84,7 +85,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}/autoload.php \
       %{_bindir}/phpunit8 --verbose || ret=1
@@ -103,6 +104,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 2.1.4-1
+- update to 2.1.4 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

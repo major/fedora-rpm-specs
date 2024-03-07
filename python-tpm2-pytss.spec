@@ -2,18 +2,13 @@
 %global _name tpm2_pytss
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        5%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
 URL:            https://github.com/tpm2-software/tpm2-pytss
 Source:         %{pypi_source %{pypi_name}}
-# https://github.com/tpm2-software/tpm2-pytss/issues/527
-# https://github.com/tpm2-software/tpm2-pytss/commit/e4006e6066c015d9ed55befa9b98247fbdcafd7d
-Patch0:         python-tpm2-pytss-1.2.0-openssl.patch
-# https://github.com/tpm2-software/tpm2-pytss/commit/916c47ef6c30c2c6688f207bb780a2f4e6ef5384
-Patch1:         python-tpm2-pytss-2.1.0-i686.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -74,6 +69,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Mar 05 2024 Jakub Jelen <jjelen@redhat.com> - 2.2.1-1
+- New upstream release (#2149103)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

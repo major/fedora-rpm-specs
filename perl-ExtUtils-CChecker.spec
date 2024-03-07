@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-CChecker
-Version:        0.11
-Release:        9%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Configure-time utilities for using C headers, libraries, or OS features
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CChecker
@@ -14,12 +14,12 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(:VERSION) >= 5
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::CBuilder)
 # Tests:
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Config)
+BuildRequires:  perl(Test2::V0)
 # Optional Tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies:
@@ -52,6 +52,14 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/ExtUtils::CChecker.3*
 
 %changelog
+* Tue Mar  5 2024 Paul Howarth <paul@city-fan.org> - 0.12-1
+- Update to 0.12 (rhbz#2267821)
+  - Document the '->define' method
+  - Overall module style updates
+  - 'use v5.14' in all files
+  - Use 'package NAME VER' syntax
+  - Use 'Test2::V0' instead of 'Test::More' + 'Test::Fatal'
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

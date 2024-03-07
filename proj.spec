@@ -1,11 +1,11 @@
 %bcond_without mingw
 
-%global data_version 1.16
+%global data_version 1.17
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.3.1
-Release:        3%{?dist}
+Version:        9.4.0
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -71,6 +71,7 @@ Provides:       deprecated()
 Requires:       proj-data-at
 Requires:       proj-data-be
 Requires:       proj-data-ch
+Requires:       proj-data-cz
 Requires:       proj-data-de
 Requires:       proj-data-dk
 Requires:       proj-data-es
@@ -170,6 +171,7 @@ Supplements:  proj\
 %data_subpkg -c br -n Brasil
 %data_subpkg -c ca -n Canada
 %data_subpkg -c ch -n Switzerland -e CH
+%data_subpkg -c cz -n Czech
 %data_subpkg -c de -n Germany
 %data_subpkg -c dk -n Denmark -e DK
 %data_subpkg -c es -n Spain
@@ -312,7 +314,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
-%{mingw32_bindir}/libproj_9_3.dll
+%{mingw32_bindir}/libproj_9_4.dll
 %{mingw32_bindir}/*.exe
 %{mingw32_libdir}/libproj.dll.a
 %{mingw32_libdir}/cmake/proj/
@@ -324,7 +326,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 %files -n mingw64-%{name}
 %license COPYING
-%{mingw64_bindir}/libproj_9_3.dll
+%{mingw64_bindir}/libproj_9_4.dll
 %{mingw64_bindir}/*.exe
 %{mingw64_libdir}/libproj.dll.a
 %{mingw64_libdir}/cmake/proj/
@@ -337,6 +339,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Tue Mar 05 2024 Sandro Mani <manisandro@gmail.com> - 9.4.0-1
+- Update to 9.4.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

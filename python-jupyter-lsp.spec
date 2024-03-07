@@ -1,6 +1,6 @@
 Name:           python-jupyter-lsp
-Version:        2.2.2
-Release:        3%{?dist}
+Version:        2.2.3
+Release:        %autorelease
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 # SPDX
 License:        BSD-3-Clause
@@ -46,9 +46,7 @@ sed -i "/--flake8/d" setup.cfg
 %pyproject_install
 %pyproject_save_files jupyter_lsp
 
-install -m 0755 -p -d %{buildroot}%{_sysconfdir}/jupyter/jupyter_notebook_config.d
 install -m 0755 -p -d %{buildroot}%{_sysconfdir}/jupyter/jupyter_server_config.d
-mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_notebook_config.d/jupyter-lsp-notebook.json
 mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/jupyter-lsp-jupyter-server.json
 
 
@@ -59,43 +57,8 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 %files -n python3-jupyter-lsp -f %{pyproject_files}
 %doc README.md
-%config(noreplace) %{_sysconfdir}/jupyter/jupyter_notebook_config.d/jupyter-lsp-notebook.json
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/jupyter-lsp-jupyter-server.json
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Lumír Balhar <lbalhar@redhat.com> - 2.2.2-1
-- Update to 2.2.2 (rhbz#2258899)
-
-* Tue Nov 28 2023 Lumír Balhar <lbalhar@redhat.com> - 2.2.1-1
-- Update to 2.2.1 (rhbz#2251608)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
-- Rebuilt for Python 3.12
-
-* Thu Jun 01 2023 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-1
-- Update to 2.2.0 (rhbz#2210566)
-
-* Tue Apr 25 2023 Lumír Balhar <lbalhar@redhat.com> - 2.1.0-1
-- Update to 2.1.0 (rhbz#2189334)
-
-* Wed Mar 22 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.1-1
-- Update to 2.0.1 (rhbz#2180534)
-
-* Wed Mar 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.0-1
-- Update to 2.0.0 (rhbz#2178558)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Dec 04 2022 Lumír Balhar <lbalhar@redhat.com> - 1.5.1-1
-- Initial package
+%autochangelog

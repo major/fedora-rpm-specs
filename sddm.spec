@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -194,6 +194,10 @@ cp -a %{buildroot}%{_datadir}/sddm/scripts/* \
 # we're using /etc/X11/xinit/Xsession (by default) instead
 rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
 
+# De-conflict the dbus file
+mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
+   %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-sddm.conf
+
 %if 0%{?fedora} && 0%{?fedora} < 43
 # Provide unversioned greeter until F40 is EOL
 ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greeter
@@ -239,7 +243,7 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 %config(noreplace)   %{_sysconfdir}/pam.d/sddm-autologin
 %config(noreplace)   %{_sysconfdir}/pam.d/sddm-greeter
 %config(noreplace) %{_sysconfdir}/sysconfig/sddm
-%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-sddm.conf
 %{_bindir}/sddm
 %{_bindir}/sddm-greeter*
 %{_libexecdir}/sddm-helper
@@ -281,6 +285,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Tue Mar 05 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-2
+- De-conflict sddm dbus configuration file
+
 * Wed Feb 28 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-1
 - Update to 0.21.0
 

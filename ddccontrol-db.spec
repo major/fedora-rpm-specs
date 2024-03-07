@@ -1,6 +1,6 @@
 Name:             ddccontrol-db
 URL:              https://github.com/ddccontrol/ddccontrol-db
-Version:          20240209
+Version:          20240304
 Release:          1%{?dist}
 # Agreed by usptream to be GPLv2+
 # http://sourceforge.net/mailarchive/message.php?msg_id=29762202
@@ -39,6 +39,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/%{name}
 
 %changelog
+* Tue Mar  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 20240304-1
+- New version
+  Resolves: rhbz#2267854
+
 * Wed Feb 14 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 20240209-1
 - New version
   Resolves: rhbz#2263604

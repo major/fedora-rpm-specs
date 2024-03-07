@@ -3,12 +3,12 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.0.3.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 
 Summary:	Converter from RT into various formats
 # See rttool.en.rd
 # SPDX confirmed
-License:	Ruby
+License:	Ruby OR GPL-2.0-only
 # raa is dead
 #URL:		http://raa.ruby-lang.org/project/rttool/
 URL:		https://github.com/genki/rttool
@@ -104,6 +104,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Tue Mar 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3.0-23
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

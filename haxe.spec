@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.3
-Release:        5%{?dist}
+Version:        4.3.4
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -123,6 +123,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Mar 05 2024 Andy Li <andy@onthewings.net> - 4.3.4-1
+- New upstream version 4.3.4. (RHBZ#2267830)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-code-unit-reverse-lookup
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1de8cd5c010cb153fcd68b8d0f64606f523f7619
+%global gh_commit    92a1a52e86d34cde6caa54f1b5ffa9fda18e5d54
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   code-unit-reverse-lookup
@@ -20,13 +20,14 @@
 %endif
 
 Name:           php-sebastian-%{gh_project}
-Version:        1.0.2
-Release:        10%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Looks up which function or method a line of code belongs to, version 1
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.6
@@ -77,7 +78,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_name}/autoload.php \
      %{_bindir}/phpunit8 --verbose || ret=1
@@ -98,6 +99,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 1.0.3-1
+- update to 1.0.3 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

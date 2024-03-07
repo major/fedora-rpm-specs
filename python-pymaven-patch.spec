@@ -35,6 +35,10 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Remove version limit from lxml
+sed -i "s/lxml.*/lxml/" requirements.txt
+
 %generate_buildrequires
 # Fix issue about "versioning for this project requires either an sdist tarball,
 # or access to an upstream git repository. It's also possible that there is a

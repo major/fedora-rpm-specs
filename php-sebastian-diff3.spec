@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-diff3
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    6296a0c086dd0117c1b78b059374d7fcbe7545ae
+%global gh_commit    98ff311ca519c3aa73ccd3de053bdb377171d7b6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
@@ -27,13 +27,14 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.4
-Release:        4%{?dist}
+Version:        3.0.6
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 # php-symfony4 going to disapear, only used for tests
 %global symfony_version 4.4.44
 Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
@@ -96,7 +97,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8  --verbose || ret=1
@@ -117,6 +118,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 3.0.6-1
+- update to 3.0.6
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

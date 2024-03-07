@@ -4,7 +4,7 @@
 
 
 Name:           python-%{srcname}
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        %{sum}
 

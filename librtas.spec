@@ -1,7 +1,7 @@
 Summary: Libraries to provide access to RTAS calls and RTAS events
 Name:    librtas
-Version: 2.0.4
-Release: 5%{?dist}
+Version: 2.0.5
+Release: 1%{?dist}
 URL:     https://github.com/ibm-power-utilities/librtas
 License: LGPL-2.0-or-later
 
@@ -11,7 +11,7 @@ BuildRequires: autoconf
 BuildRequires: libtool
 BuildRequires: make
 
-Patch0:  librtas-2.0.1-libversion.patch
+Patch0:  librtas-2.0.5-libversion.patch
 
 ExclusiveArch: %{power64}
 
@@ -66,6 +66,9 @@ rm -f  %{buildroot}/%{_docdir}/librtas/*
 %{_includedir}/librtasevent_v6.h
 
 %changelog
+* Tue Mar 05 2024 Than Ngo <than@redhat.com> - 2.0.5-1
+- update to 2.0.5
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

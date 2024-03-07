@@ -8,7 +8,7 @@
 %global apiver %{somajor}.0
 
 Name:           uhttpmock
-Version:        0.9.0
+Version:        0.10.0
 Release:        1%{?dist}
 Summary:        HTTP web service mocking library
 
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Mar 05 2024 Jeremy Cline <jeremycline@microsoft.com> - 0.10.0-1
+- Rebase to 0.10.0 (rhbz#2267675)
+
 * Fri Mar 01 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.9.0-1
 - Rebase to 0.9.0 (rhbz#2264130, rhbz#1217971)
 - Modernize spec

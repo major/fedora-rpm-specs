@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage7
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,10 +9,10 @@
 
 %global bootstrap    0
 # Github
-%global gh_commit    819f92bba8b001d4363065928088de22f25a3a48
+%global gh_commit    40a4ed114a4aea5afd6df8d0f0c9cd3033097f66
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_vendor    sebastianbergmann
+%global gh_owner     sebastianbergmann
 %global gh_project   php-code-coverage
 # Packagist
 %global pk_vendor    phpunit
@@ -29,8 +29,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        7.0.15
-Release:        8%{?dist}
+Version:        7.0.17
+Release:        1%{?dist}
 Summary:        PHP code coverage information
 
 # SPDX: Main license is BSD-3-Clause
@@ -38,8 +38,9 @@ Summary:        PHP code coverage information
 # MIT: boostrap, d3, holder, html5shiv, jquery, respond
 # Apache-2.0: nvd3
 License:        BSD-3-Clause AND MIT AND Apache-2.0
-URL:            https://github.com/%{gh_vendor}/%{gh_project}
-Source0:        https://github.com/%{gh_vendor}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+URL:            https://github.com/%{gh_owner}/%{gh_project}
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
@@ -160,14 +161,9 @@ EOF
 
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
-    if [ $($cmd -r 'echo PHP_VERSION_ID;') -lt 80000 ]; then
-      # ignore test failing with phpunit/php-token-stream v4
-      FILTER="--filter '^((?!(testCloverForFileWithIgnoredLines|testCloverForClassWithAnonymousFunction|testForFileWithIgnoredLines|testForClassWithAnonymousFunction)).)*$'"
-    else
-      FILTER="--filter '^((?!(testCloverForFileWithIgnoredLines|testCloverForClassWithAnonymousFunction|testForFileWithIgnoredLines|testForClassWithAnonymousFunction|testForBankAccountTest)).)*$'"
-    fi
+    FILTER="--filter '^((?!(testCloverForFileWithIgnoredLines|testCloverForClassWithAnonymousFunction|testForFileWithIgnoredLines|testForClassWithAnonymousFunction|testForBankAccountTest|testGetLinesToBeIgnored3|testGetLinesToBeIgnoredOneLineAnnotations)).)*$'"
     $cmd $EXT \
       -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
         %{_bindir}/phpunit8 \
@@ -187,6 +183,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 7.0.17-1
+- update to 7.0.17
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

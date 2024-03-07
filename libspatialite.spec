@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.1.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -19,6 +19,8 @@ Patch0:        libspatialite_pkgconfig.patch
 Patch1:        libspatialite_mingw.patch
 # Use pkgconfig to find geos
 Patch2:        libspatialite_geos.patch
+# Fix incompatibile pointer types
+Patch3:        libspatialite_incompat-ptrs.patch
 
 BuildRequires: autoconf automake libtool
 BuildRequires: freexl-devel
@@ -179,6 +181,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Tue Mar 05 2024 Sandro Mani <manisandro@gmail.com> - 5.1.0-6
+- Rebuild (proj)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

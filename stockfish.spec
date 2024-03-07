@@ -1,5 +1,9 @@
 %global srcname   Stockfish
+
+# In src/evaluate.h,
+# #define EvalFileDefaultNameBig "nn-HASH.nnue"
 %global nnuehash1 b1a57edbea57
+# #define EvalFileDefaultNameSmall "nn-HASH.nnue"
 %global nnuehash2 baff1ede1f90
 
 Name:            stockfish
@@ -39,12 +43,16 @@ information about how to use Stockfish with your GUI.
 
 
 %prep
-# verify the NNUE net checksum early to catch maintainer error
+# verify the NNUE net checksums early to catch maintainer error
 test %nnuehash1 = "$(sha256sum %{SOURCE1} | cut -c1-12)"
 test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
 
 #%%autosetup -n%%{name}-%%{version}-linux
 %autosetup -n%{srcname}-sf_%{version}
+
+# Verify the NNUE net checksums match the defaults defined in the sources
+grep -Fq '#define EvalFileDefaultNameBig "nn-%{nnuehash1}.nnue"' src/evaluate.h
+grep -Fq '#define EvalFileDefaultNameSmall "nn-%{nnuehash2}.nnue"' src/evaluate.h
 
 cp -t. -p %{SOURCE10} %{SOURCE11}
 cp -tsrc -p %{SOURCE1} %{SOURCE2}

@@ -4,7 +4,8 @@
 %global _firmwarepath  /usr/lib/firmware
 %global _xz_opts -9 --check=crc32
 
-%global sof_ver 2023.12
+%global sof_ver 2023.12.1
+%global sof_ver_avs 2024.02
 #global sof_ver_pre rc1
 %global sof_ver_rel %{?sof_ver_pre:.%{sof_ver_pre}}
 %global sof_ver_pkg0 %{sof_ver}%{?sof_ver_pre:-%{sof_ver_pre}}
@@ -18,13 +19,14 @@
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        3%{?sof_ver_rel}%{?dist}
+Release:        1%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
-License:        BSD-3-Clause
+License:        BSD-3-Clause Apache-2.0
 URL:            https://github.com/thesofproject/sof-bin
 Source:         https://github.com/thesofproject/sof-bin/releases/download/%{sof_ver_pkg}/sof-bin-%{sof_ver_pkg0}.tar.gz
+Source2:        https://github.com/thesofproject/avs-topology-xml/releases/download/v%{sof_ver_avs}/avs-topology_%{sof_ver_avs}.tar.gz
 %if 0%{?with_sof_addon}
-Source2:        https://github.com/thesofproject/sof-bin/releases/download/v%{sof_ver_addon}/sof-tplg-v%{sof_ver_addon}.tar.gz
+Source3:        https://github.com/thesofproject/sof-bin/releases/download/v%{sof_ver_addon}/sof-tplg-v%{sof_ver_addon}.tar.gz
 %endif
 BuildRequires:  alsa-topology >= %{tplg_version}
 BuildRequires:  alsa-topology-utils >= %{tplg_version}
@@ -53,8 +55,14 @@ for d in sof sof-ipc4 sof-ace-tplg sof-tplg; do \
   mv "${d}" firmware/intel; \
 done
 
+mkdir avs
+tar xvzf %{SOURCE2} --strip-components=1 --directory=avs
+mv avs/LICENSE LICENCE.avs
+mv avs/lib/firmware/intel/avs firmware/intel
+echo "%{sof_ver_avs}" > manifest.avs.txt
+
 %if 0%{?with_sof_addon}
-tar xvzf %{SOURCE2}
+tar xvzf %{SOURCE3}
 mv sof-tplg-v%{sof_ver_addon}/*.tplg firmware/intel/sof-tplg
 %endif
 
@@ -81,6 +89,9 @@ for d in sof sof-ipc4; do \
 done
 for d in sof-tplg sof-ace-tplg; do \
   find -P "firmware/intel/${d}"  -type f -name "*.tplg" -exec xz -z %{_xz_opts} {} \;
+done
+for d in avs; do \
+  find -P "firmware/intel/${d}"  -type f -name "*.bin" -exec xz -z %{_xz_opts} {} \;
 done
 
 %build
@@ -113,6 +124,7 @@ cat alsa-sof-firmware.files
 %license LICENCE*
 %doc README*
 %doc manifest.txt.xz
+%doc manifest.avs.txt
 %dir %{_firmwarepath}
 
 # Licence: 3-clause BSD
@@ -122,6 +134,9 @@ cat alsa-sof-firmware.files
 # .. for files with suffix .tplg
 %{_firmwarepath}/intel/sof-tplg/*.tplg.xz
 %{_firmwarepath}/intel/sof-ace-tplg/*.tplg.xz
+
+# Licence: Apache 2.0
+%{_firmwarepath}/intel/avs/*.bin.xz
 
 # Licence: SOF (3-clause BSD plus others)
 # .. for files with suffix .ri
@@ -136,6 +151,10 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Tue Mar  5 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12.1-1
+- Update to v2023.12.1
+- Add AVS topology files v2024.02
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

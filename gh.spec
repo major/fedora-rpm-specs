@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.44.1
+Version:                2.45.0
 
 %gometa -L -f
 
@@ -36,7 +36,7 @@ Requires:       git-core
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

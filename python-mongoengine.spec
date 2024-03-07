@@ -7,7 +7,7 @@ to the Django ORM.
  
  
 Name: python-mongoengine
-Version: 0.28.0
+Version: 0.28.1
 Release: 1%{?dist}
 BuildArch: noarch
  
@@ -81,6 +81,9 @@ rm -rf docs/_build/html/_static/font
  
  
 %changelog
+* Tue Mar 05 2024 Sandro Mani <manisandro@gmail.com> - 0.28.1-1
+- Update to 0.28.1
+
 * Mon Mar 04 2024 Sandro Mani <manisandro@gmail.com> - 0.28.0-1
 - Update to 0.28.0
 

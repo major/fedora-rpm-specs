@@ -4,7 +4,7 @@
 
 # https://github.com/cli/go-gh
 %global goipath         github.com/cli/go-gh
-Version:                2.5.0
+Version:                2.6.0
 
 %gometa -L -f
 
@@ -32,7 +32,7 @@ BuildRequires:  git-core
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

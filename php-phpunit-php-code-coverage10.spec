@@ -10,10 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    78c3b7625965c2513ee96569a4dbb62601784145
+%global gh_commit    842f72662d6b9edda84c4b6f13885fd9cd53dc63
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_vendor    sebastianbergmann
+%global gh_owner     sebastianbergmann
 %global gh_project   php-code-coverage
+%global gh_date      2024-03-02
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -24,8 +25,8 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.11
-Release:        3%{?dist}
+Version:        10.1.12
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -33,7 +34,7 @@ Summary:        PHP code coverage information, version %{ver_major}
 # MIT: boostrap, d3, holder, html5shiv, jquery, respond
 # Apache-2.0: nvd3
 License:        BSD-3-Clause AND MIT AND Apache-2.0
-URL:            https://github.com/%{gh_vendor}/%{gh_project}
+URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
@@ -199,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 10.1.12-1
+- update to 10.1.12
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

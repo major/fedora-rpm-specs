@@ -125,7 +125,6 @@ Patch5:           %{pkgnamepatch}-paths.patch
 Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
-Patch54:          %{pkgnamepatch}-arm32-timer.patch
 Patch55:	  %{pkgnamepatch}-c99.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
 
@@ -449,7 +448,6 @@ the MySQL sources.
 %patch -P51 -p1
 %patch -P52 -p1
 %patch -P53 -p1
-%patch -P54 -p1
 %patch -P55 -p1
 %patch -P56 -p1
 
@@ -483,11 +481,6 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
    %{SOURCE14} %{SOURCE15} %{SOURCE17} %{SOURCE18} %{SOURCE31} scripts
 
 %build
-# arm build ends with out of memory error for LTO enabled build
-%ifarch %arm32
-%define _lto_cflags %{nil}
-%endif
-
 # fail quickly and obviously if user tries to build as root
 %if %runselftest
     if [ x"$(id -u)" = "x0" ]; then
@@ -535,7 +528,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 %ifnarch aarch64 %{arm} s390 s390x
          -DWITH_NUMA=ON \
 %endif
-%ifarch s390 s390x armv7hl
+%ifarch s390 s390x
          -DUSE_LD_GOLD=OFF \
 %endif
          -DWITH_ROUTER=OFF \
@@ -556,8 +549,6 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
          -DCMAKE_SKIP_INSTALL_RPATH=YES \
          -DWITH_UNIT_TESTS=0
 
-
-# Note: linking with GOLD disabled on Armv7hl because of https://bugs.mysql.com/bug.php?id=96698
 
 # Note: disabling building of unittests to workaround #1989847
 

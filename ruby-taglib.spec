@@ -1,13 +1,10 @@
-%if 0%{?fedora} < 19
-%define		rubyabi		1.9.1
-%endif
-
 Name:		ruby-taglib
 Version:	1.1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Ruby library wrapping the Taglib library
 
-License:	MIT
+# SPDX confirmed
+License:	MIT-open-group
 URL:		http://www.hakubi.us/ruby-taglib/
 Source0:	http://www.hakubi.us/ruby-taglib/%{name}-%{version}.tar.bz2
 # Patch from debian
@@ -18,15 +15,8 @@ Patch2:		ruby-taglib-1.1-ruby22-fix.patch
 
 BuildArch:	noarch
 
-%if 0%{?fedora} >= 19
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
 
 BuildRequires:	ruby-devel
 Requires:	taglib
@@ -40,9 +30,9 @@ makes it all too easy to wrap such a library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .soname
-%patch1 -p1 -b .warn
-%patch2 -p1 -b .ruby22
+%patch -P0 -p1 -b .soname
+%patch -P1 -p1 -b .warn
+%patch -P2 -p1 -b .ruby22
 
 %build
 ruby setup.rb config \
@@ -62,6 +52,9 @@ ruby setup.rb install \
 %{ruby_vendorlibdir}/taglib.rb
 
 %changelog
+* Wed Mar 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1-31
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

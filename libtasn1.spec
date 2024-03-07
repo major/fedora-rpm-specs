@@ -17,7 +17,9 @@ BuildRequires:	gnupg2
 BuildRequires:	gcc
 BuildRequires:	bison, pkgconfig, help2man
 BuildRequires:	autoconf, automake, libtool
+%ifarch %{valgrind_arches}
 BuildRequires:	valgrind-devel
+%endif
 BuildRequires:  make
 BuildRequires:  gtk-doc
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174

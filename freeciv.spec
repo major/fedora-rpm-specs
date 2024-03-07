@@ -1,5 +1,5 @@
 Name:           freeciv
-Version:        3.0.10
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
@@ -9,7 +9,7 @@ Source0:        http://download.sourceforge.net/%{name}/%{name}-%{version}.tar.x
 
 # If a local build fails unable to find Qt5, remove qt-devel.
 BuildRequires:  gcc gcc-c++
-BuildRequires:	gtk3-devel
+BuildRequires:	gtk4-devel
 BuildRequires:	readline-devel
 BuildRequires:	zlib-devel
 BuildRequires:	SDL2_mixer-devel
@@ -18,6 +18,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	libcurl-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  sqlite-devel
 BuildRequires:  make
 
 %description
@@ -53,7 +54,8 @@ Freeciv qt client
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit
+%configure --enable-client=gtk4,qt --disable-static --enable-ruledit \
+	--with-qtver=qt5 --enable-fcmp=gtk4,qt
 make %{?_smp_mflags}
 
 %install
@@ -68,7 +70,7 @@ desktop-file-install --delete-original \
 
 desktop-file-install --delete-original	\
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications	\
-	$RPM_BUILD_ROOT%{_datadir}/applications/org.%{name}.mp.gtk3.desktop
+	$RPM_BUILD_ROOT%{_datadir}/applications/org.%{name}.gtk4.desktop
 
 desktop-file-install --delete-original	\
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications	\
@@ -101,13 +103,17 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_sysconfdir}/freeciv/database.lua
 
 %files gtk
-%{_bindir}/freeciv-gtk3.22
-%{_bindir}/freeciv-mp-gtk3
+%{_bindir}/freeciv-mp-gtk4
+%{_bindir}/freeciv-gtk4
 
 %files qt
+%{_bindir}/freeciv-mp-qt
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Mar 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.1.0-1
+- 3.1.0
+
 * Fri Feb 09 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.0.10-1
 - 3.0.10
 

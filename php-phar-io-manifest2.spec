@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phar-io-manifest2
 #
-# Copyright (c) 2017-2023 Remi Collet
+# Copyright (c) 2017-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    97803eca37d319dfa7826cc2437fc020857acb53
+%global gh_commit    54750ef60c58e43759730615a392c31c80e23176
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phar-io
 %global gh_project   manifest
@@ -25,8 +25,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.3
-Release:        8%{?dist}
+Version:        2.0.4
+Release:        1%{?dist}
 Summary:        Component for reading phar.io manifest information
 
 License:        BSD-3-Clause
@@ -54,16 +54,17 @@ BuildRequires:  %{phpunit}
 #    "php": "^7.2 || ^8.0",
 #    "ext-dom": "*",
 #    "ext-phar": "*",
+#    "ext-libxml": "*",
 #    "ext-xmlwriter": "*",
 #    "phar-io/version": "^3.0.1"
 Requires:       php(language) >= 7.2
 Requires:       php-dom
 Requires:       php-phar
+Requires:       php-libxml
 Requires:       php-xmlwriter
 Requires:      (php-composer(%{pk_vendor}/version) >= 3.0.1 with php-composer(%{pk_vendor}/version) <  4)
 # from phpcompatinfo report for version 2.0.0
 Requires:       php-filter
-Requires:       php-libxml
 Requires:       php-pcre
 Requires:       php-spl
 # Autoloader
@@ -105,7 +106,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
+for cmd in "php %{phpunit}" php81 php82 php83; do
   if which $cmd; then
     set $cmd
     $1 -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
@@ -126,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 2.0.4-1
+- update to 2.0.4
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

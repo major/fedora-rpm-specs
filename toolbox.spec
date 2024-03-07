@@ -17,7 +17,13 @@ Version:       0.0.99.5
 %endif
 %endif
 
-Release:       8%{?dist}
+%global toolbx_go 1.20
+
+%if 0%{?fedora}
+%global toolbx_go 1.22
+%endif
+
+Release:       9%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -42,7 +48,7 @@ Patch202:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
 
 BuildRequires: gcc
 BuildRequires: go-md2man
-BuildRequires: golang >= 1.22
+BuildRequires: golang >= %{toolbx_go}
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: shadow-utils-subid-devel
@@ -190,6 +196,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Mar 05 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-9
+- Conditionalize the BuildRequires on golang
+
 * Tue Feb 27 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-8
 - Unbreak Podman's downstream Fedora CI (part 2)
 - Backport some new upstream tests

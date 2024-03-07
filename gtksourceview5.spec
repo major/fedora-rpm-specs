@@ -1,10 +1,10 @@
 %global glib_version 2.72
-%global gtk_version 4.6
+%global gtk_version 4.13.9
 
 %global api_ver 5
 
 Name:           gtksourceview5
-Version:        5.11.1
+Version:        5.11.2
 Release:        1%{?dist}
 Summary:        Source code editing widget
 
@@ -95,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 5.11.2-1
+- Update to 5.11.2
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 5.11.1-1
 - Update to 5.11.1
 

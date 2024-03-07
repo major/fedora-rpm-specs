@@ -24,21 +24,13 @@
 %endif
 
 Name:           gtk4
-Version:        4.13.8
+Version:        4.13.9
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.13/gtk-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6927
-# https://gitlab.gnome.org/GNOME/gtk/-/issues/6463
-# https://gitlab.gnome.org/GNOME/gtk/-/issues/6479
-# Fix crashes that could be caused by getting or deleting empty
-# strings in the file chooser (including a g-t-e crash caught by
-# openQA)
-Patch0:         0001-editable-Less-draconian-preconditions.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

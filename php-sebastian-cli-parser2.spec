@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-cli-parser2
 #
-# Copyright (c) 2020-2023 Remi Collet
+# Copyright (c) 2020-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    efdc130dbbbb8ef0b545a994fd811725c5282cae
+%global gh_commit    c34583b87e7b7a8055bf6c450c2c77ce32a24084
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   cli-parser
@@ -24,8 +24,8 @@
 %global ns_project   CliParser
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.0
-Release:        5%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Library for parsing CLI options, version %{major}
 
 License:        BSD-3-Clause
@@ -108,6 +108,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 2.0.1-1
+- update to 2.0.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

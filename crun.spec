@@ -37,7 +37,7 @@ Epoch: 102
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.14.3
+Version: 1.14.4
 Release: %autorelease
 URL: https://github.com/containers/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -116,11 +116,11 @@ Recommends: wasmedge
 rm -rf %{buildroot}%{_prefix}/lib*
 
 %if %{defined krun_support}
-ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/krun
+ln -s %{name} %{buildroot}%{_bindir}/krun
 %endif
 
 %if %{defined wasm_support}
-ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-wasm
+ln -s %{name} %{buildroot}%{_bindir}/%{name}-wasm
 %endif
 
 %files

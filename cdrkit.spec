@@ -1,6 +1,6 @@
 Name:    cdrkit
 Version: 1.1.11
-Release: 54%{?dist}
+Release: 55%{?dist}
 Summary: A collection of CD/DVD utilities
 License: GPLv2
 URL:     http://cdrkit.org/
@@ -36,8 +36,8 @@ cdrkit is a collection of CD/DVD utilities.
 %package -n wodim
 Summary: A command line CD/DVD recording program
 Requires: libusal%{?_isa} = %{version}-%{release}
-Requires(preun): %{_sbindir}/alternatives coreutils
-Requires(post): %{_sbindir}/alternatives coreutils
+Requires(preun): /usr/sbin/alternatives coreutils
+Requires(post): /usr/sbin/alternatives coreutils
 
 %description -n wodim
 Wodim is an application for creating audio and data CDs. Wodim
@@ -47,8 +47,8 @@ multi-sessions and provides human-readable error messages.
 %package -n genisoimage
 Summary: Creates an image of an ISO9660 file-system
 Requires: libusal%{?_isa} = %{version}-%{release}
-Requires(preun): %{_sbindir}/alternatives coreutils
-Requires(post): %{_sbindir}/alternatives coreutils
+Requires(preun): /usr/sbin/alternatives coreutils
+Requires(post): /usr/sbin/alternatives coreutils
 
 %description -n genisoimage
 The genisoimage program is used as a pre-mastering program; i.e., it
@@ -73,8 +73,8 @@ Chunk size is usually set to fit to a CD/DVD.
 %package -n icedax
 Summary: A utility for sampling/copying .wav files from digital audio CDs
 Requires: libusal%{?_isa} = %{version}-%{release}
-Requires(preun): %{_sbindir}/alternatives coreutils
-Requires(post): %{_sbindir}/alternatives coreutils
+Requires(preun): /usr/sbin/alternatives coreutils
+Requires(post): /usr/sbin/alternatives coreutils
 Requires: vorbis-tools
 Requires: cdparanoia
 BuildRequires: cdparanoia-devel
@@ -171,7 +171,7 @@ if [ "$link" == "wodim" ]; then
 	rm -f %{_bindir}/dvdrecord
 fi
 
-%{_sbindir}/alternatives --install %{_bindir}/cdrecord cdrecord \
+/usr/sbin/alternatives --install %{_bindir}/cdrecord cdrecord \
 		%{_bindir}/wodim 50 \
 	--slave %{_mandir}/man1/cdrecord.1.gz cdrecord-cdrecordman \
 		%{_mandir}/man1/wodim.1.gz \
@@ -184,7 +184,7 @@ fi
 
 %preun -n wodim
 if [ $1 = 0 ]; then
-	%{_sbindir}/alternatives --remove cdrecord %{_bindir}/wodim
+	/usr/sbin/alternatives --remove cdrecord %{_bindir}/wodim
 fi
 
 %post -n genisoimage
@@ -193,7 +193,7 @@ if [ "$link" == "genisoimage" ]; then
 	rm -f %{_bindir}/mkisofs
 fi
 
-%{_sbindir}/alternatives --install %{_bindir}/mkisofs mkisofs \
+/usr/sbin/alternatives --install %{_bindir}/mkisofs mkisofs \
 		%{_bindir}/genisoimage 50 \
 	--slave %{_mandir}/man1/mkisofs.1.gz mkisofs-mkisofsman \
 		%{_mandir}/man1/genisoimage.1.gz \
@@ -203,7 +203,7 @@ fi
 
 %preun -n genisoimage
 if [ $1 = 0 ]; then
-	%{_sbindir}/alternatives --remove mkisofs %{_bindir}/genisoimage
+	/usr/sbin/alternatives --remove mkisofs %{_bindir}/genisoimage
 fi
 
 %post -n icedax
@@ -211,14 +211,14 @@ link=`readlink %{_bindir}/cdda2wav`
 if [ "$link" == "icedax" ]; then
 	rm -f %{_bindir}/cdda2wav
 fi
-%{_sbindir}/alternatives --install %{_bindir}/cdda2wav cdda2wav \
+/usr/sbin/alternatives --install %{_bindir}/cdda2wav cdda2wav \
 		%{_bindir}/icedax 50 \
 	--slave %{_mandir}/man1/cdda2wav.1.gz cdda2wav-cdda2wavman \
 		%{_mandir}/man1/icedax.1.gz 
 
 %preun -n icedax
 if [ $1 = 0 ]; then
-	%{_sbindir}/alternatives --remove cdda2wav %{_bindir}/icedax
+	/usr/sbin/alternatives --remove cdda2wav %{_bindir}/icedax
 fi
 
 %ldconfig_scriptlets -n libusal
@@ -287,6 +287,9 @@ fi
 %{_includedir}/usal
 
 %changelog
+* Tue Feb 27 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.11-55
+- Fix alternatives usage
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

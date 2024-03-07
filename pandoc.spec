@@ -13,18 +13,17 @@
 %global ipynb ipynb-0.2
 %global jirawikimarkup jira-wiki-markup-1.5.1
 %global orderedcontainers ordered-containers-0.2.3
-%global tomlparser toml-parser-1.3.2.0
 %global typst typst-0.1.0.0
 %global unicodecollation unicode-collation-0.1.3.5
 
-%global subpkgs %{unicodecollation} %{tomlparser} %{orderedcontainers} %{jirawikimarkup} %{ipynb} %{gridtables} %{digits} %{typst} %{commonmark} %{commonmarkextensions} %{commonmarkpandoc} %{citeproc}
+%global subpkgs %{unicodecollation} %{orderedcontainers} %{jirawikimarkup} %{ipynb} %{gridtables} %{digits} %{typst} %{commonmark} %{commonmarkextensions} %{commonmarkpandoc} %{citeproc}
 
 # testsuite missing deps: tasty-golden
 
 Name:           %{pkg_name}
 Version:        3.1.3
 # can only be reset when all subpkgs bumped
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -40,9 +39,8 @@ Source6:        https://hackage.haskell.org/package/%{gridtables}/%{gridtables}.
 Source7:        https://hackage.haskell.org/package/%{ipynb}/%{ipynb}.tar.gz
 Source8:        https://hackage.haskell.org/package/%{jirawikimarkup}/%{jirawikimarkup}.tar.gz
 Source9:        https://hackage.haskell.org/package/%{orderedcontainers}/%{orderedcontainers}.tar.gz
-Source10:       https://hackage.haskell.org/package/%{tomlparser}/%{tomlparser}.tar.gz
-Source11:       https://hackage.haskell.org/package/%{typst}/%{typst}.tar.gz
-Source12:       https://hackage.haskell.org/package/%{unicodecollation}/%{unicodecollation}.tar.gz
+Source10:       https://hackage.haskell.org/package/%{typst}/%{typst}.tar.gz
+Source11:       https://hackage.haskell.org/package/%{unicodecollation}/%{unicodecollation}.tar.gz
 # End cabal-rpm sources
 # CVE-2023-35936
 # https://github.com/jgm/pandoc/commit/5e381e3878b5da87ee7542f7e51c3c1a7fd84b89
@@ -226,13 +224,6 @@ BuildRequires:  ghc-unordered-containers-devel
 BuildRequires:  ghc-base64-bytestring-prof
 BuildRequires:  ghc-unordered-containers-prof
 %endif
-# for missing dep 'toml-parser':
-BuildRequires:  ghc-prettyprinter-devel
-BuildRequires:  ghc-transformers-devel
-%if %{with ghc_prof}
-BuildRequires:  ghc-prettyprinter-prof
-BuildRequires:  ghc-transformers-prof
-%endif
 # for missing dep 'typst':
 BuildRequires:  ghc-cassava-devel
 BuildRequires:  ghc-regex-tdfa-devel
@@ -250,9 +241,6 @@ BuildRequires:  ghc-template-haskell-prof
 BuildRequires:  ghc-th-lift-instances-prof
 %endif
 # End cabal-rpm deps
-# for toml-parser
-BuildRequires:  alex
-BuildRequires:  happy
 Requires:       %{name}-common = %{version}-%{release}
 
 %description
@@ -363,7 +351,6 @@ This package provides the Haskell %{name} profiling library.
 %ghc_lib_subpackage -l BSD-3-Clause %{ipynb}
 %ghc_lib_subpackage -l MIT %{jirawikimarkup}
 %ghc_lib_subpackage -l BSD-3-Clause %{orderedcontainers}
-%ghc_lib_subpackage -l ISC %{tomlparser}
 %ghc_lib_subpackage -l BSD-3-Clause %{typst}
 %ghc_lib_subpackage -l BSD-2-Clause %{unicodecollation}
 %endif
@@ -373,7 +360,7 @@ This package provides the Haskell %{name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12
+%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11
 # End cabal-rpm setup
 %patch -P0 -p1 -b .orig0
 %patch -P1 -p1 -b .orig1
@@ -436,6 +423,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Tue Mar  5 2024 Jens Petersen <petersen@redhat.com> - 3.1.3-29
+- toml-parser is now packaged in Fedora
+
 * Tue Feb 27 2024 Jens Petersen <petersen@redhat.com> - 3.1.3-28
 - pandoc-cli is now packaged in Fedora
 - move hslua subpackages to pandoc-cli

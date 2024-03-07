@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-diff5
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    fbf413a49e54f6b9b17e12d900ac7f6101591b7f
+%global gh_commit    c41e007b4b62af48218231d6c2275e4c9b975b2e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
@@ -24,8 +24,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.1.0
-Release:        3%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 5.1.1-1
+- update to 5.1.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

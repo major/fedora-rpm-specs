@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
@@ -9,12 +9,14 @@ URL: http://www.tin.org/
 Source0: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz
 Source1: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz.sign
 Source2: tin-pgp-key-0x5A49550EB490B4D1.txt
-BuildRequires: make
-BuildRequires: %{_bindir}/ispell
-BuildRequires:  gcc-c++
+BuildRequires: aspell
+BuildRequires: byacc
+BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: %{_bindir}/gpg1
-BuildRequires: ncurses-devel, byacc, gnupg2
+BuildRequires: gnupg1
+BuildRequires: gnupg2
+BuildRequires: make
+BuildRequires: ncurses-devel
 BuildRequires: openssl-devel
 BuildRequires: pcre2-devel
 BuildRequires: perl-generators
@@ -41,47 +43,62 @@ rm -r ${workdir}
 %configure \
 	--with-libdir=/var/lib/news \
 	--with-spooldir=/var/spool/news/articles \
+	--enable-long-article-numbers \
 	--enable-nntp \
 	--enable-prototypes \
 	--disable-echo \
 	--disable-mime-strict-charset \
-	--enable-color \
-	--enable-ncurses \
 	--with-screen=ncursesw \
-	--enable-locale \
 	--with-gpg=%{_bindir}/gpg2 \
 	--with-mime-default-charset=UTF-8 \
 	--with-nntps=openssl \
 	--with-pcre2-config=/usr/bin/pcre2-config \
-	--without-pcre
 
-%{__sed} -i -e 's/@\$(INSTALL) -s/@\$(INSTALL)/g' -e 's/@\$(CC)/\$(CC)/g' -e  's/@\$(CPP)/\$(CPP)/g' src/Makefile
+sed -i -e 's/@\$(INSTALL) -s/@\$(INSTALL)/g' -e 's/@\$(CC)/\$(CC)/g' -e  's/@\$(CPP)/\$(CPP)/g' src/Makefile
 
-%{__make} clean %{?_smp_mflags}
-%{__make} build %{?_smp_mflags}
+%make_build
 
 %install
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
-# url_handler.sh conflicts with mutt
-%{__rm} -f $RPM_BUILD_ROOT/%{_bindir}/url_handler.pl
-# INSTALL file is not needed in the final RPM
-%{__rm} -f doc/INSTALL
+install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 
 %find_lang %{name}
 
 %files -f %name.lang
-%doc README doc/*
+%doc README
+%doc doc/{CHANGES{,.old},CREDITS,TODO,WHATSNEW}
+%doc doc/{config-anomalies,filtering,good-netkeeping-seal}
+%doc doc/*.{sample,txt}
+%doc doc/tin.defaults
 %{_bindir}/tin
 %{_bindir}/rtin
 %{_bindir}/metamutt
 %{_bindir}/opt-case.pl
 %{_bindir}/w2r.pl
+%{_bindir}/url_handler.pl
 %{_bindir}/tinews.pl
-%{_mandir}/man1/*
-%{_mandir}/man5/*
+%{_mandir}/man1/opt-case.pl.1*
+%{_mandir}/man1/rtin.1*
+%{_mandir}/man1/tin.1*
+%{_mandir}/man1/tinews.pl.1*
+%{_mandir}/man1/url_handler.pl.1*
+%{_mandir}/man1/w2r.pl.1.gz
+%{_mandir}/man3/wildmat.3*
+%{_mandir}/man5/mbox.5*
+%{_mandir}/man5/mmdf.5*
+%{_mandir}/man5/rtin.5*
+%{_mandir}/man5/tin.5*
 
 %changelog
+* Tue Mar 05 2024 Dominik Mierzejewski <dominik@greysector.net> 2.6.3-4
+- enable long article number support
+- drop obsolete/redundant configure options
+- switch to package names in BuildRequires and sort alphabetically
+- use modern macros and drop __foo macro usage
+- more explicit file list to avoid duplicates
+- add missing files
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2.6.3-3
 - Rebuild for ICU 74
 

@@ -5,7 +5,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
 Version:        3.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -94,6 +94,9 @@ export PROJ_VERSION=`mingw64-pkg-config --modversion proj`
 
 
 %changelog
+* Tue Mar 05 2024 Sandro Mani <manisandro@gmail.com> - 3.6.0-6
+- Rebuild (proj)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

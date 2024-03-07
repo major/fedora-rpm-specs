@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-file-iterator2
 #
-# Copyright (c) 2009-2023 Christof Damian, Remi Collet
+# Copyright (c) 2009-2024 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -8,7 +8,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    42c5ba5220e6904cbfe8b1a1bda7c0cfdc8c12f5
+%global gh_commit    69deeb8664f611f156a924154985fbd4911eb36b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-file-iterator
@@ -28,13 +28,14 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.5
-Release:        8%{?dist}
+Version:        2.0.6
+Release:        1%{?dist}
 Summary:        FilterIterator implementation that filters files based on a list of suffixes
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with_tests}
@@ -86,7 +87,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8  --verbose || ret=1
@@ -106,6 +107,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 2.0.6-1
+- update to 2.0.6 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

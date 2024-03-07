@@ -9,7 +9,7 @@ http://readthedocs.org/docs/libneuroml/en/latest/
 %global forgeurl  https://github.com/NeuralEnsemble/libNeuroML
 
 Name:           python-libNeuroML
-Version:        0.5.7
+Version:        0.5.8
 Release:        %autorelease
 Summary:        Python libNeuroML for working with neuronal models specified in NeuroML
 

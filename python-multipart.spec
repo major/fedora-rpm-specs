@@ -2,11 +2,11 @@
 python-multipart is an Apache2 licensed streaming multipart parser for Python.}
 
 Name:           python-multipart
-Version:        0.0.7
+Version:        0.0.9
 Release:        %autorelease
 Summary:        A streaming multipart parser for Python
 License:        Apache-2.0
-URL:            https://github.com/andrew-d/python-multipart
+URL:            https://github.com/Kludex/python-multipart
 Source:         %{pypi_source python_multipart}
 BuildArch:      noarch
 

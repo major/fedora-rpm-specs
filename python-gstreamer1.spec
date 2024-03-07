@@ -1,16 +1,13 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.22.9
-Release:        2%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source:         http://gstreamer.freedesktop.org/src/gst-python/gst-python-%{version}.tar.xz
-
-#https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/3081
-Patch0:         py313.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
@@ -55,11 +52,14 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 %files -n python3-gstreamer1
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README RELEASE TODO
+%doc ChangeLog NEWS README.md RELEASE
 %{python3_sitearch}/gi/overrides/*
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

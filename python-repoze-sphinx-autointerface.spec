@@ -2,16 +2,15 @@
 %global srcname %(tr . - <<< %{pkgname})
 
 Name:           python-%{srcname}
-Version:        0.8
-Release:        29%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
-License:        BSD
+License:        BSD-3-Clause-Modification
 URL:            https://github.com/repoze/%{pkgname}
 Source0:        https://github.com/repoze/%{pkgname}/archive/%{version}/%{pkgname}-%{version}.tar.gz
-# Upstream patch to adapt to Sphinx 4
-# https://github.com/repoze/repoze.sphinx.autointerface/commit/f1ce0d2f790ebd8e1158ac8e4a1d04715053fc38
-Patch0:         %{name}-sphinx4.patch
+# Adapt to Sphinx 7.2+
+Patch0:         https://github.com/repoze/repoze.sphinx.autointerface/pull/22.patch
 
 BuildArch:      noarch
 
@@ -33,7 +32,7 @@ Summary:        Auto-generate Sphinx API docs from Zope interfaces
 %autosetup -n %{pkgname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
@@ -44,7 +43,8 @@ rst2html --no-datestamp README.rst README.html
 %pyproject_install
 
 %check
-%py3_check_import repoze.sphinx.autointerface
+export PYTHONPATH=$PWD/build/lib
+zope-testrunner --test-path=$PWD/build/lib
 
 %files -n python3-%{srcname}
 %doc CHANGES.html CONTRIBUTORS.txt README.html
@@ -52,6 +52,13 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitelib}/repoze*
 
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 1.0.0-1
+- Version 1.0.0
+- Drop upstreamed Sphinx 4 patch
+- Convert License tag to SPDX
+- Run the tests now that upstream provides some
+- Add patch for compatibility with Sphinx 7.2.x
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

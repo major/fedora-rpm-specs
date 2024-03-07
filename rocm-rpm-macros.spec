@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
 Version:        1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -74,6 +74,9 @@ done
 %{_datadir}/modulefiles/rocm/
 
 %changelog
+* Tue Mar 5 2024 Tom Rix <trix@redhat.com> 1.0-13
+- Add rocm_llvm_ver variable
+
 * Sat Mar 2 2024 Tom Rix <trix@redhat.com> 1.0-12
 - Add PYTHONPATH
 

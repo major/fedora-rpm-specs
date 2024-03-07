@@ -26,7 +26,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -404,6 +404,8 @@ rm %{buildroot}%{_unitdir}/clamav-daemon.*
 
 
 %post data
+# nullglob. If set, Bash allows filename patterns which match no files to expand to a null string, rather than themselves
+shopt -s nullglob
 # Let newer .cld files take precedence over the shipped .cvd files
 for f in %{homedir}/*.cld
 do
@@ -569,6 +571,10 @@ exit 0
 
 
 %changelog
+* Tue Mar 05 2024 Sérgio Basto <sergio@serjux.com> - 1.0.5-2
+- set nullblog to fix post script (#2253914)
+- Properly check valgrind arches
+
 * Thu Feb 08 2024 Orion Poplawski <orion@nwra.com> - 1.0.5-1
 - Update to 1.0.5
 
@@ -593,27 +599,23 @@ exit 0
 - Rename clamav-update to clamav-freshclam
 - Make clamav-freshclam supplement clamd
 - Have clamav-freshclam ghost all of the .cld and .cvd files
-
-* Fri Feb 24 2023 Sérgio Basto <sergio@serjux.com> - 1.0.1-3
 - Update data files with help of Cisco-Talos/cvdupdate
-
-* Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-2
-- Fix daily.cvd file (bz#2171869)
-
-* Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-1
 - Update to 1.0.1
-
-* Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-3
 - Make sure RUSTFLAGS are passed to rustc (bz#2167194)
-
-* Mon Jan 23 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-2
 - Fix multilib install
 
-* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-1
-- Update to 1.0.0
+* Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 0.103.8-3
+- Fix daily.cvd file
 
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.103.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Sat Feb 18 2023 Sérgio Basto <sergio@serjux.com> - 0.103.8-2
+- Split out documentation into separate -doc sub-package
+- (#2128276) Please port your pcre dependency to pcre2
+- Explicit dependency on systemd since systemd-devel no longer has this dependency on F37+
+- (#2136977) not requires data(clamav) on clamav-libs
+- (#2023371) Add documentation to preserve user permissions of DatabaseOwner
+
+* Fri Feb 17 2023 Orion Poplawski <orion@nwra.com> - 0.103.8-1
+- Update to 0.103.8
 
 * Mon Nov 07 2022 Sérgio Basto <sergio@serjux.com> - 0.103.7-4
 - (#2136977) not requires data(clamav) on clamav-libs

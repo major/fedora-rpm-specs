@@ -1,6 +1,6 @@
 Name:           python-pytest-testinfra
 Version:        10.1.0
-Release:        1
+Release:        2%{?dist}
 Summary:        Unit testing for config-managed server state
 
 License:        Apache-2.0
@@ -22,11 +22,15 @@ plugin to the powerful Pytest test engine.}
 %package -n     python3-pytest-testinfra
 Summary:        %{summary}
 
-# Replace Suggests with Recommends if desired
+# Using suggests to avoid unnecessary dependencies being installed
 Suggests:       python3-pytest-testinfra+ansible
 Suggests:       python3-pytest-testinfra+paramiko
 Suggests:       python3-pytest-testinfra+salt
 Suggests:       python3-pytest-testinfra+winrm
+
+# python-testinfra is a duplicate with wrong name
+Provides: 	python3-testinfra = %{version}-%{release}
+Obsoletes: 	python3-testinfra < 5.3.1-14
 
 %description -n python3-pytest-testinfra %_description
 

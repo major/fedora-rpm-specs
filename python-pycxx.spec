@@ -13,10 +13,10 @@
 
 Name:           python-%{modname}
 Version:        7.1.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Write Python extensions in C++
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://CXX.sourceforge.net/
 
 BuildArch:      noarch
@@ -131,6 +131,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Tue Mar 05 2024 barry Scott <barry@barrys-emacs.org> - 7.1.10-4
+- Update License to SPDX
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

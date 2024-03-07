@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpspec-prophecy-phpunit
 #
-# Copyright (c) 2020-2023 Remi Collet
+# Copyright (c) 2020-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    29f8114c2c319a4308e6b070902211e062efa392
+%global gh_commit    16e1247e139434bce0bac09848bc5c8d882940fc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy-phpunit
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Integrating the Prophecy mocking library in PHPUnit test cases
 
 License:        MIT
@@ -37,10 +37,10 @@ BuildRequires:  php-fedora-autoloader-devel
 # from composer.json, "requires": {
 #        "php": "^7.3 || ^8",
 #        "phpspec/prophecy": "^1.18",
-#        "phpunit/phpunit":"^9.1"
+#        "phpunit/phpunit":"^9.1 || ^10.1 || ^11.0"
 Requires:       php(language) >= 7.3
 Requires:      (php-composer(phpspec/prophecy) >= 1.18  with php-composer(phpspec/prophecy) < 2)
-Requires:      (phpunit9 >= 9.1 or phpunit10 >= 10.1)
+Requires:      (phpunit9 >= 9.1 or phpunit10 >= 10.1 or phpunit11 >= 11.0)
 # From phpcompatinfo report for version 2.0.1
 #none
 # Autoloader
@@ -105,6 +105,13 @@ for cmd in php php81 php82 php83; do
       %{_bindir}/phpunit10 --no-coverage|| ret=1
   fi
 done
+for cmd in php php82 php83; do
+  if which %{_bindir}/phpunit11 && which $cmd; then
+	sed -e 's/@PHPUNIT@/PHPUnit11/' vendor/autoload.php.in > vendor/autoload.php
+    $cmd -d auto_prepend_file=vendor/autoload.php \
+      %{_bindir}/phpunit11 --no-coverage|| ret=1
+  fi
+done
 exit $ret
 %else
 : Test suite disabled
@@ -119,6 +126,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 2.2.0-1
+- update to 2.2.0
+- allow phpunit11
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

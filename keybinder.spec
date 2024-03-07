@@ -1,7 +1,9 @@
 Name:		keybinder
 Version:	0.3.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	A library for registering global keyboard shortcuts
+# python-keybinder/__init__.py	unused
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/engla/keybinder
 Source0:	%url/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -12,7 +14,7 @@ BuildRequires:	gcc
 BuildRequires:	gtk2-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:	%{_bindir}/gtkdocize
+BuildRequires:	/usr/bin/gtkdocize
 Obsoletes:		python2-%{name} < 0.3.1-16
 
 
@@ -35,7 +37,7 @@ This package contains the development files for %{name}.
 %prep
 %setup -q -n %{name}-%{version}
 sed -i -e 's@-rpath @@g' libkeybinder/Makefile.in \
- lua-keybinder/Makefile.in python-keybinder/Makefile.in
+	lua-keybinder/Makefile.in python-keybinder/Makefile.in
 autoreconf -fiv
 
 %build
@@ -54,12 +56,13 @@ find %{buildroot} -name '*.la'| xargs rm -f
 %ldconfig_scriptlets
 
 %files
-%doc NEWS AUTHORS README
-%{_libdir}/libkeybinder.so.* 
-%if 0%{?fedora} >= 31
+%doc NEWS
+%doc AUTHORS
+%doc README
+%license COPYING
+%{_libdir}/libkeybinder.so.0{,.*}
 %{_libdir}/girepository-1.0/Keybinder-*.typelib
 %{_datadir}/gir-1.0/Keybinder-*.gir
-%endif
 
 %files devel
 %{_includedir}/keybinder.h
@@ -68,6 +71,9 @@ find %{buildroot} -name '*.la'| xargs rm -f
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Tue Mar 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.1-29
+- SPDX confirmation, add license file
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

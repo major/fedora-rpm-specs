@@ -1,18 +1,11 @@
 %global         majorminor 1.0
 
-# Only build amrnb/amrwbdec on fedora
-%if 0%{?fedora}
-%bcond_without amr
-%else
-%bcond_with amr
-%endif
-
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-ugly-free
-Version:        1.22.9
+Version:        1.24.0
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
@@ -39,9 +32,6 @@ BuildRequires:  liba52-devel
 BuildRequires:  libcdio-devel
 BuildRequires:  libdvdread-devel
 BuildRequires:  libmpeg2-devel
-%if %{with amr}
-BuildRequires:  opencore-amr-devel
-%endif
 
 # when asfdemux, dvdlpcmdec, dvdsub, and realmedia were moved here
 Conflicts: gstreamer1-plugins-ugly < 1.22.7-2
@@ -75,7 +65,6 @@ is not fully compatible with LGPL.
 %meson \
     -D package-name="Fedora GStreamer-plugins-ugly package" \
     -D package-origin="http://download.fedoraproject.org" \
-    %{!?with_amr:-D amrnb=disabled -D amrwbdec=disabled } \
     -D doc=disabled \
     -D sidplay=disabled \
     -D x264=disabled \
@@ -152,11 +141,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcdio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvdread.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmpeg2dec.so
-%if %{with amr}
-%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
-%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
-%{_datadir}/gstreamer-%{majorminor}/presets/GstAmrnbEnc.prs
-%endif
 
 %if 0
 %files devel
@@ -164,6 +148,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

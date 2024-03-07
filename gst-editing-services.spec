@@ -3,8 +3,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
-Version:        1.22.5
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.24.0
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -25,7 +25,7 @@ BuildRequires:	gstreamer1-plugins-base-devel >= 1.6.0
 BuildRequires:	gstreamer1-plugins-bad-free-devel >= 1.6.0
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	flex
-BuildRequires:	bash-completion >= 2.0
+BuildRequires:	bash-completion-devel >= 2.0
 BuildRequires:  python3-devel
 BuildRequires:  pygobject3-devel
 
@@ -73,7 +73,7 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/bash-completion/completions/ges-launch-1.0
 %doc %{_mandir}/man1/ges-launch-1.0.*
 %{_libdir}/gst-validate-launcher/python/launcher/apps/geslaunch.py
-%{python3_sitelib}/gi/overrides/*
+%{python3_sitearch}/gi/overrides/*
 %{_datadir}/gstreamer-1.0/validate/scenarios/ges-edit-clip-while-paused.scenario
 
 # plugins 
@@ -87,6 +87,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

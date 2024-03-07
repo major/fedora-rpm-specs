@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-environment4
 #
-# Copyright (c) 2014-2023 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -8,7 +8,7 @@
 #
 %global bootstrap    0
 # Sources
-%global gh_commit    d47bbbad83711771f167c72d4e3f25f7fcc1f8b0
+%global gh_commit    56932f6049a0482853056ffd617c91ffcc754205
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
@@ -27,13 +27,14 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.2.4
-Release:        10%{?dist}
+Version:        4.2.5
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -92,7 +93,7 @@ touch vendor/autoload.php
 
 : Run tests
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit8 \
@@ -113,6 +114,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 4.2.5-1
+- update to 4.2.5 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
@@ -62,7 +62,7 @@ Recommends:     pinentry-gui
 %endif
 
 %if %{with kf6_compat}
-Requires:       kf6-%{framework}%{?_isa}
+Recommends:     kf6-%{framework}%{?_isa}
 %endif
 
 %description
@@ -146,6 +146,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Mar 05 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.115.0-2
+- Soften kf6-kwallet dependency
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

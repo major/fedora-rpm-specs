@@ -10,7 +10,7 @@
 
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
-Version:        2.1.2
+Version:        2.1.3
 Release:        1%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
@@ -356,6 +356,9 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %endif
 
 %changelog
+* Wed Mar 06 2024 Robert Scheck <robert@fedoraproject.org> 2.1.3-1
+- Upgrade to 2.1.3 (#2267827)
+
 * Sat Feb 17 2024 Robert Scheck <robert@fedoraproject.org> 2.1.2-1
 - Upgrade to 2.1.2 (#2264678)
 

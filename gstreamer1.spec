@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.9
+Version:        1.24.0
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -30,7 +30,7 @@ Source0:        gstreamer-%{version}.tar.xz
 Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
 %endif
 ## For GStreamer RPM provides
-Patch0:         gstreamer-inspect-rpm-format.patch
+Patch0:         0001-gst-inspect-add-mode-to-output-RPM-requires-format.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -49,7 +49,8 @@ BuildRequires:  libcap-devel
 BuildRequires:  libunwind-devel
 %endif
 BuildRequires:  elfutils-devel
-BuildRequires:  bash-completion
+BuildRequires:  bash-completion-devel
+BuildRequires:  rustc
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -87,7 +88,7 @@ GStreamer streaming media framework.
 
 %prep
 %setup -q -n gstreamer-%{version}
-%patch -P 0 -p1 -b .rpm-provides
+%patch -P 0 -p3 -b .rpm-provides
 
 %build
 %meson	\
@@ -126,6 +127,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_libexecdir}/gstreamer-%{majorminor}/gst-plugins-doc-cache-generator
 %{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
 %attr(755,root,root) %caps(cap_net_bind_service,cap_net_admin,cap_sys_nice=ep) %{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
+%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper-test
 
 %dir %{_libdir}/gstreamer-%{majorminor}
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
@@ -200,6 +202,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

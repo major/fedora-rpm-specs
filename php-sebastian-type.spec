@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-type
 #
-# Copyright (c) 2019-2023 Remi Collet
+# Copyright (c) 2019-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -8,7 +8,7 @@
 #
 %global bootstrap    0
 # github
-%global gh_commit    0150cfbc4495ed2df3872fb31b26781e4e077eb4
+%global gh_commit    18f071c3a29892b037d35e6b20ddf3ea39b42874
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   type
@@ -27,13 +27,14 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.1.4
-Release:        10%{?dist}
+Version:        1.1.5
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v1
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.2
@@ -93,7 +94,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit8 --verbose || ret=1
@@ -114,6 +115,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar  1 2024 Remi Collet <remi@remirepo.net> - 1.1.5-1
+- update to 1.1.5 (no change)
+- sources from git snapshot
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

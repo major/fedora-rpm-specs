@@ -7,7 +7,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.22.9
+Version:        1.24.0
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -265,7 +265,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiorate.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudioresample.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiotestsrc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstbasedebug.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcompositor.so
+%{_libdir}/gstreamer-%{majorminor}/libgstdsd.so
 %{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstoverlaycomposition.so
@@ -304,14 +306,15 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_mandir}/man1/gst-play-*
 %{_mandir}/man1/gst-device-monitor-*
 
-
 %files devel
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/allocators
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/allocators.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/allocators-prelude.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstdmabuf.h
+%{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstdrmdumb.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstfdmemory.h
 %{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstphysmemory.h
+%{_includedir}/gstreamer-%{majorminor}/gst/allocators/gstshmallocator.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/app
 %{_includedir}/gstreamer-%{majorminor}/gst/app/app.h
 %{_includedir}/gstreamer-%{majorminor}/gst/app/app-prelude.h
@@ -344,6 +347,8 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiosink.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiosrc.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/gstaudiostreamalign.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/gstdsd.h
+%{_includedir}/gstreamer-%{majorminor}/gst/audio/gstdsdformat.h
 %{_includedir}/gstreamer-%{majorminor}/gst/audio/streamvolume.h
 %dir %{_includedir}/gstreamer-%{majorminor}/gst/fft
 %{_includedir}/gstreamer-%{majorminor}/gst/fft/fft.h
@@ -440,6 +445,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-frame.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-hdr.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-info.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/video-info-dma.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-multiview.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-resampler.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-sei.h
@@ -491,6 +497,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Thu Jan 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.22.9-1
 - 1.22.9
 

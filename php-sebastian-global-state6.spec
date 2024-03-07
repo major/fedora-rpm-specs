@@ -1,6 +1,6 @@
 # spec file for php-sebastian-global-state6
 #
-# Copyright (c) 2014-2023 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    7ea9ead78f6d380d2a667864c132c2f7b83055e4
+%global gh_commit    987bafff24ecc4c9ac418cab1145b96dd6e9cbd9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.1
-Release:        5%{?dist}
+Version:        6.0.2
+Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -129,6 +129,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 6.0.2-1
+- update to 6.0.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

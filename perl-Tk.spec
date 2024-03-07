@@ -1,6 +1,3 @@
-%{!?perl_vendorarch: %define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)}
-%define perlver %(eval "`%{__perl} -V:version`"; echo $version)
-
 %global use_x11_tests 1
 
 Name:           perl-Tk
@@ -20,6 +17,18 @@ Patch3:         perl-Tk-c99.patch
 # Fix STRLEN vs int pointer confusion in Tcl_GetByteArrayFromObj()
 # It breaks tests with Perl 5.38 on s390* (BZ#2222638)
 Patch4:         perl-Tk-Fix-STRLEN-vs-int-pointer-confusion-in-Tcl_GetByteAr.patch
+
+# Fix build with clang 16
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=271521
+Patch5:         perl-Tk-Fix-build-with-clang-16.patch
+# Avoid using incompatible pointer type in pregcomp2.c
+Patch6:         perl-Tk-pregcomp2.c-Avoid-using-incompatible-pointer-type.patch
+# Avoid using incompatible pointer type for `old_warn`
+# https://github.com/eserte/perl-tk/issues/98
+Patch7:         perl-Tk-Avoid-using-incompatible-pointer-type-for-old_warn.patch
+# Avoid using incompatible pointer type in function 'GetTextIndex'
+# https://github.com/eserte/perl-tk/issues/103
+Patch8:         perl-Tk-Fix-incompatible-pointer-type-in-function-GetTextIndex.patch
 
 # Versions before this have Unicode issues
 BuildRequires:  make
@@ -125,12 +134,12 @@ Requires: perl-Tk = %{version}-%{release}
 
 %prep
 %setup -q -n Tk-%{version}
-find . -type f -exec %{__perl} -pi -e \
-'s,^(#!)(/usr/local)?/bin/perl\b,$1%{__perl}, if ($. == 1)' {} \;
+find . -type f -exec perl -MConfig -pi -e \
+'s,^(#!)(/usr/local)?/bin/perl\b,$Config{startperl}, if ($. == 1)' {} \;
 chmod -x pod/Popup.pod Tixish/lib/Tk/balArrow.xbm
 # fix for widget as docs
 %patch -P 0
-%{__perl} -pi -e \
+perl -pi -e \
 's,\@demopath\@,%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/demos,g' demos/widget
 # debian patch
 #%%patch -P 1 -p1
@@ -138,24 +147,25 @@ chmod -x pod/Popup.pod Tixish/lib/Tk/balArrow.xbm
 %patch -P 2 -p1 -b .seg
 %patch -P 3 -p1 -b .c99
 %patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1
-find . -name Makefile | xargs %{__perl} -pi -e 's/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1 NO_PACKLIST=1 NO_PERLLOCAL=1
+find . -name Makefile | xargs perl -pi -e 's/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
+%{make_build}
 
 %check
-
 %if %{use_x11_tests}
-    xvfb-run -a make test
+    xvfb-run -d make test
 %endif
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null \;
 
 chmod -R u+rwX,go+rX,go-w $RPM_BUILD_ROOT/*
 mkdir __demos
@@ -168,11 +178,16 @@ find __demos/ -type f -exec chmod -x {} \;
 %{_bindir}/p*
 %{_bindir}/tkjpeg
 %{perl_vendorarch}/auto/Tk
-%{perl_vendorarch}/T*
+%{perl_vendorarch}/Tie*
+%{perl_vendorarch}/Tk*
 %exclude %{perl_vendorarch}/Tk/MMutil.pm
 %exclude %{perl_vendorarch}/Tk/install.pm
 %exclude %{perl_vendorarch}/Tk/MakeDepend.pm
-%{_mandir}/man*/*
+%{_mandir}/man1/ptked*
+%{_mandir}/man1/ptksh*
+%{_mandir}/man1/tkjpeg*
+%{_mandir}/man3/Tie*
+%{_mandir}/man3/Tk*
 %exclude %{_mandir}/man1/widget.1*
 %exclude %{_bindir}/gedi
 %exclude %{_bindir}/widget

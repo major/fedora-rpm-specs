@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-theseer-tokenizer
 #
-# Copyright (c) 2017-2023 Remi Collet
+# Copyright (c) 2017-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    b2ad5003ca10d4ee50a12da31de12a5774ba6b96
+%global gh_commit    737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    theseer
 %global gh_project   tokenizer
@@ -14,8 +14,8 @@
 %global ns_project   Tokenizer
 
 Name:           php-%{gh_vendor}-%{gh_project}
-Version:        1.2.2
-Release:        3%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
 License:        BSD-3-Clause
@@ -75,7 +75,7 @@ cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 %check
 ret=0
-for cmdarg in php php80 php81 php82 php83; do
+for cmdarg in php php81 php82 php83; do
   if which $cmdarg; then
       $cmdarg -d auto_prepend_file=%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php \
         %{_bindir}/phpunit9 \
@@ -93,6 +93,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 1.2.3-1
+- update to 1.2.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

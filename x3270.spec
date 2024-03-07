@@ -3,7 +3,7 @@
 %global majorver 4.3
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
-Version: 4.3ga5
+Version: 4.3ga6
 Release: 1%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
@@ -113,6 +113,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Mar 05 2024 Jakub Čajka <jcajka@redhat.com> 4.3ga6-1
+- updated to 4.3ga6(#2267465)
+
 * Mon Feb 19 2024 Jakub Čajka <jcajka@redhat.com> 4.3ga5-1
 - updated to 4.3ga5(#2264784)
 

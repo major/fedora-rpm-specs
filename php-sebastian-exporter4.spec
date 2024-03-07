@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-exporter4
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    ac230ed27f0f98f597c8a2b6eb7ac563af5e5b9d
+%global gh_commit    78c00df8f170e02473b682df15bfcdacc3d32d72
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
@@ -25,8 +25,8 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.5
-Release:        6%{?dist}
+Version:        4.0.6
+Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
 License:        BSD-3-Clause
@@ -95,7 +95,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose || ret=1
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 4.0.6-1
+- update to 4.0.6
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

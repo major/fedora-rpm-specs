@@ -2,13 +2,14 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Coveralls.io provides seamless integration with coverage.py
 
 LICENSE:        MIT
 URL:            https://github.com/coveralls-clients/coveralls-python
 Source0:        https://github.com/coveralls-clients/%{pypi_name}-python/archive/%{version}.tar.gz
 Patch0:         coveralls-python-3.3.1-permit-coverage7.patch
+Patch1:         0002-setup.py-Require-docopt-0.9.0.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel > 3.4
@@ -66,6 +67,10 @@ cp %{buildroot}%{_bindir}/coveralls %{buildroot}%{_bindir}/coveralls-py3
 %doc docs/*
 
 %changelog
+* Tue Mar 05 2024 Brian C. Lane <bcl@redhat.com> - 3.3.1-10
+- Rebuild for docopt 0.9.0 change, providing python3.12dist(docopt-ng)
+  Related: rhbz#2267060
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

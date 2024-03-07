@@ -4,16 +4,13 @@
 %global crate pore
 
 Name:           rust-pore
-Version:        0.1.10
+Version:        0.1.11
 Release:        %autorelease
 Summary:        Performance oriented reimplementation of repo
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/pore
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump git2 dependency from 0.16 to 0.18
-Patch:          pore-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

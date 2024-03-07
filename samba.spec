@@ -1584,9 +1584,9 @@ fi
 %if %{with libwbclient}
 %pre -n libwbclient
 if [ $1 -gt 1 ] ; then
-    rm -rf %{_libdir}/samba/wbclient/
-    rm -f /etc/alternatives/libwbclient.so*
-    rm -f /var/lib/alternatives/libwbclient.so*
+    rm -rf %{_libdir}/samba/wbclient/ 2>/dev/null
+    rm -f /etc/alternatives/libwbclient.so* 2>/dev/null
+    rm -f /var/lib/alternatives/libwbclient.so* 2>/dev/null
 fi
 %{?ldconfig}
 #endif {with libwbclient}

@@ -11,8 +11,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.9
-Release:        3%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -31,8 +31,6 @@ Source1:        gst-p-bad-cleanup.sh
 
 # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5622
 Patch:          openh264-add-license-file.patch
-# https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/5780
-Patch:          openh264-drop-runtime-version-checks.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -78,7 +76,6 @@ BuildRequires:  libwebp-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  vulkan-devel
 #BuildRequires:  mesa-vulkan-devel
-BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.3
 %if 0
 BuildRequires:  wpewebkit-devel
 BuildRequires:  wpebackend-fdo-devel
@@ -86,6 +83,8 @@ BuildRequires:  wpebackend-fdo-devel
 BuildRequires:  glslc
 BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
+BuildRequires:  svt-av1-devel
+BuildRequires:  liblc3-devel
 
 %if %{with extras}
 BuildRequires:  ladspa-devel
@@ -108,7 +107,6 @@ BuildRequires:  libcurl-devel
 BuildRequires:  libssh2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  game-music-emu-devel
-BuildRequires:  libkate-devel
 BuildRequires:  libmodplug-devel
 BuildRequires:  libmpcdec-devel
 ## Plugins not ported
@@ -301,7 +299,7 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D directsound=disabled -D dts=disabled } \
     %{!?with_extras:-D fluidsynth=disabled -D openexr=disabled } \
     %{!?with_extras:-D curl=disabled -D curl-ssh2=disabled } \
-    %{!?with_extras:-D ttml=disabled -D kate=disabled } \
+    %{!?with_extras:-D ttml=disabled } \
     %{!?with_extras:-D modplug=disabled } \
     %{!?with_extras:-D openal=disabled } \
     %{!?with_opencv:-D opencv=disabled } \
@@ -339,7 +337,8 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D qroverlay=disabled } 		\
     -D gs=disabled -D isac=disabled \
     -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
-    -D amfcodec=disabled -D directshow=disabled -D qsv=disabled
+    -D amfcodec=disabled -D directshow=disabled -D qsv=disabled \
+    -D aja=disabled -D qt6d3d11=disabled -D webrtcdsp=disabled 
 
 %meson_build
 
@@ -437,9 +436,6 @@ EOF
 
 %find_lang gst-plugins-bad-%{majorminor}
 
-# unpackaged files
-rm $RPM_BUILD_ROOT%{_bindir}/playout
-
 %ldconfig_scriptlets
 
 %files -f gst-plugins-bad-%{majorminor}.lang
@@ -469,6 +465,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstadpcmdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstadpcmenc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaiff.so
+%{_libdir}/gstreamer-%{majorminor}/libgstanalyticsoverlay.so
 %{_libdir}/gstreamer-%{majorminor}/libgstasfmux.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiobuffersplit.so
 %{_libdir}/gstreamer-%{majorminor}/libgstaudiofxbad.so
@@ -539,6 +536,11 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstvideosignal.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvmnc.so
 %{_libdir}/gstreamer-%{majorminor}/libgsty4mdec.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcodec2json.so
+%{_libdir}/gstreamer-%{majorminor}/libgstinsertbin.so
+%{_libdir}/gstreamer-%{majorminor}/libgstmse.so
+%{_libdir}/gstreamer-%{majorminor}/libgstunixfd.so
+%{_libdir}/gstreamer-%{majorminor}/libgstuvcgadget.so
 
 # System (Linux) specific plugins
 %{_libdir}/gstreamer-%{majorminor}/libgstdvb.so
@@ -559,6 +561,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstgsm.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgtkwayland.so
 %{_libdir}/gstreamer-%{majorminor}/libgstkms.so
+%{_libdir}/gstreamer-%{majorminor}/libgstlc3.so
 %{_libdir}/gstreamer-%{majorminor}/libgstnvcodec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopusparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrist.so
@@ -572,7 +575,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstwaylandsink.so
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstwebp.so
-%{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
+#{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
 %if 0
 %{_libdir}/gstreamer-%{majorminor}/libgstwpe.so
 %endif
@@ -581,6 +584,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstlv2.so
 %{_libdir}/gstreamer-%{majorminor}/libgstttmlsubs.so
 %endif
+%{_libdir}/gstreamer-%{majorminor}/libgstsvtav1.so
 
 #debugging plugin
 %{_libdir}/gstreamer-%{majorminor}/libgstdebugutilsbad.so
@@ -602,7 +606,6 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstdtsdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstflite.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgme.so
-%{_libdir}/gstreamer-%{majorminor}/libgstkate.so
 %{_libdir}/gstreamer-%{majorminor}/libgstladspa.so
 %ifnarch s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstldac.so
@@ -650,15 +653,18 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 %files libs
 %license COPYING
+%{_libdir}/libgstanalytics-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstadaptivedemux-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstbasecamerabinsrc-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstbadaudio-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstcodecparsers-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstcodecs-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstcuda-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstdxva-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstinsertbin-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstisoff-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstmpegts-%{majorminor}.so.0{,.*}
+%{_libdir}/libgstmse-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstplay-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstplayer-%{majorminor}.so.0{,.*}
 %{_libdir}/libgstphotography-%{majorminor}.so.0{,.*}
@@ -676,11 +682,14 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %endif
 
 %{_libdir}/girepository-1.0/CudaGst-1.0.typelib
+%{_libdir}/girepository-1.0/GstAnalytics-1.0.typelib
 %{_libdir}/girepository-1.0/GstBadAudio-1.0.typelib
 %{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
 %{_libdir}/girepository-1.0/GstCuda-1.0.typelib
+%{_libdir}/girepository-1.0/GstDxva-1.0.typelib
 %{_libdir}/girepository-1.0/GstInsertBin-1.0.typelib
 %{_libdir}/girepository-1.0/GstMpegts-1.0.typelib
+%{_libdir}/girepository-1.0/GstMse-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlay-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
 %{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
@@ -696,11 +705,14 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %endif
 
 %{_datadir}/gir-1.0/CudaGst-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstAnalytics-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstBadAudio-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCodecs-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCuda-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstDxva-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstInsertBin-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstMse-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlay-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlayer-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstTranscoder-%{majorminor}.gir
@@ -709,15 +721,18 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_datadir}/gir-1.0/GstVulkanWayland-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstWebRTC-%{majorminor}.gir
 
+%{_libdir}/libgstanalytics-%{majorminor}.so
 %{_libdir}/libgstadaptivedemux-%{majorminor}.so
 %{_libdir}/libgstbasecamerabinsrc-%{majorminor}.so
 %{_libdir}/libgstbadaudio-%{majorminor}.so
 %{_libdir}/libgstcuda-%{majorminor}.so
 %{_libdir}/libgstcodecparsers-%{majorminor}.so
 %{_libdir}/libgstcodecs-%{majorminor}.so
+%{_libdir}/libgstdxva-%{majorminor}.so
 %{_libdir}/libgstinsertbin-%{majorminor}.so
 %{_libdir}/libgstisoff-%{majorminor}.so
 %{_libdir}/libgstmpegts-%{majorminor}.so
+%{_libdir}/libgstmse-%{majorminor}.so
 #{_libdir}/libgstopencv-%{majorminor}.so
 %{_libdir}/libgstplay-%{majorminor}.so
 %{_libdir}/libgstplayer-%{majorminor}.so
@@ -736,6 +751,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %endif
 
 %{_includedir}/gstreamer-%{majorminor}/gst/audio
+%{_includedir}/gstreamer-%{majorminor}/gst/analytics
 %{_includedir}/gstreamer-%{majorminor}/gst/basecamerabinsrc
 %{_includedir}/gstreamer-%{majorminor}/gst/codecparsers
 %{_includedir}/gstreamer-%{majorminor}/gst/cuda/
@@ -743,6 +759,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/interfaces/photography*
 %{_includedir}/gstreamer-%{majorminor}/gst/isoff/
 %{_includedir}/gstreamer-%{majorminor}/gst/mpegts
+%{_includedir}/gstreamer-%{majorminor}/gst/mse/
 #{_includedir}/gstreamer-%{majorminor}/gst/opencv
 %{_includedir}/gstreamer-%{majorminor}/gst/play
 %{_includedir}/gstreamer-%{majorminor}/gst/player
@@ -755,11 +772,13 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/webrtc/
 
 # pkg-config files
+%{_libdir}/pkgconfig/gstreamer-analytics-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-bad-audio-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-cuda-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-codecparsers-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-insertbin-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-mpegts-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-mse-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-photography-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-play-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-player-%{majorminor}.pc
@@ -777,6 +796,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Thu Feb 08 2024 Kalev Lember <klember@redhat.com> - 1.22.9-3
 - Add gstreamer1-plugin-openh264 subpackage with the openh264 plugin
 

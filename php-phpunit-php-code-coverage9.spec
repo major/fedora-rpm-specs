@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage9
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,11 +10,12 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    ca2bd87d2f9215904682a9cb9bb37dda98e76089
+%global gh_commit    48c34b5d8d983006bd2adc2d0de92963b9155965
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_vendor    sebastianbergmann
+%global gh_owner     sebastianbergmann
 %global gh_project   php-code-coverage
+%global gh_date      2024-03-02
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,8 +26,8 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.30
-Release:        3%{?dist}
+Version:        9.2.31
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -34,7 +35,7 @@ Summary:        PHP code coverage information, version %{ver_major}
 # MIT: boostrap, d3, holder, html5shiv, jquery, respond
 # Apache-2.0: nvd3
 License:        BSD-3-Clause AND MIT AND Apache-2.0
-URL:            https://github.com/%{gh_vendor}/%{gh_project}
+URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
@@ -188,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 9.2.31-1
+- update to 9.2.31
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

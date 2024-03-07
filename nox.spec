@@ -1,14 +1,12 @@
 Name:           nox
-Version:        2023.04.22
-Release:        5%{?dist}
+Version:        2024.03.02
+Release:        1%{?dist}
 Summary:        Flexible test automation
 
 License:        Apache-2.0
 URL:            https://github.com/wntrblm/nox
 # Using github source files since PyPI doesn't contain "tests" folder anymore
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-# Slightly modified patch to apply here. Proposed upstream.
-Patch1:         %{url}/pull/687.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-flask
@@ -23,12 +21,6 @@ file for configuration.
 %prep
 %autosetup -p1 -n nox-%{version}
 
-# Use the newest tox 4
-sed -i 's/"tox<4"/"tox"/' pyproject.toml
-
-# Use current Python version instead of Python 2 in tests
-sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_to_nox.py
-
 %generate_buildrequires
 %pyproject_buildrequires -r -x tox_to_nox
 
@@ -40,8 +32,7 @@ sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_t
 %pyproject_save_files nox
 
 %check
-# test__resolved_interpreter_not_found has broken fixture, see %%prep
-%pytest -k "not test__resolved_interpreter_not_found"
+%pytest -k "not test__create_venv_options[nox.virtualenv.CondaEnv.create-conda-CondaEnv]"
 
 %files -f %{pyproject_files}
 %{_bindir}/nox
@@ -55,6 +46,9 @@ sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_t
 %{_bindir}/tox-to-nox
 
 %changelog
+* Mon Mar 04 2024 Lumír Balhar <lbalhar@redhat.com> - 2024.03.02-1
+- Update to 2024.03.02 (rhbz#2267571)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.04.22-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

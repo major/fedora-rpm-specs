@@ -502,8 +502,8 @@ Requires:       python3-opentelemetry-instrumentation-asyncio = %{?epoch:%{epoch
 
 %description -n python3-opentelemetry-instrumentation-asyncio+instruments
 This is a metapackage bringing in “instruments” extras requires for
-python3-opentelemetry-instrumentation-asyncio. It makes sure the dependencies (the
-packages that are instrumented) are installed.
+python3-opentelemetry-instrumentation-asyncio. It makes sure the dependencies
+(the packages that are instrumented) are installed.
 
 %files -n python3-opentelemetry-instrumentation-asyncio+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_asyncio-%{prerel_distinfo}

@@ -9,6 +9,13 @@
 %bcond_with nasm
 %endif
 
+# Only build amrnb/amrwbdec on fedora
+%if 0%{?fedora}
+%bcond_without amr
+%else
+%bcond_with amr
+%endif
+
 # RHEL 10 will provide Qt 6 and drop Qt 5
 %if 0%{?rhel} >= 10
 %bcond_with qt5
@@ -27,8 +34,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.22.9
-Release:        3%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -81,14 +88,18 @@ BuildRequires:  mesa-libEGL-devel
 BuildRequires:  lame-devel
 BuildRequires:  mpg123-devel
 BuildRequires:  twolame-devel
+BuildRequires:  qt6-qtshadertools
 %if %{with nasm}
 BuildRequires:  nasm
 %endif
 BuildRequires:  libgudev-devel
+%if %{with amr}
+BuildRequires:  opencore-amr-devel
+%endif
 
 # extras
 %if %{with extras}
-BuildRequires:  jack-audio-connection-kit-devel
+BuildRequires:  pipewire-jack-audio-connection-kit-devel
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
 BuildRequires:  libdv-devel
@@ -328,6 +339,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmpg123.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttwolame.so
 
+%if %{with amr}
+%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
+%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
+%{_datadir}/gstreamer-%{majorminor}/presets/GstAmrnbEnc.prs
+%endif
 
 %files gtk
 # Plugins with external dependencies
@@ -355,6 +371,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 1.22.9-3
 - Rebuild (qt6)
 

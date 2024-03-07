@@ -1,13 +1,13 @@
 Name:           xa
-Version:        2.3.14
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        6502/65816 cross-assembler
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.floodgap.com/retrotech/xa/
 Source0:        http://www.floodgap.com/retrotech/%{name}/dists/%{name}-%{version}.tar.gz
 # update the build system, reported in private email
-Patch0:         %{name}-2.3.7-make.patch
+Patch0:         %{name}-2.4.0-make.patch
 BuildRequires:  make
 BuildRequires:  gcc
 # Perl needed for test-suite
@@ -35,7 +35,7 @@ Key amongst its features:
 %autosetup -p1
 
 # fix encoding
-for f in ChangeLog doc/fileformat.txt
+for f in ChangeLog
 do
     iconv -f ISO-8859-1 -t UTF-8 < $f > $f.new
     touch -r $f $f.new
@@ -52,16 +52,19 @@ make test
 
 
 %install
-%make_install PREFIX=%{_prefix}
+%make_install PREFIX=%{_prefix} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 
 %files
-%doc COPYING ChangeLog README.1st doc/fileformat.txt
+%doc COPYING ChangeLog README.1st
 %{_bindir}/*
 %{_mandir}/man1/*
 
 
 %changelog
+* Tue Mar 05 2024 Dan Horák <dan[at]danny.cz> - 2.4.0-1
+- updated to version 2.4.0
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

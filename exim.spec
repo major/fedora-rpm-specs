@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.97.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -380,7 +380,7 @@ fi
 %post greylist
 if [ ! -r %{_var}/spool/exim/db/greylist.db ]; then
    sqlite3 %{_var}/spool/exim/db/greylist.db < %{_sysconfdir}/exim/mk-greylist-db.sql
-   chown exim.exim %{_var}/spool/exim/db/greylist.db
+   chown exim:exim %{_var}/spool/exim/db/greylist.db
    chmod 0660 %{_var}/spool/exim/db/greylist.db
 fi
 
@@ -463,7 +463,7 @@ fi
 /bin/mkdir -pm 0750 %{_var}/run/clamd.exim
 /bin/chown exim:exim %{_var}/run/clamd.exim
 /bin/touch %{_var}/log/clamd.exim
-/bin/chown exim.exim %{_var}/log/clamd.exim
+/bin/chown exim:exim %{_var}/log/clamd.exim
 /sbin/restorecon %{_var}/log/clamd.exim
 if [ $1 -eq 1 ] ; then
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -499,6 +499,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Mar  5 2024 David Woodhouse <dwmw2@infradead.org> 4.97.1-6
+- Use ':' instead of '.' as separator for chown
+
 * Mon Mar  4 2024 David Woodhouse <dwmw2@infradead.org> 4.97.1-5
 - Fix PCRE2 memory use explosion (Exim bug 3047)
   Resolves: rhbz#2259382

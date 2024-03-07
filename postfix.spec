@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.5
-Release: 4%{?dist}
+Version: 3.8.6
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -836,6 +836,10 @@ fi
 %endif
 
 %changelog
+* Tue Mar  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.6-1
+- New version
+  Resolves: rhbz#2267836
+
 * Tue Feb 27 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.5-4
 - Dropped mail group configuration / creation, it is provided by setup
   Resolves: rhbz#2244744
