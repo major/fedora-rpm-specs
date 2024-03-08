@@ -7,13 +7,14 @@
 
 Name:           libbluray
 Version:        1.3.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPLv2+
 URL:            https://www.videolan.org/developers/libbluray.html
 
 Source0:        https://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.bz2
 Patch0:         libbluray-0.8.0-no_doxygen_timestamp.patch
+Patch1:         libbluray-1.3.4-java_21.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -68,7 +69,8 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .no_timestamp
+%patch -P0 -p1 -b .no_timestamp
+%patch -P1 -p1 -b .java_21
 
 
 %build
@@ -78,7 +80,11 @@ export JDK_HOME="%{_jvmdir}/java"
 
 autoreconf -vif
 %configure --disable-static \
-%if ! %{build_bdj}
+%if %{build_bdj}
+%if 0%{?fedora} >= 41
+           --with-java21 \
+%endif
+%else
            --disable-bdjava-jar \
 %endif
 %if %{build_pdf_doc}
@@ -125,6 +131,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 06 2024 Xavier Bachelot <xavier@bachelot.org> - 1.3.4-6
+- Fix build with java 21
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.15
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -45,7 +45,13 @@ Requires:      %add_rver R-core
 
 %description -n python3-%{srcname} %_description
 
+# Pandas will drop i686
+# https://bugzilla.redhat.com/show_bug.cgi?id=2263999
+%ifnarch %{xi86}
 %global extras all,numpy,pandas
+%else
+%global extras numpy
+%endif
 %{pyproject_extras_subpkg -n python%{python3_pkgversion}-%{srcname} %{extras}}
 
 %prep
@@ -73,6 +79,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Wed Mar 06 2024 Sandro <devel@penguinpee.nl> - 3.5.15-3
+- Drop dependency on pandas for i686
+
 * Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 3.5.15-2
 - Update the spec file to more modern Python guidelines
 

@@ -18,7 +18,7 @@
 Summary:       A graphics library for quick creation of PNG or JPEG images
 Name:          gd
 Version:       2.3.3
-Release:       15%{?prever}%{?short}%{?dist}
+Release:       16%{?prever}%{?short}%{?dist}
 License:       GD
 URL:           http://libgd.github.io/
 %if 0%{?commit:1}
@@ -145,7 +145,7 @@ CFLAGS="$RPM_OPT_FLAGS -DDEFAULT_FONTPATH='\"\
 CFLAGS="$CFLAGS -msse -mfpmath=sse"
 %endif
 
-%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64
+%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64 riscv64
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1359680
 export CFLAGS="$CFLAGS -ffp-contract=off"
 %endif
@@ -192,6 +192,9 @@ grep %{version} $RPM_BUILD_ROOT%{_libdir}/pkgconfig/gdlib.pc
 
 
 %changelog
+* Wed Mar 06 2024 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-16
+- Bump and rebuild package (for riscv64)
+
 * Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 2.3.3-15
 - Rebuilt for libavif 1.0.3
 

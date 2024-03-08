@@ -1,20 +1,25 @@
 Name:           python-docopt
-Version:        0.9.0
+Epoch:          1
+Version:        0.6.2
 Release:        %autorelease
-Summary:        Humane command line arguments parser
+Summary:        Pythonic argument parser, that will make you smile
 License:        MIT
-URL:            https://github.com/jazzband/docopt-ng
-Source:         %{pypi_source docopt_ng}
+URL:            https://github.com/docopt/docopt
+# PyPI tarball doesn't have tests
+Source:         %{url}/archive/%{version}/docopt-%{version}.tar.gz
 BuildArch:      noarch
 
+# pytest 6.2+ support
+Patch:          %{url}/pull/493.patch
+
 %global _description %{expand:
-docopt-ng helps you create beautiful command-line interfaces.  The option
-parser is generated based on the docstring that is passed to docopt function.
-docopt parses the usage pattern ("Usage: ...") and option descriptions (lines
-starting with dash "-") and ensures that the program invocation matches the
-usage pattern; it parses options, arguments and commands based on that.  The
-basic idea is that a good help message has all necessary information in it to
-make a parser.}
+Isn't it awesome how optparse and argparse generate help messages based on your
+code?!
+
+Hell no! You know what's awesome? It's when the option parser is generated
+based on the beautiful help message that you write yourself!  This way you
+don't need to write this stupid repeatable parser-code, and instead can write
+only the help message--the way you want it.}
 
 
 %description %{_description}
@@ -30,7 +35,7 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -n docopt_ng-%{version}
+%autosetup -n docopt-%{version}
 
 
 %generate_buildrequires
@@ -52,7 +57,7 @@ BuildRequires:  python3-pytest
 
 %files -n python3-docopt -f %{pyproject_files}
 %license LICENSE-MIT
-%doc README.md
+%doc README.rst
 
 
 %changelog

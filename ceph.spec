@@ -39,7 +39,7 @@
 %if 0%{?rhel} < 9
 %bcond_with system_pmdk
 %else
-%ifarch s390x %{arm64}
+%ifarch s390x %{arm64} riscv64
 %bcond_with system_pmdk
 %else
 %bcond_without system_pmdk
@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -310,7 +310,9 @@ BuildRequires:	snappy-devel
 BuildRequires:	sqlite-devel
 BuildRequires:	sudo
 BuildRequires:	pkgconfig(udev)
+%ifarch %{valgrind_arches}
 BuildRequires:	valgrind-devel
+%endif
 BuildRequires:	which
 BuildRequires:	xfsprogs-devel
 BuildRequires:	xmlstarlet
@@ -2639,6 +2641,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2:18.2.1-11
+- Add support for riscv64
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2:18.2.1-10
 - Rebuilt for java-21-openjdk as system jdk
 

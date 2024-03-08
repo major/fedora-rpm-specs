@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 5.3.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD-3-Clause AND CFITSIO
 
@@ -61,7 +61,11 @@ BuildRequires: %{py3_dist pytest-astropy}
 #
 BuildRequires: %{py3_dist scipy}
 BuildRequires: %{py3_dist matplotlib}
+# Pandas will drop i686
+# https://bugzilla.redhat.com/show_bug.cgi?id=2263999
+%ifnarch %{ix86}
 BuildRequires: %{py3_dist pandas}
+%endif
 BuildRequires: %{py3_dist h5py}
 BuildRequires: %{py3_dist scikit-image}
 # Not if Fedora
@@ -76,6 +80,7 @@ Provides: bundled(jquery) = 3.11
 
 %package -n python3-%{srcname}-doc
 Summary: Documentation for %{name}, includes full API docs
+BuildArch: noarch
 
 %description -n python3-%{srcname}-doc
 This package contains the full API documentation for %{name}.
@@ -151,6 +156,10 @@ popd
 %license LICENSE.rst cextern/cfitsio/License.txt
 
 %changelog
+* Wed Mar 06 2024 Sandro <devel@penguinpee.nl> - 5.3.2-9
+- Drop dependency on pandas for i686
+- Make doc subpackage noarch
+
 * Wed Feb 21 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 5.3.2-8
 - Add riscv64 support
 

@@ -14,7 +14,7 @@ serve as a guide in learning about contextual bandits.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.21
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
 License:        BSD
@@ -23,6 +23,10 @@ URL:            https://github.com/david-cortes/contextualbandits
 # we fetch the latest tarball from the upstream
 # we do not rely on Pypi version (no docs, no LICENSE included)
 Source0:        %url/archive/%{commit}/%{pypi_name}-%{commit}.tar.gz
+
+# Stop building for i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -86,6 +90,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc example/
 
 %changelog
+* Wed Mar 06 2024 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3.21-6
+- Stop building for i686
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:    plasma-systemmonitor
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
@@ -69,6 +69,9 @@ resources.
 %{_libdir}/libPlasmaSystemMonitorTable.so
 
 %changelog
+* Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
+- 6.0.1
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

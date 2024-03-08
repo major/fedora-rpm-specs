@@ -1,6 +1,6 @@
 Name:		orc
 Version:	0.4.38
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Oil Run-time Compiler
 
 License:	BSD-2-Clause AND BSD-3-Clause
@@ -69,6 +69,7 @@ rm -rf %{buildroot}/%{_libdir}/orc
 %license COPYING
 %doc README
 %{_libdir}/liborc-0.4.so.0*
+%{_libdir}/liborc-test-0.4.so*
 %{_bindir}/orc-bugreport
 
 %files doc
@@ -78,7 +79,6 @@ rm -rf %{buildroot}/%{_libdir}/orc
 %doc examples/*.c
 %{_includedir}/%{name}-0.4/
 %{_libdir}/liborc-0.4.so
-%{_libdir}/liborc-test-0.4.so*
 %{_libdir}/pkgconfig/orc-0.4.pc
 %{_libdir}/pkgconfig/orc-test-0.4.pc
 
@@ -87,6 +87,9 @@ rm -rf %{buildroot}/%{_libdir}/orc
 
 
 %changelog
+* Wed Mar 06 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.38-2
+- Move orc-test to main package
+
 * Tue Mar 05 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.38-1
 - Update to 0.4.38
 - Version the library to catch bumps

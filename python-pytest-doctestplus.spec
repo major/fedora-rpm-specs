@@ -3,7 +3,7 @@
 %global sum Pytest plugin with advanced doctest features
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        %{sum}
 

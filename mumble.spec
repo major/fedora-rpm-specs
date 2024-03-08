@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # primary license: BSD-3-Clause
 # themes/Mumble: Unlicense and WTFPL
@@ -330,6 +330,9 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Wed Mar 06 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.4.287-4
+- Rebuilt for poco 1.13.2 rhbz#2264958
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.287-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

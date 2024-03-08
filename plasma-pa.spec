@@ -1,6 +1,6 @@
 Name:    plasma-pa
-Version: 6.0.0
-Release: 2%{?dist}
+Version: 6.0.1
+Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -67,6 +67,9 @@ Requires: pulseaudio-daemon
 
 
 %changelog
+* Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
+- 6.0.1
+
 * Thu Feb 22 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-2
 - Remove unneeded BuildRequires
 

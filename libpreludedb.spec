@@ -5,7 +5,7 @@
 
 Name:           libpreludedb
 Version:        5.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Framework for easy access to the IDMEF database
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -42,7 +42,7 @@ BuildRequires:  perl-generators
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(zlib)
 
-%ifnarch s390
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
 %endif
 
@@ -209,6 +209,9 @@ chmod +x %{buildroot}%{_datadir}/%{name}/classic/mysql2sqlite.sh
 %doc ChangeLog README NEWS
 
 %changelog
+* Fri Mar 01 2024 David Abdurachmanov <davidlt@rivosinc.com> - 5.2.0-16
+- Properly check valgrind arches
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

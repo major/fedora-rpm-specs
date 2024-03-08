@@ -1,6 +1,6 @@
 Name:           libnice
-Version:        0.1.21
-Release:        6%{?dist}
+Version:        0.1.22
+Release:        1%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPLv2 and MPLv1.1
@@ -107,6 +107,9 @@ sed \
 
 
 %changelog
+* Wed Mar 06 2024 Stefan Becker <chemobejk@gmail.com> - 0.1.22-1
+- Update to 0.1.22 (#2267812)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

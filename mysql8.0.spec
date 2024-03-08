@@ -156,7 +156,7 @@ BuildRequires:    mecab-devel
 BuildRequires:    bison
 BuildRequires:    libzstd-devel
 BuildRequires:    libcurl-devel
-%ifnarch aarch64 %{arm} s390 s390x
+%ifnarch aarch64 s390x
 BuildRequires:    numactl-devel
 %endif
 BuildRequires:    openssl
@@ -463,15 +463,15 @@ popd
 cat %{SOURCE50} | tee -a mysql-test/%{skiplist}
 
 # disable some tests failing on different architectures
-%ifarch %{arm} aarch64
+%ifarch aarch64
 cat %{SOURCE51} | tee -a mysql-test/%{skiplist}
 %endif
 
-%ifarch s390 s390x
+%ifarch s390x
 cat %{SOURCE52} | tee -a mysql-test/%{skiplist}
 %endif
 
-%ifarch ppc ppc64 ppc64p7 ppc64le
+%ifarch ppc64le
 cat %{SOURCE53} | tee -a mysql-test/%{skiplist}
 %endif
 
@@ -525,10 +525,10 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
          -DSYSTEMD_SERVICE_NAME="%{daemon_name}" \
          -DSYSTEMD_PID_DIR="%{pidfiledir}" \
          -DWITH_INNODB_MEMCACHED=ON \
-%ifnarch aarch64 %{arm} s390 s390x
+%ifnarch aarch64 s390x
          -DWITH_NUMA=ON \
 %endif
-%ifarch s390 s390x
+%ifarch s390x
          -DUSE_LD_GOLD=OFF \
 %endif
          -DWITH_ROUTER=OFF \

@@ -1,5 +1,5 @@
 Name:           xa
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        6502/65816 cross-assembler
 
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Wed Mar 06 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.4.1-1
+- Update to 2.4.1 (rhbz#2268042)
+
 * Tue Mar 05 2024 Dan Horák <dan[at]danny.cz> - 2.4.0-1
 - updated to version 2.4.0
 

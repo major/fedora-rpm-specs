@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for phpunit8
 #
-# Copyright (c) 2010-2023 Remi Collet
+# Copyright (c) 2010-2024 Remi Collet
 #
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
@@ -9,7 +9,7 @@
 #
 
 
-%global gh_commit    9652df58e06a681429d8cfdaec3c43d6de581d5a
+%global gh_commit    fce30f306cee78be33ba00c8f9a853f41db0491b
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,12 +23,12 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.36
+%global upstream_version 8.5.37
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -130,6 +130,7 @@ Suggests:       php-xdebug
 # recommends latest versions
 Recommends:     phpunit9
 Recommends:     phpunit10
+Recommends:     phpunit11
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 8.0.0
@@ -174,7 +175,6 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/Text/Template/Autoload.php',
     '%{php_home}/SebastianBergmann/CodeCoverage7/autoload.php',
     '%{php_home}/SebastianBergmann/Timer/autoload.php',
-    '%{php_home}/Prophecy/autoload.php',
     '%{php_home}/SebastianBergmann/Diff3/autoload.php', // Before comparator which may load v2
     '%{php_home}/SebastianBergmann/Comparator3/autoload.php',
     '%{php_home}/SebastianBergmann/Environment4/autoload.php',
@@ -189,6 +189,8 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/SebastianBergmann/Invoker/autoload.php',
     '%{php_home}/PharIo/Manifest2/autoload.php',
     '%{php_home}/PharIo/Version3/autoload.php',
+    // May load Comparator/RecursionContext bad version
+    '%{php_home}/Prophecy/autoload.php',
 ]);
 // Extensions
 \Fedora\Autoloader\Dependencies::optional(
@@ -238,6 +240,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar  6 2024 Remi Collet <remi@remirepo.net> - 8.5.37-1
+- update to 8.5.37
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -4,9 +4,10 @@
 
 Name:			mfiler4
 Version:		1.3.1
-Release:		26%{?dist}
+Release:		27%{?dist}
 Summary:		2 pane file manager with a embedded shell
 
+# SPDX confirmed
 License:		MIT
 URL:			http://sourceforge.jp/projects/mfiler4/
 Source0:		http://dl.sourceforge.jp/mfiler4/%{repoid}/%{name}-%{version}.tgz
@@ -85,7 +86,7 @@ chmod 0755 %{buildroot}%{_bindir}/%{name}
 %files
 %doc	AUTHORS
 %lang(ja)	%doc	CHANGELOG
-%doc	LICENSE
+%license	LICENSE
 %doc	README
 %lang(ja)	%doc	README.ja
 %lang(ja)	%doc	USAGE.ja.txt
@@ -102,6 +103,9 @@ chmod 0755 %{buildroot}%{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Mar 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-27
+- SPDX confirmation
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           rust-packaging
-Version:        26.1
+Version:        26.2
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages
 License:        MIT
@@ -45,7 +45,13 @@ Requires:       cargo
 Requires:       gawk
 Requires:       grep
 
+%if ! 0%{?rhel}
 Requires:       rust-srpm-macros = %{version}-%{release}
+%else
+# The "rust-srpm-macros" package is built from the "rust" source package in
+# RHEL, so the package follows a different versioning scheme.
+Requires:       rust-srpm-macros
+%endif
 
 %description -n cargo-rpm-macros
 RPM macros for building projects with cargo.

@@ -4,6 +4,9 @@
 # See the file "rocclr/device/comgrctx.cpp" for reference:
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
+%global llvm_maj_ver 17
+%bcond_without compat_build
+
 %global rocm_major 6
 %global rocm_minor 0
 %global rocm_patch 0
@@ -31,12 +34,17 @@ Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 Patch8:         0001-add-long-variants-for-__ffsll.patch
 
 BuildRequires:  cmake
+%if %{with compat_build}
+BuildRequires:  clang%{llvm_maj_ver}-devel
+BuildRequires:  llvm%{llvm_maj_ver}-devel
+%else
 BuildRequires:  clang-devel
+BuildRequires:  llvm-devel(major) = %{llvm_maj_ver}
+%endif
 BuildRequires:  doxygen
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  libffi-devel
-BuildRequires:  llvm-devel
 BuildRequires:  perl
 BuildRequires:  perl-generators
 BuildRequires:  pkgconfig(opengl)
@@ -111,7 +119,19 @@ BuildArch:      noarch
 Requires:       rocminfo >= %{rocm_release}
 # 16.2 has an important fix for hipcc to work out of the box:
 Requires:       rocm-device-libs >= 16.2
+%if %{with compat_build}
+Requires:       clang%{llvm_maj_ver}
+Requires:       clang%{llvm_maj_ver}-devel
+Requires:       compiler-rt%{llvm_maj_ver}
+Requires:       lld%{llvm_maj_ver}
+Requires:       llvm%{llvm_maj_ver}-devel
+%else
 Requires:       clang
+Requires:       clang-devel
+Requires:       compiler-rt
+Requires:       lld
+Requires:       llvm-devel
+%endif
 # Renamed hip to hipcc to prepare for hipcc package split
 Provides:       hip = %{version}-%{release}
 Obsoletes:      hip < 5.6.0
@@ -177,12 +197,24 @@ sed -i 's|\(/usr/bin/\)env perl|\1perl|' bin/hipcc.pl
 sed -i '/^# Add paths to common HIP includes:/,/^$HIPCFLAGS/d' bin/hipcc.pl
 #END TODO HIPCC
 
+# HIPCC to use the compat version of clang
+%if %{with compat_build}
+sed -i 's| or -e "$HIP_PATH/bin/clang"||' bin/hipvars.pm
+sed -i 's|llvm/bin|lib64/llvm%{llvm_maj_ver}/bin|' bin/hipvars.pm
+sed -i 's|-e "$HIP_ROCCLR_HOME/bin/clang" or ||' bin/hipvars.pm
+%endif
+
 # Disable doxygen timestamps:
 sed -i 's/^\(HTML_TIMESTAMP.*\)YES/\1NO/' docs/doxygen-input/doxy.cfg
 
 popd
 
 %build
+
+%if %{with compat_build}
+export PATH=%{_libdir}/llvm%{llvm_maj_ver}/bin:$PATH
+%endif
+
 # PCH appears to be broken for aarch64, just disable for now
 %cmake \
 %ifarch aarch64

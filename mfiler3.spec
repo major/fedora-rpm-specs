@@ -4,10 +4,11 @@
 
 Name:		mfiler3
 Version:	4.4.9
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Two pane file manager under UNIX console
 
-License:	GPL+
+# SPDX confirmed
+License:	MIT
 URL:		http://www.geocities.jp/daisuke530221jp/index3.html
 Source0:	http://dl.sourceforge.jp/%{name}/%{repoid}/%{name}-%{version}.tgz
 Source10:	mfiler3.sh
@@ -15,8 +16,8 @@ Source10:	mfiler3.sh
 # Obsoletes but not Provides
 Obsoletes:	%{name}-mdnd < 3.0.0
 
-BuildRequires: make
-BuildRequires:  gcc-c++
+BuildRequires:	make
+BuildRequires:	gcc-c++
 BuildRequires:	cmigemo-devel
 %if 0
 BuildRequires:	gc-devel
@@ -60,11 +61,7 @@ sed -i.pager \
 
 # kill parallel make
 %{__make} -k \
-%if 0%{?fedora} >= 20
 	docdir=%{_defaultdocdir}/%{name}/
-%else
-	docdir=%{_defaultdocdir}/%{name}-%{version}/
-%endif
 
 %install
 # make install DESTDIR=%%{buildroot}
@@ -83,7 +80,7 @@ rm -rf ./Trash
 %defattr(-,root,root,-)
 %doc	AUTHORS
 %doc	CHANGELOG.txt
-%doc	LICENSE
+%license	LICENSE
 %doc	README.en.txt
 %doc	USAGE.en.txt
 %lang(ja)	%doc	README.ja.txt
@@ -97,6 +94,9 @@ rm -rf ./Trash
 
 
 %changelog
+* Wed Mar 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.9-31
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

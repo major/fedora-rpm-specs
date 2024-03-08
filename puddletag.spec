@@ -1,11 +1,11 @@
 Summary:        Feature rich, easy to use tag editor
 Name:           puddletag
-Version:        2.2.0
-Release:        8%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 License:        GPLv3+
 URL:            http://docs.puddletag.net/
 Source0:        https://github.com/puddletag/puddletag/archive/refs/tags/%{version}.tar.gz
-Patch0:         puddletag-2.2.0-req.patch
+Patch0:         puddletag-2.3.0-req.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -38,8 +38,6 @@ WavPack (wv).
 
 %prep
 %autosetup -p1
-sed -i  '/^#![ ]*\/usr\/bin\/env/d' \
-    puddlestuff/{webdb,puddlesettings,puddletag,puddleobjects,releasewidget}.py
 
 %build
 %{py3_build}
@@ -47,6 +45,8 @@ sed -i  '/^#![ ]*\/usr\/bin\/env/d' \
 %install
 %{py3_install}
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+find %{buildroot} -name exampletags\* -delete
+chmod 0644 %{buildroot}%{python3_sitelib}/puddlestuff/data/{menus,shortcuts}
 
 %files
 %license copyright
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Mar 06 2024 Terje Rosten <terje.rosten@ntnu.no> - 2.3.0-1
+- 2.3.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

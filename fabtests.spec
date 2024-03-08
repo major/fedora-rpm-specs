@@ -9,7 +9,9 @@ Url:            https://github.com/ofiwg/libfabric
 Source:         https://github.com/ofiwg/libfabric/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 Patch0:         0001-adjust-shebang-lines-in-rft_yaml_to_junit_xml-and-ru.patch
 BuildRequires:  libfabric-devel >= %{version}
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 Requires:       python3-pytest
@@ -23,7 +25,11 @@ fabric software library.
 %patch0 -p2
 
 %build
-%configure --with-valgrind
+%configure \
+%ifarch %{valgrind_arches}
+  --with-valgrind
+%endif
+
 make %{?_smp_mflags} V=1
 
 %install

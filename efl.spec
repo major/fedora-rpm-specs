@@ -4,7 +4,7 @@
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %global has_luajit 0
 %endif
-%ifarch ppc64le s390x
+%ifarch ppc64le s390x riscv64
 %global has_luajit 0
 %endif
 # PANIC: unprotected error in call to Lua API (bad light userdata pointer)
@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -596,6 +596,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.27.0-8
+- Disable LuaJIT on riscv64 (not ported)
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 1.27.0-7
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

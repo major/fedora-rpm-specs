@@ -8,21 +8,13 @@
 %global _docdir_fmt %{name}
 
 Name:           python-zope-event
-Version:        4.5.0
-Release:        10%{?dist}
+Version:        5.0
+Release:        1%{?dist}
 Summary:        Zope Event Publication
-License:        ZPLv2.1
+License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
 Source0:        %pypi_source zope.event
 BuildArch:      noarch
-
-# Update tox.ini, fixes Fedora build failure.  Part of this commit:
-# https://github.com/zopefoundation/zope.event/commit/3905db445a7e15f32e62da1fea4d0b4526d40762
-Patch0:         %{name}-tox.patch
-
-# Make the tests pass with python 3.  Part of this commit:
-# https://github.com/zopefoundation/zope.event/commit/5dd13f35725388c861daaea4fe39c2c1e9976026
-Patch1:         %{name}-python3.patch
 
 %description
 The zope.event package provides a simple event system. It provides
@@ -83,20 +75,18 @@ rm -f docs/_build/html/.buildinfo
 
 %install
 %pyproject_install
+%pyproject_save_files zope
 
 %if %{without bootstrap}
 %check
 %tox
 %endif
 
-%files -n python3-zope-event
+%files -n python3-zope-event -f %{pyproject_files}
 %doc CHANGES.rst COPYRIGHT.txt README.rst
 %license LICENSE.txt
-%{python3_sitelib}/zope/event/
 %exclude %{python3_sitelib}/zope/event/tests.py*
 %exclude %{python3_sitelib}/zope/event/__pycache__/tests*
-%dir %{python3_sitelib}/zope/
-%{python3_sitelib}/zope.event-*.dist-info
 %{python3_sitelib}/zope.event-*-nspkg.pth
 
 %files doc
@@ -105,6 +95,12 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Mon Jan 29 2024 Jerry James <loganjerry@gmail.com> - 5.0-1
+- Version 5.0
+- Convert the License field to SPDX
+- Drop upstreamed patches
+- Simplify with pyproject_save_files
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

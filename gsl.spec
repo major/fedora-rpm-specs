@@ -1,7 +1,7 @@
 Summary: The GNU Scientific Library for numerical analysis
 Name: gsl
 Version: 2.7.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: http://www.gnu.org/software/gsl/
 License: GPLv3+
 Source: http://ftp.gnu.org/gnu/gsl/%{name}-%{version}.tar.gz
@@ -42,7 +42,7 @@ mv THANKS.aux THANKS
 
 %build
 # disable FMA
-%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64
+%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64 riscv64
 export CFLAGS="%{optflags} -ffp-contract=off"
 %endif
 %configure
@@ -83,6 +83,9 @@ rm -r %{buildroot}%{_libdir}/*.a
 %{_includedir}/gsl/
 
 %changelog
+* Mon Feb 26 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2.7.1-8
+- Disable FMA on riscv64
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

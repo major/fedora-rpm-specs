@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        8.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -188,12 +188,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc AUTHORS.txt
 %attr(0755, root, root) %{_bindir}/*
 %{_libdir}/%{name}/
-%{_libdir}/libkicad_3dsg.so
-%{_libdir}/libkicad_3dsg.so.2.0.0
-%{_libdir}/libkigal.so
-%{_libdir}/libkigal.so.8.0.0
-%{_libdir}/libkicommon.so
-%{_libdir}/libkicommon.so.8.0.0
+%{_libdir}/libkicad_3dsg.so*
+%{_libdir}/libkigal.so*
+%{_libdir}/libkicommon.so*
 %{python3_sitearch}/_pcbnew.so
 %pycached %{python3_sitearch}/pcbnew.py
 %{_datadir}/%{name}/
@@ -216,6 +213,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Mar 06 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-2
+- Correct lib file versions
+
 * Fri Feb 23 2024 Steven A. Falco <stevenfalco@gmail.com> - 1:8.0.0-1
 - Update to 8.0.0
 

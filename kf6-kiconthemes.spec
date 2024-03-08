@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module with icon themes
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -10,25 +10,23 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  extra-cmake-modules >= %{version}
+BuildRequires:  kf6-rpm-macros
+
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(KF6Archive)
-BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6ItemViews)
 BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtsvg-devel
-
-BuildRequires:  cmake(KF6ColorScheme)
-
-BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt6UiPlugin)
 
 BuildRequires:  pkgconfig(xkbcommon)
 
@@ -64,13 +62,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_bindir}/kiconfinder6
 %{_kf6_libdir}/libKF6IconThemes.so.*
 %{_kf6_libdir}/libKF6IconWidgets.so.*
 %{_kf6_qtplugindir}/iconengines/KIconEnginePlugin.so
-%{_kf6_qtplugindir}/designer/*6widgets.so
-%{_kf6_libdir}/qt6/qml/org/kde/iconthemes
+%{_kf6_libdir}/qt6/qml/org/kde/iconthemes/
+%{_kf6_datadir}/qlogging-categories6/%{framework}.*
 
 %files devel
 %{_kf6_includedir}/KIconThemes
@@ -78,12 +75,16 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_libdir}/libKF6IconThemes.so
 %{_kf6_libdir}/libKF6IconWidgets.so
 %{_kf6_libdir}/cmake/KF6IconThemes/
+%{_kf6_qtplugindir}/designer/kiconthemes6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

@@ -8,7 +8,7 @@ Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.13.1
 Release:   1%{?dist}
-License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-PublicDomain
+License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
 Source2:   dictd2.te

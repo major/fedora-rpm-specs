@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with item views
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -48,25 +48,24 @@ developing applications that use %{name}.
 
 %find_lang_kf5 kitemviews5_qt
 
-
-%ldconfig_scriptlets
-
 %files -f kitemviews5_qt.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_datadir}/qlogging-categories5/*categories
 %{_kf5_libdir}/libKF5ItemViews.so.*
-%{_kf5_qtplugindir}/designer/*5widgets.so
+%{_kf5_datadir}/qlogging-categories5/*categories
 
 %files devel
-
 %{_kf5_includedir}/KItemViews/
 %{_kf5_libdir}/libKF5ItemViews.so
 %{_kf5_libdir}/cmake/KF5ItemViews/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KItemViews.pri
+%{_kf5_qtplugindir}/designer/kitemviews5widgets.so
 
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- move qt designer plugin to -devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

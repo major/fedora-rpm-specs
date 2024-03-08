@@ -7,7 +7,7 @@
 Name:    qwt
 Summary: Qt Widgets for Technical Applications
 Version: 6.2.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: LGPLv2 with exceptions
 URL:     http://qwt.sourceforge.net
@@ -142,13 +142,13 @@ mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %license COPYING
 %doc README
 %{_qt5_libdir}/libqwt-qt5.so.6*
-%{_qt5_plugindir}/designer/libqwt_designer_plugin.so
 
 %files qt5-devel
 %{_qt5_headerdir}/qwt/
 %{_qt5_libdir}/libqwt-qt5.so
-%{_qt5_archdatadir}/mkspecs/features/qwt*
 %{_qt5_libdir}/pkgconfig/Qt5Qwt6.pc
+%{_qt5_archdatadir}/mkspecs/features/qwt*
+%{_qt5_plugindir}/designer/libqwt_designer_plugin.so
 %endif
 
 %if %{with qt6}
@@ -156,17 +156,20 @@ mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %license COPYING
 %doc README
 %{_qt6_libdir}/libqwt-qt6.so.6*
-%{_qt6_plugindir}/designer/libqwt_designer_plugin.so
 
 %files qt6-devel
 %{_qt6_headerdir}/qwt/
 %{_qt6_libdir}/libqwt-qt6.so
-%{_qt6_archdatadir}/mkspecs/features/qwt*
 %{_qt6_libdir}/pkgconfig/Qt6Qwt6.pc
+%{_qt6_archdatadir}/mkspecs/features/qwt*
+%{_qt6_plugindir}/designer/libqwt_designer_plugin.so
 %endif
 
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 6.2.0-6
+- move qt designer plugin to -devel
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

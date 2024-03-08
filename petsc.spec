@@ -186,8 +186,10 @@
   --with-sundials-include=%{_includedir} \\\
   --with-sundials-lib="-lsundials_nvecserial -lsundials_cvode" \\\
  %endif \
-  --with-pthread=1 \\\
-  --with-valgrind=1
+ %ifarch %{valgrind_arches} \
+  --with-valgrind=1 \\\
+ %endif \
+  --with-pthread=1
 
 %global petsc_mpibuild_options \\\
  %if %{with debug} \
@@ -285,8 +287,10 @@
   --with-fftw-include= \\\
   --with-fftw-lib="-L$MPI_LIB -lfftw3_mpi -lfftw3" \\\
  %endif \
-  --with-pthread=1 \\\
-  --with-valgrind=1
+ %ifarch %{valgrind_arches} \
+  --with-valgrind=1 \\\
+ %endif \
+  --with-pthread=1
   
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
@@ -356,7 +360,9 @@ BuildRequires: tcsh
 BuildRequires: tetgen-devel
 %endif
 BuildRequires: xorg-x11-server-Xvfb
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind-devel
+%endif
 
 %description
 PETSc, pronounced PET-see (the S is silent), is a suite of data structures

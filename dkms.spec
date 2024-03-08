@@ -1,7 +1,7 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
-Version:        3.0.12
-Release:        3%{?dist}
+Version:        3.0.13
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            http://linux.dell.com/dkms
 
@@ -76,9 +76,13 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_sysconfdir}/kernel/postinst.d/%{name}
 %{_sysconfdir}/kernel/prerm.d/%{name}
 %{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/zsh/site-functions/_%{name}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Mar 06 2024 Simone Caronni <negativo17@gmail.com> - 3.0.13-1
+- Update to 3.0.13.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

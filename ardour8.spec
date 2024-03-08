@@ -40,6 +40,11 @@ Source0:    Ardour-%{version}.tar.bz2
 Source1:    LICENSING
 Source2:    gpl-3.0.txt
 
+# Fedora-specific: Ignore custom gtkrc files, mainly to prevent that Ardour
+# hangs when being started with the Breeze theme under KDE Plasma.
+# https://bugzilla.redhat.com/show_bug.cgi?id=1837342
+Patch0:     ardour8-8.4.0-ignore-custom-gtkrc.patch
+
 # Search VST plugins in lib64 paths on 64-bit platforms. This isn't according
 # to the VST standard, but enough packaged plugins use these paths to make it
 # worthwhile. Patch number >= 100 applies this only on 64-bit systems.

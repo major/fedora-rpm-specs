@@ -167,7 +167,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -255,6 +255,10 @@ Patch12: ruby-3.4.0-fix-branch-protection-compilation-for-arm.patch
 # that is not present for us. Therefore we can safely revert the change.
 # https://bugs.ruby-lang.org/issues/20208
 Patch13: ruby-3.4.0-Revert-Set-AI_ADDRCONFIG-when-making-getaddrinfo.patch
+# Fix `TestNetHTTPS#test_session_reuse_but_expire` test failure cause by
+# to OpenSSL 3.2
+# https://github.com/ruby/ruby/pull/9824
+Patch14: ruby-3.3.1-Fix-test-session-reuse-but-expire.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?with_rubypick:Suggests: rubypick}
@@ -728,6 +732,7 @@ analysis result in RBS format, a standard type description format for Ruby
 %patch 11 -p1
 %patch 12 -p1
 %patch 13 -p1
+%patch 14 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1663,6 +1668,9 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Wed Mar 06 2024 Vít Ondruch <vondruch@redhat.com> - 3.3.0-5
+- Fix FTBFS caused by OpenSSL 3.2.1 update.
+
 * Fri Jan 26 2024 Jarek Prokop <jprokop@redhat.com> - 3.3.0-4
 - Do not set AI_ADDRCONFIG by default when calling getaddrinfo(3).
 

@@ -4,9 +4,10 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Yet another shell
 
+# SPDX confirmed
 License:	MIT
 URL:		http://ab25cq.wiki.fc2.com/
 Source0:	http://dl.sourceforge.jp/sash/%{repoid}/saphire-%{version}.tgz
@@ -14,7 +15,7 @@ Patch0:	saphire-3.6.5-gcc10-fno-common.patch
 Patch1:	saphire-3.6.5-c99-port.patch
 Patch2:	saphire-string_chomp-public.patch
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:  gcc
 BuildRequires:	cmigemo-devel
 BuildRequires:	gc-devel
@@ -37,9 +38,9 @@ developing applications that use %{name}.
 %prep
 %setup -q
 # Patches
-%patch0 -p1 -b .gcc10
-%patch1 -p1 -b .c99
-%patch2 -p1 -b .string_chomp
+%patch -P0 -p1 -b .gcc10
+%patch -P1 -p1 -b .c99
+%patch -P2 -p1 -b .string_chomp
 
 # Don't strip binary
 sed -i.strip -e 's|\$(INSTALL) -s|\$(INSTALL) |' Makefile.in
@@ -130,7 +131,7 @@ make install \
 
 %files
 %doc	AUTHORS
-%doc	LICENSE
+%license	LICENSE
 %doc	README.en.txt
 %doc	USAGE.en.txt
 %doc	install_samples/samples
@@ -156,6 +157,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Mar 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.5-33
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,3 @@
-# Enable Python dependency generation
-%{?python_enable_dependency_generator}
-
 # Disable mangling shebangs for dracut module files as it breaks initramfs
 %global __brp_mangle_shebangs_exclude_from ^%{_prefix}/lib/dracut/modules.d/.*$
 
@@ -11,8 +8,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.25.21
-Release:        5%{?dist}
+Version:        10.0.2
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -20,19 +17,11 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-## From: https://github.com/OSInside/kiwi/commit/41b71c3753a471970a34fd3939cbc6860e3a8111
-Patch0001:      0001-Ensure-setfiles-is-detected-inside-the-image-root.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
 ## TODO: Consider getting umoci into Fedora?
 Patch1001:      0001-Use-buildah-by-default-for-OCI-image-builds.patch
-## Remove usage of the rtd sphinx theme (unpackaged)
-Patch1002:      kiwi-9.25.7-no-sphinx-rtd-theme.patch
-## Remove usage of the custom css (EL8 compatibility)
-Patch1003:      kiwi-9.25.7-no-sphinx-custom-css.patch
-## Use xml instead of none for code block highlights (EL8 compatibility)
-Patch1004:      kiwi-9.25.7-doc-use-xml-highlight.patch
 
 BuildRequires:  bash-completion
 BuildRequires:  dracut
@@ -40,18 +29,11 @@ BuildRequires:  fdupes
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  shadow-utils
-
 # doc build requirements
-BuildRequires:  python3dist(docopt) >= 0.6.2
-BuildRequires:  python3dist(lxml)
-BuildRequires:  python3dist(pyyaml)
-BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(simplejson)
-BuildRequires:  python3dist(six)
 BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(typing-extensions)
+BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %description %{desc}
 
@@ -92,7 +74,6 @@ Recommends:     ubu-keyring
 Recommends:     pacman
 Recommends:     archlinux-keyring
 %endif
-Requires:       %{name}-tools = %{version}-%{release}
 Requires:       lsof
 Requires:       mtools
 Requires:       rsync
@@ -101,6 +82,8 @@ Requires:       tar >= 1.2.7
 Requires:       openssl
 # Python 2 module is no longer available
 Obsoletes:      python2-%{name} < %{version}-%{release}
+# legacy kiwi initramfs tools are no longer available
+Obsoletes:      %{name}-tools < %{version}-%{release}
 
 %description systemdeps-core
 This metapackage installs the necessary system dependencies
@@ -317,11 +300,12 @@ leverage all functionality in KIWI.
 Summary:        KIWI - Python 3 implementation
 # Only require core dependencies, and allow OBS to pull the rest through magic Provides
 Requires:       kiwi-systemdeps-core = %{version}-%{release}
-%if ! 0%{?el7}
 # Retain default expectation for local installations
 Recommends:     kiwi-systemdeps = %{version}-%{release}
-%endif
-Requires:       python3-setuptools
+# Enable support for alternative markups
+Recommends:     python%{python3_version}dist(anymarkup-core) >= 0.8.0
+Recommends:     python%{python3_version}dist(xmltodict) >= 0.12.0
+
 BuildArch:      noarch
 %{?python_provide:%python_provide python3-%{name}}
 
@@ -329,15 +313,6 @@ BuildArch:      noarch
 Python 3 library of the KIWI Image System. Provides an operating system
 image builder for Linux supported hardware platforms as well as for
 virtualization and cloud systems like Xen, KVM, VMware, EC2 and more.
-
-%package tools
-Summary:        KIWI - Collection of Boot Helper Tools
-
-%description tools
-This package contains a small set of helper tools used for the
-kiwi created initial ramdisk which is used to control the very
-first boot of an appliance. The tools are not meant to be used
-outside of the scope of kiwi appliance building.
 
 %ifarch %{ix86} x86_64
 %package pxeboot
@@ -460,25 +435,37 @@ BuildArch:      noarch
 %prep
 %autosetup -p1
 
+# Temporarily switch things back to docopt for everything but Fedora 41+
+# FIXME: Drop this hack as soon as we can...
+%if ! (0%{?fedora} >= 41 || 0%{?rhel} >= 10)
+sed -e "s/docopt-ng/docopt/" -i pyproject.toml
+%endif
+
 # Drop shebang for kiwi/xml_parse.py, as we don't intend to use it as an independent script
 sed -e "s|#!/usr/bin/env python||" -i kiwi/xml_parse.py
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-# Because there are some compiled stuff
+# Required for some parts
 %set_build_flags
 
-%py3_build
+%pyproject_wheel
 
 # Build man pages
 make -C doc man
 
-# Build C-Tools
-make CFLAGS="%{build_cflags}" tools
 
 %install
-%py3_install
+# Required for some parts
+%set_build_flags
 
-# Install C-Tools, man-pages, completion and kiwi default configuration (yes, the slash is needed!)
+%pyproject_install
+
+# Install man-pages, completion and kiwi default configuration (yes, the slash is needed!)
 make buildroot=%{buildroot}/ install
 
 # Install dracut modules (yes, the slash is needed!)
@@ -489,12 +476,10 @@ rm -rf %{buildroot}%{_docdir}/packages
 
 # Rename unversioned binaries
 mv %{buildroot}%{_bindir}/kiwi-ng %{buildroot}%{_bindir}/kiwi-ng-3
-mv %{buildroot}%{_bindir}/kiwicompat %{buildroot}%{_bindir}/kiwicompat-3
 
 # Create symlinks for correct binaries
 ln -sr %{buildroot}%{_bindir}/kiwi-ng %{buildroot}%{_bindir}/kiwi
 ln -sr %{buildroot}%{_bindir}/kiwi-ng-3 %{buildroot}%{_bindir}/kiwi-ng
-ln -sr %{buildroot}%{_bindir}/kiwicompat-3 %{buildroot}%{_bindir}/kiwicompat
 
 # kiwi pxeboot directory structure to be packed in kiwi-pxeboot
 %ifarch %{ix86} x86_64
@@ -504,22 +489,15 @@ done
 %fdupes %{buildroot}%{_sharedstatedir}/tftpboot
 %endif
 
+
 %files -n python3-%{name}
 %license LICENSE
 %{_bindir}/kiwi-ng-3*
-%{_bindir}/kiwicompat-3*
 %{python3_sitelib}/kiwi*/
-
-%files tools
-%license LICENSE
-%{_bindir}/dcounter
-%{_bindir}/isconsole
-%{_bindir}/utimer
 
 %files cli
 %{_bindir}/kiwi
 %{_bindir}/kiwi-ng
-%{_bindir}/kiwicompat
 %{_datadir}/bash-completion/completions/kiwi-ng
 %{_mandir}/man8/kiwi*
 %config(noreplace) %{_sysconfdir}/kiwi.yml
@@ -586,7 +564,11 @@ done
 %files systemdeps
 # Empty metapackage
 
+
 %changelog
+* Wed Mar 06 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.2-1
+- Rebase to 10.0.2
+
 * Sat Feb 17 2024 Neal Gompa <ngompa@fedoraproject.org> - 9.25.21-5
 - Break out Zypper support into a subpackage
 

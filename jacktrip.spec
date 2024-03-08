@@ -1,5 +1,5 @@
 Name:           jacktrip
-Version:        2.2.2
+Version:        2.2.3
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 

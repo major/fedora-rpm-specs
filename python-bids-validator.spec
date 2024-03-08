@@ -1,6 +1,6 @@
 # do not use github sources, they include the js web sources and so on also
 Name:           python-bids-validator
-Version:        1.14.0
+Version:        1.14.1
 Release:        %autorelease
 Summary:        Validator for the Brain Imaging Data Structure
 

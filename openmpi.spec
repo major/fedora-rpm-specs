@@ -58,7 +58,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        5.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -79,7 +79,9 @@ BuildRequires:  libtool
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Find)
 %endif
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
+%endif
 %if %{with rdma}
 BuildRequires:  opensm-devel > 3.3.0
 BuildRequires:  rdma-core-devel
@@ -248,8 +250,10 @@ OpenMPI support for Python 3.
 %endif
 	--with-prrte=external \
 	--with-sge \
+%ifarch %{valgrind_arches}
 	--with-valgrind \
 	--enable-memchecker \
+%endif
 	--with-hwloc=/usr \
 %if !0%{?el7}
 	--with-libevent=external \
@@ -440,6 +444,9 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 
 
 %changelog
+* Mon Mar 04 2024 David Abdurachmanov <davidlt@rivosinc.com> - 5.0.2-2
+- Add support for riscv64
+
 * Wed Feb 07 2024 Orion Poplawski <orion@nwra.com> - 5.0.2-1
 - Update to 5.0.2
 

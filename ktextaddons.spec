@@ -1,6 +1,6 @@
 Name:          ktextaddons
 Version:       1.5.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -136,8 +136,6 @@ popd
 %{_kf5_libdir}/libKF5TextTranslator.so.%{version}
 %{_kf5_libdir}/libKF5TextUtils.so.1
 %{_kf5_libdir}/libKF5TextUtils.so.%{version}
-%{_kf5_qtplugindir}/designer/textcustomeditor.so
-%{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
 %{_kf5_plugindir}/translator/translator_bing.so
 %{_kf5_plugindir}/translator/translator_deepl.so
 %{_kf5_plugindir}/translator/translator_google.so
@@ -178,6 +176,8 @@ popd
 %{_kf5_libdir}/cmake/KF5TextGrammarCheck/
 %{_kf5_libdir}/cmake/KF5TextTranslator/
 %{_kf5_libdir}/cmake/KF5TextUtils/
+%{_kf5_qtplugindir}/designer/textcustomeditor.so
+%{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
 
 %files qt6
 %license LICENSES/
@@ -201,8 +201,6 @@ popd
 %{_kf6_libdir}/libKF6TextTranslator.so.%{version}
 %{_kf6_libdir}/libKF6TextUtils.so.1
 %{_kf6_libdir}/libKF6TextUtils.so.%{version}
-%{_kf6_qtplugindir}/designer/textcustomeditor.so
-%{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
 %{_kf6_plugindir}/translator/translator_bing.so
 %{_kf6_plugindir}/translator/translator_deepl.so
 %{_kf6_plugindir}/translator/translator_google.so
@@ -244,6 +242,8 @@ popd
 %{_kf6_libdir}/cmake/KF6TextGrammarCheck/
 %{_kf6_libdir}/cmake/KF6TextTranslator/
 %{_kf6_libdir}/cmake/KF6TextUtils/
+%{_kf6_qtplugindir}/designer/textcustomeditor.so
+%{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
 %{_qt6_docdir}/*.tags
 
 %files qt6-doc
@@ -253,6 +253,9 @@ popd
 %doc README.md
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 1.5.3-4
+- move qt designer plugin to -devel (qt5 and qt6)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

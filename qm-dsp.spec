@@ -3,7 +3,7 @@
 
 Name:           qm-dsp
 Version:        1.7.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Library for DSP and Music Informatics purposes
 
 # some source files with different original licenses, see README.txt
@@ -22,7 +22,9 @@ BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  kiss-fft-static
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 %if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires:  boost148-devel
 %else
@@ -95,6 +97,9 @@ LDFLAGS="%{?__global_ldflags}" \
 
 
 %changelog
+* Wed Mar 06 2024 Richard W.M. Jones <rjones@redhat.com> - 1.7.1-22
+- Bump and rebuild package (for riscv64)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

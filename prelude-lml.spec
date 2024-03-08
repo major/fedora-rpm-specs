@@ -4,7 +4,7 @@
 
 Name:           prelude-lml
 Version:        5.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Log analyzer sensor with IDMEF output
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -36,7 +36,7 @@ BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  pkgconfig(libprelude) >= %{version}
 
-%ifnarch s390
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
 %endif
 
@@ -150,6 +150,9 @@ make check
 %doc ChangeLog README NEWS AUTHORS
 
 %changelog
+* Fri Feb 23 2024 Richard W.M. Jones <rjones@redhat.com> - 5.2.0-20
+- Remove valgrind on riscv64, use valgrind_arches
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 5.2.0-19
 - Rebuild for ICU 74
 

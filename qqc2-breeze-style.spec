@@ -1,5 +1,5 @@
 Name:    qqc2-breeze-style
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 Summary: QtQuickControls2 breeze style
 
@@ -50,10 +50,12 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %license LICENSES/*.txt
 %{_kf6_plugindir}/kirigami/platform/org.kde.breeze.so
 %{_qt6_qmldir}/org/kde/breeze/
-%{_qt6_qmldir}/org/kde/kirigami/styles/org.kde.breeze/
 %{_kf6_libdir}/cmake/QQC2BreezeStyle/
 
 %changelog
+* Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
+- 6.0.1
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

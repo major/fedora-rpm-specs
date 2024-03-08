@@ -16,8 +16,8 @@ panning and zooming windows, star catalog access, cuts, star pick/fwhm,
 thumbnails, etc.}
 
 Name:           ginga
-Version:        4.1.1
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        %autorelease
 Summary:        %{sum}
 # License breakdown
 #
@@ -112,123 +112,4 @@ chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 %doc ginga/examples
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 02 2024 Sergio Pascual <sergiopr@nfedoraproject.org> - 4.1.1-1
-- Update to 4.1.1
-- Using SPDX license name
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 4.0.1-3
-- Rebuilt for Python 3.12
-
-* Fri Jul 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-2
-- Rebuild for Python 3.12
-
-* Sun Jun 25 2023 Orion Poplawski <orion@nwra.com> - 4.0.1-1
-- Update to 4.0.1
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 2.7.2-13
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.7.2-10
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-8
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.7.2-6
-- Rebuilt for Python 3.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 2.7.2-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 2.7.2-3
-- Rebuilt for Python 3.8
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Apr 28 2019 Christian Dersch <lupinix@mailbox.org> - 2.7.2-1
-- new version
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Oct 02 2018 Christian Dersch <lupinix@fedoraproject.org> - 2.7.1-2
-- drop python2 subpackage (#1632317)
-
-* Tue Oct 02 2018 Christian Dersch <lupinix@fedoraproject.org> - 2.7.1-1
-- new version
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 2.6.5-4
-- Rebuilt for Python 3.7
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jan 11 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.6.5-2
-- Remove obsolete scriptlets
-
-* Fri Sep 08 2017 Christian Dersch <lupinix@mailbox.org> - 2.6.5-1
-- new version
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Mar 18 2017 Christian Dersch <lupinix@mailbox.org> - 2.6.2-2
-- Added dependency python-QtPy
-
-* Tue Feb 28 2017 Christian Dersch <lupinix@mailbox.org> - 2.6.2-1
-- new version
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sun Jan 01 2017 Christian Dersch <lupinix@mailbox.org> - 2.6.1-1
-- new version
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.6.0-2
-- Rebuild for Python 3.6
-
-* Wed Nov 30 2016 Christian Dersch <lupinix@mailbox.org> - 2.6.0-1
-- new version
-
-* Sat Oct 22 2016 Christian Dersch <lupinix@mailbox.org> - 2.5.20161005204600-1
-- new version
-- unbundled fonts
-- fixed interpreters for scripts to use correct Python version
-
-* Sun Oct  2 2016 Christian Dersch <lupinix@mailbox.org> - 2.5.20160926130800-1
-- initial package
+%autochangelog

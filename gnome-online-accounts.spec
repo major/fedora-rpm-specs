@@ -4,7 +4,7 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.49.2
+Version:	3.49.4
 Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
@@ -24,6 +24,7 @@ BuildRequires:	gtk-doc
 BuildRequires:	krb5-devel
 BuildRequires:	meson
 BuildRequires:	vala
+BuildRequires:	/usr/bin/desktop-file-validate
 %if !0%{?flatpak}
 BuildRequires:	pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:	pkgconfig(json-glib-1.0)
@@ -81,6 +82,9 @@ developing applications that use %{name}.
 
 %find_lang %{name}
 
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAccounts.OAuth2.desktop
+
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS README.md
@@ -89,8 +93,8 @@ developing applications that use %{name}.
 %{_libdir}/libgoa-1.0.so.0
 %{_libdir}/libgoa-1.0.so.0.0.0
 %if !0%{?flatpak}
-%{_libdir}/libgoa-backend-1.0.so.1
-%{_libdir}/libgoa-backend-1.0.so.1.0.0
+%{_libdir}/libgoa-backend-1.0.so.2
+%{_libdir}/libgoa-backend-1.0.so.2.0.0
 %dir %{_libdir}/goa-1.0
 %{_prefix}/libexec/goa-daemon
 %{_prefix}/libexec/goa-identity-service
@@ -120,6 +124,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 3.49.4-1
+- Update to 3.49.4
+
 * Tue Feb 13 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.49.2-1
 - 3.49.2
 

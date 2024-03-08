@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -62,9 +62,6 @@ developing applications that use %{name}.
 
 %find_lang %{name} --with-man --all-name
 
-
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
@@ -72,19 +69,21 @@ developing applications that use %{name}.
 %{_kf5_libdir}/libKF5ConfigWidgets.so.*
 ## fixme: %%lang'ify these -- rex
 %{_kf5_datadir}/locale/*/kf5_entry.desktop
-%{_kf5_qtplugindir}/designer/*5widgets.so
 
 %files devel
 %{_kf5_bindir}/preparetips5
-%{_kf5_mandir}/man1/preparetips5.1*
-
 %{_kf5_includedir}/KConfigWidgets/
 %{_kf5_libdir}/libKF5ConfigWidgets.so
 %{_kf5_libdir}/cmake/KF5ConfigWidgets/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KConfigWidgets.pri
+%{_kf5_mandir}/man1/preparetips5.1*
+%{_kf5_qtplugindir}/designer/kconfigwidgets5widgets.so
 
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- move qt designer plugin to -devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

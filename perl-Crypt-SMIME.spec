@@ -1,12 +1,12 @@
 Name:           perl-Crypt-SMIME
-Version:        0.28
-Release:        11%{?dist}
+Version:        0.29
+Release:        1%{?dist}
 Summary:        S/MIME message signing, verification, encryption and decryption
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-SMIME
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-SMIME-%{version}.tar.gz
+
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  openssl-devel
@@ -14,7 +14,7 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::CChecker)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
@@ -35,10 +35,12 @@ BuildRequires:  perl(Test::More)
 #Add a test sub package.
 %{?perl_default_subpackage_tests}
 
+
 %description
 This module provides a class for handling S/MIME messages. It can sign,
 verify, encrypt and decrypt messages. It requires libcrypto
 (http://www.openssl.org) to work.
+
 
 %prep
 %setup -q -n Crypt-SMIME-%{version}
@@ -46,29 +48,33 @@ verify, encrypt and decrypt messages. It requires libcrypto
 # then cause t/manifest.t to fail.
 printf '\\.list$\n^\\.package_note\n' >> MANIFEST.SKIP
 
+
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
+  NO_PACKLIST=1 NO_PERLLOCAL=1
 %make_build
 
+
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%make_install
+%{_fixperms} %{buildroot}/*
 
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
+
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Crypt*
-%{_mandir}/man3/*
+%{perl_vendorarch}/auto/Crypt/
+%{perl_vendorarch}/Crypt/
+%{_mandir}/man3/SMIME*3pm*
+
 
 %changelog
+* Wed Feb 06 2024 Xavier Bachelot <xavier@bachelot.org> - 0.29-1
+- Update to 0.29 (RHBZ #2264507)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

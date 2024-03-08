@@ -48,6 +48,7 @@ BuildRequires:  cmake(Qt6OpenGL)
 BuildRequires:  cmake(Qt6OpenGLWidgets)
 BuildRequires:  cmake(Qt6Core5Compat)
 
+Requires:       qt6-qt5compat
 Requires:       hicolor-icon-theme
 Requires:       kf5-kservice
 Requires:       kf5-filesystem

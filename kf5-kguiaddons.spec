@@ -4,7 +4,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtGui
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -27,7 +27,7 @@ BuildRequires:  qt5-qtx11extras-devel
 Requires:       kf5-filesystem >= %{majmin}
 
 %if %{with kf6_compat}
-Requires:       kf6-%{framework}%{?_isa}
+Recommends:     kf6-%{framework}%{?_isa}
 %endif
 
 %description
@@ -78,6 +78,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Mar 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.115.0-2
+- Soften kf6-kguiaddons dependency
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

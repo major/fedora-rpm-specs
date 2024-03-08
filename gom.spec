@@ -1,15 +1,14 @@
 Name:           gom
-Version:        0.4
-Release:        14%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        GObject to SQLite object mapper library
 
 # documentation is GFDL-1.1-or-later
 License:        LGPL-2.1-or-later AND GFDL-1.1-or-later
 URL:            https://wiki.gnome.org/Projects/Gom
-Source0:        https://download.gnome.org/sources/gom/0.4/gom-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gom/0.5/gom-%{version}.tar.xz
 
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
@@ -17,6 +16,7 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pygobject3-devel
 BuildRequires:  python3-devel
+BuildRequires:  /usr/bin/gi-docgen
 
 %description
 Gom provides an object mapper from GObjects to SQLite. It helps you write
@@ -32,7 +32,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson -Denable-gtk-doc=true
@@ -45,6 +45,7 @@ developing applications that use %{name}.
 
 %files
 %license COPYING
+%doc NEWS README
 %{_libdir}/girepository-1.0/Gom-1.0.typelib
 %{_libdir}/libgom-1.0.so.0*
 %dir %{python3_sitearch}/gi
@@ -56,9 +57,12 @@ developing applications that use %{name}.
 %{_libdir}/libgom-1.0.so
 %{_libdir}/pkgconfig/gom-1.0.pc
 %{_datadir}/gir-1.0/Gom-1.0.gir
-%doc %{_datadir}/gtk-doc/
+%doc %{_docdir}/gom-1.0/
 
 %changelog
+* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 0.5.0-1
+- Update to 0.5.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

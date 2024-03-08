@@ -3,7 +3,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon with advanced text editing widgets
 
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -62,24 +62,23 @@ developing applications that use %{name}.
 
 %find_lang %{name} --all-name
 
-
-%ldconfig_scriptlets
-
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
 %{_kf5_libdir}/libKF5TextWidgets.so.*
-%{_kf5_qtplugindir}/designer/*5widgets.so
 
 %files devel
-
 %{_kf5_includedir}/KTextWidgets/
 %{_kf5_libdir}/libKF5TextWidgets.so
 %{_kf5_libdir}/cmake/KF5TextWidgets/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KTextWidgets.pri
+%{_kf5_qtplugindir}/designer/ktextwidgets5widgets.so
 
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- move qt designer plugin to -devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

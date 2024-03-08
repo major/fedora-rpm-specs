@@ -7,7 +7,7 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
 Version: 1.60.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Parts of ruby bindings are additionally under GPL-2.0-or-later, MIT and
 # HPND-Kevlin-Henney but they are NOT shipped.
@@ -101,9 +101,6 @@ This is the MinGW cross-compiled Windows library.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-
-# make fetch-ocsp-response use Python 3
-sed -e '1 s|^#!/.*python|&3|' -i script/fetch-ocsp-response
 
 %build
 mkdir build
@@ -215,6 +212,9 @@ popd
 
 
 %changelog
+* Wed Mar 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.60.0-2
+- Fix shebang of fetch-ocsp-response
+
 * Mon Mar 04 2024 Jan Macku <jamacku@redhat.com> 1.60.0-1
 - update to the latest upstream release
 - update PGP key from https://keyserver.ubuntu.com/pks/lookup?op=vindex&search=0x7e8403d5d673c366

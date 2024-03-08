@@ -1,5 +1,5 @@
 Name: cfitsio
-Version: 4.3.1
+Version: 4.4.0
 Release: %autorelease
 Summary: Library for manipulating FITS data files
 
@@ -101,24 +101,27 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %ldconfig_scriptlets
 
 %files
-%doc README License.txt docs/changes.txt
+%doc README.md docs/changes.txt
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 %{_libdir}/libcfitsio.so.10*
 
 %files devel
-%doc cookbook.*
+%doc utilities/cookbook.*
 %{_includedir}/%{name}
 %{_libdir}/libcfitsio.so
 %{_libdir}/pkgconfig/cfitsio.pc
 
 %files static
-%doc License.txt
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 %{_libdir}/libcfitsio.a
 
 %files docs
-%doc docs/fitsio.doc docs/fitsio.pdf docs/cfitsio.pdf License.txt
+%doc docs/fitsio.pdf docs/cfitsio.pdf
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 
 %files -n fpack
-%doc docs/fpackguide.pdf License.txt
+%doc docs/fpackguide.pdf
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 %{_bindir}/fpack
 %{_bindir}/funpack
 

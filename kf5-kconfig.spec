@@ -4,14 +4,8 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-#global docs 1
 #global python_bindings 1
 %global tests 1
-
-%endif
-
-%if 0%{?flatpak}
-%global docs 0
 %endif
 
 # use ninja instead of make
@@ -19,7 +13,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with advanced configuration system
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -27,7 +21,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -94,20 +88,6 @@ KConfigGui provides a way to hook widgets to the configuration so that they are
 automatically initialized from the configuration and automatically propagate
 their changes to their respective configuration files.
 
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-BuildRequires: doxygen
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
-BuildRequires: qt5-qtbase-doc
-BuildRequires: make
-Requires: kf5-filesystem
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
-
 %if 0%{?python_bindings}
 %package -n python3-pykf5-%{framework}
 Summary: Python3 bindings for %{framework}
@@ -135,11 +115,6 @@ export PYTHONPATH
 %endif
 
 %cmake_kf5 \
-  %if 0%{?flatpak}
-  %{?docs:-DBUILD_QCH:BOOL=OFF} \
-  %else
-  %{?docs:-DBUILD_QCH:BOOL=ON} \
-  %endif
   %{?ninja:-G Ninja} \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
@@ -170,18 +145,14 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 %doc DESIGN README.md TODO
 %license LICENSES/*.txt
 
-%ldconfig_scriptlets core
-
 %files core -f kconfig5_qt.lang
-%{_kf5_datadir}/qlogging-categories5/%{framework}*
 %{_kf5_bindir}/kreadconfig5
 %{_kf5_bindir}/kwriteconfig5
-%{_kf5_libdir}/libKF5ConfigCore.so.5*
-%{_kf5_libdir}/libKF5ConfigQml.so.5*
 %{_kf5_libexecdir}/kconfig_compiler_kf5
 %{_kf5_libexecdir}/kconf_update
-
-%ldconfig_scriptlets gui
+%{_kf5_libdir}/libKF5ConfigCore.so.5*
+%{_kf5_libdir}/libKF5ConfigQml.so.5*
+%{_kf5_datadir}/qlogging-categories5/%{framework}*
 
 %files gui
 %{_kf5_libdir}/libKF5ConfigGui.so.*
@@ -198,12 +169,6 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 %{_kf5_archdatadir}/mkspecs/modules/qt_KConfigCore.pri
 %{_kf5_archdatadir}/mkspecs/modules/qt_KConfigGui.pri
 
-%if 0%{?docs}
-%files doc
-%{_qt5_docdir}/KF5Config.qch
-%{_qt5_docdir}/KF5Config.tags
-%endif
-
 %if 0%{?python_bindings}
 %files -n python3-pykf5-%{framework}
 %{python3_sitearch}/PyKF5/
@@ -214,6 +179,9 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- spec cleanup
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

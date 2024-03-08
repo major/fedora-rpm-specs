@@ -3,7 +3,7 @@
 
 # https://github.com/go-openapi/strfmt
 %global goipath         github.com/go-openapi/strfmt
-Version:                0.19.11
+Version:                0.22.2
 
 %gometa
 
@@ -18,7 +18,7 @@ go toolkit for OpenAPI specifications knows how to deal with those.}
 %global godocs          CODE_OF_CONDUCT.md README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Openapi toolkit common string formats
 
 # Upstream license specification: Apache-2.0
@@ -29,6 +29,7 @@ Source0:        %{gosource}
 BuildRequires:  golang(github.com/asaskevich/govalidator)
 BuildRequires:  golang(github.com/go-openapi/errors)
 BuildRequires:  golang(github.com/mitchellh/mapstructure)
+BuildRequires:  golang(github.com/oklog/ulid)
 BuildRequires:  golang(go.mongodb.org/mongo-driver/bson)
 BuildRequires:  golang(go.mongodb.org/mongo-driver/bson/bsontype)
 BuildRequires:  golang(go.mongodb.org/mongo-driver/bson/primitive)
@@ -58,45 +59,4 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 21 08:46:01 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0.19.11-1
-- Update to 0.19.11
-- Close: rhbz#1887028
-
-* Thu Jul 30 17:08:40 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0.19.5-1
-- Update to 0.19.5
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat May 11 04:54:31 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0.19.0-1
-- Initial package
+%autochangelog

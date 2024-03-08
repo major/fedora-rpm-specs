@@ -303,7 +303,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 122.0.6261.94
+Version: 122.0.6261.111
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -481,7 +481,7 @@ patch356: chromium-122-disable-FFmpegAllowLists.patch
 Patch357: chromium-122-clang16-disable-auto-upgrade-debug-info.patch
 
 # set clang_lib path
-Patch358: chromium-121-rust-clang_lib.patch
+Patch358: chromium-122-rust-clang_lib.patch
 
 # upstream patches
 Patch400: chromium-122-el8-support-64kpage.patch
@@ -1952,6 +1952,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Mar 06 2024 Than Ngo <than@redhat.com> - 122.0.6261.111-1
+- upstream security release 122.0.6261.111
+   * High CVE-2024-2173: Out of bounds memory access in V8 
+   * High CVE-2024-2174: Inappropriate implementation in V8
+   * High CVE-2024-2176: Use after free in FedCM
+
 * Wed Feb 28 2024 Than Ngo <than@redhat.com> - 122.0.6261.94-1
 - upstream security release 122.0.6261.94
   * High : Type Confusion in V8

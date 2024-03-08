@@ -73,6 +73,9 @@ Source5:       %{name}-cleaner.sh
 Patch0:        gdal_utils.patch
 # Fix passing incompatible pointer type
 Patch1:        gdal_incompatible-pointer-types.patch
+# Increase javac source/target to 8
+# [javac] error: Source option 7 is no longer supported. Use 8 or later.
+Patch2:        gdal_java8.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

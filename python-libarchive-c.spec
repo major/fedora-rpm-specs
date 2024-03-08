@@ -1,5 +1,5 @@
 Name:          python-libarchive-c
-Version:       5.0
+Version:       5.1
 Release:       %autorelease
 Summary:       Python interface to libarchive
 License:       CC0

@@ -6,8 +6,8 @@
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
 Name:           mozilla-ublock-origin
-Version:        1.54.0
-Release:        3%{?dist}
+Version:        1.56.0
+Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
 License:        GPLv3 and MIT and OFL and Unlicense
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Wed Mar 06 2024 Dominik Mierzejewski <dominik@greysector.net> - 1.56.0-1
+- update to 1.56.0 (#2256730)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.54.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

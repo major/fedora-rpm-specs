@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for creating configuration dialogs
 
 # The following licenses are in LICENSES but go unused: BSD-3-Clause, MIT
@@ -11,23 +11,23 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
 
-BuildRequires:  extra-cmake-modules >= %{version}
-BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  kf6-kauth-devel
-BuildRequires:  kf6-kcodecs-devel
+BuildRequires:  gcc-c++
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  cmake(Qt6UiPlugin)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6ColorScheme)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6DocTools)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  kf6-rpm-macros
 BuildRequires:  pkgconfig(xkbcommon)
-BuildRequires:  cmake(KF6ColorScheme)
+
 Requires:  kf6-filesystem
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  cmake(Qt6UiPlugin)
 
 %description
 KConfigWidgets provides easy-to-use classes to create configuration dialogs, as
@@ -66,21 +66,24 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_datadir}/qlogging-categories6/%{framework}*
-%{_kf6_libdir}/qt6/plugins/designer/kconfigwidgets6widgets.so
 %{_kf6_libdir}/libKF6ConfigWidgets.so.*
 %{_datadir}/locale/*/kf6_entry.desktop
+%{_kf6_datadir}/qlogging-categories6/%{framework}*
 
 %files devel
 %{_kf6_includedir}/KConfigWidgets/
 %{_kf6_libdir}/libKF6ConfigWidgets.so
 %{_kf6_libdir}/cmake/KF6ConfigWidgets/
+%{_kf6_libdir}/qt6/plugins/designer/kconfigwidgets6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

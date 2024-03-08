@@ -16,7 +16,7 @@
 # They fail/hang for yet undetermined causes.
 # Build with --with checks to force building them.
 # Build with --without checks to skip building them.
-%ifarch ppc64le aarch64 s390x armv7hl %{ix86}
+%ifarch ppc64le aarch64 s390x armv7hl %{ix86} riscv64
 %bcond_with checks
 %else
 %bcond_without checks
@@ -25,7 +25,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -453,6 +453,9 @@ done
 %endif
 
 %changelog
+* Mon Feb 26 2024 Richard W.M. Jones <rjones@redhat.com> - 4.14-8
+- Disable checks on riscv64
+
 * Thu Feb  8 2024 Jerry James <loganjerry@gmail.com> - 4.14-7
 - Rebuild for coin-or-Ipopt 3.14.14
 - Stop building for i686

@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Crypto library written in C++
 
 License:        BSD
@@ -21,6 +21,10 @@ Patch2:         botan-1.10.13-python-init.patch
 Patch3:         botan-1.10.17-doc-conf-2to3.patch
 # Fix FTBFS
 Patch4:         botan-1.10.17-u64bit.patch
+# Add RISC-V (riscv64)
+# Upstream in later versions:
+# https://github.com/randombit/botan/blob/master/src/build-data/arch/riscv64.txt
+Patch9:         Botan-1.10.17-add-riscv64.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -195,6 +199,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Sat Feb 24 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.10.17-42
+- Add support for riscv64
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.17-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

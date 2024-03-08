@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # * drop jemallocator dependency
 Patch:          fd-find-fix-metadata.diff
 # * drop jemallocator from code
+# * bump lscolors from 0.16 to 0.17
+# * bump nu-ansi-term from 0.49 to 0.50
 Patch:          0001-remove-references-to-jemalloc.patch
 
 BuildRequires:  cargo-rpm-macros >= 24

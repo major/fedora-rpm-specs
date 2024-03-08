@@ -1,5 +1,5 @@
 Name:    kwin-x11
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
@@ -26,7 +26,7 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
-BuildRequires:  qaccessibilityclient-devel
+BuildRequires:  cmake(QAccessibilityClient6)
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtbase-static
 # KWinQpaPlugin (and others?)
@@ -175,6 +175,10 @@ sed -i \
 
 
 %changelog
+* Thu Mar 07 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.1-1
+- 6.0.1
+- BR cmake(QAccessibilityClient6) instead of qaccessibilityclient-devel
+
 * Fri Feb 23 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.0-1
 - 6.0.0
 

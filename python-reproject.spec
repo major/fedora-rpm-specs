@@ -14,6 +14,8 @@ BuildRequires:  gcc
 
 BuildRequires:  python3-devel
 
+ExcludeArch: %{ix86}
+
 %description
 %{sum}.
 

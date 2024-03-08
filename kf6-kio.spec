@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -172,7 +172,6 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 
 %files core
-%{_kf6_datadir}/qlogging-categories6/*categories
 %{_kf6_libexecdir}/kioexec
 %{_kf6_libexecdir}/kiod6
 %{_kf6_libexecdir}/kioworker
@@ -184,6 +183,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_datadir}/kf6/searchproviders/*.desktop
 %{_kf6_datadir}/applications/*.desktop
 %{_datadir}/dbus-1/services/org.kde.*.service
+%{_kf6_datadir}/qlogging-categories6/*categories
 
 %files core-libs
 %{_kf6_libdir}/libKF6KIOCore.so.*
@@ -200,22 +200,25 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %files widgets-libs
 %{_kf6_libdir}/libKF6KIOWidgets.so.*
-%{_kf6_qtplugindir}/designer/*6widgets.so
 
 %files file-widgets
 %{_kf6_libdir}/libKF6KIOFileWidgets.so.*
 
 %files devel
-%{_kf6_datadir}/kdevappwizard/templates/kioworker6.tar.bz2
 %{_kf6_includedir}/*
 %{_kf6_libdir}/*.so
 %{_kf6_libdir}/cmake/KF6KIO/
+%{_kf6_datadir}/kdevappwizard/templates/kioworker6.tar.bz2
+%{_kf6_qtplugindir}/designer/kio6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files qch-doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

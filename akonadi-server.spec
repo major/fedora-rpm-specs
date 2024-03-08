@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -201,7 +201,6 @@ fi
 %{_kf6_datadir}/akonadi/
 %{_kf6_datadir}/config.kcfg/resourcebase.kcfg
 %{_kf6_datadir}/kf6/akonadi/
-%{_kf6_qtplugindir}/designer/akonadi6widgets.so
 %{_kf6_libdir}/libKPim6Akonadi*.so.*
 %{_kf6_datadir}/icons/hicolor/*/apps/akonadi.*
 
@@ -219,6 +218,7 @@ fi
 %{_kf6_libdir}/libKPim6Akonadi*.so
 %{_kf6_libdir}/cmake/KPim6Akonadi/
 %{_kf6_qtplugindir}/pim6/akonadi/akonadi_test_searchplugin.so
+%{_kf6_qtplugindir}/designer/akonadi6widgets.so
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
 %{_qt6_docdir}/*.tags
@@ -247,6 +247,9 @@ fi
 
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

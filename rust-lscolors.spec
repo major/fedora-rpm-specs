@@ -4,7 +4,7 @@
 %global crate lscolors
 
 Name:           rust-lscolors
-Version:        0.16.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Colorize paths using the LS_COLORS environment variable
 
@@ -24,7 +24,7 @@ Colorize paths using the LS_COLORS environment variable.}
 Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
-License:        MIT AND (MIT OR Apache-2.0)
+License:        (MIT OR Apache-2.0) AND MIT
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

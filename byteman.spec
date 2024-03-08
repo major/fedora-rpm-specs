@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.16
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Java agent-based bytecode injection tool
 License:          LGPLv2+
 URL:              http://www.jboss.org/byteman
@@ -26,7 +26,7 @@ BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Byteman 4.x requires JDK 9+ to build. Require JDK 10 explicitly.
-BuildRequires:    java-17-openjdk-devel
+BuildRequires:    java-devel >= 1:11
 BuildRequires:    maven-local
 BuildRequires:    maven-shade-plugin
 BuildRequires:    maven-source-plugin
@@ -148,7 +148,7 @@ sed -i "s|java-cup|java_cup|" tests/pom.xml
 %mvn_package ":byteman-dtest" dtest
 
 %build
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-openjdk
 # Use --xmvn-javadoc so as to avoid maven-javadoc-plugin issue
 # (fixed in 3.1.0, fedora has 3.0.1):
 # See https://issues.apache.org/jira/browse/MJAVADOC-555
@@ -220,6 +220,9 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Sun Mar 03 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.0.16-14
+- Really rebuild with java-21-openjdk as system jdk
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 4.0.16-13
 - Rebuilt for java-21-openjdk as system jdk
 

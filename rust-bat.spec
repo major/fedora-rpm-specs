@@ -17,6 +17,7 @@ Patch:          bat-fix-metadata-auto.diff
 # * remove compiler settings that are incompatible with RPM packaging
 # * Port from path_abs to path-absolutize:
 #   https://github.com/sharkdp/bat/pull/1025
+# * Bump nu-ansi-term from 0.49.0 to 0.50.0
 # * Bump os_str_bytes from 6.4 to 6.6
 Patch:          bat-fix-metadata.diff
 Patch:          0001-port-from-path_abs-to-path-absolutize.patch

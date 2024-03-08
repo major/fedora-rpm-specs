@@ -1,17 +1,16 @@
 Name:           solaar
-Version:        1.1.10
-Release:        2%{?dist}
+Version:        1.1.11
+Release:        1%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
 
 # Fedora-specific patches
-Patch:          0001-Install-udev-rules-into-correct-location.patch
 Patch:          0002-Install-alternative-udev-rules-for-wayland-compatibi.patch
 Patch:          0003-Install-autostart-desktop-file.patch
 
 BuildArch:      noarch
-License:        GPLv2
+License:        GPL-2.0-or-later
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -50,8 +49,6 @@ Logitech's Unifying Receiver peripherals.
 %package udev
 Summary:        Udev rules for Logitech receivers
 BuildArch:      noarch
-Obsoletes:      unifying-receiver-udev < 0.2-12
-Provides:       unifying-receiver-udev = 0.2-12
 
 %description udev
 This package contains udev rules which grant users permission to access various
@@ -106,9 +103,12 @@ fi
 %{python3_sitelib}/logitech_receiver
 %{python3_sitelib}/solaar
 %{python3_sitelib}/solaar-%{version}*-py%{python3_version}.egg-info
-%{_datadir}/solaar
 %{_datadir}/applications/solaar.desktop
+%{_datadir}/icons/hicolor/32x32/apps/solaar-light_*.png
 %{_datadir}/icons/hicolor/scalable/apps/solaar.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-attention.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-init.svg
+%{_datadir}/icons/hicolor/scalable/apps/solaar-symbolic.svg
 %{_metainfodir}/io.github.pwr_solaar.solaar.metainfo.xml
 %config(noreplace) %{_sysconfdir}/xdg/autostart/solaar.desktop
 
@@ -123,6 +123,12 @@ fi
 
 
 %changelog
+* Wed Mar 06 2024 Dominik Mierzejewski <dominik@greysector.net> - 1.1.11-1
+- update to 1.1.11 (#2263677)
+- drop obsolete patch
+- use SPDX license identifier
+- drop ancient Obsoletes/Provides
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

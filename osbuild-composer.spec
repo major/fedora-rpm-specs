@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        101
+Version:        102
 
 %gometa
 
@@ -58,7 +58,7 @@ Provides: bundled(golang(cloud.google.com/go)) = 0.112.0
 Provides: bundled(golang(cloud.google.com/go/compute)) = 1.24.0
 Provides: bundled(golang(cloud.google.com/go/compute/metadata)) = 0.2.3
 Provides: bundled(golang(cloud.google.com/go/iam)) = 1.1.6
-Provides: bundled(golang(cloud.google.com/go/storage)) = 1.38.0
+Provides: bundled(golang(cloud.google.com/go/storage)) = 1.39.0
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go)) = 68.0.0+incompatible
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.9.2
@@ -67,7 +67,7 @@ Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.5.
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v5)) = 5.5.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources)) = 1.2.0
 Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage)) = 1.5.0
-Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.3.0
+Provides: bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.3.1
 Provides: bundled(golang(github.com/Azure/go-autorest)) = 14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest)) = 0.11.29
 Provides: bundled(golang(github.com/Azure/go-autorest/autorest/adal)) = 0.9.22
@@ -85,7 +85,7 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.12.0-rc.1
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.50.24
+Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.50.29
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.2.1
@@ -144,7 +144,7 @@ Provides: bundled(golang(github.com/google/s2a-go)) = 0.1.7
 Provides: bundled(golang(github.com/google/uuid)) = 1.6.0
 Provides: bundled(golang(github.com/googleapis/enterprise-certificate-proxy)) = 0.3.2
 Provides: bundled(golang(github.com/googleapis/gax-go/v2)) = 2.12.1
-Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.9.0
+Provides: bundled(golang(github.com/gophercloud/gophercloud)) = 1.10.0
 Provides: bundled(golang(github.com/gorilla/css)) = 1.0.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.0
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
@@ -197,7 +197,7 @@ Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.1.0
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.11.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.398
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.40.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.42.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = e969a9d
 Provides: bundled(golang(github.com/osbuild/pulp-client)) = 0.1.0
 Provides: bundled(golang(github.com/ostreedev/ostree-go)) = 719684c
@@ -252,10 +252,10 @@ Provides: bundled(golang(golang.org/x/term)) = 0.17.0
 Provides: bundled(golang(golang.org/x/text)) = 0.14.0
 Provides: bundled(golang(golang.org/x/time)) = 0.5.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.14.0
-Provides: bundled(golang(google.golang.org/api)) = 0.166.0
+Provides: bundled(golang(google.golang.org/api)) = 0.167.0
 Provides: bundled(golang(google.golang.org/appengine)) = 1.6.8
-Provides: bundled(golang(google.golang.org/genproto)) = 31a09d3
-Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = 31a09d3
+Provides: bundled(golang(google.golang.org/genproto)) = 012b6fc
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = b0ce06b
 Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = 012b6fc
 Provides: bundled(golang(google.golang.org/grpc)) = 1.61.1
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.32.0
@@ -631,6 +631,39 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 06 2024 Packit <hello@packit.dev> - 102-1
+Changes with 102
+----------------
+  * CI: Drop SonarQube in favor of Snyk (#3984)
+    * Author: Jakub Rusz, Reviewers: Simon Steinbeiß
+  * Enable masked systemd services in cloudapi (HMS-3661) (#3972)
+    * Author: Gianluca Zuccarelli, Reviewers: Brian C. Lane, Tomáš Hozza
+  * Enable testing in OpenShift (#3681)
+    * Author: Alexander Todorov, Reviewers: Jakub Rusz, Tomáš Hozza
+  * README: Fix reference to developer guide (#3969)
+    * Author: Brian C. Lane, Reviewers: Tomáš Hozza
+  * Skip Image Tests tests for image types already covered in osbuild/images (#3967)
+    * Author: Alexander Todorov, Reviewers: Jakub Rusz, Tomáš Hozza
+  * build(deps): bump golangci/golangci-lint-action from 3 to 4 (#3941)
+    * Author: dependabot[bot], Reviewers: Tomáš Hozza
+  * build(deps): bump stackrox/kube-linter-action from 1.0.4 to 1.0.5 (#3982)
+    * Author: dependabot[bot], Reviewers: Tomáš Hozza
+  * ci: skip ostree-remount check in CS9 due to bug RHEL-25249 (#3978)
+    * Author: mcattamoredhat, Reviewers: Irene Díez, Xiaofeng Wang
+  * images: update dependency (#3983)
+    * Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+  * integration test for worker-executor (HMS-3634) (#3968)
+    * Author: Sanne Raymaekers, Reviewers: Simon de Vlieger
+  * templates/packer: fix vector repos (#3987)
+    * Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  * test: remove libvirt workaround (#3975)
+    * Author: tkoscieln, Reviewers: Alexander Todorov, Jakub Rusz, Tomáš Hozza
+  * tests: Drop bigiso test (HMS-3710) (#3988)
+    * Author: Simon Steinbeiß, Reviewers: Ondřej Budai
+
+— Somewhere on the Internet, 2024-03-06
+
+
 * Mon Feb 26 2024 Packit <hello@packit.dev> - 101-1
 Changes with 101
 ----------------

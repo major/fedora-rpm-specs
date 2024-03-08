@@ -1,7 +1,7 @@
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
-Version:    1.15.1
-Release:    9%{?dist}
+Version:    1.16.3
+Release:    1%{?dist}
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
 # optional-lite is Boost Software License 1.0
@@ -42,6 +42,8 @@ Patch13:    system-cpuinfo.patch
 Patch14:    onnx_onnxruntime_fix.patch
 # Use the system python version
 Patch15:    system-python.patch
+# Fix emplate-id not allowed for constructor in C++20 error
+Patch16:    fix-cxx20-template-constructor.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -52,7 +54,7 @@ BuildRequires:  cmake >= 3.13
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:	onnx-devel = 1.14.0
+BuildRequires:	onnx-devel = 1.14.1
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  boost-devel >= 1.66
 BuildRequires:  bzip2
@@ -171,6 +173,7 @@ export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %{_libdir}/libonnxruntime.so
 %{_libdir}/libonnxruntime_providers_shared.so
 %{_libdir}/pkgconfig/libonnxruntime.pc
+%{_libdir}/cmake/onnxruntime/*
 
 %files -n python3-onnxruntime -f %{pyproject_files}
 %{_bindir}/onnxruntime_test
@@ -179,6 +182,9 @@ export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %{_docdir}/%{name}
 
 %changelog
+* Mon Feb 26 2024 Diego Herrera <dherrera@redhat.com> - 1.16.3-1
+- Release 1.16.3
+
 * Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 1.15.1-9
 - Rebuilt for libre2.so.11 bump
 

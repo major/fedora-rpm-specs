@@ -4,8 +4,8 @@
 %global somajor 0
 
 Name:           libeconf
-Version:        0.5.2
-Release:        3%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        Enhanced config file parser library
 
 License:        MIT
@@ -80,6 +80,9 @@ configuration files from applications that use %{name}.
 %{_mandir}/man8/econftool.8*
 
 %changelog
+* Wed Mar  6 2024 Iker Pedrosa <ipedrosa@redhat.com> - 0.6.2-1
+- Rebase to 0.6.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

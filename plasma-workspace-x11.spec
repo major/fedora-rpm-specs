@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -54,7 +54,7 @@ BuildRequires:  pam-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  pciutils-devel
 BuildRequires:  pipewire-devel
-BuildRequires:  unity-gtk2-module
+BuildRequires:  unity-gtk3-module
 %ifnarch s390 s390x
 BuildRequires:  libraw1394-devel
 %endif
@@ -145,6 +145,10 @@ BuildRequires:  desktop-file-utils
 
 BuildRequires:  cmake(AppStreamQt) >= 1.0.0
 
+BuildRequires:  kf6-kirigami-addons
+BuildRequires:  kio-extras
+BuildRequires:  kio-fuse
+
 # Rename this package to match upstream
 Obsoletes:      plasma-workspace-xorg < 5.20.90-2
 Provides:       plasma-workspace-xorg = %{version}-%{release}
@@ -205,6 +209,10 @@ sed -i \
 
 
 %changelog
+* Thu Mar 07 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.1-1
+- 6.0.1
+- Update BuildRequires
+
 * Fri Feb 23 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.0-1
 - 6.0.0
 

@@ -1,6 +1,6 @@
 Name:           perl-PAR-Packer
-Version:        1.061
-Release:        3%{?dist}
+Version:        1.062
+Release:        1%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Packer
@@ -44,7 +44,7 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp) >= 0.05
 BuildRequires:  perl(Getopt::ArgvFile) >= 1.07
 BuildRequires:  perl(Module::ScanDeps) >= 1.21
-BuildRequires:  perl(PAR) >= 1.016
+BuildRequires:  perl(PAR) >= 1.020
 BuildRequires:  perl(PAR::Dist) >= 0.22
 BuildRequires:  perl(vars)
 # Optional run-time:
@@ -66,7 +66,7 @@ Requires:       perl(File::Temp) >= 0.05
 Requires:       perl(Getopt::ArgvFile) >= 1.07
 Requires:       perl(IO::Compress::Gzip)
 Requires:       perl(Module::ScanDeps) >= 1.21
-Requires:       perl(PAR) >= 1.016
+Requires:       perl(PAR) >= 1.020
 Requires:       perl(PAR::Dist) >= 0.22
 # This package bundles libperl.so into %%{_bindir}/parl and when executing it
 # after upgrading Perl, Perl version checks in Config fail. Thus we need to
@@ -148,6 +148,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Wed Mar 06 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.062-1
+- 1.062 bump (rhbz#2267917)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.061-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 %bcond all_tests 0
 
 Name:           python-%{pypi_name}
-Version:        0.13.0
+Version:        0.13.1
 Release:        %{autorelease}
 Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
 %forgemeta

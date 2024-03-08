@@ -3,8 +3,8 @@
 %undefine _debugsource_packages
 
 Name: singularity-ce
-Version: 4.1.1
-Release: 2%{?dist}
+Version: 4.1.2
+Release: 1%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -69,7 +69,7 @@ Provides: bundled(golang(github.com/cespare/xxhash/v2)) = v2.2.0
 Provides: bundled(golang(github.com/cilium/ebpf)) = v0.9.1
 Provides: bundled(golang(github.com/cloudflare/circl)) = v1.3.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = v3.0.2
-Provides: bundled(golang(github.com/containerd/console)) = v1.0.3
+Provides: bundled(golang(github.com/containerd/console)) = v1.0.4
 Provides: bundled(golang(github.com/containerd/containerd)) = v1.7.13
 Provides: bundled(golang(github.com/containerd/continuity)) = v0.4.3
 Provides: bundled(golang(github.com/containerd/fifo)) = v1.1.0
@@ -82,7 +82,7 @@ Provides: bundled(golang(github.com/containerd/ttrpc)) = v1.2.2
 Provides: bundled(golang(github.com/containerd/typeurl/v2)) = v2.1.1
 Provides: bundled(golang(github.com/containernetworking/cni)) = v1.1.2
 Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.4.0
-Provides: bundled(golang(github.com/containers/common)) = v0.57.3
+Provides: bundled(golang(github.com/containers/common)) = v0.57.4
 Provides: bundled(golang(github.com/containers/image/v5)) = v5.29.2
 Provides: bundled(golang(github.com/containers/storage)) = v1.51.0
 Provides: bundled(golang(github.com/coreos/go_iptables)) = v0.7.0
@@ -93,10 +93,10 @@ Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.2.4
 Provides: bundled(golang(github.com/d2g/dhcp4client)) = v1.0.0
 Provides: bundled(golang(github.com/d2g/dhcp4)) = v0.0.0_20170904100407_a1d1b6c41b1c
 Provides: bundled(golang(github.com/distribution/reference)) = v0.5.0
-Provides: bundled(golang(github.com/docker/cli)) = v25.0.2+incompatible
+Provides: bundled(golang(github.com/docker/cli)) = v25.0.3+incompatible
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.3+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.8.0
-Provides: bundled(golang(github.com/docker/docker)) = v25.0.2+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v25.0.3+incompatible
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.0
 Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
 Provides: bundled(golang(github.com/docker/go_units)) = v0.5.0
@@ -121,7 +121,7 @@ Provides: bundled(golang(github.com/google/uuid)) = v1.6.0
 Provides: bundled(golang(github.com/gorilla/handlers)) = v1.5.1
 Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
 Provides: bundled(golang(github.com/gorilla/websocket)) = v1.5.1
-Provides: bundled(golang(github.com/gosimple/slug)) = v1.13.1
+Provides: bundled(golang(github.com/gosimple/slug)) = v1.14.0
 Provides: bundled(golang(github.com/gosimple/unidecode)) = v1.0.1
 Provides: bundled(golang(github.com/grpc_ecosystem/go_grpc_middleware)) = v1.4.0
 Provides: bundled(golang(github.com/grpc_ecosystem/grpc_gateway/v2)) = v2.18.0
@@ -157,7 +157,7 @@ Provides: bundled(golang(github.com/morikuni/aec)) = v1.0.0
 Provides: bundled(golang(github.com/Netflix/go_expect)) = v0.0.0_20220104043353_73e0943537d2
 Provides: bundled(golang(github.com/networkplumbing/go_nft)) = v0.4.0
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
-Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0_rc6
+Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.1.0
 Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.12
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.1.0
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20230914150019_408c51e934dc
@@ -181,16 +181,16 @@ Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.10.0
 Provides: bundled(golang(github.com/secure_systems_lab/go_securesystemslib)) = v0.8.0
 Provides: bundled(golang(github.com/shibumi/go_pathspec)) = v1.3.0
 Provides: bundled(golang(github.com/shopspring/decimal)) = v1.3.1
-Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.8.1
+Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.8.2
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.3
 Provides: bundled(golang(github.com/spdx/tools_golang)) = v0.5.1
 Provides: bundled(golang(github.com/spf13/cobra)) = v1.8.0
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
-Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.9.0
+Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.9.2
 Provides: bundled(golang(github.com/sylabs/oci_tools)) = v0.7.0
-Provides: bundled(golang(github.com/sylabs/scs_build_client)) = v0.9.2
-Provides: bundled(golang(github.com/sylabs/scs_key_client)) = v0.7.3
-Provides: bundled(golang(github.com/sylabs/scs_library_client)) = v1.4.6
+Provides: bundled(golang(github.com/sylabs/scs_build_client)) = v0.9.4
+Provides: bundled(golang(github.com/sylabs/scs_key_client)) = v0.7.5
+Provides: bundled(golang(github.com/sylabs/scs_library_client)) = v1.4.7
 Provides: bundled(golang(github.com/sylabs/sif/v2)) = v2.15.1
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
@@ -290,6 +290,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Wed Mar 6 2024 David Trudgian <dtrudg@sylabs.io> - 4.1.2-1
+- Upgrade to 4.1.2 upstream version.
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 4.1.1-2
 - Rebuild for golang 1.22.0
 

@@ -1,14 +1,18 @@
+%global run_valgrind_tests ON
 # valgrind finds invalid writes in libcmocka on arm and power
 # see bug #1699304 for more information
 %ifarch %{arm} ppc64le
 %global run_valgrind_tests OFF
-%else
-%global run_valgrind_tests ON
+%endif
+# Turn off valgrind unilaterally on all arches which don't have
+# valgrind at all, like riscv64.
+%ifnarch %{valgrind_arches}
+%global run_valgrind_tests OFF
 %endif
 
 Name: libyang
 Version: 2.1.80
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/v%{version}.tar.gz
@@ -23,7 +27,9 @@ BuildRequires:  gcc
 BuildRequires:  cmake(cmocka) >= 1.0.0
 BuildRequires:  make
 BuildRequires:  pkgconfig(libpcre2-8) >= 10.21
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 
 Conflicts:      %{name} < 1.0.225-3
 
@@ -106,6 +112,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Sat Mar 02 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2.1.80-5
+- Properly check valgrind arches
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.80-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

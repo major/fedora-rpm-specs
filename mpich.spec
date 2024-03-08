@@ -47,7 +47,7 @@ Provides:       bundled(yaksa) = 0.2
 %endif
 # For ./maint/extractcvars
 BuildRequires:  perl(lib)
-%ifnarch s390 %{mips}
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
 %endif
 # For %%{python3_sitearch}

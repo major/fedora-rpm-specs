@@ -1,6 +1,6 @@
 Name:           perl-Minion
 Version:        10.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High performance job queue for the Perl programming language
 # Minion itself is Artistic-2.0
 # Minion Artwork is CC-SA License, Version 4.0
@@ -19,7 +19,7 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-macros
+BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -83,6 +83,9 @@ chmod -x lib/Mojolicious/Plugin/Minion/resources/public/minion/epoch/*
 %{_mandir}/man3/Mojolicious::Plugin::Minion*
 
 %changelog
+* Wed Mar 06 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 10.28-2
+- Fix broken buildrequires (#2268211)
+
 * Sun Feb 25 2024 Emmanuel Seyman <emmanuel@seyman.fr> - 10.28-1
 - Update to 10.28
 - Migrate to SPDX license

@@ -2,7 +2,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 2 addon with auto completion widgets and classes
 
 License:        CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -59,17 +59,19 @@ developing applications that use %{name}.
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}.*
 %{_kf5_libdir}/libKF5Completion.so.*
-%{_kf5_qtplugindir}/designer/*5widgets.so
 
 %files devel
-
 %{_kf5_includedir}/KCompletion/
 %{_kf5_libdir}/libKF5Completion.so
 %{_kf5_libdir}/cmake/KF5Completion/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KCompletion.pri
+%{_kf5_qtplugindir}/designer/kcompletion5widgets.so
 
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- move qt designer plugin to -devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

@@ -1,6 +1,6 @@
 Name:           electron-cash
-Version:        4.3.1
-Release:        7%{?dist}
+Version:        4.4.0
+Release:        2%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -12,9 +12,6 @@ Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-a
 Source2:        gpgkey-electron-cash.gpg
 
 Patch0:         relax-protobuf-version.patch
-# Fix Python 3.12 build error
-# See https://github.com/Electron-Cash/Electron-Cash/issues/2661 for details
-Patch1:         https://github.com/Electron-Cash/Electron-Cash/pull/2662.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -32,9 +29,14 @@ BuildRequires:  gnupg2
 Requires:       qt5-qtbase
 Requires:       qt5-qtsvg
 Requires:       qt5-qtmultimedia
-Requires:       python3-qt5
 
+# Manually from contrib/requirements/requirements-binaries.txt
+Requires:       python3-qt5
 Requires:       python3-pycryptodomex
+Requires:       python3-psutil
+Requires:       python3-cryptography
+Requires:       python3-zxing-cpp >= 2.2.0
+
 Requires:       libsecp256k1 >= 0.20.9
 Requires:       zbar
 Requires:       tor
@@ -104,6 +106,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 06 2024 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-2
+- Add missing runtime requires
+
+* Wed Mar 06 2024 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-1
+- Updated to version 4.4.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

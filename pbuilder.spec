@@ -1,12 +1,18 @@
 Name:           pbuilder
 Version:        0.231
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
 URL:            http://packages.debian.org/unstable/admin/%{name}
 Source0:        http://ftp.debian.org/debian/pool/main/p/%{name}/%{name}_%{version}.tar.xz
 Source1:        README.fedora
+Source2:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilder-config
+Source3:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilder-debian-stable
+Source4:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilder-ubuntu-old
+Source5:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilder-ubuntu-old2
+Source6:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilder-ubuntu-stable
+Source7:        https://bitbucket.org/amidevous/fedora-rpm/raw/master/pbuilder/debian/pbuilderrc
 # Don't hardcode pbuilder user id, add a ccache section
 Patch0:         pbuilder_pbuilderrc.patch
 # Don't build HTML docs since it requires TLDP stylesheets which are not packaged for Fedora
@@ -31,6 +37,8 @@ Requires:       wget
 Requires:       sudo
 Requires:       gcc
 Requires:       fakeroot
+Requires:       debian-keyring
+Requires:       ubu-keyring
 
 %description
 pbuilder constructs a chroot system, and builds a package inside the chroot.
@@ -62,9 +70,14 @@ install -Dpm 0644 pbuilder.8 %{buildroot}%{_mandir}/man8/pbuilder.8
 install -d %{buildroot}%{_localstatedir}/cache/%{name}
 install -d %{buildroot}%{_localstatedir}/cache/%{name}/build
 install -d %{buildroot}%{_localstatedir}/cache/%{name}/ccache
+install -Dpm 0777 %{SOURCE2} %{buildroot}%{_bindir}/pbuilder-config
+install -Dpm 0777 %{SOURCE3} %{buildroot}%{_bindir}/debian-stable
+install -Dpm 0777 %{SOURCE4} %{buildroot}%{_bindir}/pbuilder-ubuntu-old
+install -Dpm 0777 %{SOURCE5} %{buildroot}%{_bindir}/pbuilder-ubuntu-old2
+install -Dpm 0777 %{SOURCE6} %{buildroot}%{_bindir}/pbuilder-ubuntu-stable
 
 # Configuration file
-install -Dpm 0644 pbuilderrc %{buildroot}%{_sysconfdir}/pbuilderrc
+install -Dpm 0644 %{SOURCE7} %{buildroot}%{_sysconfdir}/pbuilderrc
 
 # Copy README.fedora to root
 cp -a %{SOURCE1} README.fedora
@@ -93,6 +106,11 @@ make check
 %config(noreplace) %{_sysconfdir}/pbuilder/
 %{_bindir}/debuild-pbuilder
 %{_bindir}/pdebuild
+%{_bindir}/pbuilder-config
+%{_bindir}/debian-stable
+%{_bindir}/pbuilder-ubuntu-old
+%{_bindir}/pbuilder-ubuntu-old2
+%{_bindir}/pbuilder-ubuntu-stable
 %{_sbindir}/pbuilder
 %{_prefix}/lib/pbuilder/
 %{_datadir}/bash-completion/
@@ -101,7 +119,7 @@ make check
 %{_mandir}/man1/pdebuild.1*
 %{_mandir}/man5/pbuilderrc.5*
 %{_mandir}/man8/pbuilder.8*
-%{_docdir}/pbuilder/
+%{_docdir}/pbuilder/*
 # The ccache folder needs to be owned by the pbuilder user
 %attr(0755,%{name},root) %{_localstatedir}/cache/%{name}/ccache
 

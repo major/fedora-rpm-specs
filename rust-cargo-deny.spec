@@ -21,6 +21,7 @@ Source:         askalono-cache-3.22.bin.zstd
 
 # Manually created patch for downstream crate metadata changes
 # * bump gix dependency from 0.54 to 0.55
+# * bump nu-ansi-term dependency from 0.49 to 0.50
 # * bump ring dependency from 0.16 to 0.17
 Patch:          cargo-deny-fix-metadata.diff
 # https://github.com/EmbarkStudios/cargo-deny/pull/574

@@ -16,8 +16,10 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # these might be upstreamable
 Patch0:         %{name}-fix-icon-path.diff
 Patch1:         %{name}-fix-appstream-path.diff
-# these can be upstreamed. Will do once verifying the metadata shows properly
+# these can be upstreamed
+# https://github.com/Syllo/nvtop/pull/278
 Patch2:         %{name}-fix-icon-in-appstream.diff
+# https://github.com/Syllo/nvtop/pull/279
 Patch3:         %{name}-fix-screenshot-urls-in-appstream.diff
 
 BuildRequires:  cmake >= 3.10

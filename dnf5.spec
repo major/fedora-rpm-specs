@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 13
+%global project_version_patch 14
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 10]
 
@@ -815,6 +815,15 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Tue Mar 05 2024 Packit <hello@packit.dev> - 5.1.14-1
+- Update translations from weblate
+- Make the error to resolve module metadata more descriptive
+- Switch off deltarpm support
+- Limit number of dnf5daemon simultaneously active sessions
+- Make info and list commands case insesitive
+- Allow dnf5daemon configuration overrides for root
+- Add repoquery.hpp for swig-4.2.1 support
+
 * Tue Feb 20 2024 Packit <hello@packit.dev> - 5.1.13-1
 - Release 5.1.13
 - build: Adapt to changes in Fedora packaging of bash-completion

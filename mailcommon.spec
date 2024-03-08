@@ -1,6 +1,6 @@
 Name:    mailcommon
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail applications support library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -92,18 +92,21 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %license LICENSES/*
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_kf6_libdir}/libKPim6MailCommon.so.*
-%{_qt6_plugindir}/designer/mailcommon6widgets.so
 
 %files devel
 %{_includedir}/KPim6/MailCommon/
 %{_kf6_libdir}/cmake/KPim6MailCommon/
 %{_kf6_libdir}/libKPim6MailCommon.so
+%{_qt6_plugindir}/designer/mailcommon6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

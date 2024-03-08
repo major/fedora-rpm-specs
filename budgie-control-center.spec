@@ -9,7 +9,7 @@
 
 Name:          budgie-control-center
 Version:       1.3.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 License:       GPLv2+ and CC-BY-SA
@@ -201,6 +201,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Wed Mar 06 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-4
+- goa-backend rebuild
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

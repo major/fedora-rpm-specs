@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
 License:        CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -13,10 +13,10 @@ Source0:        https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_k
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  kf6-rpm-macros
+BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6WidgetsAddons)
-BuildRequires:  kf6-rpm-macros
-BuildRequires:  pkgconfig(Qt6Widgets)
 BuildRequires:  cmake(KF6Codecs)
 
 %description
@@ -51,20 +51,23 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files -f kcompletion6_qt.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf6_datadir}/qlogging-categories6/%{framework}.*
 %{_kf6_libdir}/libKF6Completion.so.*
-%{_kf6_qtplugindir}/designer/*6widgets.so
+%{_kf6_datadir}/qlogging-categories6/%{framework}.*
 
 %files devel
 %{_kf6_includedir}/KCompletion/
 %{_kf6_libdir}/libKF6Completion.so
 %{_kf6_libdir}/cmake/KF6Completion/
+%{_kf6_qtplugindir}/designer/kcompletion6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

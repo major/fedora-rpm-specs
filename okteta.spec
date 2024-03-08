@@ -3,8 +3,8 @@
 Name:    okteta
 Summary: Binary/hex editor
 Epoch:   1
-Version: 0.26.4
-Release: 10%{?dist}
+Version: 0.26.15
+Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://cgit.kde.org/%{name}.git
@@ -111,8 +111,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 
 
 %files -f %{name}.lang
-%doc README
-%license COPYING*
+%doc README.md
+%license LICENSES/*
 %{_bindir}/okteta
 %{_bindir}/struct2osd
 %{_datadir}/mime/packages/okteta.xml
@@ -130,7 +130,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 %{_datadir}/config.kcfg/structureviewpreferences.kcfg
 %{_libdir}/libKasten4*.so.*
 %{_libdir}/libOkteta3*.so.*
-%{_qt5_plugindir}/designer/oktetawidgets.so
 # part
 %{_kf5_plugindir}/parts/oktetapart.so
 %{_kf5_datadir}/kservices5/oktetapart.desktop
@@ -150,9 +149,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.okteta.deskto
 %{_libdir}/cmake/OktetaKastenGui/
 %{_libdir}/pkgconfig/Okteta*.pc
 %{_qt5_archdatadir}/mkspecs/modules/qt_Okteta*.pri
+%{_qt5_plugindir}/designer/oktetawidgets.so
 
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 1:0.26.15-1
+- move qt designer plugin to -devel
+- update to 0.26.15
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.26.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

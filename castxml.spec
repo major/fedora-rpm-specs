@@ -2,12 +2,16 @@
 
 Name:		castxml
 Version:	0.6.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0:		0001-Output-Define-local-helpers-after-including-system-h.patch
+Patch1:		0002-Output-Define-local-macros-after-including-LLVM-Clan.patch
+Patch2:		0003-Port-to-LLVM-Clang-Git-release-18.x-as-of-2024-02-05.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -29,6 +33,9 @@ may support alternative output formats.
 
 %prep
 %setup -q -n CastXML-%{version}
+%patch -P 0 -p 1
+%patch -P 1 -p 1
+%patch -P 2 -p 1
 
 %build
 %cmake -DCastXML_INSTALL_DOC_DIR:STRING=share/doc/%{name} \
@@ -60,6 +67,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Mar 06 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.4-2
+- Backport LLVM 18 support from upstream
+
 * Tue Jan 23 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.4-1
 - Update to version 0.6.4
 

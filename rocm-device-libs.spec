@@ -2,6 +2,7 @@
 %global debug_package %{nil}
 
 %global llvm_maj_ver 17
+%bcond_without compat_build
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
@@ -15,7 +16,7 @@
 
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
@@ -25,12 +26,22 @@ License:        NCSA
 Source0:        https://github.com/mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:  zlib-devel
+
+%if %{with compat_build}
+BuildRequires:  clang%{llvm_maj_ver}-devel
+BuildRequires:  clang%{llvm_maj_ver}
+BuildRequires:  llvm%{llvm_maj_ver}-devel
+Requires:       clang%{llvm_maj_ver}
+Requires:       clang%{llvm_maj_ver}-resource-filesystem
+%else
 BuildRequires:  clang-devel
 BuildRequires:  clang(major) = %{llvm_maj_ver}
 BuildRequires:  llvm-devel(major) = %{llvm_maj_ver}
-BuildRequires:  zlib-devel
 Requires:       clang(major) = %{llvm_maj_ver}
 Requires:       clang-resource-filesystem
+%endif
+
 
 #Only the following architectures are useful for ROCm packages:
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -49,7 +60,13 @@ libraries in the form of bit code. Specifically:
 %autosetup -p1 -n %{upstreamname}-%{version}
 
 %build
+
+%if %{with compat_build}
+export PATH=%{_libdir}/llvm%{llvm_maj_ver}/bin:$PATH
+%endif
+
 %cmake -DCMAKE_BUILD_TYPE="RELEASE"
+
 %cmake_build
 
 %install
@@ -64,9 +81,16 @@ libraries in the form of bit code. Specifically:
 # No need to install this twice:
 %exclude %{_docdir}/ROCm-Device-Libs/LICENSE.TXT
 %{_libdir}/cmake/AMDDeviceLibs
+%if %{with compat_build}
+%{_libdir}/llvm%{llvm_maj_ver}/lib/clang/%{llvm_maj_ver}/amdgcn
+%else
 %clang_resource_dir/amdgcn
+%endif
 
 %changelog
+* Wed Mar 6 2024 Tom Rix <trix@redhat.com> - 17.2-4
+- add with compat_build to use the llvm17
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

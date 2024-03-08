@@ -1,4 +1,6 @@
-%global forgeurl https://git.skyjake.fi/gemini/lagrange
+# PackIt can't access this repo without opening the firewall
+# global forgeurl https://git.skyjake.fi/gemini/lagrange
+%global forgeurl https://github.com/skyjake/lagrange
 %global appid fi.skyjake.Lagrange
 
 # Ensure we are not built and installed with a too-old the_Foundation
@@ -8,13 +10,14 @@
 %bcond_with x11_xlib
 
 Name:           lagrange
-Version:        1.17.5
+Version:        1.17.6
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 
 License:        BSD-2-Clause
 URL:            https://gmi.skyjake.fi/lagrange/
-Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Source:         %%{forgeurl}/releases/download/v%%{version}/%%{name}-%%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc

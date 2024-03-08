@@ -1,7 +1,7 @@
 Summary: Multimedia framework api
 Name:    phonon
 Version: 4.12.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPLv2+
 URL:     https://community.kde.org/Phonon
 
@@ -18,9 +18,18 @@ BuildRequires: pkgconfig(libpulse-mainloop-glib) > 0.9.15
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(xkbcommon)
 # Qt6
-BuildRequires: pkgconfig(Qt6DBus) pkgconfig(Qt6Designer) pkgconfig(Qt6OpenGL) pkgconfig(Qt6Widgets) pkgconfig(Qt6Core5Compat)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Designer)
+BuildRequires: cmake(Qt6OpenGL)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Core5Compat)
+
 # Qt5
-BuildRequires: pkgconfig(Qt5DBus) pkgconfig(Qt5Designer) pkgconfig(Qt5OpenGL) pkgconfig(Qt5Widgets)
+BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Designer)
+BuildRequires: cmake(Qt5OpenGL)
+BuildRequires: cmake(Qt5Widgets)
+
 BuildRequires: pkgconfig(xcb)
 
 %description
@@ -70,12 +79,8 @@ mkdir -p phononqt6
 pushd phononqt6
 %cmake_kf6 -S .. \
   -DCMAKE_BUILD_TYPE:STRING="Release" \
-  -DPHONON_BUILD_DECLARATIVE_PLUGIN:BOOL=%{?declarative:ON}%{!?declarative:OFF} \
   -DPHONON_BUILD_QT5:BOOL=OFF \
-  -DPHONON_BUILD_QT6:BOOL=ON \
-  -DPHONON_QT_IMPORTS_INSTALL_DIR=%{_qt6_importdir} \
-  -DPHONON_QT_MKSPECS_INSTALL_DIR=%{_qt6_archdatadir}/mkspecs/modules \
-  -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt6_plugindir}/designer
+  -DPHONON_BUILD_QT6:BOOL=ON
 %cmake_build
 popd
 
@@ -83,12 +88,8 @@ mkdir -p phononqt5
 pushd phononqt5
 %cmake_kf5 -S .. \
   -DCMAKE_BUILD_TYPE:STRING="Release" \
-  -DPHONON_BUILD_DECLARATIVE_PLUGIN:BOOL=%{?declarative:ON}%{!?declarative:OFF} \
   -DPHONON_BUILD_QT5:BOOL=ON \
   -DPHONON_BUILD_QT6:BOOL=OFF \
-  -DPHONON_QT_IMPORTS_INSTALL_DIR=%{_qt5_importdir} \
-  -DPHONON_QT_MKSPECS_INSTALL_DIR=%{_qt5_archdatadir}/mkspecs/modules \
-  -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt5_plugindir}/designer \
   -DPHONON_BUILD_SETTINGS=OFF
 %cmake_build
 popd
@@ -102,6 +103,7 @@ popd
 pushd phononqt5
 %cmake_install
 popd
+
 %find_lang %{name} --with-qt --all-name
 # own these dirs
 mkdir -p %{buildroot}%{_qt5_plugindir}/phonon4qt5_backend
@@ -119,7 +121,6 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %{_libdir}/libphonon4qt5experimental.so.4*
 # own backends dir
 %dir %{_qt5_plugindir}/phonon4qt5_backend/
-%{_qt5_plugindir}/designer/phonon4qt5widgets.so
 
 %files qt5-devel
 %{_libdir}/cmake/phonon4qt5/
@@ -128,6 +129,7 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %{_libdir}/libphonon4qt5experimental.so
 %{_libdir}/pkgconfig/phonon4qt5.pc
 %{_qt5_archdatadir}/mkspecs/modules/qt_phonon4qt5.pri
+%{_qt5_plugindir}/designer/phonon4qt5widgets.so
 
 %files qt6
 %{_bindir}/phononsettings
@@ -135,7 +137,6 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %{_libdir}/libphonon4qt6experimental.so.4*
 # own backends dir
 %dir %{_qt6_plugindir}/phonon4qt6_backend/
-%{_qt6_plugindir}/designer/phonon4qt6widgets.so
 
 %files qt6-devel
 %{_libdir}/cmake/phonon4qt6/
@@ -143,10 +144,14 @@ test "$(pkg-config --modversion phonon4qt6)" = "%{version}"
 %{_libdir}/libphonon4qt6.so
 %{_libdir}/libphonon4qt6experimental.so
 %{_libdir}/pkgconfig/phonon4qt6.pc
+%{_qt6_plugindir}/designer/phonon4qt6widgets.so
 
 %files common -f %{name}.lang
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 4.12.0-6
+- move qt designer plugin to -devel
+
 * Mon Feb 05 2024 Alessandro Astone <ales.astone@gmail.com> - 4.12.0-5
 - Relax backend dependency, avoids circular dependency
 

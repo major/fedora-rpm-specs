@@ -1,11 +1,11 @@
 %global rh_backgrounds_version 15
 %global waves_version 0.1.2
-%global fedora_release_name f39
+%global fedora_release_name f40
 %global gnome_default default
 %global picture_ext png
 
 Name:           desktop-backgrounds
-Version:        39.0.0
+Version:        40.0.0
 Release:        %autorelease
 Summary:        Desktop backgrounds
 

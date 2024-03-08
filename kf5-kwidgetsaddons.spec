@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with various classes on top of QtWidgets
 
 License:        CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -11,7 +11,7 @@ URL:            https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros
@@ -49,26 +49,25 @@ developing applications that use %{name}.
 
 %find_lang_kf5 kwidgetsaddons5_qt
 
-
-%ldconfig_scriptlets
-
 %files -f kwidgetsaddons5_qt.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_datadir}/qlogging-categories5/*categories
 %{_kf5_libdir}/libKF5WidgetsAddons.so.*
 %{_kf5_datadir}/kf5/kcharselect/
-%{_kf5_qtplugindir}/designer/*5widgets.so
+%{_kf5_datadir}/qlogging-categories5/*categories
 
 %files devel
-
 %{_kf5_includedir}/KWidgetsAddons/
 %{_kf5_libdir}/libKF5WidgetsAddons.so
 %{_kf5_libdir}/cmake/KF5WidgetsAddons/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KWidgetsAddons.pri
+%{_kf5_qtplugindir}/designer/kwidgetsaddons5widgets.so
 
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- spec cleanup, move qt designer plugin to devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

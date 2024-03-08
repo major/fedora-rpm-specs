@@ -4,7 +4,7 @@
 Summary: The Mail Transport Agent Switcher
 Name: system-switch-mail
 Version: 2.0.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 Url: http://than.fedorapeople.org/system-switch-mail
 Source0: http://than.fedorapeople.org/system-switch-mail/%{name}-%{version}.tar.xz
 Patch0: system-switch-mail-2.0.1-python3.patch
@@ -12,7 +12,6 @@ License: GPL-2.0-or-later
 BuildArch: noarch
 
 Requires: newt-python3
-Requires: usermode
 Requires: polkit
 
 BuildRequires: make
@@ -68,6 +67,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Wed Mar 06 2024 Than Ngo <than@redhat.com> - 2.0.1-21
+- fixed bz#2268132, drop usermode
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

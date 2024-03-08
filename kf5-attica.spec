@@ -1,15 +1,8 @@
 %global framework attica
-# doc generation fails on 5.92, disable
-# Error in line 1: Opening and ending tag mismatch.
-#global docs 1
-
-%if 0%{?flatpak}
-%global docs 0
-%endif
 
 Name:   kf5-attica
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 
 License: CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -17,7 +10,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  kf5-rpm-macros >= %{version}
@@ -36,32 +29,13 @@ Requires: qt5-qtbase-devel
 %description devel
 %{summary}.
 
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-BuildRequires: doxygen
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
-BuildRequires: qt5-qtbase-doc
-Requires: kf5-filesystem
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
-
 
 %prep
 %autosetup -n %{framework}-%{version}
 
 
 %build
-%cmake_kf5 \
-  %if 0%{?flatpak}
-  %{?docs:-DBUILD_QCH:BOOL=OFF} \
-  %else
-  %{?docs:-DBUILD_QCH:BOOL=ON} \
-  %endif
-
+%cmake_kf5
 %cmake_build
 
 
@@ -69,28 +43,23 @@ BuildArch: noarch
 %cmake_install
 
 
-%ldconfig_scriptlets
-
 %files
 %doc AUTHORS ChangeLog README.md
 %license LICENSES/*.txt
-%{_kf5_datadir}/qlogging-categories5/%{framework}.*
 %{_kf5_libdir}/libKF5Attica.so.*
+%{_kf5_datadir}/qlogging-categories5/%{framework}.*
 
 %files devel
-%{_kf5_libdir}/cmake/KF5Attica/
 %{_kf5_includedir}/Attica/
 %{_kf5_libdir}/libKF5Attica.so
-%{_kf5_archdatadir}/mkspecs/modules/qt_Attica.pri
+%{_kf5_libdir}/cmake/KF5Attica/
 %{_kf5_libdir}/pkgconfig/libKF5Attica.pc
-
-%if 0%{?docs}
-%{_qt5_docdir}/KF5Attica.qch
-%{_qt5_docdir}/KF5Attica.tags
-%endif
-
+%{_kf5_archdatadir}/mkspecs/modules/qt_Attica.pri
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- spec cleanup
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

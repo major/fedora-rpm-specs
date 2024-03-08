@@ -361,11 +361,11 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 9
+%global baserelease 1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 8.2.0
+Version: 8.2.2
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT AND LicenseRef-Fedora-Public-Domain AND CC-BY-3.0
@@ -381,18 +381,6 @@ Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
 # Not yet submitted upstream in this form. Original attempt is here:
 # https://patchwork.kernel.org/project/qemu-devel/patch/20231128143647.847668-1-crobinso@redhat.com/
 Patch: 0001-pc-bios-optionrom-Fix-pvh.img-ld-build-failure-on-fe.patch
-
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2256884
-Patch: 0001-include-ui-rect.h-fix-qemu_rect_init-mis-assignment.patch
-
-# https://gitlab.com/qemu-project/qemu/-/issues/2070
-# https://patchew.org/QEMU/20240101230617.129349-1-richard.henderson@linaro.org
-Patch: 0001-target-i386-do-not-re-compute-new-pc-with-CF_PCREL.patch
-
-# Fix builds on i686.
-# Sent upstream 29-01-2024
-Patch: 0001-block-blkio-Make-s-mem_region_alignment-be-64-bits.patch
 
 # Fix user-emulation of FIFREEZE and FITHAW ioctls
 # Posted upstream 20-02-2024
@@ -3169,6 +3157,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Wed Mar 06 2024 Cole Robinson <crobinso@redhat.com> - 8.2.2-1
+- New release qemu 8.2.2
+
 * Mon Feb 26 2024 Richard W.M. Jones <rjones@redhat.com> - 2:8.2.0-9
 - ppc/spapr: Initialize max_cpus limit to SPAPR_IRQ_NR_IPIS (RHBZ#2265982)
 

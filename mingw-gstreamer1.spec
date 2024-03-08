@@ -3,7 +3,7 @@
 %global api_version 1.0
 
 Name:           mingw-gstreamer1
-Version:        1.22.9
+Version:        1.24.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Streaming-Media Framework Runtime
 
@@ -125,6 +125,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw32_libdir}/pkgconfig/gstreamer-controller-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-net-%{api_version}.pc
 
+%{mingw32_bindir}/gst-completion-helper.exe
 %{mingw32_bindir}/gst-inspect-%{api_version}.exe
 %{mingw32_bindir}/gst-launch-%{api_version}.exe
 %{mingw32_bindir}/gst-stats-%{api_version}.exe
@@ -163,6 +164,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_libdir}/pkgconfig/gstreamer-controller-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-net-%{api_version}.pc
 
+%{mingw64_bindir}/gst-completion-helper.exe
 %{mingw64_bindir}/gst-inspect-%{api_version}.exe
 %{mingw64_bindir}/gst-launch-%{api_version}.exe
 %{mingw64_bindir}/gst-stats-%{api_version}.exe
@@ -178,6 +180,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Mar 06 2024 Sandro Mani <manisandro@gmail.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Sat Jan 27 2024 Sandro Mani <manisandro@gmail.com> - 1.22.9-1
 - Update to 1.22.9
 

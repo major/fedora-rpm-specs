@@ -1,16 +1,12 @@
 Name:      hyphen
 Summary:   A text hyphenation library
 Version:   2.8.8
-Release:   23%{?dist}
+Release:   24%{?dist}
 Source:    http://downloads.sourceforge.net/hunspell/hyphen-%{version}.tar.gz
 URL:       http://hunspell.sf.net
 License:   GPL-2.0-only OR LGPL-2.1-or-later OR MPL-1.1
 BuildRequires: perl-interpreter, patch, autoconf, automake, libtool
-# s390 lacks valgrind support
-# no working valgrind built for MIPS yet
-# tests with valgrind fail on arm
-# tests with valgrind fail on ppc64le
-%ifnarch s390 %{arm} %{mips} ppc64le
+%ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
 BuildRequires: make
@@ -42,7 +38,7 @@ make %{?_smp_mflags}
 
 %check
 make check
-%ifnarch s390 %{arm} %{mips} ppc64le
+%ifarch %{valgrind_arches}
 VALGRIND=memcheck make check
 %endif
 
@@ -75,6 +71,9 @@ popd
 %{_bindir}/substrings.pl
 
 %changelog
+* Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2.8.8-24
+- Properly check valgrind arches
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

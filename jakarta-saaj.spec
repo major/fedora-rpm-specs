@@ -1,8 +1,8 @@
 %global srcname saaj-api
 
 Name:           jakarta-saaj
-Version:        3.0.0
-Release:        5%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        SOAP with Attachments API for Java
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/saaj-api
@@ -42,9 +42,6 @@ pushd api
 %mvn_alias jakarta.xml.soap:jakarta.xml.soap-api javax.xml.soap:saaj-api
 # add compatibility symlink for old classpath
 %mvn_file : %{name}/jakarta.xml.soap-api geronimo-saaj
-
-# TODO remove when https://github.com/jakartaee/saaj-api/issues/134 is resolved
-%pom_xpath_remove 'pom:plugin[pom:artifactId="maven-compiler-plugin"]/pom:configuration/pom:compilerArgs/pom:arg[text()="-Werror"]'
 popd
 
 %build
@@ -67,6 +64,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Wed Mar 06 2024 Marian Koncek <mkoncek@redhat.com> - 3.0.2-1
+- Update to upstream version 3.0.2
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.0.0-5
 - Rebuilt for java-21-openjdk as system jdk
 

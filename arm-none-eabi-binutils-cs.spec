@@ -3,8 +3,8 @@
 
 Name:           %{target}-binutils-cs
 Epoch:          1
-Version:        2.41
-Release:        3%{?dist}
+Version:        2.42
+Release:        1%{?dist}
 Summary:        GNU Binutils for cross-compilation for %{target} target
 # Most of the sources are licensed under GPLv3+ with these exceptions:
 # LGPLv2+ bfd/hosts/x86-64linux.h, include/demangle.h, include/xregex2.h,
@@ -49,9 +49,6 @@ rm -rf gdb sim
 # we are using LTO, we have to manually fix the broken configure
 # scripts
 pushd libiberty
-#autoconf -f
-popd
-pushd intl
 #autoconf -f
 popd
 %if 0%{?fedora} || 0%{?rhel} > 8
@@ -102,6 +99,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Wed Mar 06 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:2.42-1
+- updated to 2.42
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.41-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

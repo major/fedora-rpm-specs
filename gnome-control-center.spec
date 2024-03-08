@@ -3,7 +3,7 @@
 %define glib2_version 2.76.6
 %define gnome_desktop_version 44.0-7
 %define gsd_version 41.0
-%define gsettings_desktop_schemas_version 42~alpha
+%define gsettings_desktop_schemas_version 46~beta
 %define upower_version 0.99.8
 %define gtk4_version 4.11.2
 %define gnome_bluetooth_version 42~alpha
@@ -16,7 +16,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        46~beta.2
+Version:        46~rc
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 

@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -48,6 +48,8 @@ sed -i -e 's/\r//g' README.txt CHANGES.txt
            --disable-png-shared \
            --disable-tif-shared \
            --disable-webp-shared \
+           --disable-jxl-shared \
+           --disable-avif-shared \
            --disable-static
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %make_build
@@ -77,6 +79,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Wed Mar 06 2024 Sérgio Basto <sergio@serjux.com> - 2.8.2-4
+- add jpegxl and avif as shared libs
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

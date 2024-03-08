@@ -1,4 +1,3 @@
-
 %global framework extra-cmake-modules
 
 # uncomment to enable bootstrap mode
@@ -12,7 +11,7 @@
 Name:    extra-cmake-modules
 Summary: Additional modules for CMake build system
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 Source0: http://download.kde.org/%{stable_kf6}/frameworks/%{version}/%{framework}-%{version}.tar.xz
@@ -28,7 +27,7 @@ BuildRequires: kf6-rpm-macros
 BuildRequires: make
 %if 0%{?docs}
 # qcollectiongenerator
-BuildRequires: qt6-qttools-devel
+BuildRequires: qt5-qttools-devel
 # sphinx-build
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinxcontrib-qthelp
@@ -40,25 +39,33 @@ BuildRequires: pkgconfig(Qt6Core)
 Requires: (kf5-rpm-macros if qt5-qtbase-devel)
 Requires: kf6-rpm-macros
 Recommends: appstream
-# /usr/share/ECM/modules/ECMPoQmTools.cmake
-Requires: cmake(Qt6LinguistTools)
 
 %description
 Additional modules for CMake build system needed by KDE Frameworks.
+
+%package        doc
+Summary:        Developer Documentation files for %{name}
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake_kf6 \
-  -DBUILD_HTML_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
-  -DBUILD_MAN_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
+  -DBUILD_MAN_DOCS:BOOL=OFF \
+  -DBUILD_HTML_DOCS:BOOL=OFF \
+  -DBUILD_QTHELP_DOCS:BOOL=%{?docs:ON}%{!?docs:OFF} \
   -DBUILD_TESTING:BOOL=%{?tests:ON}%{!?tests:OFF} \
   %{?sphinx_build}
 %cmake_build
 
 %install
 %cmake_install
+
+# move to qt6 docdir so it shows up in Qt Creator by default
+mkdir %{buildroot}%{_qt6_docdir}
+mv %{buildroot}%{_kf6_docdir}/ECM/*.qch %{buildroot}%{_qt6_docdir}/*.qch
 
 %check
 %if 0%{?tests}
@@ -70,13 +77,18 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_vpath_builddir} ||:
 %doc README.rst
 %license LICENSES/*.txt
 %{_datadir}/ECM/
+
 %if 0%{?docs}
-%{_kf6_docdir}/ECM/html/
-%{_kf6_mandir}/man7/ecm*.7*
+%files doc
+%{_qt6_docdir}/*.qch
 %endif
 
 
 %changelog
+* Wed Mar 6 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- split out -doc package
+- add qch doc files for Qt Creator and KDevelop
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

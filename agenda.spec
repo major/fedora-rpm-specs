@@ -20,6 +20,7 @@ URL:            https://github.com/dahenson/agenda
 Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
 
 # Add <launchable/> tag to AppStream metadata
+# https://github.com/dahenson/agenda/pull/148
 #
 # https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html#qsr-app-launchable-info
 #
@@ -27,11 +28,7 @@ Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
 # validate”:
 #
 # https://github.com/ximion/appstream/commit/ad98bfd8db789c80507e82278d6d766acba4937c
-Patch:          %{url}/pull/148.patch
-# Fix deprecated top-level developer_name in AppData XML
-# https://github.com/dahenson/agenda/pull/151
-# Rebased on top of PR#148.
-Patch:          0001-Fix-deprecated-top-level-developer_name-in-AppData-X.patch
+Patch:          0001-Add-launchable-tag-to-AppStream-metadata.patch
 # Convert homepage link from HTTP to HTTPS in AppData XML
 # https://github.com/dahenson/agenda/pull/152/commits/39bd498e8959e14e6a3ac7530ae49eb71aa91599
 #
@@ -40,8 +37,17 @@ Patch:          0001-Fix-deprecated-top-level-developer_name-in-AppData-X.patch
 # Convert HTTP links to HTTPS
 # https://github.com/dahenson/agenda/pull/152
 #
-# Rebased on top of PR#148 and PR#151.
-Patch:          0001-Convert-homepage-link-from-HTTP-to-HTTPS-in-AppData-.patch
+# Rebased on 1.1.2 and on top of PR#148
+Patch:          0002-Convert-homepage-link-from-HTTP-to-HTTPS-in-AppData-.patch
+# We offered a PR,
+#
+# Fix deprecated top-level developer_name in AppData XML
+# https://github.com/dahenson/agenda/pull/151
+#
+# which could be rebased on 1.1.2 and on top of PR#148 and PR#152; however,
+# since appstreamcli validate now only produces an info message about the
+# deprecated <developer_name/> rather than a warning, we elect to drop the
+# patches corresponding to this PR until upstream is able to review it.
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

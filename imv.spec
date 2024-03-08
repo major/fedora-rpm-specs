@@ -33,6 +33,7 @@ BuildRequires:  freeimage-devel
 BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.44
 BuildRequires:  pkgconfig(libturbojpeg)
+BuildRequires:  pkgconfig(libjxl)
 
 %description
 imv is a command line image viewer intended for use with tiling window managers.

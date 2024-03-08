@@ -4,7 +4,7 @@
 
 Name:           pyproj
 Version:        3.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -24,9 +24,13 @@ BuildRequires:  python3-certifi
 
 # needed to run the tests
 BuildRequires:  python3-pytest
+# Pandas will drop i686 (xarray depends on pandas)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2263999 
+%ifnarch %{ix86}
 BuildRequires:  python3-pandas
-BuildRequires:  python3-shapely
 BuildRequires:  python3-xarray
+%endif
+BuildRequires:  python3-shapely
 
 # needed to remove the hardcoded rpath '/usr/lib' from the _proj.so file
 BuildRequires:  chrpath
@@ -157,9 +161,14 @@ cd pyproj-test-folder
 cp -r ../pyproj-%{version}/test .
 cp -r ../pyproj-%{version}/pytest.ini .
 
-PATH="%{buildroot}%{_bindir}:$PATH" \
-PYTHONPATH="%{buildroot}%{python3_sitearch}" \
+export PATH="%{buildroot}%{_bindir}:$PATH"
+export PYTHONPATH="%{buildroot}%{python3_sitearch}"
+# Test without pandas on i686
+%ifnarch %{ix86}
 py.test-3 -m "not network"
+%else
+py.test-3 -m "not network and not pandas"
+%endif
 
 # some notes on the test suite:
 # not network ==> deselects 24 tests
@@ -176,6 +185,9 @@ py.test-3 -m "not network"
 
 
 %changelog
+* Tue Mar 05 2024 Sandro <devel@penguinpee.nl>
+- Drop dependency on pandas for i686
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

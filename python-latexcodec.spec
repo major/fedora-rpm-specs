@@ -1,10 +1,11 @@
 Name:           python-latexcodec
-Version:        2.0.1
-Release:        14%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Lexer and codec to work with LaTeX code in Python
 
 License:        MIT
-URL:            https://github.com/mcmtroffaes/latexcodec/
+URL:            https://latexcodec.readthedocs.io/
+VCS:            https://github.com/mcmtroffaes/latexcodec/
 Source0:        %pypi_source latexcodec
 BuildArch:      noarch
 
@@ -26,26 +27,22 @@ This package contains a lexer and codec to work with LaTeX code in Python.
 
 %package doc
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.
-# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
 # _static/basic.css: BSD-2-Clause
 # _static/classic.css: BSD-2-Clause
 # _static/doctools.js: BSD-2-Clause
 # _static/documentation_options.js: BSD-2-Clause
 # _static/file.png: BSD-2-Clause
-# _static/jquery*.js: MIT
 # _static/language_data.js: BSD-2-Clause
 # _static/minus.png: BSD-2-Clause
 # _static/plus.png: BSD-2-Clause
 # _static/searchtools.js: BSD-2-Clause
 # _static/sidebar.js: BSD-2-Clause
-# _static/underscore*.js: MIT
+# _static/sphinx_highlight.js: BSD-2-Clause
 # genindex.html: BSD-2-Clause
 # search.html: BSD-2-Clause
 # searchindex.js: BSD-2-Clause
 License:        MIT AND BSD-2-Clause
 Summary:        Documentation for %{name}
-Provides:       bundled(js-jquery)
-Provides:       bundled(js-underscore)
 
 %description doc
 Documentation for %{name}.
@@ -82,6 +79,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc doc/_build/html/*
 
 %changelog
+* Wed Mar  6 2024 Jerry James <loganjerry@gmail.com> - 3.0.0-1
+- Version 3.0.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

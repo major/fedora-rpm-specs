@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.10.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -38,7 +38,7 @@ Requires:       %{name}-config = %{version}-%{release}
 
 Recommends:     crypto-policies
 
-%ifarch aarch64 ppc64 ppc64le s390x x86_64
+%ifarch aarch64 ppc64 ppc64le s390x x86_64 riscv64
 Provides: libssh_threads.so.4()(64bit)
 %else
 Provides: libssh_threads.so.4
@@ -138,6 +138,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 0.10.6-5
+- Add riscv64
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

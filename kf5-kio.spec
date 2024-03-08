@@ -4,7 +4,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -73,6 +73,7 @@ BuildRequires:  qt5-qtscript-devel
 BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  cmake(Qt5UiPlugin)
 BuildRequires:  cmake(Qt5Qml)
+BuildRequires:  switcheroo-control
 
 
 %if ! 0%{?bootstrap}
@@ -91,10 +92,6 @@ Requires:       %{name}-ntlm%{?_isa} = %{version}-%{release}
 Requires:       %{name}-gui%{?_isa} = %{version}-%{release}
 
 Requires: kf5-kded
-
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global _with_html --with-html
-%endif
 
 %description
 KDE Frameworks 5 Tier 3 solution for filesystem abstraction
@@ -131,6 +128,7 @@ Summary:        Core components of the KIO Framework
 %{?kf5_kinit_requires}
 Requires:       %{name}-core-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-doc = %{version}-%{release}
+Requires:       switcheroo-control
 %description    core
 KIOCore library provides core non-GUI components for working with KIO.
 
@@ -192,7 +190,7 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 %install
 %cmake_install
 
-%find_lang %{name} --all-name --with-man %{?_with_html}
+%find_lang %{name} --all-name --with-man --with-html
 
 %if %{with kf6_compat}
 rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
@@ -237,7 +235,6 @@ rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
 %{_kf5_datadir}/polkit-1/actions/org.kde.kio.file.policy
 %endif
 
-%ldconfig_scriptlets core-libs
 
 %files core-libs
 %{_kf5_libdir}/libKF5KIOCore.so.*
@@ -247,8 +244,6 @@ rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
 %if !0%{?_with_html:1}
 %{_kf5_docdir}/HTML/*/*
 %endif
-
-%ldconfig_scriptlets gui
 
 %files gui
 %{_kf5_libdir}/libKF5KIOGui.so.*
@@ -269,32 +264,30 @@ rm %{buildroot}%{_datadir}/applications/kcm_trash.desktop
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_smb.so
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_*.so
 
-%ldconfig_scriptlets widgets-libs
-
 %files widgets-libs
 %{_kf5_libdir}/libKF5KIOWidgets.so.*
-%{_kf5_qtplugindir}/designer/*5widgets.so
 
-%ldconfig_scriptlets file-widgets
 
 %files file-widgets
 %{_kf5_libdir}/libKF5KIOFileWidgets.so.*
-
-%ldconfig_scriptlets ntlm
 
 %files ntlm
 %{_kf5_libdir}/libKF5KIONTLM.so.*
 
 %files devel
 %{_datadir}/dbus-1/interfaces/*.xml
-%{_kf5_archdatadir}/mkspecs/modules/qt_*.pri
 %{_kf5_bindir}/protocoltojson
-%{_kf5_datadir}/kdevappwizard/templates/kioworker.tar.bz2
 %{_kf5_includedir}/*
 %{_kf5_libdir}/*.so
 %{_kf5_libdir}/cmake/KF5KIO/
+%{_kf5_archdatadir}/mkspecs/modules/qt_*.pri
+%{_kf5_datadir}/kdevappwizard/templates/kioworker.tar.bz2
+%{_kf5_qtplugindir}/designer/kio5widgets.so
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 5.115.0-2
+- move qt designer plugin to -devel
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

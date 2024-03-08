@@ -62,6 +62,11 @@ pushd %{buildroot}/%{python3_sitearch}
 --deselect "astropy_healpix/tests/test_healpy.py::test_ring2nest" \
 --deselect "astropy_healpix/tests/test_healpy.py::test_interp_weights" \
 %endif
+%ifarch riscv64
+--deselect "astropy_healpix/tests/test_healpy.py::test_pix2ang" \
+--deselect "astropy_healpix/tests/test_healpy.py::test_pix2vec" \
+--deselect "astropy_healpix/tests/test_healpy.py::test_ang2vec" \
+%endif
 %ifarch s390x
 --deselect "astropy_healpix/tests/test_healpy.py::test_ang2vec" \
 %endif

@@ -4,7 +4,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon for plotting
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -59,18 +59,21 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %doc README.md
 %license LICENSES/*.txt
 %{_kf6_libdir}/libKF6Plotting.so.*
-%{_kf6_qtplugindir}/designer/kplotting6widgets.so
 
 %files devel
 %{_kf6_includedir}/KPlotting/
 %{_kf6_libdir}/libKF6Plotting.so
 %{_kf6_libdir}/cmake/KF6Plotting/
+%{_kf6_qtplugindir}/designer/kplotting6widgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
+- move qt designer plugin to -devel
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

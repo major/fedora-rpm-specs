@@ -46,7 +46,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Wed Mar 06 2024 Richard W.M. Jones <rjones@redhat.com> - 1.8.0-3
+- Bump and rebuild package (for riscv64)
+
 * Thu Feb 08 2024 Kalev Lember <klember@redhat.com> - 1.8.0-2
 - Disable LTO on aarch64 to fix the build (rhbz#2261344)
 - Re-enable tests on aarch64

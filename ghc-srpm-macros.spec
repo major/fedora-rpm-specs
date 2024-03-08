@@ -1,7 +1,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-srpm-macros
-Version:        1.7
+Version:        1.8
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
@@ -32,6 +32,9 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 
 %changelog
+* Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.8-1
+- Add riscv64
+
 * Thu Feb 29 2024 Jens Petersen <petersen@redhat.com> - 1.7-1
 - add ghc_profiling and haskell_setup macros: will replace with_ghc_prof
 

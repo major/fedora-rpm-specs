@@ -1,7 +1,7 @@
 %global srcname shortuuid
 
 Name:           python-%{srcname}
-Version:        1.0.11
+Version:        1.0.12
 Release:        %autorelease
 Summary:        A generator library for concise, unambiguous and URL-safe UUIDs
 License:        BSD-3-Clause
@@ -14,6 +14,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 # Test dependencies:
 BuildRequires:  python3dist(django)
+BuildRequires:  python3dist(pytest)
 # shortuuid.django_fields generates UUIDs for Django
 Enhances:       python3dist(django)
 
@@ -57,7 +58,7 @@ rm %{buildroot}%{python3_sitelib}/COPYING
 
 
 %check
-%{__python3} setup.py test
+%pytest -V
 
 
 %files -n  python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

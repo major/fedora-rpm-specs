@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.43
+Version: 12.44
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -529,7 +529,11 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
-* Tue Mar 05 2024 Nick Clifton  <nickc@redhat.com> - 12.42-1
+* Wed Mar 06 2024 Nick Clifton  <nickc@redhat.com> - 12.44-1
+- Configure: Remove check for FrontendPluginRegistry.h header as it is stored in a non-standard location on Debian systems.
+- Debuginfod test: Allow for the libdwfl library silently contacting the debuginfod server.
+
+* Tue Mar 05 2024 Nick Clifton  <nickc@redhat.com> - 12.43-1
 - LLVM Plugin: Use llvm-config to get the correct paths and options for building executables.
 - Clang Plugin: Likewise.
 - Enable silent rules for most building.
