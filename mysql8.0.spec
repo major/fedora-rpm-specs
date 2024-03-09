@@ -125,7 +125,7 @@ Patch5:           %{pkgnamepatch}-paths.patch
 Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
-Patch55:	  %{pkgnamepatch}-c99.patch
+Patch55:          %{pkgnamepatch}-c99.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
 
 # Patches taken from boost 1.59

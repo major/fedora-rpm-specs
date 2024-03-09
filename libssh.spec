@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.10.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -13,6 +13,19 @@ Source4:        libssh_server.config
 Patch1:         libssh-0.10.6-rekey-timeout.patch
 # https://gitlab.com/libssh/libssh-mirror/-/merge_requests/431
 Patch2:         libssh-0.10.6-ipv6-hostname.patch
+# Backport of the following commits from master before we will have the next 0.11.0 release:
+# 9717b99136cbff850000378f70d1391f348713f9 libcrypto-compat.c/h: Remove no longer supported openssl versions
+# 54c1703cb22b917222a6eb2a5d2fde22319d9b7a Move old DSA and RSA structs into EVP_PKEY
+# 1eb3df5254a4348eae6edbc8a2bf08fef4015897 Get rid of the deprecated OpenSSL API
+# 4fb5af1da5cb02933cb4cfa10f72484cca9ca961 src/pki_crypto.c: Fix errors introduced by EC rework
+# 2539d72b7c8d03d54538533db5b346dad52d6db3 Add support for PKCS#11 provider in OpenSSL 3.0
+# f8d7fee58842a11ad7a0386b4e829e36cd6e9432 pki: Use preference hints when loading keys from store
+# e0011a197009897fcba09229e76940d9f5b12404 pki: Avoid freeing static groups/points on OpenSSL<3
+# 9b263cf5e1da6e06f6ab90e3169409a7bed60835 pki_crypto: Fix ecdsa memory leak
+# baa773d1cd6838af33fedcd65ddbb4e46e2b06c0 pki: Calculate missing CRT parameters when building RSA Key
+# 2c876464ab0a27387a122c6a4b39ec187a6fc596 ecdh: Fix missing-prototype warning
+# 2c918aad6763754bdffb84796b410e21f24bb7ec tests: Use /tmp for tmpdirs that contain sockets
+Patch3:         libssh-0.10.6-pkcs11-provider.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -30,7 +43,10 @@ BuildRequires:  priv_wrapper
 BuildRequires:  openssh-clients
 BuildRequires:  openssh-server
 BuildRequires:  nmap-ncat
-BuildRequires:  openssl-pkcs11
+BuildRequires:  pkcs11-provider
+BuildRequires:  p11-kit-devel
+BuildRequires:  p11-kit-server
+BuildRequires:  opensc
 BuildRequires:  softhsm
 BuildRequires:  gnutls-utils
 
@@ -79,6 +95,7 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
     -DCLIENT_TESTING=ON \
     -DSERVER_TESTING=ON \
     -DWITH_PKCS11_URI=ON \
+    -DWITH_PKCS11_PROVIDER=ON \
     -DGLOBAL_CLIENT_CONFIG="%{_sysconfdir}/libssh/libssh_client.config" \
     -DGLOBAL_BIND_CONFIG="%{_sysconfdir}/libssh/libssh_server.config"
 
@@ -138,6 +155,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Thu Mar 07 2024 Jakub Jelen <jjelen@redhat.com> - 0.10.6-6
+- Build libssh with pkcs11-provider instead of pkcs11 engine
+
 * Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 0.10.6-5
 - Add riscv64
 

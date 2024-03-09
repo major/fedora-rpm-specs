@@ -4,7 +4,7 @@
 
 Name:           florence
 Version:        0.6.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Extensible scalable on-screen virtual keyboard for GNOME 
 License:        GPLv2+ and GFDL
 URL:            http://florence.sourceforge.net
@@ -32,7 +32,7 @@ BuildRequires:  libXtst-devel
 %endif
 BuildRequires:  scrollkeeper
 BuildRequires: make
-%ifarch aarch64
+%ifarch aarch64 riscv64
 BuildRequires: chrpath
 %endif
 Requires:       control-center
@@ -95,7 +95,7 @@ desktop-file-install \
 
 install -pDm0644 data/%{name}.svg %{buildroot}%{_datadir}/pixmaps/%{name}.svg
 
-%ifarch aarch64
+%ifarch aarch64 riscv64
 chrpath --delete %{buildroot}/usr/bin/florence
 %endif
 
@@ -123,6 +123,9 @@ chrpath --delete %{buildroot}/usr/bin/florence
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 
 %changelog
+* Thu Mar 07 2024 Zhao Jiasheng <JasenChao@gmail.com> - 0.6.3-23
+- Fix build on riscv64.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

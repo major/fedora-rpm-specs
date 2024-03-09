@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.8%{?dist}
+Release: %{gcc_release}.10%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3609,10 +3609,11 @@ end
 %endif
 
 %changelog
+* Mon Mar  4 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.10
 - add --without-clang-plugin --without-llvm-plugin to annobin configure
   options
 
-* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com>
+* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> 14.0.1-0.9
 - enable support for riscv64
 
 * Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8

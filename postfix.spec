@@ -56,7 +56,7 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.6
+Version: 3.9.0
 Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
@@ -97,8 +97,8 @@ Source101: postfix-pam.conf
 # Patches
 
 Patch1: postfix-3.8.0-config.patch
-Patch2: postfix-3.4.0-files.patch
-Patch3: postfix-3.3.3-alternatives.patch
+Patch2: postfix-3.9.0-files.patch
+Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
 Patch4: postfix-3.8.0-large-fs.patch
 Patch9: pflogsumm-1.1.5-datecalc.patch
@@ -836,6 +836,10 @@ fi
 %endif
 
 %changelog
+* Thu Mar  7 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.9.0-1
+- New version
+  Resolves: rhbz#2268245
+
 * Tue Mar  5 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.6-1
 - New version
   Resolves: rhbz#2267836

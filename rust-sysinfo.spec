@@ -6,7 +6,7 @@
 %global crate sysinfo
 
 Name:           rust-sysinfo
-Version:        0.29.11
+Version:        0.30.7
 Release:        %autorelease
 Summary:        Library to get system information such as processes, CPUs, disks, components and networks
 
@@ -38,6 +38,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/ADDING_NEW_PLATFORMS.md
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/migration_guide.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -74,6 +75,18 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+linux-netdevs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+linux-netdevs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "linux-netdevs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+linux-netdevs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+multithread-devel

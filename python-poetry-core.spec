@@ -2,7 +2,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        1.8.1
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Poetry PEP 517 Build Backend
 # SPDX
@@ -13,8 +13,7 @@ Source0:        %{url}/archive/%{version}/poetry-core-%{version}.tar.gz
 # This patch moves the vendored requires definition
 # from vendors/pyproject.toml to pyproject.toml
 # Intentionally contains the removed hunk to prevent patch aging
-Patch1:         poetry-core-1.8.1-devendor.patch
-Patch2: python-poetry-core-c99.patch
+Patch1:         poetry-core-1.9.0-devendor.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

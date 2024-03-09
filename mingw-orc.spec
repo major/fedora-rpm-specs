@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-orc
-Version:        0.4.27
-Release:        16%{?dist}
+Version:        0.4.38
+Release:        1%{?dist}
 Summary:        Cross compiled Oil Run-time Compiler
 
 License:        BSD
@@ -11,9 +11,9 @@ Source0:        http://gstreamer.freedesktop.org/src/orc/orc-%{version}.tar.xz
 
 BuildArch:      noarch
 
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  meson
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
 
@@ -63,20 +63,12 @@ The Orc compiler, to produce optimized code.
 
 
 %build
-%mingw_configure \
-    --enable-shared \
-    --disable-static \
-    --disable-gtk-doc
-%mingw_make %{?_smp_mflags} V=1
+%mingw_meson
+%mingw_ninja
 
 
 %install
-%mingw_make_install "DESTDIR=$RPM_BUILD_ROOT" INSTALL="install -p"
-
-# Libtool files don't need to be bundled
-find $RPM_BUILD_ROOT -name "*.la" -delete
-# Remove gtk documentation.
-rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
+%mingw_ninja_install
 
 
 # Mingw32
@@ -86,11 +78,11 @@ rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc $RPM_BUILD_ROOT%{mingw64_datadi
 %{mingw32_bindir}/liborc-0.4-0.dll
 %{mingw32_bindir}/liborc-test-0.4-0.dll
 %{mingw32_bindir}/orc-bugreport.exe
-%{mingw32_datadir}/aclocal/orc.m4
 %{mingw32_includedir}/orc-0.4/
 %{mingw32_libdir}/liborc-0.4.dll.a
 %{mingw32_libdir}/liborc-test-0.4.dll.a
 %{mingw32_libdir}/pkgconfig/orc-0.4.pc
+%{mingw32_libdir}/pkgconfig/orc-test-0.4.pc
 
 %files -n mingw32-orc-compiler
 %{mingw32_bindir}/orcc.exe
@@ -102,17 +94,20 @@ rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc $RPM_BUILD_ROOT%{mingw64_datadi
 %{mingw64_bindir}/liborc-0.4-0.dll
 %{mingw64_bindir}/liborc-test-0.4-0.dll
 %{mingw64_bindir}/orc-bugreport.exe
-%{mingw64_datadir}/aclocal/orc.m4
 %{mingw64_includedir}/orc-0.4/
 %{mingw64_libdir}/liborc-0.4.dll.a
 %{mingw64_libdir}/liborc-test-0.4.dll.a
 %{mingw64_libdir}/pkgconfig/orc-0.4.pc
+%{mingw64_libdir}/pkgconfig/orc-test-0.4.pc
 
 %files -n mingw64-orc-compiler
 %{mingw64_bindir}/orcc.exe
 
 
 %changelog
+* Thu Mar 07 2024 Sandro Mani <manisandro@gmail.com> - 0.4.38-1
+- Update to 0.4.38
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.27-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

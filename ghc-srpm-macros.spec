@@ -1,7 +1,9 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
+%global macrosfile macros.ghc-srpm
+
 Name:           ghc-srpm-macros
-Version:        1.8
+Version:        1.9
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
@@ -9,7 +11,7 @@ License:        GPL-2.0-or-later
 Url:            https://src.fedoraproject.org/rpms/ghc-srpm-macros
 BuildArch:      noarch
 
-Source0:        macros.ghc-srpm
+Source0:        %{macrosfile}
 
 %description
 Macros used when generating Haskell source RPM packages.
@@ -24,14 +26,18 @@ echo no build stage needed
 
 
 %install
-install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
+install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/%{macrosfile}
 
 
 %files
-%{macros_dir}/macros.ghc-srpm
+%{macros_dir}/%{macrosfile}
 
 
 %changelog
+* Thu Mar  7 2024 Jens Petersen <petersen@redhat.com> - 1.9-1
+- improve haskell_setup to undefine the old macros
+- add haskell_setup_quick for test builds
+
 * Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.8-1
 - Add riscv64
 

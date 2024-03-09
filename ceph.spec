@@ -172,8 +172,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	18.2.1
-Release:	11%{?dist}
+Version:	18.2.2
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -207,7 +207,6 @@ Patch0032:	0032-cmake-modules-BuildBoost.cmake.patch
 Patch0033:	0033-boost-asm.patch
 Patch0034:	0034-src-pybind-rbd-rbd.pyx.patch
 Patch0035:	0035-src-CMakeLists.txt.patch
-Patch0036:	0036-18.2.1.release.patch
 Patch0037:	ceph-c99-1.patch
 Patch0038:	ceph-c99-2.patch
 Patch0039:	0039-src-common-dout.h.patch
@@ -2641,6 +2640,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Thu Mar 7 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-1
+- ceph-18.2.2 GA
+
 * Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2:18.2.1-11
 - Add support for riscv64
 

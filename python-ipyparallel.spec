@@ -1,25 +1,15 @@
-%if %{?fedora}%{!?fedora:0} < 38
-# python3-ipython-tests lacks auto-generated provides in Fedora < 38
-%global __requires_exclude python.*dist\\(ipython\\[test\\]\\)
-%endif
-
 Name:		python-ipyparallel
-Version:	8.6.1
-Release:	6%{?dist}
+Version:	8.7.0
+Release:	1%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	%pypi_source ipyparallel
-#		https://github.com/ipython/ipyparallel/pull/795
-Patch0:		%{name}-doc-fixes.patch
-#		https://github.com/ipython/ipyparallel/pull/796
-Patch1:		%{name}-teardown.patch
-Patch2:		https://github.com/ipython/ipyparallel/pull/818.patch#/%{name}-assert_called_once_with.patch
 
 BuildArch:	noarch
 BuildRequires:	make
-BuildRequires:	python3-devel >= 3.7
+BuildRequires:	python3-devel >= 3.8
 BuildRequires:	python3-pip
 BuildRequires:	python3dist(hatchling) >= 0.25
 BuildRequires:	python3dist(entrypoints)
@@ -37,14 +27,6 @@ BuildRequires:	python3dist(tqdm)
 BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(pytest-asyncio)
 BuildRequires:	python3-zmq-tests
-#		For documentation
-BuildRequires:	python3dist(sphinx)
-BuildRequires:	python3-ipython-sphinx
-BuildRequires:	python3dist(matplotlib)
-BuildRequires:	python3dist(myst-parser)
-BuildRequires:	python3dist(nbsphinx)
-BuildRequires:	python3dist(pydata-sphinx-theme)
-BuildRequires:	pandoc
 
 %description
 IPython Parallel (ipyparallel) is a Python package and collection of
@@ -55,6 +37,7 @@ the Jupyter protocol.
 Summary:	Interactive Parallel Computing with IPython
 %py_provides	python3-ipyparallel
 Requires:	python-jupyter-filesystem >= 4.7.0-5
+Obsoletes:	python-ipyparallel-doc <= 8.7.0
 
 %description -n python3-ipyparallel
 IPython Parallel (ipyparallel) is a Python package and collection of
@@ -72,33 +55,13 @@ Requires:	python3-zmq-tests
 %description -n python3-ipyparallel+test
 This package contains the tests of python3-ipyparallel.
 
-%package doc
-Summary:	Documentation for python-ipyparallel
-
-%description doc
-This package contains the documentation of python-ipyparallel.
-
 %prep
 %setup -q -n ipyparallel-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
-sed /autodoc_traits/d -i docs/source/conf.py
-sed s/autoconfigurable/autoclass/ -i docs/source/api/ipyparallel.rst
-
-# Adjust test expectations for our build environment
-sed -i 's/\[Errno -2\] Name or service not known/[Errno -3] Temporary failure in name resolution/' ipyparallel/tests/test_util.py
-
 %build
 %pyproject_wheel
-
-pushd docs
-PYTHONPATH=${PWD}/.. make html
-rm -f build/html/.buildinfo
-popd
 
 %install
 %pyproject_install
@@ -112,7 +75,10 @@ done
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 
 %check
-%pytest -Wdefault -v --color=no
+# The version of jupyter-client in Fedora calls datetime.utcnow()
+# Ignore DeprecationWarning from Python 3.12 duee to this
+%pytest -v --color=no \
+    -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning"
 
 %files -n python3-ipyparallel
 %license COPYING.md
@@ -142,11 +108,12 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %ghost %{python3_sitelib}/ipyparallel-*.*-info
 %{python3_sitelib}/ipyparallel/tests
 
-%files doc
-%license COPYING.md
-%doc docs/build/html
-
 %changelog
+* Tue Mar 05 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.7.0-1
+- Update to 8.7.0
+- Drop patches (accepted upstream)
+- Drop documentation package (build dependency myst-nb not available)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

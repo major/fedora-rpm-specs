@@ -25,6 +25,13 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
+# This software is a fork of the original docopt.  The fork switched from a
+# python module (docopt.py) to a python package (docopt/__init__.py), so
+# technically the rpm packages could be co-installable.  However, they are not
+# co-usable, because python code can only import one or the other.  For this
+# reason, we will go ahead and conflict with other rpm package.
+Conflicts:      python3-docopt
+
 
 %description -n python3-docopt-ng %{_description}
 

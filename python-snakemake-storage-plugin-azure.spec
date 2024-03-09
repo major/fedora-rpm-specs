@@ -5,7 +5,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-storage-plugin-azure
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Snakemake storage plugin for Azure Blob Storage
 

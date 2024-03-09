@@ -109,6 +109,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw32_includedir}/gstreamer-%{api_version}/gst
 
 %dir %{mingw32_libexecdir}/gstreamer-%{api_version}
+%{mingw32_libexecdir}/gstreamer-%{api_version}/gst-completion-helper.exe
 %{mingw32_libexecdir}/gstreamer-%{api_version}/gst-plugin-scanner.exe
 
 %dir %{mingw32_libdir}/gstreamer-%{api_version}/
@@ -125,7 +126,6 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw32_libdir}/pkgconfig/gstreamer-controller-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-net-%{api_version}.pc
 
-%{mingw32_bindir}/gst-completion-helper.exe
 %{mingw32_bindir}/gst-inspect-%{api_version}.exe
 %{mingw32_bindir}/gst-launch-%{api_version}.exe
 %{mingw32_bindir}/gst-stats-%{api_version}.exe
@@ -148,6 +148,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_includedir}/gstreamer-%{api_version}/gst
 
 %dir %{mingw64_libexecdir}/gstreamer-%{api_version}
+%{mingw64_libexecdir}/gstreamer-%{api_version}/gst-completion-helper.exe
 %{mingw64_libexecdir}/gstreamer-%{api_version}/gst-plugin-scanner.exe
 
 %dir %{mingw64_libdir}/gstreamer-%{api_version}/
@@ -164,7 +165,6 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_libdir}/pkgconfig/gstreamer-controller-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-net-%{api_version}.pc
 
-%{mingw64_bindir}/gst-completion-helper.exe
 %{mingw64_bindir}/gst-inspect-%{api_version}.exe
 %{mingw64_bindir}/gst-launch-%{api_version}.exe
 %{mingw64_bindir}/gst-stats-%{api_version}.exe

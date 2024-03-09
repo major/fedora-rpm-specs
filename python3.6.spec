@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 26%{?dist}
+Release: 28%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -319,6 +319,9 @@ Source10: idle3.desktop
 # AppData file for idle3
 Source11: idle3.appdata.xml
 
+# Patch for the bundled pip wheel for CVE-2007-4559
+Source12: pip-CVE-2007-4559.patch
+
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
@@ -614,6 +617,20 @@ Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
 # the behavior to linear.
 Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.patch
 
+# 00397 # e867e27272cd259b76133784ef3f2811e671f3db
+# PEP 706, CVE-2007-4559: Filter API for tarfile.extractall
+#
+# Add API for allowing checks on the content of tar files, allowing callers to mitigate
+# directory traversal (CVE-2007-4559) and related issues.
+#
+# Python 3.12 will warn if this API is not used.
+# Python 3.14 will fail if it's not used.
+#
+# Backport from https://github.com/python/cpython/issues/102950
+#
+# Change document: https://peps.python.org/pep-0706/
+Patch397: 00397-pep-706-cve-2007-4559-filter-api-for-tarfile-extractall.patch
+
 # 00399 # dc0a803eea47d3b4f0657816b112b5a33491500f
 # CVE-2023-24329
 #
@@ -667,6 +684,10 @@ Patch419: 00419-gh-112769-test_zlib-fix-comparison-of-zlib_runtime_version-with-
 # Feeding the parser by too small chunks defers parsing to prevent
 # CVE-2023-52425. Future versions of Expat may be more reactive.
 Patch422: 00422-gh-115133-fix-tests-for-xmlpullparser-with-expat-2-6-0.patch
+
+# 00423 # 81584d3af3b307c2aeede3ba8ae95c7efc81f5f7
+# bpo-33377: Add triplets for mips-r6 and riscv
+Patch423: 00423-bpo-33377-add-triplets-for-mips-r6-and-riscv.patch
 
 # (New patches go here ^^^)
 #
@@ -1015,6 +1036,12 @@ rm Lib/ensurepip/_bundled/*.whl
 
 # Apply the remaining patches
 %autopatch -m 190
+
+# Patch the bundled pip wheel for CVE-2007-4559
+unzip -qq Lib/ensurepip/_bundled/pip-%{pip_version}-py2.py3-none-any.whl
+patch -p1 < %{SOURCE12}
+zip -rq Lib/ensurepip/_bundled/pip-%{pip_version}-py2.py3-none-any.whl pip pip-%{pip_version}.dist-info
+rm -rf pip/ pip-%{pip_version}.dist-info/
 
 # Remove bundled libraries to ensure that we're using the system copy.
 rm -r Modules/expat
@@ -1925,6 +1952,13 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Mar 07 2024 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-28
+- Fix build on riscv64
+
+* Thu Feb 29 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-27
+- Security fix for CVE-2007-4559
+- Fixes: rhbz#2141080
+
 * Wed Feb 28 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-26
 - Fix tests for XMLPullParser with Expat 2.6.0
 

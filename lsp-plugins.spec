@@ -1,6 +1,6 @@
 Name:           lsp-plugins
-Version:        1.2.14
-Release:        3%{?dist}
+Version:        1.2.15
+Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -65,13 +65,19 @@ Requires:       lv2%{?_isa}
 %description lv2
 Linux Studio Plugins (LSP) compatible with the LV2 format (recommended format).
 
-
 %package vst
 Summary:        Linux Studio Plugins VST format
 Requires:       Carla-vst%{?_isa}
 
 %description vst
 Linux Studio Plugins (LSP) and UIs for Steinberg's VST 2.4 format ported on GNU/Linux Platform.
+
+%package vst3
+Summary:        Linux Studio Plugins VST 3 format
+#Requires:       Carla-vst%{?_isa}
+
+%description vst3
+Linux Studio Plugins (LSP) and UIs for Steinberg's VST 3 format ported on GNU/Linux Platform.
 
 %package jack
 Summary:        Linux Studio Plugins JACK format
@@ -124,7 +130,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.16.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.17.so
 
 %files -n liblsp-r3d-glx-devel
 %{_libdir}/liblsp-r3d-glx-lib.so
@@ -149,6 +155,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %doc CHANGELOG README.md
 %{_libdir}/vst/%{name}*
 
+%files vst3
+%license COPYING COPYING.LESSER
+%doc CHANGELOG README.md
+%dir %{_libdir}/vst3
+%{_libdir}/vst3/%{name}*
+
 %files jack
 %license COPYING COPYING.LESSER
 %doc CHANGELOG README.md
@@ -159,6 +171,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/clap/%{name}-clap.clap
 
 %changelog
+* Thu Mar 07 2024 Vasiliy Glazov <vascom2@gmail.com> - 1.2.15-1
+- Update to 1.2.15
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

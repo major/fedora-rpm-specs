@@ -8,7 +8,7 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.7.1
+Version:        1.8.2
 Release:        %autorelease
 
 # SPDX
@@ -26,8 +26,8 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
 Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
-# tests: reduce internet access in tests
-Patch:          https://github.com/python-poetry/poetry/pull/8744.patch
+# tests/executor fix tests failing without internet access
+Patch:          https://github.com/python-poetry/poetry/pull/9117.patch
 
 BuildArch:      noarch
 

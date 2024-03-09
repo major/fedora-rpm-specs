@@ -1,6 +1,6 @@
 Summary: Basic desktop integration functions
 Name:    xdg-utils
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 
 URL:     https://www.freedesktop.org/wiki/Software/xdg-utils/
@@ -85,6 +85,9 @@ make man scripts %{?_smp_mflags} -C scripts
 
 
 %changelog
+* Sun Feb 11 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.1-1
+- Update to 1.2.1 (rhbz#2241305)
+
 * Tue Jan 30 2024 Steve Cossette <farchord@gmail.com> - 1.2.0-1
 - Release to 1.2.0 final
 

@@ -1,6 +1,6 @@
 Name:           gramps
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -57,8 +57,6 @@ sed -i -e '1s| \+-||2g' ${RPM_BUILD_ROOT}%{_bindir}/gramps
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/locale
 cp -pr build/mo/* ${RPM_BUILD_ROOT}%{_datadir}/locale/
-#Remove duplicate doc
-rm -f ${RPM_BUILD_ROOT}%{_datadir}/%{name}/COPYING
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/mime/packages
 cp -p build/data/org.gramps_project.Gramps.xml ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/
@@ -87,7 +85,7 @@ desktop-file-install --delete-original  \
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS FAQ NEWS TODO example/
+%doc AUTHORS COPYING FAQ NEWS TODO example/
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/org.gramps_project.Gramps.desktop
@@ -110,6 +108,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Thu Mar 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.0-2
+- Restore duplicate license file for use by GUI
+
 * Fri Feb 23 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.0-1
 - 5.2.0
 

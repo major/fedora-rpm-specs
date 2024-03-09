@@ -1,6 +1,6 @@
 Name:		imsettings
-Version:	1.8.8
-Release:	3%{?dist}
+Version:	1.8.9
+Release:	1%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -338,6 +338,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar  7 2024 Akira TAGOH <tagoh@redhat.com> - 1.8.9-1
+- New upstream release.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

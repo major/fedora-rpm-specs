@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ubuntu/%{name}
-%global tag v%{version}
+%global commit 03a7412e604670597dfd5d8a70fcc90ebed48b7b
 %global uuid appindicatorsupport@rgcjonas.gmail.com
 
 Name: gnome-shell-extension-appindicator

@@ -1,8 +1,9 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 2
-%global comgr_full_api_ver %{comgr_maj_api_ver}.6.0
+%global comgr_full_api_ver %{comgr_maj_api_ver}.6
 # LLVM information:
 %global llvm_maj_ver 17
+%bcond_without compat_build
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
@@ -11,7 +12,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -21,12 +22,21 @@ License:        NCSA
 Source0:        https://github.com/Mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  cmake
+
+BuildRequires:  rocm-device-libs >= %{llvm_maj_ver}
+BuildRequires:  zlib-devel
+
+%if %{with compat_build}
+BuildRequires:  clang%{llvm_maj_ver}-devel
+BuildRequires:  lld%{llvm_maj_ver}-devel
+BuildRequires:  lld%{llvm_maj_ver}-devel
+BuildRequires:  llvm%{llvm_maj_ver}-devel
+%else
 BuildRequires:  clang-devel >= %{llvm_maj_ver}
 BuildRequires:  clang(major) = %{llvm_maj_ver}
 BuildRequires:  lld-devel
 BuildRequires:  llvm-devel(major) = %{llvm_maj_ver}
-BuildRequires:  rocm-device-libs >= %{llvm_maj_ver}
-BuildRequires:  zlib-devel
+%endif
 
 #Only the following architectures are useful for ROCm packages:
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -64,8 +74,24 @@ sed -i '/Args.push_back(ROCMIncludePath/,+1d' lib/comgr/src/comgr-compiler.cpp
 #Source hard codes the libdir too:
 sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 
+%if %{with compat_build}
+sed -i 's/find_package(Clang REQUIRED CONFIG)/find_package(Clang REQUIRED)/' lib/comgr/CMakeLists.txt
+sed -i 's/find_package(LLD REQUIRED CONFIG)/find_package(LLD REQUIRED)/' lib/comgr/CMakeLists.txt
+sed -i 's@${CLANG_CMAKE_DIR}/../../../@/usr/lib/clang/%{llvm_maj_ver}/@' lib/comgr/cmake/opencl_pch.cmake
+
+%endif
+
 %build
-%cmake -S lib/comgr -DCMAKE_BUILD_TYPE="RELEASE" -DBUILD_TESTING=ON
+%if %{with compat_build}
+export PATH=%{_libdir}/llvm%{llvm_maj_ver}/bin:$PATH
+export INCLUDE_PATH=%{_libdir}/llvm%{llvm_maj_ver}/include
+%endif
+
+%cmake -S lib/comgr \
+%if %{with compat_build}
+  -DCMAKE_MODULE_PATH=%{_libdir}/llvm%{llvm_maj_ver}/lib \
+%endif
+  -DCMAKE_BUILD_TYPE="RELEASE" -DBUILD_TESTING=ON
 %cmake_build
 
 %check
@@ -92,6 +118,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Thu Mar 7 2024 Tom Rix <trix@redhat.com> - 17.1-4
+- Add with compat_build for llvm17
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

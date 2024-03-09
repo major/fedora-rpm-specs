@@ -9,8 +9,8 @@ true of requests in terms of caching.}
 
 Name:           python-%{pypi_name}
 Summary:        httplib2 caching for requests
-Version:        0.13.1
-Release:        3%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://github.com/ionrock/cachecontrol

@@ -6,7 +6,7 @@
 %global goipath         github.com/osbuild/weldr-client/v2
 
 Name:      weldr-client
-Version:   35.12
+Version:   35.13
 Release:   1%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
@@ -130,19 +130,16 @@ composer-cli package.
 
 
 %changelog
-* Mon Feb 19 2024 Brian C. Lane <bcl@redhat.com> - 35.12-1
-- New release: 35.12 (bcl)
-- Update documentation urls for new locations (bcl)
-- workflows: Stop using golint (bcl)
-- workflows: Add Go 1.21 and 1.22 to test matrix (bcl)
-- workflows: Update to golangci-lint 1.56.2 (bcl)
-- weldr: go fmt changes to a couple comments (bcl)
-- Go: Switch to go 1.19 (bcl)
-- weldr: Update ostree test for parentid with no url (bcl)
-- build(deps): bump actions/setup-go from 4 to 5 (49699333+dependabot[bot])
-- Makefile: Turn off seccomp for build-in-podman (bcl)
-- build(deps): bump github.com/spf13/cobra from 1.7.0 to 1.8.0 (49699333+dependabot[bot])
-- build(deps): bump actions/checkout from 3 to 4 (49699333+dependabot[bot])
-- Actions: add workflow for marking and closing stale issues and PRs (thozza)
-- composer-cli: Update doc links (simon.steinbeiss)
-- build(deps): bump github.com/BurntSushi/toml from 1.3.1 to 1.3.2 (49699333+dependabot[bot])
+* Thu Mar 07 2024 Brian C. Lane <bcl@redhat.com> - 35.13-1
+- New release: 35.13 (bcl)
+- HACKING.md: Reformat code blocks for docusaurus (simon.steinbeiss)
+- README: Update code block formatting and drop subtitle (simon.steinbeiss)
+- info: Add upload status to the output (bcl)
+- info: Fix display of blueprint packages with no version (bcl)
+- weldr: Add Stringer interface to Package (bcl)
+- compose: Add --wait options to start-ostree (bcl)
+- compose: Add --wait options to start command (bcl)
+- compose: Add compose wait command (bcl)
+- weldr: Add ComposeWait to wait for a compose to finish (bcl)
+- build(deps): bump github.com/stretchr/testify from 1.8.4 to 1.9.0 (49699333+dependabot[bot])
+- CI: Drop SonarQube in favor of Snyk (jrusz)

@@ -13,9 +13,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-hypothesis
 # Pandas will drop i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=2263999
-%ifnarch %{ix86}
-BuildRequires:  python3-pandas
-%endif
+BuildRequires:  (python3-pandas or python3(x86-32))
 BuildRequires:  python3-pytest
 # The PyPi sources don't depend on Cython since they contain pre-generated sources,
 # but those are rebuilt for Fedora so Cython must be available.

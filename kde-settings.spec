@@ -6,19 +6,13 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 39.1
-Release: 7%{?dist}
+Version: 40.0
+Release: 1%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
 Source0: https://pagure.io/fedora-kde/kde-settings/archive/%{version}/kde-settings-%{version}.tar.gz
 Source1: COPYING
-
-# Temporarily as a patch until f40 backgrounds exist to bump to 40
-Patch0:  0001-Add-initial-setup-configuration-with-kwin_wayland.patch
-Patch1:  0001-Revert-kwinrc-Disable-the-Blur-plugin-in-kwin-by-def.patch
-Patch2:  0001-kwinrc-Enable-maliit-keyboard-by-default.patch
-Patch3:  0001-Rebase-default-mimeapps-associations-over-upstream-s.patch
 
 BuildArch: noarch
 
@@ -218,7 +212,7 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %{_datadir}/plasma/shells/org.kde.plasma.desktop/contents/updates/00-start-here-2.js
 %if 0%{?flatpak} == 0
 %{_sysconfdir}/xdg/autostart/xdg-user-dirs-kde.desktop
-%endif 
+%endif
 %{_sysconfdir}/xdg/plasma-workspace/env/env.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk2_rc_files.sh
 %{_sysconfdir}/xdg/plasma-workspace/env/gtk3_scrolling.sh
@@ -249,6 +243,10 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Thu Mar 07 2024 Neal Gompa <ngompa@fedoraproject.org> - 40.0-1
+- Bump for F40 backgrounds
+- Enable login/logout sounds for a11y
+
 * Tue Feb 20 2024 Alessandro Astone <ales.astone@gmail.com> - 39.1-7
 - Enable maliit-keyboard by default
 - Provide default mimeapps associations overrides over plasma-desktop

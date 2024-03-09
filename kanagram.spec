@@ -1,7 +1,7 @@
 Name:    kanagram
 Summary: Letter Order Game 
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/edu/%{name}
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 07 2024 Alessandro Astone <ales.astone@gmail.com> - 24.02.0-2
+- Rebuild respun sources
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

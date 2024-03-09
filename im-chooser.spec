@@ -7,13 +7,13 @@
 %endif
 
 Name:		im-chooser
-Version:	1.7.4
-Release:	10%{?dist}
+Version:	1.7.5
+Release:	1%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:		http://pagure.io/im-chooser/
 %{?_with_gtk2:BuildRequires:	gtk2-devel}
 %{!?_with_gtk2:BuildRequires:	gtk3-devel}
-BuildRequires:	libSM-devel imsettings-devel >= 1.8.4
+BuildRequires:	libSM-devel imsettings-devel >= 1.8.9
 %if 0%{?_with_xfce}
 BuildRequires:	libxfce4util-devel
 %endif
@@ -35,7 +35,7 @@ to be used or disable Input Method usage on the desktop.
 
 %package	common
 Summary:	Common files for im-chooser subpackages
-Requires:	imsettings >= 1.8.0
+Requires:	imsettings >= 1.8.9
 Obsoletes:	im-chooser < 1.5.0.1
 ## https://fedorahosted.org/fpc/ticket/174
 Provides:	bundled(egglib)
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/im-chooser-panel.desktop
 %endif
 
 %changelog
+* Thu Mar  7 2024 Akira TAGOH <tagoh@redhat.com> - 1.7.5-1
+- New upstream release.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

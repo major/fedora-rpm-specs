@@ -2,7 +2,7 @@
 
 Name:           jakarta-mail1
 Version:        1.6.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta Mail API
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://github.com/eclipse-ee4j/mail
@@ -44,6 +44,9 @@ protocol-independent framework to build mail and messaging applications.
 # remove profiles that only add unnecessary things
 %pom_xpath_remove "pom:project/pom:profiles"
 
+# Java version 7 no longer supported - use version 8
+%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:executions/pom:execution[pom:id='base-compile-7']/pom:configuration/pom:release" "<release>8</release>"
+
 # inject OSGi bundle versions manually instead of using osgiversion-maven-plugin
 find -name pom.xml -exec sed -i "s/\${mail\.osgiversion}/%{version}/g" {} +
 
@@ -77,6 +80,9 @@ sed -i "/-Werror/d" mail/pom.xml
 %doc README.md
 
 %changelog
+* Thu Mar 07 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.6.7-4
+- Java version 7 no longer supported - use version 8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

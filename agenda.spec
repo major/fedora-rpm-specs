@@ -39,15 +39,12 @@ Patch:          0001-Add-launchable-tag-to-AppStream-metadata.patch
 #
 # Rebased on 1.1.2 and on top of PR#148
 Patch:          0002-Convert-homepage-link-from-HTTP-to-HTTPS-in-AppData-.patch
-# We offered a PR,
-#
 # Fix deprecated top-level developer_name in AppData XML
 # https://github.com/dahenson/agenda/pull/151
 #
-# which could be rebased on 1.1.2 and on top of PR#148 and PR#152; however,
-# since appstreamcli validate now only produces an info message about the
-# deprecated <developer_name/> rather than a warning, we elect to drop the
-# patches corresponding to this PR until upstream is able to review it.
+# Rebased on 1.1.2 and on top of PR#148 and PR#152
+Patch:          0003-Fix-deprecated-top-level-developer_name-in-AppData-X.patch
+Patch:          0004-Add-a-developer-ID-in-AppData-XML.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -16,7 +16,7 @@
 
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
@@ -82,12 +82,15 @@ export PATH=%{_libdir}/llvm%{llvm_maj_ver}/bin:$PATH
 %exclude %{_docdir}/ROCm-Device-Libs/LICENSE.TXT
 %{_libdir}/cmake/AMDDeviceLibs
 %if %{with compat_build}
-%{_libdir}/llvm%{llvm_maj_ver}/lib/clang/%{llvm_maj_ver}/amdgcn
+%{_prefix}/lib/clang/%{llvm_maj_ver}/amdgcn
 %else
 %clang_resource_dir/amdgcn
 %endif
 
 %changelog
+* Thu Mar 7 2024 Tom Rix <trix@redhat.com> - 17.2-5
+- adjust the amdgcn location
+
 * Wed Mar 6 2024 Tom Rix <trix@redhat.com> - 17.2-4
 - add with compat_build to use the llvm17
 

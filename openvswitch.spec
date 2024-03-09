@@ -47,8 +47,8 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.2.1
-Release: 3%{?dist}
+Version: 3.3.0
+Release: 1%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -68,6 +68,7 @@ Source1: openvswitch.sysusers
 # ovs-patches
 
 # OVS (including OVN) backports (0 - 300)
+Patch0: 0001-tests-Fix-SSL-db-implementation-test-with-openssl-3..patch
 
 BuildRequires: gcc gcc-c++ make
 BuildRequires: autoconf automake libtool
@@ -166,7 +167,7 @@ License: ASL 2.0
 This provides shared library, libopenswitch.so and the openvswitch header
 files needed to build an external application.
 
-%if 0%{?rhel} == 8 || 0%{?fedora} > 28
+%if 0%{?rhel} == 8 || ( 0%{?fedora} > 28 && 0%{?fedora} < 40)
 %package -n network-scripts-%{name}
 Summary: Open vSwitch legacy network service support
 License: ASL 2.0
@@ -320,7 +321,7 @@ install -p -D -m 0644 rhel/etc_logrotate.d_openvswitch \
 install -m 0644 vswitchd/vswitch.ovsschema \
         $RPM_BUILD_ROOT/%{_datadir}/openvswitch/vswitch.ovsschema
 
-%if 0%{?rhel} < 9
+%if ( 0%{?rhel} && 0%{?rhel} < 9 ) || ( 0%{?fedora} && 0%{?fedora} < 40)
 install -d -m 0755 $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/
 install -p -m 0755 rhel/etc_sysconfig_network-scripts_ifdown-ovs \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/ifdown-ovs
@@ -511,7 +512,7 @@ fi
 %{_includedir}/openflow/*
 %exclude %{_libdir}/*.a
 
-%if 0%{?rhel} == 8 || 0%{?fedora} > 28
+%if 0%{?rhel} == 8 || ( 0%{?fedora} > 28 && 0%{?fedora} < 40 )
 %files -n network-scripts-%{name}
 %{_sysconfdir}/sysconfig/network-scripts/ifup-ovs
 %{_sysconfdir}/sysconfig/network-scripts/ifdown-ovs
@@ -601,6 +602,11 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Wed Feb 21 2024 Timothy Redaelli <tredaelli@redhat.com> - 3.3.0-1
+- Update to 3.3.0 (#2245052)
+- Remove network-scripts subpackage starting from Fedora 40 (#2263335)
+- Backport a simple fix to avoid "SSL db: implementation" test to fail
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

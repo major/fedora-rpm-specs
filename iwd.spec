@@ -1,5 +1,5 @@
 Name:           iwd
-Version:        2.15
+Version:        2.16
 Release:        1%{?dist}
 Summary:        Wireless daemon for Linux
 License:        LGPLv2+
@@ -76,6 +76,9 @@ rm %{buildroot}/usr/lib/systemd/network/80-iwd.link
 
 
 %changelog
+* Thu Mar 07 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.16-1
+- Update to 2.16
+
 * Wed Feb 28 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.15-1
 - Update to 2.15
 

@@ -2,23 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-system
+%global crate olpc-cjson
 
-Name:           rust-nu-system
-Version:        0.91.0
+Name:           rust-olpc-cjson
+Version:        0.1.3
 Release:        %autorelease
-Summary:        Nushell system querying
+Summary:        Serde_json Formatter to serialize as OLPC-style canonical JSON
 
-License:        MIT
-URL:            https://crates.io/crates/nu-system
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/olpc-cjson
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          nu-system-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+Patch:          olpc-cjson-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Nushell system querying.}
+Serde_json Formatter to serialize as OLPC-style canonical JSON.}
 
 %description %{_description}
 
@@ -32,7 +32,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

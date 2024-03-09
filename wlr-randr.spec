@@ -1,7 +1,7 @@
 %global forgeurl https://git.sr.ht/~emersion/wlr-randr
 
 Name:           wlr-randr
-Version:        0.4.0
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        An xrandr clone for wlroots compositors
 
@@ -44,6 +44,9 @@ wlr-randr is an xrandr clone for wlroots compositors
 %{_bindir}/wlr-randr
 
 %changelog
+* Wed Mar 06 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.4.1-1
+- Update to 0.4.1 (#2268231)
+
 * Sun Jan 28 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.4.0-1
 - Update to 0.4.0 (#2258908)
 

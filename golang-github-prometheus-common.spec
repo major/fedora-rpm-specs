@@ -4,9 +4,9 @@
 
 # https://github.com/prometheus/common
 %global goipath         github.com/prometheus/common
-Version:                0.48.0
+Version:                0.50.0
 
-%gometa
+%gometa -L
 
 %global common_description %{expand:
 This repository contains Go libraries that are shared across Prometheus
@@ -22,7 +22,7 @@ components and libraries.
 %global golicenses      LICENSE NOTICE
 %global godocs          CONTRIBUTING.md MAINTAINERS.md README.md
 
-Name:           %{goname}
+Name:           golang-github-prometheus-common
 Release:        %autorelease
 Summary:        Go libraries shared across Prometheus components and libraries
 
@@ -35,7 +35,7 @@ Source:         %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

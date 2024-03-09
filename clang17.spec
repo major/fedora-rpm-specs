@@ -67,7 +67,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -231,7 +231,7 @@ Development header files for clang.
 
 %package resource-filesystem
 Summary: Filesystem package that owns the clang resource directory
-Provides: %{name}-resource-filesystem(major) = %{maj_ver}
+Provides: clang-resource-filesystem(major) = %{maj_ver}
 # This package can't be noarch for compat builds, becuase the x86_64 and i686
 # builds are installed to different prefixes.
 %if %{without compat_build}
@@ -412,7 +412,11 @@ rm test/CodeGen/profile-filter.c
 	-DCLANG_BUILD_EXAMPLES:BOOL=OFF \
 	-DBUILD_SHARED_LIBS=OFF \
 	-DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}" \
+%if %{with compat_build}
+	-DCLANG_RESOURCE_DIR=../../../lib/clang/%{maj_ver} \
+%else
 	-DCLANG_RESOURCE_DIR=../lib/clang/%{maj_ver} \
+%endif
 	-DCLANG_DEFAULT_UNWINDLIB=libgcc
 
 %cmake_build
@@ -506,7 +510,7 @@ rm -vf %{buildroot}%{install_datadir}/clang/bash-autocomplete.sh
 
 # Create sub-directories in the clang resource directory that will be
 # populated by other packages
-mkdir -p %{buildroot}%{install_prefix}/lib/clang/%{maj_ver}/{bin,include,lib,share}/
+mkdir -p %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/{bin,include,lib,share}/
 
 
 %check
@@ -541,7 +545,7 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir} %{__ninja} check-all -C %{__cmake
 %endif
 
 %files libs
-%{install_prefix}/lib/clang/%{maj_ver}/include/*
+%{_prefix}/lib/clang/%{maj_ver}/include/*
 %{install_libdir}/*.so.*
 
 %files devel
@@ -556,12 +560,12 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir} %{__ninja} check-all -C %{__cmake
 %dir %{install_datadir}/clang/
 
 %files resource-filesystem
-%dir %{install_prefix}/lib/clang/
-%dir %{install_prefix}/lib/clang/%{maj_ver}/
-%dir %{install_prefix}/lib/clang/%{maj_ver}/bin/
-%dir %{install_prefix}/lib/clang/%{maj_ver}/include/
-%dir %{install_prefix}/lib/clang/%{maj_ver}/lib/
-%dir %{install_prefix}/lib/clang/%{maj_ver}/share/
+%dir %{_prefix}/lib/clang/
+%dir %{_prefix}/lib/clang/%{maj_ver}/
+%dir %{_prefix}/lib/clang/%{maj_ver}/bin/
+%dir %{_prefix}/lib/clang/%{maj_ver}/include/
+%dir %{_prefix}/lib/clang/%{maj_ver}/lib/
+%dir %{_prefix}/lib/clang/%{maj_ver}/share/
 %if %{without compat_build}
 %{_rpmmacrodir}/macros.%{name}
 %endif
@@ -688,6 +692,10 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir} %{__ninja} check-all -C %{__cmake
 
 %endif
 %changelog
+* Wed Mar 06 2024 Tom Stellard <tstellar@redhat.com> - 17.0.6-7
+- Fix clang resource directory to match compiler-rt
+- Fix provides for clang-resource-filesystem
+
 * Fri Jan 26 2024 Kefu Chai <kefu.chai@scylladb.com> - 17.0.6-6
 - Fix the too-early instantiation of conditional "explict" by applying the patch
   of https://github.com/llvm/llvm-project/commit/128b3b61fe6768c724975fd1df2be0abec848cf6

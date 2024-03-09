@@ -8,8 +8,8 @@
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
 Name:           mozilla-privacy-badger
-Version:        2023.10.31
-Release:        3%{?dist}
+Version:        2024.2.6
+Release:        1%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
 License:        ASL 2.0 and GPLv3+ and MPLv2.0 and MIT and OFL and Public Domain
@@ -19,9 +19,9 @@ Requires:       mozilla-filesystem
 BuildArch:      noarch
 BuildRequires:  python3
 BuildRequires:  zip
-# lib/vendor/jquery-3.5.1.min.js
+# lib/vendor/jquery-3.7.0.js
 # https://jquery.com MIT
-Provides:       bundled(js-jquery) = 3.5.1
+Provides:       bundled(js-jquery) = 3.7.0
 # lib/vendor/jquery.smooth-scroll.js
 # https://github.com/kswedberg/jquery-smooth-scroll MIT
 Provides:       bundled(js-jquery-smooth-scroll) = 2.2.0
@@ -29,7 +29,7 @@ Provides:       bundled(js-jquery-smooth-scroll) = 2.2.0
 # lib/vendor/jquery-ui.custom/jquery-ui.structure.min.css
 # lib/vendor/jquery-ui.custom/jquery-ui.theme.min.css
 # https://jqueryui.com MIT
-Provides:       bundled(js-jquery-ui) = 1.13.0
+Provides:       bundled(js-jquery-ui) = 1.13.2
 # lib/vendor/jquery-ui-iconfont-2.3.2
 Provides:       bundled(js-jquery-ui-iconfont) = 2.3.2
 # skin/fonts/Chunk.ttf
@@ -111,6 +111,10 @@ install -Dpm644 pkg/privacybadger-%{version}.zip %{buildroot}%{firefox_inst_dir}
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Wed Mar 06 2024 Dominik Mierzejewski <dominik@greysector.net> - 2024.2.6-1
+- update to 2024.2.6 (#2252502)
+- update bundled component info
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.10.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

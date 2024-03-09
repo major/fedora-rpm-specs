@@ -11,7 +11,7 @@
 
 Name:           python-pynest2d
 Version:        4.8.0
-Release:        13%{?dist}
+Release:        %autorelease
 Summary:        Python bindings for libnest2d
 License:        LGPLv3
 URL:            https://github.com/Ultimaker/pynest2d
@@ -66,41 +66,4 @@ sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 14/' CMakeLists.txt
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.8.0-10
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Python Maint <python-maint@redhat.com> - 4.8.0-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 4.8.0-4
-- Rebuilt for Python 3.10
-
-* Tue Mar 30 2021 Jonathan Wakely <jwakely@redhat.com> - 4.8.0-3
-- Rebuilt for removed libstdc++ symbol (#1937698)
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 28 2020 Miro Hrončok <mhroncok@redhat.com> - 4.8.0-1
-- Initial package adapted from SUSE (by Stefan Brüns <stefan.bruens@rwth-aachen.de>)
+%autochangelog

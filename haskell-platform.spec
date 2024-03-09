@@ -24,7 +24,7 @@
 
 Name:           haskell-platform
 Version:        2023.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD-3-Clause
@@ -481,6 +481,10 @@ rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
 %changelog
+* Thu Mar  7 2024 Jens Petersen <petersen@redhat.com> - 2023.1-30
+- stack-symlink-distro-ghc: workaround for ppc64le and no longer error
+  for existing dir
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

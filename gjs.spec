@@ -3,7 +3,7 @@
 %global mozjs115_version 115.7.0
 
 Name:           gjs
-Version:        1.79.3
+Version:        1.79.90
 Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -98,6 +98,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 1.79.90-1
+- Update to 1.79.90
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 1.79.3-1
 - Update to 1.79.3
 

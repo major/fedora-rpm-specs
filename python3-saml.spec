@@ -1,12 +1,15 @@
 Name:           python3-saml
 Version:        1.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Add SAML support to your Python software using this library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{name}
 Source0:        https://github.com/SAML-Toolkits/python3-saml/archive/v%{version}/%{name}-v%{version}.tar.gz
 Patch0001:      0001-keep-settings.patch
+
+# Fix build-system in pyproject.toml: use poetry-core
+Patch:          https://github.com/SAML-Toolkits/python3-saml/pull/341.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -39,6 +42,9 @@ This toolkit lets you turn your Python application into a SP
 %doc README.md
 
 %changelog
+* Fri Jan 26 2024 Miro Hrončok <mhroncok@redhat.com> - 1.16.0-4
+- Drop unneeded build dependencies on poetry, setuptools and wheel
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

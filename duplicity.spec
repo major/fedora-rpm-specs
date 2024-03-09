@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        2.1.5
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
@@ -84,14 +84,14 @@ ln -sf %{_sysconfdir}/pki/tls/cert.pem \
 %find_lang %{name}
 
 # drop documentation
-rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/AUTHORS
+rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/AUTHORS.md
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/CHANGELOG.md
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/COPYING
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README.md
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-LOG.md
+rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-SNAP.md
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-TESTING.md
 rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/README-REPO.md
-rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/CONTRIBUTING.md
 
 %if %{with check}
 %check
@@ -100,7 +100,7 @@ rm -rf %{buildroot}%{_docdir}/duplicity-%{version}/CONTRIBUTING.md
 
 %files -f %{name}.lang -f %{pyproject_files}
 # pyproject_files handles COPYING in dist-info; verify with “rpm -qL -p …”
-%doc CHANGELOG.md README.md CONTRIBUTING.md
+%doc AUTHORS.md CHANGELOG.md README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*
 %dir %{_sysconfdir}/%{name}

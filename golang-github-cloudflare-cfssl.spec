@@ -3,7 +3,7 @@
 
 # https://github.com/cloudflare/cfssl
 %global goipath         github.com/cloudflare/cfssl
-Version:                1.6.4
+Version:                1.6.5
 
 %gometa -L
 
@@ -28,7 +28,7 @@ Source:         %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 mv whitelist/LICENSE LICENSE-whitelist
 

@@ -4,11 +4,11 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.3.1
-Release:       3%{?dist}
+Version:       4.4.0
+Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
-License:       MIT
+License:       CFITSIO
 BuildArch:     noarch
 URL:           http://heasarc.gsfc.nasa.gov/fitsio/
 Source0:       http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
@@ -80,34 +80,39 @@ MinGW Windows CFITSIO library.
 
 
 %files -n mingw32-%{pkgname}
-%license License.txt
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 %{mingw32_bindir}/libcfitsio-10.dll
 %{mingw32_libdir}/libcfitsio.dll.a
 %{mingw32_libdir}/pkgconfig/cfitsio.pc
-%{mingw32_libdir}/cmake/%{pkgname}-targets*.cmake
+%{mingw32_libdir}/cmake/%{pkgname}/
 %{mingw32_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw32_includedir}/cfitsio/
 
 %files -n mingw32-%{pkgname}-tools
 %{mingw32_bindir}/Fitscopy.exe
+%{mingw32_bindir}/Fitsverify.exe
 %{mingw32_bindir}/FPack.exe
 %{mingw32_bindir}/Funpack.exe
 
 %files -n mingw64-%{pkgname}
-%license License.txt
+%license licenses/NASA_Open_Source_Agreement_1.3.txt
 %{mingw64_bindir}/libcfitsio-10.dll
 %{mingw64_libdir}/libcfitsio.dll.a
 %{mingw64_libdir}/pkgconfig/cfitsio.pc
-%{mingw64_libdir}/cmake/%{pkgname}-targets*.cmake
+%{mingw64_libdir}/cmake/%{pkgname}/
 %{mingw64_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw64_includedir}/cfitsio/
 
 %files -n mingw64-%{pkgname}-tools
 %{mingw64_bindir}/Fitscopy.exe
+%{mingw64_bindir}/Fitsverify.exe
 %{mingw64_bindir}/FPack.exe
 %{mingw64_bindir}/Funpack.exe
 
 %changelog
+* Thu Mar 07 2024 Sandro Mani <manisandro@gmail.com> - 4.4.0-1
+- Update to 4.4.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

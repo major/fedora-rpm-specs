@@ -1,5 +1,5 @@
 Name:           at-spi2-core
-Version:        2.51.90
+Version:        2.51.91
 Release:        1%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
@@ -163,6 +163,9 @@ install -Dpm 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/0
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Mon Mar 04 2024 David King <amigadave@amigadave.com> - 2.51.91-1
+- Update to 2.51.91
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 2.51.90-1
 - Update to 2.51.90
 

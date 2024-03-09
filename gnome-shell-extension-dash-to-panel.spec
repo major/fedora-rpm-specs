@@ -3,13 +3,15 @@
 
 Name:           gnome-shell-extension-%{ename}
 Version:        60
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Integrated icon taskbar and status panel for Gnome Shell
 License:        GPL-2.0-or-later
 URL:            https://github.com/home-sweet-gnome/dash-to-panel
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # correct install paths
 Patch0:         %{name}-system-install-paths.patch
+# support GNOME 46
+Patch1:         https://github.com/home-sweet-gnome/dash-to-panel/pull/2028.patch#/%{name}-gnome-46-support.patch
 BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  make
@@ -43,6 +45,9 @@ rm -v %{buildroot}%{extdir}/{COPYING,README.md}
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.%{ename}.gschema.xml
 
 %changelog
+* Thu Mar 07 2024 Dominik Mierzejewski <dominik@greysector.net> - 60-2
+- apply upstream PR for GNOME Shell 46 support (#2267061)
+
 * Sun Feb 04 2024 Dominik Mierzejewski <dominik@greysector.net> - 60-1
 - update to 60 (#2257860)
 

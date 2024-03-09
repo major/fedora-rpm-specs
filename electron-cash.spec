@@ -1,6 +1,6 @@
 Name:           electron-cash
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -35,7 +35,7 @@ Requires:       python3-qt5
 Requires:       python3-pycryptodomex
 Requires:       python3-psutil
 Requires:       python3-cryptography
-Requires:       python3-zxing-cpp >= 2.2.0
+Requires:       python3-zxing-cpp >= 2.0.0
 
 Requires:       libsecp256k1 >= 0.20.9
 Requires:       zbar
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Mar 07 2024 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-3
+- Relax python3-zxing-cpp requirements
+
 * Wed Mar 06 2024 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-2
 - Add missing runtime requires
 

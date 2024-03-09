@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 23.3.2
+%global base_version 24.0
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -98,7 +98,7 @@ Provides: bundled(python%{1}dist(cachecontrol)) = 0.13.1
 Provides: bundled(python%{1}dist(certifi)) = 2023.7.22
 Provides: bundled(python%{1}dist(chardet)) = 5.1
 Provides: bundled(python%{1}dist(colorama)) = 0.4.6
-Provides: bundled(python%{1}dist(distlib)) = 0.3.6
+Provides: bundled(python%{1}dist(distlib)) = 0.3.8
 Provides: bundled(python%{1}dist(distro)) = 1.8
 Provides: bundled(python%{1}dist(idna)) = 3.4
 Provides: bundled(python%{1}dist(msgpack)) = 1.0.5

@@ -5,7 +5,7 @@
 # https://github.com/golang/sync
 %global goipath         golang.org/x/sync
 %global forgeurl        https://github.com/golang/sync
-Version:        0.1.0
+Version:        0.3.0
 
 %gometa
 

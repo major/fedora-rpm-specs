@@ -3,7 +3,7 @@
 
 # https://github.com/bugsnag/panicwrap
 %global goipath         github.com/bugsnag/panicwrap
-Version:                1.3.2
+Version:                1.3.4
 
 %gometa
 
@@ -31,7 +31,7 @@ section below on why.}
 %global gosupfiles      glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Go library for catching and handling panics in Go applications
 
 License:        MIT
@@ -39,10 +39,9 @@ URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        glide.yaml
 Source2:        glide.lock
-# 1.3.2 introduced a bug where dup2.go waas being built on Linux aarch64
-# where that syscall doesn't exist
-# https://github.com/bugsnag/panicwrap/issues/20
-Patch0:         0001-Prevent-the-build-of-dup2.go-on-Linux-aarch64.patch
+
+# RISCV fails similar to arm64
+Patch0: 0001-Add-RISCV-as-valid-architecture.patch
 
 %description
 %{common_description}
@@ -65,113 +64,4 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Robert-André Mauchin <zebob.m@gmail.com> - 1.3.2-4
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun May 30 22:41:50 CEST 2021 Robert-André Mauchin <zebob.m@gmail.com> - 1.3.2-1
-- Update to 1.3.2
-- Close: rhbz#1943416
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan 14 16:10:21 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 1.3.1-1
-- Update to 1.3.1
-- Close: rhbz#1915325
-
-* Thu Jan  7 16:11:33 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 1.3.0-1
-- Update to 1.3.0
-- Close: rhbz#1913077
-
-* Fri Jan  1 18:41:36 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.2-1
-- Update to 1.2.2
-- Close: rhbz#1479798
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Jul 13 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.0-4
-- Patch out usage of deprecated github.com/kardianos/osext
-
-* Wed May 01 18:04:33 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.0-3
-- Update to new macros
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Nov 13 2018 Robert-André Mauchin <zebob.m@gmail.com> - 1.2.0-1
-- Release 1.2.0
-
-* Tue Oct 23 2018 Nicolas Mailhot <nim@fedoraproject.org> - 1.1.0-0.11.20160118gitaceac81
-- redhat-rpm-config-123 triggers bugs in gosetup, remove it from Go spec files as it’s just an alias
-- https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/RWD5YATAYAFWKIDZBB7EB6N5DAO4ZKFM/
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.9.gitaceac81
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Jun 08 2018 Jan Chaloupka <jchaloup@redhat.com> - 1.1.0-0.9.20160118gitaceac81
-- Upload glide.lock and glide.yaml
-
-* Wed Feb 28 2018 Jan Chaloupka <jchaloup@redhat.com> - 1.1.0-0.8.20160118gitaceac81
-- Autogenerate some parts using the new macros
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.7.gitaceac81
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.6.gitaceac81
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.5.gitaceac81
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.4.gitaceac81
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sat Dec 17 2016 Jan Chaloupka <jchaloup@redhat.com> - 1.1.0-0.3.gitaceac81
-- Polish the spec file
-  related: #1313834
-
-* Thu Jul 21 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-0.2.gitaceac81
-- https://fedoraproject.org/wiki/Changes/golang1.7
-
-* Wed Mar 02 2016 jchaloup <jchaloup@redhat.com> - 1.1.0-0.1.gitaceac81
-- Update to 1.1.0
-  resolves: #1313834
-
-* Mon Feb 22 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0-0.3.gite5f9854
-- https://fedoraproject.org/wiki/Changes/golang1.6
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.2.gite5f9854
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Thu Oct 08 2015 jchaloup <jchaloup@redhat.com> - 0-0.1.gite5f9854
-- First package for Fedora
-  resolves: #1270034
+%autochangelog

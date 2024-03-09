@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extra API to write KConfigModules
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -89,6 +89,9 @@ mkdir -p %{buildroot}%{_kf6_qtplugindir}/kcms
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Mar 07 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.0-2
+- Rebuild respun sources
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-1
 - 6.0.0
 

@@ -20,6 +20,10 @@ BuildRequires:  openssl-devel
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
 
+# Testing is only possible after sqlalchemy is built and sqlalchemy BuildRequires pymssql.
+# This bcond allows to build this package without tests when necessary.
+%bcond tests 1
+
 %description
 %{_description}
 
@@ -37,7 +41,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r dev/requirements-dev.txt -t
+%pyproject_buildrequires -r %{?with_tests:dev/requirements-dev.txt -t}
 
 
 %build
@@ -50,7 +54,10 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %check
+%pyproject_check_import
+%if %{with tests}
 %tox
+%endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

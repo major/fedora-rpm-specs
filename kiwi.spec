@@ -438,7 +438,7 @@ BuildArch:      noarch
 # Temporarily switch things back to docopt for everything but Fedora 41+
 # FIXME: Drop this hack as soon as we can...
 %if ! (0%{?fedora} >= 41 || 0%{?rhel} >= 10)
-sed -e "s/docopt-ng/docopt/" -i pyproject.toml
+sed -e 's/docopt-ng.*/docopt = ">=0.6.2"/' -i pyproject.toml
 %endif
 
 # Drop shebang for kiwi/xml_parse.py, as we don't intend to use it as an independent script

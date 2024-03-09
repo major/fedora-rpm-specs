@@ -4,7 +4,7 @@
 Name:           %{target}-binutils-cs
 Epoch:          1
 Version:        2.42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Binutils for cross-compilation for %{target} target
 # Most of the sources are licensed under GPLv3+ with these exceptions:
 # LGPLv2+ bfd/hosts/x86-64linux.h, include/demangle.h, include/xregex2.h,
@@ -22,6 +22,12 @@ BuildRequires:  autoconf
 BuildRequires:  texinfo texinfo-tex perl-podlators
 BuildRequires:  make zlib-devel
 Provides:       %{target}-binutils = %{version}
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# ppl-devel is no longer available for 32bit, so we have to skip it too
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 This is a cross-compilation version of GNU Binutils, which can be used to
@@ -99,6 +105,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Fri Mar 08 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:2.42-2
+- drop i686 build as ppl-devel.i686 is no longer available
+
 * Wed Mar 06 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:2.42-1
 - updated to 2.42
 

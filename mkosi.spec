@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        20.1
+Version:        21
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -138,7 +138,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/mkosi-initrd
 %doc README.md
 %_bindir/mkosi
 %_mandir/man1/mkosi.1*
-/usr/lib/kernel/install.d/50-mkosi.install
 
 %files initrd
 %_prefix/lib/kernel/install.d/50-mkosi.install

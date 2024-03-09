@@ -28,13 +28,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains development files for %{name}.
 
-%package        tools
-Summary:        Tools for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    tools
-The %{name}-tools package contains tools about %{name}.
-
 %prep
 %forgeautosetup -p1
 
@@ -61,8 +54,6 @@ The %{name}-tools package contains tools about %{name}.
 %{_includedir}/h3/h3api.h
 %{_libdir}/libh3.so
 %{_libdir}/cmake/h3/
-
-%files tools
 %{_bindir}/cellToBoundary
 %{_bindir}/cellToBoundaryHier
 %{_bindir}/cellToLatLng

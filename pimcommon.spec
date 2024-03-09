@@ -1,6 +1,6 @@
 Name:    pimcommon
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: PIM common libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -48,19 +48,14 @@ BuildRequires:  cmake(Qt6Xml)
 %description
 %{summary}.
 
-%package        akonadi
-Summary:        The PimCommon Akondi runtime library
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description akonadi
-%{summary}.
-
 %package        devel
 Summary:        Development files for %{name}
+Obsoletes:      pimcommon-akonadi < 24.02.0-1
+Conflicts:      pimcommon-akonadi < 24.02.0-1
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF6Config)
 Requires:       cmake(KF6TextAutoCorrectionWidgets)
 # akonadi
-Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 Requires:       cmake(KPim6Akonadi)
 Requires:       cmake(KPim6AkonadiContactWidgets)
 Requires:       cmake(KF6Contacts)
@@ -89,27 +84,29 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_kf6_libdir}/libKPim6PimCommon.so.*
 %{_kf6_libdir}/libKPim6PimCommonAkonadi.so.*
-%{_qt6_plugindir}/designer/pimcommon6widgets.so
-
-%files akonadi
-%{_qt6_plugindir}/designer/pimcommon6akonadiwidgets.so
+%{_kf6_datadir}/qlogging-categories6/*%{name}.*
 
 %files devel
+%{_includedir}/KPim6/PimCommon/
+%{_includedir}/KPim6/PimCommonAkonadi/
 %{_kf6_libdir}/libKPim6PimCommon.so
 %{_kf6_libdir}/libKPim6PimCommonAkonadi.so
 %{_kf6_libdir}/cmake/KPim6PimCommon/
 %{_kf6_libdir}/cmake/KPim6PimCommonAkonadi/
-%{_includedir}/KPim6/PimCommon/
-%{_includedir}/KPim6/PimCommonAkonadi/
+%{_qt6_plugindir}/designer/pimcommon6widgets.so
+%{_qt6_plugindir}/designer/pimcommon6akonadiwidgets.so
 %{_qt6_docdir}/*.tags
  
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
+- move qt designer plugin to -devel
+- add obsoletes for upgrade path as pimcommon-akonadi goes away
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 
