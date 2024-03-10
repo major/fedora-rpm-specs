@@ -3,15 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.7~beta
+Version:        3.7~rc
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/tracker/3.7/tracker-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/649
-Patch:          tracker-3.7.beta-bash-completion-name.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
@@ -172,6 +170,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 3.7~rc-1
+- Update to 3.7.rc
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 3.7~beta-1
 - Update to 3.7.beta
 

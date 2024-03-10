@@ -1,16 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           lightsoff
-Version:        46~alpha
-Release:        2%{?dist}
+Version:        46~rc
+Release:        1%{?dist}
 Summary:        GNOME Lightsoff game
 
 # Code is under GPLv2+, help is under CC-BY-SA 3.0 Unported
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Lightsoff
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/lightsoff/-/issues/13
-Patch:          lightsoff-46.alpha-exclude-icon-source.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -54,11 +52,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.LightsOf
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.LightsOff.Devel.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.LightsOff-symbolic.svg
 %{_datadir}/lightsoff/
-%{_datadir}/metainfo/org.gnome.LightsOff.appdata.xml
+%{_metainfodir}/org.gnome.LightsOff.appdata.xml
 %{_mandir}/man6/lightsoff.6*
 
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 46~rc-1
+- Update to 46.rc
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 46~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

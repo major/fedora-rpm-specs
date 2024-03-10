@@ -5,7 +5,7 @@
 %global crate which
 
 Name:           rust-which
-Version:        5.0.0
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Rust equivalent of Unix command "which"
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/which
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          which-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * relax dependency on the "regex" crate from =1.9.6 to ^1.9.6
-Patch:          which-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

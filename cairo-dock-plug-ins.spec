@@ -1,6 +1,3 @@
-# Skip -Werror=incompatilbe-pointer-types
-%global	build_type_safety_c  2
-
 %global	urlver		3.5
 %global	mainver		3.5.0
 
@@ -12,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	1
+%global	baserelease	2
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -40,6 +37,9 @@ Patch12:		cairo-dock-plugins-3.4.1-python-pep632-distutils-port.patch
 # https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
 # Use webkit2gtk-4.1 for F-39+
 Patch13:		cairo-dock-plugins-3.4.1-port-WebKit2_gtk41.patch
+# https://github.com/Cairo-Dock/cairo-dock-plug-ins/pull/16
+# vala: move generated C source from vala source properly
+Patch14:		cairo-dock-plugins-pr16--vala-move-generated-C-source-from-vala-source-proper.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -205,6 +205,7 @@ binding for Cairo-Dock.
 %patch -P11 -p1 -b .wk2
 %patch -P12 -p1 -b .pep632
 %patch -P13 -p1 -b .wk2_gtk41
+%patch -P14 -p1 -b .vala
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -417,6 +418,10 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Mar 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-2
+- vala: regenerate C source from vala source properly
+  and reenable -Werror=incompatible-pointer-types
+
 * Mon Feb 26 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-1
 - Update to 3.5.0
 

@@ -141,10 +141,22 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.10%{?dist}
-# libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
-# GCC Runtime Exception.
-License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
+Release: %{gcc_release}.11%{?dist}
+# License notes for some of the less obvious ones:
+#   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
+#   isl: MIT, BSD-2-Clause
+#   libcody: Apache-2.0
+#   libphobos/src/etc/c/curl.d: curl
+# All of the remaining license soup is in newlib.
+# Outstanding new SPDX identifier requests:
+#  https://github.com/spdx/license-list-XML/issues/2395
+#  https://github.com/spdx/license-list-XML/issues/2406
+#  https://github.com/spdx/license-list-XML/issues/2408
+#  https://github.com/spdx/license-list-XML/issues/2409
+#  https://github.com/spdx/license-list-XML/issues/2410
+#  https://github.com/spdx/license-list-XML/issues/2411
+License: GPL-3.0-or-later AND LGPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND (GPL-3.0-or-later WITH Texinfo-exception) AND (LGPL-2.1-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH GNU-compiler-exception) AND BSL-1.0 AND GFDL-1.3-or-later AND Linux-man-pages-copyleft-2-para AND SunPro AND BSD-1-Clause AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND BSD-4-Clause AND BSD-Source-Code AND Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 WITH LLVM-Exception) AND ZPL-2.1 AND ISC AND LicenseRef-Fedora-Public-Domain AND HP-1986 AND curl AND Martin-Birgmeier AND HPND-Markus-Kuhn
+
 # The source for this package was pulled from upstream's vcs.
 # %%{gitrev} is some commit from the
 # https://gcc.gnu.org/git/?p=gcc.git;h=refs/vendors/redhat/heads/gcc-%%{gcc_major}-branch
@@ -3609,6 +3621,9 @@ end
 %endif
 
 %changelog
+* Thu Mar  7 2024 Siddhesh Poyarekar <siddhesh@redhat.com> 14.0.1-0.11
+- Update License identifier in the spec file.
+
 * Mon Mar  4 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.10
 - add --without-clang-plugin --without-llvm-plugin to annobin configure
   options

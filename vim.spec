@@ -10,7 +10,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 113
+%define patchlevel 158
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -403,7 +403,7 @@ sed -i -e 's,/usr/bin/python3,%{__python3},' %{PATCH3005}
 # fix rogue dependencies from sample code
 chmod -x runtime/tools/mve.awk
 %patch -P 2000 -p1 -b .fixkeys
-%patch -P 2001 -p1
+%patch -P 2001 -p1 -b .spec-syntax
 
 %if %{withhunspell}
 %patch -P 2002 -p1
@@ -1057,6 +1057,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Fri Mar 08 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.158-1
+- patchlevel 158
+
 * Fri Feb 16 2024 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.113-1
 - patchlevel 113
 

@@ -3,49 +3,19 @@
 %global run_tests 0
 
 Name:           mingw-libgcrypt
-Version:        1.8.4
-Release:        12%{?dist}
+Version:        1.10.3
+Release:        1%{?dist}
 Summary:        MinGW Windows gcrypt encryption library
 
 License:        LGPLv2+ and GPLv2+
 
 URL:            ftp://ftp.gnupg.org/gcrypt/libgcrypt/
-Source0:        libgcrypt-%{version}-hobbled.tar.xz
-# The original libgcrypt sources now contain potentially patented ECC
-# cipher support. We have to remove it in the tarball we ship with
-# the hobble-libgcrypt script.
-# (We replace it with RH approved ECC in Source4-5)
-#Source0:       ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
-#Source1:       ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
-Source2:        wk@g10code.com
-Source3:        hobble-libgcrypt
-# Approved ECC support (from 1.6.1)
-Source4:        ecc-curves.c
-Source5:        curves.c
-Source6:        t-mpi-point.c
-Source7:        random.conf
+Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
+Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
+Source2: wk@g10code.com
 
-# make FIPS hmac compatible with fipscheck - non upstreamable
-# update on soname bump
-Patch2: libgcrypt-1.6.2-use-fipscheck.patch
-# modify FIPS RSA and DSA keygen to comply with requirements
-Patch5: libgcrypt-1.8.4-fips-keygen.patch
-# fix the tests to work correctly in the FIPS mode
-Patch6: libgcrypt-1.8.4-tests-fipsmode.patch
-# update the CAVS tests
-Patch7: libgcrypt-1.7.3-fips-cavs.patch
-# use poll instead of select when gathering randomness
-Patch11: libgcrypt-1.8.4-use-poll.patch
-# slight optimalization of mpicoder.c to silence Valgrind (#968288)
-Patch13: libgcrypt-1.6.1-mpicoder-gccopt.patch
-# fix tests to work with approved ECC
-Patch14: libgcrypt-1.7.3-ecc-test-fix.patch
-# Run the FIPS mode initialization in the shared library constructor
-Patch18: libgcrypt-1.8.3-fips-ctor.patch
-# Block some operations if in FIPS non-operational state
-Patch22: libgcrypt-1.7.3-fips-reqs.patch
-# Do not try to open /dev/urandom if getrandom() works
-Patch24: libgcrypt-1.8.4-getrandom.patch
+# Pass the annobin flags to the libgcrypt.so (#2016349)
+Patch1: libgcrypt-1.10.1-annobin.patch
 
 # MinGW-specific patches
 
@@ -55,7 +25,8 @@ Patch1000:      libgcrypt-use-correct-def-file.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  autoconf, automake, libtool
+BuildRequires:  make
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
@@ -125,25 +96,11 @@ Static library for mingw64-libgcrypt development.
 
 %prep
 %setup -q -n libgcrypt-%{version}
-%{SOURCE3}
-%patch2 -p1 -b .use-fipscheck
-%patch5 -p1 -b .fips-keygen
-%patch6 -p1 -b .tests-fipsmode
-%patch7 -p1 -b .cavs
-%patch11 -p1 -b .use-poll
-%patch13 -p1 -b .gccopt
-%patch14 -p1 -b .eccfix
-%patch18 -p1 -b .fips-ctor
-%patch22 -p1 -b .fips-reqs
-%patch24 -p1 -b .getrandom
+%patch -P1 -p1
 
-%patch1000 -p0 -b .def
+%patch -P1000 -p0 -b .def
 
-cp %{SOURCE4} cipher/
-cp %{SOURCE5} %{SOURCE6} tests/
-
-# Needed for the asm64 patch
-#autoreconf -i --force
+autoreconf -i --force
 
 
 %build
@@ -191,6 +148,7 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libgcrypt.la
 %{mingw32_bindir}/libgcrypt-20.dll
 %{mingw32_bindir}/libgcrypt-config
 %{mingw32_libdir}/libgcrypt.dll.a
+%{mingw32_libdir}/pkgconfig/libgcrypt.pc
 %{mingw32_includedir}/gcrypt.h
 %{mingw32_datadir}/aclocal/libgcrypt.m4
 
@@ -205,14 +163,20 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libgcrypt.la
 %{mingw64_bindir}/libgcrypt-20.dll
 %{mingw64_bindir}/libgcrypt-config
 %{mingw64_libdir}/libgcrypt.dll.a
+%{mingw64_libdir}/pkgconfig/libgcrypt.pc
 %{mingw64_includedir}/gcrypt.h
 %{mingw64_datadir}/aclocal/libgcrypt.m4
+
 
 %files -n mingw64-libgcrypt-static
 %{mingw64_libdir}/libgcrypt.a
 
 
 %changelog
+* Fri Mar 08 2024 Richard W.M. Jones <rjones@redhat.com> - 1.10.3-1
+- Rebase to libgcrypt 1.10.3 to match Fedora (RHBZ#2268272)
+- Add *.pc (pkgconf) files
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

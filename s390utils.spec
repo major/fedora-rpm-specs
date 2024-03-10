@@ -14,7 +14,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.31.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files
 License:        MIT AND LGPL-2.1-or-later
@@ -51,6 +51,9 @@ Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+# Add Provides for upstream name
+Provides:       s390-tools = %{epoch}:%{version}-%{release}
 
 %ifarch s390x
 #
@@ -268,6 +271,7 @@ touch %{buildroot}%{_sysconfdir}/zipl.conf
 %package core
 License:        MIT
 Summary:        S390 core tools
+Provides:       s390-tools-core = %{epoch}:%{version}-%{release}
 Requires:       coreutils
 %{?systemd_requires}
 # BRs are covered via the base package
@@ -362,6 +366,7 @@ This package provides minimal set of tools needed to system to boot.
 %package base
 License:        MIT AND LGPL-2.1-or-later
 Summary:        S390 base tools
+Provides:       s390-tools-base = %{epoch}:%{version}-%{release}
 Requires:       gawk sed coreutils
 Requires:       sg3_utils
 Requires:       ethtool
@@ -678,6 +683,7 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %package se-data
 License:        MIT
 Summary:        Data for Secure Execution
+Provides:       s390-tools-se-data = %{epoch}:%{version}-%{release}
 BuildArch:      noarch
 
 %description se-data
@@ -692,6 +698,7 @@ BuildArch:      noarch
 #
 %package osasnmpd
 Summary:        SNMP sub-agent for OSA-Express cards
+Provides:       s390-tools-osasnmpd = %{epoch}:%{version}-%{release}
 Requires:       net-snmp
 Requires:       psmisc
 BuildRequires:  net-snmp-devel
@@ -711,6 +718,7 @@ ATM Ethernet LAN Emulation in QDIO mode.
 #
 %package mon_statd
 Summary:         Monitoring daemons for Linux in z/VM
+Provides:        s390-tools-mon_statd = %{epoch}:%{version}-%{release}
 Requires:        coreutils
 %{?systemd_requires}
 
@@ -750,6 +758,7 @@ Monitoring daemons for Linux in z/VM:
 #
 %package cpuplugd
 Summary:         Daemon that manages CPU and memory resources
+Provides:        s390-tools-cpuplugd = %{epoch}:%{version}-%{release}
 %{?systemd_requires}
 BuildRequires: systemd
 
@@ -779,6 +788,7 @@ memory can be increased or decreased exploiting the CMM1 feature.
 #
 %package ziomon
 Summary:        S390 ziomon tools
+Provides:       s390-tools-ziomon = %{epoch}:%{version}-%{release}
 Requires:       blktrace
 Requires:       coreutils
 Requires:       device-mapper-multipath
@@ -817,6 +827,7 @@ Tool set to collect data for zfcp performance analysis and report.
 #
 %package iucvterm
 Summary:        z/VM IUCV terminal applications
+Provides:       s390-tools-iucvterm = %{epoch}:%{version}-%{release}
 Requires(pre):  shadow-utils
 Requires(post): grep
 Requires(postun): grep
@@ -881,6 +892,7 @@ fi
 Summary:        CMS file system based on FUSE
 BuildRequires:  fuse3-devel
 Requires:       fuse3
+Provides:       s390-tools-cmsfs-fuse = %{epoch}:%{version}-%{release}
 Requires:       glibc-gconv-extra
 Obsoletes:      %{name}-cmsfs < 2:2.7.0-3
 
@@ -901,6 +913,7 @@ Summary:        z/OS data set access based on FUSE
 BuildRequires:  fuse3-devel
 BuildRequires:  libcurl-devel
 Requires:       fuse3
+Provides:       s390-tools-zdsfs = %{epoch}:%{version}-%{release}
 
 %description zdsfs
 This package contains the z/OS data set access based on FUSE.
@@ -916,6 +929,7 @@ This package contains the z/OS data set access based on FUSE.
 Summary:       HMC drive file system based on FUSE
 BuildRequires: fuse3-devel
 Requires:      fuse3
+Provides:      s390-tools-hmcdrvfs = %{epoch}:%{version}-%{release}
 
 %description hmcdrvfs
 This package contains a HMC drive file system based on FUSE and a tool
@@ -932,6 +946,7 @@ to list files and directories.
 #
 %package cpacfstatsd
 Summary:       Monitor and maintain CPACF activity counters
+Provides:      s390-tools-cpacfstatsd = %{epoch}:%{version}-%{release}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -976,6 +991,7 @@ BuildRequires:    pandoc
 BuildRequires:    gawk
 BuildRequires:    gzip
 BuildRequires:    sed
+Provides:         s390-tools-chreipl-fcp-mpath = %{epoch}:%{version}-%{release}
 Requires:         bash
 Requires:         coreutils
 Requires:         util-linux
@@ -1010,7 +1026,7 @@ reconfigures the FCP re-IPL settings to use an operational path.
 #
 %package devel
 Summary:        Development files
-
+Provides: s390-tools-devel = %{epoch}:%{version}-%{release}
 Requires: %{name}-base%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
@@ -1030,6 +1046,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Mar 08 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:2.31.0-2
+- Add 's390-tools' Provides to all packages
+
 * Mon Feb 05 2024 Dan Horák <dan[at]danny.cz> - 2:2.31.0-1
 - rebased to 2.31.0 (rhbz#2262499)
 

@@ -1,7 +1,7 @@
 %global pypi_name shtab
 
 Name:           python-shtab
-Version:        1.6.1
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Automagic shell tab completion for Python CLI applications
 
@@ -27,7 +27,7 @@ Automatically generate shell tab completion scripts for Python CLI apps.
 %prep
 %autosetup -n shtab-%{version}
 # remove coverage test config
-sed -i -e 's/addopts =/#addopts =/' setup.cfg
+sed -i -e 's/addopts =/#addopts =/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

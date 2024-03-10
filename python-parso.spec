@@ -9,12 +9,15 @@ the syntax tree.}
 
 Name:           python-%{srcname}
 Version:        0.8.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parser that supports error recovery and round-trip parsing
 License:        MIT and Python
 BuildArch:      noarch
 URL:            https://github.com/davidhalter/parso
 Source:         %pypi_source
+
+# https://github.com/davidhalter/parso/pull/220
+Patch:          0001-ENH-add-grammar-file-from-py313.patch
 
 
 %description %{common_description}
@@ -29,7 +32,7 @@ BuildRequires:  python3-devel
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p 1 -n %{srcname}-%{version}
 
 sed -e 's/pytest<6.0.0/pytest/' -i setup.py
 sed -e '/^addopts/d' -i pytest.ini
@@ -59,6 +62,9 @@ sed -e '/^addopts/d' -i pytest.ini
 
 
 %changelog
+* Thu Mar 07 2024 Carl George <carlwgeorge@fedoraproject.org> - 0.8.3-10
+- Add patch for Python 3.13 compatibility rhbz#2246284
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

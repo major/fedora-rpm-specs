@@ -10,8 +10,8 @@
 %bcond django 0
 # Only compatibile with python-pg8000 < 1.20
 %bcond pg8000 0
-# Only compatibile with python-flask-sqlalchemy <= 2.5.1
-%bcond flask_sqlalchemy %{expr:%{defined fc37} || %{defined fc38}}
+# Only compatibile with python-flask-sqlalchemy <= 2.5.1 and flask < 3.0.0
+%bcond flask_sqlalchemy %{expr:%{defined fc38}}
 
 # All of the tests for the following extensions require network access. (A few
 # may succeed without it, but this is because they expected a failure, and a
@@ -25,6 +25,7 @@
 # consider these environments.
 %bcond httplib 0
 %bcond httpx 0
+# Only compatible with pynamodb < 6.0.0 (F38/F39)
 %bcond pynamodb 0
 %bcond requests 0
 
@@ -36,7 +37,7 @@
 
 Name:           python-aws-xray-sdk
 Summary:        AWS X-Ray SDK for the Python programming language
-Version:        2.12.1
+Version:        2.13.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except that sample-apps/ (packaged in the
@@ -46,14 +47,6 @@ URL:            https://github.com/aws/aws-xray-sdk-python
 # We use the GitHub tarball instead of the PyPI sdist to get documentation
 # and tests.
 Source:         %{url}/archive/%{version}/aws-xray-sdk-python-%{version}.tar.gz
-
-# Fix passing multiple values in testenv.passenv in tox.ini
-# https://github.com/aws/aws-xray-sdk-python/pull/399
-Patch:          %{url}/pull/399.patch
-# Enable testing on Python 3.12
-# https://github.com/aws/aws-xray-sdk-python/pull/400
-# Rebased on top of PR#399, above.
-Patch:          python-aws-xray-sdk-2.12.0-python3.12.patch
 
 BuildArch:      noarch
 
@@ -96,9 +89,12 @@ License:        Apache-2.0 AND MIT-0
 %autosetup -n aws-xray-sdk-python-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# Remove the version bound on pytest-asyncio: we cannot respect an
+# exact-version pin, and currently we can’t even satisfy it as a lower-bound.
 sed -r -i \
     -e 's/coverage run.*-m //' \
     -e 's/^([[:blank:]]*)(coverage|codecov)\b/\1; \2/' \
+    -e 's/(pytest-asyncio) == [[:digit:].]+/\1/' \
     tox.ini
 
 cp -p sample-apps/LICENSE LICENSE.sample-apps
@@ -149,9 +145,10 @@ cp -vpr sample-apps/ '%{buildroot}%{_pkgdocdir}'
 # See tox-distributioncheck.ini:
 %pytest tests/distributioncheck
 
-# Tests for the pymysql extension require a running mysql/mariadb server. We
-# used to do this, using rubygem-mysql2 as an example, but it has become
-# impractical to keep this working.
+# Tests for the pymysql extension require a running mysql/mariadb server. So
+# does the following test. We used to do this, using rubygem-mysql2 as an
+# example, but it has become impractical to keep this working.
+k="${k-}${k+ and }not test_db_url_with_special_char"
 
 %if %{with aiohttp}
 # See the note above the aiohttp bcond
@@ -160,7 +157,7 @@ ignore="${ignore-} --ignore=tests/ext/aiohttp/test_client.py"
 
 # This will automatically run all the environments for which we generated
 # dependencies in %%generate_buildrequires.
-%tox -- -- -v --asyncio-mode=auto ${ignore-}
+%tox -- -- -v --asyncio-mode=auto ${ignore-} -k "${k-}"
 
 
 %files -n python3-aws-xray-sdk -f %{pyproject_files}

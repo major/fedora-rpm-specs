@@ -2,7 +2,7 @@
 
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.4.4
+Version: 2.4.5
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
@@ -226,6 +226,9 @@ make -k check
 
 
 %changelog
+* Fri Mar 08 2024 Jakub Jelen <jjelen@redhat.com> - 2.4.5-1
+- New upstream release (#2268461)
+
 * Wed Feb 28 2024 Jakub Jelen <jjelen@redhat.com> - 2.4.4-1
 - Set GPG_TTY in profile.d (#2264985)
 

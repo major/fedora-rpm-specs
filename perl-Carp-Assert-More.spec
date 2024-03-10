@@ -1,17 +1,18 @@
 Name:           perl-Carp-Assert-More
-Version:        2.3.0
-Release:        4%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Convenience wrappers around Carp::Assert
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Carp-Assert-More
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/Carp-Assert-More-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.1
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -44,17 +45,20 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc Changes
-%{perl_vendorlib}/Carp/Assert/
+%doc Changes README.md
+%{perl_vendorlib}/Carp/
 %{_mandir}/man3/Carp*.3pm*
 
 %changelog
+* Fri Mar 08 2024 Xavier Bachelot <xavier@bachelot.org> - 2.4.0-1
+- Update to 2.4.0 (RHBZ#2268454)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

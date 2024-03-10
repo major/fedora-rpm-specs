@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -40,88 +40,88 @@ Source7: renew-dummy-cert
 Source9: configuration-switch.h
 Source10: configuration-prefix.h
 Source14: 0025-for-tests.patch
-# # Patches exported from source git
-# # Aarch64 and ppc64le use lib64
+# Patches exported from source git
+# Aarch64 and ppc64le use lib64
 Patch1:   0001-Aarch64-and-ppc64le-use-lib64.patch
-# # Use more general default values in openssl.cnf
+# Use more general default values in openssl.cnf
 Patch2:   0002-Use-more-general-default-values-in-openssl.cnf.patch
-# # Do not install html docs
+# Do not install html docs
 Patch3:   0003-Do-not-install-html-docs.patch
-# # Override default paths for the CA directory tree
+# Override default paths for the CA directory tree
 Patch4:   0004-Override-default-paths-for-the-CA-directory-tree.patch
-# # apps/ca: fix md option help text
+# apps/ca: fix md option help text
 Patch5:   0005-apps-ca-fix-md-option-help-text.patch
-# # Disable signature verification with totally unsafe hash algorithms
+# Disable signature verification with totally unsafe hash algorithms
 Patch6:   0006-Disable-signature-verification-with-totally-unsafe-h.patch
-# # Add support for PROFILE=SYSTEM system default cipherlist
+# Add support for PROFILE=SYSTEM system default cipherlist
 Patch7:   0007-Add-support-for-PROFILE-SYSTEM-system-default-cipher.patch
-# # Add FIPS_mode() compatibility macro
+# Add FIPS_mode() compatibility macro
 Patch8:   0008-Add-FIPS_mode-compatibility-macro.patch
-# # Add check to see if fips flag is enabled in kernel
+# Add check to see if fips flag is enabled in kernel
 Patch9:   0009-Add-Kernel-FIPS-mode-flag-support.patch
-# # Instead of replacing ectest.c and ec_curve.c, add the changes as a patch so
-# # that new modifications made to these files by upstream are not lost.
+# Instead of replacing ectest.c and ec_curve.c, add the changes as a patch so
+# that new modifications made to these files by upstream are not lost.
 Patch10:  0010-Add-changes-to-ectest-and-eccurve.patch
-# # remove unsupported EC curves
+# remove unsupported EC curves
 Patch11:  0011-Remove-EC-curves.patch
-# # Disable explicit EC curves
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2066412
+# Disable explicit EC curves
+# https://bugzilla.redhat.com/show_bug.cgi?id=2066412
 Patch12:  0012-Disable-explicit-ec.patch
-# # Skipped tests from former 0011-Remove-EC-curves.patch
+# Skipped tests from former 0011-Remove-EC-curves.patch
 Patch13:  0013-skipped-tests-EC-curves.patch
-# # Instructions to load legacy provider in openssl.cnf
+# Instructions to load legacy provider in openssl.cnf
 Patch24:  0024-load-legacy-prov.patch
-# # We load FIPS provider and set FIPS properties implicitly
+# We load FIPS provider and set FIPS properties implicitly
 Patch32:  0032-Force-fips.patch
-# # Embed HMAC into the fips.so
+# Embed HMAC into the fips.so
 # Modify fips self test as per
 # https://github.com/simo5/openssl/commit/9b95ef8bd2f5ac862e5eee74c724b535f1a8578a
 Patch33:  0033-FIPS-embed-hmac.patch
-# # Comment out fipsinstall command-line utility
+# Comment out fipsinstall command-line utility
 Patch34:  0034.fipsinstall_disable.patch
-# # Skip unavailable algorithms running `openssl speed`
+# Skip unavailable algorithms running `openssl speed`
 Patch35:  0035-speed-skip-unavailable-dgst.patch
-# # Extra public/private key checks required by FIPS-140-3
+# Extra public/private key checks required by FIPS-140-3
 Patch44:  0044-FIPS-140-3-keychecks.patch
-# # Minimize fips services
+# Minimize fips services
 Patch45:  0045-FIPS-services-minimize.patch
-# # Execute KATS before HMAC verification
+# Execute KATS before HMAC verification
 Patch47:  0047-FIPS-early-KATS.patch
-# # Selectively disallow SHA1 signatures rhbz#2070977
+# Selectively disallow SHA1 signatures rhbz#2070977
 Patch49:  0049-Allow-disabling-of-SHA1-signatures.patch
-# # Support SHA1 in TLS in LEGACY crypto-policy (which is SECLEVEL=1)
+# Support SHA1 in TLS in LEGACY crypto-policy (which is SECLEVEL=1)
 Patch52:  0052-Allow-SHA1-in-seclevel-1-if-rh-allow-sha1-signatures.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2053289
+# https://bugzilla.redhat.com/show_bug.cgi?id=2053289
 Patch58:  0058-FIPS-limit-rsa-encrypt.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2087147
+# https://bugzilla.redhat.com/show_bug.cgi?id=2087147
 Patch61:  0061-Deny-SHA-1-signature-verification-in-FIPS-provider.patch
 # 0062-fips-Expose-a-FIPS-indicator.patch
 Patch62:  0062-fips-Expose-a-FIPS-indicator.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
+# https://bugzilla.redhat.com/show_bug.cgi?id=2102535
 Patch73:  0073-FIPS-Use-OAEP-in-KATs-support-fixed-OAEP-seed.patch
-# [PATCH 29/46] 
-#  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
+# [PATCH 29/46]
+# 0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
 Patch74:  0074-FIPS-Use-digest_sign-digest_verify-in-self-test.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2102535
+# https://bugzilla.redhat.com/show_bug.cgi?id=2102535
 Patch75:  0075-FIPS-Use-FFDHE2048-in-self-test.patch
-# # Downstream only. Reseed DRBG using getrandom(GRND_RANDOM)
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2102541
+# Downstream only. Reseed DRBG using getrandom(GRND_RANDOM)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2102541
 Patch76:  0076-FIPS-140-3-DRBG.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2102542
+# https://bugzilla.redhat.com/show_bug.cgi?id=2102542
 Patch77:  0077-FIPS-140-3-zeroization.patch
-# # https://bugzilla.redhat.com/show_bug.cgi?id=2114772
+# https://bugzilla.redhat.com/show_bug.cgi?id=2114772
 Patch78:  0078-Add-FIPS-indicator-parameter-to-HKDF.patch
-# # We believe that some changes present in CentOS are not necessary
-# # because ustream has a check for FIPS version
+# We believe that some changes present in CentOS are not necessary
+# because ustream has a check for FIPS version
 Patch80:  0080-rand-Forbid-truncated-hashes-SHA-3-in-FIPS-prov.patch
-# [PATCH 36/46] 
-#  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
+# [PATCH 36/46]
+# 0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
 Patch81:  0081-signature-Remove-X9.31-padding-from-FIPS-prov.patch
-# [PATCH 37/46] 
-#  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
+# [PATCH 37/46]
+# 0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
 Patch83:  0083-hmac-Add-explicit-FIPS-indicator-for-key-length.patch
-# [PATCH 38/46] 
-#  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
+# [PATCH 38/46]
+# 0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
 Patch84:  0084-pbkdf2-Set-minimum-password-length-of-8-bytes.patch
 # 0085-FIPS-RSA-disable-shake.patch
 Patch85:  0085-FIPS-RSA-disable-shake.patch
@@ -129,25 +129,31 @@ Patch85:  0085-FIPS-RSA-disable-shake.patch
 Patch88:  0088-signature-Add-indicator-for-PSS-salt-length.patch
 # 0091-FIPS-RSA-encapsulate.patch
 Patch91:  0091-FIPS-RSA-encapsulate.patch
-# [PATCH 42/46] 
-#  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
+# [PATCH 42/46]
+# 0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
 Patch93:  0093-DH-Disable-FIPS-186-4-type-parameters-in-FIPS-mode.patch
-# [PATCH 43/46] 
-#  0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
+# [PATCH 43/46]
+# 0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
 Patch110: 0110-GCM-Implement-explicit-FIPS-indicator-for-IV-gen.patch
-# [PATCH 44/46] 
-#  0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
+# [PATCH 44/46]
+# 0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
 Patch112: 0112-pbdkf2-Set-indicator-if-pkcs5-param-disabled-checks.patch
 # 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
 Patch113: 0113-asymciphers-kem-Add-explicit-FIPS-indicator.patch
-# # We believe that some changes present in CentOS are not necessary
-# # because ustream has a check for FIPS version
+# We believe that some changes present in CentOS are not necessary
+# because ustream has a check for FIPS version
 Patch114: 0114-FIPS-enforce-EMS-support.patch
 # skip quic and pairwise tests temporarily
 Patch115: 0115-skip-quic-pairwise.patch
 # Add version aliasing due to
 # https://github.com/openssl/openssl/issues/23534
 Patch116: 0116-version-aliasing.patch
+# https://github.com/openssl/openssl/issues/23050
+Patch117: 0117-ignore-unknown-sigalgorithms-groups.patch
+# https://github.com/openssl/openssl/issues/23770
+Patch118: 0118-no-crl-memleak.patch
+# https://github.com/openssl/openssl/issues/22779
+Patch119: 0119-provider-sigalgs-in-signaturealgorithms-conf.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -483,6 +489,11 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Mar 07 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.1-3
+- Minimize skipping tests
+- Allow ignoring unknown signature algorithms and groups (upstream #23050)
+- Allow specifying provider algorithms in SignatureAlgorithms (upstream #22779)
+
 * Fri Feb 09 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-2
 - Fix version aliasing issue
 - https://github.com/openssl/openssl/issues/23534

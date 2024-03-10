@@ -7,7 +7,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-interface-storage-plugins
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Stable interface for interactions between Snakemake and its storage plugins
 

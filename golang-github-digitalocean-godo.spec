@@ -4,7 +4,7 @@
 
 # https://github.com/digitalocean/godo
 %global goipath         github.com/digitalocean/godo
-Version:                1.108.0
+Version:                1.109.0
 
 %gometa -L -f
 
@@ -28,7 +28,7 @@ Source:         %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

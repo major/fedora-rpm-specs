@@ -1,5 +1,5 @@
 Name:           open-vmdk
-Version:        0.3.7
+Version:        0.3.8
 Release:        1%{?dist}
 Summary:        Tools to create OVA files from raw disk images
 License:        Apache-2.0
@@ -43,6 +43,9 @@ install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
 %config(noreplace) %{_sysconfdir}/open-vmdk.conf
 
 %changelog
+* Fri Mar 08 2024 İsmail Dönmez <ismail@i10z.com> - 0.3.8-1
+- Bump to version 0.3.8
+
 * Sat Feb 03 2024 İsmail Dönmez <ismail@i10z.com> - 0.3.7-1
 - Bump to version 0.3.7
   Drop honor-build-flags.patch, merged upstream

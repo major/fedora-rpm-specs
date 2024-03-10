@@ -4,7 +4,7 @@
 
 # https://github.com/miekg/dns
 %global goipath         github.com/miekg/dns
-Version:                1.1.57
+Version:                1.1.58
 
 %gometa -L
 
@@ -32,7 +32,7 @@ Source:         %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
 %autopatch -p1
 
 %generate_buildrequires

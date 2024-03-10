@@ -1,6 +1,6 @@
 Name:           perl-Test-HTTP-LocalServer
-Version:        0.75
-Release:        3%{?dist}
+Version:        0.76
+Release:        1%{?dist}
 Summary:        Spawn a local HTTP server for testing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Test-HTTP-LocalServer/
@@ -69,11 +69,17 @@ make test
 
 %files
 %doc Changes README
-%license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+# note: files all say perl_5 which is GPLv1/Artistic but file is Artistic-2
+# https://github.com/Corion/Test-HTTP-LocalServer/issues/7
+#%license LICENSE
+%{perl_vendorlib}/Test/HTTP/*
+%{_mandir}/man3/Test::HTTP::LocalServer*
 
 %changelog
+* Fri Mar 08 2024 Chris Adams <linux@cmadams.net> 0.76-1
+- update to new version
+- additional spec file cleanups
+
 * Thu Feb 01 2024 Chris Adams <linux@cmadams.net> 0.75-3
 - additional spec file cleanups
 

@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        46~beta
+Version:        46~rc
 Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
@@ -166,6 +166,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 46~rc-1
+- Update to 46.rc
+
 * Mon Feb 19 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

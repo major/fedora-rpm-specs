@@ -3,15 +3,13 @@
 %global py3_deps python3-PyQt5 python3-numpy python3-pyopengl
 
 Name:           python-%{srcname}
-Version:        0.13.3
-Release:        6%{?dist}
+Version:        0.13.4
+Release:        1%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
 Patch0:         no-sphinx-qt-doc.patch
-Patch1:         https://github.com/pyqtgraph/pyqtgraph/commit/dd593136bfa42d0e706826a386e76c9c89740082.patch
-Patch2:         https://github.com/pyqtgraph/pyqtgraph/commit/1cf3f2c6a8c1c3efd2b8b2bdba168132dafb3f62.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -19,6 +17,7 @@ BuildRequires:  python3-setuptools
 # For Docs
 BuildRequires:  make %{py3_dist pydata-sphinx-theme sphinx sphinx_design}
 BuildRequires:  %{py3_dist sphinx_rtd_theme sphinxext-rediraffe}
+BuildRequires:  %{py3_dist sphinx_autodoc_typehints}
 # For Tests
 BuildRequires:  %{py3_dist h5py pytest pytest-xvfb scipy six}
 BuildRequires:  mesa-dri-drivers %{py3_deps}
@@ -73,6 +72,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Fri Mar 08 2024 Scott Talbert <swt@techie.net> - 0.13.4-1
+- Update to new upstream release 0.13.4 (#2268482)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

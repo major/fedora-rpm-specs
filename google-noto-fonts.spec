@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	24.2.1
+%global srcver	24.3.1
 # for default font
 %global hprio	56
 # for default font but static
@@ -28,8 +28,8 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20240201
-Release:        2%{?dist}
+Version:        20240301
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1229,6 +1229,9 @@ done
 
 
 %changelog
+* Fri Mar  8 2024 Akira TAGOH <tagoh@redhat.com> - 20240301-1
+- Updates to monthly release of 24.3.1
+
 * Wed Feb 21 2024 Akira TAGOH <tagoh@redhat.com> - 20240201-2
 - Add Obsolsetes: google-noto-sans-phags-pa-fonts in google-noto-sans-phagspa-fonts
   Resolves: rhbz#2265259

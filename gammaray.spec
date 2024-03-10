@@ -5,54 +5,68 @@
     %global arch %{_arch}
 %endif
 
-%ifarch %{?qt5_qtwebengine_arches}
+%ifarch %{?qt6_qtwebengine_arches}
 %global webengine 1
 %endif
 
-%global qt5_ver %(echo %{_qt5_version} | cut -d. -f1,2)
-%global qt5_target %(echo qt%{qt5_ver}-%{arch} | sed 's/\\./_/g')
+%global qt6_ver %(echo %{_qt6_version} | cut -d. -f1,2)
+%global qt6_target %(echo qt%{qt6_ver}-%{arch} | sed 's/\\./_/g')
 
-%global gammaray_ver 2.11
-%global gammaray_ver_minor 3
+%global gammaray_ver 3.0
+%global gammaray_ver_minor 0
 %global gammaray_version %{gammaray_ver}.%{gammaray_ver_minor}
 
 Name: gammaray
 Version: %{gammaray_version}
-Release: 16%{?dist}
+Release: 1%{?dist}
 Summary: A tool for examining internals of Qt applications
 License: GPLv2+
 URL: https://github.com/KDAB/GammaRay
 
 Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0: qt-system-paths.patch
+Patch0: gammaray-3.0.0-libdwarf_includes.patch
 
+BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
-BuildRequires: kf5-kcoreaddons-devel
-BuildRequires: kf5-syntax-highlighting-devel
-BuildRequires: qt5-qt3d-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtbase-doc
-BuildRequires: qt5-qtbase-private-devel
-BuildRequires: qt5-qtdeclarative-devel
-BuildRequires: qt5-qtlocation-devel
-BuildRequires: qt5-qtscript-devel
-BuildRequires: qt5-qtsvg-devel
-BuildRequires: qt5-qtscxml-devel
-BuildRequires: qt5-qttools-devel
-BuildRequires: qt5-qtwayland-devel
+BuildRequires: elfutils-devel
+BuildRequires: binutils-devel
+BuildRequires: libdwarf-devel
+BuildRequires: libunwind-devel
+
+BuildRequires: kf6-rpm-macros
+BuildRequires: extra-cmake-modules
+BuildRequires: kf6-kcoreaddons-devel
+BuildRequires: kf6-syntax-highlighting-devel
+
+BuildRequires: qt6-doc-devel
+BuildRequires: qt6-doc-html
+BuildRequires: qt6-doctools
+
+BuildRequires: qt6-qt3d-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtbase-private-devel
+BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: qt6-qtlocation-devel
+BuildRequires: qt6-qtconnectivity-devel
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qtscxml-devel
+BuildRequires: qt6-qttools-devel
+BuildRequires: qt6-qtwayland-devel
 %if 0%{?webengine}
-BuildRequires: qt5-qtwebengine-devel
+BuildRequires: qt6-qtwebengine-devel
 %endif
+BuildRequires: cmake(Qt6ShaderTools)
+
 BuildRequires: wayland-devel
-Requires: %{name}-qt5 = %{version}-%{release}
+Requires: %{name}-qt6 = %{version}-%{release}
 # When -doc subpkg was removed
 Obsoletes: %{name}-doc <= 2.2.1
 
 # omit provides from plugins
-%global __provides_exclude_from ^(%{_qt5_libdir}/gammaray.*\\.so)$
+%global __provides_exclude_from ^(%{_qt6_libdir}/gammaray.*\\.so)$
 
 %description
 A tool to poke around in a Qt-application and also to manipulate
@@ -60,15 +74,15 @@ the application to some extent. It uses various DLL injection
 techniques to hook into an application at run-time and provide
 access to a lot of interesting information.
 
-By default GammaRay can only introspect Qt 5 applications.
+By default GammaRay can only introspect Qt 6 applications.
 
-%package qt5
-Summary: Qt 5 probe for GammaRay
-Requires: qt5-qtbase%{?_isa} = %{_qt5_version}
+%package qt6
+Summary: Qt 6 probe for GammaRay
+Requires: qt6-qtbase%{?_isa} = %{_qt6_version}
 Requires: %{name} = %{version}-%{release}
 
-%description qt5
-Provides a Qt 5 probe for GammaRay that allows introspecting Qt 5
+%description qt6
+Provides a Qt 6 probe for GammaRay that allows introspecting Qt 6
 applications. This probe is installed by default. It is possible
 to install probes for different architectures as well, GammaRay
 will then be able to inspect those applications too.
@@ -90,15 +104,18 @@ This package includes developer documentation in HTML format.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
+
 
 %build
-%global _target_platform_qt5 %{_target_platform}_qt5
+%global _target_platform_qt6 %{_target_platform}_qt6
 
 %cmake .. \
-        -DLIBEXEC_INSTALL_DIR=libexec \
-        -DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules \
-        -DQCH_INSTALL_DIR=%{_docdir}/gammaray
+		-DLIBEXEC_INSTALL_DIR=libexec \
+        -DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt6/mkspecs/modules \
+        -DQCH_INSTALL_DIR=%{_qt6_docdir}/gammaray \
+        -DQT_VERSION_MAJOR=6
+
 
 %cmake_build
 make docs
@@ -107,62 +124,63 @@ make docs
 %cmake_install
 
 # We install the license manually
-rm -fv %{buildroot}%{_docdir}/gammaray/LICENSE.*
+rm -rfv %{buildroot}%{_docdir}/gammaray/LICENSE*
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/GammaRay.desktop
 
 %files
-%doc README.txt
-%license LICENSE*
+%doc README.md
+%license LICENSES/*
 %{_bindir}/gammaray
-%{_qt5_libdir}/libgammaray_client.so.*
-%{_qt5_libdir}/libgammaray_launcher.so.*
-%{_qt5_libdir}/libgammaray_launcher_ui.so.*
-%{_qt5_libdir}/libgammaray_kuserfeedback.so.*
-%{_qt5_libdir}/gammaray/libexec/gammaray-launcher
-%{_qt5_libdir}/gammaray/libexec/gammaray-client
+%{_qt6_libdir}/libgammaray_client.so.*
+%{_qt6_libdir}/libgammaray_launcher.so.*
+%{_qt6_libdir}/libgammaray_launcher_ui.so.*
+%{_qt6_libdir}/libgammaray_kuserfeedback.so.*
+%{_qt6_libdir}/gammaray/libexec/gammaray-launcher
+%{_qt6_libdir}/gammaray/libexec/gammaray-client
 %{_datadir}/applications/GammaRay.desktop
 %{_datadir}/icons/hicolor/*/apps/GammaRay.png
 %{_datadir}/metainfo/com.kdab.GammaRay.metainfo.xml
+%{_datadir}/zsh/site-functions/_gammaray
 %{_mandir}/man1/gammaray.1.gz
-%{_docdir}/gammaray/gammaray-api.qch
-%{_docdir}/gammaray/gammaray-manual.qch
-%{_docdir}/gammaray/gammaray.qhc
+#{_qt6_docdir}/gammaray/gammaray-api.qch
+#{_qt6_docdir}/gammaray/gammaray-manual.qch
+#{_qt6_docdir}/gammaray/gammaray.qhc
 %lang(de) %{_datadir}/gammaray/translations/gammaray_de.qm
 %lang(en) %{_datadir}/gammaray/translations/gammaray_en.qm
 
-%files qt5
-%{_qt5_libdir}/libgammaray_ui-%{qt5_target}.so.*
-%{_qt5_libdir}/libgammaray_common-%{qt5_target}.so.*
-%{_qt5_libdir}/libgammaray_core-%{qt5_target}.so.*
-%{_qt5_libdir}/libgammaray_kitemmodels-%{qt5_target}.so.*
-%{_qt5_libdir}/gammaray/%{gammaray_ver}/%{qt5_target}/
+%files qt6
+%{_qt6_libdir}/libgammaray_ui-%{qt6_target}.so.*
+%{_qt6_libdir}/libgammaray_common-%{qt6_target}.so.*
+%{_qt6_libdir}/libgammaray_core-%{qt6_target}.so.*
+%{_qt6_libdir}/libgammaray_kitemmodels-%{qt6_target}.so.*
+%{_qt6_libdir}/gammaray/%{gammaray_ver}/%{qt6_target}/
 
 %files devel
 %{_includedir}/gammaray
-%{_qt5_libdir}/libgammaray_client.so
-%{_qt5_libdir}/libgammaray_launcher.so
-%{_qt5_libdir}/libgammaray_launcher_ui.so
-%{_qt5_libdir}/libgammaray_kuserfeedback.so
-%{_qt5_libdir}/libgammaray_ui-%{qt5_target}.so
-%{_qt5_libdir}/libgammaray_common-%{qt5_target}.so
-%{_qt5_libdir}/libgammaray_core-%{qt5_target}.so
-%{_qt5_libdir}/libgammaray_kitemmodels-%{qt5_target}.so
+%{_qt6_libdir}/libgammaray_client.so
+%{_qt6_libdir}/libgammaray_launcher.so
+%{_qt6_libdir}/libgammaray_launcher_ui.so
+%{_qt6_libdir}/libgammaray_kuserfeedback.so
+%{_qt6_libdir}/libgammaray_ui-%{qt6_target}.so
+%{_qt6_libdir}/libgammaray_common-%{qt6_target}.so
+%{_qt6_libdir}/libgammaray_core-%{qt6_target}.so
+%{_qt6_libdir}/libgammaray_kitemmodels-%{qt6_target}.so
 %{_libdir}/cmake/GammaRay/
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayCommon.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayCore.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayUi.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayClient.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayKItemModels.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayLauncher.pri
-%{_qt5_archdatadir}/mkspecs/modules/qt_GammaRayLauncherUi.pri
-
-%ldconfig_scriptlets
-%ldconfig_scriptlets qt5
-
+# this is an error in the sources, it should go to qt6
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayCommon.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayCore.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayUi.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayClient.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayKItemModels.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayLauncher.pri
+%{_qt6_archdatadir}/mkspecs/modules/qt_GammaRayLauncherUi.pri
 
 %changelog
+* Fri Feb 23 2024 Marie Loise Nolden <loise@kde.org> - 3.0.0-1
+- update to 3.0.0 using Qt6
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

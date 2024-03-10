@@ -5,7 +5,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.22.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -126,7 +126,9 @@ Requires: xz
 Requires: diffutils
 Obsoletes: gettext-autopoint < 0.18.1.1-3
 Provides: gettext-autopoint = %{version}-%{release}
+%if %{without libtextstyle}
 Obsoletes: libtextstyle-devel < %{version}-%{release}
+%endif
 
 %description devel
 This package contains all development related files necessary for
@@ -140,7 +142,9 @@ Summary: Libraries for %{name}
 # libasprintf is LGPLv2+
 # libgettextpo is GPLv3+
 License: LGPL-2.0-or-later AND GPL-3.0-or-later
+%if %{without libtextstyle}
 Obsoletes: libtextstyle < %{version}-%{release}
+%endif
 
 %description libs
 This package contains libraries used internationalization support.
@@ -447,6 +451,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Fri Mar  8 2024 Jens Petersen <petersen@redhat.com> - 0.22.5-2
+- condition libtextstyle obsoletes
+
 * Mon Mar 4 2024 Manish Tiwari <matiwari@redhat.com> - 0.22.5-1
 - update to 0.22.5 release
 - https://savannah.gnu.org/news/?id=10597

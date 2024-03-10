@@ -1,6 +1,6 @@
 Name:           gloox
 Epoch:          1
-Version:        1.0.23
+Version:        1.0.28
 Release:        %autorelease
 Summary:        A rock-solid, full-featured Jabber/XMPP client C++ library
 License:        GPLv3
@@ -53,7 +53,7 @@ make check
 
 %files
 %license LICENSE
-%{_libdir}/libgloox.so.17*
+%{_libdir}/libgloox.so.18*
 
 %files devel
 %doc AUTHORS ChangeLog TODO UPGRADING

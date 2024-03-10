@@ -1,11 +1,11 @@
 Name: bandit
-Version: 1.7.7
+Version: 1.7.8
 Release: %autorelease
 Summary: A framework for performing security analysis of Python source code
 
 License: Apache-2.0
 URL: https://github.com/PyCQA/bandit
-Source0: https://files.pythonhosted.org/packages/source/b/%{name}/%{name}-%{version}.tar.gz
+Source: %{pypi_source}
 BuildArch: noarch
 
 BuildRequires:  python3-devel
@@ -15,6 +15,8 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(fixtures)
 BuildRequires:  python3dist(gitpython)
+BuildRequires:  python3dist(jschema-to-python)
+BuildRequires:  python3dist(sarif-om)
 BuildRequires:  python3dist(testscenarios)
 BuildRequires:  python3dist(testtools)
 BuildRequires:  python3dist(toml)

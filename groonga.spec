@@ -1,11 +1,11 @@
 Name:           groonga
-Version:        13.1.0
+Version:        14.0.0
 Release:        %autorelease
 Summary:        An Embeddable Fulltext Search Engine
 
 License:        LGPL-2.1-only
-URL:            https://groonga.org/
-Source0:        https://github.com/groonga/groonga/releases/download/v%{version}/groonga-%{version}.tar.gz
+URL:            https://github.com/groonga/groonga
+Source0:        %{url}/releases/download/v%{version}/groonga-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -30,6 +30,8 @@ BuildRequires:  blosc2-devel
 # required by blosc2-devel
 BuildRequires:  zlib-ng-devel
 %endif
+BuildRequires:  xsimd-devel
+BuildRequires:  h3-devel
 BuildRequires:  ruby
 BuildRequires:  libedit-devel
 BuildRequires:  openssl-devel
@@ -99,6 +101,13 @@ Requires:       %{name}-libs%{?isa} = %{version}-%{release}
 %description    plugin-tokenizer-mecab
 This package contains MeCab tokenizer for Groonga.
 
+%package        plugin-tokenizer-h3
+Summary:        H3 tokenizer for Groonga
+Requires:       %{name}-libs%{?isa} = %{version}-%{release}
+
+%description    plugin-tokenizer-h3
+This package contains h3 tokenizer for Groonga.
+
 %package        plugin-suggest
 Summary:        Suggest plugin for Groonga
 Requires:       %{name}-libs%{?isa} = %{version}-%{release}
@@ -149,6 +158,10 @@ This package contains the tools for Groonga.
 %prep
 %autosetup -p1
 
+rm vendor/*.tar.gz
+rm vendor/*.rb
+rm -rf vendor/{lz4,rapidjson-1.1.0}
+
 %build
 %cmake \
   -GNinja \
@@ -175,8 +188,10 @@ This package contains the tools for Groonga.
 %if 0%{?fedora} >= 40
   -DGRN_WITH_BLOSC=ON \
 %else
-  -DGRN_WITH_BLOSC=OFF \
+  -DGRN_WITH_BLOSC=no \
 %endif
+  -DGRN_WITH_XSIMD=ON \
+  -DGRN_WITH_H3=ON \
   -DGRN_WITH_MRUBY=ON \
   -DGRN_WITH_MUNIN_PLUGINS=ON \
   -DGRN_WITH_DOC=ON \
@@ -188,6 +203,9 @@ This package contains the tools for Groonga.
 
 %install
 %cmake_install
+
+rm %{buildroot}%{_datadir}/groonga/{COPYING,README.md}
+
 
 mkdir -p %{buildroot}%{_localstatedir}/lib/groonga/db
 mkdir -p %{buildroot}%{_localstatedir}/log/groonga
@@ -286,7 +304,9 @@ fi
 %{_libdir}/groonga/plugins/sharding/*.rb
 %{_libdir}/groonga/plugins/*.rb
 %{_libdir}/groonga/scripts/ruby/
-%{_datadir}/groonga/
+%{_datadir}/groonga/groonga-log/
+%{_datadir}/groonga/mruby/
+%{_datadir}/groonga/onigmo/
 
 %files devel
 %{_includedir}/groonga/
@@ -318,6 +338,9 @@ fi
 %files plugin-tokenizer-mecab
 %{_libdir}/groonga/plugins/tokenizers/mecab.so
 
+%files plugin-tokenizer-h3
+%{_libdir}/groonga/plugins/tokenizers/h3_index.so
+
 %files plugin-token-filters
 %{_libdir}/groonga/plugins/token_filters/stop_word.so
 %{_libdir}/groonga/plugins/token_filters/stem.so
@@ -334,6 +357,7 @@ fi
 %doc README.md
 %license COPYING
 %{_datadir}/doc/groonga/
+%{_datadir}/groonga/html/
 
 %files examples
 %{_datadir}/groonga/examples/

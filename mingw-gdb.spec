@@ -1,12 +1,12 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        14.1
+Version:        14.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
 # Same License tag as the native gdb package has:
-License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain
+License:        GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 URL:            http://gnu.org/software/gdb/
 Source0:        https://ftp.gnu.org/gnu/gdb/gdb-%{version}.tar.xz
 
@@ -112,6 +112,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Fri Mar 08 2024 Sandro Mani <manisandro@gmail.com> - 14.2-1
+- Update to 14.2
+
 * Sun Feb 18 2024 Sandro Mani <manisandro@gmail.com> - 14.0.1-1
 - Update to 14.0.1
 

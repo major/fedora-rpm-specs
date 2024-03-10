@@ -1,23 +1,19 @@
-%global commit f72113681dc5fe685b8814ed6cd5e768f93ed529
-%global snapdate 20240215
-
-Name:           parsertl14
+Name:           parsertl17
 Summary:        The Modular Parser Generator
-# Upstream has never versioned the library.
-Version:        0^%{snapdate}git%{sub %{commit} 1 7}
+Version:        2024.02.17
 Release:        %autorelease
 
 License:        BSL-1.0
-URL:            https://github.com/BenHanson/parsertl14
-Source:         %{url}/archive/%{commit}/parsertl14-%{commit}.tar.gz
+URL:            https://github.com/BenHanson/parsertl17
+Source:         %{url}/archive/%{version}/parsertl17-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  dos2unix
 
-BuildRequires:  lexertl14-devel
+BuildRequires:  lexertl17-devel
 # Header-only library:
 # (Technically, dependent packages should have this BuildRequires too.)
-BuildRequires:  lexertl14-static
+BuildRequires:  lexertl17-static
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -34,15 +30,17 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 # Header-only library:
-Provides:       parsertl14-static = %{version}-%{release}
+Provides:       parsertl17-static = %{version}-%{release}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
+Conflicts:      parsertl14-devel
 
-Requires:       lexertl14-devel
+Requires:       lexertl17-devel
 
 %description devel %{common_description}
 
 
 %prep
-%autosetup -n parsertl14-%{commit} -p1
+%autosetup -n parsertl17-%{version}
 
 # Fix line terminations (particularly for files that may be installed)
 find . -type f -exec file '{}' '+' |

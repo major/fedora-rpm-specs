@@ -14,10 +14,10 @@ License:        Apache-2.0 AND CC0-1.0
 URL:            https://crates.io/crates/askalono-cli
 Source:         %{crates_source}
 # updated SPDX license list data; generated with:
-# $ git clone https://github.com/spdx/license-list-data.git spdx-license-list -b v3.22 --depth 1
+# $ git clone https://github.com/spdx/license-list-data.git spdx-license-list -b v3.23 --depth 1
 # $ askalono cache load-spdx spdx-license-list/json/details
-# $ mv askalono-cache.bin.zstd askalono-cache-3.22.bin.zstd
-Source:         askalono-cache-3.22.bin.zstd
+# $ mv askalono-cache.bin.zstd askalono-cache-3.23.bin.zstd
+Source:         askalono-cache-3.23.bin.zstd
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -40,7 +40,7 @@ Summary:        %{summary}
 License:        Apache-2.0 AND CC0-1.0 MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
-Provides:       bundled(spdx-license-list-data) = 3.22
+Provides:       bundled(spdx-license-list-data) = 3.23
 
 %description -n %{crate} %{_description}
 

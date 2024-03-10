@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        6.0.4
-Release:        4%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -139,6 +139,7 @@ Requires:       system-logos
 
 # Theming
 Requires:       google-noto-sans-fonts
+Requires:       google-noto-sans-mono-fonts
 Requires:       %{name}-themes >= 1:1.7.4-0.2.20181112gitb94b890
 
 # RequiredComponents in the session files
@@ -345,6 +346,9 @@ EOF
 %endif
 
 %changelog
+* Fri Mar 08 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.4-5
+- Add requires google-noto-sans-mono-fonts, needed for override
+
 * Mon Feb 19 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.4-4
 - Use paper cursor theme as adwaita is broken
 

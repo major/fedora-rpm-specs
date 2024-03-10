@@ -32,7 +32,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.7~beta
+Version:        3.7~rc
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
@@ -179,6 +179,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 3.7~rc-1
+- Update to 3.7.rc
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 3.7~beta-1
 - Update to 3.7.beta
 

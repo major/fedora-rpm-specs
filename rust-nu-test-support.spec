@@ -5,7 +5,7 @@
 %global crate nu-test-support
 
 Name:           rust-nu-test-support
-Version:        0.88.1
+Version:        0.91.0
 Release:        %autorelease
 Summary:        Support for writing Nushell tests
 

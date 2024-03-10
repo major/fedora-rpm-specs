@@ -1,7 +1,7 @@
 %global upstream_name pytest-randomly
 
 Name:           python-%{upstream_name}
-Version:        3.13.0
+Version:        3.15.0
 Release:        %autorelease
 Summary:        Pytest plugin to randomly order tests and control random.seed
 License:        MIT
@@ -42,7 +42,8 @@ Summary:        %{summary}
 %pyproject_save_files pytest_randomly
 
 %check
-%pytest -p no:randomly -k 'not test_it_runs_before_stepwise'
+# Skip test_model_bakery to avoid new dependency on model_bakery
+%pytest -p no:randomly -k 'not test_it_runs_before_stepwise and not test_model_bakery'
 
 %files -n python3-%{upstream_name} -f %{pyproject_files}
 %doc README.rst HISTORY.rst

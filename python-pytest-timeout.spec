@@ -1,8 +1,8 @@
 %global pypi_name pytest-timeout
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
 # SPDX
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %{python3_sitelib}/__pycache__/pytest_timeout*
 
 %changelog
+* Fri Mar 08 2024 Scott Talbert <swt@techie.net> - 2.3.1-1
+- Update to new upstream release 2.3.1 (#2268509)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

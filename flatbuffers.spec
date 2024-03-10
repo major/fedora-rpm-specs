@@ -19,7 +19,7 @@ Version:        23.5.26
 # https://github.com/google/flatbuffers/issues/7759.
 %global so_version 23.5.26
 Release:        %autorelease
-Summary:        FlatBuffers: Memory Efficient Serialization Library
+Summary:        Memory efficient serialization library
 
 # The entire source code is Apache-2.0. Even code from grpc, which is
 # BSD-3-Clause in its upstream, is intended to be Apache-2.0 in this project.

@@ -46,6 +46,9 @@ Patch:          0001-Add-a-LICENSE.QT.TXT-file-for-BSD-3-Clause-code-from.patch
 # Fix deprecated top-level developer_name in AppData XML
 # https://github.com/pencil2d/pencil/pull/1796
 Patch:          %{url}/pull/1796.patch
+# Fix AppStream developer id
+# https://github.com/pencil2d/pencil/pull/1815
+Patch:          %{url}/pull/1815.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
