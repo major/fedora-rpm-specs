@@ -1,27 +1,20 @@
-%global extension   vertical-workspaces
-%global uuid        %{extension}@G-dH.github.com
-# Define a commit here to switch to snapshot versioning.  Note that just adding
-# a `#` to the beginning of this line is insufficient to disable snapshot
-# versioning, as RPM allows you to define macros anywhere, even in comments.
-%global commit      b9220e967d830e19866d15eff70adb5091e2a39c
-%global shortcommit %{lua:print(macros.commit:sub(1,7))}
+%global extension       vertical-workspaces
+%global uuid            %{extension}@G-dH.github.com
+%global commit          5c7240b01ac953acd2f87145dc1f11e8ad97832a
+%global shortcommit     %{lua:print(macros.commit:sub(1,7))}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        37.5%{?commit:^2.%{shortcommit}}
+Version:        46.0~^1.%{shortcommit}
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only
 URL:            https://github.com/G-dH/vertical-workspaces
 BuildArch:      noarch
 
-%if %{defined commit}
 Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
-%else
-Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
-%endif
 
 BuildRequires:  gettext
-Requires:       (gnome-shell >= 45~ with gnome-shell < 46~)
+Requires:       gnome-shell >= 45
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}
 
@@ -32,7 +25,7 @@ horizontally or vertically stacked workspaces.
 
 
 %prep
-%autosetup -n %{extension}-%[ %{defined commit} ? "%{commit}" : "%{version}" ]
+%autosetup -n %{extension}-%{commit}
 
 
 %install

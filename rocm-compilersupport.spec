@@ -1,6 +1,6 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 2
-%global comgr_full_api_ver %{comgr_maj_api_ver}.6
+%global comgr_full_api_ver %{comgr_maj_api_ver}.6.0
 # LLVM information:
 %global llvm_maj_ver 17
 %bcond_without compat_build
@@ -12,7 +12,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -28,7 +28,7 @@ BuildRequires:  zlib-devel
 
 %if %{with compat_build}
 BuildRequires:  clang%{llvm_maj_ver}-devel
-BuildRequires:  lld%{llvm_maj_ver}-devel
+BuildRequires:  lld%{llvm_maj_ver}
 BuildRequires:  lld%{llvm_maj_ver}-devel
 BuildRequires:  llvm%{llvm_maj_ver}-devel
 %else
@@ -118,6 +118,9 @@ export INCLUDE_PATH=%{_libdir}/llvm%{llvm_maj_ver}/include
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Sat Mar 9 2024 Tom Rix <trix@redhat.com> - 17.1-5
+- Fix mock build
+
 * Thu Mar 7 2024 Tom Rix <trix@redhat.com> - 17.1-4
 - Add with compat_build for llvm17
 

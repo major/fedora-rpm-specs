@@ -20,11 +20,11 @@
 %endif
 
 Name: nagios-plugins
-Version: 2.4.6
+Version: 2.4.8
 %if 0%{?fromgit}
-Release: 4.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 1.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 4%{?dist}
+Release: 1%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -873,6 +873,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Sat Mar 09 2024 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.8-1
+- Update to 2.4.8
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-weather-plugin
-Version:        0.11.1
+Version:        0.11.2
 Release:        %autorelease
 Summary:        Weather plugin for the Xfce panel
 
@@ -23,6 +23,7 @@ BuildRequires:  upower-devel >= 0.9.0
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  libxml2-devel >= 2.4.0
+BuildRequires:  json-c-devel
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description

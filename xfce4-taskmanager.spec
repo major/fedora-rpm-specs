@@ -1,7 +1,7 @@
 %global majorversion 1.5
 
 Name:           xfce4-taskmanager
-Version:        1.5.6
+Version:        1.5.7
 Release:        %autorelease
 Summary:        Taskmanager for the Xfce desktop environment
 
@@ -52,10 +52,8 @@ desktop-file-install \
 %doc AUTHORS ChangeLog NEWS THANKS
 %{_bindir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
-%{_datadir}/icons/hicolor/16x16/actions/xc_crosshair.png
-%{_datadir}/icons/hicolor/24x24/actions/xc_crosshair.png
-%{_datadir}/icons/hicolor/scalable/actions/xc_crosshair.svg
 %{_datadir}/icons/hicolor/*/apps/org.xfce.taskmanager.*
+%{_datadir}/icons/hicolor/scalable/actions/xc_crosshair-symbolic.svg
 
 %changelog
 %autochangelog

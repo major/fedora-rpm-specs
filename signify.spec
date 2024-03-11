@@ -1,6 +1,6 @@
 Name:     signify
-Version:  31
-Release:  4%{?dist}
+Version:  32
+Release:  1%{?dist}
 Summary:  Sign and verify signatures on files
 
 # signify itself is ISC but uses other source codes, breakdown:
@@ -15,8 +15,6 @@ URL:      https://github.com/aperezdc/%{name}
 Source0:  %url/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:  %url/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:  https://keys.openpgp.org/vks/v1/by-fingerprint/5AA3BC334FD7E3369E7C77B291C559DBE4C9123B
-# Replace install command with \$(INSTALL) variable to keep timestamp with %%make_install
-Patch0:   https://github.com/aperezdc/signify/commit/a12d866b673972b41802d0fdd20f4e65699da44e.patch#/signify-30-install.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -51,6 +49,9 @@ make check
 %{_mandir}/man1/signify.*
 
 %changelog
+* Sat Mar 09 2024 Robert Scheck <robert@fedoraproject.org> - 32-1
+- Update to release v32 (#2268373)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

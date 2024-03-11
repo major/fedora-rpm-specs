@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        46~beta
+Version:        46~rc
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
@@ -16,8 +16,6 @@ Summary:        Simple and beautiful calendar application designed to fit GNOME 
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calendar
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/426
-Patch:          gnome-calendar-46.beta-fix-pointer-types.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

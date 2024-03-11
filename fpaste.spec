@@ -1,9 +1,10 @@
 Name:       fpaste
-Version:    0.4.4.0
+Version:    0.4.5.1
 Release:    %autorelease
 Summary:    A simple tool for pasting info onto the Fedora community paste server
 BuildArch:  noarch
-License:    GPLv3+
+# spdx
+License:    GPL-3.0-or-later
 URL:        https://pagure.io/%{name}
 Source0:    https://pagure.io/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -31,12 +32,14 @@ paste server that the Fedora community is running.
 %install
 mkdir -p %{buildroot}%{_bindir}
 make install BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir}
+install -p -m 0644 -D -T completions/bash/fpaste.bash %{buildroot}/%{bash_completions_dir}/fpaste
 
 
 %files
 %{_bindir}/%{name}
 %doc README.rst TODO
 %{_mandir}/man1/%{name}.1.gz
+%{bash_completions_dir}/%{name}
 %license COPYING
 
 %changelog

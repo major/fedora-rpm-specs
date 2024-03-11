@@ -5,8 +5,8 @@
 
 %global crate nix
 
-Name:           rust-nix
-Version:        0.28.0
+Name:           rust-nix0.27
+Version:        0.27.1
 Release:        %autorelease
 Summary:        Rust friendly bindings to *nix APIs
 
@@ -108,18 +108,6 @@ This package contains library source intended for building other packages which
 use the "event" feature of the "%{crate}" crate.
 
 %files       -n %{name}+event-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+fanotify-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+fanotify-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "fanotify" feature of the "%{crate}" crate.
-
-%files       -n %{name}+fanotify-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+feature-devel

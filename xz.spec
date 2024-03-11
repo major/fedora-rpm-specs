@@ -7,8 +7,8 @@ Name:		xz
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
 # do this on a side tag, according to
 # https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/#multiple_packages
-Version:	5.6.0
-Release:	3%{?dist}
+Version:	5.6.1
+Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -103,10 +103,7 @@ export CFLAGS="%optflags"
   CFLAGS="$CFLAGS -Wa,--generate-missing-build-notes=yes"
 %endif
 
-# --disable-ifunc is temporarily required to work around
-# https://bugzilla.redhat.com/show_bug.cgi?id=2267598
-# Can be removed when we understand what is really causing that bug.
-%configure --disable-ifunc
+%configure
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
@@ -177,6 +174,10 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Sat Mar 09 2024 Richard W.M. Jones <rjones@redhat.com> - 5.6.1-1
+- New version 5.6.1 (RHBZ#2267598)
+- Reenable ifunc as it is supposed to be fixed in 5.6.1.
+
 * Mon Mar 04 2024 Richard W.M. Jones <rjones@redhat.com> - 5.6.0-3
 - --disable-ifunc (workaround for 2267598)
 

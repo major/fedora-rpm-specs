@@ -1,7 +1,7 @@
 %global majorver 4.18
 
 Name:           xfce4-screensaver
-Version:        4.18.2
+Version:        4.18.3
 Release:        %autorelease
 Summary:        Screensaver application for Xfce Desktop
 

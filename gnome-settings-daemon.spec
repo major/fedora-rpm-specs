@@ -2,7 +2,7 @@
 %global colord_version 1.4.5
 %global geocode_glib_version 3.26.3
 %global gnome_desktop_version 3.37.1
-%global gsettings_desktop_schemas_version 42
+%global gsettings_desktop_schemas_version 46~beta
 %global gtk3_version 3.15.3
 %global geoclue_version 2.3.1
 
@@ -17,7 +17,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        46~beta
+Version:        46~rc
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 

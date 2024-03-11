@@ -65,7 +65,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstream_name}-%{commit0}
 
 %if %{with gitcommit}
+# On RHEL 9, gcc 11, there is this error
+# /tmp/ccnF75eP.s:120: Error: unsupported instruction `vpdpbusd'
+sed -i 's@IF(CMAKE_C_COMPILER_VERSION VERSION_LESS "11")@IF(CMAKE_C_COMPILER_VERSION VERSION_LESS "13")@' CMakeLists.txt
+# version of the *.so
 echo "SET_TARGET_PROPERTIES(XNNPACK PROPERTIES SOVERSION \"24.02.29\")" >> CMakeLists.txt
+
 %endif
 
 %build

@@ -1,7 +1,7 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  6.7
+Version:  6.8
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
@@ -38,8 +38,6 @@ Patch203: squid-6.1-perlpath.patch
 Patch204: squid-6.1-symlink-lang-err.patch
 # Upstream PR: https://github.com/squid-cache/squid/pull/1442
 Patch205: squid-6.1-crash-half-closed.patch
-# https://github.com/squid-cache/squid/pull/1673
-Patch206: squid-6.7-gcc-14.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -326,6 +324,9 @@ fi
 
 
 %changelog
+* Sat Mar 09 2024 Luboš Uhliarik <luhliari@redhat.com> - 7:6.8-1
+- new version 6.8
+
 * Mon Feb 12 2024 Luboš Uhliarik <luhliari@redhat.com> - 7:6.7-1
 - new version 6.7
 - switch to autosetup

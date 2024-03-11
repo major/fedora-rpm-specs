@@ -2,7 +2,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-terminal
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Terminal Emulator for the Xfce Desktop environment
 
@@ -10,10 +10,8 @@ License:        GPLv2+
 URL:            http://docs.xfce.org/apps/terminal/start
 Source0:        http://archive.xfce.org/src/apps/xfce4-terminal/%{minorversion}/%{name}-%{version}.tar.bz2
 
-# https://gitlab.xfce.org/apps/xfce4-terminal/-/commit/177fda86451cdeaaea8ed409e6d711b670699a97
-Patch0:         xfce4-terminal-4.1.2-clipboard.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  vte291-devel >= 0.38
 BuildRequires:  gtk3-devel >= 3.14.0

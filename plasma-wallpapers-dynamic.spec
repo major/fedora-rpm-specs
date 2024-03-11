@@ -1,9 +1,9 @@
 %global component wallpapers-dynamic
 
-%global somajor 4
+%global somajor 5
 
 Name:           plasma-%{component}
-Version:        4.4.1
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Dynamic wallpaper plugin for KDE Plasma
 
@@ -14,22 +14,22 @@ Source0:        %{url}/archive/%{version}/plasma5-%{component}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5DBus)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Positioning)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Package)
-BuildRequires:  cmake(KF5Plasma)
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Positioning)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6Package)
+BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(libavif)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  /usr/bin/appstreamcli
-BuildRequires:  /usr/bin/desktop-file-validate
 
 Recommends:     %{name}-builder
 
@@ -94,15 +94,13 @@ Files needed to support zsh completion.
 
 %check
 appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/kservices5/plasma-wallpaper-com.github.zzag.dynamic.desktop
 
 %files -f plasma_wallpaper_com.github.zzag.dynamic.lang
 %license LICENSES/*
 %{_datadir}/plasma/wallpapers/com.github.zzag.dynamic/
 %{_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
-%{_datadir}/kservices5/plasma-wallpaper-com.github.zzag.dynamic.desktop
-%{_libdir}/qt5/qml/com/github/zzag/plasma/wallpapers/dynamic/
-%{_libdir}/qt5/plugins/kpackage/packagestructure/packagestructure_dynamicwallpaper.so
+%{_libdir}/qt6/qml/com/github/zzag/plasma/wallpapers/dynamic/
+%{_libdir}/qt6/plugins/kpackage/packagestructure/kdynamicwallpaper.so
 %{_libdir}/libkdynamicwallpaper.so.%{somajor}{,.*}
 %{_datadir}/wallpapers/Dynamic/
 

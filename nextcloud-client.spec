@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.11.1
+Version:        3.12.1
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -219,7 +219,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 %{_datadir}/applications/com.nextcloud.desktopclient.nextcloud.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/metainfo/com.nextcloud.desktopclient.nextcloud.metainfo.xml
-%{_datadir}/cloud-providers/com.nextcloudgmbh.Nextcloud.ini
 %{_datadir}/dbus-1/services/com.nextcloudgmbh.Nextcloud.service
 
 %files libs

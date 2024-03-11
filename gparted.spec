@@ -1,6 +1,6 @@
 Summary:	Gnome Partition Editor
 Name:		gparted
-Version:	1.5.0
+Version:	1.6.0
 Release:	%autorelease
 License:	GPLv2+
 URL:		http://gparted.org
@@ -68,7 +68,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/gparted.*
 %{_datadir}/polkit-1/actions/org.gnome.gparted.policy
-%{_datadir}/appdata/gparted.appdata.xml
 %{_datadir}/help/*/gparted/*
 %{_mandir}/man8/gparted.*
 

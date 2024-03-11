@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.6.4
+Version:        1.6.5
 Release:        1%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -68,6 +68,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Sat Mar 09 2024 Orion Poplawski <orion@nwra.com> - 1.6.5-1
+- Update to 1.6.5
+
 * Sat Mar 02 2024 Orion Poplawski <orion@nwra.com> - 1.6.4-1
 - Update to 1.6.4
 

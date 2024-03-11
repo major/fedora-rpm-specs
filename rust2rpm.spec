@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           rust2rpm
-Version:        25.1.0
+Version:        26.0.0
 Release:        %autorelease
 Summary:        Generate RPM spec files for Rust crates
 License:        MIT

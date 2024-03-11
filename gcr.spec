@@ -3,7 +3,7 @@
 %endif
 
 Name:           gcr
-Version:        4.2.0
+Version:        4.2.1
 Release:        1%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
@@ -128,6 +128,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 4.2.1-1
+- Update to 4.2.1
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 4.2.0-1
 - Update to 4.2.0
 

@@ -3,14 +3,14 @@
 # directory.
 %global __requires_exclude pkg-config
 
-%global libmajor 13
+%global libmajor 14
 %global libminor 0
 
 # Use the same directory of the main package for subpackage licence and docs
 %global _docdir_fmt %{name}
 
 Name:           pacman
-Version:        6.0.2
+Version:        6.1.0
 Release:        %autorelease
 Source0:        https://gitlab.archlinux.org/pacman/pacman/-/archive/v%{version}/pacman-v%{version}.tar.gz
 Source1:        https://www.archlinux.org/mirrorlist/all
@@ -129,6 +129,8 @@ EOF
 %{_bindir}/testpkg
 %{_bindir}/vercmp
 %config(noreplace) %{_sysconfdir}/makepkg.conf
+%config(noreplace) %{_sysconfdir}/makepkg.conf.d/fortran.conf
+%config(noreplace) %{_sysconfdir}/makepkg.conf.d/rust.conf
 %config(noreplace) %{_sysconfdir}/pacman.conf
 %config(noreplace) %{_sysconfdir}/pacman.d/mirrorlist
 %{_datarootdir}/makepkg/

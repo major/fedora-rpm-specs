@@ -4,7 +4,7 @@
 Name:           ufraw
 Summary:        Raw image data retrieval tool for digital cameras
 Version:        0.23
-Release:        0.19.20210425%{?dist}
+Release:        0.20.20210425%{?dist}
 
 # GPL-2.0-or-later: main program
 # GPL-2.0-only:
@@ -21,7 +21,6 @@ Source:         https://sourceforge.net/projects/ufraw/files/%{name}/%{name}-0.2
 Source:         https://raw.githubusercontent.com/sergiomb2/ufraw/02bc2df0c6c2d9d1892bd16a58e319d81e79559d/beautify_style.sh
 Source:         ufraw.thumbnailer
 Patch:          https://github.com/sergiomb2/ufraw/compare/%{name}-0-22..f34669b.diff
-Patch:          0001-Fix-build-with-exiv2-0.28.0-raise-minimum-to-0.27.0.patch
 
 BuildRequires:  automake
 BuildRequires:  cfitsio-devel
@@ -111,6 +110,9 @@ install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbn
 %{gimpplugindir}/%{name}-gimp
 
 %changelog
+* Sat Mar 09 2024 Nils Philippsen <nils@tiptoe.de> - 0.23-0.20.20210425
+- Fix build failure (rhbz#2261764)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-0.19.20210425
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

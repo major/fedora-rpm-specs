@@ -5,17 +5,13 @@
 %endif
 
 Name:    bluez
-Version: 5.72
-Release: 3%{?dist}
+Version: 5.73
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
 
 Source0: http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-Source1: bluez.gitignore
-
-# https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
-Patch2: power-state-adapter-property.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -51,10 +47,7 @@ Utilities for use in Bluetooth applications:
 	- btattach
 	- btmon
 	- hex2hcd
-	- l2ping
-	- l2test
 	- mpris-proxy
-	- rctest
 
 The BLUETOOTH trademarks are owned by Bluetooth SIG, Inc., U.S.A.
 
@@ -82,6 +75,7 @@ be dropped by upstream. Utilities include:
 	- hciconfig
 	- hcidump
 	- hcitool
+	- meshctl
 	- rfcomm
 	- sdptool
 %endif
@@ -249,14 +243,12 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/btmgmt
 %{_bindir}/btmon
 %{_bindir}/hex2hcd
-%{_bindir}/l2ping
 %{_bindir}/mpris-proxy
 %{_mandir}/man1/bluetoothctl.1.*
 %{_mandir}/man1/bluetoothctl-*.1.*
 %{_mandir}/man1/btmgmt.1.*
 %{_mandir}/man1/btattach.1.*
 %{_mandir}/man1/btmon.1.*
-%{_mandir}/man1/l2ping.1.*
 %{_mandir}/man8/bluetoothd.8.*
 %dir %{_libexecdir}/bluetooth
 %{_libexecdir}/bluetooth/bluetoothd
@@ -298,8 +290,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %doc doc/*txt
 %{_bindir}/isotest
 %{_bindir}/l2test
+%{_bindir}/l2ping
 %{_bindir}/rctest
 %{_mandir}/man1/isotest.1.*
+%{_mandir}/man1/l2ping.1.*
 %{_mandir}/man1/rctest.1.*
 %{_mandir}/man5/org.bluez.*.5.*
 %{_libdir}/libbluetooth.so
@@ -330,9 +324,13 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %files obexd
 %{_libexecdir}/bluetooth/obexd
 %{_datadir}/dbus-1/services/org.bluez.obex.service
+/usr/lib/systemd/user/dbus-org.bluez.obex.service
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Mar 08 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 5.73-1
+- Update to 5.73
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.72-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

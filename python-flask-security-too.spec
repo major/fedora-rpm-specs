@@ -2,7 +2,7 @@
 
 
 Name:           python-%{pkg_name}
-Version:        5.4.1
+Version:        5.4.2
 Release:        1%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
@@ -68,6 +68,9 @@ rm -rf Flask_Security_Too.egg-info
 
 
 %changelog
+* Sat Mar 09 2024 Sandro Mani <manisandro@gmail.com> - 5.4.2-1
+- Update to 5.4.2
+
 * Tue Feb 27 2024 Sandro Mani <manisandro@gmail.com> - 5.4.1-1
 - Update to 5.4.1
 

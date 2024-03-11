@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.9.0
-Release:        2%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,14 +11,13 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://github.com/baresip/baresip/pull/2900/commits/04efa525e7909196fe4b410150267935e36150c7.patch#/baresip-3.8.0-cmake-findre.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.9.0
+BuildRequires:  libre-devel >= 3.10.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 %else
@@ -167,7 +166,7 @@ BuildRequires:  desktop-file-utils
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
 License:        BSD-3-Clause AND (LGPL-3.0-or-later OR CC-BY-SA-3.0)
 BuildRequires:  librsvg2
-BuildRequires:  /usr/bin/gtk-encode-symbolic-svg
+BuildRequires:  %{_bindir}/gtk-encode-symbolic-svg
 Requires:       adwaita-icon-theme < 3.31.91-1
 %else
 Requires:       adwaita-icon-theme >= 3.31.91-1
@@ -384,6 +383,7 @@ This module provides the X11 video output driver.
 
 %cmake \
   -DDEFAULT_CAFILE:PATH="%{_sysconfdir}/pki/tls/certs/ca-bundle.crt" \
+  -DDEFAULT_CAPATH:PATH="%{_sysconfdir}/pki/tls/certs" \
 %if 0%{?fedora} || 0%{?rhel} > 8
   -DDEFAULT_AUDIO_DEVICE:STRING="pipewire" \
 %else
@@ -453,7 +453,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.13*
+%{_libdir}/lib%{name}.so.14*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -593,6 +593,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sun Mar 10 2024 Robert Scheck <robert@fedoraproject.org> 3.10.0-1
+- Upgrade to 3.10.0 (#2268424)
+
 * Wed Feb 07 2024 Pete Walter <pwalter@fedoraproject.org> - 3.9.0-2
 - Rebuild for libvpx 1.14.x
 

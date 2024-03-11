@@ -1,19 +1,13 @@
 %global debug_package %{nil}
 
 Name: gtk-doc
-Version: 1.33.2
-Release: 10%{?dist}
+Version: 1.34.0
+Release: 1%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
-License: GPLv2+ and GFDL
+License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
 URL: https://gitlab.gnome.org/GNOME/gtk-doc/
-Source0: http://download.gnome.org/sources/%{name}/1.33/%{name}-%{version}.tar.xz
-
-# Partially revert a gtk-doc 1.31 change that broke e-d-s and NM builds
-# https://bugzilla.redhat.com/show_bug.cgi?id=1775560
-# https://gitlab.gnome.org/GNOME/gtk-doc/issues/98
-# https://gitlab.gnome.org/GNOME/gtk-doc/issues/110
-Patch: 0001-Partially-revert-a-gtk-doc-1.31-change-that-broke-e-.patch
+Source0: http://download.gnome.org/sources/%{name}/1.34/%{name}-%{version}.tar.xz
 
 # Resolve FTBFS, unclear if solution is 'proper'
 # https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/150
@@ -79,6 +73,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Fri Mar 08 2024 David King <amigadave@amigadave.com> - 1.34.0-1
+- Update to 1.34.0
+
 * Fri Feb 09 2024 Neil Hanlon <neil@shrug.pw> - 1.33.2-10
 - Add tests/gobject/examples to path argument (#2254318 #2261221)
 

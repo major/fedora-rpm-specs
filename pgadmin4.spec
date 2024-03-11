@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        8.3
-Release:        4%{?dist}
+Version:        8.4
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -83,11 +83,10 @@ Requires: python3dist(flask-sqlalchemy) >= 3
 Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
-Requires: (python3dist(flask-babel) >= 4 with python3dist(flask-babel) < 4.1)
 Requires: python3dist(flask-babel) >= 3.1
 Requires: python3dist(flask-security-too) >= 5.2
 Requires: (python3dist(flask-socketio) >= 5.3 with python3dist(flask-socketio) < 5.4)
-Requires: python3dist(wtforms) >= 3.0
+Requires: python3dist(wtforms) >= 3
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
 Requires: python3dist(pytz) >= 2023
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
@@ -96,11 +95,11 @@ Requires: python3dist(psycopg) >= 3.1.12
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: python3dist(sqlalchemy) >= 1.4
 Requires: python3dist(bcrypt) >= 4
-Requires: (python3dist(cryptography) >= 41 with python3dist(cryptography) < 41.1)
+Requires: python3dist(cryptography) >= 41
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: python3dist(gssapi) >= 1.7
-Requires: python3dist(eventlet) = 0.33.3
+Requires: python3dist(eventlet) >= 0.33.3
 Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
 Requires: python3dist(user-agents) = 2.2
 Requires: python3dist(authlib) >= 1.2
@@ -114,13 +113,14 @@ Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.10
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
 Requires: python3dist(google-auth-oauthlib) >= 0.8
+Requires: python3dist(keyring) >= 24
 Requires: python3dist(werkzeug) >= 2.3
 Requires: (python3dist(typer) >= 0.9 with python3dist(typer) < 0.10)
 Requires: python3dist(setuptools) >= 68
+Requires: (python3dist(jsonformatter) >= 0.3.2 with python3dist(jsonformatter) < 0.4)
 
 # Undeclared dependencies
 Requires:  python3-rich
-Requires:  python3-keyring
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -272,6 +272,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Mar 08 2024 Sandro Mani <manisandro@gmail.com> - 8.4-1
+- Update to 8.4
+
 * Sun Feb 25 2024 Sandro Mani <manisandro@gmail.com> - 8.3-4
 - Require: python3-keyring
 
