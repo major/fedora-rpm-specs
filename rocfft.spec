@@ -16,7 +16,7 @@
 %bcond rocm-debug 0
 
 # build test packages but don't run them here due to HW requirements
-%bcond check 1
+%bcond check 0
 
 # the kernel cache is slightly problematic in terms of packaging and where to put it
 # disable building it until the question of how to package the cache db file is answered
@@ -33,11 +33,6 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{ve
 
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-# Fedora packaging guidelines require gcc, gcc-c++ or clang in the build requires. clang-devel is not sufficient
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/C_and_C++/
-BuildRequires:  clang
-BuildRequires:  clang-devel
 BuildRequires:  doxygen
 BuildRequires:  glibc-headers
 %if %{with check}
@@ -48,8 +43,6 @@ BuildRequires:  boost-devel
 BuildRequires:  libomp-devel
 BuildRequires:  hiprand-devel
 %endif
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
@@ -111,9 +104,11 @@ export LDFLAGS="${LDFLAGS} -pie"
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
+    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
 %if %{with check}
     -DBUILD_CLIENTS_TESTS=ON \
-    -DBUILD_CLIENTS_TESTS_OPENMP=OFF \
+%else
+    -DBUILD_CLIENTS_TESTS=OFF \
 %endif
 %if %{with rocm-debug}
     -DCMAKE_BUILD_TYPE=Debug \
@@ -125,7 +120,7 @@ export LDFLAGS="${LDFLAGS} -pie"
 %else
     -DROCFFT_KERNEL_CACHE_ENABLE=OFF \
 %endif
-    -DROCFFT_BUILD_OFFLINE_TUNER=ON \
+    -DROCFFT_BUILD_OFFLINE_TUNER=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
     -DCMAKE_INSTALL_PREFIX=%{_prefix} \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -135,7 +130,7 @@ export LDFLAGS="${LDFLAGS} -pie"
     -DFETCH_CONTENT_FULLY_DISCONNECTED=ON \
     -DFETCH_CONTENT_QUIET=ON
 
-%cmake_build -j
+%cmake_build
 
 %install
 %cmake_install

@@ -1,5 +1,5 @@
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:		rocminfo
@@ -15,7 +15,7 @@ Patch1:		0002-fix-buildtype-detection.patch
 
 ExclusiveArch: x86_64 aarch64 ppc64le
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	rocm-runtime-devel >= %{rocm_release}.0
@@ -51,4 +51,5 @@ chmod 755 %{buildroot}%{_bindir}/*
 #Duplicated files:
 %exclude %{_docdir}/*/License.txt
 
+%changelog
 %autochangelog

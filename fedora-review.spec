@@ -14,14 +14,19 @@
 
 Name:       fedora-review
 Version:    0.10.0
-Release:    5%{?build_nr}%{?git_tag}%{?dist}
+Release:    7%{?build_nr}%{?git_tag}%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPL-2.0-or-later
 URL:        https://pagure.io/FedoraReview
 Source0:    https://releases.pagure.org/FedoraReview/%{name}-%{version}%{?git_tag}.tar.gz
+
 # adapted from https://pagure.io/FedoraReview/c/c9aa1122cd046ea3c6f43be4bb352c383c2e56ad.patch
 Patch0:     %{name}-shebang-fix.diff
+
+# https://pagure.io/FedoraReview/pull-request/513
+Patch1:     %{name}-dnf-from-bootstrap-buildroot.patch
+
 
 BuildArch:  noarch
 
@@ -155,6 +160,12 @@ mock --quiet -r fedora-38-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Sun Mar 10 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-7
+- The PR#513 was updated, format new patch
+
+* Sat Mar 09 2024 Jakub Kadlcik <frostyx@email.cz> - 0.10.0-6
+- Apply https://pagure.io/FedoraReview/pull-request/513
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

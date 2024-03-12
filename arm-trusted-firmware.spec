@@ -9,14 +9,15 @@
 # any host.
 %bcond_with cross
 
-# Rockchip rk3588 support
-# https://gitlab.collabora.com/hardware-enablement/rockchip-3588/trusted-firmware-a.git
+# Rockchip rk35xx support
+# Original tree from Collabora and upstream PRs
+# https://github.com/nullr0ute/arm-trusted-firmware/tree/rk35xx
 ## git archive --format=tar --prefix=arm-trusted-firmware-rk35-%{rk35tag}/ %{rk35tag} | xz > arm-trusted-firmware-rk35-%{rk35tag}.tar.xz
-%global rk35tag 002d8e85c
+%global rk35tag 8f821b01c
 
 Name:    arm-trusted-firmware
-Version: 2.10.0
-Release: 8%{?candidate:.%{candidate}}%{?dist}
+Version: 2.10.2
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
@@ -31,8 +32,6 @@ BuildRequires: gcc-aarch64-linux-gnu
 ExclusiveArch: aarch64
 %define cross_compile %{nil}
 %endif
-
-BuildArch:     noarch
 
 BuildRequires: dtc
 BuildRequires: gcc
@@ -51,6 +50,7 @@ such as u-boot. As such the binaries aren't of general interest to users.
 
 %package     -n arm-trusted-firmware-armv8
 Summary:     ARM Trusted Firmware for ARMv8-A
+BuildArch:   noarch
 
 %description -n arm-trusted-firmware-armv8
 ARM Trusted Firmware binaries for various  ARMv8-A SoCs.
@@ -59,7 +59,7 @@ Note: the contents of this package are generally just consumed by bootloaders
 such as u-boot. As such the binaries aren't of general interest to users.
 
 %prep
-%autosetup -n %{name}-%{version}%{?candidate:-%{candidate}} -p1
+%autosetup -n %{name}-lts-v%{version}%{?candidate:-%{candidate}} -p1
 
 cp %SOURCE1 .
 # Fix the name of the cross compile for the rk3399 Cortex-M0 PMU
@@ -90,7 +90,7 @@ done
 
 # Build rk35 fork
 pushd arm-trusted-firmware-rk35-%{rk35tag}
-for soc in rk3588
+for soc in rk3568 rk3588
 do
 # At the moment we're only making the secure firmware (bl31)
 make HOSTCC="gcc $RPM_OPT_FLAGS" CROSS_COMPILE="%{cross_compile}" PLAT=$(echo $soc) bl31
@@ -133,7 +133,7 @@ done
 
 # Install rk35 fork
 pushd arm-trusted-firmware-rk35-%{rk35tag}
-for soc in rk3588
+for soc in rk3568 rk3588
 do
  for file in bl31/bl31.elf
  do
@@ -150,6 +150,10 @@ popd
 %{_datadir}/%{name}
 
 %changelog
+* Sun Mar 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.2-1
+- Update to 2.10.2
+- Add rk356x to rk3588 branch
+
 * Tue Feb 20 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.10.0-8
 - Fix location of some rockchip files
 

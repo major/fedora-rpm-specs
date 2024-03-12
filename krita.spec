@@ -13,7 +13,7 @@
 
 Name:           krita
 Version:        5.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -223,6 +223,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sun Mar 10 2024 Alessandro Astone <ales.astone@gmail.com> - 5.2.2-7
+- Rebuild (libunibreak)
+
 * Thu Mar 07 2024 Dominik Mierzejewski <dominik@greysector.net> - 5.2.2-6
 - add missing BuildRequires for JPEG-XL support
 

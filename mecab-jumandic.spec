@@ -9,10 +9,11 @@
 
 Name:		mecab-jumandic
 Version:	%{majorver}.%{date}
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	JUMAN dictorionary for MeCab
 
-License:	BSD
+# SPDX confirmed
+License:	BSD-3-Clause
 URL:		http://mecab.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/mecab/%{name}-%{majorver}-%{date}.tar.gz
 
@@ -87,15 +88,20 @@ if test -f %{_sysconfdir}/mecabrc ; then
 fi
 
 %files
-%doc AUTHORS COPYING
+%doc AUTHORS
+%license COPYING
 %{_libdir}/mecab/dic/jumandic/
 
 %files EUCJP
-%doc AUTHORS COPYING
+%doc AUTHORS
+%license COPYING
 %{_libdir}/mecab/dic/jumandic-EUCJP/
 
 
 %changelog
+* Sun Mar 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.20070304-31
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.20070304-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

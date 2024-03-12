@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Frameworks 6 module to perform actions as privileged user
 # LGPL-2.0-or-later is also in the project's LICENSES, but is unused according to reuse.
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later
@@ -36,6 +36,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -72,6 +73,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Thu Feb 22 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.0-2
 - Rebuild due to sources re-spin
 

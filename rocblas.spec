@@ -1,6 +1,6 @@
 %global upstreamname rocBLAS
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -14,7 +14,8 @@
 # export QA_RPATHS=0xff
 %bcond_with test
 
-%bcond_without tensile
+# Disable to get llvm17 fixed
+%bcond_with tensile
 
 Name:           rocblas
 Version:        %{rocm_version}
@@ -29,10 +30,6 @@ Patch1:         0001-Hardcode-cblas-as-the-blas-library.patch
 Patch2:         0001-fixup-install-of-tensile-output.patch
 
 BuildRequires:  cmake
-BuildRequires:  clang-devel
-BuildRequires:  compiler-rt
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel

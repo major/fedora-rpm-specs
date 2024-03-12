@@ -3,7 +3,7 @@
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        6.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -42,6 +42,7 @@ Requires:       qt6-qtbase-devel
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -76,6 +77,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Mon Feb 26 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-2
 - Respin: 6.0.0 (New tarball released by KDE)
 

@@ -10,6 +10,7 @@ BuildRequires:  gcc
 BuildRequires:  git meson
 BuildRequires:  byacc flex bison
 BuildRequires:  xorg-x11-proto-devel libX11-devel
+BuildRequires:  pkgconfig(wayland-client) pkgconfig(wayland-protocols)
 BuildRequires:  xkeyboard-config-devel
 BuildRequires:  pkgconfig(xcb-xkb) >= 1.10
 BuildRequires:  libxml2-devel
@@ -55,7 +56,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %build
 %meson -Denable-docs=false \
        -Denable-x11=true \
-       -Denable-wayland=false
+       -Denable-wayland=true
 %meson_build
 
 %install
@@ -99,17 +100,22 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_libexecdir}/xkbcommon/xkbcli-compile-keymap
 %{_libexecdir}/xkbcommon/xkbcli-how-to-type
 %{_libexecdir}/xkbcommon/xkbcli-interactive-evdev
+%{_libexecdir}/xkbcommon/xkbcli-interactive-wayland
 %{_libexecdir}/xkbcommon/xkbcli-interactive-x11
 %{_libexecdir}/xkbcommon/xkbcli-list
 %{_mandir}/man1/xkbcli-compile-keymap.1.gz
 %{_mandir}/man1/xkbcli-how-to-type.1.gz
 %{_mandir}/man1/xkbcli-interactive-evdev.1.gz
+%{_mandir}/man1/xkbcli-interactive-wayland.1.gz
 %{_mandir}/man1/xkbcli-interactive-x11.1.gz
 %{_mandir}/man1/xkbcli-list.1.gz
 %{_mandir}/man1/xkbcli.1.gz
 %{_datadir}/bash-completion/completions/xkbcli
 
 %changelog
+* Mon Mar 11 2024 Peter Hutterer <peter.hutterer@redhat.com> - 1.6.0-3
+- Built with wayland enabled to have the interactive-wayland tool
+
 * Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

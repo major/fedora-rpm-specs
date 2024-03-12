@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Syntax highlighting engine for Kate syntax definitions
 License:        MIT AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-or-later
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -39,6 +39,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -76,6 +77,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
 - add xerces-c support
 

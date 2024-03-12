@@ -1,8 +1,8 @@
 #global candidate rc3
 
 Name:          libgpiod
-Version:       2.1
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Version:       2.1.1
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Sun Mar 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

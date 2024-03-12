@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.22%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.23%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -38,7 +38,10 @@ Patch7:         CVE-2020-24293.patch
 Patch8:         CVE-2020-24295.patch
 # Downstream fix for CVE-2021-40263
 Patch9:         CVE-2021-40263.patch
-
+# Downstream fix for CVE-2023-47997
+Patch10:        CVE-2023-47997.patch
+# Downstream fix for CVE-2023-47995
+Patch11:        CVE-2023-47995.patch
 
 
 BuildRequires:  doxygen
@@ -168,6 +171,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Sun Mar 10 2024 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.23.svn1909
+- Add downstream patches for CVE-2023-47997, CVE-2023-47995
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.22.svn1909
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

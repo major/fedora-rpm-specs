@@ -1,8 +1,8 @@
 #global candidate rc2
 
 Name:     libcoap
-Version:  4.3.4
-Release:  3%{?candidate:.%{candidate}}%{?dist}
+Version:  4.3.4a
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Summary:  C library implementation of CoAP
 URL:      https://libcoap.net/
 # If build against gnutls the license is BSD + LGPL 2.1
@@ -97,6 +97,9 @@ make check
 %{_libdir}/libcoap-3*.so
 
 %changelog
+* Sun Mar 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.4a-1
+- Update to 4.3.4a
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,11 +2,14 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 6 Tier 3 module for downloading application assets
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
 Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+
+# https://invent.kde.org/frameworks/knewstuff/-/merge_requests/297
+Patch0:  fix-link-list-dialog-for-installation-button.patch
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
@@ -50,6 +53,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -91,6 +95,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Mar 10 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.0-4
+- Backport patch to install popup
+
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Mon Feb 26 2024 Steve Cossette <farchord@gmail.com> - 6.0.0-2
 - Respin: 6.0.0 (New tarball released by KDE)
 

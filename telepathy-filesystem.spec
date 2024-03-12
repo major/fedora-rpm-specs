@@ -1,9 +1,10 @@
 Name:           telepathy-filesystem
 Version:        0.0.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Telepathy filesystem layout
 
-License:        Public Domain
+# SPDX confirmed
+License:        LicenseRef-Not-Copyrightable
 
 BuildArch:      noarch
 Requires:       filesystem
@@ -32,6 +33,9 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 
 
 %changelog
+* Sun Mar 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.2-25
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

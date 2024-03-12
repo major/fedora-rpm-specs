@@ -1,24 +1,17 @@
-%if 0%{?fedora} < 19
-%define		rubyabi		1.9.1
-%endif
-
 Name:		ruby-bsearch
 Version:	1.5
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Binary search library for Ruby
-License:	Ruby
+
+# SPDX confirmed
+License:	Ruby OR GPL-2.0-only
 URL:		http://0xcc.net/ruby-bsearch/
 Source0:	http://0xcc.net/ruby-bsearch/%{name}-%{version}.tar.gz
 
 # make it sure that the ruby used for build has
 # the same abi as which is used at runtime
-%if 0%{?fedora} >= 19
 BuildRequires:	ruby(release)
 Requires:	ruby(release)
-%else
-BuildRequires:	ruby(abi) = %{rubyabi}
-Requires:	ruby(abi) = %{rubyabi}
-%endif
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 Provides:	ruby(bsearch) = %{version}-%{release}
@@ -50,6 +43,9 @@ cd ..
 
 
 %changelog
+* Sun Mar 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5-31
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

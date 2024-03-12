@@ -1,6 +1,6 @@
 %global upstreamname rocPRIM
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
@@ -28,14 +28,10 @@ BuildArch: noarch
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  clang-devel
 BuildRequires:  doxygen
 %if %{with check}
 BuildRequires:  gtest-devel
 %endif
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel

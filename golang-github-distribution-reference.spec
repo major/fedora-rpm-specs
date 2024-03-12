@@ -2,23 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/alecthomas/kong
-%global goipath         github.com/alecthomas/kong
-Version:                0.9.0
+# https://github.com/distribution/reference
+%global goipath         github.com/distribution/reference
+Version:                0.5.0
 
 %gometa -f
 
 %global common_description %{expand:
-Kong is a command-line parser for Go.}
+Go library for handling references to container images held in container
+registries.}
 
-%global golicenses      COPYING
-%global godocs          _examples README.md
+%global golicenses      LICENSE
+%global godocs          README.md SECURITY.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Command-line parser for Go
+Summary:        Go library to handle references to container images
 
-License:        MIT
+License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 

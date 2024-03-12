@@ -1,5 +1,5 @@
 Name:           python-snakemake-storage-plugin-gcs
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for Google Cloud Storage
 

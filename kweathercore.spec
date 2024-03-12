@@ -1,9 +1,7 @@
-%bcond docs %{undefined flatpak}
-
 Name:           kweathercore
 Version:        0.8.0
-Release:        3%{?dist}
-License:        LGPLv2+
+Release:        4%{?dist}
+License:        LGPL-2.0-or-later
 Summary:        Library to facilitate retrieval of weather information
 Url:            https://invent.kde.org/libraries/kweathercore
 Source0:        https://download.kde.org/stable/kweathercore/%{version}/%{name}-%{version}.tar.xz
@@ -33,23 +31,20 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
-%package docs
-Summary:        Documentation for %{name}
-BuildRequires:  doxygen
-BuildRequires:  qt6-doctools
-BuildRequires:  qt6-qttools-libs-help
-BuildArch: noarch
 
-%description docs
-%{summary}.
+%package        doc
+Summary:        Developer Documentation files for %{name}
+Obsoletes:      kweathercore-docs < 0.8.0-4
+BuildArch:      noarch
+
+%description    doc
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -n %{name}-%{version}
 
 %build
-%cmake_kf6 \
-  -DBUILD_QCH:BOOL=%{?with_docs:ON}%{!?with_docs:OFF}
-
+%cmake_kf6
 %cmake_build
 
 %install
@@ -70,17 +65,17 @@ BuildArch: noarch
 %{_kf6_libdir}/cmake/KWeatherCore/
 %{_kf6_libdir}/libKWeatherCore.so
 %{_kf6_archdatadir}/mkspecs/modules/qt_KWeatherCore.pri
-
-
-%if %{with docs}
-%files docs
-%doc README.md
-%license LICENSES/*.txt
-%{_qt6_docdir}/KWeatherCore.qch
 %{_qt6_docdir}/KWeatherCore.tags
-%endif
+
+%files doc
+%{_qt6_docdir}/KWeatherCore.qch
+
 
 %changelog
+* Sun Mar 10 2024 Marie Loise Nolden <loise@kde.org> - 0.8.0-4
+- convert -docs package to -doc for API documentation automatically generated now
+- SPDX license notice
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

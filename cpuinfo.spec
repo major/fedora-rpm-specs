@@ -6,17 +6,12 @@
 
 %if %{with gitcommit}
 
+%else
+
 # commit is what PyTorch 2.3 at its gitcommit expects
 %global commit0 d6860c477c99f1fce9e28eb206891af3c0e1a1d7
 Version:        23.11.04
 %define patch_level 0
-
-%else
-
-%global commit0 eb4a6674bfe9cf91b63b9817412ae5f6862c8432
-# The project has no version, this is the last git commit date YY.M.D
-Version:        23.2.14
-%define patch_level 4
 
 %endif
 
@@ -122,6 +117,9 @@ for cpuinfo.
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Sun Mar 10 2024 Tom Rix <trix@redhat.com> - 23.11.04-0.gitd6860c4
+- Update for pytorch 2.3
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.14-3.giteb4a667.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    kdiagram
 Summary: Powerful libraries (KChart, KGantt) for creating business diagrams
 Version: 3.0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 Url:     https://invent.kde.org/graphics/kdiagram
@@ -33,6 +33,7 @@ Requires: cmake(Qt6PrintSupport)
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -70,6 +71,9 @@ cat kchart6_qt.lang kgantt6_qt.lang > %{name}.lang
 
 
 %changelog
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 3.0.1-5
+- add missing BuildArch: noarch to -doc package
+
 * Wed Feb 7 2024 Steve Cossette <farchord@gmail.com> - 3.0.1-4
 - Added -doc subpackage
 

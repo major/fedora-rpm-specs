@@ -1,8 +1,8 @@
-%global modname 3.1.0
+%global modname 3.1.1
 
 Summary: Open source Church presentation and lyrics projection application
 Name: OpenLP
-Version: 3.1.0
+Version: 3.1.1
 Release: 1%{?dist}
 Source0: https://get.openlp.org/%{version}/OpenLP-%{version}.tar.gz
 License: GPLv3
@@ -91,7 +91,10 @@ cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
 
 %changelog
-* Wed Feb 28 2024 Release 3.0.2 <Tim.Bentley@openlp.org> - 3.1.0-1
+* Sun Mar 10 2024 Release 3.1.1 <Tim.Bentley@openlp.org> - 3.1.1-1
+- Release of version 3.1.1
+
+* Wed Feb 28 2024 Release 3.1.0 <Tim.Bentley@openlp.org> - 3.1.0-1
 - Release of version 3.1.0
 
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-5

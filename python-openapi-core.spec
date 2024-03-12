@@ -12,9 +12,6 @@ License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
 Source:         %{pypi_source %{modname} 0.19.0}
 
-# Accept python-fastapi 0.109.0
-Patch:          fastapi-109.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -22,12 +19,10 @@ BuildRequires:  python3-devel
 # Test dependencies; see [tool.poetry.dev-dependencies], but note that this
 # contains both test dependencies and unwanted linters etc.
 BuildRequires:  python3dist(djangorestframework)
-BuildRequires:  python3dist(fastapi)
 BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-aiohttp)
 BuildRequires:  python3dist(responses)
-BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(strict-rfc3339)
 BuildRequires:  python3dist(webob)
 
@@ -51,6 +46,9 @@ Summary:        %{summary}
 %autosetup -n %{modname}-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
+# We cannot respect a SemVer pin on FastAPI; it updates frequently, with
+# usually-tiny breaking changes.
+sed -r -i 's/(fastapi = \{version = ")\^/\1>=/' pyproject.toml
 
 
 %generate_buildrequires

@@ -1,18 +1,10 @@
 Name:         liblo
-Version:      0.31
-Release:      12%{?dist}
+Version:      0.32
+Release:      1%{?dist}
 Summary:      Open Sound Control library
 License:      LGPLv2+
-URL:          http://liblo.sourceforge.net
-Source0:      http://download.sf.net/sourceforge/liblo/liblo-%{version}.tar.gz
-# Patch merged upstream https://github.com/radarsat1/liblo/commit/4074d0e27b8ac5173689e87f1ee971361f9797a3
-Patch0:       %{name}-maybe-uninitialized.patch
-# Patch sent upstream https://github.com/radarsat1/liblo/pull/120
-Patch1:       %{name}-one-more-maybe-uninitialized.patch
-# Patch sent upstream https://github.com/radarsat1/liblo/pull/136
-Patch2:       %{name}-ret-uninitialized.patch
-# Patch sent upstream https://github.com/radarsat1/liblo/pull/140
-Patch3:       %{name}-use-after-free.patch
+URL:          https://liblo.sourceforge.net
+Source0:      https://download.sf.net/sourceforge/liblo/liblo-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: doxygen
@@ -69,6 +61,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 10 2024 Guido Aulisi <guido.aulisi@gmail.com> - 0.32-1
+- Update to 0.32
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

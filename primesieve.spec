@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.0
-Release:  2%{?dist}
+Version:  12.1
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,12 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sun Mar 10 2024 Kim Walisch <walki@fedoraproject.org> - 12.1-1
+- CMakeLists.txt: Fix undefined reference to pthread_create
+- Fix -ffast-math failure of --test option
+- Fix musl libc issue in unit tests
+- Improve status output
+
 * Mon Feb 19 2024 Kim Walisch <walki@fedoraproject.org> - 12.0-2
 - Increase .so version to 12
 

@@ -9,7 +9,7 @@
 
 %global rocm_major 6
 %global rocm_minor 0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 

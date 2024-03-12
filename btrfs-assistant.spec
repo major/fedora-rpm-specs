@@ -1,5 +1,5 @@
 Name:           btrfs-assistant
-Version:        1.9
+Version:        2.0
 Release:        %autorelease
 Summary:        GUI management tool to make managing a Btrfs filesystem easier
 
@@ -10,13 +10,13 @@ Source0:        https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-
 Requires:       hicolor-icon-theme
 Requires:       polkit
 
-BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  libbtrfsutil
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  pkgconfig(Qt6Widgets)
+BuildRequires:  pkgconfig(Qt6Linguist)
+BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 Recommends:     btrfsmaintenance

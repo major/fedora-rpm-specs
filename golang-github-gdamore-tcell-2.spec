@@ -3,7 +3,7 @@
 
 # https://github.com/gdamore/tcell
 %global goipath         github.com/gdamore/tcell/v2
-Version:                2.7.0
+Version:                2.7.4
 
 %gometa
 
@@ -24,6 +24,7 @@ URL:            %{gourl}
 Source:         %{gosource}
 
 # These are all needed for rebuilding the terminfo database.
+BuildRequires:  foot-terminfo
 BuildRequires:  kitty-terminfo
 BuildRequires:  ncurses
 BuildRequires:  ncurses-base
@@ -38,14 +39,14 @@ BuildRequires:  rxvt-unicode
 %prep
 %goprep
 
+ls -R terminfo/?/ > terminfo-files
 # Use existing sources for:
-# * alacritty-direct, as it's not provided by ncurses, nor packaged
-# * foot, as we have no source since it isn't packaged
 # * sun, which is hand-coded, not generated
 # * xterm-direct, which is hand-coded, not generated
-# * xterm-termite, as we have no source since it isn't packaged
-find terminfo/?/ \! -path '*alacritty/direct.go' -a \! -path '*foot/foot.go' -a \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a \! -path '*xterm_termite/term.go' -type f -delete
+find terminfo/?/ \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a -type f -delete
 sed -i 's/go run mkinfo.go/$1/g' terminfo/gen.sh
+sed -i 's/^alacritty$/alacritty,alacritty-direct|alacritty/g' terminfo/models.txt
+echo foot >> terminfo/models.txt
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -56,6 +57,8 @@ sed -i 's/go run mkinfo.go/$1/g' terminfo/gen.sh
 pushd terminfo
 bash -x gen.sh %{gobuilddir}/bin/mkinfo
 popd
+ls -R terminfo/?/ > generated-terminfo-files
+diff -u terminfo-files generated-terminfo-files || true
 
 %install
 %gopkginstall

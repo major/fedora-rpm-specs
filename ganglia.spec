@@ -11,7 +11,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            47%{?dist}
+Release:            48%{?dist}
 License:            BSD
 URL:                http://ganglia.sourceforge.net/
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
@@ -21,12 +21,11 @@ Source3:            gmetad.service
 Source4:            ganglia-httpd24.conf.d
 Source5:            ganglia-httpd.conf.d
 Source6:            conf.php
-Patch0:             ganglia-web-3.7.2-path.patch
-Patch1:             ganglia-3.7.2-apache.patch
-Patch2:             ganglia-3.7.2-sflow.patch
-Patch3:             ganglia-3.7.2-tirpc-hack.patch
-Patch5:             ganglia-3.7.2-gcc14-cast.patch
-Patch6:             ganglia-web-3.7.6-pr-379.patch
+Patch0:             ganglia-3.7.2-185ab6.patch
+Patch1:             ganglia-3.7.2-gcc14-cast.patch
+Patch10:            ganglia-3.7.2-tirpc-hack.patch
+Patch20:            ganglia-web-3.7.2-path.patch
+Patch21:            ganglia-web-3.7.6-pr-379.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
@@ -143,21 +142,20 @@ programmers can use to build scalable cluster or grid applications
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%if 0%{?fedora} || 0%{?rhel} > 7
+%patch10 -p1
+%endif
 # fix broken systemd support
 install -m 0644 %{SOURCE2} gmond/gmond.service.in
 install -m 0644 %{SOURCE3} gmetad/gmetad.service.in
-%patch1 -p0
-%patch2 -p0
-%patch5 -p1
-%if 0%{?fedora} || 0%{?rhel} > 7
-%patch3 -p1
-%endif
 # web part
 %setup -q -T -D -a 1
 mv ganglia-web-%{webver} web
 pushd web
-%patch0 -p1
-%patch6 -p1
+%patch20 -p1
+%patch21 -p1
 popd
 
 %build
@@ -410,6 +408,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sun Mar 10 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-48
+- Update to commit 185ab6b
+
 * Sun Mar 03 2024 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-47
 - Add more PHP8 patches
 

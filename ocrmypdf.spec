@@ -7,7 +7,7 @@ Summary:        Add an OCR text layer to scanned PDF files
 
 # See all SPDX-License-Identifier tags in files.
 # No docs or tests are included in RPM.
-License:        MPL-2.0 and Zlib
+License:        MPL-2.0 AND Zlib
 URL:            https://github.com/ocrmypdf/OCRmyPDF
 Source0:        %pypi_source %{srcname}
 # Fedora specific.

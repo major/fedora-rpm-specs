@@ -41,7 +41,11 @@ rm -rvf 'bm-xp'
 
 %install
 install -d '%{buildroot}%{_datadir}/cmake/c4project'
-cp -vrp * '%{buildroot}%{_datadir}/cmake/c4project'
+# We install a copy of the repository, but we don’t want to include dotfiles or
+# duplicate the README and LICENSE files.
+find . -mindepth 1 -maxdepth 1 ! -name '.*' \( -type d -o \
+    -type f ! -name 'README.md' ! -name 'LICENSE.txt' \) \
+    -execdir cp -vrp '{}' '%{buildroot}%{_datadir}/cmake/c4project' ';'
 
 
 %check

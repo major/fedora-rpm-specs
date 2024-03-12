@@ -6,8 +6,8 @@
 %global enabled_cargo_features default,tpm-provider,pkcs11-provider,mbed-crypto-provider,direct-authenticator,unix-peer-credentials-authenticator
 
 Name:          parsec
-Version:       1.1.0
-Release:       7%{?candidate:.%{candidate}}%{?dist}
+Version:       1.3.0
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -16,16 +16,13 @@ Source0:       %{url}/archive/v%{version}/%{name}-%{version}%{?candidate:-%{cand
 Source1:       parsec.service
 Source2:       config.toml
 Source3:       parsec.tmpfile.conf
-Patch1:        parsec-metadata.diff
-
-# the cryptoki-sys crate does not support s390x
-ExcludeArch:   s390x
+Patch1:        parsec-fix-metadata.diff
 
 BuildRequires: rust-packaging
 BuildRequires: systemd
-Requires: tpm2-tss >= 3.1.0
+Requires: tpm2-tss >= 4.0.0
 Requires(pre): shadow-utils
-Requires(pre): tpm2-tss >= 3.1.0
+Requires(pre): tpm2-tss >= 4.0.0
 %{?systemd_requires}
 
 %description
@@ -52,6 +49,7 @@ install -D -p -m0644 %{SOURCE1} %{buildroot}%{_unitdir}/parsec.service
 install -D -p -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/parsec/config.toml
 install -D -p -m0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/parsec.conf
 install -d -m0755 %{buildroot}%{_localstatedir}/lib/parsec
+install -d -m0755 %{buildroot}%{_localstatedir}/lib/parsec/mappings
 install -d -m0755 %{buildroot}%{_libexecdir}
 mv %{buildroot}%{_bindir}/parsec %{buildroot}%{_libexecdir}/
 
@@ -83,12 +81,16 @@ exit 0
 %doc README.md config.toml
 %attr(0750,parsec,parsec) %dir %{_sysconfdir}/parsec/
 %attr(0750,parsec,parsec) %dir %{_localstatedir}/lib/parsec/
+%attr(0750,parsec,parsec) %dir %{_localstatedir}/lib/parsec/mappings/
 %config(noreplace) %{_sysconfdir}/parsec/config.toml
 %{_libexecdir}/parsec
 %{_tmpfilesdir}/parsec.conf
 %{_unitdir}/parsec.service
 
 %changelog
+* Sun Mar 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.0-1
+- Update to 1.3.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

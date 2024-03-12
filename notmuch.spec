@@ -35,7 +35,7 @@
 %endif
 
 Name:           notmuch
-Version:        0.38.2
+Version:        0.38.3
 Release:        %autorelease
 Summary:        System for indexing, searching, and tagging email
 License:        GPL-3.0-or-later
