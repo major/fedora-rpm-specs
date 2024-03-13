@@ -3,7 +3,7 @@
 #   %%global shortcommit  %%(c=%%{commit}; echo ${c:0:9})
 
 Name:		dlib
-Version:	19.24.2
+Version:	19.24.3
 Release:	%autorelease %{?shortcommit:-s %{commitdate}git%{shortcommit}}
 Summary:	A modern C++ toolkit containing machine learning algorithms
 

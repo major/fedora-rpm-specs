@@ -1,6 +1,6 @@
 Name:          ktextaddons
 Version:       1.5.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -74,6 +74,7 @@ Summary:        Development files for %{name}
 
 %package        qt6-doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    qt6-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -253,6 +254,9 @@ popd
 %doc README.md
 
 %changelog
+* Sun Mar 10 2024 Marie Loise Nolden <loise@kde.org> - 1.5.3-5
+- add missing BuildArch: noarch to -qt6-doc package
+
 * Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 1.5.3-4
 - move qt designer plugin to -devel (qt5 and qt6)
 

@@ -1,6 +1,6 @@
 Name:           perl-Perl-Version
-Version:        1.016
-Release:        3%{?dist}
+Version:        1.017
+Release:        1%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
@@ -10,6 +10,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
@@ -43,8 +44,22 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 Perl::Version provides a simple interface for parsing, manipulating and
 formatting Perl version strings.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Perl-Version-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 PERL_MM_USE_DEFAULT=true perl Makefile.PL INSTALLDIRS=vendor \
@@ -53,9 +68,25 @@ PERL_MM_USE_DEFAULT=true perl Makefile.PL INSTALLDIRS=vendor \
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+perl -i -pe 's{RUN -quiet}{RUN -quiet %{perl_vendorlib}/Perl/Version.pm}' \
+    %{buildroot}%{_libexecdir}/%{name}/t/40.perl-reversion.t
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/examples
+ln -s %{_bindir}/perl-reversion %{buildroot}%{_libexecdir}/%{name}/examples
+rm %{buildroot}%{_libexecdir}/%{name}/t/manifest.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -66,7 +97,14 @@ make test
 %{_mandir}/man1/perl-reversion*
 %{_mandir}/man3/Perl::Version*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Mar 11 2024 Jitka Plesnikova <jplesnik@redhat.com> - 1.017-1
+- 1.017 bump (rhbz#2268649)
+- Package tests
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.016-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

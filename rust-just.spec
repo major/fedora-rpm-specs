@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.24.0
+Version:        1.25.2
 Release:        %autorelease
 Summary:        Just a command runner
 

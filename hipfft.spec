@@ -30,11 +30,6 @@ ExclusiveArch:  x86_64
 Source0:        %{url}/archive/%{commit0}/hipfft-%{shortcommit0}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  clang
-BuildRequires:  clang-devel
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel

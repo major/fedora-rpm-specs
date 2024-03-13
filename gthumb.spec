@@ -3,7 +3,7 @@
 
 Name:           gthumb
 Epoch:          1
-Version:        3.12.5
+Version:        3.12.6
 Release:        1%{?dist}
 Summary:        Image viewer, editor, organizer
 
@@ -97,6 +97,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Mon Mar 11 2024 David King <amigadave@amigadave.com> - 1:3.12.6-1
+- Update to 3.12.6
+
 * Mon Feb 19 2024 David King <amigadave@amigadave.com> - 1:3.12.5-1
 - Update to 3.12.5
 

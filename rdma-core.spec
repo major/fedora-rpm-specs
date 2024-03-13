@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 48.0
+Version: 50.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -10,6 +10,7 @@ Summary: RDMA core userspace libraries and daemons
 License: GPL-2.0-only OR BSD-2-Clause AND BSD-3-Clause
 Url: https://github.com/linux-rdma/rdma-core
 Source: https://github.com/linux-rdma/rdma-core/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch0001: 0001-pyverbs-Fix-build-failure.patch
 Patch9998: 9998-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch
 Patch9999: 9999-udev-keep-NAME_KERNEL-as-default-interface-naming-co.patch
 # Do not build static libs by default.
@@ -29,17 +30,14 @@ BuildRequires: /usr/bin/rst2man
 BuildRequires: valgrind-devel
 BuildRequires: systemd
 BuildRequires: systemd-devel
-# https://github.com/linux-rdma/rdma-core/pull/1405
-%if (0%{?fedora} < 40 && 0%{?fedora} >= 32) || (0%{?rhel} >= 8 && 0%{?rhel} < 10)
+%if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 %define with_pyverbs %{?_with_pyverbs: 1} %{?!_with_pyverbs: %{?!_without_pyverbs: 1} %{?_without_pyverbs: 0}}
 %else
 %define with_pyverbs %{?_with_pyverbs: 1} %{?!_with_pyverbs: 0}
 %endif
 %if %{with_pyverbs}
 BuildRequires: python3-devel
-# FTBFS with Cython 3
-# pyverbs/device.c: error: redefinition of '__Pyx_Enum_ibv_event_type_to_py'
-BuildRequires: python3dist(cython) < 3
+BuildRequires: python3-Cython
 %else
 %if 0%{?rhel} >= 8 || 0%{?fedora} >= 30
 BuildRequires: python3
@@ -281,6 +279,10 @@ easy, object-oriented access to IB verbs.
 %endif
 %if 0%{?rhel}
 %patch 9999 -p1
+%endif
+
+%if %{with_pyverbs}
+%patch 0001 -p1
 %endif
 
 %build

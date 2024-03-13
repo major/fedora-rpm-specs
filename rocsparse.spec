@@ -1,6 +1,6 @@
 %global upstreamname rocSPARSE
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -29,10 +29,6 @@ Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstream
 Patch0:         0001-prepare-rocsparse-cmake-for-fedora.patch
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  clang-devel
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel

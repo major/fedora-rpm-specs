@@ -3,7 +3,7 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.20.2
+Version:        0.20.4
 Release:        %autorelease
 
 Summary:        Python bindings for the AWS Common Runtime
@@ -18,6 +18,11 @@ Source0:        %{pypi_source awscrt}
 
 # one test requires internet connection, skip it
 Patch0:         skip-test-requiring-network.patch
+
+# revert aws-c-common commit 901405ec that causes SIGILL on x86
+# when running test_rsa_encryption_roundtrip
+# TODO: figure out what's the actual bug and report it upstream
+Patch1:         revert-aws-c-common-901405ec.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 

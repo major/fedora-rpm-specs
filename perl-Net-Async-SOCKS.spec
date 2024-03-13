@@ -1,10 +1,11 @@
 Name:           perl-Net-Async-SOCKS
 Version:        0.003
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Some degree of SOCKS5 proxy support in IO::Async
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-Async-SOCKS/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Net-Async-SOCKS-%{version}.tar.gz
+Patch0:         Net-Async-SOCKS-0.003-noRefcount.patch
 BuildArch:      noarch
 BuildRequires:  make perl-interpreter perl-generators coreutils
 BuildRequires:  perl(Carp)
@@ -33,6 +34,8 @@ Currently provides a very basic implementation of SOCKS_connect:
 
 %prep
 %setup -q -n Net-Async-SOCKS-%{version}
+# incorrectly tries to require Test::Refcount which is not used
+%patch -P0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -52,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Mar 11 2024 Chris Adams <linux@cmadams.net> 0.003-4
+- fix FTBFS by removing Test::Refcount check (rhbz#2268969)
+
 * Thu Feb 01 2024 Chris Adams <linux@cmadams.net> 0.003-3
 - additional spec file cleanups
 

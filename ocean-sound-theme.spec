@@ -13,6 +13,8 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6CoreTools)
 
 Requires:       kf6-filesystem
 

@@ -11,7 +11,7 @@
 
 Name:			librecad
 Version:		2.2.0.2
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPL-2.0-only AND GPL-2.0-or-later
 URL:			http://librecad.org/
@@ -54,7 +54,52 @@ Development files for LibreCAD.
 
 %package fonts
 Summary:	Fonts in LibreCAD (lff) format
-License:	GPL-2.0-or-later AND (Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0)
+# Amiri Regular - SIL OFL 1.1
+# AZOmix - KST32B 2.0 (LicenseRef-Fedora-UltraPermissive)
+# cursive - GPL-2.0-or-later
+# cyrillic_ii - GPL-2.0-or-later
+# gothgbt - GPL-2.0-or-later
+# gothgrt - GPL-2.0-or-later
+# gothitt - GPL-2.0-or-later
+# greekc - GPL-2.0-or-later
+# greekcs - LicenseRef-Fedora-Public-Domain
+# greek_ol - GPL-2.0-or-later
+# greekp - LicenseRef-Fedora-Public-Domain
+# greeks - GPL-2.0-or-later
+# iso3098_i - GPL-2.0-or-later
+# iso3098 - GPL-2.0-or-later
+# iso - GPL-2.0-or-later
+# italicc - GPL-2.0-or-later
+# italiccs - LicenseRef-Fedora-Public-Domain
+# italict - GPL-2.0-or-later
+# kochigothic - LicenseRef-Fedora-Public-Domain
+# kochimincho - LicenseRef-Fedora-Public-Domain
+# kst3b - LicenseRef-Fedora-UltraPermissive AND GPL-2.0-or-later
+# lc_opengost-* - SIL OFL 1.1
+# opengosttypea - SIL OFL 1.1
+# opengosttypeb - SIL OFL 1.1
+# romanc - LicenseRef-Fedora-Public-Domain
+# romancs - LicenseRef-Fedora-Public-Domain
+# romand - LicenseRef-Fedora-Public-Domain
+# romanp - LicenseRef-Fedora-Public-Domain
+# romansi - LicenseRef-Fedora-Public-Domain
+# romans - GPL-2.0-or-later
+# romant - LicenseRef-Fedora-Public-Domain
+# scriptc - LicenseRef-Fedora-Public-Domain
+# scripts - LicenseRef-Fedora-Public-Domain
+# simplex - GPL-2.0-or-later
+# standard - GPL-2.0-or-later
+# syastro - GPL-2.0-or-later
+# symap - GPL-2.0-or-later
+# symbol - GPL-2.0-or-later
+# symbol_misc1 - LicenseRef-Fedora-Public-Domain
+# symbol_misc2 - LicenseRef-Fedora-Public-Domain
+# symteo - GPL-2.0-or-later
+# symusic - GPL-2.0-or-later
+# unicode - GPL-2.0-or-later
+# wqy-microhei - Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0
+
+License:	GPL-2.0-or-later AND LicenseRef-Fedora-UltraPermissive AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain AND (LicenseRef-Fedora-UltraPermissive AND GPL-2.0-or-later) AND (Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0)
 BuildArch:	noarch
 
 %description fonts
@@ -235,6 +280,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Mon Mar 11 2024 Tom Callaway <spot@fedoraproject.org> - 2.2.0.2-4
+- fix font licensing tags
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

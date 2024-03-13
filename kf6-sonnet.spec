@@ -2,12 +2,15 @@
 
 Name:		kf6-%{framework}
 Version:	6.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
 
 Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz
+# patch out default excluded file list to have it empty
+# https://bugs.kde.org/show_bug.cgi?id=482376
+Patch0:		sonnet6-default-list.patch
 
 BuildRequires:	appstream
 BuildRequires:	extra-cmake-modules >= %{version}
@@ -77,6 +80,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -133,6 +137,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Mar 4 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- patch out default exclude list with KDE names, it can't be resetted
+
 * Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
 - add aspell, hspell, voikko (finnish)
 - make spellchecking engine plugins separate packages as they link

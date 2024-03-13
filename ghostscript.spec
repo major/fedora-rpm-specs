@@ -35,17 +35,12 @@
 # Obtain the location of Google Droid fonts directory:
 %global google_droid_fontpath %%(dirname $(fc-list : file | grep "DroidSansFallback"))
 
-# Desired jbig2dec header files and library version
-# Apparantly, ghostscript complains even about newer versions
-# Please update if needed.
-%global jbig2dec_version 0.20
-
 # =============================================================================
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.02.1
-Release:          8%{?dist}
+Version:          10.03.0
+Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -53,7 +48,6 @@ URL:              https://ghostscript.com/
 Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs%{version_short}/ghostscript-%{version}.tar.xz
 
 Requires:         libgs%{?_isa} = %{version}-%{release}
-Requires:         jbig2dec-libs = %{jbig2dec_version}
 Requires:         %{name}-tools-fonts = %{version}-%{release}
 Requires:         %{name}-tools-printing = %{version}-%{release}
 
@@ -80,8 +74,17 @@ BuildRequires:    dbus-devel
 BuildRequires:    fontconfig
 BuildRequires:    fontconfig-devel
 BuildRequires:    freetype-devel
-BuildRequires:    jbig2dec-devel = %{jbig2dec_version}
-BuildRequires:    jbig2dec-libs = %{jbig2dec_version}
+# jbig2dec has no valid soname at the moment, they check jbig2dec version at runtime
+# so any jbig2dec rebase means basically a soname bump - ghostscript has to be rebuilt
+# with it and released at the same time to prevent issues
+# 
+# How does the check work:
+# GS has jbig.h from jbig2dec-devel compiled in, which has the jbig2dec version
+# as macro at the moment of gs build - if the jbig2dec is rebased, its shared library
+# has the new version saved internally - when jbig2dec context is going to be initialized,
+# the version from jbig.h in gs is compared with the version in the shared library, requiring
+# the exact match.
+BuildRequires:    jbig2dec-devel
 BuildRequires:    lcms2-devel
 BuildRequires:    libidn2-devel
 BuildRequires:    libijs-devel
@@ -107,12 +110,6 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
-Patch: ghostscript-10.02.1-txtwrite-device-needs-to-countdown-the-device-on-tex.patch
-Patch: ghostscript-10.02.1-PostScript-Fix-selectdevice.patch
-# https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=b7beb19ad06e
-Patch: 0001-Bug-707130-Cast-to-void-to-avoid-compiler-warning.patch
-# https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff;h=8f5c77af6c0b
-Patch: 0001-X-device-fix-compiler-warning.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -350,8 +347,22 @@ done
 %files -n libgs
 %license LICENSE doc/COPYING
 
-%{_libdir}/libgs.so.*
-%{_datadir}/%{name}/
+%{_libdir}/libgs.so.10
+%{_libdir}/libgs.so.10.*
+%dir %{_datadir}/%{name}/
+%dir %{_datadir}/%{name}/Resource
+%{_datadir}/%{name}/Resource/CIDFSubst/
+%{_datadir}/%{name}/Resource/CIDFont/
+%{_datadir}/%{name}/Resource/CMap/
+%{_datadir}/%{name}/Resource/ColorSpace/
+%{_datadir}/%{name}/Resource/Decoding/
+%{_datadir}/%{name}/Resource/Encoding/
+%{_datadir}/%{name}/Resource/Font/
+%{_datadir}/%{name}/Resource/IdiomSet/
+%{_datadir}/%{name}/Resource/Init/
+%{_datadir}/%{name}/Resource/SubstCID/
+%{_datadir}/%{name}/iccprofiles/
+%{_datadir}/%{name}/lib/
 
 # Include the configuration folder for RHEL:
 %if %{defined rhel} || %{defined centos}
@@ -372,23 +383,40 @@ done
 %{_bindir}/ghostscript
 
 # Useful conversion scripts:
-%{_bindir}/eps2*
-%{_bindir}/pdf2*
-%{_bindir}/ps2*
+%{_bindir}/eps2eps
+%{_bindir}/pdf2dsc
+%{_bindir}/pdf2ps
+%{_bindir}/ps2ascii
+%{_bindir}/ps2epsi
+%{_bindir}/ps2pdf
+%{_bindir}/ps2pdf12
+%{_bindir}/ps2pdf13
+%{_bindir}/ps2pdf14
+%{_bindir}/ps2pdfwr
+%{_bindir}/ps2ps
+%{_bindir}/ps2ps2
 
-%{_mandir}/man1/gs.1*
-%{_mandir}/man1/gsnd*
-%{_mandir}/man1/ghostscript*
-%{_mandir}/man1/eps2*
-%{_mandir}/man1/pdf2*
-%{_mandir}/man1/ps2*
+%{_mandir}/man1/gs.1.gz
+%{_mandir}/man1/gsnd.1.gz
+%{_mandir}/man1/ghostscript.1.gz
+%{_mandir}/man1/eps2eps.1.gz
+%{_mandir}/man1/pdf2dsc.1.gz
+%{_mandir}/man1/pdf2ps.1.gz
+%{_mandir}/man1/ps2ascii.1.gz
+%{_mandir}/man1/ps2epsi.1.gz
+%{_mandir}/man1/ps2pdf.1.gz
+%{_mandir}/man1/ps2pdf12.1.gz
+%{_mandir}/man1/ps2pdf13.1.gz
+%{_mandir}/man1/ps2pdf14.1.gz
+%{_mandir}/man1/ps2pdfwr.1.gz
+%{_mandir}/man1/ps2ps.1.gz
 
 # ---------------
 
 %files tools-dvipdf
 %{_bindir}/dvipdf
 
-%{_mandir}/man1/dvipdf*
+%{_mandir}/man1/dvipdf.1.gz
 
 # ---------------
 
@@ -397,9 +425,9 @@ done
 %{_bindir}/pfbtopfa
 %{_bindir}/printafm
 
-%{_mandir}/man1/pf2afm*
-%{_mandir}/man1/pfbtopfa*
-%{_mandir}/man1/printafm*
+%{_mandir}/man1/pf2afm.1.gz
+%{_mandir}/man1/pfbtopfa.1.gz
+%{_mandir}/man1/printafm.1.gz
 
 # ---------------
 
@@ -411,10 +439,11 @@ done
 %{_bindir}/gslp
 %{_bindir}/pphs
 
-%{_mandir}/man1/gsbj*
-%{_mandir}/man1/gsdj*
-%{_mandir}/man1/gslj*
-%{_mandir}/man1/gslp*
+%{_mandir}/man1/gsbj.1.gz
+%{_mandir}/man1/gsdj.1.gz
+%{_mandir}/man1/gsdj500.1.gz
+%{_mandir}/man1/gslj.1.gz
+%{_mandir}/man1/gslp.1.gz
 
 # ---------------
 
@@ -429,6 +458,9 @@ done
 # =============================================================================
 
 %changelog
+* Fri Mar 08 2024 Zdenek Dohnal <zdohnal@redhat.com> - 10.03.0-1
+- 2268440 - ghostscript-10.03.0 is available
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.02.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           jackson-core
-Version:        2.16.1
-Release:        4%{?dist}
+Version:        2.16.2
+Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -55,6 +55,11 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
+- [maven-release-plugin] prepare release jackson-core-2.16.2 (Tatu Saloranta)
+- Prepare for 2.16.2 release (Tatu Saloranta)
+- Resolves rhbz#2268716
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.16.1-4
 - Rebuilt for java-21-openjdk as system jdk
 

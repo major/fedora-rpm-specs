@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.22.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -101,6 +101,10 @@ Patch7: valgrind-3.22.0-fchmodat2.patch
 # (unhandled instruction bytes: 0x2E 0x8D 0xB4 0x26)
 # https://bugs.kde.org/show_bug.cgi?id=478624
 Patch8: valgrind-3.22.0-x86-nop.patch
+
+# Handle gcc __builtin_strcmp using 128/256 bit vectors with sse4.1, avx/avx2
+# https://bugzilla.redhat.com/show_bug.cgi?id=2257546
+Patch9: valgrind-3.22.0-gcc-builtin_strcmp-128-256-bit-vector.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -240,6 +244,7 @@ Valgrind User Manual for details.
 %patch -P6 -p1
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -456,6 +461,9 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Mar 11 2024 Mark Wielaard <mjw@fedoraproject.org>
+- Add valgrind-3.22.0-gcc-builtin_strcmp-128-256-bit-vector.patch
+
 * Mon Mar  4 2024 Mark Wielaard <mjw@fedoraproject.org>
 - Update Fedora license tags to spdx license tags
 

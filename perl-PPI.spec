@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-PPI
-Version:        1.277
-Release:        3%{?dist}
+Version:        1.278
+Release:        1%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI
@@ -98,6 +98,10 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Mon Mar 11 2024 Paul Howarth <paul@city-fan.org> - 1.278-1
+- Update to 1.278
+  - Add support for new octal number syntax (GH#295)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.277-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

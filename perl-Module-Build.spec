@@ -12,7 +12,7 @@
 Name:           perl-Module-Build
 Epoch:          2
 Version:        %{cpan_version_major}%{?cpan_version_minor:.%cpan_version_minor}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Build and install Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build
@@ -182,6 +182,7 @@ perl Build.PL --installdirs=vendor
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t _build %{buildroot}%{_libexecdir}/%{name}
 perl -pi -e 's#%{buildroot}##' %{buildroot}%{_libexecdir}/%{name}/_build/runtime_params
+rm %{buildroot}%{_libexecdir}/%{name}/_build/magicnum
 mkdir -p %{buildroot}%{_libexecdir}/%{name}/bin
 ln -s %{_bindir}/config_data %{buildroot}%{_libexecdir}/%{name}/bin
 # Requires copy of modules in test directory
@@ -223,6 +224,9 @@ LANG=C TEST_SIGNATURE=1 MB_TEST_EXPERIMENTAL=1 ./Build test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 11 2024 Petr Pisar <ppisar@redhat.com> - 2:0.42.34-6
+- Make perl-Module-Build-tests reproducible
+
 * Wed Feb 14 2024 Jitka Plesnikova <jplesnik@redhat.com> - 2:0.42.34-5
 - Package tests
 

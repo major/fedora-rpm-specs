@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -108,8 +108,8 @@ Summary:        Core components of the KIO Framework
 %{?kf6_kinit_requires}
 Requires:       %{name}-core-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-doc = %{version}-%{release}
-Requires:       switcheroo-control
 Requires:       kf6-filesystem
+Recommends:     switcheroo-control
 %description    core
 KIOCore library provides core non-GUI components for working with KIO.
 
@@ -150,6 +150,7 @@ Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 %package        qch-doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    qch-doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -216,6 +217,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Mon Mar 11 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0-4
+- Soften switcheroo-control dependency
+
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Sat Mar 2 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
 - move qt designer plugin to -devel
 

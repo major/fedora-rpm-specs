@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.49.1
+Version:        0.49.2
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -48,6 +48,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Mar 08 2024 Packit <hello@packit.dev> - 0.49.2-1
+- `GitLabProject.get_file_content` can now correctly handle file paths starting with `./`. (#844)
+- Resolves rhbz#2268584
+
 * Mon Feb 12 2024 Packit <hello@packit.dev> - 0.49.1-1
 - Interface for labels was unified and `labels` property for PullRequest and Issue now return list of PRLabel and IssueLabel respectively. (#839)
 - Resolves rhbz#2260529

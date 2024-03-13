@@ -8,8 +8,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.0.2
-Release:        1%{?dist}
+Version:        10.0.4
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -422,7 +422,7 @@ type attribute.
 
 %package cli
 Summary:        Flexible operating system appliance image builder
-Provides:       kiwi-schema = 7.6
+Provides:       kiwi-schema = 8.0
 # So we can reference it by the source package name while permitting this to be noarch
 Provides:       %{name} = %{version}-%{release}
 Requires:       python3-%{name} = %{version}-%{release}
@@ -566,6 +566,12 @@ done
 
 
 %changelog
+* Mon Mar 11 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-2
+- Fix kiwi-schema provides
+
+* Mon Mar 11 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-1
+- Update to 10.0.4
+
 * Wed Mar 06 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.2-1
 - Rebase to 10.0.2
 

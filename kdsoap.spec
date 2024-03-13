@@ -18,9 +18,14 @@ Source2:        https://www.kdab.com/kdab-products.asc
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt6Core)
-BuildRequires: gnupg2
+BuildRequires:  qt6-rpm-macros
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  gnupg2
+# for doc generation
+BuildRequires:  doxygen
+BuildRequires:  cmake(Qt6ToolsTools)
+BuildRequires:  qt6-doc-devel
 
 %global _description %{expand:
 KDSoap can be used to create client applications for web services
@@ -59,11 +64,11 @@ Summary:        Header files and other common development files for kdsoap and k
 %{summary}.
 
 %package        doc
-Summary:        Documentation for %{name}
+Summary:        Developer Documentation files for %{name}
 BuildArch:      noarch
 
 %description    doc
-Documentation for %{name}
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -75,7 +80,9 @@ Documentation for %{name}
 %cmake_build
 
 %global _vpath_builddir %{_target_platform}-qt6
-%cmake -DKDSoap_EXAMPLES=false -DKDSoap_QT6=ON
+# qhelpgenerator needs to be in $PATH to be detected
+export PATH=%{_qt6_libexecdir}:$PATH
+%cmake -DKDSoap_EXAMPLES=false -DKDSoap_QT6=ON -DKDSoap_DOCS=ON
 %cmake_build
 
 %install
@@ -84,7 +91,10 @@ Documentation for %{name}
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
-rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
+mkdir -p %{buildroot}%{_qt6_docdir}
+mv %{buildroot}%{_docdir}/KDSoap-qt6/*.qch %{buildroot}%{_qt6_docdir}/
+mv %{buildroot}%{_docdir}/KDSoap-qt6/*.tags %{buildroot}%{_qt6_docdir}/
+rm -rf %{buildroot}%{_datarootdir}/doc/KDSoap{,-qt6}
 
 %check
 %global _vpath_builddir %{_target_platform}-qt5
@@ -94,16 +104,16 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 
 
 %files
+%doc README.md
+%license LICENSES/MIT.txt
 %{_libdir}/libkdsoap-server.so.2*
 %{_libdir}/libkdsoap.so.2*
-%doc README.md
-%license LICENSES/MIT.txt
 
 %files -n kdsoap6
-%{_libdir}/libkdsoap-server-qt6.so.2*
-%{_libdir}/libkdsoap-qt6.so.2*
 %doc README.md
 %license LICENSES/MIT.txt
+%{_libdir}/libkdsoap-server-qt6.so.2*
+%{_libdir}/libkdsoap-qt6.so.2*
 
 %files devel
 %doc kdsoap.pri kdwsdl2cpp.pri
@@ -124,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 %{_libdir}/qt6/mkspecs/modules/*
 %{_includedir}/KDSoapClient-Qt6/
 %{_includedir}/KDSoapServer-Qt6/
+%{_qt6_docdir}/kdsoap.tags
 
 %files devel-common
 %dir %{_datadir}/mkspecs
@@ -132,8 +143,8 @@ rm -rf $RPM_BUILD_ROOT/%{_datarootdir}/doc/KDSoap{,-qt6}
 
 
 %files doc
-%doc docs
-
+%doc docs/CHANGES* docs/manual
+%{_qt6_docdir}/kdsoap-api.qch
 
 %changelog
 %autochangelog

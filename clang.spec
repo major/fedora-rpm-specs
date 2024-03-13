@@ -12,10 +12,10 @@
 
 %bcond_with compat_build
 %bcond_without check
-# Use lld to workaround memory limits on i686 and to fix bootstrap
-# issue where clang uses the wrong gold plugin version when the
-# LLVM compat package is present.
-%ifnarch s390x
+
+%ifarch aarch64
+# Use lld on aarch64, becuase ld.bfd will occasionally fail with the error:
+# `Could not create temporary file: Too many open files`
 %bcond_without linker_lld
 %else
 %bcond_with linker_lld
@@ -74,7 +74,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -325,10 +325,8 @@ rm test/CodeGen/profile-filter.c
 
 %build
 
-# And disable LTO on AArch64 entirely.
-# There is a miscompile with lto on x86_64 when using clang-17
 # Disable lto on i686 due to memory constraints.
-%ifarch aarch64 x86_64 %ix86
+%ifarch %ix86
 %define _lto_cflags %{nil}
 %endif
 
@@ -706,6 +704,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir} %{__ninja} check-all -C %{__cmake
 
 %endif
 %changelog
+* Fri Mar 08 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-3
+- Remove some LTO workarounds
+
 * Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-2
 - Fix gcc triple on i686
 

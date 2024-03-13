@@ -1,6 +1,6 @@
 Name:           kpublictransport
 Version:        24.02.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
 Url:            https://invent.kde.org/libraries/kpublictransport
@@ -31,6 +31,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -64,6 +65,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Mar 10 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
+- add missing BuildArch: noarch to -doc package
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

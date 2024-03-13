@@ -2,8 +2,8 @@
 %global abi_ver 12
 
 Name:           wlroots
-Version:        0.17.1
-Release:        2%{?dist}
+Version:        0.17.2
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -34,7 +34,6 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
-Patch:          %{url}/-/commit/f3e1f7b.patch#/wlroots-0.17-backend-fix-build-against-upcoming-gcc-14.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -128,6 +127,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Mon Mar 11 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.17.2-1
+- Update to 0.17.2 (#2269046)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

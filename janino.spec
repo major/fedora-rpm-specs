@@ -64,7 +64,7 @@ cd -
 
 cd %{name}-parent
 # de.unkrig.jdisasm:jdisasm is missing
-  %mvn_build -s -f
+  %mvn_build -s -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 cd -
 
 %install

@@ -4,14 +4,13 @@
 %global libtqslver 2.5
 
 Name:           trustedqsl
-Version:        2.7.1
-Release:        2%{?dist}
+Version:        2.7.2
+Release:        1%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 License:        BSD
 URL:            http://sourceforge.net/projects/trustedqsl/
 
 Source0:        https://www.arrl.org/%{srcname}/%{srcname}-%{version}.tar.gz
-Source1:        tqsl.appdata.xml
 
 Patch0:         tqsl-tqsllib.patch
 
@@ -80,12 +79,12 @@ find %{buildroot}%{_datadir}/locale/ -type f -name wxstd.mo -exec rm -f {} \;
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.arrl.trustedqsl.desktop
 
 %if 0%{?fedora}
-# Install appdata file
-mkdir -p %{buildroot}%{_datadir}/appdata
-install -pm 0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/
+# Install metainfo file
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 0644 apps/org.arrl.trustedqsl.metainfo.xml %{buildroot}%{_metainfodir}/
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %ldconfig_scriptlets tqsllib
@@ -96,7 +95,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %doc AUTHORS.txt README
 %{_bindir}/tqsl
 %{_datadir}/applications/org.arrl.trustedqsl.desktop
-%{?fedora:%{_datadir}/appdata/tqsl.appdata.xml}
+%{?fedora:%{_metainfodir}/org.arrl.trustedqsl.metainfo.xml}
 %{_datadir}/icons/hicolor/*/apps/org.arrl.trustedqsl.png
 %{_datadir}/pixmaps/TrustedQSL.png
 %{_datadir}/TrustedQSL
@@ -112,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Mon Mar 11 2024 Daniel Rusek <mail@asciiwolf.com> - 2.7.2-1
+- Update to 2.7.2.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

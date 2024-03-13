@@ -2,7 +2,7 @@
 %bcond_with perl_LWP_Protocol_https_enables_internet_test
 
 Name:           perl-LWP-Protocol-https
-Version:        6.13
+Version:        6.14
 Release:        1%{?dist}
 Summary:        Provide HTTPS support for LWP::UserAgent
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -18,7 +18,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(base)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(IO::Socket::SSL) >= 1.970
 BuildRequires:  perl(LWP::Protocol::http)
 BuildRequires:  perl(LWP::Protocol::http::SocketMethods)
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 11 2024 Michal Josef Špaček <mspacek@redhat.com> - 6.14-1
+- 6.14 bump
+
 * Tue Feb 06 2024 Michal Josef Špaček <mspacek@redhat.com> - 6.13-1
 - 0.13 bump
 

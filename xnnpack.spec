@@ -2,14 +2,12 @@
 %bcond_with gitcommit
 
 %if %{with gitcommit}
+%else
 # commit is what PyTorch 2.3 at its gitcommit expects
 %global commit0 fcbf55af6cf28a4627bcd1f703ab7ad843f0f3a2
 %global date0 20240229
-%else
-# commit is what PyTorch 2.1 expects, TOT has API changes that break PyTorch
-%global commit0 51a987591a6fc9f0fc0707077f53d763ac132cbf
-%global date0 20221221
 %endif
+
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 
@@ -29,10 +27,9 @@ Release:        %autorelease
 URL:            https://github.com/google/%{upstream_name}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 %if %{with gitcommit}
+%else
 # https://github.com/google/XNNPACK/pull/6144
 Patch0:         0001-Fix-cmake-for-pthread-and-cpuinfo-with-USE_SYSTEM_LI.patch
-%else
-Patch0:         0001-Prepare-xnnpack-cmake-for-fedora.patch
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -65,6 +62,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstream_name}-%{commit0}
 
 %if %{with gitcommit}
+%else
 # On RHEL 9, gcc 11, there is this error
 # /tmp/ccnF75eP.s:120: Error: unsupported instruction `vpdpbusd'
 sed -i 's@IF(CMAKE_C_COMPILER_VERSION VERSION_LESS "11")@IF(CMAKE_C_COMPILER_VERSION VERSION_LESS "13")@' CMakeLists.txt
@@ -91,15 +89,11 @@ mkdir -p %{buildroot}%{_includedir}
 install -p -m 644 include/xnnpack.h %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 %if %{with gitcommit}
+%else
 strip libXNNPACK.so.24.02.29
 install -p -m 755 libXNNPACK.so.24.02.29 %{buildroot}%{_libdir}
 cd %{buildroot}%{_libdir}
 ln -s libXNNPACK.so.24.02.29 libXNNPACK.so
-%else
-strip libXNNPACK.so.0.0.221221
-install -p -m 755 libXNNPACK.so.0.0.221221 %{buildroot}%{_libdir}
-cd %{buildroot}%{_libdir}
-ln -s libXNNPACK.so.0.0.221221 libXNNPACK.so
 %endif
 
 # building tests or benchmarks is broken
@@ -116,6 +110,9 @@ ln -s libXNNPACK.so.0.0.221221 libXNNPACK.so
 %{_libdir}/libXNNPACK.so
 
 %changelog
+* Sun Mar 10 2024 Tom Rix <trix@redhat.com> - 0.0^git20240229.fcbf55a-1
+- Update
+
 * Tue Jan 30 2024 Tom Rix <trix@redhat.com> - 0.0^git20221221.51a9875-4
 - Fix arm build
 

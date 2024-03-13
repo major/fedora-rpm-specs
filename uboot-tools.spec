@@ -1,4 +1,4 @@
-%global candidate rc3
+%global candidate rc4
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.04
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -22,7 +22,7 @@ Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 # Identify VFAT partitions as ESP, allows EFI setvar on our images
 Patch2:   uefi-Add-all-options-for-EFI-System-Partitions.patch
 # New function to find fdt for loading from disk
-#Patch3:   
+Patch3:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 # Fedora patches to enable/disable features
 Patch4:   disable-VBE-by-default.patch
 Patch5:   enable-bootmenu-by-default.patch
@@ -189,6 +189,10 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Mar 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.4.rc4
+- Update to 2024.04 RC4
+- Initial fix for loading DT off /boot (rhbz 2247873)
+
 * Thu Feb 29 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.3.rc3
 - Update to 2024.04 RC3
 - Enable a number of new upstream devices

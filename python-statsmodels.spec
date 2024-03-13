@@ -32,6 +32,10 @@ Source0: %{pypi_source}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 
+# Drop support for i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 
 %global _description %{expand:
 statsmodels is a Python module that provides classes and functions for the
@@ -313,4 +317,3 @@ popd
 
 * Fri Jan 10 2014 Sergio Pascual <sergiopr@fedoraproject.org> - 0.5.0-1
 - Initial spec
-

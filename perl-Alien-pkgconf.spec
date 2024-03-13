@@ -1,6 +1,6 @@
 Name:           perl-Alien-pkgconf
-Version:        0.19
-Release:        9%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
@@ -127,6 +127,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 11 2024 Petr Pisar <ppisar@redhat.com> - 0.20-1
+- 0.20 bump
+
+* Mon Mar 11 2024 Petr Pisar <ppisar@redhat.com> - 0.19-10
+- Make the build reproducible
+
 * Thu Feb 15 2024 Petr Pisar <ppisar@redhat.com> - 0.19-9
 - Fix a priority in the source license value
 

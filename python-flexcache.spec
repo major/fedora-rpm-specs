@@ -7,6 +7,15 @@ License:        BSD-3-Clause
 URL:            https://github.com/hgrecco/flexcache
 Source:         %{pypi_source flexcache}
 
+# Add setuptools to the runtime dependencies
+#
+# This is needed for the “import pkg_resources” in the top-level
+# __init__.py.
+#
+# Downstream-only because version 0.3 of flexcache does not use pkg_resources,
+# so this is a temporary patch for version 0.2 only.
+Patch:          flexcache-0.2-setuptools.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -25,7 +34,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n flexcache-%{version}
+%autosetup -n flexcache-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*)\b(pytest-cov)\b/\1# \2/' setup.cfg
 

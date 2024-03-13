@@ -1,12 +1,11 @@
 %global srcname dirq
 Name:		java-dirq
-Version:	1.8
-Release:	24%{?dist}
+Version:	1.9
+Release:	1%{?dist}
 Summary:	Directory based queue
 License:	ASL 2.0
 URL:		https://github.com/cern-mig/%{name}
 Source0:	https://github.com/cern-mig/%{name}/archive/%{srcname}-%{version}.tar.gz
-Patch0:		java-dirq-1.8-updated-pom.patch
 BuildArch:	noarch
 ExclusiveArch:  %{java_arches} noarch
 BuildRequires:	maven-local
@@ -34,11 +33,10 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -q -n %{name}-%{srcname}-%{version}
-%patch0 -p1
 
 # remove unnecessary plugins
-%pom_remove_plugin org.codehaus.mojo:findbugs-maven-plugin
 %pom_remove_plugin :maven-javadoc-plugin
+%pom_remove_plugin :maven-checkstyle-plugin
 
 %mvn_file : %{name}
 
@@ -55,6 +53,9 @@ This package contains the API documentation for %{name}.
 %doc CHANGES readme.md todo.md
 
 %changelog
+* Mon Mar 11 2024 Lionel Cons <lionel.cons@cern.ch> - 1.9-1
+- Updated to upstream version (#2268653)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.8-24
 - Rebuilt for java-21-openjdk as system jdk
 

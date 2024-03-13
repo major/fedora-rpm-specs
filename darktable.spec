@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -112,9 +112,7 @@ Provides: bundled(lua)
 # to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
 # =============
-# 2024-01-19: aarch64 added to exclusion list because of
-# https://bugzilla.redhat.com/show_bug.cgi?id=2259059
-ExcludeArch: armv7hl i686 s390x aarch64
+ExcludeArch: armv7hl i686 s390x
 
 
 %description
@@ -252,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Mon Mar 11 2024 Germano Massullo <germano.massullo@gmail.com> - 4.6.1-2
+- aarch64 re-enabled
+
 * Sun Mar 10 2024 Germano Massullo <germano.massullo@gmail.com> - 4.6.1-1
 - 4.6.1 release
 

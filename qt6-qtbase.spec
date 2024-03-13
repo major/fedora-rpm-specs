@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.6.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -553,6 +553,8 @@ make check -k ||:
 %{_qt6_plugindir}/sqldrivers/libqsqlite.so
 %{_qt6_plugindir}/tls/libqcertonlybackend.so
 %{_qt6_plugindir}/tls/libqopensslbackend.so
+%{_bindir}/qtpaths*
+%{_qt6_bindir}/qtpaths*
 
 %files common
 # mostly empty for now, consider: filesystem/dir ownership, licenses
@@ -602,7 +604,6 @@ make check -k ||:
 %{_bindir}/qdbuscpp2xml*
 %{_bindir}/qdbusxml2cpp*
 %{_bindir}/qmake*
-%{_bindir}/qtpaths*
 %{_bindir}/qt-cmake
 %{_bindir}/qt-cmake-create
 %{_bindir}/qt-configure-module
@@ -613,7 +614,6 @@ make check -k ||:
 %{_qt6_bindir}/qdbuscpp2xml
 %{_qt6_bindir}/qdbusxml2cpp
 %{_qt6_bindir}/qmake
-%{_qt6_bindir}/qtpaths*
 %{_qt6_bindir}/qt-cmake
 %{_qt6_bindir}/qt-cmake-create
 %{_qt6_bindir}/qt-configure-module
@@ -846,6 +846,9 @@ make check -k ||:
 
 
 %changelog
+* Sat Mar 09 2024 Alessandro Astone <ales.astone@gmail.com> - 6.6.2-6
+- Move /usr/bin/qtpaths-qt6 to main package
+
 * Fri Mar 01 2024 David Abdurachmanov <davidlt@rivosinc.com> - 6.6.2-5
 - Disable SSE2 on riscv64
 

@@ -1,6 +1,6 @@
 Name:    kimap
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KIMAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -35,6 +35,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -68,6 +69,9 @@ find ./po -type f -name libkimap5.po -execdir mv {} libkimap6.po \;
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
+- add missing BuildArch: noarch to -doc package
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

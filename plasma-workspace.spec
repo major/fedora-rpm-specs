@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -42,6 +42,8 @@ Patch107:       plasma-workspace-5.27.80-enable-lock-logout-action.patch
 # Hide virtual keyboard indicator on sddm.
 # Do not remove this as it breaks Fedora's QA policy
 Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
+# /usr/bin/qtpaths-qt6
+Patch109:       qtpaths-binary-name.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -233,6 +235,9 @@ Requires:       coreutils
 Requires:       socat
 Requires:       xmessage
 Requires:       qt6-qttools
+
+# kconf_update
+Requires:       /usr/bin/qtpaths-qt6
 
 Requires:       iceauth xrdb xprop
 
@@ -739,6 +744,9 @@ fi
 
 
 %changelog
+* Mon Mar 11 2024 Alessandro Astone <ales.astone@gmail.com> - 6.0.1-2
+- Patch qtpaths binary name, avoids abort on first login
+
 * Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
 - 6.0.1
 

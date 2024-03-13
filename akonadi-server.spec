@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 24.02.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -115,6 +115,7 @@ See also: %{_sysconfdir}/akonadi/mysql-global.conf
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
@@ -247,6 +248,9 @@ fi
 
 
 %changelog
+* Sun Mar 10 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-3
+- add missing BuildArch: noarch to -doc package
+
 * Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 24.02.0-2
 - move qt designer plugin to -devel
 

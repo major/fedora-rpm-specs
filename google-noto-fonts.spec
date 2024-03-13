@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20240301
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -396,7 +396,7 @@ local subpackages = {
       default=true
     },
     { alias="sans-serif", family="Sans Thai Looped", lang={ "th" },
-      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf", "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
+      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf", "looped-thai", "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
     },
     { alias="sans-serif", family="Sans Tifinagh", lang={ "ber-ma" } },
     { alias="sans-serif", family="Sans Tifinagh APT", lang={ "ber-ma" } },
@@ -1229,6 +1229,9 @@ done
 
 
 %changelog
+* Mon Mar 11 2024 Akira TAGOH <tagoh@redhat.com> - 20240301-2
+- Add Obsoletes: google-noto-looped-thai-fonts in google-noto-sans-thai-looped-fonts.
+
 * Fri Mar  8 2024 Akira TAGOH <tagoh@redhat.com> - 20240301-1
 - Updates to monthly release of 24.3.1
 

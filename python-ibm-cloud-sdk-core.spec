@@ -1,6 +1,7 @@
 Name:           python-ibm-cloud-sdk-core
-Version:        3.19.2
-Release:        1%{?dist}
+Epoch:          1
+Version:        3.18.2
+Release:        %autorelease
 Summary:        Core library used by SDKs for IBM Cloud Services
 
 License:        Apache-2.0
@@ -54,93 +55,4 @@ echo > requirements-dev.txt
 %exclude %{python3_sitelib}/test_integration
 
 %changelog
-* Wed Feb 28 2024 Packit <hello@packit.dev> - 3.19.2-1
-- chore(release): 3.19.2 release notes (semantic-release-bot)
-- Bump version: 3.19.1 → 3.19.2 (semantic-release-bot)
-- fix: adjust IAM token expiration time (#189) (Phil Adams)
-- build: pin black to 24.x.x (#188) (Phil Adams)
-- Resolves rhbz#2266688
-
-* Wed Jan 24 2024 Packit <hello@packit.dev> - 3.19.1-1
-- chore(release): 3.19.1 release notes (semantic-release-bot)
-- Bump version: 3.19.0 → 3.19.1 (semantic-release-bot)
-- fix: use the correct SSL config if cert verification is disabled (#187) (Norbert Biczo)
-- Resolves rhbz#2259660
-
-* Mon Jan 22 2024 Packit <hello@packit.dev> - 3.19.0-1
-- chore(release): 3.19.0 release notes (semantic-release-bot)
-- Bump version: 3.18.2 → 3.19.0 (semantic-release-bot)
-- feat: rename `ApiException.code` to `ApiException.status_code` (#185) (Norbert Biczo)
-- Resolves rhbz#2259660
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 11 2023 Packit <hello@packit.dev> - 3.18.2-1
-- chore(release): 3.18.2 release notes (semantic-release-bot)
-- Bump version: 3.18.1 → 3.18.2 (semantic-release-bot)
-- fix: use retry_interval as retry backoff_max (#184) (Phil Adams)
-- Resolves rhbz#2254090
-
-* Wed Nov 15 2023 Packit <hello@packit.dev> - 3.18.0-1
-- chore(release): 3.18.0 release notes (semantic-release-bot)
-- Bump version: 3.17.3 → 3.18.0 (semantic-release-bot)
-- feat(MCSPAuthenticator): add new authenticator for Multi-Cloud Saas Platform (#181) (Phil Adams)
-- Resolves rhbz#2248171
-
-* Wed Oct 04 2023 Packit <hello@packit.dev> - 3.17.1-1
-- chore(release): 3.17.1 release notes (semantic-release-bot)
-- Bump version: 3.17.0 → 3.17.1 (semantic-release-bot)
-- fix: add correct support for compressing file-like objects (#174) (Norbert Biczo)
-- Resolves rhbz#2241942
-
-* Wed Oct 04 2023 Packit <hello@packit.dev> - 3.17.0-1
-- chore(release): 3.17.0 release notes (semantic-release-bot)
-- Bump version: 3.16.7 → 3.17.0 (semantic-release-bot)
-- feat: bump min supported version of python to 3.8 (#175) (Phil Adams)
-- build: bump dependencies to avoid vulnerabilities (#172) (Phil Adams)
-
-* Wed Aug 02 2023 Pavel Raiskup <praiskup@redhat.com> - 3.16.7-1
-- new upstream release, per release notes:
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.7
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.6
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.5
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.4
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.3
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.2
-  https://github.com/IBM/python-sdk-core/releases/tag/v3.16.1
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.16.0-4
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Nov 30 2022 Miroslav Suchý <msuchy@redhat.com> 3.16.0-2
-- rebase to 3.16.0
-- use spdx license 
-
-* Tue Aug 02 2022 Pavel Raiskup <praiskup@redhat.com> - 3.15.3-1
-- new upstream version
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 3.15.1-3
-- Rebuilt for Python 3.11
-
-* Mon May 23 2022 Miroslav Suchý <msuchy@redhat.com> 3.15.1-2
-- do not use dev requirements
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 07 2021 msuchy <msuchy@redhat.com> - 3.13.2-2
-- changed description
-- updated license
-
-* Tue Dec 07 2021 msuchy <msuchy@redhat.com> - 3.13.2-1
-- Package generated with pyp2spec
+%autochangelog

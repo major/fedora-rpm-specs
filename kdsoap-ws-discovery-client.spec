@@ -1,6 +1,6 @@
 Name:           kdsoap-ws-discovery-client
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for finding WS-Discovery devices in the network using Qt6 and KDSoap
 
 License:        GPL-3.0-or-later AND LicenseRef-OASIS AND LicenseRef-WS-Addressing AND LicenseRef-Discovery AND W3C
@@ -27,8 +27,10 @@ Requires:       cmake(KDSoap-qt6)
 
 %package        doc
 Summary:        Developer Documentation files for %{name}
+BuildArch:      noarch
+
 %description    doc
-%{summary}.
+Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 %prep
 %autosetup -p1
@@ -60,6 +62,9 @@ Summary:        Developer Documentation files for %{name}
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Mar 10 2024 Marie Loise Nolden <loise@kde.org> - 0.4.0-2
+- add missing BuildArch: noarch to -doc package
+
 * Wed Feb 21 2024 Alessandro Astone <ales.astone@gmail.com> - 0.4.0-1
 - 0.4.0
 

@@ -38,6 +38,10 @@ Patch:          0007-Ignore-NumPy-warnings-from-Pandas.patch
 # https://github.com/dask/dask/pull/10969
 Patch:          0008-TST-Add-missing-skip-for-pyarrow.patch
 
+# Stop building on i686
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 Dask is a flexible parallel computing library for analytics.
 

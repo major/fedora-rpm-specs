@@ -1,5 +1,5 @@
 Name:           perl-Spreadsheet-ParseXLSX
-Version:        0.31
+Version:        0.33
 Release:        %autorelease
 Summary:        Parse XLSX files
 License:        MIT
@@ -11,7 +11,7 @@ BuildRequires:  make
 BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Archive::Zip)
+BuildRequires:  perl(Archive::Zip) >= 1.34
 BuildRequires:  perl(Crypt::Mode::CBC)
 BuildRequires:  perl(Crypt::Mode::ECB)
 BuildRequires:  perl(Digest::SHA)

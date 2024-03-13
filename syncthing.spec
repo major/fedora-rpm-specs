@@ -23,6 +23,10 @@ URL:            https://syncthing.net
 # use official release tarball (contains vendored dependencies)
 Source0:        %{gourl}/releases/download/%{tag}/%{name}-source-%{tag}.tar.gz
 
+# * increase some test timeouts to fix failures when running tests in parallel:
+#   https://github.com/syncthing/syncthing/issues/9455
+Patch:          0001-lib-api-api_test-increase-timeout-from-1-second-to-6.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  systemd-rpm-macros
 
@@ -367,10 +371,7 @@ export GO111MODULE=off
 %gotest %{goipath}/cmd/stdiscosrv
 %gotest %{goipath}/cmd/strelaypoolsrv
 %gotest %{goipath}/cmd/syncthing
-
-# This test is very unreliable and fails ~50% of the time:
-# https://github.com/syncthing/syncthing/issues/9455
-%gotest %{goipath}/lib/api || :
+%gotest %{goipath}/lib/api
 %gotest %{goipath}/lib/beacon
 %gotest %{goipath}/lib/config
 

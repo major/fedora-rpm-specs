@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.14
+Version:   1.9.15
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -393,7 +393,6 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %{_datadir}/fwupd/device-tests/*.json
 %endif
 %{_libexecdir}/installed-tests/fwupd/*
-%dir %{_sysconfdir}/fwupd/remotes.d
 %{_datadir}/fwupd/remotes.d/fwupd-tests.conf
 %endif
 

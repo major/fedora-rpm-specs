@@ -18,14 +18,16 @@ Source3:        50_org.gnome.mutter.wayland.%{extension}.gschema.override
 Source4:        50_org.gnome.settings-daemon.plugins.media-keys.%{extension}.gschema.override
 Source5:        50_org.gnome.shell.%{extension}.gschema.override
 # downstream-only
-Patch0:         0001-Remove-schema-handling-from-transpile.sh.patch
+Patch:          0001-Remove-schema-handling-from-transpile.sh.patch
 # https://github.com/pop-os/shell/pull/1676
-Patch1:         0002-fix-check-if-extension-local-schemas-dir-exists-before-use.patch
+Patch:          0002-fix-check-if-extension-local-schemas-dir-exists-before-use.patch
+# https://github.com/pop-os/shell/pull/1704
+Patch:          0003-refactor-GNOME-46-port.patch
 
 BuildRequires:  typescript >= 3.8
 BuildRequires:  make
 
-Requires:       (gnome-shell >= 45~ with gnome-shell < 46~)
+Requires:       gnome-shell >= 45
 Recommends:     gnome-extensions-app
 Recommends:     %{name}-shortcut-overrides = %{version}-%{release}
 Provides:       %{extension} = %{version}-%{release}

@@ -1,15 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           file-roller
-Version:        44~alpha
+Version:        44~beta
 Release:        1%{?dist}
 Summary:        Tool for viewing and creating archives
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/FileRoller
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/file-roller/-/issues/225
-Patch:          file-roller-44.alpha-pointer-types.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -90,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.
 %endif
 
 %changelog
+* Mon Mar 11 2024 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Mon Feb 19 2024 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.alpha
 

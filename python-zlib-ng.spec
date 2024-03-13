@@ -1,5 +1,5 @@
 Name:           python-zlib-ng
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Drop-in replacement for zlib and gzip modules using zlib-ng
 
@@ -8,11 +8,6 @@ Summary:        Drop-in replacement for zlib and gzip modules using zlib-ng
 License:        PSF-2.0
 URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
-
-# Replace internal API _PyBytes_Join, removed in Python 3.13
-# https://github.com/pycompression/python-zlib-ng/pull/31
-# Take only the commit with the functional change, not the changelog update
-Patch:          %{url}/pull/31/commits/5f9a9b6a1054629a35d2fdf5d94508166b1b6f43.patch
 
 BuildRequires:  python3-devel
 

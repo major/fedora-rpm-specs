@@ -1,13 +1,14 @@
 %global treesitter_so_version 0
 
 Name:           tree-sitter
-Version:        0.21.0
+Version:        0.22.1
 Release:        1%{?dist}
 Summary:        An incremental parsing system for programming tools
 
 License:        MIT
 URL:            https://tree-sitter.github.io/
 Source0:        https://github.com/tree-sitter/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/tree-sitter/tree-sitter/pull/3159.patch#/tree-sitter-fix-makefile.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -72,6 +73,11 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 
 
 %changelog
+* Mon Mar 11 2024 Andreas Schneider <asn@redhat.com> - 0.22.1-1
+- Update to version 0.22.1
+  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.22.1
+  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.22.0
+
 * Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 0.21.0-1
 - Update to version 0.21.0
   https://github.com/tree-sitter/tree-sitter/releases/tag/v0.21.0

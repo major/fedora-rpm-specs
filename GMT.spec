@@ -22,20 +22,24 @@
 %endif
 
 Name:           GMT
-Version:        6.4.0
-Release:        13%{?dist}
+Version:        6.5.0
+Release:        1%{?dist}
 Summary:        Generic Mapping Tools
 
 License:        LGPLv3+
 URL:            https://www.generic-mapping-tools.org/
 Source0:        https://github.com/GenericMappingTools/gmt/releases/download/%{version}/gmt-%{version}-src.tar.xz
 # Add missing byteswap include
-Patch0:         https://patch-diff.githubusercontent.com/raw/GenericMappingTools/gmt/pull/6044.patch
-Patch1: GMT-c99.patch
+#Patch0:         https://patch-diff.githubusercontent.com/raw/GenericMappingTools/gmt/pull/6044.patch
+#Patch1: GMT-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
+%if 0%{?fedora} >= 41
+BuildRequires:  bash-completion-devel
+%else
 BuildRequires:  bash-completion
+%endif
 %if %{with flexiblas}
 BuildRequires:  flexiblas-devel
 %else
@@ -224,6 +228,9 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 
 
 %changelog
+* Mon Mar 11 2024 Orion Poplawski <orion@nwra.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

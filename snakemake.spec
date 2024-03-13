@@ -48,6 +48,10 @@ License:        MIT AND Unlicense
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
 Source:         https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
 
+# feat: Allow smart_open 7.x
+# https://github.com/snakemake/snakemake/pull/2745
+Patch:          https://github.com/snakemake/snakemake/pull/2745.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

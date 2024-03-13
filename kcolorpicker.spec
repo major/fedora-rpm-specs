@@ -3,12 +3,16 @@
 
 Name: kcolorpicker
 Version: 0.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-or-later
 Summary: QToolButton control with color popup menu
 URL: https://github.com/ksnip/%{appname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: ninja-build
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Gui)
@@ -16,21 +20,26 @@ BuildRequires: cmake(Qt5Gui)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Gui)
 
-BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: ninja-build
-
 %description
 QToolButton with color popup menu which lets you select a color.
 
 The popup features a color dialog button which can be used to add
 custom colors to the popup menu.
 
-%package devel
-Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%package qt5
+Summary: QToolButton control with color popup menu (Qt5)
+Provides: kcolorpicker = %{version}-%{release}
+Obsoletes: %{name} < %{version}-%{release}
+%description qt5
+%{summary}.
 
-%description devel
+%package qt5-devel
+Summary: Qt5 Development files for %{name}
+Provides: kcolorpicker-devel = %{version}-%{release}	
+Obsoletes: %{name}-devel < %{version}-%{release}
+Requires: %{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: qt5-qtbase-devel
+%description qt5-devel
 %{summary}.
 
 %package qt6
@@ -41,7 +50,7 @@ Summary: QToolButton control with color popup menu (Qt6)
 %package qt6-devel
 Summary: Qt6 Development files for %{name}
 Requires: %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
+Requires: qt6-qtbase-devel
 %description qt6-devel
 %{summary}.
 
@@ -77,12 +86,12 @@ pushd qt6
 %cmake_install
 popd
 
-%files
+%files qt5
 %doc README.md
 %license LICENSE
 %{_libdir}/%{libname}-Qt5.so.0*
 
-%files devel
+%files qt5-devel
 %{_includedir}/%{appname}-Qt5/
 %{_libdir}/cmake/%{appname}-Qt5/
 %{_libdir}/%{libname}-Qt5.so
@@ -98,6 +107,9 @@ popd
 %{_libdir}/%{libname}-Qt6.so
 
 %changelog
+* Sat Mar 02 2024 Marie Loise Nolden <loise@kde.org> - 0.3.0-3
+- rename qt5 versions
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

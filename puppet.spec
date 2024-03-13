@@ -3,8 +3,8 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        8.3.1
-Release:        3%{?dist}
+Version:        8.5.1
+Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -14,10 +14,10 @@ Source2:        RPM-GPG-KEY-puppet-20250406
 # Get these by checking out the right tag from https://github.com/puppetlabs/puppet-agent and:
 # sed 's|.\+puppetlabs/\([a-z_-]\+\).git.\+tags/v\?\([0-9\.]\+\)"}|https://forge.puppet.com/v3/files/\1-\2.tar.gz|' configs/components/module-puppetlabs-*.json
 Source3:        https://forge.puppet.com/v3/files/puppetlabs-augeas_core-1.4.0.tar.gz
-Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.2.0.tar.gz
+Source4:        https://forge.puppet.com/v3/files/puppetlabs-cron_core-1.2.1.tar.gz
 Source5:        https://forge.puppet.com/v3/files/puppetlabs-host_core-1.2.0.tar.gz
 Source6:        https://forge.puppet.com/v3/files/puppetlabs-mount_core-1.2.0.tar.gz
-Source7:        https://forge.puppet.com/v3/files/puppetlabs-scheduled_task-3.1.1.tar.gz
+Source7:        https://forge.puppet.com/v3/files/puppetlabs-scheduled_task-3.2.0.tar.gz
 Source8:        https://forge.puppet.com/v3/files/puppetlabs-selinux_core-1.3.0.tar.gz
 Source9:        https://forge.puppet.com/v3/files/puppetlabs-sshkeys_core-2.4.0.tar.gz
 Source10:       https://forge.puppet.com/v3/files/puppetlabs-yumrepo_core-2.0.0.tar.gz
@@ -47,6 +47,8 @@ Requires: rubygem(puppet-resource_api) >= 1.5
 Requires: rubygem(semantic_puppet) >= 1.0.2
 Requires: rubygem(scanf) >= 1.0
 Requires: ruby-augeas >= 0.5.0
+# racc was a default gem, is now a bundled gem but shipped as a sepeate package
+Requires: (ruby-default-gems < 3.3 or rubygem(racc))
 Requires: augeas >= 1.10.1
 Requires: augeas-libs >= 1.10.1
 Requires: ruby(selinux) libselinux-utils
@@ -208,6 +210,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sun Mar 10 2024 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 8.5.1-1
+- Update to 8.5.1 (fixes rhbz#2259039)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

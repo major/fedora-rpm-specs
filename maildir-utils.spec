@@ -1,13 +1,14 @@
 Name:           maildir-utils
-Version:        1.10.5
+Version:        1.12.1
 Release:        %autorelease
 Summary:        A command-line mail organization utility
 
 License:        GPL-3.0-or-later
 URL:            http://www.djcbsoftware.nl/code/mu/index.html
 Source0:        https://github.com/djcb/mu/releases/download/v%{version}/mu-%{version}.tar.xz
-Patch0:         1.10.5-mu4e-docs-directory.patch
-Patch1:         1.10.5-mu-docs-directory.patch
+Patch0:         1.12.1-mu4e-docs-directory.patch
+Patch1:         1.12.1-mu-docs-directory.patch
+Patch2:         1.12.1-mu-guile-scripts-directory.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -28,7 +29,9 @@ BuildRequires:  texinfo
 BuildRequires:  libuuid-devel
 BuildRequires:  dh-autoreconf
 BuildRequires:  git-core
-# Current version of mu4e supports emacs versions >= 24.4
+# FIXME: Make sure cld2 also works in s390x
+#BuildRequires:  cld2-devel
+# Current version of mu4e supports emacs versions >= 26.3
 BuildRequires:  emacs >= 26.3
 Requires:       emacs-filesystem >= 26.3
 Requires:       xapian-core
@@ -51,7 +54,11 @@ This package contains the Guile bindings for mu
 %autosetup -n mu-%{version} -S git
 
 %build
-%meson
+# FIXME: Make sure cld2 also works in s390x
+%meson \
+    -Dguile=enabled \
+    -Dcld2=disabled \
+    -Dreadline=enabled
 %meson_build
 
 
@@ -70,9 +77,10 @@ This package contains the Guile bindings for mu
 
 %files guile
 %{_infodir}/mu-guile.info.gz
-%{_datadir}/mu/
-%{_libdir}/libguile-mu.so
+%{_datadir}/maildir-utils/
+%{_libdir}/guile/3.0/extensions/libguile-mu.so
 %{_datadir}/guile/site/3.0/mu/
+%{_datadir}/guile/site/3.0/mu.scm
 
 %changelog
 %autochangelog

@@ -2,11 +2,12 @@
 
 Name:       electronics-menu
 Version:    1.0
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Electronics Menu for the Desktop
 Summary(fr): Menu « Électronique » pour le bureau
 
-License:    GPLv2
+# SPDX confirmed
+License:    GPL-2.0-only
 
 URL:        http://geda.seul.org/
 Source0:    http://geda.seul.org/dist/%{name}-%{version}.tar.gz
@@ -42,11 +43,11 @@ Ce paquetage ajoute le menu Électronique à la structure de menus xdg.
 %prep
 %setup -q -a 1
 
-%patch0 -p0 -b .submenus
-%patch1 -p0 -b .submenus
-%patch2 -p0 -b .typo
-%patch3 -p0 -b .french
-%patch4 -p0 -b .qucs
+%patch -P0 -p0 -b .submenus
+%patch -P1 -p0 -b .submenus
+%patch -P2 -p0 -b .typo
+%patch -P3 -p0 -b .french
+%patch -P4 -p0 -b .qucs
 
 # allowing timestamps
 sed -i 's|install|install -p|g' Makefile
@@ -63,7 +64,8 @@ sed -i 's|<Filename>fedora-|<Filename>|' electronics.menu
 %{__make} install DESTDIR=%{buildroot}
 
 %files
-%doc COPYING README
+%license COPYING
+%doc README
 %{_icondir}/hicolor/??x??/categories/applications-electronics*.png
 %{_icondir}/hicolor/scalable/categories/applications-electronics*.svg
 %config(noreplace) %{_sysconfdir}/xdg/menus/applications-merged/electronics.menu
@@ -72,6 +74,9 @@ sed -i 's|<Filename>fedora-|<Filename>|' electronics.menu
 
 
 %changelog
+* Mon Mar 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-33
+- SPDX migration
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

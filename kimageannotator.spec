@@ -3,12 +3,16 @@
 
 Name: kimageannotator
 Version: 0.7.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-or-later
 Summary: Library and a tool for annotating images
 URL: https://github.com/ksnip/%{appname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: ninja-build
 
 BuildRequires: cmake(kColorPicker-Qt5)
 BuildRequires: cmake(Qt5Core)
@@ -24,33 +28,39 @@ BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6Svg)
 
 
-BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: ninja-build
-
-Requires: %{name}-common%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
 %description
 Library and a tool for annotating images. Part of KSnip project.
 
-%package devel
-Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%package qt5
+Summary: Library and a tool for annotating images. Part of KSnip project. (Qt5)
+Provides: kimageannotator = %{version}-%{release}
+Obsoletes: %{name} < %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%description qt5
+%{summary}.
 
-%description devel
+
+%package qt5-devel
+Summary: Qt5 Development files for %{name}
+Provides: kimageannotator-devel = %{version}-%{release}
+Obsoletes: %{name}-devel < %{version}-%{release}
+Requires: %{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: qt5-qtbase-devel
+Requires: qt5-qtsvg-devel
+%description qt5-devel
 %{summary}.
 
 %package qt6
-Summary: QToolButton control with color popup menu (Qt6)
+Summary: Library and a tool for annotating images. Part of KSnip project. (Qt6)
 Requires: %{name}-common%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
 %description qt6
 %{summary}.
 	
 %package qt6-devel
 Summary: Qt6 Development files for %{name}
 Requires: %{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
+Requires: qt6-qtbase-devel
+Requires: qt6-qtsvg-devel
 %description qt6-devel
 %{summary}.
 
@@ -94,12 +104,12 @@ popd
 
 %find_lang %{appname} --with-qt
 
-%files
+%files qt5
 %doc CHANGELOG.md README.md
 %license LICENSE
 %{_libdir}/%{libname}-Qt5.so.0*
 
-%files devel
+%files qt5-devel
 %{_includedir}/%{appname}-Qt5/
 %{_libdir}/cmake/%{appname}-Qt5/
 %{_libdir}/%{libname}-Qt5.so
@@ -117,6 +127,9 @@ popd
 %files common -f %{appname}.lang
 
 %changelog
+* Sat Mar 02 2024 Marie Loise Nolden <loise@kde.org> - 0.7.0-4
+- rename qt5 versions
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 0.7.0-3
 - Rebuild (qt6)
 

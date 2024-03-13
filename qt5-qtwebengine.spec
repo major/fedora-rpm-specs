@@ -5,25 +5,16 @@
 # package-notes causes FTBFS (#2043178)
 %undefine _package_note_file
 
-# define to build docs, may need to undef this for bootstrapping
-# where qt5-qttools (qt5-doctools) builds are not yet available
-%global docs 0
-
 %if 0%{?fedora}
 # need libvpx >= 1.8.0 (need commit 297dfd869609d7c3c5cd5faa3ebc7b43a394434e)
 %global use_system_libvpx 1
 # For screen sharing on Wayland, currently Fedora only thing - no epel
 #global pipewire 1
 %endif
-%if 0%{?fedora} > 30 || 0%{?epel} > 7
-# need libwebp >= 0.6.0
-%global use_system_libwebp 1
-%global use_system_jsoncpp 1
 %if 0%{?rhel} && 0%{?rhel} == 9
 %global use_system_re2 0
 %else
 %global use_system_re2 1
-%endif
 %endif
 
 %if 0%{?fedora} > 32
@@ -120,10 +111,8 @@ Patch51: qtwebengine-icu-74.patch
 
 ## Upstream patches:
 
-%if 0%{?fedora} || 0%{?epel} > 7
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 ExclusiveArch: %{qt5_qtwebengine_arches}
-%endif
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel
@@ -168,26 +157,18 @@ BuildRequires: pkgconfig(fontconfig)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(egl)
-%if 0%{?use_system_jsoncpp}
 BuildRequires: pkgconfig(jsoncpp)
-%endif
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libudev)
-%if 0%{?use_system_libwebp}
 BuildRequires: pkgconfig(libwebp) >= 0.6.0
-%endif
 BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(opus)
 BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(poppler-cpp)
 BuildRequires: pkgconfig(zlib)
-%if 0%{?fedora} && 0%{?fedora} < 30
-BuildRequires: pkgconfig(minizip)
-%else
 BuildConflicts: minizip-devel
 Provides: bundled(minizip) = 1.2
-%endif
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xcursor)
@@ -291,9 +272,6 @@ Provides: bundled(libsrtp) = 2.2.0
 %if !0%{?use_system_libvpx}
 Provides: bundled(libvpx) = 1.8.2
 %endif
-%if !0%{?use_system_libwebp}
-Provides: bundled(libwebp) = 1.1.0-28-g55a080e5
-%endif
 # bundled as "libxml"
 # see src/3rdparty/chromium/third_party/libxml/linux/include/libxml/xmlversion.h
 # post 2.9.9 snapshot?, 2.9.9-0b3c64d9f2f3e9ce1a98d8f19ee7a763c87e27d5
@@ -361,10 +339,6 @@ Provides: bundled(fdlibm) = 5.3
 Conflicts: qt5-qtwebengine-freeworld < 5.15.2-2
 %endif
 
-%if 0%{?rhel} == 7
-BuildRequires: devtoolset-7-toolchain	
-%endif
-
 %description
 %{summary}.
 
@@ -390,22 +364,6 @@ Summary: Example files for %{name}
 %description examples
 %{summary}.
 
-
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
-BuildRequires: qt5-qtbase-doc
-Requires: qt5-qtbase-doc
-BuildRequires: qt5-qtxmlpatterns-doc
-Requires: qt5-qtxmlpatterns-doc
-BuildRequires: qt5-qtdeclarative-doc
-Requires: qt5-qtdeclarative-doc
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
 
 
 %prep
@@ -463,25 +421,6 @@ sed -i -e '/toolprefix = /d' -e 's/\${toolprefix}//g' \
 cp -bv /usr/include/re2/*.h src/3rdparty/chromium/third_party/re2/src/re2/
 %endif
 
-%if 0
-#ifarch x86_64
-# enable this to force -g2 on x86_64 (most arches run out of memory with -g2)
-# DISABLED BECAUSE OF:
-# /usr/lib/rpm/find-debuginfo.sh: line 188:  3619 Segmentation fault
-# (core dumped) eu-strip --remove-comment $r $g -f "$1" "$2"
-sed -i -e 's/symbol_level=1/symbol_level=2/g' src/core/config/common.pri
-%endif
-
-%if 0%{?docs}
-# generate qtwebengine-3rdparty.qdoc, it is missing from the tarball
-pushd src/3rdparty
-%{__python3} chromium/tools/licenses.py \
-  --file-template ../../tools/about_credits.tmpl \
-  --entry-template ../../tools/about_credits_entry.tmpl \
-  credits >../webengine/doc/src/qtwebengine-3rdparty.qdoc
-popd
-%endif
-
 # copy the Chromium license so it is installed with the appropriate name
 cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
 
@@ -497,10 +436,6 @@ test -f "./include/QtWebEngineCore/qtwebenginecoreglobal.h"
 
 
 %build
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
-
 # python2 path
 export PATH=$(pwd)/python2/usr/bin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/python2/usr/lib64
@@ -520,16 +455,8 @@ export NINJA_PATH=%{__ninja}
 # avoid %%make_build for now, the -O flag buffers output from intermediate build steps done via ninja
 make %{?_smp_mflags}
 
-%if 0%{?docs}
-%make_build docs
-%endif
-
 %install
 make install INSTALL_ROOT=%{buildroot}
-
-%if 0%{?docs}
-make install_docs INSTALL_ROOT=%{buildroot}
-%endif
 
 # rpm macros
 install -p -m644 -D %{SOURCE10} \
@@ -582,14 +509,10 @@ done
 
 %files
 %license LICENSE.*
-%if 0%{?docs}
-%license src/webengine/doc/src/qtwebengine-3rdparty.qdoc
-%endif
 %{_qt5_libdir}/libQt5*.so.*
 %{_qt5_bindir}/qwebengine_convert_dict
 %{_qt5_libdir}/qt5/qml/*
 %{_qt5_libdir}/qt5/libexec/QtWebEngineProcess
-%{_qt5_plugindir}/designer/libqwebengineview.so
 %{_qt5_plugindir}/imageformats/libqpdf.so
 %dir %{_qt5_datadir}/resources/
 %if ! 0%{?use_system_libicu}
@@ -662,18 +585,13 @@ done
 %{_qt5_libdir}/cmake/Qt5*/
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
+%{_qt5_plugindir}/designer/libqwebengineview.so
 
 %files devtools
 %{_qt5_datadir}/resources/qtwebengine_devtools_resources.pak
 
 %files examples
 %{_qt5_examplesdir}/
-
-%if 0%{?docs}
-%files doc
-%{_qt5_docdir}/*
-%endif
-
 
 %changelog
 * Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 5.15.16-3

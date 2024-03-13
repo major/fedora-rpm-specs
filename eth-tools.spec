@@ -1,11 +1,11 @@
 Name: eth-tools
-Version: 11.5.1.0
-Release: 6%{?dist}
+Version: 11.6.0.0
+Release: 233%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
 Url: https://github.com/intel/eth-fast-fabric
-Source: %url/releases/download/v11.5.1.0/eth-fast-fabric-11.5.1.0.tar.gz
+Source: %url/releases/download/v11.6.0.0/eth-fast-fabric-11.6.0.0.tar.gz
 ExclusiveArch: x86_64
 # The Intel(R) Ethernet Fabric Suite product line is only available on x86_64 platforms at this time.
 
@@ -41,7 +41,7 @@ BuildRequires: perl-generators
 Contains tools for managing fabric on a management node.
 
 %prep
-%autosetup -cn eth-fast-fabric-11.5.1.0
+%autosetup -cn eth-fast-fabric-11.6.0.0
 
 %build
 cd OpenIb_Host
@@ -94,11 +94,27 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.5.1.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Mon Mar 11 2024 Jijun Wang <jijun.wang@intel.com> - 11.6.0.0-223
+- Updated host verification to check UD QPs, and skip VT-d disabled
+  check by default
+- Updated compiler options to enhance security of FastFabric
+- Improved MpiApps README file
+- Improved help for tools ethbw and ethextract*
+- Fixed HPL build for newer version oneAPI
 
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.5.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Mon Mar 11 2024 Jijun Wang <jijun.wang@intel.com> - 11.6.0.0-211
+- Enhanced MpiApps scripts for easier use with SLURM
+- Introduced PSM3_PRINT_STATS_PREFIX to specify PSM3 stats files location
+- Improved MpiApps to support oneCCL benchmark
+- Easy of use improvement on MpiApps
+-- Improved parameter files and scripts description
+-- Reorganized PSM3 parameter files
+-- Improved script printout to include system env
+-- Moved MpiApps parameter settings mostly into env vs on MPI cmd line
+
+* Mon Mar 11 2024 Jijun Wang <jijun.wang@intel.com> - 11.6.0.0-190
+- Improved to support RHEL 8.9 and RHEL 9.3
+- Added dsa_setup man page
 
 * Tue Oct 03 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.1.0-3
 - Improved help text and man page for all tools

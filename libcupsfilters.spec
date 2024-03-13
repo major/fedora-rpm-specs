@@ -4,7 +4,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.0.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -22,6 +22,8 @@ Patch001: 0001-raster_base_header-Several-fixes-on-color-space-sele.patch
 Patch002: 0001-raster.c-Fix-build-after-last-fix-40.patch
 # https://github.com/OpenPrinting/libcupsfilters/commit/c3a997fa89
 Patch003: 0001-cfImageCMYKToCMY-Fixed-copy-and-paste-error.patch
+# https://github.com/OpenPrinting/libcupsfilters/pull/51
+Patch004: libcf-rgb-color-print.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -199,6 +201,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Mon Mar 11 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-7
+- 2266609 - fix color printing via URF to driverless printer
+
 * Tue Feb 20 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.0-6
 - fix several issues reported in upstream
 

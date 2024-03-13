@@ -1,12 +1,15 @@
 Name:           mmapper
-Version:        23.05.0
-Release:        4%{?dist}
+Version:        24.03.1
+Release:        1%{?dist}
 Summary:        Graphical MUME mapper
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/MUME/MMapper
 Source0:        https://github.com/MUME/MMapper/archive/v%{version}/MMapper-%{version}.tar.gz
 Source1:        https://github.com/g-truc/glm/releases/download/0.9.9.7/glm-0.9.9.7.zip
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  cmake
@@ -64,6 +67,11 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Mon Mar 11 2024 Kalev Lember <klember@redhat.com> - 24.03.1-1
+- Update to 24.03.1
+- Switch to SPDX license identifiers
+- ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.05.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

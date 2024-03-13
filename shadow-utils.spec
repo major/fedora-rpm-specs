@@ -1,6 +1,6 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.15.0rc3
+Version: 4.15.0
 Release: 1%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
@@ -25,7 +25,7 @@ Patch1: shadow-4.15.0-date-parsing.patch
 # Audit message changes - partially upstreamed
 Patch2: shadow-4.15.0-audit-update.patch
 # Probably non-upstreamable
-Patch3: shadow-4.14.0-account-tools-setuid.patch
+Patch3: shadow-4.15.0-account-tools-setuid.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -273,11 +273,8 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
-* Fri Mar  1 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0rc3-1
-- Rebase to version 4.15.0rc3
-
-* Fri Feb 16 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0rc2-1
-- Rebase to version 4.15.0rc2
+* Mon Mar 11 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.0-1
+- Rebase to version 4.15.0
 
 * Mon Feb 12 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.14.0-6
 - Build linking `libpam`

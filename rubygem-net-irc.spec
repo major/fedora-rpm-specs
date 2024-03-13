@@ -7,11 +7,12 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.0.9
-Release:	24.D%{gitdate_num}git%{shorthash}%{?dist}
+Release:	25.D%{gitdate_num}git%{shorthash}%{?dist}
 
 Summary:	Library for implementing IRC server and client
 # Ruby's
-License:	GPLv2 or Ruby 
+# SPDX confirmed
+License:	Ruby OR GPL-2.0-only
 URL:		https://github.com/cho45/net-irc
 
 #Source0:	https://rubygems.org/gems/%%{gem_name}-%%{version}.gem
@@ -55,7 +56,7 @@ Documentation for %{name}
 
 %setup -q -c -T -a 0
 cd %{gem_name}-%{githash}
-%patch0 -p1
+%patch -P0 -p1
 sed -i Rakefile \
 	-e '\@require.*\(shipit\|sshpublisher\)@d' \
 	-e '\@Rake::ShipitTask@,\@end@d' \
@@ -117,7 +118,8 @@ rspec spec/
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%doc	%{gem_instdir}/[A-FH-Z]*
+%license %{gem_instdir}/GPLv2
 %{gem_libdir}
 %exclude	%{gem_cache}
 %{gem_spec}
@@ -127,6 +129,9 @@ rspec spec/
 %{gem_instdir}/examples/
 
 %changelog
+* Mon Mar 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.9-25.D20121021git4cf339fa69
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-24.D20121021git4cf339fa69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
