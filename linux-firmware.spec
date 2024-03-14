@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20240220
+Version:	20240312
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -342,6 +342,7 @@ find . -type d | sed -e '/^.$/d' > $FILEDIR/linux-firmware.dirs
 popd
 sed -i -e 's:^./::' linux-firmware.{files,dirs}
 sed \
+	-i -e '/^a300_p/d' \
 	-i -e '/^amdgpu/d' \
 	-i -e '/^amd/d' \
 	-i -e '/^amdtee/d' \
@@ -383,6 +384,7 @@ sed \
 	-i -e '/^mediatek\/WIFI/d' \
 	-i -e '/^mrvl\/prestera/d' \
 	-i -e '/^mrvl\/sd8787/d' \
+	-i -e '/^mt76/d' \
 	-i -e '/^netronome/d' \
 	-i -e '/^nxp/d' \
 	-i -e '/^qca/d' \
@@ -421,7 +423,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 
 %files -n nvidia-gpu-firmware
 %license LICENCE.nvidia
-%dir %{_firmwarepath}/nvidia
+%dir %{_firmwarepath}/nvidia/
 %{_firmwarepath}/nvidia/a*/
 %{_firmwarepath}/nvidia/g*/
 %{_firmwarepath}/nvidia/tu*/
@@ -507,6 +509,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/mediatek/mt79*
 %{_firmwarepath}/mediatek/BT*
 %{_firmwarepath}/mediatek/WIFI*
+%{_firmwarepath}/mt76*
 
 %files -n nxpwireless-firmware
 %license LICENSE.nxp
@@ -550,6 +553,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %license LICENSE.qcom LICENSE.qcom_yamato qcom/NOTICE.txt
 %dir %{_firmwarepath}/qcom
 %{_firmwarepath}/qcom/*
+%{_firmwarepath}/a300_p*
 
 # Vision and ISP hardware
 %files -n intel-vsc-firmware
@@ -593,6 +597,20 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Mar 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240312-1
+- Update to upstream 20240312
+- iwlwifi: update 9000-family firmwares to core85-89
+- rtl_bt: Update RTL8852A BT USB firmware to 0xD9D6_17DA
+- update firmware for MT7922/MT7921 WiFi device
+- update firmware for mediatek bluetooth chip (MT7922)
+- update firmware for mediatek bluetooth chip (MT7921)
+- Add CS35L41 HDA Firmware for Lenovo Thinkbook 16P Laptops
+- amdgpu: Update VCN firmware binaries
+- Intel IPU2: Add firmware files
+- brcm: Add nvram for the Acer Iconia One 7 B1-750 tablet
+- i915: Add Xe2LPD DMC v2.18
+- i915: Update MTL DMC v2.21
+
 * Tue Feb 20 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240220-1
 - Update to upstream 20240220
 - update firmware for en8811h 2.5G ethernet phy

@@ -1,6 +1,6 @@
 Name:		gpsim
 Version:	0.32.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A simulator for Microchip (TM) PIC (TM) microcontrollers
 Summary(fr):	Un simulateur pour les microcontrôleurs PIC (TM) Microchip (TM)
 
@@ -9,13 +9,13 @@ License:	GPLv2+ and LGPLv2+
 URL:		http://gpsim.sourceforge.net/gpsim.html
 Source:		http://downloads.sourceforge.net/gpsim/gpsim-%{version}.tar.gz
 Source1:	gpsim.png
-#Patch1:		gpsim-settings_exdbm.patch
+Patch1:		%{name}-%{version}-lcd.patch
 
 
-BuildRequires:  gcc-c++
+BuildRequires:	gcc-c++
 BuildRequires:	gtk2-devel, flex, readline-devel, popt-devel
 BuildRequires:	autoconf gputils desktop-file-utils automake libtool
-BuildRequires: make
+BuildRequires:	make
 
 
 %description
@@ -53,7 +53,7 @@ mv ChangeLog ChangeLog.raw
 iconv -f ISO88592 -t UTF8  AUTHORS.raw -o  AUTHORS
 iconv -f ISO88592 -t UTF8  ChangeLog.raw -o ChangeLog
 rm -f AUTHORS.raw ChangeLog.raw 
-#%patch1 -p0
+%patch 1 -p0
 autoconf
 
 %build
@@ -100,6 +100,9 @@ desktop-file-install --vendor=""\
 %{_includedir}/*
 
 %changelog
+* Tue Mar 12 2024 Roy Rankin <rrankin@ihug.com.au> - 0.32.1-3
+- add patch to fix lcd module
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

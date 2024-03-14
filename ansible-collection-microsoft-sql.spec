@@ -14,7 +14,7 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 2.2.2
+Version: 2.2.3
 Release: 1%{?dist}
 
 License: MIT
@@ -60,6 +60,8 @@ Source1002: ansible-packaging.inc
 %include %{SOURCE1002}
 
 BuildArch: noarch
+# there is no ansible on i686, so when we get a builder that uses
+# this arch, the build fails with
 # No matching package to install: 'ansible-core >= 2.11.0'
 ExcludeArch: i686
 
@@ -314,6 +316,11 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Mar 12 2024 Sergei Petrosian <spetrosi@redhat.com> - 2.2.3-1
+- Add support for running SQL Server as a SELinux unconfined application with SELinux in enforcing mode on RHEL 9
+  Resolves: RHEL-17080
+- ExcludeArch: i686
+
 * Fri Feb 9 2024 Sergei Petrosian <spetrosi@redhat.com> - 2.2.2-1
 - Update role to version 2.2.2 to fix HA
 - CHANGELOG.md was missing in some places

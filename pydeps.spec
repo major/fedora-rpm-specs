@@ -9,27 +9,27 @@ command, and normal usage will be to use it from the command line.}
 
 %global forgeurl https://github.com/thebjorn/pydeps
 
-Name:		%{pypi_name}
-Version:	1.12.17
-Release:	%autorelease
-Summary:	Display module dependencies
-License:	BSD-2-Clause
+Name:       %{pypi_name}
+Version:    1.12.19
+Release:    %autorelease
+Summary:    Display module dependencies
+License:    BSD-2-Clause
 %forgemeta
-URL:		%forgeurl
-Source0:	%forgesource
-BuildArch:	noarch
+URL:        %forgeurl
+Source0:    %forgesource
+BuildArch:  noarch
 
 %{?python_enable_dependency_generator}
 
-BuildRequires:	python3-devel
+BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:	python3-pytest
-BuildRequires:	python3dist(pyyaml)
-BuildRequires:	graphviz
+BuildRequires:  python3-pytest
+BuildRequires:  python3dist(pyyaml)
+BuildRequires:  graphviz
 %endif
 %if %{with docs}
-BuildRequires:	make
-BuildRequires:	python3-sphinx
+BuildRequires:  make
+BuildRequires:  python3-sphinx
 %endif
 
 %description
@@ -62,10 +62,7 @@ rm docs/_build/html/.buildinfo
 %check
 %pyproject_check_import
 %if %{with tests}
-  # Exclude failing tests:
-  # https://github.com/thebjorn/pydeps/issues/71
-  %pytest -k "not (test_file or test_relative_imports_same_name_with_std \
-  or test_pydeps_colors or test_find_package_names)"
+  %pytest -v
 %endif
 
 %files -n %{pypi_name} -f %{pyproject_files}

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit d9f4a2bbeb91fd95d0c35a90936efb9ea99d2455
+%global commit a3eca1d9f096c0e178c78e629bb129b178c85f95
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,8 +23,8 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.13
-Release: 1%{?dist}
+Version: 40.14
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -824,6 +824,36 @@ exit 0
 %endif
 
 %changelog
+* Thu Mar 07 2024 Zdenek Pytela <zpytela@redhat.com> - 40.14-2
+- Update varrun-convert.sh script to check for existing duplicate entries
+
+* Mon Feb 26 2024 Zdenek Pytela <zpytela@redhat.com> - 40.14-1
+- Allow userdomain get attributes of files on an nsfs filesystem
+- Allow opafm create NFS files and directories
+- Allow virtqemud create and unlink files in /etc/libvirt/
+- Allow virtqemud domain transition on swtpm execution
+- Add the swtpm.if interface file for interactions with other domains
+- Allow samba to have dac_override capability
+- systemd: allow sys_admin capability for systemd_notify_t
+- systemd: allow systemd_notify_t to send data to kernel_t datagram sockets
+- Allow thumb_t to watch and watch_reads mount_var_run_t
+- Allow krb5kdc_t map krb5kdc_principal_t files
+- Allow unprivileged confined user dbus chat with setroubleshoot
+- Allow login_userdomain map files in /var
+- Allow wireguard work with firewall-cmd
+- Differentiate between staff and sysadm when executing crontab with sudo
+- Add crontab_admin_domtrans interface
+- Allow abrt_t nnp domain transition to abrt_handle_event_t
+- Allow xdm_t to watch and watch_reads mount_var_run_t
+- Dontaudit subscription manager setfscreate and read file contexts
+- Don't audit crontab_domain write attempts to user home
+- Transition from sudodomains to crontab_t when executing crontab_exec_t
+- Add crontab_domtrans interface
+- Fix label of pseudoterminals created from sudodomain
+- Allow utempter_t use ptmx
+- Dontaudit rpmdb attempts to connect to sssd over a unix stream socket
+- Allow admin user read/write on fixed_disk_device_t
+
 * Mon Feb 12 2024 Zdenek Pytela <zpytela@redhat.com> - 40.13-1
 - Only allow confined user domains to login locally without unconfined_login
 - Add userdom_spec_domtrans_confined_admin_users interface

@@ -112,7 +112,7 @@ rspec -r spec_helper spec
 
 %changelog
 * Fri Mar 01 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.36-1
-- 0.9.36
+- 0.9.36 (Fixes CVE-2024-27285)
 
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

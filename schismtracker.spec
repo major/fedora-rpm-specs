@@ -1,5 +1,5 @@
 Name:      schismtracker
-Version:   20240129
+Version:   20240308
 Release:   1%{?dist}
 Summary:   Sound module composer/player
 License:   GPLv2
@@ -63,6 +63,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Tue Mar 12 2024 josef radinger <cheese@nosuchhost.net> - 20240308-1
+- bump version
+
 * Fri Mar 08 2024 josef radinger <cheese@nosuchhost.net> - 20240129-1
 - bump version
 

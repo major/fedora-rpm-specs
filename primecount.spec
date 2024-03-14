@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.10
-Release:        5%{?dist}
+Version:        7.11
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -105,6 +105,16 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Mar 12 2024 Kim Walisch <walki@fedoraproject.org> - 7.11-1
+- CMakeLists.txt: Detect Apple Silicon CPUs
+- Fix musl libc issue in test/iroot.cpp
+- Speed up test/Li.cpp
+- Faster RiemannR(x) and RiemannR_inverse(x) implementations
+- Renamed option --Ri to -R or --RiemannR
+- Renamed option --Ri-inverse to --RiemannR-inverse
+- Detect incompatible command-line options
+- Increase pi(x) cache size to 2 KiB
+
 * Mon Feb 19 2024 Kim Walisch <walki@fedoraproject.org> - 7.10-5
 - Rebuild required because of primesieve-12.0 release
 

@@ -14,8 +14,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.5.1
-Release:       2%{?dist}
+Version:       2.5.2
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -59,7 +59,7 @@ BuildRequires: ocaml >= 4.04
 
 BuildRequires: libguestfs-devel >= 1:1.49.8-1
 BuildRequires: augeas-devel
-BuildRequires: bash-completion
+BuildRequires: bash-completion, bash-completion-devel
 BuildRequires: file-devel
 BuildRequires: gettext-devel
 BuildRequires: jansson-devel
@@ -310,6 +310,10 @@ done
 
 
 %changelog
+* Tue Mar 12 2024 Richard W.M. Jones <rjones@redhat.com> - 1:2.5.2-1
+- New development branch version 2.5.2
+- BR bash-completion-devel (new in Rawhide)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

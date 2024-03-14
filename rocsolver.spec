@@ -1,6 +1,6 @@
 %global upstreamname rocSOLVER
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -30,7 +30,7 @@
 
 Name:           rocsolver
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCmSoftwarePlatform/rocSOLVER
 
@@ -47,11 +47,7 @@ Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstream
 Patch0:         0001-Add-llvm-style-compile-and-link-options.patch
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  clang-devel
 BuildRequires:  fmt-devel
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
@@ -196,24 +192,4 @@ strip %{buildroot}%{_libdir}/rocm/gfx9/lib/librocsolver.so.0.*
 %endif
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 13 2024 Tom Rix <trix@redhat.com> - 6.0.0-2
-- fix url
-- comment on multiple licenses
-- post pr for the link and compile jobs patch
-
-* Wed Jan 3 2024 Tom Rix <trix@redhat.com>  - 6.0.0-1
-- Update to 6.0
-
-* Thu Nov 30 2023 Tom Rix <trix@redhat.com>  - 5.7.1-2
-- Add compile and link jobs switches
-- Remove -g, debug linking overflow
-- Fix license
-
-* Thu Nov 2 2023 Tom Rix <trix@redhat.com>  - 5.7.1-1
-- Initial package
+%autochangelog

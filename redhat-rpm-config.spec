@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 285
+%global baserelease 286
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -42,6 +42,7 @@ Source104: macros.ldc-srpm
 Source105: macros.valgrind-srpm
 Source106: macros.java-srpm
 Source107: macros.gap-srpm
+Source108: macros.dotnet-srpm
 
 # Other misc macros
 Source150: macros.build-constraints
@@ -261,6 +262,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Tue Mar 12 2024 Omair Majid <omajid@redhat.com> - 286-1
+- Define %%dotnet_arches with a list of .NET-compatible architectures
+
 * Tue Feb 20 2024 Miro Hrončok <mhroncok@redhat.com> - 285-1
 - brp-mangle-shebangs: Strip env flags when mangling shebangs
 - For example, mangle "#!/usr/bin/env -S vd" to "#!/usr/bin/vd"

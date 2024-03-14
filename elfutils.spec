@@ -1,6 +1,10 @@
+# Rebuild --with static to enable static subpackages
+# This is *not* supported by elfutils maintainers
+%bcond_with static
+
 Name: elfutils
 Version: 0.191
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -119,13 +123,27 @@ Recommends: elfutils-debuginfod-client-devel%{depsuffix} = %{version}-%{release}
 %else
 Requires: elfutils-debuginfod-client-devel%{depsuffix} = %{version}-%{release}
 %endif
-Obsoletes: elfutils-devel-static < 0.180-5
 
 %description devel
 The elfutils-devel package contains the libraries to create
 applications for handling compiled objects.  libdw provides access
 to the DWARF debugging information.  libasm provides a programmable
 assembler interface.
+
+%if %{with static}
+%package devel-static
+Summary: Static archives to handle compiled objects
+License: GPL-2.0-or-later or LGPL-3.0-or-later
+%if 0%{!?_isa:1}
+Provides: elfutils-devel-static%{depsuffix} = %{version}-%{release}
+%endif
+Requires: elfutils-devel%{depsuffix} = %{version}-%{release}
+Requires: elfutils-libelf-devel-static%{depsuffix} = %{version}-%{release}
+
+%description devel-static
+The elfutils-devel-static package contains the static archives
+with the code to handle compiled objects.
+%endif
 
 %package libelf
 Summary: Library to read and write ELF files
@@ -149,13 +167,26 @@ Provides: elfutils-libelf-devel%{depsuffix} = %{version}-%{release}
 %endif
 Requires: elfutils-libelf%{depsuffix} = %{version}-%{release}
 Obsoletes: libelf-devel <= 0.8.2-2
-Obsoletes: elfutils-libelf-devel-static < 0.180-5
 
 %description libelf-devel
 The elfutils-libelf-devel package contains the libraries to create
 applications for handling compiled objects.  libelf allows you to
 access the internals of the ELF object file format, so you can see the
 different sections of an ELF file.
+
+%if %{with static}
+%package libelf-devel-static
+Summary: Static archive of libelf
+License: GPL-2.0-or-later or LGPL-3.0-or-later
+%if 0%{!?_isa:1}
+Provides: elfutils-libelf-devel-static%{depsuffix} = %{version}-%{release}
+%endif
+Requires: elfutils-libelf-devel%{depsuffix} = %{version}-%{release}
+
+%description libelf-devel-static
+The elfutils-libelf-static package contains the static archive
+for libelf.
+%endif
 
 %if %{provide_yama_scope}
 %package default-yama-scope
@@ -284,8 +315,10 @@ trap '' EXIT
 %make_install
 
 chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
+%if %{without static}
 # We don't want the static libraries
 rm ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib{elf,dw,asm}.a
+%endif
 
 %find_lang %{name}
 
@@ -376,6 +409,12 @@ fi
 %{_libdir}/libdw.so
 %{_libdir}/pkgconfig/libdw.pc
 
+%if %{with static}
+%files devel-static
+%{_libdir}/libdw.a
+%{_libdir}/libasm.a
+%endif
+
 %files -f %{name}.lang libelf
 %license COPYING-GPLV2 COPYING-LGPLV3
 %{_libdir}/libelf-%{version}.so
@@ -388,6 +427,11 @@ fi
 %{_libdir}/libelf.so
 %{_libdir}/pkgconfig/libelf.pc
 %{_mandir}/man3/elf_*.3*
+
+%if %{with static}
+%files libelf-devel-static
+%{_libdir}/libelf.a
+%endif
 
 %if %{provide_yama_scope}
 %files default-yama-scope
@@ -442,6 +486,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Mon Mar 11 2024 Michel Lind <salimma@fedoraproject.org> - 0.191-3
+- Add feature flag for reenabling elfutils-libelf-devel-static and elfutils-devel-static
+
 * Mon Mar  4 2024 Aaron Merey <amerey@fedoraproject.org> - 0.191-2
 - Update SPDX license.
 

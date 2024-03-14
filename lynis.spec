@@ -1,16 +1,12 @@
 %global bashcompdir %(pkg-config --variable=completionsdir bash-completion)
 
 Name:           lynis
-Version:        3.0.9
-Release:        7%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
 URL:            https://cisofy.com/lynis/
 Source0:        https://cisofy.com/files/%{name}-%{version}.tar.gz
-Patch0:         1386.patch
-Patch1:         1438.patch
-Patch2:         0d77a367c59a0b5f1bdcb46380a518519160503b.patch
-Patch3:         9d9cedee4ef4b1ab79d7288cb9bb3242d92b4939.patch
 
 BuildArch:      noarch
 BuildRequires:  bash-completion
@@ -82,6 +78,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.1.0-1
+- 3.1.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

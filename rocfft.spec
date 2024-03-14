@@ -1,7 +1,7 @@
 %global upstreamname rocFFT
 
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # rocFFT has a version seperate from the ROCm version that it is released with
@@ -16,7 +16,7 @@
 %bcond rocm-debug 0
 
 # build test packages but don't run them here due to HW requirements
-%bcond check 0
+%bcond check 1
 
 # the kernel cache is slightly problematic in terms of packaging and where to put it
 # disable building it until the question of how to package the cache db file is answered
@@ -24,7 +24,7 @@
 
 Name:           rocfft
 Version:        %{rocm_version}
-Release:        %autorelease -b 2 # this is tomkae sure that the release supercedes reviewed builds, remove for next release
+Release:        %autorelease
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -48,7 +48,7 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-runtime-devel
-BuildRequires:  sqlite-devel
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  python3-sphinx
 
 # Only x86_64 works right now:
@@ -66,9 +66,6 @@ Patch2: 0002-add-kernel-cache-option.patch
 
 # upstream hardcodes rpath for the tests
 Patch3: 0003-remove-tests-hardcoded-rpath.patch
-
-# version change was missed for 6.0 release, will be in next point release
-Patch4: 0004-upstream-fix-version-number.patch
 
 %description
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.

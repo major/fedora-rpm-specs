@@ -5,10 +5,10 @@
 %endif
 
 Name:           perl-HTML-Tagset
-Version:        3.20
-Release:        57%{?dist}
+Version:        3.24
+Release:        1%{?dist}
 Summary:        HTML::Tagset - data tables useful in parsing HTML
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/HTML-Tagset
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/HTML-Tagset-%{version}.tar.gz
 BuildArch:      noarch
@@ -16,15 +16,14 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.4
+BuildRequires:  perl(:VERSION) >= 5.10
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 # Run-time
-BuildRequires:  perl(vars)
 # Tests
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(warnings)
 # Optional tests
 # Test::Pod -> Pod::Simple -> HTML::Entities (HTML::Parser) -> HTML::Tagset
 %if 0%{!?perl_bootstrap:1}
@@ -77,7 +76,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc Changes README
+%doc Changes README.md
 %{perl_vendorlib}/HTML/
 %{_mandir}/man3/HTML::Tagset.3pm*
 
@@ -85,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 12 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.24-1
+- 3.24 bump (rhbz##2269045)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@ on 2 player games: Support enumeration, Best response polytope vertex
 enumeration, Lemke Howson algorithm.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.40
+Version:        0.0.41
 Release:        %autorelease
 Summary:        A library to compute equilibria of 2 player normal form games
 
@@ -27,6 +27,8 @@ BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 #missing for now
 #BuildRequires:  python3dist(sphinx-togglebutton)
+# For tests
+BuildRequires:  python3dist(pytest-benchmark)
 
 %description %_description
 

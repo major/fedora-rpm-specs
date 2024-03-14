@@ -5,7 +5,7 @@ Version: 3.9.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -16,6 +16,8 @@ Source1: http://github.com/storaged-project/blivet/archive/%{realname}-%{realver
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-Fix-scanning-partitions-on-RAID-arrays-2269133.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -114,6 +116,9 @@ make DESTDIR=%{buildroot} install
 %{python3_sitelib}/*
 
 %changelog
+* Tue Mar 12 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.1-2
+- Fix scanning partitions on RAID arrays (#2269133)
+
 * Tue Feb 27 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.9.1-1
 - Try to assemble MD arrays during populate (#2236356) (vtrefny)
 - Fix UnboundLocalError in MD populator (vtrefny)

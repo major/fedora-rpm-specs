@@ -2,7 +2,7 @@
 %bcond x11 0
 
 Name:    kwin
-Version: 6.0.1
+Version: 6.0.2
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -290,6 +290,9 @@ rm -v %{buildroot}%{_kf6_bindir}/kwin_x11 %{buildroot}%{_userunitdir}/plasma-kwi
 
 
 %changelog
+* Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
+- 6.0.2
+
 * Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
 - 6.0.1
 

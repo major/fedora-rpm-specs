@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage10
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    842f72662d6b9edda84c4b6f13885fd9cd53dc63
+%global gh_commit    d51c3aec14896d5e80b354fad58e998d1980f8f8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2024-03-02
+%global gh_date      2024-03-09
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.12
+Version:        10.1.13
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -200,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar 11 2024 Remi Collet <remi@remirepo.net> - 10.1.13-1
+- update to 10.1.13
+
 * Tue Mar  5 2024 Remi Collet <remi@remirepo.net> - 10.1.12-1
 - update to 10.1.12
 

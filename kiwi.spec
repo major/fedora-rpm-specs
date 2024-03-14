@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,6 +17,8 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
+Patch0001:      0001-Fixup-use-of-boot-zipl.patch
+Patch0002:      0002-Lookup-distro-provided-BLS-entries-for-zipl.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -566,6 +568,9 @@ done
 
 
 %changelog
+* Tue Mar 12 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-3
+- Backport fixes for s390x images
+
 * Mon Mar 11 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-2
 - Fix kiwi-schema provides
 

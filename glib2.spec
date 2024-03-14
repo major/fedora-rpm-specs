@@ -1,11 +1,11 @@
 Name:           glib2
-Version:        2.79.1
+Version:        2.80.0
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
 License:        LGPL-2.1-or-later
 URL:            https://www.gtk.org
-Source:         https://download.gnome.org/sources/glib/2.79/glib-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/glib/2.80/glib-%{version}.tar.xz
 
 # Required for RHEL core crypto components policy. Good for Fedora too.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
@@ -167,9 +167,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GIRepository-3.0.typelib
 %{_libdir}/girepository-1.0/GLib-2.0.typelib
+%{_libdir}/girepository-1.0/GLibUnix-2.0.typelib
 %{_libdir}/girepository-1.0/GModule-2.0.typelib
 %{_libdir}/girepository-1.0/GObject-2.0.typelib
 %{_libdir}/girepository-1.0/Gio-2.0.typelib
+%{_libdir}/girepository-1.0/GioUnix-2.0.typelib
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/gapplication
@@ -210,6 +212,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_bindir}/glib-genmarshal
 %{_bindir}/glib-gettextize
 %{_bindir}/glib-mkenums
+%{_bindir}/gi-compile-repository
+%{_bindir}/gi-decompile-typelib
+%{_bindir}/gi-inspect-typelib
 %{_bindir}/gobject-query
 %{_bindir}/gtester
 %{_bindir}/gdbus-codegen
@@ -220,6 +225,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_mandir}/man1/glib-genmarshal.1*
 %{_mandir}/man1/glib-gettextize.1*
 %{_mandir}/man1/glib-mkenums.1*
+%{_mandir}/man1/gi-compile-repository.1*
+%{_mandir}/man1/gi-decompile-typelib.1*
+%{_mandir}/man1/gi-inspect-typelib.1*
 %{_mandir}/man1/gobject-query.1*
 %{_mandir}/man1/gtester-report.1*
 %{_mandir}/man1/gtester.1*
@@ -230,9 +238,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GIRepository-3.0.gir
 %{_datadir}/gir-1.0/GLib-2.0.gir
+%{_datadir}/gir-1.0/GLibUnix-2.0.gir
 %{_datadir}/gir-1.0/GModule-2.0.gir
 %{_datadir}/gir-1.0/GObject-2.0.gir
 %{_datadir}/gir-1.0/Gio-2.0.gir
+%{_datadir}/gir-1.0/GioUnix-2.0.gir
 %{_datadir}/gettext/
 %{_datadir}/systemtap/
 
@@ -241,6 +251,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files static
 %{_libdir}/libgio-2.0.a
+%{_libdir}/libgirepository-2.0.a
 %{_libdir}/libglib-2.0.a
 %{_libdir}/libgmodule-2.0.a
 %{_libdir}/libgobject-2.0.a

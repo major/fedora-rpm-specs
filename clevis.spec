@@ -1,5 +1,5 @@
 Name:           clevis
-Version:        19
+Version:        20
 Release:        %autorelease
 Summary:        Automated decryption framework
 
@@ -14,6 +14,7 @@ BuildRequires:  meson
 BuildRequires:  asciidoc
 BuildRequires:  ninja-build
 BuildRequires:  bash-completion
+BuildRequires:  bash-completion-devel
 
 BuildRequires:  libjose-devel >= 8
 BuildRequires:  libluksmeta-devel >= 8
@@ -170,6 +171,7 @@ exit 0
 
 %files systemd
 %{_libexecdir}/%{name}-luks-askpass
+%{_libexecdir}/%{name}-luks-unlocker
 %{_unitdir}/%{name}-luks-askpass.path
 %{_unitdir}/%{name}-luks-askpass.service
 

@@ -4,14 +4,14 @@
 %global crate b3sum
 
 Name:           rust-b3sum
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Command line implementation of the BLAKE3 hash function
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/b3sum
 Source:         %{crates_source}
-# # * Get the top-level license file from the commit corresponding to the 1.5.0
+# # * Get the top-level license file from the commit corresponding to the 1.5.1
 # #   release. We filed a PR to fix this:
 # # *   Fix missing LICENSE file in b3sum crate
 # # *   https://github.com/BLAKE3-team/BLAKE3/pull/371

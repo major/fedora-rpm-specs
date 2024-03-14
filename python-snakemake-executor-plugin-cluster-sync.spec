@@ -1,5 +1,5 @@
 Name:           python-snakemake-executor-plugin-cluster-sync
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for cluster jobs that are executed synchronously
 

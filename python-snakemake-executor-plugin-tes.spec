@@ -3,7 +3,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-tes
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for submitting jobs via GA4GH TES
 

@@ -1,5 +1,5 @@
 Name:           plasma-mobile
-Version:        6.0.1
+Version:        6.0.2
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -130,6 +130,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_networ
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cellular_network.so
 
 %changelog
+* Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
+- 6.0.2
+
 * Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
 - 6.0.1
 

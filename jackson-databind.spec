@@ -1,6 +1,6 @@
 Name:           jackson-databind
-Version:        2.16.1
-Release:        4%{?dist}
+Version:        2.16.2
+Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -73,6 +73,12 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
+- [maven-release-plugin] prepare release jackson-databind-2.16.2 (Tatu Saloranta)
+- Prepare for 2.16.2 release (Tatu Saloranta)
+- Make `PropertyNamingStrategy` not affect Enums (#4414) (Kim, Joo Hyuk)
+- Resolves rhbz#2268715
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.16.1-4
 - Rebuilt for java-21-openjdk as system jdk
 

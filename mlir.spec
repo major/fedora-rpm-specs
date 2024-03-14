@@ -1,8 +1,8 @@
 %global toolchain clang
 %global maj_ver 18
 %global min_ver 1
-%global patch_ver 0
-%global rc_ver 4
+%global patch_ver 1
+#global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -285,6 +285,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{python3_sitearch}/mlir/
 
 %changelog
+* Tue Mar 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

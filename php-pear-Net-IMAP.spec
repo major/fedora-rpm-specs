@@ -1,7 +1,7 @@
 # spec file for php-pear-Net-IMAP
 #
-# Copyright (c) 2013-2014 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2024 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
 # Please, preserve the changelog entries
@@ -15,11 +15,11 @@
 # Cannot run test suite which requires a valid IMAP account
 
 Name:           php-pear-Net-IMAP
-Version:        1.1.3
-Release:        20%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        Provides an implementation of the IMAP protocol
 
-License:        GPLv2+ and PHP
+License:        PHP-3.01
 URL:            http://%{pear_channel}/package/%{pear_name}
 Source0:        http://%{pear_channel}/get/%{pear_name}-%{version}.tgz
 
@@ -90,6 +90,10 @@ fi
 
 
 %changelog
+* Tue Mar 12 2024 Remi Collet <remi@fedoraproject.org> - 1.1.4-1
+- Update to 1.1.4
+- use SPDX license ID
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.16.1
-Release:        3%{?dist}
+Version:        2.16.2
+Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
 
@@ -173,6 +173,11 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
+- [maven-release-plugin] prepare release jackson-jaxrs-providers-2.16.2 (Tatu Saloranta)
+- Prepare for 2.16.2 release (Tatu Saloranta)
+- Resolves rhbz#2268713
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.16.1-3
 - Rebuilt for java-21-openjdk as system jdk
 

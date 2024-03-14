@@ -8,13 +8,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        45.0
-Release:        4%{?dist}
+Version:        46~rc
+Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND X11 AND MIT AND Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -278,6 +278,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Mon Mar 11 2024 David King <amigadave@amigadave.com> - 46~rc-1
+- Update to 46.rc
+
 * Tue Feb  6 2024 Marek Kasik <mkasik@redhat.com> - 45.0-4
 - Migrated to SPDX license
 

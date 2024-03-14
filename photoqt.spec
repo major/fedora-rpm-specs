@@ -1,5 +1,5 @@
 Name:           photoqt
-Version:        4.2
+Version:        4.3
 Release:        %autorelease
 Summary:        A fast Qt image viewer
 
@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(vips)
 BuildRequires:  python3-chromecast
 BuildRequires:  python3-devel
+BuildRequires:  zxing-cpp-devel
 
 Requires:       qt6-qtdeclarative
 Requires:       qt6-qtmultimedia

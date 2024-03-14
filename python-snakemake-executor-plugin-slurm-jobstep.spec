@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:           python-snakemake-executor-plugin-slurm-jobstep
-Version:        0.1.10
+Version:        0.1.11
 Release:        %autorelease
 Summary:        A Snakemake executor plugin for running srun jobs inside of SLURM jobs
 

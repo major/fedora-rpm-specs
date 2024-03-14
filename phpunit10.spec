@@ -17,8 +17,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    0d968f6323deb3dbfeba5bfd4929b9415eb7a9a4
-%global gh_date      2024-02-25
+%global gh_commit    41a9886b85ac7bf3929853baf96b95361cd69d2b
+%global gh_date      2024-03-09
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -31,7 +31,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.11
+%global upstream_version 10.5.12
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -41,6 +41,7 @@ Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
+# run makesrc.sh to create a git snapshot with test suite
 Source0:        %{name}-%{upstream_version}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
@@ -269,6 +270,9 @@ exit $ret
 
 
 %changelog
+* Sat Mar  9 2024 Remi Collet <remi@remirepo.net> - 10.5.12-1
+- update to 10.5.12
+
 * Mon Feb 26 2024 Remi Collet <remi@remirepo.net> - 10.5.11-1
 - update to 10.5.11
 

@@ -6,7 +6,7 @@
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -16,6 +16,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libsystemd) >= 236
+BuildRequires:  pkgconfig(gmock) >= 1.10.0
 
 %description
 High-level C++ D-Bus library for Linux designed to provide easy-to-use
@@ -55,9 +56,13 @@ out of the D-Bus IDL XML description.
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_CODE_GEN=ON \
-    -DBUILD_DOXYGEN_DOC=ON
+    -DBUILD_DOXYGEN_DOC=ON \
+    -DBUILD_TESTS=ON
 %cmake_build
 %cmake_build --target doc
+
+%check
+%ctest -E "sdbus-c\+\+-integration-tests"
 
 %install
 %cmake_install
@@ -91,6 +96,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Tue Mar 12 2024 Marek Blaha <mblaha@redhat.com> - 1.5.0-2
+- Invoke unit tests after the build
+
 * Mon Feb 26 2024 Marek Blaha <mblaha@redhat.com> - 1.5.0-1
 - Update to release 1.5.0
 

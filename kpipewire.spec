@@ -1,6 +1,6 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 6.0.1.1
+Version: 6.0.2
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-3.0-only
@@ -84,17 +84,11 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_libdir}/libKPipeWire.so.6
-#%{_libdir}/libKPipeWire.so.%{version}
-# only here due to re-spin
-%{_libdir}/libKPipeWire.so.6.0.1
+%{_libdir}/libKPipeWire.so.%{version}
 %{_libdir}/libKPipeWireRecord.so.6
-#%{_libdir}/libKPipeWireRecord.so.%{version}
-# only here due to re-spin
-%{_libdir}/libKPipeWireRecord.so.6.0.1
+%{_libdir}/libKPipeWireRecord.so.%{version}
 %{_libdir}/libKPipeWireDmaBuf.so.6
-#%{_libdir}/libKPipeWireDmaBuf.so.%{version}
-# only here due to re-spin
-%{_libdir}/libKPipeWireDmaBuf.so.6.0.1
+%{_libdir}/libKPipeWireDmaBuf.so.%{version}
 %{_qt6_qmldir}/org/kde/pipewire/*
 %{_kf6_datadir}/qlogging-categories6/*.categories
 
@@ -108,6 +102,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
+- 6.0.2
+
 * Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1.1-1
 - 6.0.1.1
 

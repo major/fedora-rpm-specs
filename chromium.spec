@@ -304,7 +304,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 122.0.6261.111
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -483,8 +483,87 @@ Patch357: chromium-122-clang16-disable-auto-upgrade-debug-info.patch
 # set clang_lib path
 Patch358: chromium-122-rust-clang_lib.patch
 
+# PowerPC64 LE support
+# Patches taken from Debian, Timothy Pearson's patchset
+# https://salsa.debian.org/chromium-team/chromium/-/tree/master/debian/patches/ppc64le?ref_type=heads
+Patch360: 0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h.patch
+Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
+Patch362: 0001-services-service_manager-sandbox-linux-Fix-TCGETS-de.patch
+Patch363: 0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6.patch
+Patch364: 0001-sandbox-linux-Implement-partial-support-for-ppc64-sy.patch
+Patch365: 0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc.patch
+Patch366: 0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64.patch
+Patch367: 0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s.patch
+Patch368: 0003-sandbox-linux-system_headers-Update-linux-seccomp-he.patch
+Patch369: 0004-sandbox-linux-system_headers-Update-linux-signal-hea.patch
+Patch370: 0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub.patch
+Patch371: 0005-sandbox-linux-update-unit-test-for-ppc64.patch
+Patch372: 0006-sandbox-linux-disable-timedwait-time64-ppc64.patch
+Patch373: 0007-sandbox-linux-add-ppc64-stat.patch
+Patch374: Sandbox-linux-services-credentials.cc-PPC.patch
+Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
+
+Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
+Patch377: 0001-Add-PPC64-support-for-boringssl.patch
+Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
+Patch379: 0001-third_party-lss-Don-t-look-for-mmap2-on-ppc64.patch
+Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
+Patch381: 0002-third_party-lss-kernel-structs.patch
+
+Patch382: Rtc_base-system-arch.h-PPC.patch
+
+Patch383: 0002-Include-cstddef-to-fix-build.patch
+Patch384: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
+
+Patch385: HACK-third_party-libvpx-use-generic-gnu.patch
+Patch386: HACK-debian-clang-disable-skia-musttail.patch
+
+Patch387: 0001-Add-ppc64-target-to-libaom.patch
+Patch388: 0001-Add-pregenerated-config-for-libaom-on-ppc64.patch
+
+Patch389: 0002-third_party-libvpx-Remove-bad-ppc64-config.patch
+Patch390: 0002-third-party-boringssl-add-generated-files.patch
+Patch391: 0003-third_party-libvpx-Add-ppc64-generated-config.patch
+# Enabling VSX causes artifacts to appear in VP9 videos
+Patch392: 0003-third_party-libvpx-Add-ppc64-vsx-files.patch
+Patch393: 0003-third_party-ffmpeg-Add-ppc64-generated-config.patch
+Patch394: 0004-third_party-libvpx-work-around-ambiguous-vsx.patch
+
+# Enable VSX acceleration in Skia.  Requires POWER8 or higher.
+Patch395: skia-vsx-instructions.patch
+
+Patch396: 0001-Implement-support-for-ppc64-on-Linux.patch
+Patch397: 0001-Implement-support-for-PPC64-on-Linux.patch
+Patch398: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
+Patch399: fix-rustc.patch
+Patch400: fix-rust-linking.patch
+Patch401: fix-breakpad-compile.patch
+Patch402: fix-partition-alloc-compile.patch
+Patch403: 0002-Add-ppc64-trap-instructions.patch
+Patch404: 0001-Fix-highway-ppc-hwcap.patch
+
+Patch405: 0001-Add-PPC64-support-for-libdav1d.patch
+Patch406: 0001-Fix-libdav1d-compilation-on-clang-ppc.patch
+Patch407: fix-ppc64-linux-syscalls-headers.patch
+Patch408: 0003-thirdparty-fix-dav1d-gn.patch
+Patch409: use-sysconf-page-size-on-ppc64.patch
+
+Patch410: dawn-fix-typos.patch
+Patch411: dawn-fix-ppc64le-detection.patch
+
+Patch412: fix-swiftshader-compile.patch
+
+# Suppress harmless compiler warning messages that appear on ppc64 due to arch-specific warning flags being passed
+Patch413: fix-unknown-warning-option-messages.diff
+
+# Needed on Debian while POWER8 remains the build target
+# POWER9 enables hardware 128 bit vector support (ISA 3.0),
+# and Highway gets confused when building in POWER8 mode
+# (POWER8 compiler flags) on POWER9 hosts.
+Patch414: 0002-Highway-disable-128-bit-vsx.patch
+
 # upstream patches
-Patch400: chromium-122-el8-support-64kpage.patch
+Patch500: chromium-122-el8-support-64kpage.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -857,11 +936,16 @@ Requires: u2f-hidraw-policy
 Requires: chromium-common%{_isa} = %{version}-%{release}
 
 # rhel 7: x86_64
-# rhel 8+ and fedora 37+: x86_64 aarch64
+# rhel 8 or newer: x86_64, aarch64
+# fedora 38 or newer: x86_64, aarch64, ppc64le
 %if 0%{?rhel} == 7
 ExclusiveArch: x86_64
 %else
+%if 0%{?fedora} >= 40
+ExclusiveArch: x86_64 aarch64 ppc64le
+%else
 ExclusiveArch: x86_64 aarch64
+%endif
 %endif
 
 # Bundled bits (I'm sure I've missed some)
@@ -1159,9 +1243,79 @@ udev.
 %patch -P357 -p1 -b .clang16-disable-auto-upgrade-debug-info
 %patch -P358 -p1 -b .rust-clang_lib
 
+%ifarch ppc64le
+%patch -P360 -p1 -b .0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h
+%patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
+%patch -P362 -p1 -b .0001-services-service_manager-sandbox-linux-Fix-TCGETS-de
+%patch -P363 -p1 -b .0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6
+%patch -P364 -p1 -b .0001-sandbox-linux-Implement-partial-support-for-ppc64-sy
+%patch -P365 -p1 -b .0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc
+%patch -P366 -p1 -b .0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64
+%patch -P367 -p1 -b .0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s
+%patch -P368 -p1 -b .0003-sandbox-linux-system_headers-Update-linux-seccomp-he
+%patch -P369 -p1 -b .0004-sandbox-linux-system_headers-Update-linux-signal-hea
+%patch -P370 -p1 -b .0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub
+%patch -P371 -p1 -b .0005-sandbox-linux-update-unit-test-for-ppc64
+%patch -P372 -p1 -b .0006-sandbox-linux-disable-timedwait-time64-ppc64
+%patch -P373 -p1 -b .0007-sandbox-linux-add-ppc64-stat
+%patch -P374 -p1 -b .Sandbox-linux-services-credentials.cc-PPC
+%patch -P375 -p1 -b .0008-sandbox-fix-ppc64le-glibc234
+
+%patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
+%patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
+%patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
+%patch -P379 -p1 -b .0001-third_party-lss-Don-t-look-for-mmap2-on-ppc64
+%patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
+%patch -P381 -p1 -b .0002-third_party-lss-kernel-structs
+
+%patch -P382 -p1 -b .Rtc_base-system-arch.h-PPC
+
+%patch -P383 -p1 -b .0002-Include-cstddef-to-fix-build
+%patch -P384 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
+
+%patch -P385 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
+%patch -P386 -p1 -b .HACK-debian-clang-disable-skia-musttail
+
+%patch -P387 -p1 -b .0001-Add-ppc64-target-to-libaom
+%patch -P388 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
+
+%patch -P389 -p1 -b .0002-third_party-libvpx-Remove-bad-ppc64-config
+%patch -P390 -p1 -b .0002-third-party-boringssl-add-generated-files
+%patch -P391 -p1 -b .0003-third_party-libvpx-Add-ppc64-generated-config
+#patch -P392 -p1 -b .0003-third_party-libvpx-Add-ppc64-vsx-files
+%patch -P393 -p1 -b .0003-third_party-ffmpeg-Add-ppc64-generated-config
+%patch -P394 -p1 -b .0004-third_party-libvpx-work-around-ambiguous-vsx
+
+%patch -P395 -p1 -b .skia-vsx-instructions
+
+%patch -P396 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
+%patch -P397 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
+%patch -P398 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
+%patch -P399 -p1 -b .fix-rustc
+%patch -P400 -p1 -b .fix-rust-linking
+%patch -P401 -p1 -b .fix-breakpad-compile
+%patch -P402 -p1 -b .fix-partition-alloc-compile
+%patch -P403 -p1 -b .0002-Add-ppc64-trap-instructions
+%patch -P404 -p1 -b .0001-Fix-highway-ppc-hwcap
+
+%patch -P405 -p1 -b .0001-Add-PPC64-support-for-libdav1d
+%patch -P406 -p1 -b .0001-Fix-libdav1d-compilation-on-clang-ppc
+%patch -P407 -p1 -b .fix-ppc64-linux-syscalls-headers
+%patch -P408 -p1 -b .0003-thirdparty-fix-dav1d-gn
+%patch -P409 -p1 -b .use-sysconf-page-size-on-ppc64
+
+%patch -P410 -p1 -b .dawn-fix-typos
+%patch -P411 -p1 -b .dawn-fix-ppc64le-detection
+
+%patch -P412 -p1 -b .fix-swiftshader-compile.patch
+%patch -P413 -p1 -b .fix-unknown-warning-option-messages
+
+%patch -P414 -p1 -b .0002-Highway-disable-128-bit-vsx
+%endif
+
 %%ifarch aarch64
 %if 0%{?rhel} == 8
-%patch -P400 -p1 -b .el8-support-64kpage.patch
+%patch -P500 -p1 -b .el8-support-64kpage.patch
 %endif
 %endif
 
@@ -1359,6 +1513,10 @@ CHROMIUM_CORE_GN_DEFINES+=' use_gold=false'
 
 %ifarch aarch64
 CHROMIUM_CORE_GN_DEFINES+=' target_cpu="arm64"'
+%endif
+
+%ifarch ppc64le
+CHROMIUM_CORE_GN_DEFINES+=' target_cpu="ppc64"'
 %endif
 
 CHROMIUM_CORE_GN_DEFINES+=' icu_use_data_file=true'
@@ -1628,7 +1786,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 pushd %{builddir}
 	cp -a chrom*.pak resources.pak icudtl.dat %{buildroot}%{chromium_path}
 	cp -a locales/*.pak %{buildroot}%{chromium_path}/locales/
-	%ifarch x86_64 aarch64
+	%ifarch x86_64 aarch64 ppc64le
 		cp -a libvk_swiftshader.so %{buildroot}%{chromium_path}
 		cp -a libvulkan.so.1 %{buildroot}%{chromium_path}
 		cp -a vk_swiftshader_icd.json %{buildroot}%{chromium_path}
@@ -1658,12 +1816,12 @@ pushd %{builddir}
 	%if %{build_clear_key_cdm}
 		%ifarch x86_64
 			cp -a ClearKeyCdm/_platform_specific/linux_x64/libclearkeycdm.so %{buildroot}%{chromium_path}
-		%else
-			%ifarch aarch64
-				cp -a ClearKeyCdm/_platform_specific/linux_arm64/libclearkeycdm.so %{buildroot}%{chromium_path}
-			%else
-				cp -a libclearkeycdm.so %{buildroot}%{chromium_path}
-			%endif
+		%endif
+		%ifarch aarch64
+			cp -a ClearKeyCdm/_platform_specific/linux_arm64/libclearkeycdm.so %{buildroot}%{chromium_path}
+		%endif
+		%ifarch ppc64le
+			cp -a ClearKeyCdm/_platform_specific/linux_ppc64/libclearkeycdm.so %{buildroot}%{chromium_path}
 		%endif
 	%endif
 
@@ -1843,7 +2001,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %if %{build_clear_key_cdm}
 %{chromium_path}/libclearkeycdm.so
 %endif
-%ifarch x86_64 aarch64
+%ifarch x86_64 aarch64 ppc64le
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*
 %{chromium_path}/vk_swiftshader_icd.json
@@ -1952,6 +2110,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Mon Mar 11 2024 Than Ngo <than@redhat.com> - 122.0.6261.111-2
+- enable ppc64le build
+
 * Wed Mar 06 2024 Than Ngo <than@redhat.com> - 122.0.6261.111-1
 - upstream security release 122.0.6261.111
    * High CVE-2024-2173: Out of bounds memory access in V8 

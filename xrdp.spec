@@ -17,7 +17,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.9.25
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
 Source0:   https://github.com/neutrinolabs/xrdp/releases/download/v%{version}/xrdp-%{version}.tar.gz
@@ -38,6 +38,7 @@ Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 Patch7:    xrdp-0.9.20-sesman-ini.patch
 %endif
+Patch8:    xrdp-0.9.25-2994.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -295,6 +296,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Wed Mar 13 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.9.25-2
+- Add upstream PR 2994
+
 * Tue Mar 12 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.9.25-1
 - Update to 0.9.25
 

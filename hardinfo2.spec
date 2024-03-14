@@ -1,13 +1,28 @@
+%if 0%{?rhel} <= 8
+%undefine __cmake_in_source_build
+%undefine __cmake3_in_source_build
+%endif
+
 Name:           hardinfo2
 Version:        2.0.15
 Release:        %autorelease
 Summary:        System Information and Benchmark for Linux Systems
 
 # most of the source code is GPL-2.0-or-later license, except:
-# deps/uber-graph/g-ring.c: LGPL-2.1-or-later AND GPL-1.0-or-later
-# deps/uber-graph/g-ring.h: LGPL-2.1-or-later AND GPL-1.0-or-later
+
+# hardinfo2/gg_key_file_parse_string_as_value.c: LGPL-2.1-or-later
+# includes/blowfish.h: LGPL-2.1-or-later
+# deps/uber-graph/g-ring.c: LGPL-2.1-or-later
+# deps/uber-graph/g-ring.h: LGPL-2.1-or-later
+# modules/benchmark/blowfish.c: LGPL-2.1-or-later
+
+# hardinfo2/gg_strescape.c: LGPL-2.0-or-later
+# hardinfo2/util.c: GPL-2.0-or-later AND LGPL-2.0-or-later
 # deps/uber-graph/uber-frame-source.c: LGPL-2.0-or-later
 # deps/uber-graph/uber-frame-source.h: LGPL-2.0-or-later
+# deps/uber-graph/uber-timeout-interval.c: LGPL-2.0-or-later
+# deps/uber-graph/uber-timeout-interval.h: LGPL-2.0-or-later
+
 # deps/uber-graph/uber-graph.c: GPL-3.0-or-later
 # deps/uber-graph/uber-graph.h: GPL-3.0-or-later
 # deps/uber-graph/uber-heat-map.c: GPL-3.0-or-later
@@ -22,28 +37,23 @@ Summary:        System Information and Benchmark for Linux Systems
 # deps/uber-graph/uber-scale.h: GPL-3.0-or-later
 # deps/uber-graph/uber-scatter.c: GPL-3.0-or-later
 # deps/uber-graph/uber-scatter.h: GPL-3.0-or-later
-# deps/uber-graph/uber-timeout-interval.c: LGPL-2.0-or-later
-# deps/uber-graph/uber-timeout-interval.h: LGPL-2.0-or-later
 # deps/uber-graph/uber-window.c: GPL-3.0-or-later
 # deps/uber-graph/uber-window.h: GPL-3.0-or-later
 # deps/uber-graph/uber.h: GPL-3.0-or-later
-# hardinfo2/gg_key_file_parse_string_as_value.c: LGPL-2.1-or-later
-# hardinfo2/gg_strescape.c: LGPL-2.0-or-later
-# includes/blowfish.h: LGPL-2.1-or-later
-# includes/egg-markdown.h: GPL-2.0-only AND GPL-2.0-or-later
-# includes/help-viewer.h: GPL-2.0-only AND GPL-1.0-or-later
+
 # includes/loadgraph.h: LGPL-2.1-only
-# includes/markdown-text-view.h: GPL-2.0-only AND LGPL-2.0-or-later
-# modules/benchmark/blowfish.c: LGPL-2.1-or-later AND LGPL-2.0-or-later
 # shell/loadgraph.c: LGPL-2.1-only
-# shell/menu.c: LGPL-2.0-only
-License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-1.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND GPL-2.0-only AND LGPL-2.1-only AND LGPL-2.0-only
+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only
 URL:            https://github.com/hardinfo2/hardinfo2
 Source0:        %{url}/archive/release-%{version}/hardinfo2-release-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
+%if 0%{?rhel} < 8
+BuildRequires:  cmake3
+%else
 BuildRequires:  cmake
-BuildRequires:  ninja-build
+%endif
 
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(cairo)
@@ -59,6 +69,7 @@ BuildRequires:  zlib-devel
 
 BuildRequires:  desktop-file-utils
 
+%if 0%{?rhel} >= 8 || 0%{?fedora}
 Recommends:     lm_sensors
 Recommends:     sysbench
 Recommends:     lsscsi
@@ -67,6 +78,7 @@ Recommends:     dmidecode
 Recommends:     udisks2
 Recommends:     xdg-utils
 Recommends:     iperf3
+%endif
 
 %description
 Hardinfo2 is based on hardinfo, which have not been released >10 years.
@@ -84,14 +96,20 @@ Features include:
 %autosetup -p1 -n hardinfo2-release-%{version}
 
 %build
-%cmake \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-
+%if 0%{?rhel} < 8
+%cmake3 -DCMAKE_BUILD_TYPE=Release
+%cmake3_build
+%else
+%cmake -DCMAKE_BUILD_TYPE=Release
 %cmake_build
+%endif
 
 %install
+%if 0%{?rhel} < 8
+%cmake3_install
+%else
 %cmake_install
+%endif
 
 %find_lang %{name}
 
@@ -118,4 +136,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/hardinfo2.1*
 
 %changelog
+%if %{defined autochangelog}
 %autochangelog
+%else
+* Mon May 01 2023 RH Container Bot <rhcontainerbot@fedoraproject.org>
+- Placeholder changelog for envs that are not autochangelog-ready
+%endif
+

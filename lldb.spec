@@ -4,8 +4,8 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global lldb_version 18.1.0
-%global rc_ver 4
+%global lldb_version 18.1.1
+#global rc_ver 4
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		lldb
@@ -134,6 +134,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Tue Mar 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Wed Feb 28 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

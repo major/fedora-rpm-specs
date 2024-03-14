@@ -1,5 +1,5 @@
 Name:		perl-Expect
-Version:	1.37
+Version:	1.38
 Release:	1%{?dist}
 Summary:	Expect for Perl
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -64,6 +64,10 @@ make test
 %{_mandir}/man3/Expect.3*
 
 %changelog
+* Tue Mar 12 2024 Paul Howarth <paul@city-fan.org> - 1.38-1
+- Update to 1.38
+  - Fix to fix to timeout code
+
 * Fri Mar  8 2024 Paul Howarth <paul@city-fan.org> - 1.37-1
 - Update to 1.37
   - Fix to timeout code

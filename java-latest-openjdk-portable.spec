@@ -131,7 +131,7 @@
 # Set of architectures for which we build fastdebug builds
 %global fastdebug_arches x86_64 ppc64le aarch64
 # Set of architectures with a Just-In-Time (JIT) compiler
-%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64
+%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64 riscv64
 # Set of architectures which use the Zero assembler port (!jit_arches)
 %global zero_arches ppc s390
 # Set of architectures which run a full bootstrap cycle
@@ -141,7 +141,7 @@
 # Set of architectures with a Ahead-Of-Time (AOT) compiler
 %global aot_arches      x86_64 %{aarch64}
 # Set of architectures which support the serviceability agent
-%global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm}
+%global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm} riscv64
 # Set of architectures which support class data sharing
 # As of JDK-8005165 in OpenJDK 10, class sharing is not arch-specific
 # However, it does segfault on the Zero assembler port, so currently JIT only
@@ -149,7 +149,7 @@
 # Set of architectures for which we build the Shenandoah garbage collector
 %global shenandoah_arches x86_64 %{aarch64}
 # Set of architectures for which we build the Z garbage collector
-%global zgc_arches x86_64
+%global zgc_arches x86_64 riscv64
 # Set of architectures for which alt-java has SSB mitigation
 %global ssbd_arches x86_64
 # Set of architectures for which java has short vector math library (libjsvml.so)
@@ -304,6 +304,10 @@
 %global archinstall aarch64
 %global stapinstall arm64
 %endif
+%ifarch riscv64
+%global archinstall riscv64
+%global stapinstall %{_target_cpu}
+%endif
 # 32 bit sparc, optimized for v9
 %ifarch sparcv9
 %global archinstall sparc
@@ -398,7 +402,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      2
+%global rpmrelease      3
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -1041,7 +1045,7 @@ export NUM_PROC=${NUM_PROC:-1}
 [ ${NUM_PROC} -gt %{?_smp_ncpus_max} ] && export NUM_PROC=%{?_smp_ncpus_max}
 %endif
 
-%ifarch s390x sparc64 alpha %{power64} %{aarch64}
+%ifarch s390x sparc64 alpha %{power64} %{aarch64} riscv64
 export ARCH_DATA_MODEL=64
 %endif
 %ifarch alpha
@@ -1780,6 +1784,9 @@ done
 %endif
 
 %changelog
+* Wed Feb 21 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:22.0.0.0.36-3.rolling
+- Add riscv64 support
+
 * Fri Feb 16 2024 Jiri Vanek <jvanek@redhat.com> - 1:22.0.0.0.36-2.rolling
 - bumped build jdk to 22
 

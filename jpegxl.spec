@@ -3,9 +3,9 @@
 
 
 # Uncomment for special build to rebuild aom on bumped soname.
-#global new_soname 1
+%global new_soname 1
 %global sover_old 0.8
-%global sover 0.9
+%global sover 0.10
 
 %global gdk_pixbuf_moduledir $(pkgconf gdk-pixbuf-2.0 --variable=gdk_pixbuf_moduledir)
 
@@ -20,7 +20,7 @@ decoder).}
 
 Name:           jpegxl
 Epoch:          1
-Version:        0.9.2
+Version:        0.10.2
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 

@@ -1,6 +1,6 @@
 %global upstreamname hipSPARSE
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -20,7 +20,7 @@
 
 Name:           hipsparse
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -33,11 +33,7 @@ Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstream
 Patch0:         0001-prepare-hipsparse-cmake-for-fedora.patch
 
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  clang-devel
 BuildRequires:  gcc-gfortran
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
@@ -131,26 +127,4 @@ done
 %endif
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 6 2024 Tom Rix <trix@redhat.com> - 6.0.0-1
-- Update to 6.0.0
-
-* Fri Dec 1 2023 Tom Rix <trix@redhat.com> - 5.7.1-4
-- Glob dirs
-
-* Mon Nov 20 2023 Tom Rix <trix@redhat.com> - 5.7.1-3
-- remove mcmodel
-
-* Sun Nov 19 2023 Tom Rix <trix@redhat.com>  - 5.7.1-2
-- Address review comments
-- move turning off samples to a patch
-- explicitly set build type
-
-* Sun Nov 12 2023 Tom Rix <trix@redhat.com>  - 5.7.1-1
-- Initial package
-
+%autochangelog

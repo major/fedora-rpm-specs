@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.10.0
+Version:        3.10.1
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -593,6 +593,12 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Tue Mar 12 2024 Robert Scheck <robert@fedoraproject.org> 3.10.1-1
+- Upgrade to 3.10.1 (#2269261)
+
+* Mon Mar 11 2024 Robert Scheck <robert@fedoraproject.org> 3.10.0-2
+- Added upstream patch to fix mtx_unlock on discard in aureceiver
+
 * Sun Mar 10 2024 Robert Scheck <robert@fedoraproject.org> 3.10.0-1
 - Upgrade to 3.10.0 (#2268424)
 

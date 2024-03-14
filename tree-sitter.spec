@@ -63,7 +63,7 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 
 %files -n lib%{name}
 %license LICENSE
-%doc README.md
+%doc README.md CHANGELOG.md
 %{_libdir}/libtree-sitter.so.%{treesitter_so_version}*
 
 %files -n lib%{name}-devel
@@ -75,8 +75,7 @@ find %{buildroot}%{_libdir} -type f \( -name "*.la" -o -name "*.a" \) -delete -p
 %changelog
 * Mon Mar 11 2024 Andreas Schneider <asn@redhat.com> - 0.22.1-1
 - Update to version 0.22.1
-  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.22.1
-  https://github.com/tree-sitter/tree-sitter/releases/tag/v0.22.0
+  https://github.com/tree-sitter/tree-sitter/blob/v0.22.1/CHANGELOG.md
 
 * Thu Feb 22 2024 Andreas Schneider <asn@redhat.com> - 0.21.0-1
 - Update to version 0.21.0

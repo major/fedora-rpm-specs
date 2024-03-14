@@ -1,6 +1,6 @@
 Name:           python3-mypy
-Version:        1.8.0
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -9,7 +9,7 @@ Summary:        A static type checker for Python
 # mypy/typeshed is ASL 2.0
 License:        MIT and Apache-2.0 
 URL:            https://github.com/python/mypy
-Source0:        https://github.com/python/mypy/archive/v%{version}/mypy-%{version}.tar.gz
+Source0:        https://github.com/python/mypy/archive/%{version}/mypy-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -80,6 +80,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-1
+- 1.9.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

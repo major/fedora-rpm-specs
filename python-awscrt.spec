@@ -3,7 +3,7 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.20.4
+Version:        0.20.5
 Release:        %autorelease
 
 Summary:        Python bindings for the AWS Common Runtime

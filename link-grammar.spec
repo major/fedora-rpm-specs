@@ -7,9 +7,10 @@
 Summary: A full-service natural language dependency parser
 Name: link-grammar
 Version: 5.12.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
+Patch0: java8.patch
 URL: http://abisource.com/projects/link-grammar/
 BuildRequires: hunspell-devel, libedit-devel, perl-devel, python3-devel, python3-setuptools
 %if %{JAVA}
@@ -65,6 +66,8 @@ Python 3 libraries for liblink-grammar
 
 %prep
 %setup -q
+
+%patch -P 0 -p0
 
 %build
 %if %{JAVA}
@@ -125,6 +128,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.12.3-7
+- Fix FTBFS
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -409,8 +409,11 @@ Recommends:     python3dist(pytest-asyncio)
 # Additional dependencies from environment.yml:
 # “Dask and its dependencies (that dont install with dask)”
 # Asks for dask-core, but we just have dask
-BuildRequires:  python3dist(dask)
-Recommends:     python3dist(dask)
+#
+# Drop dependency on `dask` for i686 (package excludes i686)
+# This can be reverted once `pandas` drops i686
+BuildRequires:  (python3dist(dask) or python3(x86-32))
+Recommends:     (python3dist(dask) if python3(x86-64))
 BuildRequires:  python3dist(toolz) >= 0.7.3
 Recommends:     python3dist(toolz) >= 0.7.3
 BuildRequires:  python3dist(partd) >= 0.3.10
@@ -676,6 +679,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Mon Mar 11 2024 Sandro <devel@penguinpee.nl> - 2.2.1-2
+- Drop dependency on dask for i686
+
 * Fri Feb 23 2024 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.2.1-1
 - Update to 2.2.1
 
@@ -1003,4 +1009,3 @@ export PYTHONHASHSEED="$(
 
 * Tue Jul 10 2012 Kushal Das <kushal@fedoraproject.org> 0.8.1-1
 - Initial release in Fedora
-

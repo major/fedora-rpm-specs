@@ -4,8 +4,8 @@
 
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
-Version: 5.27.10
-Release: 3%{?dist}
+Version: 5.27.11
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -116,6 +116,9 @@ rm -rf %{buildroot}%{_kf5_datadir}/zsh
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
 %changelog
+* Tue Mar 12 2024 Marie Loise Nolden <loise@kde.org> - 5.27.11-1
+- 5.27.11
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

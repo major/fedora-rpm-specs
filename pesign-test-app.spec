@@ -38,7 +38,7 @@ deployments of new pesign versions into build infrastructure have succeeded.
 %autosetup -S git
 
 %build
-make LIBDIR=%{_libdir} DATADIR=%{_datadir} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_LDFLAGS"
+make LIBDIR=%{_libdir} DATADIR=%{_datadir} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_LDFLAGS" GNUEFIDIR=%{_prefix}/lib/gnuefi
 cp %{name}.efi %{name}-unsigned.efi
 id
 ls -ld /var/run/pesign || :

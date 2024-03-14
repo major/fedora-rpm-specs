@@ -1,10 +1,10 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.7.0
+Version:            6.8.0
 Release:            %autorelease
 URL:                https://kernel.org/pub/linux/utils/net/%{name}2/
 Source0:            https://kernel.org/pub/linux/utils/net/%{name}2/%{name}2-%{version}.tar.xz
-Patch0:             0001-iproute2-fix-build-failure-on-ppc64le.patch
+
 
 License:            GPL-2.0-or-later AND NIST-PD
 BuildRequires:      bison

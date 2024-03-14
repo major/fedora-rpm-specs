@@ -4,7 +4,7 @@
 Name:           ufraw
 Summary:        Raw image data retrieval tool for digital cameras
 Version:        0.23
-Release:        0.20.20210425%{?dist}
+Release:        0.21.20210425%{?dist}
 
 # GPL-2.0-or-later: main program
 # GPL-2.0-only:
@@ -44,7 +44,7 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig >= 0.9.0
 
-Requires:       %{name}-common = %{?epoch:%{epoch}:}0.22-%{release}
+Requires:       %{name}-common = %{version}-%{release}
 
 Provides: bundled(dcraw) = 9.28
 
@@ -59,7 +59,7 @@ The ufraw-common files includes common files for UFRaw, e.g. language support.
 
 %package        gimp
 Summary:        GIMP plugin to retrieve raw image data from digital cameras
-Requires:       %{name}-common%{?_isa} = %{?epoch:%{epoch}:}0.22-%{release}
+Requires:       %{name}-common%{?_isa} = %{version}-%{release}
 Requires:       gimp%{?_isa}
 
 %description    gimp
@@ -110,6 +110,9 @@ install -D -m0644 %{SOURCE2} %{buildroot}%{_datadir}/thumbnailers/%{name}.thumbn
 %{gimpplugindir}/%{name}-gimp
 
 %changelog
+* Tue Mar 12 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.23-0.21.20210425
+- Fix version confusion preventing installation (rhbz#2268806)
+
 * Sat Mar 09 2024 Nils Philippsen <nils@tiptoe.de> - 0.23-0.20.20210425
 - Fix build failure (rhbz#2261764)
 

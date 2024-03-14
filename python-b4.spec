@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.12.3
+Version:        0.13.0
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
 License:        GPL-2.0-or-later
@@ -23,11 +23,6 @@ BuildArch:      noarch
 BuildRequires:  gnupg2
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3dist(pytest)
-
-# Require manually until it provides python3dist(git-filter-repo)
-# https://src.fedoraproject.orae57d6eg/rpms/git-filter-repo/pull-request/1
-BuildRequires:  git-filter-repo > 2.30
-Requires:       git-filter-repo > 2.30
 
 %global _description %{expand:
 B4 is a helper utility to work with patches made available via a public-inbox
@@ -54,8 +49,6 @@ sed -Ei -e '/^# These are optional, needed for attestation/d' \
     -e "/^ *'?(dnspython|dkimpy|patatt)/d" requirements.txt setup.py
 %endif
 
-# Avoid python3dist(git-filter-repo) requirement
-sed -Ei "/^ *'?git-filter-repo/d" requirements.txt setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements.txt
@@ -72,16 +65,10 @@ sed -Ei "/^ *'?git-filter-repo/d" requirements.txt setup.py
 
 %check
 %pyproject_check_import
-# disable this test due to regression in 3.12b4:
-# https://github.com/python/cpython/issues/106669
-%pytest \
-%if v"%{python3_version}" >= v"3.12"
-  -k "not test_header_wrapping"
-%endif
+%pytest
 
 
 %files -n %{srcname} -f %{pyproject_files}
-%license COPYING
 %doc README.rst
 %{_bindir}/%{srcname}
 %{_mandir}/man5/%{srcname}.5.*

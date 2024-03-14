@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           bochs
-Version:        2.7
-Release:        9%{?dist}
+Version:        2.8
+Release:        1%{?dist}
 Summary:        Portable x86 PC emulator
 License:        LGPL-2.0-or-later
 URL:            http://bochs.sourceforge.net/
@@ -14,7 +14,6 @@ Patch7: %{name}-nonet-build.patch
 Patch8: bochs-aarch64.patch
 Patch10: bochs-usb.patch
 Patch11: bochs-2.6.10-slirp-include.patch
-Patch12: bochs-configure-c99.patch
 
 ExcludeArch:    s390x i686
 
@@ -82,12 +81,11 @@ Header and source files from bochs source.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch3 -p1
-%patch4 -p1
-%patch7 -p0 -z .nonet
-%patch11 -p0
-%patch12 -p1
+%patch -P 0 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 7 -p0 -z .nonet
+%patch -P 11 -p0
 
 # Fix up some man page paths.
 sed -i -e 's|/usr/local/share/|%{_datadir}/|' doc/man/*.*
@@ -207,6 +205,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.8-1
+- 2.8
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

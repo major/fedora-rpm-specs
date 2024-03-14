@@ -3,12 +3,13 @@
 
 Name:          ibus-unikey
 Version:       0.6.1
-Release:       34.20190311git46b5b9e%{?dist}
+Release:       35.20190311git46b5b9e%{?dist}
 Summary:       Vietnamese engine for IBus input platform
 
 License:       GPL-3.0-only
 URL:           https://github.com/vn-input/ibus-unikey/
 Source0:       https://github.com/vn-input/ibus-unikey/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Patch1:        %{name}-2267853-super-space.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -25,7 +26,7 @@ A Vietnamese engine for IBus input platform that uses Unikey.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-%{commit}
 
 
 %build
@@ -47,6 +48,9 @@ A Vietnamese engine for IBus input platform that uses Unikey.
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.unikey.gschema.xml
 
 %changelog
+* Tue Mar 12 2024 Takao Fujiwara <tfujiwar@redhat.com> - 0.6.1-35.20190311git46b5b9e
+- Resolves #2267853 Add %{name}-2267853-super-space.patch
+
 * Fri Feb 02 2024 Parag Nemade <pnemade AT redhat DOT com> - 0.6.1-34.20190311git46b5b9e
 - Migrate to SPDX license expression
 

@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -53,7 +53,6 @@ BuildRequires:  python3dist(setuptools) >= 21.2.1
 BuildRequires:  python3dist(twisted) >= 17.9
 BuildRequires:  python3dist(jinja2) >= 2.1
 BuildRequires:  python3dist(zope-interface) >= 4.1.1
-BuildRequires:  python3dist(future)
 BuildRequires:  python3dist(sqlalchemy)
 BuildRequires:  python3dist(sqlalchemy-migrate) >= 0.9
 BuildRequires:  python3dist(python-dateutil) >= 1.5
@@ -412,6 +411,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Tue Mar 12 2024 Miro Hrončok <mhroncok@redhat.com> - 3.11.1-2
+- Remove superfluous BuildRequires of python3-future
+
 * Mon Mar 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.11.1-1
 - 3.11.1
 

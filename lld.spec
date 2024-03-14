@@ -17,8 +17,8 @@
 
 %global maj_ver 18
 %global min_ver 1
-%global patch_ver 0
-%global rc_ver 4
+%global patch_ver 1
+#global rc_ver 4
 
 %if %{with snapshot_build}
 %undefine rc_ver
@@ -49,7 +49,7 @@
 
 Name:		%{pkg_name}
 Version:	%{lld_version}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -218,6 +218,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Tue Mar 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Sat Mar 02 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-2
 - Enable s390x arch
 

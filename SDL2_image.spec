@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 2.8.2-5
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Wed Mar 06 2024 Sérgio Basto <sergio@serjux.com> - 2.8.2-4
 - add jpegxl and avif as shared libs
 

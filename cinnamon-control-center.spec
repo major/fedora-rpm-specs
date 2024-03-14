@@ -10,10 +10,14 @@
 %global cinnamon_menus_version 6.0.0
 %global redhat_menus_version 1.8
 
+%if 0%{?fedora} < 40
+%global with_goa 1
+%endif
+
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
 Version: 6.0.0
-Release: 5%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release: 6%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -66,8 +70,10 @@ BuildRequires: pkgconfig(libnma) >= 1.2.0
 BuildRequires: pkgconfig(mm-glib) >= 0.7
 BuildRequires: pkgconfig(colord)
 BuildRequires: pkgconfig(libwacom)
+%if 0%{?with_goa}
 BuildRequires: pkgconfig(goa-1.0)
 BuildRequires: pkgconfig(goa-backend-1.0) >= 3.21.5
+%endif
 
 %description
 This package contains configuration utilities for the Cinnamon desktop, which
@@ -106,7 +112,12 @@ utilities for testing Metacity/Muffin themes.
 
 
 %build
-%meson
+%meson \
+%if 0%{?with_goa}
+ -Donlineaccounts=true
+%else
+ -Donlineaccounts=false
+%endif
 %meson_build
 
 
@@ -140,7 +151,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 %{_libdir}/cinnamon-control-center-1/panels/libcolor.so
 %{_libdir}/cinnamon-control-center-1/panels/libdisplay.so
 %{_libdir}/cinnamon-control-center-1/panels/libnetwork.so
+%if 0%{?with_goa}
 %{_libdir}/cinnamon-control-center-1/panels/libonline-accounts.so
+%endif
 %{_libdir}/cinnamon-control-center-1/panels/libregion.so
 %{_libdir}/cinnamon-control-center-1/panels/libwacom-properties.so
 
@@ -157,6 +170,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Tue Mar 12 2024 Leigh Scott <leigh123linux@gmail.com> - 6.0.0-6
+- Disable goa for f40+
+
 * Wed Mar 06 2024 Gwyn Ciesla <gwync@protonmail.com> - 6.0.0-5
 - goa-backend rebuild
 

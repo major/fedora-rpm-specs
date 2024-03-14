@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -175,6 +175,7 @@ BuildRequires:  pkgconfig(frei0r)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libilbc)
 BuildRequires:  pkgconfig(jack)
 %if %{with lcms2}
@@ -616,6 +617,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libfontconfig \
     --enable-libfreetype \
     --enable-libfribidi \
+    --enable-libharfbuzz \
     --enable-libgme \
     --enable-libgsm \
 %if %{with dc1394}
@@ -863,6 +865,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Tue Mar 12 2024 Dominik Mierzejewski <dominik@greysector.net> - 6.1.1-10
+- Enable drawtext filter (requires libharfbuzz)
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 6.1.1-9
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

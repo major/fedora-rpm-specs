@@ -33,7 +33,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        8.5.5
+Version:        8.6.0
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 

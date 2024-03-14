@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    4%{?dist}
+Release:    5%{?dist}
 Epoch:      1
 
 License:    Net-SNMP and OpenSSL
@@ -51,6 +51,7 @@ Patch21:    net-snmp-libs-misunderstanding.patch
 Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
 Patch23:    net-snmp-5.9-rpmdb.patch
 Patch24:    net-snmp-5.9.4-autoconf.patch
+Patch25:    net-snmp-5.9.4-kernel-6.7.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -241,6 +242,7 @@ cp %{SOURCE10} .
 %patch 22 -p1 -b .ipv6-disable-leak
 %patch 23 -p1 -b .rpmdbpatch
 %patch 24 -p1 
+%patch 25 -p1 -b .kernel-6.7
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -511,6 +513,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Tue Mar 12 2024 Josef Ridky <jridky@redhat.com> - 1:5.9.4-5
+- Fix parsing issue for kernel 6.7+ (#2266893)
+
 * Fri Feb 16 2024 Josef Ridky <jridky@redhat.com> - 1:5.9.4-4
 - Autoconf upgrade (#2256768)
 

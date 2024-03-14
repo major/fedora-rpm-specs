@@ -1,7 +1,7 @@
 Name:    libkscreen
 Summary: KDE display configuration library
-Version: 6.0.1
-Release: 2%{?dist}
+Version: 6.0.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -88,6 +88,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
+- 6.0.2
+
 * Sat Mar 09 2024 Marie Loise Nolden <loise@kde.org> - 6.0.1-2
 - add missing BuildArch: noarch to -doc package
 

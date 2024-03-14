@@ -131,7 +131,7 @@
 # Set of architectures for which we build fastdebug builds
 %global fastdebug_arches x86_64 ppc64le aarch64
 # Set of architectures with a Just-In-Time (JIT) compiler
-%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64
+%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64 riscv64
 # Set of architectures which use the Zero assembler port (!jit_arches)
 %global zero_arches ppc s390
 # Set of architectures which run a full bootstrap cycle
@@ -319,6 +319,10 @@
 %global archinstall aarch64
 %global stapinstall arm64
 %endif
+%ifarch riscv64
+%global archinstall riscv64
+%global stapinstall riscv64
+%endif
 # 32 bit sparc, optimized for v9
 %ifarch sparcv9
 %global archinstall sparc
@@ -336,7 +340,7 @@
 %endif
 
 %ifarch %{systemtap_arches}
-%if (0%{?rhel} > 0)
+%if (0%{?rhel} > 0 && !0%{?epel})
 %global with_systemtap 1
 %else
 %global with_systemtap 0
@@ -413,7 +417,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      3
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -660,6 +664,8 @@ Source18: TestTranslations.java
 
 # Ignore AWTError when assistive technologies are loaded
 Patch1:    rh1648242-accessible_toolkit_crash_do_not_break_jvm.patch
+# Patch from https://github.com/openjdk/riscv-port-jdk11u/pull/3
+Patch2:    java11-riscv64.patch
 # NSS via SunPKCS11 Provider (disabled due to memory leak).
 Patch1000: rh1648249-add_commented_out_nss_cfg_provider_to_java_security.patch
 # RH1750419: enable build of speculative store bypass hardened alt-java (CVE-2018-3639)
@@ -1032,6 +1038,7 @@ sh %{SOURCE12} %{top_level_dir_name}
 # -p N: strip N leading slashes from paths
 pushd %{top_level_dir_name}
 %patch -P1 -p1
+%patch -P2 -p1
 %patch -P3 -p1
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
@@ -1776,6 +1783,12 @@ done
 %endif
 
 %changelog
+* Wed Feb 28 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:11.0.22.0.7-1.3
+- Add riscv64 support
+
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:11.0.22.0.7-1.2
+- fixed condition for taspets
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:11.0.22.0.7-1.1
 - Rebuilt for java-21-openjdk as system jdk
 

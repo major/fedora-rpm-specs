@@ -7,13 +7,14 @@
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.13.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   GPL-2.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND GPL-3.0-or-later AND MIT AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 Source0:   https://github.com/cheusov/dictd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:   dictd.service
 Source2:   dictd2.te
 Source3:   dictd.conf
 Patch0:    0001-Fix-C99-compatibility-issues-in-lexer-parser-integra.patch
+Patch1:    0001-remove-use-of-deprecated-inet_aton-and-inet_ntoa.patch
 URL:       http://www.dict.org/
 
 BuildRequires: flex
@@ -141,6 +142,9 @@ exit 0
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Mon Mar 11 2024 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> 1.13.1-3
+- Remove use of deprecated functions
+
 * Sun Mar 10 2024 Miroslav Suchy <msuchy@redhat.com> 1.13.1-2
 - Correct typo in license name
 

@@ -1,6 +1,6 @@
 Name: CalcMySky
-Version:  0.3.1
-Release:  5%{?dist}
+Version:  0.3.2
+Release:  1%{?dist}
 Summary: Simulator of light scattering by planetary atmospheres 
 
 License: GPL-3.0-only
@@ -65,6 +65,9 @@ These are the development files.
 
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.3.2-1
+- 0.3.2
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

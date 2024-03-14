@@ -1,6 +1,6 @@
 
 Name:    plasma-firewall
-Version: 6.0.1
+Version: 6.0.2
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %{_datadir}/polkit-1/actions/org.kde.ufw.policy
 
 %changelog
+* Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
+- 6.0.2
+
 * Wed Mar 06 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.1-1
 - 6.0.1
 

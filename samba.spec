@@ -57,7 +57,7 @@
 
 # ppc64le excluded pending resolution of https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104172
 #%%ifarch aarch64 ppc64le s390x x86_64
-%ifarch aarch64 s390x x86_64
+%ifarch aarch64 s390x x86_64 riscv64
 %bcond_without vfs_cephfs
 %bcond_without ceph_mutex
 %else
@@ -80,7 +80,7 @@
 
 %if 0%{?fedora}
 
-%ifarch aarch64 ppc64le s390x x86_64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64
 %bcond_without vfs_glusterfs
 %else
 %bcond_with vfs_glusterfs
@@ -109,7 +109,7 @@
 # Build vfs_io_uring module by default on 64bit Fedora
 %if 0%{?fedora} || 0%{?rhel} >= 8
 
-%ifarch aarch64 ppc64le s390x x86_64
+%ifarch aarch64 ppc64le s390x x86_64 riscv64
 %bcond_without vfs_io_uring
 %else
 %bcond_with vfs_io_uring
@@ -147,7 +147,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.20.0
-%global baserelease 5
+%global baserelease 6
 # This should be rc1 or %%nil
 %global pre_release rc4
 
@@ -332,7 +332,7 @@ BuildRequires: zlib-devel >= 1.2.3
 
 BuildRequires: pkgconfig(libsystemd)
 
-%ifnarch i686
+%ifnarch i686 riscv64
 %if 0%{?fedora} >= 37
 BuildRequires: mold
 %endif
@@ -1272,7 +1272,7 @@ export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 # Use the mold linker if possible
 export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 
-%ifnarch i686
+%ifnarch i686 riscv64
 %if 0%{?fedora} >= 37
 export LDFLAGS="%{__global_ldflags} -fuse-ld=mold"
 export python_LDFLAGS="$(echo ${LDFLAGS} | sed -e 's/-Wl,-z,defs//g')"
@@ -4586,6 +4586,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 12 2024 Richard W.M. Jones <rjones@redhat.com> - 2:4.20.0-0.6.rc4
+- Bump and rebuild package (for riscv64)
+
 * Mon Mar 11 2024 Guenther Deschner <gdeschner@redhat.com> - 4.20.0rc4-5
 - resolves: #2269037 - Update to version 4.20.0rc4
 

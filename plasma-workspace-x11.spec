@@ -1,6 +1,6 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.0.1
+Version: 6.0.2
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -209,6 +209,9 @@ sed -i \
 
 
 %changelog
+* Tue Mar 12 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.2-1
+- 6.0.2
+
 * Thu Mar 07 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.0.1-1
 - 6.0.1
 - Update BuildRequires
