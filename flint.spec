@@ -1,39 +1,43 @@
-# hmod_mat addon checkout information; this is used by eclib
-%global hm_user fredrik-johansson
-%global hm_name hmod_mat
-%global hm_commit 75378f4af0f0b558385a8bf28d6b4b8ca5f0f568
-%global hm_shortcommit %(c=%{hm_commit}; echo ${c:0:7})
-%global hm_date 20140328
-
 Name:           flint
-Version:        2.9.0
-Release:        7%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        Fast Library for Number Theory
 
-# Flint itself is LGPL-2.0-or-later.
-# The hmod_mat extension is GPL-2.0-or-later.
-License:        LGPL-2.0-or-later AND GPL-2.0-or-later
+# LGPL-3.0-or-later: the project as a whole
+# LGPL-2.1-or-later: src/longlong.h, src/fmpz/is_perfect_power.c,
+#   src/generic_files/clz_tab.c, src/mpn_extras/get_d.c
+# GPL-2.0-or-later: src/dirichlet/char_index.c, src/dirichlet/index_char.c
+# LGPL-3.0-or-later OR GPL-2.0-or-later: src/mpn_extras/asm-defs.m4,
+#   src/mpn_extras/broadwell/x86_64-defs.m4
+# BSD-2-Clause: src/bernoulli/mod_p_harvey.c
+License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later) AND BSD-2-Clause
 URL:            https://www.flintlib.org/
+VCS:            https://github.com/flintlib/flint
 Source0:        https://www.flintlib.org/%{name}-%{version}.tar.gz
-Source1:        https://github.com/%{hm_user}/%{hm_name}/archive/%{hm_commit}/%{hm_name}-%{hm_shortcommit}.tar.gz
-# Make the hmod_mat extension use gmp instead of mpir
-Patch0:         %{name}-hmod_mat.patch
-# Use the popcnt instruction when available
-Patch1:         %{name}-popcnt.patch
-# Work around a test that will not compile
-# See https://github.com/wbhart/flint2/issues/1165
-Patch2:         %{name}-test.patch
+# Do not assume the host CPU has the popcount instruction
+Patch0:         %{name}-popcnt.patch
 
-
+BuildRequires:  cmake
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
-BuildRequires:  make
 BuildRequires:  ntl-devel
-BuildRequires:  pkgconfig(bdw-gc)
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  tex(latex)
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+# This can be removed when F43 reaches EOL
+Obsoletes:      antic < 3.0.0
+Obsoletes:      arb < 3.0.0
+Obsoletes:      arb-doc < 3.0.0
+Obsoletes:      flint-static < 3.0.0
+Provides:       antic = %{version}-%{release}
+Provides:       arb = %{version}-%{release}
+Provides:       arb-doc = %{version}-%{release}
+Provides:       flint-static = %{version}-%{release}
 
 %description
 FLINT is a C library for doing number theory, written by William Hart
@@ -43,66 +47,35 @@ and David Harvey.
 %package        devel
 Summary:        Development files for FLINT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       gmp-devel%{?_isa}
-Requires:       mpfr-devel%{?_isa}
-Requires:       ntl-devel%{?_isa}
 
+# This can be removed when F43 reaches EOL
+Obsoletes:      antic-devel < 3.0.0
+Provides:       antic-devel = %{version}-%{release}
+Obsoletes:      arb-devel < 3.0.0
+Provides:       arb-devel = %{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%package        static
-Summary:        Static libraries for FLINT
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-
-
-%description    static
-The %{name}-static package contains static libraries for
-developing applications that use %{name}.
-
-
 %prep
-%setup -q -c
-%setup -q -T -D -a 1
+%autosetup -p1
 
 fixtimestamp() {
   touch -r $1.orig $1
   rm -f $1.orig
 }
 
-# Use gmp instead of mpir with hmod_mat
-for fil in $(grep -Frl mpir.h hmod_mat-%{hm_commit}); do
-  sed -i.orig 's/mpir\.h/gmp.h/' $fil
-  fixtimestamp $fil
-done
-
-mv hmod_mat-%{hm_commit} %{name}-%{version}/hmod_mat
-pushd %{name}-%{version}
-
-%autopatch -p0
-
-# Do not use rpaths.  Use flexiblas instead of openblas
-sed -i '/ -Wl,-rpath,[^"]*\("\)/d;s/openblas/flexiblas/' configure
-
 # sanitize header files
 ln -sf $PWD flint
 # sanitize references to external headers
-for fil in $(find . -name \*.c -o -name \*.h -o -name \*.in); do
-  sed -ri.orig 's/"((gc|gmp|limits|math|stdlib|string)\.h)"/<\1>/' $fil
+for fil in $(find src -name \*.c -o -name \*.h -o -name \*.in); do
+  sed -ri.orig 's/"((cblas|gc|gmp|math|mpfr|string)\.h)"/<\1>/' $fil
   fixtimestamp $fil
 done
-# sanitize references to flintxx headers
-sed_expr=$(ls -1 flintxx/*.h | \
-  sed -r 's,flintxx/(.*)\.h,\1,' | \
-  awk '/START/{if (x) print x;x="";next}{x=(!x)?$0:x"|"$0;}END{print x;}')
-for fil in $(find . -name \*.c -o -name \*.h); do
-  sed -ri.orig "s@\"(flintxx/)?(($sed_expr)\.h)\"@<flint/flintxx/\2>@" $fil
-  fixtimestamp $fil
-done
-# sanitize references to all other headers
-for fil in $(find . -name \*.c -o -name \*.h); do
+# sanitize references to project headers
+for fil in $(find src -name \*.c -o -name \*.h); do
   sed -ri.orig 's@"(\.\./)?([^"]+\.h])"@<flint/\2>@' $fil
   fixtimestamp $fil
 done
@@ -111,125 +84,59 @@ done
 # Use the classic sphinx theme
 sed -i "s/'default'/'classic'/" doc/source/conf.py
 
-# Rename hmod_mat files for doc
-cp -p hmod_mat/LICENSE LICENSE.hmod_mat
-cp -p hmod_mat/README.md README.hmod_mat.md
-popd
+# Remove a leftover from flintxx which now breaks the cpuset support test
+sed -i '/Threads::Threads/d' CMakeLists.txt
 
-# Prepare to build two versions of the library
-cp -a %{name}-%{version} %{name}-%{version}-gc
-for fil in $(grep -Frl libflint %{name}-%{version}-gc); do
-  sed -i 's/libflint/libflint-gc/' $fil
-done
+# Do not build with -march=native
+sed -i 's/if(HAS_FLAG_GCC_MARCH_NATIVE)/if(FALSE)/' CMakeLists.txt
+
+# Fix the pkgconfig file installation location
+if [ "%{_lib}" != "lib" ]; then
+  sed -i 's,lib/pkgconfig,%{_lib}/pkgconfig,' CMakeLists.txt
+fi
 
 
 %build
-export CFLAGS="%{build_cflags} -fwrapv -D_FILE_OFFSET_BITS=64 -I%{_includedir}/flexiblas"
-# We set HAVE_FAST_COMPILER to 0 on i686, ARM, s390, and 32-bit MIPS because
-# otherwise the tests exhaust virtual memory.  If other architectures run out
-# of virtual memory while building flintxx/test/t-fmpzxx.cpp, then do likewise.
-%ifarch %{ix86} %{arm} s390 %{mips32}
-CFLAGS="$CFLAGS -DHAVE_FAST_COMPILER=0"
-%endif
-export CXXFLAGS="$CFLAGS"
-
-# Build the non-gc version
-pushd %{name}-%{version}
-OS=Linux \
-MACHINE=%{_arch} \
-sh -x ./configure \
-    --prefix=%{_prefix} \
-    --with-gmp=%{_prefix} \
-    --with-mpfr=%{_prefix} \
-    --with-blas=%{_libdir} \
-    --with-ntl=%{_prefix} \
-    --enable-cxx \
-    --extensions=$PWD/hmod_mat \
-    CFLAGS="$CFLAGS" \
-    CXXFLAGS="$CXXFLAGS"
-
-# FIXME: %%{?_smp_mflags} sometimes fails
-make verbose LDFLAGS="%{build_ldflags}" LIBDIR=%{_lib}
+%cmake -DWITH_NTL:BOOL=ON
+%cmake_build
 
 # Build the documentation
 make -C doc html
-popd
-
-# Build the gc version
-pushd %{name}-%{version}-gc
-OS=Linux \
-MACHINE=%{_arch} \
-sh -x ./configure \
-    --prefix=%{_prefix} \
-    --with-gmp=%{_prefix} \
-    --with-mpfr=%{_prefix} \
-    --with-blas=%{_libdir} \
-    --with-ntl=%{_prefix} \
-    --with-gc=%{_prefix} \
-    --enable-cxx \
-    CFLAGS="$CFLAGS" \
-    CXXFLAGS="$CXXFLAGS"
-
-# FIXME: %%{?_smp_mflags} sometimes fails
-make verbose LDFLAGS="%{build_ldflags}" LIBDIR=%{_lib}
-popd
 
 
 %install
-# Install the gc version
-pushd %{name}-%{version}-gc
-%make_install LIBDIR=%{_lib}
-popd
-
-# Install the non-gc version
-pushd %{name}-%{version}
-%make_install LIBDIR=%{_lib}
-
-# Fix permissions
-chmod 0755 %{buildroot}%{_libdir}/libflint*.so.*
-
-# Install CPimport.txt
-mkdir -p %{buildroot}%{_datadir}/flint
-cp -p qadic/CPimport.txt %{buildroot}%{_datadir}/flint
-popd
+%cmake_install
 
 
-%ifnarch %{arm} %{ix86}
-# Tests temporarily disabled on 32-bit builders.
-# See https://github.com/wbhart/flint2/issues/786
 %check
-pushd %{name}-%{version}
-export LD_LIBRARY_PATH=$PWD
-make check QUIET_CC= QUIET_CXX= QUIET_AR= \
-  LDFLAGS="%{build_ldflags}" LIBDIR=%{_lib}
-popd
-%endif
+%ctest
 
 
 %files
-%doc %{name}-%{version}/AUTHORS
-%doc %{name}-%{version}/NEWS
-%doc %{name}-%{version}/README
-%doc %{name}-%{version}/README.hmod_mat.md
-%license %{name}-%{version}/LICENSE %{name}-%{version}/LICENSE.hmod_mat
-%{_libdir}/libflint.so.17*
-%{_libdir}/libflint-gc.so.17*
-%{_datadir}/flint/
+%doc AUTHORS
+%doc README.md
+%license COPYING COPYING.LESSER
+%{_libdir}/libflint.so.19*
 
 
 %files devel
-%doc %{name}-%{version}/doc/build/html
+%doc doc/build/html
 %{_includedir}/flint/
 %{_libdir}/libflint.so
-%{_libdir}/libflint-gc.so
-
-
-%files static
-%{_libdir}/libflint.a
-%{_libdir}/libflint-gc.a
+%{_libdir}/pkgconfig/flint.pc
 
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 3.1.0-1
+- Version 3.1.0
+- License: add LGPL-3.0-or-later
+- License: add (LGPL-3.0-or-later OR GPL-2.0-or-later)
+- Drop the static subpackage, unused in Fedora
+- Drop the C++ interface, now a separate project
+- Build with cmake
+- Stop building the GC-enabled library, not supported by the cmake build
+- FLINT now includes the formerly separate arb and antic packages
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

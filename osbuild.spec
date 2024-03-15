@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        111
+Version:        112
 
 %forgemeta
 
@@ -296,6 +296,71 @@ fi
 %{_libexecdir}/osbuild-depsolve-dnf
 
 %changelog
+* Wed Mar 13 2024 Packit <hello@packit.dev> - 112-1
+Changes with 112
+----------------
+  * Remount containers-store bind mount as `rw` (#1651)
+    * Author: Gianluca Zuccarelli, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * Schutzbot: Remove RH-IT-Root-CA (#1627)
+    * Author: Jakub Rusz, Reviewers: Michael Vogt, Ondřej Budai, Simon Steinbeiß, Simon de Vlieger
+  * Update snapshots to 20240301 (#1619)
+    * Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  * actions/sonarqube: Drop SonarQube in favor of Snyk (HMS-3697) (#1626)
+    * Author: Simon Steinbeiß, Reviewers: Jakub Rusz
+  * actions/test: Only test assemblers in Python 3.6 (HMS-3697) (#1621)
+    * Author: Simon Steinbeiß, Reviewers: Michael Vogt
+  * actions: Add a PR best practices check (#1628)
+    * Author: Simon Steinbeiß, Reviewers: Achilleas Koutsou, Michael Vogt
+  * lint: replace `isort` with `ruff` and provide `lint-quick` (HMS-3697) (#1634)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  * many: jsonseq based progress reporting for osbuild (#1545)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * osbuild: ensure a usable /var/tmp is available inside the buildroot (#1649)
+    * Author: Michael Vogt, Reviewers: Colin Walters, Ondřej Budai
+  * osbuild: reuse loop_for_fd() in LoopServer (#1642)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Ondřej Budai
+  * sources/curl: add org.osbuild.mtls secrets support (#1644)
+    * Author: Sanne Raymaekers, Reviewers: Brian C. Lane, Simon de Vlieger
+  * stage/systemd-unit-create: parametrize file location (#1620)
+    * Author: Sayan Paul, Reviewers: Achilleas Koutsou, Michael Vogt, Simon de Vlieger
+  * stages,util: tweaks for the platform/bls handling (#1612)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * stages/kickstart: add `noswap` to `autopart` (#1654)
+    * Author: Simon de Vlieger, Reviewers: Florian Schüller, Michael Vogt
+  * stages/org.osbuild.gzip: add compression level option (#1616)
+    * Author: Luke Yang, Reviewers: Michael Vogt, Simon de Vlieger
+  * stages/org.osbuild.users: add expire date (#1648)
+    * Author: andremarianiello, Reviewers: Michael Vogt, Simon de Vlieger
+  * test: add unit-{type,path} test coverage (#1650)
+    * Author: Michael Vogt, Reviewers: Brian C. Lane, Simon de Vlieger
+  * test: fix test_assembler to support parallel runs and run in parallel (HMS-3697) (#1641)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon Steinbeiß, Simon de Vlieger
+  * test: use OSBUILD_TEST_STORE in test_assemblers.py and run in parallel (HMS-3697) (#1630)
+    * Author: Michael Vogt, Reviewers: Simon Steinbeiß, Simon de Vlieger
+  * test: use `del os.environ[]` instead of `os.unsetenv` (thanks Simon) (#1653)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * tests/manifest: Don't retain image-info artifacts (HMS-3697) (#1640)
+    * Author: Simon Steinbeiß, Reviewers: Simon de Vlieger, Thomas Lavocat
+  * tests: Cancel in-progress tests on PR updates (HMS-3697) (#1636)
+    * Author: Simon Steinbeiß, Reviewers: Michael Vogt, Ondřej Budai
+  * tests: Report GitLab job failures globally (HMS-3697) (#1632)
+    * Author: Achilleas Koutsou, Reviewers: Jakub Rusz, Simon Steinbeiß, Simon de Vlieger
+  * tests: improve the gitlab tests (HMS-3697) (#1629)
+    * Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Simon Steinbeiß
+  * tests: revert "workflow: run assembler tests in parallel" /o\ (#1637)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * utils/mnt: fix mount permissions (#1643)
+    * Author: Gianluca Zuccarelli, Reviewers: Michael Vogt, Simon de Vlieger, Tomáš Hozza
+  * workflow, osbuild-mpp: run with cache (HMS-3697) (#1623)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * workflow: drop python3.11 from matrix (HMS-3697) (#1625)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  * workflow: run all unit tests in parallel (#1655)
+    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+
+— Somewhere on the Internet, 2024-03-13
+
+
 * Wed Feb 28 2024 Packit <hello@packit.dev> - 111-1
 Changes with 111
 ----------------

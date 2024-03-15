@@ -2,8 +2,8 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.6
-Release:        8%{?dist}
+Version:        2.7.7
+Release:        2%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -58,14 +58,28 @@ BuildRequires:  libusb1-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libyubikey-devel
-%if 0%{?el8}
+# Concerning minizip dependency drama, this is the list of available minizip packages
+# for all active branches
+# == el8, el9 ==
+# minizip
+# minizip1.2
+#
+# == f38, f39 ==
+# minizip-ng
+# minizip-compat
+#
+# == fedora >= 40 ==
+# minizip-ng
+# minizip-ng-compat
+# Read https://fedoraproject.org/wiki/Changes/MinizipNGTransition 
+%if 0%{?el8} || 0%{?el9}
 BuildRequires:  minizip1.2-devel
 %endif
-%if (%{defined fedora} && 0%{?fedora} >= 38)
-BuildRequires:  minizip-ng-compat-devel
+%if %{defined fedora} && 0%{?fedora} >= 38 && 0%{?fedora} < 40
+BuildRequires:  minizip-compat-devel
 %endif
-%if (0%{?el9}) || (%{defined fedora} && 0%{?fedora} < 38)
-BuildRequires:  minizip-devel
+%if %{defined fedora} && 0%{?fedora} >= 40
+BuildRequires:  minizip-ng-compat-devel
 %endif
 BuildRequires:  pcsc-lite-devel
 BuildRequires:  qrencode-devel
@@ -198,6 +212,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Mar 13 2024 Germano Massullo <germano.massullo@gmail.com> - 2.7.7-2
+- replaced minizip depencendy for all active branches
+
+* Wed Mar 13 2024 Germano Massullo <germano.massullo@gmail.com> - 2.7.7-1
+- 2.7.7 release
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

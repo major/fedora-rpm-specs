@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    d51c3aec14896d5e80b354fad58e998d1980f8f8
+%global gh_commit    e3f51450ebffe8e0efdf7346ae966a656f7d5e5b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2024-03-09
+%global gh_date      2024-03-12
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    10
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        10.1.13
+Version:        10.1.14
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -200,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar 13 2024 Remi Collet <remi@remirepo.net> - 10.1.14-1
+- update to 10.1.14
+
 * Mon Mar 11 2024 Remi Collet <remi@remirepo.net> - 10.1.13-1
 - update to 10.1.13
 

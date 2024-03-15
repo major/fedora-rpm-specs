@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.39.0
+Version:        0.42.0
 Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
@@ -15,6 +15,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist pytest} %{py3_dist requests} %{py3_dist wcwidth} %{py3_dist beautifulsoup4}
 BuildRequires:  %{py3_dist urwid} %{py3_dist psycopg2} %{py3_dist tomlkit}
+BuildRequires:  %{py3_dist click}
 
 %description
 Toot is a CLI and TUI tool for interacting with Mastodon instances

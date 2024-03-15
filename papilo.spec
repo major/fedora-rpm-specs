@@ -30,6 +30,7 @@ Patch1:         %{name}-shared.patch
 # The list of tests in CMakeLists.txt doesn't match the actual tests
 Patch2:         %{name}-test.patch
 # Avoid out-of-bounds vector access
+# https://github.com/scipopt/papilo/pull/48
 Patch3:         %{name}-vector-bounds.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -56,9 +57,6 @@ BuildRequires:  cmake(soplex)
 
 Requires:       libpapilo%{?_isa} = %{version}-%{release}
 
-# The bundled version of fmt is incompatible with version 10 in Rawhide.
-Provides:       bundled(fmt) = 6.1.2
-
 %global _desc %{expand:
 PaPILO provides parallel presolve routines for (mixed integer) linear
 programming problems.  The routines are implemented using templates
@@ -69,6 +67,9 @@ the boost multiprecision package.}
 
 %package     -n libpapilo
 Summary:        Library interface to PaPILO
+
+# The bundled version of fmt is incompatible with version 10 in Rawhide.
+Provides:       bundled(fmt) = 6.1.2
 
 %description -n libpapilo %_desc
 

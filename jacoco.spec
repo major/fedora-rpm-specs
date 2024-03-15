@@ -1,6 +1,6 @@
 Name:           jacoco
-Version:        0.8.10
-Release:        5%{?dist}
+Version:        0.8.11
+Release:        1%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
@@ -98,6 +98,13 @@ A Jacoco plugin for maven.
 %mvn_package :root __noinstall
 %mvn_package :org.jacoco.build __noinstall
 
+for x in `find | grep pom.xml$` ; do
+  if cat $x | grep -e "<bytecode.version>.*7" ; then
+    sed "s;<bytecode.version>.*7.*;<bytecode.version>8</bytecode.version>;g" -i $x;
+  fi
+done
+
+
 %build
 %mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -Dbuild.date=$(date +%Y/%m/%d)
 
@@ -120,8 +127,11 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.8.10-5
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.8.11-1
 - Rebuilt for java-21-openjdk as system jdk
+- bumped bytecode level of jdk12+ profile to 8
+- bumped to 0.8.11 whcih claims to support jdk21. 
+-- the change of bytecode level is still needed
 
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

@@ -6,7 +6,7 @@
 %endif
 
 Name:           soplex
-Version:        6.0.4
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
@@ -14,7 +14,8 @@ Summary:        Sequential object-oriented simplex
 
 # Apache-2.0: the project as a whole
 # LGPL-2.1-or-later: src/soplex/gzstream.{cpp,h}
-License:        Apache-2.0 AND LGPL-2.1-or-later
+# MIT: the bundled fmt project
+License:        Apache-2.0 AND LGPL-2.1-or-later AND MIT
 URL:            https://soplex.zib.de/
 VCS:            https://github.com/scipopt/soplex
 Source0:        %{vcs}/archive/release-%{upver}.tar.gz
@@ -26,9 +27,9 @@ Patch1:         %{name}-python3.patch
 # Fix an error due to nondefinition declarations
 # https://github.com/scipopt/soplex/pull/23
 Patch2:         %{name}-nondefinition.patch
-# Fix invalid array assignments
-# https://github.com/scipopt/soplex/pull/30
-Patch3:         %{name}-invalid-array-assignment.patch
+# Fix a segfault due to dereferencing an uninitialized pointer
+# https://github.com/scipopt/soplex/pull/37
+Patch3:         %{name}-segfault.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -86,6 +87,9 @@ functionality.
 %package -n     libsoplex
 Summary:        Library for sequential object-oriented simplex
 
+# The bundled version of fmt is incompatible with version 10 in Rawhide.
+Provides:       bundled(fmt) = 6.1.2
+
 %description -n libsoplex %_desc
 
 This package contains a library interface to SoPlex functionality.
@@ -125,11 +129,6 @@ API documentation for libsoplex.
 # things if we don't fix them!
 sed -i 's/ -Wno-strict-overflow//' CMakeLists.txt Makefile
 
-# Fix installation directories
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's,\(DESTINATION \)lib,\1%{_lib},' src/CMakeLists.txt
-fi
-
 # Turn off HTML timestamps for repeatable builds
 sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/soplex.dxy
 sed -i 's/ on \$date//' doc/soplexfooter.html
@@ -164,7 +163,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libsoplex
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libsoplex.so.6*
+%{_libdir}/libsoplex.so.7*
 
 %files -n libsoplex-devel
 %{_includedir}/soplex*

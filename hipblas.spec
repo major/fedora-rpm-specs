@@ -1,6 +1,6 @@
 %global upstreamname hipBLAS
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -19,7 +19,7 @@
 
 Name:           hipblas
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -27,11 +27,7 @@ License:        MIT
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  clang-devel
-BuildRequires:  compiler-rt
 BuildRequires:  gcc-gfortran
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
@@ -129,17 +125,4 @@ done
 %endif
 
 %changelog
-* Sat Feb 3 2024 Tom Rix <trix@redhat.com> - 6.0.0-4
-- Build with rocsolver
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 6 2024 Tom Rix <trix@redhat.com> - 6.0.0
-- Update to 6.0.0
-
-* Wed Nov 15 2023 Tom Rix <trix@redhat.com> - 5.7.1-1
-- Initial package
+%autochangelog

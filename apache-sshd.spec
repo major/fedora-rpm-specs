@@ -1,7 +1,10 @@
+%global bouncycastleJdk 18
+%global bouncycastleVer 1.77
+
 Epoch:          1
 Name:           apache-sshd
-Version:        2.8.0
-Release:        8%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Summary:        Apache SSHD
 
 # One file has ISC licensing:
@@ -25,8 +28,8 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-clean-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit47)
-BuildRequires:  mvn(org.bouncycastle:bcpg-jdk15on)
-BuildRequires:  mvn(org.bouncycastle:bcpkix-jdk15on)
+BuildRequires:  mvn(org.bouncycastle:bcpg-jdk%{bouncycastleJdk}on)
+BuildRequires:  mvn(org.bouncycastle:bcpkix-jdk%{bouncycastleJdk}on)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-archiver)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
@@ -49,12 +52,12 @@ This package provides %{name}.
 %setup -q
 
 # Avoid optional dep on tomcat native APR library
-%patch0 -p1
+%patch -P0 -p1
 rm -rf sshd-core/src/main/java/org/apache/sshd/agent/unix
 
 # Avoid unnecessary dep on spring framework
 %pom_remove_dep :spring-framework-bom
-%pom_remove_dep :testcontainers-bom sshd-sftp sshd-core
+%pom_remove_dep :testcontainers-bom sshd-sftp sshd-core sshd-scp
 
 # Build the core modules only
 %pom_disable_module assembly
@@ -78,8 +81,10 @@ rm -rf sshd-core/src/main/java/org/apache/sshd/agent/unix
 %pom_remove_plugin :impsort-maven-plugin
 %pom_remove_plugin :formatter-maven-plugin . sshd-core
 
+
 # Suppress generation of uses clauses
 %pom_xpath_inject "pom:configuration/pom:instructions" "<_nouses>true</_nouses>" .
+sed "s;<bouncycastle.version>.*;<bouncycastle.version>%{bouncycastleVer}</bouncycastle.version>;g" -i pom.xml
 
 %build
 # Can't run tests, they require ch.ethz.ganymed:ganymed-ssh2
@@ -96,8 +101,9 @@ rm -rf sshd-core/src/main/java/org/apache/sshd/agent/unix
 %license LICENSE.txt NOTICE.txt assembly/src/main/legal/licenses/jbcrypt.txt
 
 %changelog
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:2.8.0-8
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:2.11.0-1
 - Rebuilt for java-21-openjdk as system jdk
+- updated to 2.11
 
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

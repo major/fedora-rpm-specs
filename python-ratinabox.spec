@@ -4,10 +4,14 @@
 %ifarch x86_64 aarch64
 %global arch_has_torch 1
 %endif
-%bcond torch 0%{?arch_has_torch:1}
+# Temporarily do without PyTorch on F41:
+# F41FailsToInstall: python3-torch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2268095
+# %%bcond torch 0%%{?arch_has_torch:1}
+%bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.12.1
+Version:        1.12.3
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 

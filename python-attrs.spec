@@ -19,6 +19,9 @@ URL:            http://www.attrs.org/
 BuildArch:      noarch
 Source0:        https://github.com/python-attrs/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
 
+# Fix of tests for Python 3.13
+Patch:          https://github.com/python-attrs/attrs/commit/f9ff9135b4.patch
+
 BuildRequires:  python%{python3_pkgversion}-devel
 
 %description
@@ -36,7 +39,7 @@ ease the chores of implementing the most common attribute-related
 object protocols.
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 # Remove undesired/optional test dependency on pympler
 sed -i '/"pympler",/d' pyproject.toml
 

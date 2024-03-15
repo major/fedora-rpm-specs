@@ -1,29 +1,31 @@
-%global gittag r1rv70
+%global gittag r1rv77
 %global classname org.bouncycastle.jce.provider.BouncyCastleProvider
+%global profilen 1.8
+%global profile %(echo %{profilen} | sed "s/\\.//g" )
+%global jdkon jdk%{profile}on
 
 Summary:          Bouncy Castle Cryptography APIs for Java
 Name:             bouncycastle
-Version:          1.70
-Release:          13%{?dist}
+Version:          1.77
+Release:          1%{?dist}
 License:          MIT
 URL:              http://www.bouncycastle.org
 
 Source0:          https://github.com/bcgit/bc-java/archive/%{gittag}.tar.gz
 
 # POMs from Maven Central
-Source1:          https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk15on/%{version}/bcprov-jdk15on-%{version}.pom
-Source2:          https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-jdk15on/%{version}/bcpkix-jdk15on-%{version}.pom
-Source3:          https://repo1.maven.org/maven2/org/bouncycastle/bcpg-jdk15on/%{version}/bcpg-jdk15on-%{version}.pom
-Source4:          https://repo1.maven.org/maven2/org/bouncycastle/bcmail-jdk15on/%{version}/bcmail-jdk15on-%{version}.pom
-Source5:          https://repo1.maven.org/maven2/org/bouncycastle/bctls-jdk15on/%{version}/bctls-jdk15on-%{version}.pom
-Source6:          https://repo1.maven.org/maven2/org/bouncycastle/bcutil-jdk15on/%{version}/bcutil-jdk15on-%{version}.pom
-Source7:          https://repo1.maven.org/maven2/org/bouncycastle/bcjmail-jdk15on/%{version}/bcjmail-jdk15on-%{version}.pom
+Source1:          https://repo1.maven.org/maven2/org/bouncycastle/bcprov-%{jdkon}/%{version}/bcprov-%{jdkon}-%{version}.pom
+Source2:          https://repo1.maven.org/maven2/org/bouncycastle/bcpkix-%{jdkon}/%{version}/bcpkix-%{jdkon}-%{version}.pom
+Source3:          https://repo1.maven.org/maven2/org/bouncycastle/bcpg-%{jdkon}/%{version}/bcpg-%{jdkon}-%{version}.pom
+Source4:          https://repo1.maven.org/maven2/org/bouncycastle/bcmail-%{jdkon}/%{version}/bcmail-%{jdkon}-%{version}.pom
+Source5:          https://repo1.maven.org/maven2/org/bouncycastle/bctls-%{jdkon}/%{version}/bctls-%{jdkon}-%{version}.pom
+Source6:          https://repo1.maven.org/maven2/org/bouncycastle/bcutil-%{jdkon}/%{version}/bcutil-%{jdkon}-%{version}.pom
+Source7:          https://repo1.maven.org/maven2/org/bouncycastle/bcjmail-%{jdkon}/%{version}/bcjmail-%{jdkon}-%{version}.pom
 
 # Script to fetch POMs from Maven Central
 Source8:          get-poms.sh
 
-# Backport fix for regression in bouncycastle 1.70
-Patch0:           0001-added-back-support-for-subject-key-identifier-check-.patch
+Patch0: jmail.packages.patch
 
 BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -106,19 +108,22 @@ API documentation for the Bouncy Castle Cryptography APIs.
 
 %prep
 %setup -q -n bc-java-%{gittag}
-%patch -P 0 -p1
+
+%patch -P0 -p1
+
+#?!?!!?!??!?!!?
+for x in `find | grep  -e  x_pkcs7_signature.java  -e PKCS7ContentHandler.java -e multipart_signed.java` ; do 
+  sed "s/getTransferData.ActivationDataFlavor/getTransferData(DataFlavor/g" -i $x
+  sed "s/            ActivationDataFlavor df,/            DataFlavor df,/g"  -i $x
+done
 
 # Remove bundled binary libs
 find . -type f -name "*.class" -exec rm -f {} \;
 find . -type f -name "*.jar" -exec rm -f {} \;
 
-# Relax javadoc linting and set expected source encoding
-sed -i -e '/<javadoc/aadditionalparam="-Xdoclint:none" encoding="UTF-8" source="1.8"' \
-       -e '/<javac/aencoding="UTF-8"' ant/bc+-build.xml
-
 # Not shipping lw/lcrypto (lightweight crypto) jar
-sed -i -e '/target="build-lw"/d' ant/jdk15+.xml
-sed -i -e '/target="javadoc-lw"/d' ant/jdk15+.xml
+sed -i -e '/target="build-lw"/d' ant/jdk%{profile}+.xml
+sed -i -e '/target="javadoc-lw"/d' ant/jdk%{profile}+.xml
 
 cp -p %{SOURCE1} bcprov.pom
 cp -p %{SOURCE2} bcpkix.pom
@@ -128,12 +133,15 @@ cp -p %{SOURCE5} bctls.pom
 cp -p %{SOURCE6} bcutil.pom
 cp -p %{SOURCE7} bcjmail.pom
 
+# this test needs additional dependeces
+rm prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java
+
 %build
-ant -f ant/jdk15+.xml \
+ant -f ant/jdk%{profile}+.xml \
   -Djunit.jar.home=$(build-classpath junit) \
   -Dmail.jar.home=$(build-classpath jakarta-mail1/jakarta.mail) \
   -Dactivation.jar.home=$(build-classpath jakarta-activation1/jakarta.activation) \
-  -Djmail.jar.home=$(build-classpath jakarta-mail) \
+  -Djmail.jar.home=$(build-classpath jakarta-mail/jakarta.mail) \
   -Djactivation.jar.home=$(build-classpath jakarta-activation) \
   -Drelease.debug=true -Dbc.javac.source=1.8 -Dbc.javac.target=1.8 \
   clean build-provider build #test
@@ -145,12 +153,12 @@ EOF
 
 for bc in bcprov bcutil bcpkix bcpg bcmail bcjmail bctls ; do
   # Make into OSGi bundle
-  bnd wrap -b $bc -v %{version} -p bnd.bnd -o $bc.jar build/artifacts/jdk1.5/jars/$bc-jdk15on-*.jar
+  bnd wrap -b $bc -v %{version} -p bnd.bnd -o $bc.jar build/artifacts/jdk%{profilen}/jars/$bc-%{jdkon}-*.jar
 
   # Request Maven installation
-  %mvn_file ":$bc-jdk15on" $bc
-  %mvn_package ":$bc-jdk15on" $bc
-  %mvn_alias ":$bc-jdk15on" "org.bouncycastle:$bc-jdk16" "org.bouncycastle:$bc-jdk15"
+  %mvn_file ":$bc-%{jdkon}" $bc
+  %mvn_package ":$bc-%{jdkon}" $bc
+  %mvn_alias ":$bc-%{jdkon}" "org.bouncycastle:$bc-jdk16" "org.bouncycastle:$bc-jdk15"
   %mvn_artifact $bc.pom $bc.jar
 done
 
@@ -158,7 +166,7 @@ done
 install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/java/security/security.d
 touch $RPM_BUILD_ROOT%{_sysconfdir}/java/security/security.d/2000-%{classname}
 
-%mvn_install -J build/artifacts/jdk1.5/javadoc
+%mvn_install -J build/artifacts/jdk%{profilen}/javadoc
 
 %post
 {
@@ -209,34 +217,36 @@ if [ "$1" -eq 0 ] ; then
 fi
 
 %files -f .mfiles-bcprov
-%license build/artifacts/jdk1.5/bcprov-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcprov-%{jdkon}-*/LICENSE.html
 %doc docs/ *.html
 %{_sysconfdir}/java/security/security.d/2000-%{classname}
 
 %files pkix -f .mfiles-bcpkix
-%license build/artifacts/jdk1.5/bcpkix-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcpkix-%{jdkon}-*/LICENSE.html
 
 %files pg -f .mfiles-bcpg
-%license build/artifacts/jdk1.5/bcpg-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcpg-%{jdkon}-*/LICENSE.html
 
 %files mail -f .mfiles-bcmail
-%license build/artifacts/jdk1.5/bcmail-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcmail-%{jdkon}-*/LICENSE.html
 
 %files jmail -f .mfiles-bcjmail
-%license build/artifacts/jdk1.5/bcjmail-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcjmail-%{jdkon}-*/LICENSE.html
 
 %files tls -f .mfiles-bctls
-%license build/artifacts/jdk1.5/bctls-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bctls-%{jdkon}-*/LICENSE.html
 
 %files util -f .mfiles-bcutil
-%license build/artifacts/jdk1.5/bcutil-jdk15on-*/LICENSE.html
+%license build/artifacts/jdk%{profilen}/bcutil-%{jdkon}-*/LICENSE.html
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE.html
 
 %changelog
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.70-13
+* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.77-1
 - Rebuilt for java-21-openjdk as system jdk
+- bumped to 1.77
+- used macros on the crucial, depndent parts where needed
 
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

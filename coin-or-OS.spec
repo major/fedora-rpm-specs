@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Optimization Services
 Version:	2.10.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	https://github.com/coin-or/OS/archive/refs/tags/releases/%{version}/%{module}-releases-%{version}.tar.gz
@@ -165,6 +165,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc doxydoc/* OS/doc/*
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 2.10.3-11
+- Rebuild for soplex 7.0.0
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.10.3-10
 - Build with soplex support
 - Verify that License is valid SPDX

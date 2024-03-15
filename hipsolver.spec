@@ -1,6 +1,6 @@
 %global upstreamname hipSOLVER
 %global rocm_release 6.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -27,12 +27,7 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  clang
-BuildRequires:  clang-devel
-BuildRequires:  compiler-rt
 BuildRequires:  gcc-gfortran
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake

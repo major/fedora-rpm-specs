@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.18.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -118,6 +118,24 @@ Patch53: newlib.gcc14.fixes.patch
 Patch54: xsa449.patch
 Patch55: xsa450.patch
 Patch56: xsa451-4.18.patch
+Patch57: xen.git-de17162cafd27f2865a3102a2ec0f386a02ed03d.patch
+Patch58: xsa452-4.18-1.patch
+Patch59: xsa452-4.18-2.patch
+Patch60: xsa452-4.18-3.patch
+Patch61: xsa452-4.18-4.patch
+Patch62: xsa452-4.18-5.patch
+Patch63: xsa452-4.18-6.patch
+Patch64: xsa452-4.18-7.patch
+Patch65: xen.git-60e00f77a5cc671d30c5ef3318f5b8e9b74e4aa3.patch
+Patch66: xen.git-6e9507f7d51fe49df8bc70f83e49ce06c92e4e54.patch
+Patch67: xen.git-576528a2a742069af203e90c613c5c93e23c9755.patch
+Patch68: xsa453-4.18-1.patch
+Patch69: xsa453-4.18-2.patch
+Patch70: xsa453-4.18-3.patch
+Patch71: xsa453-4.18-4.patch
+Patch72: xsa453-4.18-5.patch
+Patch73: xsa453-4.18-6.patch
+Patch74: xsa453-4.18-7.patch
 
 
 %if %build_qemutrad
@@ -336,6 +354,24 @@ manage Xen virtual machines.
 %patch 54 -p1
 %patch 55 -p1
 %patch 56 -p1
+%patch 57 -p1
+%patch 58 -p1
+%patch 59 -p1
+%patch 60 -p1
+%patch 61 -p1
+%patch 62 -p1
+%patch 63 -p1
+%patch 64 -p1
+%patch 65 -p1
+%patch 66 -p1
+%patch 67 -p1
+%patch 68 -p1
+%patch 69 -p1
+%patch 70 -p1
+%patch 71 -p1
+%patch 72 -p1
+%patch 73 -p1
+%patch 74 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -942,6 +978,11 @@ fi
 %endif
 
 %changelog
+* Wed Mar 13 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-7
+- x86: Register File Data Sampling [XSA-452, CVE-2023-28746]
+- GhostRace: Speculative Race Conditions [XSA-453, CVE-2024-2193]
+- additional patches so above applies cleanly
+
 * Tue Feb 27 2024 Michael Young <m.a.young@durham.ac.uk> - 4.18.0-6
 - x86: shadow stack vs exceptions from emulation stubs - [XSA-451,
 	CVE-2023-46841] (#2266326)

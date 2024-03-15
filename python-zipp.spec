@@ -1,7 +1,7 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.17.0
+Version:        3.18.0
 Release:        %autorelease
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 

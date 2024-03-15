@@ -1,27 +1,27 @@
 Name:           e-antic
-Version:        1.3.0
-Release:        5%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Real Embedded Algebraic Number Theory In C
 
 License:        LGPL-3.0-or-later
-URL:            https://github.com/flatsurf/e-antic
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# The e-antic sources contain patches to flint and antic, but those patches
-# have already been incorporated into the Fedora versions.  Make e-antic skip
-# attempts to build the patched files.
+URL:            https://flatsurf.github.io/e-antic/libeantic/
+VCS:            https://github.com/flatsurf/e-antic
+Source0:        %{vcs}/archive/%{version}/%{name}-%{version}.tar.gz
+# The e-antic sources contain patches to flint, but those patches have already
+# been incorporated into the Fedora versions.  Make e-antic skip attempts to
+# build the patched files.
 Patch0:         %{name}-unpatch.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  antic-devel
-BuildRequires:  arb-devel
 BuildRequires:  boost-devel
 BuildRequires:  catch2-devel
 BuildRequires:  cereal-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  pkgconfig(flint)
 
 # Missing dependencies to build docs:
 # - byexample: https://github.com/byexamples/byexample
@@ -40,10 +40,9 @@ arithmetic operations and comparisons.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       antic-devel%{?_isa}
-Requires:       arb-devel%{?_isa}
 Requires:       boost-devel%{?_isa}
 Requires:       cereal-devel%{?_isa}
+Requires:       flint-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -52,7 +51,7 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 
-# Update the configure script due to patch 0
+# Upstream does not generate the configure script
 autoreconf -fi .
 
 # Make catch2 available for testing
@@ -64,7 +63,6 @@ rmdir libeantic/test/external/cereal
 ln -s %{_includedir}/cereal libeantic/test/external/cereal
 
 %build
-export CPPFLAGS="-I %{_includedir}/arb"
 %configure --disable-silent-rules --disable-static \
   --enable-openmp \
   --without-benchmark \
@@ -98,8 +96,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %files
 %doc AUTHORS README.md
 %license COPYING COPYING.LESSER
-%{_libdir}/libeantic.so.1*
-%{_libdir}/libeanticxx.so.1*
+%{_libdir}/libeantic.so.3*
+%{_libdir}/libeanticxx.so.3*
 
 %files          devel
 %{_includedir}/%{name}/
@@ -108,6 +106,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %{_libdir}/libeanticxx.so
 
 %changelog
+* Mon Mar  4 2024 Jerry James <loganjerry@gmail.com> - 2.0.2-1
+- Version 2.0.2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           TOPCOM
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -152,6 +152,9 @@ LD_LIBRARY_PATH=$PWD src/check
 %doc examples
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 1.1.2-2
+- Rebuild for soplex 7.0.0
+
 * Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 1.1.2-1
 - Version 1.1.2
 - Drop the custom man pages due to lack of ability to maintain them

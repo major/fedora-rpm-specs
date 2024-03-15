@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.11.1
-Release:        50%{?dist}
+Release:        51%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/releases/download/Version-1-11-1/vigra-1.11.1-src.tar.gz
@@ -105,7 +105,8 @@ sed -i 's=SET(BOOST_PYTHON_NAMES=& boost_python%{python3_version_nodots}=' \
 export CXXFLAGS="%{optflags} -DH5_USE_110_API"
 %cmake -DWITH_OPENEXR=1 -DWITH_HDF5=1 -DWITH_VALGRIND=0 -DWITH_LEMON=0 \
           -DPYTHON_NUMPY_INCLUDE_DIR=%{_includedir}/numpy \
-          -DWITH_VIGRANUMPY=1 -DPYTHON_VERSION=%{python3_version}
+          -DWITH_VIGRANUMPY=1 -DVIGRANUMPY_INSTALL_DIR=%{python3_sitearch} \
+          -DPYTHON_VERSION=%{python3_version}
 %cmake_build
 %else
 sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python}=' \
@@ -133,7 +134,7 @@ mv %{buildroot}/%{_libdir}/vigranumpy/VigranumpyConfig.cmake \
 make install DESTDIR=%{buildroot}
 %endif
 
-rm -rf %{buildroot}/usr/doc
+rm -rf %{buildroot}%{_prefix}/doc
 (
  cd $RPM_BUILD_ROOT%{_bindir}
  mv vigra-config vigra-config-%{__isa_bits}
@@ -164,6 +165,9 @@ install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Wed Mar 13 2024 Bruno Postle <bruno@postle.net> - 1.11.1-51
+- Fixes for the benefit of flatpak builds (yselkowitz)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

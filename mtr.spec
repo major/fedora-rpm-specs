@@ -3,7 +3,7 @@
 Summary: Network diagnostic tool combining 'traceroute' and 'ping'
 Name: mtr
 Version: 0.95
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 2
 License: GPL-2.0-only
 URL: https://www.bitwizard.nl/mtr/
@@ -11,6 +11,8 @@ Source0: https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{versio
 Source1: net-x%{name}.desktop
 # https://github.com/traviscross/mtr/issues/469
 Patch0: https://github.com/traviscross/mtr/commit/5908af4c19188cb17b62f23368b6ef462831a0cb.patch#/mtr-0.95-snprintf-sizes.patch
+# https://github.com/traviscross/mtr/issues/232, https://github.com/traviscross/mtr/pull/484
+Patch1: https://github.com/traviscross/mtr/commit/74d312d7e67d002e184b37c7f278597ab06bf8e7.patch#/mtr-0.95-socket-binding.patch
 
 BuildRequires: gcc make ncurses-devel libcap-devel jansson-devel
 BuildRequires: autoconf automake libtool git
@@ -50,6 +52,7 @@ about each machine.
 %prep
 %setup -q
 %patch0 -p1 -b .snprintf-sizes
+%patch1 -p1 -b .socket-binding
 
 %build
 ./bootstrap.sh
@@ -81,6 +84,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/net-x%{name}.desktop
 
 %changelog
+* Wed Mar 13 2024 Robert Scheck <robert@fedoraproject.org> - 2:0.95-9
+- Added upstream patch to fix '--address' with policy-based routing
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.95-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

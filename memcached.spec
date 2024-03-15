@@ -11,8 +11,8 @@
 %global selinuxmoduledir	%{selinuxmodulename}-selinux-%{selinuxmodulever}
 
 Name:           memcached
-Version:        1.6.23
-Release:        2%{?dist}
+Version:        1.6.24
+Release:        1%{?dist}
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
 
@@ -174,6 +174,10 @@ fi
 %license ../%{selinuxmoduledir}/COPYING
 
 %changelog
+* Wed Mar 13 2024 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.24-1
+- Update to 1.6.24
+- Resolves: rhbz#2266938
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.6.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.04
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  0.5%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -34,6 +34,7 @@ Patch6:   Add-video-damage-tracking.patch
 Patch10:  rpi-Switch-to-OF_HAS_PRIOR_STAGE-by-default.patch
 # Rockchips improvements
 Patch11:  rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
+Patch12:  rockchip-Enable-preboot-start-for-pci-usb.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -138,7 +139,7 @@ mkdir -p %{buildroot}%{_datadir}/uboot/
 %ifarch aarch64
 for board in $(ls builds)
 do
- for file in u-boot.bin u-boot.img u-boot-dtb.img u-boot.itb u-boot-sunxi-with-spl.bin u-boot-rockchip.bin idbloader.img idbloader-spi.img spl/boot.bin
+ for file in u-boot.bin u-boot.img u-boot-dtb.img u-boot.itb u-boot-sunxi-with-spl.bin u-boot-rockchip-spi.bin u-boot-rockchip.bin idbloader.img idbloader-spi.img spl/boot.bin
  do
   if [ -f builds/$(echo $board)/$(echo $file) ]; then
     install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
@@ -189,6 +190,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Wed Mar 13 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.5.rc4
+- Fixes for Rockchip rk3399 autoboot
+
 * Tue Mar 12 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.4.rc4
 - Update to 2024.04 RC4
 - Initial fix for loading DT off /boot (rhbz 2247873)

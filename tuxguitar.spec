@@ -161,10 +161,10 @@ sed -i -e "s|\(<version>\).*\(</version>\)|\1%{version}\2|"\
     build-scripts/tuxguitar-linux-%{bit}/pom.xml
 
 # Fedora 36+ changed their java compiler capabilities 
-%pom_xpath_set pom:build/pom:pluginManagement/pom:plugins/pom:plugin/pom:configuration/pom:source 1.7 TuxGuitar-lib
-%pom_xpath_set pom:build/pom:pluginManagement/pom:plugins/pom:plugin/pom:configuration/pom:target 1.7 TuxGuitar-lib
-%pom_xpath_set pom:build/pom:plugins/pom:plugin/pom:configuration/pom:source 1.7
-%pom_xpath_set pom:build/pom:plugins/pom:plugin/pom:configuration/pom:target 1.7
+%pom_xpath_set pom:build/pom:pluginManagement/pom:plugins/pom:plugin/pom:configuration/pom:source 1.8 TuxGuitar-lib
+%pom_xpath_set pom:build/pom:pluginManagement/pom:plugins/pom:plugin/pom:configuration/pom:target 1.8 TuxGuitar-lib
+%pom_xpath_set pom:build/pom:plugins/pom:plugin/pom:configuration/pom:source 1.8
+%pom_xpath_set pom:build/pom:plugins/pom:plugin/pom:configuration/pom:target 1.8
 
 
 %build
@@ -293,6 +293,7 @@ appstream-util validate-relax --nonet \
 %changelog
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.5.4-10
 - Rebuilt for java-21-openjdk as system jdk
+- bumped souce/target to 8
 
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

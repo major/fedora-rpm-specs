@@ -303,8 +303,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 122.0.6261.111
-Release: 2%{?dist}
+Version: 122.0.6261.128
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -2110,6 +2110,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Mar 13 2024 Than Ngo <than@redhat.com> - 122.0.6261.128-1
+- upstream security release 122.0.6261.128
+   * High CVE-2024-2400: Use after free in Performance Manager
+
 * Mon Mar 11 2024 Than Ngo <than@redhat.com> - 122.0.6261.111-2
 - enable ppc64le build
 

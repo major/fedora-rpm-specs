@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -865,6 +865,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 6.1.1-11
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Tue Mar 12 2024 Dominik Mierzejewski <dominik@greysector.net> - 6.1.1-10
 - Enable drawtext filter (requires libharfbuzz)
 

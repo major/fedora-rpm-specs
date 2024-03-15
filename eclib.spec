@@ -1,23 +1,24 @@
 %global         with_allprogs 0
 
 Name:           eclib
-Version:        20230424
-Release:        4%{?dist}
+Version:        20231212
+Release:        1%{?dist}
 Summary:        Library for Computations on Elliptic Curves
 License:        GPL-2.0-or-later
 URL:            https://homepages.warwick.ac.uk/~masgaj/mwrank/
-Source0:        https://github.com/JohnCremona/eclib/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+VCS:            https://github.com/JohnCremona/eclib
+Source0:        %{vcs}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
-BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  make
 BuildRequires:  ntl-devel
 BuildRequires:  pari-devel
+BuildRequires:  pkgconfig(flint)
 
 
 %description
@@ -41,18 +42,7 @@ Development libraries and headers for %{name}.
 
 
 %build
-# FLINT_LEVEL 2 assumes that the C int type == half the width of a limb_t.
-# This is only true on 64 bit platforms.
-if [ %{__isa_bits} = "64" ]; then
-  export FLINT_LEVEL=2
-fi
-
-export CPPFLAGS="-I %{_includedir}/flint"
-%ifarch %{ix86}
-# Excess precision leads to test failures
-export CFLAGS="%{build_cflags} -ffloat-store"
-export CXXFLAGS="$CFLAGS"
-%endif
+export CPPFLAGS='-I %{_includedir}/flint'
 %configure \
         --disable-static \
         --enable-shared \
@@ -76,14 +66,14 @@ export CXXFLAGS="$CFLAGS"
 
 %install
 %make_install
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -f %{buildroot}%{_libdir}/*.la
 %if !%{with_allprogs}
-rm $RPM_BUILD_ROOT%{_docdir}/%{name}/{g0n,howto,progs}.txt
+rm %{buildroot}%{_docdir}/%{name}/{g0n,howto,progs}.txt
 %endif
 
 
 %check
-make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
+make check LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %files
@@ -106,6 +96,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Mon Mar  4 2024 Jerry James <loganjerry@gmail.com> - 20231212-1
+- Version 20231212
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20230424-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

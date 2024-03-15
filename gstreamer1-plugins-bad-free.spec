@@ -85,6 +85,10 @@ BuildRequires:  libdrm-devel
 BuildRequires:  libva-devel
 BuildRequires:  svt-av1-devel
 BuildRequires:  liblc3-devel
+BuildRequires:  json-glib-devel
+%if %{with openh264}
+BuildRequires:  pkgconfig(openh264)
+%endif
 
 %if %{with extras}
 BuildRequires:  ladspa-devel
@@ -117,9 +121,6 @@ BuildRequires:  openal-soft-devel
 BuildRequires:  opencv-devel
 %endif
 BuildRequires:  openjpeg2-devel
-%if %{with openh264}
-BuildRequires:  pkgconfig(openh264)
-%endif
 BuildRequires:  pkgconfig(spandsp) >= 0.0.6
 ## Plugins not ported
 #BuildRequires:  SDL-devel
@@ -133,7 +134,6 @@ BuildRequires:  libnice-devel
 BuildRequires:  pkgconfig(ldacBT-enc)
 %endif
 BuildRequires:  qrencode-devel
-BuildRequires:  json-glib-devel
 BuildRequires:  vo-amrwbenc-devel
 BuildRequires:  libavtp-devel
 BuildRequires:  libdca-devel

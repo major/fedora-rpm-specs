@@ -11,7 +11,7 @@ out of nbconvert (formerly ExecutePreprocessor). NBClient lets you execute noteb
 }
 
 Name:           python-%{pypi_name}
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        A client library for executing notebooks
 

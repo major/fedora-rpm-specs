@@ -3,7 +3,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -54,6 +54,9 @@ image formats.
 %{_kf6_qtplugindir}/imageformats/*.so
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 6.0.0-3
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Thu Feb 29 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-2
 - add libheif plugin support
 

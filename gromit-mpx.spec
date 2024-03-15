@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/bk138/gromit-mpx
-Version:        1.5.1
+Version:        1.6.0
 %global tag %{version}
 %forgemeta
 

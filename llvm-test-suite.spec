@@ -1,12 +1,12 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 18.1.0
-%global rc_ver 4
+%global llvm_test_suite_version 18.1.1
+#global rc_ver 4
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:rc%{rc_ver}}.src.fedora
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA and BSD and GPLv1 and GPLv2+ and GPLv2 and MIT and Python and Public Domain and CRC32 and AML and Rdisc and ASL 2.0 and LGPLv3
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Wed Mar 13 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

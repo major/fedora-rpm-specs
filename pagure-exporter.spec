@@ -3,8 +3,8 @@
 %global desc Simple exporter tool that helps migrate repository files, data assets and issue tickets from projects on Pagure to GitLab
 
 Name:           %{pkgname}
-Version:        0.1.2
-Release:        3%{?dist}
+Version:        0.1.3
+Release:        1%{?dist}
 Summary:        %{desc}
 
 License:        GPL-3.0-or-later
@@ -36,6 +36,43 @@ BuildRequires:  python3-devel
 %{_bindir}/%{name}
 
 %changelog
+* Wed Mar 13 2024 Packit <hello@packit.dev> - 0.1.3-1
+- Add some installability checks (Akashdeep Dhar)
+- Update Packit configuration (Akashdeep Dhar)
+- Step down the version requirement for python-gitlab (Akashdeep Dhar)
+- Bump version from v0.1.2 to v0.1.3 (fedohide-origin)
+- Automated dependency updates (renovate[bot])
+- add fedora-rawhide & fedora-40 aliases to packit jobs config (Shubham Karande)
+- Change the recordings after the GitLab Runners tokens were purged (Akashdeep Dhar)
+- Remove stray GitLab Runners token when detected (Akashdeep Dhar)
+- Remove stray IntelliJ files (Akashdeep Dhar)
+- Rework the testcases to address cleaning of repositories (Akashdeep Dhar)
+- Add refreshed recordings for the newly added functionalities (Akashdeep Dhar)
+- Include view and work code for retaining issue ticket order (Akashdeep Dhar)
+- Add options and variables to track the new feature (Akashdeep Dhar)
+- Update dependency ruff to ^0.0.285 || ^0.1.0 || ^0.2.0 || ^0.3.0 (renovate[bot])
+- Rework the recordings to address the changed tests (Akashdeep Dhar)
+- Clean statutory rate limit addressing functions (Akashdeep Dhar)
+- Automated dependency updates (renovate[bot])
+- Automated dependency updates (renovate[bot])
+- Update recordings to speed up the testing process (Akashdeep Dhar)
+- Change the testcases to accommodate the shift (Akashdeep Dhar)
+- Modify the condition config for the test environment (Akashdeep Dhar)
+- Replace scoped client object in favor for contextualized client object (Akashdeep Dhar)
+- Introduce two shared variables to contextualize GitLab client and project objects (Akashdeep Dhar)
+- Move repository checking code from requests to python-gitlab (Akashdeep Dhar)
+- update_doc_use_venv_instead_of_virtualenv (ooooo)
+- Complete first run of refactoring (Akashdeep Dhar)
+- Add python-gitlab in dependencies (Akashdeep Dhar)
+- Automated dependency updates (renovate[bot])
+- Update dependency ruff to ^0.0.285 || ^0.1.0 || ^0.2.0 (renovate[bot])
+- Update dependency black to v24 (renovate[bot])
+- Update dependency pytest to v8 (renovate[bot])
+- Automated dependency updates (renovate[bot])
+- Automated dependency updates (renovate[bot])
+- Automated dependency updates (renovate[bot])
+- Resolves rhbz#2269273
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

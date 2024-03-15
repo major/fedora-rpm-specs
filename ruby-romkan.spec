@@ -1,12 +1,9 @@
-%if 0%{?fedora} < 19
-%define		rubyabi		1.9.1
-%endif
-
 Name:		ruby-romkan
 Version:	0.4
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Romaji <-> Kana conversion library for Ruby
-License:	Ruby
+# SPDX confirmed
+License:	Ruby OR GPL-2.0-only
 URL:		http://0xcc.net/ruby-romkan/
 Source0:	http://0xcc.net/ruby-romkan/%{name}-%{version}.tar.gz
 
@@ -52,6 +49,9 @@ sh test.sh
 
 
 %changelog
+* Wed Mar 13 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4-32
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

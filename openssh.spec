@@ -54,7 +54,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.2
+Release: %{openssh_rel}%{?dist}.3
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -76,6 +76,8 @@ Source17: ssh-agent.socket
 Source19: openssh-server-systemd-sysusers.conf
 Source20: ssh-host-keys-migration.sh
 Source21: ssh-host-keys-migration.service
+Source22: parallel_test.sh
+Source23: parallel_test.Makefile
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch100: openssh-6.7p1-coverity.patch
@@ -303,7 +305,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.2
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.3
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND sprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant AND OpenSSL
 
 %description
@@ -489,6 +491,7 @@ fi
 	--with-default-pkcs11-provider=yes \
 	--with-security-key-builtin=yes \
 	--with-pam \
+	--without-ssl-engine \
 %if %{WITH_SELINUX}
 	--with-selinux --with-audit=linux \
 	--with-sandbox=seccomp_filter \
@@ -539,16 +542,14 @@ LDFLAGS="$SAVE_LDFLAGS"
 %configure --with-selinux \
 	--libexecdir=/%{_libdir}/security \
 	--with-mantype=man \
+	--without-ssl-engine \
 	--without-openssl-header-check `# The check is broken`
 %make_build
 popd
 %endif
 
 %check
-#to run tests use "--with check"
-%if %{?_with_check:1}%{!?_with_check:0}
-make tests
-%endif
+%{SOURCE22} %{SOURCE23}  # ./parallel_tests.sh parallel_tests.Makefile
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -739,6 +740,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Wed Mar 13 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.6p1-1.3
+- Build OpenSSH without engine support
+- Make tests run at build phase (using parallel run mechanism by Alexander Sosedkin)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9.6p1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

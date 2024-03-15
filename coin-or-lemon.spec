@@ -1,6 +1,6 @@
 Name:           coin-or-lemon
 Version:        1.3.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A C++ template library providing many common graph algorithms
 
 License:        BSL-1.0 AND BSD-3-Clause
@@ -161,6 +161,9 @@ cp -a AUTHORS NEWS README doc/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Mar  7 2024 Jerry James <loganjerry@gmail.com> - 1.3.1-31
+- Rebuild for soplex 7.0.0
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 1.3.1-30
 - Build with SoPlex support
 - Convert License tag to SPDX

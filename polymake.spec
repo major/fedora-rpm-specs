@@ -14,7 +14,7 @@
 
 Name:           polymake
 Version:        4.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -323,6 +323,9 @@ make test
 %doc doc/*
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 4.11-6
+- Rebuild for flint 3.1.0, soplex 7.0.0, and scip 9.0.0
+
 * Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 4.11-5
 - Build with soplex and scip support
 - Adapt to a changed function name in Singular 4.3.2

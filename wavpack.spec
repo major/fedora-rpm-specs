@@ -1,7 +1,7 @@
 Name:		wavpack
 Summary:	A completely open audiocodec
-Version:	5.6.0
-Release:	6%{?dist}
+Version:	5.7.0
+Release:	1%{?dist}
 License:	BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 Url:		http://www.wavpack.com/
 Source:		http://www.wavpack.com/%{name}-%{version}.tar.bz2
@@ -69,6 +69,10 @@ rm -rf %{buildroot}/%{_docdir}/
 %doc ChangeLog doc/WavPack5PortingGuide.pdf doc/WavPack5LibraryDoc.pdf doc/WavPack5FileFormat.pdf
 
 %changelog
+* Wed Mar 13 2024 Tomas Korbar <tkorbar@redhat.com> - 5.7.0-1
+- Rebase to 5.7.0
+- Resolves: rhbz#2267425
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

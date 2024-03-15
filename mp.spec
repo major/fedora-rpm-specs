@@ -44,7 +44,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://mp.ampl.com/
 Source0: %{forgesource}
 # Unbundle asl
@@ -173,6 +173,11 @@ sed -i '/target_link_libraries/s/\${RT_LIBRARY}/& -lhighs/' CMakeLists.txt
 sed -i '/target_link_libraries/s/\${RT_LIBRARY}/& -lscip/' CMakeLists.txt
 %endif
 
+# Build the jacop interface for JDK 8 at a minimum
+%if 0%{?with_jacop}
+sed -i 's/1\.7/1.8/g' solvers/jacop/CMakeLists.txt
+%endif
+
 %build
 BUILD='asl,smpswriter'
 %if 0%{?with_gecode}
@@ -243,6 +248,10 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 20240115-3
+- Rebuild for soplex 7.0.0 and scip 9.0.0
+- Build the jacop interface for JDK 1.8 (rhbz#2266676)
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 20240115-2
 - Rebuilt for java-21-openjdk as system jdk
 

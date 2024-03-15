@@ -1,5 +1,8 @@
+%global hash      8b3bdb6f0dc656b3e5e2f913dbb90cc44b05ae97
+%global hashShort 8b3bdb6
+
 Name:           maven-archetype
-Version:        3.2.0
+Version:        3.2.1.0.%{hashShort}
 Release:        13%{?dist}
 Summary:        Maven project templating toolkit
 
@@ -7,7 +10,7 @@ Summary:        Maven project templating toolkit
 # under ASL 1.1
 License:        ASL 2.0 and ASL 1.1
 URL:            https://maven.apache.org/archetype/
-Source0:        http://archive.apache.org/dist/maven/archetype/%{name}-%{version}-source-release.zip
+Source0:       https://github.com/apache/maven-archetype/archive/%{hash}.zip
 
 # We only use groovy for running a post generation script,
 # removing this continues the old behaviour of ignoring it
@@ -42,6 +45,8 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-velocity)
 BuildRequires:  mvn(org.jdom:jdom)
+BuildRequires:  icu4j
+BuildRequires:  apache-commons-collections
 
 
 %description
@@ -110,14 +115,14 @@ Summary: Maven Archetype packaging configuration for archetypes
 %{summary}.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{hash}
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 %patch3 -p1
 
 # Not needed for RPM builds
 %pom_remove_plugin -r :apache-rat-plugin
-%pom_remove_plugin -r :maven-enforcer-plugin
+#%%pom_remove_plugin -r :maven-enforcer-plugin
 
 # Add OSGI info to catalog and descriptor jars
 pushd archetype-models/archetype-catalog
@@ -156,6 +161,11 @@ popd
 # Remove ivy as a runtime dep
 %pom_remove_dep org.apache.ivy:ivy archetype-common
 
+%pom_remove_dep  org.sonatype.aether:
+pushd archetype-common
+%pom_remove_dep  org.sonatype.aether:
+popd
+
 # Disable processing of test resources using ant
 %pom_remove_plugin org.apache.maven.plugins:maven-antrun-plugin archetype-common
 
@@ -171,23 +181,24 @@ popd
 %mvn_install
 
 %files -f .mfiles-maven-archetype
-%license LICENSE NOTICE
+%license NOTICE.txt
 
 %files catalog -f .mfiles-archetype-catalog
 
 %files descriptor -f .mfiles-archetype-descriptor
 
 %files common -f .mfiles-archetype-common
-%license LICENSE NOTICE
+%license NOTICE.txt
 
 %files packaging -f .mfiles-archetype-packaging
 
 %files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE
+%license NOTICE.txt
 
 %changelog
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.2.0-13
 - Rebuilt for java-21-openjdk as system jdk
+- updated to future release
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

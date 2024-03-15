@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.09.0
-Release: 131%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 139%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -433,6 +433,31 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Wed Mar 13 2024 Numan Siddique <numans@ovn.org> - 23.09.0-139
+- github: Reduce ASLR entropy to be compatible with asan in llvm 14.
+[Upstream: 835b43811dfcf469da3123911240cc953b52bac3]
+
+- Prepare for 23.09.4.
+[Upstream: 5ce1740aaa02ebeed561ffb6298b71035b5c908a]
+
+- Set release date for 23.09.3.
+[Upstream: fbdc94d4309f28ad59e41025ff42945478dd12cc]
+
+- controller: Set check_tnl_key for BFD on tunnel ifaces.
+[Upstream: c966c35f1b1cd8c5351ccac3051843fbf765c2ae]
+
+- tests: Skip EDNS test if the scapy version doesn't support it.
+[Upstream: 7af89a5e50a4ba75a3ea5c393499f1e0fa0a6abb]
+
+- northd: Don't skip the unSNAT stage for traffic towards VIPs.
+[Upstream: 094b1217345a8ae5935fdd4dfec4949f46197377]
+
+- Prepare for 23.09.3.
+[Upstream: 7bd52d7a25f2ddad0be25a5e54a3eb63d98a19d8]
+
+- Set release date for 23.09.2.
+[Upstream: 04b23938302ad54f453f622a4b0c2fa5e27d3e41]
+
 * Mon Mar 04 2024 Numan Siddique <numans@ovn.org> - 23.09.0-131
 - Sync to upstream OVN branch-23.09. Below are the commits since
 last update (23.09.0-109)

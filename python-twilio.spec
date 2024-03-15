@@ -2,8 +2,8 @@
 %global pypi_name twilio
 
 Name:           python-%{pypi_name}
-Version:        8.11.0
-Release:        3%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT

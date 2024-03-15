@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    415720b7e3052f42de05c384134387771d3e183b
+%global gh_commit    0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,7 +16,7 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.6.8
+Version:        1.6.9
 Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
@@ -32,10 +32,10 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 7.3
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5 || ^9.6.17",
-#        "symplify/easy-coding-standard": "^12.1.14"
+#        "phpunit/phpunit": "^8.5 || ^9.6.10",
+#        "symplify/easy-coding-standard": "^12.0.8"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires: phpunit9 >= 9.6.17
+BuildRequires: phpunit9 >= 9.6.10
 BuildRequires: (php-composer(hamcrest/hamcrest-php) >= 2.0.1 with php-composer(hamcrest/hamcrest-php) < 3)
 BuildRequires:  php-pdo
 # Autoloader
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar 13 2024 Remi Collet <remi@remirepo.net> - 1.6.9-1
+- update to 1.6.9 (revert to 1.6.7 code)
+
 * Tue Mar 12 2024 Remi Collet <remi@remirepo.net> - 1.6.8-1
 - update to 1.6.8
 

@@ -1,9 +1,9 @@
 %global singulardir	%{_libdir}/Singular
 %global upstreamver	4-3-2
 %global downstreamver	%(tr - . <<< %{upstreamver})
-%global patchver	p8
+%global patchver	p15
 
-%bcond_with python
+%bcond python 0
 
 %if %{with python}
 # Singular installs python files into nonstandard places
@@ -12,7 +12,7 @@
 
 # Since qepcad-B requires this package, use this to build when the old version
 # of Singular cannot be installed.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 # Starting with the 4.3.1p3 release, doc building has become problematic.  The
 # s390x build usually fails: while building the examples, Singular eventually
@@ -21,9 +21,9 @@
 # for aarch64, x86_64, and ppc64le.  If you really need docs for s390x, help me
 # figure out how to avoid the problem described above.
 %ifarch %{arm64} x86_64 %{power64}
-%bcond_without docs
+%bcond docs 1
 %else
-%bcond_with docs
+%bcond docs 0
 %endif
 
 Name:		Singular
@@ -42,8 +42,9 @@ Summary:	Computer Algebra System for polynomial computations
 # - Not sure, but similar to HPND and NTP (TODO: check with Legal):
 #   - omalloc/omReturn.h
 License:	(GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND BSD-3-Clause AND HPND
-Source0:        https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/%{upstreamver}/singular-%{version}.tar.gz
 URL:		https://www.singular.uni-kl.de/
+VCS:		https://github.com/Singular/Singular
+Source0:	%{vcs}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	4ti2
 BuildRequires:	bison
 BuildRequires:	boost-devel
@@ -100,15 +101,15 @@ Requires:	surf-geometry
 Requires:	TOPCOM%{_isa}
 
 # This can be removed when Fedora 38 reaches EOL
-Obsoletes:      Singular-polymake < 4.2.0-1
-Provides:       Singular-polymake = %{version}-%{release}
+Obsoletes:	Singular-polymake < 4.2.0-1
+Provides:	Singular-polymake = %{version}-%{release}
 
 # The surfex code is no longer distributed with Singular
 # This can be removed when F41 reaches EOL
-Obsoletes:      Singular-surfex < 4.3.1-1
+Obsoletes:	Singular-surfex < 4.3.1-1
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+ExcludeArch:	%{ix86}
 
 # Support S390(x) architectures
 Patch0:		%{name}-arches.patch
@@ -126,22 +127,22 @@ Patch5:		%{name}-parens.patch
 Patch6:		%{name}-gfanlib.patch
 # Let ESingular read a compressed singular.info file
 Patch7:		%{name}-emacs.patch
-# Fix a sequence point error
-# https://github.com/Singular/Singular/pull/1200
-Patch8:		%{name}-sequence-point.patch
 # Avoid an unnecessary array comparison
-Patch9:		%{name}-array-compare.patch
+Patch8:		%{name}-array-compare.patch
 # Fix several "use after free" scenarios due to temporary objects
-# https://github.com/Singular/Singular/pull/1201
-Patch10:	%{name}-use-after-free.patch
+Patch9:		%{name}-use-after-free.patch
 # Fix mismatched type declarations
-Patch11:	%{name}-type-mismatch.patch
+Patch10:	%{name}-type-mismatch.patch
 # Change little-endian-specific code to endian-agnostic code
-Patch12:	%{name}-endian.patch
+Patch11:	%{name}-endian.patch
 # Disable examples that use the network to avoid hangs on the koji builders
-Patch13:	%{name}-doc-hang.patch
+Patch12:	%{name}-doc-hang.patch
 # Fix an off-by-one error in polymake.lib that leads to failed examples
-Patch14:	%{name}-polymake-lib.patch
+# https://github.com/Singular/Singular/issues/1210
+Patch13:	%{name}-polymake-lib.patch
+# Adapt to flint 3.x
+# https://github.com/Singular/Singular/pull/1209
+Patch14:	%{name}-flint3.patch
 
 %description
 Singular is a computer algebra system for polynomial computations, with
@@ -226,7 +227,7 @@ Development files for libpolys.
 
 
 %prep
-%autosetup -n singular-%{downstreamver} -p1
+%autosetup -p1
 
 %if %{with python}
 # Fix the name of the boost_python library
@@ -248,7 +249,7 @@ sed -i '/countedref\.cc/s/\$(CXXFLAGS)/& -fno-strict-aliasing/g' Singular/Makefi
 
 
 %build
-export CPPFLAGS='-I%{_includedir}/arb -I%{_includedir}/flint -I%{_includedir}/gfanlib'
+export CPPFLAGS='-I%{_includedir}/flint -I%{_includedir}/gfanlib'
 %if %{with python}
 pyincdir=$(python2 -Esc "import sysconfig; print(sysconfig.get_paths()['include'])")
 CPPFLAGS="$CPPFLAGS -I$pyincdir"
@@ -393,9 +394,9 @@ make check
 %{_datadir}/icons/Singular.png
 %{_datadir}/ml_python/
 %{_datadir}/ml_singular/
+%if %{with docs}
 %{_datadir}/singular/singular.idx
 %{_infodir}/singular.info*
-%if %{with docs}
 %docdir %{_datadir}/singular/html/
 %{_datadir}/singular/html/
 %{singulardir}/libparse
@@ -480,6 +481,12 @@ make check
 
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 4.3.2p15-1
+- Version 4.3.2p15
+- Drop upstreamed -sequence-point patch
+- Switch from %%bcond_with{out} to %%bcond
+- Add patch for compatibility with flint 3.x
+
 * Thu Feb  1 2024 Jerry James <loganjerry@gmail.com> - 4.3.2p8-1
 - Version 4.3.2p8
 - Drop upstreamed -alias and -c99 patches

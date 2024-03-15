@@ -10,7 +10,7 @@
 %global tclversion 8.6
 
 Name:           mingw-%{name1}
-Version:        3.45.1
+Version:        3.45.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of sqlite embeddable SQL database engine
 
@@ -211,6 +211,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Wed Mar 13 2024 Sandro Mani <manisandro@gmail.com> - 3.45.2-1
+- Update to 3.45.2
+
 * Fri Feb 02 2024 Sandro Mani <manisandro@gmail.com> - 3.45.1-1
 - Update to 3.45.1
 

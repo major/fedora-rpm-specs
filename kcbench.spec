@@ -1,5 +1,5 @@
 Name:           kcbench
-Version:        0.9.9
+Version:        0.9.10
 Release:        1%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
@@ -52,6 +52,9 @@ echo "Nothing to build"
 %{_docdir}/kcbench/
 
 %changelog
+* Wed Mar 13 2024 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.10-1
+- Update to 0.9.10
+
 * Mon Mar 4 2024 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.9.9-1
 - Update to 0.9.9
 - migrated to SPDX license

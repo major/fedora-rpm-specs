@@ -1,6 +1,6 @@
 Name: liboauth2
-Version: 1.6.0
-Release: 3%{?dist}
+Version: 1.6.1
+Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
 URL: https://github.com/zmartzone/liboauth2
@@ -90,6 +90,13 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 1.6.1-1
+- release 1.6.1 (Hans Zandbelt)
+- add Mutual-TLS Certificate-Bound Access Tokens support to NGINX (Hans Zandbelt)
+- add support for Redis 6 ACL username based authentication (Hans Zandbelt)
+- update copyright year to 2024 (Hans Zandbelt)
+- Resolves rhbz#2269222
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

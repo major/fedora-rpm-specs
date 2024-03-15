@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.0.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -19,6 +19,7 @@ Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}
 # Backports from upstream
 Patch0001:      0001-Fixup-use-of-boot-zipl.patch
 Patch0002:      0002-Lookup-distro-provided-BLS-entries-for-zipl.patch
+Patch0003:      0003-Followup-fix-for-use-of-boot-zipl.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -82,6 +83,7 @@ Requires:       rsync
 Requires:       screen
 Requires:       tar >= 1.2.7
 Requires:       openssl
+Requires:       xz
 # Python 2 module is no longer available
 Obsoletes:      python2-%{name} < %{version}-%{release}
 # legacy kiwi initramfs tools are no longer available
@@ -568,6 +570,12 @@ done
 
 
 %changelog
+* Wed Mar 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-5
+- Add dependency on xz
+
+* Wed Mar 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-4
+- Add one more fix for s390x image builds
+
 * Tue Mar 12 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-3
 - Backport fixes for s390x images
 

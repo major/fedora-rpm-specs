@@ -44,7 +44,9 @@ Source:         %forgesource
 Patch:          build_flags_and_so_version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+# Also exclude s390x since tests are failing on that arch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2269344
+ExcludeArch:    %{ix86} s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -340,10 +342,10 @@ echo
 ctest \\\
     --test-dir build$MPI_COMPILE_TYPE \\\
     --output-on-failure --force-new-ctest-process \\\
-    -j %{_smp_build_ncpus}
+    -j 2 --verbose --rerun-failed
 }
 
-%ctest
+%ctest --verbose --rerun-failed
 
 %if %{with mpich}
 %{_mpich_load}

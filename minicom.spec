@@ -1,14 +1,15 @@
 Summary: A text-based modem control and terminal emulation program
 Name: minicom
 Version: 2.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://salsa.debian.org/minicom-team/minicom
-# Some files are built from Public Domain files in addition to GPLv2+ files
-# (/usr/bin/minicom). Some LGPLv2+ files *may* be used in building of certain
-# files (minicom, ascii-xfr, runscript). They are probably not actually used,
-# but I wasn't able to exclude them from the build process completely yet.
-# The rest is simply GPLv2+.
-License: GPLv2+ and LGPLv2+ and Public Domain
+# The file 'src/wildmat.c' is LicenseRef-Fedora-Public-Domain.
+# Some LGPL-2.0-or-later files (e.g., 'lib/getopt.c', 'lib/error.c')
+# *may* be used in building of certain files (minicom, ascii-xfr, runscript).
+# They are probably not actually used, but I wasn't able to exclude them from
+# the build process completely yet.
+# The rest is simply GPL-2.0-or-later.
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 #ExcludeArch: s390 s390x
 
 Source0: https://salsa.debian.org/minicom-team/minicom/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +67,9 @@ mkdir -p %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Feb 16 2024 Pavol Žáčik <pzacik@redhat.com> - 2.8-7
+- Migrate to SPDX license tags
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

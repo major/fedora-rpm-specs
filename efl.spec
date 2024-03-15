@@ -31,7 +31,7 @@
 
 Name:		efl
 Version:	1.27.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Collection of Enlightenment libraries
 License:	BSD and LGPLv2+ and GPLv2 and zlib
 URL:		http://enlightenment.org/
@@ -596,6 +596,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libexactness*.so
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 1.27.0-9
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> - 1.27.0-8
 - Disable LuaJIT on riscv64 (not ported)
 

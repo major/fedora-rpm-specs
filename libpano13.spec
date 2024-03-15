@@ -1,7 +1,7 @@
 Summary: Library for manipulating panoramic images
 Name: libpano13
 Version: 2.9.22
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: http://panotools.sourceforge.net/
 Source: http://downloads.sourceforge.net/panotools/%{name}-%{version}.tar.gz
@@ -53,7 +53,7 @@ programs which will manipulate panoramas using the libpano13 library.
 %install
 %cmake_install
 rm -f %{buildroot}/%{_libdir}/libpano13.a
-rm -rf %{buildroot}/usr/share/pano13
+rm -rf %{buildroot}%{_datadir}/pano13
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README
@@ -81,6 +81,9 @@ rm -rf %{buildroot}/usr/share/pano13
 %{_libdir}/pkgconfig/libpano13.pc
 
 %changelog
+* Wed Mar 13 2024 Bruno Postle <bruno@postle.net> - 2.9.22-5
+- use macro correctly for the benefit of flatpak builds (yselkowitz)
+
 * Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 2.9.22-4
 - Rebuild with suitesparse 7.6.0
 

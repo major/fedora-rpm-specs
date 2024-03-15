@@ -20,7 +20,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.26
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -430,6 +430,9 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.26-7
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.26-6
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

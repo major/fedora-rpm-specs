@@ -6,18 +6,13 @@
 %global crate pretty-git-prompt
 
 Name:           rust-pretty-git-prompt
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Your current git repository information inside a beautiful shell prompt
 
 License:        MIT
 URL:            https://crates.io/crates/pretty-git-prompt
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump git2 dependency from 0.13 to 0.18
-# * set "license" instead of "license-file" in crate metadata;
-#   "license-file" is intended to be used for non-standard licenses only
-Patch:          pretty-git-prompt-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

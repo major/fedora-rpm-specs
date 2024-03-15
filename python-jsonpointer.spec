@@ -1,8 +1,8 @@
 %global pypi_name jsonpointer
 
 Name:           python-%{pypi_name}
-Version:        2.3
-Release:        7%{?dist}
+Version:        2.4
+Release:        1%{?dist}
 Summary:        Resolve JSON Pointers in Python
 
 License:        BSD-3-Clause
@@ -37,7 +37,7 @@ BuildRequires:  python3-devel
 %pyproject_save_files %{pypi_name}
 
 %check
-%python3 tests.py
+%python3 -m unittest discover
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
@@ -45,6 +45,11 @@ BuildRequires:  python3-devel
 %{_bindir}/jsonpointer
 
 %changelog
+* Wed Mar 13 2024 Miro Hrončok <mhroncok@redhat.com> - 2.4-1
+- Update to 2.4
+- Fixes: rhbz#1938475
+- Fixes: rhbz#2245855
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

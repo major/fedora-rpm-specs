@@ -1,6 +1,6 @@
 Name:           gfan
 Version:        0.6.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Software for Computing Gröbner Fans and Tropical Varieties
 License:        GPL-2.0-or-later
 URL:            https://math.au.dk/~jensen/software/gfan/gfan.html
@@ -170,6 +170,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 0.6.2-20
+- Rebuild for soplex 7.0.0
+
 * Thu Feb 22 2024 Jerry James <loganjerry@gmail.com> - 0.6.2-19
 - Build with SoPlex support
 - Stop building for 32-bit x86

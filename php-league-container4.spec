@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-league-container4
 #
-# Copyright (c) 2016-2021 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2016-2024 Shawn Iwinski <shawn@iwin.ski>
 #                         Remi Collet <remi@remirepo.net>
 #
 # License: MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     thephpleague
 %global github_name      container
-%global github_version   4.2.0
-%global github_commit    375d13cb828649599ef5d48a339c4af7a26cd0ab
+%global github_version   4.2.2
+%global github_commit    ff346319ca1ff0e78277dc2311a42107cc1aab88
 
 %global major            4
 
@@ -32,7 +32,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       7%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A fast and intuitive dependency injection container version %{major}
 
 License:       MIT
@@ -124,13 +124,9 @@ sed -e '/log/d' -i phpunit.xml
 RETURN_CODE=0
 # TODO PHP 8.1, Call to undefined method ReflectionUnionType::getName()
 PHPUNIT=$(which phpunit8)
-for PHP_EXEC in php php74 php80 php81; do
+for PHP_EXEC in php php81 php82 php83; do
     if which $PHP_EXEC; then
-        FILTER=""
-        VER=$($PHP_EXEC -r 'echo PHP_VERSION_ID;')
-        if [ $VER -ge 80100 ]; then
-            FILTER="--filter '^((?!(testResolverResolvesArgumentsViaReflection|testResolverThrowsExceptionWhenReflectionDoesNotResolve)).)*\$'"
-        fi
+        FILTER="--filter '^((?!(testResolverResolvesArgumentsViaReflection|testResolverThrowsExceptionWhenReflectionDoesNotResolve)).)*\$'"
         $PHP_EXEC $PHPUNIT $FILTER \
             --bootstrap bootstrap.php \
             --verbose || RETURN_CODE=1
@@ -153,6 +149,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Mar 13 2024 Remi Collet <remi@remirepo.net> - 4.2.2-1
+- update to 4.2.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

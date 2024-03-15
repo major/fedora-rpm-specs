@@ -5,14 +5,15 @@ Summary:        Convex polyhedra library for abstract interpretation
 
 License:        GPL-3.0-or-later
 URL:            https://www.cs.unipr.it/~zaffanella/PPLite/
-Source0:        https://github.com/ezaffanella/PPLite/raw/main/releases/%{name}-%{version}.tar.gz
+VCS:            https://github.com/ezaffanella/PPLite
+Source0:        %{vcs}/raw/main/releases/%{name}-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  pkgconfig(flint)
 
 %description
 PPLite is an open-source C++ library implementing the abstract domain of

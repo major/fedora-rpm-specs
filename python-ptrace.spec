@@ -1,11 +1,10 @@
 Summary:       Debugger using ptrace written in Python
 Name:          python-ptrace
-Version:       0.9.8
-Release:       12%{?dist}
+Version:       0.9.9
+Release:       1%{?dist}
 License:       GPLv2
 URL:           https://github.com/vstinner/python-ptrace
 Source0:       https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
-Patch01:       python-ptrace-0.9.8-avoid-imp.patch
 BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -56,6 +55,9 @@ rm -f %{buildroot}%{_bindir}/{gdb,strace}.{pyo,pyc}
 %{python3_sitearch}/cptrace-*-py*.egg-info
 
 %changelog
+* Wed Mar 13 2024 Terje Rosten <terje.rosten@ntnu.no> - 0.9.9-1
+- 0.9.9
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

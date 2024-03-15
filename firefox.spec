@@ -177,13 +177,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        123.0.1
+Version:        124.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20240307.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20240313.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -258,12 +258,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-
-# Firefox 124 patches for PipeWire camera support
-# https://phabricator.services.mozilla.com/D200142
-Patch421:       libwebrtc-allow-videocapturemodulepipewire-be-shared-with-more-consumers.patch
-# https://phabricator.services.mozilla.com/D201328
-Patch422:       libwebrtc-simplify-thread-and-lock-annotations.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -567,9 +561,6 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
-
-%patch421 -p1 -b .libwebrtc-allow-videocapturemodulepipewire-be-shared-with-more-consumers
-%patch422 -p1 -b .libwebrtc-simplify-thread-and-lock-annotations
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1192,6 +1183,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Mar 13 2024 Martin Stransky <stransky@redhat.com>- 124.0-1
+- Updated to 124.0
+
 * Thu Mar 07 2024 Martin Stransky <stransky@redhat.com>- 123.0.1-1
 - Updated to 123.0.1
 

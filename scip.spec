@@ -1,20 +1,28 @@
 Name:           scip
-Version:        8.1.0
+Version:        9.0.0
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 
 %global upver   %(sed 's/\\.//g' <<< %{version})
 
-License:        Apache-2.0
+# Apache-2.0: the project as a whole
+# EPL-1.0: the bundled cppad project
+# MIT: the bundled fmt project and the header-only sassy package
+# SMLNJ: bundled headers from the mp package
+License:        Apache-2.0 AND EPL-1.0 AND MIT AND SMLNJ
 URL:            https://scipopt.org/
 VCS:            https://github.com/scipopt/scip
 Source0:        %{vcs}/archive/v%{upver}/%{name}-%{version}.tar.gz
 # Do not add an rpath
 Patch0:         %{name}-no-rpath.patch
-# Unbundle nauty
+# Unbundle nauty and tinycthread
 Patch1:         %{name}-unbundle.patch
 # Install the header files in a private directory
 Patch2:         %{name}-headers.patch
+# Silence valgrind complaints about use of uninitialized memory
+Patch3:         %{name}-uninitialized-memory.patch
+# Patch from sassy upstream to avoid vector overruns
+Patch4:         %{name}-sassy-overrun.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,14 +48,6 @@ BuildRequires:  python3
 
 Requires:       libscip%{?_isa} = %{version}-%{release}
 
-# SCIP includes a modified version of cppad, incompatible with the Fedora
-# version
-Provides:       bundled(cppad) = 20180000
-
-# SCIP bundles a few header files from mp.  We don't want to make it depend on
-# mp, however, since mp depends on SCIP, thus leading to a circular dependency.
-Provides:       bundled(mp) = 20210923
-
 %global _desc %{expand:
 Welcome to what is currently one of the fastest academically developed
 solvers for mixed integer programming (MIP) and mixed integer nonlinear
@@ -63,6 +63,20 @@ functionality.
 
 %package -n     libscip
 Summary:        Library for solving constraint integer programs
+
+# SCIP includes a modified version of cppad, incompatible with the Fedora
+# version
+Provides:       bundled(cppad) = 20180000
+
+# SCIP bundles a few header files from mp.  We don't want to make it depend on
+# mp, however, since mp depends on SCIP, thus leading to a circular dependency.
+Provides:       bundled(mp) = 20210923
+
+# The bundled version of fmt is incompatible with version 10 in Rawhide.
+Provides:       bundled(fmt) = 6.1.2
+
+# We bundle sassy temporarily until it can be included as a Fedora package
+Provides:       bundled(sassy)
 
 %description -n libscip %_desc
 
@@ -99,11 +113,6 @@ API documentation for libscip.
 # things if we don't fix them!
 sed -i 's/ -Wno-strict-overflow//' CMakeLists.txt make/make.project
 
-# Fix library directories
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's,\(DESTINATION \)lib,\1%{_lib},' src/CMakeLists.txt
-fi
-
 # Turn off HTML timestamps for repeatable builds
 sed -i '/HTML_TIMESTAMP/s/= YES/= NO/' doc/scip.dxy
 sed -i 's/ on \$date//' doc/scipfooter.html
@@ -111,11 +120,13 @@ sed -i 's/ on \$date//' doc/scipfooter.html
 # Look for python3 instead of python
 sed -i 's/PYTHON python/&3/' doc/CMakeLists.txt
 
-# Ensure we cannot use the bundled bliss, nauty, sassy, or tinycthreads
-rm -fr src/{bliss,nauty,sassy,tinycthread}
+# Ensure we cannot use the bundled bliss, nauty, or tinycthreads
+rm -fr src/{bliss,nauty,tinycthread}
 
 %build
-%cmake
+CFLAGS='%{build_cflags} -D_Thread_local=thread_local'
+CXXFLAGS='%{build_cxxflags} -D_Thread_local=thread_local'
+%cmake -DSYM=snauty
 %cmake_build
 
 # Build documentation
@@ -150,7 +161,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files -n libscip
 %doc CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libscip.so.8.1*
+%{_libdir}/libscip.so.9.0*
 
 %files -n libscip-devel
 %{_includedir}/scip/

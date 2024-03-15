@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2023.12.30
-Release:        2%{?dist}
+Version:        2024.03.10
+Release:        1%{?dist}
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
@@ -20,6 +20,9 @@ Source:         yt-dlp.spec.license
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+# Needed for %%prep
+BuildRequires:  tomcli
 
 %if %{with tests}
 # Needed for %%check
@@ -76,7 +79,7 @@ Fish command line completion support for %{name}.
 # Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
 # Relax version constraints
-sed -i 's@^\(requests\|urllib3\|websockets\)>=.*@\1@' requirements.txt
+tomcli-set pyproject.toml lists replace project.dependencies '(requests|urllib3|websockets)>=.*' '\1'
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -114,6 +117,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %{fish_completions_dir}/%{name}.fish
 
 %changelog
+* Wed Mar 13 2024 Maxwell G <maxwell@gtmx.me> - 2024.03.10-1
+- Update to 2024.03.10. Fixes rhbz#2268944.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.12.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

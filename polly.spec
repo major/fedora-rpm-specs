@@ -1,6 +1,6 @@
 %global toolchain clang
-%global polly_version 18.1.0
-%global rc_ver 4
+%global polly_version 18.1.1
+#global rc_ver 4
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -108,6 +108,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Mar 13 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Thu Feb 29 2024 Tom Stellard <tstellar@redhat.com> - 18.1.0~rc4-1
 - 18.1.0-rc4 Release
 

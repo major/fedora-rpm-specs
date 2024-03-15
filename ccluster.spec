@@ -10,11 +10,13 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         https://github.com/rimbach/Ccluster/pull/74.patch
 # Prevent multiple definition errors when linking
 Patch1:         https://github.com/rimbach/Ccluster/pull/75.patch
+# Adapt to flint 3.x
+Patch2:         %{name}-flint3.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  arb-devel
+BuildRequires:  flint-devel
 BuildRequires:  gcc
 BuildRequires:  make
 
@@ -42,7 +44,7 @@ if you use it in your research.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       arb-devel%{?_isa}
+Requires:       flint-devel%{?_isa}
 
 %description    devel
 This package contains header files and library links for developing
@@ -57,8 +59,8 @@ if [ "%{_lib}" != lib ]; then
 fi
 
 %build
-CFLAGS="%{build_cflags} -I%{_includedir}/arb"
-CXXFLAGS="%{build_cxxflags} -I%{_includedir}/arb"
+CFLAGS="%{build_cflags} -I%{_includedir}/flint"
+CXXFLAGS="%{build_cxxflags} -I%{_includedir}/flint"
 # Use Fedora link flags and add an soname
 major=$(echo %{version} | cut -d. -f1)
 sed -i "s|-shared|& %{build_ldflags} -Wl,-h,libccluster.so.${major}|" Makefile.in

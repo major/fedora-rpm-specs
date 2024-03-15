@@ -3,7 +3,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-jupyter-core
-Version:        5.7.1
+Version:        5.7.2
 Release:        %autorelease
 Summary:        The base package for Jupyter projects
 

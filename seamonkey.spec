@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.18.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -513,6 +513,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 2.53.18.1-4
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 2.53.18.1-3
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

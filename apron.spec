@@ -1,7 +1,7 @@
 Name:           apron
 Version:        0.9.14
 Summary:        Numerical abstract domain library
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 # except newpolka/mf_qsort.c and ppl/*, all of which are GPL-2.0-or-later.
@@ -10,7 +10,8 @@ Release:        6%{?dist}
 # OCaml-LGPL-linking-exception.
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
 URL:            https://antoinemine.github.io/Apron/doc/
-Source0:        https://github.com/antoinemine/apron/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/antoinemine/apron
+Source0:        %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 # This patch has not been sent upstream as it is GCC-specific.  Certain
 # symbols are defined in both libpolkaMPQ and libpolkaRll, with different
 # implementations.  This patch makes references to those symbols in
@@ -282,6 +283,9 @@ test/ctest1
 %endif
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 0.9.14-7
+- Rebuild for flint 3.1.0
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

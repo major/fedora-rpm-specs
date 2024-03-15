@@ -24,13 +24,13 @@
 %endif
 
 Name:           gtk4
-Version:        4.13.9
+Version:        4.14.0
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.13/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.14/gtk-%{version}.tar.xz
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	An exact solver for nonconvex MINLPs
 Version:	0.5.8
-Release:	15%{?dist}
+Release:	16%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -44,6 +44,9 @@ Patch2:		%{name}-gcc11.patch
 
 # Avoid implicit function declarations in the configure script
 Patch3:		%{name}-configure-c99.patch
+
+# Adapt to SCIP 9.0.0
+Patch4:         https://github.com/coin-or/Couenne/commit/599d6a4.patch
 
 %description
 Couenne (Convex Over and Under ENvelopes for Nonlinear Estimation) is a
@@ -156,6 +159,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/couenne_doxy.tag
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 0.5.8-16
+- Rebuild for soplex 7.0.0
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 0.5.8-15
 - Build with asl instead of mp
 - Verify that License is valid SPDX

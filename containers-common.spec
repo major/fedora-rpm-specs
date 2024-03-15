@@ -12,7 +12,7 @@
 
 Epoch: 5
 Name: containers-common
-Version: 0.57.3
+Version: 0.58.0
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -67,12 +67,9 @@ Requires: container-network-stack
 Requires: oci-runtime
 Recommends: crun
 Requires: (crun if fedora-release-identity-server)
-Recommends: netavark >= 1.10.2-1
-Requires: (netavark >= 1.10.2-1 if fedora-release-identity-server)
-Recommends: slirp4netns
-Requires: (slirp4netns if fedora-release-identity-server)
-Recommends: passt
-Requires: (passt if fedora-release-identity-server)
+Requires: netavark >= 1.10.3-1
+Suggests: slirp4netns
+Requires: passt
 Requires: iptables
 Requires: nftables
 Recommends: qemu-user-static

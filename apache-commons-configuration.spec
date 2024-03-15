@@ -1,5 +1,5 @@
 Name:           apache-commons-configuration
-Version:        2.9.0
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Read configuration data from a variety of sources
 
@@ -7,6 +7,7 @@ License:        Apache-2.0
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 URL:            https://commons.apache.org/proper/commons-configuration/
+VCS:            https://github.com/apache/commons-configuration
 Source0:        https://archive.apache.org/dist/commons/configuration/source/commons-configuration2-%{version}-src.tar.gz
 Source1:        https://archive.apache.org/dist/commons/configuration/source/commons-configuration2-%{version}-src.tar.gz.asc
 Source2:        https://downloads.apache.org/commons/KEYS

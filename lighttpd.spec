@@ -49,7 +49,7 @@
 
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.74
+Version: 1.4.75
 Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://www.lighttpd.net/
@@ -62,7 +62,7 @@ Source11: http://www.lighttpd.net/favicon.ico
 Source12: http://www.lighttpd.net/light_button.png
 Source13: http://www.lighttpd.net/light_logo.png
 Source14: lighttpd-empty.png
-Patch0: lighttpd-1.4.65-defaultconf.patch
+Patch0: lighttpd-1.4.75-defaultconf.patch
 Patch1: lighttpd-configure-c99.patch
 Requires: system-logos
 Requires: %{name}-filesystem
@@ -594,6 +594,9 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Wed Mar 13 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.4.75-1
+- 1.4.75
+
 * Tue Feb 20 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.4.74-1
 - 1.4.74
 

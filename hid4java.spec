@@ -44,6 +44,13 @@ find -name '*.dll' -print -delete
 
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :maven-javadoc-plugin
+	
+for x in `find | grep pom.xml$` ; do
+  if cat $x | grep -e "<source>.*7" -e "<target>.*7" ; then
+    sed "s;<source>.*.7.*;<source>8</source>;g" -i $x;
+    sed "s;<target>.*7.*;<target>8</target>;g" -i $x;
+  fi
+done
 
 %build
 %mvn_build
@@ -62,6 +69,7 @@ find -name '*.dll' -print -delete
 %changelog
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.7.0-8
 - Rebuilt for java-21-openjdk as system jdk
+- bumped source/target to 8
 
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

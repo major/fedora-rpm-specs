@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -226,6 +226,9 @@ export CXXFLAGS="%{optflags} -ftree-vectorize"
 
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 8.15.1-4
+- Rebuild for jpegxl (libjxl) 0.10.2
+
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 8.15.1-3
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump
 

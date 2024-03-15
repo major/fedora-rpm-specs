@@ -1,5 +1,5 @@
 Name:           calamares
-Version:        3.3.4
+Version:        3.3.5
 Release:        1%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
@@ -24,7 +24,7 @@ Source5:        calamares-auto_it.ts
 
 # Fedora-specific changes
 ## adjust some default settings (default shipped .conf files)
-Patch1001:       calamares-3.3.3-default-settings.patch
+Patch1001:       calamares-3.3.5-default-settings.patch
 ## use kdesu instead of pkexec (works around #1171779)
 Patch1002:       calamares-3.3.3-kdesu.patch
 
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Wed Mar 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.5-1
+- Update to 3.3.5
+
 * Mon Feb 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.3.4-1
 - Update to 3.3.4
 

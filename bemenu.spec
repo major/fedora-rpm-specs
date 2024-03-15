@@ -1,5 +1,5 @@
 Name:       bemenu
-Version:    0.6.19
+Version:    0.6.21
 Release:    %{autorelease}
 Summary:    Dynamic menu library and client program inspired by dmenu
 

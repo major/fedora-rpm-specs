@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	COIN-OR Open Solver Interface Library
 Version:	0.108.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -131,6 +131,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/osi_doxy.tag
 
 %changelog
+* Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 0.108.9-2
+- Rebuild for soplex 7.0.0
+
 * Tue Jan 30 2024 Jerry James <loganjerry@gmail.com> - 0.108.9-1
 - Version 0.108.9
 - Update the License from EPL-1.0 to EPL-2.0 AND EPL-1.0

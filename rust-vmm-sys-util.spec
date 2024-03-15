@@ -21,7 +21,7 @@ Patch:          vmm-sys-util-omit-timestamp-test.diff
 # Omit unsupported pseudo_rng test on aarch64
 Patch:          vmm-sys-util-omit-pseudo_rng-test.diff
 
-ExclusiveArch:  x86_64 aarch64 ppc64le
+ExclusiveArch:  x86_64 aarch64 ppc64le riscv64
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  cargo-rpm-macros >= 24
 

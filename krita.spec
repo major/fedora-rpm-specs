@@ -13,7 +13,7 @@
 
 Name:           krita
 Version:        5.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -29,6 +29,7 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Patch1: krita-5.2.2-appstream_validate.patch
 Patch2: krita-5.2.2-ffwt.patch
 Patch3: krita-5.2.2-libunibreak.patch
+Patch4: https://invent.kde.org/graphics/krita/-/commit/021389637e50638b096c7227cf5c06e6444cef89.diff
 
 ## upstream patches
 
@@ -146,6 +147,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
 
 %build
 # build zug
@@ -223,6 +225,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 5.2.2-8
+- Rebuild for jpegxl (libjxl) 0.10.2
+- Add patch to fix build with libjxl 0.9.0+
+
 * Sun Mar 10 2024 Alessandro Astone <ales.astone@gmail.com> - 5.2.2-7
 - Rebuild (libunibreak)
 

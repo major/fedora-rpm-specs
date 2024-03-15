@@ -25,7 +25,7 @@ end}
 
 Name:             grafana
 Version:          10.2.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -1021,6 +1021,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Wed Mar 13 2024 Sam Feifer <sfeifer@redhat.com> 10.2.3-2
+- Fix grafana-cli issue introduced during rebase
+
 * Fri Mar 1 2024 Sam Feifer <sfeifer@redhat.com> 10.2.3-1
 - Rebase to grafana 10
 

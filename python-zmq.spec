@@ -15,6 +15,9 @@ License:        MPLv2.0 and ASL 2.0 and BSD
 URL:            https://zeromq.org/languages/python/
 Source0:        %{pypi_source pyzmq}
 
+# Python 3.13 compatibility
+Patch:          https://github.com/zeromq/pyzmq/pull/1961.patch
+
 BuildRequires:  gcc
 
 BuildRequires:  pkgconfig(libzmq)
@@ -23,8 +26,15 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-asyncio
 BuildRequires:  python%{python3_pkgversion}-tornado
-BuildRequires:  python%{python3_pkgversion}-gevent
 BuildRequires:  python%{python3_pkgversion}-numpy
+
+# The gevent tests are automatically skipped when gevent is not installed.
+# When bootstrapping new Python versions, gevent is often not available until very late.
+# This bcond allows to ship zmq without gevent when needed.
+%bcond gevent 1
+%if %{with gevent}
+BuildRequires:  python%{python3_pkgversion}-gevent
+%endif
 
 %description %{common_description}
 
@@ -51,7 +61,7 @@ This package contains the testsuite for the python bindings.
 
 
 %prep
-%setup -q -n pyzmq-%{version}
+%autosetup -p1 -n pyzmq-%{version}
 
 # Upstream is testing with cython 3 on 3.12
 sed -i -e '/cython>=3/d' pyproject.toml test-requirements.txt

@@ -415,6 +415,8 @@ done
 # MPI
 # Allow oversubscription with openmpi
 export OMPI_MCA_rmaps_base_oversubscribe=1
+# For openmpi 5+
+export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 for mpi in %{?mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
     for((iprec=0;iprec<%{nmpiprec};iprec++)) ; do

@@ -1,5 +1,5 @@
 Name:    haruna
-Version: 0.12.3
+Version: 1.0.0
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
@@ -15,29 +15,30 @@ BuildRequires: cmake
 BuildRequires: gnupg2
 BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
+BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5X11Extras)
-BuildRequires: qt5-qtbase-private-devel
+BuildRequires: cmake(MpvQt)
 
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5FileMetaData)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5KIO)
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5ConfigWidgets)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: qt6-qtbase-private-devel
+
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6FileMetaData)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6Kirigami2)
+BuildRequires: cmake(KF6ConfigWidgets)
 
 BuildRequires: cmake(Breeze)
 
@@ -53,7 +54,7 @@ BuildRequires: pkgconfig(libswscale)
 
 Requires:      kde-filesystem
 Requires:      hicolor-icon-theme
-Requires:      kf5-kirigami2%{?_isa}
+Requires:      kf6-kirigami2%{?_isa}
 Requires:      qqc2-desktop-style%{?_isa}
 Recommends:    yt-dlp
 
@@ -75,7 +76,7 @@ Features:
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -83,23 +84,23 @@ Features:
 %cmake_install
 # Cleaning icons with non-standard resolution
 for i in 44 150 310; do
-  rm -rf %{buildroot}%{_kf5_datadir}/icons/hicolor/"${i}x${i}"
+  rm -rf %{buildroot}%{_kf6_datadir}/icons/hicolor/"${i}x${i}"
 done
 %find_lang %{name} --with-html
 
 
 %check
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%{_kf5_bindir}/haruna
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/*/apps/haruna.{svg,png}
-%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf6_bindir}/haruna
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_datadir}/icons/hicolor/*/apps/haruna.{svg,png}
+%{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 
 %changelog

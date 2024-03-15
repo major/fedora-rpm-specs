@@ -3,7 +3,7 @@
 Name:           pywbem
 Version:        0.17.6
 Epoch:          1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python WBEM client interface and related utilities
 License:        LGPL-2.1-or-later
 URL:            https://github.com/pywbem/pywbem
@@ -12,6 +12,7 @@ Patch1:         0001-use-unittest-mock.patch
 Patch2:         0002-coverity-deadcode.patch
 Patch3:         0003-coverity-forward-null.patch
 Patch4:         0004-coverity-identifier-typo.patch
+Patch5:         0005-python3_12.patch
 BuildRequires:  python3-pip python3-PyYAML python3-ply python3-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -71,6 +72,9 @@ mv -v %{buildroot}/%{_bindir}/wbemcli.py %{buildroot}/%{_bindir}/pywbemcli.py
 %doc README.rst
 
 %changelog
+* Wed Mar 13 2024 Tony Asleson <tasleson@redhat.com> - 1:0.17.6-9
+- Changes to support python 3.12
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
