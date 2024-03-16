@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1081,6 +1081,27 @@ that can be installed across architectures.
 %endif
 
 ##############################################################################
+# glibc32 (only for use in building GCC, not shipped)
+##############################################################################
+%ifarch x86_64
+%package -n glibc32
+Summary: The GNU libc libraries (32-bit)
+Conflicts: glibc(x86-32)
+
+%description -n glibc32
+This package is only used for internal building of multilib aware
+packages, like gcc, due to a technical limitation in the distribution
+build environment. Any package which needs both 32-bit and 64-bit
+runtimes at the same time must install glibc32 (marked as a 64-bit
+package) to access the 32-bit development files during a 64-bit build.
+
+This package is not supported or intended for use outside of the
+distribution build enviroment. Regular users can install both 32-bit and
+64-bit runtimes and development files without any problems.
+
+%endif
+
+##############################################################################
 # Prepare for the build.
 ##############################################################################
 %prep
@@ -1244,12 +1265,10 @@ build()
 		--with-nonshared-cflags="$BuildFlagsNonshared" \
 		--enable-bind-now \
 		--build=%{target} \
+		${configure_host} \
 		--enable-stack-protector=strong \
 		--enable-systemtap \
 		${core_with_options} \
-%ifarch x86_64
-	       --enable-cet \
-%endif
 %ifarch %{ix86}
 		--disable-multi-arch \
 %endif
@@ -1282,6 +1301,17 @@ build()
 	popd
 }
 
+%ifarch x86_64
+# Build for the glibc32 package.
+GCC="$GCC -m32" GXX="$GXX -m32" BuildFlags="${BuildFlags/-m64/-m32}" configure_host="--host=i686-linux-gnu" build 32
+%endif
+
+configure_host=""
+
+%ifarch x86_64
+configure_host="--enable-cet"
+%endif
+
 # Default set of compiler options.
 build
 
@@ -1310,6 +1340,20 @@ for d in %{glibc_sysroot}%{_libdir} %{glibc_sysroot}/%{_lib}; do
 	mkdir -p $d
 	(cd $d && ln -sf . lp64d)
 done
+%endif
+
+%ifarch x86_64
+# Install for the glibc32 package.
+pushd build-%{target}-32
+%make_build install_root=%{glibc_sysroot} install
+popd
+pushd %{glibc_sysroot}
+rm -rf etc sbin var usr/bin usr/lib/gconv usr/libexec usr/sbin usr/share
+rm -f lib/libnss_db* lib/libnss_hesiod* lib/libnsl* usr/lib/libnsl* usr/lib/libnss*
+rm usr/lib/libc_malloc_debug.so
+strip -g usr/lib/*.o
+mv lib/{libmemusage,libpcprofile}.so usr/lib/
+popd
 %endif
 
 # Build and install:
@@ -1584,7 +1628,17 @@ pushd %{glibc_sysroot}/%{sysroot_prefix}
 mkdir -p usr/lib usr/lib64
 
 cp -a %{glibc_sysroot}/%{_prefix}/include usr/.
+%ifarch x86_64
+# 32-bit headers for glibc32 don't go in the sysroot.
+rm usr/include/gnu/*-32.h
+%endif
 for lib in lib lib64;  do
+%ifarch x86_64
+    if [ "$lib" = "lib" ]; then
+	# 32-bit libraries built for glibc32 don't go in the sysroot.
+	continue
+    fi
+%endif
     for pfx in "" %{_prefix}/; do
 	if test -d %{glibc_sysroot}/$pfx$lib ; then
 	    # Implement UsrMove: everything goes into usr/$lib.  Only
@@ -1668,6 +1722,8 @@ popd
 #       - File list with the .so symbolic links for NSS packages.
 # * compat-libpthread-nonshared.filelist.
 #	- File list for compat-libpthread-nonshared subpackage.
+# * glibc32.filelist
+#	- Files for the glibc32 packages.
 
 # Create the main file lists. This way we can append to any one of them later
 # wihtout having to create it. Note these are removed at the start of the
@@ -1686,6 +1742,9 @@ touch nss_db.filelist
 touch nss_hesiod.filelist
 touch nss-devel.filelist
 touch compat-libpthread-nonshared.filelist
+%ifarch x86_64
+touch glibc32.filelist
+%endif
 
 ###############################################################################
 # Master file list, excluding a few things.
@@ -1772,6 +1831,12 @@ cat master.filelist \
 	-e '/libnsl' \
 	-e 'glibc-benchtests' \
 	-e 'aux-cache' \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+	-e '/lib/.*\.o' \
+	-e '/lib/.*\.a' \
+	-e '/lib/.*\.so.*' \
+%endif
 	> glibc.filelist
 
 # Add specific files:
@@ -1781,9 +1846,18 @@ for module in compat files dns; do
     cat master.filelist \
 	| grep -E \
 	-e "/libnss_$module(\.so\.[0-9.]+|-[0-9.]+\.so)$" \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+	| grep -v -e /lib/lib \
+%endif
 	>> glibc.filelist
 done
-grep -e "libmemusage.so" -e "libpcprofile.so" master.filelist >> glibc.filelist
+grep -e "libmemusage.so" -e "libpcprofile.so" master.filelist \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+	| grep -v -e /lib/lib \
+%endif
+	>> glibc.filelist
 
 ###############################################################################
 # glibc-gconv-extra
@@ -1824,6 +1898,10 @@ other_static_library_pattern='/libpthread_nonshared\.a'
 grep '%{_libdir}/lib.*\.a' master.filelist \
   | grep "$devel_static_library_pattern" \
   | grep -v "$other_static_library_pattern" \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+  | grep -v '/lib/.*\.a' \
+%endif
   > devel.filelist
 
 # Put all of the object files and *.so (not the versioned ones) into the
@@ -1836,6 +1914,10 @@ grep '%{_libdir}/lib.*\.so' < master.filelist >> devel.filelist
 sed -i -e '\,libmemusage.so,d' \
 	-e '\,libpcprofile.so,d' \
 	-e '\,/libnss_[a-z]*\.so$,d' \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+	-e '\,/lib/.*\.so$,d' \
+%endif
 	devel.filelist
 
 %if %{glibc_autorequires}
@@ -1867,8 +1949,17 @@ grep '%{_docdir}' master.filelist >> doc.filelist
 # across all multilib packages. We must keep gnu/stubs.h and gnu/lib-names.h
 # in the glibc-headers package, but the -32, -64, -64-v1, and -64-v2 versions
 # go into glibc-devel.
+%ifarch x86_64
+# Hardcode 32-bit and 64-bit header names here, so that 32-bit headers end up
+# in glibc32.
+grep '%{_prefix}/include/gnu/stubs-64\.h$' < master.filelist >> devel.filelist || :
+grep '%{_prefix}/include/gnu/lib-names-64\.h$' < master.filelist >> devel.filelist || :
+grep '%{_prefix}/include/gnu/stubs-32\.h$' < master.filelist >> glibc32.filelist || :
+grep '%{_prefix}/include/gnu/lib-names-32\.h$' < master.filelist >> glibc32.filelist || :
+%else
 grep '%{_prefix}/include/gnu/stubs-.*\.h$' < master.filelist >> devel.filelist || :
 grep '%{_prefix}/include/gnu/lib-names-.*\.h$' < master.filelist >> devel.filelist || :
+%endif
 # Put the include files into headers file list.
 grep '%{_prefix}/include' < master.filelist \
   | grep -E -v '%{_prefix}/include/gnu/stubs-.*\.h$' \
@@ -1888,6 +1979,10 @@ grep '%{_prefix}/include' < master.filelist >> devel.filelist
 grep '%{_libdir}/lib.*\.a' < master.filelist \
   | grep -v "$devel_static_library_pattern" \
   | grep -v "$other_static_library_pattern" \
+%ifarch x86_64
+%dnl Exclude 32-bit libraries built for glibc32.
+  | grep -v '/lib/.*\.a' \
+%endif
   > static.filelist
 
 ###############################################################################
@@ -1985,6 +2080,15 @@ echo "%{_prefix}/libexec/glibc-benchtests/validate_benchout.py*" >> benchtests.f
 ###############################################################################
 echo "%{_libdir}/libpthread_nonshared.a" >> compat-libpthread-nonshared.filelist
 
+###############################################################################
+# glibc32
+###############################################################################
+%ifarch x86_64
+grep '/lib/.*\.o$' master.filelist >> glibc32.filelist
+grep '/lib/.*\.a$' master.filelist >> glibc32.filelist
+grep '/lib/.*\.so' master.filelist >> glibc32.filelist
+%endif
+
 ##############################################################################
 # Run the glibc testsuite
 ##############################################################################
@@ -2052,8 +2156,14 @@ echo ====================PLT RELOCS END==================
 # link and then pick the first loader (although there should be only
 # one).  Use -maxdepth 2 to avoid descending into the /sys-root/
 # sub-tree.  See wrap-find-debuginfo.sh.
+%ifarch x86_64
+# Hardcode the patch to avoid picking up the 32-bit dynamic linker from
+# glibc32; both 32-bit and 64-bit dynamic linkers will be present.
+ldso_path="%{glibc_sysroot}/lib64/ld-linux-x86-64.so.2"
+%else
 ldso_path="$(find %{glibc_sysroot}/ -maxdepth 2 -regextype posix-extended \
   -regex '.*/ld(-.*|64|)\.so\.[0-9]+$' -type f | LC_ALL=C sort | head -n1)"
+%endif
 run_ldso="$ldso_path --library-path %{glibc_sysroot}/%{_lib}"
 
 # Show the auxiliary vector as seen by the new library
@@ -2337,7 +2447,15 @@ update_gconv_modules_cache ()
 %{sysroot_prefix}
 %endif
 
+%ifarch x86_64
+%files -f glibc32.filelist -n glibc32
+%endif
+
 %changelog
+* Wed Mar 13 2024 Joseph Myers <josmyers@redhat.com> - 2.39.9000-6
+- Build glibc32 binary package from glibc sources as part of x86_64 build,
+  not from glibc32 SRPM that contains binaries from i686 RPM build.
+
 * Mon Mar 04 2024 Patsy Griffin <patsy@redhat.com> - 2.39.9000-5
 - Auto-sync with upstream branch master,
   commit b6e3898194bbae78910bbe9cd086937014961e45.

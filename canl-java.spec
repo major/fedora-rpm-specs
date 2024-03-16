@@ -1,6 +1,6 @@
 Name:		canl-java
 Version:	2.8.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	EMI Common Authentication library - bindings for Java
 
 #		The main parts of the code are BSD
@@ -21,10 +21,8 @@ BuildRequires:	maven-local
 BuildRequires:	mvn(commons-io:commons-io) >= 2.4
 BuildRequires:	mvn(junit:junit) >= 4.8
 BuildRequires:	mvn(org.assertj:assertj-core)
-BuildRequires:	mvn(org.bouncycastle:bcpkix-jdk15on) >= 1.69
-BuildRequires:	mvn(org.bouncycastle:bcprov-jdk15on) >= 1.69
-Requires:	mvn(org.bouncycastle:bcpkix-jdk15on) >= 1.69
-Requires:	mvn(org.bouncycastle:bcprov-jdk15on) >= 1.69
+BuildRequires:	mvn(org.bouncycastle:bcpkix-jdk18on) >= 1.69
+Requires:	mvn(org.bouncycastle:bcpkix-jdk18on) >= 1.69
 
 %description
 This is the Java part of the EMI caNl -- the Common Authentication Library.
@@ -37,10 +35,7 @@ Javadoc documentation for EMI caNl.
 
 %prep
 %setup -q -n %{name}-canl-%{version}
-%patch0 -p1
-
-%pom_change_dep org.bouncycastle:bcprov-jdk18on org.bouncycastle:bcprov-jdk15on
-%pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
+%patch -P 0 -p1
 
 # Remove maven-wagon-webdav-jackrabbit dependency
 %pom_xpath_remove pom:build/pom:extensions
@@ -72,6 +67,9 @@ Javadoc documentation for EMI caNl.
 %license LICENSE.txt
 
 %changelog
+* Thu Mar 14 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.3-6
+- Update bouncycastle build requires
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.8.3-5
 - Rebuilt for java-21-openjdk as system jdk
 

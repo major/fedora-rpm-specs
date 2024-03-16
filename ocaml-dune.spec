@@ -5,10 +5,10 @@
 
 # One of the dune libraries now depends on lwt.  We do not currently need that
 # library in Fedora, so don't build it.
-%bcond_with lwt
+%bcond lwt 0
 
 Name:           ocaml-dune
-Version:        3.14.0
+Version:        3.14.2
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -36,7 +36,8 @@ Summary:        Composable build system for OCaml and Reason
 # - vendor/spawn
 License:        MIT AND ISC AND LGPL-2.0-only AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later
 URL:            https://dune.build
-Source0:        https://github.com/ocaml/dune/archive/%{version}/dune-%{version}.tar.gz
+VCS:            https://github.com/ocaml/dune
+Source0:        %{vcs}/archive/%{version}/dune-%{version}.tar.gz
 # When building without lwt, remove libraries that need it
 Patch0:         %{name}-no-lwt.patch
 # Temporary workaround for broken debuginfo (rhbz#2168932)
@@ -44,9 +45,9 @@ Patch0:         %{name}-no-lwt.patch
 Patch1:         %{name}-debuginfo.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+ExcludeArch:    %{ix86}
 
-BuildRequires:  emacs-nox
+BuildRequires:  emacs-nw
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-compiler-libs
@@ -573,6 +574,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 3.14.2-1
+- Version 3.14.2
+
 * Wed Feb 14 2024 Jerry James <loganjerry@gmail.com> - 3.14.0-1
 - Version 3.14.0
 

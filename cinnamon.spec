@@ -127,8 +127,8 @@ Requires:       python3-requests
 Requires:       python3-setproctitle%{?_isa}
 Requires:       python3-xapp
 Requires:       mintlocale
-Requires:       %{name}-control-center%{?_isa}
-Requires:       %{name}-translations >= %{cinnamon_translations_version}
+Recommends:     %{name}-control-center%{?_isa}
+Recommends:     %{name}-translations >= %{cinnamon_translations_version}
 
 # needed for theme overrides
 Requires:       desktop-backgrounds-basic
@@ -147,8 +147,8 @@ Requires:       nemo%{?_isa}
 Requires:       %{name}-screensaver%{?_isa}
 
 # metacity and mate-panel are needed for fallback
-Requires:       metacity%{?_isa}
-Requires:       mate-panel%{?_isa}
+Recommends:     metacity%{?_isa}
+Recommends:     mate-panel%{?_isa}
 
 # required for keyboard applet
 Requires:       gucharmap%{?_isa}

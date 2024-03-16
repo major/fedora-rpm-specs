@@ -7,7 +7,7 @@
 %global pcommit 1582d36944310a96cc8e2dfc01e3682745866812
 
 Name:           cvc5
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 

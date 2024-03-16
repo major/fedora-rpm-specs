@@ -16,7 +16,7 @@
 
 Name:           javapackages-tools
 Version:        6.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD-3-Clause
 URL:            https://github.com/fedora-java/javapackages
@@ -180,7 +180,8 @@ OpenJDK 21 toolchain for XMvn
 %build
 %configure --pyinterpreter=%{python_interpreter} \
     --default_jdk=%{default_jdk} --default_jre=%{default_jre} \
-    --rpmmacrodir=%{rpmmacrodir}
+    --rpmmacrodir=%{_rpmmacrodir} --rpmconfigdir=%{_rpmconfigdir} \
+    --m2home=%{maven_home}
 ./build
 
 %install
@@ -209,7 +210,15 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 sed -e '/^JAVA_LIBDIR=/s|$|:/usr/share/java|' \
     -e '/^JNI_LIBDIR=/s|$|:/usr/lib/java|' \
     -i %{buildroot}%{_sysconfdir}/java/java.conf
-# /usr path is hard-coded in xmvn
+%if %{with ivy}
+# fix ivy paths
+mkdir -p %{buildroot}/etc
+mv %{buildroot}%{_sysconfdir}/{ant.d,ivy} %{buildroot}/etc/
+sed -i -e 's|%{_sysconfdir}|/etc|' files-ivy
+%endif
+# /usr path is hard-coded in ant and xmvn
+mkdir -p %{buildroot}%{_usr}/{bin,share}
+ln -s %{_bindir}/build-classpath %{buildroot}%{_usr}/bin/build-classpath
 ln -s %{_datadir}/java-utils %{buildroot}%{_usr}/share/java-utils
 %endif
 
@@ -218,6 +227,7 @@ ln -s %{_datadir}/java-utils %{buildroot}%{_usr}/share/java-utils
 
 %files -f files-tools
 %if 0%{?flatpak}
+%{_usr}/bin/build-classpath
 %{_usr}/share/java-utils
 %endif
 
@@ -257,6 +267,10 @@ ln -s %{_datadir}/java-utils %{buildroot}%{_usr}/share/java-utils
 %license LICENSE
 
 %changelog
+* Thu Feb 29 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 6.2.0-10
+- More flatpak installation fixes
+- Fix ant and ivy-local in flatpak builds
+
 * Fri Feb 16 2024 Marian Koncek <mkoncek@redhat.com> - 6.2.0-9
 - Switch to OpenJDK 21 as default JDK/JRE
 

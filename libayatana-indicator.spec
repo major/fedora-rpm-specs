@@ -40,7 +40,7 @@ BuildRequires:  xorg-x11-server-Xvfb
 
 %global _description %{expand:
 The Ayatana Indicators library contains information to build indicators
-to go into modern desktops' indicator applets.}
+to go into modern desktops indicator applets.}
 
 %description %_description
 
@@ -48,6 +48,9 @@ to go into modern desktops' indicator applets.}
 %if %{with gtk2}
 %package        gtk2
 Summary:        %{summary} for GTK2
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-indicator2 = %{version}-%{release}
+Obsoletes:      libayatana-indicator2 < 0.9.4
 
 %description    gtk2 %_description
 
@@ -57,6 +60,9 @@ This version is built against GTK2.
 
 %package        gtk3
 Summary:        %{summary} for GTK3
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-indicator3 = %{version}-%{release}
+Obsoletes:      libayatana-indicator3 < 0.9.4
 
 %description    gtk3 %_description
 
@@ -67,6 +73,9 @@ This version is built against GTK3.
 %package        gtk2-devel
 Summary:        Development files for %{name}-gtk2
 Requires:       %{name}-gtk2%{?_isa} = %{version}-%{release}
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-indicator2-devel = %{version}-%{release}
+Obsoletes:      libayatana-indicator2-devel < 0.9.4
 
 %description    gtk2-devel
 The %{name}-gtk2-devel package contains libraries and header files for
@@ -77,6 +86,9 @@ developing applications that use %{name}-gtk2.
 %package        gtk3-devel
 Summary:        Development files for %{name}-gtk3
 Requires:       %{name}-gtk3%{?_isa} = %{version}-%{release}
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-indicator3-devel = %{version}-%{release}
+Obsoletes:      libayatana-indicator3-devel < 0.9.4
 
 %description gtk3-devel
 The %{name}-gtk3-devel package contains libraries and header files for

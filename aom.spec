@@ -13,7 +13,7 @@
 %endif
 
 Name:       aom
-Version:    3.8.0
+Version:    3.8.2
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 

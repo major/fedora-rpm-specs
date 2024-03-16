@@ -1,12 +1,13 @@
 Name:           cadical
 Epoch:          1
-Version:        1.9.4
-Release:        3%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 Summary:        Simplified SAT solver
 
 License:        MIT
 URL:            http://fmv.jku.at/cadical/
-Source0:        https://github.com/arminbiere/%{name}/archive/rel-%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/arminbiere/cadical
+Source0:        %{vcs}/archive/rel-%{version}/%{name}-%{version}.tar.gz
 # Fedora-only patch: build a shared library instead of a static library
 Patch0:         %{name}-shared.patch
 
@@ -55,8 +56,10 @@ sed -i "s|@LDFLAGS@|%{build_ldflags}|" build/makefile
 
 # Make man pages for the command line interface
 export LD_LIBRARY_PATH=$PWD/build
-help2man --version-string=%{version} -N -o cadical.1 build/cadical
-help2man --version-string=%{version} -N -o mobical.1 -h -h build/mobical
+help2man --version-string=%{version} -N -o cadical.1 \
+  -n 'Simplified SAT solver' build/cadical
+help2man --version-string=%{version} -N -o mobical.1 -h -h \
+  -n 'Model Based Tester for CaDiCaL' build/mobical
 
 %install
 # The makefile has no install target.  Install by hand.
@@ -107,6 +110,9 @@ make -C test
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 1:1.9.5-1
+- Version 1.9.5
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

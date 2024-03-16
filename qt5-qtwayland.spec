@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
-Version: 5.15.12
-Release: 4%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -13,7 +13,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## Upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtwayland
 ## branch: kde/5.15
-## git format-patch v5.15.11-lts-lgpl
+## git format-patch v5.15.13-lts-lgpl
 Patch1:  0001-Client-Announce-an-output-after-receiving-more-compl.patch
 Patch2:  0002-Fix-issue-with-repeated-window-size-changes.patch
 Patch3:  0003-Client-Connect-drags-being-accepted-to-updating-the-.patch
@@ -67,13 +67,14 @@ Patch50:  0050-client-Fix-crash-on-dnd-updates-after-client-facing-.patch
 Patch51:  0051-Convert-cursor-bitmap-to-supported-format.patch
 Patch52:  0052-Replace-scale-with-devicePixelRatio-for-non-integer-.patch
 Patch53:  0053-Client-Fix-buffer-damage.patch
-Patch54:  0054-client-Fix-infinite-recursion-with-text-input-v2.patch
-Patch55:  0055-Client-Fix-the-mouse-being-stuck-in-pressed-state-af.patch
-Patch56:  0056-Client-Commit-the-initial-surface-state-explicitly.patch
-Patch57:  0057-tests-Fix-tst_xdgshell-minMaxSize.patch
-Patch58:  0058-Client-Remove-some-surface-commits.patch
-Patch59:  0059-Client-Avoid-locking-resizing-in-QWaylandShmBackingS.patch
-Patch60:  0060-Client-Always-populate-mimedata-in-drags.patch
+Patch54:  0054-Client-Fix-the-mouse-being-stuck-in-pressed-state-af.patch
+Patch55:  0055-Client-Commit-the-initial-surface-state-explicitly.patch
+Patch56:  0056-tests-Fix-tst_xdgshell-minMaxSize.patch
+Patch57:  0057-Client-Remove-some-surface-commits.patch
+Patch58:  0058-Client-Avoid-locking-resizing-in-QWaylandShmBackingS.patch
+Patch59:  0059-Client-Always-populate-mimedata-in-drags.patch
+Patch60:  0060-Client-Fix-enter-event-cursor-position-with-xdg-popu.patch
+
 
 # Use QAdwaitaDecorations by default
 Patch100: qtwayland-use-adwaita-decorations-by-default.patch
@@ -188,6 +189,9 @@ popd
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global pyver_under %(%{python3} -Esc "import sys; sys.stdout.write('{0.major}_{0.minor}'.format(sys.version_info))")
 
 Name:           imath
-Version:        3.1.10
+Version:        3.1.11
 Release:        1%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
@@ -97,6 +97,9 @@ Requires:       python3-devel
 
 
 %changelog
+* Fri Mar 15 2024 Richard Shaw <hobbes1069@gmail.com> - 3.1.11-1
+- Update to 3.1.11.
+
 * Sat Feb 10 2024 Richard Shaw <hobbes1069@gmail.com> - 3.1.10-1
 - Update to 3.1.10.
 

@@ -89,12 +89,12 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference -Wno-error=stringo
     -DINSTALL_LIBDIR:PATH=%{_libdir} \
     -DBUILD_SHARED_LIBS:BOOL=on \
     -DBUILD_LIBHDFSPP:BOOL=off \
-    -DSNAPPY_HOME="/usr" \
-    -DLZ4_HOME="/usr" \
-    -DZLIB_HOME="/usr" \
-    -DZSTD_HOME="/usr" \
-    -DGTEST_HOME="/usr" \
-    -DPROTOBUF_HOME="/usr" \
+    -DSNAPPY_HOME="$(pkg-config --variable=prefix snappy)" \
+    -DLZ4_HOME="$(pkg-config --variable=prefix liblz4)" \
+    -DZLIB_HOME="$(pkg-config --variable=prefix zlib)" \
+    -DZSTD_HOME="$(pkg-config --variable=prefix libzstd)" \
+    -DGTEST_HOME="$(pkg-config --variable=prefix gtest)" \
+    -DPROTOBUF_HOME="$(pkg-config --variable=prefix protobuf)" \
     -Dorc_VERSION="%{version}" \
     -DBUILD_CPP_TESTS=off \
     -DBUILD_TOOLS=off \

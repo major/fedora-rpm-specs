@@ -13,11 +13,11 @@
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
 Version:          6.24.10
-Release:          3%{?dist}
+Release:          4%{?dist}
 License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
-Source:           ftp://ftp.astron.com/pub/tcsh/%{name}-%{version}.tar.gz
+Source:           https://astron.com/pub/tcsh/%{name}-%{version}.tar.gz
 
 Provides:         csh = %{version}
 Provides:         /bin/csh
@@ -177,6 +177,9 @@ fi
 # =============================================================================
 
 %changelog
+* Thu Mar 14 2024 Jan Macku <jamacku@redhat.com> - 6.24.10-4
+- Fix Source URL
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

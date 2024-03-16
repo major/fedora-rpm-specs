@@ -2,13 +2,16 @@
 
 Name:           git-filter-repo
 Version:        2.38.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
 License:        GPL-2.0-only OR MIT
 Group:          Development/Tools/Version Control
 Url:            https://github.com/newren/git-filter-repo
 #
 Source0:        https://github.com/newren/git-filter-repo/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Patch0:         https://github.com/newren/git-filter-repo/pull/526.patch#/%{name}-support-git-2_43.diff
+# Some expected packed sizes in this test are off by two
+Patch1:         %{name}-fix-t9390-t41.diff
 #
 BuildArch:      noarch
 #
@@ -76,6 +79,11 @@ t/run_tests
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
+* Wed Mar 13 2024 Michel Lind <salimma@fedoraproject.org> - 2.38.0-6
+- Apply PR#526 to support Git 2.43.0
+- Fix one test where some expected packed sizes are off by two bytes
+- Resolves: rhbz#2261155
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

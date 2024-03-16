@@ -6,7 +6,7 @@ Version:        1.4.2
 
 %forgemeta
 Name:           waydroid
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -20,6 +20,9 @@ Patch0:         setup-firewalld.patch
 
 # Mount the android rootfs with a default selinux context
 Patch1:         mount-secontext.patch
+
+# Fedora LXC is compiled without AppArmor support and fails to parse lxc.apparmor.profile config
+Patch2:         no-apparmor.patch
 
 BuildArch:      noarch
 
@@ -145,6 +148,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Thu Mar 14 2024 Alessandro Astone <ales.astone@gmail.com> - 1.4.2-3
+- Completely disable apparmor
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

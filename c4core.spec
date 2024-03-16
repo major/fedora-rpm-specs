@@ -48,11 +48,11 @@ projects in mind.
 
 Some of the utilities provided by c4core have already equivalent functionality
 in the C++ standard, but they are provided as the existing C++ equivalent may
-be insufficient (eg, std::string_view), inefficient (eg, std::string), heavy
-(eg streams), or plainly unusable on some platforms/projects, (eg exceptions);
-some other utilities have equivalent under consideration for C++
-standardization; and yet some other utilities have (to my knowledge) no
-equivalent under consideration.}
+be insufficient (e.g., std::string_view), inefficient (e.g., std::string),
+heavy (e.g. streams), or plainly unusable on some platforms/projects, (e.g.
+exceptions); some other utilities have equivalent under consideration for C++
+standardization; and yet some other utilities have (to the author’s knowledge)
+no equivalent under consideration.}
 
 %description %{common_description}
 

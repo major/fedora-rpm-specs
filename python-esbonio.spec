@@ -28,6 +28,9 @@ Summary:        %{summary}
 
 sed -i '/types-appdirs/d' setup.cfg
 
+# Drop upper bound on pytest-asyncio
+sed -r -i 's/(pytest-asyncio).*/\1/' setup.cfg
+
 %generate_buildrequires
 %pyproject_buildrequires -x dev,test,typecheck
 

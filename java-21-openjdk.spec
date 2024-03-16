@@ -104,7 +104,7 @@
 # Set of architectures for which we build fastdebug builds
 %global fastdebug_arches x86_64 ppc64le aarch64
 # Set of architectures with a Just-In-Time (JIT) compiler
-%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64
+%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64 riscv64
 # Set of architectures which use the Zero assembler port (!jit_arches)
 %global zero_arches ppc s390
 # Set of architectures which support SystemTap tapsets
@@ -112,14 +112,14 @@
 # Set of architectures with a Ahead-Of-Time (AOT) compiler
 %global aot_arches      x86_64 %{aarch64}
 # Set of architectures which support the serviceability agent
-%global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm}
+%global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm} riscv64
 # As of JDK-8005165 in OpenJDK 10, class sharing is not arch-specific
 # However, it does segfault on the Zero assembler port, so currently JIT only
 %global share_arches    %{jit_arches}
 # Set of architectures for which we build the Shenandoah garbage collector
 %global shenandoah_arches x86_64 %{aarch64}
 # Set of architectures for which we build the Z garbage collector
-%global zgc_arches x86_64
+%global zgc_arches x86_64 riscv64
 # Set of architectures for which alt-java has SSB mitigation
 %global ssbd_arches x86_64
 # Set of architectures for which java has short vector math library (libsvml.so)
@@ -256,6 +256,10 @@
 %global archinstall aarch64
 %global stapinstall arm64
 %endif
+%ifarch riscv64
+%global archinstall riscv64
+%global stapinstall %{_target_cpu}
+%endif
 # 32 bit sparc, optimized for v9
 %ifarch sparcv9
 %global archinstall sparc
@@ -331,7 +335,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        13
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -2416,6 +2420,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed Feb 21 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:22.0.0.0.36-3
+- Add riscv64 support
+
 * Thu Feb 15 2024 Petra Alice Mikova <pmikova@redhat.com> - 1:21.0.2.0.13-2
 - make this package system jdk
 - fix release issue introduced by automatic rebuild

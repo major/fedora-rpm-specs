@@ -5,10 +5,10 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_39/src/
 # update the obsrel to match the upstream release number
-%global obsrel 443.1
+%global obsrel 445.1
 
 Name:           obs-build
-Version:        20240221
+Version:        20240313
 Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 

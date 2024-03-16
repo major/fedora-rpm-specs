@@ -177,7 +177,7 @@ Libraries and header files for Apache Arrow C++.
 %{_libdir}/pkgconfig/arrow-orc.pc
 %{_libdir}/pkgconfig/arrow.pc
 %{_datadir}/arrow/gdb/gdb_arrow.py
-%{_datadir}/gdb/auto-load/usr/lib64/libarrow.so.*-gdb.py
+%{_datadir}/gdb/auto-load%{_libdir}/libarrow.so.*-gdb.py
 
 #--------------------------------------------------------------------
 
@@ -814,7 +814,7 @@ popd
 
 pushd python
 export \
-  CMAKE_PREFIX_PATH=/tmp/usr \
+  CMAKE_PREFIX_PATH=/tmp%{_prefix} \
   PYARROW_BUNDLE_ARROW_CPP_HEADERS=1 \
   PYARROW_BUNDLE_PLASMA_EXECUTABLE=0 \
   PYARROW_WITH_DATASET=1 \
@@ -828,7 +828,7 @@ export \
   SETUPTOOLS_SCM_VERSION_WRITE_TO_PREFIX="python"
 %pyproject_wheel
 popd
-rm -rf /tmp/usr
+rm -rf /tmp%{_prefix}
 
 #--------------------------------------------------------------------
 

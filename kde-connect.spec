@@ -82,6 +82,8 @@ Requires:       kde-cli-tools
 # /usr/bin/kdeconnect-app
 Requires:       kf6-kirigami2%{?_isa}
 Requires:       kf6-kirigami2-addons
+# Required for contact synchronization with kde connect
+Recommends:     kf6-kpeople
 
 %description
 KDE Connect adds communication between KDE and your smartphone.

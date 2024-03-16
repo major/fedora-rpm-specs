@@ -6,8 +6,9 @@
 Summary:	Measure image size(GIF, PNG, JPEG ,,, etc)
 Name:		rubygem-%{gem_name}
 Version:	0.1.1
-Release:	32%{?dist}
-License:	GPLv2 or Ruby
+Release:	33%{?dist}
+# SPDX confirmed
+License:	Ruby OR GPL-2.0-only
 
 URL:		http://imagesize.rubyforge.org
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -66,8 +67,8 @@ cd %{gem_name}-%{version}
 sed -i -e '1d' -e 's|\r||' lib/image_size.rb
 
 # Patches
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
 #ERROR:  While executing gem ... (Gem::InvalidSpecificationException)
@@ -112,6 +113,9 @@ ruby -Ilib -rtest/unit ./test/test_image_size.rb || echo "rescue for now"
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Mar 14 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.1-33
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

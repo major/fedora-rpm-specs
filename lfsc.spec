@@ -1,12 +1,12 @@
 # NOTE: upstream does not make releases and has no version numbering scheme.
 # We check the code out of git and use the date of the last commit as the
 # version number.
-%global gittag   bbc1798864dbc328092356d4c01f02ddc39ea6bd
+%global gittag   5a127dbbcf9a0f822768e783dbf892ee90c435d5
 %global shorttag %(cut -b -7 <<< %{gittag})
 
 Name:           lfsc
-Version:        0.20230523
-Release:        3%{?dist}
+Version:        0.20230914
+Release:        1%{?dist}
 Summary:        SMT proof checker
 
 License:        BSD-3-Clause
@@ -24,8 +24,6 @@ Source8:        http://clc.cs.uiowa.edu/lfsc/color_base.plf
 Source9:        http://clc.cs.uiowa.edu/lfsc/color_euf.plf
 # Use std::unordered_map instead of the deprecated __gnu_cxx::hash_map
 Patch0:         %{name}-map.patch
-# The cstdint header is no longer included transitively
-Patch1:         %{name}-stdint.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -111,6 +109,10 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 0.20230914-1
+- Update to 20230914 git snapshot
+- Drop upstreamed stdint patch
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20230523-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        Executable code blocks inside markdown files
 
@@ -83,6 +83,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 2.4.1-1
+- Version 2.4.1
+
 * Fri Feb 23 2024 Jerry James <loganjerry@gmail.com> - 2.4.0-1
 - Version 2.4.0
 

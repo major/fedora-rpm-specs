@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate cxx-gen
+%global crate escape8259
 
-Name:           rust-cxx-gen
-Version:        0.7.119
+Name:           rust-escape8259
+Version:        0.5.2
 Release:        %autorelease
-Summary:        C++ code generator for integrating cxx crate into higher level tools
+Summary:        RFC8259-compliant string escaping and un-escaping
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cxx-gen
+License:        MIT
+URL:            https://crates.io/crates/escape8259
 Source:         %{crates_source}
+# exclude Cranky.toml (only used for upstream development):
+# https://github.com/ericseppanen/escape8259/pull/1
+Patch:          escape8259-exclude-cranky.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-C++ code generator for integrating `cxx` crate into higher level tools.}
+RFC8259-compliant string escaping and un-escaping.}
 
 %description %{_description}
 
@@ -30,8 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

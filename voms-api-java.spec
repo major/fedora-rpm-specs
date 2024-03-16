@@ -1,10 +1,6 @@
-%if %{?rhel}%{!?rhel:0} == 7
-%global java_arches ppc64le x86_64
-%endif
-
 Name:		voms-api-java
 Version:	3.3.2
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -67,11 +63,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %pom_xpath_remove "//pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration/pom:outputDirectory"
 %pom_xpath_remove "//pom:plugin[pom:artifactId='maven-javadoc-plugin']/pom:configuration/pom:reportOutputDirectory"
 
-%if %{?fedora}%{!?fedora:0} >= 33 || %{?rhel}%{!?rhel:0} >= 8
 # F33+ and EPEL8+ doesn't use the maven-javadoc-plugin to generate javadoc
 # Remove maven-javadoc-plugin configuration to avoid build failure
 %pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin
-%endif
 
 # Do not create source jars
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
@@ -82,6 +76,10 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 # Remove license plugin
 %pom_remove_plugin com.mycila.maven-license-plugin:maven-license-plugin
 
+# Update bouncycastle dependencies
+%pom_change_dep org.bouncycastle:bcprov-jdk15on org.bouncycastle:bcprov-jdk18on
+%pom_change_dep org.bouncycastle:bcpkix-jdk15on org.bouncycastle:bcpkix-jdk18on
+
 %build
 %mvn_build
 
@@ -89,7 +87,6 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %mvn_install
 
 %files -f .mfiles
-%dir %{_javadir}/%{name}
 %doc AUTHORS README.md
 %license LICENSE
 
@@ -97,6 +94,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Thu Mar 14 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-17
+- Update bouncycastle dependencies
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 3.3.2-16
 - Rebuilt for java-21-openjdk as system jdk
 

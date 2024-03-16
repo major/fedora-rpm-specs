@@ -45,8 +45,8 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 23.09.0
-Release: 139%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 24.03.1
+Release: 5%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -54,13 +54,13 @@ Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 # lib/sflow*.[ch] files are SISSL.
 License: ASL 2.0 and LGPLv2+ and SISSL
 
-%define ovncommit 56d5cf6ccf4a7b034b3d0c009fbca7c509f2f42a
+%define ovncommit 19de791062fbdb38741c65c476343cb53c88542e
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 49e64f13b2c965f5b53a65eeab70ac2e3f0bf69a
-%define ovsshortcommit 49e64f1
+%define ovscommit fe55ce37a7b090d09dee5c01ae0797320ad678f6
+%define ovsshortcommit fe55ce3
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -433,6 +433,10 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Thu Mar 14 2024 Numan Siddique <numans@ovn.org> - 24.03.1-5
+- Sync to upstream ovn 24.03 branch commit 06d3a8fe48969aa
+  which includes 24.03.1.
+
 * Wed Mar 13 2024 Numan Siddique <numans@ovn.org> - 23.09.0-139
 - github: Reduce ASLR entropy to be compatible with asan in llvm 14.
 [Upstream: 835b43811dfcf469da3123911240cc953b52bac3]

@@ -1,7 +1,7 @@
 Summary: Converts text and other types of files to PostScript
 Name: a2ps
-Version: 4.15.5
-Release: 3%{?dist}
+Version: 4.15.6
+Release: 1%{?dist}
 # several files in afm/, lib/, liba2ps/, src/ - GPL3+
 # gnulib files in lib/ - LGPL-2.1+
 # several files in lib/ - LGPL-3+
@@ -317,6 +317,9 @@ exit 0
 %{_mandir}/man1/pdiff.1.gz
 
 %changelog
+* Thu Mar 14 2024 Zdenek Dohnal <zdohnal@redhat.com> - 4.15.6-1
+- 2269423 - a2ps-4.15.6 is available
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

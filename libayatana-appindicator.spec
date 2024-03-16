@@ -79,6 +79,11 @@ BuildRequires:  xorg-x11-server-Xvfb
 %if %{with gtk2}
 %package gtk2
 Summary:        %{_summary} - GTK2
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-appindicator2 = %{version}-%{release}
+Obsoletes:      libayatana-appindicator2 < 0.5.93
+Provides:       libayatana-appindicator2-gir = %{version}-%{release}
+Obsoletes:      libayatana-appindicator2-gir < 0.5.93
 
 %description gtk2 %{_description}
 
@@ -87,6 +92,11 @@ This version is built against GTK2.
 %package gtk2-devel
 Summary:        Development files for %{name}-gtk2
 Requires:       %{name}-gtk2%{?_isa} = %{version}-%{release}
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-appindicator-doc = %{version}-%{release}
+Obsoletes:      libayatana-appindicator-doc < 0.5.93
+Provides:       libayatana-appindicator2-devel = %{version}-%{release}
+Obsoletes:      libayatana-appindicator2-devel < 0.5.93
 
 %description gtk2-devel
 The %{name}-gtk2-devel package contains libraries
@@ -97,6 +107,11 @@ and header files for developing applications that use
 
 %package gtk3
 Summary:        %_summary - GTK3
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-appindicator3 = %{version}-%{release}
+Obsoletes:      libayatana-appindicator3 < 0.5.93
+Provides:       libayatana-appindicator3-gir = %{version}-%{release}
+Obsoletes:      libayatana-appindicator3-gir < 0.5.93
 
 %description gtk3 %{_description}
 
@@ -105,6 +120,11 @@ This version is built against GTK3.
 %package gtk3-devel
 Summary:        Development files for %{name}-gtk3
 Requires:       %{name}-gtk3%{?_isa} = %{version}-%{release}
+# Force replacement of packages of copr:copr.fedorainfracloud.org:sergiomb:libayatana-appindicator repo
+Provides:       libayatana-appindicator3-doc = %{version}-%{release}
+Obsoletes:      libayatana-appindicator3-doc < 0.5.93
+Provides:       libayatana-appindicator3-devel = %{version}-%{release}
+Obsoletes:      libayatana-appindicator3-devel < 0.5.93
 
 %description gtk3-devel
 The %{name}-gtk3-devel package contains libraries

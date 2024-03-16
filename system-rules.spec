@@ -7,7 +7,8 @@ URL:            https://stefanbirkner.github.io/system-rules
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/stefanbirkner/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  maven-local-openjdk8
+Source1:         sm.patch
+BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.stefanbirkner:fishbowl)
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
@@ -23,6 +24,10 @@ java.lang.System.
 %prep
 # -n: base directory name
 %autosetup -n %{name}-%{name}-%{version}
+echo "I was unable to make autosetup to apply that patch... `basename %{SOURCE1}`"
+patch -p0 < %{SOURCE1}
+rm src/test/java/org/junit/contrib/java/lang/system/internal/NoExitSecurityManagerTest.java
+
 # delete precompiled jar and class files
 find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 # remove parent dep
@@ -55,6 +60,7 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 %changelog
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1.19.0-8
 - Rebuilt for java-21-openjdk as system jdk
+- removed no longer existing methods in SM and its test
 
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild

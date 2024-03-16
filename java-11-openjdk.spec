@@ -104,7 +104,7 @@
 # Set of architectures for which we build fastdebug builds
 %global fastdebug_arches x86_64 ppc64le aarch64
 # Set of architectures with a Just-In-Time (JIT) compiler
-%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64
+%global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64 riscv64
 # Set of architectures which use the Zero assembler port (!jit_arches)
 %global zero_arches ppc s390
 # Set of architectures which support SystemTap tapsets
@@ -249,6 +249,10 @@
 %global archinstall aarch64
 %global stapinstall arm64
 %endif
+%ifarch riscv64
+%global archinstall riscv64
+%global stapinstall riscv64
+%endif
 # 32 bit sparc, optimized for v9
 %ifarch sparcv9
 %global archinstall sparc
@@ -324,7 +328,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1261,7 +1265,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -2419,6 +2423,9 @@ end
 %endif
 
 %changelog
+* Wed Feb 21 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:11.0.22.0.7-2
+- Add riscv64 support
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:11.0.22.0.7-1.1
 - Rebuilt for java-21-openjdk as system jdk
 

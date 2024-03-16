@@ -57,7 +57,7 @@ Version: 14.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1250,6 +1250,15 @@ fi
 %endif
 
 %changelog
+* Fri Mar  8 2024 Andrew Burgess <aburgess@redhat.com>
+- Reduce gdb-6.6-buildid-locate.patch by removing some unnecessary
+  casts added to bfd/ source files.
+
+* Fri Mar  8 2024 Andrew Burgess <aburgess@redhat.com>
+- Reduce gdb-6.6-buildid-locate.patch by removing the build_id_bfd_get
+  to build_id_bfd_shdr_get change.  This was only changing the name of
+  a function, so seems pointless.
+
 * Wed Mar 6 2024 Alexandra Hájková <ahajkova@redhat.com> - 14.2-1
 - Rebase to FSF GDB 14.2.
 

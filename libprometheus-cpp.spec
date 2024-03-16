@@ -6,7 +6,7 @@
 
 Name:           libprometheus-cpp
 Summary:        Prometheus Client Library for Modern C++
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dev:%{dev}}%{?dist}
 License:        MIT AND 0BSD
 Url:            https://github.com/jupp0r/%{githubname}
@@ -63,6 +63,9 @@ export GCC_COLORS=
 %{_libdir}/pkgconfig/%{githubname}-*.pc
 
 %changelog
+* Thu Mar 14 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.2.4-1
+- prometheus-cpp 1.2.4 GA
+
 * Thu Feb 8 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.2.3-1
 - prometheus-cpp 1.2.3 GA
 

@@ -2,13 +2,18 @@
 
 Name:           sip6
 Version:        6.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
 
 License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/sip
 Source0:        %{pypi_source}
+
+# Workaround hang/OOM kill in Python 3.13, avoid calling list.remove() in try-except.
+# See commit message in the patch for details.
+Patch:          Workaround-hang-OOM-kill-in-Python-3.13.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -46,6 +51,9 @@ Python bindings for wxWidgets.}
 %{python3_sitelib}/sipbuild/
 
 %changelog
+* Thu Mar 14 2024 Miro Hrončok <mhroncok@redhat.com> - 6.8.3-2
+- Workaround hang/OOM kill in Python 3.13
+
 * Wed Feb 21 2024 Scott Talbert <swt@techie.net> - 6.8.3-1
 - Update to new upstream release 6.8.3 (#2263494)
 

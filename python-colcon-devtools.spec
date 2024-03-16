@@ -1,11 +1,11 @@
 %global srcname colcon-devtools
 
 Name:           python-%{srcname}
-Version:        0.2.5
+Version:        0.3.0
 Release:        1%{?dist}
 Summary:        Extension for information about colcon extensibility
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -43,7 +43,7 @@ An extension for colcon-core to provide information about the plugin system.
 
 
 %check
-%{__python3} -m pytest \
+%pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
     test
@@ -57,6 +57,10 @@ An extension for colcon-core to provide information about the plugin system.
 
 
 %changelog
+* Thu Mar 14 2024 Scott K Logan <logans@cottsay.net> - 0.3.0-1
+- Update to 0.3.0 (rhbz#2269535)
+- Switch to SPDX license identifier
+
 * Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.2.5-1
 - Update to 0.2.5 (rhbz#2240873)
 

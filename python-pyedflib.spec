@@ -13,7 +13,7 @@ In 2003, an improved version of the file protocol named EDF+ has
 been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
-Version:        0.1.36
+Version:        0.1.37
 Release:        %autorelease
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 %forgemeta
@@ -22,10 +22,6 @@ Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 License:        BSD-3-Clause AND BSD-2-Clause
 URL:            %forgeurl
 Source:         %forgesource
-
-# Support Cython 3
-# https://github.com/holgern/pyedflib/pull/248
-Patch:          %{forgeurl}/pull/248.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046
 ExcludeArch:    s390x

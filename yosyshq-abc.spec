@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 896e5e7dedf9b9b1459fa019f1fa8aa8101fdf43
+%global commit0 0cd90d0d2c5338277d832a1d890bed286486bcf5
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20231108
+%global snapdate 20240314
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,8 +23,8 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.35
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.39
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
 # The bundled CUDD code is BSD-3-Clause.
@@ -164,6 +164,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Thu Mar 14 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.39-1.20240314git0cd90d0
+- update to 0.39 snapshot
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-2.20231108git896e5e7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -15,7 +15,9 @@ BuildRequires:  gcc
 BuildRequires:  pkgconfig(sane-backends)
 BuildRequires:  doxygen
 BuildRequires:  pkgconfig(cunit)
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind
+%endif
 
 %description
 Libinsane is the library to access scanners on both Linux and Windows. It's

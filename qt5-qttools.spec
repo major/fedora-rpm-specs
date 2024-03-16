@@ -12,8 +12,8 @@
 
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
-Version: 5.15.12
-Release: 4%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -483,6 +483,9 @@ fi
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> - 5.15.12-4
 - Set disable_external_rpath to avoid RPATHs in qdoc
 

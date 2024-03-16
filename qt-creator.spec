@@ -1,4 +1,4 @@
-%define prerelease beta2
+%define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        13.0.0
-Release:        0.2%{?prerelease:.%prerelease}%{?dist}
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -212,6 +212,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Mar 14 2024 Sandro Mani <manisandro@gmail.com> - 13.0.0-0.3-rc1
+- Update to 13.0.0-rc1
+
 * Mon Mar 04 2024 Sandro Mani <manisandro@gmail.com> - 13.0.0-0.2.beta2
 - Update to 13.0.0-beta2
 

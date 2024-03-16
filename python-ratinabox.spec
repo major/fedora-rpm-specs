@@ -1,17 +1,13 @@
 # Not yet packaged: python3dist(pettingzoo)
 %bcond gymnasium 0
 
-%ifarch x86_64 aarch64
-%global arch_has_torch 1
-%endif
 # Temporarily do without PyTorch on F41:
 # F41FailsToInstall: python3-torch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2268095
-# %%bcond torch 0%%{?arch_has_torch:1}
 %bcond torch 0
 
 Name:           python-ratinabox
-Version:        1.12.3
+Version:        1.12.5
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -28,13 +24,16 @@ Source:         %{pypi_source ratinabox}
 # be conditionalized. It does not contain compiled machine code, so there are
 # no debugging symbols.
 %global debug_package %{nil}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# (Plus, python-scikit-learn has dropped i686.)
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
 # Run tests in parallel (“-n auto”)
 BuildRequires:  %{py3_dist pytest-xdist}
 %if %{with torch}
-BuildRequires:  %{py3_dist torch}
+BuildRequires:  (%{py3_dist torch} if (python3(x86-64) or python3(aarch-64)))
 %endif
 
 %global common_description %{expand:
@@ -48,9 +47,9 @@ continuous environments.}
 %package -n     python3-ratinabox
 Summary:        %{summary}
 
-%if %{with torch}
-Recommends:     %{py3_dist torch}
-%endif
+BuildArch:      noarch
+
+Recommends:     (%{py3_dist torch} if (python3(x86-64) or python3(aarch-64)))
 
 %description -n python3-ratinabox %{common_description}
 
@@ -80,8 +79,13 @@ Recommends:     %{py3_dist torch}
 %check
 # Let’s do this in addition to running the tests, so we can be aware of any
 # issues in contribs that may not be tested.
+%if %{with torch}
+%ifarch x86_64 aarch64
+%global can_test_torch 1
+%endif
+%endif
 %{pyproject_check_import \
-    %{?!with_torch:-e '*.contribs.NeuralNetworkNeurons'} \
+    %{?!can_test_torch:-e '*.contribs.NeuralNetworkNeurons'} \
     %{?!with_gymnasium:-e '*.contribs.TaskEnvironment'} }
 
 %if %{without gymnasium}

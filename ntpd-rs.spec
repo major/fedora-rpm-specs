@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name:           ntpd-rs
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Full-featured implementation of NTP with NTS support
 

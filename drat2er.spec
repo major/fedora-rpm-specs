@@ -1,33 +1,29 @@
-%global gitdate 20190307
-%global commit 521caf16149df3dfa46f700ec1fab56f8cc12a18
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# Upstream has not tagged any releases
+%global commit  6dfd6684cac5d4838dc7e28dce920c8e074df106
+%global date    20211228
+%global forgeurl https://github.com/benjaminkiesl/drat2er
 
 Name:           drat2er
 Version:        0
-Release:        0.14.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Proof transformer for propositional logic
 
+%forgemeta
+
+Release:        0.15%{?dist}
 License:        MIT
-URL:            https://github.com/alex-ozdemir/drat2er/
-Source0:        https://github.com/alex-ozdemir/drat2er/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 # Unbundle the third-party libraries
 Patch0:         %{name}-unbundle.patch
 # Build a shared library instead of a static library
 Patch1:         %{name}-shared.patch
 # Fix a C++ assertion failure due to calling front() on an empty string
 Patch2:         %{name}-string-front.patch
-# Fix drat-trim problems caused by passing arguments in the wrong order.
-# Drat-trim does all actions associated with a command line argument before
-# processing the next one.  Therefore, the verbosity option must come first.
-Patch3:         %{name}-arg-order.patch
-# CLI11 v2.0.0 changes the signature of add_option() slightly, and the final
-# bool is no longer needed.
-Patch4:		%{name}-cli11-2-compat.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  catch2-devel
+BuildRequires:  catch-devel
 BuildRequires:  cli11-static
 BuildRequires:  cmake
 BuildRequires:  drat-trim-devel
@@ -66,7 +62,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains a command line interface to %{name}.
 
 %prep
-%autosetup -p0 -n %{name}-%{commit}
+%forgeautosetup -p0
 
 # Do not use the bundled libraries
 rm -fr third-party
@@ -75,8 +71,8 @@ rm -fr third-party
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_lib}
 %cmake_build
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/%{_lib}
-help2man --version-string=%{gitdate} -N -o %{name}.1 \
-  %{_vpath_builddir}/bin/%{name}
+help2man --version-string=%{date} -N -o %{name}.1 \
+  -n 'Proof transformer for propositional logic' %{_vpath_builddir}/bin/%{name}
 
 %install
 %cmake_install
@@ -104,6 +100,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 0-0.15
+- Switch upstream repositories
+- Drop upstreamed CLI11-2.0.0 patch
+- Drop obsolete arg-order patch
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14.20190307.521caf1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

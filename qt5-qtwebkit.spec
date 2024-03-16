@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.84%{?prerel}%{?dist}
+Release:        0.85%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPL-2.0-only AND BSD-3-Clause
@@ -268,6 +268,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.212.0-0.85alpha4
+- Rebuild (qt5)
+
 * Thu Feb 29 2024 David Abdurachmanov <david.abdurachmanov@gmail.com> - 5.212.0-0.84alpha4
 - add support for RISC-V (riscv64)
 

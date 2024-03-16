@@ -2,8 +2,8 @@
 
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls for embedded
-Version: 5.15.12
-Release: 3%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -15,6 +15,7 @@ Patch2:  0002-Ensure-we-don-t-crash-when-changing-sizes-after-clea.patch
 Patch3:  0003-implement-a11y-pressing-of-qquickabstractbutton.patch
 Patch4:  0004-Fix-the-popup-position-of-a-Menu.patch
 Patch5:  0005-Accessibility-respect-value-in-attached-Accessible-i.patch
+
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -109,6 +110,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{_libdir}/cmake/Qt5QuickTemplates2/
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

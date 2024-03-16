@@ -19,11 +19,11 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
-
-License:        LGPLv2
+# SPDX confirmed
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 URL:            http://ruby-gnome2.sourceforge.jp/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-all-%{version}.tar.gz
 #Source0:        %{name}-all-%{version}-%{betaver}.tar.gz
@@ -32,7 +32,7 @@ Patch1:         ruby-gnome2-0.90.4-newpng.patch
 Patch4:         ruby-libart-arglength-fix.patch
 Patch6:         ruby-gnome2-rb_secure.patch
 Patch14:        ruby-gnome2-implicit-int-7.patch
-Patch15: ruby-gnome2-c99.patch
+Patch15:        ruby-gnome2-c99.patch
 
 
 BuildRequires:  make
@@ -58,6 +58,7 @@ Ruby/GNOME2 is a Ruby binding of libgnome/libgnomeui-2.x.
 
 %package devel
 Summary:        Development libraries and header files for ruby-gnome2
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 Requires:       ruby(gnome2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -69,6 +70,7 @@ This package provides libraries and header files for ruby-gnome2
 
 %package -n ruby-bonobo2
 Summary:        Ruby binding of libbonobo-2.x
+License:        LGPL-2.1-only
 
 BuildRequires:  ruby ruby-devel
 BuildRequires:  libbonoboui-devel
@@ -82,6 +84,7 @@ Ruby/Bonobo2 is a Ruby binding of libbonobo-2.x.
 
 %package -n ruby-bonobo2-devel
 Summary:        Development libraries and header files for ruby-bonobo2
+License:        LGPL-2.1-only
 
 Requires:       ruby(bonobo2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -93,6 +96,7 @@ This package provides libraries and header files for ruby-bonobo2
 
 %package -n ruby-bonoboui2
 Summary:        Ruby binding of libbonoboui-2.x
+License:        LGPL-2.1-only
 
 BuildRequires:  ruby ruby-devel
 BuildRequires:  libbonoboui-devel libgnomeui-devel
@@ -107,6 +111,7 @@ Ruby/BonoboUI2 is a Ruby binding of libbonoboui-2.x.
 
 %package -n ruby-bonoboui2-devel
 Summary:        Development libraries and header files for ruby-bonoboui2
+License:        LGPL-2.1-only
 
 Requires:       ruby(bonoboui2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -118,6 +123,7 @@ This package provides libraries and header files for ruby-bonoboui2
 
 %package -n ruby-gconf2
 Summary:        Ruby binding of GConf-2.x
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 BuildRequires:  ruby ruby-devel GConf2-devel
 
@@ -130,6 +136,7 @@ Ruby/GConf2 is a Ruby binding of GConf-2.x.
 
 %package -n ruby-gconf2-devel
 Summary:        Development libraries and header files for ruby-gconf2
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 Requires:       ruby(gconf2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -141,6 +148,7 @@ This package provides libraries and header files for ruby-gconf2
 
 %package -n ruby-gnomecanvas2
 Summary:        Ruby binding of GnomeCanvas-2.x
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 BuildRequires:  ruby ruby-devel gtk2-devel libgnomecanvas-devel
 
@@ -155,6 +163,7 @@ Ruby/GnomeCanvas2 is a Ruby binding of GnomeCanvas-2.x.
 
 %package -n ruby-gnomecanvas2-devel
 Summary:        Development libraries and header files for ruby-gnomecanvas2
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 Requires:       ruby(gnomecanvas2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -164,33 +173,9 @@ Provides:       ruby(gnomecanvas2-devel) = %{version}-%{release}
 Ruby/GnomeCanvas2 is a Ruby binding of GnomeCanvas-2.x.
 This package provides libraries and header files for ruby-gnomecanvas2
 
-%package -n ruby-gnomeprint2
-Summary:        Ruby binding of libgnomeprint
-
-#BuildRequires:  ruby ruby-devel libgnomeprint22-devel
-#BuildRequires:  ruby(glib2-devel) = %{version} ruby(pango-devel) = %{version} 
-#BuildRequires:  ruby(libart2-devel) = %{version}
-
-Requires:       %ruby_base_req
-Requires:       ruby(glib2) >= %{version} ruby(pango) >= %{version}
-Requires:       ruby(libart2) = %{version}-%{release}
-
-
-%description -n ruby-gnomeprint2
-Ruby/GnomePrint is a Ruby binding of libgnomeprint. 
-
-%package -n ruby-gnomeprint2-devel
-Summary:        Development libraries and header files for ruby-gnomeprint2
-
-Requires:       ruby(gnomeprint2) = %{version}-%{release}
-Requires:       pkgconfig
-
-%description -n ruby-gnomeprint2-devel
-Ruby/GnomePrint is a Ruby binding of libgnomeprint.
-This package provides libraries and header files for ruby-gnomeprint2
-
 %package -n ruby-gnomevfs
 Summary:        Ruby binding of GnomeVFS-2.0.x
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 BuildRequires:  ruby ruby-devel gnome-vfs2-devel
 
@@ -204,6 +189,7 @@ Ruby/GnomeVFS is a Ruby binding of GnomeVFS-2.0.x.
 
 %package -n ruby-gnomevfs-devel
 Summary:        Development libraries and header files for ruby-gnomevfs
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 Requires:       ruby(gnomevfs) = %{version}-%{release}
 Requires:       pkgconfig
@@ -215,6 +201,7 @@ This package provides libraries and header files for ruby-gnomevfs
 
 %package -n ruby-gtkglext
 Summary:        Ruby binding of GtkGLExt
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 BuildRequires:  ruby ruby-devel gtk2-devel gtkglext-devel
 #BuildRequires:  ruby(glib2-devel) = %{version} ruby(gtk2-devel) = %{version}
@@ -230,6 +217,7 @@ Ruby/GtkGLExt is a Ruby binding of GtkGLExt.
 
 %package -n ruby-gtkglext-devel
 Summary:        Development libraries and header files for ruby-gtkglext
+License:        LGPL-2.1-only AND LGPL-2.1-or-later
 
 Requires:       ruby(gtkglext) = %{version}-%{release}
 Requires:       pkgconfig
@@ -241,6 +229,7 @@ This package provides libraries and header files for ruby-gtkglext
 
 %package -n ruby-libart2
 Summary:        Ruby binding of Libart_lgpl
+License:        LGPL-2.1-only
 
 BuildRequires:  ruby ruby-devel libart_lgpl-devel libpng-devel libjpeg-devel
 #BuildRequires:  ruby(glib2-devel) = %{version}
@@ -254,6 +243,7 @@ Ruby/Libart2 is a Ruby binding of Libart_lgpl.
 
 %package -n ruby-libart2-devel
 Summary:        Development libraries and header files for ruby-libart2
+License:        LGPL-2.1-only
 
 Requires:       ruby(libart2) = %{version}-%{release}
 Requires:       libart_lgpl-devel ruby-devel
@@ -268,6 +258,7 @@ This package provides libraries and header files for ruby-libart2
 
 %package -n ruby-libglade2
 Summary:        Ruby bindings of Libglade2
+License:        LGPL-2.1-only
 
 BuildRequires:  ruby ruby-devel gtk2-devel libgnome-devel libglade2-devel
 #BuildRequires:  ruby(glib2-devel) = %{version} ruby(gnome2) = %{version}
@@ -285,6 +276,7 @@ to load interfaces dynamically from a glade file.
 
 %package -n ruby-libglade2-devel
 Summary:        Development libraries and header files for ruby-libglade2
+License:        LGPL-2.1-only
 
 Requires:       ruby(libglade2) = %{version}-%{release}
 Requires:       pkgconfig
@@ -326,7 +318,7 @@ sed -i extconf.rb \
 %patch -P4 -p1 -b .rb25
 %patch -P6 -p1
 %patch -P14 -p1
-%patch -P 15 -p1
+%patch -P15 -p1
 
 # Fix /usr/local
 grep -rl /usr/local/bin . | grep -v ChangeLog | \
@@ -375,20 +367,16 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
 export pkgconfigdir=$RPM_BUILD_ROOT%{_libdir}/pkgconfig
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="%{__install} -p" \
-%if 0%{?fedora} >= 19
     ruby=ruby \
-%endif
     %{nil}
 
 # Handle manually
 # ????
-%if 0%{?fedora} >= 19
 install -cpm 0755 */src/*.so \
     $RPM_BUILD_ROOT%{ruby_vendorarchdir}
 install -cpm 0755 libglade/bin/ruby-glade-create-template \
     $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT/bin
-%endif
 
 %files
 %doc gnome/README gnome/ChangeLog gnome/COPYING.LIB gnome/sample
@@ -468,6 +456,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Thu Mar 14 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-20
+- SPDX migration
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:  anthy-unicode
 Version: 1.0.0.20211224
-Release: 12%{?dist}
+Release: 13%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
 License: LGPL-2.0-or-later and GPL-2.0-or-later and LicenseRef-Fedora-Public-Domain
 URL:  https://github.com/fujiwarat/anthy-unicode/wiki
@@ -47,7 +47,7 @@ other conversion server.
 %package -n emacs-%{pkg}
 Summary: Emacs files for %{pkg}
 Requires: %{name} = %{version}-%{release}
-Requires: emacs(bin) >= %{_emacs_version}
+Requires: emacs-filesystem >= %{_emacs_version}
 BuildArch: noarch
 
 %description -n emacs-%{pkg}
@@ -58,7 +58,7 @@ with GNU Emacs.
 %package -n xemacs-%{pkg}
 Summary: XEmacs files for %{pkg}
 Requires: %{name} = %{version}-%{release}
-Requires: xemacs(bin) >= %{_xemacs_version}
+Requires: xemacs-filesystem >= %{_xemacs_version}
 BuildArch: noarch
 
 %description -n xemacs-%{pkg}
@@ -168,6 +168,9 @@ cd ..
 
 
 %changelog
+* Thu Mar 14 2024 Takao Fujiwara <fujiwara@redhat.com> 1.0.0.20211224-13
+- Resolves #2269401 Fix おきのえらぶ in gcanna.ctd
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.20211224-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

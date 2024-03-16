@@ -3,14 +3,18 @@
 
 Name:           kissat
 Version:        3.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Keep It Simple SAT solver
 
 License:        MIT
 URL:            http://fmv.jku.at/kissat/
-Source0:        https://github.com/arminbiere/kissat/archive/rel-%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/arminbiere/kissat
+Source0:        %{vcs}/archive/rel-%{version}/%{name}-%{version}.tar.gz
 # Fedora-only patch: give the shared library an SONAME
 Patch0:         %{name}-shared.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  drat-trim-tools
 BuildRequires:  gcc
@@ -113,6 +117,9 @@ LD_LIBRARY_PATH=$PWD/build build/tissat
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 3.1.1-4
+- Stop building for 32-bit x86
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

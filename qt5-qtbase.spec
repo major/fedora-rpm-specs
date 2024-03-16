@@ -56,8 +56,8 @@
 
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
-Version: 5.15.12
-Release: 5%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -144,11 +144,11 @@ Patch90: %{name}-gcc11.patch
 
 ## upstream patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.12-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+# git diff v5.15.13-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20240102.patch.gz
+Patch100: kde-5.15-rollup-20240314.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20240102.patch.gz
+Source100: kde-5.15-rollup-20240314.patch.gz
 
 Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # Workaround for font rendering issue with cjk-vf-fonts
@@ -156,14 +156,6 @@ Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # https://bugreports.qt.io/browse/QTBUG-112136
 Patch102: qtbase-QTBUG-111994.patch
 Patch103: qtbase-QTBUG-112136.patch
-# IBus input method cannot set panel position correctly with DPI scaling
-# https://bugreports.qt.io/browse/QTBUG-103393
-Patch104: qtbase-QTBUG-103393.patch
-
-# upstream security fixes
-Patch120: 0001-CVE-2023-51714-qtbase-5.15.patch
-Patch121: 0002-CVE-2023-51714-qtbase-5.15.patch
-Patch122: CVE-2024-25580-qtbase-5.15.patch
 
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
@@ -177,7 +169,7 @@ Patch152: 0003-Sync-and-assert-StandardPixmap-enums-in-QPlatformThe.patch
 Patch153: 0004-QGtk3Theme-subscribe-to-theme-hint-changes.patch
 # Patch154: 0005-Gtk3Theme-set-XCURSOR_SIZE-and-XCURSOR_THEME-for-way.patch
 Patch155: 0006-Re-implement-palette-standardPixmap-file-icons-fonts.patch
-Patch156: 0007-GTK3-theme-simplify-code.patch
+# Patch156: 0007-GTK3-theme-simplify-code.patch
 Patch157: 0008-Fix-checkbox-and-radiobutton-background-in-QGtk3Them.patch
 Patch158: 0009-Cleanup-QGtk3Theme.patch
 Patch159: 0010-Detect-appearance-by-colors-unless-GTK-theme-name-co.patch
@@ -476,12 +468,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
-%patch -P104 -p1
-
-## upstream security fixes
-%patch -P120 -p1
-%patch -P121 -p1
-%patch -P122 -p1
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
@@ -493,7 +479,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P153 -p1
 # %patch -P154 -p1
 %patch -P155 -p1
-%patch -P156 -p1
+# %patch -P156 -p1
 %patch -P157 -p1
 %patch -P158 -p1
 %patch -P159 -p1
@@ -676,7 +662,7 @@ translationdir=%{_qt5_translationdir}
 
 Name: Qt5
 Description: Qt5 Configuration
-Version: 5.15.12
+Version: 5.15.13
 EOF
 
 # rpm macros
@@ -1192,6 +1178,9 @@ fi
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Thu Feb 15 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.12-5
 - Fix CVE-2024-25580: potential buffer overflow when reading KTX images
 

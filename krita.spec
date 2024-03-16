@@ -13,7 +13,7 @@
 
 Name:           krita
 Version:        5.2.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -27,7 +27,6 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
 Patch1: krita-5.2.2-appstream_validate.patch
-Patch2: krita-5.2.2-ffwt.patch
 Patch3: krita-5.2.2-libunibreak.patch
 Patch4: https://invent.kde.org/graphics/krita/-/commit/021389637e50638b096c7227cf5c06e6444cef89.diff
 
@@ -145,7 +144,6 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{name}-%{version}%{?pre:-%{pre}} -a 1 -a 2 -a 3
 %patch -P1 -p1
-%patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
 
@@ -225,6 +223,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Thu Mar 14 2024 Sérgio Basto <sergio@serjux.com> - 5.2.2-9
+- FFTW3LibraryDepends.cmake is fixed in fftw package
+  https://src.fedoraproject.org/rpms/fftw/c/eacf254206c5b7b2ac562b0d27e4713b2dc226aa
+
 * Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 5.2.2-8
 - Rebuild for jpegxl (libjxl) 0.10.2
 - Add patch to fix build with libjxl 0.9.0+

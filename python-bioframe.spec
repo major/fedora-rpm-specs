@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.6.2
+Version:        0.6.3
 Release:        %{autorelease}
 Summary:        Operations and utilities for Genomic Interval Dataframes
 %forgemeta

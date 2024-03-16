@@ -1,6 +1,6 @@
 Name:		jglobus
 Version:	2.1.0
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Globus Java client libraries
 
 #		Everything is Apache 2.0 except for one file that is MIT:
@@ -56,6 +56,15 @@ Patch12:	%{name}-DEROutputStream-is-private.patch
 #		ASN1OutputStream constructor is private - use create() method
 #		https://github.com/jglobus/JGlobus/pull/183
 Patch13:	%{name}-constructor-not-public.patch
+#		DERBoolean is obsolete
+#		https://github.com/jglobus/JGlobus/pull/185
+Patch14:	%{name}-DERBoolean-is-obsolete.patch
+#		DERTaggedObject.getObject() was removed - use .getInstance() instead
+#		https://github.com/jglobus/JGlobus/pull/186
+Patch15:	%{name}-DERTaggedObject.getObject-was-removed-use-.getInstan.patch
+#		Reformat file to make linian happy
+#		https://github.com/jglobus/JGlobus/pull/187
+Patch16:	%{name}-Reformat-package.html-file.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -69,7 +78,7 @@ BuildRequires:	mvn(log4j:log4j)
 BuildRequires:	mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:	mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:	mvn(org.apache.maven.plugins:maven-surefire-plugin)
-BuildRequires:	mvn(org.bouncycastle:bcprov-jdk15on)
+BuildRequires:	mvn(org.bouncycastle:bcprov-jdk18on)
 
 %description
 %{name} is a collection of Java client libraries for Globus Toolkit security,
@@ -163,6 +172,9 @@ This package contains the API documentation for %{name}.
 %patch -P 11 -p1
 %patch -P 12 -p1
 %patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
+%patch -P 16 -p1
 
 # Do not package test classes
 %mvn_package org.jglobus:container-test-utils __noinstall
@@ -183,6 +195,9 @@ This package contains the API documentation for %{name}.
 
 # The tomcat module is not compatible with tomcat 8.5 or later
 %pom_disable_module ssl-proxies-tomcat
+
+# Update bouncycastle version
+%pom_change_dep -r org.bouncycastle:bcprov-jdk15on org.bouncycastle:bcprov-jdk18on
 
 %build
 # Many tests requires network connections and a valid proxy certificate
@@ -213,6 +228,9 @@ This package contains the API documentation for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Mar 14 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-37
+- Adapt to changes in bouncycastle 1.77
+
 * Thu Mar 07 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-36
 - Update License tags (SPDX)
 - Remove old specfile conditionals

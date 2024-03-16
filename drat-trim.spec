@@ -1,5 +1,5 @@
-%global date    20230709
-%global commit  16f1d7252925365ccbbc650322d9c5d27f544bd0
+%global date    20240309
+%global commit  89ddbfb826f59b817a43d5a622a4a1672c2eab30
 %global forgeurl https://github.com/marijnheule/drat-trim
 
 Name:           drat-trim
@@ -8,7 +8,7 @@ Summary:        Proof checker for DIMACS proofs
 
 %forgemeta
 
-Release:        0.23%{?dist}
+Release:        0.24%{?dist}
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -23,6 +23,9 @@ Patch2:         %{name}-uninit.patch
 # Work around an integer overflow that leads to a segfault
 # https://github.com/marijnheule/drat-trim/pull/36
 Patch3:         %{name}-overflow.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -73,7 +76,8 @@ gcc $CFLAGS -o drat-decompress decompress.c
 gcc $CFLAGS -o drat-gapless gapless.c
 
 # Make man page for the command line interface
-help2man --version-string=%{gitdate} -N -o %{name}.1 ./%{name}
+help2man --version-string=%{date} -N -o %{name}.1 \
+  -n 'Proof checker for DIMACS proofs' ./%{name}
 
 %install
 # Install the library
@@ -119,6 +123,10 @@ sh ./run-examples
 %{_mandir}/man1/drat-trim.1*
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 0-0.24.20240309git89ddbfb
+- Update for proof (de)compression fixes
+- Stop building for 32-bit x86
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

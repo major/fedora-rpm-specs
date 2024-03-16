@@ -1,11 +1,11 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.15.2
+Version:        0.16.0
 Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -80,7 +80,7 @@ and sets up the environment to use the packages.
 
 
 %check
-%{__python3} -m pytest -m 'not linter' test
+%pytest -m 'not linter' test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -93,6 +93,10 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Thu Mar 14 2024 Scott K Logan <logans@cottsay.net> - 0.16.0-1
+- Update to 0.16.0 (rhbz#2269537)
+- Switch to SPDX license identifier
+
 * Mon Jan 22 2024 Scott K Logan <logans@cottsay.net> - 0.15.2-1
 - Update to 0.15.2 (rhbz#2240872)
 

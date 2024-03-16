@@ -1,6 +1,6 @@
 Name:           x2gokdrive
-Version:        0.0.0.2
-Release:        3%{?dist}
+Version:        0.0.0.3
+Release:        1%{?dist}
 Summary:        KDrive graphical server backend for X2GoServer
 
 # Per debian/copyright, only the testscripts folder is GPLv2
@@ -12,6 +12,7 @@ Source0:        https://code.x2go.org/releases/source/%{name}/%{name}-%{version}
 # https://code.x2go.org/gitweb?p=x2gokdrive.git;a=blob_plain;f=debian/copyright;h=88c3411550b8f79d29f1b9a7a3c20996126375db;hb=HEAD
 Source1:        copyright
 Source2:        xorg.conf
+ExcludeArch:    %{ix86}
 
 # Required specifically for x2gokdrive
 BuildRequires:  xorg-x11-server-source
@@ -335,6 +336,9 @@ exit 0
 
 
 %changelog
+* Thu Mar 14 2024 Orion Poplawski <orion@nwra.com> - 0.0.0.3-1
+- Update to 0.0.0.3
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -14,6 +14,9 @@ Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
 Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 Patch1:         0001-Revert-chore-use-git-fork-for-aws-nitro-enclaves-cos.patch
 
+# fixes for vendored dependencies
+Patch100:       fix-aws-nitro-enclaves-cose.patch
+
 # Because nobody cares
 ExcludeArch: %{ix86}
 
@@ -28,6 +31,7 @@ BuildRequires:  device-mapper-devel
 BuildRequires:  libpq-devel
 BuildRequires:  golang
 BuildRequires:  openssl-devel >= 3.0.1-12
+BuildRequires:  sqlite-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tpm2-tss-devel
 
@@ -36,16 +40,19 @@ BuildRequires:  tpm2-tss-devel
 
 %prep
 %setup -q -n %{name}-rs-%{version}
+%patch -P1 -p1
 
 %if 0%{?rhel}
 tar xf %{SOURCE1}
+rm -f Cargo.lock
 %if 0%{?rhel} >= 10
 %cargo_prep -v vendor
 %else
 %cargo_prep -V 1
 %endif
+# patch vendored dependencies
+%patch -P100 -p1
 %else
-%patch -P1 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires -a

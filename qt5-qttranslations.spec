@@ -2,8 +2,8 @@
 
 Summary: Qt5 - QtTranslations module
 Name:    qt5-%{qt_module}
-Version: 5.15.12
-Release: 3%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -115,6 +115,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Summary: Qt5 - QtImageFormats component
 Name:    qt5-%{qt_module}
-Version: 5.15.12
-Release: 3%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -13,14 +13,12 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 
 Patch1:  0001-webp-support-sequential-input-device-if-full-file-is.patch
 Patch2:  0002-Explicitly-include-QVarLengthArray-header.patch
-Patch3:  0003-Implement-support-for-file-memory-mapping-for-tiff-r.patch
-Patch4:  0004-TGA-Plugin-Fix-reading-of-CMapDepth.patch
-Patch5:  0005-Update-bundled-libwebp-to-version-1.3.0.patch
-Patch6:  0006-Update-bundled-libwebp-to-version-1.3.1.patch
-Patch7:  0007-Update-bundled-libwebp-to-version-1.3.2.patch
-Patch8:  0008-Update-bundled-libtiff-to-version-4.5.0.patch
-Patch9:  0009-Update-bundled-libtiff-to-version-4.5.1.patch
-Patch10:  0010-Update-bundled-libtiff-to-version-4.6.0.patch
+Patch3:  0003-Update-bundled-libwebp-to-version-1.3.1.patch
+Patch4:  0004-Update-bundled-libwebp-to-version-1.3.2.patch
+Patch5:  0005-Update-bundled-libtiff-to-version-4.5.0.patch
+Patch6:  0006-Update-bundled-libtiff-to-version-4.5.1.patch
+Patch7:  0007-Update-bundled-libtiff-to-version-4.6.0.patch
+
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
@@ -83,6 +81,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Thu Mar 14 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

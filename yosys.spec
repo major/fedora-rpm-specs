@@ -1,12 +1,12 @@
-%global commit0 ac0fb2e301188178ea691f2ef156d0af6f4f967f
+%global commit0 b3124f30e42cb0f0f8d8216f39d69e522270833b
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20240210
+%global snapdate 20240314
 
 %global __python %{__python3}
 
 Name:           yosys
-Version:        0.38
+Version:        0.39
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -35,7 +35,7 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.35
+BuildRequires:  yosyshq-abc >= 0.39
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  txt2man
@@ -174,6 +174,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Thu Mar 14 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.39.1.20240314gitb3124f3
+- update to 0.39 snapshot
+
 * Sat Feb 10 2024 Gabriel Somlo <gsomlo@gmail.com> - 0.38.1.20240210gitac0fb2e
 - update to 0.38 snapshot
 

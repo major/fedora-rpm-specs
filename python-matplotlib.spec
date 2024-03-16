@@ -30,19 +30,19 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.8.1
+%global mpl_images_version 3.8.3
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.8.2
+Version:        3.8.3
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT
 # ResizeObserver at end of lib/matplotlib/backends/web_backend/js/mpl.js is CC0
-License:        PSF-2.0 and MIT and CC0-1.0
+License:        PSF-2.0 AND MIT AND CC0-1.0
 URL:            https://matplotlib.org
 Source0:        %pypi_source matplotlib %{Version}
 Source1:        mplsetup.cfg

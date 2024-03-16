@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 286
+%global baserelease 287
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -262,6 +262,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %doc buildflags.md
 
 %changelog
+* Thu Mar 14 2024 Florian Weimer <fweimer@redhat.com> - 287-1
+- Enable TLS descriptors on x86-64 (GCC only)
+
 * Tue Mar 12 2024 Omair Majid <omajid@redhat.com> - 286-1
 - Define %%dotnet_arches with a list of .NET-compatible architectures
 

@@ -12,7 +12,7 @@
 %bcond test 0
 
 Name:           z3
-Version:        4.12.6
+Version:        4.13.0
 Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -268,7 +268,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.12*
+%{_libdir}/libz3.so.4.13*
 
 %files devel
 %{_includedir}/z3/
@@ -310,6 +310,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Thu Mar 14 2024 Jerry James <loganjerry@gmail.com> - 4.13.0-1
+- Version 4.13.0
+
 * Sun Feb 25 2024 Jerry James <loganjerry@gmail.com> - 4.12.6-1
 - Version 4.12.6
 
