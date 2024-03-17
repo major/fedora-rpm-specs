@@ -58,13 +58,13 @@ for resource properties and best practices.
 
 %install
 %pyproject_install
-# This saves, as of this writing, roughly 250kB in duplicate data files and
-# __init__.py files. Note that we do not pass “-t” because we do not want to
-# ignore or discard differences in mtime. Note also that rpmlint will complain
-# about cross-directory hardlinks, but that these are not a problem because the
-# contents of a directory owned by this package are guaranteed to be on a
-# single filesystem.
-hardlink '%{buildroot}%{python3_sitelib}/cfnlint'
+# This saves, as of this writing, roughly 280kB in duplicate data files and
+# __init__.py files. Because timestamp differences across source files are not
+# meaningful (are not really properties of the individual files), and all
+# timestamps are *nearly* the same, we elect to pass “-t” in order to hardlink
+# more duplicate files, in exchange for ignoring/discarding these insignificant
+# timestamp differences.  single filesystem.
+hardlink -t '%{buildroot}%{python3_sitelib}/cfnlint'
 %pyproject_save_files -l cfnlint
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
@@ -94,9 +94,9 @@ LANG=en_US.UTF-8 AWS_DEFAULT_REGION=us-east-1 %pytest -k 'TestCli'
 
 %files -f %{pyproject_files}
 # We don’t provide a separate documentation package since all of the following
-# documentation is still not very big. As of this writing, it totals ~250kB
+# documentation is still not very big. As of this writing, it totals ~325kB
 # extracted and a couple dozen files, in the context of a base package that is
-# >100MB extracted with around a thousand files.
+# ~36MB extracted with around a thousand files.
 %doc CHANGELOG.md
 %doc README.md
 # Markdown

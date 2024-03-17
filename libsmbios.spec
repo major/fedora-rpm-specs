@@ -7,7 +7,7 @@ Version: 2.4.3
 Release: 13%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
-License: GPLv2+ or OSL 2.1
+License: GPL-2.0-or-later or OSL-2.1
 URL: https://github.com/dell/libsmbios
 Source0: https://github.com/dell/libsmbios/archive/v%{version}/libsmbios-%{version}.tar.gz
 

@@ -1,7 +1,7 @@
 %global gem_name term-ansicolor
 
 Name:           rubygem-%{gem_name}
-Version:        1.7.1
+Version:        1.7.2
 Release:        %autorelease
 Summary:        Ruby library that colors strings using ANSI escape sequences
 License:        Apache-2.0
@@ -51,9 +51,12 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod g-w
 chmod g-w %{buildroot}%{gem_instdir}/examples/example.rb
 
-# Remove empty hidden file.
+# Remove unneeded files
 rm %{buildroot}%{gem_libdir}/term/ansicolor/.keep
-
+rm %{buildroot}%{gem_instdir}/.all_images.yml
+rm %{buildroot}%{gem_instdir}/.gitignore
+rm %{buildroot}%{gem_instdir}/.tool-versions
+rm %{buildroot}%{gem_cache}
 
 %check
 pushd .%{gem_instdir}
@@ -68,12 +71,9 @@ popd
 %{_bindir}/term_display
 %{_bindir}/term_mandel
 %{_bindir}/term_snow
-%exclude %{gem_instdir}/.gitignore
-%exclude %{gem_instdir}/.travis.yml
 %license %{gem_instdir}/COPYING
 %{gem_instdir}/bin
 %{gem_libdir}
-%exclude %{gem_cache}
 %{gem_spec}
 
 %files doc

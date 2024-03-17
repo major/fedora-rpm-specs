@@ -2,16 +2,18 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.5.4
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Line by line profiling and code coverage for GAP
 
 # The project as a whole is MIT.
 # rapidjson, which is a header-only package, is also MIT.
 # src/md5.{cc,h} is Public Domain.
 License:        MIT AND LicenseRef-Fedora-Public-Domain
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/profiling/
-Source0:        https://github.com/gap-packages/profiling/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/profiling
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Adapt to rapidjson 1.1.0
 Patch0:         %{name}-rapidjson.patch
 
@@ -114,79 +116,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 2.5.4-1
-- Version 2.5.4
-
-* Wed Jun 28 2023 Jerry James <loganjerry@gmail.com> - 2.5.3-1
-- Version 2.5.3
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.5.2-1
-- Version 2.5.2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
-- Clarify license of the doc subpackage
-
-* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
-- Version 2.5.1
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.5.0-4
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Sun Jul 24 2022 Jerry James <loganjerry@gmail.com> - 2.5.0-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Feb 23 2022 Jerry James <loganjerry@gmail.com> - 2.5.0-1
-- Version 2.5.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Feb 14 2021 Jerry James <loganjerry@gmail.com> - 2.4.1-1
-- Version 2.4.1
-
-* Wed Feb  3 2021 Jerry James <loganjerry@gmail.com> - 2.4-1
-- Version 2.4
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Apr  3 2020 Jerry James <loganjerry@gmail.com> - 2.3-1
-- Version 2.3
-
-* Mon Mar 23 2020 Jerry James <loganjerry@gmail.com> - 2.2.1-5.20190319.7a582bd
-- Drop aarch64 workaround
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 2.2.1-4.20190319.7a582bd
-- Rebuild for gap 4.11.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3.20190319.7a582bd
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2.20190319.7a582bd
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Jul  6 2019 Jerry James <loganjerry@gmail.com> - 2.2.1-1.20190319.7a582bd
-- Initial package
+%autochangelog

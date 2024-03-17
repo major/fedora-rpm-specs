@@ -8,7 +8,7 @@
 Summary: NetworkManager VPN plugin for iodine
 Name: NetworkManager-iodine
 Version: 1.2.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2+
 URL: https://honk.sigxcpu.org/piki/projects/network-manager-iodine
 Source0: https://download.gnome.org/sources/NetworkManager-iodine/1.2/%{name}-1.2.0.tar.xz
@@ -60,6 +60,8 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} INSTALL="install -p" CP="cp -p" install
+mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
+%{__cp} -p ./nm-iodine-service.name %{buildroot}%{_prefix}/lib/NetworkManager/VPN/
 
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
@@ -86,6 +88,9 @@ mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
 %endif
 
 %changelog
+* Fri Mar 15 2024 Dan Fruehauf <malkodan@gmail.com> - 1.2.0-21
+- Fix build (nm-iodine-service.name)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

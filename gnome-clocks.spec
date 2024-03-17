@@ -5,13 +5,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-clocks
-Version:        45.0
-Release:        3%{?dist}
+Version:        46~rc
+Release:        1%{?dist}
 Summary:        Clock application designed for GNOME 3
 
-License:        GPL-2.0-or-later
+# Sources are under GPL-2.0-or-later, Appdata is under CC0-1.0 and help is
+# under CC-BY-SA-3.0.
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Clocks
-Source0:        https://download.gnome.org/sources/gnome-clocks/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-clocks/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  desktop-file-utils
@@ -63,9 +65,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %dir %{_datadir}/gnome-shell/
 %dir %{_datadir}/gnome-shell/search-providers/
 %{_datadir}/gnome-shell/search-providers/org.gnome.clocks.search-provider.ini
-%{_datadir}/metainfo/org.gnome.clocks.metainfo.xml
+%{_metainfodir}/org.gnome.clocks.metainfo.xml
 
 %changelog
+* Fri Mar 15 2024 David King <amigadave@amigadave.com> - 46~rc-1
+- Update to 46.rc
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

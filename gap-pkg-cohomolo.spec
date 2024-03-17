@@ -2,13 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.11
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/cohomolo/
-Source0:        https://github.com/gap-packages/cohomolo/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/cohomolo
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Add missing shebangs
 Patch0:         %{name}-shebang.patch
 # Fix all -Wlto-type-mismatch warnings
@@ -105,75 +107,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/htm/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 16 2023 Florian Weimer <fweimer@redhat.com> - 1.6.11-6
-- Set build_type_safety_c to 0 (#2190297)
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.6.11-4
-- Build in C89 mode due to type errors (#2190297)
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.11-2
-- Update for split GAP directories
-
-* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.11-1
-- Version 1.6.11
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-4
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-4
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-3
-- Convert License tag to SPDX
-
-* Sat Jul 23 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Mar 30 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-1
-- Version 1.6.10
-- Drop upstreamed patches 0001 through 0005
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Feb 19 2021 Jerry James <loganjerry@gmail.com> - 1.6.9-1
-- Version 1.6.9
-- Drop upstreamed -fno-common patch
-- Add patch 0006 to fix LTO warnings about mismatched types
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 1.6.8-3
-- Rebuild for gap 4.11.0
-
-* Mon Feb  3 2020 Jerry James <loganjerry@gmail.com> - 1.6.8-2
-- Add -fno-common patch to fix build with GCC 10
-- Add 0001 through 0005 patches to eliminate warnings
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Sep 18 2019 Jerry James <loganjerry@gmail.com> - 1.6.8-1
-- Initial RPM
+%autochangelog

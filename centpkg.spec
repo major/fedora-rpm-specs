@@ -4,7 +4,7 @@
 %endif
 
 Name:           centpkg
-Version:        0.8.2
+Version:        0.8.3
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
@@ -78,6 +78,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Mar 15 2024 Troy Dawson <tdawson@redhat.com> - 0.8.3-1
+- Update branch detection for c10s
+
 * Wed Feb 21 2024 Troy Dawson <tdawson@redhat.com> - 0.8.2-1
 - Update centpkg to accept java branches (CS-1956)
 - Set rhel-target to latest for c10s (CS-1971)

@@ -1,14 +1,15 @@
 %global gobject_introspection_version 1.35.9
-%global gtk4_version 4.5.0
-%global pygobject_version 3.36.1
-%global tracker_sparql_version 2.99.3
 %global grilo_version 0.3.13
+%global gtk4_version 4.10.0
+%global libadwaita_version 1.5~beta
+%global pygobject_version 3.47.0
+%global tracker_sparql_version 2.99.3
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       45.0
+Version:       46~beta
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:
@@ -17,7 +18,7 @@ Release:       %autorelease
 # Also: https://bugzilla.gnome.org/show_bug.cgi?id=706457
 License:       (GPLv2+ with exceptions) and CC-BY-SA
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util
@@ -26,12 +27,11 @@ BuildRequires: gettext
 BuildRequires: itstool
 BuildRequires: meson
 BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: pkgconfig(goa-1.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(grilo-0.3) >= %{grilo_version}
 BuildRequires: pkgconfig(grilo-plugins-0.3)
 BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
-BuildRequires: pkgconfig(libadwaita-1)
+BuildRequires: pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires: pkgconfig(libmediaart-2.0)
 BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(py3cairo)
@@ -40,13 +40,13 @@ BuildRequires: pkgconfig(tracker-sparql-3.0) >= %{tracker_sparql_version}
 BuildRequires: python3-devel
 
 Requires:      gdk-pixbuf2
-Requires:      gnome-online-accounts
 Requires:      gobject-introspection >= %{gobject_introspection_version}
 Requires:      grilo >= %{grilo_version}
 Requires:      grilo-plugins
 Requires:      gstreamer1
 Requires:      gstreamer1-plugins-base
 Requires:      gtk4 >= %{gtk4_version}
+Requires:      libadwaita >= %{libadwaita_version}
 Requires:      libmediaart
 Requires:      libnotify >= 0.7.6
 Requires:      libsoup3
@@ -74,7 +74,7 @@ Music player and management application for GNOME.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Music.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Music.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.desktop
 
 

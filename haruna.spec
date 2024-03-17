@@ -3,7 +3,7 @@ Version: 1.0.1
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
-License: BSD and CC-BY and CC-BY-SA and GPLv2+ and LGPLv2+ and GPLv3+
+License: BSD-3-Clause AND CC-BY-4.0 AND CC-BY-SA-4.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/multimedia/%{name}/
 Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 Source1: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
@@ -28,7 +28,6 @@ BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Qml)
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickControls2)
-BuildRequires: qt6-qtbase-private-devel
 
 BuildRequires: cmake(KF6Config)
 BuildRequires: cmake(KF6CoreAddons)
@@ -54,8 +53,8 @@ BuildRequires: pkgconfig(libswscale)
 
 Requires:      kde-filesystem
 Requires:      hicolor-icon-theme
-Requires:      kf6-kirigami2%{?_isa}
-Requires:      qqc2-desktop-style%{?_isa}
+Requires:      kf6-kirigami%{?_isa}
+Requires:      kf6-qqc2-desktop-style%{?_isa}
 Recommends:    yt-dlp
 
 %description

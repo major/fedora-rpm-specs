@@ -2,8 +2,8 @@
 
 Summary: Qt5 - WebView component
 Name:    qt5-%{qt_module}
-Version: 5.15.12
-Release: 3%{?dist}
+Version: 5.15.13
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -83,6 +83,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Mar 15 2024 Jan Grulich <jgrulich@redhat.com> - 5.15.13-1
+- 5.15.13
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

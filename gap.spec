@@ -1,6 +1,3 @@
-# The module loader does not work with PIE
-%undefine _hardened_build
-
 %global gaparchdir %{_libdir}/gap
 %global gaplibdir %{_datadir}/gap
 %global icondir %{_datadir}/icons/hicolor
@@ -11,7 +8,7 @@
 %else
 %global gapcpu %{_build}
 %endif
-%global gaparch %{gapcpu}-%{gapbits}-kv8
+%global gaparch %{gapcpu}-%{gapbits}-kv9
 
 # Files installed in nearly every package by GAPDoc
 %global GAPDoc_files chooser.html lefttoc.css manual.css manual.js nocolorprompt.css ragged.css rainbow.js times.css toggless.css toggless.js
@@ -21,25 +18,26 @@
 # refuses to run unless all four are present.  Therefore, build as follows:
 # 1. Build this package in bootstrap mode.
 # 2. Build GAPDoc in bootstrap mode.
-# 3. Build gap-pkg-transgrp.
-# 4. Build gap-pkg-autodoc in bootstrap mode.
-# 5. Build gap-pkg-io
-# 6. Build GAPDoc in non-bootstrap mode.
-# 7. Build gap-pkg-autodoc in non-bootstrap mode.
-# 8. Build gap-pkg-primgrp and gap-pkg-smallgrp.
+# 3. Build gap-pkg-autodoc in bootstrap mode.
+# 4. Build gap-pkg-io
+# 5. Build GAPDoc in non-bootstrap mode.
+# 6. Build gap-pkg-autodoc in non-bootstrap mode.
+# 7. Build gap-pkg-primgrp and gap-pkg-smallgrp.
+# 8. Build gap-pkg-transgrp.
 # 9. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap
-Version:        4.12.2
-Release:        7%{?dist}
+Version:        4.13.0
+Release:        %autorelease
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
 
 License:        GPL-2.0-or-later
 URL:            https://www.gap-system.org/
-Source0:        https://github.com/gap-system/gap/releases/download/v%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/gap-system/gap
+Source0:        %{vcs}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        gap-README.fedora
 Source2:        update-gap-workspace
 Source3:        gap.xml
@@ -49,15 +47,15 @@ Source6:        gap.1.in
 Source7:        gac.1.in
 Source8:        update-gap-workspace.1
 Source9:        gap.vim
-# ATLAS data used during the tests
-Source10:       gap-testdata.tar.xz
+Source10:       gapicon.bmp
 # This patch applies a change from Debian to allow help files to be in gzip
 # compressed DVI files, and also adds support for viewing with xdg-open.
 Patch0:         %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
 Patch1:         %{name}-popcount.patch
 
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -203,23 +201,15 @@ Library containing core GAP logic
 # Get the README
 cp -p %{SOURCE1} README.fedora
 
-# Compile default package path into the executable
-sed 's,^GAP_CPPFLAGS =,& -DSYS_DEFAULT_PATHS="\\"%{gaplibdir}:%{gaparchdir}\\"",' \
-    -i Makefile.rules
+# Avoid unnecessary rpaths
+sed -i '/LINK/s/ -Wl,-rpath,\$(libdir)//' Makefile.rules
 
 %build
 # -Wl,-z,now breaks use of RTLD_LAZY
-# Even though the GAP kernel is single-threaded, it must be linked with pthreads
-# or packages cannot successfully load and run multithreaded shared objects.
-export LDFLAGS="-lpthread -Wl,-z,relro -Wl,--as-needed"
+export LDFLAGS='%{build_ldflags} -Wl,-z,lazy'
 export STRIP=%{_bindir}/true
 export LC_ALL=C.UTF-8
-%configure
-
-# Get rid of undesirable hardcoded rpaths
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -i libtool
+%configure --disable-maintainer-mode
 
 %make_build V=1
 
@@ -234,13 +224,10 @@ pdftex gapmacrodoc.tex
 cd -
 
 # Remove build paths
-#sed -i "s|$PWD|%%{gapdir}|g" sysinfo.gap bin/gap.sh gac doc/make_doc
+sed -i "s|$PWD|%{gapdir}|g" sysinfo.gap gac doc/make_doc
 
 # Don't link every package shared object with libpthread
-sed -i "s/[[:blank:]]*-lpthread[[:blank:]]*//" sysinfo.gap
-
-# Fix mangled paths in gap.sh
-sed -i "s|^\(GAP_EXE=\).*|\1%{_bindir}|;/  GAP_EXE=/d" bin/gap.sh
+sed -i "s/[[:blank:]]*-pthread[[:blank:]]*//" sysinfo.gap
 
 # Create an RPM macro file for GAP packages
 cat > macros.%{name} << EOF
@@ -288,7 +275,6 @@ rm %{buildroot}%{gaparchdir}/gap
 ln %{buildroot}%{_bindir}/gap %{buildroot}%{gaparchdir}/gap
 
 # Remove files we do not want or install elsewhere
-rm %{buildroot}%{_libdir}/*.la
 rm %{buildroot}%{gaplibdir}/{*.md,COPYRIGHT,LICENSE}
 rm -fr %{buildroot}%{gaplibdir}/etc/vim
 
@@ -323,7 +309,7 @@ mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
 touch %{buildroot}%{_localstatedir}/lib/%{name}/workspace.gz
 
 # Install the icon; the original is 1024x1024
-bmptopnm cnf/cygwin/gapicon.bmp > gapicon.pnm
+bmptopnm %{SOURCE10} > gapicon.pnm
 for size in 16 22 24 32 36 48 64 72 96 128 192 256 512; do
   mkdir -p %{buildroot}%{icondir}/${size}x${size}/apps
   pamscale -xsize=$size -ysize=$size gapicon.pnm | pnmtopng -compression=9 \
@@ -369,14 +355,6 @@ fi
 %if %{without bootstrap}
 %check
 export LC_ALL=C.UTF-8
-sed -e "s|GAP_DIR=.*|GAP_DIR=$PWD|" \
-    -e "s|GAP_EXE=.*|GAP_EXE=$PWD|" \
-    -i bin/gap.sh
-sed -i "s|80 -r|& -l $PWD|" Makefile.rules
-
-# Unpack the test data
-tar -C pkg -xf %{SOURCE10}
-
 make check
 %endif
 
@@ -439,324 +417,9 @@ make check
 %{_datadir}/vim/vimfiles/syntax/gap.vim
 
 %files -n libgap
-%{_libdir}/libgap.so.8
-%{_libdir}/libgap.so.8.*
+%{_libdir}/libgap.so.9
 %{_libdir}/libgap.so
+%{_libdir}/pkgconfig/libgap.pc
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Aug 10 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-5
-- Use a more reliable way of detecting CPU features
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-3
-- Validate metainfo with appstream-util
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-2
-- Conform more closely to upstream's preferred file layout
-- Remove %%gap_arches from the RPM macro file
-
-* Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 4.12.2-1
-- Version 4.12.2
-- Drop upstreamed unused patch
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.12.1-1
-- Version 4.12.1
-- Drop builtin-mul-overflow patch
-- Drop post-4.12.0 bug fix patches
-- Switch to upstream's method of bootstrapping
-
-* Mon Oct 17 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-2
-- Add rpm-macros subpackage
-- Clarify license of the online-help subpackage
-- Don't ship config.h or make_doc at upstream's request
-
-* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-1
-- Version 4.12.0
-- Remove ix86 support
-- Drop obsolete -gac, -bagheader, and -ref patches
-- Add -popcount patch to avoid illegal CPU instruction errors
-- Add -unused patch to trim unused functions
-- Add upstream post-release bug fix patches
-- Add ATLAS data needed for the tests
-- Rearrange %%install to ease future transition to "make install"
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 4.11.1-5
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Jerry James <loganjerry@gmail.com> - 4.11.1-5
-- Change s390x binary name to match updated config
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Oct 18 2021 Jerry James <loganjerry@gmail.com> - 4.11.1-3
-- Add -bagheader patch to work around package build failures on i386
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Mar 17 2021 Jerry James <loganjerry@gmail.com> - 4.11.1-1
-- Version 4.11.1
-- Drop upstreamed -aarch64 patch
-- Install into the metainfo dir instead of the appdata dir
-- Do not force every package shared object to be linked with libpthread
-- Fix typo in the preun script
-- Drop workaround for s390x tests, fixed upstream
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 23 2020 Jerry James <loganjerry@gmail.com> - 4.11.0-6
-- Force the binary to be linked with pthreads
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri May 29 2020 Jerry James <loganjerry@gmail.com> - 4.11.0-4
-- Incorporate upstream changes and cleanups
-- Drop the libgap-devel subpackage; it is not useful
-
-* Thu Apr  2 2020 Jerry James <loganjerry@gmail.com> - 4.11.0-3
-- Reenable inlining on aarch64 on all but 1 function
-
-* Mon Mar 23 2020 Jerry James <loganjerry@gmail.com> - 4.11.0-2
-- Turn off all inlining on aarch64 to work around possible GCC bug
-
-* Fri Mar 13 2020 Jerry James <loganjerry@gmail.com> - 4.11.0-1
-- Version 4.11.0
-- Drop upstreamed -immutable patch
-- Drop libtool Requires from the -devel subpackage
-- Add -aarch64 patch to fix FTBFS on aarch64
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Jul 20 2019 Jerry James <loganjerry@gmail.com> - 4.10.2-1
-- Drop -stat patch, no longer needed after gap-pkg-io update
-- Drop -doc patch: it is not the right solution to the problem
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 4.10.2-1
-- New upstream release
-- Make the main package own the GAP bin directory
-
-* Wed Mar 20 2019 Jerry James <loganjerry@gmail.com> - 4.10.1-1
-- New upstream release
-- Drop upstreamed sagemath patches
-
-* Sun Feb 17 2019 Jerry James <loganjerry@gmail.com> - 4.10.0-2
-- Build in non-bootstrap mode
-
-* Sun Feb 17 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 4.10.0-1
-- Rebuild for readline 8.0
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 4.10.0-0
-- New upstream release
-- Drop upstreamed -paths patch
-- Add -bootstrap patch to break circular build dependencies
-- Add -escape, -ref, -doc, -gac, and -immutable patches
-- Add -terminal, -erroroutput, and -enterleave patches from sagemath
-- Add libgap and libgap-devel subpackages
-- Move the commandline application into the main package
-- Change BRs and Rs due to recent TeXLive packaging changes
-- Create all of the icon sizes supported by hicolor-icon-theme
-- Fix update-gap-workspace on initial build with empty workspace
-- Disable hardened build, which breaks RTLD_LAZY in the module loader
-- Build in bootstrap mode
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Mar  3 2018 Jerry James <loganjerry@gmail.com> - 4.8.8-3
-- Move the icons to the apps directory
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Jan 20 2018 Jerry James <loganjerry@gmail.com> - 4.8.8-1
-- Remove obsolete scriptlets
-
-* Wed Sep  6 2017 Jerry James <loganjerry@gmail.com> - 4.8.8-1
-- New upstream release
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Mar 31 2017 Jerry James <loganjerry@gmail.com> - 4.8.7-2
-- Bring back the -stat patch, still needed by gap-pkg-io
-
-* Fri Mar 31 2017 Jerry James <loganjerry@gmail.com> - 4.8.7-1
-- New upstream release
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Jan 12 2017 Igor Gnatenko <ignatenko@redhat.com> - 4.8.6-2
-- Rebuild for readline 7.x
-
-* Mon Nov 14 2016 Jerry James <loganjerry@gmail.com> - 4.8.6-1
-- New upstream release
-- Adjust BRs for the latest texlive release
-
-* Wed Sep 28 2016 Jerry James <loganjerry@gmail.com> - 4.8.5-1
-- New upstream release
-
-* Wed Jun 15 2016 Jerry James <loganjerry@gmail.com> - 4.8.4-1
-- New upstream release
-
-* Thu May  5 2016 Jerry James <loganjerry@gmail.com> - 4.8.3-2
-- Fix PowerPC64 build failure (bz 1330108)
-
-* Thu Apr  7 2016 Jerry James <loganjerry@gmail.com> - 4.8.3-1
-- New upstream release
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Dec  2 2015 Jerry James <loganjerry@gmail.com> - 4.7.9-1
-- New upstream release
-
-* Wed Nov 11 2015 Jerry James <loganjerry@gmail.com> - 4.7.8-3
-- Use file triggers
-- Rebuild documentation from source
-- Compress files in parallel
-- Unpack the tools archive
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.7.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jun 12 2015 Jerry James <loganjerry@gmail.com> - 4.7.8-1
-- New upstream release
-
-* Wed May 20 2015 Jerry James <loganjerry@gmail.com> - 4.7.7-2
-- Fix gac compiler flags for dynamic objects
-- Update appdata
-
-* Mon Feb 16 2015 Jerry James <loganjerry@gmail.com> - 4.7.7-1
-- New upstream release
-
-* Fri Jan 23 2015 Jerry James <loganjerry@gmail.com> - 4.7.6-3
-- Fix scriptlets so they don't complain when uninstalling
-- Drop obsolete Group tags
-
-* Thu Jan 15 2015 Jerry James <loganjerry@gmail.com> - 4.7.6-2
-- Fix crash with nameless TTYs, such as in mock shell environments
-
-* Wed Dec 10 2014 Jerry James <loganjerry@gmail.com> - 4.7.6-1
-- New upstream release
-- Fix license handling
-- Install more icon sizes
-
-* Sat Aug 16 2014 Rex Dieter <rdieter@fedoraproject.org> 4.7.5-3
-- update scriplets
-
-* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.7.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Thu Jun 19 2014 Jerry James <loganjerry@gmail.com> - 4.7.5-1
-- New upstream release
-- Fix ownership of workspace.gz
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Wed Mar 19 2014 Jerry James <loganjerry@gmail.com> - 4.7.4-1
-- New upstream release
-
-* Wed Feb  5 2014 Jerry James <loganjerry@gmail.com> - 4.7.2-2
-- Update location of rpm macro file for rpm >= 4.11
-- Add an AppData file
-
-* Tue Jan 14 2014 Jerry James <loganjerry@gmail.com> - 4.7.2-1
-- New upstream release
-- Upstream no longer distributes an (X)Emacs interface
-
-* Mon Jul 29 2013 Jerry James <loganjerry@gmail.com> - 4.6.5-1
-- New upstream release
-
-* Wed May 22 2013 Jerry James <loganjerry@gmail.com> - 4.6.4-2
-- Update -stat patch to provide large integer conversion (for, e.g., loff_t)
-- Drop meataxe Requirement as it has been replaced with internal routines
-
-* Thu May 16 2013 Jerry James <loganjerry@gmail.com> - 4.6.4-1
-- New upstream release
-
-* Thu Mar 28 2013 Jerry James <loganjerry@gmail.com> - 4.6.3-1
-- New upstream release
-
-* Sat Mar 09 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.6.2-2
-- Remove %%config from %%{_sysconfdir}/rpm/macros.*
-  (https://fedorahosted.org/fpc/ticket/259).
-
-* Wed Feb 20 2013 Jerry James <loganjerry@gmail.com> - 4.6.2-1
-- New upstream release
-- Move update-gap-workspace call to posttrans (bz 912067)
-- Add -stat patch and -D_FILE_OFFSET_BITS=64 to CPPFLAGS to use 64-bit
-  stat interface on 32-bit systems
-
-* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Fri Dec 21 2012 Rex Dieter <rdieter@fedoraproject.org> 4.5.7-2
-- optimize/update icon scriptlets
-
-* Mon Dec 17 2012 Jerry James <loganjerry@gmail.com> - 4.5.7-1
-- New upstream release
-
-* Mon Oct 22 2012 Jerry James <loganjerry@gmail.com> - 4.5.6-3
-- Further fixes for the -m32/-m64 issue
-- Many packages need the primitive, small, or transitive groups; collapse them
-  all into the -libs subpackage so they are always available
-- Provide sysinfo-default[32|64], as required by some packages
-- Provide symbolic links to gac and gap from the bin directory, as required by
-  some packages
-
-* Sat Oct 20 2012 Peter Robinson <pbrobinson@fedoraproject.org> - 4.5.6-2
-- -m32/-m64 should come from RPM_OPT_FLAGS. Fix build issues on non x86 arches
-
-* Mon Sep 24 2012 Jerry James <loganjerry@gmail.com> - 4.5.6-1
-- New upstream release
-- Remove unused patches from git
-
-* Thu Sep 13 2012 Jerry James <loganjerry@gmail.com> - 4.5.5-1
-- New upstream release
-- Drop upstreamed patches
-- Sources are now UTF-8; no conversion necessary
-
-* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.4.12-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Tue Jan 31 2012 Jerry James <loganjerry@gmail.com> - 4.4.12-4
-- Add an RPM macro file for GAP packages
-- Fix the location of config.h
-
-* Wed Jan 11 2012 Jerry James <loganjerry@gmail.com> - 4.4.12-3
-- Fix problems found on review
-
-* Tue Jan  3 2012 Jerry James <loganjerry@gmail.com> - 4.4.12-2
-- Mimic Debian's subpackage structure
-
-* Wed Oct 12 2011 Jerry James <loganjerry@gmail.com> - 4.4.12-1
-- Initial RPM
+%autochangelog

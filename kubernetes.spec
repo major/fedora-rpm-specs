@@ -20,12 +20,12 @@
 
 # **** release metadata ****
 # populated by envsubst in newrelease.sh
-%global gittag                  v1.29.2
-%global tar_ver                 1.29.2
+%global gittag                  v1.29.3
+%global tar_ver                 1.29.3
 %global k8s_name                kubernetes
-%global k8s_ver                 1.29.2
+%global k8s_ver                 1.29.3
 # golang 'built with' version
-%global golangver               1.21.7
+%global golangver               1.21.8
 
 # last release version of these rpms prior to F40 restructure
 # should not change once restructure goes into rawhide
@@ -227,9 +227,6 @@ export KUBE_GIT_TREE_STATE="clean"
 export KUBE_GIT_VERSION=v%{version}
 export KUBE_EXTRA_GOPATH=$(pwd)/Godeps/_workspace
 
-# macro that executes make all for given cmd argument
-%define makecmd(o:) make all WHAT="cmd/%1" GOLDFLAGS="-B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') $GLINK"
-
 # go internal linker does not provide build ids; use
 # KUBE_CGO_OVERRIDES to force external linker; consistent
 # with Fedora go standards
@@ -241,6 +238,9 @@ export GOFLAGS="-buildmode=pie -compiler=gc -tags=rpm_crashtraceback${BUILDTAGS:
 
 # define temporary linker options for use in GOLDFLAGS
 GLINK="-compressdwarf=false -linkmode=external -extldflags '%{build_ldflags}'"
+
+# macro that executes make all for given cmd argument
+%define makecmd(o:) make all WHAT="cmd/%1" GOLDFLAGS="-B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') $GLINK"
 
 # Build each binary separately to generate a unique build-id.
 # Otherwise: Duplicate build-ids /builddir/build/BUILDROOT/.../usr/bin/kube-apiserver and /builddir/build/BUILDROOT/.../usr/bin/kubeadm

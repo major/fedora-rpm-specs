@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	2
+%global	baserelease	3
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -23,7 +23,8 @@ Version:		%{mainver}%{?use_git:^%{gitdate}git%{shorthash}}
 Release:		%{baserelease}%{?dist}
 Summary:		Plug-ins files for Cairo-Dock
 
-License:		GPLv3+
+# SPDX confirmed
+License:		GPL-3.0-or-later AND GPL-2.1-or-later AND LGPL-2.1-or-later AND GPL-2.0-only
 URL:			http://glx-dock.org/
 #Source0:		http://launchpad.net/cairo-dock-plug-ins/%%{urlver}/%%{mainver}/+download/cairo-dock-plugins-%%{mainver}.tar.gz
 # Some contents removed: see https://bugzilla.redhat.com/show_bug.cgi?id=1178912
@@ -418,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Mar 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-3
+- SPDX migration
+
 * Fri Mar 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.0-2
 - vala: regenerate C source from vala source properly
   and reenable -Werror=incompatible-pointer-types

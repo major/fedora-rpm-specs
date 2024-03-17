@@ -1,19 +1,19 @@
 %global gjs_version 1.69.2
 %global libadwaita_version 1.4~alpha
-%global libshumate_version 1.1~beta
+%global libshumate_version 1.2~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        45.3
-Release:        3%{?dist}
+Version:        46~rc
+Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -29,11 +29,14 @@ BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gweather4)
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libportal)
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(rest-1.0)
 BuildRequires:  pkgconfig(shumate-1.0) >= %{libshumate_version}
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
+# Required for tests.
+BuildRequires:  libsecret
 
 Requires:       dbus
 Requires:       gdk-pixbuf2%{?_isa}
@@ -93,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Fri Mar 15 2024 David King <amigadave@amigadave.com> - 46~rc-1
+- Update to 46.rc
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

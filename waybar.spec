@@ -1,8 +1,8 @@
 %bcond wireplumber %[0%{?fedora} < 40]
 
 Name:           waybar
-Version:        0.9.24
-Release:        3%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -18,6 +18,7 @@ Summary:        Highly customizable Wayland bar for Sway and Wlroots based compo
 License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          %{url}/commit/dcddddd.patch#/waybar-0.10.0-power-profiles-daemon-initial-visibility.patch
 # Downstream changes to the configuration:
 #  - Fix missing or incorrectly rendered icons
 #  - Remove several modules from the config
@@ -26,7 +27,7 @@ Patch:          waybar-fedora-config-changes.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  meson >= 0.50.0
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  scdoc
 BuildRequires:  systemd-rpm-macros
 
@@ -45,6 +46,7 @@ BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libmpdclient)
 BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libnl-genl-3.0)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(playerctl)
@@ -69,8 +71,6 @@ Recommends:     font(fontawesome6brands)
 
 %prep
 %autosetup -p1 -n Waybar-%{version}
-# Disable chrono Time Zone extensions (P0355R7) support
-sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 
 %build
 %meson \
@@ -81,10 +81,6 @@ sed -i 's/^\(have_chrono_timezones =\).*/\1 false/' meson.build
 
 %install
 %meson_install
-# remove man pages for disabled modules
-for module in cava sndio %{!?with_wireplumber:wireplumber} wlr-workspaces; do
-    rm -f %{buildroot}%{_mandir}/man5/%{name}-${module}.5
-done
 
 %check
 %meson_test
@@ -100,13 +96,16 @@ done
 %license LICENSE
 %doc README.md
 %dir %{_sysconfdir}/xdg/%{name}
-%config(noreplace) %{_sysconfdir}/xdg/%{name}/config
+%config(noreplace) %{_sysconfdir}/xdg/%{name}/config.jsonc
 %config(noreplace) %{_sysconfdir}/xdg/%{name}/style.css
 %{_bindir}/%{name}
 %{_mandir}/man5/%{name}*
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Wed Mar 13 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.10.0-1
+- Update to 0.10.0
+
 * Sat Feb 24 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.24-3
 - Patch default configuration to address several known issues
 - Fixes rhbz#2254813

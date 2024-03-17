@@ -2,13 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.4
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/float/
-Source0:        https://github.com/gap-packages/float/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/float
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds
 Patch0:         %{name}-atexit.patch
 # Remove use of deprecated set_unexpected
@@ -92,141 +94,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jan 17 2024 Jerry James <loganjerry@gmail.com> - 1.0.4-1
-- Version 1.0.4
-- Drop upstreamed recursive and fplll patches
-- Add patch to remove call to set_unexpected
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.0.3-5
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
-- Update for gap 4.12.0
-- Add -fplll patch to fix fplll detection
-
-* Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-3
-- Convert License tag to SPDX
-
-* Sun Jul 24 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Feb 16 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-1
-- Version 1.0.3
-- Add -recursive patch
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Dec 14 2021 Jerry James <loganjerry@gmail.com> - 1.0.2-1
-- Version 1.0.2
-- Drop upstreamed -cxsc patch
-
-* Fri Nov 26 2021 Jerry James <loganjerry@gmail.com> - 1.0.1-1
-- Version 1.0.1
-
-* Wed Nov 24 2021 Jerry James <loganjerry@gmail.com> - 1.0.0-1
-- Version 1.0.0
-
-* Mon Oct 18 2021 Jerry James <loganjerry@gmail.com> - 0.9.9-1
-- Version 0.9.9
-- License change from GPLv3+ to GPLv2+
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Dec 12 2020 Jerry James <loganjerry@gmail.com> - 0.9.1-11
-- Rebuild for libfplll 5.4.0
-- Add -cxsc patch to fix issues with cxsc and gcc 11
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul  8 2020 Jerry James <loganjerry@gmail.com> - 0.9.1-9
-- Rebuild for libfplll 5.3.3
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 0.9.1-8
-- Rebuild for gap 4.11.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jan  9 2020 Jerry James <loganjerry@gmail.com> - 0.9.1-6
-- Rebuild for libfplll 5.3.2
-
-* Thu Nov 28 2019 Jerry James <loganjerry@gmail.com> - 0.9.1-5
-- Rebuild for libfplll 5.3.0
-
-* Fri Oct 11 2019 Jerry James <loganjerry@gmail.com> - 0.9.1-4
-- Rebuild for mpfr 4
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 0.9.1-2
-- Rebuild for changed bin dir name in gap 4.10.1
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 0.9.1-1
-- New upstream version
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Jun  2 2018 Jerry James <loganjerry@gmail.com> - 0.8.0-3
-- Rebuild for libfplll 5.2.1 and mpfi 1.5.3
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Fri Nov 17 2017 Jerry James <loganjerry@gmail.com> - 0.8.0-1
-- New upstream version (bz 1509755)
-- Drop upstreamed float-instantiator patch
-- Drop upstreamed testsuite fixups
-
-* Thu Sep 28 2017 Jerry James <loganjerry@gmail.com> - 0.7.6-4
-- Rebuild for libfplll 5.1.0
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue May  9 2017 Jerry James <loganjerry@gmail.com> - 0.7.6-1
-- New upstream version (bz 1449208)
-
-* Wed Apr  5 2017 Jerry James <loganjerry@gmail.com> - 0.7.5-2
-- Rebuild for libfplll 5.x
-
-* Mon Feb 20 2017 Jerry James <loganjerry@gmail.com> - 0.7.5-1
-- New upstream version
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jul  1 2016 Jerry James <loganjerry@gmail.com> - 0.7.4-1
-- Initial RPM
+%autochangelog

@@ -38,7 +38,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    5.3
+Version:    5.4
 Release:    1%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
@@ -157,9 +157,10 @@ it shows page with information about resalloc resources.
 Summary: %sum - daemon starting agent-like resources
 
 Requires(pre): /usr/sbin/useradd
-Requires: python3-copr-common
+Requires: python3-copr-common >= 0.23
 Requires: python3-daemon
 Requires: python3-redis
+Requires: python3-resalloc = %version-%release
 Requires: python3-setproctitle
 
 %description agent-spawner
@@ -373,6 +374,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Fri Mar 15 2024 Pavel Raiskup <praiskup@redhat.com> - 5.4-1
+- New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.4
+
 * Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> - 5.3-1
 - New upstream release https://github.com/praiskup/resalloc/releases/tag/v5.3
 

@@ -1,17 +1,16 @@
-%if 0%{?fedora} < 28 && 0%{?rhel} < 8
-%bcond_without libnm_glib
+%if 0%{?fedora} < 36 && 0%{?rhel} < 9
+%bcond_with gtk4
 %else
-# Disable the legacy version by default
-%bcond_with libnm_glib
+%bcond_without gtk4
 %endif
 
 Summary: NetworkManager VPN plugin for SSH
 Name: NetworkManager-ssh
-Version: 1.2.12
-Release: 8%{?dist}
+Version: 1.2.13
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://github.com/danfruehauf/NetworkManager-ssh
-Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.12.tar.gz#/%{name}-%{version}.tar.gz
+Source0: https://github.com/danfruehauf/NetworkManager-ssh/archive/1.2.13.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -29,9 +28,8 @@ Requires: openssh-clients
 Requires: shared-mime-info
 Requires: sshpass
 
-%if %with libnm_glib
-BuildRequires: NetworkManager-glib-devel >= 1:1.2.6
-BuildRequires: libnm-gtk-devel >= 0.9.10
+%if %with gtk4
+BuildRequires: libnma-gtk4-devel
 %endif
 
 %global __provides_exclude ^libnm-.*\\.so
@@ -60,17 +58,25 @@ CFLAGS="-DSECRET_API_SUBJECT_TO_CHANGE %{optflags}" \
 %endif
 %configure \
         --disable-static \
-%if %without libnm_glib
-        --without-libnm-glib \
+%if %with gtk4
+        --with-gtk4 \
 %endif
         --enable-more-warnings=yes \
         --with-dist-version=%{version}-%{release}
 make %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} INSTALL="install -p" CP="cp -p" install
+make install DESTDIR=%{buildroot} INSTALL="%{__install} -p"
+mkdir -p %{buildroot}%{_prefix}/lib/NetworkManager/VPN
+%{__cp} -p ./nm-ssh-service.name %{buildroot}%{_prefix}/lib/NetworkManager/VPN/
 
-rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
+%if %with gtk4
+%{__rm} -f %{buildroot}%{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
+%else
+%{__rm} -f %{buildroot}%{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
+%endif
+
+%{__rm} -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
 %find_lang %{name}
 
@@ -83,16 +89,20 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 %license COPYING
 
 %files -n NetworkManager-ssh-gnome
-%{_libdir}/NetworkManager/lib*.so*
-%dir %{_datadir}/gnome-vpn-properties/ssh
-%{_datadir}/gnome-vpn-properties/ssh/nm-ssh-dialog.ui
+%{_libdir}/NetworkManager/libnm-vpn-plugin-ssh.so
 %{_datadir}/appdata/network-manager-ssh.metainfo.xml
 
-%if %with libnm_glib
-%{_sysconfdir}/NetworkManager/VPN/nm-ssh-service.name
+%if %with gtk4
+%{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-ssh-editor.so
+%else
+%{_libdir}/NetworkManager/libnm-gtk3-vpn-plugin-ssh-editor.so
 %endif
 
 %changelog
+* Fri Mar 15 2024 Dan Fruehauf <malkodan@gmail.com> - 1.2.13-1
+- Fix build
+- Update to gtk4 version
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -3,14 +3,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.9.5
-Release:        13%{?dist}
+Release:        %autorelease
 Summary:        Computations with toric varieties in GAP
 
 License:        MIT
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/toric/
-Source0:        https://github.com/gap-packages/toric/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/toric
+Source0:        %{vcs}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 # Fix a misplaced comma and other problems in a BibTeX entry
 # https://github.com/gap-packages/toric/pull/12
 Patch0:         0001-Fix-problems-with-the-Gua05-BibTeX-entry.patch
@@ -70,61 +72,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.9.5-9
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
-- Update for gap 4.12.0
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct 15 2019 Jerry James <loganjerry@gmail.com> - 1.9.5-1
-- New upstream version
-- Add patch to fix BibTeX problems
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 1.9.4-4
-- Rebuild for gap 4.10.0
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Feb  6 2018 Jerry James <loganjerry@gmail.com> - 1.9.4-1
-- Initial RPM
+%autochangelog

@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1087,6 +1087,11 @@ that can be installed across architectures.
 %package -n glibc32
 Summary: The GNU libc libraries (32-bit)
 Conflicts: glibc(x86-32)
+%dnl The gcc package does not use ELF dependencies to install glibc32:
+%dnl BuildRequires: (glibc32 or glibc-devel(%{__isa_name}-32))
+%dnl Not generating the ELF dependencies for glibc32 makes it less likely
+%dnl that the package is selected by accident over glibc.i686.
+AutoReqProv: no
 
 %description -n glibc32
 This package is only used for internal building of multilib aware
@@ -2452,6 +2457,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Mar 15 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-7
+- Do not generate ELF dependency information for glibc32
+
 * Wed Mar 13 2024 Joseph Myers <josmyers@redhat.com> - 2.39.9000-6
 - Build glibc32 binary package from glibc sources as part of x86_64 build,
   not from glibc32 SRPM that contains binaries from i686 RPM build.

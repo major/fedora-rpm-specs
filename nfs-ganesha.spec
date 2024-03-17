@@ -119,7 +119,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	5.7
-Release:	6%{?dev:%{dev}}%{?dist}
+Release:	7%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -916,6 +916,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Mar 15 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-7
+- rebuild with (lib)prometheus-cpp-1.2.4
+
 * Thu Feb 8 2024 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.7-6
 - rebuild with (lib)prometheus-cpp-1.2.3
 

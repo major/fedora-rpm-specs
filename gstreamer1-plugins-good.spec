@@ -229,6 +229,8 @@ to be installed.
   -D aalib=disabled \
   -D libcaca=disabled \
   -D rpicamsrc=disabled \
+  -D amrnb=%{?with_amr:enabled}%{!?with_amr:disabled} \
+  -D amrwbdec=%{?with_amr:enabled}%{!?with_amr:disabled} \
   -D jack=%{?with_extras:enabled}%{!?with_extras:disabled} \
 %ifarch s390 s390x
   -D dv=disabled -D dv1394=disabled \

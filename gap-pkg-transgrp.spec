@@ -2,19 +2,22 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.6.5
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Transitive groups library
 
 # Artistic-2.0: presentation of the data in the data files
 # GPL-2.0-only OR GPL-3.0-only: the code
 License:        Artistic-2.0 AND (GPL-2.0-only OR GPL-3.0-only)
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://www.gap-system.org/Packages/transgrp.html
+VCS:            https://github.com/hulpke/transgrp
 Source0:        https://www.math.colostate.edu/~hulpke/transgrp/%{pkgname}%{version}.tar.gz
 Source1:        https://www.math.colostate.edu/~hulpke/transgrp/trans32.tgz
 
 BuildRequires:  gap-devel
+BuildRequires:  gap-pkg-smallgrp
 BuildRequires:  GAPDoc-latex
 BuildRequires:  parallel
 BuildRequires:  tth
@@ -98,7 +101,7 @@ cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");LoadPackage("smallgrp");' tst/testall.g
 
 %files
 %doc README.md
@@ -122,89 +125,4 @@ gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Dec 15 2023 Jerry James <loganjerry@gmail.com> - 3.6.5-1
-- Version 3.6.5
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Apr  5 2023 Jerry James <loganjerry@gmail.com> - 3.6.4-1
-- Version 3.6.4
-- Add Artistic-2.0 to License
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.6.3-4
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
-- Use upstream's method of bootstrapping
-- Clarify license of the doc subpackage
-
-* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
-- Update for gap 4.12.0
-- Convert License tags to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-1
-- Version 3.6.3
-
-* Mon May  9 2022 Jerry James <loganjerry@gmail.com> - 3.6.2-1
-- Version 3.6.2
-
-* Sat Apr  2 2022 Jerry James <loganjerry@gmail.com> - 3.6.1-1
-- Version 3.6.1
-
-* Sat Apr  2 2022 Jerry James <loganjerry@gmail.com> - 3.6-1
-- Version 3.6
-
-* Fri Feb 11 2022 Jerry James <loganjerry@gmail.com> - 3.5-1
-- Version 3.5
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jun  8 2021 Jerry James <loganjerry@gmail.com> - 3.3-1
-- Version 3.3
-
-* Mon May 17 2021 Jerry James <loganjerry@gmail.com> - 3.2-1
-- Version 3.2
-
-* Tue Apr  6 2021 Jerry James <loganjerry@gmail.com> - 3.1-1
-- Version 3.1
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug  1 2020 Jerry James <loganjerry@gmail.com> - 3.0-1
-- Version 3.0
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Feb 25 2020 Jerry James <loganjerry@gmail.com> - 2.0.5-1
-- Version 2.0.5
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Feb 13 2019 Jerry James <loganjerry@gmail.com> - 2.0.4-2
-- Remove hidden file
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 2.0.4-1
-- Initial RPM
+%autochangelog

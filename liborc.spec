@@ -1,11 +1,13 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 1.9.2
-Release: 5%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
+Source1: https://archive.apache.org/dist/orc/orc-format-%{version}/orc-format-1.0.0.tar.gz
 Patch1:  0001-cmake.patch
+Patch2:  0002-c++-src-CpuInfoUtil.cc.patch
 # Apache ORC has numerous compile errors and apparently assumes a 64-bit
 # build and runtime environment. The only consumer of this package is 
 # Ceph (by way of Apache Arrow) which is also 64-bit only
@@ -73,8 +75,7 @@ Contains header files for developing applications that use the %{name}
 library.
 
 %prep
-%setup -qn orc-%{version}
-%patch 0001 -p1
+%autosetup -p1 -n orc-%{version}
 
 %build
 
@@ -129,6 +130,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Fri Mar 15 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.0.0-1
+- 2.0.0 GA
+
 * Wed Feb 14 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.2-5
 - Add -Wno-error=stringop-overflow
 

@@ -5,17 +5,19 @@
 # koji builders have no network access, the tests always fail.  The maintainer
 # should run the tests in an environment where testing is possible prior to
 # each koji build.
-%bcond_with tests
+%bcond tests 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.2
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Simple web access for GAP
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/curlInterface/
-Source0:        https://github.com/gap-packages/curlInterface/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/curlInterface
+Source0:        %{vcs}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -80,67 +82,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat May 20 2023 Jerry James <loganjerry@gmail.com> - 2.3.2-1
-- Version 2.3.2
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.3.1-2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
-- Version 2.3.1
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.2.3-1
-- Convert License tag to SPDX
-
-* Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 2.2.3-1
-- Version 2.2.3
-
-* Sat Jul 23 2022 Jerry James <loganjerry@gmail.com> - 2.2.2-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Feb 22 2022 Jerry James <loganjerry@gmail.com> - 2.2.2-1
-- Version 2.2.2
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Apr  3 2020 Jerry James <loganjerry@gmail.com> - 2.2.1-1
-- Version 2.2.1
-- Drop upstreamed -backtick patch
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 2.1.1-3
-- Rebuild for gap 4.11.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Sep 18 2019 Jerry James <loganjerry@gmail.com> - 2.1.1-1
-- Initial RPM
+%autochangelog

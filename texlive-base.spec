@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 82%{?dist}
+Release: 83%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -526,7 +526,6 @@ Patch45: texlive-fedora-texmfcnf.lua.patch
 Patch46: texlive-base-20230311-fix-scripts.patch
 
 # fix build error with gcc-14
-Patch47: texlive-base-20230311-typecasts.patch
 Patch48: texlive-base-20230311-typefixes.patch
 
 # Can't do this because it causes everything else to be noarch
@@ -8300,7 +8299,6 @@ ln -s %{_texdir}/licenses/$l $l
 done
 
 %patch -P44 -p1 -b .pdf-header-order-fix
-%patch -P47 -p1 -b .gcc-14-typecast
 %patch -P48 -p1 -b .gcc-14-typefixes
 
 # Disable broken tests
@@ -11115,6 +11113,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Fri Mar 15 2024 Than Ngo <than@redhat.com> - 20230311-83
+- fix bz#2269661, FTBFS due to libXaw 1.0.16
+
 * Thu Feb 29 2024 Tom Callaway <spot@fedoraproject.org> - 11:20230311-82
 - rebuild for new xpdf
 

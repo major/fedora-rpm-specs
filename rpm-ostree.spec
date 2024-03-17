@@ -3,15 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2024.3
+Version: 2024.4
 Release: %autorelease
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-
-Patch0: 0001-cliwrap-rpm-mark-eval-E-as-safe.patch
 
 ExclusiveArch: %{rust_arches}
 

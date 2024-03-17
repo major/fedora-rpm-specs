@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libshumate
-Version:        1.1.2
+Version:        1.2~rc2
 Release:        %autorelease
 Summary:        GTK widget to display maps
 
@@ -9,7 +9,7 @@ Summary:        GTK widget to display maps
 # LGPL-2.0-or-later while the rest of the code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/libshumate
-Source0:        https://download.gnome.org/sources/libshumate/1.1/libshumate-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/libshumate/1.2/libshumate-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -20,13 +20,17 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libprotobuf-c)
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(vapigen)
+BuildRequires:  /usr/bin/gperf
 # Support graphical tests in non-graphical environment
-BuildRequires:  /usr/bin/dbus-launch
-BuildRequires:  mesa-dri-drivers
-BuildRequires:  xorg-x11-server-Xvfb
+#BuildRequires:  /usr/bin/dbus-launch
+#BuildRequires:  mesa-dri-drivers
+#BuildRequires:  xorg-x11-server-Xvfb
 
 %description
 libshumate is a GTK widget displaying interactive maps. Various map
@@ -60,7 +64,7 @@ This package contains developer documentation for %{name}.
 
 
 %build
-%meson -Dlibsoup3=true
+%meson
 %meson_build
 
 

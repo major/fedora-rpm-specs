@@ -3,13 +3,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.6
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        GAP interface to CARAT
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://www.math.uni-bielefeld.de/~gaehler/gap/packages.php
+VCS:            https://github.com/gap-packages/CaratInterface
 Source0:        https://www.math.uni-bielefeld.de/~gaehler/gap/%{upname}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  carat
@@ -98,59 +100,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/htm/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 18 2023 Jerry James <loganjerry@gmail.com> - 2.3.6-1
-- Version 2.3.6
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Apr  3 2023 Jerry James <loganjerry@gmail.com> - 2.3.5-1
-- Version 2.3.5
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.3.4-3
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-2
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-2
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-1
-- Convert License tag to SPDX
-
-* Fri Jul 29 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-1
-- Version 2.3.4
-
-* Sat Jul 23 2022 Jerry James <loganjerry@gmail.com> - 2.3.3-8
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec 31 2019 Jerry James <loganjerry@gmail.com> - 2.3.3-1
-- Initial RPM, rename from gap-pkg-carat
+%autochangelog

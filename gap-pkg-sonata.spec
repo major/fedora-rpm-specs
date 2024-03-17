@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.9.6
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        GAP package for systems of nearrings
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/sonata/
-Source0:        https://github.com/gap-packages/sonata/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/sonata
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  parallel
@@ -113,97 +115,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.9.6-2
-- Update for split GAP directories
-
-* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 2.9.6-1
-- Version 2.9.6
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
-- Clarify license of the doc subpackage
-
-* Tue Oct 25 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
-- Version 2.9.5
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.9.4-3
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Apr 21 2022 Jerry James <loganjerry@gmail.com> - 2.9.4-1
-- Version 2.9.4
-
-* Mon Mar 28 2022 Jerry James <loganjerry@gmail.com> - 2.9.3-1
-- Version 2.9.3
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 2.9.1-1
-- New upstream version
-- New URLs
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Apr  7 2016 Jerry James <loganjerry@gmail.com> - 2.8-4
-- Rebuild for gap 4.8.3
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Nov 11 2015 Jerry James <loganjerry@gmail.com> - 2.8-2
-- Drop scriptlets; gap-core now uses rpm file triggers
-- Rebuild documentation from source
-- Compress files in parallel
-
-* Thu Oct  8 2015 Jerry James <loganjerry@gmail.com> - 2.8-1
-- New upstream version
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jan 16 2015 Jerry James <loganjerry@gmail.com> - 2.6-4
-- Initial RPM
+%autochangelog

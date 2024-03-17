@@ -1,6 +1,6 @@
 Name:          jackson-parent
-Version:       2.16
-Release:       4%{?dist}
+Version:       2.17
+Release:       1%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
 
@@ -38,6 +38,13 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 2.17-1
+- [maven-release-plugin] prepare release jackson-parent-2.17 (Tatu Saloranta)
+- Prepare for 2.17 release (Tatu Saloranta)
+- Fix version in pom (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Resolves rhbz#2269107
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2.16-4
 - Rebuilt for java-21-openjdk as system jdk
 

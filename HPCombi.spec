@@ -16,8 +16,8 @@ Source0:        %{VCS}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Unbundle simde
 Patch0:         %{name}-unbundle-simde.patch
 
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+# Limited support for architectures.  Recheck this on each release.
+ExclusiveArch:  x86_64 %{arm64}
 
 BuildRequires:  cmake
 BuildRequires:  cmake(Catch2)

@@ -4,12 +4,14 @@
 Summary: An authorization framework
 Name: polkit
 Version: 124
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
 Source1: polkit.sysusers
 
+Patch1: no-session-for-cookie.patch
+Patch2: pkttyagent-coredump-after-eof.patch
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -160,6 +162,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Fri Mar 15 2024 Jan Rybar <jrybar@redhat.com> - 124-3
+- pkexec: no session for cookie error fixed
+- pkttyagent: fix of generation of coredump if EOF (Ctrl+D) sent to password prompt
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 124-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

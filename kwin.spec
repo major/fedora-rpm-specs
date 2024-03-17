@@ -208,10 +208,6 @@ BuildArch:      noarch
 %prep
 %autosetup -p1
 
-sed -i \
-  -e 's|^find_package(Breeze ${PROJECT_VERSION} CONFIG)|find_package(Breeze 5.9 CONFIG)|' \
-  CMakeLists.txt
-
 
 %build
 %cmake_kf6

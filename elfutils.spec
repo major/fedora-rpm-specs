@@ -182,6 +182,7 @@ License: GPL-2.0-or-later or LGPL-3.0-or-later
 Provides: elfutils-libelf-devel-static%{depsuffix} = %{version}-%{release}
 %endif
 Requires: elfutils-libelf-devel%{depsuffix} = %{version}-%{release}
+Requires: libzstd-static%{depsuffix}
 
 %description libelf-devel-static
 The elfutils-libelf-static package contains the static archive
@@ -486,8 +487,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
-* Mon Mar 11 2024 Michel Lind <salimma@fedoraproject.org> - 0.191-3
+* Fri Mar 15 2024 Michel Lind <salimma@fedoraproject.org> - 0.191-3
 - Add feature flag for reenabling elfutils-libelf-devel-static and elfutils-devel-static
+- Add dependency on libzstd-static for elfutils-libelf-devel-static
 
 * Mon Mar  4 2024 Aaron Merey <amerey@fedoraproject.org> - 0.191-2
 - Update SPDX license.

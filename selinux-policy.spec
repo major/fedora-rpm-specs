@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit a3eca1d9f096c0e178c78e629bb129b178c85f95
+%global commit 2cdf4e71dc3557b4a87b1430edffcddc82e5d835
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,8 +23,8 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 40.14
-Release: 2%{?dist}
+Version: 40.15
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -824,6 +824,20 @@ exit 0
 %endif
 
 %changelog
+* Fri Mar 15 2024 Zdenek Pytela <zpytela@redhat.com> - 40.15-1
+- Update mmap_rw_file_perms to include the lock permission
+- Allow plymouthd log during shutdown
+- Add logging_watch_all_log_dirs() and logging_watch_all_log_files()
+- Allow journalctl_t read filesystem sysctls
+- Allow cgred_t to get attributes of cgroup filesystems
+- Allow wdmd read hardware state information
+- Allow wdmd list the contents of the sysfs directories
+- Allow linuxptp configure phc2sys and chronyd over a unix domain socket
+- Allow sulogin relabel tty1
+- Dontaudit sulogin the checkpoint_restore capability
+- Modify sudo_role_template() to allow getpgid
+- Remove incorrect "local" usage in varrun-convert.sh
+
 * Thu Mar 07 2024 Zdenek Pytela <zpytela@redhat.com> - 40.14-2
 - Update varrun-convert.sh script to check for existing duplicate entries
 

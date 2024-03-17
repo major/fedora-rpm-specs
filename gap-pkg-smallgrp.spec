@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.5.3
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Small groups library
 
 License:        Artistic-2.0
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/smallgrp/
-Source0:        https://github.com/gap-packages/smallgrp/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/smallgrp
+Source0:        %{vcs}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -70,73 +72,4 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-1
-- Version 1.5.3
-
-* Sat Feb 11 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-1
-- Version 1.5.2
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
-- Version 1.5.1
-- Use upstream's method of bootstrapping
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.5-3
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Apr  7 2022 Jerry James <loganjerry@gmail.com> - 1.5-1
-- Version 1.5
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 21 2020 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Version 1.4.2
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Sep 26 2019 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- New upstream version
-- Drop upstreamed -ref patch
-
-* Sat Sep 21 2019 Jerry James <loganjerry@gmail.com> - 1.4-1
-- New upstream version
-- The -ref patch now fixes a different bad reference
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Feb 13 2019 Jerry James <loganjerry@gmail.com> - 1.3-2
-- Remove spurious executable bits
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 1.3-1
-- Initial RPM
+%autochangelog

@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.4.4
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Primitive permutation groups library
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/primgrp/
-Source0:        https://github.com/gap-packages/primgrp/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/primgrp
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -64,66 +66,4 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Feb 26 2023 Jerry James <loganjerry@gmail.com> - 3.4.4-1
-- Version 3.4.4
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.4.3-2
-- Update for split GAP directories
-
-* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 3.4.3-1
-- Version 3.4.3
-- Upstream now builds documentation with AutoDoc
-- Data files are now compressed by upstream
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-3
-- Use upstream's method of bootstrapping
-- Clarify license of the doc subpackage
-
-* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-3
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May  3 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-1
-- Version 3.4.2
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May  5 2020 Jerry James <loganjerry@gmail.com> - 3.4.1-1
-- Version 3.4.1
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec  3 2019 Jerry James <loganjerry@gmail.com> - 3.4.0-1
-- Version 3.4.0
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 3.3.2-1
-- Initial RPM
+%autochangelog

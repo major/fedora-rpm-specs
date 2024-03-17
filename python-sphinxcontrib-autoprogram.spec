@@ -1,8 +1,8 @@
 %global pypi_name sphinxcontrib-autoprogram
 
 Name:           python-%{pypi_name}
-Version:        0.1.8
-Release:        4%{?dist}
+Version:        0.1.9
+Release:        1%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        BSD
@@ -65,6 +65,9 @@ cp %SOURCE1 .
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Mar 15 2024 mh <mh+fedora@scrit.ch> - 0.1.9-1
+- Update to 0.1.9 (#2169100)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

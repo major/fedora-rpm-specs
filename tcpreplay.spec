@@ -10,12 +10,14 @@
 
 Name:           tcpreplay
 Version:        4.4.4
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Replay captured network traffic
 
 License:        GPLv3
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
+Patch0:         CVE-2023-4256.patch
+Patch1:         CVE-2023-43279.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -65,6 +67,12 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Sat Mar 16 2024 Bojan Smojver <bojan@rexursive com> - 4.4.1-5
+- Patch CVE-2023-4256
+
+* Sat Mar 16 2024 Bojan Smojver <bojan@rexursive com> - 4.4.1-4
+- Patch CVE-2023-43279
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

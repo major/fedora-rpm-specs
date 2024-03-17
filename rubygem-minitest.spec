@@ -2,7 +2,7 @@
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}
-Version: 5.22.2
+Version: 5.22.3
 Release: 100%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Mar 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.22.3-100
+- 5.22.3
+
 * Thu Feb 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.22.2-100
 - 5.22.2
 

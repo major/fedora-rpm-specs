@@ -5,7 +5,7 @@
 
 Name:    pinentry
 Version: 1.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Collection of simple PIN or passphrase entry dialogs
 
 License: GPL-2.0-or-later
@@ -14,27 +14,27 @@ Source0: https://gnupg.org/ftp/gcrypt/pinentry/%{name}-%{version}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/pinentry/%{name}-%{version}.tar.bz2.sig
 
 Patch1: pinentry-1.1.1-coverity.patch
+# port gnome3 binary to gcr-4
+Patch2: pinentry-1.2.1-gcr4.patch
 
 # borrowed from opensuse
 Source10: pinentry-wrapper
 
+BuildRequires: autoconf automake gettext-devel
 BuildRequires: make
 BuildRequires: gcc
-# compat package for gnome 3
-BuildRequires: gcr3-devel
-%if %{with gtk2}
-BuildRequires: gtk2-devel
-%endif
 BuildRequires: libcap-devel
 BuildRequires: ncurses-devel
 BuildRequires: libgpg-error-devel
 BuildRequires: libassuan-devel
-BuildRequires: libsecret-devel
+BuildRequires: pkgconfig(gcr-4)
+BuildRequires: pkgconfig(libsecret-1)
+%if %{with gtk2}
+BuildRequires: pkgconfig(gtk+-2.0)
+%endif
 %if %{with qt5}
 BuildRequires: pkgconfig(Qt5Core) pkgconfig(Qt5Gui) pkgconfig(Qt5Widgets)
 %endif
-
-Requires(pre): %{_sbindir}/update-alternatives
 
 Provides: %{name}-curses = %{version}-%{release}
 
@@ -101,10 +101,12 @@ This package contains the tty version of the PIN entry dialog.
 
 %prep
 %setup -q
-%patch1 -p1 -b .coverity
+%patch -P1 -p1 -b .coverity
+%patch -P2 -p1 -b .gcr4
 
 
 %build
+autoreconf -fiv
 %configure \
   --disable-rpath \
   --disable-dependency-tracking \
@@ -175,6 +177,9 @@ rm -fv $RPM_BUILD_ROOT%{_infodir}/dir
 %{_bindir}/pinentry-tty
 
 %changelog
+* Mon Mar 11 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-7
+- Use gcr-4 in gnome3 binary
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

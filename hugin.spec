@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2023.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -46,6 +46,12 @@ src/hugin_script_interface/plugins/*.py
 
 %install
 %cmake_install
+
+%if 0%{?flatpak}
+# pyinstalldir is not configurable
+mkdir -p %{buildroot}%{python3_sitearch}
+mv %{buildroot}%{_usr}/%{_lib}/python%{python3_version}/site-packages/* %{buildroot}%{python3_sitearch}
+%endif
 
 desktop-file-install --vendor="" --delete-original \
   --dir=%{buildroot}/%{_datadir}/applications \
@@ -171,6 +177,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Fri Mar 15 2024 Bruno Postle <bruno@postle.net> - 2023.0.0-6
+- Support flatpak python install dir (yselkowitz)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

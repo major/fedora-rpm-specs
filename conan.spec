@@ -1,6 +1,6 @@
 Name: conan
-Version: 2.0.8
-Release: 4%{?dist}
+Version: 2.1.0
+Release: %autorelease
 
 License: MIT
 Summary: Open-source C/C++ package manager
@@ -62,71 +62,4 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jul 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.8-1
-- Updated to version 2.0.8.
-
-* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 2.0.7-2
-- Rebuilt for Python 3.12
-
-* Wed Jun 21 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.7-1
-- Updated to version 2.0.7.
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.6-2
-- Rebuilt for Python 3.12
-
-* Wed May 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.6-1
-- Updated to version 2.0.6.
-
-* Wed Apr 12 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.4-1
-- Updated to version 2.0.4.
-
-* Tue Apr 04 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.3-1
-- Updated to version 2.0.3.
-
-* Wed Mar 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.2-1
-- Updated to version 2.0.2.
-
-* Fri Mar 03 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.1-1
-- Updated to version 2.0.1.
-
-* Wed Feb 22 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-1
-- Updated to version 2.0.0.
-
-* Sat Feb 18 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.10.beta10
-- Updated to version 2.0.0-beta10.
-
-* Tue Jan 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.9.beta9
-- Updated to version 2.0.0-beta9.
-
-* Fri Jan 20 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.0-0.8.beta8
-- teach conan to make fire ... i mean, teach conan that gcc 13 exists
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.7.beta8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.6.beta8
-- Updated to version 2.0.0-beta8.
-
-* Thu Dec 22 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.5.beta7
-- Updated to version 2.0.0-beta7.
-
-* Fri Dec 02 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.4.beta6
-- Updated to version 2.0.0-beta6.
-
-* Sat Nov 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.3.beta5
-- Updated to version 2.0.0-beta5.
-
-* Tue Oct 11 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.2.beta4
-- Updated to version 2.0.0-beta4.
-
-* Mon Sep 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.1.beta3
-- Initial SPEC release.
+%autochangelog

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: KDE Frameworks 6 Tier 3 solution for filesystem abstraction
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -15,6 +15,8 @@ Source0: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{f
 # exactly what upstream will want, but it solves the practical
 # issue for us for now
 Patch0:  0001-Give-the-kuriikwsfiltereng_private-a-VERSION-and-SOV.patch
+# [PATCH] [kterminallauncherjob] Inherit default process environment from parent (6.1)
+Patch1:  https://invent.kde.org/frameworks/kio/-/commit/6e7775d315f389df0a440ed62b842ce83dc9a27e.patch
 
 %if 0%{?flatpak}
 # Disable the help: and ghelp: protocol for Flatpak builds, to avoid depending
@@ -217,6 +219,10 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Mar 15 2024 Marie Loise Nolden <loise@kde.org> - 6.0.0-5
+- add 6e7775d315f389df0a440ed62b842ce83dc9a27e.patch
+[kterminallauncherjob] Inherit default process environment from parent 
+
 * Mon Mar 11 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0-4
 - Soften switcheroo-control dependency
 

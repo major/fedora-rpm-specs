@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-resource-operations3
 #
-# Copyright (c) 2015-2023 Remi Collet
+# Copyright (c) 2015-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    0f4443cb3a1d92ce809899753bc0d5d5a8dd19a8
+%global gh_commit    05d5692a7993ecccd56a03e40cd7e5b09b1d404e
 #global gh_date      20150728
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -24,8 +24,8 @@
 %global major        3
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.3
-Release:        5%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Provides a list of PHP built-in functions that operate on resources, version %{major}
 
 License:        BSD-3-Clause
@@ -81,7 +81,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php81 php82 php83; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose tests || ret=1
@@ -102,6 +102,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 15 2024 Remi Collet <remi@remirepo.net> - 3.0.4-1
+- update to 3.0.4 (no change)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

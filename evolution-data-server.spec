@@ -52,12 +52,12 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.51.3
+Version: 3.52.0
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
-Source: http://download.gnome.org/sources/%{name}/3.51/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.52/%{name}-%{version}.tar.xz
 
 # 0-99: General patches
 
@@ -511,6 +511,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Mar 15 2024 Milan Crha <mcrha@redhat.com> - 3.52.0-1
+- Update to 3.52.0
+
 * Fri Mar 01 2024 Milan Crha <mcrha@redhat.com> - 3.51.3-1
 - Update to 3.51.3
 

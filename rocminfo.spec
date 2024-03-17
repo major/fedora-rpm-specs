@@ -13,6 +13,11 @@ Source0:	https://github.com/RadeonOpenCompute/rocminfo/archive/rocm-%{version}.t
 Patch0:		0001-adjust-CMAKE_CXX_FLAGS.patch
 Patch1:		0002-fix-buildtype-detection.patch
 
+# this is based on a PR from upstream which is supposedly going to be part of ROCm 6.1
+# it fixes some regular expression strings so that python 3.12 no longer throws warnings about them being invalid
+Patch2:		0003-fix-python-escape-sequences-pr55.patch
+
+
 ExclusiveArch: x86_64 aarch64 ppc64le
 
 BuildRequires:  make

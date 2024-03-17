@@ -3,7 +3,7 @@
 
 Name:             emacs-rinari
 Version:          2.1  
-Release:          29.20100815git%{?dist}
+Release:          30.20100815git%{?dist}
 Summary:          Ruby on rails minor mode for Emacs
 
 License:          GPLv3+
@@ -25,20 +25,12 @@ BuildRequires:    emacs texinfo
 BuildArch:        noarch
 Requires:         emacs(bin) >= %{_emacs_version}
 
-Requires(post):   info
-Requires(preun):  info
+Obsoletes:        %{name}-el < 2.1-30.20100815git
+Provides:         %{name}-el = %{version}-%{release}
 
 %description
 Rinari is a set of Emacs Lisp functions aimed towards 
 making Emacs into a top-notch Ruby on rails development environment.
-
-%package el
-Summary:        Elisp source files for %{name}
-Requires:       %{name} = %{version}-%{release}
-
-%description el
-This package contains the Elisp source files for %{name}. You do not need
-to install this package to use %{name}.
 
 %prep
 %setup -q -n %{pkg}
@@ -65,22 +57,22 @@ install -pm 644 %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}/
 
 %files
 %doc TODO README
+%{_emacs_sitelispdir}/%{pkg}/*.el
 %{_emacs_sitelispdir}/%{pkg}/*.elc
+%{_emacs_sitelispdir}/%{pkg}/util/*.el
 %{_emacs_sitelispdir}/%{pkg}/util/*.elc
+%{_emacs_sitelispdir}/%{pkg}/util/jump/*.el
 %{_emacs_sitelispdir}/%{pkg}/util/jump/*.elc
 %{_infodir}/%{pkg}.info.*
 %{_emacs_sitestartdir}/emacs-rinari-init.el
 %dir %{_emacs_sitelispdir}/%{pkg}/
 
 
-%files el
-%{_emacs_sitelispdir}/%{pkg}/*.el
-%{_emacs_sitelispdir}/%{pkg}/util/*.el
-%{_emacs_sitelispdir}/%{pkg}/util/jump/*.el
-%dir %{_emacs_sitelispdir}/%{pkg}/
-
-
 %changelog
+* Fri Mar 15 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 2.1-30.20100815git
+- Obsolete -el subpackage (#1234531)
+- Remove obsolete requirements for post/preun scripts
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-29.20100815git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

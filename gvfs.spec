@@ -21,14 +21,14 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.53.91
+Version: 1.54.0
 Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.53/gvfs-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gvfs/1.54/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -433,6 +433,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Mar 15 2024 David King <amigadave@amigadave.com> - 1.54.0-1
+- Update to 1.54.0
+
 * Sat Mar 02 2024 David King <amigadave@amigadave.com> - 1.53.91-1
 - Update to 1.53.91
 

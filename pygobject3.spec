@@ -4,15 +4,13 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.46.0
-Release:        4%{?dist}
+Version:        3.48.1
+Release:        1%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.46/pygobject-%{version}.tar.xz
-# gtk4 no longer uses atk
-Patch0:         0001-Fix-tests-when-no-GTK3.patch
+Source0:        https://download.gnome.org/sources/pygobject/3.48/pygobject-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -27,10 +25,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(pytest)
 BuildRequires:  gtk3
 BuildRequires:  xorg-x11-server-Xvfb
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
-%global py_reproducible_pyc_path %{buildroot}%{python3_sitelib}
-BuildRequires:  /usr/bin/marshalparser
 
 %description
 The %{name} package provides a convenient wrapper for the GObject library
@@ -50,28 +44,18 @@ for use in Python 3 programs.
 %package     -n python3-gobject-base
 Summary:        Python 3 bindings for GObject Introspection base package
 Requires:       gobject-introspection%{?_isa} >= %{gobject_introspection_version}
-Requires:       python3-gobject-base-noarch = %{version}-%{release}
+# Noarch package removed in F40.
+Obsoletes:      python3-gobject-base-noarch < 3.46.0-5
+Provides:       python3-gobject-base-noarch = %{version}-%{release}
 
 %description -n python3-gobject-base
 This package provides the non-cairo specific bits of the GObject Introspection
-library that are architecture specific.
-
-%package     -n python3-gobject-base-noarch
-Summary:        Python 3 bindings for GObject Introspection base (not architecture dependent)
-BuildArch:      noarch
-Requires:       python3-gobject-base = %{version}-%{release}
-
-%description -n python3-gobject-base-noarch
-This package provides the non-cairo specific bits of the GObject Introspection
-library that are not architecture specific.
+library.
 
 %package     -n python3-gobject-devel
 Summary:        Development files for embedding PyGObject introspection support
 Requires:       python3-gobject%{?_isa} = %{version}-%{release}
 Requires:       gobject-introspection-devel%{?_isa}
-# Renamed in F31
-Obsoletes:      pygobject3-devel < 3.34.0-2
-Provides:       pygobject3-devel = %{version}-%{release}
 
 %description -n python3-gobject-devel
 This package contains files required to embed PyGObject
@@ -95,18 +79,15 @@ export TEST_GTK_VERSION=3.0
 %{python3_sitearch}/gi/_gi_cairo*.so
 
 %files -n python3-gobject-base
+%license COPYING
+%doc NEWS
 %dir %{python3_sitearch}/gi/
+%{python3_sitearch}/gi/overrides/
+%{python3_sitearch}/gi/repository/
 %pycached %{python3_sitearch}/gi/*.py
 %{python3_sitearch}/gi/_gi.*.so
 %{python3_sitearch}/PyGObject-*.egg-info
-
-%files -n python3-gobject-base-noarch
-%license COPYING
-%doc NEWS
-%dir %{python3_sitelib}/gi/
-%{python3_sitelib}/gi/overrides/
-%{python3_sitelib}/gi/repository/
-%{python3_sitelib}/pygtkcompat/
+%{python3_sitearch}/pygtkcompat/
 
 %files -n python3-gobject-devel
 %dir %{_includedir}/pygobject-3.0/
@@ -114,6 +95,9 @@ export TEST_GTK_VERSION=3.0
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Thu Mar 14 2024 David King <amigadave@amigadave.com> - 3.48.1-1
+- Update to 3.48.1
+
 * Mon Feb 12 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.46.0-4
 - Use gtk3 in tests
 

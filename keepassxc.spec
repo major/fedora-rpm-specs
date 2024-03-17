@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -212,6 +212,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Mar 15 2024 Jan Grulich <jgrulich@redhat.com> - 2.7.7-3
+- Rebuild (qt5)
+
 * Wed Mar 13 2024 Germano Massullo <germano.massullo@gmail.com> - 2.7.7-2
 - replaced minizip depencendy for all active branches
 

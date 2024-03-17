@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 1
-%global project_version_patch 14
+%global project_version_patch 15
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 10]
 
@@ -186,7 +186,7 @@ BuildRequires:  libcurl-devel >= 7.62.0
 
 %if %{with dnf5daemon_server}
 # required for dnf5daemon-server
-BuildRequires:  pkgconfig(sdbus-c++) >= 0.8.1
+BuildRequires:  pkgconfig(sdbus-c++) >= 0.9.0
 BuildRequires:  systemd-rpm-macros
 %if %{with dnf5daemon_tests}
 BuildRequires:  dbus-daemon
@@ -815,6 +815,22 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Fri Mar 15 2024 Packit <hello@packit.dev> - 5.1.15-1
+- Update translations from weblate
+- Automatically set `upgrade --downloadonly` when `--destdir` is used
+- Write warnings to stderr too in config-manager plugin
+- Add repoid to generated repository name in config-manager plugin
+- Bump sdbus-cpp requirement to 0.9.0
+- Document and implement dnf5daemon Rpm interface
+- Document and implement dnf5daemon Goal interface
+- Document and implement dnf5daemon Repo interface
+- Document and implement dnf5daemon Base interface
+- Document and implement dnf5daemon Advisory interface
+- Document and implement dnf5daemon SessionManager interface
+- Add `dnf5daemon repo --enable/--disable` commands
+- automatic: Skip network availability check without remote repo
+- dnf5daemon: Rpm.list() works with commandline pkgs
+
 * Tue Mar 05 2024 Packit <hello@packit.dev> - 5.1.14-1
 - Update translations from weblate
 - Make the error to resolve module metadata more descriptive

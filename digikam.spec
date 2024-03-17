@@ -13,8 +13,8 @@
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 8.2.0
-Release: 7%{?beta}%{?dist}
+Version: 8.3.0
+Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -32,7 +32,6 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
-Patch1:  https://invent.kde.org/graphics/digikam/-/commit/82c627923a8b85cbb1e97306337fd6f1d85e4c3d.patch
 
 ## upstreamable patches
 
@@ -67,10 +66,8 @@ BuildRequires: pkgconfig(Qt6Svg)
 BuildRequires: pkgconfig(Qt6Multimedia)
 BuildRequires: pkgconfig(Qt6StateMachine)
 BuildRequires: pkgconfig(Qt6WebEngineWidgets)
-# missing Qt6 deps
-#BuildRequires: marble-astro-devel
-#BuildRequires: marble-widget-qt6-devel
-#BuildRequires: kf6-libksane-devel
+BuildRequires: libksane-qt6-devel
+BuildRequires: ksanecore-qt6-devel
 BuildRequires: kf6-kcalendarcore-devel
 BuildRequires: kf6-kconfig-devel
 BuildRequires: kf6-kdoctools-devel
@@ -97,6 +94,7 @@ BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(Qt5NetworkAuth)
 BuildRequires: pkgconfig(Qt5OpenGL)
 BuildRequires: pkgconfig(Qt5Svg)
+BuildRequires: pkgconfig(Qt5Multimedia)
 BuildRequires: pkgconfig(Qt5XmlPatterns)
 BuildRequires: pkgconfig(Qt5X11Extras)
 %if 0%{?qt5_qtwebengine_arches:1}
@@ -107,8 +105,6 @@ BuildRequires: pkgconfig(Qt5WebEngine)
 BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
-BuildRequires: marble-astro-devel
-BuildRequires: marble-widget-qt5-devel
 BuildRequires: kf5-libksane-devel >= 16.03
 BuildRequires: kf5-kcalendarcore-devel
 BuildRequires: kf5-kconfig-devel
@@ -155,11 +151,8 @@ BuildRequires: pkgconfig(libavdevice)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libswscale)
-BuildRequires: pkgconfig(libass)
-BuildRequires: pkgconfig(libpulse)
 BuildRequires: pkgconfig(libva)
 BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xv)
 %endif
 BuildRequires: pkgconfig(lensfun) >= 0.2.6
 BuildRequires: pkgconfig(libpgf) >= 6.12.24
@@ -181,7 +174,7 @@ Recommends: qt5-qtimageformats%{?_isa}
 %endif
 
 # core/libs/rawengine/libraw/
-Provides: bundled(LibRaw) = 0.21.1
+Provides: bundled(LibRaw) = 0.21.2
 
 # no more DocBook documentation
 # Sphinx documentation is published in a dedicated web site
@@ -215,13 +208,13 @@ needed to develop applications using %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}%{?beta:-%{beta}} -p1
-
+# fix wrong version 8.4.0 in 8.3.0 tarball
+sed -i 's|DIGIKAM_MINOR_VERSION "4"|DIGIKAM_MINOR_VERSION "3"|g' CMakeLists.txt
 
 %build
 %if %{with build_with_qt6}
 %cmake_kf6 \
   -DBUILD_WITH_QT6:BOOL=ON \
-  -DENABLE_QTMULTIMEDIA:BOOL=ON \
 %else
 %cmake_kf5 \
 %endif
@@ -350,6 +343,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Fri Mar 15 2024 Alexey Kurov <nucleo@fedoraproject.org> - 8.3.0-1
+- digiKam-8.3.0
+
 * Sat Feb 17 2024 Jan Grulich <jgrulich@redhat.com> - 8.2.0-7
 - Rebuild (qt6)
 

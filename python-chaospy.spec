@@ -43,6 +43,9 @@ rm -rf SPECPARTS
 # https://github.com/jonathf/chaospy/issues/307#issuecomment-735379840
 sed -i 's/numpoly.*/numpoly>=1.2.7/' requirements.txt
 
+# Don't error on DeprecationWarning in tests
+sed -i '/error::DeprecationWarning/d' pyproject.toml
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires -r

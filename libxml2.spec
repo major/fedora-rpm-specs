@@ -1,5 +1,5 @@
 Name:           libxml2
-Version:        2.12.5
+Version:        2.12.6
 Release:        1%{?dist}
 Summary:        Library providing XML and HTML support
 
@@ -158,6 +158,9 @@ popd
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Fri Mar 15 2024 David King <amigadave@amigadave.com> - 2.12.6-1
+- Update to 2.12.6 (#2269695)
+
 * Mon Feb 05 2024 David King <amigadave@amigadave.com> - 2.12.5-1
 - Update to 2.12.5 (#2262648)
 

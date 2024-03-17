@@ -1,5 +1,5 @@
 %global glib2_version 2.74.0
-%global gtk4_version 4.10.0
+%global gtk4_version 4.12.0
 %global libadwaita_version 1.4~beta
 %global webkitgtk_version 2.41.1
 
@@ -7,7 +7,7 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        46~rc
+Version:        46.0
 Release:        %autorelease
 Summary:        Web browser for GNOME
 

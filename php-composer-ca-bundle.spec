@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    18fc0ab083a48f85bfee31f3786537353b8a8403
+%global gh_commit    0c5ccfcfea312b5c5a190a21ac5cef93f74baf99
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.4.2
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
@@ -31,15 +31,15 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  php(language) >= 5.3.2
+BuildRequires:  php(language) >= 7.2
 BuildRequires:  php-openssl
 BuildRequires:  php-pcre
 BuildRequires:  php-cli
 # From composer.json, "require": {
 #        "symfony/phpunit-bridge": "^4.2 || ^5",
-#        "phpstan/phpstan": "^0.12.55",
+#        "phpstan/phpstan": "^1.10",
 #        "psr/log": "^1.0",
-#        "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
+#        "symfony/process": "^4.0 || ^5.0 || ^6.0 || ^7.0"
 BuildRequires:  phpunit10
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
@@ -50,8 +50,8 @@ BuildRequires:  %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
 # From composer.json, "require": {
 #        "ext-openssl": "*",
 #        "ext-pcre": "*",
-#        "php": "^5.3.2 || ^7.0 || ^8.0"
-Requires:       php(language) >= 5.3.2
+#        "php": "^7.2 || ^8.0"
+Requires:       php(language) >= 7.2
 Requires:       php-openssl
 Requires:       php-pcre
 # From phpcompatinfo report for version 1.0.3
@@ -128,6 +128,10 @@ exit $ret
 
 
 %changelog
+* Fri Mar 15 2024 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+- raise dependency on PHP 7.2
+
 * Thu Mar 14 2024 Remi Collet <remi@remirepo.net> - 1.4.2-1
 - update to 1.4.2 (no change)
 

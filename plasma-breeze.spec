@@ -2,7 +2,7 @@
 
 Name:    plasma-breeze
 Version: 6.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -86,9 +86,6 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %prep
 %autosetup -n %{base_name}-%{version} -p1
 
-# REMOVEME with Plasma 6 RC2
-sed -i 's/PROJECT_VERSION "5.91.90"/PROJECT_VERSION "5.92.0"/' CMakeLists.txt
-
 
 %build
 mkdir -p qt6build
@@ -150,6 +147,9 @@ popd
 %{_kf6_datadir}/icons/breeze_cursors/index.theme
 
 %changelog
+* Fri Mar 15 2024 Marie Loise Nolden <loise@kde.org> - 6.0.2-2
+- cleanup spec
+
 * Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
 - 6.0.2
 

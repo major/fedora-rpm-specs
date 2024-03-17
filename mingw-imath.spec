@@ -3,7 +3,7 @@
 %global pkgname imath
 
 Name:          mingw-%{pkgname}
-Version:       3.1.10
+Version:       3.1.11
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -74,6 +74,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Fri Mar 15 2024 Sandro Mani <manisandro@gmail.com> - 3.1.11-1
+- Update to 3.1.11
+
 * Mon Feb 12 2024 Sandro Mani <manisandro@gmail.com> - 3.1.10-1
 - Update to 3.1.10
 

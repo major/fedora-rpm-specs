@@ -6,7 +6,7 @@
 %global unstable 1
 
 Name:           mednafen
-Version:        1.31.0
+Version:        1.32.0
 %if %{unstable} == 1
 Release:        %autorelease -p -e UNSTABLE
 %else
@@ -24,10 +24,7 @@ Source0:        https://mednafen.github.io/releases/files/%{name}-%{version}.tar
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-#1.3.0 is required
-%if 0%{?fedora} >= 38
 BuildRequires:  libmpcdec-devel
-%endif
 BuildRequires:  make
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac) => 1.3.0
@@ -96,9 +93,7 @@ export CXXFLAGS
 
 %configure --disable-rpath \
     --with-external-lzo \
-%if 0%{?fedora} >= 38
     --with-external-mpcdec
-%endif
 
 #to be added once dependencies become available
 #    --with-external-tremor

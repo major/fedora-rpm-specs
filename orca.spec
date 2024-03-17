@@ -1,15 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        46~beta
+Version:        46.0
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Orca
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/orca/-/merge_requests/187
-Patch:          orca-46.beta-without-git.patch
 
 BuildArch:      noarch
 
@@ -76,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Fri Mar 15 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Sat Mar 02 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

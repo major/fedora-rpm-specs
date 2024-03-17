@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	15.0.0
-Release:	3%{?dist}
+Version:	15.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -41,8 +41,8 @@ Patch0001:	0001-python-pyproject.toml.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
-# package, and in turn the only consumer of this and liborc is Ceph, which
-# is also 64-bit only
+# package, and in turn the only consumers of this and liborc are Ceph, which
+# is also 64-bit only, and rdal.
 ExcludeArch:	%{ix86} %{arm}
 BuildRequires:	bison
 BuildRequires:	boost-devel
@@ -872,6 +872,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Mar 15 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.1-1
+- Arrow 15.0.1 GA, w/ liborc 2.0.0
+
 * Sat Feb 24 2024 Paul Wouters <paul.wouters@aiven.io> - 15.0.0-3
 - Rebuilt for libre2.so.11 bump
 

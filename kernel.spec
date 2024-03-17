@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc0.20240314git480e035fc4c7.5
+%define pkgrelease 0.rc0.20240315gite5eb28f6d1af.7
 %define kversion 6
-%define tarfile_release 6.8-8073-g480e035fc4c7
+%define tarfile_release 6.8-9791-ge5eb28f6d1af
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20240314git480e035fc4c7.5%{?buildid}%{?dist}
+%define specrelease 0.rc0.20240315gite5eb28f6d1af.7%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -3961,12 +3961,17 @@ fi\
 #
 #
 %changelog
-* Thu Mar 14 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.480e035fc4c7.5]
-- lsm: update security_lock_kernel_down (Scott Weaver)
+* Fri Mar 15 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.e5eb28f6d1af.7]
 - arch/x86/kernel/setup.c: fixup rh_check_supported (Scott Weaver)
 - Add new of_test module to mod-internal.list (Thorsten Leemhuis)
 - Add new string kunit modules to mod-internal.list (Thorsten Leemhuis)
 - Add drm_gem_shmem_test to mod-internal.list (Thorsten Leemhuis)
+
+* Fri Mar 15 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.e5eb28f6d1af.6]
+- Linux v6.9.0-0.rc0.e5eb28f6d1af
+
+* Fri Mar 15 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.480e035fc4c7.5]
+- lsm: update security_lock_kernel_down (Scott Weaver)
 
 * Thu Mar 14 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.480e035fc4c7.4]
 - Linux v6.9.0-0.rc0.480e035fc4c7

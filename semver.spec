@@ -1,19 +1,13 @@
 %global debug_package %{nil}
 
 Name: semver
-Version: 0.3.0
-Release: 9%{?dist}
+Version: 0.3.1
+Release: %autorelease
 
 License: MIT
 Summary: Semantic Versioning for modern C++
 URL: https://github.com/Neargye/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/Neargye/semver/pull/29
-Patch100: %{name}-fix-installation.patch
-
-# https://github.com/Neargye/semver/pull/30
-Patch101: %{name}-added-missing-slash.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -70,29 +64,4 @@ ln -svf %{_includedir}/catch2 test/3rdparty/Catch2
 %{_libdir}/cmake/%{name}/
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-7
-- Fixed FTBFS in EPEL/ELN due to catch v3 update.
-
-* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-6
-- Fixed FTBFS due to catch v3 update.
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 27 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-3
-- Fixed FTBFS on Fedora 36.
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Dec 22 2021 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-1
-- Initial SPEC release.
+%autochangelog
