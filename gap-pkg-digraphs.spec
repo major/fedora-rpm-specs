@@ -1,16 +1,18 @@
 %global pkgname digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.3
-Release:        3%{?dist}
+Version:        1.7.1
+Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
 # The bundled copy of bliss is LGPL-3.0-only.
 License:        GPL-3.0-or-later AND LGPL-3.0-only
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://digraphs.github.io/Digraphs/
-Source0:        https://github.com/digraphs/Digraphs/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/digraphs/Digraphs
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -101,144 +103,4 @@ rm -fr ../pkg
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 1.6.3-1
-- Version 1.6.3
-
-* Thu Aug  3 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-2
-- Drop the patch to work around a test failure
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Apr  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-1
-- Version 1.6.2
-- Add patch to work around a test failure
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.1-2
-- Update for split GAP directories
-
-* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 1.6.1-1
-- Version 1.6.1
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
-- Version 1.6.0
-- Update for gap 4.12.0
-
-* Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-3
-- Convert License tag to SPDX
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat May 21 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-1
-- Version 1.5.3
-
-* Wed Mar 30 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-1
-- Version 1.5.2
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Oct 27 2021 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- Version 1.5.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat May 15 2021 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-
-* Thu Jan 28 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-1
-- Version 1.4.0
-- Disable tests on 32-bit ARM due to memory exhaustion
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Nov 27 2020 Jerry James <loganjerry@gmail.com> - 1.3.1-1
-- Version 1.3.1
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jun 27 2020 Jerry James <loganjerry@gmail.com> - 1.3.0-1
-- Version 1.3.0
-
-* Wed May 27 2020 Jerry James <loganjerry@gmail.com> - 1.2.1-1
-- Version 1.2.1
-
-* Sat Mar 21 2020 Jerry James <loganjerry@gmail.com> - 1.1.2-1
-- Version 1.1.2
-
-* Sat Feb  8 2020 Jerry James <loganjerry@gmail.com> - 1.1.1-1
-- Version 1.1.1
-- Drop upstreamed -overflow patch
-- Bundle modified bliss
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Dec  2 2019 Jerry James <loganjerry@gmail.com> - 1.0.3-1
-- Version 1.0.3
-
-* Sat Oct  5 2019 Jerry James <loganjerry@gmail.com> - 1.0.1-1
-- New upstream version
-- Drop upstreamed -bliss and -planarity patches
-
-* Mon Aug 12 2019 Jerry James <loganjerry@gmail.com> - 0.15.4-1
-- New upstream version
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 0.15.3-1
-- New upstream version
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 0.15.2-1
-- New upstream version
-- Unbundle planarity
-- Drop -popcount patch, no longer needed
-- Add -overflow patch
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 0.14.0-1
-- New upstream version
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Apr 28 2018 Jerry James <loganjerry@gmail.com> - 0.12.1-1
-- New upstream version
-
-* Sat Mar 17 2018 Jerry James <loganjerry@gmail.com> - 0.12.0-1
-- New upstream version
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Jan  9 2018 Jerry James <loganjerry@gmail.com> - 0.11.0-2
-- Recommend gap-pkg-nautytracesinterface
-
-* Sat Nov 25 2017 Jerry James <loganjerry@gmail.com> - 0.11.0-1
-- New upstream version
-
-* Thu Aug  3 2017 Jerry James <loganjerry@gmail.com> - 0.10.0-1
-- Initial RPM
+%autochangelog

@@ -1,6 +1,6 @@
 Name:           xwaylandvideobridge
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
@@ -11,7 +11,6 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3.16
 BuildRequires:  gcc-c++
-BuildRequires:  ninja-build
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  qt6-qtbase-private-devel
@@ -27,7 +26,7 @@ BuildRequires:  pkgconfig(xcb-composite)
 BuildRequires:  pkgconfig(xcb-event)
 BuildRequires:  pkgconfig(xcb-record)
 BuildRequires:  pkgconfig(xcb-xfixes)
-BuildRequires:  cmake(KPipeWire)
+BuildRequires:  cmake(KPipeWire) >= 6.0.0
 
 Requires:       hicolor-icon-theme
 
@@ -45,7 +44,8 @@ but within the control of the user at all times.
 
 
 %build
-%cmake_kf6 -DBUILD_WITH_QT6=ON -GNinja
+%cmake_kf6 \
+    -DQT_MAJOR_VERSION=6
 %cmake_build
 
 
@@ -72,6 +72,10 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Mar 13 2024 Marie Loise Nolden <loise@kde.org> - 0.4.0-4
+- build with QT_MAJOR_VERSION=6
+- precisely require kpipewire >= 6.0.0
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 0.4.0-3
 - Rebuild (qt6)
 

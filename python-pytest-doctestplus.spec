@@ -3,9 +3,9 @@
 %global sum Pytest plugin with advanced doctest features
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
-Summary:        %{sum}
+Summary:        Pytest plugin with advanced doctest features
 
 License:        BSD-3-Clause
 URL:            https://github.com/scientific-python/pytest-doctestplus
@@ -39,7 +39,7 @@ providing the following features:
 
 
 %package -n python3-%{srcname}
-Summary:        %{sum}
+Summary:        %{summary}
 
 
 %description -n python3-%{srcname} %_description

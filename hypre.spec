@@ -30,9 +30,9 @@
 
 Name:           hypre
 Version:        2.24.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        High performance matrix preconditioners
-License:        LGPLv2
+License:        Apache-2.0 OR MIT
 URL:            http://www.llnl.gov/casc/hypre/
 Source:         https://github.com/hypre-space/hypre/archive/v%version/%{name}-%{version}.tar.gz
 # Don't use hostname for tests and use two MPI processes
@@ -276,6 +276,9 @@ done
 %endif
 
 %changelog
+* Sat Mar 16 2024 Dave Love <loveshack@fedoraproject.org> - 2.24.0-12
+- Fix licence (changed from LGPL to Apache 2 or MIT)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -21,15 +21,16 @@
 # 5. Build gap-pkg-atlasrep in non-bootstrap mode.
 # 6. Build this package in non-bootstrap mode.
 # 7. Build gap-pkg-ctbllib in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.8.21
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://www.math.rwth-aachen.de/~Browse/
 Source0:        %{url}/%{upname}-%{version}.tar.bz2
 
@@ -146,142 +147,4 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.21-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.21-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.21-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 1.8.21-1
-- Version 1.8.21
-
-* Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 1.8.20-1
-- Version 1.8.20
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.8.19-2
-- Update for split GAP directories
-
-* Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 1.8.19-1
-- Version 1.8.19
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.8.18-1
-- Clarify license of the doc subpackage
-
-* Tue Oct 18 2022 Jerry James <loganjerry@gmail.com> - 1.8.18-1
-- Version 1.8.18
-
-* Tue Oct  4 2022 Jerry James <loganjerry@gmail.com> - 1.8.17-1
-- Version 1.8.17
-
-* Sat Oct  1 2022 Jerry James <loganjerry@gmail.com> - 1.8.16-1
-- Version 1.8.16
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.8.15-1
-- Version 1.8.15
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.8.14-3
-- Convert License tag to SPDX
-
-* Sat Jul 23 2022 Jerry James <loganjerry@gmail.com> - 1.8.14-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Mar 25 2022 Jerry James <loganjerry@gmail.com> - 1.8.14-1
-- Version 1.8.14
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Nov  7 2021 Jerry James <loganjerry@gmail.com> - 1.8.13-1
-- Version 1.8.13
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Apr 18 2021 Jerry James <loganjerry@gmail.com> - 1.8.12-1
-- Version 1.8.12
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Aug 28 2020 Jerry James <loganjerry@gmail.com> - 1.8.11-1
-- Version 1.8.11
-
-* Wed Aug 19 2020 Jerry James <loganjerry@gmail.com> - 1.8.10-1
-- Version 1.8.10
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 1.8.9-1
-- Version 1.8.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 1.8.8-6
-- Rebuild for changed bin dir name in gap 4.10.1
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.8.8-5
-- Rebuild in non-bootstrap mode
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.8.8-4
-- Rebuild for gap 4.10.0 in bootstrap mode
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Jun  9 2018 Jerry James <loganjerry@gmail.com> - 1.8.8-1
-- New upstream version
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Jul 22 2017 Jerry James <loganjerry@gmail.com> - 1.8.7-1
-- New upstream version
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Apr  7 2016 Jerry James <loganjerry@gmail.com> - 1.8.6-6
-- Rebuild for gap 4.8.3
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Nov 11 2015 Jerry James <loganjerry@gmail.com> - 1.8.6-4
-- Drop scriptlets; gap-core now uses rpm file triggers
-- Rebuild documentation from source
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jan 23 2015 Jerry James <loganjerry@gmail.com> - 1.8.6-2
-- Add Requires(post) and Requires(postun)
-- Mark documentation as such
-- Add linker flags
-
-* Fri Jan 16 2015 Jerry James <loganjerry@gmail.com> - 1.8.6-1
-- Initial RPM
+%autochangelog

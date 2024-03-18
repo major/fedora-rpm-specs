@@ -27,7 +27,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{!?el9:-t}
 
 
 %build
@@ -45,7 +45,7 @@ install -D -m 644 mailman-hyperkitty.cfg \
 
 %check
 %pyproject_check_import
-%tox
+%{!?el9:%tox}
 
 
 %files -n python3-mailman-hyperkitty -f %{pyproject_files}

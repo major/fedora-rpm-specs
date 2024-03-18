@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.4
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
-Source0:        https://github.com/bh11/irredsol/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
+VCS:            https://github.com/bh11/irredsol
+Source0:        %{vcs}/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-crisp-doc
@@ -86,87 +88,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.4-2
-- Update for split GAP directories
-
-* Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.4-1
-- Version 1.4.4
-- Drop upstreamed -ref patch
-- Upstream now compresses the data files
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-4
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jul  1 2021 Jerry James <loganjerry@gmail.com> - 1.4.3-1
-- Version 1.4.3
-
-* Sat Apr 24 2021 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Version 1.4.2
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Mar  8 2020 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.4-5
-- Rebuild for gap 4.10.0
-- Add -ref patch
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Aug  5 2017 Jerry James <loganjerry@gmail.com> - 1.4-1
-- New upstream version
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri May 27 2016 Jerry James <loganjerry@gmail.com> - 1.3.1-1
-- Initial RPM
+%autochangelog

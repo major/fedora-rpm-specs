@@ -1,5 +1,5 @@
-%global DATE 20240228
-%global gitrev cfee1bffd9e3a742d713f50e3270da172d2c2b75
+%global DATE 20240316
+%global gitrev 6b39b05bec8ee5bdda84c676c8f6458bb754fe79
 %global gcc_version 14.0.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -141,7 +141,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.11%{?dist}
+Release: %{gcc_release}.12%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3621,14 +3621,61 @@ end
 %endif
 
 %changelog
-* Thu Mar  7 2024 Siddhesh Poyarekar <siddhesh@redhat.com> 14.0.1-0.11
-- Update License identifier in the spec file.
+* Sat Mar 16 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.12
+- update from trunk
+  - PRs ada/113979, analyzer/114159, c++/92687, c++/98356, c++/98645,
+	c++/98688, c++/98881, c++/103994, c++/104919, c++/105512,
+	c++/106009, c++/110025, c++/110031, c++/110347, c++/110730,
+	c++/111224, c++/111710, c++/113629, c++/113802, c++/113976,
+	c++/113987, c++/114005, c++/114114, c++/114138, c++/114170,
+	c++/114229, d/112285, d/112290, d/114171, debug/113519,
+	debug/113777, debug/113918, debug/114015, debug/114186,
+	driver/114314, fortran/82943, fortran/86148, fortran/86268,
+	fortran/87477, fortran/89645, fortran/99065, fortran/103707,
+	fortran/104819, fortran/106987, fortran/110826, fortran/114001,
+	fortran/114141, fortran/114280, fortran/114283, ipa/113757,
+	libbacktrace/114201, libcc1/113977, libfortran/105437,
+	libfortran/114304, libgcc/114327, libgomp/114216, libstdc++/66146,
+	libstdc++/113960, libstdc++/114103, libstdc++/114147,
+	libstdc++/114152, libstdc++/114240, libstdc++/114244,
+	libstdc++/114279, libstdc++/114325, middle-end/95351,
+	middle-end/105533, middle-end/113907, middle-end/114108,
+	middle-end/114136, middle-end/114156, middle-end/114157,
+	middle-end/114196, middle-end/114209, middle-end/114299,
+	middle-end/114313, middle-end/114319, middle-end/114332,
+	modula2/102344, modula2/109969, modula2/114227, modula2/114294,
+	modula2/114295, modula2/114333, preprocessor/80755,
+	preprocessor/110558, rtl-optimization/110079,
+	rtl-optimization/113010, rtl-optimization/114190,
+	rtl-optimization/114211, sanitizer/97696, sanitizer/112709,
+	target/92729, target/101737, target/102250, target/108174,
+	target/111362, target/112337, target/112817, target/112871,
+	target/113001, target/113453, target/113510, target/113542,
+	target/113618, target/113720, target/113790, target/113915,
+	target/113950, target/114100, target/114116, target/114130,
+	target/114132, target/114184, target/114187, target/114200,
+	target/114202, target/114232, target/114233, target/114264,
+	target/114284, target/114288, target/114310, target/114339,
+	testsuite/96109, testsuite/108355, testsuite/113418,
+	testsuite/113428, tree-optimization/98238, tree-optimization/110199,
+	tree-optimization/113466, tree-optimization/113557,
+	tree-optimization/114009, tree-optimization/114071,
+	tree-optimization/114121, tree-optimization/114164,
+	tree-optimization/114192, tree-optimization/114197,
+	tree-optimization/114203, tree-optimization/114231,
+	tree-optimization/114239, tree-optimization/114246,
+	tree-optimization/114249, tree-optimization/114269,
+	tree-optimization/114278, tree-optimization/114293,
+	tree-optimization/114297
 
-* Mon Mar  4 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.10
+* Thu Mar  7 2024 Siddhesh Poyarekar <siddhesh@redhat.com>
+- update License identifier in the spec file
+
+* Mon Mar  4 2024 Jakub Jelinek <jakub@redhat.com>
 - add --without-clang-plugin --without-llvm-plugin to annobin configure
   options
 
-* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com> 14.0.1-0.9
+* Thu Feb 29 2024 David Abdurachmanov <davidlt@rivosinc.com>
 - enable support for riscv64
 
 * Wed Feb 28 2024 Jakub Jelinek <jakub@redhat.com> 14.0.1-0.8

@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.35
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        GAP package for quivers and path algebras
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://folk.ntnu.no/oyvinso/QPA/
-Source0:        https://github.com/gap-packages/qpa/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/qpa
+Source0:        %{vcs}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -91,63 +93,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 1.35-1
-- Version 1.35
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.34-3
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.34-2
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.34-2
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Wed Aug  3 2022 Jerry James <loganjerry@gmail.com> - 1.34-1
-- Version 1.34
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Mar 25 2022 Jerry James <loganjerry@gmail.com> - 1.33-1
-- Version 1.33
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Mar  4 2021 Jerry James <loganjerry@gmail.com> - 1.32-1
-- Version 1.32
-- Drop upstreamed -issymmetricalgebra patch
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Sep 29 2020 Jerry James <loganjerry@gmail.com> - 1.31-1
-- Version 1.31
-- Drop upstreamed -doc patch
-- Add -issymmetricalgebra patch
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Mar 22 2020 Jerry James <loganjerry@gmail.com> - 1.30-2
-- Drop broken "gap-pkg-core" Requires
-
-* Sat Mar 14 2020 Jerry James <loganjerry@gmail.com> - 1.30-1
-- Initial RPM
+%autochangelog

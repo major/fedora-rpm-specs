@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Miscellaneous functions for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/miscellaneous/
@@ -12,12 +12,7 @@ Source1:        octave-miscellaneous-python.patch
 BuildRequires:  octave-devel
 BuildRequires:  dos2unix
 BuildRequires:  units
-%if 0%{?fedora} >= 30
-BuildRequires:  python3-rpm-macros
-%else
-BuildRequires:  python2-rpm-macros
-%endif
-BuildRequires:  /usr/bin/pathfix.py
+BuildRequires:  python3-devel
 
 Requires:       octave(api) = %{octave_api}
 Requires(post): octave
@@ -42,14 +37,10 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 dos2unix %{buildroot}/%{octpkgdir}/*.m
 chmod a-x %{buildroot}/%{octpkgdir}/private/*.m
 dos2unix %{buildroot}/%{octpkgdir}/private/*.m
-%if 0%{?fedora} >= 30
 pushd %{buildroot}%{octpkgdir}
 /usr/bin/patch -p0 < %{SOURCE1}
 popd
-/usr/bin/pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{octpkgdir}
-%else
-/usr/bin/pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{octpkgdir}
-%endif
+%py3_shebang_fix %{buildroot}%{octpkgdir}
 rm -rf %{buildroot}/%{octpkgdir}/test
 
 %post
@@ -69,9 +60,13 @@ rm -rf %{buildroot}/%{octpkgdir}/test
 %{octpkgdir}/private/*.m
 %{octpkgdir}/*.py*
 %{octpkgdir}/packinfo
-%doc %{octpkgdir}/packinfo/COPYING
+%exclude %{octpkgdir}/packinfo/COPYING
+%license %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Sat Mar 16 2024 Orion Poplawski <orion@nwra.com> - 1.3.0-17
+- Use %%py3_shebang_fix (FTBFS bz#2226055)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

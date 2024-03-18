@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate byte-unit
+%global crate strum
 
-Name:           rust-byte-unit
-Version:        5.1.4
+Name:           rust-strum0.25
+Version:        0.25.0
 Release:        %autorelease
-Summary:        Library for interacting with units of bytes
+Summary:        Helpful macros for working with enums and strings
 
 License:        MIT
-URL:            https://crates.io/crates/byte-unit
+URL:            https://crates.io/crates/strum
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump phf dependency from 0.10 to 0.11
+Patch:          strum-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A library for interacting with units of bytes.}
+Helpful macros for working with enums and strings.}
 
 %description %{_description}
 
@@ -31,7 +34,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,52 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bit-devel
+%package     -n %{name}+derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bit-devel %{_description}
+%description -n %{name}+derive-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bit" feature of the "%{crate}" crate.
+use the "derive" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bit-devel
+%files       -n %{name}+derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+byte-devel
+%package     -n %{name}+phf-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+byte-devel %{_description}
+%description -n %{name}+phf-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "byte" feature of the "%{crate}" crate.
+use the "phf" feature of the "%{crate}" crate.
 
-%files       -n %{name}+byte-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rust_decimal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rust_decimal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rust_decimal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rust_decimal-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
+%files       -n %{name}+phf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -106,16 +84,16 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+u128-devel
+%package     -n %{name}+strum_macros-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+u128-devel %{_description}
+%description -n %{name}+strum_macros-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "u128" feature of the "%{crate}" crate.
+use the "strum_macros" feature of the "%{crate}" crate.
 
-%files       -n %{name}+u128-devel
+%files       -n %{name}+strum_macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -133,7 +111,7 @@ use the "u128" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f derive
 %endif
 
 %changelog

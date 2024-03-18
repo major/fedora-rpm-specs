@@ -2,8 +2,8 @@
 %global toolchain clang
 
 Name:           blake3
-Version:        1.5.0
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        %autorelease
 Summary:        Official C implementation of the BLAKE3 cryptographic hash function
 
 License:        Apache-2.0
@@ -77,7 +77,7 @@ cd c
 %license LICENSE
 %doc c/README.md
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.1.5.0
+%{_libdir}/lib%{name}.so.%{version}
 
 %files devel
 %doc c/example.c
@@ -88,10 +88,4 @@ cd c
 
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 %autochangelog

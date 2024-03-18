@@ -4,10 +4,10 @@
 
 %global crate byte-unit
 
-Name:           rust-byte-unit
-Version:        5.1.4
+Name:           rust-byte-unit4
+Version:        4.0.19
 Release:        %autorelease
-Summary:        Library for interacting with units of bytes
+Summary:        Library for interaction with units of bytes
 
 License:        MIT
 URL:            https://crates.io/crates/byte-unit
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A library for interacting with units of bytes.}
+A library for interaction with units of bytes.}
 
 %description %{_description}
 
@@ -46,40 +46,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bit-devel
+%package     -n %{name}+alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bit-devel %{_description}
+%description -n %{name}+alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bit" feature of the "%{crate}" crate.
+use the "alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bit-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+byte-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+byte-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "byte" feature of the "%{crate}" crate.
-
-%files       -n %{name}+byte-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rust_decimal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rust_decimal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rust_decimal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rust_decimal-devel
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

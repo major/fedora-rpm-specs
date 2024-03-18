@@ -26,7 +26,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -571,6 +571,9 @@ exit 0
 
 
 %changelog
+* Sat Mar 16 2024 Sérgio Basto <sergio@serjux.com> - 1.0.5-3
+- (#1679375) fixes syntax error in /etc/logrotate.d/clamd.exim
+
 * Tue Mar 05 2024 Sérgio Basto <sergio@serjux.com> - 1.0.5-2
 - set nullblog to fix post script (#2253914)
 - Properly check valgrind arches

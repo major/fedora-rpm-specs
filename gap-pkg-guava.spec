@@ -2,13 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.18
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Computing with error-correcting codes
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/guava/
-Source0:        https://github.com/gap-packages/guava/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/guava
+Source0:        %{vcs}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 # Enable the optional Sonata code.  Upstream says to uncomment this code if
 # Sonata is available, and that is all this patch does.
 Patch0:         %{name}-sonata.patch
@@ -130,107 +132,4 @@ EOF
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Aug 11 2023 Jerry James <loganjerry@gmail.com> - 3.18-4
-- Use a more reliable way of detecting CPU features
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.18-1
-- Version 3.18
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
-- Version 3.17
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 3.16-3
-- Convert License tags to SPDX
-
-* Mon Jul 25 2022 Jerry James <loganjerry@gmail.com> - 3.16-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Apr 25 2022 Jerry James <loganjerry@gmail.com> - 3.16-1
-- Version 3.16
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Mar 12 2020 Jerry James <loganjerry@gmail.com> - 3.15-3
-- Rebuild for gap 4.11.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Aug 27 2019 Jerry James <loganjerry@gmail.com> - 3.15-1
-- New upstream version
-- License change to GPLv3+
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 3.14-5
-- Rebuild for changed bin dir name in gap 4.10.1
-
-* Fri Feb  1 2019 Jerry James <loganjerry@gmail.com> - 3.14-4
-- Rebuild for gap 4.10.0
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Mar 29 2018 Jerry James <loganjerry@gmail.com> - 3.14-1
-- New upstream version
-- Drop upstreamed -bibtex patch
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan  6 2017 Jerry James <loganjerry@gmail.com> - 3.13.1-3
-- Fix a broken submake command
-
-* Fri Aug 19 2016 Jerry James <loganjerry@gmail.com> - 3.13.1-2
-- More compiler warnings fixed
-
-* Tue Aug 16 2016 Jerry James <loganjerry@gmail.com> - 3.13.1-1
-- Initial RPM
+%autochangelog

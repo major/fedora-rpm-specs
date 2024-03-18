@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -281,6 +281,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-rh2269799.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2457,6 +2458,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Sat Mar 16 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-8
+- Global dynamic TLS access may clobber RBX (#2269799)
+
 * Fri Mar 15 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-7
 - Do not generate ELF dependency information for glibc32
 

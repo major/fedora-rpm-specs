@@ -1,9 +1,9 @@
 Name:           i3lock
-Version:        2.14.1
+Version:        2.15
 Release:        %autorelease
 Summary:        Simple X display locker like slock
 License:        MIT
-URL:            https://i3wm.org/%{name}/
+URL:            https://i3wm.org/%{name}
 Source0:        %{URL}/%{name}-%{version}.tar.xz
 Source1:        %{URL}/%{name}-%{version}.tar.xz.asc
 # Michael Stapelberg's GPG key:

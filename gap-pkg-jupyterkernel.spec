@@ -7,14 +7,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.5.0
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Jupyter kernel written in GAP
 
 License:        BSD-3-Clause
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/JupyterKernel/
-Source0:        https://github.com/gap-packages/JupyterKernel/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/JupyterKernel
+Source0:        %{vcs}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -96,64 +98,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- Version 1.5.0
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-6
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-5
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-5
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-4
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Nov 29 2021 Karolina Surma <ksurma@redhat.com> - 1.4.1-2
-- Remove -s from Python shebang in `jupyter-kernel-gap` to
-  let Jupyter see pip installed extensions
-
-* Wed Sep  1 2021 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-
-* Thu Aug  5 2021 Jerry James <loganjerry@gmail.com> - 1.4.0-1
-- Version 1.4.0
-- Drop -setup patch since we no longer install with setup.py
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Mar  9 2019 Jerry James <loganjerry@gmail.com> - 1.3-1
-- Initial RPM
+%autochangelog

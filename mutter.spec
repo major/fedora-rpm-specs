@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       46~rc
+Version:       46.0
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -44,10 +44,6 @@ Patch:         0001-Revert-x11-Use-input-region-from-frame-window-for-de.patch
 # which solves the problems reported with #3329 alone
 Patch: 0001-modified-3329.patch
 
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3642
-# Fix mouse wheel scrolling
-Patch: 3642.patch
-
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)
@@ -72,6 +68,7 @@ BuildRequires: mesa-libgbm-devel
 BuildRequires: pkgconfig(glesv2)
 BuildRequires: pkgconfig(graphene-gobject-1.0)
 BuildRequires: pam-devel
+BuildRequires: pkgconfig(libdisplay-info)
 BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: sysprof-devel
@@ -102,6 +99,8 @@ BuildRequires: pkgconfig(libeis-1.0) >= %{libei_version}
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libinput) >= %{libinput_version}
 BuildRequires: pkgconfig(xwayland)
+
+BuildRequires: python3-dbusmock
 
 Requires: control-center-filesystem
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
@@ -175,7 +174,7 @@ the functionality of the installed %{name} package.
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build
-%meson -Degl_device=true -Dwayland_eglstream=true -Dlibdisplay_info=disabled
+%meson -Degl_device=true -Dwayland_eglstream=true
 %meson_build
 
 %install

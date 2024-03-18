@@ -10,11 +10,10 @@
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name:           wayfire
-Version:        0.8.0
+Version:        0.8.1
+%forgemeta
 Release:        %autorelease
 Summary:        A modular and extensible wayland compositor
-
-%forgemeta
 
 License:        MIT
 URL:            https://wayfire.org
@@ -46,7 +45,7 @@ BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(wf-config) >= 0.8.0
-BuildRequires:  pkgconfig(wlroots) >= 0.16.0
+BuildRequires:  pkgconfig(wlroots) >= 0.17.0
 BuildRequires:  pkgconfig(xkbcommon)
 
 Recommends:     wayfire-config-manager

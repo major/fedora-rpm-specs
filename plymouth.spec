@@ -8,6 +8,11 @@ URL: http://www.freedesktop.org/wiki/Software/Plymouth
 Source0: https://gitlab.freedesktop.org/plymouth/plymouth/-/archive/%{version}/%{name}-%{version}.tar.bz2
 Source2: charge.plymouth
 
+# Revert https://gitlab.freedesktop.org/plymouth/plymouth/-/commit/48881ba
+# to fix console display on minimal installs
+# https://bugzilla.redhat.com/show_bug.cgi?id=2269385
+Patch: 0001-Revert-src-Hide-console-text-when-splash-is-requeste.patch
+
 BuildRequires: meson
 BuildRequires: system-logos
 BuildRequires: gcc libtool git

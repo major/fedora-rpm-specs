@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/ratelimit
 %global goipath         github.com/projectdiscovery/ratelimit
-Version:                0.0.31
+Version:                0.0.32
 
 %gometa -L -f
 

@@ -3,7 +3,7 @@
 %global libadwaita_version 1.0.0.alpha.3
 
 Name:           gnome-chess
-Version:        46~beta
+Version:        46.0
 Release:        1%{?dist}
 Summary:        GNOME Chess game
 
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Mar 16 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Sat Feb 17 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

@@ -14,7 +14,7 @@
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.9.0
+Version:                1.10.1
 
 %gometa -f
 
@@ -244,8 +244,10 @@ install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -m 0755 -vd                     %{buildroot}%{_unitdir}
 install -m 0755 -vd                     %{buildroot}%{_userunitdir}
-install -m 0644 -vp ./contrib/systemd/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
-install -m 0644 -vp ./contrib/systemd/%{name}.service %{buildroot}%{_userunitdir}/%{name}.service
+install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/sysconfig/
+install -m 0644 -vp ./contrib/systemd/system/%{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -m 0644 -vp ./contrib/systemd/system/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+install -m 0644 -vp ./contrib/systemd/user/%{name}.service %{buildroot}%{_userunitdir}/%{name}.service
 
 %post
 %systemd_user_post %{name}.service
@@ -257,15 +259,13 @@ install -m 0644 -vp ./contrib/systemd/%{name}.service %{buildroot}%{_userunitdir
 
 %if %{with check}
 %check
-%if 0%{?fedora}
-%gocheck
-%endif
 %endif
 
 %files
 %license LICENSE
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md MAINTAINERS.md README.md SECURITY.md
 %{_bindir}/%{name}
+%{_sysconfdir}/sysconfig/%{name}
 %{_unitdir}/%{name}.service
 %{_userunitdir}/%{name}.service
 

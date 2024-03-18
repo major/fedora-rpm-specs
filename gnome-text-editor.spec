@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	46~rc
+Version:	46.0
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Sat Mar 16 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Mon Mar 04 2024 David King <amigadave@amigadave.com> - 46~rc-1
 - Update to 46.rc
 

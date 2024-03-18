@@ -1,4 +1,3 @@
-
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
@@ -7,7 +6,7 @@ Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
 License: GPLv3
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/plasma/%{base_name}
 
 Source0: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 

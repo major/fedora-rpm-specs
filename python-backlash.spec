@@ -2,8 +2,8 @@
 %global modname backlash
 
 Name:               python-backlash
-Version:            0.3.1
-Release:            15%{?dist}
+Version:            0.3.2
+Release:            1%{?dist}
 Summary:            Standalone WebOb port of the Werkzeug Debugger
 
 License:            MIT
@@ -55,6 +55,9 @@ ln -sfv /usr/share/fonts/open-sans/OpenSans-Regular.ttf %{buildroot}/%{python3_s
 
 
 %changelog
+* Sat Mar 16 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.3.2-1
+- Update to upstream.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -7,18 +7,20 @@
 # 1. Build this package in bootstrap mode (the documentation has broken links)
 # 2. Build gap-pkg-scscp
 # 3. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        11.5.3
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Import and export of OpenMath objects for GAP
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/openmath/
-Source0:        https://github.com/gap-packages/openmath/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/openmath
+Source0:        %{vcs}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 %global _docdir_fmt %{name}
 
@@ -88,88 +90,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 11.5.3-1
-- Version 11.5.3
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 11.5.2-2
-- Update for split GAP directories
-
-* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 11.5.2-1
-- Version 11.5.2
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
-- Update for gap 4.12.0
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Apr 30 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-1
-- Version 11.5.1
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Feb 10 2020 Jerry James <loganjerry@gmail.com> - 11.5.0-1
-- Version 11.5.0
-- Drop upstreamed -test patch
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 11.4.2-7
-- Rebuild in non-bootstrap mode
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 11.4.2-6
-- Rebuild for gap 4.10.0
-- Add -test patch
-- Add -doc subpackage
-- Build in bootstrap mode
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Apr  1 2017 Jerry James <loganjerry@gmail.com> - 11.4.2-1
-- New upstream version
-- New URLs
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 11.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Apr 21 2016 Jerry James <loganjerry@gmail.com> - 11.3.1-1
-- Initial RPM
+%autochangelog

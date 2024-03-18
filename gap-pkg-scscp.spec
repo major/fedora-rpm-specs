@@ -3,15 +3,17 @@
 %global usrname gapd
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.4.1
-Release:        4%{?dist}
+Version:        2.4.2
+Release:        %autorelease
 Summary:        Symbolic Computation Software Composability Protocol in GAP
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/scscp/
-Source0:        https://github.com/gap-packages/scscp/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/scscp
+Source0:        %{vcs}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 Source1:        %{usrname}.sh
 Source2:        gap-scscp.service
 Source3:        %{usrname}.logrotate
@@ -29,7 +31,6 @@ BuildRequires:  gap-pkg-io-doc
 BuildRequires:  gap-pkg-openmath-doc
 BuildRequires:  gap-pkg-smallgrp-doc
 BuildRequires:  help2man
-BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 
 %{?systemd_requires}
@@ -167,102 +168,4 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{upname}/example/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Feb 26 2023 Jerry James <loganjerry@gmail.com> - 2.4.1-1
-- Version 2.4.1
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.4.0-2
-- Update for split GAP directories
-
-* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-1
-- Version 2.4.0
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-- Use systemd-sysusers to create the daemon user
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 22 2020 Jerry James <loganjerry@gmail.com> - 2.3.1-1
-- Version 2.3.1
-- Depend on logrotate instead of owning its config directory
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 2.3.0-1
-- New upstream version
-- Drop upstreamed -ref patch
-- Add -makedoc patch to fix documentation building
-- Fix creation of the daemon home dir
-
-* Fri Mar  8 2019 Tim Landscheidt <tim@tim-landscheidt.de> - 2.2.3-6
-- Remove obsolete requirement for %%postun scriptlet
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 2.2.3-5
-- Rebuild for gap 4.10.0
-- Add -ref patch
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Sep 26 2017 Jerry James <loganjerry@gmail.com> - 2.2.3-1
-- New upstream version
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Apr  1 2017 Jerry James <loganjerry@gmail.com> - 2.2.2-1
-- New upstream version
-- New URLs
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Jul 20 2016 Jerry James <loganjerry@gmail.com> - 2.1.4-3
-- Own the logrotate directory
-- Do not delete the user in postun
-
-* Thu May 26 2016 Jerry James <loganjerry@gmail.com> - 2.1.4-2
-- Improved service integration
-
-* Fri Apr 22 2016 Jerry James <loganjerry@gmail.com> - 2.1.4-1
-- Initial RPM
+%autochangelog

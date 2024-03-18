@@ -34,6 +34,9 @@ simply serves as a layer of communication between nginx and ModSecurity
 %prep
 %autosetup -n ModSecurity-nginx-%{version}
 
+# Change default path to avoid issues with SELinux
+sed -i 's:/var/log/modsec_audit.log:/var/log/nginx/modsec_audit.log:' %{SOURCE1}
+
 %build
 %nginx_modconfigure
 %nginx_modbuild

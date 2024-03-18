@@ -7,16 +7,17 @@
 # 2. Build gap-pkg-tomlib
 # 3. Build gap-pkg-ctbllib
 # 4. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.8
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep/
 Source0:        %{url}/%{pkgname}-%{version}.tar.gz
 Source1:        %{url}/%{pkgname}data.tar.gz
@@ -142,125 +143,4 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 2.1.8-1
-- Version 2.1.8
-
-* Fri Sep 15 2023 Jerry James <loganjerry@gmail.com> - 2.1.7-1
-- Version 2.1.7
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.1.6-2
-- Update for split GAP directories
-
-* Fri Nov  4 2022 Jerry James <loganjerry@gmail.com> - 2.1.6-1
-- Version 2.1.6
-- Add dependency on gap-pkg-utils
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.1.5-1
-- Version 2.1.5
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.1.4-1
-- Convert License tag to SPDX
-
-* Sat Aug  6 2022 Jerry James <loganjerry@gmail.com> - 2.1.4-1
-- Version 2.1.4
-
-* Thu Aug  4 2022 Jerry James <loganjerry@gmail.com> - 2.1.3-1
-- Version 2.1.3
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Mar 30 2022 Jerry James <loganjerry@gmail.com> - 2.1.2-1
-- Version 2.1.2
-
-* Tue Mar 29 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-1
-- Version 2.1.1
-- Drop upstreamed -bib patch
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Jerry James <loganjerry@gmail.com> - 2.1.0-6
-- Fix cross references to the ctbllib documentation
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Mar 12 2020 Jerry James <loganjerry@gmail.com> - 2.1.0-4
-- BR gap-pkg-tomlib to eliminate warnings when testing
-- Add -bib patch to fix broken citations
-- Add check script
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 2.1.0-1
-- New upstream version
-
-* Thu Feb 28 2019 Jerry James <loganjerry@gmail.com> - 1.5.1-9
-- Do not ship a CVS directory or the dummy files
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.5.1-8
-- Rebuild in non-bootstrap mode
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.5.1-7
-- Rebuild for gap 4.10.0 in bootstrap mode
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Apr  7 2016 Jerry James <loganjerry@gmail.com> - 1.5.1-1
-- New upstream version
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Nov 11 2015 Jerry James <loganjerry@gmail.com> - 1.5.0-4
-- Drop scriptlets; gap-core now uses rpm file triggers
-- Rebuild documentation from source
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jan 23 2015 Jerry James <loganjerry@gmail.com> - 1.5.0-2
-- Add Requires(post) and Requires(postun)
-- Mark documentation as such
-
-* Fri Jan 16 2015 Jerry James <loganjerry@gmail.com> - 1.5.0-1
-- Initial RPM
+%autochangelog

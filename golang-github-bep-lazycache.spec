@@ -4,7 +4,7 @@
 
 # https://github.com/bep/lazycache
 %global goipath         github.com/bep/lazycache
-Version:                0.2.0
+Version:                0.4.0
 
 %gometa -f
 

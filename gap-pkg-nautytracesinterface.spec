@@ -11,17 +11,19 @@
 # 1. Build this package in boostrap mode.
 # 2. Build gap-pkg-digraphs.
 # 3. Build this package in non-boostrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        31.%{gitdate}git%{shorttag}%{?dist}
+Release:        32.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
-URL:            https://github.com/gap-packages/NautyTracesInterface
-Source0:        %{url}/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+URL:            https://gap-packages.github.io/NautyTracesInterface/
+VCS:            https://github.com/gap-packages/NautyTracesInterface
+Source0:        %{vcs}/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
 # Fedora-only patch: use the system nauty library
 Patch0:         %{name}-nauty.patch
 
@@ -98,6 +100,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Sat Mar 16 2024 Jerry James <loganjerry@gmail.com> - 0.2-32.20221102gitd54d393
+- Rebuild for gap 4.13.0
+
 * Tue Jan 23 2024 Jerry James <loganjerry@gmail.com> - 0.2-31.20221102gitd54d393
 - Rebuild for nauty 2.8.8
 

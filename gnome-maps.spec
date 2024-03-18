@@ -7,7 +7,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        46~rc
+Version:        46.0
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Sat Mar 16 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Fri Mar 15 2024 David King <amigadave@amigadave.com> - 46~rc-1
 - Update to 46.rc
 

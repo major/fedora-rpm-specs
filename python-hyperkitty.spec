@@ -39,6 +39,8 @@ provide a web interface to access GNU Mailman v3 archives.}
 %package -n %{srcname}
 Summary:        %{summary}
 
+Recommends:     python%{python3_version}dist(cmarkgfm)
+
 %description -n %{srcname} %{_description}
 
 

@@ -15,7 +15,7 @@
 %bcond_with test
 
 # Disable to get llvm17 fixed
-%bcond_with tensile
+%bcond_without tensile
 
 Name:           rocblas
 Version:        %{rocm_version}
@@ -81,6 +81,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
+
+# With compat llvm the system clang is wrong
+CLANG_PATH=`hipconfig --hipclangpath`
+export TENSILE_ROCM_ASSEMBLER_PATH=${CLANG_PATH}/clang++
+export TENSILE_ROCM_OFFLOAD_BUNDLER_PATH=${CLANG_PATH}/clang-offload-bundler
+# Work around problem with koji's ld
+export HIPCC_LINK_FLAGS_APPEND=-fuse-ld=lld
 
 for gpu in %{rocm_gpu_list}
 do

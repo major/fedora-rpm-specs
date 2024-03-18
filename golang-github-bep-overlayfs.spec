@@ -4,7 +4,7 @@
 
 # https://github.com/bep/overlayfs
 %global goipath         github.com/bep/overlayfs
-Version:                0.6.0
+Version:                0.9.2
 
 %gometa
 

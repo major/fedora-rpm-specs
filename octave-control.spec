@@ -1,13 +1,14 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        3.5.0
-Release:        5%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPLv3+
-URL:            http://octave.sourceforge.net/control/
-Source0:        http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
-# https://netix.dl.sourceforge.net/project/octave/Octave%20Forge%20Packages/Individual%20Package%20Releases/%{octpkg}-%{version}.tar.gz
+URL:            https://gnu-octave.github.io/packages/control/
+Source0:        https://github.com/gnu-octave/pkg-%{octpkg}/releases/download/%{octpkg}-%{version}/%{octpkg}-%{version}.tar.gz
+# Escape ampersand in XML - https://github.com/gnu-octave/pkg-control/pull/4
+Patch0:         octave-control-amp.patch
 BuildRequires:  octave-devel >= 4.0.0
 
 Requires:       octave(api) = %{octave_api}
@@ -50,7 +51,8 @@ done;
 %doc %{octpkgdir}/doc-cache
 %{octpkgdir}/*.m
 %{octpkgdir}/packinfo
-%doc %{octpkgdir}/packinfo/COPYING
+%exclude %{octpkgdir}/packinfo/COPYING
+%license %{octpkgdir}/packinfo/COPYING
 %{octpkgdir}/@lti
 %{octpkgdir}/@ss
 %{octpkgdir}/@tf
@@ -58,9 +60,13 @@ done;
 %{octpkgdir}/@frd
 %{octpkgdir}/@iddata
 %doc %{octpkgdir}/doc
+%{_metainfodir}/octave-control.metainfo.xml
 
 
 %changelog
+* Sat Mar 16 2024 Orion Poplawski <orion@nwra.com> - 4.0.0-1
+- Update to 4.0.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

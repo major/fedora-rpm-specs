@@ -22,6 +22,9 @@ BuildRequires:	emacs
 BuildRequires:	gcc
 BuildRequires:	gc-devel
 BuildRequires:	libnbd-devel
+BuildRequires:	nbdkit
+BuildRequires:	nbdkit-data-plugin
+BuildRequires:	nbdkit-memory-plugin
 BuildRequires:	make
 BuildRequires:	readline-devel
 BuildRequires:	vim-common

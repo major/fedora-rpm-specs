@@ -4,7 +4,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -31,6 +31,10 @@ Source41:       spice-vdagent.conf
 ## upstream patches
 # backport rudimentary auto-launch apps on reboot from 6.1 (drop with 6.1)
 Patch101:       https://invent.kde.org/plasma/plasma-workspace/-/commit/660988b0e30ee8ccac98c0cf164b142d70709675.patch
+
+# enable sound themes correctly
+Patch102:       https://invent.kde.org/plasma/plasma-workspace/-/commit/873c7e0f97fc811c10bf36494a6bd9f0d43fe1c4.patch
+Patch103:       https://invent.kde.org/plasma/plasma-workspace/-/commit/3ff5540efc259c9d428841d4038a54f2bf76df11.patch
 
 ## upstreamable Patches
 
@@ -744,6 +748,9 @@ fi
 
 
 %changelog
+* Fri Mar 15 2024 Marie Loise Nolden <loise@kde.org> - 6.0.2-2
+- fix startup sound by adding upstream patches
+
 * Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
 - 6.0.2
 

@@ -1,6 +1,32 @@
 # https://github.com/pioneerspacesim/pioneer/issues/3846
 ExclusiveArch: %{ix86} x86_64
 
+%global fontname pioneer
+%global fontlicense OFL
+%global fontsex data/fonts/DejaVuSans*.ttf
+%global fontsex data/fonts/wqy-microhei.ttc
+
+%global fontfamily1       Impionata
+%global fontsummary1      Pioneer Impionata font
+%global fonts1            data/fonts/Impionata.ttf
+%global fontdescription1  %{expand:
+%{common_description}
+This package provides the fonts used by Pioneer..}
+
+%global fontfamily2       Orbiteer Bold
+%global fontsummary2      Pioneer Orbiteer Bold font
+%global fonts1            data/fonts/Orbiteer-Bold.ttf
+%global fontdescription1  %{expand:
+%{common_description}
+This package provides the fonts used by Pioneer..}
+
+%global fontfamily3       PionilliumText22L Medium
+%global fontsummary3      Pioneer PionilliumText22L Medium font
+%global fonts1            data/fonts/PionilliumText22L-Medium.ttf
+%global fontdescription1  %{expand:
+%{common_description}
+This package provides the fonts used by Pioneer..}
+
 # Filter private libraries
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/pioneer -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/pioneer -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
@@ -28,8 +54,8 @@ ExclusiveArch: %{ix86} x86_64
 
 Name: pioneer
 Summary: A game of lonely space adventure
-Version: 20240203
-Release: 3%{date}%{shortcommit}%{?dist}
+Version: 20240314
+Release: 1%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -99,7 +125,6 @@ BuildRequires: dejavu-sans-mono-fonts
 Requires: wqy-microhei-fonts
 Requires: dejavu-sans-fonts
 Requires: dejavu-sans-mono-fonts
-Requires: wqy-microhei-fonts
 Requires: %{name}-inpionata-fonts
 Requires: %{name}-orbiteer-bold-fonts
 Requires: %{name}-pionilliumtext22l-medium-fonts
@@ -107,37 +132,9 @@ Requires: %{name}-pionilliumtext22l-medium-fonts
 %description data
 Data files of %{name}.
 
-
-%global fontsummary Fonts used by Pioneer
-####################
-%package inpionata-fonts
-Summary: %{fontsummary}
-BuildArch: noarch
-License:   OFL
-Requires:  fontpackages-filesystem
-
-%description inpionata-fonts
-%{fontsummary}.
-
-####################
-%package orbiteer-bold-fonts
-Summary: %{fontsummary}
-BuildArch: noarch
-License:   OFL
-Requires:  fontpackages-filesystem
-
-%description orbiteer-bold-fonts
-%{fontsummary}.
-
-####################
-%package pionilliumtext22l-medium-fonts
-Summary: %{fontsummary}
-BuildArch: noarch
-License:   OFL
-Requires:  fontpackages-filesystem
-
-%description pionilliumtext22l-medium-fonts
-%{fontsummary}
+%fontmetapkg -n %{fontname}-Impionata-fonts -z 1
+%fontmetapkg -n %{fontname}-Orbiteer-Bold-fonts -z 2
+%fontmetapkg -n %{fontname}-PionilliumText22L-Medium-fonts -z 3
 
 %prep
 %autosetup -n %{name}-%{version} -N
@@ -180,7 +177,7 @@ mkdir -p %{buildroot}%{_bindir}
 install -pm 755 build/pioneer %{buildroot}%{_bindir}/
 install -pm 755 build/modelcompiler %{buildroot}%{_bindir}/
 install -pm 755 build/savegamedump %{buildroot}%{_bindir}/
-	
+
 ## Use rpaths versus private libraries
 chrpath -r %{_libdir}/%{name} %{buildroot}%{_bindir}/*
 
@@ -240,18 +237,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/pioneer.metain
 find %{buildroot} -name '.gitignore' -exec rm -rf {} ';'
 
 ## Unbundle DejaVuSans.ttf, DejaVuSansMono.ttf and wqy-microhei.ttc
-mkdir -p %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/data/fonts/Inpionata.ttf %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf %{buildroot}%{_fontdir}
-mv %{buildroot}%{_datadir}/%{name}/data/fonts/PionilliumText22L-Medium.ttf %{buildroot}%{_fontdir}
-
-ln -sf %{_fontdir}/Inpionata.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Inpionata.ttf
-ln -sf %{_fontdir}/Orbiteer-Bold.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf
-ln -sf %{_fontdir}/PionilliumText22L-Medium.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/PionilliumText22L-Medium.ttf
-
 ln -sf $(fc-match -f "%{file}" "wenquanyimicrohei") %{buildroot}%{_datadir}/%{name}/data/fonts/wqy-microhei.ttc
 ln -sf $(fc-match -f "%{file}" "dejavusansmono") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSansMono.ttf
 ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/data/fonts/DejaVuSans.ttf
+
+%check	
+%fontcheck
 
 %files
 %doc doxygen/html
@@ -278,17 +269,18 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/dat
 %{_metainfodir}/*.metainfo.xml
 
 %files data
-%license licenses/GPL-3.txt licenses/CC-BY-SA-3.0.txt licenses/DejaVu-license.txt licenses/SIL-1.1.txt
+%license licenses/GPL-3.txt licenses/CC-BY-SA-3.0.txt licenses/DejaVu-license.txt
 # Image Use Policy - NASA Spitzer Space Telescope
 %license licenses/*.html
 %doc AUTHORS.txt Changelog.txt Quickstart.txt README.md
 %{_datadir}/%{name}/
+%exclude %{_datadir}/%{name}/data/fonts
 
-%_font_pkg -n %{name}-inpionata Inpionata.ttf
-%_font_pkg -n %{name}-orbiteer-bold Orbiteer-Bold.ttf
-%_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Sat Mar 16 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240314-1
+- Release 20240314
+
 * Sun Feb 04 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240203-3
 - Fix for GCC-14
 

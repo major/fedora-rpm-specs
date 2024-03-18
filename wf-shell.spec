@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/WayfireWM/%{name}
 # 'libgnome-volume-control'
 # This project is only intended to be used as a subproject
-%global gvc_commit      dbfbacc9571fade87855907b78c6ed5e27c910dd
+%global gvc_commit      91f3f41490666a526ed78af744507d7ee1134323
 %global gvc_shortcommit %(c=%{gvc_commit}; echo ${c:0:7})
 
 Name:           wf-shell
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        GTK3-based panel for wayfire
 
@@ -31,6 +31,8 @@ BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wf-config) >= 0.8.0
 
 Recommends:     wayland-logout
+
+Requires:       hicolor-icon-theme
 
 Provides:       bundled(gvc) = 0.git%{gvc_shortcommit}
 
@@ -71,6 +73,8 @@ mv GNOME-libgnome-volume-control-%{gvc_shortcommit}/* \
 %{_bindir}/wf-background
 %{_bindir}/wf-dock
 %{_bindir}/wf-panel
+%{_datadir}/icons/hicolor/*/apps/*.png
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/wayfire/
 
 %files devel

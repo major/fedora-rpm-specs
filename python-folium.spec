@@ -1,6 +1,6 @@
 Name:           python-folium
-Version:        0.14.0
-Release:        7%{?dist}
+Version:        0.16.0
+Release:        %autorelease
 Summary:        Python library for visualizing data on a Leaflet map
 
 License:        MIT
@@ -69,41 +69,4 @@ Summary:        %{summary}
 
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.14.0-4
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.14.0-2
-- Drop support for i686
-
-* Sat Dec 17 2022 Roman Inflianskas <rominf@aiven.io> - 0.14.0-1
-- Update to 0.14.0 (resolves rhbz#2152748)
-- Add importability checks
-- Update testing instructions
-
-* Sat Oct 08 2022 Roman Inflianskas <rominf@aiven.io> - 1.3.0-1
-- Update to 1.3.0 (resolves rhbz#2133104)
-- Update testing instructions
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1.20211119.post1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.12.1.20211119.post1-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1.20211119.post1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 20 2021 Roman Inflianskas <rominf@aiven.io> - 0.12.1.20211119.post1-1
-- Initial package
+%autochangelog
