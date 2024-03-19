@@ -1,7 +1,7 @@
 Name:           zipper
 Summary:        C++ wrapper around minizip compression library
 Version:        1.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://github.com/sebastiandev/zipper
 
 ## Source archive from github obtained by
@@ -10,13 +10,17 @@ URL:            https://github.com/sebastiandev/zipper
 ## tar -czvf  zipper-1.0.3.tar.gz zipper
 Source0:        https://github.com/sebastiandev/zipper/archive/zipper/%{name}-%{version}.tar.gz
 
-# zlib and GPL+ (no version) licenses come from minizip/ source code
-License:        MIT and zlib and GPL+
+#Patch0:         zipper-unbundle_minizip.patch
+Patch1:         zipper-gcc14.patch
 
-BuildRequires: make
-BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: zlib-devel
+# zlib and GPL+ (no version) licenses come from minizip/ source code
+License:        MIT AND ZLIB AND GPL-1.0-or-later
+
+BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(zlib)
+#BuildRequires:  minizip-compat-devel
 Provides: bundled(minizip) = 1.1
 
 %description
@@ -52,14 +56,15 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 This package provides static library file of %{name}.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 %build
 %cmake -Wno-cpp -Wno-dev \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DBUILD_SHARED_VERSION:BOOL=ON -DBUILD_STATIC_VERSION:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
- -DINSTALL_PKGCONFIG_DIR:PATH=%{_libdir}/pkgconfig
+ -DINSTALL_PKGCONFIG_DIR:PATH=%{_libdir}/pkgconfig \
+ -DZLIB_INCLUDE_DIR:PATH=%{_includedir} -DZLIB_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libz.so
 %cmake_build
 
 %install
@@ -73,7 +78,8 @@ rm -f %{buildroot}%{_bindir}/Zipper-test
 %files
 %doc README.md VERSION.txt
 %license LICENSE.md
-%{_libdir}/*.so.*
+%{_libdir}/*.so.1
+%{_libdir}/*.so.1.0.2
 
 %files devel
 %{_libdir}/*.so
@@ -86,6 +92,9 @@ rm -f %{buildroot}%{_bindir}/Zipper-test
 %{_libdir}/libZipper-static.a
 
 %changelog
+* Sun Mar 17 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.0.3-8
+- Patched for GCC-14
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

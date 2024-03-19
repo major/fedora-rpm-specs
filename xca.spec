@@ -3,16 +3,12 @@
 
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
-Version:	2.5.0
-Release:	3%{?dist}
+Version:	2.6.0
+Release:	1%{?dist}
 License:	BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
 Source1:	xca-2.5.0-README.IMPORTANT
-
-Patch1:		xca-2.5-pastekey.patch
-Patch2:		xca-2.5-revokedel.patch
-Patch3:		xca-2.5-delete_after_revoke.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -111,12 +107,16 @@ desktop-file-install --mode 0644					\
 %{_datadir}/mime/packages/%{name}.*
 %{_datadir}/applications/*
 %{_datadir}/bash-completion/
+%{_metainfodir}/*
 %attr(0644, root, root) %{_mandir}/*/*
 
 
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+
+* Sun Mar 17 2024 Patrick Monnerat <patrick@monnerat.net> 2.6.0-1
+- New upstream release.
 
 * Mon Jan 22 2024 Patrick Monnerat <patrick@monnerat.net> 2.5.0-3
 - Patch "pastekey" fixes a crash pasting an encrypted private key.

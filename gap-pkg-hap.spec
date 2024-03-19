@@ -8,18 +8,20 @@
 # 1. Build this package in bootstrap mode.
 # 2. Build gap-pkg-hapcryst.
 # 3. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.62
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/hap/
-Source0:        https://github.com/gap-packages/hap/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/hap
+Source0:        %{vcs}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  asymptote
 BuildRequires:  gap-devel
@@ -170,196 +172,4 @@ gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
-* Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.62-1
-- Version 1.62
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 1.61-1
-- Version 1.61
-
-* Tue Nov  7 2023 Jerry James <loganjerry@gmail.com> - 1.60-1
-- Version 1.60
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.56-1
-- Version 1.56
-
-* Mon Apr 17 2023 Jerry James <loganjerry@gmail.com> - 1.55-1
-- Version 1.55
-
-* Mon Mar 20 2023 Jerry James <loganjerry@gmail.com> - 1.54-1
-- Version 1.54
-
-* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 1.53-1
-- Version 1.53
-
-* Mon Feb 13 2023 Jerry James <loganjerry@gmail.com> - 1.52-1
-- Version 1.52
-
-* Fri Feb  3 2023 Jerry James <loganjerry@gmail.com> - 1.50-1
-- Version 1.50
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.49-2
-- Update for split GAP directories
-
-* Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 1.49-1
-- Version 1.49
-
-* Sat Jan  7 2023 Jerry James <loganjerry@gmail.com> - 1.48-1
-- Version 1.48
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.47-2
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.47-2
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.47-1
-- Convert License tag to SPDX
-
-* Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1.47-1
-- Version 1.47
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.46-1
-- Version 1.46
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.45-1
-- Version 1.45
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Jerry James <loganjerry@gmail.com> - 1.44-1
-- Do not build on i386 due to unavailability of polymake
-
-* Mon Jul 18 2022 Jerry James <loganjerry@gmail.com> - 1.44-1
-- Version 1.44
-- Drop -happrime patch now that gap-pkg-happrime has been retired
-
-* Thu Jun 30 2022 Jerry James <loganjerry@gmail.com> - 1.43-1
-- Version 1.43
-- Drop now irrelevant -lpres patch
-
-* Fri Jun  3 2022 Jerry James <loganjerry@gmail.com> - 1.41-1
-- Version 1.41
-
-* Thu Jun  2 2022 Jerry James <loganjerry@gmail.com> - 1.40-1
-- Version 1.40
-
-* Thu Apr 21 2022 Jerry James <loganjerry@gmail.com> - 1.39-1
-- Version 1.39
-
-* Wed Mar  9 2022 Jerry James <loganjerry@gmail.com> - 1.38-1
-- Version 1.38
-
-* Mon Feb 21 2022 Jerry James <loganjerry@gmail.com> - 1.37-1
-- Version 1.37
-
-* Thu Feb 10 2022 Jerry James <loganjerry@gmail.com> - 1.35-1
-- Version 1.35
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jul 31 2021 Jerry James <loganjerry@gmail.com> - 1.34-1
-- Version 1.34
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jul  1 2021 Jerry James <loganjerry@gmail.com> - 1.33-1
-- Version 1.33
-
-* Thu Jun 17 2021 Jerry James <loganjerry@gmail.com> - 1.32-1
-- Version 1.32
-
-* Tue Apr 13 2021 Jerry James <loganjerry@gmail.com> - 1.30-1
-- Version 1.30
-- Drop the upstreamed -polymake4 patch
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan  7 2021 Jerry James <loganjerry@gmail.com> - 1.29-1
-- Version 1.29
-
-* Tue Jan  5 2021 Jerry James <loganjerry@gmail.com> - 1.28-1
-- Version 1.28
-- Give the tests access to more memory
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May  5 2020 Jerry James <loganjerry@gmail.com> - 1.26-1
-- Version 1.26
-
-* Thu Mar 12 2020 Jerry James <loganjerry@gmail.com> - 1.25-1
-- Version 1.25
-- New URLs
-- Drop upstreamed -doc patch
-
-* Wed Mar  4 2020 Jerry James <loganjerry@gmail.com> - 1.24-3
-- Add -polymake4 patch
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Dec 10 2019 Jerry James <loganjerry@gmail.com> - 1.24-1
-- Version 1.24
-
-* Tue Aug 13 2019 Jerry James <loganjerry@gmail.com> - 1.21-1
-- New upstream release
-- Drop -dims patch; upstream fixed it another way
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jun 13 2019 Jerry James <loganjerry@gmail.com> - 1.19-2
-- Changes due to gap-pkg-singular becoming available
-
-* Wed Feb  6 2019 Jerry James <loganjerry@gmail.com> - 1.19-1
-- New upstream release
-- Add -dims and -lpres patches
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Feb  3 2018 Jerry James <loganjerry@gmail.com> - 1.12.5-1
-- New upstream release
-
-* Wed Sep  6 2017 Jerry James <loganjerry@gmail.com> - 1.12.0-1
-- New upstream release
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.14-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Tue Dec 13 2016 Jerry James <loganjerry@gmail.com> - 1.11.14-1
-- New upstream release
-- Use upstream's 3-part version scheme
-- Suggest the hapcryst and xmod packages
-
-* Tue Aug 16 2016 Jerry James <loganjerry@gmail.com> - 1.11-2
-- Switch crystcat from Recommends to Requires
-
-* Fri Aug  5 2016 Jerry James <loganjerry@gmail.com> - 1.11-1
-- Initial RPM
+%autochangelog

@@ -2,13 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.8.1
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Compact vectors over finite fields
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/cvec/
-Source0:        https://github.com/gap-packages/cvec/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+VCS:            https://github.com/gap-packages/cvec
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
@@ -92,85 +94,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/example/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 2.8.1-1
-- Version 2.8.1
-
-* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.8.0-1
-- Version 2.8.0
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.7.6-3
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-2
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-2
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-1
-- Convert License tag to SPDX
-
-* Sat Aug  6 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-1
-- Version 2.7.6
-- Move TOC data into the testdata tarball
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 2.7.5-3
-- Add TOC data to fix the tests with recent versions of atlasrep
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep  7 2021 Jerry James <loganjerry@gmail.com> - 2.7.5-1
-- Version 2.7.5
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Mar 23 2020 Jerry James <loganjerry@gmail.com> - 2.7.4-5
-- Drop aarch64 workaround
-
-* Thu Mar 12 2020 Jerry James <loganjerry@gmail.com> - 2.7.4-4
-- Rebuild for gap 4.11.0
-- Add atlasrep and tomlib BRs so that all tests can be run
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jul 17 2019 Jerry James <loganjerry@gmail.com> - 2.7.4-1
-- New upstream version
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 2.7.2-1
-- New upstream version
-
-* Mon Mar  4 2019 Jerry James <loganjerry@gmail.com> - 2.7.1-1
-- New upstream version
-
-* Wed Feb 20 2019 Jerry James <loganjerry@gmail.com> - 2.7.0-1
-- New upstream version
-
-* Tue Dec 18 2018 Jason L Tibbitts III <tibbs@math.uh.edu> - 2.6.1-1
-- Initial package.
+%autochangelog

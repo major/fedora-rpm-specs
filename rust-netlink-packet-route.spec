@@ -6,7 +6,7 @@
 %global crate netlink-packet-route
 
 Name:           rust-netlink-packet-route
-Version:        0.18.1
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Netlink packet types
 
@@ -34,6 +34,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/TODO.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

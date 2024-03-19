@@ -10,6 +10,7 @@ Patch1:         %{name}-no-exec-stack.patch
 Patch2:         %{name}-pic.patch
 Patch3:         %{name}-gtk2.patch
 Patch4:         %{name}-dso-linking.patch
+Patch5:         %{name}-gcc14.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -82,7 +83,7 @@ find %{buildroot} -name "*.la" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
-* Sun Feb 25 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-42
+* Sun Mar 17 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-42
 - Update libdv-pic patch for GCC-14 (rhbz#2261310)
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-41

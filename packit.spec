@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.93.0
+Version:        0.94.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sun Mar 17 2024 Packit <hello@packit.dev> - 0.94.0-1
+- Added new configuration options `status_name_template` and `allowed_builders`.
+- Resolves rhbz#2266037
+
 * Mon Feb 26 2024 Packit <hello@packit.dev> - 0.93.0-1
 - Packit now checks the version to propose against the version in specfile and doesn't create downgrade PRs. (#2239)
 

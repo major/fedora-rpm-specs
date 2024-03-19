@@ -8,13 +8,14 @@
 %global vala_version 0.52.5
 
 Name:          budgie-control-center
-Version:       1.3.0
-Release:       4%{?dist}
+Version:       1.4.0
+Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 License:       GPLv2+ and CC-BY-SA
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
 Source0:       %{url}/releases/download/v%{version}/budgie-control-center-%{version}.tar.xz
+Patch0:        0001-fix-FTBFS-with-incompatible-pointer-types.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cups-devel
@@ -32,8 +33,6 @@ BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(goa-1.0)
-BuildRequires:  pkgconfig(goa-backend-1.0)
 BuildRequires:  pkgconfig(grilo-0.3)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gsound)
@@ -67,7 +66,6 @@ BuildRequires:  pkgconfig(libwacom)
 Requires: cheese-libs%{?_isa} >= %{cheese_version}
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gnome-desktop3%{?_isa} >= %{gnome_stack}
-Requires: gnome-online-accounts%{?_isa} >= %{gnome_online_accounts_version}
 Requires: gnome-settings-daemon%{?_isa} >= %{gnome_stack}
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gnome_stack}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
@@ -113,9 +111,6 @@ Requires: fprintd
 
 # For Show Details in the color panel
 Recommends: gnome-color-manager
-
-# For the sharing panel
-Recommends: gnome-remote-desktop
 
 # For the power panel
 Recommends: power-profiles-daemon
@@ -201,6 +196,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sun Mar 17 2024 Joshua Strobl <me@joshuastrobl.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Wed Mar 06 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-4
 - goa-backend rebuild
 

@@ -2,14 +2,16 @@
 %global upname  StandardFF
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.9.4
-Release:        6%{?dist}
+Version:        1.0
+Release:        %autorelease
 Summary:        Standardized generation of finite fields and cyclic subgroups
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/gap/StandardFF/
-Source0:        https://github.com/frankluebeck/StandardFF/archive/v%{version}/%{upname}-%{version}.tar.gz
+VCS:            https://github.com/frankluebeck/StandardFF
+Source0:        %{vcs}/archive/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-devel
@@ -47,7 +49,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version} -p0
+%autosetup -n %{upname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
@@ -90,20 +92,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.9.4-2
-- Update for split GAP directories
-
-* Tue Sep 13 2022 Jerry James <loganjerry@gmail.com> - 0.9.4-1
-- Initial RPM
+%autochangelog

@@ -5,17 +5,19 @@
 # some of the 64-bit builders have available (depending on what else is running
 # on the same machine).  We skip that test suite.  Brave package maintainers
 # with sufficient RAM should build --with-bigtest.
-%bcond_with bigtest
+%bcond bigtest 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.3.3
-Release:        3%{?dist}
+Version:        5.3.7
+Release:        %autorelease
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://semigroups.github.io/Semigroups/
-Source0:        https://github.com/semigroups/Semigroups/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/semigroups/Semigroups
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -88,7 +90,7 @@ Requires:       gap-pkg-smallsemi-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 # Do not use the bundled libsemigroups
 rm -fr libsemigroups
@@ -147,184 +149,4 @@ cd -
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan  9 2024 Jerry James <loganjerry@gmail.com> - 5.3.3-1
-- Version 5.3.3
-
-* Mon Oct  9 2023 Jerry James <loganjerry@gmail.com> - 5.3.2-1
-- Version 5.3.2
-
-* Wed Sep 20 2023 Jerry James <loganjerry@gmail.com> - 5.3.1-1
-- Version 5.3.1
-
-* Mon Sep 18 2023 Jerry James <loganjerry@gmail.com> - 5.3.0-1
-- Version 5.3.0
-- Doc subpackage cannot be noarch
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 5.2.1-1
-- Version 5.2.1
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 5.2.0-2
-- Update for split GAP directories
-
-* Mon Dec  5 2022 Jerry James <loganjerry@gmail.com> - 5.2.0-1
-- Version 5.2.0
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 5.1.0-1
-- Version 5.1.0
-- Clarify license of the doc subpackage
-
-* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 5.0.2-2
-- Rebuild for libsemigroups 2.3.1
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 5.0.2-1
-- Version 5.0.2
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 4.0.3-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jul  4 2022 Jerry James <loganjerry@gmail.com> - 4.0.3-1
-- Version 4.0.3
-
-* Mon Jun  6 2022 Jerry James <loganjerry@gmail.com> - 4.0.2-1
-- Version 4.0.2
-
-* Fri Apr 22 2022 Jerry James <loganjerry@gmail.com> - 4.0.1-1
-- Version 4.0.1
-
-* Mon Mar  7 2022 Jerry James <loganjerry@gmail.com> - 4.0.0-1
-- Version 4.0.0
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb  8 2021 Jerry James <loganjerry@gmail.com> - 3.4.2-1
-- Version 3.4.2
-
-* Fri Jan 29 2021 Jerry James <loganjerry@gmail.com> - 3.4.1-1
-- Version 3.4.1
-- Drop upstreamed -libsemigroups patch
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Aug 31 2020 Jerry James <loganjerry@gmail.com> - 3.4.0-1
-- Version 3.4.0
-- Add -libsemigroups patch
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun 29 2020 Jerry James <loganjerry@gmail.com> - 3.3.2-1
-- Version 3.3.2
-
-* Fri Jun 12 2020 Jerry James <loganjerry@gmail.com> - 3.3.1-2
-- Rebuild for libsemigroups 1.1.0
-
-* Thu May 28 2020 Jerry James <loganjerry@gmail.com> - 3.3.1-1
-- Version 3.3.1
-- Drop upstreamed -test patch
-
-* Mon May 11 2020 Jerry James <loganjerry@gmail.com> - 3.3.0-1
-- Version 3.3.0
-- Add BR and R on gap-pkg-images
-- Skip the memory-hungry standard tests on all architectures by default
-
-* Fri Apr  3 2020 Jerry James <loganjerry@gmail.com> - 3.2.5-1
-- Version 3.2.5
-- Drop upstreamed -bool-trim patch
-
-* Wed Mar 25 2020 Jerry James <loganjerry@gmail.com> - 3.2.4-3
-- Disable tests on aarch64 again due to random test hangs
-
-* Tue Mar 24 2020 Jerry James <loganjerry@gmail.com> - 3.2.4-2
-- Reenable test suite on aarch64
-
-* Sat Feb 29 2020 Jerry James <loganjerry@gmail.com> - 3.2.4-1
-- Version 3.2.4
-- Add -test patch to fix intermittent FTBFS
-- Add -bool-trim patch from upstream to fix bug
-
-* Sat Feb  8 2020 Jerry James <loganjerry@gmail.com> - 3.2.3-1
-- Version 3.2.3
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jan 18 2020 Jerry James <loganjerry@gmail.com> - 3.2.2-1
-- Version 3.2.2
-
-* Fri Dec 13 2019 Jerry James <loganjerry@gmail.com> - 3.2.1-1
-- Version 3.2.1
-
-* Sat Oct  5 2019 Jerry James <loganjerry@gmail.com> - 3.2.0-1
-- New upstream version
-
-* Wed Sep 25 2019 Jerry James <loganjerry@gmail.com> - 3.1.5-1
-- New upstream version
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 3.1.3-1
-- New upstream version
-
-* Wed Apr 24 2019 Jerry James <loganjerry@gmail.com> - 3.1.2-1
-- New upstream version
-- Drop -libsemigroups patch now that configure supports external lib
-- Remove -march=native from build flags
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 3.0.20-1
-- New upstream version
-- Add -libsemigroups patch to unbundle libsemigroups
-- Add -doc subdirectory
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jan 11 2018 Jerry James <loganjerry@gmail.com> - 2.8.1-1
-- New upstream version
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Aug  5 2016 Jerry James <loganjerry@gmail.com> - 2.8.0-1
-- New upstream version
-- New URLs
-
-* Thu Apr  7 2016 Jerry James <loganjerry@gmail.com> - 2.7.4-1
-- New upstream version (bz 1287388)
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Thu Oct 22 2015 Jerry James <loganjerry@gmail.com> - 2.6-1
-- Initial RPM
+%autochangelog

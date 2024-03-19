@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.27.0
+%global base_version 0.28.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Sun Mar 17 2024 Packit <hello@packit.dev> - 0.28.0-1
+- A trailing newline is no longer added to spec files without one upon saving. (#353)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

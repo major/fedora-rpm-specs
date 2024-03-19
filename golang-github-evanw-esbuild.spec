@@ -3,7 +3,7 @@
 
 # https://github.com/evanw/esbuild
 %global goipath         github.com/evanw/esbuild
-Version:                0.19.11
+Version:                0.20.2
 
 %gometa
 

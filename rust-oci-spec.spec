@@ -24,6 +24,7 @@ Open Container Initiative Specifictions in Rust.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description    devel %{_description}
 
@@ -39,6 +40,7 @@ use the "%{crate}" crate.
 %package     -n %{name}+default-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+default-devel %{_description}
 
@@ -51,6 +53,7 @@ use the "default" feature of the "%{crate}" crate.
 %package     -n %{name}+distribution-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+distribution-devel %{_description}
 
@@ -63,6 +66,7 @@ use the "distribution" feature of the "%{crate}" crate.
 %package     -n %{name}+image-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+image-devel %{_description}
 
@@ -75,6 +79,7 @@ use the "image" feature of the "%{crate}" crate.
 %package     -n %{name}+proptests-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+proptests-devel %{_description}
 
@@ -87,6 +92,7 @@ use the "proptests" feature of the "%{crate}" crate.
 %package     -n %{name}+quickcheck-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+quickcheck-devel %{_description}
 
@@ -99,6 +105,7 @@ use the "quickcheck" feature of the "%{crate}" crate.
 %package     -n %{name}+runtime-devel
 Summary:        %{summary}
 BuildArch:      noarch
+ExcludeArch:    %{ix86}
 
 %description -n %{name}+runtime-devel %{_description}
 

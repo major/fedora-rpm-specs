@@ -1,17 +1,22 @@
 %global pkgname ferret
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.0.9
-Release:        6%{?dist}
+Version:        1.0.10
+Release:        %autorelease
 Summary:        Backtracking search in permutation groups
 
 # YAPB++/simple_graph/gason is MIT
 # YAPB++/source/library/fnv_hash.hpp is Public Domain
 # However, none of those files are part of the final binary.
 License:        MPL-2.0
-ExclusiveArch:  %{gap_arches}
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/ferret/
-Source0:        https://github.com/gap-packages/ferret/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/ferret
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Use std::shuffle instead of the deprecated std::random_shuffle
+# https://github.com/gap-packages/ferret/pull/57
+Patch0:         %{name}-shuffle.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
@@ -62,7 +67,7 @@ Requires:       %{name} = %{version}-%{release}
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 %build
 export LC_ALL=C.UTF-8
@@ -92,70 +97,4 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.0.9-2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.9-1
-- Clarify license of the doc subpackage
-
-* Wed Oct 19 2022 Jerry James <loganjerry@gmail.com> - 1.0.9-1
-- Version 1.0.9
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-4
-- Update for gap 4.12.0
-
-* Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-3
-- Convert License tag to SPDX
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-3
-- Rebuild due to changed binary dir name on s390x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul  1 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-1
-- Version 1.0.8
-
-* Wed Mar 30 2022 Jerry James <loganjerry@gmail.com> - 1.0.7-1
-- Version 1.0.7
-- Make the -doc subpackage noarch
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Oct 26 2021 Jerry James <loganjerry@gmail.com> - 1.0.6-1
-- Version 1.0.6
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Feb 10 2021 Jerry James <loganjerry@gmail.com> - 1.0.5-1
-- Version 1.0.5
-
-* Tue Feb  9 2021 Jerry James <loganjerry@gmail.com> - 1.0.4-1
-- Version 1.0.4
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed May 27 2020 Jerry James <loganjerry@gmail.com> - 1.0.3-1
-- Version 1.0.3
-- Replace GPLv2+ with MPLv2.0 in the License field
-
-* Thu Apr 30 2020 Jerry James <loganjerry@gmail.com> - 1.0.2-1
-- Initial RPM
+%autochangelog

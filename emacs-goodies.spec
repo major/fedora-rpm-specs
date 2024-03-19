@@ -5,7 +5,7 @@
 
 Name:       %{pkg}
 Version:    41.0
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Miscellaneous add on for Emacs
 
 License:    GPLv2+ and GPLv3
@@ -19,17 +19,12 @@ BuildArch:  noarch
 BuildRequires:  emacs texinfo
 Requires:   emacs(bin) >= %{_emacs_version}
 
+Obsoletes:  %{name}-el < 41.0-15
+Provides:   %{name}-el = %{version}-%{release}
+
 %description
 This is %{pkgname} %{version} which provides numerous add on for GNU Emacs
 and Gnus.
-
-%package el
-Summary:    Elisp source files for %{pkgname}
-Requires:   %{name} = %{version}-%{release}
-
-%description el
-This package contains the Elisp source files for %{pkgname}. You do not need
-to install this package to use %{pkgname}.
 
 %prep
 %setup -q -n %{pkg}-el-%{version}
@@ -58,16 +53,17 @@ iconv -f iso8859-1 -t utf-8 info/emacs-goodies > info/emacs-goodies.utf
 %{__install} -pm 644 elisp/%{pkg}-el/info/%{pkg} %{buildroot}%{_infodir}/
 
 %files
+%doc COPYING-GPL-v2 COPYING-GPL-v3
+%{_emacs_sitelispdir}/goodies/*.el
 %{_emacs_sitelispdir}/goodies/*.elc
 %{_emacs_sitestartdir}/emacs-goodies-loaddefs.el
 %{_infodir}/%{pkg}.gz
 %dir %{_emacs_sitelispdir}/goodies
 
-%files el
-%doc COPYING-GPL-v2 COPYING-GPL-v3
-%{_emacs_sitelispdir}/goodies/*.el
-
 %changelog
+* Fri Mar 15 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 41.0-15
+- Obsolete -el subpackage (#1234528)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

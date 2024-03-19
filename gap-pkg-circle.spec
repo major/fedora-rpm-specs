@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.6
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Adjoint groups of finite rings
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/circle/
-Source0:        https://github.com/gap-packages/circle/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/circle
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-laguna
@@ -92,59 +94,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 1.6.6-1
-- Version 1.6.6
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.5-5
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.5-4
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.5-3
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.5-2
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Apr 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.5-1
-- Version 1.6.5
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 22 2021 Jerry James <loganjerry@gmail.com> - 1.6.4-1
-- Version 1.6.4
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Nov  6 2019 Jerry James <loganjerry@gmail.com> - 1.6.3-1
-- Version 1.6.3
-
-* Thu Oct 24 2019 Jerry James <loganjerry@gmail.com> - 1.6.1-1
-- Initial RPM
+%autochangelog

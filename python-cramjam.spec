@@ -15,11 +15,8 @@ URL:            https://github.com/milesgranger/cramjam
 # the GitHub source archive.
 Source:         %{url}/archive/v%{version}/cramjam-%{version}.tar.gz
 
-# Do not strip the compiled Python module; we need useful debuginfo. Upstream
-# set this intentionally, so this makes sense to keep downstream-only.
-Patch:          0001-Downstream-only-do-not-strip-the-compiled-Python-ext.patch
-
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global common_description %{expand:
@@ -51,12 +48,17 @@ License:        %{shrink:
 
 
 %prep
-%autosetup -n cramjam-%{version} -p1
+%autosetup -n cramjam-%{version}
+
+# Do not strip the compiled Python module; we need useful debuginfo. Upstream
+# set this intentionally, so this makes sense to keep downstream-only.
+tomcli set cramjam-python/pyproject.toml false 'tool.maturin.strip'
 
 # Downstream-only: patch out linters/formatters/etc. from the “dev” extra so we
 # can use it to generate test dependencies.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]]*)("(black)\b)/\1# \2/' cramjam-python/pyproject.toml
+tomcli set cramjam-python/pyproject.toml lists delitem --type regex \
+    'project.optional-dependencies.dev' '(black)\b.*'
 
 # Remove bundled rust-libcramjam and the sources for cramjam-cli, which is
 # versioned and released separately. Keep only the contents of cramjam-python/

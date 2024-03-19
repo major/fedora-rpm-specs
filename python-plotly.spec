@@ -40,7 +40,7 @@ standalone HTML files, or hosted online using Chart Studio Cloud.
 Documentation is available at https://plotly.com/python/}
 
 Name:       python-plotly
-Version:    5.19.0
+Version:    5.20.0
 Release:    %autorelease
 Summary:    An open-source, interactive data visualization library
 %global tag v%{version}

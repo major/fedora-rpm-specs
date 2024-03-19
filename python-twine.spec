@@ -1,11 +1,12 @@
 %global srcname twine
 
 %bcond_without tests
+%bcond_without docs
 %bcond_with internet
 
 Name:           python-%{srcname}
-Version:        4.0.2
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        ASL 2.0
@@ -32,9 +33,12 @@ BuildRequires:  python3dist(portend)
 BuildRequires:  python3dist(pretend)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-cov)
+%if %{with docs}
 # Doc (manpage) deps
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinxcontrib-programoutput)
+%endif
+# with docs
 %if %{with internet}
 # pytest-services and pytest-socket are not packaged yet
 #BuildRequires:  python3dist(pytest-services)
@@ -42,9 +46,11 @@ BuildRequires:  python3dist(sphinxcontrib-programoutput)
 BuildRequires:  gcc
 BuildRequires:  libffi-devel
 BuildRequires:  git-core
-%endif # with internet
+%endif
+# with internet
 
-%endif # with tests
+%endif
+# with tests
 
 Obsoletes:      python2-%{srcname} < 1.12.2-3
 Obsoletes:      python3-%{srcname} < 1.12.2-3
@@ -65,13 +71,17 @@ sed -i '/--disable-socket/d' pytest.ini
 
 %build
 %pyproject_wheel
+%if %{with docs}
 PYTHONPATH=$PWD sphinx-build-3 -b man docs/ docs/build/man -c docs/
 rm -r docs/build/man/.doctrees
+%endif
 
 %install
 %pyproject_install
 %pyproject_save_files twine
+%if %{with docs}
 install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
+%endif
 
 %if %{with tests}
 %check
@@ -79,17 +89,29 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %if %{without internet}
       --deselect tests/test_integration.py \
       --deselect tests/test_upload.py::test_check_status_code_for_wrong_repo_url \
-%endif # without internet
+%endif
 ;
-%endif # with tests
+# without internet
+%endif
+# with tests
 
 %files -n %{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst AUTHORS
+%if %{with docs}
 %{_mandir}/man1/%{srcname}.1*
+%endif
 %{_bindir}/twine
 
 %changelog
+* Sun Mar 17 2024 Charalampos Stratakis <cstratak@redhat.com> - 5.0.0-1
+- Update to 5.0.0
+- Resolves: rhbz#2263785
+
+* Thu Feb 29 2024 Michel Lind <salimma@fedoraproject.org> - 4.0.2-4
+- Add bcond for documentation building
+- Fix warnings when regenerating the RPM by moving post-endif comments to new lines
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

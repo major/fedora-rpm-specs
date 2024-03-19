@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.74
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Groupoids, group graphs, and groupoid graphs
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/groupoids/
-Source0:        https://github.com/gap-packages/groupoids/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+VCS:            https://github.com/gap-packages/groupoids
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -94,88 +96,4 @@ done
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Wed Jan 24 2024 Jerry James <loganjerry@gmail.com> - 1.74-1
-- Version 1.74
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 1.73-1
-- Version 1.73
-
-* Sun Feb  5 2023 Jerry James <loganjerry@gmail.com> - 1.72-1
-- Version 1.72
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.71-2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.71-1
-- Clarify license of the doc subpackage
-
-* Tue Sep 13 2022 Jerry James <loganjerry@gmail.com> - 1.71-1
-- Version 1.71
-- Update for gap 4.12.0
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.69-3
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.69-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Nov 15 2021 Jerry James <loganjerry@gmail.com> - 1.69-1
-- Version 1.69
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Sep  5 2019 Jerry James <loganjerry@gmail.com> - 1.68-1
-- New upstream version
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.67-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Jerry James <loganjerry@gmail.com> - 1.67-1
-- New upstream version
-
-* Tue Apr 16 2019 Jerry James <loganjerry@gmail.com> - 1.65-1
-- New upstream version
-
-* Sat Feb  2 2019 Jerry James <loganjerry@gmail.com> - 1.63-1
-- New upstream version
-- Add -doc subpackage
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Mar 10 2018 Jerry James <loganjerry@gmail.com> - 1.55-1
-- New upstream version
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.54-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jan 11 2018 Jerry James <loganjerry@gmail.com> - 1.54-1
-- Name change from gap-pkg-gpd to gap-pkg-groupoids
+%autochangelog

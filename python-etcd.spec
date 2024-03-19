@@ -3,7 +3,7 @@
 
 Name:           %{srcname}
 Version:        0.4.5
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A python client library for etcd
 
 License:        MIT
@@ -23,7 +23,7 @@ BuildArch:      noarch
 
 # See https://bugzilla.redhat.com/1393497
 # Also https://fedoraproject.org/wiki/Packaging:Guidelines#Noarch_with_Unported_Dependencies
-ExclusiveArch:  noarch %{ix86} x86_64 %{arm} aarch64 ppc64le s390x
+ExclusiveArch:  noarch %{ix86} x86_64 %{arm} aarch64 ppc64le s390x riscv64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -76,6 +76,9 @@ nosetests-3 src/etcd/tests/unit/
 %{python3_sitelib}/*
 
 %changelog
+* Fri Feb 23 2024 Liu Yang <Yang.Liu.sn@gmail.com> - 0.4.5-32
+- Add riscv64 to arches.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

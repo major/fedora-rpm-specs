@@ -13,7 +13,7 @@
 
 Name:		emacs-%{pkg}
 Version:	1.2.25
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	SPICE Mode for GNU Emacs
 
 License:	GPLv2+
@@ -28,16 +28,11 @@ BuildArch:	noarch
 BuildRequires:	emacs emacs-el
 Requires:	emacs >= %{emacs_version} gnucap
 
+Provides:	%{name}-el = %{version}-%{release}
+Obsoletes:	%{name}-el < 1.2.25-33
+
 %description
 This package provides an Emacs major mode for editing SPICE decks.
-
-%package el
-Summary:	Source files for %{pkgname} under GNU Emacs
-Requires:	%{name} = %{version}-%{release}
-
-%description el
-This package contains the elisp source files for 
-use with %{pkgname}.
 
 %prep
 %setup -q -n %{pkg}
@@ -57,15 +52,16 @@ install -pm 644 %{SOURCE1} %{buildroot}%{emacs_startdir}
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %doc AUTHORS BUGS Changes README test_netlist.cir
+%{emacs_lispdir}/%{pkg}/*.el
 %{emacs_lispdir}/%{pkg}/*.elc
 %{emacs_startdir}/%{pkg}-init.el
 %dir %{emacs_lispdir}/%{pkg}
 %dir %{emacs_startdir}
 
-%files el
-%{emacs_lispdir}/%{pkg}/*.el
-
 %changelog
+* Fri Mar 15 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 1.2.25-33
+- Obsolete -el subpackage (#1234532)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.25-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

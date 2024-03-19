@@ -14,7 +14,7 @@
 
 Name:		emacs-%{pkg}
 Version:	0.1
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Irsim mode for emacs
 
 License:	MIT
@@ -26,19 +26,13 @@ BuildArch:	noarch
 BuildRequires:	emacs emacs-el
 Requires:	emacs >= %{emacs_version}
 		
+Obsoletes:	%{name}-el < 0.1-31
+Provides:	%{name}-el = %{version}-%{release}
+
 %description
 IRSIM is a switch-level simulator for digital logic circuits.
 This is an Emacs mode for editing IRSIM netlists. It provides
-syntax highlighting and an extremely pleasant method if indentation.
-
-
-%package el
-Summary:	Source files for %{pkgname} under GNU Emacs
-Requires:	%{name} = %{version}-%{release}
-
-%description el
-This package contains the elisp source files for 
-use with %{pkgname}.
+syntax highlighting and an extremely pleasant method of indentation.
 
 %prep
 %{__rm} -rf %{_builddir}/%{name}-%{version}
@@ -62,15 +56,17 @@ cd %{name}-%{version}
 
 
 %files
+%{emacs_lispdir}/%{pkg}/*.el
 %{emacs_lispdir}/%{pkg}/*.elc
 %{emacs_startdir}/%{pkg}-init.el
 %dir %{emacs_lispdir}/%{pkg}
 %dir %{emacs_startdir}
 
-%files el
-%{emacs_lispdir}/%{pkg}/*.el
-
 %changelog
+* Fri Mar 15 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 0.1-31
+- Obsolete -el subpackage (#1234530)
+- Fix typo in description
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

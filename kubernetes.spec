@@ -236,21 +236,20 @@ export KUBE_CGO_OVERRIDES="kube-proxy kubeadm kube-apiserver kube-controller-man
 # GOLDFLAGS - see Makefile (make help) for more information
 export GOFLAGS="-buildmode=pie -compiler=gc -tags=rpm_crashtraceback${BUILDTAGS:+,}${BUILDTAGS:-}"
 
-# define temporary linker options for use in GOLDFLAGS
-GLINK="-compressdwarf=false -linkmode=external -extldflags '%{build_ldflags}'"
+export GOLDFLAGS="%{?currentgoldflags} -B 0x$(echo '%{name}-%{version}-%{release}-${SOURCE_DATE_EPOCH:-}' | sha1sum | cut -d ' ' -f1) -compressdwarf=false -linkmode=external -extldflags '%{build_ldflags} %{?__golang_extldflags}'"
 
 # macro that executes make all for given cmd argument
 %define makecmd(o:) make all WHAT="cmd/%1" GOLDFLAGS="-B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') $GLINK"
 
 # Build each binary separately to generate a unique build-id.
 # Otherwise: Duplicate build-ids /builddir/build/BUILDROOT/.../usr/bin/kube-apiserver and /builddir/build/BUILDROOT/.../usr/bin/kubeadm
-%makecmd kube-proxy
-%makecmd kube-apiserver
-%makecmd kube-controller-manager
-%makecmd kubelet
-%makecmd kubeadm
-%makecmd kube-scheduler
-%makecmd kubectl
+make WHAT="cmd/kube-proxy"
+make WHAT="cmd/kube-apiserver"
+make WHAT="cmd/kube-controller-manager"
+make WHAT="cmd/kubelet"
+make WHAT="cmd/kubeadm"
+make WHAT="cmd/kube-scheduler"
+make WHAT="cmd/kubectl"
 
 # Gen docs
 make WHAT="cmd/gendocs"
@@ -401,7 +400,6 @@ fi
 %{zsh_completions_dir}/_kubectl
 
 ##############################################
-
 %files systemd
 %license LICENSE
 %doc *.md

@@ -66,7 +66,10 @@ KAlarm is a personal alarm message, command and email scheduler.
 %autosetup -p1
 
 %build
-%cmake_kf6 -DWITHOUT_X11=ON
+%cmake_kf6 \
+  -DENABLE_WAKE_FROM_SUSPEND:BOOL=%{!?flatpak:ON}%{?flatpak:OFF} \
+  -DWITHOUT_X11=ON
+
 %cmake_build
 
 %install
@@ -80,9 +83,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/interfaces/org.kde.kalarm.kalarm.xml
-%{_datadir}/dbus-1/system-services/org.kde.kalarm.rtcwake.service
-%{_datadir}/dbus-1/system.d/org.kde.kalarm.rtcwake.conf
-%{_datadir}/polkit-1/actions/org.kde.kalarm.rtcwake.policy
 %{_datadir}/kalarm/icons/oxygen/16x16/actions/*.png
 %{_kf6_bindir}/kalarm
 %{_kf6_bindir}/kalarmautostart
@@ -92,12 +92,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_datadir}/kalarm/icons/oxygen/22x22/actions/*.png
 %{_kf6_datadir}/knotifications6/kalarm.notifyrc
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
-%{_kf6_libexecdir}/kauth/kalarm_helper
 %{_kf6_metainfodir}/org.kde.kalarm.appdata.xml
 %{_sysconfdir}/xdg/autostart/kalarm.autostart.desktop
 %{_kf6_libdir}/libkalarmcalendar.so.*
 %{_kf6_libdir}/libkalarmplugin.so.*
 %{_kf6_qtplugindir}/pim6/kalarm/akonadiplugin.so
+%if %{undefined flatpak}
+%{_kf6_libexecdir}/kauth/kalarm_helper
+%{_datadir}/dbus-1/system-services/org.kde.kalarm.rtcwake.service
+%{_datadir}/dbus-1/system.d/org.kde.kalarm.rtcwake.conf
+%{_datadir}/polkit-1/actions/org.kde.kalarm.rtcwake.policy
+%endif
 
 
 %changelog

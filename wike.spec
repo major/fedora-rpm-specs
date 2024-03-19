@@ -1,7 +1,7 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        2.1.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Wikipedia Reader for the GNOME Desktop
 
@@ -23,7 +23,8 @@ Requires:       python3-gobject
 Requires:       gtk4
 Requires:       libadwaita
 Requires:       webkitgtk6.0
-Requires:       python3dist(requests)
+Requires:       libsoup
+Requires:       pango
 
 %description
 Wike is a Wikipedia reader for the GNOME Desktop. Provides access to all the

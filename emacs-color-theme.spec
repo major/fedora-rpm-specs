@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	6.6.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Color themes for Emacs
 
 License:	GPLv2+
@@ -24,21 +24,15 @@ BuildRequires:	emacs
 BuildRequires: make
 Requires:	emacs(bin) >= %{_emacs_version}
 
+Obsoletes:      %{name}-el < 6.6.0-28
+Provides:       %{name}-el = %{version}-%{release}
+
 %description
 %{pkgname} is an add-on package for GNU Emacs.
 It provides a lot of different color themes to skin your Emacs greatly
 improving the editing experience. It also includes a neat framework to
 help you creating new themes from your current emacs customization's.
 Also features an easy way to share your custom themes with the world.  
-
-%package -n %{name}-el
-Summary:	Elisp source files for %{pkgname} under GNU Emacs
-Requires:	%{name} = %{version}-%{release}
-
-%description -n %{name}-el
-This package contains the elisp source files for %{pkgname} under GNU
-Emacs. You do not need to install this package to run %{pkgname}.
-Install the %{name} package to use %{pkgname} with GNU Emacs.
 
 %prep
 %setup -q -n %{pkg}-%{version}
@@ -59,16 +53,17 @@ cp themes/*.el themes/*.elc %{buildroot}%{_emacs_sitelispdir}/%{pkg}/themes
 
 %files
 %doc COPYING README
+%{_emacs_sitelispdir}/%{pkg}/*.el
 %{_emacs_sitelispdir}/%{pkg}/*.elc
+%{_emacs_sitelispdir}/%{pkg}/themes/*.el
 %{_emacs_sitelispdir}/%{pkg}/themes/*.elc
 %dir %{_emacs_sitelispdir}/%{pkg}
 %{_emacs_sitestartdir}/emacs-color-theme-init.el
 
-%files -n %{name}-el
-%{_emacs_sitelispdir}/%{pkg}/*.el
-%{_emacs_sitelispdir}/%{pkg}/themes/*.el
-
 %changelog
+* Fri Mar 15 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 6.6.0-28
+- Obsolete -el subpackage (#1234527, #1542630)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 # manually
 # mock -r fedora-rawhide-x86_64 rebuild <srpm> --enablerepo=neurofedora-copr --with=pyneuroml
 
-%bcond_with pyneuroml
+%bcond pyneuroml 0
 
 # disable debuginfo
 # sub package is noarch, but keep the main package archful to run tests on all arches.
@@ -29,7 +29,7 @@ This package is developed and maintained by the Neurosim lab
 %global forgeurl https://github.com/Neurosim-lab/netpyne/
 
 Name:           python-netpyne
-Version:        1.0.5
+Version:        1.0.6
 Release:        %autorelease
 Summary:        Develop, simulate and analyse biological neuronal networks in NEURON
 %forgemeta
@@ -45,6 +45,9 @@ Source0:        %forgesource
 # Exclude tests/ from being installed as a top level module
 # https://github.com/suny-downstate-medical-center/netpyne/pull/767
 Patch:          https://github.com/suny-downstate-medical-center/netpyne/pull/767.patch
+# remove `imp` in py3.12
+# sent upstream: https://github.com/suny-downstate-medical-center/netpyne/pull/812
+Patch:          0001-fix-py312-remove-imp.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -58,6 +61,7 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 BuildRequires:  gcc-g++
+BuildRequires:  git-core
 BuildRequires:  neuron-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -78,8 +82,7 @@ Requires:  %{py3_dist neuron}
 %description -n python3-netpyne %_description
 
 %prep
-%forgesetup
-%autopatch
+%forgeautosetup -S git
 
 sed -i 's/matplotlib<=3.5.1/matplotlib/' setup.py
 
@@ -112,31 +115,24 @@ nrnivmodl mod
 %{python3} tut7.py --nogui || true
 popd
 
-pushd examples/HHTut
-%{python3} HHTut_run.py -nogui || true
-%if %{with pyneuroml}
-%{python3} HHTut_export.py -nogui || true
-%endif
+# some of these are currently broken upstream
+pushd examples/HHTut/src
+%{python3} init.py -nogui || true
 popd
 
-pushd examples/HybridTut
-nrnivmodl .
-%{python3} HybridTut_run.py -nogui || true
-%if %{with pyneuroml}
-%{python3} HybridTut_export.py -nogui || true
-%endif
+pushd examples/HybridTut/src/
+nrnivmodl ../mod/
+%{python3} init.py -nogui || true
 popd
 
-pushd examples/M1
-nrnivmodl .
-%{python3} M1_run.py -nogui || true
-%if %{with pyneuroml}
-%{python3} M1_export.py -nogui || true
-%endif
+pushd examples/M1/src
+nrnivmodl ../mod
+%{python3} init.py -nogui || true
 popd
 
-pushd examples/PTcell
-nrnivmodl mod
+# this one failes, there's no init.py file in the main directory
+pushd examples/PTcell/src
+nrnivmodl ../mod/
 %{python3} init.py -nogui || true
 popd
 

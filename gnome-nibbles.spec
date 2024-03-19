@@ -2,10 +2,11 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-nibbles
-Version:        4.0.2
+Version:        4.0.3
 Release:        %autorelease
 Summary:        GNOME Nibbles game
-License:        GPL-3.0-or-later AND BSD-2-Clause AND GFDL-1.1-no-invariants-or-later
+# Source code is under GPLv3+, help is under CC-BY-SA, Appdata is under CC0.
+License:        GPL-3.0-or-later AND CC0-1.0 AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Nibbles
 Source0:        https://download.gnome.org/sources/gnome-nibbles/4.0/gnome-nibbles-%{tarball_version}.tar.xz
 
@@ -50,6 +51,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appd
 
 %files -f %{name}.lang
 %license COPYING
+%doc NEWS
 %{_bindir}/gnome-nibbles
 %{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/dbus-1/services/%{app_id}.service

@@ -1,7 +1,7 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        3.0
+Version:        3.2
 
 %global baserelease 1
 Release:        %{baserelease}%{?dist}
@@ -97,6 +97,8 @@ License: %{license_ide}
 Requires:	%{name}-lcl%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tools%{?_isa} = %{version}-%{release}
 Recommends:	%{name}-doc = %{version}-%{release}
+Recommends:	%{name}-lcl-nogui%{?_isa} = %{version}-%{release}
+Recommends:	%{name}-lcl-gtk2%{?_isa} = %{version}-%{release}
 
 Requires: fpc-src
 Requires: gdb
@@ -115,6 +117,7 @@ License: %{license_tools}
 Requires: binutils
 Requires: fpc%{?_isa}
 Requires: glibc-devel%{?_isa}
+Requires: %{name}-lcl%{?_isa} = %{version}-%{release}
 
 %description tools
 Lazarus is a cross-platform IDE and component library for Free Pascal.
@@ -137,8 +140,6 @@ This package contains documentation and example programs for the Lazarus IDE.
 
 %package lcl
 Summary: Lazarus Component Library
-Recommends:	%{name}-lcl-nogui%{?_isa} = %{version}-%{release}
-Recommends:	%{name}-lcl-gtk2%{?_isa} = %{version}-%{release}
 
 %description lcl
 Lazarus is a cross-platform IDE and component library for Free Pascal.
@@ -543,8 +544,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sun Mar 17 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2-1
+- Update to v3.2
+
 * Wed Feb 07 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-1
-- Update to v3.0.0
+- Update to v3.0
 - Add qt6pas, qt6pas-devel and lazarus-lcl-qt6 packages
 - Drop Patch2 (GTK3 fixes - fixed upstream)
 - Drop workaround for building Qt on non-x86 platforms (fixed upstream)

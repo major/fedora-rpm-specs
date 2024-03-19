@@ -3,8 +3,8 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        7.4.9
-Release:        7%{?dist}
+Version:        8.6.1
+Release:        1%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD
@@ -23,6 +23,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-zmq-tests
 # Optional test dependency, look for test_datetimes_msgpack
 BuildRequires:  python3dist(msgpack)
+# For test_load_ips
+BuildRequires:  /usr/sbin/ip
+BuildRequires:  /usr/sbin/ifconfig
 %endif
 
 %description
@@ -56,9 +59,7 @@ Documentation of the reference implementation of the Jupyter protocol
 %prep
 %autosetup -p1 -n jupyter_client-%{version}
 # Drop dependencies on coverage, linters etc.
-sed -Ei '/\b(codecov|coverage|mypy|pre-commit|pytest-cov)\b/d' pyproject.toml
-# Delete mypy config options
-sed -i '/check_untyped/Q' pyproject.toml
+sed -Ei '/"\b(codecov|coverage|mypy|pre-commit|pytest-cov)\b",/d' pyproject.toml
 
 
 %if %{with doc}
@@ -68,7 +69,7 @@ sed -i "s|\(('http://ipython.readthedocs.io/en/stable/', \)None)|\1'/usr/share/d
 
 
 %generate_buildrequires
-%pyproject_buildrequires -w %{?with_tests:-x test} %{?with_doc:-x doc}
+%pyproject_buildrequires -w %{?with_tests:-x test} %{?with_doc:-x docs}
 
 
 %build
@@ -91,7 +92,8 @@ rm -r html/.{doctrees,buildinfo}
 # The two tests testing signals for kernels are flaky because
 # if it takes the kernel more than one second to respond, it's killed.
 # The tests work fine outside mock.
-%pytest -Wdefault -v -k "not test_signal_kernel_subprocesses and not test_async_signal_kernel_subprocesses"
+# test_open_tunnel needs ssh and internet connections.
+%pytest -Wdefault -v -k "not test_signal_kernel_subprocesses and not test_async_signal_kernel_subprocesses and not test_open_tunnel"
 %endif
 
 
@@ -109,6 +111,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Mar 11 2024 Lumír Balhar <lbalhar@redhat.com> - 8.6.1-1
+- Update to 8.6.1 (rhbz#2149176)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

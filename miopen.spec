@@ -55,16 +55,11 @@ Patch3:         0001-Find-db-location-on-fedora.patch
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  boost-devel
 BuildRequires:  cmake
-BuildRequires:  clang
-BuildRequires:  clang-devel
-BuildRequires:  compiler-rt
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  fplus-devel
 BuildRequires:  frugally-deep-devel
 BuildRequires:  half-devel
 BuildRequires:  pkgconfig(libzstd)
-BuildRequires:  lld
-BuildRequires:  llvm-devel
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(nlohmann_json)
 BuildRequires:  rocblas-devel

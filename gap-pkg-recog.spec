@@ -2,14 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.2
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Group recognition methods
 
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  %{gap_arches} noarch
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/recog/
-Source0:        https://github.com/gap-packages/recog/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+VCS:            https://github.com/gap-packages/recog
+Source0:        %{vcs}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
@@ -86,57 +88,4 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testslow.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-2
-- Update for split GAP directories
-
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Clarify license of the doc subpackage
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Version 1.4.2
-- Update for gap 4.12.0
-- Convert License tag to SPDX
-- Move TOC data into the testdata tarball
-
-* Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.3.2-9.20200127.168ed62
-- Add TOC data to fix the tests with recent versions of atlasrep
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-9.20200127.168ed62
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-8.20200127.168ed62
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-7.20200127.168ed62
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-6.20200127.168ed62
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5.20200127.168ed62
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Mar 12 2020 Jerry James <loganjerry@gmail.com> - 1.3.2-4.20200127.168ed62
-- Rebuild for gap 4.11.0
-- Add missing gap-pkg-orb dependency
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Nov 19 2019 Jerry James <loganjerry@gmail.com> - 1.3.2-2
-- Drop the ctbllib and tomlib dependencies
-
-* Thu Oct 24 2019 Jerry James <loganjerry@gmail.com> - 1.3.2-1
-- Initial RPM
+%autochangelog
