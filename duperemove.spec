@@ -1,23 +1,21 @@
 %define _legacy_common_support 1
 
 Name:           duperemove
-Version:        0.13
-Release:        3%{?dist}
+Version:        0.14.1
+Release:        2%{?dist}
 Summary:        Tools for deduping file systems
 License:        GPL-2.0-only
 URL:            https://github.com/markfasheh/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+ExcludeArch:    %{ix86}
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  libgcrypt-devel
 BuildRequires:  xxhash-devel
 BuildRequires:  libatomic
+BuildRequires:  libuuid-devel
 BuildRequires:  gcc
-# Enable devtoolset so we get libatomic in EPEL-7
-%if 0%{?el7}
-BuildRequires:  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
-%endif
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Duperemove is a simple tool for finding duplicated extents and
@@ -38,9 +36,6 @@ ln -s /usr/include/xxhash.h
 
 %build
 %set_build_flags
-%if 0%{?el7}
-. /opt/rh/devtoolset-7/enable
-%endif
 export PREFIX=/usr
 export VERSION=%{version}
 export IS_RELEASE=1
@@ -48,6 +43,8 @@ export IS_RELEASE=1
 
 %install
 %make_install SBINDIR=%{_sbindir} MANDIR=%{_mandir}
+# This binary doesn't exist anymore
+rm -f %{buildroot}%{_mandir}/man8/show-shared-extents*.8*
 
 %files
 %doc README.md
@@ -55,13 +52,15 @@ export IS_RELEASE=1
 %{_mandir}/man8/btrfs-extent-same*.8*
 %{_mandir}/man8/duperemove*.8*
 %{_mandir}/man8/hashstats*.8*
-%{_mandir}/man8/show-shared-extents*.8*
 %{_bindir}/btrfs-extent-same
 %{_bindir}/duperemove
 %{_bindir}/hashstats
-%{_bindir}/show-shared-extents
 
 %changelog
+* Mon Mar 18 2024 Jonathan Dieter <jdieter@gmail.com> - 0.14.1-2
+- Update to 0.14.1 with bug fixes (thanks Francois Menning for the initial PR)
+- Disable i686 builds since they're failing now
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

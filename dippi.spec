@@ -15,6 +15,9 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix deprecated top-level developer_name in AppData XML
 # https://github.com/cassidyjames/dippi/pull/123
 Patch:          %{url}/pull/123.patch
+# Consistently use the “analyse” spelling in British and Australian English
+# https://github.com/cassidyjames/dippi/pull/127
+Patch:          %{url}/pull/127.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -73,7 +76,7 @@ Tells you if a display’s density is:
   • Too High DPI
 
 %description -l en_AU
-Analyze any display. Input a few simple details and figure out the
+Analyse any display. Input a few simple details and figure out the
 aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.
@@ -117,7 +120,7 @@ Tells you if a display’s density is:
   • Too High DPI
 
 %description -l en_GB
-Analyze any display. Input a few simple details and figure out the
+Analyse any display. Input a few simple details and figure out the
 aspect ratio, DPI, and other details of a particular display. Great for
 deciding which laptop or external monitor to purchase, and if it would
 be considered HiDPI.

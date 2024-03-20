@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -30,9 +30,6 @@ BuildRequires:	gzip
 # turn confuses many tools about whether they should be doing
 # grub things, or systemd-boot things.
 Conflicts: grubby
-%if 0%{?fedora}
-Provides:  grubby = 8.41
-%endif
 
 %description
 This package provides a place to drop systemd-boot shimming
@@ -78,6 +75,9 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 
 
 %changelog
+* Mon Mar 18 2024 Adam Williamson <awilliam@redhat.com> - 1.0-7
+- Stop providing grubby (#2269992)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

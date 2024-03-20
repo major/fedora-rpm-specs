@@ -2,11 +2,11 @@
 %global project_version_minor 1
 %global project_version_patch 15
 
-%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 10]
+%bcond dnf5_obsoletes_dnf %[0%{?fedora} > 41 || 0%{?rhel} > 11]
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -815,6 +815,9 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 %ldconfig_scriptlets
 
 %changelog
+* Mon Mar 18 2024 Petr Pisar <ppisar@redhat.com> - 5.1.15-2
+- Do not obsolete dnf-4 in ELN 11
+
 * Fri Mar 15 2024 Packit <hello@packit.dev> - 5.1.15-1
 - Update translations from weblate
 - Automatically set `upgrade --downloadonly` when `--destdir` is used

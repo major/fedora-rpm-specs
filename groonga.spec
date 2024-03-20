@@ -1,5 +1,5 @@
 Name:           groonga
-Version:        14.0.0
+Version:        14.0.1
 Release:        %autorelease
 Summary:        An Embeddable Fulltext Search Engine
 

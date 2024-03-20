@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.21
+Version:        2.2.26
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -11,8 +11,6 @@ Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.g
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
 Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version}.tar.xz
-# https://github.com/nmstate/nmstate/pull/2497
-Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -30,7 +28,7 @@ BuildRequires:  (crate(ctrlc/default) >= 3.2 with crate(ctrlc/default) < 4.0)
 BuildRequires:  (crate(env_logger/default) >= 0.10 with crate(env_logger/default) < 0.11)
 BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(nispor/default) >= 1.2.12 with crate(nispor/default) < 2.0)
+BuildRequires:  (crate(nispor/default) >= 1.2.17 with crate(nispor/default) < 2.0)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
@@ -40,6 +38,7 @@ BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
 BuildRequires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
+BuildRequires:  (crate(toml/default) >= 0.8 with crate(toml/default) < 0.9)
 %endif
 
 %description
@@ -154,12 +153,12 @@ which use "%{name}" crate with gen_revert feature.
 gpg2 --import --import-options import-export,import-minimal \
     %{SOURCE2} > ./gpgkey-mantainers.gpg
 gpgv2 --keyring ./gpgkey-mantainers.gpg %{SOURCE1} %{SOURCE0}
-%autosetup -p1
+
+%autosetup -n %{name}-%{version_no_tilde} -p1 %{?rhel:-a3}
 
 pushd rust
-rm .cargo/config.toml
 %if 0%{?rhel}
-%cargo_prep -V 3
+%cargo_prep -v vendor
 %else
 %cargo_prep
 %endif
@@ -168,6 +167,11 @@ popd
 %build
 pushd rust
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > ../LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 popd
 
 pushd rust/src/python
@@ -199,6 +203,10 @@ popd
 
 %files
 %doc README.md
+%license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc examples/
 %{_mandir}/man8/nmstatectl.8*
 %{_mandir}/man8/nmstate-autoconf.8*

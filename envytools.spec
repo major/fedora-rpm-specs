@@ -2,7 +2,7 @@
 
 Name:           envytools
 Version:        0.0
-Release:        0.29.git%{gitdate}%{?dist}
+Release:        0.30.git%{gitdate}%{?dist}
 Summary:        Tools for people envious of nvidia's blob driver
 License:        MIT
 URL:            https://github.com/envytools/envytools
@@ -10,7 +10,7 @@ URL:            https://github.com/envytools/envytools
 Source0:        envytools-%{gitdate}.tar.bz2
 Source1:        make-git-snapshot.sh
 Patch1:         envytools-add-missing-GETPARAM_PHYS-defines.patch
-ExclusiveArch: %{ix86} x86_64 %{arm} aarch64
+ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 riscv64
 BuildRequires:  gcc g++
 BuildRequires:  cmake flex bison
 BuildRequires:  libpciaccess-devel libX11-devel libXext-devel libseccomp-devel
@@ -82,6 +82,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/%{name}/hwdocs/*.py
 
 
 %changelog
+* Thu Feb 22 2024 Liu Yang <Yang.Liu.sn@gmail.com> - 0.0-0.30.git20200810
+- Add riscv64.
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-0.29.git20200810
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,0 +1,72 @@
+%global pypi_name openneuro-py
+# The importable module is called 'openneuro'
+%global module_name openneuro
+%global forgeurl https://github.com/hoechenberger/openneuro-py
+
+Name:           python-%{module_name}
+Version:        2024.2.0
+Release:        %{autorelease}
+Summary:        A Python client for OpenNeuro
+%forgemeta
+License:        GPL-3.0-only
+URL:            %forgeurl
+Source:         %forgesource
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+# For tests
+BuildRequires:  python3-pytest
+
+%global _description %{expand:
+A Python client for accessing OpenNeuro datasets.}
+
+%description %_description
+
+
+%package -n python3-%{module_name}
+Summary:        %{summary}
+Provides:       %{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-%{module_name} %_description
+
+
+%prep
+%forgeautosetup -p1
+
+# Exclude tests from wheel
+sed -i '/^packages.*openneuro/a exclude = ["src/openneuro/tests"]' pyproject.toml
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files -l %{module_name}
+
+
+%check
+# Exclude tests requiring network (they also require an API key)
+k="${k-}${k+ and }not test_download"
+k="${k-}${k+ and }not test_resume_download"
+k="${k-}${k+ and }not test_ds000248"
+k="${k-}${k+ and }not test_doi_handling"
+k="${k-}${k+ and }not test_restricted_dataset"
+%pytest -v ${k+-k }"${k-}"
+
+# Also run import test since majority of tests cannot be run in mock
+%pyproject_check_import
+
+
+%files -n python3-%{module_name} -f %{pyproject_files}
+%doc README.*
+%{_bindir}/%{pypi_name}
+
+
+%changelog
+%autochangelog

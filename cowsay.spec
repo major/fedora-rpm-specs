@@ -6,7 +6,7 @@
 
 Name:           cowsay
 Version:        3.7.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Configurable speaking/thinking cow
 License: GPL-2.0-or-later
 URL:            https://github.com/cowsay-org/cowsay
@@ -16,7 +16,7 @@ Source2:        animalsay
 Patch0:         fox-cow.patch
 
 BuildArch:      noarch
-BuildRequires:  bash-completion
+BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  perl-generators
 Requires:       perl-Encode
 # introduced /usr/share/bash-completion/...
@@ -84,6 +84,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %{compdir}/%{name}
 
 %changelog
+* Mon Mar 18 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.7.0-13
+- BR fix for bash-completion
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

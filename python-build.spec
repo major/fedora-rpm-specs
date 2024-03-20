@@ -1,16 +1,13 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        1.0.3
+Version:        1.1.1
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
 URL:            https://github.com/pypa/build
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Fix the build with setuptools 69.0.3
-Patch:          https://github.com/pypa/build/commit/9f6e34228a0da7e5.patch
 
 BuildArch:      noarch
 
@@ -33,9 +30,6 @@ A simple, correct PEP517 package builder.
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-# deprecated python3-toml is not needed on Python 3.11+
-# upstream: https://github.com/pypa/build/pull/563
-sed -Ei '/\btoml\b/d' pyproject.toml
 # coverage is discouraged in Python packages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -Ei '/\bpytest-cov\b/d' pyproject.toml

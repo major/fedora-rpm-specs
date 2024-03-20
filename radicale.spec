@@ -6,22 +6,46 @@
 #
 # Note: this is the simplified spec file for Fedora
 
+### supports following defines during RPM build:
+#
+### specific git commit on upstream (EXAMPLE)
+## build SRPMS
+# fedpkg srpm --define "gitcommit 49d0ad5b18a3867925e2ffd1d8cec21d99e13b3e" -- --undefine=_disable_source_fetch
+#
+## build RPMS local
+# fedpkg local --define "gitcommit 49d0ad5b18a3867925e2ffd1d8cec21d99e13b3e" -- --undefine=_disable_source_fetch
+#
+## rebuild SRPMS on a different system using
+# rpmbuild --rebuild -D "gitcommit 49d0ad5b18a3867925e2ffd1d8cec21d99e13b3e" radicale3-<VERSION>-<RELEASE>.YYYYMMDDgitSHORTHASH.DIST.src.rpm
+
 %define	radicale_major	3
 
-%define	radicale_version	3.1.8
-%define	radicale_release	54
+%define	radicale_version	3.1.9
+%define	radicale_release	1
 
 %define	radicale_name	radicale
 
 %define	radicale_package_name	radicale3
 
+%if 0%{?gitcommit:1}
+%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
+%define build_timestamp %(date +"%Y%m%d")
+%global gittag .%{build_timestamp}git%{shortcommit}
+%endif
+
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?dist}.2
+Release:          %{radicale_release}%{?gittag}%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
+
+%if 0%{?gitcommit:1}
+Source0:          https://github.com/Kozea/Radicale/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
+%else
 Source0:          https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
+%endif
+
 Source1:          %{name}.service
 Source3:          %{name}-httpd
 Source4:          %{name}.te
@@ -33,8 +57,6 @@ Source50:	  %{name}-test-example.ics
 Source51:	  %{name}-test-example.vcf
 
 Patch0:           %{name}-config-storage-hooks-SELinux-note.patch
-Patch1:           %{name}-3.1.8-20230422-d7ce2f0b.patch
-Patch2:           %{name}-3.1.8-fix-main-component-PR-1252.patch
 
 BuildArch:        noarch
 
@@ -150,7 +172,13 @@ Note: storage hooks configuration is currently not supported by packaged
 
 
 %prep
-%autosetup -n Radicale-%{version} -p 1
+%if 0%{?gitcommit:1}
+%define build_version %{gitcommit}
+%else
+%define build_version %{version}
+%endif
+%autosetup -n Radicale-%{build_version} -p 1
+
 mkdir SELinux
 cp -p %{SOURCE4} %{SOURCE5} %{SOURCE6} SELinux
 
@@ -382,6 +410,11 @@ fi
 
 
 %changelog
+* Mon Mar 18 2024 Peter Bieringer <pb@bieringer.de> - 3.1.9-1
+- Update to 3.1.9
+- Remove obsolete patches
+- Add support for intermediate build using gitcommit
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-54.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

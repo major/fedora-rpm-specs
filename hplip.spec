@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -238,6 +238,9 @@ Patch70: hplip-use-raw-strings.patch
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
 Patch71: hplip-hpaio-gcc14.patch
+# format is no longer method in locale module
+# https://bugs.launchpad.net/hplip/+bug/2045507
+Patch72: hplip-locale-format.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -595,6 +598,9 @@ done
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
 %patch -P 71 -p1 -b .hpaio-gcc14
+# format is no longer method in locale module
+# https://bugs.launchpad.net/hplip/+bug/2045507
+%patch -P 72 -p1 -b .locale-format
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -966,6 +972,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Mon Mar 18 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-5
+- 2270031 - hp-firmware: module 'locale' not longer provides method 'format', causing traceback
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

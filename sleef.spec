@@ -228,17 +228,6 @@ rm -vrf src/gencoef
 %check
 skips='^($.'
 
-# https://github.com/shibatch/sleef/issues/439
-%ifarch x86_64 %{arm64} ppc64le s390x
-skips="${skips}|iuty?purecfma_scalar"
-%endif
-%ifarch %{arm64} ppc64le s390x
-skips="${skips}|iuty?purec_scalar"
-%endif
-%ifarch s390x
-skips="${skips}|iuty?zvector2(nofma)?"
-%endif
-
 %if %{with dft}
 # The DFT library has known test failures
 # (https://github.com/shibatch/sleef/issues/214).

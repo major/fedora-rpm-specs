@@ -11,6 +11,8 @@ Source0:        https://pypi.io/packages/source/j/jsonpatch/%{pypi_name}-%{versi
 # tarball from pypi does not include file tests.js required for a specific test.
 # upstream issue https://github.com/stefankoegl/python-json-patch/issues/82
 Patch0:         0001-Skip-unit-test-in-packaging.patch
+# Avoid usage of unittest.makeSuite, removed from Python 3.13
+Patch1:         https://github.com/stefankoegl/python-json-patch/pull/159.patch
 
 BuildArch:      noarch
 
@@ -33,6 +35,7 @@ Library to apply JSON Patches according to RFC 6902 - Python 3 build.
 %prep
 %setup -qn %{pypi_name}-%{version}
 %patch -P 0 -p1
+%patch -P 1 -p1
 
 
 %build

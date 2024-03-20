@@ -1,5 +1,5 @@
 Name:		openvkl
-Version:	2.0.0
+Version:	2.0.1
 Release:	%autorelease
 Summary:	Intel Open Volume Kernel Library
 

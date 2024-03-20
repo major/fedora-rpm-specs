@@ -58,13 +58,9 @@ Patch:          cramjam-cli-0.1.1-system-libcramjam-crate.patch
 # https://github.com/milesgranger/cramjam/pull/137
 # Rebased on the released PyPI sdist
 Patch:          cramjam-cli-0.1.1-license-file.patch
-# Do not strip the compiled executable; we need useful debuginfo. Upstream set
-# this intentionally, so this makes sense to keep downstream-only. Note that
-# this patch is not strictly needed unless we start building with
-# %%pyproject_wheel/%%pyproject_install.
-Patch:          cramjam-cli-0.1.1-no-strip.patch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
 
 # Required for tests, but not in the dev extra (probably because it is built
@@ -77,6 +73,12 @@ BuildRequires:  %{py3_dist cramjam}
 
 %prep
 %autosetup -n cramjam_cli-%{version} -p1
+
+# Do not strip the compiled executable; we need useful debuginfo. Upstream set
+# this intentionally, so this makes sense to keep downstream-only. Note that
+# this patch is not strictly needed unless we start building with
+# %%pyproject_wheel/%%pyproject_install.
+tomcli set pyproject.toml false 'tool.maturin.strip'
 
 # Remove bundled rust-libcramjam.
 rm -rv local_dependencies/

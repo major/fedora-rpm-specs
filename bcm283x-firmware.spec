@@ -8,7 +8,7 @@
 
 Name:          bcm283x-firmware
 Version:       20240229
-Release:       1.%{gitshort}%{?dist}
+Release:       2.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -104,6 +104,10 @@ install -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{buildroot}%{
 %{efi_esp_root}/start4*
 
 %changelog
+* Mon Mar 18 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240229-2.dc94391
+- Update RPi400 firmware DTB
+- Reorder config.txt to be closer to upstream
+
 * Thu Feb 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 20240229-1.dc94391
 - Update to latest firmware
 - Rebuild RPi4 FW DT to fix dma40 sound/display issue

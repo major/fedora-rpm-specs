@@ -1,5 +1,5 @@
-%global commit dad6419bcfc6ecd2c866b44f55c74a8548028c76
-%global snapdate 20231101
+%global commit b795c03b1982964fb91ffd57ce8112844efd3291
+%global snapdate 20240120
 
 Name:           cr-marcstevens-snippets
 # Neither the repository as a whole nor the individual header-only libraries
@@ -41,9 +41,6 @@ Source1:        https://www.boost.org/LICENSE_1_0.txt
 # Replace using declaration with typedef
 # https://github.com/cr-marcstevens/snippets/pull/2
 Patch:          %{url}/pull/2.patch
-# parallel_algorithms.hpp: include <algorithm> for std::partition
-# https://github.com/cr-marcstevens/snippets/pull/4
-Patch:          %{url}/pull/4.patch
 
 # For compile-only “smoke tests”:
 BuildRequires:  gcc-c++

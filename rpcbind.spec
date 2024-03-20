@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.6
-Release:        4.rc2%{?dist}.4
+Release:        4.rc3%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -22,7 +22,7 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd coreutils
 
-Patch001: rpcbind-1.2.7-rc2.patch
+Patch001: rpcbind-1.2.7-rc3.patch
 
 Patch100: rpcbind-0.2.3-systemd-envfile.patch
 Patch101: rpcbind-0.2.3-systemd-tmpfiles.patch
@@ -41,13 +41,13 @@ RPC calls on a server on that machine.
 %prep
 %setup -q
 
-%patch001 -p1
+%patch 001 -p1
 
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
+%patch 100 -p1
+%patch 101 -p1
+%patch 102 -p1
+%patch 103 -p1
+%patch 104 -p1
 
 %build
 autoreconf -fisv
@@ -124,6 +124,9 @@ fi
 %attr(0700, %{rpcbind_user_group}, %{rpcbind_user_group}) %dir %{rpcbind_state_dir}
 
 %changelog
+* Mon Mar 18 2024 Steve Dickson <steved@redhat.com> 1.2.6-4.rc3
+- Updated to latest upstream RC release: rpcbind-1_2_7-rc3
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-4.rc2.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

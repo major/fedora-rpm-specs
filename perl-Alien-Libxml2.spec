@@ -1,6 +1,6 @@
 Name:           perl-Alien-Libxml2
 Version:        0.19
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Install the C libxml2 library on your system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Libxml2/
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 18 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-13
+- Rebuild against libxml2-2.12.6 (rhbz#2270043)
+
 * Tue Feb 06 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-12
 - Rebuild against libxml2-2.12.5 (rhbz#2262863)
 

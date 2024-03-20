@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.32
-Release:        3%{?dist}
+Version:        8.7.37
+Release:        1%{?dist}
 Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Mon Mar 18 2024 Orion Poplawski <orion@nwra.com> - 8.7.37-1
+- Update to 8.7.37
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

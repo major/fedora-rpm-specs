@@ -4,13 +4,13 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.49.4
+Version:	3.50.0
 Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.49/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.50/%{name}-%{version}.tar.xz
 
 BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAcco
 %{_datadir}/vala/
 
 %changelog
+* Mon Mar 18 2024 David King <amigadave@amigadave.com> - 3.50.0-1
+- Update to 3.50.0
+
 * Mon Mar 04 2024 David King <amigadave@amigadave.com> - 3.49.4-1
 - Update to 3.49.4
 

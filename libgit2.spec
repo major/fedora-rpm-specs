@@ -12,6 +12,8 @@ Summary:        C implementation of the Git core methods as a library with a sol
 License:        GPLv2 with exceptions
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version}.tar.gz#/libgit2-%{version}.tar.gz
+# Upstream patch: packbuilder: adjust nondeterministic tests
+Patch:          0001-packbuilder-adjust-nondeterministic-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
@@ -58,15 +60,6 @@ find examples -name ".gitignore" -delete -print
 
 # Don't run "online" tests
 sed -i '/-sonline/s/^/#/' tests/libgit2/CMakeLists.txt
-
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-# On Fedora 40+ and RHEL 10+, we're using zlib-ng rather than
-# zlib for compression. As a result, all of the pack tests fail
-# due to checking the hashes of the packed data against static
-# values that were created with zlib.
-# https://github.com/libgit2/libgit2/issues/6728
-sed -i 's/-xonline/-xonline -xpack/' tests/libgit2/CMakeLists.txt
-%endif
 
 # Remove bundled libraries (except libxdiff)
 pushd deps

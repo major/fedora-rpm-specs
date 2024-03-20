@@ -1,7 +1,7 @@
 %global bashcompdir %(pkg-config --variable=completionsdir bash-completion)
 
 Name:           lynis
-Version:        3.1.0
+Version:        3.1.1
 Release:        1%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
@@ -9,7 +9,7 @@ URL:            https://cisofy.com/lynis/
 Source0:        https://cisofy.com/files/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  bash-completion
+BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  git-core
 %if 0%{?el6}
 BuildRequires:  procps
@@ -78,6 +78,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Mon Mar 18 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.1.1-1
+- 3.1.1
+
 * Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 3.1.0-1
 - 3.1.0
 

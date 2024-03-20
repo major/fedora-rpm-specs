@@ -1,6 +1,6 @@
 Name:           90-Second-Portraits
 Version:        1.01b
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Frantic street painting game
 
 # Zlib: Main package
@@ -25,7 +25,7 @@ BuildArch:      noarch
 Requires:       love
 
 # List the arches that love builds on
-ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le
+ExclusiveArch: %{arm} %{ix86} x86_64 aarch64 ppc64le riscv64
 
 #From the website (see URL above)
 %description
@@ -79,6 +79,9 @@ install -p -D -m 0644 data/images/title_background.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Fri Feb 23 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1.01b-22
+- Add riscv64 support
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

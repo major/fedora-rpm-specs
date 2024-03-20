@@ -1,8 +1,8 @@
 %global srcname stdnum
 
 Name:           python-%{srcname}
-Version:        1.19
-Release:        4%{?dist}
+Version:        1.20
+Release:        1%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
 License:        LGPL-2.0-or-later
@@ -63,6 +63,9 @@ export LANG=C.utf-8
 
 
 %changelog
+* Mon Mar 18 2024 Dan Horák <dan[at]danny.cz> - 1.20-1
+- updated to 1.20 (rhbz#2269981)
+
 * Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

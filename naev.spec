@@ -1,6 +1,6 @@
 Name:           naev
-Version:        0.10.2
-Release:        7%{?dist}
+Version:        0.11.4
+Release:        2%{?dist}
 Summary:        2d action, RPG space game
 License:        GPL-3.0-only
 URL:            http://naev.org
@@ -96,6 +96,10 @@ rm -f %{buildroot}%{_datadir}/doc/naev/LICENSE %{buildroot}%{_datadir}/doc/naev/
 
 
 %changelog
+* Sun Mar 17 2024 Jonathan Dieter <jdieter@gmail.com> - 0.11.4-2
+- Update to 0.11.4
+- Rebuild in side-tag
+
 * Sun Feb 04 2024 Orion Poplawski <orion@nwra.com> - 0.10.2-7
 - Rebuild with suitesparse 7.6.0
 

@@ -24,6 +24,8 @@ Summary: A fast string matching header-only library for C++
 URL: %{forgeurl}
 Source: %{forgesource}
 
+Patch0: remove-march-native.patch
+
 BuildRequires: cmake
 BuildRequires: doxygen
 BuildRequires: clang

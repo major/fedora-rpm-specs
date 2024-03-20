@@ -7,11 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 1e6f92b995a9f7bff83b8b7a4b51782804fc23c5
+%global git_hash 615d370ca2710d54869e128f176e3ba6e2fccf6b
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20240220.g1e6f92b
+Version:	0^20240318.g615d370
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -124,6 +124,10 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Mon Mar 18 2024 Stefano Brivio <sbrivio@redhat.com> - 0^20240318.g615d370-1
+- Switch license identifier to SPDX (Dan Čermák)
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2024_02_20.1e6f92b..2024_03_18.615d370
+
 * Tue Feb 20 2024 Stefano Brivio <sbrivio@redhat.com> - 0^20240220.g1e6f92b-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2024_02_19.ff22a78..2024_02_20.1e6f92b
 

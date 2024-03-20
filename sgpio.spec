@@ -3,7 +3,7 @@ Name: sgpio
 Version: 1.2.0.10
 Release: 36%{?dist}
 License: GPL-2.0-or-later
-URL: http://sources.redhat.com/lvm2/wiki/DMRAID_Eventing
+URL: https://sourceware.org/lvm2/wiki/DMRAID_Eventing
 Source: sgpio-1.2-0.10-src.tar.gz
 # there is no official download link for the latest package
 #Source: http://sources.redhat.com/lvm2/wiki/DMRAID_Eventing?action=AttachFile&do=get&target=sgpio-1.2.tgz

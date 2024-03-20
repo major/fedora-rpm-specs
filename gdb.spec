@@ -1250,6 +1250,11 @@ fi
 %endif
 
 %changelog
+* Mon Mar 18 2024 Andrew Burgess <aburgess@redhat.com>
+- Drop gdb-6.3-attach-see-vdso-test.patch, this is a test only patch.
+  Upstream commit 93eb6c64ec4a6ea includes a similar test, and will be
+  picked up as part of the next rebase.
+
 * Wed Mar 13 2024 Andrew Burgess <aburgess@redhat.com>
 - Remove the use of librpm from GDB's C++ code, and instead provide
   similar RPM suggestion feature using a Python extension.  The Python

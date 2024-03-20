@@ -2,7 +2,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
@@ -115,6 +115,9 @@ Provides:       perl(Tk) = %{version}
 %global __provides_exclude %__provides_exclude|perl\\(Tk::Widget\\)$
 %global __provides_exclude %__provides_exclude|perl\\(Tk::Wm\\)$
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TkTest\\)
 
 %description
 This a re-port of a perl interface to Tk8.4.
@@ -131,6 +134,21 @@ Requires: perl-Tk = %{version}-%{release}
 
 %description devel
 %{summary}
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# X11 tests:
+Requires:       xorg-x11-server-Xvfb
+Requires:       xorg-x11-xinit
+Requires:       google-noto-sans-fonts
+Requires:       font(:lang=en)
+Requires:       liberation-sans-fonts
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Tk-%{version}
@@ -152,6 +170,12 @@ perl -pi -e \
 %patch -P 7 -p1
 %patch -P 8 -p1
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1 NO_PACKLIST=1 NO_PERLLOCAL=1
 find . -name Makefile | xargs perl -pi -e 's/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
@@ -159,18 +183,41 @@ find . -name Makefile | xargs perl -pi -e 's/^\tLD_RUN_PATH=[^\s]+\s*/\t/'
 
 %check
 %if %{use_x11_tests}
+    export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
     xvfb-run -d make test
 %endif
 
 %install
 %{make_install}
 
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
 
-chmod -R u+rwX,go+rX,go-w $RPM_BUILD_ROOT/*
+chmod -R u+rwX,go+rX,go-w %{buildroot}/*
 mkdir __demos
-cp -pR $RPM_BUILD_ROOT%{perl_vendorarch}/Tk/demos __demos
+cp -pR %{buildroot}%{perl_vendorarch}/Tk/demos __demos
 find __demos/ -type f -exec chmod -x {} \;
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/demos/demos/images
+cp demos/demos/images/cursor* %{buildroot}%{_libexecdir}/%{name}/demos/demos/images
+perl -i -pe 's{-Mblib", "blib/script}{%{_bindir}}' %{buildroot}%{_libexecdir}/%{name}/t/exefiles.t
+perl -i -ne 'print $_ unless m{gedi}' %{buildroot}%{_libexecdir}/%{name}/t/exefiles.t
+
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+xvfb-run -d prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %files
 %doc Changes README README.linux ToDo pTk/*license* __demos/demos demos/widget COPYING
@@ -199,9 +246,14 @@ find __demos/ -type f -exec chmod -x {} \;
 %{perl_vendorarch}/Tk/install.pm
 %{perl_vendorarch}/Tk/MakeDepend.pm
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
-* Thu Feb 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-14
+* Tue Mar 05 2024 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-16
+- Package tests
+
+* Thu Feb 08 2024 Jitka Plesnikova <jplesnik@redhat.com> - 804.036-15
 - Fix tests failing on s390* (rhbz#2222638)
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 804.036-14

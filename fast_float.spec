@@ -14,7 +14,7 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for number types
-Version:        6.1.0
+Version:        6.1.1
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float

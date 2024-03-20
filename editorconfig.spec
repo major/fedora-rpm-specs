@@ -1,3 +1,6 @@
+# do not require a standalone uthash when built as part of RHEL
+%bcond system_uthash %[0%{?fedora} || 0%{?epel}]
+
 # build process has race conditions, force single thread
 %global _smp_mflags -j1
 
@@ -13,7 +16,7 @@ editors.}
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
 Version:        0.12.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # The entire source is BSD-2-Clause, except:
 #   BSD-3-Clause: src/lib/ini.h
@@ -35,8 +38,10 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  pcre2-devel
+%if %{with system_uthash}
 # Header-only library; BR on -static required by guidelines
 BuildRequires:  uthash-static
+%endif
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -66,6 +71,10 @@ Summary:        Parser library for EditorConfig files (shared library)
 # the current repository to indicate the snapshot from which the bundled
 # version was forked.
 Provides:       bundled(inih) = 0^20110627git328c3d4
+%if %{without system_uthash}
+# src/lib/utarray.h:UTARRAY_VERSION
+Provides:       bundled(uthash) = 2.1.0
+%endif
 
 %description    libs %common_description
 
@@ -85,8 +94,10 @@ This package contains the files needed for development.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+%if %{with system_uthash}
 # Unbundle uthash
 rm -vf src/lib/utarray.h
+%endif
 
 
 %build
@@ -128,6 +139,9 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Fri Mar 08 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.12.6-5
+- Use bundled uthash in RHEL builds
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

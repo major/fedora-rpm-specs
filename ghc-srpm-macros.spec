@@ -3,7 +3,7 @@
 %global macrosfile macros.ghc-srpm
 
 Name:           ghc-srpm-macros
-Version:        1.9
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
@@ -34,6 +34,10 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/%{macrosfile}
 
 
 %changelog
+* Mon Mar 18 2024 Jens Petersen <petersen@redhat.com> - 1.9.1-1
+- %%haskell_setup -q replaces %%haskell_setup_quick
+- %%haskell_setup -p and -h options disable prof and doc
+
 * Thu Mar  7 2024 Jens Petersen <petersen@redhat.com> - 1.9-1
 - improve haskell_setup to undefine the old macros
 - add haskell_setup_quick for test builds

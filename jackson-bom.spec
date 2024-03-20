@@ -1,6 +1,6 @@
 Name:           jackson-bom
-Version:        2.16.2
-Release:        1%{?dist}
+Version:        2.17.0
+Release:        2%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
 
@@ -8,7 +8,7 @@ URL:            https://github.com/FasterXML/jackson-bom
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.15
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.17
 BuildRequires:  mvn(junit:junit)
 
 BuildArch:      noarch
@@ -29,6 +29,9 @@ A "bill of materials" POM for Jackson dependencies.
 # New EE coords
 %pom_change_dep "javax.activation:javax.activation-api" "jakarta.activation:jakarta.activation-api" base
 
+# Remove dep on junit-bom
+%pom_remove_dep "org.junit:junit-bom" base
+
 %build
 %mvn_build -j
 
@@ -40,6 +43,29 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Fri Mar 15 2024 Chris Kelley <ckelley@redhat.com> - 2.17.0-2
+- Fix build issue with introduction of JUnit5
+
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 2.17.0-1
+- [maven-release-plugin] prepare release jackson-bom-2.17.0 (Tatu Saloranta)
+- Prepare for 2.17.0 release (Tatu Saloranta)
+- Update to 2.17 jackson-parent (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- [maven-release-plugin] prepare release jackson-bom-2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 (Tatu Saloranta)
+- Add `jackson-jr-extension-javatime` (to be included in 2.17) (Tatu Saloranta)
+- Add JDK 21 on ci (Tatu Saloranta)
+- Add managed version dependency to JUnit 5 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 release cycle (Tatu Saloranta)
+- Update maven properies version (Tatu Saloranta)
+- Further update to refer to the very latest released version, 2.16.1 (Tatu Saloranta)
+- latest release version in readme (SanviT)
+- Start 2.17 branch (Tatu Saloranta)
+- Resolves rhbz#2269275
+
 * Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
 - [maven-release-plugin] prepare release jackson-bom-2.16.2 (Tatu Saloranta)
 - Prepare for 2.16.2 release (Tatu Saloranta)

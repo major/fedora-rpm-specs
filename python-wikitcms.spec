@@ -1,7 +1,7 @@
 %global srcname wikitcms
 
 Name:           python-%{srcname}
-Version:        2.6.11
+Version:        2.6.12
 Release:        1%{?dist}
 Summary:        Fedora QA wiki test management Python library
 
@@ -65,6 +65,9 @@ sed -i -e 's., "setuptools-git"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Mon Mar 18 2024 Adam Williamson <awilliam@redhat.com> - 2.6.12-1
+- New release 2.6.12: bump live-osbuild images down the download table
+
 * Wed Feb 28 2024 Adam Williamson <awilliam@redhat.com> - 2.6.11-1
 - New release 2.6.11: better error when compose failed
 

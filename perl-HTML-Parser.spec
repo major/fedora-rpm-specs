@@ -1,7 +1,7 @@
 Name:           perl-HTML-Parser
 Summary:        Perl module for parsing HTML
-Version:        3.81
-Release:        5%{?dist}
+Version:        3.82
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Parser-%{version}.tar.gz
 URL:            https://metacpan.org/release/HTML-Parser
@@ -27,7 +27,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(SelectSaver)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
@@ -102,12 +101,15 @@ make test
 %doc Changes README TODO eg/
 %{perl_vendorarch}/HTML/
 %{perl_vendorarch}/auto/HTML/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/HTML::*.3pm*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 18 2024 Jitka Plesnikova <jplesnik@redhat.com> - 3.82-1
+- 3.82 bump (rhbz#2269439)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.81-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

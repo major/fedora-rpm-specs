@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc0.20240315gite5eb28f6d1af.7
+%define pkgrelease 0.rc0.20240318gitf6cef5f8c37f.10
 %define kversion 6
-%define tarfile_release 6.8-9791-ge5eb28f6d1af
+%define tarfile_release 6.8-11409-gf6cef5f8c37f
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20240315gite5eb28f6d1af.7%{?buildid}%{?dist}
+%define specrelease 0.rc0.20240318gitf6cef5f8c37f.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -3961,11 +3961,23 @@ fi\
 #
 #
 %changelog
-* Fri Mar 15 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.e5eb28f6d1af.7]
+* Mon Mar 18 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.f6cef5f8c37f.10]
 - arch/x86/kernel/setup.c: fixup rh_check_supported (Scott Weaver)
 - Add new of_test module to mod-internal.list (Thorsten Leemhuis)
 - Add new string kunit modules to mod-internal.list (Thorsten Leemhuis)
 - Add drm_gem_shmem_test to mod-internal.list (Thorsten Leemhuis)
+
+* Mon Mar 18 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.f6cef5f8c37f.9]
+- Linux v6.9.0-0.rc0.f6cef5f8c37f
+
+* Sun Mar 17 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.741e9d668aa5.8]
+- Linux v6.9.0-0.rc0.741e9d668aa5
+
+* Sat Mar 16 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.66a27abac311.7]
+- Enable CONFIG_USB_ONBOARD_HUB for RHEL (Charles Mirabile)
+- redhat/Makefile.cross: Add CROSS_BASEONLY (Prarit Bhargava)
+- gitlab-ci: fix ark-latest merging for parent pipelines running in forks (Michael Hofmann)
+- Linux v6.9.0-0.rc0.66a27abac311
 
 * Fri Mar 15 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.e5eb28f6d1af.6]
 - Linux v6.9.0-0.rc0.e5eb28f6d1af

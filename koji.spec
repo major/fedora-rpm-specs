@@ -9,15 +9,30 @@
 
 Name: koji
 Version: 1.34.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
 
+# scm policy plugin - already upstreamed
+Patch1: 1d515927aeb3e3c052fc9208ca71133d9d097fc0.patch
 # Not upstreamable
 Patch100: fedora-config.patch
+# Use dnf5-compatible "group install" command
+# This should work on yum/dnf-4/dnf5
+Patch102: https://pagure.io/koji/pull-request/3974.patch
+# noarch builds only happen on some arches
+# allows picking what arches will do noarch builds
+Patch103: https://pagure.io/koji/pull-request/4013.patch
+# oz size patch
+# Drop passing a unit to oz so it can determine GiB vs GB
+Patch104: https://pagure.io/koji/c/0251961929a45ccae1d635b7e85a9d8826baf72d.patch
+# fix typo in refusal - already upstreamed
+Patch105: https://pagure.io/koji/c/2a6e18fa356f1aa2a1b5099e55e0af1c89ae4163.patch
+# Add index for rpminfo
+Patch106: https://pagure.io/koji/pull-request/4026.patch
 
 BuildArch: noarch
 Requires: python%{python3_pkgversion}-%{name} = %{version}-%{release}
@@ -44,6 +59,7 @@ Requires: python%{python3_pkgversion}-requests
 Requires: python%{python3_pkgversion}-requests-gssapi
 Requires: python%{python3_pkgversion}-dateutil
 Requires: python%{python3_pkgversion}-six
+Requires: python%{python3_pkgversion}-defusedxml
 
 %description -n python%{python3_pkgversion}-%{name}
 Koji is a system for building and tracking RPMS.
@@ -348,6 +364,14 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Mon Mar 18 2024 Kevin Fenzi <kevin@scrye.com> - 1.34.0-2
+- Carry scm policy plugin for hub, it's already upstream
+- Use dnf5 compatible 'group install' command
+- Allow specifying with a tag value what arches noarch builds happen on.
+- Fix image-build to not pass units to oz (to avoid GB/GiB issues)
+- Fix a typo in scheduler (already upstreamed)
+- Add back index for rpminfo table that was mistakenly dropped.
+
 * Thu Jan 25 2024 Kevin Fenzi <kevin@scrye.com> - 1.34.0-1
 - Update to 1.34.0. Fixes rhbz#2260055
 

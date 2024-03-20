@@ -11,7 +11,7 @@ Source:         %url/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 # https://github.com/WojciechMula/pyahocorasick/issues/142
 # https://github.com/WojciechMula/pyahocorasick/blob/master/README.rst
-ExclusiveArch:  x86_64 %{arm64} ppc64le
+ExclusiveArch:  x86_64 %{arm64} ppc64le riscv64
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

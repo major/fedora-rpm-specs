@@ -4,7 +4,7 @@
 
 Name:           bcd
 Version:        1.1
-Release:        12.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        13.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        Bayesian Collaborative Denoiser for Monte-Carlo Rendering
 # BSD: main program
 # AGPLv3+: src/io/exr
@@ -100,7 +100,7 @@ developing applications that use %{name}.
 
 
 %build
-export CXXFLAGS="%{optflags} $(pkgconf --cflags eigen3 OpenEXR) -I%{_includedir}/nlohmann"
+export CXXFLAGS="%{optflags} $(pkgconf --cflags eigen3 OpenEXR) $(pkgconf --cflags --keep-system-cflags nlohmann_json)/nlohmann"
 export LDFLAGS="%{build_ldflags} $(pkgconf --libs eigen3 OpenEXR)"
 %cmake \
   -DBCD_BUILD_GUI=OFF \
@@ -140,6 +140,9 @@ cp -pr include/* %{buildroot}%{_includedir}
 
 
 %changelog
+* Mon Mar 18 2024 Nicolas Chauvet <kwizart@gmail.com> - 1.1-13.20180610gitd94c9fa
+- Use pkconf also for nlohmann_json see src_fpo#1
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-12.20180610gitd94c9fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

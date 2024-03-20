@@ -1,13 +1,13 @@
 Name:           jackson-annotations
-Version:        2.16.2
-Release:        1%{?dist}
+Version:        2.17.0
+Release:        2%{?dist}
 Summary:        Core annotations for Jackson data processor
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-annotations
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.14
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.17
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 
@@ -56,6 +56,27 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Mon Mar 18 2024 Chris Kelley <ckelley@redhat.com> - 2.17.0-2
+- Fix dep on parent to 2.17
+
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 2.17.0-1
+- [maven-release-plugin] prepare release jackson-annotations-2.17.0 (Tatu Saloranta)
+- Prepare for 2.17.0 release (Tatu Saloranta)
+- Update jackson-parent to 2.17 (non snapshot) (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#245) (dependabot[bot])
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- [maven-release-plugin] prepare release jackson-annotations-2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 release (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 release (Tatu Saloranta)
+- Fix grammar (#244) (Magnus Reftel)
+- Fix #242: allow `@JsonAnySetter` on parameters (#243) (Tatu Saloranta)
+- Fix broken link in Javadoc of JsonInclude (#241) (Hyeonmin Park)
+- Bump the github-actions group with 1 update (#240) (dependabot[bot])
+- Start 2.17 branch (Tatu Saloranta)
+- Resolves rhbz#2269277
+
 * Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
 - [maven-release-plugin] prepare release jackson-annotations-2.16.2 (Tatu Saloranta)
 - Resolves rhbz#2268706

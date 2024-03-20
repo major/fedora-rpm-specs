@@ -23,7 +23,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   46~rc
+Version:   46.0
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
@@ -264,6 +264,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Mon Mar 18 2024 Milan Crha <mcrha@redhat.com> - 46.0-1
+- Update to 46.0
+
 * Fri Mar 01 2024 Milan Crha <mcrha@redhat.com> - 46~rc-1
 - Update to 46.rc
 

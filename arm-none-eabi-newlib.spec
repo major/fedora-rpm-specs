@@ -6,11 +6,11 @@
 %global _binaries_in_noarch_packages_terminate_build 0
 
 %global target arm-none-eabi
-%global pkg_version 4.3.0.20230120
+%global pkg_version 4.4.0.20231231
 
 Name:           %{target}-newlib
-Version:        4.3.0.20230120
-Release:        6%{?dist}
+Version:        4.4.0.20231231
+Release:        1%{?dist}
 Summary:        C library intended for use on %{target} embedded systems
 # For a breakdown of the licensing, see NEWLIB-LICENSING
 License:        BSD-2-Clause AND BSD-4-Clause AND LGPL-2.1-or-later AND ISC AND GPL-3.0-or-later AND MIT
@@ -121,6 +121,9 @@ rm -rf $NANO_ROOT
 %{_prefix}/%{target}/lib/*
 
 %changelog
+* Mon Mar 18 2024 Michal Hlavinka <mhlavink@redhat.com> - 4.4.0.20231231-1
+- updated to 4.4.0.20231231
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0.20230120-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

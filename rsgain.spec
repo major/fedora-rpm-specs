@@ -40,7 +40,7 @@ the volume of your tagged files during playback.
 
 
 %build
-%cmake
+%cmake -DINSTALL_MANPAGE=ON
 %cmake_build
 
 
@@ -59,6 +59,7 @@ the volume of your tagged files during playback.
 %doc README.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
+%{_mandir}/man1/%{name}.1*
 
 
 %changelog

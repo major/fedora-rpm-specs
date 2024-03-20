@@ -2,11 +2,14 @@
 
 Summary:   Firmware update EFI binaries
 Name:      fwupd-efi
-Version:   1.4
+Version:   1.5
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd-efi
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
+
+# discussed in https://github.com/fwupd/fwupd-efi/pull/53
+Patch01: 0001-Revert-lds-add-init_array-fini_array-sections.patch
 
 # these are the only architectures supporting UEFI UpdateCapsule
 ExclusiveArch: x86_64 aarch64

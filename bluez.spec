@@ -6,12 +6,13 @@
 
 Name:    bluez
 Version: 5.73
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
 
 Source0: http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
+Patch1:  device-fix-device_is_connected-checking-for-services.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -328,6 +329,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Mar 18 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 5.73-2
+- Upstream fix for connected device checks
+
 * Fri Mar 08 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 5.73-1
 - Update to 5.73
 

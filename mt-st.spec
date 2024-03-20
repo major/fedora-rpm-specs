@@ -1,7 +1,7 @@
 Summary: Tool for controlling tape drives
 Name: mt-st
 Version: 1.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-1.0-or-later
 URL: https://github.com/iustin/mt-st
 Source0: https://github.com/iustin/mt-st/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -9,7 +9,7 @@ Source1: stinit.service
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: systemd
-BuildRequires: bash-completion
+BuildRequires: pkgconfig(bash-completion)
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -59,6 +59,9 @@ mv mt-st mt
 
 
 %changelog
+* Mon Mar 18 2024 Dan Horák <dan[at]danny.cz> - 1.7-5
+- update BR
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -235,9 +235,9 @@ Provides: bundled(xdmf2)
 # Do not require anything provided in paraview's library directory
 # This list needs to be maintained by hand
 %if %{with protobuf}
-%global __requires_exclude ^lib(catalyst|IceT|pq|QtTesting|vtk).*$
+%global __requires_exclude ^lib(catalyst|IceT|pq|QtTesting|StereoCursorViews|vtk).*$
 %else
-%global __requires_exclude ^lib(catalyst|IceT|pq|QtTesting|vtk|protobuf).*$
+%global __requires_exclude ^lib(catalyst|IceT|pq|QtTesting|StereoCursorViews|vtk|protobuf).*$
 %endif
 
 ExcludeArch: %{ix86}

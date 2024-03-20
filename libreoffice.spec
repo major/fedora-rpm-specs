@@ -329,6 +329,8 @@ Patch11: lo-7.6-ppc64le-tests.patch
 # https://bugs.gentoo.org/917618
 # https://bugs.documentfoundation.org/show_bug.cgi?id=158108
 Patch12: libreoffice-7.5.8.2-icu-74-compatibility.patch
+# Patch for kf6 scaling.
+Patch13: 86abb6fd8a8f680f9fc5ff1db775845c9f4e254b.patch
 Patch500: 0001-disable-libe-book-support.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch

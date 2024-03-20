@@ -3,17 +3,19 @@
 %global         soversion 1.13.0
 
 Name:           partio
-Version:        1.17.1
+Version:        1.17.3
 Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 
 License:        BSD-3-Clause-Modification
 URL:            https://github.com/wdas/%{name}
-Source:         https://github.com/wdas/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
+# Disabled due to failure to get name
+#BuildRequires:  help2man
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glut)
 BuildRequires:  pkgconfig(gtest)
@@ -80,7 +82,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %license LICENSE
 %doc README.md
 %{_bindir}/part{attr,convert,edit,info,inspect,json,view}
-%{_datadir}/swig/%{name}.i
+%{_datadir}/swig/%{name}.i      
 
 %files devel
 %{_includedir}/Partio{,Attribute,Iterator,Vec3}.h

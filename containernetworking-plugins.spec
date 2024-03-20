@@ -85,7 +85,7 @@ install -p plugins/ipam/dhcp/systemd/cni-dhcp.socket %{buildroot}%{_unitdir}
 %{!?_licensedir:%global license %doc}
 
 %files
-%license LICENSE %{?with_bundled:vendor/modules.txt}
+%license LICENSE vendor/modules.txt
 %doc *.md
 %dir %{_libexecdir}/cni
 %{_libexecdir}/cni/*
@@ -94,4 +94,3 @@ install -p plugins/ipam/dhcp/systemd/cni-dhcp.socket %{buildroot}%{_unitdir}
 
 %changelog
 %autochangelog
-

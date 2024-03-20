@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:           python-pytest-bdd
-Version:        7.1.1
+Version:        7.1.2
 Release:        %autorelease
 Summary:        BDD library for the py.test runner
 

@@ -1,8 +1,8 @@
 %global gem_name rouge
 
 Name:           rubygem-%{gem_name}
-Version:        4.2.0
-Release:        2%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 # From LICENSE file
 # SPDX confirmed
@@ -101,6 +101,9 @@ find spec -name \*_spec.rb -print0 | \
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Mon Mar 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.1-1
+- 4.2.1
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

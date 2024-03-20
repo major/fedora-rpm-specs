@@ -2,16 +2,17 @@
 %bcond_with tests
 # The *.py files we ship are not python scripts, #813651
 %global _python_bytecompile_errors_terminate_build 0
+%define upstream_version 2.12.0
 
 Name:           bash-completion
-Version:        2.11
-Release:        15%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/scop/bash-completion
-Source0:        https://github.com/scop/bash-completion/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://github.com/scop/bash-completion/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.xz
 
 BuildArch:      noarch
 %if %{with tests}
@@ -37,7 +38,7 @@ Requires: %{name} =  %{epoch}:%{version}-%{release}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -n %{name}-%{upstream_version} -p1
 
 %build
 # Needed for rfkill patch as it modifies Makefile.am
@@ -79,9 +80,10 @@ make -C completions check
 
 %files
 %license COPYING
-%doc AUTHORS CHANGES CONTRIBUTING.md README.md
-%doc doc/bash_completion.txt
+%doc AUTHORS CHANGELOG.md CONTRIBUTING.md README.md
+%doc doc/configuration.md doc/styleguide.md
 %config(noreplace) %{_sysconfdir}/profile.d/bash_completion.sh
+%{_sysconfdir}/bash_completion.d/000_bash_completion_compat.bash
 %{_datadir}/bash-completion/
 
 %files devel
@@ -89,6 +91,9 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Mon Mar 18 2024 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.12-1
+- Update to version 2.12.0
+
 * Thu Feb 15 2024 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.11-15
 - Move development files in devel subpackage
   Resolves: #1457164

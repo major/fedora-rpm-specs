@@ -1,7 +1,7 @@
 Summary:        Feature rich, easy to use tag editor
 Name:           puddletag
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 URL:            http://docs.puddletag.net/
 Source0:        https://github.com/puddletag/puddletag/archive/refs/tags/%{version}.tar.gz
@@ -59,6 +59,9 @@ chmod 0644 %{buildroot}%{python3_sitelib}/puddlestuff/data/{menus,shortcuts}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Mon Mar 18 2024 Terje Rosten <terje.rosten@ntnu.no> - 2.3.0-2
+- Levenshtein has changed name, however package name is fixed
+
 * Wed Mar 06 2024 Terje Rosten <terje.rosten@ntnu.no> - 2.3.0-1
 - 2.3.0
 

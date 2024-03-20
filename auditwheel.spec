@@ -1,5 +1,5 @@
 Name:           auditwheel
-Version:        5.4.0
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
@@ -11,8 +11,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 # For tests and runtime
-BuildRequires:  patchelf >= 0.9
-Requires:       patchelf >= 0.9
+BuildRequires:  patchelf >= 0.14
+Requires:       patchelf >= 0.14
 
 # From src/auditwheel/_vendor/wheel/__init__.py
 # See the rationale in https://github.com/pypa/auditwheel/pull/275

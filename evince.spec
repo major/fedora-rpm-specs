@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        46~rc
+Version:        46.0
 Release:        1%{?dist}
 Summary:        Document viewer
 
@@ -278,6 +278,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Mon Mar 18 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Mon Mar 11 2024 David King <amigadave@amigadave.com> - 46~rc-1
 - Update to 46.rc
 

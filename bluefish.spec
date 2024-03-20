@@ -1,6 +1,6 @@
-%global pkgver 2.2.14
+%global pkgver 2.2.15
 #global prerel rc1
-%global baserelease 7
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -10,10 +10,7 @@ License:	GPL-3.0-or-later
 URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
-Patch1:		bluefish-2.2.12-shellbang.patch
-Patch2:		bluefish-c99.patch
-Patch3:		bluefish-2.2.14-ptrtype.patch
-Patch4:		bluefish-2.2.14-int-conversion.patch
+Patch1:		bluefish-2.2.15-shellbang.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant-devel >= 1.4.2
@@ -24,6 +21,7 @@ BuildRequires:	glib2-devel >= 2.24
 BuildRequires:	gtk3-devel >= 3.2
 BuildRequires:	gucharmap-devel >= 2.90
 BuildRequires:	intltool
+BuildRequires:	hardlink
 BuildRequires:	libxml2-devel
 BuildRequires:	make
 BuildRequires:	python3-devel >= 3.3
@@ -82,15 +80,6 @@ Files common to every architecture version of %{name}.
 # Also change /usr/bin/python → /usr/bin/python3
 %patch -P 1
 
-# Improve C99 compatibility
-%patch -P 2 -p1
-
-# Fix use of incompatible pointer types (upstream rev 8991)
-%patch -P 3 -p2
-
-# Fix improper use of pointer (https://sourceforge.net/p/bluefish/tickets/80/)
-%patch -P 4 -p1
-
 %build
 %configure	--disable-dependency-tracking \
 		--disable-static \
@@ -138,6 +127,12 @@ rm -f %{buildroot}%{_libdir}/bluefish/*.la
 
 # Explicitly byte-compile "extra" python code using Python 3
 %py_byte_compile %{python3} %{buildroot}%{_datadir}/bluefish
+
+# hardlink identical images together
+hardlink -cv %{buildroot}%{_datadir}/{icons,pixmaps}
+
+# hardlink identical message files together
+hardlink -cv %{buildroot}%{_datadir}/locale
 
 %post shared-data
 %if 0%{?fedora} < 26 && 0%{?rhel} < 8
@@ -196,6 +191,23 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Mon Mar 18 2024 Paul Howarth <paul@city-fan.org> - 2.2.15-1
+- Update to 2.2.15 (rhbz#2269978)
+  - Bluefish 2.2.15 is a minor maintenance release
+  - New feature: it can highlight the indenting level with a vertical line,
+    which is very useful during python programming and helps with a lot more
+    programming languages
+  - Fix zencoding for python releases newer than 3.12
+  - Add a retry button when opening files from a remote location
+  - Tiny performance improvement when scrolling
+  - Fix a bug in the bookmarks function and the visible indenting function
+    that potentially could lead to a crash
+  - The perl syntax detection has been greatly improved
+  - YAML syntax detection has been added
+  - The code has several fixes to make it compile on modern Mac OSX releases
+    and to make it compile with the clang compiler
+- Hardlink identical packaged files together to save space
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

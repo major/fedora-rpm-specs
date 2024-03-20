@@ -102,7 +102,7 @@
 # Set of architectures with a Just-In-Time (JIT) compiler
 %global jit_arches      %{aarch64} %{ix86} %{power64} sparcv9 sparc64 x86_64
 # Set of architectures which use the Zero assembler port (!jit_arches)
-%global zero_arches %{arm} ppc s390 s390x
+%global zero_arches %{arm} ppc s390 s390x riscv64
 # Set of architectures which run a full bootstrap cycle
 %global bootstrap_arches %{jit_arches} %{zero_arches}
 # Set of architectures which support SystemTap tapsets
@@ -228,6 +228,10 @@
 %global archinstall aarch64
 %global stapinstall arm64
 %endif
+%ifarch riscv64
+%global archinstall riscv64
+%global stapinstall %{nil}
+%endif
 # 32 bit sparc, optimized for v9
 %ifarch sparcv9
 %global archinstall sparc
@@ -326,7 +330,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      1
+%global rpmrelease      2
 
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
@@ -2581,6 +2585,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Mar 11 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:1.8.0.402.b06-2
+- Add riscv64 support
+
 * Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 1:1.8.0.402.b06-1.1
 - Rebuilt for java-21-openjdk as system jdk
 

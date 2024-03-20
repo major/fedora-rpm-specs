@@ -29,14 +29,15 @@ Patch7:         ogre-1.9.0-dynlib-allow-no-so.patch
 Patch8:         ogre-1.9.0-cmake-freetype.patch
 Patch9:         ogre-1.9.0-cmake_build-fix.patch
 Patch10:        ogre-aarch64.patch
+Patch11:        ogre-riscv64.patch
 # Resolve link errors due to incorrect template creation
 # https://bitbucket.org/sinbad/ogre/commits/a24ac4afbbb9dc5ff49a61634af50da11ba8fb97/
 # https://bugzilla.redhat.com/show_bug.cgi?id=1223612
-Patch11:        ogre-a24ac4afbbb9dc5ff49a61634af50da11ba8fb97.diff
+Patch12:        ogre-a24ac4afbbb9dc5ff49a61634af50da11ba8fb97.diff
 # Remove unnecessary inclusion of <sys/sysctl.h>
 # https://bugzilla.redhat.com/show_bug.cgi?id=1841324
-Patch12:        ogre-1.9.0-sysctl.patch
-Patch13:        %{name}-gcc11.patch
+Patch13:        ogre-1.9.0-sysctl.patch
+Patch14:        %{name}-gcc11.patch
 BuildRequires:  gcc-c++
 BuildRequires:  zziplib-devel freetype-devel
 BuildRequires:  libXaw-devel libXrandr-devel libXxf86vm-devel libGLU-devel
@@ -171,6 +172,7 @@ mkdir build
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
 
 # remove execute bits from src-files for -debuginfo package
 chmod -x `find RenderSystems/GL -type f` \
@@ -274,6 +276,9 @@ mv %{buildroot}%{_libdir}/OGRE/cmake/* %{buildroot}%{_datadir}/cmake/Modules
 
 
 %changelog
+* Mon Feb 26 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 1:1.9.0-48
+- Add riscv64 support
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
