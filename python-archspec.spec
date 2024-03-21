@@ -1,8 +1,8 @@
 %global srcname archspec
 
 Name:           python-%{srcname}
-Version:        0.2.2
-Release:        3%{?dist}
+Version:        0.2.3
+Release:        2%{?dist}
 Summary:        A library to query system architecture
 
 License:        Apache-2.0 OR MIT
@@ -11,6 +11,9 @@ Source:         %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# For tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-jsonschema
 
 %global _description %{expand:
 Archspec aims at providing a standard set of human-understandable labels for
@@ -47,9 +50,8 @@ rm -rf archspec/json/.git*
 %pyproject_save_files %{srcname}
 
 
-# No tests shipped yet: https://github.com/archspec/archspec/issues/136
 %check
-%tox
+%pytest -v
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -58,6 +60,12 @@ rm -rf archspec/json/.git*
 
 
 %changelog
+* Wed Mar 20 2024 Orion Poplawski <orion@nwra.com> - 0.2.3-2
+- Run tests
+
+* Tue Mar 19 2024 Orion Poplawski <orion@nwra.com> - 0.2.3-1
+- Update to 0.2.3
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

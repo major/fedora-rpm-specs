@@ -6,7 +6,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.2.10
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -21,6 +21,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 Patch:          ERAlchemy-1.2.10-compat-with-sqlalchemy-1.4.patch
+Patch:          ERAlchemy-1.2.10-no-sqlalchemy2.patch
 
 %description
 %desc
@@ -60,6 +61,9 @@ Summary:        %sum
 
 
 %changelog
+* Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 1.2.10-18
+- Depend on SQLAlchemy < 2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

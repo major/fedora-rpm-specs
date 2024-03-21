@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc0.20240318gitf6cef5f8c37f.10
+%define pkgrelease 0.rc0.20240319gitb3603fcb79b1.11
 %define kversion 6
-%define tarfile_release 6.8-11409-gf6cef5f8c37f
+%define tarfile_release 6.8-11567-gb3603fcb79b1
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20240318gitf6cef5f8c37f.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.20240319gitb3603fcb79b1.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -391,8 +391,6 @@ Summary: The Linux kernel
 %define with_bpftool 0
 %define with_kernel_abi_stablelists 0
 %define with_selftests 0
-%define with_cross 0
-%define with_cross_headers 0
 %define with_ipaclones 0
 %endif
 
@@ -422,8 +420,6 @@ Summary: The Linux kernel
 %define with_bpftool 0
 %define with_kernel_abi_stablelists 0
 %define with_selftests 0
-%define with_cross 0
-%define with_cross_headers 0
 %define with_ipaclones 0
 %define with_headers 0
 %define with_efiuki 0
@@ -2484,7 +2480,7 @@ BuildKernel() {
     fi
 
     # build and copy the vmlinux-gdb plugin files into kernel-debuginfo
-    %{make} %{?_smp_mflags} scripts_gdb
+    %{make} ARCH=$Arch %{?_smp_mflags} scripts_gdb
     cp -a --parents scripts/gdb/{,linux/}*.py $RPM_BUILD_ROOT%{debuginfodir}/lib/modules/$KernelVer
     # this should be a relative symlink (Kbuild creates an absolute one)
     ln -s scripts/gdb/vmlinux-gdb.py $RPM_BUILD_ROOT%{debuginfodir}/lib/modules/$KernelVer/vmlinux-gdb.py
@@ -3961,11 +3957,15 @@ fi\
 #
 #
 %changelog
-* Mon Mar 18 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.f6cef5f8c37f.10]
-- arch/x86/kernel/setup.c: fixup rh_check_supported (Scott Weaver)
+* Tue Mar 19 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.b3603fcb79b1.11]
 - Add new of_test module to mod-internal.list (Thorsten Leemhuis)
 - Add new string kunit modules to mod-internal.list (Thorsten Leemhuis)
-- Add drm_gem_shmem_test to mod-internal.list (Thorsten Leemhuis)
+
+* Tue Mar 19 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.b3603fcb79b1.10]
+- redhat/kernel.spec.template: enable cross for base/RT (Peter Robinson)
+- redhat/kernel.spec.template: Fix cross compiling (Peter Robinson)
+- arch/x86/kernel/setup.c: fixup rh_check_supported (Scott Weaver)
+- Linux v6.9.0-0.rc0.b3603fcb79b1
 
 * Mon Mar 18 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.f6cef5f8c37f.9]
 - Linux v6.9.0-0.rc0.f6cef5f8c37f

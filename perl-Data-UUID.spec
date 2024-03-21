@@ -1,6 +1,6 @@
 Name:		perl-Data-UUID
-Version:	1.226
-Release:	16%{?dist}
+Version:	1.227
+Release:	1%{?dist}
 Summary:	Globally/Universally Unique Identifiers (GUIDs/UUIDs)
 # Makefile.PL says BSD but LICENSE file is HP-1989
 # LICENSE: HP-1989
@@ -39,7 +39,8 @@ BuildRequires:	perl(threads)
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.06
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 # Avoid provides for private shared objects
 %{?perl_default_filter}
@@ -92,6 +93,13 @@ perl smp-test/collision.t
 %{_mandir}/man3/Data::UUID.3*
 
 %changelog
+* Tue Mar 19 2024 Paul Howarth <paul@city-fan.org> - 1.227-1
+- Update to 1.227
+  - New maintainer, GTERMARS
+  - Add basic GitHub Actions setup for testing
+  - Typo corrections in POD
+  - Eliminated use of state/node files in temp directory (CVE-2013-4184)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.226-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

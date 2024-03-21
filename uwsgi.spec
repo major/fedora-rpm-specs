@@ -215,7 +215,7 @@
 
 Name:           uwsgi
 Version:        2.0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1859,6 +1859,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 19 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.0.24-2
+- Rebuilt for gloox-1.0.28
+
 * Sat Feb 10 2024 Ralf Ertzinger <ralf@skytale.net> - 2.0.24-1
 - Update to 2.0.24, drop merged patches
 

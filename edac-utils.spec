@@ -19,11 +19,10 @@ Source1:        edac.service
 ExcludeArch:    %{ix86}
 
 # Update obsolete FSF postal addresses
+# https://github.com/grondo/edac-utils/pull/13
 #
-# This version of https://github.com/grondo/edac-utils/pull/13 omits
-# changes to the license file COPYING so it can be applied downstream
-# (https://fedoraproject.org/wiki/Common_Rpmlint_issues#incorrect-fsf-address).
-Patch:          0001-Update-obsolete-FSF-postal-addresses.patch
+# Since upstream merged the PR, we feel justified in patching the COPYING file.
+Patch:          %{url}/pull/13.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -145,7 +144,7 @@ install -d -m 0755 '%{buildroot}%{_sysconfdir}/edac/labels.d' \
 %systemd_postun_with_restart edac.service
 
 
-%files 
+%files
 # Empty; the base package is now a metapackage
 
 

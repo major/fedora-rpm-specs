@@ -51,6 +51,10 @@ Patch30: 0009-LoongArch64-Add-kaslr-command-line-option-support.patch
 Patch31: 0010-LoongArch64-Add-LoongArch64-architecture-support-inf.patch
 Patch32: 0011-Fix-mount-command-failure-on-Linux-6.8-rc1-and-later.patch
 Patch33: 0012-Add-log-c-option-to-display-printk-caller-id.patch
+Patch34: 0001-gdb-10.2.patch-Fix-duplicated-code-by-re-applying-pa.patch
+Patch35: 0002-LoongArch64-Fixed-link-errors-when-build-on-LOONGARC.patch
+Patch36: 0003-arm64-Add-support-for-vmemmap-symbol-in-vmcoreinfo.patch
+Patch37: 0004-get-vmalloc-start-address-from-vmcoreinfo.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -104,6 +108,10 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 31 -p1
 %patch -P 32 -p1
 %patch -P 33 -p1
+%patch -P 34 -p1
+%patch -P 35 -p1
+%patch -P 36 -p1
+%patch -P 37 -p1
 
 %build
 

@@ -3,9 +3,10 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.4.4
-Release:	8%{?dist}
+Version:	3.4.6
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library
+# No license change for 3.4.6
 # The following SPDX licenses are extracted from the sources using
 # ScanCode 32.0.8 on build libffi-3.4.4-7.fc40:
 #
@@ -36,13 +37,13 @@ Summary:	A portable foreign function interface library
 License:	MIT AND CC-PDDC AND (GPL-3.0-or-later WITH Texinfo-exception)
 URL:		http://sourceware.org/libffi
 
-Source0:	https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz
+Source0:	https://github.com/libffi/libffi/releases/download/v%{version}/libffi-%{version}.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
 
 # error: implicit declaration of function 'open_temp_exec_file'
 # https://github.com/libffi/libffi/pull/764
-Patch0:		0001-Forward-declare-open_temp_exec_file.patch
+#Patch0:		0001-Forward-declare-open_temp_exec_file.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -134,7 +135,7 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %license LICENSE
 %doc README.md
 %{_libdir}/libffi.so.8
-%{_libdir}/libffi.so.8.1.2
+%{_libdir}/libffi.so.8.1.4
 
 %files devel
 %{_libdir}/pkgconfig/*.pc
@@ -144,6 +145,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Mon Mar 18 2024 DJ Delorie <dj@redhat.com> - 3.4.6-1
+- Rebase to libffi 3.4.6.
+
 * Thu Feb 29 2024 Carlos O'Donell <carlos@redhat.com> - 3.4.4-8
 - Analyze libffi-3.4.4-7.fc40 sources for license information
 - Migrate License field to SPDX identifiers for

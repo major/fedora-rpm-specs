@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    127fa74f010da99053e3f5b62672615b72dd6efd
+%global gh_commit    a3564bd66f4bce9bc871ef18b690e2dc67a7f969
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-02-29
+%global gh_date      2024-03-18
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.51.0
+Version:        3.52.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -51,9 +51,9 @@ Provides:       php-cs-fixer3 = %{version}
 
 # Bundled PHP libraries
 # License BSD-3-Clause
-Provides:       bundled(php-sebastian-diff) = 4.0.5
+Provides:       bundled(php-sebastian-diff) = 4.0.6
 # License MIT
-Provides:       bundled(php-composer-pcre) = 3.1.1
+Provides:       bundled(php-composer-pcre) = 3.1.3
 Provides:       bundled(php-composer-semver) = 3.4.0
 Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
 Provides:       bundled(php-psr-container) = 2.0.2
@@ -148,6 +148,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 3.52.0-1
+- update to 3.52.0
+
 * Thu Feb 29 2024 Remi Collet <remi@remirepo.net> - 3.51.0-1
 - update to 3.51.0
 

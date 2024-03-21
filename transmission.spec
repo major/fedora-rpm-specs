@@ -1,8 +1,6 @@
-%global _hardened_build 1
-
 Name:           transmission
 Version:        4.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -20,9 +18,8 @@ BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
 BuildRequires:  glib2-devel >= 2.32.0
-# gtk4 works on f37 but not on f38. Not sure why yet. -Gwyn
-BuildRequires:  gtk3-devel
-BuildRequires:  gtkmm3.0-devel
+BuildRequires:  gtk4-devel
+BuildRequires:  gtkmm4.0-devel
 BuildRequires:  libnotify-devel >= 0.4.3
 BuildRequires:  libcanberra-devel
 BuildRequires:  libcurl-devel >= 7.16.3
@@ -102,7 +99,7 @@ mv AUTHORS.new AUTHORS
 CXXFLAGS="%{optflags} -fPIC"
 CFLAGS="%{optflags} -fPIC"
 
-%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_GTK_VERSION=3
+%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_QT_VERSION=6 -DENABLE_GTK=ON -DUSE_GTK_VERSION=4
 %cmake_build
 
 # Re-enable if DhtTest.usesBootstrapFile passes
@@ -121,6 +118,7 @@ mv -f %{buildroot}%{_docdir}/transmission %{buildroot}%{_docdir}/transmission-co
 mkdir -p  %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
 cp %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps/transmission-symbolic.svg
 
+%find_lang %{name} --with-qt
 %find_lang %{name}-gtk
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gtk.desktop
@@ -146,7 +144,7 @@ desktop-file-install \
 %{_bindir}/transmission-create
 %{_bindir}/transmission-edit
 %{_bindir}/transmission-show
-%{_datadir}/transmission/
+%{_datadir}/transmission/public_html/
 %{_datadir}/icons/hicolor/*/apps/transmission.*
 %{_datadir}/icons/hicolor/symbolic/apps/transmission-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/apps/transmission-devel.svg
@@ -171,12 +169,16 @@ desktop-file-install \
 %{_datadir}/applications/transmission-gtk.desktop
 %doc %{_mandir}/man1/transmission-gtk.*
 
-%files qt
+%files qt -f %{name}.lang
 %{_bindir}/transmission-qt
 %{_datadir}/applications/transmission-qt.desktop
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Tue Mar 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-3
+- Fix translation ownership.
+- Move gtk client to gtk4, qt to qt6.
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

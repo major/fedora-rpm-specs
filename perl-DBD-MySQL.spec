@@ -10,8 +10,8 @@
 %endif
 
 Name:           perl-DBD-MySQL
-Version:        5.003
-Release:        3%{?dist}
+Version:        5.004
+Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -75,8 +75,7 @@ Provides:       perl-DBD-mysql = %{version}-%{release}
 
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Bundle::DBD::mysql\\)
-%global __requires_exclude %{__requires_exclude}|^perl\\(.*lib.pl\\)
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(.*lib.pl\\)
 
 %description 
 DBD::mysql is the Perl5 Database Interface driver for the MySQL database. In
@@ -185,16 +184,17 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorarch}/Bundle/
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/auto/DBD/
-%{_mandir}/man3/Bundle*.3*
 %{_mandir}/man3/DBD::mysql*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 19 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.004-1
+- 5.004 bump (rhbz#2270256)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.003-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

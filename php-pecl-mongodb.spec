@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2023 Remi Collet
+# Copyright (c) 2015-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -15,27 +15,29 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  1.17.2
+%global upstream_version  1.17.3
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 %global _configure        ../%{sources}/configure
 
 # Bundled versions
-%global bundled_libmongo  1.25.2
-%global bundled_libcrypt  1.8.2
+%global bundled_libmongo  1.25.4
+%global bundled_libcrypt  1.8.4
 
 # Build dependencies
-%global system_libmongo   1.25.1
-%global system_libcrypt   1.8.2
+%global system_libmongo   1.25.4
+%global system_libcrypt   1.8.4
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.4
@@ -188,6 +190,10 @@ cd ../ZTS
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 1.17.3-1
+- update to 1.17.3 (no change)
+- drop 32-bit support
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

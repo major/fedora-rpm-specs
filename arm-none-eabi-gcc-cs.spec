@@ -10,7 +10,7 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        13.2.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -31,6 +31,12 @@ BuildRequires: make
 %endif
 Requires:       %{target}-binutils >= 2.21
 Provides:       %{target}-gcc = %{gcc_ver}
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# ppl-devel is no longer available for 32bit, so we have to skip it too
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 This is a Cross Compiling version of GNU GCC, which can be used to
@@ -291,6 +297,12 @@ popd
 %endif
 
 %changelog
+* Tue Mar 19 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:13.2.0-5
+- drop i686 build as not all i686 requirements are available anymore
+
+* Tue Mar 19 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:13.2.0-4
+- rebuild with updated newlib
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:13.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

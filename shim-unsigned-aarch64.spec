@@ -21,8 +21,11 @@
 %global __debug_install_post %{SOURCE100} %{efiarch}
 %undefine _debuginfo_subpackages
 
+# currently here's what's in our dbx: nothing
+%global dbxfile %{nil}
+
 Name:		shim-unsigned-aarch64
-Version:	15.6
+Version:	15.8
 Release:	2
 Summary:	First-stage UEFI bootloader
 ExclusiveArch:	aarch64
@@ -44,7 +47,7 @@ BuildRequires:	gcc make
 BuildRequires:	elfutils-libelf-devel
 BuildRequires:	git openssl-devel openssl
 BuildRequires:	pesign >= %{pesign_vre}
-BuildRequires: dos2unix findutils
+BuildRequires:	dos2unix findutils
 
 # Shim uses OpenSSL, but cannot use the system copy as the UEFI ABI is not
 # compatible with SysV (there's no red zone under UEFI) and there isn't a
@@ -87,17 +90,17 @@ mkdir build-%{efiarch}
 cp %{SOURCE3} data/
 
 %build
-COMMITID=$(cat commit)
-MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMITID=${COMMITID} "
+COMMIT_ID=5914984a1ffeab841f482c791426d7ca9935a5e6
+MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMIT_ID=${COMMIT_ID} "
 MAKEFLAGS+="EFIDIR=%{efidir} PKGNAME=shim RELEASE=%{release} "
 MAKEFLAGS+="ENABLE_SHIM_HASH=true "
-MAKEFLAGS+="%{_smp_mflags}"
+MAKEFLAGS+=" %{_smp_mflags} "
 if [ -f "%{SOURCE1}" ]; then
-	MAKEFLAGS="$MAKEFLAGS VENDOR_CERT_FILE=%{SOURCE1}"
+	MAKEFLAGS="$MAKEFLAGS VENDOR_CERT_FILE=%{SOURCE1} "
 fi
 %if 0%{?dbxfile}
 if [ -f "%{SOURCE2}" ]; then
-	MAKEFLAGS="$MAKEFLAGS VENDOR_DBX_FILE=%{SOURCE2}"
+	MAKEFLAGS="$MAKEFLAGS VENDOR_DBX_FILE=%{SOURCE2} "
 fi
 %endif
 
@@ -108,16 +111,16 @@ make ${MAKEFLAGS} \
 cd ..
 
 %install
-COMMITID=$(cat commit)
-MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMITID=${COMMITID} "
+COMMIT_ID=5914984a1ffeab841f482c791426d7ca9935a5e6
+MAKEFLAGS="TOPDIR=.. -f ../Makefile COMMIT_ID=${COMMIT_ID} "
 MAKEFLAGS+="EFIDIR=%{efidir} PKGNAME=shim RELEASE=%{release} "
 MAKEFLAGS+="ENABLE_SHIM_HASH=true "
 if [ -f "%{SOURCE1}" ]; then
-	MAKEFLAGS="$MAKEFLAGS VENDOR_CERT_FILE=%{SOURCE1}"
+	MAKEFLAGS="$MAKEFLAGS VENDOR_CERT_FILE=%{SOURCE1} "
 fi
 %if 0%{?dbxfile}
 if [ -f "%{SOURCE2}" ]; then
-	MAKEFLAGS="$MAKEFLAGS VENDOR_DBX_FILE=%{SOURCE2}"
+	MAKEFLAGS="$MAKEFLAGS VENDOR_DBX_FILE=%{SOURCE2} "
 fi
 %endif
 
@@ -143,6 +146,19 @@ cd ..
 %files debugsource -f build-%{efiarch}/debugsource.list
 
 %changelog
+* Thu Mar 07 2024 Peter Jones <pjones@redhat.com> - 15.8-2
+- Update to shim-15.8
+  Resolves: CVE-2023-40546
+  Resolves: CVE-2023-40547
+  Resolves: CVE-2023-40548
+  Resolves: CVE-2023-40549
+  Resolves: CVE-2023-40550
+  Resolves: CVE-2023-40551
+  Resolves: rhbz#2113005
+  Resolves: rhbz#2189197
+  Resolves: rhbz#2238884
+  Resolves: rhbz#2259264
+
 * Thu Jul 07 2022 Robbie Harwood <rharwood@redhat.com> - 15.6-2
 - Add pjones's aarch64 relocation fix
 - Resolves: #2101248

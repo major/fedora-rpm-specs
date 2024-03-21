@@ -8,8 +8,8 @@
 # This is stable release:
 #%%global rcversion RC1
 Name:       pcre2
-Version:    10.42
-Release:    %{?rcversion:0.}2%{?rcversion:.%rcversion}%{?dist}.2
+Version:    10.43
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 # the library:                          BSD with exceptions
@@ -51,11 +51,6 @@ Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{vers
 Source2:    https://ftp.pcre.org/pub/pcre/Public-Key
 # Do no set RPATH if libdir is not /usr/lib
 Patch0:     pcre2-10.10-Fix-multilib.patch
-# Upstream commits:
-# https://github.com/PCRE2Project/pcre2/commit/794245ecc296724b52f5030831e58bedbffa2452
-# https://github.com/PCRE2Project/pcre2/commit/457c0e69a8f78d32bc7d4b6422cd01e396a4cf5d
-Patch1:     pcre2-10.42-Match-also-restore-originally-unset-entries-in-recur.patch
-Patch2:     pcre2-10.42-Add-more-examples-fixed-by-300.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -260,6 +255,9 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Mon Feb 19 2024 Lukas Javorsky <ljavorsk@redhat.com> - 10.43-1
+- Rebase to version 10.43
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.42-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

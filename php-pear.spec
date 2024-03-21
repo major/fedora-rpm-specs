@@ -9,7 +9,7 @@
 %global metadir %{_localstatedir}/lib/pear
 
 %global getoptver 1.4.3
-%global arctarver 1.4.14
+%global arctarver 1.5.0
 # https://pear.php.net/bugs/bug.php?id=19367
 # Structures_Graph 1.0.4 - incorrect FSF address
 %global structver 1.1.1
@@ -27,7 +27,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: php-pear
 Version: 1.10.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 # BSD-2-Clause: PEAR, PEAR_Manpages, Archive_Tar, Console_Getopt
 # BSD-3-Clause: XML_Util
@@ -333,6 +333,9 @@ fi
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 1:1.10.15-2
+- update Archive_Tar to 1.5.0
+
 * Tue Mar 12 2024 Remi Collet <remi@remirepo.net> - 1:1.10.15-1
 - update to 1.10.15
 

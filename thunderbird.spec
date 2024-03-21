@@ -76,13 +76,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        115.8.1
+Version:        115.9.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20240305.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20240318.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -123,6 +123,7 @@ Patch406:        mozilla-1170092.patch
 Patch501:       expat-CVE-2022-25235.patch
 Patch502:       expat-CVE-2022-25236.patch
 Patch503:       expat-CVE-2022-25315.patch
+Patch504:       expat-CVE-2023-52425.patch
 
 # Tentative patch for RUSTFLAGS parsing issue,
 # borrowed from firefox commit 24c9accce19c5cae9394430b24eaf938a9c17882:
@@ -289,6 +290,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 501 -p1 -b .expat-CVE-2022-25235
 %patch -P 502 -p1 -b .expat-CVE-2022-25236
 %patch -P 503 -p1 -b .expat-CVE-2022-25315
+%patch -P 504 -p1 -b .expat-CVE-2023-52425
 
 %patch -P 1200 -p1 -b .rustflags-commasplit
 
@@ -717,6 +719,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Mon Mar 18 2024 Eike Rathke <erack@redhat.com> - 115.9.0-1
+- Update to 115.9.0
+- Fix expat CVE-2023-52425
+
 * Tue Mar 05 2024 Eike Rathke <erack@redhat.com> - 115.8.1-1
 - Update to 115.8.1
 

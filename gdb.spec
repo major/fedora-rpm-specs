@@ -1250,6 +1250,17 @@ fi
 %endif
 
 %changelog
+* Tue Mar 19 2024 Andrew Burgess <aburgess@redhat.com>
+- Drop gdb-bz634108-solib_address.patch.  This is a test only patch.
+  I've pushed upstream commit 52ca06e807b which covers this test case,
+  we'll pick up the upstream test next time Fedora is rebased.
+
+* Tue Mar 19 2024 Andrew Burgess <aburgess@redhat.com>
+- Drop gdb-container-rh-pkg.patch.  This patch gave a warning when
+  connecting to very old gdbserver.  The warning mentioned specific
+  RHEL versions, all of which are no longer supported.  As such the
+  warning seems pointless.
+
 * Mon Mar 18 2024 Andrew Burgess <aburgess@redhat.com>
 - Drop gdb-6.3-attach-see-vdso-test.patch, this is a test only patch.
   Upstream commit 93eb6c64ec4a6ea includes a similar test, and will be

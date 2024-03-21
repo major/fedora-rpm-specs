@@ -5,20 +5,13 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.0.8
+Version:        3.0.9
 Release:        %autorelease
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
-
-# Use Python 3.13.0a4 PyCFunctionFastWithKeywords
-Patch:          https://github.com/cython/cython/pull/6003.patch
-
-# Disable GCC warnings/errors about wrong self casts in final function calls
-# Upstream issue: https://github.com/cython/cython/issues/2747
-Patch:          https://github.com/cython/cython/pull/6039.patch
 
 BuildRequires:  python3-devel
 

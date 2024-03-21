@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-nikic-php-parser4
 #
-# Copyright (c) 2016-2023 Remi Collet
+# Copyright (c) 2016-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -15,7 +15,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    1bcbb2179f97633e98bbbc87044ee2611c7d7999
+%global gh_commit    4e1b88d21c69391150ace211e9eaf05810858d0b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -25,8 +25,8 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.18.0
-Release:        3%{?dist}
+Version:        4.19.1
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -58,9 +58,9 @@ BuildRequires:  phpunit9
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=7.0",
+#        "php": ">=7.1",
 #        "ext-tokenizer": "*"
-Requires:       php(language) >= 7.0
+Requires:       php(language) >= 7.1
 Requires:       php-tokenizer
 # From phpcompatinfo report for version 4.0.0
 Requires:       php-reflection
@@ -149,6 +149,10 @@ exit $ret
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 4.19.1-1
+- update to 4.19.1
+- raise dependency on PHP 7.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

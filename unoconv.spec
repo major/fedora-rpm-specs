@@ -42,7 +42,7 @@ make %{?_smp_mflags}
 asciidoc README.adoc
 
 %install
-make install DESTDIR="%{buildroot}"
+make install DESTDIR="%{buildroot}" prefix=%{_prefix}
 
 %files
 %doc AUTHORS ChangeLog README.html

@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.102.0
+Version:    1.103.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -19,8 +19,10 @@ Patch2:     0002-Build-RustExtension-with-debug-symbols.patch
 # https://github.com/element-hq/synapse/pull/16953
 Patch3:     0003-Specify-IP-subnet-literals-in-canonical-form.patch
 Patch4:     0004-Revert-Mandate-Pillow-10.0.1-because-of-libwebp-CVE-.patch
+# https://github.com/element-hq/synapse/pull/16986
+Patch5:     0005-Raise-poetry-core-version-cap-to-1.9.0-16986.patch
 # The following patches are only applied for fc38
-Patch5:     0005-Build-RustExtension-with-debug-enabled.patch
+Patch6:     0006-Build-RustExtension-with-debug-enabled.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
@@ -45,9 +47,9 @@ the ecosystem.
 
 %prep
 %autosetup -n synapse-%{archive_tag} -N
-%autopatch -p1 -M 4
+%autopatch -p1 -M 5
 %if 0%{?fc38}
-%autopatch -p1 -m 5
+%autopatch -p1 -m 6
 %endif
 
 # We don't support the built-in client so remove all the bundled JS.

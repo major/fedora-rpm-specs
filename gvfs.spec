@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.54.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
@@ -204,6 +204,7 @@ BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
 %if ! (0%{?rhel} >= 10)
 BuildRequires: pkgconfig(libgdata) >= %{libgdata_version}
 Requires: libgdata%{?_isa} >= %{libgdata_version}
+BuildRequires: pkgconfig(msgraph-0.1)
 %endif
 
 %description goa
@@ -224,7 +225,6 @@ the functionality of the installed gvfs package.
 %build
 %meson -Dinstalled_tests=true \
        -Dman=true \
-       -Donedrive=false \
 %ifarch s390 s390x
        -Dafc=false \
 %endif
@@ -232,6 +232,7 @@ the functionality of the installed gvfs package.
        -Dnfs=false \
        -Dbluray=false \
        -Dafc=false \
+       -Donedrive=false \
 %endif
 %if 0%{?rhel} >= 9
        -Darchive=false \
@@ -425,6 +426,10 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/gvfs/mounts/google.mount
 %{_libexecdir}/gvfsd-google
 %endif
+%if ! 0%{?rhel}
+%{_datadir}/gvfs/mounts/onedrive.mount
+%{_libexecdir}/gvfsd-onedrive
+%endif
 %{_userunitdir}/gvfs-goa-volume-monitor.service
 
 %files tests
@@ -433,6 +438,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Tue Mar 19 2024 Ondrej Holy <oholy@redhat.com> - 1.54.0-2
+- Enable OneDrive support for Fedora
+
 * Fri Mar 15 2024 David King <amigadave@amigadave.com> - 1.54.0-1
 - Update to 1.54.0
 

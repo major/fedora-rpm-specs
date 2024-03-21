@@ -1,5 +1,5 @@
 Name:           flint
-Version:        3.1.0
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        Fast Library for Number Theory
 
@@ -14,13 +14,11 @@ License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND
 URL:            https://www.flintlib.org/
 VCS:            https://github.com/flintlib/flint
 Source0:        https://www.flintlib.org/%{name}-%{version}.tar.gz
-# Do not assume the host CPU has the popcount instruction
-Patch0:         %{name}-popcnt.patch
 
-BuildRequires:  cmake
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
+BuildRequires:  make
 BuildRequires:  ntl-devel
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  %{py3_dist sphinx}
@@ -84,32 +82,28 @@ done
 # Use the classic sphinx theme
 sed -i "s/'default'/'classic'/" doc/source/conf.py
 
-# Remove a leftover from flintxx which now breaks the cpuset support test
-sed -i '/Threads::Threads/d' CMakeLists.txt
-
-# Do not build with -march=native
-sed -i 's/if(HAS_FLAG_GCC_MARCH_NATIVE)/if(FALSE)/' CMakeLists.txt
-
-# Fix the pkgconfig file installation location
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's,lib/pkgconfig,%{_lib}/pkgconfig,' CMakeLists.txt
-fi
+# Look for flexiblas
+sed -i 's/openblas/flexiblas/' configure
 
 
 %build
-%cmake -DWITH_NTL:BOOL=ON
-%cmake_build
+%configure \
+  --disable-arch \
+  --disable-static \
+  --with-blas-include=%{_includedir}/flexiblas \
+  --with-ntl-include=%{_includedir}/NTL
+%make_build
 
 # Build the documentation
 make -C doc html
 
 
 %install
-%cmake_install
+%make_install
 
 
 %check
-%ctest
+make check
 
 
 %files
@@ -127,6 +121,11 @@ make -C doc html
 
 
 %changelog
+* Tue Mar 19 2024 Jerry James <loganjerry@gmail.com> - 3.1.2-1
+- Version 3.1.2
+- Switch back to autotools at upstream request
+- Drop unneeded popcount patch
+
 * Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 3.1.0-1
 - Version 3.1.0
 - License: add LGPL-3.0-or-later

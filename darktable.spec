@@ -86,7 +86,7 @@ BuildRequires: perl-lib
 %endif
 BuildRequires: pkgconfig >= 0.22
 BuildRequires: po4a
-BuildRequires: /usr/bin/pod2man
+BuildRequires: perl-podlators
 BuildRequires: portmidi-devel
 BuildRequires: pugixml-devel >= 1.8
 BuildRequires: cmake(SDL2)

@@ -173,7 +173,7 @@
 #################################################################################
 Name:		ceph
 Version:	18.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2640,6 +2640,9 @@ exit 0
 %{_datadir}/snmp/mibs
 
 %changelog
+* Tue Mar 19 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-3
+- rebuild with libarrow-15.0.2
+
 * Fri Mar 15 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-2
 - rebuild with libarrow-15.0.1. (And liborc-2.0.0)
 

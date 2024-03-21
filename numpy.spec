@@ -20,17 +20,17 @@
 
 Name:           numpy
 Version:        1.26.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
 # Everything is BSD-3-Clause except...
-# numpy/core/include/numpy/libdivide: Zlib
+# numpy/core/include/numpy/libdivide: Zlib OR BSL-1.0
 # numpy/core/src/multiarray/dragon4.*: MIT
 # numpy/random/src/mt19937/randomkit.h: MIT
 # numpy/random/src/pcg64: MIT AND Apache-2.0
 # numpy/random/src/sfc64: MIT
-License:        BSD-3-Clause AND MIT AND Apache-2.0 AND Zlib
+License:        BSD-3-Clause AND MIT AND Apache-2.0 AND (Zlib OR BSL-1.0)
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
@@ -66,6 +66,9 @@ Obsoletes:      numpy < 1:1.10.1-3
 BuildRequires:  python3-devel
 BuildRequires:  gcc-gfortran gcc gcc-c++
 BuildRequires:  lapack-devel
+%if 0%{?fedora}
+BuildRequires:  libdivide-devel
+%endif
 BuildRequires:  ninja-build
 BuildRequires:  patchelf
 %if %{with tests}
@@ -76,6 +79,10 @@ BuildRequires:  python3-typing-extensions
 %endif
 BuildRequires: %{blaslib}-devel
 BuildRequires: chrpath
+
+%if !0%{?fedora}
+Provides:       bundled(libdivide) = 3.0
+%endif
 
 %description -n python3-numpy
 NumPy is a general-purpose array-processing package designed to
@@ -127,11 +134,29 @@ libraries = %{blaslib}%{blasvar}
 library_dirs = %{_libdir}
 EOF
 
+%if 0%{?fedora}
+# Unbundle libdivide
+sed -i 's,"numpy/libdivide/libdivide.h",<libdivide.h>,' \
+    numpy/core/src/umath/loops.c.src
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires -R -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack
 
 %build
 %set_build_flags
+# Allow libdivide to use vector instructions where possible
+%ifarch x86_64
+%if 0%{?eln} || 0%{?rhel} > 9
+# x86_64-v3
+sed -i '/libdivide\.h/i#define LIBDIVIDE_AVX2' numpy/core/src/umath/loops.c.src
+%else
+# x86_64-v1 or x86_64-v2
+sed -i '/libdivide\.h/i#define LIBDIVIDE_SSE2' numpy/core/src/umath/loops.c.src
+%endif
+%elifarch aarch64
+sed -i '/libdivide\.h/i#define LIBDIVIDE_NEON' numpy/core/src/umath/loops.c.src
+%endif
 
 %pyproject_wheel -Csetup-args=-Dblas=flexiblas -Csetup-args=-Dlapack=lapack
 
@@ -152,6 +177,9 @@ popd &> /dev/null
 mkdir -p %{buildroot}%{_includedir}
 ln -s %{python3_sitearch}/%{name}/core/include/numpy/ %{buildroot}%{_includedir}/numpy
 
+%if 0%{?fedora}
+rm %{buildroot}%{python3_sitearch}/numpy/core/include/numpy/random/libdivide.h
+%endif
 
 %check
 %if %{with tests}
@@ -218,6 +246,10 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Fri Mar 15 2024 Jerry James <loganjerry@gmail.com> - 1:1.26.4-2
+- Unbundle libdivide in Fedora
+- Let libdivide use vector instructions when possible
+
 * Mon Feb 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 1:1.26.4-1
 - 1.26.4
 

@@ -1,6 +1,6 @@
 Name:           perl-Variable-Magic
-Version:        0.63
-Release:        6%{?dist}
+Version:        0.64
+Release:        1%{?dist}
 Summary:        Associate user-defined magic to variables from Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -59,26 +59,32 @@ you can add your own magic to any variable without the pain of the C API.
 %setup -q -n Variable-Magic-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
-
-%{_fixperms} -c $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Variable*
-%{_mandir}/man3/*
+%doc Changes CONTRIBUTING README
+%{perl_vendorarch}/auto/Variable/
+%{perl_vendorarch}/Variable/
+%{_mandir}/man3/Variable::Magic.3*
 
 %changelog
+* Tue Mar 19 2024 Paul Howarth <paul@city-fan.org> - 0.64-1
+- Update to 0.64 (rhbz#2270204)
+  - This is a maintenance release; the code contains no functional change
+  - Contributing guidelines are now listed in the new CONTRIBUTING file
+  - Fix for t/18-opinfo.t broken under blead (CPAN RT#151104)
+- Use %%{make_build} and %%{make_install}
+- Make %%files list more explicit
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

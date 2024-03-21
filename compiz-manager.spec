@@ -1,9 +1,9 @@
 Name:           compiz-manager
 Version:        0.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A wrapper script to start compiz with proper options
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/raveit65/%{name}/
 Source0:        https://github.com/raveit65/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 BuildArch:      noarch
@@ -14,13 +14,16 @@ Requires:       pciutils
 Requires:       glx-utils
 Requires:       libcompizconfig
 
+# Already fixed in upstream git
+Patch0:         compiz-manager-0.7.0-xfwm4-fix.patch
+
 
 %description
-This script will detect what options we need to pass to compiz to get it 
+This script will detect what options we need to pass to compiz to get it
 started, and start a default plugin and possibly window decorator.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 #no build needed
@@ -35,6 +38,11 @@ cp -p %{name} %{buildroot}/%{_bindir}/
 %{_bindir}/%{name}
 
 %changelog
+* Tue Mar 19 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 0.7.0-21
+- Fixed xfwm4 command name
+  Related: rhbz#2269943
+- Converted license tag to SPDX
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

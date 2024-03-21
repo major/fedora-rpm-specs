@@ -2,21 +2,26 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bitflags
+%global crate addr
 
-Name:           rust-bitflags
-Version:        2.5.0
+Name:           rust-addr
+Version:        0.14.0
 Release:        %autorelease
-Summary:        Macro to generate structures which behave like bitflags
+Summary:        Library for parsing domain names
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/bitflags
+URL:            https://crates.io/crates/addr
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, optional support for no-std-net
+Patch:          addr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A macro to generate structures which behave like bitflags.}
+A library for parsing domain names.}
 
 %description %{_description}
 
@@ -30,14 +35,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
-%doc %{crate_instdir}/spec.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -52,40 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arbitrary-devel
+%package     -n %{name}+psl-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+arbitrary-devel %{_description}
+%description -n %{name}+psl-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "arbitrary" feature of the "%{crate}" crate.
+use the "psl" feature of the "%{crate}" crate.
 
-%files       -n %{name}+arbitrary-devel
+%files       -n %{name}+psl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytemuck-devel
+%package     -n %{name}+publicsuffix-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytemuck-devel %{_description}
+%description -n %{name}+publicsuffix-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytemuck" feature of the "%{crate}" crate.
+use the "publicsuffix" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytemuck-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+example_generated-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+example_generated-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "example_generated" feature of the "%{crate}" crate.
-
-%files       -n %{name}+example_generated-devel
+%files       -n %{name}+publicsuffix-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -127,8 +115,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * test sources are not included in published crates
-%cargo_test -- --doc
+%cargo_test
 %endif
 
 %changelog

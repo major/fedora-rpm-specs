@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
 Version:	2.10.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -113,6 +113,10 @@ export CPPFLAGS='-DNDEBUG'
   --with-blas-lib=-l%{blaslib} \
   --with-glpk-incdir=%{_includedir} \
   --with-glpk-lib=-lglpk \
+%ifnarch %{ix86}
+  --with-highs-incdir=%{_includedir}/highs \
+  --with-highs-lib=-lhighs \
+%endif
   --with-lapack-incdir=%{_includedir}/%{blaslib} \
   --with-lapack-lib=-l%{blaslib} \
   --with-mumps-incdir=%{_includedir}/MUMPS \
@@ -164,6 +168,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Tue Mar 19 2024 Jerry James <loganjerry@gmail.com> - 2.10.11-2
+- Rebuild for coin-or-HiGHS 1.7.0
+
 * Wed Jan 31 2024 Jerry James <loganjerry@gmail.com> - 2.10.11-1
 - Version 2.10.11
 - Change License from EPL-1.0 to EPL-2.0 AND EPL-1.0

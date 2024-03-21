@@ -9,19 +9,25 @@
 #%%global	minorver	D%{?tardate}git%{shorthash}
 #%%global	prerelease	1
 
-%global	baserelease	3
+%global	baserelease	4
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
-Release:	%{?prerelease:0.}%{baserelease}%{?minorver:.%minorver}%{?dist}.5
+Release:	%{?prerelease:0.}%{baserelease}%{?minorver:.%minorver}%{?dist}
 Summary:	Simple shell utility to convert html to pdf
 
-License:	GPLv3+
+# overall	LGPL-3.0-or-later
+# docs/js/foundation.min.js and some other *.js		MIT
+# docs/js/vendor/modernizr.js	says "MIT and BSD",  choose "MIT" for now
+# docs/libwkhtmltox/jquery.js	MIT OR GPL-2.0-only
+#
+# SPDX confirmed
+License:	LGPL-3.0-or-later
 URL:		http://wkhtmltopdf.org/
 #Source0:	https://github.com/%{name}/%{name}/archive/%{githash}/%{name}-%{mainver}-D%{tardate}git%{shorthash}.tar.gz
 Source0:	https://github.com/%{name}/%{name}/archive/%{mainver}/%{name}-%{mainver}.tar.gz
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	qt5-qtwebkit-devel
 BuildRequires:	qt5-qtxmlpatterns-devel
 BuildRequires:	qt5-qtsvg-devel
@@ -41,6 +47,7 @@ developing applications that use %{name}.
 
 %package	doc
 Summary:	Documentation for %{name}
+License:	LGPL-3.0-or-later AND MIT AND (MIT OR GPL-2.0-only)
 Requires:	%{name} = %{version}
 BuildArch:	noarch
 
@@ -107,6 +114,9 @@ make install \
 
 
 %changelog
+* Tue Mar 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.12.6-4
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-3.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

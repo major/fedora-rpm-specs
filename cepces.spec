@@ -7,15 +7,13 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.8
-Release:        3%{?dist}
+Version:        0.3.9
+Release:        1%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         cepces-0.3.8-fix-version.patch
 
 BuildArch:      noarch
 
@@ -196,6 +194,10 @@ fi
 %endif
 
 %changelog
+* Tue Mar 19 2024 Andreas Schneider <asn@redhat.com> - 0.3.9-1
+- Update to version 0.3.9
+  * https://github.com/openSUSE/cepces/releases/tag/v0.3.9
+
 * Fri Feb 09 2024 Andreas Schneider <asn@redhat.com> - 0.3.8-3
 - Fix installing cepces-selinux
 

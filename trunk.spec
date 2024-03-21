@@ -8,7 +8,7 @@
 %global _trunk_features -n -f native-tls
 
 Name:           trunk
-Version:        0.19.0
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Build, bundle & ship your Rust WASM application to the web
 

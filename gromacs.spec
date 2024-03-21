@@ -62,7 +62,6 @@ BuildRequires:	opencl-headers
 Recommends:	gromacs-opencl = %{version}-%{release}
 %endif
 BuildRequires:	tng-devel
-BuildRequires:	bash-completion
 # Dependencies used for regressiontest
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Cwd)
@@ -74,10 +73,7 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(List::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
-%define compdir %(pkg-config --variable=completionsdir bash-completion)
-%if "%{compdir}" == ""
-%define compdir "/etc/bash_completion.d"
-%endif
+%define compdir %{?bash_completions_dir}%{!?bash_completions_dir:/etc/bash_completion.d}
 Requires:	gromacs-common = %{version}-%{release}
 Requires:	gromacs-libs = %{version}-%{release}
 Obsoletes:	gromacs-ngmx < 5.0.4-1

@@ -1,12 +1,3 @@
-# Desired jbig2dec header files and library version
-# Apparantly, jbig2dec complains even about newer versions.
-# Please update if needed.
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-%global jbig2dec_version 0.20
-%else
-%global jbig2dec_version 0.19
-%endif
-
 Name:		mupdf
 %global libname libmupdf
 Version:	1.23.10
@@ -35,6 +26,7 @@ Patch:		0008-Makefile-fix-build-failures-with-library-soft-links.patch
 Patch:		0009-Makefile-scripts-wrap-__main__.py-Set-SONAME-when-li.patch
 Patch:		0010-Bug-707503-Make-cast-from-int64_t-to-time_t-explicit.patch
 Patch:		0011-Makefile-allow-control-of-file-modes-and-venv-s.patch
+Patch:		0001-Fix-build-with-llvm18.patch
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
 BuildRequires:	libjpeg-devel freetype-devel libXext-devel curl-devel
@@ -42,9 +34,7 @@ BuildRequires:	harfbuzz-devel openssl-devel mesa-libEGL-devel
 BuildRequires:	mesa-libGL-devel mesa-libGLU-devel libXi-devel libXrandr-devel
 BuildRequires:	gumbo-parser-devel leptonica-devel tesseract-devel
 BuildRequires:	freeglut-devel
-BuildRequires:	jbig2dec-devel = %{jbig2dec_version}
-BuildRequires:	jbig2dec-libs = %{jbig2dec_version}
-Requires:	jbig2dec-libs = %{jbig2dec_version}
+BuildRequires:	jbig2dec-devel
 BuildRequires:	swig python3-clang python3-devel
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
@@ -121,6 +111,10 @@ echo > user.make "\
 	shared := yes
 	verbose := yes
 "
+
+# c++ and python install targets rebuild unconditionally. Avoid multiple rebuilds:
+sed -i -e '/^install-shared-c++:/s/ c++//' Makefile
+sed -i -e '/^install-shared-python:/s/ python//' Makefile
 
 %build
 export XCFLAGS="%{optflags} -fPIC -DJBIG_NO_MEMENTO -DTOFU -DTOFU_CJK_EXT"

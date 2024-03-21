@@ -4,12 +4,12 @@
 %global         srcname     azure-mgmt-containerregistry
 
 Name:           python-%{srcname}
-Version:        10.1.0
+Version:        10.3.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Registry Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

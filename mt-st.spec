@@ -1,7 +1,7 @@
 Summary: Tool for controlling tape drives
 Name: mt-st
 Version: 1.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-1.0-or-later
 URL: https://github.com/iustin/mt-st
 Source0: https://github.com/iustin/mt-st/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -9,7 +9,6 @@ Source1: stinit.service
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: systemd
-BuildRequires: pkgconfig(bash-completion)
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -31,7 +30,7 @@ make CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 
 %install
-COMPLETIONDIR=%{buildroot}$(pkg-config --variable=completionsdir bash-completion)
+COMPLETIONDIR=%{buildroot}%{bash_completions_dir}
 %make_install EXEC_PREFIX=/usr COMPLETIONINSTALLDIR=$COMPLETIONDIR
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/stinit.service
 cd $COMPLETIONDIR
@@ -59,6 +58,9 @@ mv mt-st mt
 
 
 %changelog
+* Tue Mar 19 2024 Dan Horák <dan[at]danny.cz> - 1.7-6
+- handle completions better
+
 * Mon Mar 18 2024 Dan Horák <dan[at]danny.cz> - 1.7-5
 - update BR
 

@@ -1,6 +1,6 @@
 # remirepo/Fedora spec file for php-tcpdf
 #
-# Copyright (c) 2013-2023 Remi Collet
+# Copyright (c) 2013-2024 Remi Collet
 # Copyright (c) 2013      Remi Collet, Johan Cwiklinski
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
@@ -8,7 +8,7 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    5fce932fcee4371865314ab7f6c0d85423c5c7ce
+%global gh_commit    1ae5c4721cecb6be1fa1c0bebb506ed454a3e02d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
 #global gh_date      20201209
@@ -17,8 +17,8 @@
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.6.5
-Release:        3%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
+Version:        6.7.2
+Release:        1%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
 
 URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
@@ -31,7 +31,7 @@ BuildArch:      noarch
 BuildRequires:  php-cli
 BuildRequires:  php-fedora-autoloader-devel
 
-Requires:       php(language) >= 5.3
+Requires:       php(language) >= 5.5
 # From phpcompatinfo report form version 6.3.0
 Requires:       php-bcmath
 Requires:       php-curl
@@ -317,6 +317,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 6.7.2-1
+- update to 6.7.2
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

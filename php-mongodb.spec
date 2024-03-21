@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-mongodb
 #
-# Copyright (c) 2015-2023 Remi Collet
+# Copyright (c) 2015-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,13 +9,13 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    9d9c917cf7ff275ed6bd63c596efeb6e49fd0e53
+%global gh_commit    01d0840bf0678f519e72dc71b69c8a50a0856c2d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.17.0
+%global upstream_version 1.17.1
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        MongoDB driver library
 
 License:        Apache-2.0
@@ -51,10 +51,11 @@ BuildRequires: (php-composer(symfony/polyfill-php81) >= 1.27  with php-composer(
 BuildRequires:  mongodb-server >= 2.4
 BuildRequires:  php-pecl(mongodb) >= %{ext_version}
 # From composer.json, "require-dev": {
-#        "squizlabs/php_codesniffer": "^3.6",
-#        "doctrine/coding-standard": "^9.0",
+#        "doctrine/coding-standard": "^12.0",
+#        "rector/rector": "^0.19",
+#        "squizlabs/php_codesniffer": "^3.7",
 #        "symfony/phpunit-bridge": "^5.2",
-#        "vimeo/psalm": "^4.28"
+#        "vimeo/psalm": "^5.13"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  %{phpunit}
 %endif
@@ -198,6 +199,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 19 2024 Remi Collet <remi@remirepo.net> - 1.17.1-1
+- update to 1.17.1
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

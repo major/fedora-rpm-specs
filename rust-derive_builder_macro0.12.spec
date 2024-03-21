@@ -2,21 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate assert-eq-float
+%global crate derive_builder_macro
 
-Name:           rust-assert-eq-float
-Version:        0.1.4
+Name:           rust-derive_builder_macro0.12
+Version:        0.12.0
 Release:        %autorelease
-Summary:        Assert_eq_float! macros that support floats
+Summary:        Rust macro to automatically implement the builder pattern for arbitrary structs
 
-License:        MIT
-URL:            https://crates.io/crates/assert-eq-float
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/derive_builder_macro
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-This crate provides the `assert_eq_float!` macros that support floats.}
+Rust macro to automatically implement the builder pattern for arbitrary
+structs.}
 
 %description %{_description}
 
@@ -30,7 +32,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

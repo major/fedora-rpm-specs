@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.6.3
+Version:        2.6.4
 Release:        1%{?dist}
 Summary:        Data validation using Python type hinting
 
@@ -77,6 +77,9 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
 %pyproject_extras_subpkg email -n python3-pydantic
 
 %changelog
+* Mon Mar 18 2024 Maxwell G <maxwell@gtmx.me> - 2.6.4-1
+- Update to 2.6.4. Fixes rhbz#2269288.
+
 * Wed Feb 28 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.6.3-1
 - Update to 2.6.3. Fixes rhbz#2266533.
 

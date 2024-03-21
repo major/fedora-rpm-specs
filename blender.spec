@@ -270,7 +270,7 @@ sed -i "s|amdgpu-target|offload-arch|g" intern/cycles/device/hip/device_impl.cpp
 %if %{with ninja}
     -G Ninja \
 %endif
-    -D_ffmpeg_INCLUDE_DIR=%{_includedir}/ffmpeg \
+    -D_ffmpeg_INCLUDE_DIR=$(pkg-config --variable=includedir libavformat) \
 %if %{with openshading}
     -D_osl_LIBRARIES=%{_libdir} \
     -DOSL_INCLUDE_DIR=%{_includedir} \
@@ -284,8 +284,8 @@ sed -i "s|amdgpu-target|offload-arch|g" intern/cycles/device/hip/device_impl.cpp
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
 %if %{with clang}
-    -DCLANG_INCLUDE_DIR=%{_includedir}/clang \
-    -D_CLANG_LIBRARIES=%{_libdir}/libclang.so \
+    -DCLANG_INCLUDE_DIR=%{_usr}/include/clang \
+    -D_CLANG_LIBRARIES=%{_usr}/%{_lib}/libclang.so \
 %endif
     -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DPYTHON_VERSION=%{python3_version} \

@@ -343,10 +343,10 @@ ln -s %{_datadir}/fonts/google-roboto-mono \
 
 # Unbundle stb_image, stb_image_write, stb_image_resize:
 pushd pxr/imaging/hio/stb
-cp -p %{_includedir}/stb_image.h .
+cp -p %{_usr}/include/stb_image.h .
 patch -p1 < '%{SOURCE2}'
-ln -svf %{_includedir}/stb_image_resize.h \
-    %{_includedir}/stb_image_write.h ./
+ln -svf %{_usr}/include/stb_image_resize.h \
+    %{_usr}/include/stb_image_write.h ./
 popd
 
 # Remove bundled doxygen-awesome-css (CSS and JS files) since we are not

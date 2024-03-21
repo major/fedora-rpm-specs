@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate derive_builder_core
+%global crate test-log-macros
 
-Name:           rust-derive_builder_core
-Version:        0.20.0
+Name:           rust-test-log-macros
+Version:        0.2.15
 Release:        %autorelease
-Summary:        Internal helper library for the derive_builder crate
+Summary:        Supporting procedural macro crate for test-log
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/derive_builder_core
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/test-log-macros
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Internal helper library for the derive_builder crate.}
+Supporting procedural macro crate for test-log.}
 
 %description %{_description}
 
@@ -32,8 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,28 +46,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+log-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "log" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+lib_has_std-devel
+%package     -n %{name}+trace-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+lib_has_std-devel %{_description}
+%description -n %{name}+trace-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "lib_has_std" feature of the "%{crate}" crate.
+use the "trace" feature of the "%{crate}" crate.
 
-%files       -n %{name}+lib_has_std-devel
+%files       -n %{name}+trace-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

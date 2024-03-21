@@ -2,7 +2,7 @@
 
 Name:		gnome-bluetooth
 Epoch:		1
-Version:	46~beta
+Version:	46.0
 Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
@@ -96,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Mar 19 2024 David King <amigadave@amigadave.com> - 1:46.0-1
+- Update to 46.0
+
 * Sat Feb 10 2024 David King <amigadave@amigadave.com> - 1:46~beta-1
 - Update to 46.beta
 

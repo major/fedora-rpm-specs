@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.6.8
+Version:        2.7.0
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -28,7 +28,7 @@ Source10:       Setup.hs
 Source11:       cabal-tweak-drop-dep
 Source12:       cabal-tweak-remove-upperbound
 Source13:       ghc-info.sh
-Source14:       macros.ghc-srpm-no-prof
+Source14:       macros.ghc-srpm-quick
 Requires:       redhat-rpm-config
 # ghc_version needs ghc-compiler or ghcX.Y-compiler-default
 Requires:       chrpath
@@ -48,12 +48,16 @@ Extra macros used for subpackaging of Haskell libraries,
 for example in ghc and haskell-platform.
 
 
-%package no-prof
-Summary:        Disables building of ghc prof subpackages
+%package quick
+Summary:        Disables building of ghc prof and doc subpackages
 Requires:       %{name} = %{version}-%{release}
+# added during F40 cycle
+Obsoletes:      %{name}-no-prof < %{version}-%{release}
+Provides:       %{name}-no-prof = %{version}-%{release}
 
-%description no-prof
-Overrides ghc-srpm-macros to disable building ghc prof subpackages locally.
+%description quick
+Overrides ghc-srpm-macros to disable building ghc prof and doc subpackages
+locally.
 
 This should not be used in official Fedora builds.
 
@@ -133,7 +137,7 @@ echo no build stage
 install -p -D -m 0644 %{SOURCE0} %{buildroot}%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{macros_dir}/macros.ghc-os
-install -p -D -m 0644 %{SOURCE14} %{buildroot}%{macros_dir}/macros.ghc-srpm-no-prof
+install -p -D -m 0644 %{SOURCE14} %{buildroot}%{macros_dir}/macros.ghc-srpm-quick
 
 %if 0%{?fedora} < 38
 echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-os
@@ -181,8 +185,8 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 %{macros_dir}/macros.ghc-extra
 
 
-%files no-prof
-%{macros_dir}/macros.ghc-srpm-no-prof
+%files quick
+%{macros_dir}/macros.ghc-srpm-quick
 
 
 %if 0%{?fedora} < 37
@@ -201,6 +205,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Mar 18 2024 Jens Petersen <petersen@redhat.com> - 2.7.0-1
+- rename no-prof subpackage to quick
+- quick: add ghc_haddocks override
+
 * Thu Feb 29 2024 Jens Petersen <petersen@redhat.com> - 2.6.8-1
 - fixup cabal_configure: when subpackaging print subpackage header
 - ghc_set_gcc_flags: no need to redefine/re-export CFLAGS and LDFLAGS

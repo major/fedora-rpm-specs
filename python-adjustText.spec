@@ -18,7 +18,7 @@ smaller than default and maybe the figure a little larger).
 However the algorithm itself is highly configurable for complicated plots.}
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
+Version:        1.1.1
 Release:        %{autorelease}
 Summary:        Automatic label placement for matplotlib
 BuildArch:      noarch

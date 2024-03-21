@@ -30,7 +30,7 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	15.0.1
+Version:	15.0.2
 Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
@@ -872,6 +872,11 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Tue Mar 19 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.2-1
+- Arrow 15.0.2 GA
+- Note: The ABI break reported https://github.com/apache/arrow/issues/40604 
+  (bz 2269811) does NOT appear to be addressed in this release.
+
 * Fri Mar 15 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.1-1
 - Arrow 15.0.1 GA, w/ liborc 2.0.0
 

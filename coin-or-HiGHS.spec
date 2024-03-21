@@ -1,11 +1,11 @@
 # NOTE: The C# and Fortran interfaces are not currently built.  If you need
 # either interface, file a bug requesting it.
 
-# The meson build runs git to get a commit, but we don't have a git checkout
-%global commit 21da9b90e0
+# The build runs git to get a commit, but we don't have a git checkout
+%global commit 50670fd4c
 
 Name:           coin-or-HiGHS
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -15,18 +15,22 @@ VCS:            https://github.com/ERGO-Code/HiGHS
 Source0:        %{vcs}/archive/v%{version}/HiGHS-%{version}.tar.gz
 # Do not add rpaths to libraries and binaries
 Patch0:         %{name}-rpath.patch
-# Do not run git in an unpacked release tarball
-Patch1:         %{name}-githash.patch
+# Do not try to download pybind11
+Patch1:         %{name}-pybind11.patch
 # Check availability of the popcount instruction at runtime
 Patch2:         %{name}-popcount.patch
 # Fix out-of-bounds vector accesses
 Patch3:         %{name}-vector.patch
+# Update the examples to fix FTBFS
+# https://github.com/ERGO-Code/HiGHS/pull/1680
+Patch4:         %{name}-examples.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  cmake(catch2)
+BuildRequires:  cmake(pybind11)
 BuildRequires:  doctest-static
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -35,8 +39,6 @@ BuildRequires:  pkgconfig(coindatanetlib)
 BuildRequires:  pkgconfig(coindatasample)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pybind11}
 BuildRequires:  zstr-static
 
 # A bundled version of FilereaderLP is included, but it has been modified
@@ -88,15 +90,11 @@ This package contains a Python 3 interface to coin-or-HiGHS.
 %autosetup -n HiGHS-%{version} -p1
 
 # Substitute the release git hash; see note above
-sed -i "s/commit_hash/'%{commit}'/" src/meson.build
+sed -i 's,n/a,%{commit},' CMakeLists.txt
 
 # Unbundle catch
 rm extern/catch.hpp
 ln -s %{_includedir}/catch2/catch_all.hpp extern/catch.hpp
-
-# Unbundle doctest
-rm extern/doctest.h
-ln -s %{_includedir}/doctest/doctest.h extern
 
 # Unbundle pdqsort
 rm extern/pdqsort/pdqsort.h
@@ -106,15 +104,14 @@ ln -s %{_includedir}/pdqsort.h extern/pdqsort
 rm -fr extern/zstr
 ln -s %{_includedir}/zstr extern
 
-# Do not try to download pybind11 at build time
-rm -fr subprojects
-sed -i '/subprojects/d' pyproject.toml
+# The Fedora cmake package does not advertise its python interface
+sed -i '/cmake/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -R
+%pyproject_buildrequires -x test
 
 %build
-%cmake -DCMAKE_TARGETS:BOOL=ON
+%cmake
 %cmake_build
 
 # Build the python interface
@@ -140,14 +137,13 @@ cd -
 %check
 %ctest
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
-%{python3} highspy/tests/test_highspy.py
+%pytest
 
 %files
 %doc AUTHORS MODS.md README.md
-%license LICENSE
+%license LICENSE.txt
 %{_bindir}/highs
-%{_libdir}/libhighs.so.1.6*
+%{_libdir}/libhighs.so.1*
 
 %files devel
 %{_includedir}/highs_export.h

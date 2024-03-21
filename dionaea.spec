@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     25
+%global         baserelease     27
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -155,6 +155,7 @@ BuildRequires:  sqlite
 BuildRequires:  openssl-devel
 
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-Cython
 
 %if 0%{?with_systemd}
@@ -226,7 +227,7 @@ Requires:       python%{python3_pkgversion}-pyev
 Requires:       python%{python3_pkgversion}-bson
 Requires:       python%{python3_pkgversion}-PyYAML
 Requires:       python%{python3_pkgversion}-scapy
-Requires:       python%{python3_pkgversion}-sqlalchemy
+Requires:       python%{python3_pkgversion}-sqlalchemy < 2
 
 %description -n python%{python3_pkgversion}-%{gitname}
 This is a Python3 library that gives access to dionaea honeypot functionality.
@@ -502,6 +503,12 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-27
+- Add dependency on setuptools Python package
+
+* Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-26
+- Depend on SQLAlchemy < 2
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

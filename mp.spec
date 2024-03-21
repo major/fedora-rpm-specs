@@ -28,12 +28,12 @@
 
 # Upstream has stopped tagging releases.  For a list of recent releases, see
 # CHANGES.mp.md.
-%global commit      34afbd381c72af810c4313e5f4ee182dec93682e
-%global date        20240115
+%global commit      9646be4f2d9ba3c59d3025b0a317dc8084973ed5
+%global date        20240319
 %global forgeurl    https://github.com/ampl/mp
 
 Name: mp
-Version: 20240115
+Version: 20240319
 Summary: An open-source library for mathematical programming
 
 %forgemeta
@@ -44,7 +44,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 3%{?dist}
+Release: 1%{?dist}
 URL: https://mp.ampl.com/
 Source0: %{forgesource}
 # Unbundle asl
@@ -59,6 +59,10 @@ Patch3:  %{name}-redundant-move.patch
 Patch4:  %{name}-probleminfo.patch
 # Fix use of an int where a member of an enum is needed
 Patch5:  %{name}-enum-cast.patch
+# Fix a name clash on "obj_name"
+Patch6:  %{name}-obj-name.patch
+# Fix FTBFS due to ambiguous names in expr-writer.h
+Patch7:  %{name}-expr-writer.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -248,6 +252,10 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Tue Mar 19 2024 Jerry James <loganjerry@gmail.com> - 20240319-1
+- Update to release 20240319
+- Add obj-name and expr-writer patches to fix FTBFS
+
 * Wed Mar 13 2024 Jerry James <loganjerry@gmail.com> - 20240115-3
 - Rebuild for soplex 7.0.0 and scip 9.0.0
 - Build the jacop interface for JDK 1.8 (rhbz#2266676)

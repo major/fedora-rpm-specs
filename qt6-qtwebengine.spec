@@ -117,7 +117,7 @@ BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc-c++
 %if 0%{?rhel} && 0%{?rhel} < 10
-BuildRequires: gcc-toolset-12
+BuildRequires: gcc-toolset-13
 %endif
 # gn links statically (for now)
 BuildRequires: libstdc++-static
@@ -418,7 +418,7 @@ cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 10
-. /opt/rh/gcc-toolset-12/enable
+. /opt/rh/gcc-toolset-13/enable
 %endif
 export STRIP=strip
 export NINJAFLAGS="%{__ninja_common_opts}"

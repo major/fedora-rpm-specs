@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           simple-scan
-Version:        46~beta
+Version:        46.0
 Release:        1%{?dist}
 Summary:        Simple scanning utility
 
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.SimpleScan.gschema.xml
 
 %changelog
+* Tue Mar 19 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Sat Mar 02 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

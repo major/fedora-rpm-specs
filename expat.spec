@@ -1,4 +1,4 @@
-%global unversion 2_6_1
+%global unversion 2_6_2
 
 Summary: An XML parser library
 Name: expat
@@ -9,8 +9,6 @@ URL: https://libexpat.github.io/
 License: MIT
 BuildRequires: autoconf, libtool, xmlto, gcc-c++
 BuildRequires: make
-# https://github.com/libexpat/libexpat/pull/847
-Patch0: expat-2.6.1-doc-makefile.patch
 
 %description
 This is expat, the C library for parsing XML, written by James Clark. Expat
@@ -38,7 +36,6 @@ Install it if you need to link statically with expat.
 
 %prep
 %setup -q -n libexpat-R_%{unversion}/expat
-%patch0 -p1 -b .doc-makefile
 sed -i 's/install-data-hook/do-nothing-please/' lib/Makefile.am
 ./buildconf.sh
 
@@ -77,6 +74,10 @@ make check
 %{_libdir}/libexpat.a
 
 %changelog
+* Tue Mar 19 2024 Tomas Korbar <tkorbar@redhat.com> - 2.6.2-1
+- Rebase to version 2.6.2
+- Resolves: rhbz#2269400
+
 * Mon Mar 11 2024 Tomas Korbar <tkorbar@redhat.com> - 2.6.1-1
 - Rebase to version 2.6.1
 - Resolves: rhbz#2267125

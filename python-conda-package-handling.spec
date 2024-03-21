@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create and extract conda packages of various formats
 
 License:        BSD-3-Clause
@@ -21,13 +21,8 @@ Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-conda-package-streaming
-BuildRequires:  python%{python3_pkgversion}-Cython
-BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-tqdm
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
-Requires:       python%{python3_pkgversion}-six
-Requires:       python%{python3_pkgversion}-tqdm
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -56,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v tests
 %{python3_sitelib}/%{pkgname}/
 
 %changelog
+* Tue Mar 12 2024 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-4
+- Clean-up of buildtime and runtime dependencies
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

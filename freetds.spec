@@ -2,12 +2,12 @@
 
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
-Version: 1.3.3
-Release: 7%{?dist}
+Version: 1.4.10
+Release: 1%{?dist}
 License: LGPLv2+ and GPLv2+
 URL: http://www.freetds.org/
 
-Source0: ftp://ftp.freetds.org/pub/freetds/stable/freetds-%{version}.tar.bz2
+Source0: https://www.freetds.org/files/stable/%{name}-%{version}.tar.bz2
 Source1: freetds-tds_sysdep_public.h
 
 BuildRequires: unixODBC-devel, readline-devel, gnutls-devel, krb5-devel
@@ -121,7 +121,7 @@ find docdir -type f -print0 | xargs -0 chmod -x
 %files 
 %{_bindir}/*
 %license COPYING.txt
-%doc AUTHORS.md BUGS.md NEWS.md README.md TODO.md
+%doc AUTHORS.md NEWS.md README.md TODO.md
 %doc doc/*.html
 %doc docdir/userguide docdir/images
 %{_mandir}/man1/*
@@ -149,6 +149,9 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Tue Mar 19 2024 Marie Loise Nolden <loise@kde.org> - 1.4.10-1
+- update to 1.4.10
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

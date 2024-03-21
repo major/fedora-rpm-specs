@@ -5,12 +5,12 @@
 %global         srcname     azure-mgmt-batch
 
 Name:           python-%{srcname}
-Version:        17.0.0
+Version:        17.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Batch Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 BuildArch:      noarch
 

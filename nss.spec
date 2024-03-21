@@ -1,5 +1,5 @@
 %global nspr_version 4.35.0
-%global nss_version 3.98.0
+%global nss_version 3.99.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+20]
+%global nspr_release %[%baserelease+21]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20210118
@@ -1085,10 +1085,13 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Mon Mar 18 2024 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.99.0-1
+- Update NSS to 3.99.0
+
 * Sat Feb 17 2024 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.98.0-1
 - Update NSS to 3.98.0
 
-* Sun Jan 27 2024 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.97.0-1
+* Sat Jan 27 2024 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.97.0-1
 - Update NSS to 3.97.0
 
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.96.1-3

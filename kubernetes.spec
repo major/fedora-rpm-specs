@@ -40,7 +40,7 @@ Name:           %{k8s_name}
 Version:        %{k8s_ver}
 Release:        %autorelease
 Summary:        Open Source Production-Grade Container Scheduling And Management Platform
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://%{import_path}
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x %{arm}
 Source0:        https://%{provider_prefix}/archive/%{gittag}/%{repo}-%{tar_ver}.tar.gz
@@ -115,7 +115,7 @@ control plane machines.
 ##############################################
 %package  kubeadm
 Summary:  Kubernetes tool for standing up clusters
-Requires: kubernetes = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 
 BuildRequires: golang >= %{golangver}
 BuildRequires: systemd
@@ -237,9 +237,6 @@ export KUBE_CGO_OVERRIDES="kube-proxy kubeadm kube-apiserver kube-controller-man
 export GOFLAGS="-buildmode=pie -compiler=gc -tags=rpm_crashtraceback${BUILDTAGS:+,}${BUILDTAGS:-}"
 
 export GOLDFLAGS="%{?currentgoldflags} -B 0x$(echo '%{name}-%{version}-%{release}-${SOURCE_DATE_EPOCH:-}' | sha1sum | cut -d ' ' -f1) -compressdwarf=false -linkmode=external -extldflags '%{build_ldflags} %{?__golang_extldflags}'"
-
-# macro that executes make all for given cmd argument
-%define makecmd(o:) make all WHAT="cmd/%1" GOLDFLAGS="-B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') $GLINK"
 
 # Build each binary separately to generate a unique build-id.
 # Otherwise: Duplicate build-ids /builddir/build/BUILDROOT/.../usr/bin/kube-apiserver and /builddir/build/BUILDROOT/.../usr/bin/kubeadm

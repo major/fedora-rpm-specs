@@ -4,12 +4,12 @@
 %global         srcname     azure-identity
 
 Name:           python-%{srcname}
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Microsoft Azure Identity Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{version}}
 
 Epoch:          1
 

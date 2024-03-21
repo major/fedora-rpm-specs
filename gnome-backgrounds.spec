@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        46~beta
+Version:        46.0
 Release:        1%{?dist}
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/vnc-l.png
 
 %changelog
+* Tue Mar 19 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Wed Feb 14 2024 David King <amigadave@amigadave.com> - 46~beta-1
 - Update to 46.beta
 

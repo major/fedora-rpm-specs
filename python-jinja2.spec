@@ -51,8 +51,6 @@ BuildRequires:  python3-sphinx-issues
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Fix for https://github.com/pallets/jinja/issues/1758
-sed -i "s/def teardown/def teardown_method/" tests/test_loader.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x i18n

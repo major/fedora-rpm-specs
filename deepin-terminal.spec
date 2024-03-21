@@ -3,32 +3,38 @@
 %global libname terminalwidget5
 
 Name:           deepin-terminal
-Version:        5.9.43
+Version:        6.0.12
 Release:        %autorelease
 Summary:        Default terminal emulation application for Deepin
 # migrated to SPDX
 License:        GPL-3.0-or-later
-URL:            https://github.com/linuxdeepin/%{repo}
+URL:            https://github.com/linuxdeepin/deepin-terminal
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(Qt5Core)
+
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5DBus)
+BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt5Network)
+BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  qt5-qtbase-private-devel
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
+BuildRequires:  cmake(lxqt-build-tools)
+
 BuildRequires:  pkgconfig(dtkwidget)
-BuildRequires:  pkgconfig(lxqt) >= 0.14.0
+BuildRequires:  pkgconfig(dtkgui)
+BuildRequires:  pkgconfig(dtkcore)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(atspi-2)
-BuildRequires:  pkgconfig(dframeworkdbus)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(xcb-ewmh)
-BuildRequires:  pkgconfig(chardet)
-BuildRequires:  pkgconfig(uchardet)
-BuildRequires:  gtest-devel
-BuildRequires:  gmock-devel
-BuildRequires:  libicu-devel
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  pkgconfig(x11)
 
-BuildRequires:  qt5-linguist
+BuildRequires:  fontconfig-devel
+
 Requires:       deepin-qt5integration%{?_isa}
 # right-click menu style
 Requires:       deepin-menu
@@ -67,13 +73,12 @@ The %{name}-data package provides shared data for Deepin Terminal.
 
 %install
 %cmake_install
-chmod -v 755 %{buildroot}%{_bindir}/*
-# delete a stale file
-find %{buildroot} -name install_flag -delete
+chmod -v 755 %{buildroot}%{_bindir}/%{name}
+
+sed -i 's/DDE;//' %{buildroot}%{_datadir}/applications/%{repo}.desktop
 
 %check
-# failing for now
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{repo}.desktop ||:
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{repo}.desktop
 
 %preun
 if [ $1 -eq 0 ]; then

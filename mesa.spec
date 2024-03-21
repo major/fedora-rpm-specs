@@ -79,6 +79,7 @@ Patch10:        gnome-shell-glthread-disable.patch
 # Backport of https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/28101
 # to fix LLVM 18 compatibility (https://bugzilla.redhat.com/show_bug.cgi?id=2268800).
 Patch20:        0001-Pass-no-verify-fixpoint-option-to-instcombine-in-LLV.patch
+Patch21:        0001-winsys-radeon-pass-priv-instead-NULL-to-radeon_bo_ca.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	20%{?dist}
+Release:	21%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -283,6 +283,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Mar 19 2024 Dominik Mierzejewski <dominik@greysector.net> - 0.0.26-21
+- Rebuild for gloox 1.0.28
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 0.0.26-20
 - Rebuild for ICU 74
 
