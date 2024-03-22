@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           robin-map
-Version:        1.2.1
-Release:        5%{?dist}
+Version:        1.2.2
+Release:        1%{?dist}
 Summary:        C++ implementation of a fast hash map and hash set using robin hood hashing
 
 License:        MIT
@@ -72,6 +72,9 @@ pushd tests
 
 
 %changelog
+* Thu Mar 21 2024 Richard Shaw <hobbes1069@gmail.com> - 1.2.2-1
+- Update to 1.2.2.
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

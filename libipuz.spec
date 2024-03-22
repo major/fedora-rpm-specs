@@ -1,4 +1,4 @@
-%bcond_without docs
+%bcond docs 1
 
 Name:           libipuz
 Version:        0.4.5
@@ -9,6 +9,13 @@ License:        LGPL-2.1-or-later OR MIT
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Ensure we only enable rust support from 0.4.6 onwards
+%bcond rust %([ $(echo %{version} | tr -d .) -ge 046 ] && echo 1 || echo 0)
+
+%if %{with rust}
+BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  sed
+%endif
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson
@@ -55,6 +62,18 @@ The %{name}-tests package contains tests for %{name}.
 
 %prep
 %autosetup -p1
+
+%if %{with rust}
+%cargo_prep
+
+# Drop version locks
+rm libipuz/rust/Cargo.lock
+sed -i '/Cargo.lock/d' libipuz/rust/meson.build
+
+%generate_buildrequires
+cd libipuz/rust
+%cargo_generate_buildrequires
+%endif
 
 %build
 %meson

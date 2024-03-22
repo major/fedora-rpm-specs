@@ -1,5 +1,5 @@
 Name:           dmenu
-Version:        5.2
+Version:        5.3
 Release:        %autorelease
 Summary:        Generic menu for X
 License:        MIT

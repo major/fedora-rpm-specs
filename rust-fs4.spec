@@ -2,25 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate fancy-regex
+%global crate fs4
 
-Name:           rust-fancy-regex
-Version:        0.13.0
+Name:           rust-fs4
+Version:        0.8.1
 Release:        %autorelease
-Summary:        An implementation of regexes, supporting a relatively rich set of features
+Summary:        No libc, pure Rust cross-platform file locks
 
-License:        MIT
-URL:            https://crates.io/crates/fancy-regex
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/fs4
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          fs4-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
-Patch:          fancy-regex-fix-metadata.diff
+#  * Disable feature 'smol' (missing dependencies: smol, smol-potat)
+Patch:          fs4-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-An implementation of regexes, supporting a relatively rich set of
-features, including backreferences and look-around.}
+No libc, pure Rust cross-platform file locks. Original fs2, now supports
+async and replace libc by rustix.}
 
 %description %{_description}
 
@@ -34,11 +37,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/AUTHORS
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
-%doc %{crate_instdir}/PERFORMANCE.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -54,52 +54,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+perf-devel
+%package     -n %{name}+async-std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+perf-devel %{_description}
+%description -n %{name}+async-std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "perf" feature of the "%{crate}" crate.
+use the "async-std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+perf-devel
+%files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+async-trait-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+async-trait-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "async-trait" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+async-trait-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+track_caller-devel
+%package     -n %{name}+sync-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+track_caller-devel %{_description}
+%description -n %{name}+sync-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "track_caller" feature of the "%{crate}" crate.
+use the "sync" feature of the "%{crate}" crate.
 
-%files       -n %{name}+track_caller-devel
+%files       -n %{name}+sync-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unicode-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unicode-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unicode" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unicode-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

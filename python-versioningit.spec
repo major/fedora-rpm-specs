@@ -33,7 +33,7 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        3.0.0
+Version:        3.1.0
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 

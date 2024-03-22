@@ -7,7 +7,7 @@
 %bcond backend_tests 1
 
 Name:           hatch
-Version:        1.9.3
+Version:        1.9.4
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 

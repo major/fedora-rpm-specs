@@ -364,9 +364,9 @@ Summary: Rule-based device node and kernel event manager
 License:        LGPL-2.1-or-later
 
 Requires:       systemd%{_isa} = %{version}-%{release}
-Requires(post):   systemd
-Requires(preun):  systemd
-Requires(postun): systemd
+Requires(post):   systemd%{_isa} = %{version}-%{release}
+Requires(preun):  systemd%{_isa} = %{version}-%{release}
+Requires(postun): systemd%{_isa} = %{version}-%{release}
 Requires(post): grep
 Requires:       kmod >= 18-4
 # https://bodhi.fedoraproject.org/updates/FEDORA-2020-dd43dd05b1
@@ -470,9 +470,9 @@ the version that works with Secure Boot.
 # Name is the same as in Debian
 Summary: Tools for containers and VMs
 Requires:       %{name}%{_isa} = %{version}-%{release}
-Requires(post):   systemd
-Requires(preun):  systemd
-Requires(postun): systemd
+Requires(post):   systemd%{_isa} = %{version}-%{release}
+Requires(preun):  systemd%{_isa} = %{version}-%{release}
+Requires(postun): systemd%{_isa} = %{version}-%{release}
 # obsolete parent package so that dnf will install new subpackage on upgrade (#1260394)
 Obsoletes:      %{name} < 229-5
 # Bias the system towards libcurl-minimal if nothing pulls in full libcurl (#1997040)
@@ -507,6 +507,7 @@ systemd-journal-upload.
 %package networkd
 Summary:        System daemon that manages network configurations
 Requires:       %{name}%{_isa} = %{version}-%{release}
+%{?fedora:Recommends:     %{name}-udev = %{version}-%{release}}
 License:        LGPL-2.1-or-later
 # https://src.fedoraproject.org/rpms/systemd/pull-request/34
 Obsoletes:      systemd < 246.6-2
@@ -556,6 +557,7 @@ Requires:      %{name}%{_isa} = %{version}-%{release}
 # This dependency is provided transitively. Also add it explicitly to
 # appease rpminspect, https://github.com/rpminspect/rpminspect/issues/1231:
 Requires:      %{name}-libs%{_isa} = %{version}-%{release}
+Requires:      python3dist(psutil)
 
 License:       LGPL-2.1-or-later
 

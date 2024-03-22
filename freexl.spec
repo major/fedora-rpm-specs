@@ -30,6 +30,12 @@ License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 URL:            https://www.gaia-gis.it/fossil/freexl/index
 Source:         https://www.gaia-gis.it/gaia-sins/freexl-%{version}.tar.gz
 
+# Fix incompatible pointer type in the mingw32 build
+#
+# Freexl calls iconv with incompatible pointer type in mingw32 builds
+# https://www.gaia-gis.it/fossil/freexl/tktview/79f730a917ae90257a88acb974490daf115c2192
+Patch:          freexl-2.0.0-iconv-mingw32.patch
+
 %if %{with autoreconf}
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -111,7 +117,7 @@ MinGW Windows freexl library.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # We want to install a “clean” version of the examples
 mkdir -p clean

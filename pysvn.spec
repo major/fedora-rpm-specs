@@ -2,7 +2,7 @@ Name:           pysvn
 Version:        1.9.21
 Release:        5%{?dist}
 Summary:        Pythonic style bindings for Subversion
-License:        ASL 1.1
+License:        Apache-1.1
 URL:            https://pysvn.sourceforge.io/
 Source0:        http://pysvn.barrys-emacs.org/source_kits/%{name}-%{version}.tar.gz
 BuildRequires:  make

@@ -8,8 +8,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        10.0.4
-Release:        5%{?dist}
+Version:        10.0.7
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -17,9 +17,6 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-Patch0001:      0001-Fixup-use-of-boot-zipl.patch
-Patch0002:      0002-Lookup-distro-provided-BLS-entries-for-zipl.patch
-Patch0003:      0003-Followup-fix-for-use-of-boot-zipl.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -49,14 +46,14 @@ Provides:       kiwi-image:tbz
 # tools used by kiwi
 # For building Fedora, RHEL/CentOS, and Mageia based images
 Requires:       dnf
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
 Requires:       dnf5
 Provides:       kiwi-packagemanager:dnf5
 %endif
 Provides:       kiwi-packagemanager:dnf
 Provides:       kiwi-packagemanager:dnf4
 Provides:       kiwi-packagemanager:yum
-%if (0%{?fedora} && 0%{?fedora} < 39) || 0%{?rhel} >= 8
+%if (0%{?fedora} && 0%{?fedora} < 39) || (0%{?rhel} >= 8 && 0%{?rhel} < 10)
 # For building Fedora, RHEL/CentOS, and Mageia based minimal images
 Requires:       microdnf
 Provides:       kiwi-packagemanager:microdnf
@@ -426,7 +423,7 @@ type attribute.
 
 %package cli
 Summary:        Flexible operating system appliance image builder
-Provides:       kiwi-schema = 8.0
+Provides:       kiwi-schema = 8.1
 # So we can reference it by the source package name while permitting this to be noarch
 Provides:       %{name} = %{version}-%{release}
 Requires:       python3-%{name} = %{version}-%{release}
@@ -570,6 +567,10 @@ done
 
 
 %changelog
+* Wed Mar 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.7-1
+- Update to 10.0.7
+- Drop fixes included in this release
+
 * Wed Mar 13 2024 Neal Gompa <ngompa@fedoraproject.org> - 10.0.4-5
 - Add dependency on xz
 

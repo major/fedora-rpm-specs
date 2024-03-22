@@ -11,10 +11,17 @@ Summary:        Udev helper utility that provides network interface naming using
 License:        MIT
 URL:            https://crates.io/crates/prefixdevname
 Source:         %{crates_source}
+# can be generated with make vendor in the sources
+Source:         %{crate}-%{version}-vendor.tar.gz
 # Upstream PR (https://github.com/msekletar/prefixdevname/pull/29)
 Patch0001:      0001-Drop-unnecessary-cast.patch
 
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  rust-packaging >= 23
+%endif
+BuildRequires:  pkgconfig(libudev)
 %if %{with check}
 BuildRequires:  umockdev-devel
 %endif
@@ -35,6 +42,9 @@ License:        MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT) AND Unicode-D
 %files       -n %{crate}
 %license LICENSE
 %license LICENSE.dependencies
+%if 0%{?rhel}
+%license cargo-vendor.txt
+%endif
 %doc README.md
 %{_prefix}/lib/udev/prefixdevname
 %{_prefix}/lib/udev/rules.d/71-prefixdevname.rules
@@ -42,15 +52,24 @@ License:        MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT) AND Unicode-D
 %{_prefix}/lib/dracut/modules.d/71prefixdevname-tools/
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -p1 %{?rhel:-a1}
+%if 0%{?rhel}
+%cargo_prep -v vendor
+rm -f Cargo.lock
+%else
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%endif
 
 %build
 %cargo_build
+%cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%if 0%{?rhel}
+%cargo_vendor_manifest
+%endif
 
 %install
 %make_install

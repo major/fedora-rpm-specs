@@ -16,11 +16,11 @@ Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
 # Fix deprecated top-level developer_name in AppData XML
 # https://github.com/otsaloma/gaupol/pull/214
 Patch:          %{forgeurl}/pull/214.patch
+# Add developer id property to appdata.xml
+# https://github.com/otsaloma/gaupol/commit/679982675ab0f18349326cf381a5d1f4159c4858
+Patch:          %{forgeurl}/commit/679982675ab0f18349326cf381a5d1f4159c4858.patch
 
-# The package cannot be noarch because it has weak dependencies and BR’s
-# conditioned on architecture. There is still no compiled code, so there will
-# be no debug packages.
-%global debug_package %{nil}
+BuildArch:      noarch
 
 # We cannot use dynamic BuildRequires or automatic Requires generation, as
 # setup.py does not have the relevant metadata. We must do it the old-fashioned
@@ -60,12 +60,10 @@ BuildRequires:  gstreamer1-plugins-base >= 1.6
 BuildRequires:  gstreamer1-plugins-good >= 1.6
 BuildRequires:  gstreamer1-plugins-good-gtk >= 1.6
 BuildRequires:  gstreamer1-vaapi >= 1.6
-%ifarch x86_64
 # svt-av1 is ExclusiveArch: x86_64
-BuildRequires:  gstreamer1-svt-av1
+BuildRequires:  (gstreamer1-svt-av1 if python3(x86-64))
 # svt-vp9 is ExclusiveArch: x86_64
-BuildRequires:  gstreamer1-svt-vp9
-%endif
+BuildRequires:  (gstreamer1-svt-vp9 if python3(x86-64))
 BuildRequires:  mpv
 BuildRequires:  iso-codes
 BuildRequires:  gspell >= 1.0.0
@@ -92,10 +90,10 @@ Recommends:     gstreamer1-plugins-good-gtk
 Requires:       (gstreamer1-plugins-good-gtk >= 1.6 if gstreamer1-plugins-good-gtk)
 Recommends:     gstreamer1-vaapi
 Requires:       (gstreamer1-vaapi >= 1.6 if gstreamer1-vaapi)
-%ifarch x86_64
-Recommends:     gstreamer1-svt-av1
-Recommends:     gstreamer1-svt-vp9
-%endif
+# svt-av1 is ExclusiveArch: x86_64
+Recommends:     (gstreamer1-svt-av1 if python3(x86-64))
+# svt-vp9 is ExclusiveArch: x86_64
+Recommends:     (gstreamer1-svt-vp9 if python3(x86-64))
 # Default preview video player on non-Windows systems, and currently (of mpv,
 # mplayer, and VLC) the only one packaged in Fedora.
 Recommends:     mpv
@@ -201,8 +199,6 @@ Gaupol 是一个编辑基于文本的字幕编辑器。它支持多种字幕文�
 
 %package -n python3-aeidon
 Summary: Read, write, and manipulate text-based subtitle files
-
-BuildArch:      noarch
 
 Provides:       aeidon = %{version}-%{release}
 Obsoletes:      aeidon <= 1.4-11

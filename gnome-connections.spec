@@ -6,8 +6,8 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        46~rc
-Release:        1%{?dist}
+Version:        46.0
+Release:        2%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later
@@ -21,7 +21,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  yelp-tools
-BuildRequires:  pkgconfig(freerdp2)
+BuildRequires:  pkgconfig(freerdp3)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk-vnc-2.0)
@@ -83,6 +83,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Wed Mar 20 2024 Marek Kasik <mkasik@redhat.com> - 46.0-2
+- Use FreeRDP 3
+
+* Tue Mar 19 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Mon Mar 04 2024 David King <amigadave@amigadave.com> - 46~rc-1
 - Update to 46.rc
 

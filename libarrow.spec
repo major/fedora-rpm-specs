@@ -31,13 +31,14 @@
 
 Name:		libarrow
 Version:	15.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
 Patch0001:	0001-python-pyproject.toml.patch
+Patch0002:	0002-cpp-src-arrow-util-key_value_metadata.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -872,6 +873,10 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Mar 20 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.2-2
+- rhbz#2269811, fix ABI break
+- partial revert of https://github.com/apache/arrow/pull/39866
+
 * Tue Mar 19 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.2-1
 - Arrow 15.0.2 GA
 - Note: The ABI break reported https://github.com/apache/arrow/issues/40604 

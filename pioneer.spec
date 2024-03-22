@@ -1,7 +1,7 @@
 # https://github.com/pioneerspacesim/pioneer/issues/3846
 ExclusiveArch: %{ix86} x86_64
 
-%global fontname pioneer
+%global fontname %{name}
 %global fontlicense OFL
 %global fontsex data/fonts/DejaVuSans*.ttf
 %global fontsex data/fonts/wqy-microhei.ttc
@@ -9,27 +9,27 @@ ExclusiveArch: %{ix86} x86_64
 %global fontfamily1       Impionata
 %global fontsummary1      Pioneer Impionata font
 %global fonts1            data/fonts/Impionata.ttf
-%global fontdescription1  %{expand:
-%{common_description}
-This package provides the fonts used by Pioneer..}
+%global fontpkgheader1 %{expand:
+Obsoletes: %{name}-inpionata-fonts < 20240314-4
+}
 
 %global fontfamily2       Orbiteer Bold
 %global fontsummary2      Pioneer Orbiteer Bold font
-%global fonts1            data/fonts/Orbiteer-Bold.ttf
-%global fontdescription1  %{expand:
-%{common_description}
-This package provides the fonts used by Pioneer..}
+%global fonts2            data/fonts/Orbiteer-Bold.ttf
+%global fontpkgheader2 %{expand:
+Obsoletes: %{name}-orbiteer-bold-fonts < 20240314-4
+}
 
 %global fontfamily3       PionilliumText22L Medium
 %global fontsummary3      Pioneer PionilliumText22L Medium font
-%global fonts1            data/fonts/PionilliumText22L-Medium.ttf
-%global fontdescription1  %{expand:
-%{common_description}
-This package provides the fonts used by Pioneer..}
+%global fonts3            data/fonts/PionilliumText22L-Medium.ttf
+%global fontpkgheader3 %{expand:
+Obsoletes: %{name}-pionilliumtext22l-medium-fonts < 20240314-4
+}
 
 # Filter private libraries
-%global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/pioneer -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
-%global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/pioneer -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
+%global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
+%global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/%{name} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 #
 
 %global use_autotools 0
@@ -55,7 +55,7 @@ This package provides the fonts used by Pioneer..}
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20240314
-Release: 1%{date}%{shortcommit}%{?dist}
+Release: 4%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -125,9 +125,9 @@ BuildRequires: dejavu-sans-mono-fonts
 Requires: wqy-microhei-fonts
 Requires: dejavu-sans-fonts
 Requires: dejavu-sans-mono-fonts
-Requires: %{name}-inpionata-fonts
-Requires: %{name}-orbiteer-bold-fonts
-Requires: %{name}-pionilliumtext22l-medium-fonts
+Requires: %{fontname}-Impionata-fonts
+Requires: %{fontname}-Orbiteer-Bold-fonts
+Requires: %{fontname}-PionilliumText22L-Medium-fonts
 
 %description data
 Data files of %{name}.
@@ -278,6 +278,15 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/dat
 
 
 %changelog
+* Wed Mar 20 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240314-4
+- Remove font descriptions
+
+* Wed Mar 20 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240314-3
+- Add Obsoletes tags
+
+* Wed Mar 20 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240314-2
+- Fix rhbz#2270044
+
 * Sat Mar 16 2024 Antonio Trande <sagitter@fedoraproject.org> - 20240314-1
 - Release 20240314
 

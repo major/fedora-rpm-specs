@@ -5,6 +5,8 @@
 %bcond extras %{defined fedora}
 %bcond opencv %[ 0%{?fedora} >= 39 ]
 %bcond openh264 %[ 0%{?fedora} >= 40 ]
+# requires new webrtc-audio-processing-1
+%bcond webrtcdsp %[ 0%{?fedora} >= 40 || 0%{?rhel} >= 11 ]
 
 #global gitrel     140
 #global gitcommit  4ca3a22b6b33ad8be4383063e76f79c4d346535d
@@ -12,7 +14,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.24.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -88,6 +90,9 @@ BuildRequires:  liblc3-devel
 BuildRequires:  json-glib-devel
 %if %{with openh264}
 BuildRequires:  pkgconfig(openh264)
+%endif
+%if %{with webrtcdsp}
+BuildRequires:  pkgconfig(webrtc-audio-processing-1)
 %endif
 
 %if %{with extras}
@@ -338,7 +343,8 @@ aren't tested well enough, or the code is not of good enough quality.
     -D gs=disabled -D isac=disabled \
     -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
     -D amfcodec=disabled -D directshow=disabled -D qsv=disabled \
-    -D aja=disabled -D qt6d3d11=disabled -D webrtcdsp=disabled 
+    %{!?with_webrtcdsp:-D webrtcdsp=disabled } \
+    -D aja=disabled -D qt6d3d11=disabled
 
 %meson_build
 
@@ -575,7 +581,9 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstwaylandsink.so
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstwebp.so
-#{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
+%if %{with webrtcdsp}
+%{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
+%endif
 %if 0
 %{_libdir}/gstreamer-%{majorminor}/libgstwpe.so
 %endif
@@ -796,6 +804,9 @@ EOF
 
 
 %changelog
+* Wed Mar 13 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.24.0-2
+- Re-enable webrtcdsp for f40+ and ELN
+
 * Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
 - Update to 1.24.0
 

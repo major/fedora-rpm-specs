@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc0.20240319gitb3603fcb79b1.11
+%define pkgrelease 0.rc0.20240320gita4145ce1e7bc.11
 %define kversion 6
-%define tarfile_release 6.8-11567-gb3603fcb79b1
+%define tarfile_release 6.8-11743-ga4145ce1e7bc
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20240319gitb3603fcb79b1.11%{?buildid}%{?dist}
+%define specrelease 0.rc0.20240320gita4145ce1e7bc.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -1500,7 +1500,7 @@ The meta-package for the %{1} kernel\
 %package %{?1:%{1}-}kvm\
 Summary: KVM modules for package kernel%{?1:-%{1}}\
 Group: System Environment/Kernel\
-Requires: kernel%{?1:-%{1}} = %{version}-%{release}\
+Requires: kernel-uname-r = %{KVERREL}%{uname_suffix %{?1:%{1}}}\
 Provides: installonlypkg(kernel-module)\
 Provides: kernel%{?1:-%{1}}-kvm-%{_target_cpu} = %{version}-%{release}\
 AutoReq: no\
@@ -3957,9 +3957,14 @@ fi\
 #
 #
 %changelog
-* Tue Mar 19 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.b3603fcb79b1.11]
+* Wed Mar 20 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.a4145ce1e7bc.11]
+- gitlab-ci: do not merge ark-latest for gating pipelines (Michael Hofmann)
+- fedora: Enable MCP9600 (Peter Robinson)
+- redhat/configs: Enable & consolidate BF-3 drivers config (Luiz Capitulino)
+- redhat: Fix RT kernel kvm subpackage requires (Juri Lelli)
 - Add new of_test module to mod-internal.list (Thorsten Leemhuis)
 - Add new string kunit modules to mod-internal.list (Thorsten Leemhuis)
+- Linux v6.9.0-0.rc0.a4145ce1e7bc
 
 * Tue Mar 19 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.b3603fcb79b1.10]
 - redhat/kernel.spec.template: enable cross for base/RT (Peter Robinson)

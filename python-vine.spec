@@ -35,7 +35,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-case
-BuildRequires:  python3-mock
 %endif
 
 

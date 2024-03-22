@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        45.1
-Release:        3%{?dist}
+Version:        46.0
+Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
 License:        CC-BY-SA-3.0
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Wed Mar 20 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

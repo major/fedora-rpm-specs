@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.13
+%global general_version %{pybasever}.14
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 6%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -261,8 +261,13 @@ BuildRequires: python3-rpm-generators
 
 Source0: %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
 Source1: %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz.asc
-# The release manager for Python 3.10 is pablogsal
-Source2: https://keybase.io/pablogsal/pgp_keys.asc
+# The release manager for Python 3.10 is pablogsal,
+# but Python 3.10.14 was signed by Łukasz Langa.
+# pgp_keys_combined.asc contains keys of both release managers.
+# Upstream issue: https://github.com/python/cpython/issues/117053
+# https://keybase.io/pablogsal/pgp_keys.asc
+# https://keybase.io/ambv/pgp_keys.asc
+Source2: pgp_keys_combined.asc
 
 # A simple script to check timestamps of bytecode files
 # Run in check section with Python that is currently being built
@@ -328,13 +333,6 @@ Patch415: 00415-cve-2023-27043-gh-102988-reject-malformed-addresses-in-email-par
 #
 # zlib-ng defines the version as "1.3.0.zlib-ng".
 Patch419: 00419-gh-112769-test_zlib-fix-comparison-of-zlib_runtime_version-with-non-int-suffix-gh-112771-gh-112774.patch
-
-# 00422 # a353cebef737c41420dc7ae2469dd657371b8881
-# gh-115133: Fix tests for XMLPullParser with Expat 2.6.0
-#
-# Feeding the parser by too small chunks defers parsing to prevent
-# CVE-2023-52425. Future versions of Expat may be more reactive.
-Patch422: 00422-gh-115133-fix-tests-for-xmlpullparser-with-expat-2-6-0.patch
 
 # (New patches go here ^^^)
 #
@@ -1609,6 +1607,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Mar 20 2024 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.14-1
+- Update to 3.10.14
+
 * Wed Feb 28 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.10.13-6
 - Fix tests for XMLPullParser with Expat 2.6.0
 

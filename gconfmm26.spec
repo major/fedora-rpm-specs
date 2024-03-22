@@ -139,6 +139,12 @@ done
 sed -r -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
 %endif
 
+if [ "$(sha256sum -b < COPYING)" = "$(sha256sum -b < COPYING.LIB)" ]
+then
+  # The license files are identical; replace one with a symbolic link.
+  ln -svf COPYING COPYING.LIB
+fi
+
 
 %build
 %if %{with autoreconf}

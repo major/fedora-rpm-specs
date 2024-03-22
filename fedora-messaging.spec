@@ -2,18 +2,28 @@
 %global srcname fedora_messaging
 
 Name:           %{pkgname}
-Version:        3.4.1
-Release:        5%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 License:        GPLv2+
 URL:            https://github.com/fedora-infra/fedora-messaging
 Source0:        %{pypi_source}
+
+# https://github.com/fedora-infra/fedora-messaging/commit/27d71f09affa84dde0de9346e5f3533eae274016
+Patch0:		docs-pyproject.patch
+# https://github.com/fedora-infra/fedora-messaging/commit/6f35e05f6c5779519141ba4c72e9c5a7d7a4ac46
+Patch1:		pytz-dep-ver.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-# For the docs
+
+# For the docs (don't build on EPEL as we don't have myst-parser)
+%if ! 0%{?rhel}
 BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python%{python3_pkgversion}-myst-parser
+%endif
 
 Requires:       python%{python3_pkgversion}-%{pkgname} = %{version}-%{release}
 
@@ -34,14 +44,16 @@ Summary:        %{summary}
 %description -n python%{python3_pkgversion}-%{pkgname} %{_description}
 
 
+%if ! 0%{?rhel}
 %package doc
 Summary:        Documentation for %{pkgname}
 %description doc
 Documentation for %{pkgname}.
+%endif
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p0
 
 
 %generate_buildrequires
@@ -51,10 +63,12 @@ Documentation for %{pkgname}.
 %build
 %pyproject_wheel
 # generate docs
+%if ! 0%{?rhel}
 PYTHONPATH=${PWD} sphinx-build-3 -M html -d docs/_build/doctrees docs docs/_build/html
 PYTHONPATH=${PWD} sphinx-build-3 -M man -d docs/_build/doctrees docs docs/_build/man
 # remove the sphinx-build leftovers
 rm -rf docs/_build/*/.buildinfo
+%endif
 
 
 %install
@@ -99,12 +113,17 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 %files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %license LICENSE
 
+%if ! 0%{?rhel}
 %files doc
 %license LICENSE
 %doc README.rst docs/*.rst docs/_build/html docs/sample_schema_package
+%endif
 
 
 %changelog
+* Wed Mar 20 2024 Aurelien Bompard <abompard@fedoraproject.org> - 3.5.0-1
+- Version 3.5.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

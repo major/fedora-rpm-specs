@@ -9,8 +9,8 @@
 %global namedversion %{version}%{?namedreltag}
 
 Name:          mod_cluster
-Version:       1.3.16
-Release:       8%{?dist}
+Version:       1.3.20
+Release:       1%{?dist}
 Summary:       Apache HTTP Server dynamic load balancer with Wildfly and Tomcat libraries
 License:       LGPLv3
 URL:           http://modcluster.io/
@@ -18,13 +18,13 @@ Source0:       https://github.com/modcluster/mod_cluster/archive/%{namedversion}
 Source1:       mod_cluster.conf
 Source2:       README.fedora
 
-Requires:      httpd >= 2.4.42
+Requires:      httpd >= 2.4.49
 Requires:      httpd-mmn = %{_httpd_mmn}
 
 # Eventually this package will be renamed to mod_proxy_cluster
 #Obsoletes:     mod_cluster <= 1.3.3-14
 
-BuildRequires: httpd-devel >= 2.4.42
+BuildRequires: httpd-devel >= 2.4.49
 BuildRequires: autoconf
 BuildRequires: make
 BuildRequires: gcc
@@ -83,6 +83,9 @@ install -pm 0644 %{SOURCE2} README
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/*.conf
 
 %changelog
+* Thu Feb 29 2024 Vladimir Chlup <vchlup@redhat.com> - 1.3.20-1
+- Upstream release 1.3.20.Final
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

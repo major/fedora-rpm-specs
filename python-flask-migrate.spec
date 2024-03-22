@@ -5,7 +5,7 @@
 %bcond doc 1
 
 Name:               python-flask-migrate
-Version:            4.0.5
+Version:            4.0.7
 Release:            %autorelease
 Summary:            SQLAlchemy database migrations for Flask applications using Alembic
 
@@ -21,14 +21,14 @@ BuildRequires:      python3-devel
 %if %{with doc}
 BuildRequires:      make
 BuildRequires:      latexmk
-BuildRequires:      python3dist(sphinx)
+BuildRequires:      %{py3_dist sphinx}
 BuildRequires:      python3-sphinx-latex
 %endif
 
 # Tests
 # We do not use %%pyproject_buildrequires -t and %%tox because tox.ini
 # explicitly runs “pip install.”
-BuildRequires:      python3dist(pytest)
+BuildRequires:      %{py3_dist pytest}
 
 %global common_description %{expand:
 SQLAlchemy database migrations for Flask applications using Alembic.}

@@ -1,11 +1,11 @@
 Name:           libtommath
-Version:        1.2.1
+Version:        1.3.0~rc1
 Release:        %autorelease
 Summary:        A portable number theoretic multiple-precision integer library
 License:        Public Domain
 URL:            http://www.libtom.net/
 
-Source0:        https://github.com/libtom/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/libtom/%{name}/archive/v%{version_no_tilde}.tar.gz#/%{name}-%{version_no_tilde}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  libtool
@@ -56,7 +56,7 @@ The %{name}-doc package contains PDF documentation for using %{name}.
 %endif
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version_no_tilde}
 # Fix permissions on installed library
 sed -i -e 's/644 $(LIBNAME)/755 $(LIBNAME)/g' makefile.shared
 # Fix pkgconfig path

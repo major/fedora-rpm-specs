@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.191
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -78,6 +78,8 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
+
+Patch2: elfutils-0.190-riscv-flatten.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -487,6 +489,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Mar 20 2024 Mark Wielaard <mjw@fedoraproject.org> - 0.191-4
+- Add elfutils-0.190-riscv-flatten.patch
+
 * Fri Mar 15 2024 Michel Lind <salimma@fedoraproject.org> - 0.191-3
 - Add feature flag for reenabling elfutils-libelf-devel-static and elfutils-devel-static
 - Add dependency on libzstd-static for elfutils-libelf-devel-static

@@ -1,7 +1,7 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
 Version:        0.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/sourcextractorplusplus
 Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{version}/%{name}-%{version}.tar.gz
@@ -207,6 +207,9 @@ make test -C "%{_vpath_builddir}"
 %{_docdir}/sourcextractor++
 
 %changelog
+* Wed Mar 20 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 0.21-5
+- Rebuild for onnxruntime 1.16.3
+
 * Tue Jan 30 2024 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 0.21-4
 - Rebuild for wcslib 8.2
 

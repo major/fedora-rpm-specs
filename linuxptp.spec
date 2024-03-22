@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -157,6 +157,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Mar 20 2024 Miroslav Lichvar <mlichvar@redhat.com> 4.2-4
+- update selinux policy from https://github.com/fedora-selinux/selinux-policy
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

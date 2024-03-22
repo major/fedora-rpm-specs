@@ -57,7 +57,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.0.0~rc7
+Version: 5.0.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -283,7 +283,7 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %{!?_licensedir:%global license %doc}
 
 %files -f %{name}.file-list
-%license LICENSE
+%license LICENSE vendor/modules.txt
 %doc README.md CONTRIBUTING.md install.md transfer.md
 %{_bindir}/%{name}
 %dir %{_libexecdir}/%{name}

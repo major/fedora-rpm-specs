@@ -1,14 +1,14 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 0
+%global released_kernel 1
 
 # define buildid .local
-%define specversion 6.8.0
-%define tarfile_release 6.8-rc7
+%define specversion 6.8.1
+%define tarfile_release 6.8.1
 # This is needed to do merge window version magic
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.55%{?buildid}%{?dist}
+%define specrelease 0%{?buildid}%{?dist}
 
 # This package doesn't contain any binary, thus no debuginfo package is needed
 %global debug_package %{nil}

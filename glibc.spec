@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.39.9000-92-gb6e3898194
+%global glibcsrcdir glibc-2.39.9000-111-g1ea0511456
 %global glibcversion 2.39.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -281,7 +281,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2269799.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2458,6 +2457,30 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Mar 20 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-9
+- Drop glibc-rh2269799.patch, fixed differently upstream.
+- Auto-sync with upstream branch master,
+  commit 1ea051145612f199d8716ecdf78b084b00b5a727:
+- ﻿powerpc: Placeholder and infrastructure/build support to add Power11 related changes.
+- ﻿powerpc: Add HWCAP3/HWCAP4 data to TCB for Power Architecture.
+- elf: Enable TLS descriptor tests on aarch64
+- arm: Update _dl_tlsdesc_dynamic to preserve caller-saved registers (BZ 31372)
+- Ignore undefined symbols for -mtls-dialect=gnu2
+- Add tst-gnu2-tls2mod1 to test-internal-extras
+- x86-64: Allocate state buffer space for RDI, RSI and RBX (#2269799)
+- riscv: Update nofpu libm test ulps
+- Add STATX_MNT_ID_UNIQUE from Linux 6.8 to bits/statx-generic.h
+- linux: Use rseq area unconditionally in sched_getcpu (bug 31479)
+- aarch64: fix check for SVE support in assembler
+- Update kernel version to 6.8 in header constant tests
+- Update syscall lists for Linux 6.8
+- Use Linux 6.8 in build-many-glibcs.py
+- powerpc: Remove power8 strcasestr optimization
+- riscv: Fix alignment-ignorant memcpy implementation
+- linux/sigsetops: fix type confusion (bug 31468)
+- LoongArch: Correct {__ieee754, _}_scalb -> {__ieee754, _}_scalbf
+- duplocale: protect use of global locale (bug 23970)
+
 * Sat Mar 16 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-8
 - Global dynamic TLS access may clobber RBX (#2269799)
 

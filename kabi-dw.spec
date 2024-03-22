@@ -3,7 +3,7 @@
 %global commit bd56a6004d5d409d7d03c386400da3f49a8c4c03
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%forgemeta -i
+%forgemeta
 
 Name:           kabi-dw
 Version:        0
@@ -50,38 +50,38 @@ install -m 0755 %{name} %{buildroot}%{_bindir}/
 %license COPYING
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Mon Jun 19 2023 Čestmír Kalina <ckalina@redhat.com> - 0.24.20191127gitbd56a60
 - Migrate license to SPDX
 
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Sun Feb 9 2020 Zamir SUN <zsun@fedoraproject.org> - 0-0.17.20191127gitbd56a60
 - Workaround "multiple definition of `yyin'"
 - Resolves https://bugzilla.redhat.com/show_bug.cgi?id=1799559
 
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
 * Wed Nov 27 2019 Zamir SUN <zsun@fedoraproject.org> - 0-0.15.20191127gitbd56a60

@@ -1,7 +1,7 @@
 %global srcname jenkins-job-builder
 
 Name:           python-%{srcname}
-Version:        6.0.0
+Version:        6.1.0
 Release:        1%{?dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
@@ -62,6 +62,9 @@ export PBR_VERSION=%{version}
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Tue Mar 19 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:6.1.0-1
+- Update to 6.1.0 (#2270278)
+
 * Mon Mar 04 2024 Christoph Erhardt <fedora@sicherha.de> - 1:6.0.0-1
 - Update to 6.0.0 (rhbz#2259846)
 - Drop upstreamed patch

@@ -2,19 +2,19 @@
 
 %global gjs_version 1.50
 %global gtk4_version 4.6
-%global libadwaita_version 1.2~alpha
+%global libadwaita_version 1.4
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-characters
-Version:	45.0
-Release:	3%{?dist}
+Version:	46.0
+Release:	1%{?dist}
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.
 # Other files are GPL 2.0 or later.
 License:	BSD-3-Clause AND GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Design/Apps/CharacterMap
-Source0:	https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/%{appname}.deskto
 
 
 %changelog
+* Wed Mar 20 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

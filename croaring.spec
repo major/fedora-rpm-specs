@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/RoaringBitmap/CRoaring
-Version:        2.1.2
+Version:        3.0.0
 %forgemeta
 
 Name:           croaring
@@ -15,7 +15,7 @@ BuildRequires:  ninja-build
 BuildRequires:  libcmocka-devel
 
 %description
-%{summary}
+%{summary}.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -30,7 +30,7 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DROARING_USE_CPM=OFF \
 
 %cmake_build
@@ -44,7 +44,7 @@ The %{name}-devel package contains development files for %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libroaring.so.14
+%{_libdir}/libroaring.so.15
 %{_libdir}/libroaring.so.%{version}
 
 %files devel

@@ -1,10 +1,10 @@
 Name:           alacarte
-Version:        3.50.0
+Version:        3.52.0
 Release:        %autorelease
 Summary:        Menu editor for the GNOME desktop
 License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/alacarte
-Source0:        https://download.gnome.org/sources/alacarte/3.50/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/alacarte/3.52/%{name}-%{version}.tar.xz
 
 BuildArch:      noarch
 

@@ -4,7 +4,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %{?python_enable_dependency_generator}
-%forgemeta -i
+%forgemeta
 
 Name:		ksc
 Version:	1.7
@@ -49,28 +49,28 @@ install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
 %{python3_sitelib}/ksc-%{version}*.egg-info
 
 %changelog
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
 * Mon Jun 19 2023 Čestmír Kalina <ckalina@redhat.com> - 1.7-8
 - Migrate license to SPDX
 
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Tue Jun 21 2022 Lumír Balhar <lbalhar@redhat.com> - 1.7-5
 - Fix compatibility with newer setuptools
 
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
 * Tue Jun 01 2021 Zamir SUN <sztsian@gmail.com> - 1.7-2

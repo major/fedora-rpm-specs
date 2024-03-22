@@ -1,6 +1,6 @@
 Name: joystick-support          
 Version:        1.0.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Load joystick / game pad drivers at boot time
 
 
@@ -12,8 +12,6 @@ License:        MIT
 Requires:       kmod(joydev.ko)
 Requires:       kmod(analog.ko)
 Requires:       systemd
-
-Requires(post): module-init-tools
 
 BuildArch:      noarch
 
@@ -41,6 +39,9 @@ echo -e "joydev\nanalog" > $RPM_BUILD_ROOT%{_libdir}/../lib/modules-load.d/joyst
 %{_libdir}/../lib/modules-load.d/joystick.conf
 
 %changelog
+* Wed Mar 20 2024 Tim Landscheidt <tim@tim-landscheidt.de> - 1.0.0-33
+- Remove obsolete requirements for post scriptlet
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

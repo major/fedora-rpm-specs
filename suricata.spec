@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.3
+Version: 7.0.4
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
@@ -19,6 +19,8 @@ Patch3: suricata-5.0.4-geolite-path-fixup.patch
 Patch4: suricata-6.0.3-log-path-fixup.patch
 # Build fails with ambiguous python shebang
 Patch5: suricata-7.0.2-python.patch
+# Pcre2 API changed in v10.42 and later
+Patch6: suricata-7.0.4-pcre2.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -78,6 +80,7 @@ install -m 644 %{SOURCE2} doc/
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -190,6 +193,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Wed Mar 20 2024 Steve Grubb <sgrubb@redhat.com> 7.0.4-1
+- New security and bugfix release
+
 * Mon Feb 26 2024 Steve Grubb <sgrubb@redhat.com> 7.0.3-1
 - New security and bugfix release
 

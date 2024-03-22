@@ -8,7 +8,7 @@
 
 Name:           aubio
 Version:        0.4.9
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        An audio labeling tool
 
 License:        GPLv3+
@@ -18,6 +18,7 @@ Patch0:         %{name}-unversioned-python.patch
 Patch1:         %{name}-python39.patch
 Patch2:         %{name}-invalid-escape-sequence.patch
 Patch3:         %{name}-imp-removed.patch
+Patch4:         0001-py-add-const-qualifiers-to-ufuncs-prototypes-for-lat.patch
 
 BuildRequires:  doxygen
 BuildRequires:  fftw-devel
@@ -131,6 +132,9 @@ sed -i -e '/^#![[:blank:]]*\//, 1d' %{buildroot}%{python3_sitearch}/%{name}/*.py
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Wed Mar 20 2024 Nils Philippsen <nils@tiptoe.de> - 0.4.9-21
+- Fix building on F40+ (rhbz#2260997)
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

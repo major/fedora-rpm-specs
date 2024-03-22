@@ -16,7 +16,7 @@ Name:		emacs-%{pkg}
 Version:	1.34
 Release:	28%{?dist}
 License:	GPLv2+
-URL:		http://www.emacswiki.org/emacs-en/Htmlize
+URL:		https://www.emacswiki.org/emacs/Htmlize
 Source0:	http://fly.srk.fer.hr/~hniksic/emacs/%{pkg}.el
 Source1:	%{pkg}-init.el
 

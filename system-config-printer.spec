@@ -9,13 +9,14 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 # all upstream patches, remove with new release
 Patch0001: 0001-Fix-debugprint-in-options.py-fixes-291.patch
+Patch0002: 0001-udev-Fix-exit-value-when-device-is-already-handled.patch
 
 
 # needed for macro AM_GNU_GETTEXT in configure.ac
@@ -293,6 +294,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Mar 20 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-9
+- fix possible udev service failure if USB device is already handled
+
 * Thu Feb 22 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-8
 - get rid of dependency on pycurl (we use urllib from python3)
 

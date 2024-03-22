@@ -303,7 +303,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 122.0.6261.128
+Version: 123.0.6312.58
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -366,7 +366,7 @@ Patch101: chromium-108-el7-wayland-strndup-error.patch
 
 # Workaround for old clang
 # error: defaulting this default constructor would delete it after its first declaration
-Patch102: chromium-122-el7-default-constructor-involving-anonymous-union.patch
+Patch102: chromium-123-el7-default-constructor-involving-anonymous-union.patch
 
 # Work around old and missing headers on EPEL7
 Patch103: chromium-110-epel7-old-headers-workarounds.patch
@@ -393,7 +393,7 @@ Patch109: chromium-114-wireless-el7.patch
 Patch110: chromium-115-buildflag-el7.patch
 Patch111: chromium-122-el7-inline-function.patch
 Patch113: chromium-121-el7-clang-version-warning.patch
-Patch114: chromium-120-el7-clang-build-failure.patch
+Patch114: chromium-123-el7-clang-build-failure.patch
 
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
@@ -413,14 +413,14 @@ Patch140: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # fixes for old clang version in fedora < 38 end epel < 8 (old clang <= 15)
 # compiler build errors, no matching constructor for initialization
-Patch300: chromium-122-no_matching_constructor.patch
+Patch300: chromium-123-no_matching_constructor.patch
 Patch301: chromium-115-compiler-SkColor4f.patch
 
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-122-workaround_clang_bug-structured_binding.patch
+Patch302: chromium-123-workaround_clang_bug-structured_binding.patch
 
 # missing typename
-Patch303: chromium-122-typename.patch
+Patch303: chromium-123-typename.patch
 
 # error: invalid operands to binary expression
 Patch304: chromium-117-string-convert.patch
@@ -434,34 +434,28 @@ Patch306: chromium-119-assert.patch
 # compiler errors on epel
 # revert it for old clang on rhel and f38
 Patch307: chromium-121-v8-c++20-p1.patch
-Patch308: chromium-121-v8-c++20.patch
-Patch309: chromium-122-constexpr.patch
+Patch308: chromium-123-v8-c++20.patch
+Patch309: chromium-123-constexpr.patch
 
 # missing include header files
-Patch310: chromium-122-missing-header-files.patch
+Patch310: chromium-123-missing-header-files.patch
 
 # clang warnings
 Patch311: chromium-115-clang-warnings.patch
 
 # enable fstack-protector-strong
-Patch312: chromium-119-fstack-protector-strong.patch
+Patch312: chromium-123-fstack-protector-strong.patch
 
-# upstream: libstdc++: fix static assertion in NodeUuidEquality
-Patch313: chromium-122-static-assert.patch
+# rust is old, function or associated item not found in `OsStr`
+Patch313: chromium-123-rust-clap_lex.patch
 
 Patch314: chromium-122-clang16-buildflags.patch
 
 # assignment-expressions not suport in python < 3.8 on el 7/8
-Patch315: chromium-122-python3-assignment-expressions.patch
+Patch315: chromium-123-python3-assignment-expressions.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
-
-# upstream: ibstdc++: do not require including unique_ptr in header
-Patch317: chromium-122-unique_ptr.patch
-
-# build error
-Patch351: chromium-121-mnemonic-error.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -941,7 +935,7 @@ Requires: chromium-common%{_isa} = %{version}-%{release}
 %if 0%{?rhel} == 7
 ExclusiveArch: x86_64
 %else
-%if 0%{?fedora} >= 40
+%if 0%{?fedora} > 40
 ExclusiveArch: x86_64 aarch64 ppc64le
 %else
 ExclusiveArch: x86_64 aarch64
@@ -1166,7 +1160,7 @@ udev.
 %endif
 
 %if ! %{bundleffmpegfree}
-%if 0%{?rhel} == 9 || 0%{?fedora} == 37
+%if 0%{?rhel} == 9
 %patch -P115 -p1 -b .ffmpeg-5.x-duration
 %endif
 %patch -P116 -p1 -b .prop-codecs
@@ -1189,7 +1183,7 @@ udev.
 %patch -P110 -p1 -b .buildflag-el7
 %patch -P111 -p1 -b .inline-function-el7
 %patch -P113 -p1 -b .el7-clang-version-warning
-%patch -P114 -p1 -R -b .clang-build-failure
+%patch -P114 -p1 -b .clang-build-failure
 %patch -P300 -p1 -b .no_matching_constructor
 %patch -P301 -p1 -b .workaround_clang-SkColor4f
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
@@ -1217,19 +1211,20 @@ udev.
 %patch -P307 -p1 -R -b .v8-c++20
 %patch -P308 -p1 -R -b .v8-c++20
 %patch -P309 -p1 -b .constexpr
-%patch -P313 -p1 -b .static-assert
 %patch -P314 -p1 -b .clang16-buildflag
 %endif
 
 %patch -P310 -p1 -b .missing-header-files
 %patch -P311 -p1 -b .clang-warnings
 %patch -P312 -p1 -b .fstack-protector-strong
-%patch -P317 -p1 -b .unique_ptr.patch
+
+%if 0%{?rhel} && 0%{?rhel} < 10
+%patch -P313 -p1 -b .rust-clap_lex
+%endif
 
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 %patch -P316 -p1 -b .clang-build-flags
 %endif
-%patch -P351 -p1 -b .mnemonic-error
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1391,6 +1386,7 @@ export LANG=en_US.UTF-8
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration -Wno-unknown-attributes'
+FLAGS+=' -Wno-unknown-pragmas'
 %endif
 
 %if %{system_build_flags}
@@ -2110,6 +2106,19 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Wed Mar 20 2024 Than Ngo <than@redhat.com> - 123.0.6312.58-1
+- update to 123.0.6312.58
+   * High CVE-2024-2625: Object lifecycle issue in V8
+   * Medium CVE-2024-2626: Out of bounds read in Swiftshader
+   * Medium CVE-2024-2627: Use after free in Canvas
+   * Medium CVE-2024-2628: Inappropriate implementation in Downloads
+   * Medium CVE-2024-2629: Incorrect security UI in iOS
+   * Medium CVE-2024-2630: Inappropriate implementation in iOS
+   * Low CVE-2024-2631: Inappropriate implementation in iOS
+
+* Fri Mar 15 2024 Than Ngo <than@redhat.com> - 123.0.6312.46-1
+- update to 123.0.6312.46
+
 * Wed Mar 13 2024 Than Ngo <than@redhat.com> - 122.0.6261.128-1
 - upstream security release 122.0.6261.128
    * High CVE-2024-2400: Use after free in Performance Manager

@@ -24,8 +24,8 @@ end}
 %global selinux_variants mls targeted
 
 Name:             grafana
-Version:          10.2.3
-Release:          2%{?dist}
+Version:          10.2.5
+Release:          1%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -201,7 +201,7 @@ Provides: bundled(golang(github.com/linkedin/goavro/v2)) = 2.10.0
 Provides: bundled(golang(github.com/m3db/prometheus_remote_client_golang)) = 0.4.4
 Provides: bundled(golang(github.com/magefile/mage)) = 1.15.0
 Provides: bundled(golang(github.com/mattn/go-isatty)) = 0.0.18
-Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.16
+Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.19
 Provides: bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.4
 Provides: bundled(golang(github.com/mwitkow/go-conntrack)) = 0.0.0-20190716064945.2f068394615f
 Provides: bundled(golang(github.com/patrickmn/go-cache)) = 2.1.0+incompatible
@@ -224,7 +224,7 @@ Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/ht
 Provides: bundled(golang(go.opentelemetry.io/otel/exporters/jaeger)) = 1.10.0
 Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = 1.21.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.21.0
-Provides: bundled(golang(golang.org/x/crypto)) = 0.16.0
+Provides: bundled(golang(golang.org/x/crypto)) = 0.17.0
 Provides: bundled(golang(golang.org/x/exp)) = 0.0.0-20230321023759.10a507213a29
 Provides: bundled(golang(golang.org/x/net)) = 0.19.0
 Provides: bundled(golang(golang.org/x/oauth2)) = 0.15.0
@@ -1021,6 +1021,9 @@ fi
 %{_datadir}/selinux/*/grafana.pp
 
 %changelog
+* Wed Mar 20 2024 Sam Feifer <sfeifer@redhat.com> 10.2.5-1
+- Rebase to grafana 10.2.5
+
 * Wed Mar 13 2024 Sam Feifer <sfeifer@redhat.com> 10.2.3-2
 - Fix grafana-cli issue introduced during rebase
 

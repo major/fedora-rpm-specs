@@ -1,12 +1,15 @@
 %global tarball_version	%%(echo %{version} | tr '~' '.')
 %global url_ver	%%(echo %{version} | cut -d. -f1,2)
 
+%global gtk_version 4.11.3
+%global libadwaita_version 1.5
+
 Name:		gnome-usage
-Version:	45.0
-Release:	3%{?dist}
+Version:	46.0
+Release:	1%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
-License:	GPLv3+
+License:	GPL-3.0-or-later AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Usage
 Source0:	https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
 
@@ -18,13 +21,15 @@ BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-2.0)
-BuildRequires:	pkgconfig(gtk4)
-BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(gtk4) >= %{gtk_version}
+BuildRequires:	pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:	pkgconfig(libgtop-2.0)
 BuildRequires:	pkgconfig(tracker-sparql-3.0)
 BuildRequires:	vala
 
 Requires:	adwaita-icon-theme
+Requires:	gtk4 >= %{gtk_version}
+Requires:	libadwaita >= %{libadwaita_version}
 
 %description
 gnome-usage lets you easily visualize the use of system resources such as
@@ -51,9 +56,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %{_datadir}/applications/org.gnome.Usage.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Usage.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Usage.svg
-%{_datadir}/metainfo/org.gnome.Usage.appdata.xml
+%{_metainfodir}/org.gnome.Usage.appdata.xml
 
 %changelog
+* Wed Mar 20 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0 (#2270368)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-icalendar
-Version:        5.0.11
-Release:        3%{?dist}
+Version:        5.0.12
+Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
 License:        BSD-2-Clause
@@ -72,6 +72,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Wed Mar 20 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.0.12-1
+- 5.0.12
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

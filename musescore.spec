@@ -19,7 +19,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -56,6 +56,7 @@ Release:        8%{?dist}
 # - code from the stb_vorbis header-only library
 License:        GPL-3.0-only WITH Font-exception-2.0 AND GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-2.1-or-later AND (LGPL-2.1-or-later AND GPL-3.0-or-later) AND MIT AND BSD-2-Clause AND (Unlicense OR MIT-0) AND (Unlicense OR MIT)
 URL:            https://musescore.org/
+VCS:            https://github.com/musescore/MuseScore
 
 %global fontorg         org.musescore
 %global fontdocs        fonts/README.md
@@ -186,7 +187,7 @@ The Gootville Text font is designed to complement the Gootville font.}
 Version:        %{gootville_text_font_ver}
 }
 
-Source0:        https://github.com/musescore/MuseScore/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
+Source0:        %{vcs}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
 # Fontconfig files
 Source1:        65-%{fontpkgname1}.conf
 Source2:        65-%{fontpkgname2}.conf
@@ -215,6 +216,7 @@ Patch4:         %{name}-ffmpeg.patch
 # Fix invalid AppData
 # - Remove an invalid <icon> tag
 # - Remove duplicated <release> data
+# https://github.com/musescore/MuseScore/pull/21482
 Patch5:         %{name}-appdata.patch
 # Avoid calling localtime in multithreaded code
 # https://github.com/musescore/MuseScore/pull/21178
@@ -238,6 +240,13 @@ Patch13:        %{name}-qtcore.patch
 # Fix an abort when ALSA is shutdown but was never initialized
 # https://github.com/musescore/MuseScore/pull/21376
 Patch14:        %{name}-alsa-shutdown.patch
+# Fix a crash when built with the undefined behavior sanitizer
+Patch15:        %{name}-null-staff.patch
+# Fix a data race inside kors_profiler
+# https://github.com/igorkorsukov/kors_profiler/pull/1
+Patch16:        %{name}-kors-profiler-race.patch
+# Fix a data race in the modularity code
+Patch17:        %{name}-modularity-race.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -568,6 +577,11 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Wed Mar 20 2024 Jerry James <loganjerry@gmail.com> - 4.2.1-9
+- Add patch to avoid crash with the undefined behavior sanitizer
+- Add patch to avoid data race inside kors_profiler
+- Add patch to avoid data race in the modularity code
+
 * Mon Feb  5 2024 Jerry James <loganjerry@gmail.com> - 4.2.1-8
 - Version 4.2.1
 - Add patch to avoid races in localtime()

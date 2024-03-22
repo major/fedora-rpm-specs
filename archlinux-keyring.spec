@@ -1,9 +1,10 @@
 Name:           archlinux-keyring
-Version:        20240208
+Version:        20240313
 Release:        %autorelease
 Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz
-Patch:          archlinux-keyring-revert_to_sq-keyring-linter.diff
+# Revert this patch once we have sequoia-sq 0.34.0 in Fedora
+Patch:          0001-Revert-fix-libkeyringctl-Adapt-to-CLI-churn-in-sequo.patch
 # see https://wiki.archlinux.org/index.php/Pacman-key for introduction
 License:        LicenseRef-Fedora-Public-Domain
 Summary:        GPG keys used by Arch Linux distribution to sign packages

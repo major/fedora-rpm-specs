@@ -21,7 +21,7 @@ ExclusiveArch: %{golang_arches} noarch
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man
 Provides: skopeo-containers = %{epoch}:%{version}-%{release}
-Recommends: (container-selinux >= 2:2.162.1 if selinux-policy)
+Requires: (container-selinux >= 2:2.162.1 if selinux-policy)
 Recommends: fuse-overlayfs
 Requires: (fuse-overlayfs if fedora-release-identity-server)
 # SourceN files fetched from upstream

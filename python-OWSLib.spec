@@ -5,9 +5,9 @@
 %bcond doc_pdf 1
 
 Name:           python-OWSLib
-Version:        0.29.3
+Version:        0.30.0
 Release:        %autorelease
-Summary:        Client library for OGC web services
+Summary:        OGC Web Service utility library
 
 License:        BSD-3-Clause
 URL:            https://geopython.github.io/OWSLib

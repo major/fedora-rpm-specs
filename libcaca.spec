@@ -8,12 +8,18 @@
 %bcond_without gl
 %endif
 
+%if 0%{?fedora} >= 40
+%bcond_with    ruby
+%else
+%bcond_without ruby
+%endif
+
 %define beta beta20
 
 Summary: Library for Colour AsCii Art, text mode graphics
 Name: libcaca
 Version: 0.99
-Release: 0.72.%{beta}%{?dist}
+Release: 0.73.%{beta}%{?dist}
 License: WTFPL
 URL: http://caca.zoy.org/wiki/libcaca
 
@@ -33,8 +39,10 @@ BuildRequires: pkgconfig(imlib2)
 BuildRequires: pkgconfig(pangoft2)
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+%if %{with ruby}
 BuildRequires: ruby
 BuildRequires: ruby-devel
+%endif
 Buildrequires: texlive-dvips
 Buildrequires: texlive-latex
 %if %{with gl}
@@ -96,6 +104,7 @@ Summary: Python bindings for libcaca
 This package contains the python bindings for using libcaca from python.
 
 
+%if %{with ruby}
 %package -n ruby-caca
 Summary: Ruby bindings for libcaca
 Requires: ruby(release)
@@ -103,6 +112,7 @@ Provides: ruby(caca) = %{version}-%{release}
 
 %description -n ruby-caca
 This package contains the ruby bindings for using libcaca from ruby.
+%endif
 
 
 %prep
@@ -183,13 +193,18 @@ mv %{buildroot}%{_docdir}/libcaca-dev libcaca-dev-docs
 %doc python/examples
 %{python3_sitelib}/caca/
 
+%if %{with ruby}
 %files -n ruby-caca
 %doc ruby/README
 %{ruby_vendorlibdir}/caca.rb
 %{ruby_vendorarchdir}/caca.so
+%endif
 
 
 %changelog
+* Wed Mar 20 2024 Xavier Bachelot <xavier@bachelot.org> - 0.99-0.73.beta20
+- Disable ruby bindings on F40+ (workaround RHBZ#2261303)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-0.72.beta20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
