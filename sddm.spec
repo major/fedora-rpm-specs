@@ -3,7 +3,7 @@
 
 Name:           sddm
 Version:        0.21.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-or-later
 Summary:        QML based desktop and login manager
 
@@ -180,9 +180,9 @@ ls -sh src/greeter/theme/background.png
 
 mkdir -p %{buildroot}%{_sysconfdir}/sddm.conf.d
 mkdir -p %{buildroot}%{_prefix}/lib/sddm/sddm.conf.d
-install -Dpm 644 %{SOURCE10} %{buildroot}%{_pam_vendordir}/sddm
-install -Dpm 644 %{SOURCE11} %{buildroot}%{_pam_vendordir}/sddm-autologin
-install -Dpm 644 %{SOURCE12} %{buildroot}%{_pam_vendordir}/sddm-greeter
+install -Dpm 644 %{SOURCE10} %{buildroot}%{_sysconfdir}/pam.d/sddm
+install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/pam.d/sddm-autologin
+install -Dpm 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/pam.d/sddm-greeter
 install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/sddm.conf
 install -Dpm 644 %{SOURCE14} %{buildroot}%{_datadir}/sddm/scripts/README.scripts
 install -Dpm 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/sysconfig/sddm
@@ -196,8 +196,6 @@ cp -a %{buildroot}%{_datadir}/sddm/scripts/* \
       %{buildroot}%{_sysconfdir}/sddm/
 # we're using /etc/X11/xinit/Xsession (by default) instead
 rm -fv %{buildroot}%{_sysconfdir}/sddm/Xsession
-# we're using our own pam configs installed in /usr/share/pam.d
-rm -rf %{buildroot}%{_sysconfdir}/pam.d
 
 # De-conflict the dbus file
 mv %{buildroot}%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf \
@@ -245,7 +243,7 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 %config(noreplace)   %{_sysconfdir}/sddm/*
 %config(noreplace)   %{_sysconfdir}/sddm.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/sddm
-%{_pam_vendordir}/sddm*
+%config(noreplace) %{_sysconfdir}/pam.d/sddm*
 %{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager-sddm.conf
 %{_bindir}/sddm
 %{_bindir}/sddm-greeter*
@@ -288,6 +286,9 @@ ln -sr %{buildroot}%{_bindir}/sddm-greeter-qt6 %{buildroot}%{_bindir}/sddm-greet
 
 
 %changelog
+* Wed Mar 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-4
+- Move pam configs back to /etc for now
+
 * Wed Mar 20 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.21.0-3
 - Use our own greeter pam config and install pam configs to /usr
 

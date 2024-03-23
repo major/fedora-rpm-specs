@@ -1,5 +1,5 @@
 Name:           jackson-core
-Version:        2.16.2
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
@@ -37,8 +37,6 @@ as basic shared abstractions.
 
 %pom_add_plugin "org.apache.felix:maven-bundle-plugin" . "<extensions>true</extensions>"
 
-%pom_change_dep org.junit:junit-bom junit:junit
-
 cp -p src/main/resources/META-INF/jackson-core-NOTICE .
 sed -i 's/\r//' LICENSE jackson-core-NOTICE
 
@@ -55,6 +53,107 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 2.17.0-1
+- [maven-release-plugin] prepare release jackson-core-2.17.0 (Tatu Saloranta)
+- Prepare for 2.17.0 release (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Bump the github-actions group with 3 updates (#1236) (dependabot[bot])
+- Improve #1149 wrt JsonParser.getNumberTypeFP() default implementation (#1235) (Tatu Saloranta)
+- Add explicit override for JSON parsers for `JsonParser.getNumberTypeFP()` (Tatu Saloranta)
+- Back to snapshot deps (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- [maven-release-plugin] prepare release jackson-core-2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 release (Tatu Saloranta)
+- Bump the github-actions group with 2 updates (#1228) (dependabot[bot])
+- Remove junit-bom dependency here, included via jackson-base parent pom now (Tatu Saloranta)
+- Minor refactoring (Tatu Saloranta)
+- Use String#isEmpty(), remove redundancies, and reduce verbose code (#1225) (Gary Gregory)
+- Minor inclusions in JsonParserBase (Tatu Saloranta)
+- Add `JsonParserBase` base class (backport from 3.0) (#1224) (Tatu Saloranta)
+- Second attempt at solving #1173 (#1223) (Tatu Saloranta)
+- Manual merge of change in #1221: tiny optimization for `JsonPointer`, index parse (Tatu Saloranta)
+- Update release notes wrt #1218 (Tatu Saloranta)
+- surrogate conversion simplified (#1218) (Tatu Saloranta)
+- Update release notes wrt 2.17 (Tatu Saloranta)
+- Enable test for #1203 (Tatu Saloranta)
+- Faster division by 1000 (#1203) (xtonik)
+- ... (Tatu Saloranta)
+- avoid use slow regular expression when replacing characters (#1219) (Tatu Saloranta)
+- Reuse own constant and refactor magic chars into new constants for (#1216) (Gary Gregory)
+- More incremental refactoring (Tatu Saloranta)
+- Refactoring: order error reporting methods (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1215) (dependabot[bot])
+- Some more JUnit5 conversion (Tatu Saloranta)
+- Continue JUnit5 conversion (Tatu Saloranta)
+- Start converting some unit tests to JUnit5; add new test base class to help (#1212) (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 release (Tatu Saloranta)
+- Bump the github-actions group with 2 updates (#1209) (dependabot[bot])
+- Fixes #1207: apply "maxNameLength" change to CharsToNameCaonicalizer (#1208) (Tatu Saloranta)
+- Bump the github-actions group with 3 updates (#1206) (dependabot[bot])
+- Implement #1117: change the default RecyclerPool to use (#1205) (Tatu Saloranta)
+- ... (Tatu Saloranta)
+- Fix #1202: add `RecyclerPool.clear()` method (#1204) (Tatu Saloranta)
+- Javadoc addition (Tatu Saloranta)
+- optimized char check for ']}' (xtonik)
+- optimized char check for 'eE' (xtonik)
+- optimized char check for 'dDfF' (xtonik)
+- Update release notes wrt #1195 (Tatu Saloranta)
+- Fix #1195: add actual `BufferRecycler` reuse (#1196) (Tatu Saloranta)
+- Bump the github-actions group with 2 updates (#1199) (dependabot[bot])
+- Add new `JsonWriteFeature.ESCAPE_FORWARD_SLASHES` (#1197) (Kim, Joo Hyuk)
+- Merging minor changes needed for solving BufferRecycler recycling (Tatu Saloranta)
+- Fix codecov.io link (downgrade to 2.16) (Tatu Saloranta)
+- Fixes #1193: add `BufferRecycler.Gettable`, impls for BAB, SSW (#1194) (Tatu Saloranta)
+- Minor Javadoc typo fix (Tatu Saloranta)
+- Add a utility method (Tatu Saloranta)
+- Add failing test for #1144 (#1189) (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1188) (dependabot[bot])
+- Update release notes wrt #1137 (Tatu Saloranta)
+- Fix #1186: improve recycled buffer release logic (#1187) (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1183) (dependabot[bot])
+- Fixes #1149: add `JsonParser.getNumberTypeFP()` (#1182) (Tatu Saloranta)
+- Minor post-merge fix wrt #1178 (Tatu Saloranta)
+- Allow configuring `DefaultPrettyPrinter` separators for empty Arrays and Objects (#1178) (gulecroc)
+- Cleave of failing #1180 tests from passing #1173 tests (Tatu Saloranta)
+- Test refactoring (Tatu Saloranta)
+- Refactor exception generation by JsonParser (#1179) (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1177) (dependabot[bot])
+- Bump the github-actions group with 2 updates (#1174) (dependabot[bot])
+- Update code coverage on README (Tatu Saloranta)
+- Minor test refactoring (Tatu Saloranta)
+- ... (Tatu Saloranta)
+- Minor additional error construction changes (Tatu Saloranta)
+- Minor additions to JsonGenerator wrt error handling (Tatu Saloranta)
+- Fix #1168 (JsonPointer.append() with JsonPointer.tail()) (#1172) (Tatu Saloranta)
+- Fix #1145: escape `property` in `JsonPointer.append(String)` (#1171) (Tatu Saloranta)
+- Fixes #1169: adds test(s), fix (#1170) (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1167) (dependabot[bot])
+- fastdoubleparser 1.0.0 (#1163) (#1164) (PJ Fanning)
+- Reproduction for #1161 (#1162) (Tatu Saloranta)
+- fastdoubleparser 1.0.0 (#1163) (PJ Fanning)
+- Minor test refactoring (Tatu Saloranta)
+- Add `NumberInput.looksLikeValidNumber()` utility method (#1160) (Tatu Saloranta)
+- warnings removal wrt deprecation (Tatu Saloranta)
+- Deprecate some of `NumberInput` methods. (Tatu Saloranta)
+- Follow-up to #1157: unify exception handling (#1159) (Tatu Saloranta)
+- Update release notes wrt #1157 (Tatu Saloranta)
+- use fast parser for large bigdecimals (500+ chars) (#1157) (PJ Fanning)
+- More deprecation, now on generator side (Tatu Saloranta)
+- ... (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1152) (dependabot[bot])
+- More cleanup wrt now-deprecated JsonParser getter methods (Tatu Saloranta)
+- Mark some more methods deprecated, as forward-looking changes towards 3.0 (Tatu Saloranta)
+- Fix `JsonParser.isNaN()` to be stable, only indicate explicit NaN values; not ones due to coercion (#1150) (Tatu Saloranta)
+- test that shows that isNaN call is not reliable (#1135) (PJ Fanning)
+- Add a test similar to #1135 (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1148) (dependabot[bot])
+- Test base class refactoring (simplifying BaseTest) (#1143) (Tatu Saloranta)
+- Bump the github-actions group with 1 update (#1140) (dependabot[bot])
+- Bump the github-actions group with 1 update (#1138) (dependabot[bot])
+- Start 2.17 branch (Tatu Saloranta)
+- Resolves rhbz#2269278
+
 * Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
 - [maven-release-plugin] prepare release jackson-core-2.16.2 (Tatu Saloranta)
 - Prepare for 2.16.2 release (Tatu Saloranta)

@@ -1,7 +1,7 @@
 Name:            mesaflash
 Version:         3.4.9
 
-%global forgeurl https://github.com/micges/%{name}
+%global forgeurl https://github.com/LinuxCNC/%{name}
 %global tag     release/%{version}
 #%%global date     20200608
 #%%global commit   946725c83c1cdef5b75e63b7aadcb20e1bf19eca
@@ -14,7 +14,7 @@ License:         GPLv2+
 Url:             %{forgeurl}
 Source0:         %{forgesource}
 
-BuildRequires: make
+BuildRequires:   make
 BuildRequires:   /usr/bin/git
 BuildRequires:   gcc
 BuildRequires:   pkgconfig(libpci)

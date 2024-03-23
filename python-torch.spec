@@ -4,11 +4,12 @@
 %global forgeurl https://github.com/pytorch/pytorch
 
 # So pre releases can be tried
-%bcond_with gitcommit
+%bcond_without gitcommit
 %if %{with gitcommit}
-%global commit0 975d4284250170602db60adfda5eb1664a3b8acc
+# git tag v2.3.0-rc2
+%global commit0 6a89a753b1556fe8558582c452fdba083f6ec01a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20240307
+%global date0 20240313
 %else
 %global commit0 975d4284250170602db60adfda5eb1664a3b8acc
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -25,7 +26,7 @@
 
 %ifarch x86_64
 %if 0%{?fedora}
-%bcond_with rocm
+%bcond_without rocm
 %else
 %bcond_with rocm
 %endif
@@ -97,6 +98,7 @@ Patch101:      0001-cuda-hip-signatures.patch
 Patch102:      0001-silence-an-assert.patch
 Patch103:      0001-can-not-use-with-c-files.patch
 Patch104:      0001-use-any-hip.patch
+Patch105:      0001-disable-use-of-aotriton.patch
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -170,6 +172,7 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocthrust-devel
+BuildRequires:  roctracer-devel
 
 Requires:       rocm-rpm-macros-modules
 %endif
@@ -264,7 +267,6 @@ cp -r cutlass-%{cul_ver}/* third_party/cutlass/
 sed -i -e 's/USE_OPENCV AND OpenCV_FOUND AND USE_FFMPEG AND FFMPEG_FOUND/USE_OPENCV AND USE_FFMPEG/' caffe2/video/CMakeLists.txt
 sed -i -e 's/USE_OPENCV AND OpenCV_FOUND/USE_OPENCV/' caffe2/image/CMakeLists.txt
 sed -i -e 's/STATUS/FATAL/' caffe2/image/CMakeLists.txt
-cat caffe2/image/CMakeLists.txt
 %endif
 
 %if 0%{?rhel}
@@ -274,6 +276,10 @@ sed -i -e '/typing-extensions/d' setup.py
 sed -i -e '/sympy/d' setup.py
 sed -i -e '/fsspec/d' setup.py
 %endif
+
+# A new dependency
+# Connected to USE_FLASH_ATTENTION, since this is off, do not need it
+sed -i -e '/aotriton.cmake/d' cmake/Dependencies.cmake
 
 # Release comes fully loaded with third party src
 # Remove what we can
@@ -395,6 +401,7 @@ export INTERN_BUILD_MOBILE=OFF
 export USE_DISTRIBUTED=OFF
 export USE_CUDA=OFF
 export USE_FBGEMM=OFF
+export USE_FLASH_ATTENTION=OFF
 export USE_GOLD_LINKER=OFF
 export USE_ITT=OFF
 export USE_KINETO=OFF
@@ -459,9 +466,11 @@ export BUILD_TEST=ON
 %if %{with rocm}
 
 export USE_ROCM=ON
-export HIP_PATH=%{_prefix}
-export ROCM_PATH=%{_prefix}
-export DEVICE_LIB_PATH=%{clang_resource_dir}/amdgcn/bitcode
+export HIP_PATH=`hipconfig -p`
+export ROCM_PATH=`hipconfig -R`
+export HIP_CLANG_PATH=`hipconfig -l`
+RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
+export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 gpu=%{rocm_default_gpu}
 module load rocm/$gpu
@@ -492,9 +501,11 @@ done
 %if %{with rocm}
 
 export USE_ROCM=ON
-export HIP_PATH=%{_prefix}
-export ROCM_PATH=%{_prefix}
-export DEVICE_LIB_PATH=%{clang_resource_dir}/amdgcn/bitcode
+export HIP_PATH=`hipconfig -p`
+export ROCM_PATH=`hipconfig -R`
+export HIP_CLANG_PATH=`hipconfig -l`
+RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
+export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 gpu=%{rocm_default_gpu}
 module load rocm/$gpu
@@ -540,8 +551,10 @@ done
 %{python3_sitearch}/caffe2
 %endif
 %if %{with rocm}
+%if %{with rocm_loop}
 %{_libdir}/rocm/gfx*/bin/*
 %{_libdir}/rocm/gfx*/lib64/*
+%endif
 %endif
 
 %changelog

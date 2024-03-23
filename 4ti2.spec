@@ -1,6 +1,6 @@
 Name:           4ti2
 Version:        1.6.10
-Release:        6%{?dist}
+Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
@@ -12,10 +12,12 @@ Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 # CM-Super: GPL-1.0-or-later
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 URL:            https://4ti2.github.io/
-Source0:        https://github.com/4ti2/4ti2/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/4ti2/4ti2
+Source0:        %{vcs}/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz
 Source1:        4ti2.module.in
-# Deal with a boolean variable that can somehow hold the value 2
-Patch0:         %{name}-maxnorm.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 BuildRequires:  environment(modules)
 BuildRequires:  gcc
@@ -56,7 +58,7 @@ A library for algebraic, geometric and combinatorial problems on linear
 spaces.
 
 %prep
-%autosetup -p0
+%autosetup
 
 # Add a missing executable bit
 chmod a+x ltmain.sh
@@ -141,75 +143,4 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
-- Drop unneeded "egrep is obsolescent" fix (fixed in 1.6.10)
-
-* Sat Apr 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
-- Version 1.6.10
-- Drop upstreamed memleak & missing-include patches
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.9-14
-- Add patch to fix a memory leak
-
-* Thu Dec 29 2022 Jeff Law <jlaw@ventanamicro.com> - 1.6.9-13
-- Add missing #include for gcc-13
-
-* Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-12
-- Silence "egrep is obsolescent" warnings from the scripts
-- Update license to reflect embedded fonts in the PDF manual
-
-* Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-11
-- Convert License tag to SPDX
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 13 2020 Tom Stellard <tstellar@redhat.com> - 1.6.9-6
-- Use make macros
-- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Dec  9 2019 Jerry James <loganjerry@gmail.com> - 1.6.9-4
-- Fix the location of the module file (bz 1773348)
-- Do not build the empty fiber library
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Sep 29 2018 Jerry James <loganjerry@gmail.com> - 1.6.9-1
-- Split back out of latte-integrale
+%autochangelog

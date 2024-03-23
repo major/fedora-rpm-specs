@@ -6,7 +6,7 @@
 %{llvm_sb}
 %endif
 
-%global lit_version 18.1.1
+%global lit_version 18.1.2
 #global rc_ver 4
 #global post_ver 0
 
@@ -82,6 +82,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Thu Mar 21 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1
+- 18.1.2 Release
+
 * Tue Mar 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
 - 18.1.1 Release
 

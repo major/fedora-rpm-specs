@@ -12,7 +12,7 @@
 
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          1.0.1
+Version:          1.0.3
 Release:          1%{?dist}
 License:          GPLv2+
 BuildRequires:    gtk2-devel
@@ -40,8 +40,6 @@ Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
 Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/ddccontrol/ddccontrol/pull/169
-Patch0:           ddccontrol-1.0.1-gcc-14-fix.patch
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
 
@@ -159,6 +157,10 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Mar 21 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.3-1
+- New version
+  Resolves: rhbz#2270628
+
 * Mon Jan 29 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.1-1
 - New version
   Resolves: rhbz#2260784

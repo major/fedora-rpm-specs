@@ -12,8 +12,10 @@ Source0:        %{pypi_source}
 
 # https://github.com/fedora-infra/fedora-messaging/commit/27d71f09affa84dde0de9346e5f3533eae274016
 Patch0:		docs-pyproject.patch
-# https://github.com/fedora-infra/fedora-messaging/commit/6f35e05f6c5779519141ba4c72e9c5a7d7a4ac46
-Patch1:		pytz-dep-ver.patch
+# Relax dependencies:
+# - https://github.com/fedora-infra/fedora-messaging/commit/6f35e05f6c5779519141ba4c72e9c5a7d7a4ac46
+# - https://github.com/fedora-infra/fedora-messaging/commit/ec70cdc1d3fac63ba649bd48f37d90c3f49e956d
+Patch1:		deps-ver.patch
 
 BuildArch:      noarch
 
@@ -84,8 +86,10 @@ install -D -p -m 644 configs/fedora-cert.pem $RPM_BUILD_ROOT%{_sysconfdir}/fedor
 install -D -p -m 644 configs/stg-cacert.pem $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/stg-cacert.pem
 install -D -p -m 644 configs/fedora.stg-key.pem $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/fedora.stg-key.pem
 install -D -p -m 644 configs/fedora.stg-cert.pem $RPM_BUILD_ROOT%{_sysconfdir}/fedora-messaging/fedora.stg-cert.pem
-install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir}/man1/fedora-messaging.1
 install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer@.service
+%if ! 0%{?rhel}
+install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir}/man1/fedora-messaging.1
+%endif
 
 
 %check
@@ -106,9 +110,11 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 %config(noreplace) %{_sysconfdir}/fedora-messaging/stg-cacert.pem
 %config(noreplace) %{_sysconfdir}/fedora-messaging/fedora.stg-key.pem
 %config(noreplace) %{_sysconfdir}/fedora-messaging/fedora.stg-cert.pem
-%{_mandir}/man1/%{name}.*
 %{_bindir}/%{name}
 %{_unitdir}/fm-consumer@.service
+%if ! 0%{?rhel}
+%{_mandir}/man1/%{name}.*
+%endif
 
 %files -n python%{python3_pkgversion}-%{pkgname} -f %{pyproject_files}
 %license LICENSE

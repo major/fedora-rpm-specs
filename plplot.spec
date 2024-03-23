@@ -65,7 +65,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        63%{?dist}
+Release:        64%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -417,9 +417,7 @@ rm cmake/modules/FindLua.cmake
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
-export CXXFLAGS="$RPM_OPT_FLAGS"
-export FFLAGS="$RPM_OPT_FLAGS"
+export LDFLAGS='%{build_ldflags} -Wl,--no-warn-execstack'
 export PATH="%{_qt5_bindir}:$PATH"
 # Needed for octave output to not have control characters
 unset TERM
@@ -774,6 +772,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Wed Mar 20 2024 Jerry James <loganjerry@gmail.com> - 5.15.0-64
+- Allow Fortran examples to have an executable stack
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-63
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 13
+%global micro 15
 #global pre ...
 %global pyversion 3.10
 Name:           pypy%{pyversion}
@@ -112,6 +112,12 @@ Patch7: 007-remove-startup-message.patch
 # to be added to privent compilation error.
 # https://fedoraproject.org/wiki/Changes/Replace_glibc_libcrypt_with_libxcrypt
 Patch9: 009-add-libxcrypt-support.patch
+
+# Fix function signatures uncovered by GCC 14 enforcement of
+# -Wincompatible-pointer-types
+# Resolved upstream:
+# https://github.com/pypy/pypy/commit/8831ebf1cd4af225c2212dbade45624f9305a8f0
+Patch10: 010-fix-pointers.patch
 
 # Build-time requirements:
 
@@ -252,8 +258,8 @@ Provides: bundled(mpdecimal) = %{libmpdec_version}
 Provides: bundled(libmpdec) = %{libmpdec_version}
 }
 
-# Find the version in lib_pypy/cffi.dist-info/METADATA
-Provides: bundled(python3dist(cffi)) = 1.15.1
+# Find the version in lib_pypy/cffi-XXX.dist-info/METADATA
+Provides: bundled(python3dist(cffi)) = 1.16.0
 
 # Find the version in lib_pypy/cffi/_pycparser/__init__.py
 Provides: bundled(python3dist(pycparser)) = 2.21
@@ -265,7 +271,7 @@ Provides: bundled(python3dist(ply)) = 3.9
 Provides: bundled(python3dist(cryptography)) = 2.7
 
 # Find the version in lib_pypy/hpy-XXX.dist-info/METADATA
-Provides: bundled(python3dist(hpy)) = 0.0.4~~dev179+g9b5d200
+Provides: bundled(python3dist(hpy)) = 0.9.0
 
 %description libs
 Libraries required by the various PyPy implementations of Python %{pyversion}.
@@ -765,7 +771,7 @@ CheckPyPy pypy%{pyversion}-c
 %doc README.rst
 %license %{pypylibdir}/LICENSE
 %license %{pypylibdir}/_cffi_ssl/LICENSE
-%license %{pypylibdir}/cffi.dist-info/LICENSE
+%license %{pypylibdir}/cffi-*.dist-info/LICENSE
 %license %{pypylibdir}/cffi/_pycparser/ply/LICENSE
 %license %{pypylibdir}/hpy-*.dist-info/LICENSE
 %{pypylibdir}/

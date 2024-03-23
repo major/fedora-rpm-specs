@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20240301
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1130,8 +1130,18 @@ Requires:   %{name}-common = %{version}-%{release}
 %{_metainfodir}/]] .. metaname .. "\n"))
 end
 
+local all_deps = ''
+local all_vf_deps = ''
+local all_static_deps = ''
+
 for i = 1, #subpackages do
     notopkg(subpackages[i])
+    all_deps = all_deps .. "Requires: " .. subpackages[i].pkgname .. " = %{version}-%{release}\n"
+    if subpackages[i].variable then
+      all_vf_deps = all_vf_deps .. "Requires: " .. subpackages[i].pkgname .. " = %{version}-%{release}\n"
+    else
+      all_static_deps = all_static_deps .. "Requires: " .. subpackages[i].pkgname .. " = %{version}-%{release}\n"
+    end
     if rpm.expand("%{cionly}") ~= 0 then
         genfcconf(subpackages[i])
         genmetainfo(subpackages[i])
@@ -1145,6 +1155,36 @@ end
 if tonumber(rpm.expand("%{cionly}")) == 1 then
     gentestyaml()
 end
+
+print(rpm.expand([[
+
+%package -n google-noto-fonts-all
+Summary:    All the Noto font families
+]] .. all_deps .. [[
+
+%description -n google-noto-fonts-all
+A meta package for all Noto font families
+
+%files -n google-noto-fonts-all
+
+%package -n google-noto-fonts-all-vf
+Summary:    All the Noto variable font families
+]] .. all_vf_deps .. [[
+
+%description -n google-noto-fonts-all-vf
+A meta package for all Noto variable font families
+
+%files -n google-noto-fonts-all-vf
+
+%package -n google-noto-fonts-all-static
+Summary:    All the Noto static font families
+]] .. all_static_deps .. [[
+
+%description -n google-noto-fonts-all-static
+A meta package for all Noto static font families
+
+%files -n google-noto-fonts-all-static
+]]))
 
 rpm.define("noto_fcconflist " .. _fcconflist)
 rpm.define("noto_metafilelist " .. _metafilelist)
@@ -1229,6 +1269,10 @@ done
 
 
 %changelog
+* Thu Mar 21 2024 Akira TAGOH <tagoh@redhat.com> - 20240301-3
+- Add google-noto-fonts-all, google-noto-fonts-all-vf, and
+  google-noto-fonts-all-static meta packages.
+
 * Mon Mar 11 2024 Akira TAGOH <tagoh@redhat.com> - 20240301-2
 - Add Obsoletes: google-noto-looped-thai-fonts in google-noto-sans-thai-looped-fonts.
 

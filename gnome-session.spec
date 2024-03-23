@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-session
-Version:        46~rc
+Version:        46.0
 Release:        %autorelease
 Summary:        GNOME session manager
 

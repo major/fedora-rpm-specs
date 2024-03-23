@@ -8,8 +8,8 @@
 
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
-Version:   7.0.7
-Release:   4%{?dist}
+Version:   7.0.8
+Release:   1%{?dist}
 License:   libtiff and BSD with advertising
 URL:       http://hylafax.sourceforge.net
 
@@ -21,8 +21,6 @@ Source4:   hylafax+_hfaxd_systemd.service
 Source5:   hylafax+_faxq_systemd.service
 Source6:   hylafax+_faxgetty_systemd.service
 Source7:   hylafax+_sysconfig
-Patch0: hylafax+-configure-c99.patch
-
 
 Provides:    hylafax = %{version}-%{release}
 Requires:    %{name}-client%{?_isa} = %{version}-%{release}
@@ -426,6 +424,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Thu Mar 21 2024 Lee Howard <faxguy@howardsilvan.com> - 7.0.8-1
+- update to 7.0.8
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

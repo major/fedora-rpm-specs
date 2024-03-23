@@ -13,12 +13,13 @@
 
 Name:               pagure
 Version:            5.13.3
-Release:            10%{?dist}
+Release:            11%{?dist}
 Summary:            A git-centered forge
 
 License:            GPLv2+
 URL:                https://pagure.io/pagure
 Source0:            https://pagure.io/releases/pagure/%{name}-%{version}.tar.gz
+Patch:              pagure-5.13.3-nosqla2.patch
 
 Source10:           pagure-README.Fedora
 
@@ -610,6 +611,9 @@ done
 
 
 %changelog
+* Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 5.13.3-11
+- Require SQLAlchemy < 2
+
 * Mon Jan 22 2024 Nikola Forró <nforro@redhat.com> - 5.13.3-10
 - Backport patch: push_notification_changed_files.patch from upstream commits:
     - f9a2d7d3fb7084374063b70b455f93ba5a421fd1

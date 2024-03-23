@@ -11,6 +11,9 @@ Patch0:         %{name}-compiler-flags.patch
 # Unbundle bliss, including updating from 0.73 to 0.77
 Patch1:         %{name}-unbundle-bliss.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  bliss-devel
 BuildRequires:  cmake
 BuildRequires:  cmake(argparse)
@@ -56,6 +59,7 @@ rm README.md.orig
 mkdir -p %{buildroot}%{_mandir}/man1
 cd %{_vpath_builddir}
 help2man -N --version-string=%{version} ./breakid \
+  -n 'Symmetry detection and breaking' \
   -o %{buildroot}%{_mandir}/man1/breakid.1
 cd -
 

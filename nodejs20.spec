@@ -207,6 +207,7 @@ Provides: nodejs = %{nodejs_envr}
 # replace nodejs20-20.6.0.
 %define unversioned_obsoletes_of_nodejsXX_if_default() %{expand:\
 Obsoletes: nodejs%{nodejs_pkg_major}%{?1:-%{1}}\
+Provides: nodejs%{nodejs_pkg_major}%{?1:-%{1}} = %{nodejs_envr}\
 }
 %else
 %define unversioned_obsoletes_of_nodejsXX_if_default() %{nil}
@@ -457,8 +458,12 @@ Provides: npm = %{npm_envr}
 
 # Obsolete the old 'npm' package
 Obsoletes: npm < 1:9
+
+# Obsolete others. We can't use %%unversioned_obsoletes_of_nodejsXX_if_default
+# here because the Provides: needs its own version
+Obsoletes: nodejs%{nodejs_pkg_major}-npm
+Provides: nodejs%{nodejs_pkg_major}-npm = %{npm_envr}
 %endif
-%unversioned_obsoletes_of_nodejsXX_if_default npm
 
 
 %description -n %{pkgname}-npm

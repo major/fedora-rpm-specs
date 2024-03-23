@@ -9,12 +9,8 @@
 
 %global goipath kitty
 
-%ifarch ppc64le s390x
-%global optflags %(echo %{optflags} -DKITTY_NO_SIMD)
-%endif
-
 Name:           kitty
-Version:        0.33.0
+Version:        0.33.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -64,13 +60,10 @@ Source5:        https://calibre-ebook.com/signatures/kovid.gpg
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 
-Patch:          https://github.com/kovidgoyal/kitty/commit/393169f79daf60c038b3e11e657fa5f3ee41c24c.patch
-Patch:          fix-build.diff
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  golang >= 1.21.0
+BuildRequires:  golang >= 1.22.0
 BuildRequires:  go-rpm-macros
 
 BuildRequires:  gnupg2

@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Chess game for GNOME
 
 License:        GPLv3
@@ -22,7 +22,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pexpect)
-BuildRequires:  python3dist(sqlalchemy)
+BuildRequires:  python3dist(sqlalchemy) < 2
 BuildRequires:  gtk3
 BuildRequires:  librsvg2
 BuildRequires:  gettext
@@ -49,7 +49,7 @@ BuildRequires:  stockfish
 %endif
 
 Requires:       python3dist(psutil)
-Requires:       python3dist(sqlalchemy)
+Requires:       python3dist(sqlalchemy) < 2
 Requires:       python3dist(websockets)
 # gnome-settings-daemon
 Requires:       python3-gobject
@@ -161,6 +161,9 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
+* Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 1.0.3-11
+- Require SQLAlchemy < 2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

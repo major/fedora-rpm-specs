@@ -1,7 +1,7 @@
 %bcond_with luajit
 
 Name:       xmake
-Version:    2.8.8
+Version:    2.8.9
 
 %global forgeurl https://github.com/xmake-io/xmake
 

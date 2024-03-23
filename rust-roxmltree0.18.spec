@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate nu-pretty-hex
+%global crate roxmltree
 
-Name:           rust-nu-pretty-hex
-Version:        0.91.0
+Name:           rust-roxmltree0.18
+Version:        0.18.1
 Release:        %autorelease
-Summary:        Pretty hex dump of bytes slice in the common style
+Summary:        Represent an XML as a read-only tree
 
-License:        MIT
-URL:            https://crates.io/crates/nu-pretty-hex
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/roxmltree
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Pretty hex dump of bytes slice in the common style.}
+Represent an XML as a read-only tree.}
 
 %description %{_description}
 
@@ -30,7 +30,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -44,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+positions-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+positions-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "positions" feature of the "%{crate}" crate.
+
+%files       -n %{name}+positions-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

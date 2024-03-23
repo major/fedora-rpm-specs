@@ -6,7 +6,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        46.alpha
+Version:        46.0
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 

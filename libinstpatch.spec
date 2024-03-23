@@ -35,8 +35,8 @@ URL:            http://www.swamiproject.org/
 #         License: Public Domain
 License:        LGPL-2.1-only AND LicenseRef-Fedora-Public-Domain
 
-%global forgeurl https://github.com/swami/%{name}/
-Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
+%global forgeurl https://github.com/swami/libinstpatch
+Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
 # Fix warning from libinstpatch-scan.c (gtkdoc)
 # https://github.com/swami/libinstpatch/pull/71
@@ -74,7 +74,7 @@ patch files into, which can then be edited, converted, compressed and saved.
 
 
 %package devel
-Summary:        Development files for %{name}
+Summary:        Development files for libinstpatch
 # The entire source is LGPL-2.1-only, except:
 # • The following are LicenseRef-Fedora-Public-Domain:
 #     - libinstpatch/md5.{c,h}
@@ -86,17 +86,17 @@ Summary:        Development files for %{name}
 # subpackage.
 License:        LGPL-2.1-only
 
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libinstpatch%{?_isa} = %{version}-%{release}
 Requires:       glib2-devel%{?_isa}
 Requires:       libsndfile-devel%{?_isa}
 
 %description devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The libinstpatch-devel package contains libraries and header files for
+developing applications that use libinstpatch.
 
 
 %package doc
-Summary:        Documentation and examples for %{name}
+Summary:        Documentation and examples for libinstpatch
 BuildArch:      noarch
 # The entire source is LGPL-2.1-only, except:
 # • The following are LicenseRef-Fedora-Public-Domain:
@@ -110,8 +110,8 @@ BuildArch:      noarch
 # same as the base package.
 
 %description doc
-The %{name}-doc package contains documentation and examples for
-%{name}.
+The libinstpatch-doc package contains documentation and examples for
+libinstpatch.
 
 
 %prep
@@ -151,13 +151,13 @@ find examples -type f -name '*.py' -print -delete
 
 %files
 %license COPYING
-%{_libdir}/%{name}-%{api_version}.so.%{so_version}{,.*}
+%{_libdir}/libinstpatch-%{api_version}.so.%{so_version}{,.*}
 
 
 %files devel
-%{_includedir}/%{name}-%{so_version}/
-%{_libdir}/%{name}-%{api_version}.so
-%{_libdir}/pkgconfig/%{name}-%{api_version}.pc
+%{_includedir}/libinstpatch-%{so_version}/
+%{_libdir}/libinstpatch-%{api_version}.so
+%{_libdir}/pkgconfig/libinstpatch-%{api_version}.pc
 
 
 %files doc

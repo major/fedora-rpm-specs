@@ -44,7 +44,6 @@ Requires:       deepin-network-core
 Requires:       deepin-qt-dbus-factory
 Requires:       xcb-util-wm
 Requires:       xcb-util-image
-Recommends:     %{name}-onboard-plugin
 
 %description
 Deepin desktop-environment - Dock module.
@@ -54,14 +53,6 @@ Summary:        Development package for %{sname}
 
 %description devel
 Header files and libraries for %{sname}.
-
-%package onboard-plugin
-Summary:        deepin desktop-environment - dock plugin
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       onboard
-
-%description onboard-plugin
-deepin desktop-environment - dock plugin.
 
 %prep
 %autosetup -p1 -n %{repo}-%{version}
@@ -93,6 +84,7 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_prefix}/lib/%{repo}/plugins/libshutdown.so
 %{_prefix}/lib/%{repo}/plugins/libtrash.so
 %{_prefix}/lib/%{repo}/plugins/libtray.so
+%{_prefix}/lib/%{repo}/plugins/libonboard.so
 %{_prefix}/lib/%{repo}/plugins/system-trays/
 %{_datadir}/%{repo}/
 %{_datadir}/dcc-dock-plugin/
@@ -107,10 +99,6 @@ export PATH=%{_qt5_bindir}:$PATH
 %{_includedir}/%{repo}/
 %{_libdir}/pkgconfig/%{repo}.pc
 %{_libdir}/cmake/DdeDock/DdeDockConfig.cmake
-
-%files onboard-plugin
-%{_prefix}/lib/%{repo}/plugins/libonboard.so
-
 
 %changelog
 %autochangelog

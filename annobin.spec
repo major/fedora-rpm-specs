@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.44
+Version: 12.45
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -363,10 +363,7 @@ CONFIG_ARGS="$CONFIG_ARGS --without-tests"
 %if %{without annocheck}
 CONFIG_ARGS="$CONFIG_ARGS --without-annocheck"
 %else
-# Fedora supports AArch64's -mbranch-protection=bti, RHEL does not.
-%if 0%{?fedora} != 0
 export CFLAGS="$CFLAGS -DAARCH64_BRANCH_PROTECTION_SUPPORTED=1"
-%endif
 %endif
 
 %set_build_flags
@@ -375,16 +372,13 @@ export CFLAGS="$CFLAGS $RPM_OPT_FLAGS %build_cflags"
 export LDFLAGS="$LDFLAGS %build_ldflags"
 
 # Set target-specific security options to be used when building the
-# Clang and LLVM plugins.  FIXME: There should be a better way to do
-# this.
+# Clang and LLVM plugins.
+# FIXME: There should be a better way to do this.
 %ifarch %{ix86} x86_64
 export CLANG_TARGET_OPTIONS="-fcf-protection"
 %endif
-
 %ifarch aarch64
-%if 0%{?fedora} != 0
 export CLANG_TARGET_OPTIONS="-mbranch-protection=standard"
-%endif
 %endif
 
 CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" CXXFLAGS="$CFLAGS" %configure ${CONFIG_ARGS} || cat config.log
@@ -529,6 +523,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Mar 21 2024 Nick Clifton  <nickc@redhat.com> - 12.45-1
+- GCC Plugin: Fix bug extracing the value of target specific command line options.
+
 * Wed Mar 06 2024 Nick Clifton  <nickc@redhat.com> - 12.44-1
 - Configure: Remove check for FrontendPluginRegistry.h header as it is stored in a non-standard location on Debian systems.
 - Debuginfod test: Allow for the libdwfl library silently contacting the debuginfod server.

@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -972,6 +972,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Mar 21 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-6
+- hp-plugin-download - curl removed --create-dir parameter
+
 * Mon Mar 18 2024 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.12-5
 - 2270031 - hp-firmware: module 'locale' not longer provides method 'format', causing traceback
 

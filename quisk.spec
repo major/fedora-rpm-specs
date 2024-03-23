@@ -1,6 +1,6 @@
 Name:           quisk
-Version:        4.2.29
-Release:        4%{?dist}
+Version:        4.2.30
+Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 License:        GPLv2 and BSD
@@ -25,8 +25,6 @@ BuildRequires:  hicolor-icon-theme
 Requires:       hicolor-icon-theme
 Requires:       python3-wxpython4
 Suggests:       codec2-devel
-# Patch sent upstream
-Patch0:         quisk-4.2.29-python313-fix.patch
 
 %description
 QUISK is a Software Defined Radio (SDR) which can control various
@@ -86,6 +84,10 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Thu Mar 21 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.30-1
+- New version
+  Resolves: rhbz#2270511
+
 * Mon Feb 19 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.29-2
 - Fixed FTBFS with python-3.13
   Resolves: rhbz#2254186

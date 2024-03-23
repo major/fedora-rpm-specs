@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a5
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -384,6 +384,14 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00424 # 767f9ca0f729a52808648bca8786fe046c25a016
+# gh-116745: remove all internal usage of @LIBPYTHON@
+#
+# Follow on to https://github.com/python/cpython/pull/115780 .
+#
+# Without this change numpy's build is broken.
+Patch424: 00424-gh-116745-remove-all-internal-usage-of-libpython.patch
 
 # (New patches go here ^^^)
 #
@@ -1318,7 +1326,6 @@ CheckPython freethreading
 %dir %{pylibdir}/__pycache__/
 %{pylibdir}/__pycache__/*%{bytecode_suffixes}
 
-%{pylibdir}/__phello__/
 %{pylibdir}/asyncio/
 %{pylibdir}/collections/
 %{pylibdir}/concurrent/
@@ -1425,8 +1432,6 @@ CheckPython freethreading
 %{dynload_dir}/_statistics.%{1}.so\
 %{dynload_dir}/_struct.%{1}.so\
 %{dynload_dir}/_uuid.%{1}.so\
-%{dynload_dir}/_xxinterpqueues.%{1}.so\
-%{dynload_dir}/_xxsubinterpreters.%{1}.so\
 %{dynload_dir}/_zoneinfo.%{1}.so\
 %{dynload_dir}/array.%{1}.so\
 %{dynload_dir}/binascii.%{1}.so\
@@ -1442,9 +1447,6 @@ CheckPython freethreading
 %{dynload_dir}/syslog.%{1}.so\
 %{dynload_dir}/termios.%{1}.so\
 %{dynload_dir}/unicodedata.%{1}.so\
-%{dynload_dir}/xxlimited.%{1}.so\
-%{dynload_dir}/xxlimited_35.%{1}.so\
-%{dynload_dir}/xxsubtype.%{1}.so\
 %{dynload_dir}/zlib.%{1}.so
 
 %extension_modules %{SOABI_optimized}
@@ -1538,6 +1540,9 @@ CheckPython freethreading
 %files -n %{pkgname}-test
 %{pylibdir}/test/
 
+# Pure Python modules
+%{pylibdir}/__phello__/
+
 # Extension modules
 # This is macronized for reuse in the -debug package
 %define extension_modules_test() \
@@ -1553,7 +1558,12 @@ CheckPython freethreading
 %{dynload_dir}/_testmultiphase.%{1}.so\
 %{dynload_dir}/_testsinglephase.%{1}.so\
 %{dynload_dir}/_xxinterpchannels.%{1}.so\
-%{dynload_dir}/_xxtestfuzz.%{1}.so
+%{dynload_dir}/_xxinterpqueues.%{1}.so\
+%{dynload_dir}/_xxsubinterpreters.%{1}.so\
+%{dynload_dir}/_xxtestfuzz.%{1}.so\
+%{dynload_dir}/xxlimited.%{1}.so\
+%{dynload_dir}/xxlimited_35.%{1}.so\
+%{dynload_dir}/xxsubtype.%{1}.so
 
 %extension_modules_test %{SOABI_optimized}
 
@@ -1670,6 +1680,16 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Mar 13 2024 Python Maint <python-maint@redhat.com> - 3.13.0~a5-2
+- Move all test modules to the python3.13-test package, namely:
+  - __phello__
+  - _xxinterpqueues
+  - _xxsubinterpreters
+  - xxlimited
+  - xxlimited_35
+  - xxsubtype
+- Remove internal usage of @LIBPYTHON@
+
 * Wed Mar 13 2024 Miro Hrončok <mhroncok@redhat.com> - 3.13.0~a5-1
 - Update to Python 3.13.0a5
 

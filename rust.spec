@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.76.0
+Version:        1.77.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-DFS-2016)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.75.0
-%global bootstrap_channel 1.75.0
-%global bootstrap_date 2023-12-28
+%global bootstrap_version 1.76.0
+%global bootstrap_channel 1.76.0
+%global bootstrap_date 2024-02-08
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -67,9 +67,9 @@ ExclusiveArch:  %{rust_arches}
 
 # Requires stable libgit2 1.7, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.7.1
+%global min_libgit2_version 1.7.2
 %global next_libgit2_version 1.8.0~
-%global bundled_libgit2_version 1.7.1
+%global bundled_libgit2_version 1.7.2
 %if 0%{?fedora} >= 39
 %bcond_with bundled_libgit2
 %else
@@ -135,7 +135,11 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.76.0-unbundle-sqlite.patch
+Patch6:         rustc-1.77.0-unbundle-sqlite.patch
+
+# Backports of fixes for LLVM 18 compatibility
+Patch7:         120529.patch
+Patch8:         121088.patch
 
 ### RHEL-specific patches below ###
 
@@ -146,7 +150,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.76.0-disable-libssh2.patch
+Patch100:       rustc-1.77.0-disable-libssh2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -591,6 +595,9 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %endif
 %patch -P6 -p1
 
+%patch -P7 -p1
+%patch -P8 -p1
+
 %if %with disabled_libssh2
 %patch -P100 -p1
 %endif
@@ -749,6 +756,7 @@ test -r "%{profiler}"
   --set build.doc-stage=2 \
   --set build.install-stage=2 \
   --set build.test-stage=2 \
+  --set build.optimized-compiler-builtins=false \
   --enable-extended \
   --tools=cargo,clippy,rls,rust-analyzer,rustfmt,src \
   --enable-vendor \
@@ -1063,6 +1071,9 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
 
 %changelog
+* Thu Mar 21 2024 Nikita Popov <npopov@redhat.com> - 1.77.0-1
+- Update to 1.77.0
+
 * Thu Feb 08 2024 Josh Stone <jistone@redhat.com> - 1.76.0-1
 - Update to 1.76.0.
 

@@ -11,6 +11,9 @@ URL: https://github.com/coreos/rpm-ostree
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
+# https://github.com/coreos/rpm-ostree/issues/4879
+Patch0: 0001-Revert-compose-Inject-our-static-tmpfiles.d-dropins-.patch
+
 ExclusiveArch: %{rust_arches}
 
 # ostree not on i686 for RHEL 10

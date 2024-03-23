@@ -1,5 +1,5 @@
 Name: squashfs-tools-ng
-Version: 1.2.0
+Version: 1.3.0
 Summary: A new set of tools and libraries for working with SquashFS images
 URL:	 https://github.com/AgentD/squashfs-tools-ng
 Source0: https://infraroot.at/pub/squashfs/squashfs-tools-ng-%{version}.tar.gz
@@ -18,9 +18,6 @@ BuildRequires: libselinux-devel
 BuildRequires: help2man
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-
-# https://github.com/AgentD/squashfs-tools-ng/issues/125
-Patch0: zlib-ng-checksum.patch
 
 %description
 Squashfs is a highly compressed read-only filesystem for Linux.  This package
@@ -42,7 +39,7 @@ The squashfs-tools-ng-devel package contains the header files needed to
 develop programs that use the squashfs-tools-ng libsquashfs library.
 
 %prep
-%autosetup -p0
+%autosetup
 
 %build
 %configure --disable-static

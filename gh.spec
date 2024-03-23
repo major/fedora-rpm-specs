@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.45.0
+Version:                2.46.0
 
 %gometa -L -f
 
@@ -59,7 +59,6 @@ done
 
 
 %install
-%gopkginstall
 # We are deliberately excluding cmd/gen-docs. It is only needed for building.
 install -Dpm 0755 %{gobuilddir}/bin/%{name} -t %{buildroot}%{_bindir}/
 
@@ -93,8 +92,6 @@ done
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish
 %{zsh_completions_dir}/_%{name}
-
-%gopkgfiles
 
 %changelog
 %autochangelog

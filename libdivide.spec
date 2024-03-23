@@ -11,6 +11,10 @@ URL:            https://libdivide.com/
 %global forgeurl https://github.com/ridiculousfish/libdivide
 Source:         %{forgeurl}/archive/%{version}/libdivide-%{version}.tar.gz
 
+# Fix a typo (division/divsion) in README.md
+# https://github.com/ridiculousfish/libdivide/pull/114
+Patch:          %{forgeurl}/pull/114.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -19,7 +23,7 @@ This package contains a header-only C/C++ library for optimizing integer
 division. Integer division is one of the slowest instructions on most CPUs,
 e.g. on current x64 CPUs a 64-bit integer division has a latency of up to 90
 clock cycles whereas a multiplication has a latency of only 3 clock cycles.
-libdivide allows you to replace expensive integer divsion instructions by a
+libdivide allows you to replace expensive integer division instructions by a
 sequence of shift, add and multiply instructions that will calculate the
 integer division much faster.
 
@@ -41,7 +45,7 @@ Provides:       libdivide-static = %{version}-%{release}
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Disable -Werror
 sed -i 's/;-Werror//;/-Werror/d' CMakeLists.txt

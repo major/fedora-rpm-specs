@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc0.20240320gita4145ce1e7bc.11
+%define pkgrelease 0.rc0.20240321git23956900041d.12
 %define kversion 6
-%define tarfile_release 6.8-11743-ga4145ce1e7bc
+%define tarfile_release 6.8-11767-g23956900041d
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20240320gita4145ce1e7bc.11%{?buildid}%{?dist}
+%define specrelease 0.rc0.20240321git23956900041d.12%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -3957,6 +3957,9 @@ fi\
 #
 #
 %changelog
+* Thu Mar 21 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.23956900041d.12]
+- Linux v6.9.0-0.rc0.23956900041d
+
 * Wed Mar 20 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc0.a4145ce1e7bc.11]
 - gitlab-ci: do not merge ark-latest for gating pipelines (Michael Hofmann)
 - fedora: Enable MCP9600 (Peter Robinson)

@@ -1,14 +1,18 @@
 Name:           libpoly
 Version:        0.1.13
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        C library for manipulating polynomials
 
 License:        LGPL-3.0-or-later
 URL:            https://sri-csl.github.io/libpoly/
-Source0:        https://github.com/SRI-CSL/libpoly/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/SRI-CSL/libpoly
+Source0:        %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix incompatible pointer type, an error with GCC 14
 # See https://github.com/SRI-CSL/libpoly/pull/76
 Patch0:         %{name}-gcc14.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -56,7 +60,7 @@ rm setup.py
 
 %build
 %cmake %{_cmake_skip_rpath} \
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
   -DLIBPOLY_BUILD_STATIC:BOOL=OFF \
   -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
 %cmake_build
@@ -94,104 +98,4 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
-* Thu Jan 25 2024 Jerry James <loganjerry@gmail.com> - 0.1.13-3
-- Add patch to fix incompatible pointer type
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Aug  1 2023 Jerry James <loganjerry@gmail.com> - 0.1.13-1
-- Version 0.1.13
-
-* Sat Jul 29 2023 Jerry James <loganjerry@gmail.com> - 0.1.12-1
-- Version 0.1.12
-- Drop upstreamed patches
-
-* Fri Jul 28 2023 Jerry James <loganjerry@gmail.com> - 0.1.11-8
-- Add post-release bug fixes needed by cvc5
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.1.11-6
-- Rebuilt for Python 3.12
-
-* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 0.1.11-5
-- Dynamically generate python BuildRequires
-- Install python dist-info
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.1.11-4
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Python Maint <python-maint@redhat.com> - 0.1.11-3
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Oct 25 2021 Jerry James <loganjerry@gmail.com> - 0.1.11-1
-- Version 0.1.11
-- Enable tests for 32-bit platforms
-
-* Mon Jul 26 2021 Jerry James <loganjerry@gmail.com> - 0.1.10-1
-- Version 0.1.10
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.9-2
-- Rebuilt for Python 3.10
-
-* Tue Apr 13 2021 Jerry James <loganjerry@gmail.com> - 0.1.9-1
-- Version 0.1.9
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.1.8-2
-- Rebuilt for Python 3.9
-
-* Thu Mar 26 2020 Jerry James <loganjerry@gmail.com> - 0.1.8-1
-- Version 0.1.8
-- Add sympy BR for the tests
-- Add the python3 interface
-- Bring back the check script for 64-bit platforms; 32-bit platforms cannot
-  run all tests due to the limited size of a C integer
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Oct 30 2018 Jerry James <loganjerry@gmail.com> - 0.1.7-1
-- New upstream version
-- Drop python2-only interface; we'll bring it back when it is ported to python3
-- Drop python-only check script
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jul  3 2018 Jerry James <loganjerry@gmail.com> - 0.1.5-1
-- New upstream version
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Jan  1 2018 Jerry James <loganjerry@gmail.com> - 0.1.4-1
-- Initial RPM
+%autochangelog

@@ -1,4 +1,3 @@
-
 %global qt_module qtmultimedia
 
 %global gst 0.10
@@ -22,7 +21,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.6.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -50,6 +49,7 @@ BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: qt6-qtshadertools-devel >= %{version}
+BuildRequires: qt6-qtquick3d-devel >= %{version}
 BuildRequires: pkgconfig(alsa)
 %if "%{?gst}" == "0.10"
 BuildRequires: pkgconfig(gstreamer-interfaces-0.10)
@@ -144,7 +144,10 @@ popd
 %{_qt6_libdir}/libQt6MultimediaQuick.so.6*
 %{_qt6_libdir}/libQt6MultimediaWidgets.so.6*
 %{_qt6_libdir}/libQt6SpatialAudio.so.6*
+%{_qt6_libdir}/libQt6Quick3DSpatialAudio.so.6*
 %{_qt6_archdatadir}/qml/QtMultimedia/
+%dir %{_qt6_archdatadir}/qml/QtQuick3D/SpatialAudio
+%{_qt6_archdatadir}/qml/QtQuick3D/SpatialAudio/
 %dir %{_qt6_plugindir}/multimedia
 %{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
 %if %{with ffmpeg}
@@ -156,6 +159,7 @@ popd
 %{_qt6_headerdir}/QtMultimediaQuick/
 %{_qt6_headerdir}/QtMultimediaWidgets/
 %{_qt6_headerdir}/QtSpatialAudio/
+%{_qt6_headerdir}/QtQuick3DSpatialAudio/
 %{_qt6_libdir}/libQt6BundledResonanceAudio.a
 %{_qt6_libdir}/libQt6Multimedia.so
 %{_qt6_libdir}/libQt6Multimedia.prl
@@ -165,6 +169,8 @@ popd
 %{_qt6_libdir}/libQt6MultimediaWidgets.prl
 %{_qt6_libdir}/libQt6SpatialAudio.so
 %{_qt6_libdir}/libQt6SpatialAudio.prl
+%{_qt6_libdir}/libQt6Quick3DSpatialAudio.so
+%{_qt6_libdir}/libQt6Quick3DSpatialAudio.prl
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/
@@ -177,6 +183,8 @@ popd
 %{_qt6_libdir}/cmake/Qt6MultimediaWidgets/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6SpatialAudio/
 %{_qt6_libdir}/cmake/Qt6SpatialAudio/*cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate
+%{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate/*cmake
 %dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
@@ -192,6 +200,9 @@ popd
 
 
 %changelog
+* Thu Mar 21 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-3
+- add qt6-qtquick3d-devel as BR for spatial audio (3d)
+
 * Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2
 - Examples: also install source files
 

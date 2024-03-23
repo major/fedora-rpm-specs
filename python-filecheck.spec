@@ -6,10 +6,10 @@
 %global desc Python port of LLVM's FileCheck, flexible pattern matching file verifier.
 
 Name: python-%{pypi_name}
-Version: 0.0.23
-Release: 6%{?dist}
+Version: 0.0.24
+Release: 1%{?dist}
 Summary: Flexible pattern matching file verifier
-License: ASL 2.0
+License: Apache-2.0
 URL: https://github.com/mull-project/FileCheck.py
 Source0: https://github.com/mull-project/FileCheck.py/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # upstream testsuite includes only x86_64 reference binaries and Fedora llvm9.0 package doesn't include FileCheck
@@ -19,9 +19,6 @@ Patch0: %{name}-tests-x86_64.patch
 # that is discouraged in the packaging guidelines
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch1: %{name}-no-coverage.patch
-# fix passing count as positional argument deprecated in Python 3.13
-# https://docs.python.org/3.13/whatsnew/3.13.html#id9
-Patch2: %{name}-py313.patch
 BuildArch: noarch
 
 %description
@@ -32,7 +29,7 @@ Summary: %{summary}
 BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-devel
 BuildRequires: python3-pip
-BuildRequires: python3-poetry-core
+BuildRequires: python3-hatchling
 BuildRequires: sed
 %if %{with check}
 BuildRequires: %{_bindir}/invoke
@@ -75,6 +72,11 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Thu Mar 21 2024 Dominik Mierzejewski <dominik@greysector.net> 0.0.24-1
+- update to 0.0.24
+- drop obsolete patch
+- use SPDX license identifier
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -94,7 +94,7 @@ Requires: %{srcname}-base = %{version}-%{release}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 Requires: python3-tornado
-Requires: python3-sqlalchemy
+Requires: python3-sqlalchemy < 2
 Requires: python3-alembic
 Requires: python3-cryptography
 Requires: python3-pyyaml
@@ -185,6 +185,7 @@ The keylime tools package includes miscelaneous tools.
 %prep
 %autosetup -S git -n %{srcname}-%{version} -a2
 
+%build
 %if 0%{?with_selinux}
 # SELinux policy (originally from selinux-policy-contrib)
 # this policy module will override the production module
@@ -193,7 +194,6 @@ make -f %{_datadir}/selinux/devel/Makefile %{srcname}.pp
 bzip2 -9 %{srcname}.pp
 %endif
 
-%build
 %py3_build
 
 %install

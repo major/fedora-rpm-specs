@@ -4,7 +4,7 @@
 %global         srcname     awsiotsdk
 
 Name:           python-%{srcname}
-Version:        1.21.0
+Version:        1.21.1
 Release:        %autorelease
 Summary:        AWS IoT SDK based on the AWS Common Runtime
 

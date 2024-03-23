@@ -20,6 +20,14 @@ Patch:          harmonyseq-0.17-missing-include.patch
 # https://github.com/rafalcieslak/harmonySEQ/issues/6
 # https://github.com/rafalcieslak/harmonySEQ/pull/8
 Patch:          harmonyseq-0.17-pr-8-metadata-improvements.patch
+# Fix incompatible function signatures in lo_method_handler callbacks
+# https://github.com/rafalcieslak/harmonySEQ/pull/12
+#
+# Fixes:
+#
+# Callbacks of type lo_message_handler have the wrong signature
+# https://github.com/rafalcieslak/harmonySEQ/issues/11
+Patch:          %{forgeurl}/pull/12.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -42,6 +50,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
+
+BuildRequires:  hardlink
 
 # For %%{_datadir}/share/mime/packages
 Requires:       shared-mime-info
@@ -103,6 +113,10 @@ CXXFLAGS="${CXXFLAGS} -DRELEASE"
 # Not a standard size for GNOME icons, so gnome-icon-theme does not have the
 # directories:
 rm -rvf '%{buildroot}%{_datadir}/icons/gnome/192x192'
+
+# There are some duplicate PNG and SVG icons that can be hardlinked to save a
+# little space.
+hardlink -c -v '%{buildroot}%{_datadir}/harmonySEQ'
 
 
 %check

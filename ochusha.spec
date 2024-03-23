@@ -21,13 +21,13 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		vendor_rel	15
+%define		baserelease	15
 %define		pre_release	1
 
 %if %{pre_release}
-%define		rel		0.%{vendor_rel}.%{strtag}%{?dist}
+%define		rel		0.%{baserelease}.%{strtag}%{?dist}
 %else
-%define		rel		%{vendor_rel}%{?dist}
+%define		rel		%{baserelease}%{?dist}
 %endif
 
 Summary:	A GTK+ 2ch.net BBS Browser
@@ -44,6 +44,11 @@ Source10:	ochusha-prefs-gtkrc
 Source11:	ochusha.sh
 Patch0:		ochusha-D20100214-gtk-deprecated.patch
 Patch1:		ochusha-D20100817-format-string.patch
+# COPYING	BSD-2-Clause
+# intl/	LGPL-2.1-or-later (unused)
+# libochusha/sigslot.h	public domain (need review)
+# libochushagtk_lgpl/	LGPL-2.1-or-later
+
 License:	BSD
 
 Requires:	mona-fonts-VLGothic

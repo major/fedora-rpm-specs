@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.15.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -26,6 +26,8 @@ Patch1: shadow-4.15.0-date-parsing.patch
 Patch2: shadow-4.15.0-audit-update.patch
 # Probably non-upstreamable
 Patch3: shadow-4.15.0-account-tools-setuid.patch
+# https://github.com/shadow-maint/shadow/commit/ead55e9ba8958504e23e29545f90c4dd925c7462
+Patch4: shadow-4.15.0-getdef-spurious-error.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -273,6 +275,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Mar 21 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.1-2
+- getdef: avoid spurious error messages about unknown configuration options.
+  Resolves: #2265291
+
 * Tue Mar 12 2024 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.15.1-1
 - Wrong versioning for 4.15.0 RC releases makes the oficial release look lower than them.
   Fix it by bumping the minor release to 4.15.1. Resolves: #2268690

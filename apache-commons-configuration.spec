@@ -1,5 +1,5 @@
 Name:           apache-commons-configuration
-Version:        2.10.0
+Version:        2.10.1
 Release:        %autorelease
 Summary:        Read configuration data from a variety of sources
 

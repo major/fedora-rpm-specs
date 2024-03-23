@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libgweather
-Version:        4.4.0
+Version:        4.4.2
 Release:        %autorelease
 Summary:        A library for weather information
 

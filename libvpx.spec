@@ -21,7 +21,7 @@ BuildRequires:		make
 %ifarch %{ix86} x86_64
 BuildRequires:		yasm
 %endif
-BuildRequires:		doxygen, php-cli, perl(Getopt::Long)
+BuildRequires:		doxygen, perl(Getopt::Long)
 
 %description
 libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications

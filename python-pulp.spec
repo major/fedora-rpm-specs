@@ -10,7 +10,7 @@ files and call GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK, XPRESS,
 CHOCO, MIPCL, SCIP to solve linear problems.}
 
 Name:           python-pulp
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        A python Linear Programming API
 
@@ -61,7 +61,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %install
 %pyproject_install
 
-%pyproject_save_files pulp
+%pyproject_save_files -l pulp
 
 %check
 # Using pulptest binary to test the package
@@ -72,9 +72,8 @@ pulptest
 %endif
 
 %files -n python3-pulp -f %{pyproject_files}
-%doc README.rst
+%doc README.rst HISTORY
 %{_bindir}/pulptest
 
 %changelog
 %autochangelog
-

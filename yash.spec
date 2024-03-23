@@ -2,13 +2,12 @@
 # Upstream is currently using SVN
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
-%global		repoid		78345
-%global		mainver		2.55
+%global		mainver		2.56.1
 %global		docver		%{mainver}
 
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
 
-%global		baserelease	2
+%global		baserelease	1
 %undefine		minorver
 %undefine       _changelog_trimtime
 
@@ -31,6 +30,7 @@ BuildRequires:	gcc
 BuildRequires:	ncurses-devel
 BuildRequires:	ed
 BuildRequires:	/usr/bin/a2x
+BuildRequires:	/usr/bin/asciidoc
 BuildRequires:	/usr/bin/xgettext
 BuildRequires:	/usr/bin/ps
 Provides:		/bin/yash
@@ -138,6 +138,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Thu Mar 21 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.56.1-1
+- 2.56.1
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

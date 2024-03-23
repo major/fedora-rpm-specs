@@ -1,6 +1,6 @@
 Name:           wayland-protocols
-Version:        1.33
-Release:        2%{?dist}
+Version:        1.34
+Release:        1%{?dist}
 Summary:        Wayland protocols that adds functionality not available in the core protocol
 
 License:        MIT
@@ -48,6 +48,9 @@ wayland-protocols.
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Mar 21 2024 Neal Gompa <ngompa@fedoraproject.org> - 1.34-1
+- Update to 1.34
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

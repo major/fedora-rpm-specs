@@ -5,7 +5,7 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        41.0.7
+Version:        42.0.5
 Release:        1%{?dist}
 Summary:        PyCA's cryptography library
 
@@ -19,8 +19,7 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
 
-Patch1:         pyo3-0.19.patch
-Patch2:         ouroboros-0.17.patch
+Patch1:         skip-overflow-tests-32bit.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -29,8 +28,6 @@ BuildRequires:  gcc
 BuildRequires:  gnupg2
 %if 0%{?fedora}
 BuildRequires:  rust-packaging
-# test_load_with_other_sections in 40.0 fails with pem 1.1.0
-BuildRequires:  rust-pem-devel >= 1.1.1
 %else
 BuildRequires:  rust-toolset
 %endif
@@ -48,6 +45,7 @@ BuildRequires:  python%{python3_pkgversion}-pretend
 BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 BuildRequires:  python%{python3_pkgversion}-pytz
 %endif
+BuildRequires:  python%{python3_pkgversion}-certifi
 BuildRequires:  python%{python3_pkgversion}-pytest >= 6.2.0
 BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
 BuildRequires:  python%{python3_pkgversion}-pytest-subtests >= 0.5.0
@@ -73,10 +71,8 @@ recipes to Python developers.
 
 %prep
 %autosetup -p1 -N -n %{srcname}-%{version}
-%if 0%{?fedora}
-# patch pyo3 and ouroboros depedency
 %autopatch -p1 1
-%autopatch -p1 2
+%if 0%{?fedora}
 %cargo_prep
 rm src/rust/Cargo.lock
 %else
@@ -84,27 +80,33 @@ rm src/rust/Cargo.lock
 %cargo_prep -V 1
 %endif
 
-%if 0%{?fedora}
+# Remove cosmetical pytest-subtests 0.10.0 option
+sed -i 's,--no-subtests-shortletter,,' pyproject.toml
+
+
 %generate_buildrequires
+%pyproject_buildrequires -t
+%if 0%{?fedora}
 # Fedora: use RPMified crates
 cd src/rust
 %cargo_generate_buildrequires
 cd ../..
 %endif
 
-# Remove cosmetical pytest-subtests 0.10.0 option
-sed -i 's,--no-subtests-shortletter,,' pyproject.toml
 
 %build
 export RUSTFLAGS="%build_rustflags"
 export OPENSSL_NO_VENDOR=1
-%py3_build
+%pyproject_wheel
+
 
 %install
 # Actually other *.c and *.h are appropriate
 # see https://github.com/pyca/cryptography/issues/1463
 find . -name .keep -print -delete
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
+
 
 %check
 %if %{with tests}
@@ -130,13 +132,17 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
     -k "not (test_buffer_protocol_alternate_modes or test_dh_parameters_supported or test_load_ecdsa_no_named_curve or test_decrypt_invalid_decrypt or test_openssl_memleak or test_load_invalid_ec_key_from_pem)"
 %endif
 
-%files -n python%{python3_pkgversion}-%{srcname}
+
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst docs
 %license LICENSE LICENSE.APACHE LICENSE.BSD
-%{python3_sitearch}/%{srcname}
-%{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
+
 
 %changelog
+* Wed Mar 06 2024 Christian Heimes <cheimes@redhat.com> - 42.0.1-5
+- Update to 42.0.5, resolves RHBZ#2251816
+- Modernize spec file to use pyproject RPM macros
+
 * Thu Feb 01 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 41.0.7-1
 - Update to 41.0.7, fixes rhbz#2255351, CVE-2023-49083
 

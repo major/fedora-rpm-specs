@@ -112,7 +112,7 @@ Files for the Deluge daemon
 mkdir -p %{buildroot}%{_unitdir}
 install -m644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}-daemon.service
 install -m644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-web.service
-mkdir -p %{buildroot}/var/lib/%{name}
+mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 desktop-file-install  \
     --dir %{buildroot}%{_datadir}/applications    \
@@ -123,8 +123,8 @@ desktop-file-install  \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 mkdir -p %{buildroot}%{_metainfodir}
-mv %{buildroot}/usr/share/appdata/deluge.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-rmdir %{buildroot}/usr/share/appdata
+mv %{buildroot}%{_datadir}/appdata/deluge.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+rmdir %{buildroot}%{_datadir}/appdata
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 ## NOTE: The lang files should REEEAALLLY be in a standard place such as
@@ -202,13 +202,13 @@ popd && mv %{buildroot}/%{name}.lang .
 %files daemon
 %{_bindir}/%{name}d
 %{_unitdir}/%{name}-daemon.service
-%attr(-,%{name}, %{name})/var/lib/%{name}/
+%attr(-,%{name}, %{name})%{_sharedstatedir}/%{name}/
 %{_mandir}/man?/%{name}d*
 
 %pre daemon
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
-useradd -r -g %{name} -d /var/lib/%{name} -s /sbin/nologin \
+useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
         -c "deluge daemon account" %{name}
 exit 0
 

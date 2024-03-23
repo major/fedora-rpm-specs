@@ -11,7 +11,6 @@ Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.g
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
 Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version}.tar.xz
-BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  gnupg2
@@ -158,6 +157,7 @@ gpgv2 --keyring ./gpgkey-mantainers.gpg %{SOURCE1} %{SOURCE0}
 
 pushd rust
 %if 0%{?rhel}
+mv ../vendor ./
 %cargo_prep -v vendor
 %else
 %cargo_prep
@@ -184,8 +184,6 @@ env SKIP_PYTHON_INSTALL=1 \
     LIBDIR=%{_libdir} \
     SYSCONFDIR=%{_sysconfdir} \
     %make_install
-patchelf --set-soname libnmstate.so.2 \
-    %{buildroot}/%{_libdir}/libnmstate.so.%{version}
 
 pushd rust/src/python
 %py3_install

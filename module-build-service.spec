@@ -5,12 +5,13 @@
 
 Name:           module-build-service
 Version:        3.9.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
 URL:            https://pagure.io/fm-orchestrator
 Source0:        https://files.pythonhosted.org/packages/source/m/%{name}/%{name}-%{version}.tar.gz
+Patch:          module-build-service-3.9.2-py312.patch
 
 BuildArch:      noarch
 
@@ -38,7 +39,7 @@ BuildRequires:  python3-flask
 BuildRequires:  python3-dogpile-cache
 BuildRequires:  python3-requests
 BuildRequires:  python3-pyOpenSSL
-BuildRequires:  python3-sqlalchemy
+BuildRequires:  python3-sqlalchemy < 2
 BuildRequires:  python3-moksha-hub
 BuildRequires:  python3-kobo
 BuildRequires:  python3-kobo-rpmlib
@@ -119,7 +120,7 @@ Requires:       python3-flask-sqlalchemy
 Requires:       python3-flask-migrate
 Requires:       python3-six
 Requires:       python3-pungi
-Requires:       python3-sqlalchemy
+Requires:       python3-sqlalchemy < 2
 Requires:       python3-moksha-hub
 Requires:       python3-m2crypto
 Requires:       python3-kobo
@@ -201,7 +202,7 @@ for a number of tasks:
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 # Workaround because python2-koji has no egg-info file at the momement
@@ -275,6 +276,10 @@ done
 %endif
 
 %changelog
+* Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 3.9.2-8
+- Require SQLAlchemy < 2
+- Adapt for Python 3.12
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

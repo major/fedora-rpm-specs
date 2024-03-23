@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2024.04
-Release:  0.6%{?candidate:.%{candidate}}%{?dist}
+Release:  0.7%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
@@ -190,6 +190,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Thu Mar 21 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.7.rc4
+- Updated patch for DTB loading
+
 * Fri Mar 15 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.04-0.6.rc4
 - Updated fix for FDT load
 

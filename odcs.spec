@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.8.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -38,7 +38,7 @@ BuildRequires:    python3-defusedxml
 BuildRequires:    python3-koji
 BuildRequires:    python3-httplib2
 BuildRequires:    python3-pyOpenSSL
-BuildRequires:    python3-sqlalchemy
+BuildRequires:    python3-sqlalchemy < 2
 BuildRequires:    python3-ldap
 BuildRequires:    python3-gobject-base
 BuildRequires:    python3-flask-login
@@ -68,6 +68,7 @@ Requires:    python3-celery
 Requires:    python3-flask
 Requires:    python3-flask-login
 Requires:    python3-flask-sqlalchemy
+Requires:    python3-sqlalchemy < 2
 Requires:    python3-systemd
 Requires:    python3-ldap
 Requires:    python3-defusedxml
@@ -199,6 +200,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 0.8.0-2
+- Require SQLAlchemy < 2
+
 * Wed Jan 24 2024 Haibo Lin <hlin@redhat.com> - 0.8.0-1
 - client: Add --env option
 - client: Add arg for extending compose's life

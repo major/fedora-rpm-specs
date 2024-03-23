@@ -38,6 +38,8 @@ BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
 
+BuildRequires:  hardlink
+
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  gcc
@@ -69,7 +71,7 @@ Calcule y visualice el contraste de color, Harvey comprueba un conjunto
 determinado de colores para el cumplimiento del contraste WCAG.
 
 %description -l en_AU
-Calculate and visualize colour contrast. Harvey checks a given set of colours
+Calculate and visualise colour contrast. Harvey checks a given set of colours
 for WCAG contrast compliance.
 
 %description -l en_CA
@@ -77,7 +79,7 @@ Calculate and visualize colour contrast. Harvey checks a given set of colours
 for WCAG contrast compliance.
 
 %description -l en_GB
-Calculate and visualize colour contrast. Harvey checks a given set of colours
+Calculate and visualise colour contrast. Harvey checks a given set of colours
 for WCAG contrast compliance.
 
 
@@ -94,6 +96,11 @@ for WCAG contrast compliance.
 %meson_install
 
 %find_lang %{appname}
+
+# Upstream installs the same SVG icon in many size-specific directories like
+# /usr/share/icons/hicolor/64x64@2/; we can save space by hardlinking these
+# together.
+hardlink -c -v '%{buildroot}%{_datadir}/icons/hicolor'
 
 
 %check

@@ -3,12 +3,13 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        WTForms integration for SQLAlchemy
 
 License:        BSD-3-Clause
 URL:            https://github.com/wtforms/%{pkg_name}
 Source0:        %{url}/archive/%{version}/%{pkg_name}-%{version}.tar.gz
+Patch:          wtforms-sqlalchemy-0.3.0-nosqla2.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

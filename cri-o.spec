@@ -1,6 +1,6 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.28.2
+Version:                1.29.2
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -33,11 +33,11 @@ Version:                1.28.2
 %global service_name crio
 
 # Commit for the builds
-%global commit0 e7be4e160f3cc3810b3f6c9fbf225697d772a9ad
+%global commit0 d317b5dc918bbfbc78481072a0d93e572aa8d0e8
 
 Name:           cri-o
 Epoch:          0
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 
@@ -45,6 +45,7 @@ Summary:        Open Container Initiative-based implementation of Kubernetes Con
 License:        ASL 2.0
 URL:            https://github.com/cri-o/cri-o
 Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         otelttrpc.patch
 
 %if 0%{?rhel}
 BuildRequires:  golang >= 1.19
@@ -230,6 +231,9 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Thu Mar 21 2024 Peter Hunt <pehunt@redhat.com> - 0:1.29.2-1
+- bump to v1.29.2
+
 * Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0:1.28.2-5
 - Rebuild for golang 1.22.0
 

@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.17
+Version:        1.2.18
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0

@@ -78,11 +78,15 @@
 
 Name:        libblockdev
 Version:     3.1.0
-Release:     2%{?dist}
+Release:     3%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
+
+# Disable some bd_utils_log_format calls to see if it works around #2247319
+# Not upstreamable, this is more of a diagnosis thing
+Patch:       0001-Disable-some-debug-logs-to-see-if-it-fixes-RHBZ-2247.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -851,6 +855,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Mar 21 2024 Adam Williamson <awilliam@redhat.com> - 3.1.0-3
+- Disable some log statements to see if it works around #2247319
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
