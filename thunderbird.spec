@@ -77,7 +77,7 @@ ExcludeArch: s390x
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        115.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -96,6 +96,7 @@ Source25:       thunderbird-symbolic.svg
 Source28:       thunderbird-wayland.sh.in
 Source29:       thunderbird-wayland.desktop
 Source32:       node-stdout-nonblocking-wrapper
+Source33:       org.mozilla.thunderbird.desktop
 
 # Build patches
 Patch9:         mozilla-build-arm.patch
@@ -227,6 +228,7 @@ based on RNP.
 %{mozappdir}/rnp-cli
 %{mozappdir}/rnpkeys
 
+%if 0%{?fedora} < 40
 %package wayland
 Summary: Thunderbird Wayland launcher.
 Requires: %{name}
@@ -236,6 +238,7 @@ to run Thunderbird natively on Wayland.
 %files wayland
 %{_bindir}/thunderbird-wayland
 %attr(644,root,root) %{_datadir}/applications/mozilla-thunderbird-wayland.desktop
+%endif
 
 %if %{enable_mozilla_crashreporter}
 %global moz_debug_prefix %{_prefix}/lib/debug
@@ -556,12 +559,20 @@ done
            %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
 
 
+%if 0%{?fedora} < 40
 desktop-file-install --vendor mozilla \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE20}
+# wayland desktop file only for older fedoras
 desktop-file-install --vendor mozilla \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE29}
+%else
+#org.mozilla.thunderbird for F40+
+desktop-file-install \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  %{SOURCE33}
+%endif
 
 
 # set up the thunderbird start script
@@ -569,9 +580,17 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/thunderbird
 %{__cat} %{SOURCE21} | %{__sed} -e 's,__PREFIX__,%{_prefix},g' > \
         $RPM_BUILD_ROOT/%{_bindir}/thunderbird
 %{__chmod} 755 $RPM_BUILD_ROOT/%{_bindir}/thunderbird
+# Enable wayland by default on f40+
+%if 0%{?fedora} >= 40
+sed -i -e 's,__WAYLAND_X11_PLACEHOLDER__,export MOZ_ENABLE_WAYLAND=1,g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 
+sed -i -e 's,__APP_NAME__,org.mozilla.thunderbird,g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 
+%else
+sed -i -e 's,__WAYLAND_X11_PLACEHOLDER__,,g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 
+sed -i -e 's,__APP_NAME__,mozilla-thunderbird,g' $RPM_BUILD_ROOT/%{_bindir}/thunderbird 
 %{__cat} %{SOURCE28} | %{__sed} -e 's,__PREFIX__,%{_prefix},g' > \
         %{buildroot}%{_bindir}/thunderbird-wayland
 %{__chmod} 755 %{buildroot}%{_bindir}/thunderbird-wayland
+%endif
 
 # set up our default preferences
 %{__cat} %{SOURCE12} | %{__sed} -e 's,THUNDERBIRD_RPM_VR,%{version}-%{release},g' \
@@ -719,6 +738,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Fri Mar 22 2024 Jan Horak <jhorak@redhat.com> - 115.9.0-2
+- Use wayland backend on Fedora 40+
+
 * Mon Mar 18 2024 Eike Rathke <erack@redhat.com> - 115.9.0-1
 - Update to 115.9.0
 - Fix expat CVE-2023-52425

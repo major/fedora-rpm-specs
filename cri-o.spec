@@ -1,6 +1,20 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.29.2
+
+# Commit for the builds
+%global commit0 d317b5dc918bbfbc78481072a0d93e572aa8d0e8
+
+Name:           cri-o
+Version:        1.29.2
+Epoch:          0
+Release:        1%{?dist}
+Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
+
+# Upstream license specification: Apache-2.0
+License:        ASL 2.0
+URL:            https://github.com/cri-o/cri-o
+Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         otelttrpc.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -23,29 +37,14 @@ Version:                1.29.2
 %global git_tree_state clean
 %global criocli_path ""
 
+# Services
+%global service_name crio
+
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
 %global built_tag v%{version}
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global crio_release_tag %(echo %{built_tag_strip} | cut -f1,2 -d'.')
-
-# Services
-%global service_name crio
-
-# Commit for the builds
-%global commit0 d317b5dc918bbfbc78481072a0d93e572aa8d0e8
-
-Name:           cri-o
-Epoch:          0
-Release:        1%{?dist}
-Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
-
-
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
-URL:            https://github.com/cri-o/cri-o
-Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         otelttrpc.patch
 
 %if 0%{?rhel}
 BuildRequires:  golang >= 1.19
@@ -204,7 +203,6 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %doc docs code-of-conduct.md tutorial.md ADOPTERS.md CONTRIBUTING.md README.md
 %doc awesome.md transfer.md
 %{_bindir}/%{service_name}
-%{_bindir}/%{service_name}-status
 %{_bindir}/pinns
 %{_mandir}/man5/%{service_name}.conf*5*
 %{_mandir}/man8/%{service_name}*.8*

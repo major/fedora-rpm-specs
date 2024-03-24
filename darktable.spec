@@ -113,6 +113,12 @@ Provides: bundled(lua)
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
 # =============
 ExcludeArch: armv7hl i686 s390x
+%if (%{defined fedora} && 0%{?fedora} < 40) || (%{defined rhel} && 0%{?rhel} < 10)
+# 2024-01-19: aarch64 added to exclusion list because of
+# https://bugzilla.redhat.com/show_bug.cgi?id=2259059
+# fixed in GCC 14 (F40/EL10)
+ExcludeArch: aarch64
+%endif
 
 
 %description

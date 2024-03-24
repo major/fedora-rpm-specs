@@ -3,62 +3,62 @@
 
 %bcond docs %{defined fedora}
 
-Name:           python-%{pypi_name}
-Version:        1.23.26
-Release:        %autorelease
-Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
+Name:		python-%{pypi_name}
+Version:	1.24.0
+Release:	%autorelease
+Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
-License:        AGPL-3.0-or-later
-URL:            https://github.com/pymupdf/PyMuPDF
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-Patch0:         0001-fix-test_-font.patch
-Patch1:         0001-test_pixmap-adjust-to-turbojpeg.patch
-Patch2:         0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
+License:	AGPL-3.0-or-later
+URL:		https://github.com/pymupdf/PyMuPDF
+Source0:	%{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Patch0:		0001-fix-test_-font.patch
+Patch1:		0001-test_pixmap-adjust-to-turbojpeg.patch
+Patch2:		0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-fonttools
-BuildRequires:  python3-pillow
-BuildRequires:  python3-pip
-BuildRequires:  python3-psutil
-BuildRequires:  python3-pytest
+BuildRequires:	python3-devel
+BuildRequires:	python3-fonttools
+BuildRequires:	python3-pillow
+BuildRequires:	python3-pip
+BuildRequires:	python3-psutil
+BuildRequires:	python3-pytest
 %if %{with docs}
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx-copybutton
-BuildRequires:  python3-sphinx-notfound-page
-BuildRequires:  python3-furo
-BuildRequires:  rst2pdf
+BuildRequires:	python3-sphinx
+BuildRequires:	python3-sphinx-copybutton
+BuildRequires:	python3-sphinx-notfound-page
+BuildRequires:	python3-furo
+BuildRequires:	rst2pdf
 %endif
-BuildRequires:  gcc gcc-c++
-BuildRequires:  swig
-BuildRequires:  zlib-devel
-BuildRequires:  mupdf-devel mupdf-cpp-devel
-BuildRequires:  freetype-devel
-BuildRequires:  python3-mupdf
+BuildRequires:	gcc gcc-c++
+BuildRequires:	swig
+BuildRequires:	zlib-devel
+BuildRequires:	mupdf-devel mupdf-cpp-devel
+BuildRequires:	freetype-devel
+BuildRequires:	python3-mupdf
 
 %global _description %{expand:
 This is PyMuPDF, a Python binding for MuPDF - a lightweight PDF and XPS
-viewer.  MuPDF can access files in PDF, XPS, OpenXPS, epub, comic and fiction
+viewer. MuPDF can access files in PDF, XPS, OpenXPS, epub, comic and fiction
 book formats, and it is known for its top performance and high rendering
-quality.  With PyMuPDF you therefore can also access files with extensions
+quality. With PyMuPDF you therefore can also access files with extensions
 *.pdf, *.xps, *.oxps, *.epub, *.cbz or *.fb2 from your Python scripts.}
 
 %description %_description
 
-%package -n     python3-%{pypi_name}
-Summary:        %{summary}
+%package -n	python3-%{pypi_name}
+Summary:	%{summary}
 # provide the importable module:
 %py_provides python3-%{module_name}
 # upstream pyproject.toml is borked so add manually:
-Requires:       python3-mupdf
+Requires:	python3-mupdf
 
 %description -n python3-%{pypi_name} %_description
 
 %if %{with docs}
-%package        doc
-Summary:        Documentation for python-%{pypi_name}
-BuildArch:      noarch
+%package	doc
+Summary:	Documentation for python-%{pypi_name}
+BuildArch:	noarch
 
-%description    doc
+%description	doc
 python-%{pypi_name}-doc contains documentation and examples for PyMuPDF
 %endif
 

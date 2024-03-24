@@ -1,13 +1,16 @@
 %global srcname colcon-installed-package-information
 
 Name:           python-%{srcname}
-Version:        0.1.0
-Release:        6%{?dist}
+Version:        0.2.1
+Release:        1%{?dist}
 Summary:        Extensions for colcon to inspect packages which have already been installed
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/colcon/%{srcname}
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Not submitted upstream - compatibility with pytest < 3.9.0
+Patch0:         %{name}-0.2.1-pytest-compat.patch
 
 BuildArch:      noarch
 
@@ -18,6 +21,7 @@ installed.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+BuildRequires:  python%{python3_pkgversion}-colcon-core
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
@@ -50,10 +54,7 @@ extensions provided by colcon_core.
 
 
 %check
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    test
+%pytest -m 'not linter' test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -64,6 +65,10 @@ extensions provided by colcon_core.
 
 
 %changelog
+* Fri Mar 22 2024 Scott K Logan <logans@cottsay.net> - 0.2.1-1
+- Update to 0.2.1 (rhbz#2269532)
+- Switch to SPDX license identifier
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

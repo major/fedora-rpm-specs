@@ -4,8 +4,8 @@
 
 %global crate serial_test
 
-Name:           rust-serial_test
-Version:        3.0.0
+Name:           rust-serial_test2
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Allows for the creation of serialised Rust tests
 

@@ -4,13 +4,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        45.0
-Release:        3%{?dist}
+Version:        46.0
+Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
-License:        GPL-2.0-or-later AND GFDL-1.1-only
+# Sources are under GPL-2.0-or-later, help is under CC-BY-SA-3.0, Appdata is
+# under CC0-1.0.
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Baobab
-Source0:        https://download.gnome.org/sources/baobab/45/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/baobab/46/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
@@ -64,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Fri Mar 22 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

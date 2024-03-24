@@ -29,7 +29,7 @@
 %global build_type_safety_c 2
 
 Name:           freerdp
-Version:        3.3.0
+Version:        3.4.0
 Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
@@ -344,6 +344,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Fri Mar 22 2024 Ondrej Holy <oholy@redhat.com> - 2:3.4.0-1
+- Update to 3.4.0
+
 * Thu Feb 22 2024 Neal Gompa <ngompa@fedoraproject.org> - 2:3.3.0-1
 - Update to 3.3.0
 

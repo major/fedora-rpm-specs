@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.34.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -222,7 +222,7 @@ sed -e '/util\/koji/g' -e '/koji_cli_plugins/g' -i setup.py
 %py3_install_wheel %{name}-%{version}-py3-none-any.whl
 mkdir -p %{buildroot}/etc/koji.conf.d
 cp cli/koji.conf %{buildroot}/etc/koji.conf
-for D in kojihub builder plugins util www vm ; do
+for D in kojihub builder plugins util www vm schemas ; do
     pushd $D
     make DESTDIR=$RPM_BUILD_ROOT PYTHON=%{__python3} %{?install_opt} install
     popd
@@ -249,6 +249,7 @@ done
 
 %files
 %{_bindir}/*
+%{_datadir}/koji
 %config(noreplace) /etc/koji.conf
 %dir /etc/koji.conf.d
 %doc docs Authors COPYING LGPL
@@ -364,6 +365,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Fri Mar 22 2024 Kevin Fenzi <kevin@scrye.com> - 1.34.0-3
+- Add back in missing schema files. rhbz#2270743
+
 * Mon Mar 18 2024 Kevin Fenzi <kevin@scrye.com> - 1.34.0-2
 - Carry scm policy plugin for hub, it's already upstream
 - Use dnf5 compatible 'group install' command

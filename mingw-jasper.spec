@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-jasper
-Version:        4.2.1
+Version:        4.2.2
 Release:        1%{?dist}
 Summary:        MinGW Windows Jasper library
 
@@ -122,6 +122,9 @@ rmdir %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Mar 22 2024 Sandro Mani <manisandro@gmail.com> - 4.2.2-1
+- Update to 4.2.2
+
 * Wed Feb 28 2024 Sandro Mani <manisandro@gmail.com> - 4.2.1-1
 - Update to 4.2.1
 

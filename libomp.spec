@@ -7,7 +7,7 @@
 
 %global maj_ver 18
 %global min_ver 1
-%global libomp_version %{maj_ver}.%{min_ver}.1
+%global libomp_version %{maj_ver}.%{min_ver}.2
 #global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 %global so_suffix %{maj_ver}.%{min_ver}
@@ -156,6 +156,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %changelog
+* Fri Mar 22 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1
+- 18.1.2 Release
+
 * Wed Mar 13 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
 - 18.1.1 Release
 

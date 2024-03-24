@@ -1,7 +1,7 @@
 %global srcname glad2
 
 Name:           python-%{srcname}
-Version:        2.0.5
+Version:        2.0.6
 Release:        %autorelease
 Summary:        Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator
 

@@ -15,12 +15,12 @@
 %global elf_suffix ()%{elf_bits}
 %endif
 
-%bcond bzip2  1
-%bcond gnutls 1
-%bcond lz4    1
-%bcond xz     1
-%bcond zlib   1
-%bcond zstd   1
+%bcond bzip2     1
+%bcond gnutls    1
+%bcond lz4       1
+%bcond xz        1
+%bcond zlib      1
+%bcond zstd      1
 
 # Bootstrap may be needed to break circular dependencies with cryptsetup,
 # e.g. when re-building cryptsetup on a json-c SONAME-bump.
@@ -29,7 +29,7 @@
 %bcond lto       1
 
 # Build from git main
-%bcond upstream 0
+%bcond upstream  0
 
 Name:           systemd
 Url:            https://systemd.io
@@ -115,7 +115,7 @@ Patch0491:      https://github.com/systemd/systemd/pull/30846.patch
 # Adjust upstream config to use our shared stack
 Patch0499:      fedora-use-system-auth-in-pam-systemd-user.patch
 
-%ifarch %{ix86} x86_64 aarch64
+%ifarch %{ix86} x86_64 aarch64 riscv64
 %global want_bootloader 1
 %endif
 
@@ -201,7 +201,9 @@ BuildRequires:  libseccomp-devel
 BuildRequires:  meson >= 0.43
 BuildRequires:  gettext
 # We use RUNNING_ON_VALGRIND in tests, so the headers need to be available
+%ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
+%endif
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  perl
 BuildRequires:  perl(IPC::SysV)
@@ -436,6 +438,13 @@ Requires:       python3dist(pefile)
 Requires:       python3dist(zstd)
 Requires:       python3dist(cryptography)
 Recommends:     python3dist(pillow)
+
+# for tests
+%ifarch riscv64
+# 2.42 received support for riscv64 + efi targets
+%global binutils_version_req >= 2.42
+%endif
+BuildRequires:  binutils %{?binutils_version_req}
 
 BuildArch:      noarch
 

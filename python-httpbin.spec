@@ -1,6 +1,3 @@
-# Not building on EPEL 6 due to incompatibility with Werkzeug < 0.9:
-# https://github.com/Runscope/httpbin/issue/317
-
 # Not building on EPEL 7 as several deps aren't available
 
 %global modname httpbin
@@ -11,16 +8,13 @@ This exists to cover all kinds of HTTP scenarios. Additional endpoints are \
 being considered. All endpoint responses are JSON-encoded.
 
 Name:           python-%{modname}
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        HTTP Request & Response Service, written in Python + Flask
 
 License:        MIT
 URL:            https://github.com/psf/httpbin
 Source:         https://files.pythonhosted.org/packages/source/h/%{modname}/%{modname}-%{version}.tar.gz
-# https://github.com/psf/httpbin/pull/29
-# Adds support for Flask/Werzeug >= 3.0
-Patch:          Add-fallback-for-Werkzeug-3.patch
 # https://github.com/psf/httpbin/issues/26
 # https://github.com/psf/httpbin/pull/32
 # Make the dependency on flasgger optional - it has a heavy dep chain

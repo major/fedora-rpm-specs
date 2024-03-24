@@ -13,7 +13,7 @@ ExclusiveArch: x86_64 aarch64 riscv64
 %define GITCOMMIT      edc6681206c1
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT b5fa396700e7
+%define PLATFORMS_COMMIT 7f42d4034c8f
 
 %define OPENSSL_VER    3.0.7
 %define OPENSSL_COMMIT db0287935122edceb91dcda8dfb53b4090734e22
@@ -33,10 +33,12 @@ ExclusiveArch: x86_64 aarch64 riscv64
   %define build_aarch64 1
 %endif
 %define build_riscv64 0
+%define build_loongarch64 0
 %else
 %define build_ovmf 1
 %define build_aarch64 1
 %define build_riscv64 1
+%define build_loongarch64 1
 %endif
 
 %global softfloat_version 20180726-gitb64af41
@@ -86,6 +88,8 @@ Source47: 60-edk2-ovmf-x64-amdsev.json
 Source48: 60-edk2-ovmf-x64-inteltdx.json
 
 Source50: 50-edk2-riscv-qcow2.json
+
+Source60: 50-edk2-loongarch64.json
 
 # https://gitlab.com/kraxel/edk2-build-config
 Source80: edk2-build.py
@@ -155,6 +159,7 @@ BuildRequires:  gcc-aarch64-linux-gnu
 BuildRequires:  gcc-arm-linux-gnu
 BuildRequires:  gcc-x86_64-linux-gnu
 BuildRequires:  gcc-riscv64-linux-gnu
+BuildRequires:  gcc-loongarch64-linux-gnu
 %endif
 
 
@@ -276,6 +281,15 @@ Conflicts:  libvirt-daemon-driver-qemu < 9.7.0
 EFI Development Kit II
 RISC-V UEFI Firmware
 
+%package loongarch64
+Summary:        loongarch Virtual Machine Firmware
+BuildArch:      noarch
+License:        Apache-2.0 AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-Patent AND LicenseRef-Fedora-Public-Domain
+
+%description loongarch64
+EFI Development Kit II
+loongarch UEFI Firmware
+
 %package ext4
 Summary:        Ext4 filesystem driver
 License:        Apache-2.0 AND BSD-2-Clause-Patent
@@ -332,6 +346,7 @@ cp -a -- \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} \
    %{SOURCE50} \
+   %{SOURCE60} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
    %{SOURCE90} %{SOURCE91} \
    .
@@ -478,6 +493,10 @@ for raw in */riscv/*.raw; do
 done
 %endif
 
+%if %{build_loongarch64}
+./edk2-build.py --config edk2-build.fedora.platforms %{?silent} -m loongarch
+%endif
+
 %install
 
 cp -a OvmfPkg/License.txt License.OvmfPkg.txt
@@ -581,6 +600,15 @@ install -m 0644 \
         %{buildroot}%{_datadir}/qemu/firmware
 
 # endif build_riscv64
+%endif
+
+%if %{build_loongarch64}
+
+install -m 0644 \
+        50-edk2-loongarch64.json \
+        %{buildroot}%{_datadir}/qemu/firmware
+
+# endif build_loongarch64
 %endif
 
 %if %{defined fedora}
@@ -754,6 +782,11 @@ done
 %{_datadir}/%{name}/riscv/*.fd
 %{_datadir}/%{name}/riscv/*.qcow2
 %{_datadir}/qemu/firmware/50-edk2-riscv-qcow2.json
+
+%files loongarch64
+%common_files
+%{_datadir}/%{name}/loongarch64/*.fd
+%{_datadir}/qemu/firmware/50-edk2-loongarch64.json
 
 %files ext4
 %common_files

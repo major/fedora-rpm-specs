@@ -1,11 +1,11 @@
 %global srcname colcon-package-information
 
 Name:           python-%{srcname}
-Version:        0.3.3
-Release:        14%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Extension for colcon to output package information
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -17,6 +17,7 @@ An extension for colcon-core to provide information about the packages.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.5.2
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
@@ -43,10 +44,7 @@ An extension for colcon-core to provide information about the packages.
 
 
 %check
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    test
+%pytest -m 'not linter' test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -57,6 +55,10 @@ An extension for colcon-core to provide information about the packages.
 
 
 %changelog
+* Fri Mar 22 2024 Scott K Logan <logans@cottsay.net> - 0.4.0-1
+- Update to 0.4.0 (rhbz#2269534)
+- Switch to SPDX license identifier
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

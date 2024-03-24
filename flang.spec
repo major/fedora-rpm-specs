@@ -1,6 +1,6 @@
 %global maj_ver 18
 %global min_ver 1
-%global patch_ver 1
+%global patch_ver 2
 #global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -313,6 +313,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Fri Mar 22 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1
+- 18.1.2 Release
+
 * Tue Mar 12 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
 - 18.1.1 Release
 

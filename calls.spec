@@ -1,8 +1,8 @@
 %global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
 
 Name:       calls
-Version:    45.0
-Release:    3%{?dist}
+Version:    46.0
+Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -133,16 +133,4 @@ SH
 %license COPYING
 
 %changelog
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 %autochangelog
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed May 03 2023 Florian Weimer <fweimer@redhat.com> - 45~alpha.0-2
-- Port to C99

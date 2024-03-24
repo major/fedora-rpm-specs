@@ -3,11 +3,11 @@
 %global pkgname pcre2
 
 Name:          mingw-%{pkgname}
-Version:       10.42
-Release:       5%{?dist}
+Version:       10.43
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           http://www.pcre.org/
 Source:        https://github.com/PhilipHazel/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2
 
@@ -177,6 +177,9 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Fri Mar 22 2024 Sandro Mani <manisandro@gmail.com> - 10.43-1
+- Update to 10.43
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.42-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

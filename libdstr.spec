@@ -1,13 +1,15 @@
 Name:		libdstr
 Epoch:		1
 Version:	1.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Dave's String class
 
 BuildRequires:	gcc-c++
 BuildRequires: make
 
-License:	Public Domain
+# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/546
+# SPDX confirmed
+License:	LicenseRef-Fedora-Public-Domain
 URL:		http://www.flaterco.com/util/index.html
 Source0:	ftp://ftp.flaterco.com/misc/%{name}-%{version}.tar.bz2
 
@@ -65,6 +67,9 @@ find $RPM_BUILD_ROOT -name '*.la' \
 
 
 %changelog
+* Fri Mar 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.0-25
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

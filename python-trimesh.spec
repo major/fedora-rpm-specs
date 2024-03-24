@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.1.8
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -34,6 +34,7 @@ ExcludeArch:    %{ix86}
 %undefine __brp_python_bytecompile
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # Run tests in parallel:
 BuildRequires:  python3dist(pytest-xdist)
@@ -175,6 +176,8 @@ EOF
 
 # Patch out unavailable or dependencies from extras:
 #
+#   cascadio: not yet packaged, https://pypi.org/project/cascadio,
+#             https://github.com/mikedh/cascadio; depends on
 #   embreex: not packaged, https://github.com/mikedh/embreeX; this would
 #            require version 2.x of embree, which was once available in a
 #            compat package (https://src.fedoraproject.org/rpms/embree2) but
@@ -183,54 +186,44 @@ EOF
 #           that are not currently packaged unbundled from its assets
 #   manifold3d: not yet packaged, https://github.com/elalish/manifold/
 #   meshio: not yet packaged, https://github.com/nschloe/meshio
+#   openctm: not yet packaged, https://pypi.org/project/openctm,
+#            https://github.com/trimesh/openctm; depends on
+#            https://github.com/Danny02/OpenCTM, also not yet packaged
 #   pyglet: incompatible version 2.x, beginning with F41. See “Path to
 #           supporting Pyglet 2?” https://github.com/mikedh/trimesh/issues/2155
-#   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
-#              bundles MeshLab, which is a nontrivial package that has its own
-#              bundling; see “Support a system/external copy of meshlab?”
-#              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
-#   python-fcl: not yet packaged; upstream is not compatible with the current
-#               release of fcl,
-#               https://github.com/BerkeleyAutomation/python-fcl/issues/19
+#   python-fcl: review: https://bugzilla.redhat.com/show_bug.cgi?id=2270968
 #   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
-#
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    'project.optional-dependencies.easy' '(embreex|xatlas)\b.*'
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    'project.optional-dependencies.recommend' \
+    '(cascadio|glooey|manifold3d|meshio|openctm|python-fcl)\b.*'
+%if 0%{?fedora} > 40 || ! 0%{?fedora}
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    'project.optional-dependencies.recommend' 'pyglet\b.*'
+%endif
+%if %{without skimage}
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    'project.optional-dependencies.recommend' 'scikit-image\b.*'
+%endif
 # Those listed below are test-only dependencies: some are unavailable; the rest
 # are unwanted under
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
 #
-#   black: linters/coverage/etc.
 #   coveralls: linters/coverage/etc.
 #   mypy: linters/coverage/etc.
 #   pyinstrument: not packaged; see preceding “stub” patch
+#   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
+#              bundles MeshLab, which is a nontrivial package that has its own
+#              bundling; see “Support a system/external copy of meshlab?”
+#              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
 #   pytest-cov: linters/coverage/etc.
 #   ruff: linters/coverage/etc.
 #   typeguard: linters/coverage/etc.
-for pkg in \
-    black \
-    coveralls \
-    embreex \
-    glooey \
-    manifold3d \
-    meshio \
-    mypy \
-%if 0%{?fedora} > 40 || ! 0%{?fedora}
-    pyglet \
-%endif
-    pyinstrument \
-    pymeshlab \
-    pytest-cov \
-    python-fcl \
-    ruff \
-    typeguard \
-    %{?without_skimage:scikit-image} \
-    xatlas \
-    %{nil}
-do
-  sed -r -i \
-      "s/^([[:blank:]])*(\"${pkg}([><=][^\"]+)?\",?)/\\1# \\2/" \
-      pyproject.toml
-done
+tomcli set pyproject.toml lists delitem --type regex --no-first \
+    'project.optional-dependencies.test' \
+    '(coveralls|mypy|pytest-cov|pyinstrument|pymeshlab|ruff|typeguard)\b.*'
 
 
 %generate_buildrequires

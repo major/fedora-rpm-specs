@@ -9,7 +9,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        1.0.3
+Version:        1.1.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -74,7 +74,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: %{version}+rpmbootstrap
+Version: 1.1.1
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -129,6 +129,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Fri Mar 22 2024 Sandro Mani <manisandro@gmail.com> - 1.1.1-1
+- Update to 1.1.1
+
 * Wed Jan 24 2024 Sandro Mani <manisandro@gmail.com> - 1.0.3-1
 - Update to 1.0.3
 

@@ -18,6 +18,10 @@ ExcludeArch: %{arm}
 ExcludeArch: s390x
 %endif
 
+# Bundled cbindgen makes build slow.
+# Enable only if system cbindgen is not available.
+%global use_bundled_cbindgen  1
+
 ####################
 
 ### Optimization ###
@@ -94,9 +98,6 @@ ExcludeArch: s390x
 
 %global disable_elfhack 1
 
-# cbingen
-%global use_bundled_cbindgen 1
-
 # Use clang?
 %global build_with_clang  0
 
@@ -107,7 +108,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   2
-Version: 115.8.0
+Version: 115.9.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -515,7 +516,6 @@ find extensions/gnu -name cose.manifest -delete
 %build
 # cbindgen
 %if 0%{?use_bundled_cbindgen}
-
 mkdir -p my_rust_vendor
 cd my_rust_vendor
 %{__tar} xf %{SOURCE17}
@@ -531,6 +531,8 @@ EOL
 
 env CARGO_HOME=.cargo cargo install cbindgen
 export PATH=`pwd`/.cargo/bin:$PATH
+%else
+export CBINDGEN=/usr/bin/cbindgen
 %endif
 
 mkdir %{_buildrootdir}/bin || :

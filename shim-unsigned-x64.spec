@@ -31,7 +31,7 @@ Version:	15.8
 Release:	2
 Summary:	First-stage UEFI bootloader
 ExclusiveArch:	x86_64
-License:	BSD
+License:	BSD-2-Clause AND OpenSSL
 URL:		https://github.com/rhboot/shim
 Source0:	https://github.com/rhboot/shim/releases/download/%{version}%{?dashpre}/shim-%{version}%{?dotpre}.tar.bz2
 Source1:	fedora-ca-20200709.cer
@@ -191,6 +191,10 @@ cd ..
 %files debugsource -f build-%{efiarch}/debugsource.list
 
 %changelog
+* Fri Mar 22 2024 Nicolas Frayer <nfrayer@redhat.com>
+- Migrate to SPDX license
+- Please refer to https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
+
 * Tue Feb 20 2024 Peter Jones <pjones@redhat.com> - 15.8-2
 - Fix some minor problems caught in review.
 

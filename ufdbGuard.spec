@@ -1,13 +1,12 @@
 Name:		ufdbGuard
-Version:	1.35.6
+Version:	1.35.7
 Release:	1%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPL-2.0-only
 
 Source0:	https://www.urlfilterdb.com/files/downloads/%{name}-%{version}.tar.gz
-Source1:	ufdbGuard.service
-Source2:	ufdbGuard.logrotate
+Source1:	ufdbGuard.logrotate
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %bcond_without tmpfiles
@@ -76,8 +75,7 @@ for i in $(find doc/ -type f -name '*.8'); do
     install -p -D -m 0644 $i %{buildroot}%{_mandir}/man8/
 done
 
-install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/ufdbGuard.service
-install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/ufdbGuard
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/ufdbGuard
 
 rm -rf %{buildroot}%{_sysconfdir}/rc.d/init.d/ufdb
 
@@ -104,13 +102,13 @@ getent passwd ufdb >/dev/null || \
 exit 0
 
 %post
-%systemd_post ufdbGuard.service
+%systemd_post ufdbguard.service
 
 %preun
-%systemd_preun ufdbGuard.service
+%systemd_preun ufdbguard.service
 
 %postun
-%systemd_postun_with_restart ufdbGuard.service
+%systemd_postun_with_restart ufdbguard.service
 
 
 %files
@@ -126,13 +124,17 @@ exit 0
 %dir %{_sharedstatedir}/ufdbguard/
 %attr(-, ufdb, ufdb) %dir %{_localstatedir}/log/ufdbguard/
 %{_sharedstatedir}/ufdbguard/*
-%{_unitdir}/ufdbGuard.service
+%{_unitdir}/ufdbguard.service
 %attr(-, ufdb, ufdb) %dir %{_var}/run/ufdbguard/
 %if %{with tmpfiles}
 %config(noreplace) %{_tmpfilesdir}/ufdbGuard.conf
 %endif
 
 %changelog
+* Fri Mar 22 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.35.7-1
+- 1.35.7
+- use upstream unit file
+
 * Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.35.6-1
 - 1.35.6
 

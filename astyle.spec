@@ -1,24 +1,19 @@
 Name:           astyle
-Version:        3.1
-Release:        22%{?dist}
+Version:        3.4.13
+Release:        1%{?dist}
 Summary:        Source code formatter for C-like programming languages
 
 %global majorversion    3
-%global soversion       3.1.0
+%global soversion       3.4.0
 
 License:        MIT
-URL:            http://astyle.sourceforge.net/
-Source0:        https://downloads.sourceforge.net/%{name}/%{name}_%{version}_linux.tar.gz
+URL:            https://astyle.sourceforge.net/
+Source0:        https://gitlab.com/saalen/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
 
-
 # Fix (hardcoded) path to html-help
 Patch1:         astyle-html-help.patch
-# Fix abort with gcc8 -Wp,-D_GLIBCXX_ASSERTION
-# https://bugzilla.redhat.com/show_bug.cgi?id=1573092
-# Patch proposed: https://sourceforge.net/p/astyle/bugs/503/
-Patch2:         astyle-r655-gcc8-vector-at-end.patch
 
 %description
 Artistic Style is a source code indenter, source code formatter, and
@@ -37,41 +32,39 @@ This package contains the shared library.
 
 
 %prep
-%setup -q -n %{name}
-%patch -P 1 -p1
-%patch -P 2 -p1
+%autosetup -p1
 
 # drop executable bit from all files
 find . -type f -exec chmod a-x {} \;
 
 
 %build
-pushd src
+pushd AStyle/src
     # it's much easier to compile it here than trying to fix the Makefile
     g++ %{build_cxxflags} -DASTYLE_LIB -fPIC -c ASBeautifier.cpp ASEnhancer.cpp ASFormatter.cpp ASResource.cpp astyle_main.cpp
     g++ %{build_ldflags} -shared -o libastyle.so.%{soversion} *.o -Wl,-soname,libastyle.so.%{majorversion}
-    ln -s libastyle.so.%{soversion} libastyle.so
     ln -s libastyle.so.%{soversion} libastyle.so.%{majorversion}
+    ln -s libastyle.so.%{majorversion} libastyle.so
     g++ %{build_cxxflags} -c ASLocalizer.cpp astyle_main.cpp
     g++ %{build_ldflags} -o astyle ASLocalizer.o astyle_main.o -L. -lastyle
 popd
 
+
 %install
-pushd src
+pushd AStyle/src
     mkdir -p %{buildroot}{%{_bindir},%{_libdir},%{_includedir}}
 
     install -p -m 755 astyle %{buildroot}%{_bindir}
     install -p -m 755 libastyle.so.%{soversion} %{buildroot}%{_libdir}
-    install -p -m 755 libastyle.so.%{majorversion} %{buildroot}%{_libdir}
+    cp -P libastyle.so.%{majorversion} %{buildroot}%{_libdir}
     cp -P libastyle.so %{buildroot}%{_libdir}
     install -p -m 644 astyle.h %{buildroot}%{_includedir}
 popd
 
-%ldconfig_scriptlets
 
 %files
-%license LICENSE.md
-%doc doc/*.html
+%license AStyle/LICENSE.md
+%doc AStyle/doc/*.html
 %{_bindir}/astyle
 %{_libdir}/libastyle.so.%{majorversion}
 %{_libdir}/libastyle.so.%{soversion}
@@ -80,7 +73,14 @@ popd
 %{_libdir}/libastyle.so
 %{_includedir}/astyle.h
 
+
 %changelog
+* Thu Mar 21 2024 Dan Horák <dan[at]danny.cz> - 3.4.13-1
+- updated to 3.4.13 (rhbz#2264433)
+
+* Thu Feb 15 2024 Dan Horák <dan[at]danny.cz> - 3.4.12-1
+- updated to 3.4.12 (rhbz#2264433)
+
 * Thu Feb 15 2024 Dan Horák <dan[at]danny.cz> - 3.1-22
 - explicitly add library %%{majorversion} symlink
 

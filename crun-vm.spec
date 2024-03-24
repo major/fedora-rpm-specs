@@ -32,7 +32,22 @@ Source:         https://github.com/containers/crun-vm/archive/%{version}.tar.gz
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  libselinux-devel
 
+Requires:       bash
+Requires:       coreutils
+Requires:       crun
+Requires:       genisoimage
+Requires:       grep
 Requires:       libselinux
+Requires:       libvirt-client
+Requires:       libvirt-daemon-driver-qemu
+Requires:       libvirt-daemon-log
+Requires:       openssh
+Requires:       openssh-clients
+Requires:       qemu-img
+Requires:       qemu-system-x86-core
+Requires:       shadow-utils
+Requires:       util-linux
+Requires:       virtiofsd
 
 %global _description %{expand:
 %{summary}.}

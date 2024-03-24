@@ -1,10 +1,10 @@
 Name:		mupdf
 %global libname libmupdf
-Version:	1.23.10
+Version:	1.24.0
 %global pypiname mupdf
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
-%global soname 23.10
+%global soname 24.0
 Release:	%autorelease
 Summary:	A lightweight PDF viewer and toolkit
 License:	AGPL-3.0-or-later
@@ -12,21 +12,9 @@ URL:		http://mupdf.com/
 Source0:	http://mupdf.com/downloads/archive/%{name}-%{upversion}-source.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}-gl.desktop
-# https://github.com/ArtifexSoftware/mupdf/pull/42
-Patch:		dc339ceab37d962e91527068321790768262a42c.patch
-# Upstream patches backported from master branch (build system fixes for shared builds)
-Patch:		0001-Makerules-scripts-wrap-__main__.py-fix-for-Pyodide-s.patch
-Patch:		0002-Makefile-add-version-numbers-and-installation-target.patch
-Patch:		0003-scripts-Create-shared-libraries-with-version-numbers.patch
-Patch:		0004-Makerules-fixes-for-shared-shared-library-installs-o.patch
-Patch:		0005-scripts-wrap-__main__.py-fix-Pyodide-builds-of-share.patch
-Patch:		0006-scripts-wrap-__main__.py-Allow-customisation-of-lang.patch
-Patch:		0007-scripts-wrap-cpp.py-avoid-compiler-error-in-debug-di.patch
-Patch:		0008-Makefile-fix-build-failures-with-library-soft-links.patch
-Patch:		0009-Makefile-scripts-wrap-__main__.py-Set-SONAME-when-li.patch
-Patch:		0010-Bug-707503-Make-cast-from-int64_t-to-time_t-explicit.patch
-Patch:		0011-Makefile-allow-control-of-file-modes-and-venv-s.patch
-Patch:		0001-Fix-build-with-llvm18.patch
+# Upstreamable patches:
+# https://bugs.ghostscript.com/show_bug.cgi?id=707682
+Patch:		0001-add-missing-header-for-fz_archive.patch
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils
 BuildRequires:	libjpeg-devel freetype-devel libXext-devel curl-devel
@@ -39,12 +27,12 @@ BuildRequires:	swig python3-clang python3-devel
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
 # to integrate Artifex's changes. 
-Provides:	bundled(lcms2-devel) = 2.14~rc1^59-g88b6a72
+Provides:	bundled(lcms2-devel) = 2.14~rc1^60.gab4547b
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
 Provides:	bundled(mujs-devel) = 1.3.3
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
-Provides:	bundled(extract) = 10.01.2
+Provides:	bundled(extract) = 10.01.2^1.ged5acb1
 
 %description
 MuPDF is a lightweight PDF viewer and toolkit written in portable C.

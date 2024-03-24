@@ -1,7 +1,7 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.16.2
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
@@ -104,6 +104,22 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Tue Mar 12 2024 Packit <hello@packit.dev> - 2.17.0-1
+- [maven-release-plugin] prepare release jackson-modules-base-2.17.0 (Tatu Saloranta)
+- Prepare for 2.17.0 release (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- [maven-release-plugin] prepare release jackson-modules-base-2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 (Tatu Saloranta)
+- Test refactoring (Tatu Saloranta)
+- Add tests relating to aspects of #195 (verify @XmlSeeAlso handling wrt subtype deps) (Tatu Saloranta)
+- update 2.17 version too (Tatu Saloranta)
+- Start 2.17 branch (Tatu Saloranta)
+- Resolves rhbz#2269276
+
 * Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
 - [maven-release-plugin] prepare release jackson-modules-base-2.16.2 (Tatu Saloranta)
 - Prepare for 2.16.2 release (Tatu Saloranta)

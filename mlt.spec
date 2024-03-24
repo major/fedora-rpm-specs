@@ -13,7 +13,7 @@
 
 Name:           mlt
 Version:        7.22.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -160,11 +160,6 @@ chmod -x demo/demo
 # be sure that aren't used
 rm -r src/win32/
 
-# Workaround https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113205
-%ifarch x86_64
-%global optflags %(echo %{optflags} -fno-tree-slp-vectorize)
-%endif
-
 %build
 %cmake -DCMAKE_SKIP_RPATH:BOOL=ON           \
        -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON   \
@@ -250,6 +245,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Fri Mar 22 2024 Sérgio Basto <sergio@serjux.com> - 7.22.0-5
+- Remove workaround
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 7.22.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 - Workaround https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113205

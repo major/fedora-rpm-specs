@@ -1,7 +1,7 @@
 %global srcname colcon-cd
 
 Name:           python-%{srcname}
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 Summary:        Extension for colcon to change the current working directory
 
@@ -64,6 +64,9 @@ install -p -D function/colcon_cd.sh %{buildroot}%{_datadir}/colcon_cd/function/c
 
 
 %changelog
+* Fri Mar 22 2024 Scott K Logan <logans@cottsay.net> - 0.2.1-1
+- Update to 0.2.1 (rhbz#2270216)
+
 * Thu Mar 14 2024 Scott K Logan <logans@cottsay.net> - 0.2.0-1
 - Update to 0.2.0 (rhbz#2269533)
 - Switch to SPDX license identifier

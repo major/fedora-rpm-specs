@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         baserelease     6
+%global         baserelease     7
 
 %global         githash     3ba444a4f7a6835e4a717c46f95802faea03eaf5
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -17,7 +17,8 @@ Version:        2.9
 Release:        %{fedorarel}%{?dist}
 Summary:        A fractal terrain generator
 
-License:        MIT
+# SPDX confirmed
+License:        HPND
 URL:            https://spbooth.github.io/xmountains/
 %if 0%{?usegit} >= 1
 Source0:        https://github.com/spbooth/xmountains/archive/%{githash}/%{name}_%{version}-D%{gitdate_num}git%{githash}.tar.gz
@@ -31,7 +32,7 @@ Patch1:		xmountains-2.9-implicit.patch
 # Support gcc10 -fno-common
 Patch2:		xmountains-2.9-fno-common.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  xorg-x11-xbitmaps
 BuildRequires:  xorg-x11-proto-devel
@@ -102,6 +103,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Fri Mar 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9-7.D20170103git3ba444a4f7
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-6.D20170103git3ba444a4f7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

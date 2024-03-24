@@ -1,11 +1,13 @@
+%global commit 2a54078cbe3814105ee4f565f451b1b5947fbde0
+
 Name:       light
 Version:    1.2.2
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Control backlight controllers
 
 License:    GPL-3.0-only
-URL:        http://haikarainen.github.io/light/
-Source0:    https://github.com/haikarainen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:        https://gitlab.com/dpeukert/light
+Source0:    %{URL}/-/archive/%{commit}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires: help2man
@@ -30,7 +32,7 @@ Features
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 
 
 %build
@@ -61,6 +63,9 @@ fi
 
 
 %changelog
+* Fri Mar 22 2024 Jakub Kadlcik <frostyx@email.cz> - 1.2.2-13
+- The original upstream died, moving to gitlab.com/dpeukert/light
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

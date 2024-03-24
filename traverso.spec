@@ -15,10 +15,10 @@
 
 Name:           traverso
 Version:        0.49.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Multitrack Audio Recording and Editing Suite
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://traverso-daw.org/
 Source0:        http://traverso-daw.org/%{name}-%{version}.tar.gz
 # lower the rtprio requirement to 20, for compliance with our jack
@@ -48,7 +48,7 @@ BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  raptor-devel
+BuildRequires:  raptor2-devel
 BuildRequires:  redland-devel
 BuildRequires:  wavpack-devel
 
@@ -141,6 +141,9 @@ install -pm 644 resources/x-%{name}.xml %{buildroot}%{_datadir}/mime/packages/
 %{_datadir}/mime/packages/*.xml
 
 %changelog
+* Fri Mar 22 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 0.49.6-13
+- Switch to raptor2
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.49.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

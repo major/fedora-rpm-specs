@@ -5,15 +5,15 @@
 %undefine _include_frame_pointers
 
 %global maj_ver 18
-%global libcxx_version %{maj_ver}.1.0
-%global rc_ver 4
+%global libcxx_version %{maj_ver}.1.2
+#global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libunwind_srcdir libunwind-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -241,6 +241,12 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Mar 22 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1
+- 18.1.2 Release
+
+* Wed Mar 13 2024 Tom Stellard <tstellar@redhat.com> - 18.1.1-1
+- 18.1.1 Release
+
 * Mon Mar 04 2024 Nikita Popov <npopov@redhat.com> - 18.1.0~rc4-2
 - Disable LIBCXXABI_USE_LLVM_UNWINDER (rhbz#2267690)
 

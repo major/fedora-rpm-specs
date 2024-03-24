@@ -24,7 +24,12 @@
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
+%ifnarch riscv64
+# Disable LTO (ld.gold not supported on riscv64)
 %global _lto_cflags -flto=thin
+%else
+%global _lto_cflags %{nil}
+%endif
 
 %if %{with compat_build}
 %global pkg_name llvm%{maj_ver}
@@ -246,7 +251,7 @@ mv %{third_party_srcdir} third-party
 
 %build
 
-%ifarch s390 s390x %{arm} %ix86
+%ifarch s390 s390x %{arm} %ix86 riscv64
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
@@ -260,7 +265,7 @@ export ASMFLAGS=$CFLAGS
 	-DLLVM_PARALLEL_LINK_JOBS=1 \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
-%ifarch s390 %{arm} %ix86
+%ifarch s390 %{arm} %ix86 riscv64
 	-DCMAKE_C_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 	-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG" \
 %endif
@@ -328,7 +333,9 @@ export ASMFLAGS=$CFLAGS
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
 	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
+%ifnarch riscv64
 	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
+%endif
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
 # are no other compile jobs running.  This will help reduce OOM errors on the
@@ -582,6 +589,12 @@ fi
 %endif
 
 %changelog
+* Sat Mar 16 2024 David Abdurachmanov <davidlt@rivosinc.com> - 16.0.6-9
+- Add support for riscv64
+- Fix build error: '/usr/bin/ld: bad -plugin-opt option' on riscv64.
+- Lower memory consumption on riscv64
+- Disable LTO (ld.gold not supported on riscv64)
+
 * Tue Mar 05 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-8
 - Force ldconfig execution in compat packages. Fixes rhbz#2001328.
 

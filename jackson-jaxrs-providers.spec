@@ -1,7 +1,7 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.16.2
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
@@ -173,6 +173,23 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Wed Mar 13 2024 Packit <hello@packit.dev> - 2.17.0-1
+- [maven-release-plugin] prepare release jackson-jaxrs-providers-2.17.0 (Tatu Saloranta)
+- Prepare for 2.17.0 release (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- Back to snapshot dep (Tatu Saloranta)
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+- [maven-release-plugin] prepare release jackson-jaxrs-providers-2.17.0-rc1 (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 (Tatu Saloranta)
+- Update Woodstox version (Tatu Saloranta)
+- Prepare for 2.17.0-rc1 (Tatu Saloranta)
+- Woodstox dep update (Tatu Saloranta)
+- Enable JDK 21 for CI (Tatu Saloranta)
+- Post-merge cleanup for 2.17 wrt #178 (Tatu Saloranta)
+- Start 2.17 branch (Tatu Saloranta)
+- Resolves rhbz#2269296
+
 * Sat Mar 09 2024 Packit <hello@packit.dev> - 2.16.2-1
 - [maven-release-plugin] prepare release jackson-jaxrs-providers-2.16.2 (Tatu Saloranta)
 - Prepare for 2.16.2 release (Tatu Saloranta)

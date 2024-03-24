@@ -39,12 +39,8 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{reponame}-%{version} -p1
 
-# Remove upper version limit on cryptography.
-sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
-
-# Allow newer circuitbreaker.
-sed -i 's/circuitbreaker>=1.3.1,< 2.0.0/circuitbreaker>=1.3.0/' setup.py
-sed -i 's/circuitbreaker>=1.3.1,<2.0.0/circuitbreaker>=1.3.0/' requirements.txt
+# Remove upper limits and pinned dependencies.
+sed -i -e 's/,[<= ]\+[0-9\.]\+//' -e 's/==/>=/' setup.py
 
 # Compatibility with pytest 7.4.0
 # reported upstream: https://github.com/oracle/oci-python-sdk/issues/565

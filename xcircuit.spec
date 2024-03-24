@@ -1,11 +1,5 @@
 %global	short_version	3.10
 
-%if 0%{?fedora} >= 28
-%global	ghostscript_devel	libgs-devel
-%else
-%global	ghostscript_devel	ghostscript-devel
-%endif
-
 %undefine        _changelog_trimtime
 %undefine   __brp_mangle_shebangs
 
@@ -14,6 +8,13 @@ Version:		%{short_version}.30
 Release:		10%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
+# Xw/		HPND unused
+# asg/	non-free	unused
+# flate.c	GPL-2.0-only	from acroformtool
+# lib/tcl/matgen.tcl		GPL-2.0-or-later
+# spiceparser/	GPL-2.0-or-later	unused
+# utf8encodings.c	under review https://gitlab.com/fedora/legal/fedora-license-data/-/issues/498
+# xcircuit.c	GPL-2.0-or-later
 License:		GPLv2+
 URL:			http://opencircuitdesign.com/xcircuit
 
@@ -23,12 +24,12 @@ Source1:		%{name}.desktop
 Source2:		%{name}.png
 
 Patch0:		xcircuit-3.9.40-format-security.patch
-Patch1: xcircuit-c99.patch
+Patch1:		xcircuit-c99.patch
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(fontconfig)
-BuildRequires:	%ghostscript_devel
+BuildRequires:	libgs-devel
 BuildRequires:	libXpm-devel
 BuildRequires:	libXt-devel
 BuildRequires:	tcl-devel

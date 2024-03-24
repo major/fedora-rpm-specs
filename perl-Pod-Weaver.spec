@@ -1,6 +1,6 @@
 Name:           perl-Pod-Weaver
-Version:        4.019
-Release:        5%{?dist}
+Version:        4.020
+Release:        1%{?dist}
 Summary:        Weave together a POD document from an outline
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Weaver
@@ -99,7 +99,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -116,13 +116,19 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Pod
+%{perl_vendorlib}/Pod/Weaver
+%{perl_vendorlib}/Pod/Weaver.pm
+%{_mandir}/man3/Pod::Weaver.*
+%{_mandir}/man3/Pod::Weaver::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 22 2024 Petr Pisar <ppisar@redhat.com> - 4.020-1
+- 4.020 bump
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.019-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

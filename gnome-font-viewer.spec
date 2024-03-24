@@ -2,8 +2,8 @@
 %global major_version %%(echo %%{tarball_version} | awk -F. '{print $1}')
 
 Name:           gnome-font-viewer
-Version:        45.0
-Release:        4%{?dist}
+Version:        46.0
+Release:        1%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
 License:        GPL-2.0-or-later
@@ -43,7 +43,7 @@ name, style, type, size, version and copyright of the font.
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.font-viewer.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.font-viewer.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Fri Mar 22 2024 David King <amigadave@amigadave.com> - 46.0-1
+- Update to 46.0
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 45.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

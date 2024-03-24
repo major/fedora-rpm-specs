@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.7.12
+Version:        2.7.14
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -310,6 +310,26 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Fri Mar 22 2024 Packit <hello@packit.dev> - 2.7.14-1
+- Release 2.7.14 (Julian Andres Klode)
+- Add an artificial Conflicts: against libnettle8 (Steve Langasek)
+- Revert "debrecords: Do not reparse if given same location" (Julian Andres Klode)
+- debrecords: Do not reparse if given same location (Julian Andres Klode)
+- pkgTagFile::Jump: Use lookback buffer to rejump to current position (Julian Andres Klode)
+- s#http://bugs.debian.org/src/#https://bugs.debian.org/src# (Wesley Schwengle)
+- Update VCG tool URI to new location (Wesley Schwengle)
+- Update Graphviz URL to https://graphviz.org/ (Wesley Schwengle)
+- Include Dutch translation for apt/apt-get upgrade documenation update (Wesley Schwengle)
+- Update documentation for apt upgrade with pkg arg (Wesley Schwengle)
+- Update documentation for apt-get upgrade with pkg arg (Wesley Schwengle)
+- Dutch manpages translation update (Frans Spiesschaert)
+- Dutch program translation update (Frans Spiesschaert)
+- Parse unsupported != relation in dependencies (David Kalnischkies)
+- Remove non-existent Debug::BuildDeps from apt.conf(5) (David Kalnischkies)
+- Handle EINTR in the static FileFd::Write overload (David Kalnischkies)
+- Support building without gnutls (Steve Langasek)
+- Resolves rhbz#2270952
+
 * Tue Feb 20 2024 Packit <hello@packit.dev> - 2.7.12-1
 - Release 2.7.12 (Julian Andres Klode)
 - Release 2.7.12 (Julian Andres Klode)

@@ -3,7 +3,7 @@
 %global srcname threadpoolctl
 
 Name: python-%{srcname}
-Version: 3.3.0
+Version: 3.4.0
 Release: %autorelease
 Summary: Thread-pool Controls
 License: BSD-3-Clause

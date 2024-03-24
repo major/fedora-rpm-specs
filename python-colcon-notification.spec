@@ -1,11 +1,11 @@
 %global srcname colcon-notification
 
 Name:           python-%{srcname}
-Version:        0.2.15
-Release:        6%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Extension for colcon to provide status notifications
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -50,10 +50,7 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %check
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    test
+%pytest -m 'not linter' test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -64,6 +61,10 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Fri Mar 22 2024 Scott K Logan <logans@cottsay.net> - 0.3.0-1
+- Update to 0.3.0 (rhbz#2269536)
+- Switch to SPDX license identifier
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

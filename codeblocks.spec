@@ -1,5 +1,5 @@
-%global svndate 20240128
-%global svnrev 13434
+%global svndate 20240225
+%global svnrev 13483
 %global snapshot 0%{?svndate}
 %if %{snapshot}
 %global svnrelease .%{svndate}svn%{svnrev}

@@ -14,7 +14,7 @@ Release:    %autorelease
 Summary:    Grassroots DiCoM is a C++ library to parse DICOM medical files
 # SPDX
 License:    BSD-3-Clause
-URL:        http://gdcm.sourceforge.net/wiki/index.php/Main_Page
+URL:        https://sourceforge.net/projects/gdcm/
 # Use github release
 Source0:    https://github.com/malaterre/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:    http://downloads.sourceforge.net/project/gdcm/gdcmData/gdcmData/gdcmData.tar.gz

@@ -1,5 +1,5 @@
 Name:           perl-Object-HashBase
-Version:        0.012
+Version:        0.013
 Release:        1%{?dist}
 Summary:        Build hash-based classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,7 +91,6 @@ make test
 %{perl_vendorlib}/*
 %exclude %{perl_vendorlib}/Object/HashBase
 %{_mandir}/man3/*
-%exclude %{_mandir}/man3/Object::HashBase::*
 
 %files tests
 %{_libexecdir}/%{name}
@@ -99,9 +98,11 @@ make test
 %files tools
 %{_bindir}/hashbase_inc.pl
 %{perl_vendorlib}/Object/HashBase
-%{_mandir}/man3/Object::HashBase::*
 
 %changelog
+* Fri Mar 22 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.013-1
+- 0.013 bump
+
 * Thu Mar 21 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.012-1
 - 0.012 bump
 

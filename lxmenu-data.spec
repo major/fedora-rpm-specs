@@ -2,16 +2,17 @@
 
 Name:           lxmenu-data
 Version:        0.1.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Data files for the LXDE menu
 
-License:        LGPLv2+
+# SPDX confirmed
+License:        LGPL-2.0-or-later
 URL:            http://lxde.org
 Source0:        http://downloads.sourceforge.net/lxde/%{name}-%{version}.tar.xz
 Source1:        lxmenu-data-0.1-COPYING
 Patch0:         lxmenu-data-0.1.1-menu.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  intltool >= 0.40.0
 Requires:       redhat-menus
@@ -24,7 +25,7 @@ the freedesktop-org menu spec. Currently it's used by LXPanel and LXLauncher.
 
 %prep
 %setup -q
-%patch0 -p1 -b .orig
+%patch -P0 -p1 -b .orig
 # install correct license
 rm -f COPYING
 cp %{SOURCE1} COPYING
@@ -50,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Mar 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.5-18
+- SPDX migration
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

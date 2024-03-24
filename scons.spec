@@ -7,15 +7,13 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.6.0
+Version:   4.7.0
 Release:   %autorelease
 Summary:   An Open Source software construction tool
 License:   MIT
 URL:       http://www.scons.org
 Source0:   %{pypi_source}
 Source1:   https://scons.org/doc/production/scons-doc-%{version}.tar.gz
-# Avoid unnecessary dependency on python-build
-Patch0:    0001-Remove-unnecessary-build-deps.patch
 
 BuildArch: noarch
 BuildRequires: make
@@ -81,7 +79,6 @@ defined Builder and/or Scanner objects.
 %else
 %autosetup -N -T -b 0
 %endif
-%autopatch -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x tests

@@ -3,10 +3,18 @@
 
 Name:			xyzsh
 Version:		1.5.8
-Release:		25%{?dist}
+Release:		26%{?dist}
 Summary:		Interactive shell and text processing tool
 
-License:		MIT
+# LICENSE		MIT
+# src/chared.h	BSD-3-Clause
+# src/editline/		BSD-3-Clause
+# src/editline/chartype.h	BSD-4-Clause
+# src/editline/eln.c	BSD-4-Clause
+# src/editline/fgetln.c (and some others)	BSD-2-Clause
+# src/editline/strlcat.c	HPND
+# SPDX confirmed
+License:		MIT AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND HPND
 URL:			http://sourceforge.jp/projects/xyzsh/
 Source0:		http://dl.sourceforge.jp/xyzsh/%{repoid}/%{name}-%{version}.tgz
 # -Werror=format-security
@@ -14,7 +22,7 @@ Patch0:		xyzsh-1.5.8-format.patch
 # -Werror=implicit-function-declaration
 Patch1:		xyzsh-1.5.8-implicit-function-declaration.patch
 
-BuildRequires:	make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:	cmigemo-devel
 BuildRequires:	oniguruma-devel
@@ -88,7 +96,7 @@ make install \
 %files
 %doc	AUTHORS
 %doc	CHANGELOG
-%doc	LICENSE
+%license	LICENSE
 %doc	README
 %lang(ja)	%doc	README.ja
 %doc	USAGE
@@ -109,6 +117,9 @@ make install \
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Mar 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.8-26
+- SPDX migration
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -93,6 +93,7 @@ Patch62:	seamonkey-2.53.11-compat-version.patch
 Patch65:	seamonkey-2.53.17-fix-1406821.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
 Patch69:	seamonkey-2.53.16-stylo_config.patch
+Patch70:	icu_74.1.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
 %{?with_system_nss:BuildRequires:       nss-devel >= %{nss_version}}
@@ -154,7 +155,7 @@ Requires:       p11-kit-trust
 
 # ppc64:   http://bugzilla.redhat.com/bugzilla/866589
 # armv7hl: http://bugzilla.redhat.com/bugzilla/1035485
-# %{ix86}: no more supported upstream
+# %%{ix86}: no more supported upstream
 ExclusiveArch:  x86_64
 
 Provides: webclient
@@ -184,50 +185,51 @@ cd mozilla
 
 cp %{SOURCE3} GNUmakefile
 
-%patch2 -p1 -b .binutils_2_36
-%patch3 -p1 -b .1516803
-%patch5 -p2 -b .1173156
-%patch7 -p1 -b .1005640
-%{?with_system_libvpx:%patch9 -p1 -b .1332139}
-%patch10 -p1 -b .440908
-%patch11 -p1 -b .1434478
-%patch13 -p1 -b .1460295
-%patch14 -p1 -b .adjacent-sibling
-%patch15 -p1 -b .1442861
-%patch16 -p1 -b .1485179
-%patch17 -p1 -b .1661070-1
-%patch18 -p0 -b .1661070-2
-%patch19 -p1 -b .system_av1
-%patch21 -p1 -b .media-document
-#%patch22 -p1 -b .client_mk
-%patch23 -p1 -b .1593550
-%patch24 -p0 -b .install_man
-%patch25 -p0 -b .mailnews-useragent
-%patch26 -p1 -b .userDisabled
-%patch27 -p0 -b .ext-if-needed
-%patch28 -p0 -b .1619108
+%patch -P2 -p1 -b .binutils_2_36
+%patch -P3 -p1 -b .1516803
+%patch -P5 -p2 -b .1173156
+%patch -P7 -p1 -b .1005640
+%{?with_system_libvpx:%patch -P9 -p1 -b .1332139}
+%patch -P10 -p1 -b .440908
+%patch -P11 -p1 -b .1434478
+%patch -P13 -p1 -b .1460295
+%patch -P14 -p1 -b .adjacent-sibling
+%patch -P15 -p1 -b .1442861
+%patch -P16 -p1 -b .1485179
+%patch -P17 -p1 -b .1661070-1
+%patch -P18 -p0 -b .1661070-2
+%patch -P19 -p1 -b .system_av1
+%patch -P21 -p1 -b .media-document
+#%%patch -P22 -p1 -b .client_mk
+%patch -P23 -p1 -b .1593550
+%patch -P24 -p0 -b .install_man
+%patch -P25 -p0 -b .mailnews-useragent
+%patch -P26 -p1 -b .userDisabled
+%patch -P27 -p0 -b .ext-if-needed
+%patch -P28 -p0 -b .1619108
 
-%{?with_system_nss:%patch29 -p1 -b .prtypes}
-%{?with_system_nss:%patch30 -p3 -b .nss_pkcs11_v3}
-%patch31 -p3 -b .526293
-%patch34 -p2 -b .startupcache
-%patch35 -p0 -b .server-folder
-%patch36 -p0 -b .locale_matchos
-%patch37 -p1 -b .1720968
-%patch38 -p0 -b .521861
-%patch39 -p1 -b .dateformat
-%patch40 -p0 -b .slowscript
-%patch41 -p0 -b .revert-1737436
-%patch42 -p1 -b .postmessage-event
-%patch43 -p1 -b .1502802
-%patch44 -p1 -b .1425866
+%{?with_system_nss:%patch -P29 -p1 -b .prtypes}
+%{?with_system_nss:%patch -P30 -p3 -b .nss_pkcs11_v3}
+%patch -P31 -p3 -b .526293
+%patch -P34 -p2 -b .startupcache
+%patch -P35 -p0 -b .server-folder
+%patch -P36 -p0 -b .locale_matchos
+%patch -P37 -p1 -b .1720968
+%patch -P38 -p0 -b .521861
+%patch -P39 -p1 -b .dateformat
+%patch -P40 -p0 -b .slowscript
+%patch -P41 -p0 -b .revert-1737436
+%patch -P42 -p1 -b .postmessage-event
+%patch -P43 -p1 -b .1502802
+%patch -P44 -p1 -b .1425866
 
-%patch60 -p1 -b .ua-update
-%patch61 -p1 -b .ua-update-preload
-%patch62 -p1 -b .compat-version
-%patch65 -p1 -b .1406821
-%patch66 -p1 -b .startupcache1
-%patch69 -p1 -b .stylo_config
+%patch -P60 -p1 -b .ua-update
+%patch -P61 -p1 -b .ua-update-preload
+%patch -P62 -p1 -b .compat-version
+%patch -P65 -p1 -b .1406821
+%patch -P66 -p1 -b .startupcache1
+%patch -P69 -p1 -b .stylo_config
+%patch -P70 -p1 -b .icu
 
 %if %{without calendar}
 sed -i 's/MOZ_CALENDAR/UNDEF_MOZ_CALENDAR/' comm/suite/installer/package-manifest.in
@@ -515,6 +517,7 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 %changelog
 * Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 2.53.18.1-4
 - Rebuild for jpegxl (libjxl) 0.10.2
+- Fix build with icu_74.1
 
 * Wed Feb 14 2024 Sérgio Basto <sergio@serjux.com> - 2.53.18.1-3
 - Rebuild for jpegxl (libjxl) 0.9.2 with soname bump

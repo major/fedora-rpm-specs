@@ -6,7 +6,7 @@
 #   Possible confusion with the "ulid" package
 #   https://github.com/mdomke/python-ulid/issues/13
 Name:           python-python-ulid
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Universally unique lexicographically sortable identifier
 
@@ -72,12 +72,15 @@ Conflicts:      golang-github-oklog-ulid
 %description -n python3-python-ulid %{common_description}
 
 
+%pyproject_extras_subpkg -n python3-python-ulid pydantic
+
+
 %prep
 %autosetup -n python_ulid-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x pydantic
 
 
 %build

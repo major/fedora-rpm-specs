@@ -33,22 +33,11 @@ This is the command line interface for Oracle Cloud Infrastructure.}
 %prep
 %autosetup -n %{name}-%{version}
 
-# Allow older versions of pinned dependencies in EPEL.
-%if 0%{?el9} || 0%{?centos} >= 9
-sed -i 's/click==8.0.4/click>=8.0.3/' setup.py
-sed -i 's/jmespath==0.10.0/jmespath>=0.9.4/' setup.py
-%endif
+# Remove upper limits and pinned dependencies.
+sed -i -e 's/,[<=]\+[0-9\.]\+//' -e 's/==/>=/' setup.py
 
-# Allow newer version of pinned dependencies.
-sed -i 's/click==8.0.4/click>=8.0.4/' setup.py
-sed -i 's/jmespath==0.10.0/jmespath>=0.10.0/' setup.py
-sed -i 's/prompt-toolkit==3.0.29/prompt-toolkit>=3.0.29/' setup.py
-sed -i 's/terminaltables==3.1.10/terminaltables>=3.1/' setup.py
-
-# Remove upper version limits.
-sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
-sed -i 's/PyYAML>=5.4,<=6/PyYAML>=5.4/' setup.py
-
+# Work around a versioning bug when trying to find terminaltables.
+sed -i 's/terminaltables>=[0-9\.]\+/terminaltables/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
