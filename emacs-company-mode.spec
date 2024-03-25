@@ -5,19 +5,20 @@
 %global srcname company-mode
 
 Name:           emacs-%{srcname}
-Version:        0.10.1
-Release:        3%{?dist}
+Version:        0.10.2
+Release:        %autorelease
 Summary:        Modular in-buffer completion framework for Emacs
 
 License:        GPL-3.0-or-later
 URL:            https://company-mode.github.io/
-Source0:        https://github.com/company-mode/company-mode/archive/%{version}/%{srcname}-%{version}.tar.gz
+VCS:            https://github.com/company-mode/company-mode
+Source0:        %{vcs}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildArch:      noarch
 
-BuildRequires:  emacs-nox
+BuildRequires:  emacs-nw
 
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
@@ -54,35 +55,4 @@ mv %{buildroot}/%{_emacs_sitelispdir}/%{srcname}/company-autoloads.el \
 %{_emacs_sitestartdir}/company-autoloads.el
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 0.10.1-1
-- Stop building for 32-bit x86
-
-* Thu Oct  5 2023 Jerry James <loganjerry@gmail.com> - 0.10.1-1
-- Version 0.10.1
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 0.9.13-4
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Mar 10 2021 Jerry James <loganjerry@gmail.com> - 0.9.13-1
-- Initial RPM
+%autochangelog

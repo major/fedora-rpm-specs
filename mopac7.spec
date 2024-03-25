@@ -2,10 +2,12 @@ Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
 Release:        45%{?dist}
+# under review
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/501
 License:        Public Domain
 URL:            http://sourceforge.net/projects/mopac7/
 Source0:        http://bioinformatics.org/ghemical/download/current/mopac7-%{version}.tar.gz
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc-gfortran

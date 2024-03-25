@@ -30,6 +30,8 @@ Summary:        %{summary}
 
 # Relax inquirer version pin
 sed -i "s:'inquirer.*$:'inquirer',:" setup.py
+# Unpin pip to allow newer version
+sed -i "s/'pip>=9,<23.4',/'pip>=9,<24.1',/" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements-test.in

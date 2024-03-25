@@ -1,6 +1,6 @@
 Name:           cutter-re
-Version:        2.3.2
-Release:        3%{?dist}
+Version:        2.3.4
+Release:        1%{?dist}
 Summary:        GUI for Rizin reverse engineering framework
 
 # CC-BY-SA: src/img/icons/

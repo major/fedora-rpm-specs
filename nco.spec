@@ -1,7 +1,7 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.2.1
+Version:        5.2.2
 Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        BSD-3-Clause
@@ -98,6 +98,7 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 %endif
 %{_bindir}/ncatted
 %{_bindir}/ncbo
+%{_bindir}/ncchecker
 %{_bindir}/ncclimo
 %{_bindir}/ncdiff
 %{_bindir}/ncea
@@ -115,6 +116,7 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 %{_mandir}/man1/ncap2.1*
 %{_mandir}/man1/ncatted.1*
 %{_mandir}/man1/ncbo.1*
+%{_mandir}/man1/ncchecker.1*
 %{_mandir}/man1/ncclimo.1*
 %{_mandir}/man1/ncecat.1*
 %{_mandir}/man1/nces.1*
@@ -139,6 +141,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Sat Mar 23 2024 Orion Poplawski <orion@nwra.com> - 5.2.2-1
+- Update to 5.2.2
+
 * Mon Feb 19 2024 Orion Poplawski <orion@nwra.com> - 5.2.1-1
 - Update to 5.2.1
 

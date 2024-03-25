@@ -1,6 +1,6 @@
 #
 Name:           tvlsim
-Version:        1.01.6
+Version:        1.01.7
 Release:        %autorelease
 
 Summary:        Travel Market Simulator

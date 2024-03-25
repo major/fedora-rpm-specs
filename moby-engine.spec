@@ -1,8 +1,8 @@
 # This specfile is licensed under:
-# SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Fedora Project Authors
 # SPDX-FileCopyrightText: 2022 Maxwell G <gotmax@e.email>
-# See %%{name}.spec.license for the full license text.
+# SPDX-License-Identifier: MIT
+# License Text: https://spdx.org/licenses/MIT.html
 
 # moby
 %global goipath_moby github.com/docker/docker
@@ -36,8 +36,6 @@ Source6:        generate-docs.sh
 
 # Seperate file containing virtual provides for bundled deps that's %%include'd in the specfile.
 Source100:      provides.spec.inc
-# Specfile license
-Source200:      moby-engine.spec.license
 
 URL:            https://www.docker.com
 

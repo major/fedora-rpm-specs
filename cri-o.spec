@@ -1,20 +1,13 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
+%global service_name    crio
 
-# Commit for the builds
-%global commit0 d317b5dc918bbfbc78481072a0d93e572aa8d0e8
+# Related: github.com/cri-o/cri-o/issues/3684
+%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')
+%global git_tree_state  clean
+%global criocli_path    ""
 
-Name:           cri-o
 Version:        1.29.2
-Epoch:          0
-Release:        1%{?dist}
-Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
-
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
-URL:            https://github.com/cri-o/cri-o
-Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         otelttrpc.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -32,19 +25,19 @@ Patch0:         otelttrpc.patch
 %bcond_without check
 %endif
 
-# Related: github.com/cri-o/cri-o/issues/3684
-%global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')
-%global git_tree_state clean
-%global criocli_path ""
+# Commit for the builds
+%global commit0 d317b5dc918bbfbc78481072a0d93e572aa8d0e8
 
-# Services
-%global service_name crio
+Name:           cri-o
+Epoch:          0
+Release:        1%{?dist}
+Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
-# Used for comparing with latest upstream tag
-# to decide whether to autobuild (non-rawhide only)
-%global built_tag v%{version}
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global crio_release_tag %(echo %{built_tag_strip} | cut -f1,2 -d'.')
+# Upstream license specification: Apache-2.0
+License:        ASL 2.0
+URL:            https://github.com/cri-o/cri-o
+Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         otelttrpc.patch
 
 %if 0%{?rhel}
 BuildRequires:  golang >= 1.19

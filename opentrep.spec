@@ -1,30 +1,23 @@
 # Build -pythonN subpackage
-%bcond_without python3
+%bcond_without python
 
 #
 Name:           opentrep
-Version:        0.07.13
-Release:        9%{?dist}
+Version:        0.07.15
+Release:        %autorelease
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
 # The entire source code is LGPLv2+ except opentrep/basic/float_utils_google.hpp,
 # which is BSD
-License:        LGPLv2+ and BSD
+License:        LGPL-2.1-or-later
 URL:            https://github.com/trep/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
-
-# https://github.com/trep/opentrep/pull/19
-Patch0:         Add-Python-3.13-to-cmake-config.patch
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  cmake
-%else
-BuildRequires:  cmake3
-%endif
 BuildRequires:  boost-devel
-BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(readline)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
 BuildRequires:  xapian-core-devel
@@ -85,15 +78,17 @@ This package contains the header files, shared libraries and
 development helper tools for %{name}. If you would like to develop
 programs using %{name}, you will need to install %{name}-devel.
 
-%if %{with python3}
+%if %{with python}
 
 %package    -n python3-%{name}
 Summary:    Python bindings for %{name}
 Group:      System Environment/Libraries
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  boost-python3-devel
+%{?python_provide:%python_provide python3-%{name}}
+
 
 %description -n python3-%{name}
 This package contains Python libraries for %{name}
@@ -118,12 +113,10 @@ package is usually corrupted: it depends on the building conditions,
 and it is therefore not reliable.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
-%patch 0 -p1
+%autosetup
 
 %build
 %cmake
-
 %cmake_build
 
 %install
@@ -136,7 +129,7 @@ rm -f %{buildroot}%{_docdir}/%{name}/html/installdox
 # in the project top directory)
 rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
-%if %{with python3}
+%if %{with python}
 # (Pure) Python OpenTREP executable
 chmod a-x %{buildroot}%{python3_sitearch}/py%{name}/Travel_pb2.py
 %endif
@@ -145,13 +138,7 @@ chmod a-x %{buildroot}%{python3_sitearch}/py%{name}/Travel_pb2.py
 #check
 #ctest
 
-%if 0%{?rhel} <= 7
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-%endif
-
-%if %{with python3}
+%if %{with python}
 %post -n python3-%{name}
 ln -s -f %{python3_sitearch}/py%{name}/py%{name} %{_bindir}/py%{name}
 
@@ -181,55 +168,25 @@ rm -f %{_bindir}/py%{name}
 %{_datadir}/%{name}/data/por/test_world_schedule.csv
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/aclocal/%{name}.m4
-%{_datadir}/%{name}/CMake
+%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
-%if %{with python3}
+%if %{with python}
 %files -n python3-%{name}
 %{python3_sitearch}/py%{name}/
 %{_mandir}/man1/py%{name}.1.*
 %endif
 
 %changelog
-* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 0.07.13-9
-- Rebuild for ICU 74
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.13-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.13-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 0.07.13-6
-- Rebuilt for Boost 1.83
-
-* Tue Nov 21 2023 Karolina Surma <ksurma@redhat.com> - 0.07.13-5
-- Add Python 3.13 to cmake config
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 0.07.13-3
-- Rebuilt for ICU 73.2
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.07.13-2
-- Rebuilt for Python 3.12
-
-* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 0.07.13-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.07.11-6
-- Rebuilt for Boost 1.81
-
 %autochangelog
 

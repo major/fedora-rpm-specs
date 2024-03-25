@@ -13,7 +13,7 @@ Source105:      macros.pybytecompile
 Source201:      python.lua
 
 # Python code
-%global compileall2_version 0.7.1
+%global compileall2_version 0.8.0
 Source301:      https://github.com/fedora-python/compileall2/raw/v%{compileall2_version}/compileall2.py
 Source302:      import_all_modules.py
 %global pathfix_version 1.0.0
@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Fri Mar 22 2024 Lumír Balhar <lbalhar@redhat.com> - 3.12-8
+- Update bundled compileall2 to version 0.8.0
+
 * Thu Jan 25 2024 Miro Hrončok <mhroncok@redhat.com> - 3.12-7
 - %%py3_test_envvars: Only set $PYTEST_XDIST_AUTO_NUM_WORKERS if not already set
 

@@ -78,17 +78,17 @@
 
 Name:        libblockdev
 Version:     3.1.0
-Release:     4%{?dist}
+Release:     6%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
 
-# Dumb attempt to diagnose #2247319: we add some simpler log statements
-# in front of each log statement we think might be causing the crash,
-# in the hopes this gives us a clue which one is the problem
-# Not upstreamable, this is more of a diagnosis thing
-Patch:       0001-2247319-debugging-add-pre-log-logs.patch
+# Tentative workaround for #2247319: in the previous build we noted
+# on one attempt libblockdev reached the point where it should log
+# this message 11 times but we only saw the message 9 times, which
+# seems suspicious; let's try disabling it
+Patch:       0001-Guard-against-error-net-being-set-by-g_dbus_connecti.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -857,6 +857,12 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Sat Mar 23 2024 Adam Williamson <awilliam@redhat.com> - 3.1.0-6
+- Slightly stronger workaround attempt for #2247319
+
+* Sat Mar 23 2024 Adam Williamson <awilliam@redhat.com> - 3.1.0-5
+- Tentative workaround for #2247319 based on diagnosis from -4
+
 * Fri Mar 22 2024 Adam Williamson <awilliam@redhat.com> - 3.1.0-4
 - Try something else dumb to diagnose #2247319
 

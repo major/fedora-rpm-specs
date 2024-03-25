@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 6.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -26,6 +26,10 @@ Source10: discoverrc
 # This ensures that it is checked at least once during the work day.
 # It is double the time that Fedora repos are set to in DNF (6h).
 Patch200: discover-pk-refresh-timer.patch
+
+# See: https://invent.kde.org/plasma/discover/-/merge_requests/790
+Patch201: 0001-rpm-ostree-Fix-error-paths-in-Transaction.patch
+Patch202: 0002-rpm-ostree-Fix-version-checks-for-container-path.patch
 
 ## upstreamable patches
 
@@ -305,6 +309,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 
 
 %changelog
+* Sat Mar 23 2024 Timothée Ravier <tim@siosm.fr> - 6.0.2-2
+- Backport patches to fix rpm-ostree container support
+
 * Tue Mar 12 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.0.2-1
 - 6.0.2
 

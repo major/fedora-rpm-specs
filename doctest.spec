@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name: doctest
-Version: 2.4.9
+Version: 2.4.11
 Release: %autorelease
 Summary: Feature-rich header-only C++ testing framework
 # logo is CC-BY-4.0
@@ -12,8 +12,6 @@ Summary: Feature-rich header-only C++ testing framework
 License: MIT AND CC-BY-4.0 AND BSL-1.0 AND BSD-3-Clause
 URL: https://github.com/doctest/%{name}
 Source0: %{url}/archive/refs/tags/v%{version}.tar.gz
-# https://github.com/doctest/doctest/pull/699
-Patch100: %{name}-pointers-compare-fix.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake3

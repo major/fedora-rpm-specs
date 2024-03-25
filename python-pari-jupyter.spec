@@ -1,6 +1,6 @@
 Name:           python-pari-jupyter
-Version:        1.4.2
-Release:        5%{?dist}
+Version:        1.4.3
+Release:        %autorelease
 Summary:        Jupyter kernel for PARI/GP
 
 License:        GPL-3.0-or-later
@@ -8,8 +8,6 @@ URL:            https://github.com/sagemath/pari-jupyter
 Source0:        %{url}/archive/%{version}/pari-jupyter-%{version}.tar.gz
 # Adapt to recent versions of pari
 Patch0:         %{name}-pari.patch
-# Adapt to Cython 3
-Patch1:         %{name}-cython3.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -74,55 +72,4 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 1.4.2-3
-- Stop building for 32-bit x86
-
-* Fri Jul 21 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-3
-- Add patch to fix build with Cython 3
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 1.4.2-2
-- Rebuilt for Python 3.12
-
-* Fri Jun  9 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Version 1.4.2
-
-* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-5
-- Dynamically generate BuildRequires
-- Add %%check script
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-4
-- Rebuild for pari 2.15.0
-- Convert License tag to SPDX
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 1.4.1-2
-- Rebuilt for Python 3.11
-
-* Tue Jan 25 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-- Drop upstreamed -cython patch
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Aug 13 2021 Jerry James <loganjerry@gmail.com> - 1.3.2-2
-- Provide python3-PARIKernel
-- Trim the -pari patch down to the essentials
-- Provide URLs for upstream pull requests
-
-* Wed Aug 11 2021 Jerry James <loganjerry@gmail.com> - 1.3.2-1
-- Initial RPM
+%autochangelog

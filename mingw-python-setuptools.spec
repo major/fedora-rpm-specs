@@ -23,6 +23,8 @@ BuildRequires: mingw64-python3
 Patch0:        mingw-python-setuptools_no-msvc.patch
 # Distutils fixes (adapted from mingw-python3_distutils.patch in mingw-python3)
 Patch1:        mingw-python-setuptools_distutils.patch
+# Revert commit dbcb0747110d074112f27e2699856acfc4ba8ea3, it causes files from builddir to get installed
+Patch2:        revert-dbcb0747110d074112f27e2699856acfc4ba8ea3.patch
 
 
 %description

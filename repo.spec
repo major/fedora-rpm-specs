@@ -1,9 +1,9 @@
 Name:           repo
-Version:        2.35
+Version:        2.45
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://gerrit.googlesource.com/git-repo
 Source0:        %{url}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -13,7 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  git
 BuildRequires:  gnupg2
-BuildRequires:  sed
 BuildRequires:  tree
 
 Requires:       git
@@ -30,9 +29,6 @@ to work with Git.
 
 %generate_buildrequires
 %pyproject_buildrequires -t
-
-# Fix shebang
-sed -i 's:#!/usr/bin/env python:#!/usr/bin/python3:' %{name}
 
 %build
 # repo is an unusual tool because it downloads all of its own Python modules

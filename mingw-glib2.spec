@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.79.1
+Version:        2.80.0
 Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
@@ -179,6 +179,9 @@ find %{buildroot} -name "*.la" -delete
 %files -n mingw32-glib2 -f mingw32-glib20.lang
 %license COPYING
 %{mingw32_bindir}/gdbus.exe
+%{mingw32_bindir}/gi-compile-repository.exe
+%{mingw32_bindir}/gi-decompile-typelib.exe
+%{mingw32_bindir}/gi-inspect-typelib.exe
 %{mingw32_bindir}/gio.exe
 %{mingw32_bindir}/gio-querymodules.exe
 %{mingw32_bindir}/glib-compile-resources.exe
@@ -224,6 +227,7 @@ find %{buildroot} -name "*.la" -delete
 
 %files -n mingw32-glib2-static
 %{mingw32_libdir}/libgio-2.0.a
+%{mingw32_libdir}/libgirepository-2.0.a
 %{mingw32_libdir}/libglib-2.0.a
 %{mingw32_libdir}/libgmodule-2.0.a
 %{mingw32_libdir}/libgobject-2.0.a
@@ -233,6 +237,9 @@ find %{buildroot} -name "*.la" -delete
 %files -n mingw64-glib2 -f mingw64-glib20.lang
 %license COPYING
 %{mingw64_bindir}/gdbus.exe
+%{mingw64_bindir}/gi-compile-repository.exe
+%{mingw64_bindir}/gi-decompile-typelib.exe
+%{mingw64_bindir}/gi-inspect-typelib.exe
 %{mingw64_bindir}/gio.exe
 %{mingw64_bindir}/gio-querymodules.exe
 %{mingw64_bindir}/glib-compile-resources.exe
@@ -278,6 +285,7 @@ find %{buildroot} -name "*.la" -delete
 
 %files -n mingw64-glib2-static
 %{mingw64_libdir}/libgio-2.0.a
+%{mingw64_libdir}/libgirepository-2.0.a
 %{mingw64_libdir}/libglib-2.0.a
 %{mingw64_libdir}/libgmodule-2.0.a
 %{mingw64_libdir}/libgobject-2.0.a
@@ -285,6 +293,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sat Mar 23 2024 Sandro Mani <manisandro@gmail.com> - 2.80.0-1
+- Update to 2.80.0
+
 * Fri Jan 26 2024 Sandro Mani <manisandro@gmail.com> - 2.79.1-1
 - Update to 2.79.1
 

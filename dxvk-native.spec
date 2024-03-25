@@ -1,5 +1,5 @@
 Name:           dxvk-native
-Version:        2.3
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Vulkan-based D3D11 and D3D9 implementation for Linux
 
@@ -9,12 +9,9 @@ Source0:        %{url}/archive/v%{version}/dxvk-%{version}.tar.gz
 # Will hopefully be upstreamed in a different form...
 Source1:        dxvk-native.pc.in
 
-# From: https://github.com/doitsujin/dxvk/pull/3824
-Patch01:        0001-meson-Only-use-the-libdisplay-info-subproject-as-a-f.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  meson >= 0.46
+BuildRequires:  meson >= 0.58
 BuildRequires:  glslang
 BuildRequires:  SDL2-devel
 BuildRequires:  vulkan-loader-devel
@@ -48,10 +45,6 @@ files for building applications that use %{name}.
 
 %prep
 %autosetup -n dxvk-%{version} -p1
-
-# Replace local vulkan/directx headers includes with the system directories
-sed -i 's^./include/vulkan/include^/usr/include^' meson.build
-sed -i 's^./include/spirv/include^/usr/include^' meson.build
 
 # Copy the MinGW DirectX headers to include/native/directx/
 cp %{mingw64_includedir}/d3d10_1.h include/native/directx
@@ -174,6 +167,9 @@ sed -e "s:@prefix@:%{_prefix}:g" \
 
 
 %changelog
+* Fri Mar 20 2024 Ethan Lee <flibitijibibo@gmail.com> - 2.3.1-1
+- Update to 2.3.1
+
 * Fri Jan 26 2024 Ethan Lee <flibitijibibo@gmail.com> - 2.3-1
 - Update to 2.3
 

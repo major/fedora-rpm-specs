@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 Patch:          0001-pytest-no-cov.patch
 Patch:          https://github.com/boutproject/boutdata/commit/2c4500ed56199a55e098d84c399c5a6b3f27544e.patch#./0002-no-gc-collect.patch
+Patch:          natsort-version.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

@@ -1,6 +1,6 @@
 Name:tpm2-openssl
-Version: 1.2.1
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Version: 1.2.0
+Release: 2%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
@@ -60,7 +60,12 @@ cp %{_sourcedir}/run-with-simulator %{_builddir}/%{name}-%{version}%{?candidate:
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
-* Fri Mar 22 2024 Adrian Freihofer <adrian.freihofer@gmail.com> 1.2.1-1
+* Sat Mar 23 2024 Adrian Freihofer <adrian.freihofer@gmail.com> 1.2.0-2
+- tito: use release tagger (adrian.freihofer@gmail.com)
+- Revert "Automatic commit of package [tpm2-openssl] release [1.2.1-1]."
+  (adrian.freihofer@gmail.com)
+- Automatic commit of package [tpm2-openssl] release [1.2.1-1].
+  (adrian.freihofer@gmail.com)
 - run-with-simulator: backport from upstream (adrian.freihofer@gmail.com)
 
 * Fri Mar 22 2024 Adrian Freihofer <adrian.freihofer@gmail.com> 1.2.0-1

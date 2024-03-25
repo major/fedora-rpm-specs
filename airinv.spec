@@ -1,6 +1,6 @@
 #
 Name:           airinv
-Version:        1.00.8
+Version:        1.00.9
 Release:        %autorelease
 
 Summary:        C++ Simulated Airline Inventory Management System library

@@ -304,7 +304,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 123.0.6312.58
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -557,7 +557,10 @@ Patch413: fix-unknown-warning-option-messages.diff
 Patch414: 0002-Highway-disable-128-bit-vsx.patch
 
 # upstream patches
+# 64kpage support on el8
 Patch500: chromium-122-el8-support-64kpage.patch
+# error: static assertion failed due to requirement '::WTF::internal::SizesEqual<72, 64>::value': ShapeResult should stay small 
+Patch501: chromium-123-shape_result-assert.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -935,7 +938,7 @@ Requires: chromium-common%{_isa} = %{version}-%{release}
 %if 0%{?rhel} == 7
 ExclusiveArch: x86_64
 %else
-%if 0%{?fedora} > 40
+%if 0%{?fedora} >= 40
 ExclusiveArch: x86_64 aarch64 ppc64le
 %else
 ExclusiveArch: x86_64 aarch64
@@ -1314,6 +1317,8 @@ udev.
 %endif
 %endif
 
+%patch -P501 -p1 -b .shape_result-assert
+
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
@@ -1528,6 +1533,8 @@ CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=fal
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level}'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
+# disable screen ai service by default
+CHROMIUM_CORE_GN_DEFINES+=' enable_screen_ai_browsertests=false enable_screen_ai_service=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -2106,6 +2113,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %changelog
+* Sat Mar 23 2024 Than Ngo <than@redhat.com> - 123.0.6312.58-2
+- fixed bz#2269768 - enable build ppc64le package for F40
+- fixed bz#2270321 - VAAPI flags in chromium.conf are out of date
+- fixed bz#2271183 - disable screen ai service
+
 * Wed Mar 20 2024 Than Ngo <than@redhat.com> - 123.0.6312.58-1
 - update to 123.0.6312.58
    * High CVE-2024-2625: Object lifecycle issue in V8

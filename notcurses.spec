@@ -1,5 +1,5 @@
 Name:          notcurses
-Version:       3.0.8
+Version:       3.0.9
 Release:       %autorelease
 Summary:       Character graphics and TUI library
 License:       ASL 2.0

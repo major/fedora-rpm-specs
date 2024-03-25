@@ -3,7 +3,7 @@
 
 #
 Name:           rmol
-Version:        1.00.9
+Version:        1.00.10
 Release:        %autorelease
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
@@ -11,8 +11,6 @@ Summary:        C++ library of Revenue Management and Optimisation classes and f
 License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-Patch:          Add-Python-3.13-to-cmake-config.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -81,7 +79,7 @@ This package contains Python libraries for %{name}
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %cmake

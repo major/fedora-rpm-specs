@@ -1,6 +1,6 @@
 #
 Name:           sevmgr
-Version:        1.00.8
+Version:        1.00.9
 Release:        %autorelease
 
 Summary:        C++ Simulation-Oriented Discrete Event Management Library

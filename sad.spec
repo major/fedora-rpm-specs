@@ -7,7 +7,7 @@
 %global crate sad
 
 Name:           sad
-Version:        0.4.23
+Version:        0.4.25
 Release:        %autorelease
 Summary:        CLI search and replace tool
 
@@ -30,7 +30,7 @@ Recommends:     fzf
 Recommends:     (git-delta or diff-so-fancy)
 
 %global _description %{expand:
-Space Age seD - Batch File Edit tool. It will show you a really nice diff of 
+Space Age seD - Batch File Edit tool. It will show you a really nice diff of
 proposed changes before you commit them.}
 
 %description %{_description}

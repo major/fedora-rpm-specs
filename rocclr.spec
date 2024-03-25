@@ -33,6 +33,9 @@ Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 # a fix for building blender
 Patch8:         0001-add-long-variants-for-__ffsll.patch
 
+# https://github.com/ROCm/clr/pull/69
+Patch9:         0001-Check-p2p_agents_list_-before-deleting.patch
+
 BuildRequires:  cmake
 %if %{with compat_build}
 BuildRequires:  clang%{llvm_maj_ver}-devel

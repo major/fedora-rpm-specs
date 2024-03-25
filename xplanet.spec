@@ -3,12 +3,23 @@ Name:		xplanet
 Version:	1.3.1
 Release:	21%{?dist}
 
+# src/ParseGeom.c.	... under review https://gitlab.com/fedora/legal/fedora-license-data/-/issues/502
+# src/ParseGeom.h	... the same review
+# src/getopt.c	LGPL-2.1-or-later
+# src/getopt1.c	LGPL-2.1-or-later
+# src/libdisplay/DesktopPicture.m	(unused)
+# src/libdisplay/vroot.h	HPND
+# src/libimage/bmp.c	GPL-2.0-or-later
+# xplanet/fonts/README	GPL-3.0-or-later
+# xplanet/images/README	not copyrighted
+# xplanet/rgb.txt	.... the same review
+#
 License:	GPLv2+
 Source:		http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:		https://gitweb.gentoo.org/repo/gentoo.git/plain/x11-misc/xplanet/files/xplanet-1.3.1-giflib.patch
 URL:		http://%{name}.sourceforge.net
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel

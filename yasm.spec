@@ -1,15 +1,28 @@
+%global git 1
+%global commit 9defefae9fbcb6958cddbfa778c1ea8605da8b8b
+%global date 20230922
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Summary: Modular Assembler
 Name: yasm
-Version: 1.3.0
-Release: 20%{?dist}
+Version: 1.3.0^%{date}git%{shortcommit}
+Release: 1%{?dist}
 # See COPYING for the detail, there is quite a lot!
 # Bitvect is (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later
 # Everything else is BSD. Either 2 or 3 clause.
 License: BSD-2-Clause AND BSD-3-Clause AND (GPL-1.0-or-later AND GPL-2.0-or-later OR Artistic-1.0-Perl OR LGPL-2.0-or-later)
 
 URL: http://yasm.tortall.net/
+%if 0%{?git}
+Source: https://github.com/yasm/yasm/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+# https://github.com/yasm/yasm/issues/270
+Patch0: yasm-tests.patch
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: python3
+%else
 Source: http://www.tortall.net/projects/yasm/releases/yasm-%{version}.tar.gz
-Patch1: 0001-Update-elf-objfmt.c.patch
+%endif
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -45,20 +58,30 @@ Install this package if you need to rebuild applications that use yasm.
 
 
 %prep
+%if 0%{?git}
+%setup -q -n %{name}-%{commit}
+%ifarch i686
+%patch 0 -p1
+%endif
+autoreconf -I m4 -fiv
+%else
 %setup -q
-%patch1 -p1
+%endif
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+%make_install
 
 
+%check
+# tests must be run sequentially
+# https://github.com/yasm/yasm/issues/269
+make check
 
 %files
 %license Artistic.txt BSD.txt COPYING GNU_GPL-2.0 GNU_LGPL-2.0
@@ -77,6 +100,13 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Mar 21 2024 Dominik Mierzejewski <dominik@greysector.net> - 1.3.0^20230922git9defefa-1
+- update to latest git snapshot
+- drop obsolete patch
+- use modern macros
+- run the test suite in %check
+- fixes: CVE-2023-37732 CVE-2023-31975 CVE-2021-33454
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

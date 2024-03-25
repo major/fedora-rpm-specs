@@ -1,5 +1,5 @@
 Name:          libdeflate
-Version:       1.19
+Version:       1.20
 Release:       %autorelease
 Summary:       Fast implementation of DEFLATE, gzip, and zlib
 

@@ -3,16 +3,13 @@
 
 #
 Name:           trademgen
-Version:        1.00.9
+Version:        1.00.10
 Release:        %autorelease
 
 Summary:        C++ Simulated Travel Demand Generation Library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-
-# https://github.com/airsim/trademgen/pull/2
-Patch:          Add-Python-3.13-to-cmake-config.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -75,7 +72,7 @@ This package contains Python libraries for %{name}
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %cmake

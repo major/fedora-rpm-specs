@@ -34,8 +34,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.18.1
-Release:        4%{?dist}
+Version:        2.53.18.2
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -52,6 +52,7 @@ Source6:	seamonkey-ua-update.json.in
 
 Patch2:		seamonkey-2.53.18-binutils_2_36.patch
 Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
+Patch4:		seamonkey-2.53.18-mozilla-1862601.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
 Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
@@ -93,7 +94,6 @@ Patch62:	seamonkey-2.53.11-compat-version.patch
 Patch65:	seamonkey-2.53.17-fix-1406821.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
 Patch69:	seamonkey-2.53.16-stylo_config.patch
-Patch70:	icu_74.1.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
 %{?with_system_nss:BuildRequires:       nss-devel >= %{nss_version}}
@@ -185,51 +185,51 @@ cd mozilla
 
 cp %{SOURCE3} GNUmakefile
 
-%patch -P2 -p1 -b .binutils_2_36
-%patch -P3 -p1 -b .1516803
-%patch -P5 -p2 -b .1173156
-%patch -P7 -p1 -b .1005640
-%{?with_system_libvpx:%patch -P9 -p1 -b .1332139}
-%patch -P10 -p1 -b .440908
-%patch -P11 -p1 -b .1434478
-%patch -P13 -p1 -b .1460295
-%patch -P14 -p1 -b .adjacent-sibling
-%patch -P15 -p1 -b .1442861
-%patch -P16 -p1 -b .1485179
-%patch -P17 -p1 -b .1661070-1
-%patch -P18 -p0 -b .1661070-2
-%patch -P19 -p1 -b .system_av1
-%patch -P21 -p1 -b .media-document
-#%%patch -P22 -p1 -b .client_mk
-%patch -P23 -p1 -b .1593550
-%patch -P24 -p0 -b .install_man
-%patch -P25 -p0 -b .mailnews-useragent
-%patch -P26 -p1 -b .userDisabled
-%patch -P27 -p0 -b .ext-if-needed
-%patch -P28 -p0 -b .1619108
+%patch 2 -p1 -b .binutils_2_36
+%patch 3 -p1 -b .1516803
+%patch 4 -p1 -b .1862601
+%patch 5 -p2 -b .1173156
+%patch 7 -p1 -b .1005640
+%{?with_system_libvpx:%patch 9 -p1 -b .1332139}
+%patch 10 -p1 -b .440908
+%patch 11 -p1 -b .1434478
+%patch 13 -p1 -b .1460295
+%patch 14 -p1 -b .adjacent-sibling
+%patch 15 -p1 -b .1442861
+%patch 16 -p1 -b .1485179
+%patch 17 -p1 -b .1661070-1
+%patch 18 -p0 -b .1661070-2
+%patch 19 -p1 -b .system_av1
+%patch 21 -p1 -b .media-document
+#%%patch 22 -p1 -b .client_mk
+%patch 23 -p1 -b .1593550
+%patch 24 -p0 -b .install_man
+%patch 25 -p0 -b .mailnews-useragent
+%patch 26 -p1 -b .userDisabled
+%patch 27 -p0 -b .ext-if-needed
+%patch 28 -p0 -b .1619108
 
-%{?with_system_nss:%patch -P29 -p1 -b .prtypes}
-%{?with_system_nss:%patch -P30 -p3 -b .nss_pkcs11_v3}
-%patch -P31 -p3 -b .526293
-%patch -P34 -p2 -b .startupcache
-%patch -P35 -p0 -b .server-folder
-%patch -P36 -p0 -b .locale_matchos
-%patch -P37 -p1 -b .1720968
-%patch -P38 -p0 -b .521861
-%patch -P39 -p1 -b .dateformat
-%patch -P40 -p0 -b .slowscript
-%patch -P41 -p0 -b .revert-1737436
-%patch -P42 -p1 -b .postmessage-event
-%patch -P43 -p1 -b .1502802
-%patch -P44 -p1 -b .1425866
+%{?with_system_nss:%patch 29 -p1 -b .prtypes}
+%{?with_system_nss:%patch 30 -p3 -b .nss_pkcs11_v3}
+%patch 31 -p3 -b .526293
+%patch 34 -p2 -b .startupcache
+%patch 35 -p0 -b .server-folder
+%patch 36 -p0 -b .locale_matchos
+%patch 37 -p1 -b .1720968
+%patch 38 -p0 -b .521861
+%patch 39 -p1 -b .dateformat
+%patch 40 -p0 -b .slowscript
+%patch 41 -p0 -b .revert-1737436
+%patch 42 -p1 -b .postmessage-event
+%patch 43 -p1 -b .1502802
+%patch 44 -p1 -b .1425866
 
-%patch -P60 -p1 -b .ua-update
-%patch -P61 -p1 -b .ua-update-preload
-%patch -P62 -p1 -b .compat-version
-%patch -P65 -p1 -b .1406821
-%patch -P66 -p1 -b .startupcache1
-%patch -P69 -p1 -b .stylo_config
-%patch -P70 -p1 -b .icu
+%patch 60 -p1 -b .ua-update
+%patch 61 -p1 -b .ua-update-preload
+%patch 62 -p1 -b .compat-version
+%patch 65 -p1 -b .1406821
+%patch 66 -p1 -b .startupcache1
+%patch 69 -p1 -b .stylo_config
 
 %if %{without calendar}
 sed -i 's/MOZ_CALENDAR/UNDEF_MOZ_CALENDAR/' comm/suite/installer/package-manifest.in
@@ -375,24 +375,13 @@ cd mozilla
 sed -i -e 's/python3/python3.11/' mach configure
 
 %if %{with clang}
-export CC=clang
-export CXX=clang++
+%define toolchain  clang
 %endif
 
 # Mozilla builds with -Wall with exception of a few warnings which show up
 # everywhere in the code; so, don't override that.
 MOZ_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed -e 's/-Wall//')
 MOZ_LINK_FLAGS=
-
-#  Still not handled by clang < 11
-%if %{with clang}
-MOZ_OPT_FLAGS=$(echo $MOZ_OPT_FLAGS | sed -e 's/-fstack-clash-protection//')
-%endif
-
-#  needed for -Werror=format-security
-MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -Wformat"
-#  just temporary for gcc9 ...
-MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -Wno-format-overflow"
 
 %if %{with lto}
 %if %{with clang}
@@ -515,6 +504,10 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Sat Mar 23 2024 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.18.2-1
+- update to 2.53.18.2
+- add patch for system icu-74.1 (mozbz 1862601)
+
 * Wed Mar 13 2024 Sérgio Basto <sergio@serjux.com> - 2.53.18.1-4
 - Rebuild for jpegxl (libjxl) 0.10.2
 - Fix build with icu_74.1

@@ -1,29 +1,29 @@
 #
 Name:           simcrs
-Version:        1.01.8
-Release:        4%{?dist}
+Version:        1.01.9
+Release:        %autorelease
 
 Summary:        C++ Simulated Travel-Oriented Distribution System library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/airsim/%{name}
-Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  readline-devel
-BuildRequires:  zeromq-devel
-BuildRequires:  cppzmq-devel
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(libzmq)
+BuildRequires:  pkgconfig(cppzmq)
 BuildRequires:  soci-mysql-devel
 BuildRequires:  soci-sqlite3-devel
-BuildRequires:  stdair-devel
-BuildRequires:  airrac-devel
-BuildRequires:  rmol-devel
-BuildRequires:  sevmgr-devel
-BuildRequires:  airtsp-devel
-BuildRequires:  simfqt-devel
-BuildRequires:  airinv-devel
+BuildRequires:  pkgconfig(stdair)
+BuildRequires:  pkgconfig(airrac)
+BuildRequires:  pkgconfig(rmol)
+BuildRequires:  pkgconfig(sevmgr)
+BuildRequires:  pkgconfig(airtsp)
+BuildRequires:  pkgconfig(simfqt)
+BuildRequires:  pkgconfig(airinv)
 
 %description
 %{name} aims at providing a clean API and a simple implementation,
@@ -65,7 +65,7 @@ online (https://%{name}.org).
 
 
 %prep
-%autosetup -n %{name}-%{name}-%{version} 
+%autosetup
 
 
 %build
@@ -93,36 +93,21 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 %{_mandir}/man1/%{name}.1.*
 
 %files devel
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_bindir}/%{name}-config
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/aclocal/%{name}.m4
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CMake
+%{_datadir}/%{name}/CMake/
 %{_mandir}/man1/%{name}-config.1.*
 %{_mandir}/man3/%{name}-library.3.*
 
 %files doc
-%doc %{_docdir}/%{name}/html
+%doc %{_docdir}/%{name}/
 %license COPYING
 
 
 %changelog
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 18 2024 Jonathan Wakely <jwakely@redhat.com> - 1.01.8-3
-- Rebuilt for Boost 1.83
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon May 01 2023 Jonathan Wakely <jwakely@redhat.com> - 1.01.8-1
-- Upstream upgrade
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.01.7-4
-- Rebuilt for Boost 1.81
-
 %autochangelog
 
