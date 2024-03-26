@@ -9,8 +9,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python packaging core utils
-Version:        23.2
-Release:        3%{?dist}
+Version:        24.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause OR Apache-2.0
@@ -68,7 +68,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 23.2
+Version: 24.0
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -113,6 +113,9 @@ cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Sun Mar 24 2024 Sandro Mani <manisandro@gmail.com> - 24.0-1
+- Update to 24.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

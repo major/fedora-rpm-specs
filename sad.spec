@@ -7,7 +7,7 @@
 %global crate sad
 
 Name:           sad
-Version:        0.4.25
+Version:        0.4.27
 Release:        %autorelease
 Summary:        CLI search and replace tool
 

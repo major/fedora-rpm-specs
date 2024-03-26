@@ -203,7 +203,7 @@ popd
 %doc README.md
 %license LICENSE.dependencies
 %if 0%{?rhel}
-%license cargo-vendor.txt
+%license rust/cargo-vendor.txt
 %endif
 %doc examples/
 %{_mandir}/man8/nmstatectl.8*

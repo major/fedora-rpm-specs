@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        1.6.1
-Release:        3%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 
@@ -89,6 +89,7 @@ sphinx-build -b html docs %sphinx_doc_path
 
 # remove generated sphinx files that are not part of the actual documentation
 rm %sphinx_doc_path/.buildinfo
+rm -rf %sphinx_doc_path/.doctrees
 
 %check
 
@@ -105,6 +106,9 @@ rm %sphinx_doc_path/.buildinfo
 
 
 %changelog
+* Sun Mar 24 2024 Jos de Kloe <josdekloe@gmail.com> 1.7.0-1
+- new upstream release 1.7.0
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,13 +1,11 @@
 Name:           hyprcursor
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        The hyprland cursor format, library and utilities
 
 License:        BSD-3-Clause
 URL:            https://github.com/hyprwm/hyprcursor
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/hyprwm/hyprcursor/pull/7
-Patch:          fix-perms.patch
 # test data
 Source:         HyprBibataModernClassicSVG.tar.gz
 

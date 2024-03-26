@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -16,8 +16,11 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
-Patch0:         0001-fix-set-budgie-run-dialog.patch
-Patch1:         0002-fix-workspace-applet.patch
+Patch0:         0001-fix-set-budgie-run-dialog-to-skip-pager-and-taskbar-.patch
+Patch1:         0002-fix-workspace-applet-window-icon-click-not-performin.patch
+Patch2:         0003-Work-around-even-more-SNI-noncompliance-540.patch
+Patch3:         0004-vapi-Update-libxfce4windowing-to-4.19.3-547.patch
+Patch4:         0005-Add-am_cflags-to-ignore-poorly-generated-C-code-from.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -182,6 +185,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Mar 24 2024 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.1-2
+- Backport patches, fix FTBFS on gcc 14, support latest libxfce4windowing git
+
 * Sun Feb 11 2024 Joshua Strobl <me@joshuastrobl.com> - 10.9.1-1
 - Update to Budgie Desktop 10.9.1
 

@@ -19,8 +19,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        23.2
-Release:        4%{?dist}
+Version:        24.0
+Release:        1%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD-2-Clause OR Apache-2.0
@@ -134,6 +134,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Mon Mar 11 2024 Lumír Balhar <lbalhar@redhat.com> - 24.0-1
+- Update to 24.0 (rhbz#2268783)
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

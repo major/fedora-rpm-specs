@@ -58,9 +58,8 @@ the Adwaita icon theme.
 %license %{mingw32_datadir}/licenses/adwaita-icon-theme/COPYING_LGPL
 %{mingw32_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw32_datadir}/icons/Adwaita
-%{mingw32_datadir}/icons/Adwaita/.icon-theme.cache
-%{mingw32_datadir}/icons/Adwaita/Adwaita/
 %{mingw32_datadir}/icons/Adwaita/16x16
+%{mingw32_datadir}/icons/Adwaita/cursors
 %{mingw32_datadir}/icons/Adwaita/scalable
 %{mingw32_datadir}/icons/Adwaita/index.theme
 %{mingw32_datadir}/icons/Adwaita/symbolic
@@ -73,9 +72,8 @@ the Adwaita icon theme.
 %license %{mingw64_datadir}/licenses/adwaita-icon-theme/COPYING_LGPL
 %{mingw64_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw64_datadir}/icons/Adwaita
-%{mingw64_datadir}/icons/Adwaita/.icon-theme.cache
-%{mingw64_datadir}/icons/Adwaita/Adwaita/
 %{mingw64_datadir}/icons/Adwaita/16x16
+%{mingw64_datadir}/icons/Adwaita/cursors
 %{mingw64_datadir}/icons/Adwaita/scalable
 %{mingw64_datadir}/icons/Adwaita/index.theme
 %{mingw64_datadir}/icons/Adwaita/symbolic

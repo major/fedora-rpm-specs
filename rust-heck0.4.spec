@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate clap_derive
+%global crate heck
 
-Name:           rust-clap_derive
-Version:        4.5.3
+Name:           rust-heck0.4
+Version:        0.4.1
 Release:        %autorelease
-Summary:        Parse command line argument by defining a struct, derive crate
+Summary:        Case conversion library
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/clap_derive
+URL:            https://crates.io/crates/heck
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parse command line argument by defining a struct, derive crate.}
+Heck is a case conversion library.}
 
 %description %{_description}
 
@@ -32,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,52 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug-devel
+%package     -n %{name}+unicode-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug-devel %{_description}
+%description -n %{name}+unicode-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug" feature of the "%{crate}" crate.
+use the "unicode" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug-devel
+%files       -n %{name}+unicode-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deprecated-devel
+%package     -n %{name}+unicode-segmentation-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deprecated-devel %{_description}
+%description -n %{name}+unicode-segmentation-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deprecated" feature of the "%{crate}" crate.
+use the "unicode-segmentation" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deprecated-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+raw-deprecated-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+raw-deprecated-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "raw-deprecated" feature of the "%{crate}" crate.
-
-%files       -n %{name}+raw-deprecated-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-v5-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-v5-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable-v5" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-v5-devel
+%files       -n %{name}+unicode-segmentation-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

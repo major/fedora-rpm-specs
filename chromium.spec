@@ -330,8 +330,11 @@ Patch8: chromium-117-widevine-other-locations.patch
 # Tell bootstrap.py to always use the version of Python we specify
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 
-# debian patch, disable font-test 
+# debian patches
+# disable font-test 
 Patch20: chromium-disable-font-tests.patch
+# don't download binary blob
+Patch21: chromium-123-screen-ai-service.patch
 
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
 Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
@@ -1138,6 +1141,7 @@ udev.
 %patch -P11 -p1 -b .py3
 
 %patch -P20 -p1 -b .disable-font-test
+%patch -P21 -p1 -b .screen-ai-service
 
 %if ! %{bundleminizip}
 %patch -P52 -p1 -b .unbundle-zlib
@@ -1533,8 +1537,6 @@ CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=fal
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' symbol_level=%{debug_level}'
 CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
-# disable screen ai service by default
-CHROMIUM_CORE_GN_DEFINES+=' enable_screen_ai_browsertests=false enable_screen_ai_service=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines

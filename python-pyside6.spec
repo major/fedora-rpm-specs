@@ -1,10 +1,13 @@
+# explicitely set clang as toolchain to avoid gcc usage
+%global toolchain clang
+
 %global pypi_name pyside6
 %global camel_name PySide6
 %global qt6ver 6.6
 
 Name:           python-%{pypi_name}
 Version:        6.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -197,14 +200,13 @@ sed -i 's#${base}/../shiboken6/##' sources/pyside6/CMakeLists.txt
 
 %build
 
-export CXX=$(which clang++)
-
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DSHIBOKEN_PYTHON_LIBRARIES=`pkgconf python3-embed --libs` \
     -DBUILD_TESTS=OFF \
     -DCMAKE_BUILD_RPATH_USE_ORIGIN:BOOL=ON \
     -DCMAKE_SKIP_RPATH:BOOL=ON \
+    -DFORCE_LIMITED_API=no \
     -DNO_QT_TOOLS=yes
 
 # Generate a build_history entry (for tests) manually, since we're performing
@@ -301,5 +303,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 
 
 %changelog
+* Sun Mar 24 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-2
+- add  -DFORCE_LIMITED_API=no for freecad building (thanks to nvwarr@hotmail.com) (in rhbz #2266591)
+- set toolchain to clang for correct build (rhbz #2271188)
+
 * Mon Feb 19 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-1
 - Initial package

@@ -8,7 +8,7 @@
 %bcond_without check
 
 Name:           python-%{pypi_name}
-Version:        7.16.2
+Version:        7.16.3
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 

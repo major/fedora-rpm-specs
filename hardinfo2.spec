@@ -4,7 +4,7 @@
 %endif
 
 Name:           hardinfo2
-Version:        2.0.15
+Version:        2.0.18
 Release:        %autorelease
 Summary:        System Information and Benchmark for Linux Systems
 
@@ -60,8 +60,11 @@ BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(cairo-png)
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(gmodule-export-2.0)
-# BuildRequires:  pkgconfig(libsoup-3.0)
+%if 0%{?fedora}
+BuildRequires:  pkgconfig(libsoup-3.0)
+%else
 BuildRequires:  pkgconfig(libsoup-2.4)
+%endif
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(x11)

@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.18.0
+Version:          0.18.1
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Mar 24 2024 Packit <hello@packit.dev> - 0.18.1-1
+- preload: Provide wrappers for functions specific to 64-bit time_t (thanks Steve Langasek)
+- preload: Fix building with _FILE_OFFSET_BITS (thanks Zixing Liu and Steve Langasek)
+
 * Sun Mar 03 2024 Packit <hello@packit.dev> - 0.18.0-1
 - Record and restore SELinux context for mocked /dev nodes
 - preload: wrap fstatfs() and statfs() on musl

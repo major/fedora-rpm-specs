@@ -1,6 +1,6 @@
 Name:		fedora-upgrade
-Version:	39.1
-Release:	3%{?dist}
+Version:	40.1
+Release:	1%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
 License:	GPL-2.0-only
@@ -86,11 +86,11 @@ install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-n
 %license LICENSE
 
 %changelog
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Sun Mar 24 2024 Miroslav Suchý <msuchy@redhat.com> 40.1-1
+- upgrade to F40
 
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 39.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+* Sun Mar 24 2024 Miroslav Suchý <msuchy@redhat.com> 39.2-1
+- add upgrade to F40
 
 * Wed Aug 23 2023 Miroslav Suchý <msuchy@redhat.com> 39.1-1
 - remove upgrade to F37

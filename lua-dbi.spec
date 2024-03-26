@@ -9,11 +9,13 @@
 
 Summary:        Database interface library for Lua
 Name:           lua-dbi
-Version:        0.7.2
-Release:        13%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/mwild1/luadbi
 Source0:        https://github.com/mwild1/luadbi/archive/v%{version}/luadbi-%{version}.tar.gz
+Patch0:         https://github.com/mwild1/luadbi/pull/76/commits/2f069da0da6f52aca66e0819084fb8143d0b3153.patch#/lua-dbi-0.7.3-unsigned-long.patch
+Patch1:         https://github.com/mwild1/luadbi/pull/77/commits/75f6baec43967bf5cf52c8b8c47145f88544565f.patch#/lua-dbi-0.7.3-my_bool.patch
 Requires:       lua(abi) = %{lua_version}
 BuildRequires:  gcc
 BuildRequires:  make
@@ -58,7 +60,7 @@ with native database drivers.
 %endif
 
 %prep
-%setup -q -n luadbi-%{version}
+%autosetup -n luadbi-%{version} -p1
 
 %if 0%{?fedora}
 rm -rf %{lua_compat_builddir}
@@ -125,6 +127,9 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Sun Mar 24 2024 Robert Scheck <robert@fedoraproject.org> 0.7.3-1
+- Upgrade to 0.7.3 (#2261359, #2269422)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

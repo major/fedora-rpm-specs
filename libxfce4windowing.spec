@@ -1,5 +1,5 @@
-%global commitdate 20231104
-%global commit 1fbbf174734dd485102357ae1a169fc487844c97
+%global commitdate 20240317
+%global commit 0a487d79c0d91f3fd299d8fde3f08d120d40187d
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global wlr_protocols_commit 4264185db3b7e961e7f157e1cc4fd0ab75137568
@@ -14,8 +14,8 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.19.2%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        3%{?dist}
+Version:        4.19.3%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -104,6 +104,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Mar 24 2024 Joshua Strobl <joshua@buddiesofbudgie.org> - 4.19.3^git20240317.0a487d7-1
+- Update to 4.19.3
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.2^git20231104.1fbbf17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

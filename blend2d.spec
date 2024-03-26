@@ -1,4 +1,4 @@
-%bcond_with check
+%bcond_without check
 
 %global forgeurl https://github.com/blend2d/blend2d
 %global date 20240224
@@ -16,8 +16,8 @@ License:        Zlib
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-# https://github.com/blend2d/blend2d/issues/195
-ExcludeArch:    s390x
+# Fix build on big endian systems
+Patch0:         https://github.com/blend2d/blend2d/pull/197.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -63,7 +63,12 @@ sed -i 's/set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "")/set_targe
 
 %if %{with check}
 %check
+# https://github.com/blend2d/blend2d/issues/198
+%ifarch s390x
+%ctest -E bl_test_unit
+%else
 %ctest
+%endif
 %endif
 
 %files

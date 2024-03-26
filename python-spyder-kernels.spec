@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/spyder-ide/spyder-kernels
 
 Name:           python-%{pypi_name}
-Version:        3.0.0~b2
+Version:        3.0.0~b4
 Release:        %autorelease
 Epoch:          1
 Summary:        Jupyter kernels for Spyder's console
