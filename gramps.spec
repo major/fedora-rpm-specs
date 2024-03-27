@@ -1,6 +1,6 @@
 Name:           gramps
-Version:        5.2.0
-Release:        2%{?dist}
+Version:        5.2.1
+Release:        1%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -61,7 +61,7 @@ cp -pr build/mo/* ${RPM_BUILD_ROOT}%{_datadir}/locale/
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/mime/packages
 cp -p build/data/org.gramps_project.Gramps.xml ${RPM_BUILD_ROOT}%{_datadir}/mime/packages/
 mkdir -p ${RPM_BUILD_ROOT}%{_metainfodir}/
-cp -p build/data/org.gramps_project.Gramps.appdata.xml ${RPM_BUILD_ROOT}%{_metainfodir}/
+cp -p build/data/org.gramps_project.Gramps.metainfo.xml ${RPM_BUILD_ROOT}%{_metainfodir}/
 mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
 cp -p build/data/man/gramps.1.gz ${RPM_BUILD_ROOT}%{_mandir}/man1/gramps.1.gz
 rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/gramps/
@@ -69,9 +69,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/gramps/
 echo -n %{_datadir} > $RPM_BUILD_ROOT%{python3_sitelib}/gramps/gen/utils/resource-path
 
 # fix the app id to match flathub
-appstream-util modify $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.appdata.xml \
+appstream-util modify $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.metainfo.xml \
   id org.gramps_project.Gramps
-appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.appdata.xml \
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_metainfodir}/org.gramps_project.Gramps.metainfo.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/b.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gramps/c.png \
@@ -93,7 +93,7 @@ desktop-file-install --delete-original  \
 %{_datadir}/icons/hicolor/*/apps/org.gramps_project.Gramps.*
 %{_datadir}/icons/hicolor/*/mimetypes/*
 %{_mandir}/man1/%{name}.1.gz
-%{_metainfodir}/org.gramps_project.Gramps.appdata.xml
+%{_metainfodir}/org.gramps_project.Gramps.metainfo.xml
 %{python3_sitelib}/gramps*egg-info
 %{python3_sitelib}/gramps/__init*
 %{python3_sitelib}/gramps/__main*
@@ -108,6 +108,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Mon Mar 25 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.1-1
+- 5.2.1
+
 * Thu Mar 07 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.2.0-2
 - Restore duplicate license file for use by GUI
 

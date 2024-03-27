@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.45
+Version: 12.46
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
@@ -523,6 +523,12 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Mar 25 2024 Tulio Magno Quites Machado Filho  <tuliom@redhat.com> - 12.46-1
+- Annocheck: Improve detection of -mbranch-protection option.
+- Clang Plugin: Add global-file-syms option.
+- LLVM Plugin: Add global-file-syms option.
+- Plugins: Add support for ANNOBIN environment variable.
+
 * Thu Mar 21 2024 Nick Clifton  <nickc@redhat.com> - 12.45-1
 - GCC Plugin: Fix bug extracing the value of target specific command line options.
 

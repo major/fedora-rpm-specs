@@ -94,6 +94,9 @@ Source4:	release-keys.asc
 %if %{without compat_build}
 Source5:	macros.%{name}
 %endif
+# This file is still needed because We still build on F38 in the
+# upstream-snapshot branch.
+Source6:	clang.cfg
 
 # Patches for clang
 Patch1:     0001-PATCH-clang-Make-funwind-tables-the-default-on-all-a.patch

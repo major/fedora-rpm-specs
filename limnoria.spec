@@ -9,7 +9,7 @@
 
 Name:           limnoria
 Version:        20231209
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A modified version of Supybot (an IRC bot) with enhancements and bug fixes
 
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later
@@ -39,7 +39,7 @@ BuildRequires:  python3-pytz
 BuildRequires:  python3-dateutil
 BuildRequires:  python3-gnupg
 BuildRequires:  python3-feedparser
-BuildRequires:  python3-sqlalchemy < 2
+BuildRequires:  python3-sqlalchemy
 BuildRequires:  python3-pysocks
 BuildRequires:  python3-ecdsa
 BuildRequires:  python3-setuptools
@@ -49,7 +49,7 @@ Requires:  python3-pytz
 Requires:  python3-dateutil
 Requires:  python3-gnupg
 Requires:  python3-feedparser
-Requires:  python3-sqlalchemy < 2
+Requires:  python3-sqlalchemy
 Requires:  python3-pysocks
 Requires:  python3-ecdsa
 %else
@@ -160,6 +160,9 @@ export SOURCE_DATE_EPOCH
 %endif
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 20231209-3
+- Revert constraining SQLAlchemy version
+
 * Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 20231209-2
 - Require SQLAlchemy < 2
 

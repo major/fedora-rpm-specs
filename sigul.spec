@@ -2,7 +2,7 @@ Summary: A signing server and related software client
 Name: sigul
 
 Version: 1.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
@@ -24,7 +24,7 @@ Requires: python3
 Requires: python3-nss >= 0.11
 BuildRequires: python3-nss, gnupg, koji, python3-pexpect, python3-gpg, python3, python3-fedora
 BuildRequires: rpm-sign python3-urlgrabber git
-BuildRequires: python3-sqlalchemy < 2
+BuildRequires: python3-sqlalchemy
 BuildRequires: systemd-rpm-macros autoconf automake
 BuildRequires: python3-cryptography
 
@@ -64,7 +64,7 @@ Requires: python3-cryptography
 Requires: python3-gpg
 Requires: python3-pexpect
 Requires: python3-sqlalchemy >= 0.5
-Requires: python3-sqlalchemy < 2
+Requires: python3-sqlalchemy
 
 Requires: ostree
 Requires: rpm-sign
@@ -191,7 +191,10 @@ exit 0
 
 
 %changelog
-* Thu Mar 21 Nils Philippsen <nils@tiptoe.de> - 1.2-2
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 1.2-3
+- Revert constraining SQLAlchemy version
+
+* Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 1.2-2
 - Require SQLAlchemy < 2
 
 * Tue Feb 27 2024 Kevin Fenzi <kevin@scrye.com> - 1.2-1

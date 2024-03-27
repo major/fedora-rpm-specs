@@ -1,5 +1,5 @@
 Name:           wesnoth
-Version:        1.17.26
+Version:        1.18.0
 Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
@@ -184,6 +184,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon Mar 18 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.18.0-1
+- 1.18.0
+
 * Wed Feb 21 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.17.26-1
 - 1.17.26
 

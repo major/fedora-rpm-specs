@@ -23,7 +23,7 @@
 %global source_directory 1.19-development
 
 Name:           libnbd
-Version:        1.19.10
+Version:        1.19.11
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -374,18 +374,22 @@ make %{?_smp_mflags} check || {
 
 
 %files bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/nbdcopy
-%{_datadir}/bash-completion/completions/nbddump
-%{_datadir}/bash-completion/completions/nbdfuse
-%{_datadir}/bash-completion/completions/nbdinfo
-%{_datadir}/bash-completion/completions/nbdsh
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/nbdcopy
+%{bash_completions_dir}/nbddump
+%{bash_completions_dir}/nbdfuse
+%{bash_completions_dir}/nbdinfo
+%{bash_completions_dir}/nbdsh
 %if 0%{?have_ublk}
-%{_datadir}/bash-completion/completions/nbdublk
+%{bash_completions_dir}/nbdublk
 %endif
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.11-1
+- New upstream development version 1.19.11
+- Use %%{bash_completions_dir} macro
+
 * Fri Mar 15 2024 Richard W.M. Jones <rjones@redhat.com> - 1.19.10-1
 - New upstream development version 1.19.10
 

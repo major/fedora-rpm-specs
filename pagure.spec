@@ -13,13 +13,12 @@
 
 Name:               pagure
 Version:            5.13.3
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            A git-centered forge
 
 License:            GPLv2+
 URL:                https://pagure.io/pagure
 Source0:            https://pagure.io/releases/pagure/%{name}-%{version}.tar.gz
-Patch:              pagure-5.13.3-nosqla2.patch
 
 Source10:           pagure-README.Fedora
 
@@ -611,6 +610,9 @@ done
 
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 5.13.3-12
+- Revert constraining SQLAlchemy version
+
 * Thu Mar 21 2024 Nils Philippsen <nils@tiptoe.de> - 5.13.3-11
 - Require SQLAlchemy < 2
 

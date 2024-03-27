@@ -10,7 +10,7 @@ Summary:       Convert a physical machine to run on KVM
 Name:          virt-p2v
 Epoch:         1
 Version:       1.42.3
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # virt-p2v works only on x86_64 at the moment.  It requires porting
@@ -39,7 +39,7 @@ BuildRequires: perl(List::MoreUtils)
 BuildRequires: /usr/bin/pod2text
 BuildRequires: libxml2-devel
 BuildRequires: pcre2-devel
-BuildRequires: bash-completion
+BuildRequires: bash-completion-devel
 BuildRequires: xz
 BuildRequires: gtk3-devel
 BuildRequires: dbus-devel
@@ -109,7 +109,7 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/p2v-release-notes.1*
 %{_bindir}/virt-p2v-make-disk
 %{_bindir}/virt-p2v-make-kickstart
 %{_bindir}/virt-p2v-make-kiwi
-%{_datadir}/bash-completion/completions/virt-*
+%{bash_completions_dir}/virt-*
 %{_datadir}/virt-p2v
 %{_libdir}/virt-p2v
 %{_mandir}/man1/virt-p2v-make-disk.1*
@@ -119,6 +119,10 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/p2v-release-notes.1*
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.42.3-6
+- Use %%{bash_completions_dir} macro
+- BR bash-completion-devel (new in Rawhide)
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.42.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

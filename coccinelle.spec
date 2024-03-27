@@ -24,7 +24,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -182,7 +182,7 @@ autoreconf -i
   -e 's,MANDIR=.*,MANDIR=%{_mandir},' \
   -e 's,SHAREDIR=.*,SHAREDIR=%{_libdir}/%{name},' \
   -e 's,DYNLINKDIR=.*,DYNLINKDIR=%{_libdir}/ocaml,' \
-  -e 's,BASH_COMPLETION_DIR=.*,BASH_COMPLETION_DIR=%{_datadir}/bash-completion/completions,' \
+  -e 's,BASH_COMPLETION_DIR=.*,BASH_COMPLETION_DIR=%{bash_completions_dir},' \
   Makefile.config
 
 # Pass -g option everywhere.
@@ -272,8 +272,8 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 %files bash-completion
 %license license.txt copyright.txt
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/spatch
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/spatch
 
 
 %if %{with doc}
@@ -287,6 +287,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-31
+- Use %%{bash_completions_dir} macro
+
 * Mon Jan 29 2024 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-30
 - Bump and rebuild
 

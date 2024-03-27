@@ -26,6 +26,9 @@ Source0:        %forgesource
 # Add meson build options to pyproject.toml
 # Passing this through one of the macros appears unsupported
 Patch:          use_flexiblas.patch
+# Allow building with Python 3.13
+# https://github.com/has2k1/scikit-misc/issues/30
+Patch:          %{forgeurl}/pull/31.patch
 
 %description %_description
 

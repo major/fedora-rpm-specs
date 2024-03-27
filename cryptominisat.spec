@@ -1,19 +1,22 @@
 Name:           cryptominisat
 Version:        5.11.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
 # src/MersenneTwister.h is BSD-3-Clause.
 License:        MIT AND BSD-3-Clause
 URL:            https://www.msoos.org/
-Source0:        https://github.com/msoos/cryptominisat/archive/%{version}/%{name}-%{version}.tar.gz
+VCS:            https://github.com/msoos/cryptominisat
+Source0:        %{vcs}/archive/%{version}/%{name}-%{version}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch0:         %{name}-cmake.patch
 # Unbundle picosat
 Patch1:         %{name}-picosat.patch
 # Do not rebuild the entire library for python; just link the existing library
 Patch2:         %{name}-python-library.patch
+# Use tomllib instead of the deprecated toml library
+Patch3:         %{name}-toml.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -121,6 +124,9 @@ sed -i '/msvc/d;/oracle/d' \
 %exclude %{python3_sitearch}/oracle
 
 %changelog
+* Mon Mar 25 2024 Jerry James <loganjerry@gmail.com> - 5.11.21-2
+- Use tomllib instead of toml
+
 * Fri Feb  9 2024 Jerry James <loganjerry@gmail.com> - 5.11.21-1
 - Version 5.11.21
 - Stop building for 32-bit x86

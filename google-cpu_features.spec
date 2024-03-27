@@ -4,7 +4,7 @@
 ExcludeArch: s390x
 
 Name:    google-cpu_features
-Version: 0.7.0
+Version: 0.9.0
 Release: %autorelease
 Summary: A cross-platform C library to retrieve CPU features at runtime
 License: ASL 2.0
@@ -13,7 +13,6 @@ Source0: https://github.com/google/cpu_features/archive/v%{version}/cpu_features
 
 Patch0:  google-cpu_features-unbundle_gtest.patch
 Patch1:  google-cpu_features-create_soname.patch
-Patch2:  google-cpu_features-compile_tests_with_C++14.patch
 
 BuildRequires: cmake
 BuildRequires: gcc

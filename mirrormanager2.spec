@@ -2,7 +2,7 @@
 
 Name:           mirrormanager2
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mirror management application
 
 # Most MirrorManager files are licensed under the MIT license. Some
@@ -47,7 +47,7 @@ Requires:  %{name}-filesystem = %{version}-%{release}
 Requires:  python%{python3_pkgversion}-IPy
 Requires:  python%{python3_pkgversion}-dns
 Requires:  python%{python3_pkgversion}-sqlalchemy >= 0.7
-Requires:  python%{python3_pkgversion}-sqlalchemy < 2
+Requires:  python%{python3_pkgversion}-sqlalchemy
 Requires:  python%{python3_pkgversion}-pyrpmmd
 Requires:  python%{python3_pkgversion}-protobuf
 
@@ -305,6 +305,9 @@ MM2_SKIP_NETWORK_TESTS=1 %{pytest} tests
 
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 1.0.0-5
+- Revert constraining SQLAlchemy version
+
 * Wed Mar 20 2024 Nils Philippsen <nils@tiptoe.de> - 1.0.0-4
 - Require SQLAlchemy < 2
 

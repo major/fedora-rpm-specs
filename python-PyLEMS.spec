@@ -1,21 +1,25 @@
 # Require network, so run locally on mock with --enable-network
 %bcond_with tests
 
+%global forgeurl https://github.com/LEMS/pylems/
+
 %global _description \
 A LEMS (http://lems.github.io/LEMS) simulator written in Python which can be \
 used to run NeuroML2 (http://neuroml.org/neuroml2.php) models.
 
 
 Name:           python-PyLEMS
-Version:        0.6.4
+Version:        0.6.7
 Release:        %autorelease
 Summary:        LEMS interpreter implemented in Python
+
+%forgemeta
 
 License:        LGPL-3.0-only
 
 # Use github source. Pypi source does not include license and examples.
-URL:            https://github.com/LEMS/pylems/
-Source0:        %{url}/archive/v%{version}/pylems-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 # Generate man page for pylems
 # help2man -n "LEMS interpreter implemented in Python" --version-string="0.5.9" -N pylems -S "https://lems.github.io" -o pylems.1
 # Sent upstream: https://github.com/LEMS/pylems/pull/64
@@ -43,7 +47,7 @@ Summary: %{summary}
 
 
 %prep
-%autosetup -n pylems-%{version}
+%forgeautosetup
 
 # remove shebang
 sed -i '1d' lems/dlems/exportdlems.py
@@ -56,7 +60,7 @@ sed -i '1d' lems/dlems/exportdlems.py
 
 %install
 %pyproject_install
-%pyproject_save_files lems
+%pyproject_save_files -l lems
 
 install -p -m 0644 -D -t $RPM_BUILD_ROOT/%{_mandir}/man1/  man/man1/*.1
 

@@ -50,7 +50,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.52.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -138,7 +138,7 @@ BuildRequires: libldm-devel
 %endif
 BuildRequires: jansson-devel
 BuildRequires: systemd-devel
-BuildRequires: bash-completion
+BuildRequires: bash-completion-devel
 BuildRequires: /usr/bin/ping
 BuildRequires: curl
 BuildRequires: xz
@@ -983,16 +983,16 @@ rm ocaml/html/.gitignore
 
 
 %files bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/guestfish
-%{_datadir}/bash-completion/completions/guestmount
-%{_datadir}/bash-completion/completions/guestunmount
-%{_datadir}/bash-completion/completions/libguestfs-test-tool
-%{_datadir}/bash-completion/completions/virt-copy-in
-%{_datadir}/bash-completion/completions/virt-copy-out
-%{_datadir}/bash-completion/completions/virt-rescue
-%{_datadir}/bash-completion/completions/virt-tar-in
-%{_datadir}/bash-completion/completions/virt-tar-out
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/guestfish
+%{bash_completions_dir}/guestmount
+%{bash_completions_dir}/guestunmount
+%{bash_completions_dir}/libguestfs-test-tool
+%{bash_completions_dir}/virt-copy-in
+%{bash_completions_dir}/virt-copy-out
+%{bash_completions_dir}/virt-rescue
+%{bash_completions_dir}/virt-tar-in
+%{bash_completions_dir}/virt-tar-out
 
 
 %files -n ocaml-%{name}
@@ -1099,6 +1099,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1:1.52.0-8
+- Use %%{bash_completions_dir} macro
+- BR bash-completion-devel, new in Rawhide
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.52.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

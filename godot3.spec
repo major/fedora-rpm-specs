@@ -18,7 +18,7 @@
 
 Name:           godot3
 Version:        3.5.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -264,14 +264,19 @@ export BUILD_NAME="mageia"
 %endif
 
 %install
+%ifarch riscv64
+suffix=rv64
+%else
+suffix=%{__isa_bits}
+%endif
 install -d %{buildroot}%{_bindir}
-install -m755 bin/%{uname}.x11.opt.tools.%{__isa_bits} %{buildroot}%{_bindir}/%{name}
-install -m755 bin/%{uname}.x11.opt.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-runner
+install -m755 bin/%{uname}.x11.opt.tools.$suffix %{buildroot}%{_bindir}/%{name}
+install -m755 bin/%{uname}.x11.opt.$suffix %{buildroot}%{_bindir}/%{name}-runner
 %if %{with headless}
-install -m755 bin/%{uname}_server.x11.opt.tools.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-headless
+install -m755 bin/%{uname}_server.x11.opt.tools.$suffix %{buildroot}%{_bindir}/%{name}-headless
 %endif
 %if %{with server}
-install -m755 bin/%{uname}_server.x11.opt.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-server
+install -m755 bin/%{uname}_server.x11.opt.$suffix %{buildroot}%{_bindir}/%{name}-server
 %endif
 
 install -D -m644 icon.svg \
@@ -297,6 +302,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Mar 25 2024 Songsong Zhang <U2FsdGVkX1@gmail.com> - 3.5.2-7
+- Add riscv64 support
+
 * Wed Feb 07 2024 Pete Walter <pwalter@fedoraproject.org> - 3.5.2-6
 - Rebuild for libvpx 1.14.x
 

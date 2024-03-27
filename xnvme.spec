@@ -1,6 +1,6 @@
 Name:           xnvme
 Version:        0.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unified API and tools for traditional and emerging I/O interfaces
 
 License:        BSD-3-Clause
@@ -88,13 +88,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/%{name}_file-*.1*
 %{_mandir}/man1/zoned.1*
 %{_mandir}/man1/zoned-*.1*
-%{_datadir}/bash-completion/completions/kvs-completions
-%{_datadir}/bash-completion/completions/lblk-completions
-%{_datadir}/bash-completion/completions/xdd-completions
-%{_datadir}/bash-completion/completions/%{name}-completions
-%{_datadir}/bash-completion/completions/%{name}_file-completions
-%{_datadir}/bash-completion/completions/zoned-completions
+%{bash_completions_dir}/kvs-completions
+%{bash_completions_dir}/lblk-completions
+%{bash_completions_dir}/xdd-completions
+%{bash_completions_dir}/%{name}-completions
+%{bash_completions_dir}/%{name}_file-completions
+%{bash_completions_dir}/zoned-completions
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.4-3
+- Use %%{bash_completions_dir} macro
+
 * Mon Feb 19 2024 Richard W.M. Jones <rjones@redhat.com> - 0.7.4-2
 - Initial version

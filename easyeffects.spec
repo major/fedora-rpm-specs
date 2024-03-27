@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        7.1.4
+Version:        7.1.5
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -62,8 +62,6 @@ equalizer many more effects for PipeWire applications.
 
 %prep
 %autosetup
-# Downgrade lv2 dependency version
-sed -i 's|1.18.2|1.18.0|' src/meson.build
 
 %build
 %meson
@@ -101,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Mon Mar 25 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.5-1
+- Update to 7.1.5
+
 * Tue Feb 06 2024 Vasiliy N. Glazov <vascom2@gmail.com> - 7.1.4-1
 - Update to 7.1.4
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tools for studying Home Assistant data
 
 License:        MIT
@@ -45,8 +45,7 @@ sed -i -e 's/2.1/2.3/g' setup.py
 %py3_install
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
-  -k "not test_load_hass_config"
+PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 
 %files -n python3-%{pkg_name}
 %license LICENSE
@@ -55,6 +54,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
 %{python3_sitelib}/HASS_data_detective-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 2.4-12
+- Reenable test which failed in the past
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           ikiwiki
-Version:        3.20200202.3
-Release:        17%{?dist}
+Version:        3.20200202.4
+Release:        1%{?dist}
 Summary:        A wiki compiler
 
 # ikiwiki is licensed under GPLv2+, the Python code in plugins/ under
@@ -155,9 +155,9 @@ array of plugins.
 
 %prep
 %setup0 -q -n ikiwiki-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # goes into the -w3m subpackage
 cat << \EOF > README.fedora
@@ -216,14 +216,14 @@ find %{buildroot}%{perl_vendorlib}/IkiWiki -type f \
 # disable the S3 plugin for now, as perl-Net-Amazon-S3 is not
 # available on epel6 (rhbz#1125850)
 %exclude %{perl_vendorlib}/IkiWiki*/Plugin/amazon_s3.pm
-%endif # rhel
+%endif
 %{_libexecdir}/ikiwiki
 %doc README debian/changelog debian/NEWS html
 %doc IkiWiki/Plugin/skeleton.pm.example
 %if 0%{?_licensedir:1}
 # include license file a second time
 %license html/GPL
-%endif # licensedir
+%endif
 
 
 %package w3m
@@ -244,6 +244,10 @@ meta-wrapper in this package.
 
 
 %changelog
+* Fri Mar 22 2024 Jens Petersen <petersen@redhat.com> - 3.20200202.4-1
+- update to 3.20200202.4
+
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.20200202.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

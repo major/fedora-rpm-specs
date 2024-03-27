@@ -16,7 +16,7 @@
 
 Name:           godot
 Version:        4.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -211,6 +211,8 @@ To run the game as a dedicated server, use the --headless flag.
     arch = "x86_32"
   elseif string.match(rpm.expand("%{power64}"), arch) then
     arch = "ppc64"
+  elseif string.match(rpm.expand("%{riscv64}"), arch) then
+    arch = "rv64"
   end
   return arch
 end}
@@ -290,6 +292,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Mar 25 2024 Nianqing Yao <imbearchild@outlook.com> - 4.2.1-5
+- Fix build on riscv64
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 4.2.1-4
 - Rebuild for ICU 74
 

@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.118
-Release:	3%{?dist}
+Version:	3.3.119
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -13,6 +13,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	flex
 BuildRequires:	gedit
 BuildRequires:	gperf
+BuildRequires:	hardlink
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.0
 BuildRequires:	pkgconfig(gtk+-unix-print-3.0)
@@ -80,6 +81,9 @@ install -D -m 644 -p share/appdata/io.github.gtkwave.GTKWave.metainfo.xml \
 # Include extra docs
 install -p -m 644 AUTHORS %{buildroot}%{_pkgdocdir}/
 install -p -m 644 ChangeLog %{buildroot}%{_pkgdocdir}/
+
+# hardlink identical icons together
+hardlink -cv %{buildroot}%{_datadir}/icons/
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.gtkwave.GTKWave.metainfo.xml
@@ -187,6 +191,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Mar 25 2024 Paul Howarth <paul@city-fan.org> - 3.3.119-1
+- Update to 3.3.119
+  - Remove FST_DO_MISALIGNED_OPS
+  - Update lz4 to current version from GitHub
+  - Change LZ4_compress to LZ4_compress_default
+  - Update libghw.c/.h to latest upstream version
+  - Fix for -Wsign-compare in fstapi.c
+  - Security fixes for GHW
+  - Fix left shift of a negative number warning in fstapi.c
+  - Fix ctrl-A behavior for SST filter entry
+  - Fix for bad shmat return value in main.c
+- Hardlink identical icons together to save space
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.118-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

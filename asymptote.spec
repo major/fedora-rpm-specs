@@ -1,6 +1,6 @@
 Name:           asymptote
-Version:        2.86
-Release:        5%{?dist}
+Version:        2.89
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -42,7 +42,7 @@ Patch0:         asymptote-2.84-settings.patch
 # This doesn't need to go upstream. We put the info file in the topdir, not a subdir, so we need this fix.
 Patch1:         asymptote-2.73-info-path-fix.patch
 # Link with flexiblas instead of gslcblas
-Patch2:         asymptote-2.86-flexiblas.patch
+Patch2:         asymptote-2.89-flexiblas.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -112,13 +112,15 @@ mv examples/interpolate1.asy{.utf8,}
 autoreconf -i
 
 %build
-%configure --enable-gc=system --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp --enable-offscreen
+%configure --enable-gc=system --with-docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}/} --with-latex=%{_texmf}/tex/latex --with-context=%{_texmf}/tex/context/ --enable-lsp --disable-offscreen
 %make_build
 cd doc/
 make all
 
 # Generate an SVG icon
 ../asy -dir ../base -config "" -render=0 -f svg -o icon.svg icon.asy
+# No, I have no idea why this is appending a suffix when I specify an output filename. Boooooo.
+mv icon.svg.svg icon.svg
 
 %install
 %make_install 
@@ -187,6 +189,10 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/{asy-kate.sh,asymptote.py}
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Mon Mar 25 2024 Tom Callaway <spot@fedoraproject.org> - 2.89-1
+- update to 2.89
+- disable offscreen rendering because it doesn't build with libOSMesa and I cannot see why
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.86-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -2,14 +2,14 @@
 %global gschemadir  %{_datadir}/glib-2.0/schemas
 
 %global giturl https://github.com/micheleg/dash-to-dock
-#%%global commit 004f257c3dea5f1851dadd753be87afc555b3dfb
-#%%global commit_short %%(c=%%{commit}; echo ${c:0:7})
-#%%global commit_date 20220428
+%global commit 506dd023215ee4be6a1c807af94bfd43303a2a3d
+%global commit_short %%(c=%%{commit}; echo ${c:0:7})
+%global commit_date 20240320
 
 Name:           gnome-shell-extension-dash-to-dock
 Version:        89
-Release:        %autorelease
-#Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
+#Release:        %%autorelease
+Release:        %autorelease -e %{commit_date}git%{commit_short}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
 
 License:        GPLv2+

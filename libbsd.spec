@@ -1,26 +1,20 @@
 Name:           libbsd
-Version:        0.11.7
-Release:        7%{?dist}
+Version:        0.12.2
+Release:        1%{?dist}
 Summary:        Library providing BSD-compatible functions for portability
 URL:            https://libbsd.freedesktop.org/
 # Breakdown in COPYING file of libbsd release tarball, see also:
 # - https://gitlab.com/fedora/legal/fedora-license-data/-/issues/71
 # - https://gitlab.com/fedora/legal/fedora-license-data/-/issues/73
-License:        Beerware AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND libutil-David-Nugent AND MIT AND LicenseRef-Fedora-Public-Domain
+License:        Beerware AND BSD-2-Clause AND BSD-3-Clause AND ISC AND libutil-David-Nugent AND MIT AND LicenseRef-Fedora-Public-Domain
 
 Source0:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
 Source1:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/4F3E74F436050C10F5696574B972BF3EA4AE57A3
-# https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/14: Revert breaking commit in explicit_bzero test
-Patch0:         https://gitlab.freedesktop.org/libbsd/libbsd/-/commit/d5865759f8698f1c75339451a26fa3ae00276a51.patch#/libbsd-0.11.7-test-explicit_bzero.patch
-Patch1:         libbsd-configure-c99.patch
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  libmd-devel
-BuildRequires:  libtool
 BuildRequires:  make
 
 %description
@@ -51,34 +45,27 @@ configured using "pkg-config --libs libbsd-ctor".
 %prep
 %setup -q
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%patch0 -p1 -R -b .test-explicit_bzero
-%patch1 -p1 -b .c99
 
 %build
-autoreconf -fiv
 %configure
-%make_build V=1
+%make_build
 
 %check
-%make_build check V=1
+%make_build check
 
 %install
-%make_install V=1
+%make_install
 
 # don't want static library or libtool archive
 rm %{buildroot}%{_libdir}/%{name}.a
 rm %{buildroot}%{_libdir}/%{name}.la
 
-# remove manual pages that conflict with man-pages package
-rm %{buildroot}%{_mandir}/man3/explicit_bzero.3bsd
-
-
 %ldconfig_scriptlets
 
 %files
 %license COPYING
-%doc README TODO ChangeLog
-%{_libdir}/%{name}.so.*
+%doc README ChangeLog
+%{_libdir}/%{name}.so.0*
 
 %files devel
 %{_mandir}/man3/*.3bsd.*
@@ -93,6 +80,9 @@ rm %{buildroot}%{_mandir}/man3/explicit_bzero.3bsd
 %{_libdir}/pkgconfig/%{name}-ctor.pc
 
 %changelog
+* Mon Mar 25 2024 Robert Scheck <robert@fedoraproject.org> - 0.12.2-1
+- Update to 0.12.2 (#2257217)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -6,7 +6,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           frama-c
 Version:        28.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Nickel
@@ -174,9 +174,9 @@ mkdir -p %{buildroot}%{_datadir}/icons
 cp -a icons %{buildroot}%{_datadir}/icons/hicolor
 
 # Install the bash completion file
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+mkdir -p %{buildroot}%{bash_completions_dir}
 cp -p share/autocomplete_frama-c \
-   %{buildroot}%{_datadir}/bash-completion/completions/frama-c
+   %{buildroot}%{bash_completions_dir}/frama-c
 
 # Install the zsh completion file
 mkdir -p %{buildroot}%{_datadir}/zsh/site-functions
@@ -237,7 +237,7 @@ make default-tests PTESTS_OPTS=-error-code
 %{_datadir}/frama-c/
 %{_datadir}/frama-c-e-acsl/
 %{_datadir}/applications/com.%{name}.%{name}-gui.desktop
-%{_datadir}/bash-completion/completions/frama-c
+%{bash_completions_dir}/frama-c
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/zsh/site-functions/_frama-c
 %{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
@@ -266,6 +266,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 28.1-2
+- Use %%{bash_completions_dir} macro
+
 * Mon Mar  4 2024 Jerry James <loganjerry@gmail.com> - 28.1-1
 - Version 28.1
 

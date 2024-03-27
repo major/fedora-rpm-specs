@@ -94,7 +94,7 @@ Requires: %{srcname}-base = %{version}-%{release}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 Requires: python3-tornado
-Requires: python3-sqlalchemy < 2
+Requires: python3-sqlalchemy
 Requires: python3-alembic
 Requires: python3-cryptography
 Requires: python3-pyyaml

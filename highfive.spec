@@ -55,11 +55,12 @@ Known flaws:
 %global debug_package %{nil}
 
 Name:           highfive
-Version:        2.8.0
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Header-only C++ HDF5 interface
 
-License:        Boost
+# SPDX
+License:        BSL-1.0
 URL:            https://bluebrain.github.io/HighFive/
 Source:         https://github.com/BlueBrain/HighFive/archive/v%{version}/%{name}-%{version}.tar.gz
 

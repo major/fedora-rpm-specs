@@ -9,8 +9,8 @@
 %global libdecor_majver 0
 
 Name:           SDL2
-Version:        2.28.5
-Release:        3%{?dist}
+Version:        2.30.1
+Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 URL:            http://www.libsdl.org/
@@ -20,7 +20,7 @@ Source2:        SDL_revision.h
 
 Patch0:         multilib.patch
 # Prefer Wayland by default
-Patch1:         SDL2-2.0.22-prefer-wayland.patch
+Patch1:         SDL2-2.30.1-prefer-wayland.patch
 
 BuildRequires:  git-core
 BuildRequires:  cmake
@@ -100,6 +100,7 @@ Static libraries for SDL2.
 
 %prep
 %autosetup -S git
+#autopatch 0
 sed -i -e 's/\r//g' TODO.txt README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.txt README-SDL.txt
 
 %build
@@ -170,6 +171,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2staticTargets*.cmake
 
 %changelog
+* Mon Mar 25 2024 Ding-Yi Chen <dchen@fedoraproject.org> - 2.30.1-1
+- Update to 2.30.1
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

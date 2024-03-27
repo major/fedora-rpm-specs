@@ -1,8 +1,8 @@
 Name:           fuse-sshfs
 Version:        3.7.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        FUSE-Filesystem to access remote filesystems via SSH
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/libfuse/sshfs
 Source0:        https://github.com/libfuse/sshfs/releases/download/sshfs-%{version}/sshfs-%{version}.tar.xz
 Source1:        https://github.com/libfuse/sshfs/releases/download/sshfs-%{version}/sshfs-%{version}.tar.xz.asc
@@ -24,6 +24,7 @@ Patch1:         sshfs-0001-Refer-to-mount.fuse3-instead-of-mount.fuse.patch
 Provides:       sshfs = %{version}-%{release}
 Requires:       fuse3 >= 3.1.0
 Requires:       openssh-clients
+Requires:       openssh-askpass
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -77,6 +78,9 @@ cd %{_vpath_builddir}
 
 
 %changelog
+* Mon Mar 25 2024 Vasiliy Glazov <vascom2@gmail.com> - 3.7.3-8
+- Add requires openssh-askpass
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

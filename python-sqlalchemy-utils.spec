@@ -2,7 +2,7 @@
 
 Name:               python-sqlalchemy-utils
 Version:            0.41.1
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Various utility functions for SQLAlchemy
 
 License:            BSD
@@ -11,6 +11,8 @@ Source0:            %{pypi_source SQLAlchemy-Utils}
 # Omit test on unpackaged python-psycopg2cffi
 Patch0:             no-psycopg2cffi.patch
 Patch1:             python-sqlalchemy-utils-0.41.1-no-pyodbc-dep.patch
+# This can be removed with version >= 0.42.2
+Patch2:             python-sqlalchemy-utils-0.41.1-nosqla2.patch
 
 BuildArch:          noarch
 
@@ -63,6 +65,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 0.41.1-5
+- Require SQLAlchemy < 2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

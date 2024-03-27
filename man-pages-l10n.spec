@@ -30,7 +30,7 @@ Name:           man-pages-l10n
 # Bumping epoch as a consequence of replacing man-pages-ru standalone package that has higher version (Obsoletes/Provides not needed)
 # This is part of the Fedora 39 Change: https://fedoraproject.org/wiki/Changes/ManPagesRuRetirement
 Epoch:          3
-Version:        4.21.0
+Version:        4.22.0
 Release:        %autorelease
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
 
@@ -45,7 +45,7 @@ Summary:        Translated man pages from the Linux Documentation Project and ot
 License:        Artistic Licence 2.0 and BSD and BSD with advertising and Copyright only and GFDL and GPL+ and GPLv2 and GPLv2+ and (GPLv2+ or Artistic) and GPLv2 with exceptions and GPLv2+ with exceptions and GPLv3+ and (GPLv3+ and BSD) and (GPLv3+ or BSD) and IJG and ISC and LGPLv2+ and LGPLv3+ and (LGPLv3+ or BSD) and MIT and psutils and Public Domain and Sendmail and Verbatim
 
 URL:            https://manpages-l10n-team.pages.debian.net/manpages-l10n/
-Source0:        https://salsa.debian.org/manpages-l10n-team/%{upstream_name}/-/archive/v%{version}/%{upstream_name}-v%{version}.tar.bz2
+Source0:        https://salsa.debian.org/manpages-l10n-team/%{upstream_name}/-/archive/%{version}/%{upstream_name}-%{version}.tar.bz2
 
 BuildArch:      noarch
 
@@ -78,7 +78,7 @@ end}
 
 
 %prep
-%autosetup -p1 -n %{upstream_name}-v%{version}
+%autosetup -p1 -n %{upstream_name}-%{version}
 
 
 %build

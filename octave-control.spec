@@ -1,14 +1,12 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        4.0.0
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gnu-octave.github.io/packages/control/
 Source0:        https://github.com/gnu-octave/pkg-%{octpkg}/releases/download/%{octpkg}-%{version}/%{octpkg}-%{version}.tar.gz
-# Escape ampersand in XML - https://github.com/gnu-octave/pkg-control/pull/4
-Patch0:         octave-control-amp.patch
 BuildRequires:  octave-devel >= 4.0.0
 
 Requires:       octave(api) = %{octave_api}
@@ -60,10 +58,13 @@ done;
 %{octpkgdir}/@frd
 %{octpkgdir}/@iddata
 %doc %{octpkgdir}/doc
-%{_metainfodir}/octave-control.metainfo.xml
+%{_metainfodir}/io.github.gnu_octave.pkg-control.metainfo.xml
 
 
 %changelog
+* Mon Mar 25 2024 Thomas Sailer <fedora@tsailer.ch> - 4.0.1-1
+- Update to 4.0.1
+
 * Sat Mar 16 2024 Orion Poplawski <orion@nwra.com> - 4.0.0-1
 - Update to 4.0.0
 

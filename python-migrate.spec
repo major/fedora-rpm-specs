@@ -2,7 +2,7 @@
 
 Name: python-migrate
 Version: 0.13.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Schema migration tools for SQLAlchemy
 
 License: MIT
@@ -26,6 +26,7 @@ Summary: Schema migration tools for SQLAlchemy
 
 BuildRequires: python3-devel
 BuildRequires: python3-sqlalchemy >= 0.9.6
+BuildRequires: python3-sqlalchemy < 2
 BuildRequires: python3-setuptools
 BuildRequires: python3-nose
 BuildRequires: python3-sphinx
@@ -36,6 +37,7 @@ BuildRequires: python3-six >= 1.9.0
 BuildRequires: python3-sqlparse
 
 Requires: python3-sqlalchemy >= 0.9.6
+Requires: python3-sqlalchemy < 2
 Requires: python3-setuptools
 Requires: python3-decorator
 Requires: python3-tempita >= 0.4
@@ -91,6 +93,9 @@ echo 'sqlite:///__tmp__' > test_db.cfg
 %{python3_sitelib}/*
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 0.13.0-17
+- Require SQLAlchemy < 2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

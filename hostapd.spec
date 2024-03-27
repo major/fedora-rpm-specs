@@ -2,7 +2,7 @@
 
 Name:           hostapd
 Version:        2.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator
 License:        BSD-3-Clause
 URL:            http://w1.fi/hostapd
@@ -66,6 +66,7 @@ Logwatch scripts for hostapd.
 cd hostapd
 cat defconfig | sed \
     -e '$ a CONFIG_SAE=y' \
+    -e '$ a CONFIG_SUITEB192=y' \
     -e '/^#CONFIG_DRIVER_NL80211=y/s/^#//' \
     -e '/^#CONFIG_RADIUS_SERVER=y/s/^#//' \
     -e '/^#CONFIG_DRIVER_WIRED=y/s/^#//' \
@@ -187,6 +188,9 @@ fi
 %{_sysconfdir}/logwatch/scripts/services/%{name}
 
 %changelog
+* Fri Mar 22 2024 Davide Caratti <dcaratti@redhat.com> - 2.10-10
+- Enable Suite B 192 cipher suite
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

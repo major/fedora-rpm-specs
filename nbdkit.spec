@@ -58,7 +58,7 @@
 
 Name:           nbdkit
 Version:        1.37.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1466,8 +1466,8 @@ fi
 
 %files bash-completion
 %license LICENSE
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/nbdkit
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/nbdkit
 
 
 %if 0%{?with_selinux}
@@ -1499,6 +1499,9 @@ fi
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.13-2
+- Use %%{bash_completions_dir} macro
+
 * Mon Mar 18 2024 Richard W.M. Jones <rjones@redhat.com> - 1.37.13-1
 - New upstream development version 1.37.13
 

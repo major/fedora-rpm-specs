@@ -1,5 +1,5 @@
 Name:           remind
-Version:        04.03.02
+Version:        04.03.04
 Release:        1%{?dist}
 Summary:        Sophisticated calendar and alarm program
 
@@ -144,6 +144,9 @@ make test
 %{_datadir}/pixmaps/tkremind.png
 
 %changelog
+* Mon Mar 25 2024 Neil Hanlon <neil@shrug.pw> - 04.03.04-1
+- update to 04.03.04 (fedora#2270139)
+
 * Fri Mar 01 2024 Neil Hanlon <neil@shrug.pw> - 04.03.02-1
 - update to 04.03.02 (fedora#2267323)
 - stop moving desktop file

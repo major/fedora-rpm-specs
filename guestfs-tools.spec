@@ -19,7 +19,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.52.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -86,7 +86,7 @@ BuildRequires: unzip
 %if !0%{?rhel}
 BuildRequires: perl(Expect)
 %endif
-BuildRequires: bash-completion
+BuildRequires: bash-completion-devel
 BuildRequires: /usr/bin/qemu-img
 BuildRequires: xorriso
 BuildRequires: hwdata-devel
@@ -389,8 +389,8 @@ end
 
 %files bash-completion
 %license COPYING
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/virt-*
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/virt-*
 
 
 %files man-pages-ja
@@ -402,6 +402,10 @@ end
 
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.52.0-4
+- Use %%{bash_completions_dir} macro
+- BR bash-completion-devel, new in Rawhide
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.52.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

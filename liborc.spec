@@ -1,7 +1,7 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
 Version: 2.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source: https://archive.apache.org/dist/orc/orc-%{version}/orc-%{version}.tar.gz
@@ -35,11 +35,12 @@ query and the row indexes can narrow the search to a particular set
 of 10,000 rows. ORC supports the complete set of types in Hive,
 including the complex types: structs, lists, maps, and unions.
 
-%package -n liborc1
+%package -n liborc2
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Provides: %{name}%{?_isa} = %{version}-%{release}
+Obsoletes: %{name}1 < 2.0.0-1
 
-%description -n liborc1
+%description -n liborc2
 ORC is a self-describing type-aware columnar file format designed
 for Hadoop workloads. It is optimized for large streaming reads,
 but with integrated support for finding required rows quickly.
@@ -55,7 +56,7 @@ including the complex types: structs, lists, maps, and unions.
 
 %package devel
 Summary:  Header files, libraries and development documentation for %{name}
-Requires: %{name}1 = %{version}-%{release}
+Requires: %{name}2 = %{version}-%{release}
 
 %description devel
 ORC is a self-describing type-aware columnar file format designed
@@ -108,16 +109,16 @@ export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference -Wno-error=stringo
 
 %install
 %cmake_install
-mkdir %{buildroot}%{_docdir}/%{name}1
-mv %{buildroot}%{_docdir}/orc/NOTICE %{buildroot}%{_docdir}/%{name}1/
-mkdir -p %{buildroot}/%{_defaultlicensedir}/%{name}1
-mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}1/
+mkdir %{buildroot}%{_docdir}/%{name}2
+mv %{buildroot}%{_docdir}/orc/NOTICE %{buildroot}%{_docdir}/%{name}2/
+mkdir -p %{buildroot}/%{_defaultlicensedir}/%{name}2
+mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}2/
 rm -f %{buildroot}/%{_includedir}/orc/._*.hh
 rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
 
 %ldconfig_scriptlets
 
-%files -n %{name}1
+%files -n %{name}2
 %license LICENSE
 %doc README.md NOTICE
 %{_libdir}/liborc.so.*
@@ -130,6 +131,9 @@ rm -f %{buildroot}/%{_includedir}/orc/sargs/._*.hh
      %{_libdir}/liborc.so
 
 %changelog
+* Mon Mar 25 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.0.0-2
+- base pkg name: liborc1 -> liborc2
+
 * Fri Mar 15 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 2.0.0-1
 - 2.0.0 GA
 

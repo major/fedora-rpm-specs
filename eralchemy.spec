@@ -6,7 +6,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.2.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -21,7 +21,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 Patch:          ERAlchemy-1.2.10-compat-with-sqlalchemy-1.4.patch
-Patch:          ERAlchemy-1.2.10-no-sqlalchemy2.patch
 
 %description
 %desc
@@ -61,6 +60,9 @@ Summary:        %sum
 
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 1.2.10-19
+- Revert constraining SQLAlchemy version
+
 * Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 1.2.10-18
 - Depend on SQLAlchemy < 2
 

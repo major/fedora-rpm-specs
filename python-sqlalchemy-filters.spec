@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.12.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library to filter SQLAlchemy queries
 
 License:        ASL 2.0
@@ -23,6 +23,7 @@ Summary:        %{summary}
 
 Requires:       python3dist(six) >= 1.10
 Requires:       python3dist(sqlalchemy) >= 1.0.16
+Requires:       python3dist(sqlalchemy) < 2
 %description -n python3-%{pypi_name}
 Filter, sort and paginate SQLAlchemy query
 objects. Ideal for exposing these actions over a REST API.
@@ -48,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sqlalchemy_filters-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 0.12.0-14
+- Require SQLAlchemy < 2
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

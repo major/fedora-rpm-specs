@@ -1,8 +1,9 @@
 # Required for the plugin directory name, see https://github.com/OpenImageIO/oiio/issues/2583
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
 #%%global prerelease -RC1
-
-%bcond qt5 1
+%bcond  qt5	1
+%bcond  qt6	1
+%bcond	ninja	1
 
 # not compatible with newer clang versions
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 8
@@ -10,8 +11,8 @@
 %endif
 
 Name:           openshadinglanguage
-Version:        1.12.14.0
-Release:        %autorelease
+Version:        1.13.7.0
+Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:        Advanced shading language for production GI renderers
 
 # The entire source is BSD-3-Clause, except:
@@ -53,7 +54,9 @@ BuildRequires:  cmake >= 3.12
 BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
 BuildRequires:  llvm%{?llvm_compat}-devel
+%if %{with ninja}
 BuildRequires:  ninja-build
+%endif
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
 BuildRequires:  cmake(Imath) >= 2.3
@@ -61,7 +64,12 @@ BuildRequires:  cmake(OpenImageIO) >= 2.3
 BuildRequires:  pkgconfig(pugixml)
 
 # For osltoy
+%if %{with qt5}
 BuildRequires:  pkgconfig(Qt5) >= 5.6
+%endif
+%if %{with qt6}
+BuildRequires:  pkgconfig(Qt6) >= 6.0
+%endif
 BuildRequires:  pkgconfig(zlib)
 
 BuildRequires:  help2man
@@ -137,8 +145,12 @@ BuildRequires:  python3dist(numpy)
 
 %prep
 %autosetup -p1 -n OpenShadingLanguage-%{version}%{?prerelease}
+
 # Use python3 binary instead of unversioned python
-sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
+sed -i -e "s|COMMAND python|COMMAND python3|" $(find . -iname CMakeLists.txt)
+
+# Fix all Python shebangs recursively in .
+%py3_shebang_fix .
 
 # Remove files that are under licenses that are acceptable in Fedora, but which
 # we haven’t included in any License field, so we want to make sure that the
@@ -172,7 +184,9 @@ find . -type f -name '*.min.js' -print -delete
 
 %build
 %cmake \
+%if %{with ninja}
    -G Ninja \
+%endif
    -DCMAKE_CXX_STANDARD=17 \
    -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir}/%{name} \
    -DCMAKE_SKIP_RPATH=TRUE \
@@ -212,15 +226,20 @@ done
 mkdir %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}
 mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oiio_major_minor_ver}/
 
+# Install manual files
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     %{_vpath_builddir}/man/man1/*.1
+    
+# Remove unneeded files
+rm -fr %{buildroot}%{_prefix}/build-scripts
+rm -fr %{buildroot}%{_prefix}/cmake/llvm_macros.cmake
 
 %files
 %license LICENSE.md
 %doc README.md
 %{_bindir}/oslc
 %{_bindir}/oslinfo
-%if %{with qt5}
+%if %{with qt5} || %{with qt6}
 %{_bindir}/osltoy
 %endif
 %{_bindir}/testrender

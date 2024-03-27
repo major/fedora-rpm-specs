@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -275,7 +275,7 @@ BuildRequires: redhat-rpm-config >= 127
 BuildRequires: sqlite-devel
 BuildRequires: gdb
 
-BuildRequires: openssl1.1-devel
+BuildRequires: openssl-devel
 
 BuildRequires: tar
 BuildRequires: tcl-devel
@@ -497,6 +497,14 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # - 1b85f4ec45a5d63188ee3866bd55eb29fdec7fbf
 # - 8766cb74e186d3820db0a855ccd780d6d84461f7
 Patch358: 00358-align-allocations-and-pygc_head-to-16-bytes-on-64-bit-platforms.patch
+
+# 00361 # b3dd949b7947b1b44b358e0c30d080e5b16ca8bc
+# openssl-3-compatibility
+#
+# Backported from Python 3.8
+#
+# Based on https://github.com/stratakis/cpython/tree/fedora-3.6_openssl3_compat
+Patch361: 00361-openssl-3-compatibility.patch
 
 # 00375 # 5488ab84d2447aa8df8b3502e76f151ac2488947
 # Fix test_distance to enable build on i686
@@ -1952,6 +1960,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Mar 11 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-29
+- Support OpenSSL 3
+- Fixes: rhbz#2254550
+
 * Thu Mar 07 2024 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-28
 - Fix build on riscv64
 

@@ -1,5 +1,5 @@
-%global git_date 20240304
-%global git_commit 0375239a6d43f9d10b114428c2c9d5b141101982
+%global git_date 20240320
+%global git_commit 58e3d95754f71382eca726988f2daddc1f1bffe0
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -90,6 +90,9 @@ touch %{buildroot}%{_sysconfdir}/crypto-policies/state/CURRENT.pol
 # Drop pre-generated GOST-ONLY & BSI policies, we do not need to ship the files
 rm -rf %{buildroot}%{_datarootdir}/crypto-policies/GOST-ONLY
 rm -rf %{buildroot}%{_datarootdir}/crypto-policies/BSI
+# Same for the experimental test-only TEST-FEDORA41
+rm -rf %{buildroot}%{_datarootdir}/crypto-policies/TEST-FEDORA41
+# Not having symlinks is also more robust for upgraders when policies go away
 
 # Create back-end configs for mounting with read-only /etc/
 for d in LEGACY DEFAULT FUTURE FIPS ; do
@@ -107,6 +110,35 @@ done
 
 %check
 make test %{?_smp_mflags} SKIP_LINTING=1
+
+# Migrate away from removed policies; can be dropped 3 releases later
+%pretrans scripts -p <lua>
+if posix.access("%{_sysconfdir}/crypto-policies/config") then
+    local cf = io.open("%{_sysconfdir}/crypto-policies/config", "r")
+    if cf then
+        local prev = cf:read()
+        cf:close()
+        local new
+        if prev == "TEST-FEDORA39" or prev:sub(1, 14) == "TEST-FEDORA39:" then
+            new = "DEFAULT" .. prev:sub(14)
+        elseif prev == "FEDORA38" or prev:sub(1, 9) == "FEDORA38:" then
+            new = "DEFAULT" .. prev:sub(9)
+        else
+            new = prev
+        end
+        while new:find(":FEDORA32:") ~= nil do
+            new = new:gsub(":FEDORA32:", ":")
+        end
+        new = new:gsub(":FEDORA32$", "")
+        if new ~= prev then
+            cf = io.open("%{_sysconfdir}/crypto-policies/config", "w")
+            if cf then
+                cf:write(new)
+                cf:close()
+            end
+        end
+    end
+end
 
 %post -p <lua>
 if not posix.access("%{_sysconfdir}/crypto-policies/config") then
@@ -182,8 +214,6 @@ end
 %{_datarootdir}/crypto-policies/FUTURE
 %{_datarootdir}/crypto-policies/FIPS
 %{_datarootdir}/crypto-policies/EMPTY
-%{_datarootdir}/crypto-policies/FEDORA38
-%{_datarootdir}/crypto-policies/TEST-FEDORA39
 %{_datarootdir}/crypto-policies/back-ends
 %{_datarootdir}/crypto-policies/default-config
 %{_datarootdir}/crypto-policies/reload-cmds.sh
@@ -202,6 +232,13 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Wed Mar 20 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20240320-1.git58e3d95
+- modules/FEDORA32, FEDORA38, TEST-FEDORA39: drop
+- openssl: mark liboqsprovider groups optional with ?
+- TEST-PQ: add more group and sign values, marked experimental
+- TEST-FEDORA41: add a new policy with __openssl_block_sha1_signatures = 1
+- TEST-PQ: also enable sntrup761x25519-sha512@openssh.com
+
 * Mon Mar 04 2024 Alexander Sosedkin <asosedkin@redhat.com> - 20240304-1.git0375239
 - packaging: remove perl build-dependency, it's not needed anymore
 - packaging: stop linting at check-time, relying on upstream CI instead

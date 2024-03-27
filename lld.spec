@@ -1,4 +1,4 @@
-%bcond_with snapshot_build
+%bcond_without snapshot_build
 
 %if %{with snapshot_build}
 # Unlock LLVM Snapshot LUA functions
@@ -189,6 +189,7 @@ fi
 %check
 
 %if %{with check}
+export LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}
 %cmake_build --target check-lld
 %endif
 

@@ -18,7 +18,6 @@ BuildRequires:  pyproject-rpm-macros
 # From setup_requires in setup.py:
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm[toml]) >= 3.4
-BuildRequires:  python3dist(setuptools-scm-git-archive)
 # For tests:
 BuildRequires:  python3dist(pytest)
 

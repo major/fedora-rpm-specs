@@ -1,6 +1,6 @@
 Name:		python-logbook
 Version:	1.7.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -44,8 +44,8 @@ Logbook can do that.
 %install
 %py3_install
 
-#%%check
-#%%{__python3} setup.py test
+%check
+%pytest -k "not test_redis_handler"
 
 %files -n python3-logbook
 %doc CHANGES README.md
@@ -54,6 +54,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 1.7.0-4
+- Reenable performing (most) tests
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

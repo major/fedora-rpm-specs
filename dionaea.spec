@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     27
+%global         baserelease     28
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -227,7 +227,7 @@ Requires:       python%{python3_pkgversion}-pyev
 Requires:       python%{python3_pkgversion}-bson
 Requires:       python%{python3_pkgversion}-PyYAML
 Requires:       python%{python3_pkgversion}-scapy
-Requires:       python%{python3_pkgversion}-sqlalchemy < 2
+Requires:       python%{python3_pkgversion}-sqlalchemy
 
 %description -n python%{python3_pkgversion}-%{gitname}
 This is a Python3 library that gives access to dionaea honeypot functionality.
@@ -503,6 +503,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-28
+- Revert constraining SQLAlchemy version
+
 * Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-27
 - Add dependency on setuptools Python package
 

@@ -1,12 +1,13 @@
 Name:           fmt
 Version:        10.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
 URL:            https://github.com/fmtlib/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz
-
+# https://github.com/fmtlib/fmt/commit/d7592ad8bfa41eda239497f672ae8dc7bda00a4b
+Patch0:         0001-Fix-handling-of-static-separator.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -62,6 +63,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Mar 25 2024 Kefu Chai <tchaikov@gmail.com> - 10.2.1-4
+- Backport fix of handling of static separator (fixes: rhbz#2266807)
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

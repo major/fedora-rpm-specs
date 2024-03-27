@@ -1,9 +1,5 @@
 %bcond_without gnutls
 
-%global gitdate     20230815
-%global gitcommit   d2849a9f5ced70438d67036693438344b47b4161
-%global gitshortcommit  %(c=%{gitcommit}; echo ${c:0:7})
-
 # Macros needed by SELinux
 %global selinuxtype targeted
 %global moduletype  contrib
@@ -11,11 +7,11 @@
 
 Summary: TPM Emulator
 Name:           swtpm
-Version:        0.8.1
-Release:        5%{?dist}
+Version:        0.8.2
+Release:        1%{?dist}
 License:        BSD-3-Clause
-Url:            http://github.com/stefanberger/swtpm
-Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
+Url:            https://github.com/stefanberger/swtpm
+Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -97,7 +93,7 @@ BuildArch:      noarch
 SELinux security policy for swtpm.
 
 %prep
-%autosetup -S git -n %{name}-%{gitcommit} -p1
+%autosetup -S git -n %{name}-%{version} -p1
 
 %build
 
@@ -193,6 +189,9 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Sat Mar 23 2024 Marc-André Lureau <marcandre.lureau@gmail.com> - 0.8.2-1
+- Update to 0.8.2 (#2271218)
+
 * Sun Jan 28 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.8.1-5
 - Use tpm2-tss to provide tss account
 

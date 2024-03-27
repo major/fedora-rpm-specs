@@ -47,7 +47,7 @@
 Name:		root
 Version:	6.30.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3745,6 +3745,9 @@ fi
 %endif
 
 %changelog
+* Mon Mar 25 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.30.04-2
+- Support StandardSymbolsPS.otf
+
 * Wed Jan 31 2024 Mattias Ellert <ellert@ellert.se> - 6.30.04-1
 - Update to 6.30.04
 - Drop patch root-adjust-test-for-failures-on-aarch64-ppc64le-s390x.patch

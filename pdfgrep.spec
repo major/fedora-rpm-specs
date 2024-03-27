@@ -1,7 +1,7 @@
 Summary:        Tool to search text in PDF files
 Name:           pdfgrep
-Version:        2.1.2
-Release:        14%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://pdfgrep.org/
@@ -12,10 +12,21 @@ Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/432FC753112F26D9E
 BuildRequires:  make
 BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
-BuildRequires:  poppler-cpp-devel
-BuildRequires:  libgcrypt-devel
-BuildRequires:  pcre-devel
+BuildRequires:  poppler-cpp-devel >= 0.36.0
+BuildRequires:  libgcrypt-devel >= 1.0.0
+BuildRequires:  pcre2-devel
 BuildRequires:  asciidoc
+%if 0%{?fedora}
+# Tests: runtest(1), pdflatex(1) with parskip.sty
+BuildRequires:  dejagnu
+BuildRequires:  texlive-latex
+BuildRequires:  tex(parskip.sty)
+# RHEL requires expl3.sty and pdftex.map explicitly
+%if 0%{?rhel} && 0%{?rhel} < 10
+BuildRequires:  tex(expl3.sty)
+BuildRequires:  tex(pdftex.map)
+%endif
+%endif
 
 %description
 Pdfgrep is a tool, that works similar to grep, to search text in PDF files.
@@ -35,6 +46,16 @@ colored output and finally also support for password protected PDF files.
 %install
 %make_install
 
+# /usr/share/texlive/texmf-dist/scripts/texlive/mktexlsr is run too early in dnf
+# transaction on RHEL 8 and 9, thus pdflatex(1) is unusable - thanks Red Hat ;-(
+%if 0%{?fedora}
+# Tests are broken on s390x, see https://gitlab.com/pdfgrep/pdfgrep/-/issues/70
+%ifnarch s390x
+%check
+make check
+%endif
+%endif
+
 %files
 %license COPYING
 %doc AUTHORS NEWS.md README.md
@@ -48,6 +69,9 @@ colored output and finally also support for password protected PDF files.
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Tue Mar 26 2024 Robert Scheck <robert@fedoraproject.org> - 2.2.0-1
+- Upgrade to 2.2.0 (#2128346, #2271384)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

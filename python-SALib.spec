@@ -3,29 +3,20 @@
 %global forgeurl https://github.com/SALib/SALib
 
 Name:           python-SALib
-Version:        1.4.7
+Version:        1.4.8
 Release:        %autorelease
 Summary:        Tools for global sensitivity analysis
 
 %forgemeta
 
+# SPDX
 License:        MIT
 URL:            https://salib.readthedocs.io
 Source:         %{forgesource}
 
-# Remove a useless shebang line
-# https://github.com/SALib/SALib/pull/592
-Patch:          %{forgeurl}/pull/592.patch
-# Remove bogus executable permissions
-# https://github.com/SALib/SALib/pull/593
-Patch:          %{forgeurl}/pull/593.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-BuildRequires:  dos2unix
-BuildRequires:  file
 
 %global _description %{expand:
 Python implementations of commonly used sensitivity analysis methods. Useful in
@@ -49,14 +40,6 @@ Summary:        %{summary}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]])(.*\bpytest-cov\b)/\1# \2/' pyproject.toml
 
-# Correct end of line encodings. See:
-#
-# Standardize line terminations
-# https://github.com/SALib/SALib/pull/591
-find . -type f -exec file '{}' '+' |
-  awk -F ':' '/CRLF/ { print $1 }' |
-  xargs dos2unix --keepdate
-
 %generate_buildrequires
 %pyproject_buildrequires -x distributed %{?with_tests:-x test}
 
@@ -76,7 +59,7 @@ find . -type f -exec file '{}' '+' |
 %doc CHANGELOG.md
 %doc CITATION.cff
 %doc CITATIONS.rst
-%doc FAQ.MD
+%doc FAQ.md
 %doc README-advanced.md
 %doc README.rst
 %{_bindir}/salib

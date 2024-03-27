@@ -58,7 +58,8 @@
 
 Name:           ibus
 Version:        1.5.30~rc2
-Release:        1%{?dist}
+# https://github.com/fedora-infra/rpmautospec/issues/101
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -67,6 +68,8 @@ Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
 Patch0:         %{name}-HEAD.patch
+# #2267615
+Patch2:         %{name}-2267615-wayland-init-keymap.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -208,7 +211,7 @@ Requires:       %{name} = %{version}-%{release}
 %{?__python3:Requires: %{__python3}}
 Requires:       python3-gobject
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  pygobject3-devel
+BuildRequires:  python3-gobject-devel
 BuildRequires:  make
 BuildArch:      noarch
 
@@ -581,7 +584,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
-* Fri Mar 22 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~rc1-2
+* Mon Mar 25 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~rc2-2
+- Fix Super modifier in IBusEngine
+- Replace deprecated pygobject3-devel with python3-gobject-devel
+
+* Fri Mar 22 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~rc2-1
 - Add some bug fixes & translation updates
 
 * Wed Feb 28 2024 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.30~rc1-1

@@ -1,7 +1,7 @@
 %global forgeurl https://git.sr.ht/~emersion/kanshi
 
 Name:           kanshi
-Version:        1.5.1
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
@@ -18,6 +18,8 @@ Source1:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 Source3:        %{name}.service
+# Fix -Werror=maybe-uninitialized
+Patch:          %{forgeurl}/commit/374309eb.patch#/kanshi-1.6.0-Fix-cleanup-of-uninitialized-values.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -26,6 +28,7 @@ BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  pkgconfig(libvarlink)
 BuildRequires:  pkgconfig(scdoc) >= 1.9.2
+BuildRequires:  pkgconfig(scfg)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
 
@@ -42,7 +45,7 @@ on Wayland compositors supporting the wlr-output-management protocol.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -73,6 +76,9 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Mon Mar 25 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0 (#2268225)
+
 * Thu Feb 01 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.5.1-1
 - Update to 1.5.1 (#2262318)
 

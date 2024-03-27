@@ -1,11 +1,11 @@
 Name:           tellico
-Version:        3.5.3
+Version:        3.5.4
 Release:        1%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
-URL:            http://tellico-project.org/
-Source0:        http://tellico-project.org/files/tellico-%{version}.tar.xz
+URL:            https://tellico-project.org/
+Source0:        https://tellico-project.org/files/tellico-%{version}.tar.xz
 
 %if 0%{?rhel}
 %undefine __cmake_in_source_build
@@ -111,6 +111,9 @@ sed \
 
 
 %changelog
+* Mon Mar 25 2024 José Matos <jamatos@fedoraproject.org> - 3.5.4-1
+- Update to 3.5.4
+
 * Fri Feb  2 2024 José Matos <jamatos@fedoraproject.org> - 3.5.3-1
 - Update to 3.5.3
 

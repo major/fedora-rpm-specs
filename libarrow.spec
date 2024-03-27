@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	15.0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -873,6 +873,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Mar 25 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.2-3
+- rebuild with liborc-2.0.0-2 (liborc1 -> liborc2)
+
 * Wed Mar 20 2024  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 15.0.2-2
 - rhbz#2269811, fix ABI break
 - partial revert of https://github.com/apache/arrow/pull/39866

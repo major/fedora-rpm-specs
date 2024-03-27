@@ -756,7 +756,9 @@ done
 %doc README.experimental
 %dir %{_datadir}/%{name}/experimental
 %{_datadir}/%{name}/experimental/*.fd
+%if %{build_aarch64}
 %{_datadir}/%{name}/experimental/*.raw
+%endif
 %{_datadir}/%{name}/experimental/*.qcow2
 %{_datadir}/%{name}/experimental/*.pcrlock
 
@@ -766,6 +768,7 @@ done
 %{_datadir}/%{name}/xen/*.fd
 %endif
 
+%if %{build_aarch64}
 %files arm
 %common_files
 %dir %{_datadir}/AAVMF/
@@ -776,17 +779,22 @@ done
 %{_datadir}/%{name}/arm/QEMU_VARS.fd
 %{_datadir}/%{name}/arm/vars-template-pflash.raw
 %{_datadir}/qemu/firmware/50-edk2-arm-verbose.json
+%endif
 
+%if %{build_riscv64}
 %files riscv64
 %common_files
 %{_datadir}/%{name}/riscv/*.fd
 %{_datadir}/%{name}/riscv/*.qcow2
 %{_datadir}/qemu/firmware/50-edk2-riscv-qcow2.json
+%endif
 
+%if %{build_loongarch64}
 %files loongarch64
 %common_files
 %{_datadir}/%{name}/loongarch64/*.fd
 %{_datadir}/qemu/firmware/50-edk2-loongarch64.json
+%endif
 
 %files ext4
 %common_files

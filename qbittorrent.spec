@@ -14,7 +14,7 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 4.6.3
+Version: 4.6.4
 Release: 1%{?dist}
 License: GPLv2+
 URL:     https://www.qbittorrent.org
@@ -37,11 +37,13 @@ BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: libxkbcommon-devel
+BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-linguist
 %else
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Gui)
 BuildRequires: cmake(Qt5Svg)
+BuildRequires: qt5-qtbase-private-devel
 BuildRequires: qt5-linguist
 %endif
 BuildRequires: pkgconfig(zlib)
@@ -140,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/man1/qbittorrent-nox.1*
 
 %changelog
+* Mon Mar 25 2024 Leigh Scott <leigh123linux@gmail.com> - 1:4.6.4-1
+- Update to 4.6.4
+
 * Mon Jan 29 2024 Leigh Scott <leigh123linux@gmail.com> - 1:4.6.3-1
 - Update to 4.6.3
 

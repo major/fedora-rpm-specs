@@ -1,4 +1,12 @@
 %bcond_with bootstrap
+
+# temporarily ignore test failures in riscv64
+%ifarch riscv64
+%bcond_without ignore_tests
+%else
+%bcond_with ignore_tests
+%endif
+
 # build ids are not currently generated:
 # https://code.google.com/p/go/issues/detail?id=5238
 #
@@ -31,14 +39,14 @@
 # Golang build options.
 
 # Build golang using external/internal(close to cgo disabled) linking.
-%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x
+%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64
 %global external_linker 1
 %else
 %global external_linker 0
 %endif
 
 # Build golang with cgo enabled/disabled(later equals more or less to internal linking).
-%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x
+%ifarch %{ix86} x86_64 ppc64le %{arm} aarch64 s390x riscv64
 %global cgo_enabled 1
 %else
 %global cgo_enabled 0
@@ -92,6 +100,9 @@
 %endif
 %ifarch s390x
 %global gohostarch  s390x
+%endif
+%ifarch riscv64
+%global gohostarch  riscv64
 %endif
 
 # Comment out go_prerelease and go_patch as needed

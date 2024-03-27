@@ -1,10 +1,10 @@
-%global commit_date     20231218
-%global commit_long     60bdd62d18aed44c942f257dd25a1c433e315565
+%global commit_date     20240324
+%global commit_long     c00aa109a3680cb15432dac9f091d98d7e4cd58a
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
 Version: 23.11
-Release: 3.%{commit_date}git%{commit_short}%{dist}
+Release: 4.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 License: GPLv2
@@ -50,9 +50,8 @@ sed -ri 's\^#!/usr/bin/env python3?$\#!%{python3}\' examples/*.py
 %install
 %cmake_install
 
-
-# install the example config file into the config folder
-install -Dm 644 conf/rtl_433.example.conf %{buildroot}%{_sysconfdir}/rtl_433/rtl_433.conf
+# build the main config file from the example
+install -Dm 644 %{buildroot}%{_sysconfdir}/rtl_433/rtl_433.example.conf %{buildroot}%{_sysconfdir}/rtl_433/rtl_433.conf
 
 # Commenting these config options made more sensible defaults on my system
 for C in \
@@ -75,17 +74,14 @@ for C in \
     sed -i 's\^'"$C"'$\'#"$C"'\' %{buildroot}%{_sysconfdir}/rtl_433/rtl_433.conf
 done
 
-# example config files will be placed under doc
-rm -rf %{buildroot}%{_usr}%{_sysconfdir}
-
 %check
 %ctest
 
 %files
 %license COPYING
-%doc AUTHORS *.md docs/*.md conf examples
+%doc AUTHORS *.md docs/*.md examples
 %dir %{_sysconfdir}/rtl_433
-%config(noreplace) %{_sysconfdir}/rtl_433/rtl_433.conf
+%config(noreplace) %{_sysconfdir}/rtl_433/*.conf
 %{_bindir}/rtl_433
 %{_mandir}/man*/*
 
@@ -94,6 +90,10 @@ rm -rf %{buildroot}%{_usr}%{_sysconfdir}
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Mon Mar 25 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 23.11-4.20240324gitc00aa10
+- bump to latest git release
+- sample config files are now installed under sysconfdir
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.11-3.20231218git60bdd62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

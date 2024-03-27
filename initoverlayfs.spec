@@ -1,16 +1,16 @@
 Name:          initoverlayfs
-Version:       0.991
+Version:       0.995
 Release:       1%{?dist}
 Summary:       An initial scalable filesystem for Linux operating systems
-
 License:       GPL-2.0-only
 URL:           https://github.com/containers/initoverlayfs
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
-Recommends: erofs-utils
+BuildRequires: libblkid-devel
 Recommends: lz4
 Recommends: gzip
+Requires: erofs-utils
 Requires: dracut
 
 %global debug_package %{nil}
@@ -23,28 +23,55 @@ Requires: dracut
 
 %build
 RPM_OPT_FLAGS="${RPM_OPT_FLAGS/-flto=auto /}"
-gcc ${RPM_OPT_FLAGS} storage-init.c -o storage-init
+gcc ${RPM_OPT_FLAGS} -lblkid initoverlayfs.c -o initoverlayfs
 
 %install
 install -D -m755 bin/initoverlayfs-install ${RPM_BUILD_ROOT}/%{_bindir}/initoverlayfs-install
-install -D -m755 storage-init ${RPM_BUILD_ROOT}/%{_prefix}/sbin/storage-init
-install -D -m755 lib/dracut/modules.d/81initoverlayfs/module-setup.sh $RPM_BUILD_ROOT/%{_prefix}/lib/dracut/modules.d/81initoverlayfs/module-setup.sh
+install -D -m755 initoverlayfs ${RPM_BUILD_ROOT}/%{_sbindir}/initoverlayfs
+install -D -m755 lib/dracut/modules.d/81initoverlayfs/module-setup.sh ${RPM_BUILD_ROOT}/%{_prefix}/lib/dracut/modules.d/81initoverlayfs/module-setup.sh
+install -D -m644 lib/systemd/system/pre-initoverlayfs.target ${RPM_BUILD_ROOT}/%{_prefix}/lib/systemd/system/pre-initoverlayfs.target
+install -D -m644 lib/systemd/system/pre-initoverlayfs.service ${RPM_BUILD_ROOT}/%{_prefix}/lib/systemd/system/pre-initoverlayfs.service
+install -D -m644 lib/systemd/system/pre-initoverlayfs-switch-root.service ${RPM_BUILD_ROOT}/%{_prefix}/lib/systemd/system/pre-initoverlayfs-switch-root.service
+install -D -m755 lib/kernel/install.d/94-initoverlayfs.install ${RPM_BUILD_ROOT}/%{_prefix}/lib/kernel/install.d/94-initoverlayfs.install
 
 %files
 %license LICENSE
 %doc README.md
 %attr(0755,root,root)
 %{_bindir}/initoverlayfs-install
-%{_prefix}/sbin/storage-init
+%{_sbindir}/initoverlayfs
 %{_prefix}/lib/dracut/modules.d/81initoverlayfs/
+%{_prefix}/lib/systemd/system/pre-initoverlayfs.target
+%{_prefix}/lib/systemd/system/pre-initoverlayfs.service
+%{_prefix}/lib/systemd/system/pre-initoverlayfs-switch-root.service
+%{_prefix}/lib/kernel/install.d/94-initoverlayfs.install
 
 %changelog
-=======
-* Mon Jan 22 2024 Stephen Smoogen <smooge@fedoraproject.org> - 0.991-1
-- Updated to 0.991 release.
+* Wed Mar 20 2024 Stephen Smoogen <ssmoogen@redhat.com> - 0.995-1
+- Create tag for new RPM release.
+- Sync spec file with version from tar file.
+
+* Tue Mar 12 2024 Eric Curtin <ecurtin@redhat.com> - 0.994-1
+- Automatically rebuild initoverlayfs on kernel update.
+
+* Mon Mar 11 2024 Eric Curtin <ecurtin@redhat.com> - 0.993-1
+- Add option to use initoverlayfs as an init system and mount
+  storage immediately.
+- Used in Automotive, requires storage drivers to be built
+  directly in the kernel.
+
+* Mon Feb 12 2024 Eric Curtin <ecurtin@redhat.com> - 0.992-1
+- Update to 0.992 release.
+- Automatically rebuild kernel on upgrade (ecurtin)
+- Build initrd in no-hostonly mode for generic initrd (ecurtin)
 
 * Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Wed Jan 17 2024 Stephen Smoogen <ssmoogen@redhat.com> - 0.991-1
+- Update to 0.991 release.
+- fork storage-init as a systemd unit (ecurtin)
+- shell-less initrd work (ecurtin)
 
 * Thu Dec 14 2023 Stephen Smoogen <ssmoogen@redhat.com> - 0.99-1
 - Update to 0.99 release.

@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -298,7 +298,7 @@ export HASHBANGPERL=/usr/bin/perl
 	--system-ciphers-file=%{_sysconfdir}/crypto-policies/back-ends/openssl.config \
 	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp \
 	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips -D_GNU_SOURCE \
-	no-mdc2 no-ec2m no-sm2 no-sm4 enable-buildtest-c++\
+	no-mdc2 no-ec2m no-sm2 no-sm4 enable-buildtest-c++ \
 	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\"" -DREDHAT_FIPS_VERSION="\"%{fips}\""'\
 	-Wl,--allow-multiple-definition
 
@@ -489,6 +489,12 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Mon Mar 25 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-4
+- Add no-engine support. The previous commit was a mistake.
+
+* Mon Mar 25 2024 Sahana Prasad <sahana@redhat.com> - 1:3.2.1-4
+- Build OpenSSL with no-engine support
+
 * Thu Mar 07 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.1-3
 - Minimize skipping tests
 - Allow ignoring unknown signature algorithms and groups (upstream #23050)

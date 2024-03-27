@@ -43,14 +43,15 @@ https://uqfoundation.github.io/project/pathos/query.}
 %global forgeurl https://github.com/uqfoundation/pathos/
 
 Name:           python-pathos
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Parallel graph management and execution in heterogeneous computing
 
-%global tag pathos-%{version}
+%global tag %{version}
 %forgemeta
 
-License:        BSD
+# SPDX
+License:        BSD-3-Clause
 URL:            %forgeurl
 Source0:        %forgesource
 BuildArch:      noarch

@@ -7,7 +7,7 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       29.2
+Version:       29.3
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
@@ -30,8 +30,7 @@ Patch2:        emacs-system-crypto-policies.patch
 Patch3:        emacs-libdir-vs-systemd.patch
 # Avoid using the pure GTK build on X11 where it is unsupported:
 Patch4:        emacs-desktop.patch
-Patch5:        0001-configure-Remove-obsolete-check-for-b-i486-linuxaout.patch
-Patch6:        emacs-pgtk-on-x-error-message.patch
+Patch5:        emacs-pgtk-on-x-error-message.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel

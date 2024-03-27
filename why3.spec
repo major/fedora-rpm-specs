@@ -12,7 +12,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 
 Name:           why3
 Version:        1.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -182,8 +182,8 @@ cd -
 %endif
 
 # Install the bash completion file
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
-cp -p share/bash/%{name} %{buildroot}%{_datadir}/bash-completion/completions
+mkdir -p %{buildroot}%{bash_completions_dir}
+cp -p share/bash/%{name} %{buildroot}%{bash_completions_dir}
 
 # Install the zsh completion file
 mkdir -p %{buildroot}%{_datadir}/zsh/site-functions
@@ -241,7 +241,7 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %{_bindir}/isabelle_client
 %{_datadir}/%{name}/
 %{_datadir}/applications/fr.lri.%{name}.desktop
-%{_datadir}/bash-completion/completions/why3
+%{bash_completions_dir}/why3
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}c.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}py.lang
@@ -286,6 +286,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Mon Mar 25 2024 Richard W.M. Jones <rjones@redhat.com> - 1.7.1-3
+- Use %%{bash_completions_dir} macro
+
 * Fri Feb  2 2024 Jerry James <loganjerry@gmail.com> - 1.7.1-2
 - Build again because koji ran out of disk space
 
