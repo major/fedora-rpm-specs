@@ -12,7 +12,7 @@ Version: 3.52.0
 Release: 1%{?dist}
 Summary: Evolution extension for MS Exchange 2007 servers
 License: LGPL-2.1-or-later
-URL: https://wiki.gnome.org/Apps/Evolution
+URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.52/%{name}-%{version}.tar.xz
 
 Obsoletes: evolution-mapi-devel <= 3.23.1

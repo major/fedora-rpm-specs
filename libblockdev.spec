@@ -77,18 +77,19 @@
 %define configure_opts %{?python3_copts} %{?lvm_dbus_copts} %{?btrfs_copts} %{?crypto_copts} %{?dm_copts} %{?loop_copts} %{?lvm_copts} %{?lvm_dbus_copts} %{?mdraid_copts} %{?mpath_copts} %{?swap_copts} %{?part_copts} %{?fs_copts} %{?nvdimm_copts} %{?tools_copts} %{?gi_copts} %{?nvme_copts}
 
 Name:        libblockdev
-Version:     3.1.0
-Release:     6%{?dist}
+Version:     3.1.1
+Release:     3%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
 
-# Tentative workaround for #2247319: in the previous build we noted
-# on one attempt libblockdev reached the point where it should log
-# this message 11 times but we only saw the message 9 times, which
-# seems suspicious; let's try disabling it
-Patch:       0001-Guard-against-error-net-being-set-by-g_dbus_connecti.patch
+# Fix potential crash conditions in LVM DBus init
+# This should address at least some of the problems discovered while
+# debugging #2247319, but we're not sure it's a complete fix
+# https://bugzilla.redhat.com/show_bug.cgi?id=2247319
+# https://github.com/storaged-project/libblockdev/pull/1012
+Patch:       1012.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -857,6 +858,27 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Tue Mar 26 2024 Adam Williamson <awilliam@redhat.com> - 3.1.1-3
+- Drop the de-optimization changes from -2
+
+* Tue Mar 26 2024 Adam Williamson <awilliam@redhat.com> - 3.1.1-2
+- Backport proposed upstream fix for #2247319
+- Disable -Werror and build with -O0 to help further debug #2247319
+
+* Tue Mar 26 2024 Vojtech Trefny <vtrefny@redhat.com> - 3.1.1-1
+- lvm-dbus: Fix passing size for pvresize over DBus (vtrefny)
+- nvme: Add bd_nvme_is_tech_avail to the API file (vtrefny)
+- tests: Add NVMe controller type checks (tbzatek)
+- tests: Add NVMe persistent discovery controller tests (tbzatek)
+- tests: Fix removing custom LVM devices file (vtrefny)
+- tests: Ignore LVM devices file for non-LVM tests (vtrefny)
+- tests: Manually remove removed PVs from LVM devices file (vtrefny)
+- dm_logging: Annotate redirect_dm_log() printf format (tbzatek)
+- Fix some more occurrences of missing port to G_GNUC_UNUSED (tbzatek)
+- Port to G_GNUC_INTERNAL for controlling symbols visibility (tbzatek)
+- Use glib2 G_GNUC_UNUSED in place of UNUSED locally defined (giulio.benetti)
+- Makefile: Fix bumpver to work with micro versions (vtrefny)
+
 * Sat Mar 23 2024 Adam Williamson <awilliam@redhat.com> - 3.1.0-6
 - Slightly stronger workaround attempt for #2247319
 

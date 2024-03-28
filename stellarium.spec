@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        23.4
-Release:        3%{?dist}
+Version:        24.1
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Tue Mar 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 24.1-1
+- 24.1
+
 * Fri Feb 16 2024 Jan Grulich <jgrulich@redhat.com> - 23.4-3
 - Rebuild (qt6)
 

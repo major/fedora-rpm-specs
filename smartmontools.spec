@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		http://smartmontools.sourceforge.net/
@@ -32,6 +32,11 @@ BuildRequires:	systemd systemd-devel
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
 # into containers and other systems that do not use SELinux
 Requires:	(%{name}-selinux if selinux-policy-%{selinuxtype})
+%endif
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 %endif
 
 %description
@@ -158,6 +163,9 @@ fi
 
 
 %changelog
+* Tue Mar 26 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:7.4-4
+- drop i686 build as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

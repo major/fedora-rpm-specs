@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-cramjam
-Version:        2.8.2
+Version:        2.8.3
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -59,6 +59,11 @@ tomcli set cramjam-python/pyproject.toml false 'tool.maturin.strip'
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 tomcli set cramjam-python/pyproject.toml lists delitem --type regex \
     'project.optional-dependencies.dev' '(black)\b.*'
+
+# Downstream-only: patch out the generate-import-lib feature, which is only
+# relevant on Windows, and which depends on the corresponding pyo3 feature –
+# which is not packaged for that reason.
+tomcli set cramjam-python/Cargo.toml del 'features.generate-import-lib'
 
 # Remove bundled rust-libcramjam and the sources for cramjam-cli, which is
 # versioned and released separately. Keep only the contents of cramjam-python/

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-sebastian-environment6
 #
-# Copyright (c) 2014-2023 Remi Collet
+# Copyright (c) 2014-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    43c751b41d74f96cbbd4e07b7aec9675651e2951
+%global gh_commit    8074dbcd93529b357029f5cc5058fd3e43666984
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
@@ -24,8 +24,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.1
-Release:        5%{?dist}
+Version:        6.1.0
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 26 2024 Remi Collet <remi@remirepo.net> - 6.1.0-1
+- update to 6.1.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

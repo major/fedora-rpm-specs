@@ -52,7 +52,9 @@ ExcludeArch:    %{ix86}
 
 # Remove relative libcramjam dep for python builds
 # See: https://github.com/milesgranger/cramjam/pull/131
-# Rebased on the released PyPI sdist
+# Update libcramjam crate to 0.3.0 in cramjam-cli
+# See: https://github.com/milesgranger/cramjam/pull/152
+# Combined and rebased on the released PyPI sdist
 Patch:          cramjam-cli-0.1.1-system-libcramjam-crate.patch
 # Fix missing LICENSE file in cramjam-cli
 # https://github.com/milesgranger/cramjam/pull/137

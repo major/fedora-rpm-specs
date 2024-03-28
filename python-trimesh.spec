@@ -2,7 +2,7 @@
 %bcond skimage 1
 
 Name:           python-trimesh
-Version:        4.2.0
+Version:        4.2.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -212,7 +212,7 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
 #
 #   coveralls: linters/coverage/etc.
-#   mypy: linters/coverage/etc.
+#   pyright: linters/coverage/etc.
 #   pyinstrument: not packaged; see preceding “stub” patch
 #   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
 #              bundles MeshLab, which is a nontrivial package that has its own
@@ -220,10 +220,10 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 #              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
 #   pytest-cov: linters/coverage/etc.
 #   ruff: linters/coverage/etc.
-#   typeguard: linters/coverage/etc.
+#   pytest-beartype: linters/coverage/etc.
 tomcli set pyproject.toml lists delitem --type regex --no-first \
     'project.optional-dependencies.test' \
-    '(coveralls|mypy|pytest-cov|pyinstrument|pymeshlab|ruff|typeguard)\b.*'
+    '(coveralls|py(instrument|right|meshlab)|pytest-(beartype|cov)|ruff)\b.*'
 
 
 %generate_buildrequires

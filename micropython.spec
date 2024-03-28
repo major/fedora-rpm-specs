@@ -9,8 +9,8 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.21.0
-Release:        3%{?dist}
+Version:        1.22.2
+Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -28,12 +28,17 @@ Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_com
 %global mbedtls_commit 981743de6fcdbe672e482b6fd724d31d0a0d2476
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit e025c843b60e93689f0f991d753010bb5bd6a722
+%global micropython_lib_commit 7cdf70881519c73667efbc4a61a04d9c1a49babb
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
 
 # Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExclusiveArch:  %{arm} x86_64 riscv64
+
+# py/nlr: Add "memory" to asm clobbers list in nlr_jump
+# Fixes FTBFS with GCC >= 14
+# Fixed upstream: https://github.com/micropython/micropython/commit/35f3f0a87db2580041dd0f7dfd4361df48887796
+Patch:          fix-GCC14-ftbfs.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -116,6 +121,11 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Fri Mar 22 2024 Charalampos Stratakis <cstratak@redhat.com> - 1.22.2-1
+- Update to 1.22.2
+- Security fixes for CVE-2023-7158 and CVE-2023-7152
+- Fixes: rhbz#2256176, rhbz#2256178, rhbz#2259215
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

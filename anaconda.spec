@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 41.6
-Release: 1%{?dist}
+Version: 41.7
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,6 +11,10 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
+# https://github.com/rhinstaller/anaconda/pull/5508
+# https://bugzilla.redhat.com/show_bug.cgi?id=2268505
+# Fix bootupd UEFI path to create an EFI boot manager entry
+Patch: 0001-bootupd-call-bootupctl-with-update-firmware.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -474,6 +478,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 26 2024 Packit <hello@packit.dev> - 41.7-1
+- Update translations from Weblate for master (github-actions)
+- Disable preexec for vtActivate() (mkolman)
+
 * Tue Mar 19 2024 Packit <hello@packit.dev> - 41.6-1
 - install-img-deps: Require podman (walters)
 

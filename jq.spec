@@ -1,6 +1,4 @@
-# valgrind cannot cope with GCC 13+ SSE4.1 optimizations of strcmp
-# https://bugzilla.redhat.com/show_bug.cgi?id=2257546
-%bcond check %[!(0%{?rhel} >= 10)]
+%bcond check 1
 
 Name:           jq
 Version:        1.7.1

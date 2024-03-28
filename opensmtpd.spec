@@ -1,6 +1,4 @@
 
-## global prerelease	201801101420
-
 # PAM support
 %global _with_pam	1
 
@@ -9,33 +7,25 @@
 
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
-Version:	6.8.0p2
-Release:	14%{?prerelease:.%{prerelease}}%{?dist}
+Version:	7.4.0p1
+Release:	1%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
 Provides:	MTA smtpd smtpdaemon server(smtp)
 
-%if 0%{?prerelease}
-Source0:	http://www.opensmtpd.org/archives/%{name}-%{prerelease}p1.tar.gz
-%else
 Source0:	http://www.opensmtpd.org/archives/%{name}-%{version}.tar.gz
-%endif
-
 Source1:	opensmtpd.service
 Source2:	opensmtpd.pam
 
+%if 0%{?_with_pam}
+BuildRequires:	pam-devel
+%endif
 %if 0%{?_with_bdb}
 BuildRequires:	libdb-devel
 %endif
 
-%if 0%{?el7}
-BuildRequires:	openssl11-devel
-%else
-BuildRequires:	openssl1.1-devel
-%endif
-
-BuildRequires:	libasr-devel >= 1.0.4
+BuildRequires:	openssl-devel
 BuildRequires:	libevent-devel
 BuildRequires:	zlib-devel
 BuildRequires:	coreutils
@@ -43,9 +33,6 @@ BuildRequires:	bison
 BuildRequires:	make
 BuildRequires:	automake
 BuildRequires:	libtool
-%if 0%{?_with_pam}
-BuildRequires:	pam-devel
-%endif
 
 Requires(post):		systemd
 Requires(preun):	systemd
@@ -72,16 +59,13 @@ back to Sendmail as a default mail daemon.
 
 
 %prep
-%setup -q %{?prerelease: -n %{name}-%{prerelease}p1}
+%setup -q
 
 %build
 export CFLAGS="%{optflags}"
 
-%if 0%{?el7}
-export CFLAGS="$CFLAGS -I%{_includedir}/openssl11"
-export CPPFLAGS="$CPPFLAGS -I%{_includedir}/openssl11"
-export LDFLAGS="$LDFLAGS -L%{_libdir}/openssl11"
-%endif
+# fix mantype (issue 1236)
+sed -i -e 's|case "withval" in|case "\$withval" in|g' configure
 
 %configure \
     --sysconfdir=%{_sysconfdir}/opensmtpd \
@@ -97,6 +81,7 @@ export LDFLAGS="$LDFLAGS -L%{_libdir}/openssl11"
     --with-user-queue=smtpq \
     --with-group-queue=smtpq \
     --with-path-empty=%{_localstatedir}/empty/smtpd \
+    --with-path-mbox=%{_localstatedir}/spool/mail \
     --with-path-socket=%{_localstatedir}/run \
     --without-rpath
 
@@ -151,6 +136,7 @@ done
 
 # fix aliases path in the config
 sed -i -e 's|/etc/mail/aliases|/etc/aliases|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
+ln -s %{_sysconfdir}/aliases %{buildroot}/%{_sysconfdir}/opensmtpd/aliases
 
 # set mbox delivery method
 sed -i -e 's|^action "local" maildir|action "local" mbox|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
@@ -208,18 +194,26 @@ exit 0
 %dir %attr(0711,root,root) %{_localstatedir}/empty/smtpd
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/smtpd.conf
+%{_sysconfdir}/%{name}/aliases
 %doc CHANGES.md README.md
 %license LICENSE
+%{_mandir}/man1/lockspool.1.gz
 %{_mandir}/man1/mailq.opensmtpd.1.gz
 %{_mandir}/man1/smtp.opensmtpd.1.gz
 %{_mandir}/man5/aliases.opensmtpd.5.gz
 %{_mandir}/man5/forward.5.gz
 %{_mandir}/man5/smtpd.conf.5.gz
 %{_mandir}/man5/table.5.gz
+%{_mandir}/man7/smtpd-filters.7.gz
 %{_mandir}/man8/sendmail.opensmtpd.8.gz
 %{_mandir}/man8/smtp.opensmtpd.8.gz
 %{_mandir}/man8/smtpd.opensmtpd.8.gz
 %{_mandir}/man8/smtpctl.8.gz
+%{_mandir}/man8/mail.lmtp.8.gz
+%{_mandir}/man8/mail.local.8.gz
+%{_mandir}/man8/mail.maildir.8.gz
+%{_mandir}/man8/mail.mboxfile.8.gz
+%{_mandir}/man8/mail.mda.8.gz
 
 %dir %attr(0711,root,root) %{_localstatedir}/spool/smtpd
 %dir %attr(0700,smtpq,root) %{_localstatedir}/spool/smtpd/incoming
@@ -261,6 +255,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 26 2024 Denis Fateyev <denis@fateyev.com> - 7.4.0p1-1
+- Update to 7.4.0p1 release
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0p2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

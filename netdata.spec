@@ -35,7 +35,7 @@ ExcludeArch: s390x
 
 # Only on fedora
 %if 0%{?fedora}
-%ifnarch i686
+%ifarch x86_64 aarch64
 %bcond_without xenstat
 %else
 %bcond_with xenstat
@@ -121,7 +121,9 @@ BuildRequires:  openssl-devel
 BuildRequires:  libpfm-devel
 BuildRequires:  libyaml-devel
 BuildRequires:  ninja-build
+%if %{with plugin_go}
 BuildRequires:  golang >= 1.21
+%endif
 BuildRequires:  systemd-devel
 
 # Prometheus
@@ -323,6 +325,9 @@ find %{buildroot} -name '.keep' -delete
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+%if 0%{?rhel} && 0%{?rhel} <= 8
+%global _vpath_builddir .
+%endif
 %if 0%{?rhel} && 0%{?rhel} <= 7
 install -Dp -m 0644 %{_vpath_builddir}/system/systemd/netdata.service.v235 %{buildroot}%{_unitdir}/%{name}.service
 %else
@@ -380,7 +385,6 @@ sed -i -e '/stock config directory/ s;/etc/netdata/conf.d;/usr/lib/netdata/conf.
 sed -i -e '/stock health configuration directory/ s;/etc/netdata/conf.d/health.d;/usr/lib/netdata/conf.d/health.d;' /etc/netdata/netdata.conf ||:
 %systemd_post %{name}.service
 echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
-echo "Netdata go plugin is now embedded"
 
 %preun
 %systemd_preun %{name}.service

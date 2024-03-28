@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           bootc
-Version:        0.1.8
+Version:        0.1.9
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -68,6 +68,7 @@ Recommends: bootupd
 %doc README.md
 %{_bindir}/bootc
 %{_prefix}/lib/bootc/
+%{_prefix}/lib/systemd/system-generators/*
 %{_unitdir}/*
 %{_mandir}/man*/bootc*
 

@@ -1,5 +1,5 @@
 Name:           python-markupsafe
-Version:        2.1.3
+Version:        2.1.5
 Release:        %autorelease
 Summary:        Implements a XML/HTML/XHTML Markup safe string for Python
 License:        BSD-3-Clause

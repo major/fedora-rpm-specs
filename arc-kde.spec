@@ -7,6 +7,9 @@ License:        GPL-3.0-only AND CC-BY-SA-4.0
 URL:            https://github.com/PapirusDevelopmentTeam/arc-kde
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/PapirusDevelopmentTeam/arc-kde/pull/145
+Patch0:         arc-kde-plasma-6-support.patch
+
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -112,7 +115,7 @@ This package contains the Yakuake theme.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 cp wallpapers/Arc-Dark/LICENSE LICENSE-wallpapers
 

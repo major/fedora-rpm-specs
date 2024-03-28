@@ -1,12 +1,11 @@
 # adblock, whether vendored or not, requires rust and corrosion
 %bcond adblock 1
-# Using system crates requires rust-adblock 0.8.0 and dependencies,
-# which are not packaged for Fedora
-%bcond vendored_adblock 1
+# Using system crates requires rust-adblock 0.8.0 and dependencies
+%bcond vendored_adblock 0
 
 Name:    kdepim-addons
 Version: 24.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
 # MIT
@@ -19,12 +18,14 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+%if %{with adblock} && %{with vendored_adblock}
 # to create vendor tarball:
 #   tar xf %%{name}-%%{version}.tar.xz && \
 #   pushd %%{name}-%%{version}/plugins/webengineurlinterceptor/adblock && \
 #   cargo vendor && rm -f vendor/winapi*/lib/* && \
 #   tar Jcvf ../../../../adblock-0.8.0-vendor.tar.xz vendor/ && popd
 Source1: adblock-0.8.0-vendor.tar.xz
+%endif
 
 ## upstream patches
 
@@ -218,6 +219,9 @@ popd
 
 
 %changelog
+* Tue Mar 26 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 24.02.0-2
+- Use system rust-adblock (review #2266634), now in Fedora (#2266623)
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

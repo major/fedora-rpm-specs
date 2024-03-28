@@ -28,8 +28,8 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.17.0
-Release:        3%{?dist}
+Version:        1.17.1
+Release:        1%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -66,6 +66,9 @@ metadata.
 %package devel
 Summary:        Repodata downloading library
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+%if %{with zchunk}
+Requires:       zchunk-devel%{?_isa}
+%endif
 
 %description devel
 Development files for librepo.
@@ -124,6 +127,13 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Tue Mar 26 2024 Jan Kolarik <jkolarik@redhat.com> - 1.17.1-1
+- Update to 1.17.1
+- gpg_gpgme.c: fix build errors with older gcc
+- Change header files to match a configured ABI regarding a zchunk support
+- Fix building zchunk code if zchunk is enabled
+- Fix compiler warnings
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

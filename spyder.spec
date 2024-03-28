@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/spyder-ide/spyder/
 
 Name:           spyder
-Version:        6.0.0~a1
+Version:        6.0.0~a4
 Release:        %autorelease
 Summary:        Scientific Python Development Environment
 %global tag v%{version_no_tilde %{quote:%nil}}
@@ -10,27 +10,9 @@ Summary:        Scientific Python Development Environment
 License:        MIT
 URL:            https://www.spyder-ide.org/
 Source:         %forgesource
-
-# Bump jedi upper bound from <0.19.0 to <0.20.0
-# https://github.com/spyder-ide/spyder/pull/21367 (backported)
-Patch:          21367.patch
-
-# Ensure no source files have useless shebangs
-# https://github.com/spyder-ide/spyder/pull/21372 (backported)
-Patch:          21372.patch
-
-# Bump python-lsp-server upper bound to <=1.9.0
-# https://github.com/spyder-ide/spyder/pull/21501 (backported)
-Patch:          21501.patch
-
-# Remove upper bound from spyder-kernels
-# We are a little out of sync with spyder-kernels
-Patch:          no_upper_bound_for_kernels.patch
-
-# Fix deprecated top-level developer_name in AppData XML
-# Add a developer id in the AppData
-# https://github.com/spyder-ide/spyder/pull/21510
-Patch:          %{forgeurl}/pull/21510.patch
+# Fix IPythonConsole not starting when `debugpy` is not installed
+# https://github.com/spyder-ide/spyder/issues/21900
+Patch:          %{forgeurl}/pull/21926.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -102,15 +84,9 @@ find . -type f \( \
 sed -i \
 -e '/pylint>.*/d' \
 -e '/pylint-venv>.*/d' setup.py
-# Drop upper bound for dependencies that are newer in Fedora
-# qtconsole (5.5.0 > 5.5~~)
-# qdarkstyle (3.2.1 > 3.2~~)
-# lsp-server (1.10.0 > 1.9.0)
-sed -r -i \
-    -e 's|(qtconsole.*),<.?5\.[0-9]*\.0|\1|'  \
-    -e 's|(qdarkstyle.*),<.?3\.[0-9]*\.0|\1|' \
-    -e 's|(python-lsp-server.*),<.?1\.[0-9]*\.0|\1|' \
-    setup.py binder/environment.yml requirements/main.yml
+
+# Don't show warning regarding newer version
+sed -r -i "s|(PYLINT_REQVER.*),<.*'|\1'|" spyder/dependencies.py
 
 
 %generate_buildrequires

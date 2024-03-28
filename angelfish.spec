@@ -1,12 +1,6 @@
-# adblock, whether vendored or not, requires rust and corrosion
-%bcond adblock 1
-# Using system crates requires rust-adblock 0.8.0 and dependencies,
-# which are not packaged for Fedora
-%bcond vendored_adblock 1
-
 Name:           angelfish
 Version:        24.02.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 # Cargo license summary:
@@ -21,11 +15,6 @@ License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+ AND MIT AND (MIT OR Apache
 URL:            https://invent.kde.org/network/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-# to create vendor tarball:
-#   tar xf %%{name}-%%{version}.tar.xz && pushd %%{name}-%%{version} && \
-#   cargo vendor && rm -f vendor/winapi*/lib/* && \
-#   tar Jcvf ../adblock-0.8.0-vendor.tar.xz vendor/ && popd
-Source1: adblock-0.8.0-vendor.tar.xz
 
 
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
@@ -38,7 +27,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
- 
+
 BuildRequires:  cmake(FutureSQL6)
 BuildRequires:  cmake(KF6Config)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -64,46 +53,35 @@ BuildRequires:  cmake(Qt6WebEngineQuick)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  qt6-qtbase-private-devel
 
-%if %{with adblock}
 BuildRequires:  cmake(Corrosion)
 BuildRequires:  rust-packaging
-%endif
 
 Requires:       hicolor-icon-theme
 # QML module dependencies
-Requires:       kf6-kirigami%{?_isa} 
+Requires:       kf6-kirigami%{?_isa}
 Requires:       kf6-kirigami-addons%{?_isa}
 Requires:       kf6-purpose%{?_isa}
 Requires:       kf6-qqc2-desktop-style%{?_isa}
 Requires:       qt6-qt5compat%{?_isa}
-Requires:       qt6-qtwayland%{?_isa} 
+Requires:       qt6-qtwayland%{?_isa}
 Requires:       qt6-qtwebengine%{?_isa}
 
 %description
 Web browser for mobile devices with Plasma integration
 
 %prep
-%autosetup -n %{name}-%{version} %{?with_vendored_adblock:-a1}
-%if %{with adblock}
-%cargo_prep %{?with_vendored_adblock:-v vendor}
-%endif
+%autosetup -n %{name}-%{version}
+%cargo_prep
 
-%if %{with adblock} && %{without vendored_adblock}
 %generate_buildrequires
 %cargo_generate_buildrequires
-%endif
 
 %build
 %cmake_kf6
 %cmake_build
-%if %{with adblock}
 # Rust dependency handling
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
-%if %{with vendored_adblock}
-%cargo_vendor_manifest
-%endif
-%endif
 
 %install
 %cmake_install
@@ -116,12 +94,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 
 %files -f %{name}.lang
 %license LICENSES/{MIT,GPL-2.0-or-later,LGPL-2.0-only,LGPL-2.0-or-later}.txt
-%if %{with adblock}
 %license LICENSE.dependencies
-%if %{with vendored_adblock}
-%license cargo-vendor.txt
-%endif
-%endif
 %doc README.md
 
 %{_kf6_bindir}/%{name}
@@ -135,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Tue Mar 26 2024 Steve Cossette <farchord@gmail.com> - 24.02.0-2
+- Switching from vendored adblock to fedora package
+
 * Wed Feb 21 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.02.0-1
 - 24.02.0
 

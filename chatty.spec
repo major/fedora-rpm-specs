@@ -48,7 +48,6 @@ BuildRequires:  pkgconfig(mm-glib) >= 1.12.0
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  gspell-devel
 BuildRequires:  libolm-devel
-BuildRequires:  openssl1.1-devel
 BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  libsecret-devel

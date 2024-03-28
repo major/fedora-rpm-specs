@@ -56,7 +56,7 @@ Version: 3.52.0
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
-URL: https://wiki.gnome.org/Apps/Evolution
+URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.52/%{name}-%{version}.tar.xz
 
 # 0-99: General patches

@@ -1,24 +1,25 @@
+%global app_id  org.gweled.gweled
+
 Name:           gweled
-Version:        0.9.1
-Release:        34.20130730git819bed%{?dist}
+Version:        1.0~alpha
+Release:        1%{?dist}
 
 Summary:        Swapping gem game
 
 License:        GPL-2.0-or-later
 URL:            http://launchpad.net/gweled
-#Source0:        http://launchpad.net/gweled/trunk/0.9/+download/gweled-%%{version}.tar.gz
-#Fork using sdl_mixer rather than libcanberra or mikmod
-#https://github.com/Marisa-Chan/gweled-sdl_mixer.git
-Source0:	gweled-sdl_mixer-819bed.tar.gz
-Patch0:		gweled-fix-librsvg-segfault-v2.patch
-Patch1: gweled-c99.patch
+Source0:        http://launchpad.net/gweled/trunk/1.0/+download/%{name}-%{version_no_tilde}.tar.xz
 
-BuildRequires:  libgnomeui-devel >= 2.0.0
-BuildRequires:  librsvg2-devel >= 2.0.0
-BuildRequires:  desktop-file-utils
-BuildRequires:	intltool libtool
-BuildRequires:	SDL_mixer-devel
-BuildRequires: make
+BuildRequires:	desktop-file-utils
+BuildRequires:	gcc
+BuildRequires:	libappstream-glib
+BuildRequires:	meson >= 0.59.0
+BuildRequires:	pkgconfig(glib-2.0) >= 2.36
+BuildRequires:	pkgconfig(gtk+-3.0) >= 3.20
+BuildRequires:	pkgconfig(clutter-1.0) >= 1.20
+BuildRequires:	pkgconfig(clutter-gtk-1.0) >= 1.8
+BuildRequires:	pkgconfig(gsound) >= 1.0.3
+BuildRequires:	pkgconfig(libgnome-games-support-1) >= 1.0.3
 Requires:	hicolor-icon-theme
 
 %description
@@ -29,81 +30,41 @@ ends when there are no possible moves left.
 
 
 %prep
-%setup -qn gweled-sdl_mixer-819bed
-%patch0 -p0
-%patch1 -p1
+%autosetup -n %{name}-%{version_no_tilde} -p1
+
 
 %build
-
-export LDFLAGS="${LDFLAGS} -lm -Wl,--export-dynamic "
-./autogen.sh
-%configure --localstatedir=%{_localstatedir}/lib
-#echo "Encoding=UTF-8" >> data/gweled.desktop
-#mv gweled.desktop gweled.desktop.old
-#iconv --from-code=ISO-8859-1 --to-code=UTF-8 <gweled.desktop.old > gweled.desktop
-make %{?_smp_mflags}
-
+%meson
+%meson_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-desktop-file-install --delete-original \
-  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications      \
-  --add-category LogicGame                    \
-  --remove-category Application                        \
-  ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
-
-# Register as an application to be visible in the software center
-#
-# NOTE: It would be *awesome* if this file was maintained by the upstream
-# project, translated and installed into the right place during `make install`.
-#
-# See http://www.freedesktop.org/software/appstream/docs/ for more details.
-#
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 William Moreno <williamjmorenor@fedoraproject.org> -->
-<!--
-BugReportURL: https://bugs.launchpad.net/gweled/+bug/1322917
-SentUpstream: 2014-06-12
--->
-<application>
-  <id type="desktop">gweled.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <summary>Align three identical gems to remove them from board</summary>
-  <description>
-    <p>
-      Gweled is a version for GNU / Linux of the popular mobile game called
-      Bejeweled or Diamond Mine.
-      The game consist in to move adjacent gems to align three or more vertically
-      or horizontally to remove them from the board.
-    </p>
-  </description>
-  <url type="homepage">http://launchpad.net/gweled</url>
-  <screenshots>
-    <screenshot type="default">http://gweled.org/images/screen1.png</screenshot>
-  </screenshots>
-</application>
-EOF
+%meson_install
 
 %find_lang %{name}
 
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
 
 
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS NEWS
-%attr(2551,root,games) %{_bindir}/%{name}
-%config(noreplace) %attr(0664,games,games) %{_localstatedir}/lib/games/*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/*
+%{_datadir}/glib-2.0/schemas/%{app_id}.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/%{name}/
+%{_datadir}/pixmaps/%{name}/
 %{_datadir}/sounds/%{name}/
+%{_metainfodir}/%{app_id}.appdata.xml
+
 
 %changelog
+* Wed Mar 20 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0~alpha-1
+- Update to 1.0-alpha
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-34.20130730git819bed
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

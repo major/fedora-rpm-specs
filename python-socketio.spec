@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-socketio
-Version:        5.11.1
+Version:        5.11.2
 Release:        %autorelease
 Summary:        Socket.IO server
 

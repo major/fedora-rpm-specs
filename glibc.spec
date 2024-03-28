@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.39.9000-111-g1ea0511456
+%global glibcsrcdir glibc-2.39.9000-124-g96d1b9ac23
 %global glibcversion 2.39.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -171,7 +171,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2457,6 +2457,23 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Mar 26 2024 DJ Delorie <dj@redhat.com> - 2.39.9000-10
+- Auto-sync with upstream branch master,
+  commit 96d1b9ac2321b565f340ba8f3674597141e3450d.
+- RISC-V: Fix the static-PIE non-relocated object check
+- htl: Implement some support for TLS_DTV_AT_TP
+- htl: Respect GL(dl_stack_flags) when allocating stacks
+- hurd: Use the RETURN_ADDRESS macro
+- hurd: Disable Prefer_MAP_32BIT_EXEC on non-x86_64 for now
+- Allow glibc to be compiled without EXEC_PAGESIZE
+- hurd: Stop relying on VM_MAX_ADDRESS
+- hurd: Move internal functions to internal header
+- stdlib: Fix tst-makecontext2 log when swapcontext fails
+- or1k: Add prctl wrapper to unwrap variadic args
+- or1k: Only define fpu rouding and exceptions with hard-float
+- or1k: Update libm test ulps
+- AArch64: Check kernel version for SVE ifuncs
+
 * Wed Mar 20 2024 Florian Weimer <fweimer@redhat.com> - 2.39.9000-9
 - Drop glibc-rh2269799.patch, fixed differently upstream.
 - Auto-sync with upstream branch master,

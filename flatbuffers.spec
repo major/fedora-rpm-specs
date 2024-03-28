@@ -12,12 +12,12 @@
 %bcond doc_pdf 0
 
 Name:           flatbuffers
-Version:        23.5.26
+Version:        24.3.7
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 23.5.26
+%global so_version 24.3.7
 Release:        %autorelease
 Summary:        Memory efficient serialization library
 

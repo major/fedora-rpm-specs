@@ -4,7 +4,7 @@
 
 Name: sdubby
 Version: 1.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Set of systemd-boot shims that don't fit anywhere else in the distro
 License: GPLv2+
 URL:	 https://pagure.io/sdubby.git
@@ -16,6 +16,9 @@ Source2: COPYING
 Source3: entries.srel
 Source4: updateloaderentries.8
 Source5: README.md
+# another config script which should eventually be moved to
+# anaconda, because it knows where the ESP is actually mounted
+Source6: install.conf
 
 Requires: findutils
 Requires: util-linux
@@ -54,6 +57,7 @@ install -T -m 444 %{SOURCE3} %{buildroot}%{efi_esp_root}/loader/entries.srel
 ln -sr %{buildroot}%{_sbindir}/updateloaderentries %{buildroot}%{_sbindir}/grubby
 install -TD -m 444 %{SOURCE4} %{buildroot}%{_mandir}/man8/updateloaderentries.8
 gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
+install -TD -m 444 %{SOURCE6} %{buildroot}%{_sysconfdir}/kernel/install.conf
 
 # should we create /boot/efi/loader/loader.conf here?
 # instead we are ghosting the config file, and letting anaconda create it
@@ -71,10 +75,14 @@ gzip %{buildroot}%{_mandir}/man8/updateloaderentries.8
 # files on the ESP (fat) will always have 700
 %{efi_esp_root}/loader/entries
 %config(noreplace) %{efi_esp_root}/loader/entries.srel
+%config(noreplace) %{_sysconfdir}/kernel/install.conf
 %attr(0644,root,root) %ghost %config(noreplace) %{efi_esp_root}/loader/loader.conf
 
 
 %changelog
+* Tue Mar 26 2024 Jeremy Linton <jeremy.linton@arm.com> - 1.0-8
+- Add default kernel compatibility flag and install.conf file to force kernel-install to do the right thing, work around BZ 2271674
+
 * Mon Mar 18 2024 Adam Williamson <awilliam@redhat.com> - 1.0-7
 - Stop providing grubby (#2269992)
 

@@ -1,6 +1,6 @@
 Name:       wireplumber
 Version:    0.5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -8,6 +8,11 @@ URL:        https://pipewire.pages.freedesktop.org/wireplumber/
 Source0:    https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 ## upstream patches
+# https://gitlab.freedesktop.org/pipewire/wireplumber/-/merge_requests/620
+# Fix smart filter issue affecting bluetooth headsets and other cases
+# https://gitlab.freedesktop.org/pipewire/wireplumber/-/issues/598
+# https://bugzilla.redhat.com/show_bug.cgi?id=2269343
+Patch:      620.patch
 
 ## upstreamable patches
 
@@ -132,6 +137,10 @@ fi
 %{_datadir}/doc/wireplumber/
 
 %changelog
+* Mon Mar 25 2024 Adam Williamson <awilliam@redhat.com> - 0.5.0-2
+- Backport MR #620 to fix issues with bluetooth headsets etc.
+- Resolves: rhbz#2269343
+
 * Mon Mar 18 2024 Wim Taymans <wtaymans@redhat.com> - 0.5.0-1
 - wireplumber 0.5.0
 

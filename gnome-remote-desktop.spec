@@ -1,4 +1,7 @@
-%global systemd_unit gnome-remote-desktop.service
+%global systemd_unit_handover gnome-remote-desktop-handover.service
+%global systemd_unit_headless gnome-remote-desktop-headless.service
+%global systemd_unit_system gnome-remote-desktop.service
+%global systemd_unit_user gnome-remote-desktop.service
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
@@ -9,8 +12,8 @@
 %global pipewire_version 0.3.49
 
 Name:           gnome-remote-desktop
-Version:        45.1
-Release:        4%{?dist}
+Version:        46.0
+Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
@@ -26,12 +29,15 @@ BuildRequires:  meson >= 0.47.0
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(ffnvcodec)
 %if %{with rdp}
 BuildRequires:  pkgconfig(fdk-aac)
-BuildRequires:  pkgconfig(freerdp2)
+BuildRequires:  pkgconfig(freerdp3)
 BuildRequires:  pkgconfig(fuse3)
-BuildRequires:  pkgconfig(winpr2)
+BuildRequires:  pkgconfig(opus)
+BuildRequires:  pkgconfig(polkit-gobject-1)
+BuildRequires:  pkgconfig(winpr3)
 %endif
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.68
@@ -71,10 +77,8 @@ GNOME desktop environment.
 %meson \
 %if %{with rdp}
     -Drdp=true \
-    -Dfdk_aac=true \
 %else
     -Drdp=false \
-    -Dfdk_aac=false \
 %endif
 %if %{with vnc}
     -Dvnc=true \
@@ -93,15 +97,24 @@ GNOME desktop environment.
 
 
 %post
-%systemd_user_post %{systemd_unit}
+%systemd_system_post %{systemd_unit_system}
+%systemd_user_post %{systemd_unit_handover}
+%systemd_user_post %{systemd_unit_headless}
+%systemd_user_post %{systemd_unit_user}
 
 
 %preun
-%systemd_user_preun %{systemd_unit}
+%systemd_system_preun %{systemd_unit_system}
+%systemd_user_preun %{systemd_unit_handover}
+%systemd_user_preun %{systemd_unit_headless}
+%systemd_user_preun %{systemd_unit_user}
 
 
 %postun
-%systemd_user_postun_with_restart %{systemd_unit}
+%systemd_system_postun_with_restart %{systemd_unit_system}
+%systemd_user_postun_with_restart %{systemd_unit_handover}
+%systemd_user_postun_with_restart %{systemd_unit_headless}
+%systemd_user_postun_with_restart %{systemd_unit_user}
 
 
 %files -f %{name}.lang
@@ -109,9 +122,19 @@ GNOME desktop environment.
 %doc README.md
 %{_bindir}/grdctl
 %{_libexecdir}/gnome-remote-desktop-daemon
-%{_userunitdir}/%{systemd_unit}
+%{_userunitdir}/%{systemd_unit_user}
+%{_userunitdir}/%{systemd_unit_headless}
+%{_userunitdir}/%{systemd_unit_handover}
+%{_unitdir}/%{systemd_unit_system}
+%{_datadir}/applications/org.gnome.RemoteDesktop.Handover.desktop
+%{_datadir}/dbus-1/system-services/org.gnome.RemoteDesktop.service
+%{_datadir}/dbus-1/system.d/org.gnome.RemoteDesktop.conf
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.desktop.remote-desktop.enums.xml
+%{_datadir}/polkit-1/actions/org.gnome.remotedesktop.configure-system-daemon.policy
+%{_sysusersdir}/gnome-remote-desktop-sysusers.conf
+%{_tmpfilesdir}/gnome-remote-desktop-tmpfiles.conf
+
 %if %{with rdp}
 %{_datadir}/gnome-remote-desktop/
 %endif

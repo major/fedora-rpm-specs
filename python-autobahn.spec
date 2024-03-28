@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.6.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -82,11 +82,25 @@ AUTOBAHN_USE_NVX=false %py3_build
 AUTOBAHN_USE_NVX=false %py3_install
 
 %check
-%if 0%{?fedora}
 # Ignore tests that rely on optional and not packaged deps.
-USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_basic and not test_websocket_custom_loop and not TestSerializer'
+k="${k-}${k+ and }not test_no_memory_arg"
+k="${k-}${k+ and }not test_basic"
+k="${k-}${k+ and }not test_websocket_custom_loop"
+k="${k-}${k+ and }not TestSerializer"
+# Skip tests failing with pytest-asyncio >= 0.23.5.post1
+# https://github.com/crossbario/autobahn-python/issues/1631
+# https://bugzilla.redhat.com/show_bug.cgi?id=2270130
+k="${k-}${k+ and }not test_vectors"
+k="${k-}${k+ and }not test_authenticator"
+k="${k-}${k+ and }not test_valid"
+k="${k-}${k+ and }not test_auto_ping"
+k="${k-}${k+ and }not test_interpolate_server_status_template"
+k="${k-}${k+ and }not test_sendClose"
+%if 0%{?fedora}
+USE_ASYNCIO=1 %pytest --pyargs autobahn ${k+ -k} "${k-}"
 %else
-USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn -k 'not test_no_memory_arg and not test_basic and not test_websocket_custom_loop and not TestSerializer and not TestDecimalSerializer'
+k="${k-}${k+ and }not TestDecimalSerializer"
+USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %endif
 
 %files -n python3-%{pypi_name}
@@ -107,6 +121,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn -k 'not test_no_memory
 %license LICENSE
 
 %changelog
+* Tue Mar 26 2024 Julien Enselme <jujens@jujens.eu> - 23.6.2-6
+- Version Bump
+
 * Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 23.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

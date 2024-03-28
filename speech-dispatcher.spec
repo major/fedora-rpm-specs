@@ -1,6 +1,6 @@
 Name:          speech-dispatcher
 Version:       0.11.5
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -32,10 +32,10 @@ BuildRequires: make
 Buildrequires: pulseaudio-libs-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 BuildRequires: texinfo
 
-Requires:      speech-dispatcher-espeak-ng
+Requires:      %{name}-espeak-ng%{?_isa} = %{version}-%{release}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -57,9 +57,17 @@ Obsoletes:     speech-dispatcher-kali < 0.9.1
   Speech Dispatcher rather than the TTS engine, since most engines
   have limited sound output capabilities.
 
+%package        libs
+Summary:        Development files for %{name}
+License:        GPL-2.0-or-later
+
+%description    libs
+The %{name}-libs package contains runtime libraries for applications
+that use %{name}.
+
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 License:        GPL-2.0-or-later
 
 %description    devel
@@ -78,7 +86,7 @@ speechd documentation
 %package utils
 Summary:        Various utilities for speech-dispatcher
 License:        GPL-2.0-or-later
-Requires:       %{name}%{_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       python3-speechd = %{version}-%{release}
 Requires:       pulseaudio-utils
 
@@ -113,7 +121,6 @@ This package contains the flite output module for Speech Dispatcher.
 %package -n python3-speechd
 Summary:        Python 3 Client API for speech-dispatcher
 License:        GPL-2.0-or-later
-Requires:       %{name}%{_isa} = %{version}-%{release}
 
 %description -n python3-speechd
 Python 3 module for speech-dispatcher
@@ -133,7 +140,8 @@ tar xf %{SOURCE1}
 	--without-oss --without-nas --without-espeak \
 	--with-kali=no --with-baratinoo=no --with-ibmtts=no --with-voxin=no \
 	--sysconfdir=%{_sysconfdir} --with-default-audio-method=pulse \
-	--with-module-bindir=%{_libdir}/speech-dispatcher-modules/
+	--with-module-bindir=%{_libdir}/speech-dispatcher-modules/ \
+	--with-systemdsystemunitdir=%{_unitdir}
 
 %make_build
 
@@ -188,8 +196,6 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %exclude %{_sysconfdir}/speech-dispatcher/modules/flite.conf
 %{_bindir}/speech-dispatcher
 %{_datadir}/speech-dispatcher/
-%{_libdir}/libspeechd.so.2
-%{_libdir}/libspeechd.so.2.6.0
 %dir %{_libdir}/speech-dispatcher-modules/
 %{_libdir}/speech-dispatcher-modules/sd_cicero
 %{_libdir}/speech-dispatcher-modules/sd_dummy
@@ -200,6 +206,11 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{_mandir}/man1/speech-dispatcher.1*
 %dir %attr(0700, root, root) %{_localstatedir}/log/speech-dispatcher/
 %{_unitdir}/speech-dispatcherd.service
+
+%files libs
+%license COPYING.LGPL
+%{_libdir}/libspeechd.so.2
+%{_libdir}/libspeechd.so.2.6.0
 
 %files devel
 %{_includedir}/*
@@ -235,6 +246,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Thu Mar 21 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11.5-4
+- Split out libs and adjust dependencies
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

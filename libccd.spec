@@ -6,10 +6,13 @@
 
 Name:           libccd
 Version:        2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library for collision detection between convex shapes
 
-License:        BSD
+# The src/testsuites/cu/ directory contains some GPL-3.0-or-later code, but it
+# is not incorporated in the binary RPMs and does not contribute to their
+# licenses.
+License:        BSD-3-Clause
 URL:            http://libccd.danfis.cz
 Source0:        https://github.com/danfis/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # This patch integrates additional programs that are present in
@@ -86,6 +89,9 @@ make -C build test ||exit 0
 %{_libdir}/ccd
 
 %changelog
+* Wed Mar 27 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1-13
+- Convert License to SPDX
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

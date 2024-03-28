@@ -65,6 +65,7 @@ Summary: Extra dependencies for Podman and Buildah
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: container-network-stack
 Requires: oci-runtime
+Conflicts: podman < 5:5.0.0~rc4-1
 Recommends: crun
 Requires: (crun if fedora-release-identity-server)
 Requires: netavark >= 1.10.3-1

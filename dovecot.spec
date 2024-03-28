@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.21
 %global prever %{nil}
-Release: 6%{?dist}
+Release: 7%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -97,6 +97,11 @@ Requires(postun): systemd-units
 
 BuildRequires: libcurl-devel expat-devel
 BuildRequires: make
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 %global restart_flag /run/%{name}/%{name}-restart-after-rpm-install
 
@@ -500,6 +505,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Mar 26 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.21-7
+- drop i686 build as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 1:2.3.21-6
 - Rebuild for ICU 74
 

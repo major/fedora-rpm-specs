@@ -12,6 +12,8 @@ Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{versi
 Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/refs/tags/%{name}-plugins-3.16.tar.gz
 # plugins install path (https://github.com/nomacs/nomacs-plugins/issues/34)
 Patch0:		%{name}-plugins-3.16-instpath.diff
+# plugins loading path (https://github.com/nomacs/nomacs/issues/1047)
+Patch1:         %{name}-3.17-plugins.diff
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -63,6 +65,7 @@ Some usefull plugins for nomacs:
 # plug them in
 mv nomacs-plugins-3.16/* ImageLounge/plugins/
 %patch 0
+%patch 1
 # Be sure
 rmdir {3rd-party/*,3rd-party}
 

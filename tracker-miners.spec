@@ -33,7 +33,7 @@
 
 Name:           tracker-miners
 Version:        3.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -41,6 +41,12 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/%{name}/3.7/%{name}-%{tarball_version}.tar.xz
 Source1:        flatpak-fixup.sh
+# https://gitlab.gnome.org/GNOME/tracker-miners/-/issues/324
+# https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/525
+Patch:          tracker-miners-3.7.0-db-corruption.patch
+# https://gitlab.gnome.org/GNOME/tracker-miners/-/issues/316
+# https://gitlab.gnome.org/GNOME/tracker-miners/-/merge_requests/527
+Patch:          tracker-miners-3.7.0-syscall-allow.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -179,6 +185,9 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 
 %changelog
+* Tue Mar 26 2024 David King <amigadave@amigadave.com> - 3.7.0-2
+- Backport 2 upstream MRs for crash and db corruption
+
 * Mon Mar 18 2024 David King <amigadave@amigadave.com> - 3.7.0-1
 - Update to 3.7.0
 

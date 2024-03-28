@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           file-roller
-Version:        44~beta
+Version:        44
 Release:        1%{?dist}
 Summary:        Tool for viewing and creating archives
 
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.FileRoller.
 %endif
 
 %changelog
+* Tue Mar 26 2024 David King <amigadave@amigadave.com> - 44-1
+- Update to 44
+
 * Mon Mar 11 2024 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

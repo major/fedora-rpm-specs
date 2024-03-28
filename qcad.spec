@@ -9,7 +9,7 @@
 #
 
 Name:    qcad
-Version: 3.28.2.0
+Version: 3.29.5.0
 Release: %autorelease
 Epoch:   1
 Summary: Powerful 2D CAD system
@@ -30,7 +30,7 @@ Summary: Powerful 2D CAD system
 ## is waived) and BSD (3-clauses).
 
 License: GPL-3.0-only AND GPL-2.0-or-later AND MIT AND BSD AND Public Domain AND CC-BY-3.0 AND Hershey
-Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.zip
+Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 URL: https://www.qcad.org/
@@ -98,9 +98,9 @@ You dont need any CAD experience to get started with QCAD immediately.
 rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.12
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.12/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.12/qt-labs-qtscriptgenerator-5.15.12.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.13
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.13/qt-labs-qtscriptgenerator-5.15.8.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.13/qt-labs-qtscriptgenerator-5.15.13.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues

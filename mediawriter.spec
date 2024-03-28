@@ -1,6 +1,6 @@
 Name:           mediawriter
-Version:        5.0.8
-Release:        3%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -15,14 +15,13 @@ BuildRequires:  gettext
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  libappstream-glib
-BuildRequires:  libadwaita-qt6-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  xz-devel
 
-Requires:       qt6-qtsvg
 Requires:       qt6-qtdeclarative
+Requires:       qt6-qtsvg
 
 %if !0%{?flatpak}
 Requires:       polkit
@@ -44,8 +43,6 @@ like flash drives or memory cards.
 %prep
 %autosetup -p1 -n MediaWriter-%{version}
 
-# Install the theme into correct prefix when building for /app
-sed -i 's@\${QT6_INSTALL_QML}@%{_qt6_qmldir}@' src/theme/CMakeLists.txt
 
 %build
 %cmake
@@ -72,11 +69,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/128x128/apps/org.fedoraproject.MediaWriter.png
 %{_datadir}/icons/hicolor/256x256/apps/org.fedoraproject.MediaWriter.png
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
-%{_qt6_qmldir}/QtQuick/Controls/org/fedoraproject/AdwaitaTheme/
-%{_qt6_qmldir}/org/fedoraproject/AdwaitaTheme/libadwaitathemeplugin.so
-%{_qt6_qmldir}/org/fedoraproject/AdwaitaTheme/qmldir
 
 %changelog
+* Tue Mar 26 2024 Jan Grulich <jgrulich@redhat.com> - 5.1.0-1
+- 5.1.0
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -18,6 +18,8 @@ Source0:        %{forgesource}
 
 # Fix build on big endian systems
 Patch0:         https://github.com/blend2d/blend2d/pull/197.patch
+# [Bug] Fixed PRGB32->A8 conversion on big endian targets
+Patch1:         https://github.com/blend2d/blend2d/commit/e4656f4317b79891c85865023039507db142e6d3.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -63,12 +65,7 @@ sed -i 's/set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "")/set_targe
 
 %if %{with check}
 %check
-# https://github.com/blend2d/blend2d/issues/198
-%ifarch s390x
-%ctest -E bl_test_unit
-%else
 %ctest
-%endif
 %endif
 
 %files

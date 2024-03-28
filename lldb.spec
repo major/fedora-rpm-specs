@@ -10,7 +10,7 @@
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -123,17 +123,22 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %files
 %license LICENSE.TXT
 %{_bindir}/lldb*
+# Usually, *.so symlinks are kept in devel subpackages. However, the python
+# bindings depend on this symlink at runtime.
+%{_libdir}/*.so
 %{_libdir}/liblldb.so.*
 %{_libdir}/liblldbIntelFeatures.so.*
 
 %files devel
 %{_includedir}/lldb
-%{_libdir}/*.so
 
 %files -n python3-lldb
 %{python3_sitearch}/lldb
 
 %changelog
+* Mon Mar 25 2024 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 18.1.2-2
+- Move liblldb symlink to the main package. Fix rhbz#2260611.
+
 * Fri Mar 22 2024 Tom Stellard <tstellar@redhat.com> - 18.1.2-1
 - 18.1.2 Release
 

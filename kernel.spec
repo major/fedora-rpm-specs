@@ -163,13 +163,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.9.0
 %define specversion 6.9.0
 %define patchversion 6.9
-%define pkgrelease 0.rc1.17
+%define pkgrelease 0.rc1.20240326git928a87efa423.17
 %define kversion 6
-%define tarfile_release 6.9-rc1
+%define tarfile_release 6.9-rc1-5-g928a87efa423
 # This is needed to do merge window version magic
 %define patchlevel 9
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.17%{?buildid}%{?dist}
+%define specrelease 0.rc1.20240326git928a87efa423.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.9.0
 
@@ -665,7 +665,7 @@ BuildRequires: kernel-rpm-macros
 # glibc-static is required for a consistent build environment (specifically
 # CONFIG_CC_CAN_LINK_STATIC=y).
 BuildRequires: glibc-static
-%if %{with_headers}
+%if %{with_headers} || %{with_cross_headers}
 BuildRequires: rsync
 %endif
 %if %{with_doc}
@@ -3957,9 +3957,13 @@ fi\
 #
 #
 %changelog
-* Mon Mar 25 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc1.17]
+* Tue Mar 26 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc1.928a87efa423.17]
+- all: clean-up i915 (Peter Robinson)
+- Turn on CONFIG_READ_ONLY_THP_FOR_FS for Fedora (Justin M. Forbes)
+- redhat/kernel.spec.template: fix rtonly build (Jan Stancek)
 - redhat/kernel.spec.template: add extra flags for tools build (Scott Weaver)
 - Add iio-test-gts to mod-internal.list (Thorsten Leemhuis)
+- Linux v6.9.0-0.rc1.928a87efa423
 
 * Mon Mar 25 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.9.0-0.rc1.16]
 - redhat/kernel.spec.template: update license (Scott Weaver)

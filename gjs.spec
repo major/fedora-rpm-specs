@@ -3,7 +3,7 @@
 %global mozjs115_version 115.7.0
 
 Name:           gjs
-Version:        1.79.90
+Version:        1.80.2
 Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -15,7 +15,7 @@ Summary:        Javascript Bindings for GNOME
 # modules/script/tweener/equations.js is BSD-3-Clause
 License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/Gjs
-Source0:        https://download.gnome.org/sources/%{name}/1.79/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.80/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -98,6 +98,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Tue Mar 26 2024 David King <amigadave@amigadave.com> - 1.80.2-1
+- Update to 1.80.2
+
 * Mon Mar 04 2024 David King <amigadave@amigadave.com> - 1.79.90-1
 - Update to 1.79.90
 

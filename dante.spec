@@ -67,10 +67,12 @@ sed -i -e 's!AM_CONFIG_HEADER!AC_CONFIG_HEADERS!' configure.ac
 autoreconf --force --install --verbose
 # Change libdir because of unversionend libdsocks.so
 # Disable static because libsocks has no debuginfo
+# Disable libc_enable_secure rhbz#2271523
 # Enable other features
 %configure \
   --libdir=${exec_prefix}%{_libdir}/dante \
   --disable-static \
+  --without-glibc-secure \
   --enable-preload \
   --enable-clientdl \
   --enable-serverdl \

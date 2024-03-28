@@ -1,47 +1,39 @@
 %global framework qqc2-desktop-style
 
-Name:    %{framework}
+Name:    kf5-%{framework}
 Version: 5.115.0
-Release: 1%{?dist}
-Summary: QtQuickControls2 style for consistency between QWidget and QML apps 
-
-# kirigami-plasmadesktop-integration: LGPLv2+
-# plugin,org.kde.desktop: LGPLv3 or GPLv3
-License: (LGPLv3 or GPLv3) and LGPLv2+
+Release: 2%{?dist}
+Summary: QtQuickControls2 style for consistency between QWidget and QML apps
+License: LGPL-2.0-or-later AND (LGPL-3.0-only OR GPL-2.0-or-later) AND (LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
-
-%global majmin %majmin_ver_kf5
-%global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+Source:  https://download.kde.org/%{stable_kf5}/frameworks/%{majmin_ver_kf5}/%{framework}-%{version}.tar.xz
 
 ## upstream patches
 
-BuildRequires: extra-cmake-modules >= %{majmin}
+BuildRequires: extra-cmake-modules >= %{majmin_ver_kf5}
+BuildRequires: gcc-c++
 BuildRequires: kf5-rpm-macros
-BuildRequires: kf5-kirigami2-devel >= %{majmin}
-Requires: kf5-kirigami2%{?_isa} >= %{majmin}
-BuildRequires: kf5-kconfigwidgets-devel >= %{majmin}
-BuildRequires: kf5-kiconthemes-devel >= %{majmin}
-# cmake() style
-BuildRequires: cmake(KF5Kirigami2)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5IconThemes)
 
-BuildRequires: pkgconfig(Qt5Gui)
-BuildRequires: pkgconfig(Qt5Quick)
-BuildRequires: pkgconfig(Qt5Widgets)
-# not sure if this is *really* needed or not -- rex
-# CMakeLists.txt:# When building as a static plugin, dependencies may add a -lQt5X11Extras
-BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Gui)
+BuildRequires: cmake(Qt5Quick)
+BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt5X11Extras)
 
-BuildRequires: qt5-qtquickcontrols2-devel
+BuildRequires: cmake(KF5Config) >= %{majmin_ver_kf5}
+BuildRequires: cmake(KF5ConfigWidgets) >= %{majmin_ver_kf5}
+BuildRequires: cmake(KF5Kirigami2) >= %{majmin_ver_kf5}
+BuildRequires: cmake(KF5IconThemes) >= %{majmin_ver_kf5}
+
+Requires: kf5-kirigami2%{?_isa} >= %{majmin_ver_kf5}
 Requires: qt5-qtquickcontrols2%{?_isa}
 
-# WORKAROUND FTBFS
-%if 0%{?rhel}==7
-BuildRequires: devtoolset-7-toolchain
-BuildRequires: devtoolset-7-gcc-c++
-%endif
+# renamed
+Provides:  %{framework} = %{version}-%{release}
+Provides:  %{framework}%{?_isa} = %{version}-%{release}
+Obsoletes: %{framework} < %{version}-%{release}
 
 %description
 This is a style for QtQuickControls 2 that uses QWidget's QStyle for
@@ -54,12 +46,7 @@ between QWidget-based and QML-based apps.
 
 
 %build
-%if 0%{?rhel}==7
-. /opt/rh/devtoolset-7/enable
-%endif
-
 %cmake_kf5
-
 %cmake_build
 
 
@@ -72,14 +59,16 @@ between QWidget-based and QML-based apps.
 %license LICENSES/*.txt
 %dir %{_kf5_plugindir}/kirigami/
 %{_kf5_plugindir}/kirigami/org.kde.desktop.so
-%{_qt5_qmldir}/QtQuick/Controls.2/org.kde.desktop/
-%{_qt5_qmldir}/org/kde/qqc2desktopstyle/
-# yes, here
+%{_kf5_qmldir}/QtQuick/Controls.2/org.kde.desktop/
+%{_kf5_qmldir}/org/kde/qqc2desktopstyle/
 %{_kf5_libdir}/cmake/KF5QQC2DeskopStyle/
 %{_kf5_libdir}/cmake/KF5QQC2DesktopStyle/
 
 
 %changelog
+* Wed Mar 06 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 5.115.0-2
+- Renamed with kf5- prefix
+
 * Sat Feb 10 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.115.0-1
 - 5.115.0
 

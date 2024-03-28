@@ -1,14 +1,5 @@
-# Break a circular dependency with sphinx-autodoc-typehints
-%bcond bootstrap 0
-
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc 1
-
 Name:           python-typeguard
-Version:        4.1.5
+Version:        4.2.1
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
@@ -17,21 +8,10 @@ License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
 
-# Downstream-only: do not treat warnings in tests as errors
-#
-# This makes sense for upstream development and CI, but is too strict for
-# distribution packaging.
-Patch:          0001-Downstream-only-do-not-treat-warnings-in-tests-as-er.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-%if %{with doc}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-%endif
+BuildRequires:  tomcli
 
 %global common_description %{expand:
 This library provides run-time type checking for functions defined with PEP 484
@@ -43,65 +23,37 @@ argument (and return) type annotations.}
 %package -n python3-typeguard
 Summary:        %{summary}
 
+# Removed for F41:
+Obsoletes:      python-typeguard-doc < 4.2.1-2
+
 %description -n python3-typeguard %{common_description}
 
 
-%if %{with doc}
-%package doc
-Summary:        Documentation for typeguard
-
-%description doc %{common_description}
-%endif
-
-
 %prep
-%autosetup -n typeguard-%{version} -p1
+%autosetup -n typeguard-%{version}
 
-# Because we do not build Sphinx-generated HTML documentation, and conf.py does
-# not import the HTML theme package, we do not need to require it at build
-# time.
-sed -r -i 's/^([[:blank:]]*)(.(sphinx_rtd_theme))\b/\1# \2/' pyproject.toml
-# We can’t respect an upper-bound on the Sphinx version; let’s remove it and do
-# our best.
-sed -r -i 's/("Sphinx)[[:blank:]]*[<=][^"]*/\1/' pyproject.toml
-
-%if %{with bootstrap}
-sed -r -i 's/^([[:blank:]]*)(.(sphinx-autodoc-typehints))\b/\1# \2/' \
-    pyproject.toml
-sed -r -i 's/^([[:blank:]]*)(.(sphinx_autodoc_typehints))\b/\1# \2/' \
-    docs/conf.py
-%endif
-
-# In docs/conf.py, packaging is used to access the version from the typeguard
-# package distribution. This works for upstream, but it doesn’t work when we
-# haven’t installed the package with proper dist-info metadata yet.
-sed -r -i 's/get_version\("typeguard"\)/"%{version}"/' docs/conf.py
-
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> docs/conf.py
+# Downstream-only: do not treat warnings in tests as errors
+#
+# This makes sense for upstream development and CI, but is too strict for
+# distribution packaging.
+tomcli set pyproject.toml lists delitem \
+    'tool.pytest.ini_options.filterwarnings' error
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]]*)("coverage\b)/\1# \2/' pyproject.toml
+tomcli set pyproject.toml lists delitem --type regex \
+    'project.optional-dependencies.test' 'coverage\b.*'
 # Note that we *do* need mypy for some of the tests; it is not just a
 # “typechecking linter.”
 
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -x test%{?with_doc:,doc}
+%pyproject_buildrequires -x test
 
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
-
-%if %{with doc}
-PYTHONPATH="${PWD}/src" sphinx-build -b latex -j%{?_smp_build_ncpus} \
-    docs %{_vpath_builddir}/_latex
-%make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -111,21 +63,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check
-%pytest
+%pytest -v -rs
 
 
 %files -n python3-typeguard -f %{pyproject_files}
-%if %{without doc}
 %doc README.rst
-%endif
-
-
-%if %{with doc}
-%files doc
-%license LICENSE
-%doc README.rst
-%doc %{_vpath_builddir}/_latex/typeguard.pdf
-%endif
 
 
 %changelog

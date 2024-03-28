@@ -12,6 +12,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+# Explicit requires (#2271500)
+Requires:       python3-pypng
 
 # Comment out failing test
 Patch0:         qrcode_test.patch

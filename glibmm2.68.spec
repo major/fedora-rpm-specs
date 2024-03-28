@@ -3,10 +3,10 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global libsigc_version 3.0.0
-%global glib2_version 2.77.0
+%global glib2_version 2.79.2
 
 Name:           glibmm2.68
-Version:        2.78.1
+Version:        2.80.0
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 

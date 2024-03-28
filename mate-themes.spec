@@ -17,7 +17,7 @@
 Name:           mate-themes
 Version:        %{rel_ver}
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
 Release:        0.17%{?git_rel}%{?dist}
 %endif
@@ -31,6 +31,9 @@ BuildArch:      noarch
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/themes/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# https://github.com/mate-desktop/mate-themes/pull/305
+Patch1:        mate-themes_0001-submarine-Specify-foreground-color-in-headerbar.patch
 
 BuildRequires: make
 BuildRequires: mate-common
@@ -98,6 +101,9 @@ find %{buildroot} -name '*.a' -exec rm -rf {} ';'
 
 
 %changelog
+* Sun May 14 2023 Wolfgang Ulbrich <fedora@raveit.de> - 3.22.24-5
+- add https://github.com/mate-desktop/mate-themes/pull/305
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

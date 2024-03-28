@@ -10,7 +10,7 @@
 
 Name:           BackupPC
 Version:        4.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        High-performance backup system
 
 License:        GPLv2+
@@ -221,7 +221,7 @@ install -p -m 0755 systemd/src/init.d/linux-backuppc %{buildroot}%{_initrddir}/b
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d/
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d/
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/pc
 
 install -p -m 0644 %{SOURCE1} \
     %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Mon Mar 25 2024 Orion Poplawski <orion@nwra.com> - 4.4.0-14
+- Create and own /etc/BackupPC/pc
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

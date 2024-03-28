@@ -47,7 +47,7 @@ Version: 3.52.0
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
-URL: https://wiki.gnome.org/Apps/Evolution
+URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
 Source: http://download.gnome.org/sources/%{name}/3.52/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in

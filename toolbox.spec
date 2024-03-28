@@ -23,7 +23,15 @@ Version:       0.0.99.5
 %global toolbx_go 1.22
 %endif
 
-Release:       9%{?dist}
+%if 0%{?rhel}
+%if 0%{?rhel} == 9
+%global toolbx_go 1.21.7
+%elif 0%{?rhel} == 10
+%global toolbx_go 1.21.3
+%endif
+%endif
+
+Release:       10%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -196,6 +204,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Tue Mar 26 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-10
+- Specify the golang versions for RHEL 9 and 10
+
 * Tue Mar 05 2024 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.5-9
 - Conditionalize the BuildRequires on golang
 

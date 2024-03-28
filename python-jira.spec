@@ -1,5 +1,5 @@
 Name:               python-jira
-Version:            3.6.0
+Version:            3.8.0
 Release:            %autorelease
 Summary:            Python library for interacting with JIRA via REST APIs
 
@@ -69,7 +69,9 @@ grep    -w 'jirashell' "%{pyproject_files}" >jirashell.files
             not test_templates and \
             not test_token_auth and \
             not test_cookie_auth and \
-            not test_cookie_auth_retry"
+            not test_cookie_auth_retry and \
+            not test_createmeta_issuetypes_pagination and \
+            not test_createmeta_fieldtypes_pagination"
 
 %files -n python3-jira -f python3-jira.files
 %doc README.rst

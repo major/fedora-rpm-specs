@@ -175,8 +175,8 @@ Requires:	%{name}-test%{?_isa} = %{version}-%{release}
 Requires:	%{name}-googletest%{?_isa} = %{version}-%{release}
 
 
-Requires(post):	%{_sbindir}/alternatives
-Requires(postun):	%{_sbindir}/alternatives
+Requires(post):	/usr/sbin/alternatives
+Requires(postun):	/usr/sbin/alternatives
 
 Provides:	llvm-devel(major) = %{maj_ver}
 
@@ -334,7 +334,7 @@ export ASMFLAGS="%{build_cflags}"
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
-	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
+	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-3 \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF \
 %if %{with lto_build}
 	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0" \
@@ -460,9 +460,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath
 %endif
 
 %post devel
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
+/usr/sbin/update-alternatives --install %{_bindir}/llvm-config%{exec_suffix} llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
 %if %{without compat_build}
-%{_sbindir}/update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
+/usr/sbin/update-alternatives --install %{_bindir}/llvm-config-%{maj_ver} llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits} %{__isa_bits}
 
 # During the upgrade from LLVM 16 (F38) to LLVM 17 (F39), we found out the
 # main llvm-devel package was leaving entries in the alternatives system.
@@ -470,7 +470,7 @@ LD_LIBRARY_PATH=%{buildroot}/%{install_libdir}  %{__ninja} check-all -C %{_vpath
 for v in 14 15 16; do
   if [[ -e %{_bindir}/llvm-config-$v
 		&& "x$(%{_bindir}/llvm-config-$v --version | awk -F . '{ print $1 }')" != "x$v" ]]; then
-    %{_sbindir}/update-alternatives --remove llvm-config-$v %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+    /usr/sbin/update-alternatives --remove llvm-config-$v %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
   fi
 done
 %endif
@@ -478,7 +478,7 @@ done
 
 %postun devel
 if [ $1 -eq 0 ]; then
-  %{_sbindir}/update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  /usr/sbin/update-alternatives --remove llvm-config%{exec_suffix} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 fi
 %if %{without compat_build}
 # When upgrading between minor versions (i.e. from x.y.1 to x.y.2), we must
@@ -488,7 +488,7 @@ fi
 # compat package.
 if [[ $1 -eq 0
 	  || "x$(%{_bindir}/llvm-config-%{maj_ver} --version | awk -F . '{ print $1 }')" != "x%{maj_ver}" ]]; then
-  %{_sbindir}/update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
+  /usr/sbin/update-alternatives --remove llvm-config-%{maj_ver} %{install_bindir}/llvm-config%{exec_suffix}-%{__isa_bits}
 fi
 %endif
 

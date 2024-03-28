@@ -4,7 +4,7 @@ Name:           %{target}-gcc
 #FIXME:11.2 fails with Werror-format-security https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100431
 #revert -Wno-format-security once fix is available
 Version:        13.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU GCC targeted at %{target}
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
@@ -23,6 +23,11 @@ BuildRequires:  gettext-devel automake
 BuildRequires: make
 Requires:       %{target}-binutils >= 1:2.23
 Provides:       bundled(libiberty)
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 This is a Cross Compiling version of GNU GCC, which can be used to
@@ -146,6 +151,9 @@ rm -r $RPM_BUILD_ROOT%{_libexecdir}/gcc/%{target}/%{version}/install-tools ||:
 
 
 %changelog
+* Tue Mar 26 2024 Michal Hlavinka <mhlavink@redhat.com> - 1:13.2.0-4
+- drop i686 build as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:13.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

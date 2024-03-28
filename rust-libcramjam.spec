@@ -4,11 +4,11 @@
 %global crate libcramjam
 
 Name:           rust-libcramjam
-Version:        0.2.0
+Version:        0.3.0
 # Even though this is just MAJOR.MINOR from the SemVer version, we repeat it
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
-%global soversion 0.2
+%global soversion 0.3
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
@@ -36,6 +36,7 @@ possible API.}
 
 %description %{_description}
 
+%if !0%{?fc38} && !0%{?fc39}
 %package     -n %{crate}
 Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
@@ -79,6 +80,9 @@ that use the "%{crate}" crate via a C API.
 %{_includedir}/cramjam/cramjam.h
 %{_libdir}/%{crate}.so
 %{_libdir}/pkgconfig/%{crate}.pc
+%else
+%global debug_package %{nil}
+%endif
 
 %package        devel
 Summary:        %{summary}
@@ -142,13 +146,17 @@ echo 'cargo-c'
 %cargo_build -a
 %{cargo_license_summary -a}
 %{cargo_license -a} > LICENSE.dependencies
+%if !0%{?fc38} && !0%{?fc39}
 %cargo_cbuild -a
+%endif
 
 %install
 %cargo_install -a
+%if !0%{?fc38} && !0%{?fc39}
 %cargo_cinstall -a
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#packaging-static-libraries
 rm '%{buildroot}%{_libdir}/%{crate}.a'
+%endif
 
 %if %{with check}
 %check

@@ -15,13 +15,15 @@ print(string.sub(hash, 0, 16))
 
 Name: libgcrypt
 Version: 1.10.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
 Source2: wk@g10code.com
 # Pass the annobin flags to the libgcrypt.so (#2016349)
 Patch1: libgcrypt-1.10.1-annobin.patch
+# based on 128121e74b66793fabd24e478df6ea2ab568e24a but hardcoded the "grep -F" to avoid need to autoreconf
+Patch2: libgcrypt-1.10.3-fgrep.patch
 
 %global gcrylibdir %{_libdir}
 %global gcrysoname libgcrypt.so.20
@@ -54,6 +56,7 @@ applications using libgcrypt.
 %prep
 %setup -q
 %patch 1 -p1
+%patch 2 -p1
 
 %build
 # This package has a configure test which uses ASMs, but does not link the
@@ -172,6 +175,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Tue Mar 26 2024 Jakub Jelen <jjelen@redhat.com> - 1.10.3-4
+- Replace deprecated fgrep (#2271503)
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

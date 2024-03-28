@@ -16,7 +16,7 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPL-2.0-or-later
 URL: https://launchpad.net/ecryptfs
@@ -97,6 +97,11 @@ BuildRequires: automake autoconf libtool glib2-devel gettext-devel perl-podlator
 Requires: keyutils, cryptsetup, util-linux, gettext-runtime
 Requires: kmod(ecryptfs.ko)
 Suggests: ecryptfs-utils-loginmount
+
+%if 0%{?fedora} > 39
+# as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 eCryptfs is a stacked cryptographic filesystem that ships in Linux
@@ -328,6 +333,9 @@ fi
 
 
 %changelog
+* Tue Mar 26 2024 Michal Hlavinka <mhlavink@redhat.com> - 111-36
+- drop i686 build as per https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 111-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xapps
 Version:        2.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -21,7 +21,7 @@ BuildRequires:  libdbusmenu-gtk3-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libgnomekbd-devel
 BuildRequires:  meson
-BuildRequires:  pygobject3-devel
+BuildRequires:  python3-gobject-devel
 BuildRequires:  vala
 
 Requires:       fpaste
@@ -127,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Tue Mar 26 2024 Leigh Scott <leigh123linux@gmail.com> - 2.8.2-3
+- Fix buildrequires
+
 * Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

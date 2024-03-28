@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.7.1
+Version:        6.8
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -149,6 +149,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Tue Mar 26 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.8-1
+- Update to 6.8
+
 * Wed Feb 14 2024 Neal Gompa <ngompa@fedoraproject.org> - 6.7.1-1
 - Update to 6.7.1
 - Make file list globs more specific

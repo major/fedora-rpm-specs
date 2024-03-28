@@ -1,8 +1,8 @@
 %global somajor 8
 
 Name:           ode
-Version:        0.16.4
-Release:        2%{?dist}
+Version:        0.16.5
+Release:        1%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://bitbucket.org/odedevs/ode
@@ -119,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Tue Mar 26 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.16.5-1
+- 0.16.5
+
 * Fri Feb 02 2024 Gwyn Ciesla <gwync@protonmail.com> - 0.16.4-2
 - SPDX license tags
 

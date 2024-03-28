@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.21.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 # va/wayland/wayland-drm.xml is HPND-sell-variant
 # va/x11/va_dri* are ICU
@@ -88,6 +88,9 @@ mkdir -p %{buildroot}%{_libdir}/dri-{freeworld,nonfree}
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Tue Mar 26 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.21.0-3
+- Rebuilt
+
 * Wed Mar 20 2024 Nicolas Chauvet <kwizart@gmail.com> - 2.21.0-2
 - Fixup driverdir in libva.pc
 

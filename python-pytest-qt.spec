@@ -44,7 +44,12 @@ git tag %{version}
 
 
 %generate_buildrequires
+# pyside6 is only available in rawhide as of now
+%if 0%{fedora} > 40
 %pyproject_buildrequires -e %{toxenv}-pyqt6,%{toxenv}-pyside6
+%else
+%pyproject_buildrequires -e %{toxenv}-pyqt6
+%endif
 
 
 %build

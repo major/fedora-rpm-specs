@@ -23,6 +23,9 @@ Summary:        Utilities to configure the GNOME desktop
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/46/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-control-center/-/issues/2973
+# https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/2399
+Patch:          gnome-control-center-46.0-thunderbolt-page.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

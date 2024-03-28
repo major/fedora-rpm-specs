@@ -1,6 +1,6 @@
 # Fedora spec file for librabbitmq
 #
-# Copyright (c) 2012-2023 Remi Collet
+# Copyright (c) 2012-2024 Remi Collet
 # License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without      tests
 
-%global gh_commit   974d71adceae6d742ae20a4c880d99c131f1460a
+%global gh_commit   124722b5045baa41a24ce2e2d7c52a47467e7ac0
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    alanxz
 %global gh_project  rabbitmq-c
@@ -18,21 +18,19 @@
 
 Name:      %{libname}
 Summary:   Client library for AMQP
-Version:   0.13.0
-Release:   5%{?dist}
+Version:   0.14.0
+Release:   2%{?dist}
 License:   MIT
 URL:       https://github.com/alanxz/rabbitmq-c
 
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
-# CVE-2023-35789, https://github.com/alanxz/rabbitmq-c/pull/781
-Patch0:    rabbitmq-c-CVE-2023-35789.patch
 
 BuildRequires: gcc
-BuildRequires: cmake > 3.12
+BuildRequires: cmake >= 3.22
 BuildRequires: openssl-devel >= 1.1.1
 # For tools
-BuildRequires: popt-devel > 1.14
+BuildRequires: popt-devel >= 1.14
 # For man page
 BuildRequires: xmlto
 BuildRequires: make
@@ -54,7 +52,7 @@ for %{name}.
 
 %package tools
 Summary:    Example tools built using the librabbitmq package
-Requires:   %{name}%{?_isa} = %{version}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description tools
 This package contains example tools built using %{name}.
@@ -69,7 +67,6 @@ amqp-publish        Publish a message on an AMQP server
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch -P0 -p1
 
 # Copy sources to be included in -devel docs.
 cp -pr examples Examples
@@ -148,6 +145,11 @@ make test
 
 
 %changelog
+* Tue Mar 26 2024 Remi Collet <remi@remirepo.net> - 0.14.0-2
+- update to 0.14.0
+- drop upstream patch
+- fix rpminspect rpmdeps
+
 * Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 

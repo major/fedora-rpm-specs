@@ -1,7 +1,8 @@
 %define with_readline 1
 
-# This is disabled right now because it prevents correct linking. 
-%define with_custom_interface 0
+# This is _required_ right now because disabling it doesn't
+# seem to actually result in it properly _not_ being built.
+%define with_custom_interface 1
 
 License:       LGPL-2.1-only AND Unlicense
 
@@ -14,12 +15,8 @@ Summary:       Arbitrary precision arithmetic system and calculator
 URL:           http://isthe.com/chongo/tech/comp/calc/
 Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%{version}.tar.bz2
 
-# Reported upstream
-# https://github.com/lcn2/calc/issues/63
-# and upstream plans to fix in 2.14.2.0
-ExcludeArch: s390x
-
 BuildRequires: gcc, sed, util-linux
+
 # used in creating 'calc.usage'
 BuildRequires: man-db
 

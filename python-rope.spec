@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/python-rope/rope
 
 Name:           python-rope
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Python Code Refactoring Library
 %global tag %{version}
@@ -43,6 +43,9 @@ Documentation for %{summary}.}
 %prep
 %forgeautosetup -p1
 
+# Remove linter from dev requirements
+sed -i '/pytest-cov/d' pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x dev
@@ -62,12 +65,7 @@ Documentation for %{summary}.}
 
 
 %check
-# 1.12.0: pytest fails in
-# ropetest/contrib/autoimporttest.py::AutoImportTest::test_search_submodule
-# unit and some pytest warnings
-# https://github.com/python-rope/rope/issues/749
-k="${k-}${k+ and }not (AutoImportTest and test_search_submodule)"
-%pytest -v -k "${k-}"
+%pytest -v
 
 
 %files -n python3-rope -f %{pyproject_files}

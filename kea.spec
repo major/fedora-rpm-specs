@@ -1,5 +1,6 @@
 # TODO: no support for netconf/sysconf yet
-%global sysrepo 0
+%bcond_with sysrepo
+%bcond_with gtest
 
 #%%global prever P1
 %global keama_version 4.5.0
@@ -25,6 +26,7 @@ Source14:       kea-ctrl-agent.service
 Source15:       kea-tmpfiles.d.conf
 
 Patch1:         kea-openssl-version.patch
+Patch2:         kea-gtest.patch
 
 # autoreconf
 BuildRequires: autoconf automake libtool
@@ -45,7 +47,7 @@ BuildRequires: mariadb-devel
 BuildRequires: postgresql-devel
 %endif
 BuildRequires: log4cplus-devel
-%if %{sysrepo}
+%if %{with sysrepo}
 # %%configure --with-sysrepo
 BuildRequires: sysrepo-devel
 %endif
@@ -55,6 +57,10 @@ BuildRequires: valgrind-devel
 %endif
 # src/lib/testutils/dhcp_test_lib.sh
 BuildRequires: procps-ng
+%if %{with gtest}
+# %%configure --enable-gtest
+BuildRequires: gtest-devel
+%endif
 # %%configure --enable-generate-parser
 BuildRequires: bison
 BuildRequires: flex
@@ -136,6 +142,7 @@ ISC DHCP configurations to Kea.
 
 %autosetup -T -b2 -N -n keama-%{keama_version}
 %autosetup -p1 -n kea-%{version}%{?prever:-%{prever}}
+
 rm -rf doc/sphinx/_build
 
 # to be able to build on ppc64(le)
@@ -157,11 +164,14 @@ autoreconf --verbose --force --install
     --enable-generate-docs \
     --enable-generate-messages \
     --enable-perfdhcp \
+%if %{with gtest}
+    --with-gtest \
+%endif
     --with-mysql \
     --with-pgsql \
     --with-gnu-ld \
     --with-log4cplus \
-%if %{sysrepo}
+%if %{with sysrepo}
     --with-sysrepo \
 %endif
     --with-openssl
@@ -176,6 +186,12 @@ pushd ../keama-%{keama_version}
 
 %make_build
 popd
+
+
+%if %{with gtest}
+%check
+make check
+%endif
 
 
 %install
@@ -194,7 +210,7 @@ rm -rf %{buildroot}%{_mandir}/man5/
 # Get rid of .la files
 find %{buildroot} -type f -name "*.la" -delete -print
 
-%if !%{sysrepo}
+%if %{without sysrepo}
 # Remove netconf files
 rm %{buildroot}%{_mandir}/man8/kea-netconf.8
 %endif
@@ -228,7 +244,6 @@ install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 %postun
 %systemd_postun_with_restart kea-dhcp4.service kea-dhcp6.service kea-dhcp-ddns.service kea-ctrl-agent.service
 
-
 %ldconfig_scriptlets libs
 
 
@@ -257,7 +272,7 @@ install -Dpm 0644 %{S:15} %{buildroot}%{_tmpfilesdir}/kea.conf
 %{_mandir}/man8/kea-dhcp4.8*
 %{_mandir}/man8/kea-dhcp6.8*
 %{_mandir}/man8/kea-lfc.8*
-%if %{sysrepo}
+%if %{with sysrepo}
 %{_mandir}/man8/kea-netconf.8*
 %endif
 %{_mandir}/man8/kea-shell.8*
