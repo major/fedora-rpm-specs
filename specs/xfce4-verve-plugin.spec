@@ -3,7 +3,7 @@
 %global minor_version 2.0
 
 Name:		xfce4-verve-plugin
-Version:	2.0.3
+Version:	2.0.4
 Release:	%autorelease
 Summary:	Comfortable command line plugin for the Xfce panel
 

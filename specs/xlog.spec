@@ -1,6 +1,6 @@
 Name:          xlog
-Version:       2.0.22
-Release:       15%{?dist}
+Version:       2.0.25
+Release:       1%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -10,7 +10,7 @@ Source0:       http://download.savannah.gnu.org/releases/%{name}/%{name}-%{versi
 Source1:       org.nongnu.Xlog.metainfo.xml
 
 Patch0:        %{name}-2.0.19-no-error.patch
-Patch1:        xlog-hamlib42.patch
+Patch1:        xlog-%{version}-hamlib42.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -40,11 +40,10 @@ sed -i -e "s/.png//g" $RPM_BUILD_DIR/%{name}-%{version}/data/desktop/xlog.deskto
 %build
 autoreconf -vif
 %configure CFLAGS="%{optflags} -lm" --enable-hamlib --docdir=%{_docdir}/%{name}
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 rm -f $RPM_BUILD_ROOT%{_datadir}/applications/mimeinfo.cache
 
 %find_lang %{name}
@@ -68,8 +67,6 @@ install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.me
 %{_datadir}/%{name}/dxcc
 %{_datadir}/%{name}/maps
 %{_datadir}/pixmaps/*
-%{_datadir}/icons/gnome-mime-text-x-%{name}.png
-%{_datadir}/icons/%{name}-icon.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/*.desktop
 %{_metainfodir}/org.nongnu.Xlog.metainfo.xml
@@ -78,6 +75,9 @@ install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.me
 
 
 %changelog
+* Wed Dec 25 2024 Filipe Rosset <rosset.filipe@gmail.com> - 2.0.25-1
+- Updated to 2.0.25 fixes rhbz#1947630
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.0.22-15
 - convert license to SPDX
 

@@ -2,7 +2,7 @@
 %global minorversion 4.18
 
 Name:           parole
-Version:        4.18.1
+Version:        4.18.2
 Release:        %autorelease
 Summary:        Media player for the Xfce desktop
 
@@ -25,12 +25,10 @@ BuildRequires:  libxfce4ui-devel
 BuildRequires:  libxfce4util-devel
 BuildRequires:  xfconf-devel
 BuildRequires:  libnotify-devel >= 0.4.1
-
 BuildRequires:  libappstream-glib
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext 
-BuildRequires:  intltool >= 0.35
 BuildRequires:  gtk-doc
 
 # If you checkout from git rather than using a release tarball, uncomment these

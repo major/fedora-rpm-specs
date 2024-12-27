@@ -1,6 +1,6 @@
 Name:           free42
 Epoch:          1
-Version:        3.1.9
+Version:        3.1.12
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator

@@ -3,7 +3,7 @@
 Name:           dummy-test-package-gloster
 
 Version:        0
-Release:        17535%{?dist}
+Release:        17555%{?dist}
 Summary:        Dummy Test Package called Gloster
 # Automatically converted from old format: CC0 - review is highly recommended.
 License:        CC0-1.0
@@ -33,6 +33,66 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Dec 26 2024 packagerbot <admin@fedoraproject.org> - 0-17555
+- rebuilt
+
+* Thu Dec 26 2024 packagerbot <admin@fedoraproject.org> - 0-17554
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17553
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17552
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17551
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17550
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17549
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17548
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17547
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17546
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17545
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17544
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17543
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17542
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17541
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17540
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17539
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17538
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17537
+- rebuilt
+
+* Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17536
+- rebuilt
+
 * Wed Dec 25 2024 packagerbot <admin@fedoraproject.org> - 0-17535
 - rebuilt
 

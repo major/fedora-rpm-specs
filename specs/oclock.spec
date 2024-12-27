@@ -1,11 +1,11 @@
 Name:       oclock
-Version:    1.0.5
+Version:    1.0.6
 Release:    %autorelease
 Summary:    A simple analog clock
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.gz
-Source1:    %{name}-%{version}.tar.gz.sig
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+Source1:    %{name}-%{version}.tar.xz.sig
 # Keyring copied on 2023-02-26 from: xfontsel.gpg
 Source2:        %{name}.gpg
 BuildRequires:  automake libtool

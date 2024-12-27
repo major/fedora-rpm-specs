@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-fsguard-plugin
-Version:        1.1.3
+Version:        1.1.4
 Release:        %autorelease
 Summary:        Filesystem-Guard plugin for the Xfce panel
 

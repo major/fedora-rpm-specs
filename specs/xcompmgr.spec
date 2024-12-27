@@ -1,11 +1,11 @@
 Name:          xcompmgr
-Version:       1.1.9
+Version:       1.1.10
 Release:       %autorelease
 Summary:       X11 composite manager
 
 License:       MIT
 URL:           https://gitlab.freedesktop.org/xorg/app/xcompmgr
-Source:        https://www.x.org/archive/individual/app/%{name}-%{version}.tar.gz
+Source:        https://www.x.org/archive/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc
 BuildRequires: make

@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-mount-plugin
-Version:        1.1.6
+Version:        1.1.7
 Release:        %autorelease
 Summary:        Mount/unmount utility for the Xfce panel
 
@@ -15,12 +15,11 @@ URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-diskperf-plugin
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 BuildRequires:  gettext
-BuildRequires:  intltool
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description

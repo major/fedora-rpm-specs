@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-mpc-plugin
-Version:        0.5.3
+Version:        0.5.5
 Release:        %autorelease
 Summary:        MPD client for the Xfce panel
 
@@ -14,14 +14,13 @@ URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-mpc-plugin
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 BuildRequires:  exo-devel >= 0.5.0
 BuildRequires:  libmpd-devel >= 0.12
 BuildRequires:  gettext
-BuildRequires:  intltool
 Requires:       xfce4-panel >= %{xfceversion}
 
 %description

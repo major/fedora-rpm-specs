@@ -9,6 +9,7 @@ SourceLicense:  MIT OR Apache-2.0
 %global pypi_version %(echo %{version} | tr -d "~")
 
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
 # 0BSD OR MIT OR Apache-2.0
@@ -27,7 +28,7 @@ SourceLicense:  MIT OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        0BSD AND Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSD-2-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT-0 OR Apache-2.0) AND (Unlicense OR MIT)
+License:        0BSD AND Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND MIT AND MPL-2.0 AND Unicode-3.0 AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSD-2-Clause) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (MIT-0 OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/PyO3/maturin
@@ -47,6 +48,10 @@ Patch:          0003-remove-shebang-from-non-executable-__init__.py-file.patch
 
 # * Update goblin to 0.9: https://github.com/PyO3/maturin/pull/2284
 Patch:          0004-Update-goblin-to-0.9.patch
+
+# * Update base64 from 0.21 to 0.22 and itertools from 0.12 to 0.13:
+#   https://github.com/PyO3/maturin/pull/2404
+Patch:          0005-Bump-base64-from-0.21-to-0.22-and-itertools-from-0.1.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

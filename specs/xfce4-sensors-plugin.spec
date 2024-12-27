@@ -3,7 +3,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-sensors-plugin
-Version:        1.4.4
+Version:        1.4.5
 Release:        %autorelease
 Summary:        Sensors plugin for the Xfce panel
 
@@ -20,7 +20,6 @@ BuildRequires:  lm_sensors-devel >= 2.8
 BuildRequires:  hddtemp
 BuildRequires:  libnotify-devel >= 0.4
 BuildRequires:  gettext
-BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 BuildRequires:  libtool
 

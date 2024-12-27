@@ -450,7 +450,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
-* Tue Dec 24 2024 Sérgio Basto <sergio@serjux.com>
+* Tue Dec 24 2024 Sérgio Basto <sergio@serjux.com> - 2.5.3-2
 - Also obsolete openjpeg-libs 1.x.x
 
 * Mon Dec 09 2024 Sandro Mani <manisandro@gmail.com> - 2.5.3-1

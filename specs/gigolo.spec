@@ -1,7 +1,7 @@
 %global minorversion 0.5
 
 Name:           gigolo
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        GIO/GVFS management application
 
@@ -11,7 +11,6 @@ URL:            http://goodies.xfce.org/projects/applications/gigolo/
 Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gettext
-BuildRequires:  intltool
 BuildRequires:  gtk3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

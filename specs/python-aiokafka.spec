@@ -8,10 +8,9 @@
 %{!?with_c_extensions:%global debug_package %{nil}}
 
 Name:       python-%{sname}
-Version:    0.11.0
+Version:    0.12.0
 Release:    %autorelease
 Summary:    Asyncio client for Kafka
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
 URL:        https://github.com/%{owner}/%{sname}
@@ -43,9 +42,6 @@ Summary:    %{summary}
 %if %{without c_extensions}
 sed -i "s/    ext_modules/#    ext_modules/" setup.py
 %endif
-
-# See: https://github.com/aio-libs/aiokafka/issues/1049
-sed -i -E 's/[[:digit:]]+, id="lz4"/None, id="lz4"/g' tests/record/test_default_records.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x snappy,lz4,zstd,gssapi,all

@@ -4,7 +4,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-wavelan-plugin
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        WaveLAN plugin for the Xfce panel
 

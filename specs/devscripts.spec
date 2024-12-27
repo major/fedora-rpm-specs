@@ -1,5 +1,5 @@
 Name:           devscripts
-Version:        2.24.7
+Version:        2.24.8
 Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
@@ -153,6 +153,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Wed Dec 25 2024 Sandro Mani <manisandro@gmail.com> - 2.24.8-1
+- Update to 2.24.8
+
 * Sun Dec 15 2024 Sandro Mani <manisandro@gmail.com> - 2.24.7-1
 - Update to 2.24.7
 

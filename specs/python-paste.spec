@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -27,7 +27,6 @@ BuildRequires:  python3-pyOpenSSL
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six >= 1.4.0
-BuildRequires:  python3-tempita
 
 
 %description
@@ -42,7 +41,6 @@ Summary:        Tools for using a Web Server Gateway Interface stack
 Requires: python3-pyOpenSSL
 Requires: python3-setuptools
 Requires: python3-six
-Requires: python3-tempita
 
 
 %description -n python3-paste
@@ -87,6 +85,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Wed Dec 25 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.1-5
+- Remove dependency on python-tempita
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 3.10.1-4
 - convert license to SPDX
 

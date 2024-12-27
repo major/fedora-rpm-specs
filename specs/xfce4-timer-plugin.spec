@@ -2,7 +2,7 @@
 %global _hardened_build 1
 
 Name:		xfce4-timer-plugin
-Version:	1.7.2
+Version:	1.7.3
 Release:	%autorelease
 Summary:	Timer for the Xfce panel
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,7 +41,7 @@ certain times.
 
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog TODO
+%doc AUTHORS ChangeLog
 %license COPYING
 %{_libdir}/xfce4/panel/plugins/libxfcetimer*
 %{_datadir}/xfce4/panel/plugins/xfce4-timer-plugin.desktop

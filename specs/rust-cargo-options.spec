@@ -12,6 +12,10 @@ Summary:        Reusable common Cargo command line options
 License:        MIT
 URL:            https://crates.io/crates/cargo-options
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump trycmd dev-dependency from 0.14 to 0.15:
+#   https://github.com/messense/cargo-options/pull/16
+Patch:          cargo-options-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

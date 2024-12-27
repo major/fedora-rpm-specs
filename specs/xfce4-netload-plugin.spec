@@ -3,7 +3,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-netload-plugin
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Network-load monitor for the Xfce panel
 
@@ -12,12 +12,12 @@ License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libxfce4panel-2.0) >= %{xfceversion}
 BuildRequires:  pkgconfig(libxfce4ui-2) >= %{xfceversion}
 BuildRequires:  libxml2-devel
-BuildRequires:  gettext, intltool
+BuildRequires:  gettext
 
 Requires:       xfce4-panel >= %{xfceversion}
 

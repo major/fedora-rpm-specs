@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   1%{?dist}
+Release:   3%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -36,6 +36,7 @@ Source5:   README.Fedora
 Source6:   xrdp.te
 Source7:   xrdp-polkit-1.rules
 Source8:   %{name}-tmpfiles.conf
+Source9:   %{name}.sysusers
 Patch0:    xrdp-0.10.2-sesman.patch
 Patch1:    xrdp-0.10.2-xrdp-ini.patch
 Patch2:    xrdp-0.10.1-service.patch
@@ -61,15 +62,24 @@ BuildRequires: pkgconfig(openssl)
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(systemd)
 BuildRequires: nasm
+%if 0%{?fedora} || 0%{?rhel} > 8
+BuildRequires: noopenh264-devel
+%endif
 
 BuildRequires: checkpolicy, selinux-policy-devel
 BuildRequires: %{_hardlink}
+
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 # tigervnc-server-minimal provides Xvnc (default for now)
 # xorgxrdp is another back end, depends on specific Xorg binary, omit
 Requires: tigervnc-server-minimal
 Requires: xorg-x11-xinit
 Requires: util-linux
+%if 0%{?fedora} || 0%{?rhel} > 8
+Requires: openh264
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends: %{name}-selinux = %{epoch}:%{version}-%{release}
@@ -125,8 +135,17 @@ echo '#!/bin/bash -l
 %build
 autoreconf -vif
 CFLAGS="$RPM_OPT_FLAGS %{?_missing_braces} %{?_file_offset_bits}" \
-%configure --enable-fuse --enable-pixman --enable-painter --enable-vsock \
-           --enable-ipv6 --with-socketdir=%{_rundir}/%{name} --with-imlib2
+%configure --enable-fuse \
+           --enable-pixman \
+           --enable-painter \
+           --enable-vsock \
+           --enable-ipv6 \
+%if 0%{?fedora} || 0%{?rhel} > 8
+           --enable-openh264 \
+%endif
+           --with-socketdir=%{_rundir}/%{name} \
+           --with-imlib2
+
 %make_build
 
 # SELinux policy module
@@ -177,6 +196,11 @@ do
 done
 %{_hardlink} -cv %{buildroot}%{_datadir}/selinux
 
+%{__install} -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/xrdp.conf
+
+%pre
+%sysusers_create_compat %{SOURCE9}
+
 %post
 %{?ldconfig}
 %systemd_post xrdp.service
@@ -206,14 +230,20 @@ fi
 
 %posttrans
 if [ ! -s %{_sysconfdir}/xrdp/rsakeys.ini ]; then
-  (umask 377; touch %{_sysconfdir}/xrdp/rsakeys.ini; %{_bindir}/xrdp-keygen xrdp %{_sysconfdir}/xrdp/rsakeys.ini &>/dev/null)
+  (umask 0137
+   %{_bindir}/xrdp-keygen xrdp %{_sysconfdir}/xrdp/rsakeys.ini &>/dev/null
+   chgrp xrdp %{_sysconfdir}/xrdp/rsakeys.ini
+   chmod g+r %{_sysconfdir}/xrdp/rsakeys.ini)
 fi
 
 if [ ! -s %{_sysconfdir}/xrdp/cert.pem ]; then
-  (umask 377; openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 3652 \
-    -keyout %{_sysconfdir}/xrdp/key.pem \
-    -out %{_sysconfdir}/xrdp/cert.pem \
-    -config %{_sysconfdir}/xrdp/openssl.conf &>/dev/null)
+  (umask 0337
+   openssl req -x509 -newkey rsa:2048 -nodes -days 3652 \
+               -keyout %{_sysconfdir}/xrdp/key.pem \
+               -out %{_sysconfdir}/xrdp/cert.pem \
+               -config %{_sysconfdir}/xrdp/openssl.conf &>/dev/null;
+   chgrp xrdp %{_sysconfdir}/xrdp/{key,cert}.pem
+   chmod g+r %{_sysconfdir}/xrdp/{key,cert}.pem)
 fi
 
 %post selinux
@@ -240,6 +270,7 @@ fi
 %dir %{_datadir}/xrdp
 %dir %{_libexecdir}/xrdp
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/xrdp.conf
 %config(noreplace) %{_sysconfdir}/xrdp/xrdp.ini
 %config(noreplace) %{_sysconfdir}/pam.d/xrdp-sesman
 %config(noreplace) %{_sysconfdir}/logrotate.d/xrdp
@@ -316,6 +347,12 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~3
+- Run as unprivileged user
+
+* Wed Dec 25 2024 Koichiro Iwao <meta@almalinux.org> - 1:0.10.2-2
+- Enable OpenH264
+
 * Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~1
 - Update to 0.10.2
 

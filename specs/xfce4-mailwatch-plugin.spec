@@ -3,7 +3,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-mailwatch-plugin
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Mail Watcher plugin for the Xfce panel
 
@@ -13,7 +13,7 @@ URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-weather-plugin
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
@@ -21,7 +21,6 @@ BuildRequires:  exo-devel >= 0.7.2
 BuildRequires:  gnutls-devel >= 1.2.0
 BuildRequires:  libgcrypt-devel >= 1.2.0
 BuildRequires:  gettext
-BuildRequires:  intltool
 Requires:       xfce4-panel >= %{xfceversion}
 
 

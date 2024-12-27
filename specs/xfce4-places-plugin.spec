@@ -2,10 +2,10 @@
 
 %global _hardened_build 1
 %global minorversion 1.8
-%global xfceversion 4.14
+%global xfceversion 4.16
 
 Name:           xfce4-places-plugin
-Version:        1.8.3
+Version:        1.8.4
 Release:        %autorelease
 Summary:        Places menu for the Xfce panel
 

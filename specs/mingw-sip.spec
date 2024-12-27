@@ -3,7 +3,7 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.9.0
+Version:        6.9.1
 Release:        1%{?dist}
 
 License:        BSD-2-Clause
@@ -121,6 +121,9 @@ done
 
 
 %changelog
+* Wed Dec 25 2024 Sandro Mani <manisandro@gmail.com> - 6.9.1-1
+- Update to 6.9.1
+
 * Sun Dec 08 2024 Sandro Mani <manisandro@gmail.com> - 6.9.0-1
 - Update to 6.9.0
 

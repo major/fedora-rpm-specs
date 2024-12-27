@@ -5,7 +5,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-cpugraph-plugin
-Version:        1.2.10
+Version:        1.2.11
 Release:        %autorelease
 Summary:        CPU monitor for the Xfce panel
 
@@ -15,11 +15,10 @@ URL:            http://goodies.xfce.org/projects/panel-plugins/%{name}
 #VCS: git:git://git.xfce.org/panel-plugins/xfce4-cpugraph-plugin
 Source0:        http://archive.xfce.org/src/panel-plugins/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel
 BuildRequires:  xfce4-panel-devel
-BuildRequires:  intltool
 BuildRequires:  gettext
 Requires:       xfce4-panel >= %{xfceversion}
 

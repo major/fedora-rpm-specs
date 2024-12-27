@@ -18,11 +18,11 @@
 %global         main_version	1.3.2
 
 %if 0%{?use_gitbare}
-%global		gittardate		20241219
-%global		gittartime		1522
+%global		gittardate		20241225
+%global		gittartime		1644
 
-%global		gitbaredate	20241216
-%global		git_rev		fb651b87d2be140f0096458d51581faa1ebf86f4
+%global		gitbaredate	20241221
+%global		git_rev		37456d7d7839c55d2cf9d1c38d92c7571aeb463a
 %global		git_short		%(echo %{git_rev} | cut -c-8)
 %global		git_version	%{gitbaredate}git%{git_short}
 
@@ -77,6 +77,9 @@ Source10:       create-libfm-git-bare-tarball.sh
 Patch1:         libfm-1.3.2-0001-fm_config_load_from_key_file-don-t-replace-string-va.patch
 # http://sourceforge.net/p/pcmanfm/feature-requests/385/
 #Patch1000:      http://sourceforge.net/p/pcmanfm/feature-requests/_discuss/thread/0a50a386/597e/attachment/libfm-1.2.3-moduledir-gtkspecific-v02.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2333955
+# https://github.com/lxde/libfm/issues/104
+Patch11:        libfm-pr105-Restore-ABI-for-libfm.so.patch
 Patch1000:      libfm-1.3.0.2-moduledir-gtkspecific-v03.patch
 
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.26.0
@@ -256,7 +259,8 @@ do
 done
 %endif
 
-cat %PATCH1 | git am
+cat %PATCH1  | git am
+cat %PATCH11 | git am
 %patch -P1000 -p1 -Z
 git commit -m "Use gtk version specific module directory" -a
 
@@ -491,6 +495,10 @@ fi
 %endif
 
 %changelog
+* Wed Dec 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20241221git37456d7d-1
+- Update to the latest git
+- Restore libfm.so ABI (bug 2333955)
+
 * Thu Dec 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2^20241216gitfb651b87-1
 - Update to the latest git
 

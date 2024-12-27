@@ -4,7 +4,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-systemload-plugin
-Version:        1.3.1
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Systemload monitor for the Xfce panel
 

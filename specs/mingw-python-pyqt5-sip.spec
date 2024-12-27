@@ -1,11 +1,11 @@
 %{?mingw_package_header}
 
 %global mod_name pyqt5-sip
-%global pypi_name PyQt5_sip
+%global pypi_name pyqt5_sip
 
 Name:           mingw-python-%{mod_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        12.16.0
+Version:        12.16.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -69,15 +69,18 @@ MinGW Python 3 %{pypi_name} library.
 %files -n mingw32-python3-%{mod_name}
 %dir %{mingw32_python3_sitearch}/PyQt5/
 %{mingw32_python3_sitearch}/PyQt5/sip*
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/PyQt5_sip-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %dir %{mingw64_python3_sitearch}/PyQt5/
 %{mingw64_python3_sitearch}/PyQt5/sip*
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/PyQt5_sip-%{version}.dist-info/
 
 
 %changelog
+* Wed Dec 25 2024 Sandro Mani <manisandro@gmail.com> - 12.16.1-1
+- Update to 12.16.1
+
 * Sun Dec 08 2024 Sandro Mani <manisandro@gmail.com> - 12.16.0-1
 - Update to 12.16.0
 

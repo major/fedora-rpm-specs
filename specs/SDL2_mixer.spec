@@ -1,6 +1,6 @@
 Name:           SDL2_mixer
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        Zlib
@@ -17,6 +17,7 @@ BuildRequires:  libmikmod-devel
 BuildRequires:  make
 BuildRequires:  mpg123-devel
 BuildRequires:  opusfile-devel
+BuildRequires:  libxmp-devel
 
 Provides: bundled(timidity)
 
@@ -71,6 +72,9 @@ find %{buildroot} -name '*.la' -print -delete
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Sun Dec 22 2024 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.8.0-3
+- Enable XM support
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

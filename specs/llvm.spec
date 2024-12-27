@@ -2726,8 +2726,13 @@ fi
 # libomptarget is not supported on 32-bit systems.
 # s390x does not support the offloading plugins.
 %{install_libdir}/libomptarget.devicertl.a
+%if %{maj_ver} >= 20
+%{install_libdir}/libomptarget-amdgpu*.bc
+%{install_libdir}/libomptarget-nvptx*.bc
+%else
 %{install_libdir}/libomptarget-amdgpu-*.bc
 %{install_libdir}/libomptarget-nvptx-*.bc
+%endif
 %{install_libdir}/libomptarget.so
 %if %{maj_ver} >= 20
 %{install_libdir}/libLLVMOffload.so
