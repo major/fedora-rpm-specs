@@ -27,9 +27,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  meson
 BuildRequires:  nasm
-BuildRequires : pkgconfig(gstreamer-1.0)
-BuildRequires : pkgconfig(gstreamer-base-1.0)
-BuildRequires : pkgconfig(gstreamer-video-1.0)
 
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -37,6 +34,7 @@ Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %package    libs
 Summary:    SVT-AV1 libraries
+Obsoletes:  gstreamer1-%{name} < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libs %_description
 
@@ -59,29 +57,13 @@ BuildArch:  noarch
 
 This package contains the documentation for development of SVT-AV1.
 
-%package -n     gstreamer1-%{name}
-Summary:        GStreamer 1.0 %{name}-based plug-in
-Requires:       gstreamer1-plugins-base%{?_isa}
-
-%description -n gstreamer1-%{name}
-This package provides %{name}-based GStreamer plug-in.
-
 %prep
 %autosetup -p1 -n SVT-AV1-v%{version}
-# Patch build gstreamer plugin
-sed -e "s|install: true,|install: true, include_directories : [ include_directories('../Source/API') ], link_args : '-lSvtAv1Enc',|" \
--e "/svtav1enc_dep =/d" -e 's|, svtav1enc_dep||' -e "s|svtav1enc_dep.found()|true|" -i gstreamer-plugin/meson.build
 
 %build
 %cmake \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
-
-export LIBRARY_PATH="$LIBRARY_PATH:$(pwd)/Bin/RelWithDebInfo"
-pushd gstreamer-plugin
-%meson
-%meson_build
-popd
 
 %install
 %cmake_install
@@ -91,10 +73,6 @@ install -d -m0755 %{buildroot}/%{_mandir}/man1
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{buildroot}%{_libdir}
 help2man -N --help-option=-help --version-string=%{version} %{buildroot}%{_bindir}/SvtAv1DecApp > %{buildroot}%{_mandir}/man1/SvtAv1DecApp.1
 help2man -N --help-option=-help --no-discard-stderr --version-string=%{version} %{buildroot}%{_bindir}/SvtAv1EncApp > %{buildroot}%{_mandir}/man1/SvtAv1EncApp.1
-
-pushd gstreamer-plugin
-%meson_install
-popd
 
 %files
 %{_bindir}/SvtAv1DecApp
@@ -118,10 +96,6 @@ popd
 %files devel-docs
 %license LICENSE.md PATENTS.md
 %doc Docs
-
-%files -n gstreamer1-%{name}
-%license LICENSE.md PATENTS.md
-%{_libdir}/gstreamer-1.0/libgstsvtav1enc.so
 
 %changelog
 %autochangelog

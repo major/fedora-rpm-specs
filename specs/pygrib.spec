@@ -3,7 +3,7 @@
 
 Name:       pygrib
 Version:    2.1.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -17,6 +17,11 @@ Patch1: %{name}-build.patch
 # Workaround needed for new matplotlib version.
 # See https://github.com/jswhit/pygrib/issues/256
 Patch2: %{name}-test-gaussian.patch
+
+# Use legacy printing of scalars. Fix test failing with NumPy 2.x
+# https://github.com/jswhit/pygrib/issues/261
+# https://numpy.org/doc/2.2/release/2.0.0-notes.html#representation-of-numpy-scalars-changed
+Patch3: pygrib-use-legacy-printing.patch
 
 # exclude architectures not supported by eccodes
 # as explained in bugzilla #1562066
@@ -162,6 +167,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Wed Dec 25 2024 Sandro <devel@penguinpee.nl> - 2.1.6-2
+- Apply patch for NumPy 2.x
+
 * Fri Jul 19 2024 Jos de Kloe <josdekloe@gmail.com> 2.1.6-1
 - Update to 2.1.6 (#2295876)
 

@@ -24,9 +24,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.32.08
+Version:	6.34.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -49,6 +49,9 @@ Source6:	application-x-root.png
 Source7:	JupyROOT-on-EPEL
 #		Script to generate Source0
 Source8:	%{name}-get-src.sh
+#		Clad is a source-transformation automatic differentiation (AD)
+#		library for C++, implemented as a plugin for the Clang compiler
+Source9:	https://github.com/vgvassilev/clad/archive/v1.7/clad-1.7.tar.gz
 #		Use system fonts
 Patch0:		%{name}-fontconfig.patch
 #		Reduce memory usage during linking on ARM and x86 by generating
@@ -61,15 +64,15 @@ Patch2:		%{name}-dont-install-minicern.patch
 Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
 Patch4:		%{name}-32bit-tests.patch
-#		Adjust stress graphics reference
-#		https://github.com/root-project/root/pull/15735
-Patch5:		%{name}-stress.patch
-#		Avoid segmentation fault on ix86
-#		https://github.com/root-project/root/issues/15738
-#		https://github.com/root-project/root/pull/15780
-Patch6:		%{name}-write-array.patch
-#		Backport build fix from upstream
-Patch7:		%{name}-allow-any-openssl-3.x-with-civetweb.patch
+#		Fix compilation of TMVA SOFIE parser on s390x
+#		https://github.com/root-project/root/pull/17307
+Patch5:		%{name}-Fix-compilation-on-s390x.patch
+#		Make -DCLAD_SOURCE_DIR option work
+#		https://github.com/root-project/root/pull/17308
+Patch6:		%{name}-Make-DCLAD_SOURCE_DIR-option-work.patch
+#		Fix segmentation fault during testing on ix86
+#		https://github.com/root-project/root/pull/17314
+Patch7:		%{name}-tmva-sofie-Fix-Tile-operator.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1267,6 +1270,8 @@ Requires:	%{name}-roofit-batchcompute%{?_isa} = %{version}-%{release}
 Requires:	%{name}-tree%{?_isa} = %{version}-%{release}
 #		Package split / Library split (from roofit)
 Obsoletes:	%{name}-roofit < 6.20.00
+#		Dataframe helpers are now part of core
+Obsoletes:	%{name}-roofit-dataframe-helpers < 6.34.00
 
 %description roofit-core
 The RooFit packages provide a toolkit for modeling the expected
@@ -1328,28 +1333,6 @@ optimizations, notably auto-vectorization. This library is compiled
 multiple times for different vector instuction set architectures and
 the optimal code is executed during runtime, as a result of an
 automatic hardware detection mechanism that this library contains.
-
-%if %{dataframe}
-%package roofit-dataframe-helpers
-Summary:	RooFit DaraFrame helpers
-License:	BSD-2-Clause
-Requires:	%{name}-core%{?_isa} = %{version}-%{release}
-
-%description roofit-dataframe-helpers
-The RooFit packages provide a toolkit for modeling the expected
-distribution of events in a physics analysis. Models can be used to
-perform likelihood fits, produce plots, and generate "toy Monte
-Carlo" samples for various studies. The RooFit tools are integrated
-with the object-oriented and interactive ROOT graphical environment.
-
-RooFit has been developed for the BaBar collaboration, a high energy
-physics experiment at the Stanford Linear Accelerator Center, and is
-primarily targeted to the high-energy physicists using the ROOT
-analysis environment, but the general nature of the package make it
-suitable for adoption in different disciplines as well.
-
-This package contains DaraFrame helper classes for RooFit
-%endif
 
 %package roofit-hs3
 Summary:	RooFit HS3
@@ -1937,7 +1920,7 @@ This package contains utility functions for ntuples.
 %endif
 
 %prep
-%setup -q -a 1
+%setup -q -a 1 -a 9
 
 %patch -P0 -p1
 %patch -P1 -p1
@@ -1987,9 +1970,11 @@ rm etc/notebook/JsMVA/css/*.min.css
 install -p -m 644 %{SOURCE7} bindings/jupyroot
 
 %build
+%if %{?fedora}%{!?fedora:0} == 40
 # This package triggers a fault in LLVM when LTO is enabled.  Until LLVM
 # is analyzed and fixed, disable LTO
 %define _lto_cflags %{nil}
+%endif
 
 unset QTDIR
 unset QTLIB
@@ -2009,9 +1994,8 @@ done
        -DCMAKE_INSTALL_PYTHONDIR:PATH=%{python3_sitearch} \
        -DCMAKE_INSTALL_SYSCONFDIR:PATH=%{_datadir}/%{name} \
        -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
-       -DPython3_EXECUTABLE=%{__python3} \
+       -DPython3_EXECUTABLE:PATH=%{__python3} \
        -Dgnuinstall:BOOL=ON \
-       -Dbuiltin_afterimage:BOOL=ON \
        -Dbuiltin_cfitsio:BOOL=OFF \
        -Dbuiltin_clang:BOOL=ON \
        -Dbuiltin_cling:BOOL=ON \
@@ -2054,11 +2038,10 @@ done
        -Dccache:BOOL=OFF \
        -Ddistcc:BOOL=OFF \
        -Dcefweb:BOOL=OFF \
-       -Dclad:BOOL=OFF \
+       -Dclad:BOOL=ON \
+       -DCLAD_SOURCE_DIR:PATH=${PWD}/clad-1.7 \
        -Dcocoa:BOOL=OFF \
        -Dcuda:BOOL=OFF \
-       -Dcudnn:BOOL=OFF \
-       -Dcxxmodules:BOOL=OFF \
        -Ddaos:BOOL=OFF \
 %if %{dataframe}
        -Ddataframe:BOOL=ON \
@@ -2074,7 +2057,10 @@ done
        -Dfitsio:BOOL=ON \
        -Dfortran:BOOL=ON \
        -Dgdml:BOOL=ON \
+       -Dgeom:BOOL=ON \
+       -Dgeombuilder:BOOL=ON \
        -Dgviz:BOOL=ON \
+       -Dhtml:BOOL=ON \
        -Dhttp:BOOL=ON \
        -Dimt:BOOL=ON \
        -Dlibcxx:BOOL=OFF \
@@ -2129,6 +2115,7 @@ done
        -Dssl:BOOL=ON \
        -Dtmva:BOOL=ON \
        -Dtmva-cpu:BOOL=ON \
+       -Dtmva-cudnn:BOOL=OFF \
        -Dtmva-gpu:BOOL=OFF \
        -Dtmva-pymva:BOOL=ON \
        -Dtmva-rmva:BOOL=ON \
@@ -2137,6 +2124,7 @@ done
 %else
        -Dtmva-sofie:BOOL=OFF \
 %endif
+       -Dtpython:BOOL=ON \
        -Dunfold:BOOL=ON \
        -Dunuran:BOOL=ON \
 %if %{?fedora}%{!?fedora:0}
@@ -2154,6 +2142,7 @@ done
        -Dxrootd:BOOL=ON \
        -Dfail-on-missing:BOOL=ON \
        -Dtesting:BOOL=ON \
+       -Dtestsupport:BOOL=ON \
        -Dtest_distrdf_pyspark:BOOL=OFF \
        -Dtest_distrdf_dask:BOOL=OFF \
        -Dclingtest:BOOL=OFF \
@@ -2274,7 +2263,6 @@ sed -e 's!/usr/bin/env /usr/bin/python.*!%{__python3}!' \
     -i %{buildroot}%{_bindir}/rootdrawtree
 sed -e 's!/usr/bin/env python!%{__python3}!' \
     -i %{buildroot}%{_datadir}/%{name}/dictpch/makepch.py \
-       %{buildroot}%{_pkgdocdir}/tutorials/histfactory/example.py \
        %{buildroot}%{_pkgdocdir}/tutorials/histfactory/makeQuickModel.py \
        %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/ApplicationClassificationKeras.py \
        %{buildroot}%{_pkgdocdir}/tutorials/tmva/keras/ApplicationRegressionKeras.py \
@@ -2293,7 +2281,6 @@ rm %{buildroot}%{_bindir}/setxrd*
 rm %{buildroot}%{_bindir}/thisroot*
 rm %{buildroot}%{_pkgdocdir}/INSTALL
 rm %{buildroot}%{_pkgdocdir}/README.CXXMODULES.md
-rm %{buildroot}%{_pkgdocdir}/README.MONALISA
 
 # Only used on Windows
 rm %{buildroot}%{_datadir}/%{name}/macros/fileopen.C
@@ -2303,13 +2290,11 @@ pushd %{buildroot}%{_datadir}/%{name}/plugins
 rm TGLManager/P020_TGWin32GLManager.C
 rm TGLManager/P030_TGOSXGLManager.C
 rm TProofMgr/P010_TXProofMgr.C
-rm TProofMonSender/P010_TProofMonSenderML.C
 rm TProofServ/P010_TXProofServ.C
 rm TSlave/P010_TXSlave.C
 rm TSQLServer/P040_TOracleServer.C
 rm TVirtualGeoConverter/P010_TGeoVGConverter.C
 rm TVirtualGLImp/P020_TGWin32GL.C
-rm TVirtualMonitoringWriter/P010_TMonaLisaWriter.C
 rm TVirtualX/P030_TGWin32.C
 rm TVirtualX/P050_TGQuartz.C
 rmdir TProofMgr
@@ -2408,7 +2393,7 @@ popd
 #   root://eospublic.cern.ch//eos/opendata/cms/derived-data/
 #   AOD2NanoAODOutreachTool/Run2012BC_DoubleMuParked_Muons.root
 #
-# - gtest-tree-treeplayer-test-treeprocessormt-remotefiles
+# - gtest-tree-treeplayer-treeprocessormt-remotefiles
 # - tutorial-dataframe-df103_NanoAODHiggsAnalysis(-py)?
 #   reads input data over network:
 #   root://eospublic.cern.ch//eos/root-eos/cms_opendata_2012_nanoaod/
@@ -2438,20 +2423,20 @@ popd
 #   reads input data over network
 #   http://root.cern.ch/files/tutorials/GlobalLandTemperaturesByCity.csv
 #
-# - gtest-net-davix-test-RRawFileDavix
+# - gtest-net-davix-RRawFileDavix
 #   reads input file over network
 #   http://root.cern.ch/files/davix.test
 #
-# - gtest-net-netxng-test-RRawFileNetXNG
+# - gtest-net-netxng-RRawFileNetXNG
 #   reads input file over network
 #   root://eospublic.cern.ch/eos/root-eos/xrootd.test
 #
-# - gtest-net-netxng-test-TNetXNGFileTest
+# - gtest-net-netxng-TNetXNGFileTest
 #   reads input file over network
 #   root://eospublic.cern.ch/eos/root-eos/h1/dstarmb.root
 #
-# - gtest-tmva-tmva-test-rreader
-# - gtest-tmva-tmva-test-rstandardscaler
+# - gtest-tmva-tmva-rreader
+# - gtest-tmva-tmva-rstandardscaler
 # - tutorial-tmva-tmva003_RReader
 # - tutorial-tmva-tmva004_RStandardScaler
 #   reads input data over network
@@ -2484,7 +2469,7 @@ tutorial-multicore-imt101_parTreeProcessing|\
 tutorial-dataframe-df..._SQlite|\
 tutorial-dataframe-df033_Describe-py|\
 tutorial-dataframe-df102_NanoAODDimuonAnalysis|\
-gtest-tree-treeplayer-test-treeprocessormt-remotefiles|\
+gtest-tree-treeplayer-treeprocessormt-remotefiles|\
 tutorial-dataframe-df103_NanoAODHiggsAnalysis|\
 tutorial-dataframe-df104_HiggsToTwoPhotons-py|\
 tutorial-dataframe-df105_WBosonAnalysis-py|\
@@ -2496,11 +2481,11 @@ tutorial-v7-ntuple-ntpl003_lhcbOpenData|\
 tutorial-v7-ntuple-ntpl004_dimuon|\
 tutorial-v7-ntuple-ntpl008_import|\
 tutorial-v7-ntuple-ntpl011_global_temperatures|\
-gtest-net-davix-test-RRawFileDavix|\
-gtest-net-netxng-test-RRawFileNetXNG|\
-gtest-net-netxng-test-TNetXNGFileTest|\
-gtest-tmva-tmva-test-rreader|\
-gtest-tmva-tmva-test-rstandardscaler|\
+gtest-net-davix-RRawFileDavix|\
+gtest-net-netxng-RRawFileNetXNG|\
+gtest-net-netxng-TNetXNGFileTest|\
+gtest-tmva-tmva-rreader|\
+gtest-tmva-tmva-rstandardscaler|\
 tutorial-tmva-tmva003_RReader|\
 tutorial-tmva-tmva004_RStandardScaler|\
 tutorial-tmva-tmva103_Application|\
@@ -2509,6 +2494,42 @@ test-import-numba|\
 tutorial-pyroot-pyroot004_NumbaDeclare-py|\
 pyunittests-pyroot-numbadeclare|\
 test-webgui-ping"
+
+# gtest-roofit-roofit-vectorisedPDFs-testLandau:
+# Expected equality of these values:
+#   nFarOff
+#     Which is: 1
+#   0u
+#     Which is: 0
+#
+# test-stressgraphics-firefox-skip3d:
+# requires firefox...
+#
+# gtest-tree-treeplayer-treetreeplayertestUnit:
+# segmentation fault
+#
+# tutorial-webcanv-fonts_ttf.cxx:
+# Requires web graphics
+#
+# tutorial-roofit-rf617_simulation_based_inference_multidimensional-py:
+# from sklearn.neural_network import MLPClassifier
+#
+# tutorial-roofit-rf618_mixture_models-py:
+# import xgboost as xgb
+excluded="${excluded}|\
+gtest-roofit-roofit-vectorisedPDFs-testLandau|\
+test-stressgraphics-firefox-skip3d|\
+gtest-tree-treeplayer-treetreeplayertestUnit|\
+tutorial-webcanv-fonts_ttf.cxx|\
+tutorial-roofit-rf617_simulation_based_inference_multidimensional-py|\
+tutorial-roofit-rf618_mixture_models-py"
+
+# Test using tensorflow and torch
+# Disabled for Python >= 3.12, but must be excluded for Python < 3.12
+excluded="${excluded}|\
+pyunittests-bindings-pyroot-pythonizations-batchgen|\
+test-import-tensorflow|\
+test-import-torch"
 
 %if ! %{pandas}
 # - test-import-pandas
@@ -2524,14 +2545,10 @@ tutorial-roofit-rf409_NumPyPandasToRooFit-py"
 %endif
 
 %ifarch %{ix86}
-# - gtest-tree-dataframe-test-dataframe-concurrency
+# - gtest-tree-dataframe-dataframe-concurrency
 #   "There's already an active task arena."
-#
-# - gtest-tree-dataframe-test-dataframe-simple
-#   free(): invalid pointer
 excluded="${excluded}|\
-gtest-tree-dataframe-test-dataframe-concurrency|\
-gtest-tree-dataframe-test-dataframe-simple"
+gtest-tree-dataframe-dataframe-concurrency"
 %endif
 
 %ifarch aarch64
@@ -2543,60 +2560,62 @@ tutorial-tmva-RBatchGenerator_filters_vectors-py"
 %endif
 
 %ifarch %{power64}
-# - test-stressgraphics(-interpreted)
-#   *** stack smashing detected ***: terminated
-#
 # - tutorial-roostats-IntervalExamples-py
 #   *** Break *** segmentation violation
 excluded="${excluded}|\
-test-stressgraphics|\
+gtest-tree-ntuple-v7-ntuple-evolution|\
 tutorial-roostats-IntervalExamples-py"
 %endif
 
 %ifarch s390x
-# - gtest-roofit-roofitcore-test-testNaNPacker
-# - gtest-roofit-roofitcore-test-testLikelihoodGradientJob
+# - gtest-roofit-roofitcore-testNaNPacker
+# - gtest-roofit-roofitcore-testLikelihoodGradientJob
 #   Uses "Packed NaN" feature, not implemented for big endian.
 excluded="${excluded}|\
-gtest-roofit-roofitcore-test-testNaNPacker|\
-gtest-roofit-roofitcore-test-testLikelihoodGradientJob"
+gtest-roofit-roofitcore-testNaNPacker|\
+gtest-roofit-roofitcore-testLikelihoodGradientJob"
 
-# - gtest-core-dictgen-test-dictgen-base
-# - gtest-tree-dataframe-test-dataframe-unified-constructor
+# - gtest-core-dictgen-dictgen-base
+# - gtest-tmva-sofie-TestCustomModelsFromONNX
+# - gtest-tree-dataframe-dataframe-unified-constructor
 #
-# - gtest-tree-dataframe-test-datasource-ntuple
-# - gtest-tree-ntuple-v7-test-ntuple-basics
-# - gtest-tree-ntuple-v7-test-ntuple-bulk
-# - gtest-tree-ntuple-v7-test-ntuple-compat
-# - gtest-tree-ntuple-v7-test-ntuple-endian
-# - gtest-tree-ntuple-v7-test-ntuple-extended
-# - gtest-tree-ntuple-v7-test-ntuple-friends
-# - gtest-tree-ntuple-v7-test-ntuple-merger
-# - gtest-tree-ntuple-v7-test-ntuple-minifile
-# - gtest-tree-ntuple-v7-test-ntuple-modelext
-# - gtest-tree-ntuple-v7-test-ntuple-packing
-# - gtest-tree-ntuple-v7-test-ntuple-parallel-writer
-# - gtest-tree-ntuple-v7-test-ntuple-project
-# - gtest-tree-ntuple-v7-test-ntuple-serialize
-# - gtest-tree-ntuple-v7-test-ntuple-show
-# - gtest-tree-ntuple-v7-test-ntuple-storage
-# - gtest-tree-ntuple-v7-test-ntuple-storage-daos
-# - gtest-tree-ntuple-v7-test-ntuple-types
-# - gtest-tree-ntuple-v7-test-ntuple-view
-# - gtest-tree-ntuple-v7-test-rfield-class
-# - gtest-tree-ntuple-v7-test-rfield-variant
-# - gtest-tree-ntuple-v7-test-rfield-vector
-# - gtest-tree-ntupleutil-v7-test-ntuple-importer
-# - gtest-tree-ntupleutil-v7-test-ntuple-inspector
+# - gtest-tree-dataframe-datasource-ntuple
+# - gtest-tree-ntuple-v7-ntuple-basics
+# - gtest-tree-ntuple-v7-ntuple-bulk
+# - gtest-tree-ntuple-v7-ntuple-cast
+# - gtest-tree-ntuple-v7-ntuple-compat
+# - gtest-tree-ntuple-v7-ntuple-extended
+# - gtest-tree-ntuple-v7-ntuple-friends
+# - gtest-tree-ntuple-v7-ntuple-index
+# - gtest-tree-ntuple-v7-ntuple-merger
+# - gtest-tree-ntuple-v7-ntuple-model
+# - gtest-tree-ntuple-v7-ntuple-modelext
+# - gtest-tree-ntuple-v7-ntuple-multi-column
+# - gtest-tree-ntuple-v7-ntuple-packing
+# - gtest-tree-ntuple-v7-ntuple-parallel-writer
+# - gtest-tree-ntuple-v7-ntuple-project
+# - gtest-tree-ntuple-v7-ntuple-processor
+# - gtest-tree-ntuple-v7-ntuple-show
+# - gtest-tree-ntuple-v7-ntuple-storage
+# - gtest-tree-ntuple-v7-ntuple-storage-daos
+# - gtest-tree-ntuple-v7-ntuple-types
+# - gtest-tree-ntuple-v7-ntuple-view
+# - gtest-tree-ntuple-v7-rfield-class
+# - gtest-tree-ntuple-v7-rfield-streamer
+# - gtest-tree-ntuple-v7-rfield-variant
+# - gtest-tree-ntuple-v7-rfield-vector
+# - gtest-tree-ntupleutil-v7-ntuple-importer
+# - gtest-tree-ntupleutil-v7-ntuple-inspector
 #   https://github.com/root-project/root/issues/12426
 #
-# - pyunittests-distrdf-unit-backend-test-graph-caching
-# - pyunittests-pyroot-pyz-rtensor
-# - pyunittests-pyroot-pyz-stl-vector
+# - pyunittests-bindings-experimental-distrdf-backend-distrdf-unit-backend-graph-caching
+# - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor
+# - pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector
 # - tutorial-dataframe-df006_ranges-py
 # - tutorial-fit-combinedFit-py
 # - tutorial-fit-NumericalMinimization-py
 # - tutorial-math-exampleFunction-py
+# - tutorial-pyroot-hsum-py
 # - tutorial-rcanvas-rbox-py
 #   https://github.com/root-project/root/issues/12429
 #
@@ -2608,39 +2627,44 @@ gtest-roofit-roofitcore-test-testLikelihoodGradientJob"
 # - test-stresshistogram
 # - test-stresshistogram-interpreted
 excluded="${excluded}|\
-gtest-core-dictgen-test-dictgen-base|\
-gtest-tree-dataframe-test-dataframe-unified-constructor|\
-gtest-tree-dataframe-test-datasource-ntuple|\
-gtest-tree-ntuple-v7-test-ntuple-basics|\
-gtest-tree-ntuple-v7-test-ntuple-bulk|\
-gtest-tree-ntuple-v7-test-ntuple-compat|\
-gtest-tree-ntuple-v7-test-ntuple-endian|\
-gtest-tree-ntuple-v7-test-ntuple-extended|\
-gtest-tree-ntuple-v7-test-ntuple-friends|\
-gtest-tree-ntuple-v7-test-ntuple-merger|\
-gtest-tree-ntuple-v7-test-ntuple-minifile|\
-gtest-tree-ntuple-v7-test-ntuple-modelext|\
-gtest-tree-ntuple-v7-test-ntuple-packing|\
-gtest-tree-ntuple-v7-test-ntuple-parallel-writer|\
-gtest-tree-ntuple-v7-test-ntuple-project|\
-gtest-tree-ntuple-v7-test-ntuple-serialize|\
-gtest-tree-ntuple-v7-test-ntuple-show|\
-gtest-tree-ntuple-v7-test-ntuple-storage|\
-gtest-tree-ntuple-v7-test-ntuple-storage-daos|\
-gtest-tree-ntuple-v7-test-ntuple-types|\
-gtest-tree-ntuple-v7-test-ntuple-view|\
-gtest-tree-ntuple-v7-test-rfield-class|\
-gtest-tree-ntuple-v7-test-rfield-variant|\
-gtest-tree-ntuple-v7-test-rfield-vector|\
-gtest-tree-ntupleutil-v7-test-ntuple-importer|\
-gtest-tree-ntupleutil-v7-test-ntuple-inspector|\
-pyunittests-distrdf-unit-backend-test-graph-caching|\
-pyunittests-pyroot-pyz-rtensor|\
-pyunittests-pyroot-pyz-stl-vector|\
+gtest-core-dictgen-dictgen-base|\
+gtest-tmva-sofie-TestCustomModelsFromONNX|\
+gtest-tree-dataframe-dataframe-unified-constructor|\
+gtest-tree-dataframe-datasource-ntuple|\
+gtest-tree-ntuple-v7-ntuple-basics|\
+gtest-tree-ntuple-v7-ntuple-bulk|\
+gtest-tree-ntuple-v7-ntuple-cast|\
+gtest-tree-ntuple-v7-ntuple-compat|\
+gtest-tree-ntuple-v7-ntuple-extended|\
+gtest-tree-ntuple-v7-ntuple-friends|\
+gtest-tree-ntuple-v7-ntuple-index|\
+gtest-tree-ntuple-v7-ntuple-merger|\
+gtest-tree-ntuple-v7-ntuple-model\$\$|\
+gtest-tree-ntuple-v7-ntuple-modelext|\
+gtest-tree-ntuple-v7-ntuple-multi-column|\
+gtest-tree-ntuple-v7-ntuple-packing|\
+gtest-tree-ntuple-v7-ntuple-parallel-writer|\
+gtest-tree-ntuple-v7-ntuple-project|\
+gtest-tree-ntuple-v7-ntuple-processor|\
+gtest-tree-ntuple-v7-ntuple-show|\
+gtest-tree-ntuple-v7-ntuple-storage\$\$|\
+gtest-tree-ntuple-v7-ntuple-storage-daos|\
+gtest-tree-ntuple-v7-ntuple-types|\
+gtest-tree-ntuple-v7-ntuple-view|\
+gtest-tree-ntuple-v7-rfield-class|\
+gtest-tree-ntuple-v7-rfield-streamer|\
+gtest-tree-ntuple-v7-rfield-variant|\
+gtest-tree-ntuple-v7-rfield-vector|\
+gtest-tree-ntupleutil-v7-ntuple-importer|\
+gtest-tree-ntupleutil-v7-ntuple-inspector|\
+pyunittests-bindings-experimental-distrdf-backend-distrdf-unit-backend-graph-caching|\
+pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-rtensor|\
+pyunittests-bindings-pyroot-pythonizations-pyroot-pyz-stl-vector|\
 tutorial-dataframe-df006_ranges-py|\
 tutorial-fit-combinedFit-py|\
 tutorial-fit-NumericalMinimization-py|\
 tutorial-math-exampleFunction-py|\
+tutorial-pyroot-hsum-py|\
 tutorial-rcanvas-rbox-py|\
 tutorial-tree-drawsparse|\
 test-stresshistofit\$\$|\
@@ -2653,9 +2677,9 @@ test-stresshistogram-interpreted"
 %ifarch aarch64 %{power64} s390x
 # Fails with gcc 14 on aarch64, ppc64le and s390x
 # https://github.com/root-project/root/issues/14446
-# - gtest-math-matrix-test-testMatrixTSparse
+# - gtest-math-matrix-testMatrixTSparse
 excluded="${excluded}|\
-gtest-math-matrix-test-testMatrixTSparse"
+gtest-math-matrix-testMatrixTSparse"
 %endif
 %endif
 
@@ -2803,6 +2827,7 @@ fi
 %{_datadir}/%{name}/system.rootauthrc
 %{_datadir}/%{name}/system.rootdaemonrc
 %{_datadir}/%{name}/system.rootrc
+%{_datadir}/%{name}/valgrind-root.supp
 %{_datadir}/%{name}/valgrind-root-python.supp
 %{_mandir}/man1/system.rootdaemonrc.1*
 %dir %{_datadir}/%{name}/cmake
@@ -3254,9 +3279,7 @@ fi
 %files proof -f includelist-proof-proof
 %{_bindir}/proofserv
 %{_bindir}/proofserv.exe
-%{_bindir}/xpdtest
 %{_mandir}/man1/proofserv.1*
-%{_mandir}/man1/xpdtest.1*
 %{_libdir}/%{name}/libProof.*
 %{_libdir}/%{name}/libProof_rdict.pcm
 %{_datadir}/%{name}/plugins/TChain/P010_TProofChain.C
@@ -3265,7 +3288,6 @@ fi
 %{_datadir}/%{name}/plugins/TProof/P020_TProofSuperMaster.C
 %{_datadir}/%{name}/plugins/TProof/P030_TProofLite.C
 %{_datadir}/%{name}/plugins/TProof/P040_TProof.C
-%{_datadir}/%{name}/valgrind-root.supp
 
 %files proof-bench -f includelist-proof-proofbench
 %{_libdir}/%{name}/libProofBench.*
@@ -3314,12 +3336,6 @@ fi
 %files roofit-batchcompute
 %{_libdir}/%{name}/libRooBatchCompute.*
 %{_libdir}/%{name}/libRooBatchCompute_*
-
-%if %{dataframe}
-%files roofit-dataframe-helpers -f includelist-roofit-RDataFrameHelpers
-%{_libdir}/%{name}/libRooFitRDataFrameHelpers.*
-%{_libdir}/%{name}/libRooFitRDataFrameHelpers_rdict.pcm
-%endif
 
 %files roofit-hs3 -f includelist-roofit-hs3
 %{_libdir}/%{name}/libRooFitHS3.*
@@ -3397,30 +3413,31 @@ fi
 %dir %{_includedir}/%{name}/TMVA/DNN/CNN
 %dir %{_includedir}/%{name}/TMVA/DNN/RNN
 %license tmva/doc/LICENSE
-%exclude %{_includedir}/%{name}/TMVA/RBatchGenerator.hxx
-%exclude %{_includedir}/%{name}/TMVA/RBatchLoader.hxx
 %exclude %{_includedir}/%{name}/TMVA/RBDT.hxx
-%exclude %{_includedir}/%{name}/TMVA/RChunkLoader.hxx
 %exclude %{_includedir}/%{name}/TMVA/RInferenceUtils.hxx
 %exclude %{_includedir}/%{name}/TMVA/RReader.hxx
 %exclude %{_includedir}/%{name}/TMVA/RSofieReader.hxx
 %exclude %{_includedir}/%{name}/TMVA/RStandardScaler.hxx
 %exclude %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
+%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
+%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
+%exclude %{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 
 %if %{dataframe}
 %files tmva-utils
 %{_libdir}/%{name}/libTMVAUtils.*
 %{_libdir}/%{name}/libTMVAUtils_rdict.pcm
 %dir %{_includedir}/%{name}/TMVA
-%{_includedir}/%{name}/TMVA/RBatchGenerator.hxx
-%{_includedir}/%{name}/TMVA/RBatchLoader.hxx
 %{_includedir}/%{name}/TMVA/RBDT.hxx
-%{_includedir}/%{name}/TMVA/RChunkLoader.hxx
 %{_includedir}/%{name}/TMVA/RInferenceUtils.hxx
 %{_includedir}/%{name}/TMVA/RReader.hxx
 %{_includedir}/%{name}/TMVA/RSofieReader.hxx
 %{_includedir}/%{name}/TMVA/RStandardScaler.hxx
 %{_includedir}/%{name}/TMVA/RTensorUtils.hxx
+%dir %{_includedir}/%{name}/TMVA/BatchGenerator
+%{_includedir}/%{name}/TMVA/BatchGenerator/RBatchGenerator.hxx
+%{_includedir}/%{name}/TMVA/BatchGenerator/RBatchLoader.hxx
+%{_includedir}/%{name}/TMVA/BatchGenerator/RChunkLoader.hxx
 %endif
 
 %files tmva-python -f includelist-tmva-pymva
@@ -3584,6 +3601,11 @@ fi
 %endif
 
 %changelog
+* Wed Dec 25 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.34.02-1
+- Update to 6.34.02
+- Build CLAD plugin
+- Removed package: root-roofit-dataframe-helpers
+
 * Wed Nov 27 2024 Richard W.M. Jones <rjones@redhat.com> - 6.32.08-2
 - Rebuild for libarrow 18
 

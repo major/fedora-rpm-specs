@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Calculations for the position of the sun and moon
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -10,6 +10,10 @@ License:        Apache-2.0
 URL:            http://astral.readthedocs.io
 Source0:        https://github.com/sffjunkie/astral/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
+
+# Remove spurious pytest-runner dependency from tox.ini
+# https://github.com/sffjunkie/astral/pull/98
+Patch:          https://github.com/sffjunkie/astral/pull/98.patch
 
 %global _description %{expand:
 astral is a Python module which calculates including:
@@ -36,7 +40,7 @@ astral is a Python module which calculates including:
 - The phase of the moon.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -57,6 +61,9 @@ astral is a Python module which calculates including:
 %license LICENSE
 
 %changelog
+* Tue Dec 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2-7
+- Remove spurious pytest-runner dependency from tox.ini
+
 * Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 3.2-6
 - convert license to SPDX
 

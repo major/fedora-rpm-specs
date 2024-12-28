@@ -3,14 +3,17 @@
 
 Name:           python-%{shortname}
 Version:        3.1.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://pypi.python.org/packages/source/P/%{srcname}-accelerate/%{srcname}-accelerate-%{version}.tar.gz
 Patch0:         python-3.12.patch
-Patch1: python-pyopengl-c99.patch
+Patch1:         python-pyopengl-c99.patch
+# Fix for NumPy 2.x intp type
+# https://github.com/mcfletch/pyopengl/commit/f897b0ed75c00d4c524be4689683a334832217ac
+Patch2:         numpy-intp-type.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -67,7 +70,8 @@ Requires:       python3-tkinter
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
 %patch -P0 -p1
-%patch -P 1 -p1
+%patch -P1 -p1
+%patch -P2 -p1 -F2 -d %{srcname}-accelerate-%{version}
 
 %build
 # Delete all Cython generated .c files to force a rebuild in py3_build
@@ -125,6 +129,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Thu Oct 24 2024 Sandro <devel@penguinpee.nl> - 3.1.7-10
+- Apply patch for NumPy 2.x
+
 * Wed Aug 07 2024 Scott Talbert <swt@techie.net> - 3.1.7-9
 - Update License tag to use SPDX identifiers
 

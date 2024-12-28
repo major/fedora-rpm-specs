@@ -6,6 +6,8 @@ Summary:        Application launcher for wlroots based Wayland compositors
 License:        MIT
 URL:            https://codeberg.org/dnkl/fuzzel
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://codeberg.org/dnkl/fuzzel/issues/453#issuecomment-2544508
+Patch:          %{url}/pulls/437.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58

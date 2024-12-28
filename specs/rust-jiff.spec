@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.1.15
+Version:        0.1.16
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -16,14 +16,18 @@ Source:         %{crates_source}
 Patch:          jiff-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Drop dev-dependency hifitime: not packaged, and only for doctests
-# * Relax chrono-tz dependency to allow building with 0.9 and 0.10:
-#   https://github.com/BurntSushi/jiff/pull/167
+# * Drop dev-dependency serde_yml: not packaged; we have patched out the tests
+#   that require it
 Patch:          jiff-fix-metadata.diff
 # * Downstream-only: Omit doctests that require hifitime. It is not worth
 #   packaging it solely for a couple of tiny examples.
 Patch10:        0001-Downstream-only-Omit-doctests-that-require-hifitime.patch
 # * Downstream-only: Omit doctests that require icu.
 Patch11:        0001-Downstream-only-Omit-doctests-that-require-icu.patch
+# * Downstream-only: Omit tests that require serde_yml.
+Patch12:        0001-Downstream-only-omit-tests-that-require-serde_yml.patch
+# * Fix a small typo in CHANGELOG.md
+Patch13:        https://github.com/BurntSushi/jiff/pull/173.patch
 # * EPEL9: Ignore doctests that require very recent Rust compilers
 # * In this crate, doctests and examples (but not the lib and integration tests)
 #   are allowed to use Rust features from versions newer than the MSRV. It’s

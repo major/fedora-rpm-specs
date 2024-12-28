@@ -3,8 +3,7 @@ Version:        12.1.1
 Release:        29%{?dist}
 Summary:        Constantine desktop backgrounds
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F12_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.lzma
 

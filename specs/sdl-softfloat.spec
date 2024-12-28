@@ -1,6 +1,6 @@
 %global srcname SoftFloat
 %global forgeurl https://github.com/SDL-Hercules-390/%{srcname}
-%global commit 4b0c326008e174610969c92e69178939ed80653d
+%global commit c114c53e672d92671e0971cfbf8fe2bed3d5ae9e
 %forgemeta
 
 %if 0%{?el8}
@@ -22,7 +22,7 @@ emulator.}
 
 Name:           sdl-softfloat
 Version:        3.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Berkeley IEEE Binary Floating-Point Library (SDL version)
 
 License:        BSD-3-Clause
@@ -73,6 +73,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/softfloat.LICENSE.txt .
 %{_libdir}/lib%{srcname}*.a
 
 %changelog
+* Thu Dec 26 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 3.5.0-12
+- Update to c114c53 git snapshot
+
 * Wed Jul 31 2024 Davide Cavalca <dcavalca@fedoraproject.org> - 3.5.0-11
 - Properly obsolete the old softfloat package
 - Convert license tag to SPDX

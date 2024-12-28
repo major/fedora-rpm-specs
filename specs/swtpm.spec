@@ -8,10 +8,12 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch1:         0001-SELinux-Add-rule-for-swtpm-to-be-able-to-read-passwo.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -201,6 +203,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Thu Dec 26 2024 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-4
+- SELinux: Add rule for swtpm to be able to read password from pipe
+
 * Fri Nov 15 2024 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-3
 - Rebuild with proper dates in changelog entries
 

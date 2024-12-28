@@ -1,6 +1,6 @@
-%global abiver 2.55
+%global abiver 2.56
 Name:           librealsense
-Version:        2.55.1
+Version:        2.56.3
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -21,9 +21,6 @@ Patch3:         librealsense.remove-invalid-unused-code.patch
 Patch4:         librealsense.rsutils-shared-library.patch
 # https://github.com/morxa/librealsense/tree/use-system-pybind11
 Patch5:         librealsense.use-system-json.patch
-# backported from main branch
-# https://github.com/IntelRealSense/librealsense/commit/cc3759b8b2d33892d0f118ba9dbff578cbb838cb
-Patch6:         librealsense.install-python-binding.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)

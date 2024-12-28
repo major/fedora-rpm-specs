@@ -34,14 +34,8 @@ Requires:          lua-filesystem
 Requires:          lua-expat
 Requires:          lua-socket
 Requires:          lua-sec
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:        lua-unbound
 Recommends:        lua-readline
-%else
-Requires:          lua-unbound
-Requires:          lua-readline
-Requires:          lua-bitop
-%endif
 %{?systemd_requires}
 %{?sysusers_requires_compat}
 
@@ -51,9 +45,6 @@ BuildRequires:     lua-expat
 BuildRequires:     lua-socket
 BuildRequires:     lua-sec
 BuildRequires:     lua-unbound
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:     lua-bitop
-%endif
 BuildRequires:     %{_bindir}/openssl
 BuildRequires:     %{_sbindir}/ss
 

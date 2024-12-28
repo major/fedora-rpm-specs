@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 4.8.1
-Release: 3%{?dist}
+Version: 5.0.0
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -17,7 +17,6 @@ URL: http://www.darktable.org/
 Source0: https://github.com/darktable-org/darktable/releases/download/release-%{version}/%{name}-%{version}.tar.xz
 #Source1: https://github.com/darktable-org/darktable/releases/download/release-%%{version}/%%{name}-%%{version}.tar.xz.asc
 #Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf10f9686652b0e949fcd94c318dca123f949bd3b
-Patch0: 17257.patch
  
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)
@@ -175,6 +174,7 @@ pushd %{_target_platform}
         -DBINARY_PACKAGE_BUILD=1 \
         -DDONT_USE_INTERNAL_LUA=OFF \
         -DBUILD_NOISE_TOOLS=ON \
+        -DBUILD_CURVE_TOOLS=ON \
         -DHAVE_GMIC=OFF \
         -DRAWSPEED_ENABLE_LTO=ON \
         ..
@@ -185,6 +185,7 @@ pushd %{_target_platform}
         -DCMAKE_BUILD_TYPE:STRING=Release \
         -DBINARY_PACKAGE_BUILD=1 \
         -DBUILD_NOISE_TOOLS=ON \
+        -DBUILD_CURVE_TOOLS=ON \
         -DRAWSPEED_ENABLE_LTO=ON
 %endif
 
@@ -230,7 +231,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_datadir}/icons/hicolor/*/apps/darktable*
 %{_mandir}/man1/darktable*.1*
 %{_mandir}/*/man1/darktable*.1*
-%{_libexecdir}/darktable/
 
 %files tools-noise
 %dir %{_libexecdir}/darktable
@@ -240,7 +240,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/profiling-shot.xmp
 %{_libexecdir}/darktable/tools/subr.sh
 
+%files tools-basecurve
+%dir %{_libexecdir}/darktable
+%dir %{_libexecdir}/darktable/tools
+%{_libexecdir}/darktable/tools/darktable-curve-tool
+%{_libexecdir}/darktable/tools/darktable-curve-tool-helper
+
 %changelog
+* Thu Dec 26 2024 Christian Birk <mail@birkc.de> - 5.0.0-1
+- Update to 5.0.0
+- Removed obsolete patch
+- Enable curve tools and fixup files section for the subpackage
+- fixes rhbz#2332511
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 4.8.1-3
 - Rebuild for ICU 76
 

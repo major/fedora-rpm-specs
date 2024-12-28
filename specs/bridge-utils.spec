@@ -2,7 +2,6 @@ Summary:        Utilities for configuring the linux ethernet bridge
 Name:           bridge-utils
 Version:        1.7.1
 Release:        11%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://wiki.linuxfoundation.org/networking/bridge
 
@@ -21,7 +20,8 @@ ethernet devices together. The connecting is fully transparent: hosts
 connected to one ethernet device see hosts connected to the other
 ethernet devices directly.
 
-Install bridge-utils if you want to use the linux ethernet bridge.
+The bridge-utils package is deprecated, the bridge command from the
+iproute package should preferably be used for linux ethernet bridges.
 
 %prep
 %setup -q
@@ -217,7 +217,7 @@ autoconf
 
 * Thu Aug 26 2004 David Woodhouse <dwmw2@redhat.com> 1.0.4-4
 - BuildRequires: sysfsutils-devel to make the horrid autoconf script magically
-  change the entire package's behaviour just because it happens to find 
+  change the entire package's behaviour just because it happens to find
   slightly different header files lying around.
 - Include our own kernel-derived headers
 
@@ -263,4 +263,3 @@ autoconf
 
 * Wed Nov 07 2001 Matthew Galgoci <mgalgoci@redhat.com>
 - initial cleanup of spec file from net release
-

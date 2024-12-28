@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -31,6 +31,9 @@ Conflicts: %{name}-glamor
 Requires:       xrdp >= 1:0.10.2
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+Requires:       /usr/libexec/Xorg
+%endif
 
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
 %package glamor
@@ -41,6 +44,7 @@ Conflicts: %{name}
 Requires:       xrdp >= 1:0.10.2
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
+Requires:       /usr/libexec/Xorg
 %endif
 
 %description
@@ -129,6 +133,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Thu Dec 26 2024 Bojan Smojver <bojan@rexursive.com> - 0.10.3-2
+- Add /usr/libexec/Xorg dependency
+
 * Mon Dec 16 2024 Bojan Smojver <bojan@rexursive.com> - 0.10.3-1
 - Bump up to 0.10.3
 

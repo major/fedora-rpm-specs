@@ -1,6 +1,6 @@
 Name: tin
-Version: 2.6.3
-Release: 6%{?dist}
+Version: 2.6.4
+Release: 1%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
@@ -40,7 +40,7 @@ gpg1 --homedir=${workdir} --pgp2 --yes --output="${workring}" --dearmor %{S:2}
 gpg1 --homedir=${workdir} --pgp2 --verify --keyring="${workring}" %{S:1} %{S:0}
 rm -r ${workdir}
 %autosetup -p1
-rm -rv libcanlock
+rm -rv libcanlock pcre
 
 %build
 %configure \
@@ -96,6 +96,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 %{_mandir}/man5/tin.5*
 
 %changelog
+* Thu Dec 26 2024 Dominik Mierzejewski <dominik@greysector.net> 2.6.4-1
+- update to 2.6.4 (rhbz#2333917)
+
 * Sun Dec 08 2024 Dominik Mierzejewski <dominik@greysector.net> 2.6.3-6
 - enable Cancel-Locks support
 - enable zlib compression support

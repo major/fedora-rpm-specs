@@ -7,12 +7,13 @@
 # Optional integration tests (no effect if tests are disabled)
 %bcond numpy_tests 1
 %bcond pandas_tests 1
-# No python-inline-snapshot on Fedora 40 (dependencies are too old)
-%bcond inline_snapshot_tests %{undefined fc40}
+# - No python-inline-snapshot on Fedora 40 (dependencies are too old)
+# - No python-inline-snapshot in EPEL10 (blocked by python-black)
+%bcond inline_snapshot_tests %{expr:%{undefined fc40} && %{undefined el10}}
 
 Name:           python-pydantic-core
 Version:        2.27.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core validation logic for pydantic written in rust
 
 License:        MIT
@@ -132,6 +133,9 @@ ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 
 
 %changelog
+* Thu Dec 26 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-2
+- Omit snapshot tests on EPEL10
+
 * Wed Dec 18 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.27.2-1
 - Update to 2.27.2
 

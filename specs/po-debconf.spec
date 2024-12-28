@@ -14,7 +14,7 @@
 
 Name:		po-debconf
 Version:	1.0.21
-Release:	16%{release_posttag}%{?dist}
+Release:	17%{release_posttag}%{?dist}
 Summary:	Tool for managing templates file translations with gettext
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -24,9 +24,9 @@ Source0:	https://ftp.debian.org/debian/pool/main/p/%{name}/%{name}_%{version}%{t
 
 BuildArch:	noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:	po4a
-BuildRequires:	dpkg-dev
+BuildRequires:	debhelper
 BuildRequires:	/usr/bin/pod2html
 
 # Needed for check
@@ -119,6 +119,9 @@ ln -s ../bin %{buildroot}%{_datadir}/intltool-debian
 %{_datadir}/intltool-debian
 
 %changelog
+* Thu Dec 26 2024 Sérgio Basto <sergio@serjux.com> - 1.0.21-17.nmu1
+- BR debhelper as Debian do
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.21-16.nmu1
 - convert license to SPDX
 

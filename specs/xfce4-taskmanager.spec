@@ -1,7 +1,7 @@
 %global majorversion 1.5
 
 Name:           xfce4-taskmanager
-Version:        1.5.7
+Version:        1.5.8
 Release:        %autorelease
 Summary:        Taskmanager for the Xfce desktop environment
 
@@ -10,13 +10,12 @@ License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/applications/%{name}
 Source0:        http://archive.xfce.org/src/apps/%{name}/%{majorversion}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
-BuildRequires:  intltool
 
 %description
 A simple taskmanager for the Xfce desktop environment.

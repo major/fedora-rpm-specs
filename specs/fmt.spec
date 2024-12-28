@@ -1,12 +1,11 @@
 Name:           fmt
-Version:        11.0.2
-Release:        2%{?dist}
+Version:        11.1.0
+Release:        1%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
 URL:            https://github.com/fmtlib/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz
-Patch0:         0001-Address-build-failures-when-using-Tip-of-Tree-clang..patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -62,6 +61,10 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Dec 26 2024 Kefu Chai <tchaikov@gmail.com> - 11.1.0-1
+- Updated to version 11.1.0
+- Drop a patch already included in 11.1.0
+
 * Wed Oct 09 2024 Kefu Chai <tchaikov@gmail.com> - 11.0.2-2
 - Backport upstream to address FTBFS with the latest Clang, see https://github.com/fmtlib/fmt/pull/4187
 

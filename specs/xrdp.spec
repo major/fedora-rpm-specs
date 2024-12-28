@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   3%{?dist}
+Release:   5%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -32,7 +32,7 @@ Source1:   xrdp-sesman.pamd
 Source2:   xrdp.sysconfig
 Source3:   xrdp.logrotate
 Source4:   openssl.conf
-Source5:   README.Fedora
+Source5:   README.md
 Source6:   xrdp.te
 Source7:   xrdp-polkit-1.rules
 Source8:   %{name}-tmpfiles.conf
@@ -78,7 +78,7 @@ Requires: tigervnc-server-minimal
 Requires: xorg-x11-xinit
 Requires: util-linux
 %if 0%{?fedora} || 0%{?rhel} > 8
-Requires: openh264
+Requires: (openh264 or noopenh264)
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -113,7 +113,9 @@ talk to xrdp.
 Summary: SELinux policy module required tu run xrdp
 
 Requires: %{name} = %{epoch}:%{version}-%{release}
+%if "%{_selinux_policy_version}" != ""
 Requires: selinux-policy >= %{_selinux_policy_version}
+%endif
 Requires(post): /usr/sbin/semodule
 Requires(postun): /usr/sbin/semodule
 
@@ -231,9 +233,7 @@ fi
 %posttrans
 if [ ! -s %{_sysconfdir}/xrdp/rsakeys.ini ]; then
   (umask 0137
-   %{_bindir}/xrdp-keygen xrdp %{_sysconfdir}/xrdp/rsakeys.ini &>/dev/null
-   chgrp xrdp %{_sysconfdir}/xrdp/rsakeys.ini
-   chmod g+r %{_sysconfdir}/xrdp/rsakeys.ini)
+   %{_bindir}/xrdp-keygen xrdp %{_sysconfdir}/xrdp/rsakeys.ini &>/dev/null)
 fi
 
 if [ ! -s %{_sysconfdir}/xrdp/cert.pem ]; then
@@ -241,10 +241,11 @@ if [ ! -s %{_sysconfdir}/xrdp/cert.pem ]; then
    openssl req -x509 -newkey rsa:2048 -nodes -days 3652 \
                -keyout %{_sysconfdir}/xrdp/key.pem \
                -out %{_sysconfdir}/xrdp/cert.pem \
-               -config %{_sysconfdir}/xrdp/openssl.conf &>/dev/null;
-   chgrp xrdp %{_sysconfdir}/xrdp/{key,cert}.pem
-   chmod g+r %{_sysconfdir}/xrdp/{key,cert}.pem)
+               -config %{_sysconfdir}/xrdp/openssl.conf &>/dev/null)
 fi
+
+chgrp xrdp %{_sysconfdir}/xrdp/{rsakeys.ini,{key,cert}.pem}
+chmod g+r %{_sysconfdir}/xrdp/{rsakeys.ini,{key,cert}.pem}
 
 %post selinux
 for selinuxvariant in %{selinux_variants}
@@ -263,7 +264,7 @@ fi
 
 
 %files
-%doc COPYING README.Fedora
+%doc COPYING README.md
 %dir %{_libdir}/xrdp
 %dir %{_sysconfdir}/xrdp
 %dir %{_sysconfdir}/xrdp/pulse
@@ -347,6 +348,13 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Fri Dec 27 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~5
+- Move README.Fedora to README.md
+- Adjust ownership/permissions of certs/keys for unprivileged user
+
+* Thu Dec 26 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~4
+- If openh264 is not present, require noopenh264 instead
+
 * Wed Dec 25 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~3
 - Run as unprivileged user
 

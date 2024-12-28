@@ -22,6 +22,7 @@ BuildRequires:  garcon-devel >= 0.1.2
 BuildRequires:  libwnck3-devel >= 3.14
 BuildRequires:  libnotify-devel >= 0.4.0
 BuildRequires:  xfconf-devel >= %{xfceversion}
+BuildRequires:  libyaml-devel
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 BuildRequires:  libSM-devel

@@ -3,7 +3,7 @@
 %global fast_yaml_ver 1.0.37
 
 Name:       erlang-%{srcname}
-Version:    1.0.16
+Version:    1.0.17
 Release:    %autorelease
 BuildArch:  noarch
 License:    Apache-2.0

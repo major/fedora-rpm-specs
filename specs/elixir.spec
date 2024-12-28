@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.17.3
+Version:  1.18.1
 Release:  %autorelease
 Summary:  A modern approach to programming for the Erlang VM
 License:  Apache-2.0
@@ -69,6 +69,8 @@ find . -name .gitkeep -delete
 sed -i '/^Q\s*:=/d' Makefile
 
 %build
+# No nonger necessary starting from RPM 4.20.
+# https://github.com/rpm-software-management/rpm/pull/2616
 export LANG=C.UTF-8
 export REBAR3=/usr/bin/rebar3
 export ERL_LIBS=/usr/share/erlang/lib/
@@ -81,6 +83,8 @@ make build_man
 rm -f ./lib/mix/test/fixtures/rebar3
 export REBAR3=/usr/bin/rebar3
 
+# No nonger necessary starting from RPM 4.20.
+# https://github.com/rpm-software-management/rpm/pull/2616
 export LANG=C.UTF-8
 export ERL_LIBS=/usr/share/erlang/lib/
 make test
@@ -109,8 +113,6 @@ cp -a man/elixir.1 man/elixirc.1 man/iex.1 man/mix.1 %{buildroot}/%{_mandir}/man
 %{_mandir}/man1/mix.1*
 
 %package doc
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
-License: Apache-2.0
 Summary: Documentation for the elixir language and tools
 
 %description doc

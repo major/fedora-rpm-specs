@@ -2,7 +2,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-terminal
-Version:        1.1.3
+Version:        1.1.4
 Release:        %autorelease
 Summary:        Terminal Emulator for the Xfce Desktop environment
 
@@ -18,7 +18,6 @@ BuildRequires:  vte291-devel >= 0.38
 BuildRequires:  gtk3-devel >= 3.14.0
 BuildRequires:  glib2-devel >= 2.26.0
 
-BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 BuildRequires:  libxfce4ui-devel >= %{xfceversion}
 # require a small monospace font

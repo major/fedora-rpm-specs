@@ -13,7 +13,7 @@
 Name:           python-niapy
 Version:        2.5.1
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Microframework for building nature-inspired algorithms
 
 License:        MIT
@@ -147,6 +147,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %doc CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 %changelog
+* Thu Dec 26 2024 Sandro <devel@penguinpee.nl> - 2.5.1-2
+- Apply patch for NumPy 2.x
+
 * Sun Nov 24 2024 Iztok Fister Jr. <iztok@iztok-jr-fister.eu> - 2.5.1-1
 - Update to 2.5.1
 

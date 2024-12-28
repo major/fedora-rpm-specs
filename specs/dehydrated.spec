@@ -1,7 +1,7 @@
 Summary: Client for signing certificates with an ACME server
 Name: dehydrated
 Version: 0.7.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
@@ -19,15 +19,23 @@ Patch2: dehydrated-hook.sh-defaults.patch
 
 BuildArch: noarch
 BuildRequires: gnupg2
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 Requires: coreutils
 Requires: curl
+Requires: diffutils
+Requires: gawk
 Requires: grep
-# provided by either mailx or s-nail
+%if 0%{?fedora} || 0%{?rhel} >= 9
+# Usually provided by s-nail, historically by mailx
 Requires: /usr/bin/mailx
+%else
+# s-nail (EPEL 8) provides /usr/bin/mailx, mailx (RHEL 8) provides /bin/mailx
+Requires: (/usr/bin/mailx or /bin/mailx)
+%endif
 Requires: openssl
 Requires: sed
+Requires: util-linux
 
 %description
 This is a client for signing certificates with an ACME-server (currently
@@ -53,7 +61,6 @@ Current features:
 : nothing to do
 
 %install
-mkdir -p %{buildroot}%{_libexecdir}
 mkdir -p %{buildroot}%{_rundir}/dehydrated
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/accounts
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/archive
@@ -143,6 +150,10 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
+* Thu Dec 26 2024 Robert Scheck <robert@fedoraproject.org> - 0.7.1-6
+- Added missing dehydrated run-time requirements
+- Resolved: rhbz#2279854 dehydrated dependency issue on EL8
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

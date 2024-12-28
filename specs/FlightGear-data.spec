@@ -1,7 +1,7 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
 Version:        2020.3.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -9,6 +9,9 @@ Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3
 URL:            http://www.flightgear.org/
 BuildArch:      noarch
 Obsoletes:      fgfs-base < 1.9.0-1
+
+# Fix for rhbz#2331176
+BuildRequires:  ImageMagick
 
 %description
 This package contains the base scenery for FlightGear and must be
@@ -57,11 +60,18 @@ do
                 $RPM_BUILD_ROOT/%{_docdir}/%{name}
 done
 
+# Fix for rhbz#2331176
+file=$RPM_BUILD_ROOT/%{_datadir}/flightgear/Aircraft/Generic/Effects/null_bumpspec.png
+magick $file -resize 2 $file
+
 %files
 %doc %{_docdir}/%{name}
 %{_datadir}/flightgear
 
 %changelog
+* Thu Dec 26 2024 Fabrice Bellet <fabrice@bellet.info> - 2020.3.19-7
+- Fix for rhbz#2331176
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2020.3.19-6
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 %global majorver 0.3
 
 Name:           xfmpc
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        A MPD client for the Xfce desktop environment
 
@@ -10,12 +10,11 @@ License:        GPL-2.0-or-later
 URL:            http://goodies.xfce.org/projects/applications/%{name}
 Source0:        http://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libxfce4ui-devel >= 4.8.0
 BuildRequires:  libmpd-devel >= 0.15.0
 BuildRequires:  gettext
-BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
  
 %description

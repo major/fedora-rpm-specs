@@ -58,6 +58,15 @@ Obsoletes:      xfce4-session-devel <= 4.13.3
 %description
 xfce4-session is the session manager for the Xfce desktop environment.
 
+%package wayland-session
+Summary:       Wayland session for Xfce
+Requires:      %{name}%{?_isa} = %{version}-%{release}
+Requires:      labwc
+%description wayland-session
+Wayland session for Xfce. Currently requires labwc.
+Available for testing/advanced users.
+See https://wiki.xfce.org/releng/wayland_roadmap#testing
+
 %prep
 %autosetup -p1
 
@@ -96,10 +105,12 @@ cp -a %{SOURCE2} %{buildroot}%{_datadir}/applications/xfce-mimeapps.list
 %{_datadir}/applications/*.desktop
 %{_datadir}/applications/xfce-mimeapps.list
 %{_datadir}/xsessions/xfce.desktop
-%{_datadir}/wayland-sessions/xfce-wayland.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/polkit-1/actions/org.xfce.session.policy
 %{_mandir}/man1/*
+
+%files wayland-session
+%{_datadir}/wayland-sessions/xfce-wayland.desktop
 
 %changelog
 %autochangelog

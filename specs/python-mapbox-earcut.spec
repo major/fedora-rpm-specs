@@ -1,5 +1,5 @@
 Name:           python-mapbox-earcut
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Python bindings to the mapbox earcut C++ library
 
@@ -13,11 +13,17 @@ URL:            https://github.com/skogler/mapbox_earcut_python
 # The GitHub archive contains tests; the PyPI archive does not
 Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz
 
-BuildRequires:  python3-devel
+BuildSystem:            pyproject
+# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
+BuildOption(build):     %{shrink:
+                        -Clogging.level=INFO
+                        -Ccmake.verbose=true
+                        -Ccmake.build-type="RelWithDebInfo"
+                        -Cinstall.strip=false}
+BuildOption(install):   -L mapbox_earcut
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  make
+BuildRequires:  dos2unix
 
 # Header-only libraries; -static is for tracking, required by guidelines
 # Minimum version added downstream to ensure the latest bug fixes are present.
@@ -28,7 +34,8 @@ BuildRequires:  earcut-hpp-static
 # header-only—so, strictly speaking, we need this as well:
 BuildRequires:  pybind11-static
 
-BuildRequires:  dos2unix
+# For tests:
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 Python bindings for the C++ implementation of the Mapbox Earcut library, which
@@ -53,40 +60,28 @@ Summary:        %{summary}
 %description -n python3-mapbox-earcut %{common_description}
 
 
-%prep
-%autosetup -n mapbox_earcut_python-%{version}
-
+%prep -a
 # Remove bundled earcut.hpp library
-rm -rvf include
+rm -rv include/mapbox
 
 # Fix CRLF line endings in files that will be installed.
 dos2unix --keepdate *.md
 
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-
-%build
+%build -p
 # See comments in the earcut-hpp spec file, as well as:
 # https://github.com/mapbox/earcut.hpp/issues/97
 # https://github.com/mapbox/earcut.hpp/issues/103
 export CFLAGS="${CFLAGS-} -ffp-contract=off"
 export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 
-%pyproject_wheel
 
-
-%install
-%pyproject_install
-%pyproject_save_files -l mapbox_earcut
-
-
-%check
-%pytest
+%check -a
+%pytest -v
 
 
 %files -n python3-mapbox-earcut -f %{pyproject_files}
+%license LICENSE.md
 %doc README.md
 
 

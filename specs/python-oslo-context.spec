@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
+%global sources_gpg_sign 0x22284f69d9eccdf3df7819791c711af193ff8e54
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -14,8 +14,8 @@ The request context is usually populated in the \
 WSGI pipeline and used by various modules such as logging.
 
 Name:           python-%{pkg_name}
-Version:        5.6.0
-Release:        2%{?dist}
+Version:        5.7.0
+Release:        %autorelease
 Summary:        OpenStack Oslo Context library
 
 License:        Apache-2.0
@@ -121,102 +121,4 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %{python3_sitelib}/oslo_context/tests
 
 %changelog
-* Fri Nov 15 2024 Joel Capitao <jcapitao@redhat.com> 5.6.0-2
-- Use %tox macro
-
-* Mon Oct 07 2024 Joel Capitao <jcapitao@redhat.com> 5.6.0-1
-- Update to upstream version 5.6.0
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 5.5.0-4
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jul 10 2024 Python Maint <python-maint@redhat.com> - 5.5.0-2
-- Rebuilt for Python 3.13
-
-* Mon May 06 2024 Alfredo Moralejo <amoralej@redhat.com> 5.5.0-1
-- Update to upstream version 5.5.0
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 5.2.0-1
-- Update to upstream version 5.2.0
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 5.1.1-2
-- Rebuilt for Python 3.12
-
-* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.1-1
-- Update to upstream version 5.1.1
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 5.0.0-1
-- Update to upstream version 5.0.0
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 4.1.0-2
-- Rebuilt for Python 3.11
-
-* Thu May 19 2022 Joel Capitao <jcapitao@redhat.com> 4.1.0-1
-- Update to upstream version 4.1.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.2.0-2
-- Rebuilt for Python 3.10
-
-* Tue Mar 16 2021 Joel Capitao <jcapitao@redhat.com> 3.2.0-1
-- Update to upstream version 3.2.0
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Oct 28 2020 Alfredo Moralejo <amoralej@redhat.com> 3.1.1-2
-- Update to upstream version 3.1.1
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jun 03 2020 Joel Capitao <jcapitao@redhat.com> 3.0.2-1
-- Update to upstream version 3.0.2
-
-* Mon Jun 01 2020 Alfredo Moralejo <amoralej@redhat.com> - 2.23.0-5
-- Remove hacking as build requirement
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.23.0-4
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Nov 06 2019 Alfredo Moralejo <amoralej@redhat.com> 2.23.0-2
-- Update to upstream version 2.23.0
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 2.22.1-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 2.22.1-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Mar 08 2019 RDO <dev@lists.rdoproject.org> 2.22.1-1
-- Update to 2.22.1
-
+%autochangelog

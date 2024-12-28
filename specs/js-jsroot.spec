@@ -1,7 +1,7 @@
 %global jsname jsroot
 
 Name:		js-%{jsname}
-Version:	7.7.5
+Version:	7.8.0
 Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
@@ -87,6 +87,9 @@ end
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Thu Dec 26 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.8.0-1
+- Update to version 7.8.0
+
 * Fri Nov 15 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.7.5-1
 - Update to version 7.7.5
 

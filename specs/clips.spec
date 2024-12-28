@@ -2,12 +2,16 @@
 
 Summary:	Language for developing expert systems
 Name:		clips
-Version:	6.31
+# Versioning scheme changed 6.31 -> 6.4.1
+Epoch:    1
+Version:	6.4.1
+%global stripped_version %{lua: print((rpm.expand("%{version}"):gsub("%.", "")))}
+
 Release:	%{autorelease}
 Url:		http://clipsrules.sourceforge.net
 License:	MIT-0
-Source0:  https://downloads.sourceforge.net/clipsrules/CLIPS/6.31/clips_core_source_631.tar.gz
-Source1:  https://downloads.sourceforge.net/clipsrules/CLIPS/%{version}/clips_documentation_631.tar.gz
+Source0:  https://downloads.sourceforge.net/clipsrules/CLIPS/%{version}/clips_core_source_%{stripped_version}.tar.gz
+Source1:  https://downloads.sourceforge.net/clipsrules/CLIPS/%{version}/clips_documentation_%{stripped_version}.tar.gz
 Patch0:   clips.shared-lib.patch
 BuildRequires:  gcc-c++
 BuildRequires:	ncurses-devel 
@@ -91,8 +95,8 @@ The following are some of the documents in this package:
 - CLIPS Users Guide (ug.pdf,ug.htm)
 
 %prep
-%autosetup -p1 -n clips_core_source_631 -a 1
-%{__mv} clips_documentation_631 documentation
+%autosetup -p1 -n clips_core_source_%{stripped_version} -a 1
+%{__mv} clips_documentation_%{stripped_version} documentation
 
 %build
 cd core
