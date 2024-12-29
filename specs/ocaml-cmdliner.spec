@@ -12,6 +12,7 @@ Summary:        Declarative definition of command line interfaces for OCaml
 
 License:        ISC
 URL:            https://erratique.ch/software/cmdliner
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/cmdliner-%{version}.tbz
 
 BuildRequires:  ocaml
@@ -60,6 +61,9 @@ developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.3.0-4
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -6,20 +6,20 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-extlib
-Version:        1.7.9
-Release:        11%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPL-2.1-or-later with OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ygrek/ocaml-extlib
-Source0:        https://github.com/ygrek/ocaml-extlib/releases/download/%{version}/extlib-%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/releases/download/%{version}/extlib-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.02
-BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-dune >= 1.0
 BuildRequires:  ocaml-cppo
-BuildRequires:  ocaml-rpm-macros
+BuildRequires:  ocaml-findlib
 # In order to apply patches:
 BuildRequires:  git-core
 
@@ -87,6 +87,10 @@ make -C test all run
 
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1.8.0-1
+- Version 1.8.0
+- Build with dune
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

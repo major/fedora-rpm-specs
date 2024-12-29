@@ -4,10 +4,10 @@
 %global idna_ver 6.0.0
 %global jiffy_ver 1.1.1
 %global jose_ver 1.11.10
-%global yconf_ver 1.0.16
+%global yconf_ver 1.0.17
 
 Name:       erlang-%{srcname}
-Version:    1.0.24
+Version:    1.0.25
 Release:    %autorelease
 BuildArch:  noarch
 License:    Apache-2.0

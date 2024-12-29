@@ -1,13 +1,14 @@
 %global pypi_name pyairvisual
 
 Name:           python-%{pypi_name}
-Version:        5.0.5
-Release:        14%{?dist}
+Version:        2023.12.0
+Release:        1%{?dist}
 Summary:        Python API client for AirVisual air quality data
 
 License:        MIT
 URL:            https://github.com/bachya/pyairvisual
-Source0:        %{pypi_source}
+# pypi source does not contain tests
+Source0:        https://github.com/bachya/pyairvisual/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -18,8 +19,9 @@ air quality information.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-%{?python_provide:%python_provide python3-%{pypi_name}}
+# For tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-aresponses
 
 %description -n python3-%{pypi_name}
 pyairvisual is a simple library for interacting with AirVisual to retrieve
@@ -37,11 +39,19 @@ air quality information.
 %pyproject_install
 %pyproject_save_files %{pypi_name}
 
+%check
+# test_cloud_api requires network access
+%pytest -v --ignore examples/test_cloud_api.py
+
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 
 %changelog
+* Sat Dec 21 2024 Orion Poplawski <orion@nwra.com> - 2023.12.0-1
+- Update to 2023.12.0 for numpy 2.x support
+- Use github source and run tests
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

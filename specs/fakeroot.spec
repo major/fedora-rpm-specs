@@ -4,7 +4,7 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.36
+Version: 1.36.2
 Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
@@ -168,6 +168,10 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Fri Dec 27 2024 Packit <hello@packit.dev> - 1.36.2-1
+- Update to version 1.36.2
+- Resolves: rhbz#2333583
+
 * Sat Sep 07 2024 Packit <hello@packit.dev> - 1.36-1
 - Update to version 1.36
 - Resolves: rhbz#2305236

@@ -33,6 +33,9 @@ Patch3:         %{name}-japron-link.patch
 Patch4:         %{name}-hasvar.patch
 # Add a missing flint #include
 Patch5:         %{name}-flint.patch
+# Prevent segfaults in the OCaml garbage collector
+# https://github.com/antoinemine/apron/pull/112
+Patch6:         %{name}-ocaml-gc.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -137,6 +140,7 @@ Java interface to the APRON library.
 %endif
 %autopatch -m2 -p0
 
+%conf
 # Fix library path for 64-bit installs
 if [ "%{_lib}" = "lib64" ]; then
   sed -i 's,\${apron_prefix}/lib,&64,' configure

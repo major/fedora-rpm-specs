@@ -7,13 +7,14 @@ like TeXmacs, or output in any of the format's supported by the Graphviz	\
 tools dot, neato, twopi.
 
 Name:		pydot
-Version:	2.0.0
-Release:	3%{?dist}
+Version:	3.0.1
+Release:	1%{?dist}
 Summary:	Python interface to Graphviz's Dot language
 
 License:	MIT
 URL:		https://github.com/erocarrera/pydot
 Source0:	https://github.com/erocarrera/pydot/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch001:       0001-Tests-Add-coverage-use-pytest-as-test-runner-395.patch
 BuildArch:	noarch
 
 %description
@@ -51,6 +52,9 @@ Provides:	%{name} = %{version}-%{release}
 %doc ChangeLog README.md
 
 %changelog
+* Wed Sep 11 2024 Joel Capitao <jcapitao@redhat.com> - 3.0.1-1
+- Update to 3.0.1
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

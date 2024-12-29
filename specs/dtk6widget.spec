@@ -1,5 +1,5 @@
 Name:           dtk6widget
-Version:        6.0.24
+Version:        6.0.25
 Release:        %autorelease
 Summary:        Deepin base graphical widgets library
 License:        LGPL-3.0-or-later
@@ -21,8 +21,8 @@ BuildRequires:  cmake(Qt6ToolsTools)
 BuildRequires:  qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
-BuildRequires:  cmake(Dtk6Core)
-BuildRequires:  cmake(Dtk6Gui)
+BuildRequires:  cmake(Dtk6Core) >= %{version}
+BuildRequires:  cmake(Dtk6Gui) >= %{version}
 
 BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(libstartup-notification-1.0)

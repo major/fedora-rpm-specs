@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -473,6 +473,9 @@ fi
 %endif
 
 %changelog
+* Mon Dec 23 2024 Björn Esser <besser82@fedoraproject.org> - 20230429-15
+- Rebuild (libpqxx)
+
 * Thu Nov 14 2024 Orion Poplawski <orion@nwra.com> - 20230429-14
 - Rebuild for octave 9.2
 

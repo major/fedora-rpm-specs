@@ -25,6 +25,13 @@
 %global build_test OFF
 %endif
 
+%bcond_with export
+%if %{with export}
+%global build_compile_db ON
+%else
+%global build_compile_db OFF
+%endif
+
 # rccl is not supported on gfx1103
 # On 6.1.1
 # lld: error: ld-temp.o <inline asm>:1:25: specified hardware register is not supported on this GPU
@@ -40,7 +47,7 @@
 
 Name:           rccl
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -61,14 +68,12 @@ BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocm-smi-devel
 
 %if %{with test}
 BuildRequires:  gtest-devel
 %endif
 
-Requires:       rocm-rpm-macros-modules
 Requires:       %{name}-data = %{version}-%{release}
 
 # Only x86_64 works right now:
@@ -120,9 +125,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # Allow user to set AMDGPU_TARGETS
 sed -i -e '/AMD GPU targets to compile for/d' CMakeLists.txt
 
-# No parallel-jobs flag
-# sed -i -e '/parallel-jobs/d' CMakeLists.txt
-
 # No /opt/rocm/.info/version
 sed -i -e 's@cat ${ROCM_PATH}/.info/version@echo %{rocm_version}@' CMakeLists.txt
 
@@ -132,9 +134,10 @@ sed -i -e 's@rocm-core/rocm_version.h@rocm_version.h@' src/include/hip_rocm_vers
 %build
 %cmake \
     -DBUILD_TESTS=%{build_test} \
+    -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_CXX_COMPILER=/usr/bin/hipcc \
     -DCMAKE_C_COMPILER=/usr/bin/hipcc \
-    -DCMAKE_BUILD_TYPE=%{build_type} \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
@@ -183,6 +186,10 @@ fi
 %endif
 
 %changelog
+* Fri Dec 27 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-2
+- Add --with export
+- Remove unneeded requires rocm-rpm-macros-modules
+
 * Tue Dec 10 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
 - Update to 6.3
 

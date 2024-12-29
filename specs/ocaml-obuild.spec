@@ -13,7 +13,8 @@ Summary:        Simple package build system for OCaml
 Release:        4%{?dist}
 License:        BSD-2-Clause
 URL:            https://github.com/ocaml-obuild/obuild
-Source0:        https://github.com/ocaml-obuild/obuild/archive/refs/tags/obuild-v%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/obuild-v%{version}.tar.gz
 
 # Fix a partial function application
 # https://github.com/ocaml-obuild/obuild/issues/187
@@ -76,6 +77,9 @@ help2man \
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 0.1.11-4
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

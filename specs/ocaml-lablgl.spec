@@ -9,6 +9,7 @@ Summary:        LablGL is an OpenGL interface for Objective Caml
 License:        BSD-3-Clause
 
 URL:            https://github.com/garrigue/lablgl
+VCS:            git:%{url}.git
 Source0:        %{url}/archive/v%{version}/lablgl-%{version}.tar.gz
 
 # Adapt to OCaml 5
@@ -136,6 +137,9 @@ popd
 
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1:1.07-13
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

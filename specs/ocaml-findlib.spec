@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-findlib
-Version:        1.9.6
-Release:        14%{?dist}
+Version:        1.9.8
+Release:        1%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -29,7 +29,7 @@ BuildRequires:  make
 Requires:       ocaml
 
 # Do not require ocaml-compiler-libs at runtime
-%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Warnings
+%global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Oprint -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Topdirs -i Toploop -i Type_immediacy -i Types -i Unit_info -i Warnings
 
 
 %description
@@ -57,9 +57,6 @@ mv doc/README.utf8 doc/README
 # Fix the OCaml core man directory
 sed -i 's,/usr/local/man,%{_mandir},' configure
 
-# Configure bug?  dynlink_subdir is the empty string
-sed -i 's/\${dynlink_subdir}/dynlink/' configure
-
 # Build an executable that is not damaged by stripping
 sed -i 's/\(custom=\)-custom/\1-output-complete-exe/' configure
 
@@ -73,7 +70,7 @@ ocamlc -where
 (cd tools/extract_args && make)
 tools/extract_args/extract_args -o src/findlib/ocaml_args.ml ocamlc ocamlcp ocamlmktop ocamlopt ocamldep ocamldoc ||:
 cat src/findlib/ocaml_args.ml
-./configure -config %{_sysconfdir}/ocamlfind.conf \
+./configure -config %{_sysconfdir}/findlib.conf \
   -bindir %{_bindir} \
   -sitelib `ocamlc -where` \
   -mandir %{_mandir} \
@@ -86,29 +83,20 @@ rm doc/guide-html/TIMESTAMP
 
 
 %install
-# Grrr destdir grrrr
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{1,5}
-make install \
-     prefix=$RPM_BUILD_ROOT \
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
+%make_install \
      OCAMLFIND_BIN=%{_bindir} \
+     OCAMLFIND_CONF=%{_sysconfdir} \
      OCAMLFIND_MAN=%{_mandir}
-
-# Remove spurious executable bits
-chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man{1,5}/*
-chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/*.{cma,cmi,ml,mli,pattern}
-chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/{META,Makefile*}
-%ifarch %{ocaml_native_compiler}
-chmod 0644 $RPM_BUILD_ROOT%{_libdir}/ocaml/findlib/*.{a,cmxa}
-%endif
+rmdir $RPM_BUILD_ROOT%{_mandir}/man3
 
 %ocaml_files
-sed -i '/ocamlfind\.conf/d' .ofiles
+sed -i '/etc/d' .ofiles
 
 
 %files -f .ofiles
 %doc LICENSE doc/README
-%config(noreplace) %{_sysconfdir}/ocamlfind.conf
+%config(noreplace) %{_sysconfdir}/findlib.conf
 
 
 %files devel -f .ofiles-devel
@@ -116,6 +104,12 @@ sed -i '/ocamlfind\.conf/d' .ofiles
 
 
 %changelog
+* Thu Dec 19 2024 Jerry James <loganjerry@gmail.com> - 1.9.8-1
+- Version 1.9.8
+- Drop workaround for upstream dynlink_subdir bug
+- Change config name to findlib.conf to match upstream
+- Update __ocaml_requires_opts for OCaml 5.3.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

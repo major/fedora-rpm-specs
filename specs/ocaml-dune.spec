@@ -13,7 +13,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.16.1
+Version:        3.17.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -22,24 +22,21 @@ Summary:        Composable build system for OCaml and Reason
 # - vendor/cmdliner
 # - vendor/fmt
 # - vendor/notty
-# - vendor/opam-0install
 # - vendor/sha
 # - vendor/uutf
-# LGPL-2.0-only:
+# LGPL-2.1-only:
 # - vendor/incremental-cycles
-# LGPL-2.0-only WITH OCaml-LGPL-linking-exception
+# LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 # - vendor/ocaml-inotify
 # - vendor/opam
 # - vendor/opam-file-format
 # - vendor/re
-# LGPL-2.1-or-later:
-# - vendor/0install-solver
 # MIT:
 # - vendor/build_path_prefix_map
 # - vendor/fiber
 # - vendor/lwd
 # - vendor/spawn
-License:        MIT AND ISC AND LGPL-2.0-only AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later
+License:        MIT AND ISC AND LGPL-2.1-only AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://dune.build
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/dune-%{version}.tar.gz
@@ -48,10 +45,6 @@ Patch:          %{name}-no-lwt.patch
 # Temporary workaround for broken debuginfo (rhbz#2168932)
 # See https://github.com/ocaml/dune/issues/6929
 Patch:          %{name}-debuginfo.patch
-
-# Change to the furo theme for the docs
-# https://github.com/ocaml/dune/commit/9f3da04c1c27ff80e8d1ab71de15c53a0ca953da
-Patch:          use-furo-theme.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -62,12 +55,13 @@ BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-compiler-libs
 %if !0%{?rhel}
 BuildRequires:  ocaml-csexp-devel >= 1.5.0
-BuildRequires:  ocaml-pp-devel >= 1.2.0
+BuildRequires:  ocaml-pp-devel >= 2.0.0
 %endif
 BuildRequires:  ocaml-rpm-macros
 
 %if %{with docs}
 BuildRequires:  %{py3_dist furo}
+BuildRequires:  %{py3_dist myst-parser}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-design}
@@ -80,7 +74,6 @@ BuildRequires:  ocaml-lwt-devel >= 5.6.0
 # Dune has vendored deps to avoid dependency cycles.  Upstream deliberately
 # does not support unbundling these dependencies.
 # See https://github.com/ocaml/dune/issues/220
-Provides:       bundled(ocaml-0install-solver) = 2.18
 Provides:       bundled(ocaml-build-path-prefix-map) = 0.3
 Provides:       bundled(ocaml-cmdliner) = 1.2.0
 Provides:       bundled(ocaml-fiber) = 3.7.0
@@ -90,7 +83,6 @@ Provides:       bundled(ocaml-inotify) = 2.3
 Provides:       bundled(ocaml-lwd) = 0.3
 Provides:       bundled(ocaml-notty) = 0.2.3
 Provides:       bundled(ocaml-opam) = 2.2.0~alpha2
-Provides:       bundled(ocaml-opam-0install) = 0.4.3
 Provides:       bundled(ocaml-opam-file-format) = 2.1.6
 Provides:       bundled(ocaml-re) = 1.11.0
 Provides:       bundled(ocaml-sha) = 1.15.4
@@ -598,6 +590,11 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 3.17.1-1
+- Version 3.17.1
+- Update License field for changes in vendored dependencies
+- Drop upstreamed furo theme patch
+
 * Thu Oct 31 2024 Jerry James <loganjerry@gmail.com> - 3.16.1-1
 - Version 3.16.1
 

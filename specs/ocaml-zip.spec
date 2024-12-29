@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/xavierleroy/camlzip
 
 Name:           ocaml-zip
-Version:        1.12
+Version:        1.13
 Release:        1%{?dist}
 Summary:        OCaml library for reading and writing zip, jar and gzip files
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -14,13 +14,15 @@ License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://xavierleroy.org/software.html
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/rel%{upver}.tar.gz
+# Use zlib-ng directly rather than through the zlib compatibility API
+Patch:          %{name}-zlib-ng.patch
 
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.07.0
+BuildRequires:  ocaml >= 4.13.0
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(zlib-ng)
 
 
 %description
@@ -33,6 +35,7 @@ formats.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       zlib-ng-devel%{?_isa}
 
 
 %description    devel
@@ -92,6 +95,10 @@ cmp Makefile Makefile.uncompressed
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.13-1
+- Version 1.13
+- Add patch to use zlib-ng instead of zlib
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 1.12-1
 - Version 1.12
 - Drop upstreamed Unix module patch

@@ -4,8 +4,8 @@
 Name:           libpqxx
 Summary:        C++ client API for PostgreSQL
 Epoch:          1
-Version:        7.9.1
-Release:        3%{?dist}
+Version:        7.10.0
+Release:        1%{?dist}
 
 %global         forgeurl https://github.com/jtv/%{name}/
 %global         tag %{version}
@@ -15,9 +15,6 @@ Release:        3%{?dist}
 License:        LicenseRef-Callaway-BSD
 URL:            http://pqxx.org/
 Source0:        %{forgesource}
-
-# Upstream: https://github.com/jtv/libpqxx/commit/5759ebf03891e6850d95fccc13fa926a1617c5a2.patch
-Patch0000:      cmake-doc-doxygen-html.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -77,7 +74,7 @@ cd -
 %files
 %doc AUTHORS NEWS README.md VERSION
 %license COPYING
-%{_libdir}/%{name}-7.9.so
+%{_libdir}/%{name}-7.10.so
 
 %files devel
 %dir %{_libdir}/cmake/%{name}
@@ -107,6 +104,10 @@ cd -
 %endif
 
 %changelog
+* Mon Dec 23 2024 Björn Esser <besser82@fedoraproject.org> - 1:7.10.0-1
+- Update to v7.10.0
+  Fixes rhbz#2224963
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1:7.9.1-3
 - convert license to SPDX
 

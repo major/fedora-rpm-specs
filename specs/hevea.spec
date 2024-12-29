@@ -64,7 +64,7 @@ ulimit -s unlimited
 %endif
 	PREFIX=%{_prefix} \
 	LIBDIR=%{_datadir}/%{name} \
-	LATEXLIBDIR=%{_texmf}/tex/latex/hevea
+	LATEXLIBDIR=%{_texmf_main}/tex/latex/hevea
 
 
 %install
@@ -74,7 +74,7 @@ ulimit -s unlimited
 %endif
 	PREFIX=%{_prefix} \
 	LIBDIR=%{_datadir}/hevea \
-	LATEXLIBDIR=%{_texmf}/tex/latex/hevea
+	LATEXLIBDIR=%{_texmf_main}/tex/latex/hevea
 
 # Link, rather than copy, identical files
 rm %{buildroot}%{_datadir}/hevea/{info,text}/report.hva
@@ -86,7 +86,7 @@ ln %{buildroot}%{_datadir}/hevea/html/report.hva \
 # Fix up the examples for installation
 rm examples/.gitignore
 rm examples/hevea.sty
-ln -s %{_texmf}/tex/latex/hevea/hevea.sty examples
+ln -s %{_texmf_main}/tex/latex/hevea/hevea.sty examples
 
 
 %files
@@ -94,10 +94,13 @@ ln -s %{_texmf}/tex/latex/hevea/hevea.sty examples
 %license LICENSE
 %{_bindir}/*
 %{_datadir}/hevea
-%{_texmf}/tex/latex/hevea/
+%{_texmf_main}/tex/latex/hevea/
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 2.36-15
+- Install into _texmf_main instead of _texmf
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -12,6 +12,7 @@ Summary:        Include files in OCaml code
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/gildor478/ocamlify
+VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # rerun `oasis setup` using OASIS 0.4.11
@@ -70,6 +71,9 @@ ocaml -I +camlp-streams setup.ml -test
 
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 0.0.2-46
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

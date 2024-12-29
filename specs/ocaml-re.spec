@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 # This package is needed to build lwt, which is used to build ounit, but this
 # package needs ounit to run its tests.  Break the dependency cycle here.
-%bcond_with test
+%bcond test 0
 
 Name:           ocaml-re
 Version:        1.13.3
@@ -16,7 +16,8 @@ Summary:        A regular expression library for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/ocaml-re
-Source0:        https://github.com/ocaml/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Fedora's OCaml is new enough that we don't need the seq compatibility library
 Patch:          ocaml-re-remove-seq.patch
@@ -69,6 +70,10 @@ sed -i 's/oUnit/ounit2/' lib_test/fort_unit/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.13.3-1
+- Add VCS field
+- Use %%bcond instead of %%bcond_with
+
 * Thu Oct 03 2024 Richard W.M. Jones <rjones@redhat.com> - 1.13.3-1
 - Rebase to 1.13.3 (RHBZ#2316157)
 

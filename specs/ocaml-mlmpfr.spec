@@ -16,6 +16,11 @@ License:        LGPL-3.0-only
 URL:            https://thvnx.github.io/mlmpfr/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/mlmpfr.%{version}.tar.gz
+# Fix a build failure with OCaml 5.3.0
+Patch:          %{name}-internals.patch
+# Adapt the tests to dune 3.17.0
+# https://github.com/thvnx/mlmpfr/commit/1e0c151ec39898dcb12d5b2cdc8184e7669f02a3
+Patch:          %{name}-dune.patch
 
 BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-dune >= 2.9
@@ -38,7 +43,7 @@ The %{name}-devel package contains libraries and signature files
 for developing applications that use %{name}.
 
 %prep
-%autosetup -n mlmpfr-mlmpfr.%{version}
+%autosetup -n mlmpfr-mlmpfr.%{version} -p1
 
 %build
 # Make sure this version is compatible with our mpfr version
@@ -64,6 +69,10 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 4.2.1-6
+- Add patch to fix a build failure with OCaml 5.3.0
+- Add patch to adapt the tests to dune 3.17.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

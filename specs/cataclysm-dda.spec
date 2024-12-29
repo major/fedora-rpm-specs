@@ -1,18 +1,15 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
-Version:        0.G
-Release:        5%{?dist}
+Version:        0.H
+Release:        1%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:        LicenseRef-Callaway-CC-BY-SA
 URL:            http://cataclysmdda.org
-# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.G.tar.gz
-Source0:        Cataclysm-DDA-0.G.tar.gz
-# https://github.com/CleverRaven/Cataclysm-DDA/commit/9ffcd2bb42b84ee4a8d13d5eb549a95cfeb19b0d
-Patch0:         compiler_warnings.patch
-# https://github.com/CleverRaven/Cataclysm-DDA/commit/d5cc23912d19a50f85e68460a9bcf0e014cd35d2
-Patch1:         compile_fix.patch
+# https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/tags/0.H-RELEASE.tar.gz
+Source0:        Cataclysm-DDA-0.H-RELEASE.tar.gz
+Patch0:         const_compile_fix.patch
 
 # Due virtual memory exhausted and build fail
 ExcludeArch:    i686
@@ -88,7 +85,7 @@ Data files for %{name}-tiles.
 
 
 %prep
-%autosetup -n Cataclysm-DDA-0.G -p1
+%autosetup -n Cataclysm-DDA-0.H-RELEASE -p1
 
 
 %build

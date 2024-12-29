@@ -3,6 +3,9 @@
 
 Name:     elixir
 Version:  1.18.1
+
+%global __requires_exclude_from ^%{_datadir}/%{name}/%{version}/bin/.+\\.ps1$
+
 Release:  %autorelease
 Summary:  A modern approach to programming for the Erlang VM
 License:  Apache-2.0

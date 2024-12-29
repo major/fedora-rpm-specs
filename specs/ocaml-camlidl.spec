@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlidl
 Version:        1.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
@@ -21,6 +21,10 @@ Source1:        https://raw.githubusercontent.com/ocaml/opam-repository/master/p
 Patch1:         0001-Allow-destdir-installs.patch
 # Pass -g option to ocamlmklib.
 Patch2:         0002-Pass-g-option-to-ocamlmklib.patch
+# Avoid segfaults in OCaml GC
+# https://github.com/xavierleroy/camlidl/commit/346de7b484a087a035af7d14a76d6c1693915e08
+# https://github.com/xavierleroy/camlidl/commit/64a30a2385b30cbaf159e0709895ed3efc7ece3f
+Patch3:         %{name}-gc-segfault.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml
@@ -104,6 +108,9 @@ sed '/version/adirectory = "^"' %{SOURCE1} > \
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.12-10
+- Add upstream patch to fix segfaults in OCaml GC with OCaml 5.3.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

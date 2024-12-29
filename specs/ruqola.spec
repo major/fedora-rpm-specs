@@ -1,5 +1,5 @@
 Name:          ruqola
-Version:       2.3.2
+Version:       2.4.0
 Release:       1%{?dist}
 Summary:       Qt-based client for Rocket Chat
 
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ru
 %{_docdir}/HTML/en/ruqola/index.docbook
 
 %changelog
+* Sat Dec 28 2024 Steve Cossette <farchord@gmail.com> - 2.4.0-1
+- 2.4.0
+
 * Sun Dec 01 2024 Alessandro Astone <ales.astone@gmail.com> - 2.3.2-1
 - new version
 

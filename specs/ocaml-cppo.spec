@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-community/cppo
 
 Name:           ocaml-cppo
-Version:        1.6.9
-Release:        11%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Equivalent of the C preprocessor for OCaml programs
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ at build time.  To use it, call ocamlbuild with the argument
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.8.0-1
+- Version 1.8.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

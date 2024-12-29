@@ -16,8 +16,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-dune/pp
 
 Name:           ocaml-pp
-Version:        1.2.0
-Release:        9%{?dist}
+Version:        2.0.0
+Release:        %autorelease
 Summary:        Pretty printing library for OCaml
 
 License:        MIT
@@ -25,9 +25,9 @@ URL:            https://ocaml-dune.github.io/pp/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/pp-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.04.0
+BuildRequires:  ocaml >= 4.08
 %if %{with dune}
-BuildRequires:  ocaml-dune >= 2.0
+BuildRequires:  ocaml-dune >= 2.8
 %else
 BuildRequires:  ocaml-rpm-macros
 %endif
@@ -104,7 +104,7 @@ plugin(native) = "pp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/pp/dune-package << EOF
-(lang dune 3.15)
+(lang dune 3.17)
 (name pp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/pp))
@@ -162,58 +162,4 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jun 19 2024 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-8
-- OCaml 5.2.0 ppc64le fix
-
-* Wed May 29 2024 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-7
-- OCaml 5.2.0 for Fedora 41
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Dec 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-4
-- OCaml 5.1.1 + s390x code gen fix for Fedora 40
-
-* Tue Dec 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-3
-- OCaml 5.1.1 rebuild for Fedora 40
-
-* Thu Oct 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.0-2
-- OCaml 5.1 rebuild for Fedora 40
-
-* Wed Oct  4 2023 Jerry James <loganjerry@gmail.com> - 1.2.0-1
-- Version 1.2.0
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-7
-- OCaml 5.0 rebuild for Fedora 39
-
-* Mon Jul 10 2023 Jerry James <loganjerry@gmail.com> - 1.1.2-6
-- OCaml 5.0.0 rebuild
-- Support building without dune
-
-* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.2-5
-- Rebuild OCaml packages for F38
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 1.1.2-2
-- Drop explicit python3 dependency
-
-* Thu Jun 30 2022 Jerry James <loganjerry@gmail.com> - 1.1.2-2
-- Drop support for building without dune
-- Temporarily add python3 dependency until dune 3.x is bootstrapped
-
-* Tue Jun 28 2022 Jerry James <loganjerry@gmail.com> - 1.1.2-1
-- Initial RPM
+%autochangelog

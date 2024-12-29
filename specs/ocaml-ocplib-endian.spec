@@ -12,7 +12,8 @@ Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/OCamlPro/ocplib-endian
-Source0:        https://github.com/OCamlPro/ocplib-endian/archive/%{version}/ocplib-endian-%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/%{version}/ocplib-endian-%{version}.tar.gz
 # Remove dependency on base-bytes
 Patch0:         https://github.com/OCamlPro/ocplib-endian/pull/26.patch
 
@@ -61,6 +62,9 @@ signature files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1.2-19
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

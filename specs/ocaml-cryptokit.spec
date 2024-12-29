@@ -14,13 +14,15 @@ License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception AND LGPL-2.1
 URL:            https://github.com/xavierleroy/cryptokit/
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/release%{upver}/cryptokit-%{version}.tar.gz
+# Use zlib-ng directly instead of via the zlib compatibility API
+Patch:          %{name}-zlib-ng.patch
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-dune >= 2.5
 BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-zarith-devel >= 1.4
 BuildRequires:  pkgconfig(gmp)
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(zlib-ng)
 
 
 %description
@@ -60,7 +62,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n cryptokit-release%{upver}
+%autosetup -n cryptokit-release%{upver} -p1
 
 
 %build
@@ -90,6 +92,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1.20.1-2
+- Use zlib-ng instead of zlib
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

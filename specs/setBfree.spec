@@ -11,7 +11,7 @@ Summary:        A DSP Tonewheel Organ emulator
 
 # Automatically converted from old format: GPLv2+ and GPLv3+ and ISC - review is highly recommended.
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND ISC
-URL:            http://setbfree.org
+URL:            https://setbfree.org
 # Not present in releases, but tagged on GitHub
 Source0:        https://github.com/pantherb/setBfree/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop

@@ -5,7 +5,7 @@
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
 Version:        5.15.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 BuildArch:      noarch
 
 # Some examples are BSD-3-Clause and MIT, but examples are not packaged
@@ -55,7 +55,7 @@ MinGW Windows PyQt5
 
 %package -n mingw32-python3-qt5
 Summary:       MinGW Windows Python3-Qt5
-Requires:      mingw32-python3-PyQt5_sip
+Requires:      mingw32-python3-pyqt5-sip
 
 %description -n mingw32-python3-qt5
 MinGW Windows Python3-Qt5
@@ -63,7 +63,7 @@ MinGW Windows Python3-Qt5
 
 %package -n mingw64-python3-qt5
 Summary:       MinGW Windows Python3-Qt5
-Requires:      mingw64-python3-PyQt5_sip
+Requires:      mingw64-python3-pyqt5-sip
 
 %description -n mingw64-python3-qt5
 MinGW Windows Python3-Qt5
@@ -103,6 +103,9 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 
 %changelog
+* Fri Dec 27 2024 Sandro Mani <manisandro@gmail.com> - 5.15.10-10
+- Fix requires
+
 * Wed Dec 25 2024 Sandro Mani <manisandro@gmail.com> - 5.15.10-9
 - Rebuild (sip)
 

@@ -9,7 +9,7 @@ Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
 License:        MIT AND LGPL-2.0-only
-URL:            https://www.tacc.utexas.edu/tacc-projects/lmod
+URL:            https://tacc.utexas.edu/research/tacc-research/lmod/
 Source0:        https://github.com/TACC/Lmod/archive/%{version}/Lmod-%{version}.tar.gz
 Source1:        macros.%{name}
 

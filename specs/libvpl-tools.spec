@@ -1,5 +1,5 @@
 Name:           libvpl-tools
-Version:        1.2.0
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Intel Video Processing Library (Intel VPL) Tools
 License:        MIT
@@ -15,6 +15,8 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gtest-devel
 BuildRequires:  libvpl-devel >= 2.11.0
+BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(gtkmm-4.0)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.91
 BuildRequires:  pkgconfig(libva) >= 1.2
 BuildRequires:  pkgconfig(libva-drm) >= 1.2
@@ -98,6 +100,9 @@ rm -rf ext/*
 %{_libdir}/libvpl_wayland.so.*
 
 %changelog
+* Fri Dec 27 2024 Simone Caronni <negativo17@gmail.com> - 1.3.0-1
+- Update to 1.3.0.
+
 * Tue Sep 10 2024 Simone Caronni <negativo17@gmail.com> - 1.2.0-1
 - Update to 1.2.0.
 

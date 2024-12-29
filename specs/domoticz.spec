@@ -2,8 +2,8 @@
 #global git_hash df9de7020c4317a484c39f7330e6d1c9ca3d9ec9
 
 Name:		domoticz
-Version:	2023.2
-Release:	7%{?dist}
+Version:	2024.7
+Release:	1%{?dist}
 Summary:	Open source Home Automation System
 
 # Automatically converted from old format: GPLv3+ and ASL 2.0 and Boost and BSD and MIT - review is highly recommended.
@@ -33,7 +33,6 @@ BuildRequires:	gcc-c++
 BuildRequires:	git
 BuildRequires:	jsoncpp-devel
 BuildRequires:	libopenzwave-devel >= 1.6.0
-BuildRequires:	pkgconfig(libusb-1.0)
 BuildRequires:	lua-devel
 BuildRequires:	make
 BuildRequires:	minizip-compat-devel
@@ -51,7 +50,9 @@ Requires(postun):	systemd
 Requires(preun):	systemd
 
 Requires:	google-droid-sans-fonts
+Recommends:     mosquitto
 Recommends:	system-python-libs >= 3.4
+#Recommends:     zwave-js-ui
 
 Provides:	bundled(js-ace)
 Provides:	bundled(js-angularamd) = 0.2.1
@@ -98,11 +99,6 @@ any mobile device
 %patch -P 3 -p1 -b.python-link
 # Add support for future versions of Python by replacing hardcoded version with macro
 sed -i 's/-lpythonVER/-lpython%{python3_version}/' CMakeLists.txt
-rm -f hardware/openzwave/*.h
-rm -rf hardware/openzwave/aes
-rm -rf hardware/openzwave/command_classes
-rm -rf hardware/openzwave/platform
-rm -rf hardware/openzwave/value_classes
 rm -rf sqlite/
 rm -rf tinyxpath/
 cp -p %{SOURCE3} ./appversion.h

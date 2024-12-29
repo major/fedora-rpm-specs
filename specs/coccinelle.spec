@@ -198,7 +198,7 @@ target="all-dev docs"
 # NOTE: Do not use smp_mflags!  It breaks the build.
 unset MAKEFLAGS
 
-make $target
+make $target VERBOSE=yes
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/python/coccilib
@@ -285,6 +285,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 1.3-1
+- Build verbosely
+
 * Wed Nov 13 2024 Richard W.M. Jones <rjones@redhat.com> - 1.3-1
 - Update to 1.3 (RHBZ#2326000)
 

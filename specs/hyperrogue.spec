@@ -1,9 +1,9 @@
-%global version_tag 12.0m
+%global version_tag 13.0w
 %global _lto_cflags %nil
 
 Name:           hyperrogue
-Version:        12.0
-Release:        16.m%{?dist}
+Version:        13.0
+Release:        1.w%{?dist}
 Summary:        An SDL roguelike in a non-euclidean world
 
 # The game is under the GPLv2 (savepng.* is under zlib) and the music under CC-BY-SA (v3) and sounds under CC-BY-SA 4.0, CC-BY 4.0 and CC0
@@ -15,7 +15,6 @@ Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
 Source3:        http://roguetemple.com/z/hyper/bigicon-osx.png
 Patch0:         %{name}-gccfix.patch
-Patch1:         %{name}-make.patch
 
 BuildRequires:  gcc, gcc-c++
 BuildRequires:  SDL-devel
@@ -56,7 +55,6 @@ Data files for hypperrogue.
 %prep
 %setup -q -n %{name}-%{version_tag}
 %patch -P0 -p1
-%patch -P1 -p1
 
 %build
 %make_build CXXFLAGS="%{optflags} -Wno-invalid-offsetof -I%{_includedir}/SDL -DHYPERPATH=\\\"%{_datadir}/%{name}/\\\" -DHYPERFONTPATH=\\\"%{_datadir}/fonts/dejavu-sans-fonts/\\\""
@@ -73,7 +71,8 @@ install -pDm644 music/* %{buildroot}%{_datadir}/%{name}/music/
 mkdir -p %{buildroot}%{_datadir}/%{name}/sounds
 install -pDm644 sounds/* %{buildroot}%{_datadir}/%{name}/sounds/
 mkdir -p %{buildroot}%{_datadir}/%{name}/rogueviz
-install -pDm644 rogueviz/* %{buildroot}%{_datadir}/%{name}/rogueviz/
+install -pDm644 rogueviz/*.cpp rogueviz/*.h %{buildroot}%{_datadir}/%{name}/rogueviz/
+install -pDdm644 rogueviz/ads rogueviz/dhrg rogueviz/models rogueviz/nilrider rogueviz/sag rogueviz/som %{buildroot}%{_datadir}/%{name}/rogueviz/
 install -pDm644 hyperrogue-music.txt %{buildroot}%{_datadir}/%{name}/
 mkdir -p %{buildroot}%{_defaultdocdir}/%{name}
 install -pDm644 README.md %{buildroot}%{_defaultdocdir}/%{name}/
@@ -105,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri Dec 27 2024 Dennis Payne <dulsi@identicalsoftware.com> - 13.0-1.w
+- Latest release
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 12.0-16.m
 - convert license to SPDX
 

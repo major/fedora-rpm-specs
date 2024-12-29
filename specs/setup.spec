@@ -34,12 +34,10 @@ Source0034: uidgidlint
 Source0035: serviceslint
 
 BuildArch: noarch
-#systemd-rpm-macros: required to use _tmpfilesdir macro
-# https://fedoraproject.org/wiki/Changes/Remove_make_from_BuildRoot
-BuildRequires: make
 BuildRequires: bash
 BuildRequires: tcsh
 BuildRequires: perl-interpreter
+#systemd-rpm-macros: required to use _sysusersdir and _tmpfilesdir macro
 BuildRequires: systemd-rpm-macros
 #require system release for saner dependency order
 Requires: system-release
@@ -76,8 +74,6 @@ tcsh -f etc/csh.login
 (cd etc && perl %SOURCE35 ./services)
 
 %install
-rm -rf %{buildroot}
-
 mkdir -p %{buildroot}/etc
 cp -ar etc/* %{buildroot}/etc/
 
@@ -100,23 +96,64 @@ echo "f /run/motd 0644 root root -" >%{buildroot}%{_tmpfilesdir}/%{name}.conf
 echo "d /run/motd.d 0755 root root -" >>%{buildroot}%{_tmpfilesdir}/%{name}.conf
 chmod 0644 %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
-# make setup a protected package
-install -p -d -m 755 %{buildroot}/etc/dnf/protected.d/
+# Install yum protection config. Old location in /etc.
+mkdir -p %{buildroot}/etc/dnf/protected.d/
 echo "setup" >%{buildroot}/etc/dnf/protected.d/setup.conf
+# Install dnf5 protection config. New location under /usr.
+mkdir -p %{buildroot}/usr/share/dnf5/libdnf.conf.d/
+cat >%{buildroot}/usr/share/dnf5/libdnf.conf.d/protect-setup.conf <<EOF
+[main]
+protected_packages = setup
+EOF
 
-#throw away useless and dangerous update stuff until rpm will be able to
-#handle it ( http://rpm.org/ticket/6 )
 %post -p <lua>
+-- Throw away useless and dangerous update stuff until rpm will be able to
+-- handle it.  See: http://rpm.org/ticket/6
 for i, name in ipairs({"passwd", "shadow", "group", "gshadow"}) do
    os.remove("/etc/"..name..".rpmnew")
 end
+-- Use rpm.spawn() if available (in >= 4.20) but fallback to forking if not.
+--
+-- Initialize or update /etc/alias.db from /etc/aliases for sendmail, etc.
 if posix.access("/usr/bin/newaliases", "x") then
-  local pid = posix.fork()
-  if pid == 0 then
-    posix.redirect2null(1)
-    posix.exec("/usr/bin/newaliases")
-  elseif pid > 0 then
-    posix.wait(pid)
+  if rpm.spawn ~= nil then
+    rpm.spawn({'/usr/bin/newaliases'}, {stdout='/dev/null'})
+  else
+    local pid = posix.fork()
+    if pid == 0 then
+      posix.redirect2null(1)
+      posix.exec("/usr/bin/newaliases")
+    elseif pid > 0 then
+      posix.wait(pid)
+    end
+  end
+end
+-- Ensure pre-allocated users and groups are created immediately on upgrades.
+if posix.access("/usr/bin/systemd-sysusers", "x") then
+  if rpm.spawn ~= nil then
+    rpm.spawn({"/usr/bin/systemd-sysusers"}, {stderr='/dev/null'})
+  else
+    local pid = posix.fork()
+    if pid == 0 then
+      posix.redirect2null(2)
+      posix.exec("/usr/bin/systemd-sysusers")
+    elseif pid > 0 then
+      posix.wait(pid)
+    end
+  end
+end
+-- Ensure pre-allocated tmpfiles are created immediately on upgrades.
+if posix.access("/usr/bin/systemd-tmpfiles", "x") then
+  if rpm.spawn ~= nil then
+    rpm.spawn({"/usr/bin/systemd-tmpfiles", "--create"}, {stderr='/dev/null'})
+  else
+    local pid = posix.fork()
+    if pid == 0 then
+      posix.redirect2null(2)
+      posix.exec("/usr/bin/systemd-tmpfiles", "--create")
+    elseif pid > 0 then
+      posix.wait(pid)
+    end
   end
 end
 
@@ -161,6 +198,9 @@ end
 %{_sysusersdir}/20-setup-groups.conf
 %{_sysusersdir}/20-setup-users.conf
 /etc/dnf/protected.d/%{name}.conf
+%dir /usr/share/dnf5
+%dir /usr/share/dnf5/libdnf.conf.d
+/usr/share/dnf5/libdnf.conf.d/protect-setup.conf
 
 %changelog
 %autochangelog

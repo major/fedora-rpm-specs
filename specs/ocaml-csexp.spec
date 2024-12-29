@@ -94,7 +94,7 @@ plugin(native) = "csexp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
-(lang dune 3.15)
+(lang dune 3.17)
 (name csexp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/csexp))
@@ -152,6 +152,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.5.2-13
+- Bump the dune lang up to 3.17
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

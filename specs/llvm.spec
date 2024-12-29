@@ -52,7 +52,9 @@
 %endif
 
 # The libcxx build condition also enables libcxxabi and libunwind.
-%if %{without compat_build} && 0%{?fedora}
+# Fedora 41 is the first version that enabled FatLTO for clang-built files.
+# Without FatLTO, we can't enable ThinLTO and link using GNU LD.
+%if %{without compat_build} && 0%{?fedora} >= 41
 %bcond_without libcxx
 %else
 %bcond_with libcxx

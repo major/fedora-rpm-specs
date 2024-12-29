@@ -1,21 +1,11 @@
 Name:           libxls
-Version:        1.6.2
-Release:        %autorelease -b 0
+Version:        1.6.3
+Release:        %autorelease
 Summary:        Read binary Excel files from C/C++
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/libxls/libxls
 Source0:        https://github.com/libxls/libxls/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# All for CVE-2021-27836
-Patch0001:      https://github.com/libxls/libxls/pull/95.patch
-Patch0002:      https://github.com/libxls/libxls/pull/96.patch
-Patch0003:      https://github.com/libxls/libxls/pull/97.patch
-# Fixes build with GCC 13
-Patch0004:      https://github.com/libxls/libxls/pull/118.patch
-# Fixes CVE-2023-38852
-Patch0005:      https://github.com/libxls/libxls/pull/129.patch
-Patch0006:      https://github.com/libxls/libxls/pull/131.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

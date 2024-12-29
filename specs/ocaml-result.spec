@@ -13,7 +13,8 @@ Release:        26%{?dist}
 Summary:        Compat result type
 
 License:        BSD-3-Clause
-URL:            https://github.com/janestreet/result/
+URL:            https://github.com/janestreet/result
+VCS:            git:%{url}.git
 Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
@@ -52,6 +53,9 @@ files for developing applications that use %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.5-26
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

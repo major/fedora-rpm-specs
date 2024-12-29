@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-omake/omake
 
 Name:           ocaml-omake
-Version:        0.10.6
-Release:        13%{?dist}
+Version:        0.10.7
+Release:        1%{?dist}
 Summary:        Build system with automated dependency analysis
 
 # License breakdown:
@@ -89,7 +89,7 @@ features many additional enhancements, including the following.
 %autosetup -n omake-omake-%{version}
 
 # Look in the right place for hevea.sty
-sed -i 's,\$(HEVEA_DIR)\(/hevea\.sty\),%{_texmf}/tex/latex/hevea\1,' doc/OMakefile
+sed -i 's,\$(HEVEA_DIR)\(/hevea\.sty\),%{_texmf_main}/tex/latex/hevea\1,' doc/OMakefile
 
 # Use the right libdir
 if [ "%{_lib}" != "lib" ]; then
@@ -99,6 +99,11 @@ fi
 
 # Use the right mandir
 sed -i 's,\(\$(PREFIX)/\)man,\1share/man,g' mk/defaults mk/make_config
+
+%ifarch %{ocaml_native_compiler}
+# Skip a broken test for cmxs support
+sed -i 's/ocamlopt -shared -o \.dummy\.cmxs/true/' lib/build/OCaml.om
+%endif
 
 
 %build
@@ -132,6 +137,11 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man1/omake.1
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 0.10.7-1
+- Version 0.10.7
+- Adapt to changed hevea path
+- Work around a broken test for cmxs support
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

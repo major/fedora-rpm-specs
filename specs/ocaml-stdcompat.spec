@@ -1,28 +1,33 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
+# Build from git HEAD for OCaml 5.x support
+%global commit      d53390d788027fe0a2282c4745eb3d1626341f99
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date        20240529
 
 Name:           ocaml-stdcompat
-Version:        19
-Release:        18%{?dist}
+Version:        19^%{date}.%{shortcommit}
+Release:        1%{?dist}
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
 URL:            https://github.com/thierry-martinez/stdcompat
 VCS:            git:%{url}.git
-Source:         %{url}/releases/download/v%{version}/stdcompat-%{version}.tar.gz
+Source:         %{url}/archive/%{commit}/stdcompat-%{shortcommit}.tar.gz
 # Fix detection of OCaml tools
 # https://github.com/thierry-martinez/stdcompat/pull/31
 Patch:          %{name}-configure.patch
-# Add support for OCaml 5.2
-# https://github.com/thierry-martinez/stdcompat/pull/33
-Patch:          %{name}-ocaml5.2.patch
+# Add support for OCaml 5.3
+# https://github.com/thierry-martinez/stdcompat/pull/35
+Patch:          %{name}-ocaml5.3.patch
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-rpm-macros
 
-# Needed only until Patch0 is merged upstream
+# Needed only until the configure patch is merged upstream
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -52,7 +57,7 @@ The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n stdcompat-%{version} -p1
+%autosetup -n stdcompat-%{commit} -p1
 
 # Regenerate configure after Patch0 and Patch1
 autoreconf -fi .
@@ -93,12 +98,16 @@ LD_LIBRARY_PATH=$PWD make test
 %endif
 
 %files -f .ofiles
-%doc AUTHORS ChangeLog README
+%doc AUTHORS CHANGES.md README.md
 %license COPYING
 
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 19^20240529.d53390d-1
+- Update to git HEAD for OCaml 5.x compatibility
+- Add patch for OCaml 5.3.0 compatibility
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 19-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

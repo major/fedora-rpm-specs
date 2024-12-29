@@ -7,8 +7,8 @@ This module parses the most common forms of ISO 8601 date strings \
 %bcond tests %{undefined rhel}
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        8%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Simple module to parse ISO 8601 dates
 
 License:        MIT
@@ -28,8 +28,6 @@ BuildRequires:  python3-devel
 
 %prep
 %autosetup -p 1 -n %{srcname}-%{version}
-# relax upper bounds on dependencies
-sed -e 's/\^/>=/' -i pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test}
@@ -39,7 +37,7 @@ sed -e 's/\^/>=/' -i pyproject.toml
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files -L %{srcname}
 
 %check
 %if %{with tests}
@@ -49,10 +47,13 @@ sed -e 's/\^/>=/' -i pyproject.toml
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE
+%license %{python3_sitelib}/%{srcname}-%{version}.dist-info/LICENSE
 %doc README.rst
 
 %changelog
+* Thu Dec 19 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.1.0-1
+- Update to version 2.1.0
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

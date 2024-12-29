@@ -23,6 +23,7 @@ Source:         %{crates_source}
 # * Patch out the wasm-compat feature, which requires an unavailable blosc2
 #   crate feature
 # * Patch out all -static features
+# * Update to cbindgen 0.27: https://github.com/cramjam/libcramjam/pull/20
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

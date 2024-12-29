@@ -1,6 +1,6 @@
 Name:           ocaml-gsl
-Version:        1.25.0
-Release:        4%{?dist}
+Version:        1.25.1
+Release:        1%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPL-3.0-or-later
 
@@ -14,11 +14,8 @@ License:        GPL-3.0-or-later
 ExcludeArch:    %{arm} %{ix86}
 
 URL:            https://github.com/mmottl/gsl-ocaml
+VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/%{version}/gsl-%{version}.tbz
-
-# Link with flexiblas AFTER gsl so all symbols are resolved
-# https://github.com/mmottl/gsl-ocaml/pull/38
-Patch0:         %{name}-blas.patch
 
 BuildRequires:  ocaml >= 4.12
 BuildRequires:  ocaml-dune >= 2.7
@@ -73,6 +70,11 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
+* Sat Dec 21 2024 Jerry James <loganjerry@gmail.com> - 1.25.1-1
+- Version 1.52.1
+- Drop upstreamed patch to link with flexiblas after gsl
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

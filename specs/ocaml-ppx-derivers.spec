@@ -12,7 +12,8 @@ Summary:        Deriving plugin registry
 
 License:        BSD-3-Clause
 URL:            https://github.com/ocaml-ppx/ppx_derivers
-Source0:        https://github.com/ocaml-ppx/ppx_derivers/archive/%{version}/%{name}-%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
@@ -60,6 +61,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.2.1-39
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

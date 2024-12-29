@@ -12,13 +12,14 @@ VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/mlgmpidl-%{version}.tar.gz
 Source1:        mlgmpidl_test.ml
 Source2:        mlgmpidl_test_result
+# Remove dependency on the bigarray-compat forward compatibility shim
+Patch:          %{name}-bigarray-compat.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ocaml
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-bigarray-compat-devel
 BuildRequires:  ocaml-camlidl-devel
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  gmp-devel
@@ -43,7 +44,6 @@ modular way.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-bigarray-compat-devel%{?_isa}
 Requires:       ocaml-camlidl-devel%{?_isa}
 
 
@@ -59,7 +59,7 @@ BuildArch:      noarch
 The %{name}-doc package contains documentation for using %{name}.
 
 %prep
-%autosetup -n mlgmpidl-%{version}
+%autosetup -n mlgmpidl-%{version} -p1
 cp -p %{SOURCE1} %{SOURCE2} .
 
 # Fix install on 64-bit platforms
@@ -146,6 +146,10 @@ cp -p opam/opam $RPM_BUILD_ROOT%{ocamldir}/gmp
 
 
 %changelog
+* Sat Dec 21 2024 Jerry James <loganjerry@gmail.com> - 1.3.0-12
+- Rebuild for OCaml 5.3.0
+- Patch out dependency on ocaml-bigarray-compat
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

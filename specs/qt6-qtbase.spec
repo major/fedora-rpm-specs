@@ -169,7 +169,6 @@ BuildRequires: pkgconfig(xkeyboard-config)
 %global vulkan 1
 BuildRequires: pkgconfig(vulkan)
 %global egl 1
-BuildRequires: mesa-libEGL-devel
 BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(libglvnd)
@@ -226,7 +225,7 @@ Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-gui%{?_isa}
 %if 0%{?egl}
-Requires: libEGL-devel
+Requires: pkgconfig(egl)
 %endif
 Requires: pkgconfig(gl)
 %if 0%{?vulkan}

@@ -16,6 +16,7 @@ Source:         https://github.com/dbuenzli/jsonm/archive/v%{version}/jsonm-%{ve
 ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros

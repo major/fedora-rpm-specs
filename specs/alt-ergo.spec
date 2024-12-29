@@ -16,9 +16,12 @@ Version:	%{minorver}.%{patchrel}
 Release:	22%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
-# The project as a whole is Apache-2.0.
+# The top-level license files apply to the non-free main distribution of
+# alt-ergo.  The alt-ergo-free distribution, which we package, is distributed
+# with the CeCILL-C license, as noted on the webiste and also in
+# sources/tools/gui/main_gui.ml.
 # The AB-Why3 plugin is LGPL-2.1-only WITH OCaml-LGPL-linking-exception
-License:	Apache-2.0 AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
+License:	CECILL-C AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:		https://alt-ergo.ocamlpro.com/
 # The patch releases contain only the sources directory.  The other files come
 # from the minor releases.
@@ -73,7 +76,7 @@ instantiation mechanism by which it fully supports quantifiers.}
 
 %package gui
 Summary:	Graphical front end for Alt-Ergo
-License:	Apache-2.0
+License:	CECILL-C
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	gtksourceview2
 Requires:	hicolor-icon-theme
@@ -85,7 +88,7 @@ prover.
 
 %package -n ocaml-alt-ergo-parsers
 Summary:	Parser library used by the Alt-Ergo SMT solver
-License:	Apache-2.0
+License:	CECILL-C
 Requires:	ocaml-alt-ergo-lib%{?_isa} = %{version}-%{release}
 
 %description -n ocaml-alt-ergo-parsers %_desc
@@ -94,7 +97,7 @@ This package contains the parser library used by the Alt-Ergo SMT solver.
 
 %package -n ocaml-alt-ergo-parsers-devel
 Summary:	Development files for ocaml-alt-ergo-parsers
-License:	Apache-2.0
+License:	CECILL-C
 Requires:	ocaml-alt-ergo-parsers%{?_isa} = %{version}-%{release}
 Requires:	ocaml-alt-ergo-lib-devel%{?_isa} = %{version}-%{release}
 Requires:	ocaml-psmt2-frontend-devel%{?_isa}
@@ -107,7 +110,7 @@ that use the Alt-Ergo parser library.
 
 %package -n ocaml-alt-ergo-lib
 Summary:	Automated theorem prover library
-License:	Apache-2.0
+License:	CECILL-C
 
 %description -n ocaml-alt-ergo-lib %_desc
 
@@ -115,7 +118,7 @@ This package is the core of Alt-Ergo as an OCaml library.
 
 %package -n ocaml-alt-ergo-lib-devel
 Summary:	Development files for ocaml-alt-ergo-lib
-License:	Apache-2.0
+License:	CECILL-C
 Requires:	ocaml-alt-ergo-lib%{?_isa} = %{version}-%{release}
 Requires:	ocaml-num-devel%{?_isa}
 Requires:	ocaml-ocplib-simplex-devel%{?_isa}
@@ -136,6 +139,8 @@ tar xf %{SOURCE1}
 %endif
 
 %autopatch -p1
+
+%conf
 cd sources
 cp -p %{SOURCE3} com.ocamlpro.%{name}.desktop
 
@@ -150,10 +155,11 @@ cd -
 sed -i '/cmxs/d' plugins/{AB-Why3,fm-simplex}/dune
 %endif
 
-%build
 # This is not an autoconf-generated script.  Do NOT use %%configure.
-cd sources
 ./configure --prefix=%{_prefix} --libdir=%{ocamldir} --sharedir=%{ocamldir}
+
+%build
+cd sources
 %make_build
 
 %install
@@ -265,6 +271,10 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Mon Dec 23 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-22
+- Correct License fields from Apache-2.0 to CECILL-C
+- Do configuration steps in %%conf
+
 * Mon Aug  5 2024 Jerry James <loganjerry@gmail.com> - 2.3.3-22
 - Rebuild for ocaml-menhir 20240715 and ocaml-zip 1.12
 

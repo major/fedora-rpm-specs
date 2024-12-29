@@ -34,7 +34,6 @@ BuildSystem:            pyproject
 BuildOption(install):   -l openstep_plist
 BuildOption(generate_buildrequires): -t
 
-BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
 %global common_description %{expand:

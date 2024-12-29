@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 5.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -129,7 +129,7 @@ lighttable. it also enables you to develop raw images and enhance them.
 Summary:        The basecurve tool from tools/basecurve/
 Requires:       ImageMagick
 Requires:       dcraw
-Requires:       exiftool
+Requires:       perl-Image-ExifTool
 
 %description tools-basecurve
 darktable is a virtual lighttable and darkroom for photographers: it manages
@@ -247,6 +247,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Fri Dec 27 2024 Germano Massullo <germano.massullo@gmail.com> - 5.0.0-2
+- Replaced Requires: exiftool with Requires: perl-Image-ExifTool
+
 * Thu Dec 26 2024 Christian Birk <mail@birkc.de> - 5.0.0-1
 - Update to 5.0.0
 - Removed obsolete patch

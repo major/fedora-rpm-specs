@@ -1,5 +1,5 @@
 Name:           dtk6gui
-Version:        6.0.24
+Version:        6.0.25
 Release:        %autorelease
 Summary:        Deepin Toolkit, gui module for DDE look and feel
 License:        LGPL-3.0-or-later
@@ -21,7 +21,7 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
-BuildRequires:  cmake(Dtk6Core)
+BuildRequires:  cmake(Dtk6Core) >= %{version}
 BuildRequires:  cmake(DtkBuildHelper)
 BuildRequires:  cmake(TreelandProtocols)
 BuildRequires:  pkgconfig(librsvg-2.0)

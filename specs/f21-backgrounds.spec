@@ -6,8 +6,7 @@ Version:        21.1.0
 Release:        21%{?dist}
 Summary:        Fedora 21 default desktop background
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/F21_Artwork
 Source0:        https://fedorahosted.org/released/design-team/%{name}-%{version}.tar.xz
 
@@ -28,8 +27,7 @@ Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 
 %package        base
 Summary:        Base images for Fedora 21 default background
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    base
 This package contains base images for Fedora 21 default background.
@@ -86,8 +84,7 @@ default theme.
 # Extras will be enabled later
 %package        extras-base
 Summary:        Base images for F21 Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:        LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-base
 This package contains base images for F21 supplemental
@@ -95,7 +92,7 @@ wallpapers.
 
 %package        extras-gnome
 Summary:        Extra F21 Wallpapers for Gnome and Cinnamon
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-gnome
@@ -104,7 +101,7 @@ and Cinnamon
 
 %package        extras-mate
 Summary:        Extra F21 Wallpapers for Mate
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-mate
@@ -112,7 +109,7 @@ This package contains F21 supplemental wallpapers for Mate
 
 %package        extras-kde
 Summary:        Extra F21 Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-kde
@@ -120,7 +117,7 @@ This package contains F21 supplemental wallpapers for Gnome
 
 %package        extras-xfce
 Summary:        Extra F21 Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:       %{name}-extras-base
 
 %description    extras-xfce

@@ -25,10 +25,6 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist numpy}
 
-# This can be removed when F39 reaches EOL
-Obsoletes:      pymltop < 20220322
-Obsoletes:      pymlutop < 20220322
-
 # This can be removed when F40 reaches EOL
 Obsoletes:      ocaml-pyml-doc < 20220615-3
 
@@ -83,6 +79,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Dec 27 2024 Jerry James <loganjerry@gmail.com> - 20231101-9
+- Remove old obsoletes
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 20231101-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

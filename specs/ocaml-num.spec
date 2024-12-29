@@ -26,7 +26,8 @@ Summary:        Legacy Num library for arbitrary-precision integer and rational 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/ocaml/num
-Source0:        https://github.com/ocaml/num/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:            git:%{url}.git
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Downstream patch to add -g flag.
 Patch5:         0001-src-Add-g-flag-to-mklib.patch
@@ -93,6 +94,9 @@ mkdir -p $OCAMLFIND_DESTDIR/stublibs
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 1.5-9
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

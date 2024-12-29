@@ -33,7 +33,7 @@
 %constrain_build -m 4096
 
 Name:           uv
-Version:        0.5.11
+Version:        0.5.12
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -175,9 +175,9 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev 05e8d12cea8d72c6d2d017900e478d0abd28fef4
+%global pubgrub_rev 648aa343486e5529953153781fc86025c73c4a61
 %global pubgrub_baseversion 0.2.1
-%global pubgrub_snapdate 20241216
+%global pubgrub_snapdate 20241220
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 

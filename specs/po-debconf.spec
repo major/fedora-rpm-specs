@@ -26,7 +26,7 @@ BuildArch:	noarch
 
 BuildRequires:  make
 BuildRequires:	po4a
-BuildRequires:	debhelper
+BuildRequires:	dpkg-dev
 BuildRequires:	/usr/bin/pod2html
 
 # Needed for check
@@ -120,7 +120,7 @@ ln -s ../bin %{buildroot}%{_datadir}/intltool-debian
 
 %changelog
 * Thu Dec 26 2024 Sérgio Basto <sergio@serjux.com> - 1.0.21-17.nmu1
-- BR debhelper as Debian do
+- Revert BR to dpkg-dev, to avoid circular dependencies
 
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.21-16.nmu1
 - convert license to SPDX

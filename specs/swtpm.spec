@@ -8,12 +8,13 @@
 Summary: TPM Emulator
 Name:           swtpm
 Version:        0.10.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD-3-Clause
 Url:            https://github.com/stefanberger/swtpm
 Source0:        https://github.com/stefanberger/swtpm/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch1:         0001-SELinux-Add-rule-for-swtpm-to-be-able-to-read-passwo.patch
+Patch2:         0001-swtpm-Fix-build-error-on-32bit-systems-due-to-incons.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -203,6 +204,9 @@ fi
 %{_libexecdir}/installed-tests/swtpm/
 
 %changelog
+* Fri Dec 27 2024 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-5
+- Fix build error on 32bit systems due to inconsistent _FILE_OFFSET_BITS
+
 * Thu Dec 26 2024 Stefan Berger <stefanb@linux.ibm.com> - 0.10.0-4
 - SELinux: Add rule for swtpm to be able to read password from pipe
 

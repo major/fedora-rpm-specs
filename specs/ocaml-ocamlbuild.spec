@@ -17,6 +17,7 @@ Summary:       Build tool for OCaml libraries and programs
 License:       LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:           https://github.com/ocaml/ocamlbuild
+VCS:           git:%{url}.git
 Source0:       %{url}/archive/%{version}/ocamlbuild-%{version}.tar.gz
 
 BuildRequires: make
@@ -107,6 +108,9 @@ popd
 
 
 %changelog
+* Thu Dec 26 2024 Jerry James <loganjerry@gmail.com> - 0.15.0-2
+- Add VCS field
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
