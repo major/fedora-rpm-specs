@@ -12,7 +12,7 @@
 %global giturl  https://github.com/networkx/networkx
 
 Name:           python-networkx
-Version:        3.3
+Version:        3.4.2
 Release:        %autorelease
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
@@ -26,6 +26,9 @@ Source:         %{giturl}/archive/networkx-%{version}.tar.gz
 # - osmnx requires osmnx
 # - plot_lines requires momepy
 Patch:          %{name}-doc.patch
+# Undo upstream change to use intersphinx_registry.  Fedora does not have it,
+# and it does not let us use local documentation in the build.
+Patch:          %{name}-intersphinx.patch
 
 BuildArch:      noarch
 
@@ -109,20 +112,8 @@ Documentation for networkx
 %prep
 %autosetup -p1 -n networkx-networkx-%{version}
 
-%if %{with doctest}
-# Use local objects.inv for intersphinx
-sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
-    -e 's|\("https://numpy\.org/doc/stable/", \)None|\1"%{_docdir}/python3-numpy-doc/objects.inv"|' \
-    -e 's|\("https://pygraphviz.github.io/documentation/stable/", \)None|\1"%{_docdir}/python-pygraphviz/html/objects.inv"|' \
-    -e 's|\("https://docs.sympy.org/latest/", \)None|\1"%{_docdir}/sympy-doc/html/objects.inv"|' \
-    -i doc/conf.py
-%endif
-
-# Fedora does not have osmnx or momepy
-sed -i '/osmnx/d;/momepy/d' requirements/example.txt
-
 %generate_buildrequires
-%pyproject_buildrequires %{?with_doctest:-x doc,extra,test requirements/example.txt}
+%pyproject_buildrequires %{?with_doctest:-x doc,example,extra,test}
 
 %build
 %pyproject_wheel
@@ -135,7 +126,7 @@ rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
-%pyproject_save_files networkx
+%pyproject_save_files -l networkx
 
 %if %{with doctest}
 # Repack uncompressed zip archives

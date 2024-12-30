@@ -1,13 +1,13 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.33.0
+Version:          0.34.2
 Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
 URL:              https://pypi.python.org/pypi/python-dbusmock
-Source0:          https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+Source0:          https://files.pythonhosted.org/packages/source/p/%{name}/python_%{modname}-%{version}.tar.gz
 
 BuildArch:        noarch
 BuildRequires:    git
@@ -34,7 +34,7 @@ Requires:         python3-dbus, python3-gobject, dbus-x11
 %description -n python3-dbusmock %_description
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n python_%{modname}-%{version}
 rm -rf python-%{modname}.egg-info
 
 
@@ -52,6 +52,9 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Fri Dec 27 2024 Packit <hello@packit.dev> - 0.34.2-1
+- spec: Adjust %%autosetup to PEP-625 tarball top-level directory
+
 * Wed Dec 11 2024 Packit <hello@packit.dev> - 0.33.0-1
 - templates: Add gsd-rfkill (thanks Guido Günther)
 - Allow adding objects derived from DBusMockObject (thanks Sebastian Wick)

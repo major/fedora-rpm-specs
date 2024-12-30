@@ -8,10 +8,6 @@
 %global _libmpichdir %{_libdir}/mpich/lib
 %global _binmpichdir %{_libdir}/mpich/bin
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-%global dts devtoolset-9-
-%endif
-
 %if 0%{?fedora} >= 40
 %ifarch %{ix86}
 %global with_openmpi 0
@@ -106,11 +102,6 @@ BuildRequires:  MUMPS-openmpi-devel
 BuildRequires:  pkgconfig(ompi)
 BuildRequires:  scalapack-openmpi-devel
 BuildRequires:  ptscotch-openmpi-devel
-# Explicit references to mpiblacs are needed on EPEL 7
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:  blacs-openmpi-devel
-%endif
-
 Requires: %{name}-common = %{version}-%{release}
 %description openmpi
 %{name} libraries compiled against openmpi.
@@ -131,11 +122,6 @@ BuildRequires:  MUMPS-mpich-devel
 BuildRequires:  mpich-devel
 BuildRequires:  scalapack-mpich-devel
 BuildRequires:  ptscotch-mpich-devel
-# Explicit references to mpiblacs are needed on EPEL 7
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:  blacs-mpich-devel
-%endif
-
 Requires: %{name}-common = %{version}-%{release}
 %description mpich
 %{name} libraries compiled against MPICH.

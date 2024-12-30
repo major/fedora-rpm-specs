@@ -1,4 +1,4 @@
-%global	mainver		1.17.2
+%global	mainver		1.18.0
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -52,7 +52,6 @@ BuildRequires:	libxslt-devel
 BuildRequires:	ruby-devel
 # ruby27 needs this explicitly
 BuildRequires:	rubygem(racc)
-Requires:	rubygem(racc)
 
 %description
 Nokogiri parses and searches XML/HTML very quickly, and also has
@@ -276,6 +275,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sat Dec 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.0-1
+- 1.18.0
+
 * Fri Dec 13 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.2-1
 - 1.17.2
 

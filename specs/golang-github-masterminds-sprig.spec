@@ -7,8 +7,6 @@
 %global goipath         github.com/Masterminds/sprig
 Version:                3.2.2
 
-%global goaltipaths github.com/Masterminds/sprig/v3
-
 %gometa
 
 %global common_description %{expand:

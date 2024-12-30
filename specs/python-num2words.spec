@@ -10,7 +10,7 @@ languages (English, French, Spanish, German and Lithuanian) and can even
 generate ordinal numbers like ``forty-second``.}
 
 Name:           python-num2words
-Version:        0.5.13
+Version:        0.5.14
 Release:        %autorelease
 Summary:        Module to convert numbers to words
 

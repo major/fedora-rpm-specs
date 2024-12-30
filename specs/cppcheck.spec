@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           cppcheck
-Version:        2.16.0
-Release:        2%{?dist}
+Version:        2.16.2
+Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.wiki.sourceforge.net/
@@ -109,6 +109,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Sat Dec 28 2024 Wolfgang Stöggl <c72578@yahoo.de> - 2.16.2-1
+- 2.16.2
+
 * Mon Nov 11 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.16.0-2
 - rebuild for tinyxml2
 

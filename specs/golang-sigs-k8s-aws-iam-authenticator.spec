@@ -6,7 +6,7 @@
 %global forgeurl        https://github.com/kubernetes-sigs/aws-iam-authenticator
 Version:                0.5.2
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 A tool to use AWS IAM credentials to authenticate to a Kubernetes cluster. The
@@ -19,7 +19,7 @@ Heptio and Amazon EKS OSS Engineers.}
                         README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        %autorelease
 Summary:        Tool to use AWS IAM credentials to authenticate to a Kubernetes cluster
 
 # Upstream license specification: Apache-2.0
@@ -96,7 +96,7 @@ BuildRequires:  golang(k8s.io/client-go/kubernetes/typed/core/v1/fake)
 
 %prep
 %goprep
-%patch -P0 -p1
+%patch -P 0 -p1
 
 %build
 for cmd in cmd/* ; do
@@ -123,55 +123,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.5.2-17
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Feb 11 2024 Maxwell G <maxwell@gtmx.me> - 0.5.2-15
-- Rebuild for golang 1.22.0
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jan 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.5.2-10
-- Rebuild to fix FTBFS
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.5.2-8
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Thu Jun 23 2022 Maxwell G <gotmax@e.email> - 0.5.2-7
-- Rebuild to mitigate CVE-2022-21698 (rhbz#2067400).
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.5.2-6
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Sat Apr 16 2022 Fabio Alessandro Locati <me@fale.io> - 0.5.2-5
-- Rebuilt for CVE-2022-27191
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Dec 23 11:21:43 CET 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0.5.2-1
-- Initial package
+%autochangelog

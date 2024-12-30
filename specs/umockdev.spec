@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.18.4
+Version:          0.19.0
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,13 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Fri Dec 27 2024 Packit <hello@packit.dev> - 0.19.0-1
+- API: Add UMockdev.Testbed.wait_script() to sync to scripts/evemu replays
+- API: UMockdev.Testbed.load_script_from_string()
+- API: UMockdev.Testbed.load_evemu_events_from_string()
+- Make uevent synthesis thread-safe (thanks Bob Henz)
+- Handle "connection refused" when sending a uevent (thanks Bob Henz)
+
 * Wed Sep 04 2024 Packit <hello@packit.dev> - 0.18.4-1
 - Add ioctls for Chromium OS EC devices (thanks Abhinav Baid)
 - Generate "remove" uevent in umockdev_testbed_remove_device() (thanks Bob Henz)

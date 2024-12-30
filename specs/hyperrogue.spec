@@ -74,6 +74,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/rogueviz
 install -pDm644 rogueviz/*.cpp rogueviz/*.h %{buildroot}%{_datadir}/%{name}/rogueviz/
 install -pDdm644 rogueviz/ads rogueviz/dhrg rogueviz/models rogueviz/nilrider rogueviz/sag rogueviz/som %{buildroot}%{_datadir}/%{name}/rogueviz/
 install -pDm644 hyperrogue-music.txt %{buildroot}%{_datadir}/%{name}/
+chmod a+x %{buildroot}%{_datadir}/%{name}/rogueviz/
 mkdir -p %{buildroot}%{_defaultdocdir}/%{name}
 install -pDm644 README.md %{buildroot}%{_defaultdocdir}/%{name}/
 

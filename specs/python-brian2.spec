@@ -22,7 +22,7 @@ Documentation for Brian2 can be found at http://brian2.readthedocs.org}
 %global forgeurl https://github.com/brian-team/brian2
 
 Name:           python-brian2
-Version:        2.7.1
+Version:        2.8.0
 Release:        %autorelease
 Summary:        A clock-driven simulator for spiking neural networks
 
@@ -71,8 +71,11 @@ Documentation and examples for %{name}.
 # remove pre-compiled standalone binary example---the scripts there regenerate it
 rm -rf examples/multiprocessing/standalone307987
 
-sed -i -e 's/"numpy>=2.*",/"numpy",/' \
-    pyproject.toml
+# Relax numpy and pytest version constraints
+sed -r \
+    -e 's/"numpy>=2.*",/"numpy",/' \
+    -e 's/pytest>=8/pytest/' \
+    -i pyproject.toml
 
 
 # Remove unnecessary files

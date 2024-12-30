@@ -9,7 +9,7 @@
 
 # https://github.com/PuerkitoBio/goquery
 %global goipath         github.com/PuerkitoBio/goquery
-Version:                1.9.2
+Version:                1.10.1
 
 %gometa -L -f
 

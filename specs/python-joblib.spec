@@ -17,6 +17,10 @@ Patch: joblib-unbundle-cloudpickle.patch
 # Upstream issue: https://github.com/joblib/joblib/issues/1478
 Patch: joblib-dont-count-DeprecationWarnings.patch
 
+# Numpy 2.x patch fixing failing doctest.
+# https://github.com/joblib/joblib/pull/1632
+Patch: https://github.com/joblib/joblib/pull/1632.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

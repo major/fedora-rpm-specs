@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
 Version:	2.10.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -169,6 +169,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Sat Dec 28 2024 Antonio Trande <sagitter@fedoraproject.org> - 2.10.12-3
+- Rebuild for MUMPS-5.7.3
+
 * Tue Dec  3 2024 Jerry James <loganjerry@gmail.com> - 2.10.12-2
 - Rebuild for asl 20241111
 

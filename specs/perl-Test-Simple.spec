@@ -14,7 +14,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302206
+Version:        1.302207
 Release:        1%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -264,6 +264,7 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Compare::String.3*
 %{_mandir}/man3/Test2::Compare::Undef.3*
 %{_mandir}/man3/Test2::Compare::Wildcard.3*
+%{_mandir}/man3/Test2::Env.3*
 %{_mandir}/man3/Test2::Event.3*
 %{_mandir}/man3/Test2::Event::Bail.3*
 %{_mandir}/man3/Test2::Event::Diag.3*
@@ -402,6 +403,13 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Dec 28 2024 Paul Howarth <paul@city-fan.org> - 3:1.302207-1
+- Update to 1.302207
+  - Fix debugging info when JSON::MaybeXS is missing
+  - Fix typos
+  - Add TEST2_ENABLE_PLUGINS env var
+  - Add Test2::Env docs
+
 * Fri Dec 20 2024 Paul Howarth <paul@city-fan.org> - 3:1.302206-1
 - Update to 1.302206
   - Use our instead of 'use vars'

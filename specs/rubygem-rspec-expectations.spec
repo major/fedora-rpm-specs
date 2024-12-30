@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	1
+%global	baserelease	2
 
 %global	gem_name	rspec-expectations
 
@@ -23,6 +23,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
+# https://github.com/rspec/rspec/pull/164
+# Support ruby34 Hash#inspect syntax
+Patch0:	rubygem-rspec-expectations-pr164-ruby34-hash-syntax.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -54,6 +57,7 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
+%patch -P0 -p2
 
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -109,6 +113,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Sun Dec 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.3-2
+- Backport upstream fix to support ruby34 Hash inspect syntax
+
 * Sun Sep 08 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.3-1
 - 3.13.3
 

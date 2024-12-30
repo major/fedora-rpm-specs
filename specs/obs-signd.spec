@@ -1,3 +1,4 @@
+%global shortname obs-sign
 # http://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines#PIE
 %global _hardened_build 1
 %global commit 5c320501dc048bbcf56480dfc5780fb43dd20de5
@@ -11,16 +12,14 @@ Name:             obs-signd
 Summary:          The OBS sign daemon
 License:          GPL-2.0-only
 URL:              https://github.com/openSUSE/obs-sign
-Version:          2.6.1
-Release:          4%{?dist}
+Version:          2.8.4
+Release:          %autorelease
 #Release:          %%{baserelease}%%{?snapshotrel}%%{?dist}
-Source0:          https://github.com/openSUSE/obs-sign/archive/refs/tags/obs-sign-%{version}.tar.gz
+Source0:          https://github.com/openSUSE/%{shortname}/archive/refs/tags/%{version}.tar.gz#/%{shortname}-%{version}.tar.gz
 # We renamed the option in gnupg2 to 'file-is-digest'
 Patch0:           0001-Rename-option-files-are-digests-to-file-is-digest.patch
 # https://github.com/openSUSE/obs-sign/pull/6
 Patch1:           0002-fixes-user-id-matching-to-provide-unique-results.patch
-# https://github.com/openSUSE/obs-sign/pull/36
-Patch2:           0003-Implement-allow-unprivileged-ports-for-the-client.patch
 Requires:         gnupg2
 Requires(pre):    shadow-utils
 BuildRequires:    perl-generators
@@ -36,7 +35,7 @@ with a remote server to avoid the need to host the private key
 on the same server.
 
 %prep
-%autosetup -n obs-sign-%{version}
+%autosetup -n %{shortname}-%{version}
 
 %build
 %make_build CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" sign

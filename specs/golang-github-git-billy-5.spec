@@ -4,7 +4,7 @@
 
 # https://github.com/go-git/go-billy
 %global goipath         github.com/go-git/go-billy/v5
-Version:                5.6.0
+Version:                5.6.1
 
 %gometa
 

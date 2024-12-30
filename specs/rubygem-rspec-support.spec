@@ -3,7 +3,7 @@
 %global	mainver	3.13.2
 %undefine	prever
 
-%global	baserelease	1
+%global	baserelease	2
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -22,6 +22,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
+# https://github.com/rspec/rspec/pull/164
+# Support ruby34 Hash#inspect syntax
+Patch0:	rubygem-rspec-support-pr164-ruby34-hash-syntax.patch
 Patch100:	rubygem-rspec-support-3.2.1-callerfilter-searchpath-regex.patch
 
 #BuildRequires:	ruby(release)
@@ -58,6 +61,7 @@ Documentation for %{name}
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
+%patch -P0 -p2
 %patch -P100 -p1
 
 %build
@@ -106,6 +110,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Dec 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.2-2
+- Backport upstream fix to support ruby34 Hash inspect syntax
+
 * Thu Dec 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.2-1
 - 3.13.2
 

@@ -3,8 +3,7 @@ Version: 1.3.3.1
 Release: 1%{?dist}
 Summary: Aids representing and manipulating file sizes in various prefix notations
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: MIT
 URL: https://github.com/tbielawa/bitmath
 
 Source: https://github.com/tbielawa/bitmath/archive/%{version}.tar.gz
@@ -15,7 +14,7 @@ BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 
-%description
+%global _description %{expand:
 bitmath simplifies many facets of interacting with file sizes in
 various units. Examples include: converting between SI and NIST prefix
 units (GiB to kB), converting between units of the same type (SI to
@@ -34,7 +33,10 @@ progressbar module as a custom file transfer speed widget.
 
 bitmath is thoroughly unittested, with almost 200 individual tests (a
 number which is always increasing). bitmath's test-coverage is almost
-always at 100%.
+always at 100%.}
+
+%description %{_description}
+
 
 ######################################################################
 # Sub-package setup
@@ -42,26 +44,7 @@ always at 100%.
 Summary: Aids representing and manipulating file sizes in various prefix notations
 %{?python_provide:%python_provide python3-bitmath}
 
-%description -n python3-bitmath
-bitmath simplifies many facets of interacting with file sizes in
-various units. Examples include: converting between SI and NIST prefix
-units (GiB to kB), converting between units of the same type (SI to
-SI, or NIST to NIST), basic arithmetic operations (subtracting 42KiB
-from 50GiB), and rich comparison operations (1024 Bytes == 1KiB),
-bitwise operations, sorting, automatic best human-readable prefix
-selection, and completely customizable formatting.
-
-In addition to the conversion and math operations, bitmath provides
-human readable representations of values which are suitable for use in
-interactive shells as well as larger scripts and applications. It can
-also read the capacity of system storage devices. bitmath can parse
-strings (like "1 KiB") into proper objects and has support for
-integration with the argparse module as a custom argument type and the
-progressbar module as a custom file transfer speed widget.
-
-bitmath is thoroughly unittested, with almost 200 individual tests (a
-number which is always increasing). bitmath's test-coverage is almost
-always at 100%.
+%description -n python3-bitmath %{_description}
 
 
 ######################################################################

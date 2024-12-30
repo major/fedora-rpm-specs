@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-PPI
-Version:        1.279
+Version:        1.281
 Release:        1%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -34,9 +34,12 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Params::Util) >= 1.00
+BuildRequires:  perl(Safe::Isa)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable) >= 2.17
 BuildRequires:  perl(strict)
+BuildRequires:  perl(version) >= 0.77
+BuildRequires:  perl(YAML::PP)
 # =============== Optional Functionality ============
 %if %{with XSAccessor}
 BuildRequires:  perl(Class::XSAccessor)
@@ -98,6 +101,20 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Sat Dec 28 2024 Paul Howarth <paul@city-fan.org> - 1.281-1
+- Update to 1.281
+  - Framework for recognition of parsing feature activation via:
+    - 'use $PERL_VERSION' in code
+    - 'use feature' in code
+    - 'use $Common::CPAN::Module' in code
+    - PPI::Document->new( feature_mods => ... )
+    - PPI::Document->new( custom_feature_includes => ... )
+    - PPI::Document->new( custom_feature_include_cb => ... )
+    - $ENV{PPI_CUSTOM_FEATURE_INCLUDES}
+  - Added ability to parse features:
+    - signatures, as PPI::Structure::Signature
+    - try catch, as PPI::Statement::Compound
+
 * Fri Aug 23 2024 Paul Howarth <paul@city-fan.org> - 1.279-1
 - Update to 1.279
   - Implemented a cache to speed up sibling iteration (GH#287)

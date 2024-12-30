@@ -4,7 +4,7 @@
 
 # https://github.com/onsi/gomega
 %global goipath         github.com/onsi/gomega
-Version:                1.36.0
+Version:                1.36.2
 
 %gometa -L
 

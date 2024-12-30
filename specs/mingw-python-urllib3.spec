@@ -4,21 +4,25 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       2.2.3
+Version:       2.3.0
 Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
 URL:           https://urllib3.readthedocs.io/en/latest/
 Source0:       %{pypi_source}
+# Switch back to flit as build-system, hatchling is not packaged for mingw
+Patch0:        urllib3-no-hatch.patch
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -65,6 +69,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Sat Dec 28 2024 Sandro Mani <manisandro@gmail.com> - 2.3.0-1
+- Update to 2.3.0
+
 * Fri Sep 13 2024 Sandro Mani <manisandro@gmail.com> - 2.2.3-1
 - Update to 2.2.3
 

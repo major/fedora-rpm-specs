@@ -20,8 +20,8 @@
 
 %define	radicale_major	3
 
-%define	radicale_version	3.3.2
-%define	radicale_release	2
+%define	radicale_version	3.3.3
+%define	radicale_release	1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define	radicale_name	radicale
@@ -169,7 +169,17 @@ SELinux definitions for Radicale (Python3).
 Supported toggles:
  - httpd_can_read_write_radicale
  - radicale_use_fusefs
- - radicale_use_hook
+ - radicale_exec_storage_hook
+
+
+
+%package -n %{radicale_package_name}-logwatch
+Summary:        logwatch config for Radicale
+Requires:       %{radicale_package_name} = %{version}-%{release}
+Requires:       logwatch
+
+%description -n %{radicale_package_name}-logwatch
+logwatch configuration for Radicale
 
 
 %prep
@@ -269,6 +279,12 @@ done
 %else
 /usr/bin/hardlink -cv %{buildroot}%{_datadir}/selinux
 %endif
+
+# logwatch
+install -d %{buildroot}%{_datarootdir}/logwatch/scripts/services/
+install -d %{buildroot}%{_datarootdir}/logwatch/default.conf/services/
+install -p -m 644 contrib/logwatch/%{name} %{buildroot}%{_datarootdir}/logwatch/scripts/services/
+install -p -m 644 contrib/logwatch/%{name}-journald.conf %{buildroot}%{_datarootdir}/logwatch/default.conf/services/%{name}.conf
 
 
 %check
@@ -416,12 +432,21 @@ fi
 %{python3_sitelib}/Radicale-*-info
 
 
+%files -n %{radicale_package_name}-logwatch
+%{_datarootdir}/logwatch/scripts/services/%{name}
+%{_datarootdir}/logwatch/default.conf/services/%{name}.conf
+
+
 %files -n %{radicale_package_name}-httpd
 %{_datadir}/%{name}/%{name}.wsgi
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 
 %changelog
+* Sat Dec 28 2024 Peter Bieringer <pb@bieringer.de> - 3.3.3-1
+- Update to 3.3.3
+- New subpackage logwatch with files from from contrib/logwatch
+
 * Wed Dec 18 2024 Peter Bieringer <pb@bieringer.de> - 3.3.2-2
 - systemd unit file: add /var/cache/radicale to ReadWritePaths
 

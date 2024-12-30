@@ -1,10 +1,20 @@
 Name:          lxqt-session
 Summary:       Main session for LXQt desktop suite
 Version:       2.1.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Backports from upstream
+
+# Proposed upstream
+
+# Downstream only
+Patch1001:     1001-Drop-niri-entry-for-Wayland-window-managers.patch
+Patch1002:     1002-Drop-Hyprland-entry-for-Wayland-window-managers.patch
+
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lxqt)
@@ -43,7 +53,7 @@ Requires:       lxqt-session
 This package provides translations for the lxqt-session package.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake
@@ -100,6 +110,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Sat Dec 28 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-2
+- Drop niri and Hyprland options
+
 * Wed Dec 25 2024 Steve Cossette <farchord@gmail.com> - 2.1.1-1
 - 2.1.1
 

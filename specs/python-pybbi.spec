@@ -47,8 +47,10 @@ Recommends:     python3dist(pandas)
 %prep
 %forgeautosetup -p1
 
-# Fix requires
-sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
+# Allow building with NumPy 1.x
+sed -r \
+    -e 's/(numpy)[ >=]*2.*"/\1"/' \
+    -i pyproject.toml
 
 
 %generate_buildrequires
