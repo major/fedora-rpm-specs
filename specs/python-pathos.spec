@@ -81,6 +81,11 @@ find . -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/d' '{}' \;
 chmod -x examples/*.py
 chmod -x examples2/*.py
 
+# Unpin dependencies
+sed -r \
+    -e "s/(_version =.*)>=.*'/\1'/g" \
+    -i setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

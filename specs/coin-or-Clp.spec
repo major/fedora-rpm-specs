@@ -10,12 +10,12 @@
 # Attempting to cheat by defining COIN_HAS_CBC while building this package
 # just leads to other compiler errors due to missing coin-or-Cbc headers.
 # As painful as it is, this really is the best approach.
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 Name:		coin-or-%{module}
 Summary:	Coin-or linear programming
 Version:	1.17.10
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -160,6 +160,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/clp_doxy.tag
 
 %changelog
+* Sun Dec 29 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.17.10-4
+- Rebuild for MUMPS-5.7.3 (disable bootstrap)
+
 * Sat Dec 28 2024 Antonio Trande <sagitter@fedoraproject.org> - 1.17.10-3
 - Rebuild for MUMPS-5.7.3 (enable bootstrap)
 

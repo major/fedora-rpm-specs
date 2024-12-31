@@ -43,9 +43,12 @@ License:        MIT
 URL:            https://github.com/fastapi/fastapi
 Source:         %{url}/archive/%{version}/fastapi-%{version}.tar.gz
 
-# ⬆️ Allow Starlette 0.42.x, update the pin to >=0.40.0,<0.43.0
-# https://github.com/fastapi/fastapi/pull/13090
-Patch:          %{url}/pull/13090.patch
+# Bump starlette to 0.45.0
+# https://github.com/fastapi/fastapi/pull/13117
+Patch:          %{url}/pull/13117.patch
+# Allow httpx 0.28.x, relax pins
+# https://github.com/fastapi/fastapi/pull/13114
+Patch:          %{url}/pull/13114.patch
 
 BuildArch:      noarch
 

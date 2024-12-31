@@ -46,7 +46,6 @@ BuildRequires:  golang(google.golang.org/grpc/codes)
 
 %prep
 %goprep
-sed -i 's|github.com/google/martian|github.com/google/martian/v3|' $(find -iname "*.go" -type f)
 
 %install
 %gopkginstall

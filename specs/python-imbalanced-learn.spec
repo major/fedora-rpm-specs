@@ -1,36 +1,28 @@
 %bcond_without tests
 
 Name:           python-imbalanced-learn
-Version:        0.12.4
+Version:        0.13.0
 Release:        %autorelease
 Summary:        A Python Package to Tackle the Imbalanced Datasets in Machine Learning
+
+%global forgeurl https://github.com/scikit-learn-contrib/imbalanced-learn
+%global tag %{version}
+%forgemeta
 
 # The entire source is (SPDX) MIT; some other licenses are mentioned in
 # doc/sphinxext/LICENSE.txt, but the code to which they apply does not seem to
 # be present, and the directory is removed in %%prep anyway.
 License:        MIT
-URL:            https://github.com/scikit-learn-contrib/imbalanced-learn
-Source0:        %{pypi_source imbalanced-learn}
+URL:            %forgeurl
+Source:         %forgesource
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-# We cannot generate BR’s from the “optional” extra because some of the
-# dependencies that are added are not packaged. This also applies to the
-# “tests” extra.i See imblearn/_min_dependencies.py for the actual definitions
-# of extras and for minimum versions of dependencies. However, we still want
-# any dependencies (other than coverage analysis, linters, etc.) that *are*
-# available for testing, so we add them manually:
-
-# optionals, docs, examples, tests:
-BuildRequires:  python3dist(pandas) >= 1.0.5
-# Not packaged:
-# BuildRequires:  python3dist(keras) >= 2.4.3
-# BuildRequires:  python3dist(tensorflow) >= 2.4.3
-
 # tests
-BuildRequires:  python3dist(pytest) >= 5.0.1
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
 # Dependencies such as pytest-cov, flake8, black, and mypy are omitted:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 
@@ -47,17 +39,24 @@ Summary:        %{summary}
 
 %description -n python3-imbalanced-learn %_description
 
+%pyproject_extras_subpkg -n python3-imbalanced-learn optional
+
 
 %prep
-%autosetup -p1 -n imbalanced-learn-%{version}
+%forgeautosetup -p1
 
 # Remove the bundled Sphinx extensions. We don’t build the documentation, so we
 # don’t need to make an effort to unbundle them.
 rm -vrf doc/sphinxext/
 
+# Remove obsolete sklearn-compat dependency. Upstream dropped it post
+# release and it's not packaged for Fedora.
+# https://github.com/scikit-learn-contrib/imbalanced-learn/commit/e511ddbf44f819f3777a2689eb7a87e77bf2a0e5
+sed -i '/sklearn-compat/d' pyproject.toml
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x optional
 
 
 %build
@@ -79,7 +78,7 @@ k="${k-}${k+ and }not test_cluster_centroids_n_jobs"
 k="${k-}${k+ and }not test_fit_docstring"
 k="${k-}${k+ and }not keras"
 k="${k-}${k+ and }not test_function_sampler_validate"
-%pytest -vv -k "${k-}"
+%pytest -v "${k+-k $k}" imblearn
 %endif
 
 

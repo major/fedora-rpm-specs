@@ -1,11 +1,12 @@
 %bcond_without tests
 
-%global forgeurl  https://github.com/CINPLA/exdir
-
 Name:           python-exdir
 Version:        0.5.0.1
 Release:        %{autorelease}
 Summary:        Directory structure standard for experimental pipelines
+
+%global forgeurl  https://github.com/CINPLA/exdir
+%global tag v%{version}
 %forgemeta
 
 # SPDX
@@ -14,7 +15,10 @@ URL:            %{forgeurl}
 Source:         %{forgesource}
 # Apply patch fixing `NameError`
 # https://github.com/CINPLA/exdir/issues/180
-Patch:          https://github.com/CINPLA/exdir/pull/185.patch
+Patch:          %{forgeurl}/pull/185.patch
+# Patch for NumPy 2.x
+# https://github.com/CINPLA/exdir/pull/188
+Patch:          %{forgeurl}/commit/81e147c924335c363718d9f8d0374c56d289835a.patch
 
 BuildArch:      noarch
 
@@ -99,7 +103,7 @@ mv -v %{buildroot}%{_prefix}%{_sysconfdir}/jupyter %{buildroot}%{_sysconfdir}/ju
 
 %check
 %if %{with tests}
-%{pytest}
+%pytest -v
 %endif
 
 %files -n python3-exdir -f %{pyproject_files}

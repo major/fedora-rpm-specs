@@ -34,6 +34,9 @@ Patch5:         %{forgeurl}/commit/07e7dc47174679fdc6402e899df450a154fd242d.patc
 # https://github.com/platformio/platformio-core/commit/90fc36cf2d328309c985af57854e8f59a3aedbb4
 # (Allows Starlette 0.42.x and uvicorn 0.34.x)
 Patch6:         %{forgeurl}/commit/90fc36cf2d328309c985af57854e8f59a3aedbb4.patch
+# Allow starlette versions through 0.45
+# https://github.com/platformio/platformio-core/pull/5059
+Patch7:         %{forgeurl}/pull/5059.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

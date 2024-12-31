@@ -4,7 +4,7 @@
 
 # https://github.com/containerd/nri
 %global goipath         github.com/containerd/nri
-Version:                0.3.0
+Version:                0.1.1
 
 %gometa
 
@@ -21,7 +21,6 @@ Summary:        Node Resource Interface
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
-Patch:          0001-Take-pkg-hooks-from-github.com-containers-common.patch
 
 %description %{common_description}
 

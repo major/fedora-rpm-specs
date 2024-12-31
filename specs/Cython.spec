@@ -13,6 +13,10 @@ License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
+# Backport patch for NumPy 2.x
+# https://github.com/cython/cython/issues/6581
+Patch:          https://github.com/cython/cython/commit/852286242ee46cc16f0a6efef7eb40a5ab3c57d5.patch
+
 BuildRequires:  python3-devel
 
 %if %{with tests}

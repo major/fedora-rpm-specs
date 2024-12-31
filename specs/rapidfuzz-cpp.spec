@@ -1,20 +1,8 @@
 # Header only library
 %global debug_package %{nil}
 
-# Use clang so that the fuzzers can be built and used as a test until Catch2 v3
-# is packaged to Fedora. The fuzzers use a unique fuzzing feature of clang which
-# is not present in GCC.
-%global toolchain clang
-
-# The clang fuzzer is not available on ppc64le.
-%ifarch ppc64le
-%global build_fuzzers 0
-%else
-%global build_fuzzers 1
-%endif
-
 %global forgeurl https://github.com/maxbachmann/rapidfuzz-cpp
-Version: 3.0.5
+Version: 3.2.0
 %forgemeta
 
 Name: rapidfuzz-cpp
@@ -28,13 +16,8 @@ Patch0: remove-march-native.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
-BuildRequires: clang
-%if %build_fuzzers
-BuildRequires: compiler-rt
-%endif
-# For tests once Catch2 v3 lands in Fedora
-# https://bugzilla.redhat.com/show_bug.cgi?id=1786881
-#BuildRequires: catch-static
+BuildRequires: gcc-c++
+BuildRequires: catch-devel
 
 %global _description %{expand:
 RapidFuzz is a fast string matching library for Python and C++, which is using
@@ -75,14 +58,7 @@ echo "GENERATE_MAN           = YES" >> Doxyfile
 echo "GENERATE_HTML          = NO" >> Doxyfile
 
 %build
-# Testing needs v3 of Catch2
-# %%cmake -DRAPIDFUZZ_BUILD_TESTING=ON
-# Use the fuzzers as a test of the code build & execution
-%if %build_fuzzers
-%cmake -DRAPIDFUZZ_BUILD_FUZZERS=ON
-%else
-%cmake
-%endif
+%cmake -DRAPIDFUZZ_BUILD_TESTING=ON
 %cmake_build
 # Build the doxygen man doc
 doxygen
@@ -94,26 +70,8 @@ mkdir -p %{buildroot}%{_mandir}/man3/
 # not the generic "citelist.3".
 cp doxygen/man/man3/rapidfuzz.3 %{buildroot}/%{_mandir}/man3/
 
-%if %build_fuzzers
 %check
-# Unittests need v3 of Catch2
-# %%ctest
-# Use the fuzzers as a test of the build & execution
-cd "%{__cmake_builddir}"
-for fuzz_exe in fuzzing/fuzz_*
-do
-    # fuzz_levenshtein_distance is failing on i686 architecture
-    # reported upstream: https://github.com/rapidfuzz/rapidfuzz-cpp/issues/115
-    %ifarch %{ix86}
-    test $fuzz_exe == fuzzing/fuzz_levenshtein_distance && continue
-    %endif
-    # True fuzz testing would have some known corpus and probably lots more
-    # runs, but here this is used as a simple "smoketest" to confirm things
-    # build and run OK from the library, so limit the runs to something
-    # reasonable.
-    ./$fuzz_exe -runs=1000 -max_len=256
-done
-%endif
+%ctest
 
 %files devel
 %license LICENSE

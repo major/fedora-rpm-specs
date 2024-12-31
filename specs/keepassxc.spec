@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -182,6 +182,9 @@ sed -i '/^SingleMainWindow=true/d' ./share/linux/org.keepassxc.KeePassXC.desktop
  
 %install
 %cmake_install
+%if %{defined flatpak}
+install -m0755 utils/keepassxc-flatpak-wrapper.sh %{buildroot}%{_bindir}/keepassxc-wrapper
+%endif
  
 desktop-file-install \
     --dir %{buildroot}%{_datadir}/applications \
@@ -203,6 +206,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_bindir}/keepassxc
 %{_bindir}/keepassxc-cli
 %{_bindir}/keepassxc-proxy
+%if %{defined flatpak}
+%{_bindir}/keepassxc-wrapper
+%endif
 %{_datadir}/keepassxc
 %{_datadir}/keepassxc/wordlists
 %{_datadir}/applications/org.%{name}.KeePassXC.desktop
@@ -214,6 +220,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Dec 29 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 2.7.9-6
+- Install wrapper script in flatpak builds
+
 * Thu Sep 05 2024 Jan Grulich <jgrulich@redhat.com> - 2.7.9-5
 - Rebuild (qt5)
 

@@ -2,17 +2,13 @@
 %undefine __cmake_in_source_build
 
 Name:		dnfdragora
-Version:	2.1.5
-Release:	7%{?dist}
+Version:	2.99.0
+Release:	1%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 URL:		https://github.com/manatools/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Backport from upstream
-Patch0001:	0001-dnfdragora-ui-Drop-check-on-makecache-timer.patch
 
 BuildArch:	noarch
 
@@ -22,7 +18,7 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:	pkgconfig
 BuildRequires:	python3-devel		>= 3.4.0
-BuildRequires:	python3-dnfdaemon	>= 0.3.20
+BuildRequires:	python3-libdnf5		>= 5.2.7
 BuildRequires:	python3-manatools	>= 0.0.3
 BuildRequires:	python3-PyYAML
 BuildRequires:	python3-setuptools
@@ -33,12 +29,12 @@ BuildRequires:	python3-cairosvg
 BuildRequires:	python3-pillow
 BuildRequires:	python3-pystray		>= 0.16
 
-Requires:	dnf			>= 1.0.9
+Requires:	dnf5daemon-server	>= 5.2.7
 Requires:	filesystem
 Requires:	comps-extras
 Requires:	hicolor-icon-theme
 Requires:	libyui-mga-ncurses
-Requires:	python3-dnfdaemon	>= 0.3.20
+Requires:	python3-libdnf5		>= 5.2.7
 Requires:	python3-manatools	>= 0.0.3
 Requires:	python3-PyYAML
 Requires:	python3-yui		>= 1.1.1-10
@@ -134,6 +130,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Sun Dec 29 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.99.0-1
+- Rebase to v2.99.0 (using dnf5daemon)
+
 * Thu Sep 12 2024 Neal Gompa <ngompa@fedoraproject.org> - 2.1.5-7
 - Backport patch to drop dnf-makecache timer check
 

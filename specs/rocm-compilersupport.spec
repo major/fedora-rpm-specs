@@ -57,7 +57,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        29.rocm%{rocm_version}%{?dist}
+Release:        30.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -275,6 +275,22 @@ Requires:      rocm-clang%{?_isa} = %{version}-%{release}
 %description -n rocm-clang-devel
 %{summary}
 
+# CLANG TOOLS EXTRA
+%package -n rocm-clang-tools-extra
+Summary:	Extra tools for clang
+Requires:	rocm-clang-libs%{?_isa} = %{version}-%{release}
+
+%description -n rocm-clang-tools-extra
+A set of extra tools built using Clang's tooling API.
+
+%package -n rocm-clang-tools-extra-devel
+Summary: Development header files for clang tools
+Requires: rocm-clang-tools-extra = %{version}-%{release}
+
+%description -n rocm-clang-tools-extra-devel
+Development header files for clang tools.
+
+
 # ROCM LLD
 %package -n rocm-lld
 Summary:        The ROCm Linker
@@ -462,9 +478,9 @@ fi
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-mtls-dialect=gnu2//')
 
 %if %{with mlir}
-%global llvm_projects "llvm;clang;lld;mlir"
+%global llvm_projects "llvm;clang;clang-tools-extra;lld;mlir"
 %else
-%global llvm_projects "llvm;clang;lld"
+%global llvm_projects "llvm;clang;clang-tools-extra;lld"
 %endif
 
 p=$PWD
@@ -951,6 +967,18 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %{bundle_prefix}/lib/cmake/clang/*
 %{bundle_prefix}/lib/libclang*.so
 
+# ROCM CLANG TOOLS EXTRA
+%files -n rocm-clang-tools-extra
+%license clang-tools-extra/LICENSE.TXT
+%{bundle_prefix}/bin/pp-trace
+%{bundle_prefix}/bin/find-all-symbols
+%{bundle_prefix}/bin/modularize
+%{bundle_prefix}/bin/run-clang-tidy
+
+%files -n rocm-clang-tools-extra-devel
+%license clang-tools-extra/LICENSE.TXT
+%{bundle_prefix}/include/clang-tidy/
+
 # ROCM LLD
 %files -n rocm-lld
 %license lld/LICENSE.TXT
@@ -991,6 +1019,9 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Sat Dec 28 2024 Tom Rix <Tom.Rix@amd.com> - 18-30.rocm6.3.1
+- Add clang-extra-tools package
+
 * Sun Dec 22 2024 Tom Rix <Tom.Rix@amd.com> - 18-29.rocm6.3.1
 - Update to 6.3.1
 

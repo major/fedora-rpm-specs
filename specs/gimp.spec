@@ -56,7 +56,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.0~RC1
+Version:        3.0.0~RC2
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -208,8 +208,8 @@ Requires:       python3dist(pygobject) >= 3.0
 
 Recommends:     mypaint-brushes
 
-Obsoletes:      gimp3 < 3.0
-Conflicts:      gimp3 < 3.0
+Obsoletes:      gimp3 < %{version}-%{release}
+Provides:       gimp3 = %{version}-%{release}
 
 %if ! %defined snapshot
 Source0:        https://download.gimp.org/pub/gimp/v%{bin_version}/gimp-%{plain_version}.tar.xz
@@ -241,8 +241,8 @@ with multi-level undo.
 %package libs
 Summary:        GIMP libraries
 License:        LGPL-3.0-or-later
-Obsoletes:      gimp3-libs < 3.0
-Conflicts:      gimp3-libs < 3.0
+Obsoletes:      gimp3-libs < %{version}-%{release}
+Provides:       gimp3-libs = %{version}-%{release}
 
 %description libs
 The %{name}-libs package contains shared libraries needed for the GNU Image
@@ -253,8 +253,8 @@ Summary:        GIMP plugin and extension development kit
 License:        LGPL-3.0-or-later
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-devel-tools = %{epoch}:%{version}-%{release}
-Obsoletes:      gimp3-devel < 3.0
-Conflicts:      gimp3-devel < 3.0
+Obsoletes:      gimp3-devel < %{version}-%{release}
+Provides:       gimp3-devel = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains the files needed for writing GNU Image
@@ -264,8 +264,8 @@ Manipulation Program (GIMP) plug-ins and extensions.
 Summary:        GIMP plugin and extension development tools
 License:        LGPL-3.0-or-later
 Requires:       %{name}-devel = %{epoch}:%{version}-%{release}
-Obsoletes:      gimp3-devel-tools < 3.0
-Conflicts:      gimp3-devel-tools < 3.0
+Obsoletes:      gimp3-devel-tools < %{version}-%{release}
+Provides:       gimp3-devel-tools = %{version}-%{release}
 
 %description devel-tools
 The %{name}-devel-tools package contains gimptool, a helper program to

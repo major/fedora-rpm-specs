@@ -43,10 +43,7 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pox}
 
 # ppft is a drop in replacement of pp
-Provides:   python3-pp = %{version}-%{release}
-# Latest build before retirement was 1.6.0-18
-# https://koji.fedoraproject.org/koji/packageinfo?packageID=5272
-Obsoletes:  python3-pp < 1.6.0-19
+%py_provides python3-pp
 
 %description -n python3-ppft %_description
 

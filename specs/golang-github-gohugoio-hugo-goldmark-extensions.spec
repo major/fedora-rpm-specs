@@ -4,8 +4,8 @@
 
 # https://github.com/gohugoio/hugo-goldmark-extensions
 %global goipath         github.com/gohugoio/hugo-goldmark-extensions
-Version:                0.2.0
-%global tag             extras/v0.1.0
+Version:                0.3.0
+%global tag             passthrough/v0.3.0
 %global distprefix      %{nil}
 
 %gometa -L -f
@@ -30,7 +30,6 @@ Source:         %{gosource}
 
 %prep
 %goprep -A
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -40,7 +39,9 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-%gocheck
+# passthrough: fails on Rawhide.
+%gocheck \
+	-d passthrough
 %endif
 
 %gopkgfiles

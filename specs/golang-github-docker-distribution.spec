@@ -6,7 +6,7 @@
 Version:                2.8.1
 %global tag             v%{version_no_tilde}
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 The Docker toolset to pack, ship, store, and deliver content.
@@ -25,13 +25,16 @@ Summary:        Docker toolkit to pack, ship, store, and deliver container conte
 License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
+Patch:          0001-Partial-backport-of-8f9c809.patch
+Patch:          0002-Partial-backport-of-907e7be.patch
 
 %description %{common_description}
 
 %gopkg
 
 %prep
-%goprep
+%goprep -A
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

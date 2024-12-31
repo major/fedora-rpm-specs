@@ -5,7 +5,7 @@ Version: 6.4.0
 Release: 2%{?dist}
 Summary: IBM Plex, the new IBM set of coordinated grotesque corporate fonts
 
-License: OFL
+License: OFL-1.1
 URL:     https://www.ibm.com/plex/
 
 BuildArch: noarch

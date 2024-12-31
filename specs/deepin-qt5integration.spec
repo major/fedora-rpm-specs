@@ -2,13 +2,12 @@
 %global __provides_exclude_from ^%{_qt5_plugindir}/.*\.so$
 
 Name:           deepin-qt5integration
-Version:        5.6.32
+Version:        5.7.5
 Release:        %autorelease
 Summary:        Qt platform theme integration plugins for DDE
 License:        LGPL-3.0-or-later
 URL:            https://github.com/linuxdeepin/qt5integration
 Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
-Patch0:         https://github.com/linuxdeepin/qt5integration/commit/f5c1ef96b23dc970e1763092a25c36ea2adb4d78.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -25,7 +24,7 @@ BuildRequires:  qt5-qtbase-static
 BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
-BuildRequires:  cmake(DtkWidget)
+BuildRequires:  cmake(DtkWidget) >= %{version}
 
 BuildRequires:  pkgconfig(mtdev)
 BuildRequires:  pkgconfig(x11)

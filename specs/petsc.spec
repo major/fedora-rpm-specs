@@ -11,13 +11,15 @@
 %bcond_without python
 # Python tests need Cython
 # Python tests need epydoc (no longer available)
-%bcond_with pycheck
-%global pymodule_name petsc4py
-%global pymodule_version %{version}
-#
-
+# MPI is failing in s390x with the message
+# Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
+%ifnarch s390x
+%bcond_without pycheck
 # Testing libpetsc ?
 %bcond_without check
+%endif
+%global pymodule_name petsc4py
+%global pymodule_version %{version}
 #
 
 ## Debug builds ?
@@ -57,7 +59,7 @@
 %global blasvar %{nil}
 
 #
-## PETSC looks incompatible with serial MUMPS
+## MUMPS support
 %bcond_without mumps_serial
 #
 ## Sundials needs mpi ?
@@ -67,7 +69,6 @@
 #
 
 ## Suitesparse
-## This version of PETSc needs the 5.6.0 at least
 %bcond_with suitesparse
 %bcond_with suitesparse64
 #
@@ -210,17 +211,15 @@
   --with-python=1 \\\
   --with-python-exec=%{__python3} \\\
   --with-petsc4py=1 \\\
-  --with-petsc4py-test-np="`/usr/bin/getconf _NPROCESSORS_ONLN`" \\\
+  --with-petsc4py-test-np=2 \\\
  %endif \
   --with-cxxlib-autodetect=1 \\\
-  --with-threadsafety=0 --with-log=1 \\\
- %if %{with debug} \
+   %if %{with debug} \
   --with-debugging=1 \\\
-    --with-mpiexec="${MPI_BIN}/mpiexec -n `/usr/bin/getconf _NPROCESSORS_ONLN` --mca btl_base_warn_component_unused 0 --mca orte_base_help_aggregate 0" \\\
  %else \
   --with-debugging=0 \\\
-    --with-mpiexec="${MPI_BIN}/mpiexec -n `/usr/bin/getconf _NPROCESSORS_ONLN` --mca btl_base_warn_component_unused 0" \\\
  %endif \
+  --with-threadsafety=0 --with-log=1 \\\
  %if %{with scalapack} \
   --with-scalapack=1 \\\
   --with-scalapack-lib="-L$MPI_LIB -lscalapack" \\\
@@ -664,9 +663,7 @@ pushd %{name}-%{version}
 #cat config.log && exit 1
 ##
 
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
-make \
- V=1 MAKE_NP=$RPM_BUILD_NCPUS PETSC_DIR=%{_builddir}/%{name}-%{version}/%{name}-%{version} PETSC_ARCH=%{_arch} all
+make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/%{name}-%{version} PETSC_ARCH=%{_arch} all
 popd
 
 %if %{with arch64}
@@ -691,9 +688,7 @@ pushd build64
 %endif
 ##
 
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
-make \
- V=1 MAKE_NP=$RPM_BUILD_NCPUS PETSC_DIR=%{_builddir}/%{name}-%{version}/build64 PETSC_ARCH=%{_arch} all
+make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/build64 PETSC_ARCH=%{_arch} all
 popd
 %endif
 
@@ -724,9 +719,7 @@ export FC=mpifort
 #cat config.log
 #exit 1
 
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
-make \
- V=1 MAKE_NP=$RPM_BUILD_NCPUS PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir PETSC_ARCH=%{_arch} all
+make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir PETSC_ARCH=%{_arch} all
  
 %if %{with python}
 pushd src/binding/petsc4py
@@ -769,9 +762,7 @@ export FC=mpifort
 #cat config.log
 #exit 1
 
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
-make \
- V=1 MAKE_NP=$RPM_BUILD_NCPUS PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir PETSC_ARCH=%{_arch} all
+make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir PETSC_ARCH=%{_arch} all
 
 %if %{with python}
 pushd src/binding/petsc4py
@@ -804,7 +795,7 @@ cp -a include/* %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
-ln -fs %{_libdir}/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc.pc
+ln -sf %{_libdir}/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}/conf/
@@ -941,7 +932,7 @@ sed -e 's|-L${libdir}|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfi
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-ln -fs $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
+ln -sf $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -999,114 +990,125 @@ cp -a %{name}-%{version}/docs/* %{buildroot}%{_pkgdocdir}
 %check
 
 %if %{with openmpi}
+%if %{with python}
+%if %{with pycheck}
+pushd buildopenmpi_dir
 %{_openmpi_load}
+export PETSC_ARCH=%{_arch}
+export PETSC_DIR=./
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export MPIEXEC=$MPI_BIN/mpiexec
+xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+unset PETSC_ARCH
+unset PETSC_DIR
+%{_openmpi_unload}
+popd
+%endif
+%endif
+
 %if %{with check}
+pushd buildopenmpi_dir
+%{_openmpi_load}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir
 export PETSC_ARCH=%{_arch}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildopenmpi_dir/share/petsc/datafiles
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
+export OMPI_PRTERUN=$MPI_BIN/prterun
+export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildopenmpi_dir V=1 MPIEXEC='%{_builddir}/%{name}-%{version}/buildopenmpi_dir/lib/petsc/bin/petscmpiexec -valgrind'
+export TESTFLAGS="-o"
+xvfb-run -a make VALGRIND=1 alltest V=1
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildopenmpi_dir V=0
-%endif
-%endif
-
-%if %{with python}
-%if %{with pycheck}
-pushd buildopenmpi_dir/src/binding/petsc4py
-export PETSC_ARCH=%{_arch}
-export PETSC_DIR=../../../
-%if 0%{?rhel}
-MPI_PYTHON3_SITEARCH=%{python3_sitearch}/openmpi
-%endif
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
-%{__python3} setup.py test
-unset PETSC_ARCH
-unset PETSC_DIR
-popd
+xvfb-run -a make check V=0 NP=4
 %endif
 %endif
 %{_openmpi_unload}
+popd
 %endif
 
 %if %{with mpich}
+%if %{with python}
+%if %{with pycheck}
+pushd buildmpich_dir
 %{_mpich_load}
+export PETSC_ARCH=%{_arch}
+export PETSC_DIR=./
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export MPIEXEC=$MPI_BIN/mpiexec
+xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+unset PETSC_ARCH
+unset PETSC_DIR
+%{_mpich_unload}
+popd
+%endif
+%endif
+
 %if %{with check}
+pushd buildmpich_dir
+%{_mpich_load}
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/%{_arch}/lib
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir
 export PETSC_ARCH=%{_arch}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/share/petsc/datafiles
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
+export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}"
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildmpich_dir V=1 MPIEXEC='%{_builddir}/%{name}-%{version}/buildmpich_dir/lib/petsc/bin/petscmpiexec -valgrind'
+xvfb-run -a make VALGRIND=1 alltest V=1
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C buildmpich_dir V=0
-%endif
-%endif
-
-%if %{with python}
-%if %{with pycheck}
-pushd buildmpich_dir/src/binding/petsc4py
-export PETSC_ARCH=%{_arch}
-export PETSC_DIR=../../../
-%if 0%{?rhel}
-MPI_PYTHON3_SITEARCH=%{python3_sitearch}/mpich
-%endif
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
-%{__python3} setup.py test
-unset PETSC_ARCH
-unset PETSC_DIR
-popd
+xvfb-run -a make check V=0 NP=4
 %endif
 %endif
 %{_mpich_unload}
+popd
 %endif
 
 %if %{with check}
+pushd %{name}-%{version}
 export LD_LIBRARY_PATH=%{_libdir}:%{_builddir}/%{name}-%{version}/%{name}-%{version}/%{_arch}/lib
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/%{name}-%{version}
 export PETSC_ARCH=%{_arch}
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/%{name}-%{version}/share/petsc/datafiles
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
+export MPIEXEC=$MPI_BIN/mpiexec
 %if %{with debug}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C %{name}-%{version} V=1 MPIEXEC='%{_builddir}/%{name}-%{version}/%{name}-%{version}/lib/petsc/bin/petscmpiexec -n $RPM_BUILD_NCPUS -valgrind'
+xvfb-run -a make VALGRIND=1 alltest V=1
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C %{name}-%{version} V=0 MPIEXEC='%{_builddir}/%{name}-%{version}/%{name}-%{version}/lib/petsc/bin/petscmpiexec -n $RPM_BUILD_NCPUS'
+xvfb-run -a make check V=0
 %endif
+popd
 
 %if %{with arch64}
+pushd build64
 export LD_LIBRARY_PATH=%{_libdir}:%{_builddir}/%{name}-%{version}/build64/%{_arch}/lib
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/build64
 export PETSC_ARCH=%{_arch}
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/build64/share/petsc/datafiles
-RPM_BUILD_NCPUS="`%{_bindir}/getconf _NPROCESSORS_ONLN`"
+export MPIEXEC=$MPI_BIN/mpiexec
 ## 'make test' needs to link against -lpetsc
 ## Crude fix:
 ln -s %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc64.so %{_builddir}/%{name}-%{version}/build64/%{_arch}/lib/libpetsc.so
@@ -1116,11 +1118,12 @@ export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=
 export CFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export CXXFLAGS="-O0 -g -Wl,-z,now -fPIC"
 export FFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules"
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_builddir}/%{name}-%{version}/build64/lib/petsc/bin/petscmpiexec -n $RPM_BUILD_NCPUS -valgrind'
+xvfb-run -a make VALGRIND=1 alltest V=1
 xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
-xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=0 MPIEXEC='%{_builddir}/%{name}-%{version}/build64/lib/petsc/bin/petscmpiexec -n $RPM_BUILD_NCPUS'
+xvfb-run -a make check V=0
 %endif
+popd
 %endif
 %endif
 

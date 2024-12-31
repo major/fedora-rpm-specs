@@ -4,7 +4,7 @@
 
 # https://github.com/pjbgf/sha1cd
 %global goipath         github.com/pjbgf/sha1cd
-Version:                0.3.0
+Version:                0.3.1
 
 %gometa -L -f
 
