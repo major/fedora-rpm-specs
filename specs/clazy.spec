@@ -1,11 +1,6 @@
-
-%global commit 560bdc17e7079c1b834dc9728a5ff9e4e0ca1420
-%global commitdate 20241119
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
-Version:        1.12%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Version:        1.13
 Release:        1%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
@@ -57,6 +52,9 @@ refactoring.
 
 
 %changelog
+* Mon Dec 30 2024 Steve Cossette <farchord@gmail.com> - 1.13-1
+- 1.13
+
 * Wed Nov 20 2024 Jan Grulich <jgrulich@redhat.com> - 1.12^git20241119.560bdc1-1
 - Update to latest snapshot with LLVM-19 support
 

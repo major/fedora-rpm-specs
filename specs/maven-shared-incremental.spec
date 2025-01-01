@@ -15,10 +15,10 @@ Source0:        http://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.maven:maven-core)
-BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
+BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 %endif
@@ -28,7 +28,7 @@ Various utility classes and plexus components for supporting
 incremental build functionality in maven plugins.
 
 %package javadoc
-Summary:          API documentation for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 This package provides %{summary}.

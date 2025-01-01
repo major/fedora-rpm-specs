@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 %global srcname JCTools
 
 Name:           jctools
@@ -7,12 +6,11 @@ Version:        4.0.2
 Release:        %autorelease
 Summary:        Java Concurrency Tools for the JVM
 License:        Apache-2.0
-
 URL:            https://github.com/JCTools/JCTools
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -36,13 +34,11 @@ currently missing from the JDK:
 ° Low contention stats counters
 ° Executor
 
-
 %package javadoc
 Summary:        Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.
-
 
 %prep
 %autosetup -p1 -C
@@ -82,15 +78,12 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 # do not install unused parent POM
 %mvn_package :jctools-parent __noinstall
 
-
 %build
 # Tests time out in Koji
 %mvn_build -s -f
 
-
 %install
 %mvn_install
-
 
 %files -f .mfiles-jctools-core
 %doc README.md
@@ -98,7 +91,6 @@ rm -r jctools-core/src/test/java/org/jctools/maps/linearizability_test/
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE
-
 
 %changelog
 %autochangelog

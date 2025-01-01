@@ -17,7 +17,6 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.jcraft:jzlib)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  zip
-
 Requires:       jzlib >= 0:1.0.5
 
 %description
@@ -25,10 +24,10 @@ JSch allows you to connect to an sshd server and use port forwarding,
 X11 forwarding, file transfer, etc., and you can integrate its 
 functionality into your own Java programs.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 %{summary}.
 
 %prep

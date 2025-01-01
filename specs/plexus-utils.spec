@@ -34,7 +34,11 @@ reusable components for hibernate, form processing, jndi, i18n,
 velocity, etc. Plexus also includes an application server which
 is like a J2EE application server, without all the baggage.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -50,6 +54,8 @@ is like a J2EE application server, without all the baggage.
 
 %files -f .mfiles
 %license NOTICE.txt LICENSE.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

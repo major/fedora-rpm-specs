@@ -1,11 +1,10 @@
 %bcond_with bootstrap
-
-%global pkg_version     11b
+%global pkg_version 11b
 
 Name:           java_cup
+Epoch:          1
 Version:        0.11b
 Release:        %autorelease
-Epoch:          1
 Summary:        LALR parser generator for Java
 License:        SMLNJ
 URL:            http://www2.cs.tum.edu/projects/cup/
@@ -27,15 +26,15 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local
 BuildRequires:  ant
-BuildRequires:  jflex
 BuildRequires:  java_cup
+BuildRequires:  jflex
 %endif
 
 %description
 java_cup is a LALR Parser Generator for Java
 
 %package javadoc
-Summary:       Javadoc for java_cup
+Summary:        Javadoc for java_cup
 
 %description javadoc
 Javadoc for java_cup
@@ -85,11 +84,11 @@ jar ufm dist/java-cup-%{pkg_version}-runtime.jar %{SOURCE4}
 %doc changelog.txt
 %license licence.txt
 
-%files manual
-%doc manual.html
+%files javadoc -f .mfiles-javadoc
 %license licence.txt
 
-%files javadoc -f .mfiles-javadoc
+%files manual
+%doc manual.html
 %license licence.txt
 
 %changelog

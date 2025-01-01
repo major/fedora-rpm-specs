@@ -13,13 +13,13 @@
 %global	userelease	1
 %endif
 
-%global	majorver	43
+%global	majorver	44
 #%%global	minorver	3
-%global	docver	43
+%global	docver	44
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	4
+%global	baserelease	1
 
 %if 0%{?usegitbare} >= 1
 # pre-master-42
@@ -75,10 +75,6 @@ Source10:		create-ngspice-git-bare-tarball.sh
 # Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or
 # not (bug 1047056, debian bug 737279)
 Patch0:		ngspice-37-blt-linkage-workaround.patch
-# https://sourceforge.net/p/ngspice/bugs/679/
-# https://sourceforge.net/p/ngspice/ngspice/merge-requests/19/
-# misc/string.c: fix one byte ahead access in dup_string
-Patch19:		MR19-misc-string.c-fix-one-byte-ahead-access-in-dup_strin.patch
 
 
 BuildRequires:	make
@@ -112,6 +108,7 @@ BuildRequires:	flex
 BuildRequires:	ImageMagick
 BuildRequires:	mot-adms
 
+BuildRequires:	xorg-x11-server-Xvfb
 BuildRequires:	git
 
 Requires:	%{name}-codemodel%{?_isa} = %{version}-%{release}
@@ -216,7 +213,6 @@ popd
 
 %patch -P0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
-cat %PATCH19 | git am
 
 # make sure the examples are UTF-8...
 for nonUTF8 in \
@@ -241,6 +237,7 @@ git commit -m "Fix permission" -a || :
 
 # Move spinit directory to arch-dependent
 sed -i configure.ac -e '\@AC_DEFINE_UNQUOTED.*NGSPICEDATADIR@s|echo .dprefix/share/ngspice|echo %{_libdir}/ngspice|'
+sed -i configure.ac -e '\@AC_DEFINE_UNQUOTED.*NGSPICELIBDIR@s|echo .dprefix/share/ngspice|echo %{_libdir}/ngspice|'
 sed -i src/misc/ivars.c -e 's|\(["/]\)share/ngspice|\1%_lib/ngspice|'
 sed -i src/misc/ivars.c -e 's|\(["/]\)lib/ngspice|\1%_lib/ngspice|'
 grep -rl "(pkgdatadir)/" . | xargs sed -i -e 's|(pkgdatadir)/|(pkglibdir)/|'
@@ -467,12 +464,15 @@ mkdir USERPROFILE
 echo "set ngbehavior=mc" > USERPROFILE/spice.rc
 export USERPROFILE=$(pwd)/USERPROFILE
 
-make check
+xvfb-run \
+	-s "-screen 0 640x480x24" \
+	make check
 
 popd
 
 %files
 %{_bindir}/*
+%{_libdir}/%{name}/ivlng.*
 %{_mandir}/man1/*
 %doc	%{_pkgdocdir}
 %license COPYING
@@ -484,6 +484,7 @@ popd
 %{_libdir}/tclspice/libspice*.so*
 %{_libdir}/tclspice/%{name}/*.cm
 %{_libdir}/tclspice/%{name}/*.tcl
+%{_libdir}/tclspice/%{name}/ivlng.*
 %{_libdir}/tclspice/%{name}/scripts/
 
 %files	codemodel
@@ -500,6 +501,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Mon Dec 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44-1
+- Update to 44
+
 * Mon Sep  2 2024 Miroslav Suchý <msuchy@redhat.com> - 43-4
 - convert license to SPDX
 

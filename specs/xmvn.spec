@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 %if %{with bootstrap}
 %global mbi 1
 %endif
@@ -14,7 +13,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/fedora-java/xmvn/releases/download/%{version}/xmvn-%{version}.tar.xz
-
 Source21:       toolchains-openjdk21.xml
 
 %if %{with bootstrap}
@@ -47,7 +45,6 @@ BuildRequires:  mvn(org.xmlunit:xmlunit-assertj3)
 # Maven home is used as template for XMvn home
 BuildRequires:  maven
 %endif
-
 Requires:       %{name}-minimal = %{version}-%{release}
 Requires:       maven
 
@@ -57,7 +54,7 @@ manage system artifact repository and use it to resolve Maven
 artifacts in offline mode, as well as Maven plugins to help with
 creating RPM packages containing Maven artifacts.
 
-%package        minimal
+%package minimal
 Summary:        Dependency-reduced version of XMvn
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       apache-commons-cli
@@ -68,9 +65,11 @@ Requires:       jakarta-annotations
 Requires:       jakarta-inject1.0
 Requires:       jansi
 Requires:       jcl-over-slf4j
+Requires:       maven-jdk-binding
+Requires:       maven-lib
 Requires:       maven-resolver
-Requires:       maven-wagon
 Requires:       maven-shared-utils
+Requires:       maven-wagon
 Requires:       plexus-cipher
 Requires:       plexus-classworlds
 Requires:       plexus-containers-component-annotations
@@ -79,36 +78,33 @@ Requires:       plexus-sec-dispatcher
 Requires:       plexus-utils
 Requires:       sisu
 Requires:       slf4j
-
-Requires:       maven-lib
-Requires:       maven-jdk-binding
 Suggests:       maven-openjdk21
 
-%description    minimal
+%description minimal
 This package provides minimal version of XMvn, incapable of using
 remote repositories.
 
-%package        core
+%package core
 Summary:        XMvn library
 
-%description    core
+%description core
 This package provides XMvn API and XMvn Core modules, which implement
 the essential functionality of XMvn such as resolution of artifacts
 from system repository.
 
-%package        mojo
+%package mojo
 Summary:        XMvn MOJO
 
-%description    mojo
+%description mojo
 This package provides XMvn MOJO, which is a Maven plugin that consists
 of several MOJOs.  Some goals of these MOJOs are intended to be
 attached to default Maven lifecycle when building packages, others can
 be called directly from Maven command line.
 
-%package        tools
+%package tools
 Summary:        XMvn tools
 
-%description    tools
+%description tools
 This package provides various XMvn tools:
 * XMvn Install, which is a command-line interface to XMvn installer.
   The installer reads reactor metadata and performs artifact
@@ -121,10 +117,10 @@ This package provides various XMvn tools:
 * XMvn Subst, which is a tool that can substitute Maven artifact files
   with symbolic links to corresponding files in artifact repository.
 
-%package        javadoc
+%package javadoc
 Summary:        API documentation for %{name}
 
-%description    javadoc
+%description javadoc
 This package provides %{summary}.
 
 %prep
@@ -167,7 +163,6 @@ rm -f %{name}-${version}/{AUTHORS-XMVN,README-XMVN.md,LICENSE,NOTICE,NOTICE-XMVN
 rm -Rf %{name}-${version}/lib/{installer,resolver,subst}/
 # Irrelevant Maven launcher scripts
 rm -f %{name}-${version}/bin/*
-
 
 %install
 %mvn_install

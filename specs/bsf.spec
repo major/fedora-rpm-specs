@@ -15,11 +15,9 @@ Patch:          build.properties.patch
 
 BuildRequires:  javapackages-local
 BuildRequires:  ant
+BuildRequires:  apache-commons-logging
 BuildRequires:  apache-parent
 BuildRequires:  xalan-j2
-BuildRequires:  apache-commons-logging
-
-%{?javadoc_package}
 
 %description
 Bean Scripting Framework (BSF) is a set of Java classes which provides
@@ -47,6 +45,12 @@ engines:
 * JRuby
 * JudoScript
 
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
+
 %prep
 %autosetup -p1 -C
 find -name \*.jar -delete
@@ -66,6 +70,8 @@ build-jar-repository -s lib apache-commons-logging xalan-j2
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt RELEASE-NOTE.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

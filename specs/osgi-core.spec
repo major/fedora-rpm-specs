@@ -4,14 +4,12 @@ Name:           osgi-core
 Version:        8.0.0
 Release:        %autorelease
 Summary:        OSGi Core API
-
 License:        Apache-2.0
 URL:            https://www.osgi.org
-
-Source0:        https://docs.osgi.org/download/r8/osgi.core-%{version}.jar
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://docs.osgi.org/download/r8/osgi.core-%{version}.jar
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -31,7 +29,7 @@ Summary:        API documentation for %{name}
 This package provides %{summary}.
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -C
 
 # Delete pre-built binaries
 rm -r org
@@ -72,7 +70,6 @@ mv META-INF/maven/org.osgi/osgi.core/pom.xml .
 
 %install
 %mvn_install
-
 
 %files -f .mfiles
 %license LICENSE

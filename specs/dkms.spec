@@ -1,13 +1,14 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
 Version:        3.1.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://linux.dell.com/dkms
 
 BuildArch:      noarch
 
 Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         0001-Fix-472-capture-error-output.patch
 
 BuildRequires:  make
 BuildRequires:  systemd
@@ -77,6 +78,12 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
+* Mon Dec 30 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-3
+- Fix patch application.
+
+* Mon Dec 30 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-2
+- Fix for #2333382.
+
 * Thu Dec 19 2024 Simone Caronni <negativo17@gmail.com> - 3.1.4-1
 - Update to 3.1.4.
 

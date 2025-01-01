@@ -4,7 +4,6 @@ Name:           jsr-305
 Version:        3.0.2
 Release:        %autorelease
 Summary:        Correctness annotations for Java code
-
 # The majority of code is BSD-licensed.
 # JCIP annotations are Apache-licensed.
 License:        BSD-3-Clause AND Apache-2.0
@@ -28,7 +27,11 @@ This package contains reference implementations, test cases, and other
 documents for Java Specification Request 305: Annotations for Software Defect
 Detection.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -72,6 +75,8 @@ sed -i /^package/s/net.jcip.annotations/javax.annotation.concurrent/ ri/src/main
 %files -f .mfiles
 %license ri/LICENSE jcip-annotations-jcip-annotations-1.0-1/LICENSE.txt
 %doc sampleUses
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

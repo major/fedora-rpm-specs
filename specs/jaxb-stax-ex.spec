@@ -3,12 +3,11 @@ Version:        2.1.0
 Release:        %autorelease
 Summary:        Extended StAX API
 License:        BSD-3-Clause
-
 URL:            https://github.com/eclipse-ee4j/jaxb-stax-ex
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
@@ -28,7 +27,11 @@ the following areas:
   FastInfoset.
 - Improve the namespace support.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -48,6 +51,8 @@ the following areas:
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

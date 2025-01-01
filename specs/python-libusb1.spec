@@ -1,6 +1,6 @@
 Name:           python-libusb1
-Version:        3.1.0
-Release:        7%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Pure-python wrapper for libusb-1.0
 
 License:        LGPL-2.1-or-later
@@ -12,10 +12,6 @@ Source1:        https://github.com/vpelletier/%{name}/releases/download/%{versio
 #Wed Jan 05 2022, exported the upstream gpg key using the command:
 #gpg2 --armor --export --export-options export-minimal 983AE8B73B9115987A923845CAC936914257B0C1 > gpgkey-python-libusb1.gpg
 Source2:        gpgkey-python-libusb1.gpg
-
-#Fixes test errors on Python 3.13, not sure if the problem is fixed in runtime
-#Upstream report https://github.com/vpelletier/python-libusb1/issues/103
-Patch0:         https://patch-diff.githubusercontent.com/raw/vpelletier/python-libusb1/pull/104.patch
 
 BuildArch:      noarch
 BuildRequires:  gnupg2
@@ -61,6 +57,9 @@ rm -rf libusb1.egg-info
 %doc README.rst PKG-INFO
 
 %changelog
+* Mon Dec 30 2024 Jonny Heggheim <hegjon@gmail.com> - 3.2.0-1
+- Update to version 3.2.0
+
 * Wed Nov 06 2024 Jonny Heggheim <hegjon@gmail.com> - 3.1.0-7
 - Fix to build error with setuptools 74+
 - Fixes: rhbz#2319677

@@ -37,10 +37,10 @@ generate classes, directly in binary form.  Provided common
 transformations and analysis algorithms allow to easily assemble
 custom complex transformations and code analysis tools.
 
-%package        javadoc
+%package javadoc
 Summary:        API documentation for %{name}
 
-%description    javadoc
+%description javadoc
 This package provides %{summary}.
 
 %prep

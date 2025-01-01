@@ -12,6 +12,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://archive.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
 
+BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -22,14 +23,17 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
-BuildRequires:  jurand
 
 %description
 Commons-IO contains utility classes, stream implementations,
 file filters, and endian classes. It is a library of utilities
 to assist with developing IO functionality.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -68,6 +72,8 @@ rm src/test/java/org/apache/commons/io/input/ReversedLinesFileReaderTestParamFil
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

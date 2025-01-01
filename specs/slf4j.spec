@@ -29,7 +29,6 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-
 Name:           slf4j
 Version:        1.7.36
 Release:        %autorelease
@@ -65,7 +64,11 @@ SLF4J interfaces directly, e.g. NLOG4J or SimpleLogger. Alternatively,
 it is possible (and rather easy) to write SLF4J adapters for the given
 API implementation, e.g. Log4jLoggerAdapter or JDK14LoggerAdapter..
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %package manual
 Summary:        Manual for %{name}
@@ -103,10 +106,10 @@ Summary:        Log4j implemented over SLF4J
 %description -n log4j-over-slf4j
 Log4j implemented over SLF4J.
 
-%package -n slf4j-migrator
+%package migrator
 Summary:        SLF4J Migrator
 
-%description -n slf4j-migrator
+%description migrator
 SLF4J Migrator.
 
 %package sources
@@ -182,19 +185,27 @@ cp -pr target/site/* $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-manual
 %files -f .mfiles
 %license LICENSE.txt LICENSE-2.0.txt
 
-%files jdk14 -f .mfiles-%{name}-jdk14
-%files jcl -f .mfiles-%{name}-jcl
-%files -n jcl-over-slf4j -f .mfiles-jcl-over-slf4j
-%files -n jul-to-slf4j -f .mfiles-jul-to-slf4j
-%files -n log4j-over-slf4j -f .mfiles-log4j-over-slf4j
-%files -n slf4j-migrator -f .mfiles-slf4j-migrator
-
-%files sources -f .mfiles-sources
+%files javadoc -f .mfiles-javadoc
 %license LICENSE.txt LICENSE-2.0.txt
 
 %files manual
 %license LICENSE.txt LICENSE-2.0.txt
 %{_defaultdocdir}/%{name}-manual
+
+%files jdk14 -f .mfiles-%{name}-jdk14
+
+%files jcl -f .mfiles-%{name}-jcl
+
+%files -n jcl-over-slf4j -f .mfiles-jcl-over-slf4j
+
+%files -n jul-to-slf4j -f .mfiles-jul-to-slf4j
+
+%files -n log4j-over-slf4j -f .mfiles-log4j-over-slf4j
+
+%files migrator -f .mfiles-slf4j-migrator
+
+%files sources -f .mfiles-sources
+%license LICENSE.txt LICENSE-2.0.txt
 
 %changelog
 %autochangelog

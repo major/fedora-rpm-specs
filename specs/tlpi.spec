@@ -1,5 +1,5 @@
 Name:		tlpi
-Version:	240913
+Version:	241221
 Release:	%autorelease
 Summary:	Utilities to display namespaces and control groups
 
@@ -88,6 +88,10 @@ This package contains the license files from tlpi packages.
 
 %prep
 %autosetup -p 0 -n tlpi-dist
+# seccomp_control/deny_open only builds on x86_64 and aarch64
+%ifnarch x86_64 aarch64
+sed --in-place /seccomp_control_open/d seccomp/Makefile
+%endif
 
 
 %build
@@ -122,7 +126,7 @@ done
 
 
 %files
-%doc namespaces/namespaces_of.go
+%doc namespaces/namespaces_of.go CHANGES
 %_bindir/namespaces_of
 %_bindir/view_v2_cgroups
 %_bindir/ns_capable

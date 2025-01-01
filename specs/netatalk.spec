@@ -1,8 +1,6 @@
-%global xslver $(rpm -q --queryformat "%%{VERSION}" docbook-style-xsl)
-
 Name:              netatalk
 Epoch:             5
-Version:           4.0.6
+Version:           4.0.8
 Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
@@ -11,9 +9,6 @@ License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND Li
 URL:               http://netatalk.sourceforge.net
 Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.xz
 Source1:           netatalk.pam-system-auth
-
-# Only build Appletalk documentation when the appletalk flag is on
-Patch0:            netatalk-appletalk-docs.patch
 
 # Per i686 leaf package policy 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -165,7 +160,6 @@ sed -E -i 's|^(ExecStart=.*)|\1\nRuntimeDirectory=lock/netatalk|' distrib/initsc
         -Ddefault_library=shared                                               \
         -Dwith-manual=local                                                    \
         -Dwith-rpath=false                                                     \
-        -Dwith-docbook-path=%{_datadir}/sgml/docbook/xsl-stylesheets-%{xslver} \
         -Dwith-overwrite=true                                                  \
         -Dwith-lockfile-path=%{_rundir}/lock/netatalk/netatalk                 \
         -Dwith-tcp-wrappers=false                                              \
@@ -351,9 +345,13 @@ find %{buildroot} \( -name '*.la' -o -name '*.a' \) -type f -delete -print
 
 %files doc
 %license COPYING COPYRIGHT
-%doc %{_pkgdocdir}/htmldoc
+%doc %{_pkgdocdir}/htmldocs
 
 %changelog
+* Mon Dec 30 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.0.8-1
+- 4.0.8 release
+- custom docbook xsl stylesheet path no longer needed
+
 * Fri Nov 15 2024 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.0.6-1
 - 4.0.6 release
 - only build appletalk documentation for fedora

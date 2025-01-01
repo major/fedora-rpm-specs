@@ -1,20 +1,21 @@
 %bcond_with bootstrap
 
-Name:          plexus-pom
-Version:       18
-Release:       %autorelease
-Summary:       Root Plexus Projects POM
-License:       Apache-2.0
-URL:           https://github.com/codehaus-plexus/plexus-pom
-Source0:       https://github.com/codehaus-plexus/plexus-pom/archive/plexus-%{version}.tar.gz
-Source1:       https://www.apache.org/licenses/LICENSE-2.0.txt
-BuildArch:     noarch
-ExclusiveArch: %{java_arches} noarch
+Name:           plexus-pom
+Version:        18
+Release:        %autorelease
+Summary:        Root Plexus Projects POM
+License:        Apache-2.0
+URL:            https://github.com/codehaus-plexus/plexus-pom
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://github.com/codehaus-plexus/plexus-pom/archive/plexus-%{version}.tar.gz
+Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 %if %{with bootstrap}
-BuildRequires: javapackages-bootstrap
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires: maven-local
+BuildRequires:  maven-local
 %endif
 
 %description

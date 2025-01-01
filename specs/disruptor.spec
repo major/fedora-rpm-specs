@@ -1,30 +1,30 @@
 %bcond_with bootstrap
 
-Name:          disruptor
-Version:       3.4.4
-Release:       %autorelease
-Summary:       Concurrent Programming Framework
-License:       Apache-2.0
-URL:           https://lmax-exchange.github.io/disruptor/
-BuildArch:     noarch
-ExclusiveArch: %{java_arches} noarch
+Name:           disruptor
+Version:        3.4.4
+Release:        %autorelease
+Summary:        Concurrent Programming Framework
+License:        Apache-2.0
+URL:            https://lmax-exchange.github.io/disruptor/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
-Source0:       https://github.com/LMAX-Exchange/disruptor/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:       https://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
+Source0:        https://github.com/LMAX-Exchange/disruptor/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires: maven-local
-BuildRequires: mvn(junit:junit)
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  maven-local
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
 
 %description
 A High Performance Inter-Thread Messaging Library.
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.

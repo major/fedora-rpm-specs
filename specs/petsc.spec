@@ -848,7 +848,7 @@ popd
 %endif
 
 %if %{with openmpi}
-pushd buildopenmpi_dir
+cd buildopenmpi_dir
 %{_openmpi_load}
 mkdir -p %{buildroot}$MPI_LIB %{buildroot}$MPI_INCLUDE/%{name}
 mkdir -p %{buildroot}$MPI_FORTRAN_MOD_DIR/%{name}
@@ -1031,9 +1031,9 @@ xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=0 NP=4
 %endif
-%endif
 %{_openmpi_unload}
 popd
+%endif
 %endif
 
 %if %{with mpich}
@@ -1076,9 +1076,9 @@ xvfb-run -a make print-test test-fail=1 | tr ' ' '\n' | sort
 %else
 xvfb-run -a make check V=0 NP=4
 %endif
-%endif
 %{_mpich_unload}
 popd
+%endif
 %endif
 
 %if %{with check}

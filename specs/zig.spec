@@ -4,7 +4,7 @@
 %global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
 
 # note here at which Fedora or EL release we need to use compat LLVM packages
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 9
 %define         llvm_compat 18
 %endif
 
@@ -17,11 +17,10 @@
 
 Name:           zig
 Version:        0.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
-# Automatically converted from old format: MIT and NCSA and LGPLv2+ and LGPLv2+ with exceptions and GPLv2+ and GPLv2+ with exceptions and BSD and Inner-Net and ISC and Public Domain and GFDL and ZPLv2.1 - review is highly recommended.
-License:        LicenseRef-Callaway-MIT AND NCSA AND LicenseRef-Callaway-LGPLv2+ AND LGPL-2.1-or-later WITH Qwt-exception-1.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND LicenseRef-Callaway-BSD AND Inner-Net-2.0 AND ISC AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL AND ZPL-2.1
+License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
 URL:            https://ziglang.org
 Source0:        %{url}/download/%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/download/%{version}/%{name}-%{version}.tar.xz.minisig
@@ -68,7 +67,7 @@ Requires:       %{name}-libs = %{version}
 
 # Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 Provides: bundled(compiler-rt) = %{llvm_version}
-# LGPLv2+, LGPLv2+ with exceptions, GPLv2+, GPLv2+ with exceptions, BSD, Inner-Net, ISC, Public Domain and GFDL
+# LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only
 Provides: bundled(glibc) = 2.38
 # Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 Provides: bundled(libcxx) = %{llvm_version}
@@ -193,6 +192,11 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Sun Dec 29 2024 Jan200101 <sentrycraft123@gmail.com> - 0.13.0-4
+- correct macro variables
+- set llvm_compat for F41
+- update callaway licenses to follow SPDX
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13.0-3
 - convert license to SPDX
 

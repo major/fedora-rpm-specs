@@ -33,7 +33,7 @@ Summary:        Javadocs for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -C
 
 %mvn_file : %{name} xz
 

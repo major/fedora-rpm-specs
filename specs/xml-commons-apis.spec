@@ -1,26 +1,25 @@
-Name:          xml-commons-apis
-Version:       1.4.01
-Release:       %autorelease
-Summary:       APIs for DOM, SAX, and JAXP
-License:       Apache-2.0 AND W3C AND SAX-PD-2.0
-URL:           http://xml.apache.org/commons/
-BuildArch:     noarch
-ExclusiveArch: %{java_arches} noarch
+Name:           xml-commons-apis
+Version:        1.4.01
+Release:        %autorelease
+Summary:        APIs for DOM, SAX, and JAXP
+License:        Apache-2.0 AND W3C AND SAX-PD-2.0
+URL:            http://xml.apache.org/commons/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 # From source control because the published tarball doesn't include some docs:
 #   svn export http://svn.apache.org/repos/asf/xml/commons/tags/xml-commons-external-1_4_01/java/external/
 #   tar czf xml-commons-external-1.4.01-src.tar.gz external
-Source0:       xml-commons-external-%{version}-src.tar.gz
-Source1:       %{name}-MANIFEST.MF
-Source2:       %{name}-ext-MANIFEST.MF
-Source3:       http://repo1.maven.org/maven2/xml-apis/xml-apis/2.0.2/xml-apis-2.0.2.pom
-Source4:       http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.pom
+Source0:        xml-commons-external-%{version}-src.tar.gz
+Source1:        %{name}-MANIFEST.MF
+Source2:        %{name}-ext-MANIFEST.MF
+Source3:        http://repo1.maven.org/maven2/xml-apis/xml-apis/2.0.2/xml-apis-2.0.2.pom
+Source4:        http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.pom
 
-BuildRequires: javapackages-local
-BuildRequires: ant
-BuildRequires: apache-parent
-
-Provides:      xml-commons = %{version}-%{release}
+BuildRequires:  javapackages-local
+BuildRequires:  ant
+BuildRequires:  apache-parent
+Provides:       xml-commons = %{version}-%{release}
 
 %description
 xml-commons-apis is designed to organize and have common packaging for
@@ -28,13 +27,13 @@ the various externally-defined standard interfaces for XML. This
 includes the DOM, SAX, and JAXP.
 
 %package manual
-Summary:       Manual for %{name}
+Summary:        Manual for %{name}
 
 %description manual
 %{summary}.
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 %{summary}.

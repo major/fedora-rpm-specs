@@ -29,11 +29,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-
-Summary:        A library for instantiating Java objects
 Name:           objenesis
 Version:        3.4
 Release:        %autorelease
+Summary:        A library for instantiating Java objects
 License:        Apache-2.0
 URL:            http://objenesis.org/
 BuildArch:      noarch
@@ -49,8 +48,8 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 %endif
-# xmvn-builddep misses this:
 %if %{without bootstrap}
+# xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
 

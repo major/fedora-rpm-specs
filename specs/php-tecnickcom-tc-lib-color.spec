@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f0f38cfd50bbeb3d40b4320bc1038e3e777e7b68
+%global gh_commit    5fe3c1771ab577572b3304d11496745aff45db8e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.2.6
+Version:        2.2.7
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -27,16 +27,16 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.1.2
-BuildRequires:  php(language) >= 8.0
+BuildRequires:  phpunit10 >= 10.5.40
+BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-pcre
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=8.0",
+#        "php": ">=8.1",
 #        "ext-pcre": "*"
-Requires:       php(language) >= 8.0
+Requires:       php(language) >= 8.1
 Requires:       php-pcre
 # From phpcompatinfo report for version 1.12.4
 # none
@@ -93,7 +93,6 @@ for cmdarg in php php81 php82 php83 php84; do
       cp phpunit.xml.dist phpunit.xml
       $1 ${2:-%{phpunit}} --migrate-configuration || :
       $1 ${2:-%{phpunit}} --no-coverage \
-        --filter '^((?!(testGetColorObject|testGetColorObj)).)*$' \
         || ret=1
    fi
 done
@@ -113,6 +112,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 26 2024 Remi Collet <remi@remirepo.net> - 2.2.7-1
+- update to 2.2.7
+- raise dependency on PHP 8.1
+
 * Mon Dec 23 2024 Remi Collet <remi@remirepo.net> - 2.2.6-1
 - update to 2.2.6 (no change)
 - re-license spec file to CECILL-2.1

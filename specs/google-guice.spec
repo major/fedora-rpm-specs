@@ -13,6 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{name}-%{version}.tar.xz
 Source1:        create-tarball.sh
 
+BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -27,11 +28,10 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 %endif
-# xmvn-builddep misses this:
 %if %{without bootstrap}
+# xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
-BuildRequires:  jurand
 
 %description
 Put simply, Guice alleviates the need for factories and the use of new
@@ -115,7 +115,11 @@ Summary:        Bill of Materials for Guice
 Guice is a lightweight dependency injection framework for Java 5
 and above. This package provides Bill of Materials module for Guice.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -189,14 +193,23 @@ and above. This package provides Bill of Materials module for Guice.
 %license COPYING
 
 %files -n guice-assistedinject -f .mfiles-guice-assistedinject
+
 %files -n guice-extensions -f .mfiles-extensions-parent
+
 %files -n guice-grapher -f .mfiles-guice-grapher
+
 %files -n guice-jmx -f .mfiles-guice-jmx
+
 %files -n guice-jndi -f .mfiles-guice-jndi
+
 %files -n guice-servlet -f .mfiles-guice-servlet
+
 %files -n guice-throwingproviders -f .mfiles-guice-throwingproviders
 
 %files -n guice-bom -f .mfiles-guice-bom
+
+%files javadoc -f .mfiles-javadoc
+%license COPYING
 
 %changelog
 %autochangelog

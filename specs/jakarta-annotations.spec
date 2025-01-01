@@ -18,7 +18,6 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
-
 Provides:       glassfish-annotation-api = %{version}-%{release}
 
 %description
@@ -26,7 +25,11 @@ Jakarta Annotations defines a collection of annotations representing
 common semantic concepts that enable a declarative style of
 programming that applies across a variety of Java technologies.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -66,6 +69,8 @@ programming that applies across a variety of Java technologies.
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -24,7 +24,6 @@ BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 # Not generated automatically
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 %endif
-
 Requires:       mvn(org.codehaus.mojo:build-helper-maven-plugin)
 Requires:       mvn(org.moditect:moditect-maven-plugin)
 

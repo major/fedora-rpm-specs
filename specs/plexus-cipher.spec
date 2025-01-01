@@ -26,7 +26,11 @@ BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 %description
 Plexus Cipher: encryption/decryption Component
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -41,6 +45,8 @@ Plexus Cipher: encryption/decryption Component
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

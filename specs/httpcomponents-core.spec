@@ -1,17 +1,18 @@
 %bcond_with bootstrap
 
 Name:           httpcomponents-core
-Summary:        Set of low level Java HTTP transport components for HTTP services
 Version:        4.4.16
 Release:        %autorelease
+Summary:        Set of low level Java HTTP transport components for HTTP services
 License:        Apache-2.0
 URL:            http://hc.apache.org/
-Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
-Patch:          0001-Port-to-mockito-2.patch
-Patch:          0002-Port-to-Mockito-5.patch
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-core/%{version}/httpcomponents-core-%{version}-source-release.zip
+
+Patch:          0001-Port-to-mockito-2.patch
+Patch:          0002-Port-to-Mockito-5.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -38,7 +39,11 @@ appropriate for high latency scenarios where raw data throughput is
 less important than the ability to handle thousands of simultaneous
 HTTP connections in a resource efficient manner.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -100,6 +105,8 @@ rm httpcore-nio/src/test/java/org/apache/http/impl/nio/TestContentChannel.java
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.txt RELEASE_NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -1,37 +1,37 @@
 %bcond_with bootstrap
 
-Name:              httpcomponents-client
-Summary:           HTTP agent implementation based on httpcomponents HttpCore
-Version:           4.5.14
-Release:           %autorelease
-License:           Apache-2.0
-URL:               http://hc.apache.org/
-Source0:           https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/%{version}/httpcomponents-client-%{version}-source-release.zip
-BuildArch:         noarch
-ExclusiveArch:     %{java_arches} noarch
+Name:           httpcomponents-client
+Version:        4.5.14
+Release:        %autorelease
+Summary:        HTTP agent implementation based on httpcomponents HttpCore
+License:        Apache-2.0
+URL:            http://hc.apache.org/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
-Patch:             0001-Use-system-copy-of-effective_tld_names.dat.patch
-Patch:             0002-Port-to-mockito-2.patch
-Patch:             0003-Port-to-Mockito-5.patch
+Source0:        https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcomponents-client/%{version}/httpcomponents-client-%{version}-source-release.zip
+
+Patch:          0001-Use-system-copy-of-effective_tld_names.dat.patch
+Patch:          0002-Port-to-mockito-2.patch
+Patch:          0003-Port-to-Mockito-5.patch
 
 %if %{with bootstrap}
-BuildRequires:     javapackages-bootstrap
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:     maven-local
-BuildRequires:     mvn(commons-codec:commons-codec)
-BuildRequires:     mvn(commons-logging:commons-logging)
-BuildRequires:     mvn(junit:junit)
-BuildRequires:     mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:     mvn(org.apache.httpcomponents:httpcomponents-parent:pom:)
-BuildRequires:     mvn(org.apache.httpcomponents:httpcore)
-BuildRequires:     mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:     mvn(org.mockito:mockito-core)
+BuildRequires:  maven-local
+BuildRequires:  mvn(commons-codec:commons-codec)
+BuildRequires:  mvn(commons-logging:commons-logging)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.httpcomponents:httpcomponents-parent:pom:)
+BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
-
 %if %{without bootstrap}
-BuildRequires:     publicsuffix-list
+BuildRequires:  publicsuffix-list
 %endif
-Requires:          publicsuffix-list
+Requires:       publicsuffix-list
 
 %description
 HttpClient is a HTTP/1.1 compliant HTTP agent implementation based on
@@ -41,7 +41,11 @@ management. HttpComponents Client is a successor of and replacement
 for Commons HttpClient 3.x. Users of Commons HttpClient are strongly
 encouraged to upgrade.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -122,6 +126,8 @@ rm httpclient/src/test/java/org/apache/http/client/config/TestRequestConfig.java
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.txt RELEASE_NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

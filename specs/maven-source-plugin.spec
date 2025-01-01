@@ -34,10 +34,10 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 The Maven Source Plugin creates a JAR archive of the
 source files of the current project.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 API documentation for %{name}.
 
 %prep

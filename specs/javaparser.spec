@@ -1,37 +1,36 @@
 %bcond_with bootstrap
-
 %if !0%{?rhel} && %{without bootstrap}
 %bcond_without bnd_maven_plugin
 %else
 %bcond_with bnd_maven_plugin
 %endif
 
-Name:          javaparser
-Version:       3.25.8
-Release:       %autorelease
-Summary:       Java 1 to 13 Parser and Abstract Syntax Tree for Java
-License:       LGPL-2.0-or-later OR Apache-2.0
-URL:           https://javaparser.org
-Source0:       https://github.com/javaparser/javaparser/archive/%{name}-parent-%{version}.tar.gz
+Name:           javaparser
+Version:        3.25.8
+Release:        %autorelease
+Summary:        Java 1 to 13 Parser and Abstract Syntax Tree for Java
+License:        LGPL-2.0-or-later OR Apache-2.0
+URL:            https://javaparser.org
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
-Patch:         0001-Port-to-OpenJDK-21.patch
+Source0:        https://github.com/javaparser/javaparser/archive/%{name}-parent-%{version}.tar.gz
 
+Patch:          0001-Port-to-OpenJDK-21.patch
+
+%if %{with bnd_maven_plugin}
+BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
+%endif
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(net.java.dev.javacc:javacc)
-BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(net.java.dev.javacc:javacc)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 %endif
-%if %{with bnd_maven_plugin}
-BuildRequires:  mvn(biz.aQute.bnd:bnd-maven-plugin)
-%endif
-
-BuildArch:     noarch
-ExclusiveArch:  %{java_arches} noarch
 
 %description
 This package contains a Java 1 to 13 Parser with AST generation and
@@ -40,7 +39,7 @@ and comments. It is also possible to change the AST nodes or create new
 ones to modify the source code.
 
 %package javadoc
-Summary: Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 This package contains API documentation for %{name}.

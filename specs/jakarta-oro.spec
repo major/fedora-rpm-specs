@@ -27,7 +27,6 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-
 %global base_name oro
 
 Name:           jakarta-oro
@@ -35,18 +34,18 @@ Version:        2.0.8
 Release:        %autorelease
 Summary:        Full regular expressions API
 License:        Apache-1.1
-Source0:        http://archive.apache.org/dist/jakarta/oro/%{name}-%{version}.tar.gz
-Source1:        MANIFEST.MF
-Source2:        http://repo1.maven.org/maven2/%{base_name}/%{base_name}/%{version}/%{base_name}-%{version}.pom
-Patch:          %{name}-build-xml.patch
 URL:            http://jakarta.apache.org/oro
-
-BuildRequires:  javapackages-local
-BuildRequires:  ant
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
+Source0:        http://archive.apache.org/dist/jakarta/oro/%{name}-%{version}.tar.gz
+Source1:        MANIFEST.MF
+Source2:        http://repo1.maven.org/maven2/%{base_name}/%{base_name}/%{version}/%{base_name}-%{version}.pom
+
+Patch:          %{name}-build-xml.patch
+
+BuildRequires:  javapackages-local
+BuildRequires:  ant
 Provides:       deprecated()
 
 %description

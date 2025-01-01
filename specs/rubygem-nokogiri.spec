@@ -1,4 +1,4 @@
-%global	mainver		1.18.0
+%global	mainver		1.18.1
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -275,6 +275,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Mon Dec 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.1-1
+- 1.18.1
+
 * Sat Dec 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.0-1
 - 1.18.0
 

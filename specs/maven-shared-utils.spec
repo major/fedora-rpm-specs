@@ -10,6 +10,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%{version}/%{name}-%{version}-source-release.zip
+
 Patch:          0001-Avoid-setting-POSIX-attributes-for-symbolic-links.patch
 
 %if %{with bootstrap}
@@ -33,7 +34,11 @@ It is not a 100% API compatible replacement though but a replacement with
 improvements: lots of methods got cleaned up, generics got added and we dropped
 a lot of unused code.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -52,6 +57,8 @@ rm src/test/java/org/apache/maven/shared/utils/CaseTest.java
 
 %files -f .mfiles
 %license LICENSE NOTICE
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

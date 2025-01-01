@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    9499e6b9a5845573c6f61936463850e82bacd49b
+%global gh_commit    cd5d8029eeaf6225b9ff4692364c4c473191e487
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.4.1
+Version:        2.4.2
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -27,8 +27,8 @@ BuildArch:      noarch
 %if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit10
-BuildRequires:  phpunit10 >= 10.1.2
-BuildRequires:  php(language) >= 8.0
+BuildRequires:  phpunit10 >= 10.5.10
+BuildRequires:  php(language) >= 8.1
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 2.2    with php-composer(%{c_vendor}/tc-lib-color) < 3)
 BuildRequires:  php-bcmath
 BuildRequires:  php-ctype
@@ -41,13 +41,13 @@ BuildRequires:  php-pecl-imagick
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=8.0"
+#        "php": ">=8.1"
 #        "ext-bcmath": "*",
 #        "ext-date": "*",
 #        "ext-gd": "*",
 #        "ext-pcre": "*",
 #        "tecnickcom/tc-lib-color": "^2.2"
-Requires:       php(language) >= 8.0
+Requires:       php(language) >= 8.1
 Requires:       php-bcmath
 Requires:       php-ctype
 Requires:       php-date
@@ -137,6 +137,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 26 2024 Remi Collet <remi@remirepo.net> - 2.4.2-1
+- update to 2.4.2
+- raise dependency on PHP 8.1
+
 * Mon Dec 23 2024 Remi Collet <remi@remirepo.net> - 2.4.1-1
 - update to 2.4.1 (no change)
 - re-license spec file to CECILL-2.1

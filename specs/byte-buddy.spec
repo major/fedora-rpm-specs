@@ -6,6 +6,9 @@ Release:        %autorelease
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
 URL:            http://bytebuddy.net/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
 Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy-%{version}.tar.gz
 
 # Patch the build to avoid bundling inside shaded jars
@@ -13,6 +16,7 @@ Patch:          0001-Avoid-bundling-asm.patch
 Patch:          0002-Remove-dependencies.patch
 Patch:          0003-Fix-broken-modular-jars.patch
 
+BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -21,27 +25,23 @@ BuildRequires:  mvn(codes.rafael.modulemaker:modulemaker-maven-plugin)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy-dep)
-BuildRequires:  mvn(org.apache.maven:maven-compat)
-BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.mockito:mockito-core)
-BuildRequires:  mvn(org.ow2.asm:asm-analysis)
-BuildRequires:  mvn(org.ow2.asm:asm-util)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
+BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
-BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.eclipse.aether:aether-api)
 BuildRequires:  mvn(org.eclipse.aether:aether-util)
+BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.ow2.asm:asm)
+BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
+BuildRequires:  mvn(org.ow2.asm:asm-util)
 %endif
-BuildRequires:  jurand
-
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 %description
 Byte Buddy is a code generation library for creating Java classes during the
@@ -51,26 +51,19 @@ allows the creation of arbitrary classes and is not limited to implementing
 interfaces for the creation of runtime proxies. 
 
 %package agent
-Summary: Byte Buddy Java agent
+Summary:        Byte Buddy Java agent
 
 %description agent
 The Byte Buddy Java agent allows to access the JVM's HotSwap feature.
 
 %package maven-plugin
-Summary: Byte Buddy Maven plugin
+Summary:        Byte Buddy Maven plugin
 
 %description maven-plugin
 A plugin for post-processing class files via Byte Buddy in a Maven build.
 
-%package parent
-Summary: Byte Buddy parent POM
-
-%description parent
-The parent artifact contains configuration information that
-concern all modules.
-
 %package javadoc
-Summary: Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 This package contains API documentation for %{name}.

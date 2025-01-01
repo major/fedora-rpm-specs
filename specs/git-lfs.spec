@@ -2,7 +2,7 @@
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.5.1
+Version:                3.6.0
 
 %gometa
 
@@ -44,9 +44,9 @@ BuildRequires:  golang(github.com/pkg/errors)
 BuildRequires:  golang(github.com/rubyist/tracerx)
 BuildRequires:  golang(github.com/spf13/cobra) >= 1.7
 BuildRequires:  golang(github.com/ssgelm/cookiejarparser) >= 1.0.1
-BuildRequires:  golang(golang.org/x/net/http2) >= 0.17
+BuildRequires:  golang(golang.org/x/net/http2) >= 0.23
 BuildRequires:  golang(golang.org/x/sync/semaphore) >= 0.1
-BuildRequires:  golang(golang.org/x/sys/unix) >= 0.15
+BuildRequires:  golang(golang.org/x/sys/unix) >= 0.18
 
 # Generate man pages
 BuildRequires:  /usr/bin/asciidoctor

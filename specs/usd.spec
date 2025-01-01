@@ -604,6 +604,11 @@ desktop-file-install                                    \
 %{SOURCE1}
 %endif
 
+# Little hack until this issue is resolved
+# https://github.com/PixarAnimationStudios/OpenUSD/issues/3310
+sed -i 's|OpenGL::GL|${OPENGL_gl_LIBRARY}|g' \
+        %{buildroot}%{_libdir}/cmake/pxr/pxrTargets.cmake
+
 # Remove examples that were built and installed even though we set
 # -DPXR_BUILD_EXAMPLES=OFF.
 rm -vrf '%{buildroot}%{_datadir}/usd/examples'

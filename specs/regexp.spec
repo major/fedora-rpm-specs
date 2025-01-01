@@ -10,11 +10,11 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://archive.apache.org/dist/jakarta/%{name}/jakarta-%{name}-%{version}.tar.gz
 Source2:        jakarta-%{name}-osgi-manifest.MF
+
 Patch:          jakarta-%{name}-attach-osgi-manifest.patch
 
-BuildRequires:  ant
 BuildRequires:  javapackages-local
-
+BuildRequires:  ant
 Requires:       java-headless
 Provides:       deprecated()
 

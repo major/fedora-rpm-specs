@@ -4,16 +4,13 @@
 %global __cargo_is_lib() 0
 
 Name:          dbus-parsec
-Version:       0.4.0
-Release:       9%{?dist}
+Version:       0.5.0
+Release:       1%{?dist}
 Summary:       DBus PARSEC interface
 
 License:       EUPL-1.2
 URL:           https://github.com/fedora-iot/dbus-parsec
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# ring is not available on ppc64le and s390x: RHBZ#1869980
-ExcludeArch:   ppc64le s390x
 
 BuildRequires: NetworkManager-libnm-devel
 BuildRequires: rust-packaging >= 21
@@ -26,7 +23,6 @@ Requires: parsec
 
 %prep
 %autosetup -p1
-sed -i 's/parsec-client = "0.11.0"/parsec-client = "0.12.0"/' Cargo.toml
 %cargo_prep
 
 %generate_buildrequires
@@ -59,6 +55,9 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 %{_unitdir}/dbus-parsec.service
 
 %changelog
+* Mon Dec 30 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

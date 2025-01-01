@@ -18,7 +18,6 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 %endif
-
 # Remove in Fedora 45
 Obsoletes:      cdi-api < 2.0.2-16
 Provides:       cdi-api = %{version}-%{release}
@@ -29,7 +28,11 @@ objects in such a way as to maximize reusability, testability and
 maintainability compared to traditional approaches such as
 constructors, factories, and service locators (e.g., JNDI).
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -57,6 +60,8 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %files -f .mfiles
 %doc README.md
 %license LICENSE.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

@@ -1,51 +1,43 @@
 %define __requires_exclude system.bundle
+%global cvs_version %(tr . _ <<< %{version})
 
-Name:          xerces-j2
-Version:       2.12.2
-Release:       %autorelease
-Summary:       Java XML parser
+Name:           xerces-j2
+Version:        2.12.2
+Release:        %autorelease
+Summary:        Java XML parser
 # Most of the source is ASL 2.0
 # W3C licensed files:
 # src/org/apache/xerces/dom3/as
 # src/org/w3c/dom/html/HTMLDOMImplementation.java
-License:       Apache-2.0 AND W3C
-URL:           http://xerces.apache.org/xerces2-j/
+License:        Apache-2.0 AND W3C
+URL:            http://xerces.apache.org/xerces2-j/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
-%global cvs_version %(tr . _ <<< %{version})
-
-Source0:       http://mirror.ox.ac.uk/sites/rsync.apache.org/xerces/j/source/Xerces-J-src.%{version}.tar.gz
-Source11:      %{name}-version.1
-Source12:      %{name}-constants.1
-
+Source0:        http://mirror.ox.ac.uk/sites/rsync.apache.org/xerces/j/source/Xerces-J-src.%{version}.tar.gz
 # Custom javac ant task used by the build
-Source3:       https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/XJavac.java
-
+Source3:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/XJavac.java
 # Custom doclet tags used in javadocs
-Source5:       https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/ExperimentalTaglet.java
-Source6:       https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/InternalTaglet.java
-
-Source7:       %{name}-pom.xml
+Source5:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/ExperimentalTaglet.java
+Source6:        https://svn.apache.org/repos/asf/xerces/java/tags/Xerces-J_%{cvs_version}/tools/src/InternalTaglet.java
+Source7:        %{name}-pom.xml
+Source11:       %{name}-version.1
+Source12:       %{name}-constants.1
 
 # Patch the build so that it doesn't try to use bundled xml-commons source
-Patch:         %{name}-build.patch
-
+Patch:          %{name}-build.patch
 # Patch the manifest so that it includes OSGi stuff
-Patch:         %{name}-manifest.patch
+Patch:          %{name}-manifest.patch
 
-BuildArch:     noarch
-ExclusiveArch: %{java_arches} noarch
-
-BuildRequires: javapackages-local
-BuildRequires: ant
-BuildRequires: apache-parent
-BuildRequires: xml-commons-apis >= 1.4.01
-BuildRequires: xml-commons-resolver >= 1.2
-
-Requires:      xml-commons-apis >= 1.4.01
-Requires:      xml-commons-resolver >= 1.2
-
-Provides:      jaxp_parser_impl = 1.4
-Provides:      %{name}-scripts = %{version}-%{release}
+BuildRequires:  javapackages-local
+BuildRequires:  ant
+BuildRequires:  apache-parent
+BuildRequires:  xml-commons-apis >= 1.4.01
+BuildRequires:  xml-commons-resolver >= 1.2
+Requires:       xml-commons-apis >= 1.4.01
+Requires:       xml-commons-resolver >= 1.2
+Provides:       %{name}-scripts = %{version}-%{release}
+Provides:       jaxp_parser_impl = 1.4
 
 %description
 Welcome to the future! Xerces2 is the next generation of high performance,
@@ -74,17 +66,17 @@ also handles name spaces according to the XML Namespaces 1.1 Recommendation,
 and will correctly serialize XML 1.1 documents if the DOM level 3 load/save
 APIs are in use.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadocs for %{name}
 
-%description    javadoc
+%description javadoc
 This package contains the API documentation for %{name}.
 
-%package        demo
+%package demo
 Summary:        Demonstrations and samples for %{name}
 Requires:       %{name} = %{version}-%{release}
 
-%description    demo
+%description demo
 %{summary}.
 
 %prep

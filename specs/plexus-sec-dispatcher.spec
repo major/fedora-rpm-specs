@@ -18,15 +18,19 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
-BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-cipher)
 %endif
 
 %description
 Plexus Security Dispatcher Component
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,6 +53,8 @@ cp %{SOURCE1} .
 
 %files -f .mfiles
 %license LICENSE-2.0.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

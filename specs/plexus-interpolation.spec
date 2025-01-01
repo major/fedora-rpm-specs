@@ -30,7 +30,11 @@ focused on providing a more modular, flexible interpolation framework for
 the expression language style commonly seen in Maven, Plexus, and other
 related projects.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -46,6 +50,8 @@ related projects.
 %mvn_install
 
 %files -f .mfiles
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

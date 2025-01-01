@@ -1,12 +1,11 @@
 Name:           zcfan
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Zero-configuration fan daemon for ThinkPads
 
 License:        MIT
 URL:            https://github.com/cdown/zcfan
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:          %{url}/pull/27.patch#/%{name}-mark-service-conflict-with-thinkfan.diff
 
 BuildRequires:  gcc
 BuildRequires:  make

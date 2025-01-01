@@ -39,10 +39,6 @@ resources and dependencies. Plus a zillion other features.
 %package javadoc
 Summary:        Javadoc for %{name}
 
-# TODO remove Provides / Obsoletes on maven-plugin-bundle-javadoc in Fedora 41
-Provides:       maven-plugin-bundle-javadoc = %{version}-%{release}
-Obsoletes:      maven-plugin-bundle-javadoc < 5.1.1-9
-
 %description javadoc
 API documentation for %{name}.
 

@@ -20,8 +20,8 @@ Source2:        %{name}-MANIFEST.MF
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  ant
 BuildRequires:  javapackages-local
+BuildRequires:  ant
 %endif
 
 %description
@@ -33,7 +33,11 @@ environements (e.g. Eclipse).  The AOP Alliance also aims to ensure
 interoperability between Java/J2EE AOP implementations to build a
 larger AOP community.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -53,6 +57,8 @@ jar umf %{SOURCE2} build/%{name}.jar
 %mvn_install -J build/javadoc
 
 %files -f .mfiles
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

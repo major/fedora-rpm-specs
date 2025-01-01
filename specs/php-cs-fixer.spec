@@ -7,17 +7,16 @@
 # Please, preserve the changelog entries
 #
 
-# For compatibility with SCL
-%undefine __brp_mangle_shebangs
+%bcond_with          generators
 
-%global gh_commit    79d4f3e77b250a7d8043d76c6af8f0695e8a469f
+%global gh_commit    5f5f2a142ff36b93c41885bca29cc5f861c013e6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2024-11-25
+%global gh_date      2024-12-29
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.65.0
+Version:        3.66.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -35,6 +34,9 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-cli
 BuildRequires:  php-json
+%if %{with generators}
+BuildRequires:  composer-generators
+%endif
 
 # see composer.json and makesrc.sh
 Requires:       php(language) >= 8.1
@@ -49,6 +51,7 @@ Requires:       php-mbstring
 Obsoletes:      php-cs-fixer3 < 3.5
 Provides:       php-cs-fixer3 = %{version}
 
+%if %{without generators}
 # Bundled PHP libraries
 # License BSD-3-Clause
 Provides:       bundled(php-composer(sebastian/diff)) = 5.1.1
@@ -70,12 +73,12 @@ Provides:       bundled(php-composer(react/promise)) = v3.2.0
 Provides:       bundled(php-composer(react/socket)) = v1.16.0
 Provides:       bundled(php-composer(react/stream)) = v1.4.0
 Provides:       bundled(php-composer(symfony/console)) = v6.4.15
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = v3.5.0
+Provides:       bundled(php-composer(symfony/deprecation-contracts)) = v3.5.1
 Provides:       bundled(php-composer(symfony/event-dispatcher)) = v6.4.13
-Provides:       bundled(php-composer(symfony/event-dispatcher-contracts)) = v3.5.0
+Provides:       bundled(php-composer(symfony/event-dispatcher-contracts)) = v3.5.1
 Provides:       bundled(php-composer(symfony/filesystem)) = v6.4.13
 Provides:       bundled(php-composer(symfony/finder)) = v6.4.13
-Provides:       bundled(php-composer(symfony/options-resolver)) = v6.4.13
+Provides:       bundled(php-composer(symfony/options-resolver)) = v6.4.16
 Provides:       bundled(php-composer(symfony/polyfill-ctype)) = v1.31.0
 Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = v1.31.0
 Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = v1.31.0
@@ -83,11 +86,12 @@ Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = v1.31.0
 Provides:       bundled(php-composer(symfony/polyfill-php80)) = v1.31.0
 Provides:       bundled(php-composer(symfony/polyfill-php81)) = v1.31.0
 Provides:       bundled(php-composer(symfony/process)) = v6.4.15
-Provides:       bundled(php-composer(symfony/service-contracts)) = v3.5.0
+Provides:       bundled(php-composer(symfony/service-contracts)) = v3.5.1
 Provides:       bundled(php-composer(symfony/stopwatch)) = v6.4.13
 Provides:       bundled(php-composer(symfony/string)) = v6.4.15
 
 Provides:       php-composer(friendsofphp/php-cs-fixer) = %{version}
+%endif
 
 
 %description
@@ -108,6 +112,7 @@ projects. This tool does not only detect them, but also fixes them for you.
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch -P0 -p1 -b .rpm
 
+%if %{without generators}
 : List bundled libraries and Licenses
 php -r '
     $pkgs = file_get_contents("vendor/composer/installed.json");
@@ -128,6 +133,7 @@ php -r '
         printf("# License %s\n%s\n", $lic, implode("\n", $lib));
     }
 '
+%endif
 
 %build
 # Empty build section, most likely nothing required.
@@ -158,6 +164,10 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Dec 30 2024 Remi Collet <remi@remirepo.net> - 3.66.0-1
+- update to 3.66.0
+- add option to use composer-generators
+
 * Mon Nov 25 2024 Remi Collet <remi@remirepo.net> - 3.65.0-1
 - update to 3.65.0
 

@@ -36,11 +36,11 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.jsoup:jsoup)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
-BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  mvn(org.jsoup:jsoup)
 %endif
 
 %description
@@ -97,7 +97,7 @@ Summary:        Javadoc for %{name}
 API documentation for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 find -name '*.java' -exec sed -i 's/\r//' {} +
 
 rm -r maven-plugin-tools-api/src/test/resources/javadoc

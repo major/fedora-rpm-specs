@@ -48,10 +48,10 @@ architecture, various types of code and descriptors can be generated
 from the single model, including Java POJOs, XML
 marshallers/unmarshallers, XSD and documentation.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 API documentation for %{name}.
 
 %prep

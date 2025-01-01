@@ -5,6 +5,8 @@ Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        Apache-2.0 AND W3C
 URL:            http://xalan.apache.org/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
@@ -16,9 +18,6 @@ Source6:        generate-tarball.sh
 
 Patch:          xalan-j2-noxsltcdeps.patch
 
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
-
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  apache-parent
@@ -28,9 +27,7 @@ BuildRequires:  regexp
 BuildRequires:  sed
 BuildRequires:  xerces-j2 >= 0:2.7.1
 BuildRequires:  xml-commons-apis >= 0:1.3
-
 Requires:       xerces-j2
-
 Provides:       jaxp_transform_impl
 
 %description
@@ -40,23 +37,23 @@ for XSL Transformations (XSLT) and the XML Path Language (XPath). It can
 be used from the command line, in an applet or a servlet, or as a module
 in other program.
 
-%package        xsltc
+%package xsltc
 Summary:        XSLT compiler
 License:        Apache-2.0
-Requires:       java_cup
 Requires:       bcel
+Requires:       java_cup
 Requires:       regexp
 Requires:       xerces-j2
 
-%description    xsltc
+%description xsltc
 The XSLT Compiler is a Java-based tool for compiling XSLT stylesheets into
 lightweight and portable Java byte codes called translets.
 
-%package        manual
+%package manual
 Summary:        Manual for %{name}
 License:        Apache-2.0
 
-%description    manual
+%description manual
 Documentation for %{name}.
 
 %prep

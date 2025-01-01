@@ -6,9 +6,10 @@ Release:        %autorelease
 Summary:        Parent POM file for Apache projects
 License:        Apache-2.0
 URL:            https://apache.org/
-Source0:        https://repo1.maven.org/maven2/org/apache/apache/%{version}/apache-%{version}-source-release.zip
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://repo1.maven.org/maven2/org/apache/apache/%{version}/apache-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -17,9 +18,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 %endif
-
-# Not generated automatically
 %if %{without bootstrap}
+# Not generated automatically
 BuildRequires:  mvn(org.apache.apache.resources:apache-jar-resource-bundle)
 %endif
 Requires:       mvn(org.apache.apache.resources:apache-jar-resource-bundle)
@@ -28,7 +28,7 @@ Requires:       mvn(org.apache.apache.resources:apache-jar-resource-bundle)
 This package contains the parent pom file for apache projects.
 
 %prep
-%autosetup -p1 -n apache-%{version}
+%autosetup -p1 -C
 
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-site-plugin docs

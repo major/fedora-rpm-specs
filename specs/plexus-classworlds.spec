@@ -28,7 +28,11 @@ developers. Projects which involve dynamic loading of components or otherwise
 represent a 'container' can benefit from the classloading control provided by
 classworlds.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,6 +53,8 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.jupiter.api.Disabled/ s
 
 %files -f .mfiles
 %license LICENSE.txt LICENSE-Codehaus.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

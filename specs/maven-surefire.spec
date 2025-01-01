@@ -1,4 +1,5 @@
 %bcond_with bootstrap
+%global upstream_version %(echo '%{version}' | tr '~' '-')
 
 Name:           maven-surefire
 Version:        3.2.2
@@ -8,8 +9,6 @@ License:        Apache-2.0 AND CPL-1.0
 URL:            https://maven.apache.org/surefire/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-
-%global upstream_version %(echo '%{version}' | tr '~' '-')
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
@@ -46,7 +45,6 @@ BuildRequires:  mvn(org.junit.platform:junit-platform-launcher)
 BuildRequires:  mvn(org.testng:testng)
 BuildRequires:  mvn(org.testng:testng::jdk15:)
 %endif
-
 # PpidChecker relies on /usr/bin/ps to check process uptime
 Requires:       procps-ng
 
@@ -162,9 +160,13 @@ find -name *.java -exec sed -i -e s/org.apache.maven.surefire.shared.utils/org.a
 %license LICENSE NOTICE cpl-v10.html
 
 %files plugin -f .mfiles-surefire-plugin
+
 %files provider-junit -f .mfiles-junit
+
 %files provider-junit5 -f .mfiles-junit5
+
 %files provider-testng -f .mfiles-testng
+
 %files -n maven-failsafe-plugin -f .mfiles-failsafe-plugin
 
 %files javadoc -f .mfiles-javadoc

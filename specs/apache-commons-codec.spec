@@ -30,7 +30,11 @@ Commons Codec is an attempt to provide definitive implementations of
 commonly used encoders and decoders. Examples include Base64, Hex,
 Phonetic and URLs.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,6 +53,8 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt aspell-mail.txt
 %doc RELEASE-NOTES*
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

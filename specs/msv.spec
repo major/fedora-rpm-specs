@@ -20,7 +20,6 @@ ExclusiveArch:  %{java_arches} noarch
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
-
 Source1:        generate-tarball.sh
 
 Patch:          0001-Disable-Apache-XercesImpl.patch
@@ -39,16 +38,16 @@ for the validation of XML documents against several kinds of XML schemata The
 core supports RELAX NG, RELAX Namespace, RELAX Core, TREX, XML DTDs, and a
 subset of XML Schema Part 1.
 
-%package        javadoc
+%package javadoc
 Summary:        API documentation for %{name}
 
-%description    javadoc
+%description javadoc
 This package provides %{summary}.
 
-%package        xsdlib
+%package xsdlib
 Summary:        Java implementation of W3C’s XML Schema Part 2
 
-%description    xsdlib
+%description xsdlib
 MSV XML Datatypes Library, Java implementation of W3C’s XML Schema Part 2, is
 intended for use with applications that incorporate XML Schema Part 2.
 

@@ -44,7 +44,11 @@ therefore created differently named artifact and jar files. This is
 the new version, while apache-commons-lang is the compatibility
 package.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -79,6 +83,8 @@ sed -i '/<argLine>/d' pom.xml
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc RELEASE-NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

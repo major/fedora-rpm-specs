@@ -83,10 +83,13 @@ popd
 
 %files maven-plugin -f istack-commons/.mfiles-istack-commons-maven-plugin
 %license LICENSE.md NOTICE.md
+
 %files runtime -f istack-commons/.mfiles-istack-commons-runtime
 %license LICENSE.md NOTICE.md
+
 %files test -f istack-commons/.mfiles-istack-commons-test
 %license LICENSE.md NOTICE.md
+
 %files tools -f istack-commons/.mfiles-istack-commons-tools
 %license LICENSE.md NOTICE.md
 

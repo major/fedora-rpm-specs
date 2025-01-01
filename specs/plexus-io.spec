@@ -34,10 +34,10 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple)
 Plexus IO is a set of plexus components, which are designed for use
 in I/O operations.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 API documentation for %{name}.
 
 %prep

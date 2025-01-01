@@ -6,10 +6,10 @@ Release:        %autorelease
 Summary:        Maven Resources Plugin
 License:        Apache-2.0
 URL:            https://maven.apache.org/plugins/maven-resources-plugin
-Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

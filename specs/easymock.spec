@@ -6,6 +6,8 @@ Release:        %autorelease
 Summary:        Easy mock objects
 License:        Apache-2.0
 URL:            https://www.easymock.org
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
@@ -16,9 +18,6 @@ Patch:          0001-Disable-android-support.patch
 Patch:          0002-Unshade-cglib-and-asm.patch
 Patch:          0003-Fix-OSGi-manifest.patch
 Patch:          0004-Port-to-hamcrest-2.1.patch
-
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -37,11 +36,10 @@ BuildRequires:  mvn(org.objenesis:objenesis)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.testng:testng)
 %endif
-# xmvn-builddep misses this:
 %if %{without bootstrap}
+# xmvn-builddep misses this:
 BuildRequires:  mvn(org.apache:apache-jar-resource-bundle)
 %endif
-
 Provides:       %{name}3 = %{version}-%{release}
 
 %description

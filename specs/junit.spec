@@ -24,11 +24,10 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 %endif
-
+%if %{without bootstrap}
 # For other packages, surefire-junit4 is normally pulled as transitive
 # runtime dependency of junit, but junit doesn't build-depend on
 # itself, so explicit BR on surefire-junit4 is needed.
-%if %{without bootstrap}
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit4)
 %endif
 
@@ -79,12 +78,12 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %license LICENSE-junit.txt
 %doc README.md
 
-%files javadoc -f .mfiles-javadoc
-%license LICENSE-junit.txt
-
 %files manual
 %license LICENSE-junit.txt
 %doc doc/*
+
+%files javadoc -f .mfiles-javadoc
+%license LICENSE-junit.txt
 
 %changelog
 %autochangelog

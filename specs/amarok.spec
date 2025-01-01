@@ -2,7 +2,7 @@
 
 Name:    amarok
 Summary: Media player
-Version: 3.1.1
+Version: 3.2.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -200,7 +200,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 %{_kf5_datadir}/kpackage/genericqml/org.kde.amarok.context
 %{_kf5_datadir}/kservices5/ServiceMenus/amarok_append.desktop
 %{_kf5_datadir}/kservices5/amarok*
-%{_kf5_datadir}/kservicetypes5/amarok*
 %{_kf5_datadir}/solid/actions/amarok-play-audiocd.desktop
 %{_kf5_metainfodir}/org.kde.amarok.*.xml
 %{_kf5_qmldir}/org/kde/amarok
@@ -249,6 +248,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Mon Dec 30 2024 Steve Cossette <farchord@gmail.com> - 3.2.0-1
+- 3.2.0
+
 * Sun Sep 29 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 3.1.1-1
 - 3.1.1
 

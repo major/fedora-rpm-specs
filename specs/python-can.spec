@@ -64,10 +64,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{__python3} setup.py test
 %endif
 
-%files -n python3-can
+%files -n python3-can -f %{pyproject_files}
 %license LICENSE.txt
 %{_bindir}/can_*
-%{python3_sitelib}/*
 
 %changelog
 %autochangelog

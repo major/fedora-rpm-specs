@@ -27,12 +27,17 @@ describes an open, standards-based "binary XML" format that is based on
 the XML Information Set.
 
 %package tests
-License:        Apache-2.0 AND BSD-3-Clause
 Summary:        FastInfoset Roundtrip Tests
+License:        Apache-2.0 AND BSD-3-Clause
+
 %description tests
 %{summary}.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -59,6 +64,9 @@ Summary:        FastInfoset Roundtrip Tests
 %doc README.md
 
 %files tests -f .mfiles-tests
+%license LICENSE NOTICE.md
+
+%files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE.md
 
 %changelog

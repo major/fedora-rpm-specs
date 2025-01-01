@@ -5,20 +5,26 @@
 %bcond_with check
 %endif
 
-# https://github.com/festvox/flite/issues/86
+# https://github.com/festvox/flite/pull/92#issuecomment-1481980430
 %global _smp_mflags -j1
+
+%global abi 1
 
 Name:           flite
 Version:        2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Small, fast speech synthesis engine (text-to-speech)
 License:        MIT
-URL:            http://www.speech.cs.cmu.edu/flite/
+URL:            http://cmuflite.org/
 
 Source0:        https://github.com/festvox/flite/archive/v%{version}/flite-%{version}.tar.gz
 Patch0:         flite-2.2-lto.patch
 # fixes build with texinfo-7.0+, see https://lists.gnu.org/archive/html/bug-texinfo/2022-11/msg00036.html
 Patch1:         flite-2.2-texinfo-7.0.patch
+# https://github.com/festvox/flite/issues/86
+Patch2:         flite-2.2-parallel-make.patch
+# https://github.com/festvox/flite/pull/90
+Patch3:         flite-2.2-tests.patch
 # texi2pdf
 # WARNING see explanation about PDF doc below.
 #BuildRequires:  texinfo-tex
@@ -49,6 +55,8 @@ Development files for Flite, a small, fast speech synthesis engine.
 %setup -q
 %patch -P0 -p1 -b .lto
 %patch -P1 -p1 -b .ti7
+%patch -P2 -p1 -b .pmake
+%patch -P3 -p1 -b .tst
 
 
 %build
@@ -72,7 +80,7 @@ rm %{buildroot}%{_libdir}/libflite*.a
 
 %if %{with check}
 %check
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} make -C testsuite do_thread_test
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %endif
 
 
@@ -81,16 +89,33 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make -C testsuite do_thread_test
 %doc ACKNOWLEDGEMENTS
 %doc doc/html
 %doc README.md
-%{_libdir}/*.so.*
-%{_bindir}/*
+%{_libdir}/libflite_cmu_{grapheme,indic}_{lang,lex}.so.{%{abi},%{version}}
+%{_libdir}/libflite_cmulex.so.{%{abi},%{version}}
+%{_libdir}/libflite_cmu_time_awb.so.{%{abi},%{version}}
+%{_libdir}/libflite_cmu_us_{awb,kal,kal16,rms,slt}.so.{%{abi},%{version}}
+%{_libdir}/libflite.so.{%{abi},%{version}}
+%{_libdir}/libflite_usenglish.so.{%{abi},%{version}}
+%{_bindir}/flite
+%{_bindir}/flite_cmu_time_awb
+%{_bindir}/flite_cmu_us_{awb,kal,kal16,rms,slt}
+%{_bindir}/flite_time
 
 
 %files devel
-%{_libdir}/*.so
+%{_libdir}/libflite_cmu_{grapheme,indic}_{lang,lex}.so
+%{_libdir}/libflite_cmulex.so
+%{_libdir}/libflite_cmu_time_awb.so
+%{_libdir}/libflite_cmu_us_{awb,kal,kal16,rms,slt}.so
+%{_libdir}/libflite.so
+%{_libdir}/libflite_usenglish.so
 %{_includedir}/flite
 
 
 %changelog
+* Mon Dec 30 2024 Dominik Mierzejewski <dominik@greysector.net> - 2.2-10
+- backport patch for upstream issue #86
+- apply Gentoo patch and run all tests
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

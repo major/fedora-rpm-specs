@@ -9,9 +9,9 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/clarkware/jdepend/archive/refs/tags/2.10.tar.gz#/jdepend-2.10.tar.gz
 
+BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  java-devel
-BuildRequires:  javapackages-local
 
 %description
 JDepend traverses a set of Java class and source file directories and

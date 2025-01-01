@@ -29,15 +29,18 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-
 Name:           jdom
 Version:        1.1.3
 Release:        %autorelease
 Summary:        Java alternative to DOM and SAX
 License:        Saxpath
 URL:            http://www.jdom.org/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
 Source0:        http://jdom.org/dist/binary/archive/jdom-%{version}.tar.gz
 Source1:        https://repo1.maven.org/maven2/org/jdom/jdom/%{version}/jdom-%{version}.pom
+
 Patch:          %{name}-crosslink.patch
 Patch:          %{name}-1.1-OSGiManifest.patch
 # Security patches
@@ -49,9 +52,6 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 %endif
-
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 %description
 JDOM is, quite simply, a Java representation of an XML document. JDOM
@@ -73,7 +73,6 @@ Requires:       %{name} = %{version}-%{release}
 
 %description demo
 Demonstrations and samples for %{name}.
-
 
 %prep
 %autosetup -p1 -C

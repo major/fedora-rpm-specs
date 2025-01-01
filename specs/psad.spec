@@ -1,7 +1,7 @@
 Summary: Port Scan Attack Detector (psad) watches for suspect traffic
 Name: psad
 Version: 2.4.6
-Release: 19%{?dist}
+Release: 20%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://www.cipherdyne.org/psad/
@@ -19,10 +19,9 @@ Patch0: psad-fedora.patch
 # https://github.com/mrash/psad/issues/53
 Patch1: psad-issue53.patch
 BuildArch: noarch
-Obsoletes: psad < 2.4.6-3
 BuildRequires: %{_bindir}/gpgv2
 BuildRequires: perl-generators
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 # works with system one, but doesn't crash or break without it
 %if 0%{?fedora}
 Recommends: %{_bindir}/whois
@@ -118,6 +117,10 @@ cat >> $TMPDIR/psad-rpm.cil << __EOF__
 (allow psad_t kernel_t (system (module_request)))
 (allow psad_t psad_var_log_t(file (read rename unlink write)))
 (allow psad_t self (netlink_tcpdiag_socket (bind create setopt)))
+(allow psad_t sysfs_t (dir (read)))
+(allow psad_t sysfs_t (file (getattr open read)))
+(allow psad_t syslogd_var_run_t (dir (read watch)))
+(allow psad_t var_log_t (dir (watch)))
 (dontaudit psad_t apmd_exec_t(file (getattr)))
 (dontaudit psad_t auditd_exec_t(file (getattr)))
 (dontaudit psad_t crond_exec_t(file (getattr)))
@@ -190,6 +193,11 @@ fi
 %ghost %attr(0700,root,root) /run/%{name}/psad.cmd
 
 %changelog
+* Mon Dec 30 2024 Dominik Mierzejewski <rpm@greysector.net> - 2.4.6-20
+- fix some new SELinux AVC denials
+- drop old Obsoletes
+- limit build dependency on systemd to macro subpackage
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.6-19
 - convert license to SPDX
 

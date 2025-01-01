@@ -1,17 +1,17 @@
 # The labled version is different to the tag and we need specific feature
 # branch for the NXP LX2160A functionality
-# https://source.codeaurora.org/external/qoriq/qoriq-components/restool
-# branch integration
-# git archive --format=tar --prefix=restool-2.4.0/ abd2f5b | xz > restool-2.4.0.tar.xz
+# https://github.com/nxp-qoriq/restool
+# git archive --format=tar --prefix=restool-2.4.0/ abd2f5b | xz > restool-%{version}-%{gittag}.tar.xz
+%define gittag 443e5fa
 
 Name:      restool
 Version:   2.4.0
-Release:   10%{?dist}
+Release:   11.%{gittag}%{?dist}
 Summary:   A tool to create and manage the DPAA2 Management Complex (MC)
 # Automatically converted from old format: BSD or GPLv2+ - review is highly recommended.
 License:   LicenseRef-Callaway-BSD OR GPL-2.0-or-later
-URL:       https://source.codeaurora.org/external/qoriq/qoriq-components/restool
-Source:    %{name}-%{version}.tar.xz
+URL:       https://github.com/nxp-qoriq/restool
+Source:    %{name}-%{version}-%{gittag}.tar.xz
 # udev rule for creating ethX devices
 Source1:   fsl_mc_bus.rules
 
@@ -42,7 +42,7 @@ mkdir -p %{buildroot}/etc/udev/rules.d/
 install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/
 
 %files
-%license COPYING
+%license LICENSE
 %{_bindir}/restool
 %{_bindir}/ls-*
 %{_datadir}/bash-completion/completions/restool
@@ -50,6 +50,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/
 %{_sysconfdir}/udev/rules.d/fsl_mc_bus.rules
 
 %changelog
+* Mon Dec 30 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 2.4.0-11.443e5fa
+- Move to new upstream and a git snapshot
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.4.0-10
 - convert license to SPDX
 

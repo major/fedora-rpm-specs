@@ -2,13 +2,6 @@
 %global         plugin_abi  2.11
 %global         codecdir    %{_libdir}/codecs
 
-%if 0%{?el7}
-    %global     _without_dav1d       1
-    %global     _without_gcrypt      1
-    %global     _without_png         1
-    %global     _with_xvmc           1
-%endif
-
 %if 0%{?el8}
     %global     _without_gcrypt      1
 %endif
@@ -32,7 +25,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        17%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        18%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -52,6 +45,8 @@ Patch1:         xine-lib-configure-c99.patch
 Patch2:         xine-lib-1.2.13-ffmpeg6-compatibility_2.patch
 # See: https://sourceforge.net/p/xine/xine-lib-1.2/ci/73b833e7fe356cd2d9490dda4ebc9bfe16fce958/
 Patch3:         xine-lib-1.2.13-ffmpeg7-compatibility.patch
+# See: https://sourceforge.net/p/xine/xine-lib-1.2/ci/ea7071a960a1ca8719422e80e130994c8f549731/
+Patch4:         xine-lib-1.2.13-fix_libnfs6.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -353,6 +348,10 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Mon Dec 30 2024 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-18
+- Rebuild for libnfs 6
+- Drop support for EL7
+
 * Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 1.2.13-17
 - Rebuild for ffmpeg 7
 

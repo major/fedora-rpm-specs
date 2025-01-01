@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 %global tarball_name RELEASE_%(echo '%{version}' | tr . _)
 
 Name:           cglib

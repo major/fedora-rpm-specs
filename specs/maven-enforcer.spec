@@ -78,9 +78,8 @@ The Enforcer Extension provides a way to globally define rules without
 making use of pom inheritence. This way you don't have to adjust the
 pom.xml, but you can enforce a set of rules.
 
-
 %prep
-%autosetup -p1 -n enforcer-%{version}
+%autosetup -p1 -C
 find -name '*.java' -exec sed -i 's/\r//' {} +
 
 find -name EvaluateBeanshell.java -delete
@@ -100,6 +99,9 @@ find -name EvaluateBeanshell.java -delete
 %files -f .mfiles-enforcer
 %license LICENSE NOTICE
 
+%files javadoc -f .mfiles-javadoc
+%license LICENSE NOTICE
+
 %files api -f .mfiles-enforcer-api
 %license LICENSE NOTICE
 
@@ -108,9 +110,6 @@ find -name EvaluateBeanshell.java -delete
 %files plugin -f .mfiles-maven-enforcer-plugin
 
 %files extension -f .mfiles-maven-enforcer-extension
-
-%files javadoc -f .mfiles-javadoc
-%license LICENSE NOTICE
 
 %changelog
 %autochangelog

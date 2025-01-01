@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 %global bundle org.apache.felix.utils
 
 Name:           felix-utils
@@ -31,7 +30,7 @@ BuildRequires:  mvn(org.osgi:osgi.core)
 Utility classes for OSGi
 
 %package javadoc
-Summary:          API documentation for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 This package contains the API documentation for %{name}.

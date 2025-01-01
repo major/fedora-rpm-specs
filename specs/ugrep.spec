@@ -1,5 +1,5 @@
 Name:           ugrep
-Version:        7.0.4
+Version:        7.1.2
 Release:        %autorelease
 Summary:        A more powerful, ultra fast, user-friendly, compatible grep
 License:        BSD-3-Clause
@@ -35,7 +35,7 @@ BuildRequires:  brotli-devel
 # https://github.com/Genivia/ugrep/commits/master/include/reflex
 # https://github.com/Genivia/RE-flex/tree/master/include/reflex
 #
-Provides:       bundled(libreflex) = 5.0.0
+Provides:       bundled(libreflex) = 5.1.0
 
 
 %description

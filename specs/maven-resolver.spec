@@ -4,8 +4,8 @@ Name:           maven-resolver
 Epoch:          1
 Version:        1.9.22
 Release:        %autorelease
-License:        Apache-2.0
 Summary:        Apache Maven Artifact Resolver library
+License:        Apache-2.0
 URL:            https://maven.apache.org/resolver/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -43,16 +43,15 @@ BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
-
 Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-spi = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-util = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-connector-basic = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-wagon = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-http = %{epoch}:%{version}-%{release}
-Provides:       maven-resolver-transport-file = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-impl = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-spi = %{epoch}:%{version}-%{release}
 Provides:       maven-resolver-transport-classpath = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-transport-file = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-transport-http = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-transport-wagon = %{epoch}:%{version}-%{release}
+Provides:       maven-resolver-util = %{epoch}:%{version}-%{release}
 
 %description
 Apache Maven Artifact Resolver is a library for working with artifact
@@ -60,7 +59,11 @@ repositories and dependency resolution. Maven Artifact Resolver deals with the
 specification of local repository, remote repository, developer workspaces,
 artifact transports and artifact resolution.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -117,6 +120,8 @@ done
 
 %files -f .mfiles
 %license LICENSE NOTICE
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

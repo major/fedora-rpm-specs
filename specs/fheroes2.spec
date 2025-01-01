@@ -1,5 +1,5 @@
 Name: fheroes2
-Version: 1.1.4
+Version: 1.1.5
 Release: %autorelease
 Summary: Free implementation of the popular game engine
 # ./src/thirdparty/libsmacker is under LGPL-2.1-or-later

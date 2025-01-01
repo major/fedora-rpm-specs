@@ -6,9 +6,10 @@ Release:        %autorelease
 Summary:        Parent POM file for Apache Felix Specs
 License:        Apache-2.0
 URL:            https://felix.apache.org/
-Source0:        https://repo1.maven.org/maven2/org/apache/felix/felix-parent/%{version}/%{name}-%{version}-source-release.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://repo1.maven.org/maven2/org/apache/felix/felix-parent/%{version}/%{name}-%{version}-source-release.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

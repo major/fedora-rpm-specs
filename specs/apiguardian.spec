@@ -10,7 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/apiguardian-team/apiguardian/archive/r%{version}.tar.gz
-
 Source100:      https://repo1.maven.org/maven2/org/apiguardian/apiguardian-api/%{version}/apiguardian-api-%{version}.pom
 
 %if %{with bootstrap}
@@ -26,10 +25,10 @@ methods, constructors, and fields within a framework or application in
 order to publish their API status and level of stability and to
 indicate how they are intended to be used by consumers of the API.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 API documentation for %{name}.
 
 %prep

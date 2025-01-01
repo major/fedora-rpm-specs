@@ -32,7 +32,7 @@ projects. The Enforcer plugin ships with a set of standard rules. This project
 provides extra rules which are not part of the standard rule set.
 
 %package javadoc
-Summary: Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 Javadoc for %{name}.

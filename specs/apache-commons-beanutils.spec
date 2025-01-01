@@ -8,6 +8,7 @@ License:        Apache-2.0
 URL:            http://commons.apache.org/beanutils
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
 Source0:        http://archive.apache.org/dist/commons/beanutils/source/commons-beanutils-%{version}-src.tar.gz
 
 %if %{with bootstrap}

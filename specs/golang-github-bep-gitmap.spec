@@ -5,7 +5,7 @@
 
 # https://github.com/bep/gitmap
 %global goipath         github.com/bep/gitmap
-Version:                1.1.2
+Version:                1.6.0
 
 %gometa
 
@@ -30,8 +30,6 @@ Summary:        Create map from filename to info object from revision of a repo
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
-# Skip tests that expect gitmap to be a real clone instead of an archive
-Patch0:         0001-Skip-repo-tests.patch
 
 BuildRequires:  git-core
 
@@ -42,14 +40,15 @@ BuildRequires:  git-core
 
 %prep
 %goprep
-%patch -P0 -p1
 
 %install
 %gopkginstall
 
 %if %{with check}
 %check
-%gocheck
+# .: Skip tests that require execution from Git repository.
+%gocheck \
+	-d .
 %endif
 
 %gopkgfiles

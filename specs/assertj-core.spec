@@ -6,10 +6,10 @@ Release:        %autorelease
 Summary:        Library of assertions similar to fest-assert
 License:        Apache-2.0
 URL:            https://joel-costigliola.github.io/assertj/
-Source0:        https://github.com/joel-costigliola/assertj-core/archive/assertj-build-%{version}.tar.gz
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://github.com/joel-costigliola/assertj-core/archive/assertj-build-%{version}.tar.gz
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

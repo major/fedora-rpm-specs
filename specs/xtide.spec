@@ -1,8 +1,8 @@
 %define          mainver   2.15.5
 #%%define          betatag   dev-20160114
-%define          dwfdate   20240104
+%define          dwfdate   20241229
 
-%define          baserelease 7
+%define          baserelease 8
 
 
 %define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -341,6 +341,9 @@ exit 0
 %{_datadir}/man/man8/xttpd.8*
 
 %changelog
+* Mon Dec 30 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15.5-8
+- Update harmonics data to 20241229
+
 * Thu Jul  25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.15.5-7
 - convert license to SPDX
 

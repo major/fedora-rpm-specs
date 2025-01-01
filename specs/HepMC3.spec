@@ -3,7 +3,7 @@
 
 Name:		HepMC3
 Version:	3.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is LGPLv3+
@@ -11,11 +11,6 @@ Summary:	C++ Event Record for Monte Carlo Generators
 License:	LGPL-3.0-or-later AND MPL-2.0
 URL:		https://hepmc.web.cern.ch/hepmc
 Source0:	%{url}/releases/%{name}-%{version}.tar.gz
-#		Valgrind suppression file for Fedora 39 ppc64le
-#		Suppresses a failure in memcheck_testReaderFactory4
-#		"Conditional jump or move depends on uninitialised value(s)"
-#		False positive? glibc bug? Compiler bug?
-Source1:	valgrind-f39-ppc64le.supp
 #		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/357
 Patch0:		0001-Do-not-require-the-static-libzstd-library-to-be-pres.patch
 Patch1:		0002-Fix-for-a-Conditional-jump-or-move-depends-on-uninit.patch
@@ -174,13 +169,6 @@ This package provides HepMC manuals and examples.
 %patch -P1 -p1
 %patch -P2 -p1
 
-%if %{?fedora}%{!?fedora:0} == 39
-%ifarch %{power64}
-sed 's!MEMORYCHECK_COMMAND_OPTIONS "!&--suppressions=%{SOURCE1} !' \
-    -i test/CMakeLists.txt
-%endif
-%endif
-
 %build
 %cmake \
 	-DHEPMC3_ENABLE_ROOTIO:BOOL=ON \
@@ -204,11 +192,6 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 
 %check
 %ctest
-
-%ldconfig_scriptlets
-%ldconfig_scriptlets search
-%ldconfig_scriptlets rootIO
-%ldconfig_scriptlets protobufIO
 
 %files
 %{_libdir}/libHepMC3.so.4
@@ -369,6 +352,9 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Mon Dec 30 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.0-3
+- Rebuild for root 6.34
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

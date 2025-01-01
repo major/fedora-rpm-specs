@@ -7,9 +7,8 @@ URL:            https://github.com/fedora-java/jurand
 
 Source0:        https://github.com/fedora-java/jurand/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc-c++
-
 BuildRequires:  diffutils
+BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  rubygem-asciidoctor
 

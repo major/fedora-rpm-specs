@@ -6,21 +6,18 @@ Release:        %autorelease
 Summary:        Java-based testing framework
 License:        Apache-2.0
 URL:            https://testng.org/doc/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
-
 # Allows building with maven instead of gradle
 Source1:        https://repo1.maven.org/maven2/org/testng/testng/%{version}/testng-%{version}.pom
-
 # Remove bundled binaries to make sure we don't ship anything forbidden
 Source2:        generate-tarball.sh
 
 Patch:          0001-Avoid-accidental-javascript-in-javadoc.patch
 Patch:          0002-Replace-bundled-jquery-with-CDN-link.patch
-
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

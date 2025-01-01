@@ -28,7 +28,11 @@ BuildRequires:  mvn(org.mockito:mockito-core)
 The CLI library provides a simple and easy to use API for working with the
 command line arguments and options.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -46,6 +50,8 @@ command line arguments and options.
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc README.md RELEASE-NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

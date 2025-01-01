@@ -10,7 +10,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.50
+Version:        0.4.52
 Release:        %autorelease
 Summary:        Graph based image processing framework
 

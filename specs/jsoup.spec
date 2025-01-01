@@ -14,6 +14,7 @@ Source0:        %{name}-%{version}.tar.gz
 # The sources contain non-free scraped web pages as test data
 Source1:        generate-tarball.sh
 
+BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -21,7 +22,6 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 %endif
-BuildRequires:  jurand
 
 %description
 jsoup is a Java library for working with real-world HTML. It provides a very
@@ -40,7 +40,11 @@ jsoup is designed to deal with all varieties of HTML found in the wild; from
 pristine and validating, to invalid tag-soup; jsoup will create a sensible parse
 tree.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -70,6 +74,8 @@ sed -i /org.jspecify/d src/main/java9/module-info.java
 %files -f .mfiles
 %doc README.md CHANGES.md
 %license LICENSE
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

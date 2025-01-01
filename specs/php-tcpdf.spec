@@ -7,16 +7,16 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    7956f5e37863c6a569d5ccfae826f353a12a2493
+%global gh_commit    14ffa0e308f5634aa2489568b4b90b24073b6731
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2024-12-13
+%global gh_date      2024-12-23
 %global gh_project   TCPDF
 %global real_name    tcpdf
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.7.8
+Version:        6.8.0
 Release:        1%{?dist}
 
 URL:            http://www.tcpdf.org
@@ -27,13 +27,14 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 Source1:        %{name}.blacklist
 
 BuildArch:      noarch
+BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-cli
 BuildRequires:  php-fedora-autoloader-devel
 
-Requires:       php(language) >= 5.5
+Requires:       php(language) >= 7.1
+Requires:       php-curl
 # From phpcompatinfo report form version 6.3.0
 Requires:       php-bcmath
-Requires:       php-curl
 Requires:       php-date
 Requires:       php-gd
 Requires:       php-hash
@@ -313,6 +314,10 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Mon Dec 23 2024 Remi Collet <remi@remirepo.net> - 6.8.0-1
+- update to 6.8.0
+- raise dependency on PHP 7.1
+
 * Mon Dec 16 2024 Remi Collet <remi@remirepo.net> - 6.7.8-1
 - update to 6.7.8
 - re-license spec file to CECILL-2.1

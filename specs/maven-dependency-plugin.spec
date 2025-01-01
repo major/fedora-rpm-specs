@@ -55,7 +55,7 @@ Summary:        API documentation for %{name}
 %{summary}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 find src -name '*.java' -exec sed -i 's/\r//' {} +
 
 %pom_remove_dep :maven-reporting-impl

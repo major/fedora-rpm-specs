@@ -26,7 +26,11 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 The Plexus Testing contains the necessary classes to be able to test
 Plexus components.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -44,6 +48,8 @@ rm src/test/java/org/codehaus/plexus/testing/PlexusTestJakartaTest.java
 %files -f .mfiles
 %doc README.md
 %license LICENSE
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

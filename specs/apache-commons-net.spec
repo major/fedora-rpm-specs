@@ -4,11 +4,12 @@ Release:        %autorelease
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0
 URL:            https://commons.apache.org/net/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
 Source0:        https://archive.apache.org/dist/commons/net/source/commons-net-%{version}-src.tar.gz
 Source1:        https://downloads.apache.org/commons/net/source/commons-net-%{version}-src.tar.gz.asc
 Source2:        https://downloads.apache.org/commons/KEYS
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
@@ -20,7 +21,7 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
 BuildRequires:  mvn(org.junit.vintage:junit-vintage-engine)
-
+# for signature verification
 BuildRequires:  gnupg2
 
 %description
@@ -31,14 +32,14 @@ as BSD R command support. The purpose of the library is to provide
 fundamental protocol access, not higher-level abstractions.
 
 %package javadoc
-Summary:    API documentation for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 %{summary}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -C
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %pom_remove_plugin :exec-maven-plugin
 

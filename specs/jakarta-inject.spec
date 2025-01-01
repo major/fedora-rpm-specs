@@ -26,7 +26,11 @@ constructors, factories, and service locators (e.g., JNDI).
 This process, known as dependency injection, is beneficial
 to most nontrivial applications.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -42,6 +46,8 @@ to most nontrivial applications.
 
 %files -f .mfiles
 %license LICENSE.txt NOTICE.md
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

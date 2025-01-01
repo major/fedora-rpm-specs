@@ -6,6 +6,7 @@ License:        BSD-3-Clause
 URL:            http://www.jcraft.com/jzlib/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
 Source0:        https://github.com/ymnk/jzlib/archive/%{version}.tar.gz
 
 # This patch is sent upstream: https://github.com/ymnk/jzlib/pull/15
@@ -21,17 +22,17 @@ library for use on virtually any computer hardware and operating system.
 The zlib was written by Jean-loup Gailly (compression) and Mark Adler 
 (decompression). 
 
-%package        javadoc
+%package javadoc
 Summary:        API documentation for %{name}
 
-%description    javadoc
+%description javadoc
 %{summary}.
 
-%package        demo
+%package demo
 Summary:        Examples for %{name}
 Requires:       %{name} = %{version}-%{release}
 
-%description    demo
+%description demo
 %{summary}.
 
 %prep

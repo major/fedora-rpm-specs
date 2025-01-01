@@ -1,6 +1,6 @@
 Name:           telepathy-salut
-Version:        0.8.1
-Release:        33%{?dist}
+Version:        0.99.11
+Release:        1%{?dist}
 Summary:        Link-local XMPP telepathy connection manager
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -9,8 +9,8 @@ URL:            http://telepathy.freedesktop.org/wiki/FrontPage
 Source0:        http://telepathy.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.gz
 # python3
 Patch0:         telepathy-salut-0.8.1-python3.patch
-# Openssl 1.1.0
-Patch1:         telepathy-salut-0.8.1-wocky-openssl110.patch
+# Fix compilation with gcc14 -Werror=incompatible-pointer-types
+Patch1:         telepathy-salut-0.8.1-gcc14-fix-incompatible-pointer-types.patch
 
 BuildRequires: make
 BuildRequires:  dbus-devel >= 1.1.0
@@ -18,7 +18,12 @@ BuildRequires:	dbus-glib-devel >= 0.61
 BuildRequires:	python3-dbus
 BuildRequires:	avahi-gobject-devel
 BuildRequires:	libxml2-devel
-BuildRequires:	openssl-devel >= 1.1
+# Use gnutls as wocky backend
+# wocky defaults to gnutls : see
+# https://gitlab.freedesktop.org/telepathy/wocky/-/commit/71d67e44ce3072ebeae477f1b493bbb80f6f7958
+# also, due to https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
+# code depending on ENGINE API (wocky-openssl.c) no longer compiles
+BuildRequires:	gnutls-devel
 BuildRequires:	cyrus-sasl-devel
 BuildRequires:	libxslt
 BuildRequires:	libasyncns-devel >= 0.3
@@ -43,10 +48,7 @@ local network using zero-configuration networking.
 %prep
 %setup -q
 %patch -P0 -p1 -b .py3
-(
-cd lib/ext
-%patch -P1 -p0 -b .openssl110
-)
+%patch -P1 -p1 -b .pointer_type
 
 %build
 export PYTHON=python3
@@ -86,6 +88,13 @@ make check
 
 
 %changelog
+* Mon Dec 30 2024 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.99.11-1
+- Update to 0.99.11
+
+* Sat Dec 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.1-34
+- Fix compilation with -Werror=incompatible-pointer-types
+- Switch wocky backend to gnutls which is already upstream default
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.8.1-33
 - convert license to SPDX
 

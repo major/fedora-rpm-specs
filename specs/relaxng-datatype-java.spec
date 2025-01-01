@@ -18,10 +18,10 @@ BuildRequires:  maven-local
 %description
 Interface between RELAX NG validators and datatype libraries.
 
-%package        javadoc
+%package javadoc
 Summary:        API documentation for %{name}
 
-%description    javadoc
+%description javadoc
 This package provides %{summary}.
 
 %prep

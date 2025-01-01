@@ -1,9 +1,9 @@
 %bcond_with bootstrap
 
 Name:           maven-artifact-transfer
+Epoch:          1
 Version:        0.13.1
 Release:        %autorelease
-Epoch:          1
 Summary:        Apache Maven Artifact Transfer
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-artifact-transfer
@@ -22,10 +22,10 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven:maven-artifact)
-BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven.shared:maven-common-artifact-filters)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
+BuildRequires:  mvn(org.apache.maven:maven-artifact)
+BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)

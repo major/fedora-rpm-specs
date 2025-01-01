@@ -31,7 +31,11 @@ BuildRequires:  mvn(org.ow2.asm:asm)
 Plexus Languages is a set of Plexus components that maintain shared
 language features.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -49,6 +53,8 @@ cp %{SOURCE1} .
 
 %files -f .mfiles
 %license LICENSE-2.0.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

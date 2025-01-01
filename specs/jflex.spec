@@ -1,9 +1,9 @@
 %bcond_with bootstrap
 
-Summary:        Fast Scanner Generator
 Name:           jflex
 Version:        1.7.0
 Release:        %autorelease
+Summary:        Fast Scanner Generator
 License:        BSD-3-Clause
 URL:            https://jflex.de/
 BuildArch:      noarch
@@ -22,7 +22,6 @@ BuildRequires:  mvn(java_cup:java_cup)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
 %endif
-
 %if %{without bootstrap}
 BuildRequires:  jflex
 %endif
@@ -94,7 +93,6 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 
 %files javadoc -f .mfiles-javadoc
 %license COPYRIGHT
-
 
 %changelog
 %autochangelog

@@ -8,8 +8,8 @@
 %bcond bootstrap 0
 
 Name:           python-%{srcname}
-Version:        2024.11.2
-%global tag     2024.11.2
+Version:        2024.12.1
+%global tag     2024.12.1
 Release:        %autorelease
 Summary:        Distributed scheduler for Dask
 %forgemeta

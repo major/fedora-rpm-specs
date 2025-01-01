@@ -22,6 +22,7 @@ Patch:          0002-Use-local-schema.patch
 Patch:          0003-Drop-support-for-JAXB.patch
 Patch:          0004-Port-to-assertj-core-3.patch
 
+BuildRequires:  jurand
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
@@ -33,48 +34,47 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.hamcrest:hamcrest-library)
 BuildRequires:  mvn(org.mockito:mockito-core)
 %endif
-BuildRequires:  jurand
 
 %description
 XMLUnit provides you with the tools to verify the XML you emit is the one you
 want to create. It provides helpers to validate against an XML Schema, assert
 the values of XPath queries or compare XML documents against expected outcomes.
 
-%package        javadoc
+%package javadoc
 Summary:        Javadoc for %{name}
 
-%description    javadoc
+%description javadoc
 Javadoc for %{name}
 
-%package        assertj
+%package assertj
 Summary:        Assertj for %{name}
 
-%description    assertj
+%description assertj
 This package provides %{summary}.
 
-%package        core
+%package core
 Summary:        Core package for %{name}
 
-%description    core
+%description core
 This package provides %{summary}.
 
-%package        legacy
+%package legacy
 Summary:        Legacy package for %{name}
 License:        BSD-3-Clause
 
-%description    legacy
+%description legacy
 This package provides %{summary}.
 
-%package        matchers
+%package matchers
 Summary:        Matchers for %{name}
 
-%description    matchers
+%description matchers
 This package provides %{summary}.
 
-%package        placeholders
+%package placeholders
 Summary:        Placeholders for %{name}
 
-%description    placeholders
+%description placeholders
 This package provides %{summary}.
 
 %prep
@@ -118,10 +118,15 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %license LICENSE
 
 %files javadoc -f .mfiles-javadoc
+
 %files assertj -f .mfiles-xmlunit-assertj3
+
 %files core -f .mfiles-xmlunit-core
+
 %files legacy -f .mfiles-xmlunit-legacy
+
 %files matchers -f .mfiles-xmlunit-matchers
+
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog

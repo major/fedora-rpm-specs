@@ -167,8 +167,8 @@ fi                                          \
 
 
 Name:           libxcrypt
-Version:        4.4.36
-Release:        12%{?dist}
+Version:        4.4.37
+Release:        1%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -177,19 +177,12 @@ License:        LGPL-2.1-or-later AND BSD-3-Clause AND BSD-2-Clause AND BSD-2-Cl
 URL:            https://github.com/besser82/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.gpg
+Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.asc
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
-Patch0000:      %{url}/commit/2572bd2553df.patch#/%{name}-configure-c99.patch
-Patch0001:      %{url}/pull/185.patch#/%{name}-manpage-fixes.patch
-Patch0002:      %{url}/commit/7a8b3f39ada0.patch#/%{name}-crypt_gensalt_3_Small-fix-from-Debian.patch
-Patch0003:      %{url}/commit/9a8ba6ed1c60.patch#/%{name}-test_short-outbuf_c-Do-not-include-crypt_h-directly.patch
-Patch0004:      %{url}/commit/6baecd0c54a9.patch#/%{name}-lib_crypt-static_c-include-errno_h-is-not-needed.patch
-
 # Patch 3000 - 5999: Backported patches from pull requests.
 Patch3000:      %{name}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
-
 # Patch 6000 - 9999: Downstream patches.
 
 BuildRequires:  autoconf
@@ -591,6 +584,9 @@ done
 
 
 %changelog
+* Mon Dec 30 2024 Björn Esser <besser82@fedoraproject.org> - 4.4.37-1
+- New upstream release
+
 * Fri Dec 20 2024 Björn Esser <besser82@fedoraproject.org> - 4.4.36-12
 - Update patch for MT-Safeness in crypt and crypt_gensalt
 - Apply small upstream patch for testsuite

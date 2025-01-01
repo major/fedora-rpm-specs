@@ -38,7 +38,11 @@ commons-logging abstraction is meant to minimize the differences between
 the two, and to allow a developer to not tie himself to a particular
 logging implementation.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -77,6 +81,8 @@ rm -rf src/test/java/org/apache/commons/logging/log4j/log4j12
 %files -f .mfiles
 %license LICENSE.txt NOTICE.txt
 %doc PROPOSAL.html RELEASE-NOTES.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

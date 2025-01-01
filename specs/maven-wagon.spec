@@ -23,7 +23,6 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
-
 Provides:       maven-wagon-file = %{version}-%{release}
 Provides:       maven-wagon-http = %{version}-%{release}
 Provides:       maven-wagon-http-shared = %{version}-%{release}
@@ -41,10 +40,14 @@ following providers:
 * WebDAV
 * SCM (in progress)
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
-%autosetup -p1 -n wagon-%{version}
+%autosetup -p1 -C
 
 %pom_remove_plugin :animal-sniffer-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
@@ -84,6 +87,8 @@ following providers:
 %files -f .mfiles
 %license LICENSE NOTICE
 %doc DEPENDENCIES
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

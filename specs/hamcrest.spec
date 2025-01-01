@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 %global upstream_version %(echo %{version} | tr '~' '-')
 
 Name:           hamcrest

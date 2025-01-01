@@ -1,10 +1,14 @@
+%if 0%{?el10}
+%global         _without_lirc  1
+%endif
+
 #global         snapshot    1
 #global         date        20190824
 #global         commit      894d90
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        9%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        10%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -76,7 +80,7 @@ BuildRequires:  libXt-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libXv-devel
 BuildRequires:  libXxf86vm-devel
-BuildRequires:  lirc-devel
+%{!?_without_lirc:BuildRequires:  lirc-devel}
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
 BuildRequires:  xine-lib-devel >= 1.1.0
@@ -150,8 +154,10 @@ find fedoraskins/ -type d -name ".xvpics" -exec rm -rf {} \; || :
 
 %build
 ./autogen.sh noconfig
+%if 0%{!?_without_lirc}
 export LIRC_CFLAGS="-llirc_client"
 export LIRC_LIBS="-llirc_client"
+%endif
 export XINE_DOCPATH=%{_docdir}/%{name}-%{version}
 %configure --disable-dependency-tracking \
            --enable-vdr-keys \
@@ -235,6 +241,9 @@ cp -a fedoraskins/* %{buildroot}%{_datadir}/xine/skins/
 
 
 %changelog
+* Fri Dec 20 2024 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-10
+- Disable lirc support for EL10
+
 * Tue Jul 30 2024 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-9
 - Fix build with rpm >= 4.20 (RHBZ#2301375)
 - Drop EL7-only scriptlets

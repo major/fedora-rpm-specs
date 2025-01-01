@@ -56,7 +56,11 @@ Summary:        Component API from %{name}
 %description component-annotations
 %{summary}.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -77,10 +81,13 @@ rm plexus-component-metadata/src/test/java/org/codehaus/plexus/metadata/DefaultC
 %install
 %mvn_install
 
+%files component-metadata -f .mfiles-plexus-component-metadata
+%license LICENSE-2.0.txt LICENSE.MIT
+
 %files component-annotations -f .mfiles-plexus-component-annotations
 %license LICENSE-2.0.txt LICENSE.MIT
 
-%files component-metadata -f .mfiles-plexus-component-metadata
+%files javadoc -f .mfiles-javadoc
 %license LICENSE-2.0.txt LICENSE.MIT
 
 %changelog

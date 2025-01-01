@@ -30,7 +30,7 @@ Summary:        API documentation for %{name}
 This package provides %{summary}.
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -C
 
 # Delete pre-built binaries
 rm -r org
@@ -80,14 +80,12 @@ rm -r src/main/java/org/osgi/service/transaction/control/jpa
 %install
 %mvn_install
 
-
 %files -f .mfiles
 %license LICENSE
 %doc about.html
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE
-
 
 %changelog
 %autochangelog

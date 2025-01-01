@@ -1,6 +1,6 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.13.3
+Version:        3.14.5
 Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
@@ -33,6 +33,9 @@ BuildRequires:  python3-ruamel-yaml
 BuildRequires:  python3-simplejson
 BuildRequires:  python3-six
 BuildRequires:  python3-sphinx
+BuildRequires: python3-sphinx-copybutton
+BuildRequires: python3-sphinxext-opengraph
+BuildRequires: python3-furo
 BuildRequires:  python3-vobject
 
 Requires:       gettext
@@ -121,6 +124,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Mon Dec 30 2024 Sudip Shil <sshil@redhat.com> - 3.14.5-1
+- update to 3.14.5 (rhbz#2276562)
+
 * Fri Aug 9 2024 Sudip Shil <sshil@redhat.com> - 3.13.3-1
 - http://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/3.13.3.html
 

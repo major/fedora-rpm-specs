@@ -12,8 +12,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2024.11.2
-%global tag     2024.11.2
+Version:        2024.12.1
+%global tag     2024.12.1
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 

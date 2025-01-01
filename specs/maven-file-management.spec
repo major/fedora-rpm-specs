@@ -30,12 +30,12 @@ Provides a component for plugins to easily resolve project dependencies.
 
 %package javadoc
 Summary:        Javadoc for %{name}
-    
+
 %description javadoc
 API documentation for %{name}.
 
 %prep
-%autosetup -p1 -n file-management-%{version}
+%autosetup -p1 -C
 
 %build
 %mvn_build

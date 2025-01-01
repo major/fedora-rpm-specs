@@ -99,7 +99,9 @@ cp %{SOURCE2} LICENSE.MIT
 
 %files -f .mfiles
 %license LICENSE LICENSE.MIT
+
 %files extras -f .mfiles-extras
+
 %files pom -f .mfiles-pom
 
 %files javadoc -f .mfiles-javadoc

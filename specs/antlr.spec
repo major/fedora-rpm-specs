@@ -1,10 +1,10 @@
-%global debug_package %{nil}
 # since we have only a static library
+%global debug_package %{nil}
 
-Summary:       ANother Tool for Language Recognition
 Name:          antlr
 Version:       2.7.7
 Release:       %autorelease
+Summary:       ANother Tool for Language Recognition
 License:       ANTLR-PD
 URL:           http://www.antlr2.org/
 ExclusiveArch: %{java_arches}
@@ -33,8 +33,8 @@ parsers].
 
 %package     tool
 Summary:       ANother Tool for Language Recognition
-Provides:      %{name} = %{version}-%{release}
 BuildArch:     noarch
+Provides:      %{name} = %{version}-%{release}
 
 %description tool
 ANTLR, ANother Tool for Language Recognition, (formerly PCCTS) is a

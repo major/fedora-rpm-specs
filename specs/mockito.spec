@@ -12,10 +12,8 @@ ExclusiveArch:  %{java_arches} noarch
 # ./generate-tarball.sh
 Source0:        %{name}-%{version}.tar.gz
 Source1:        generate-tarball.sh
-
 # A custom build script to allow building with maven instead of gradle
 Source2:        aggregator.pom
-
 # Maven central POMs for subprojects
 Source3:        https://repo1.maven.org/maven2/org/mockito/mockito-core/%{version}/mockito-core-%{version}.pom
 Source4:        https://repo1.maven.org/maven2/org/mockito/mockito-junit-jupiter/%{version}/mockito-junit-jupiter-%{version}.pom
@@ -45,7 +43,7 @@ because the tests are very readable and they produce clean verification
 errors.
 
 %package javadoc
-Summary: Javadocs for %{name}
+Summary:        Javadocs for %{name}
 
 %description javadoc
 This package contains the API documentation for %{name}.
@@ -136,10 +134,10 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
 %license LICENSE
 %doc README.md doc/design-docs/custom-argument-matching.md
 
-%files junit-jupiter -f .mfiles-junit-jupiter
-
 %files javadoc -f .mfiles-javadoc
 %license LICENSE
+
+%files junit-jupiter -f .mfiles-junit-jupiter
 
 %changelog
 %autochangelog

@@ -42,7 +42,7 @@ Summary:        Javadoc for %{name}
 API documentation for %{name}.
 
 %package harness
-Summary: Maven Plugin Testing Mechanism
+Summary:        Maven Plugin Testing Mechanism
 
 %description harness
 The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
@@ -68,9 +68,11 @@ The Maven Plugin Testing Harness provides mechanisms to manage tests on Mojo.
 
 %files -f .mfiles-%{name}
 %license LICENSE NOTICE
-%files harness -f .mfiles-%{name}-harness
+
 %files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
+
+%files harness -f .mfiles-%{name}-harness
 
 %changelog
 %autochangelog

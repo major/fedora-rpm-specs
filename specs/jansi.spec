@@ -1,32 +1,32 @@
 %bcond_with bootstrap
 
-Name:             jansi
-Version:          2.4.1
-Release:          %autorelease
-Summary:          Generate and interpret ANSI escape sequences in Java
-License:          Apache-2.0
-URL:              http://fusesource.github.io/jansi/
-ExclusiveArch:    %{java_arches}
+Name:           jansi
+Version:        2.4.1
+Release:        %autorelease
+Summary:        Generate and interpret ANSI escape sequences in Java
+License:        Apache-2.0
+URL:            http://fusesource.github.io/jansi/
+ExclusiveArch:  %{java_arches}
 
 # ./generate-tarball.sh
-Source0:          %{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 # Remove bundled binaries which cannot be easily verified for licensing
-Source1:          generate-tarball.sh
+Source1:        generate-tarball.sh
 
 # Change the location of the native artifact to where Fedora wants it
-Patch:            %{name}-jni.patch
+Patch:          %{name}-jni.patch
 
-BuildRequires:    gcc
+BuildRequires:  gcc
 %if %{with bootstrap}
-BuildRequires:    javapackages-bootstrap
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:    maven-local
-BuildRequires:    mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:    mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:    mvn(org.fusesource:fusesource-pom:pom:)
-BuildRequires:    mvn(org.junit.jupiter:junit-jupiter)
-BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-params)
-BuildRequires:    mvn(org.moditect:moditect-maven-plugin)
+BuildRequires:  maven-local
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.fusesource:fusesource-pom:pom:)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
+BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 %endif
 
 %description
@@ -36,8 +36,8 @@ which don't support it like Windows and provides graceful degradation for
 when output is being sent to output devices which cannot support ANSI sequences.
 
 %package javadoc
-BuildArch:        noarch
-Summary:          Javadocs for %{name}
+Summary:        Javadocs for %{name}
+BuildArch:      noarch
 
 %description javadoc
 This package contains the API documentation for %{name}.

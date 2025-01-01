@@ -1,14 +1,15 @@
 %bcond_with bootstrap
 
 Name:           httpcomponents-project
-Summary:        Common POM file for HttpComponents
 Version:        13
 Release:        %autorelease
+Summary:        Common POM file for HttpComponents
 License:        Apache-2.0
 URL:            https://hc.apache.org/
-Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://archive.apache.org/dist/httpcomponents/httpcomponents-parent/httpcomponents-parent-%{version}-source-release.zip
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -24,7 +25,7 @@ required only for building dependant packages with Maven. Please don't
 use it as runtime requirement.
 
 %prep
-%autosetup -p1 -n httpcomponents-parent-%{version}
+%autosetup -p1 -C
 
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :animal-sniffer-maven-plugin

@@ -162,13 +162,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.13.0
 %define specversion 6.13.0
 %define patchversion 6.13
-%define pkgrelease 0.rc4.20241227gitd6ef8b40d075.39
+%define pkgrelease 0.rc5.42
 %define kversion 6
-%define tarfile_release 6.13-rc4-54-gd6ef8b40d075
+%define tarfile_release 6.13-rc5
 # This is needed to do merge window version magic
 %define patchlevel 13
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.20241227gitd6ef8b40d075.39%{?buildid}%{?dist}
+%define specrelease 0.rc5.42%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.13.0
 
@@ -4171,9 +4171,18 @@ fi\
 #
 #
 %changelog
-* Fri Dec 27 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc4.d6ef8b40d075.39]
+* Mon Dec 30 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc5.42]
 - x86/insn_decoder_test: allow longer symbol-names (David Rheinsberg)
 - kernel.spec: update license field (Scott Weaver)
+
+* Mon Dec 30 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc5.41]
+- Linux v6.13.0-0.rc5
+
+* Sun Dec 29 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc4.059dd502b263.40]
+- Linux v6.13.0-0.rc4.059dd502b263
+
+* Sat Dec 28 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc4.fd0584d220fe.39]
+- Linux v6.13.0-0.rc4.fd0584d220fe
 
 * Fri Dec 27 2024 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.13.0-0.rc4.d6ef8b40d075.38]
 - Linux v6.13.0-0.rc4.d6ef8b40d075

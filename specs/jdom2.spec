@@ -1,32 +1,33 @@
 %bcond_with bootstrap
 
-Name:          jdom2
-Version:       2.0.6.1
-Release:       %autorelease
-Summary:       Java manipulation of XML made easy
-License:       Saxpath
-URL:           http://www.jdom.org/
+Name:           jdom2
+Version:        2.0.6.1
+Release:        %autorelease
+Summary:        Java manipulation of XML made easy
+License:        Saxpath
+URL:            http://www.jdom.org/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
 # ./generate-tarball.sh
-Source0:       %{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 # Bnd tool configuration
-Source3:       bnd.properties
+Source3:        bnd.properties
 # Remove bundled jars that might not have clear licensing
-Source4:       generate-tarball.sh
+Source4:        generate-tarball.sh
+
 # Use system libraries
 # Disable gpg signatures
 # Process contrib and junit pom files
-Patch:         0001-Adapt-build.patch
+Patch:          0001-Adapt-build.patch
 
 %if %{with bootstrap}
-BuildRequires: javapackages-bootstrap
+BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires: javapackages-local
-BuildRequires: ant
-BuildRequires: ant-junit
+BuildRequires:  javapackages-local
+BuildRequires:  ant
+BuildRequires:  ant-junit
 %endif
-
-BuildArch:     noarch
-ExclusiveArch: %{java_arches} noarch
 
 %description
 JDOM is a Java-oriented object model which models XML documents.
@@ -40,7 +41,7 @@ complex and memory-consumptive options that current API
 offerings provide.
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:        Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.

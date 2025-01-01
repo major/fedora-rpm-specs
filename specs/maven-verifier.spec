@@ -32,12 +32,12 @@ Provides a test harness for Maven integration tests.
 
 %package javadoc
 Summary:        Javadoc for %{name}
-    
+
 %description javadoc
 API documentation for %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%autosetup -p1 -C
 
 # This test attempts to write outside the build directory
 rm src/test/java/org/apache/maven/shared/verifier/ForkedLauncherTest.java

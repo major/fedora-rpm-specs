@@ -21,14 +21,17 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %endif
-
 Provides:       glassfish-servlet-api = %{version}-%{release}
 
 %description
 Jakarta Servlet defines a server-side API for handling HTTP requests
 and responses.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -73,6 +76,8 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog

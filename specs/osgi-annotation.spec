@@ -26,13 +26,13 @@ Annotations for use in compiling OSGi bundles. This package is not normally
 needed at run-time.
 
 %package javadoc
-Summary: API documentation for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 This package contains the API documentation for %{name}.
 
 %prep
-%autosetup -p1 -c
+%autosetup -p1 -C
 
 mkdir -p src/main/java && mv OSGI-OPT/src/org src/main/java
 

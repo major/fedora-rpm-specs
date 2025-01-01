@@ -63,8 +63,9 @@ make PREFIX=%{_prefix} MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins tp-magic-config
 %set_build_flags
 make %{?_smp_mflags} \
     PREFIX=%{_prefix} \
-    CFLAGS="$CFLAGS -I/usr/include/freetype2 -I%{_includedir}/SDL2 $(pkg-config --cflags pango)" \
+    OPTFLAGS="$CFLAGS" \
     LDFLAGS="$LDFLAGS -L%{_libdir}" \
+    MAGIC_CFLAGS="$CFLAGS \$(SDL_CFLAGS) -Isrc" \
     MAGIC_PREFIX=%{_libdir}/tuxpaint/plugins
 
 %install

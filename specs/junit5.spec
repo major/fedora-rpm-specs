@@ -1,5 +1,4 @@
 %bcond_with bootstrap
-
 # Component versions, taken from gradle.properties
 %global platform_version 1.%(v=%{version}; echo ${v:2})
 %global jupiter_version %{version}
@@ -15,7 +14,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/junit-team/junit5/archive/r%{version}/junit5-%{version}.tar.gz
-
 # Aggregator POM (used for packaging only)
 Source100:      aggregator.pom
 # Platform POMs

@@ -5,9 +5,7 @@ Summary:        Jakarta XML Binding API
 License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-api
 BuildArch:      noarch
-%if 0%{?java_arches:1}
 ExclusiveArch:  %{java_arches} noarch
-%endif
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

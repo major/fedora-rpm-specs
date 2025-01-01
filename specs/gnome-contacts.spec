@@ -34,6 +34,9 @@ BuildRequires:  pkgconfig(libqrencode)
 
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       hicolor-icon-theme
+# Camera support for avatar
+Requires:       gstreamer1-plugin-gtk4
+Requires:       pipewire-gstreamer
 
 %description
 %{name} is a standalone contacts manager for GNOME desktop.

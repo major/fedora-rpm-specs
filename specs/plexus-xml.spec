@@ -25,7 +25,11 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %description
 A collection of various utility classes to ease working with XML.
 
-%{?javadoc_package}
+%package javadoc
+Summary:        API documentation for %{name}
+
+%description javadoc
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -40,6 +44,8 @@ A collection of various utility classes to ease working with XML.
 %files -f .mfiles
 %doc README.md
 %license NOTICE.txt LICENSE.txt
+
+%files javadoc -f .mfiles-javadoc
 
 %changelog
 %autochangelog
