@@ -31,10 +31,10 @@ for Java. It is used to extend Java classes and implements interfaces
 at run-time.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Documentation for the cglib code generation library.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

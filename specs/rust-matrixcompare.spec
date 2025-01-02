@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Update pretty_assertions dev-dependency to 1.4:
 #   https://github.com/Andlon/matrixcompare/pull/11
+# * Update proptest dev-dependencies to 1.0:
+#   https://github.com/Andlon/matrixcompare/pull/12
 Patch:          matrixcompare-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

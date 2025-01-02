@@ -21,10 +21,10 @@ extensibility, reusability, and maintainability to effectively manage
 and control package dependencies.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

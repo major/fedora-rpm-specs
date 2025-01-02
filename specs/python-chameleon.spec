@@ -1,8 +1,8 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        4.5.4
-Release:        5%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        XML-based template compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Tue Dec 31 2024 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.6.0-1
+- Update to upstream.
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.5.4-5
 - convert license to SPDX
 

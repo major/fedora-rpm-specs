@@ -34,7 +34,7 @@ BuildRequires:  mvn(org.easymock:easymock)
 API for I/O support like logging, download or file scanning.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

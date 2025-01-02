@@ -4,7 +4,7 @@
 
 # https://github.com/bep/gowebp
 %global goipath         github.com/bep/gowebp
-Version:                0.3.0
+Version:                0.4.0
 
 %gometa
 

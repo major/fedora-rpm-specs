@@ -30,7 +30,7 @@ This plugin allows the creation of a module-info.class for projects on Java 6
 to Java 8 where a module-info.java file cannot be compiled.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

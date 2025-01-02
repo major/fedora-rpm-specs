@@ -62,10 +62,10 @@ alternative to DOM and SAX, although it integrates well with both DOM
 and SAX.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %package demo
 Summary:        Demos for %{name}

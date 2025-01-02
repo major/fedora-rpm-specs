@@ -27,10 +27,10 @@ frameworks. Typical scenarios include testing frameworks, mocking libraries and
 UI validation rules.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

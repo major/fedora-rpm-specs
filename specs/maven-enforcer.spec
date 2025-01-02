@@ -44,7 +44,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 Enforcer is a build rule execution framework.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

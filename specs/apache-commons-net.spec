@@ -35,7 +35,7 @@ fundamental protocol access, not higher-level abstractions.
 Summary:        API documentation for %{name}
 
 %description javadoc
-%{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

@@ -29,7 +29,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-simple)
 Provides a component for plugins to easily resolve project dependencies.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

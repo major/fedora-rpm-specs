@@ -34,10 +34,10 @@ BuildRequires:  jflex
 java_cup is a LALR Parser Generator for Java
 
 %package javadoc
-Summary:        Javadoc for java_cup
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for java_cup
+API documentation for %{name}.
 
 %package manual
 Summary:        Documentation for java_cup

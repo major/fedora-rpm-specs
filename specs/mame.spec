@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 272
+%global baseversion 273
 
 %undefine _auto_set_build_flags
 
@@ -22,6 +22,7 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
+Patch2:         13152.patch
 
 # %%{arm}:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1627625

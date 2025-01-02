@@ -28,7 +28,7 @@ file formats, and a solid framework for the development of new
 parsers.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

@@ -5,7 +5,7 @@
 
 # https://github.com/apache/thrift
 %global goipath         github.com/apache/thrift
-Version:                0.20.0
+Version:                0.21.0
 
 %gometa
 
@@ -23,7 +23,7 @@ stack to build interoperable RPC clients and servers.}
 %global godocs          lib/go/README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Thrift Go Software Library
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ rm -rf lib/go/test
 %gopkgfiles
 
 %changelog
+* Tue Dec 31 2024 W. Michael Petullo <mike@flyn.org> - 0.21.0-1
+- Update to 0.21.0
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

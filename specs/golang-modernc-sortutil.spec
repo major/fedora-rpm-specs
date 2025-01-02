@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/sortutil
 %global goipath         modernc.org/sortutil
 %global forgeurl        https://gitlab.com/cznic/sortutil
-Version:                1.2.0
+Version:                1.2.1
 %global tag             v%{version}
 
 %gometa

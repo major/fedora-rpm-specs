@@ -2,7 +2,7 @@
 %global sum     Modern password hashing for your software and your servers
 
 Name:               python-bcrypt
-Version:            4.1.2
+Version:            4.2.1
 Release:            %autorelease
 Summary:            %{sum}
 

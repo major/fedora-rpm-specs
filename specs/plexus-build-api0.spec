@@ -29,7 +29,7 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 Plexus Build API
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

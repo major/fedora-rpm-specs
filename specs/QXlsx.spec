@@ -1,12 +1,11 @@
 Name: QXlsx
-Version:  1.4.9
-Release:  2%{?dist}
+Version:  1.4.10
+Release:  1%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
 URL: https://github.com/QtExcel/QXlsx
 Source0: %{url}/archive/v%{version}/QtXslx-%{version}.tar.gz
-Patch0:  qlatin1string.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -28,8 +27,6 @@ These are the development files.
 
 %prep
 %setup -q
-
-%patch -P 0 -p0
 
 %build
 
@@ -56,6 +53,9 @@ These are the development files.
 
 
 %changelog
+* Tue Dec 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.4.10-1
+- 1.4.10
+
 * Mon Oct 14 2024 Jan Grulich <jgrulich@redhat.com> - 1.4.9-2
 - Rebuild (qt6)
 

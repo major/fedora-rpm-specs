@@ -3,7 +3,7 @@
 
 Name:           fldigi
 Version:        4.2.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Digital modem program for Linux
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND GPL-2.0-only AND BSL-1.0 AND MIT-0 AND LGPL-3.0-only AND GPL-1.0-only AND Apache-2.0
@@ -14,8 +14,11 @@ Source0:        http://www.w1hkj.com/alpha/%{name}/%{name}-%{version}.tar.gz
 %else
 Source0:        http://www.w1hkj.com/files/%{name}/%{name}-%{version}.tar.gz
 %endif
-
 Source100:      fldigi.appdata.xml
+
+Patch0:         fldigi-hamlib.patch
+
+ExcludeArch:    i686
 
 #BuildRequires:  automake autoconf libtool
 
@@ -114,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 4.2.06-2
+- Rebuild for Hamlib 4.6.
+
 * Fri Oct 11 2024 Richard Shaw <hobbes1069@gmail.com> - 4.2.06-1
 - Update to 4.2.06.
 

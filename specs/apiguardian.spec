@@ -26,7 +26,7 @@ order to publish their API status and level of stability and to
 indicate how they are intended to be used by consumers of the API.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

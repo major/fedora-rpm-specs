@@ -19,7 +19,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.126.2
+Version:        0.140.2
 
 %gometa -f
 
@@ -108,24 +108,24 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 %check
 
 # .: Extensive test that uses network.
+# cache/dynacache: times out
 # hugolib: panic: runtime error: invalid memory address or nil pointer dereference
 # hugolib/pagesfromdata: panic: runtime error: invalid memory address or nil pointer dereference
+# internal/js/esbuild: binary with name "npm" not found in PATH
 # langs/i18n: fails with current Rawhide
-# markup/goldmark: fails with current Rawhide.
-# resources/resource_factories/create: fails with current Rawhide.
-# tpl/internal/go_templates/htmltemplate: fails with current Rawhide.
-# tpl/internal/go_templates/texttemplate: fails with current Rawhide.
-# tpl/internal/go_templates/texttemplate/parse: fails with current Rawhide.
+# resources/resource_factories/bundler: uses networking
+# resources/resource_factories/create: uses networking
+# tpl/tplimpl: https://github.com/gohugoio/hugo/issues/13204
 %gocheck \
 	-d . \
+	-d cache/dynacache \
 	-d hugolib \
 	-d hugolib/pagesfromdata \
+	-d internal/js/esbuild \
 	-d langs/i18n \
-	-d markup/goldmark \
+	-d resources/resource_factories/bundler \
 	-d resources/resource_factories/create \
-	-d tpl/internal/go_templates/htmltemplate \
-	-d tpl/internal/go_templates/texttemplate \
-	-d tpl/internal/go_templates/texttemplate/parse \
+	-d tpl/tplimpl \
 
 %endif
 

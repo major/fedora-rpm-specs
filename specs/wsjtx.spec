@@ -2,7 +2,7 @@
 
 Name:		wsjtx
 Version:	2.7.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
@@ -11,6 +11,7 @@ URL:		http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
 Source0:    https://sourceforge.net/projects/wsjt/files/%{name}-%{version}%{?rctag:-%{rctag}}/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
 Source100:	wsjtx.appdata.xml
 
+ExcludeArch:    i686
 
 BuildRequires:	cmake
 BuildRequires:	dos2unix
@@ -160,6 +161,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 2.7.0-9
+- Rebuild for Hamlib 4.6.
+
 * Tue Oct 01 2024 Richard Shaw <hobbes1069@gmail.com> - 2.7.0-8
 - Update to 2.7.0 RC7.
 

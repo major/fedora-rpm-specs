@@ -11,16 +11,20 @@
 
 Name:           libx86emu
 Version:        3.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        x86 emulation library
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        HPND-sell-variant
 URL:            https://github.com/wfeldt/libx86emu
 Source0:        https://github.com/wfeldt/libx86emu/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Make it build outside x86. Not submitted upstream because I don't know what is going on.
+Patch0:         libx86emu-3.5-x86-io.patch
+# Submitted upstream: https://github.com/wfeldt/libx86emu/pull/45
+Patch1:         https://github.com/wfeldt/libx86emu/commit/cfbbe1fcecfbff0b4b51e6060b793252ad942db1.patch#/libx86emu-log-overflow.patch
+
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Small x86 emulation library with focus of easy usage and extended execution
@@ -65,6 +69,10 @@ library.
 
 
 %changelog
+* Tue Dec 31 2024 Lubomir Rintel <lkundrak@v3.sk> - 3.5-9
+- Make it build outside x86 again
+- Fix logging buffer overflow
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.5-8
 - convert license to SPDX
 

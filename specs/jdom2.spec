@@ -41,10 +41,10 @@ complex and memory-consumptive options that current API
 offerings provide.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

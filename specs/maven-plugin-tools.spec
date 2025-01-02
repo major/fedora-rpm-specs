@@ -91,7 +91,7 @@ Provides:       maven-shared-plugin-tools-java = 0:%{version}-%{release}
 Descriptor extractor for plugins written in Java.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

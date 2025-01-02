@@ -56,10 +56,10 @@ BuildRequires:  mvn(org.opentest4j:opentest4j)
 JUnit is a popular regression testing framework for Java platform.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Junit5 API documentation.
+API documentation for %{name}.
 
 %package guide
 Summary:        Documentation for %{name}

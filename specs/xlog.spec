@@ -1,6 +1,6 @@
 Name:          xlog
 Version:       2.0.25
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -11,6 +11,8 @@ Source1:       org.nongnu.Xlog.metainfo.xml
 
 Patch0:        %{name}-2.0.19-no-error.patch
 Patch1:        xlog-%{version}-hamlib42.patch
+
+ExcludeArch:   i686
 
 BuildRequires: make
 BuildRequires: gcc
@@ -75,6 +77,9 @@ install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.me
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 2.0.25-2
+- Rebuild for Hamlib 4.6.
+
 * Wed Dec 25 2024 Filipe Rosset <rosset.filipe@gmail.com> - 2.0.25-1
 - Updated to 2.0.25 fixes rhbz#1947630
 

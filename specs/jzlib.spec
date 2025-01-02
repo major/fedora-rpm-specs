@@ -26,7 +26,7 @@ The zlib was written by Jean-loup Gailly (compression) and Mark Adler
 Summary:        API documentation for %{name}
 
 %description javadoc
-%{summary}.
+API documentation for %{name}.
 
 %package demo
 Summary:        Examples for %{name}

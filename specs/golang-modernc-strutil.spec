@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/strutil
 %global goipath         modernc.org/strutil
 %global forgeurl        https://gitlab.com/cznic/strutil
-Version:                1.1.3
+Version:                1.2.1
 %global tag             v%{version}
 
 %gometa

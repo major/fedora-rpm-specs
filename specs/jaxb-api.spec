@@ -20,10 +20,10 @@ The Jakarta XML Binding provides an API and tools that automate the mapping
 between XML documents and Java objects.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

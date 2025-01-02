@@ -8,12 +8,12 @@
 %global swigver swig3
 %endif
 
-%global githash 0
+%global githash 028d750249ab00c8c362598c838b15e8aa6a2951
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.5.5
-Release:        9%{?dist}
+Version:        4.6
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -28,6 +28,7 @@ Patch0:         hamlib-4.0-perl_install.patch
 # -lpython is not needed, https://github.com/Hamlib/Hamlib/issues/253
 Patch1:         hamlib-4.0-drop-libpython.patch
 
+ExcludeArch:    i686
 
 BuildRequires:  automake autoconf libtool
 BuildRequires:  make
@@ -206,7 +207,8 @@ make V=1 check
 %{_includedir}/hamlib/ampclass.h
 %{_includedir}/hamlib/amplifier.h
 %{_includedir}/hamlib/amplist.h
-%{_includedir}/hamlib/config.h
+#{_includedir}/hamlib/config.h
+%{_includedir}/hamlib/multicast.h
 %{_includedir}/hamlib/rig.h
 %{_includedir}/hamlib/riglist.h
 %{_includedir}/hamlib/rig_dll.h
@@ -215,7 +217,6 @@ make V=1 check
 %{_libdir}/pkgconfig/hamlib.pc
 
 %files doc
-%doc COPYING.LIB
 %doc __tmp_doc/*
 
 %files c++
@@ -245,6 +246,9 @@ make V=1 check
 
 
 %changelog
+* Wed Dec 25 2024 Richard Shaw <hobbes1069@gmail.com> - 4.6-1
+- Update to 4.6.
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

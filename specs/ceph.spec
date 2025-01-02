@@ -20,7 +20,7 @@
 # please read this for explanation of bcond syntax:
 # https://rpm-software-management.github.io/rpm/manual/conditionalbuilds.html
 #################################################################################
-%bcond_with system_boost
+%bcond_without system_boost
 %bcond_with make_check
 %bcond_with cmake_verbose_logging
 %bcond_without ceph_test_package
@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -224,6 +224,7 @@ Patch0044:	0044_src_cpp_redis_CMakeLists.txt.patch
 Patch0045:	0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
 Patch0046:	0046-src-s3select-include-s3select_parquet_intrf.h.patch
 Patch0047:	0047-openssl-no-engine.patch
+Patch0048:	0048-src-mds-CMakeLists.txt.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -450,6 +451,7 @@ Requires:	systemd
 %if 0%{with system_boost}
 BuildRequires:	boost-devel
 BuildRequires:	boost-random
+BuildRequires:	boost-url
 %endif
 BuildRequires:	nss-devel
 BuildRequires:	keyutils-libs-devel
@@ -2716,6 +2718,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Dec 20 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-8
+- remove openssl-engine
+
 * Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 2:19.2.0-7
 - Rebuild for ICU 76
 

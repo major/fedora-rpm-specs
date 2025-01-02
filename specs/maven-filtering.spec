@@ -45,10 +45,10 @@ Maven Resources Plugin. The goal is to provide a shared component for all
 plugins that needs to filter resources.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

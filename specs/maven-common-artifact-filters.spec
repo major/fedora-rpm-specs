@@ -33,10 +33,10 @@ A collection of ready-made filters to control inclusion/exclusion of artifacts
 during dependency resolution.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

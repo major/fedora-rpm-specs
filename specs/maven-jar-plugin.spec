@@ -35,7 +35,7 @@ Builds a Java Archive (JAR) file from the compiled
 project classes and resources.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

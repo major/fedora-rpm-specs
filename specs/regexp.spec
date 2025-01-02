@@ -27,11 +27,11 @@ It includes complete Javadoc documentation as well as a simple Applet
 for visual debugging and testing suite for compatibility.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 Provides:       deprecated()
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

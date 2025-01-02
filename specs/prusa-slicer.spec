@@ -48,6 +48,8 @@ Patch351:       https://github.com/archlinux/svntogit-community/blob/1dea61c0b5/
 Patch394:       prusa-slicer-pr-11769.patch
 # Work with OpenCASCADE 7.8.0 which is in Fedora 41
 Patch395:       prusa-slicer-opencascade.patch
+# https://github.com/prusa3d/PrusaSlicer/pull/13761
+Patch396:	prusa-slicer-pr-13761.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13242
 Patch401:       prusa-slicer-pr-13242.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13081

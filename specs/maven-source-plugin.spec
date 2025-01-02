@@ -35,7 +35,7 @@ The Maven Source Plugin creates a JAR archive of the
 source files of the current project.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

@@ -1,6 +1,6 @@
 Name:           direwolf
 Version:        1.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -11,6 +11,8 @@ Source0:        https://github.com/wb2osz/direwolf/archive/%{version}/%{name}-%{
 Source1:        direwolf.service
 Source2:        direwolf.sysconfig
 Source3:        direwolf.logrotate
+
+ExcludeArch:    i686
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  cmake
@@ -139,6 +141,9 @@ exit 0
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 1.7-6
+- Rebuild for Hamlib 4.6.
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7-5
 - convert license to SPDX
 

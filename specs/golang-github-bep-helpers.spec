@@ -4,7 +4,7 @@
 
 # https://github.com/bep/helpers
 %global goipath         github.com/bep/helpers
-Version:                0.4.0
+Version:                0.5.0
 
 %gometa -f
 
@@ -28,7 +28,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

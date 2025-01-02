@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/ccgo
 %global goipath         modernc.org/ccgo/v4
 %global forgeurl        https://gitlab.com/cznic/ccgo
-Version:                4.17.9
+Version:                4.23.6
 %global tag             v%{version}
 
 %gometa -f
@@ -32,7 +32,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 # Not free:
 find . ! \( -name v4 -o -name _build  -o -name LICENSE -o -name AUTHORS -o -name CONTRIBUTORS -o -name README.md \) -maxdepth 1 -exec rm -rvf {} \;
 mv v4/* .

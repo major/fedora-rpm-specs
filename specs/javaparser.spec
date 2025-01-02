@@ -39,10 +39,10 @@ and comments. It is also possible to change the AST nodes or create new
 ones to modify the source code.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

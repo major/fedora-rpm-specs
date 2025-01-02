@@ -3,7 +3,7 @@
 
 Name:           freedv
 Version:        1.8.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        FreeDV Digital Voice
 License:        GPL-2.0-or-later
 
@@ -15,6 +15,8 @@ Source101:      freedv48x48.png
 Source102:      freedv64x64.png
 Source103:      freedv128x128.png
 Source104:      freedv256x256.png
+
+ExcludeArch:    i686
 
 BuildRequires:  cmake%{?rhel:3} gcc-c++
 BuildRequires:  codec2-devel >= 0.8
@@ -108,6 +110,9 @@ fi
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 1.8.4-8
+- Rebuild for Hamlib 4.6.
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

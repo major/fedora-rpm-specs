@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
 Version:        3.18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -85,6 +85,58 @@ Baresip is a modular SIP user-agent with audio and video support.
 
 This module provides the AV1 video codec, an open, royalty-free video
 coding format developed as a successor to the VP9 video codec.
+
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%package avcodec
+Summary:        AVCodec video codec module for baresip
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswscale)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description avcodec
+Baresip is a modular SIP user-agent with audio and video support.
+
+This module implements H.264 and H.265 video codecs using libavcodec from
+the FFmpeg project.
+
+%package avfilter
+Summary:        AVFilter video filter for baresip
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description avfilter
+Baresip is a modular SIP user-agent with audio and video support.
+
+This module allows to dynamically apply complex video filter graphs to
+the outcoming stream using libavfilter from the FFmpeg project.
+
+%package avformat
+Summary:        AVFormat video source driver for baresip
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description avformat
+Baresip is a modular SIP user-agent with audio and video support.
+
+This module provides a video source driver using libavformat from the
+FFmpeg project.
+%endif
 
 %package codec2
 Summary:        Codec 2 audio codec module for baresip
@@ -286,6 +338,25 @@ Baresip is a modular SIP user-agent with audio and video support.
 This module provides an audio dumper to write WAV audio sample files
 using libsndfile.
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%package swscale
+Summary:        SWScale video filter for baresip
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavfilter)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description swscale
+Baresip is a modular SIP user-agent with audio and video support.
+
+This module provides a video filter for scaling and pixel conversion
+using libswscale from the FFmpeg project.
+%endif
+
 %package tools
 Summary:        Collection of tools and helper scripts for baresip
 BuildRequires:  python3-devel
@@ -460,6 +531,17 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files av1
 %{_libdir}/%{name}/modules/av1.so
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%files avcodec
+%{_libdir}/%{name}/modules/avcodec.so
+
+%files avfilter
+%{_libdir}/%{name}/modules/avfilter.so
+
+%files avformat
+%{_libdir}/%{name}/modules/avformat.so
+%endif
+
 %files codec2
 %{_libdir}/%{name}/modules/codec2.so
 
@@ -522,6 +604,11 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files sndfile
 %{_libdir}/%{name}/modules/sndfile.so
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%files swscale
+%{_libdir}/%{name}/modules/swscale.so
+%endif
+
 %files tools
 %{_bindir}/fritzbox2%{name}
 
@@ -538,6 +625,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Tue Dec 31 2024 Robert Scheck <robert@fedoraproject.org> 3.18.0-3
+- Add the baresip-avcodec, baresip-avfilter, baresip-avformat and
+  baresip-swscale subpackages for Fedora and RHEL 9 (and newer)
+
 * Tue Dec 24 2024 Robert Scheck <robert@fedoraproject.org> 3.18.0-2
 - Enable baresip-aac subpackage on RHEL 9 and later
 

@@ -49,7 +49,7 @@ licensing requirements at Apache where each project much include
 license and notice files for each release.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

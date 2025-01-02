@@ -1,7 +1,7 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
-Version:        0.7.3
-%global         baserelease     3
+Version:        0.7.4
+%global         baserelease     2
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
@@ -183,6 +183,9 @@ information
 
 
 %changelog
+* Tue Dec 31 2024 Michal Ambroz <rebus _AT seznam.cz> - 0.7.4-2
+- bump to version 0.7.4
+
 * Sun Sep 01 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.3-3
 - Rebuilt for tree-sitter 0.23.0
 

@@ -52,7 +52,7 @@ repositories to a specified location.
 Summary:        API documentation for %{name}
 
 %description javadoc
-%{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

@@ -1,5 +1,5 @@
 Name:		rgbds
-Version:	0.8.0
+Version:	0.9.0
 Release:	1%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
@@ -46,6 +46,7 @@ It consists of:
 %{_mandir}/man1/rgbfix.1.*
 %{_mandir}/man1/rgbgfx.1.*
 %{_mandir}/man5/rgbds.5.*
+%{_mandir}/man5/rgbasm-old.5.*
 %{_mandir}/man5/rgbasm.5.*
 %{_mandir}/man5/rgblink.5.*
 %{_mandir}/man7/rgbds.7.*
@@ -54,6 +55,9 @@ It consists of:
 %doc README.md
 
 %changelog
+* Tue Dec 31 2024 Benjamin Lowry <ben@ben.gmbh> - 0.9.0-1
+- rgbds 0.9.0
+
 * Mon Sep 30 2024 Benjamin Lowry <ben@ben.gmbh> - 0.8.0-1
 - rgbds 0.8.0
 - Update SPDX licensing string to address new Fedora policy

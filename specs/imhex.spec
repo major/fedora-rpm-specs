@@ -1,6 +1,6 @@
 Name:           imhex
-Version:        1.35.4
-Release:        3%{?dist}
+Version:        1.36.2
+Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -11,6 +11,8 @@ URL:            https://imhex.werwolv.net/
 Source0:        https://github.com/WerWolv/%{name}/releases/download/v%{version}/Full.Sources.tar.gz#/%{name}-%{version}.tar.gz
 # default to including the same-version patterns as a suggested package
 Source1:        https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v%{version}.tar.gz#/%{name}-patterns-%{version}.tar.gz
+
+Patch:          lunasvg-cmake.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -29,9 +31,7 @@ BuildRequires:  libzstd-devel
 BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
-%if 0%{?fedora} > 38
 BuildRequires:  llvm-devel
-%endif
 BuildRequires:  mbedtls-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
@@ -40,6 +40,7 @@ BuildRequires:  gcc-toolset-13
 %endif
 %if 0%{?fedora} >= 40
 BuildRequires:  capstone-devel
+BuildRequires:  lunasvg-devel
 %endif
 
 Recommends:     imhex-patterns = %{version}-%{release}
@@ -89,15 +90,13 @@ License:        GPL-2.0-only
 
 
 %prep
-%autosetup -n ImHex
+%autosetup -n ImHex -p1
 # remove bundled libs we aren't using
-%if 0%{?fedora} > 38
-rm -rf lib/third_party/llvm
-%endif
-rm -rf lib/third_party/{curl,fmt,nlohmann_json,yara}
-%if 0%{?fedora} >= 40
+rm -rf lib/third_party/{curl,fmt,llvm,nlohmann_json,yara}
+%if 0%{?fedora}
 rm -rf lib/third_party/capstone
 %endif
+
 # the cmake scripts look for patterns to be in ImHex-Patterns
 mkdir -p ImHex-Patterns && tar -xf %{SOURCE1} -C ImHex-Patterns --strip-components=1
 
@@ -114,14 +113,13 @@ CXXFLAGS+=" -std=gnu++2b"
  -D USE_SYSTEM_NLOHMANN_JSON=ON          \
  -D USE_SYSTEM_FMT=ON                    \
  -D USE_SYSTEM_CURL=ON                   \
-%if 0%{?fedora} > 38
+%if 0%{?fedora}
  -D USE_SYSTEM_LLVM=ON                   \
+ -D USE_SYSTEM_CAPSTONE=ON               \
+ -D USE_SYSTEM_LUNASVG=ON                \
 %endif
  -D USE_SYSTEM_YARA=ON                   \
  -D USE_SYSTEM_NFD=ON                    \
-%if 0%{?fedora} >= 40
- -D USE_SYSTEM_CAPSTONE=ON               \
-%endif
  -D IMHEX_ENABLE_UNIT_TESTS=ON
 
 %cmake_build
@@ -170,6 +168,7 @@ done
 %{_libdir}/%{name}/
 %{_metainfodir}/net.werwolv.%{name}.metainfo.xml
 %exclude %{_bindir}/imhex-updater
+%{_datadir}/mime/packages/%{name}.xml
 
 
 %files patterns
@@ -183,6 +182,9 @@ done
 
 
 %changelog
+* Mon Dec 30 2024 Jonathan Wright <jonathan@almalinux.org> - 1.36.2-1
+- update to 1.36.2 rhbz#2333991
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> 1.35.4-3
 - Rebuilt for mbedTLS 3.6.1
 

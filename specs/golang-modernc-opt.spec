@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/opt
 %global goipath         modernc.org/opt
 %global forgeurl        https://gitlab.com/cznic/opt
-Version:                0.1.3
+Version:                0.1.4
 %global tag             v%{version}
 
 %gometa -f
@@ -30,7 +30,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

@@ -29,10 +29,10 @@ discover the operations available on it; and instantiate the
 appropriate bean to perform the operation(s).
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

@@ -31,10 +31,10 @@ The Maven Archiver is used by other Maven plugins
 to handle packaging
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

@@ -50,10 +50,10 @@ Velocity+Turbine provides a template service that will allow web
 applications to be developed according to a true MVC model.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

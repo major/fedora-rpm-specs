@@ -1,5 +1,5 @@
 Name:           python-socketio
-Version:        5.12.0
+Version:        5.12.1
 Release:        %autorelease
 Summary:        Socket.IO server
 

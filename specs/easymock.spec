@@ -49,10 +49,10 @@ of recording expectations, most refactorings will not affect the Mock Objects.
 So EasyMock is a perfect fit for Test-Driven Development.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

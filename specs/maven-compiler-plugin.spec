@@ -40,7 +40,7 @@ BuildRequires:  mvn(org.mockito:mockito-core)
 The Compiler Plugin is used to compile the sources of your project.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

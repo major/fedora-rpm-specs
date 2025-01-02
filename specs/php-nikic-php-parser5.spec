@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-nikic-php-parser5
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2024 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -14,7 +14,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    8eea230464783aa9671db8eea6f8c6ac5285794b
+%global gh_commit    447a020a1f875a434d62f2a401f53b82a396e494
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -23,7 +23,7 @@
 %global ns_project   PhpParser
 %global major        5
 
-%global upstream_version 5.3.1
+%global upstream_version 5.4.0
 #global upstream_prever  rc1
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
@@ -45,11 +45,8 @@ BuildArch:      noarch
 # For tests
 BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-tokenizer
-BuildRequires:  php-reflection
 BuildRequires:  php-ctype
 BuildRequires:  php-json
-BuildRequires:  php-pcre
-BuildRequires:  php-spl
 # From composer.json, "require-dev": {
 #        "phpunit/phpunit": "^9.0",
 #        "ircmaxell/php-yacc": "0.0.7"
@@ -69,9 +66,6 @@ Requires:       php-tokenizer
 Requires:       php-json
 Requires:       php-ctype
 # From phpcompatinfo report for version 5.0.0
-Requires:       php-reflection
-Requires:       php-pcre
-Requires:       php-spl
 Requires:       php-cli
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -155,6 +149,10 @@ exit $ret
 
 
 %changelog
+* Tue Dec 31 2024 Remi Collet <remi@remirepo.net> - 5.4.0-1
+- update to 5.4.0
+- re-license spec file to CECILL-2.1
+
 * Wed Oct  9 2024 Remi Collet <remi@remirepo.net> - 5.3.1-1
 - update to 5.3.1
 

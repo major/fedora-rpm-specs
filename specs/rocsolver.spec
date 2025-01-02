@@ -109,11 +109,23 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %build
 
+cat /proc/cpuinfo
+cat /proc/meminfo
+lscpu
+
 # Real cores, No hyperthreading
-COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
+COMPILE_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
 if [ ${COMPILE_JOBS}x = x ]; then
     COMPILE_JOBS=1
 fi
+# Try again..
+if [ ${COMPILE_JOBS} = 1 ]; then
+    COMPILE_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${COMPILE_JOBS}x = x ]; then
+	COMPILE_JOBS=4
+    fi
+fi
+
 # Take into account memmory usage per core, do not thrash real memory
 BUILD_MEM=4
 MEM_KB=0

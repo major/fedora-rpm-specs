@@ -36,10 +36,10 @@ It is designed to be used by active code
 generators or documentation tools.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-API docs for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

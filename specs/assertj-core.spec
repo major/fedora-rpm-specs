@@ -30,7 +30,7 @@ A rich and intuitive set of strongly-typed assertions to use for unit testing
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package provides API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

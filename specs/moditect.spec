@@ -44,10 +44,10 @@ to add a module descriptor to your project JAR while staying on Java 8 with your
 own build.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

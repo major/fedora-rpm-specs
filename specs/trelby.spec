@@ -1,5 +1,5 @@
 Name:           trelby
-Version:        2.4.11
+Version:        2.4.12
 Release:        1%{?dist}
 Summary:        The free, multiplatform, feature-rich screenwriting program
 
@@ -56,6 +56,9 @@ install -m644 trelby/trelby.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests/
 
 %changelog
+* Tue Dec 31 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.4.12-1
+- 2.4.12
+
 * Thu Dec 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 2.4.11-1
 - 2.4.11
 

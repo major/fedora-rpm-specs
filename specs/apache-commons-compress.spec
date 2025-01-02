@@ -40,7 +40,7 @@ but it has been removed form this package.
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package provides %{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

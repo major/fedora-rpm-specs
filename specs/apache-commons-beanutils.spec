@@ -27,10 +27,10 @@ dependencies outside of the JDK are required, so the use of this package
 is very lightweight.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-%{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

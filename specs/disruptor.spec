@@ -24,10 +24,10 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 A High Performance Inter-Thread Messaging Library.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

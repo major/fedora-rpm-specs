@@ -7,7 +7,7 @@
 
 Name:           js8call
 Version:        2.2.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -26,6 +26,8 @@ Patch0:         js8call-sys_boost.patch
 Patch1:         js8call-hamlib.patch
 # Fix missing headers exposed by gcc-11
 Patch2:         js8call-gcc11.patch
+
+ExcludeArch:    i686
 
 BuildRequires:  cmake%{?rhel:3} gcc gcc-c++ gcc-gfortran tar
 BuildRequires:  asciidoc dos2unix rubygem-asciidoctor
@@ -121,6 +123,9 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-24
+- Rebuild for Hamlib 4.6.
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 2.2.0-23
 - convert license to SPDX
 

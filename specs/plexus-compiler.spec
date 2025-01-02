@@ -49,7 +49,7 @@ Summary:        Maven POM files for %{name}
 This package provides %{summary}.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 License:        MIT AND Apache-2.0 AND Apache-1.1
 
 %description javadoc

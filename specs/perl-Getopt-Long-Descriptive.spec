@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.115
+Version:        0.116
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
@@ -64,6 +64,11 @@ make test
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Tue Dec 31 2024 Paul Howarth <paul@city-fan.org> - 0.116-1
+- Update to 0.116 (rhbz#2335016)
+  - Do not leave Getopt::Long configuration in an altered state after getting
+    options
+
 * Fri Nov  8 2024 Paul Howarth <paul@city-fan.org> - 0.115-1
 - Update to 0.115 (rhbz#2324463)
   - Cope with the user forgetting the first argument, generally "%%c %%o", to

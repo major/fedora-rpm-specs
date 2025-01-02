@@ -4,7 +4,7 @@
 
 # https://github.com/getkin/kin-openapi
 %global goipath         github.com/getkin/kin-openapi
-Version:                0.124.0
+Version:                0.128.0
 
 %gometa
 
@@ -29,7 +29,6 @@ Source0:        %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

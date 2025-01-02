@@ -15,13 +15,13 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global k8s_name                kubernetes1.31
-%global k8s_ver                 1.31.3
+%global k8s_ver                 1.31.4
 # major:minor version substring
 %global k8s_minver              1.31
 %global k8s_nextver             1.32
-%global k8s_tag                 v1.31.3
+%global k8s_tag                 v1.31.4
 # golang 'built with' version
-%global golangver               1.22.8
+%global golangver               1.22.9
 
 # last release version of kubernetes rpms prior to adoption of
 # revised package organization (kubernetes-systemd rpm created and

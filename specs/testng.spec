@@ -41,7 +41,7 @@ functional, end-to-end, integration, etc.
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

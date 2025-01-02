@@ -2,7 +2,7 @@
 
 Name:           mingw-gtk2
 Version:        2.24.33
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        MinGW Windows Gtk2 library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -309,6 +309,9 @@ rm -f %{buildroot}%{mingw64_bindir}/gtk-update-icon-cache.exe
 
 
 %changelog
+* Tue Dec 31 2024 Sandro Mani <manisandro@gmail.com> - 2.24.33-14
+- Rebuild
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.24.33-13
 - convert license to SPDX
 

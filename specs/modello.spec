@@ -49,7 +49,7 @@ from the single model, including Java POJOs, XML
 marshallers/unmarshallers, XSD and documentation.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

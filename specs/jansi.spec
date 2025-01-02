@@ -36,11 +36,11 @@ which don't support it like Windows and provides graceful degradation for
 when output is being sent to output devices which cannot support ANSI sequences.
 
 %package javadoc
-Summary:        Javadocs for %{name}
+Summary:        API documentation for %{name}
 BuildArch:      noarch
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

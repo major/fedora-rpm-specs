@@ -36,7 +36,7 @@ The Maven Plugin Testing contains the necessary modules
 to be able to test Maven Plugins.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

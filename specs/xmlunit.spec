@@ -41,10 +41,10 @@ want to create. It provides helpers to validate against an XML Schema, assert
 the values of XPath queries or compare XML documents against expected outcomes.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-Javadoc for %{name}
+API documentation for %{name}.
 
 %package assertj
 Summary:        Assertj for %{name}

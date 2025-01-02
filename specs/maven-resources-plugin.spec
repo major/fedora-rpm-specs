@@ -39,7 +39,7 @@ The Resources Plugin handles the copying of project resources
 to the output directory.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

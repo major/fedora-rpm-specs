@@ -67,10 +67,10 @@ and will correctly serialize XML 1.1 documents if the DOM level 3 load/save
 APIs are in use.
 
 %package javadoc
-Summary:        Javadocs for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %package demo
 Summary:        Demonstrations and samples for %{name}

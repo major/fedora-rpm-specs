@@ -25,10 +25,10 @@ X11 forwarding, file transfer, etc., and you can integrate its
 functionality into your own Java programs.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-%{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

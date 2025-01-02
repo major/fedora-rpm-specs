@@ -1,6 +1,6 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -13,6 +13,8 @@ Source2:        net.qsl.QSSTV.metainfo.xml
 Source3:        qsstv.png
 
 Patch0:         qsstv-install.patch
+
+ExcludeArch:    i686
 
 BuildRequires:  gcc-c++ doxygen desktop-file-utils
 BuildRequires:  make
@@ -97,6 +99,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 9.5.8-21
+- Rebuild for Hamlib 4.6.
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 9.5.8-20
 - convert license to SPDX
 

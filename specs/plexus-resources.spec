@@ -32,7 +32,7 @@ velocity, etc. Plexus also includes an application server which
 is like a J2EE application server, without all the baggage.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

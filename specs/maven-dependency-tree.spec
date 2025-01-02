@@ -28,10 +28,10 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 Apache Maven dependency tree artifact. Originally part of maven-shared.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

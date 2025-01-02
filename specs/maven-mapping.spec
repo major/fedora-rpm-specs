@@ -29,7 +29,7 @@ Maven shared component that implements file name mapping.
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package provides %{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

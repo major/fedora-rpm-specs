@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.1.16
+Version:        0.1.17
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -26,8 +26,6 @@ Patch10:        0001-Downstream-only-Omit-doctests-that-require-hifitime.patch
 Patch11:        0001-Downstream-only-Omit-doctests-that-require-icu.patch
 # * Downstream-only: Omit tests that require serde_yml.
 Patch12:        0001-Downstream-only-omit-tests-that-require-serde_yml.patch
-# * Fix a small typo in CHANGELOG.md
-Patch13:        https://github.com/BurntSushi/jiff/pull/173.patch
 # * EPEL9: Ignore doctests that require very recent Rust compilers
 # * In this crate, doctests and examples (but not the lib and integration tests)
 #   are allowed to use Rust features from versions newer than the MSRV. It’s

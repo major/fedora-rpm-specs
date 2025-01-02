@@ -8,7 +8,7 @@
 # https://gitlab.com/cznic/libc
 %global goipath         modernc.org/libc
 %global forgeurl        https://gitlab.com/cznic/libc
-Version:                1.51.0
+Version:                1.61.6
 %global tag             v%{version}
 
 %gometa -f
@@ -29,7 +29,6 @@ Summary:        C-runtime services for Go without cgo
 License:        BSD-3-Clause AND MIT
 URL:            %{gourl}
 Source:         %{gosource}
-Patch0:         libc-v1.51.0-drop-invisible-char.patch
 
 %description %{common_description}
 
@@ -37,7 +36,6 @@ Patch0:         libc-v1.51.0-drop-invisible-char.patch
 
 %prep
 %goprep
-%autopatch -p1
 rm -rfv v2/
 mv honnef.co/go/netdb/LICENSE LICENSE-honnef
 

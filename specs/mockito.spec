@@ -43,10 +43,10 @@ because the tests are very readable and they produce clean verification
 errors.
 
 %package javadoc
-Summary:        Javadocs for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %package junit-jupiter
 Summary:        Mockito JUnit 5 support

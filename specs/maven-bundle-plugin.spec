@@ -37,7 +37,7 @@ from the contents of the compilation classpath along with its
 resources and dependencies. Plus a zillion other features.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

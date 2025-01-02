@@ -4,7 +4,7 @@
 
 # https://github.com/bep/lazycache
 %global goipath         github.com/bep/lazycache
-Version:                0.4.0
+Version:                0.7.0
 
 %gometa -f
 
@@ -29,7 +29,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

@@ -27,10 +27,10 @@ decompression with limited random access support, raw streams (no .xz headers)
 for advanced users, including LZMA2 with preset dictionary.
 
 %package javadoc
-Summary:        Javadocs for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
-This package contains the API documentation for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

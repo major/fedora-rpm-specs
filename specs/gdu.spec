@@ -12,7 +12,7 @@
 
 # https://github.com/dundee/gdu
 %global goipath github.com/dundee/gdu/v5
-Version:        5.29.0
+Version:        5.30.1
 
 %gometa -L -f
 

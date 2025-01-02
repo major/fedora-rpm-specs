@@ -35,7 +35,7 @@ Plexus IO is a set of plexus components, which are designed for use
 in I/O operations.
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 
 %description javadoc
 API documentation for %{name}.

@@ -1,6 +1,6 @@
 Name: soundmodem
 Version: 0.20
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Soundcard Packet Radio Modem
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -14,6 +14,7 @@ Patch2: %{name}-0.20-void.patch
 Patch3: %{name}-0.20-i386-fix.patch
 Patch4: %{name}-0.20-gcc10-fix.patch
 Patch5: soundmodem-hamlib42.patch
+ExcludeArch:   i686
 # Requires: /sbin/ifconfig /sbin/route /sbin/arp
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -89,6 +90,9 @@ mv %{buildroot}%{_includedir}/simd.h %{buildroot}%{_includedir}/%{name}
 %{_includedir}/%{name}
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 0.20-33
+- Rebuild for Hamlib 4.6.
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.20-32
 - convert license to SPDX
 

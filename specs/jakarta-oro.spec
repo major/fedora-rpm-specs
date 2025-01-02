@@ -57,11 +57,11 @@ successor to the OROMatcher, AwkTools, PerlTools, and TextTools
 libraries from ORO, Inc. (www.oroinc.com). 
 
 %package javadoc
-Summary:        Javadoc for %{name}
+Summary:        API documentation for %{name}
 Provides:       deprecated()
 
 %description javadoc
-Javadoc for %{name}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C

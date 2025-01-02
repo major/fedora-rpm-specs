@@ -5,7 +5,7 @@
 # https://gitlab.com/cznic/cc
 %global goipath         modernc.org/cc/v4
 %global forgeurl        https://gitlab.com/cznic/cc
-Version:                4.21.2
+Version:                4.24.3
 %global tag             v%{version}
 %global distprefix      %nil
 
@@ -31,7 +31,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-%autopatch -p1
 find . ! \( -name v4 -o -name AUTHORS -o -name CONTRIBUTORS -o -name LICENSE -o -name _build \) -maxdepth 1 -exec rm -rvf {} \;
 mv v4/* .
 

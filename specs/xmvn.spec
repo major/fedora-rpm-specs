@@ -1,7 +1,4 @@
 %bcond_with bootstrap
-%if %{with bootstrap}
-%global mbi 1
-%endif
 
 Name:           xmvn
 Version:        4.3.0
@@ -121,7 +118,7 @@ This package provides various XMvn tools:
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package provides %{summary}.
+API documentation for %{name}.
 
 %prep
 %autosetup -p1 -C
@@ -171,7 +168,7 @@ version=4.*
 maven_home=$(realpath $(dirname $(realpath $(%{?jpb_env} type -p mvn)))/..)
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
-cp -r%{?mbi:L} %{name}-${version}/* %{buildroot}%{_datadir}/%{name}/
+cp -r%{?with_bootstrap:L} %{name}-${version}/* %{buildroot}%{_datadir}/%{name}/
 
 for cmd in mvn mvnDebug; do
     cat <<EOF >%{buildroot}%{_datadir}/%{name}/bin/$cmd
@@ -188,11 +185,11 @@ done
 %jpackage_script org.fedoraproject.xmvn.tools.subst.SubstCli "" "" xmvn/xmvn-subst:xmvn/xmvn-api:xmvn/xmvn-core:beust-jcommander xmvn-subst
 
 # copy over maven boot and lib directories
-cp -r%{?mbi:L} ${maven_home}/boot/* %{buildroot}%{_datadir}/%{name}/boot/
-cp -r%{?mbi:L} ${maven_home}/lib/* %{buildroot}%{_datadir}/%{name}/lib/
+cp -r%{?with_bootstrap:L} ${maven_home}/boot/* %{buildroot}%{_datadir}/%{name}/boot/
+cp -r%{?with_bootstrap:L} ${maven_home}/lib/* %{buildroot}%{_datadir}/%{name}/lib/
 
 # possibly recreate symlinks that can be automated with xmvn-subst
-%if !0%{?mbi}
+%if %{with bootstrap}
 %{name}-subst -s -R %{buildroot} %{buildroot}%{_datadir}/%{name}/
 %endif
 

@@ -1,6 +1,6 @@
 Name:           klog
 Version:        2.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,8 @@ Source103:      klog_128x128.png
 Source104:      klog_256x256.png
 Source105:      klog_512x512.png
 Source106:      xyz.klog.klog.metainfo.xml
+
+ExcludeArch:    i686
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dos2unix
@@ -106,6 +108,9 @@ install -Dm 0644 %{SOURCE106} \
 
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 2.3.4-4
+- Rebuild for Hamlib 4.6.
+
 * Tue Aug 27 2024 Daniel Rusek <mail@asciiwolf.com> - 2.3.4-3
 - Add AppStream metadata.
 

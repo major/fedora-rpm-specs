@@ -3,7 +3,7 @@
 
 Name:		tlf
 Version:	1.4.1
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Ham radio contest logger
 # GPLv3+ are some m4 macros
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
@@ -12,6 +12,7 @@ URL:		https://github.com/Tlf/tlf
 Source0:	%{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:	%{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz.sig
 Source2:	tlf-release-key.asc
+ExcludeArch:    i686
 BuildRequires:	gnupg2
 BuildRequires:	make
 BuildRequires:	gcc
@@ -71,6 +72,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Tue Dec 31 2024 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-17
+- Rebuild for Hamlib 4.6.
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.1-16
 - convert license to SPDX
 

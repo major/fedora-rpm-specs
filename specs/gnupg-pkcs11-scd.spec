@@ -1,5 +1,5 @@
 Name:           gnupg-pkcs11-scd
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        GnuPG-compatible smart-card daemon with PKCS#11 support
 

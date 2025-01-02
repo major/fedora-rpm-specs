@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          clearscreen-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax terminfo dependency from ^0.8 to >=0.7,<0.9
+# * Update terminfo requirement from 0.8.0 to 0.9.0:
+#   https://github.com/watchexec/clearscreen/commit/c1482c2813b05d1a549590e4742911c6c11cf1b8
 # * allow which 7.0.0: https://github.com/watchexec/clearscreen/pull/25
 Patch:          clearscreen-fix-metadata.diff
 

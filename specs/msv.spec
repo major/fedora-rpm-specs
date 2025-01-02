@@ -42,7 +42,7 @@ subset of XML Schema Part 1.
 Summary:        API documentation for %{name}
 
 %description javadoc
-This package provides %{summary}.
+API documentation for %{name}.
 
 %package xsdlib
 Summary:        Java implementation of W3C’s XML Schema Part 2
