@@ -3,8 +3,7 @@ Version:        6.00.05
 Release:        21%{?dist}
 Summary:        Statistical language model tool
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://hlt-mt.fbk.eu/technologies/irstlm
 Source0:        https://github.com/irstlm-team/%{name}/archive/v%{version}.tar.gz
 # Fix a case of violating the ANSI strict aliasing rules.

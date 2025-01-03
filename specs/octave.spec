@@ -36,7 +36,7 @@
 
 Name:           octave
 Epoch:          6
-Version:        9.2.0
+Version:        9.3.0
 Release:        1%{?dist}
 Summary:        A high-level language for numerical computations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -457,6 +457,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Wed Jan 01 2025 Orion Poplawski <orion@nwra.com> - 6:9.3.0-1
+- Update to 9.3.0
+
 * Mon Nov 11 2024 Orion Poplawski <orion@nwra.com> - 6:9.2.0-1
 - Update to 9.2.0
 - Build with Qt6

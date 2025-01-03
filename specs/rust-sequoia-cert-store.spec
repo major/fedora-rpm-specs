@@ -5,7 +5,7 @@
 %global crate sequoia-cert-store
 
 Name:           rust-sequoia-cert-store
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Certificate database interface
 
@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-cert-store-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump sequoia-net dependency from 0.28 to 0.29
 # * exclude integration tests, test data, and scripts from installed files
 Patch:          sequoia-cert-store-fix-metadata.diff
 

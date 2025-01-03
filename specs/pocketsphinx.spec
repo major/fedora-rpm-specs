@@ -4,8 +4,7 @@ Version:        5.0.3
 Release:        6%{?dist}
 Summary:        Real-time speech recognition
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 URL:            https://cmusphinx.github.io/
 Source0:        https://github.com/cmusphinx/pocketsphinx/archive/v%{version}/%{name}-%{version}.tar.gz
 

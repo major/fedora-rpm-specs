@@ -1,7 +1,7 @@
 %global release_date "July 2018"
 
 Name:           openfst
-Version:        1.8.3
+Version:        1.8.4
 Release:        %autorelease
 Summary:        Weighted finite-state transducer library
 
@@ -10,10 +10,6 @@ License:        Apache-2.0
 URL:            http://www.openfst.org/
 Source0:        http://www.openfst.org/twiki/pub/FST/FstDownload/%{name}-%{version}.tar.gz
 Source1:        http://www.openfst.org/twiki/pub/Contrib/OpenFstBashComp/openfstbc
-
-# Pre-release patch following email correspondence with developers.
-# Should be in next official release.
-Patch0:         openfst-1.8.3-gcc-fix.patch
 
 BuildRequires: make
 BuildRequires:  chrpath

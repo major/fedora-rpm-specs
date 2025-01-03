@@ -1,7 +1,7 @@
 %global pypi_name archinfo
 
 Name:           python-%{pypi_name}
-Version:        9.2.130
+Version:        9.2.135
 Release:        1%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
@@ -43,6 +43,9 @@ information. It is useful for cross-architecture tools.
 %license LICENSE
 
 %changelog
+* Wed Jan 01 2025 W. Michael Petullo <mike@flyn.org> - 9.2.135-1
+- Update to latest upstream release (closes rhbz#2331808)
+
 * Fri Nov 29 2024 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.130-1
 - Update to latest upstream release (closes rhbz#2327327)
 

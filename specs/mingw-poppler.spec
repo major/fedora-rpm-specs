@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       24.08.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -14,6 +14,8 @@ Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
 
 # Downstream fix for CVE-2017-9083 (#1453200)
 Patch1:        poppler_CVE-2017-9083.patch
+# Backport fix for CVE-2024-56378
+Patch2:        https://gitlab.freedesktop.org/poppler/poppler/-/commit/ade9b5ebed44b0c15522c27669ef6cdf93eff84e.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -249,6 +251,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Wed Jan 01 2025 Sandro Mani <manisandro@gmail.com> - 24.08.0-2
+- Backport fix for CVE-2024-56378
+
 * Fri Aug 23 2024 Sandro Mani <manisandro@gmail.com> - 24.08.0-1
 - Update to 24.08.0
 

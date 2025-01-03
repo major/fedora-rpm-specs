@@ -4,7 +4,7 @@
 ExcludeArch:    %{ix86}
 
 Name:           opengrm-%{shortname}
-Version:        1.3.15
+Version:        1.3.16
 Release:        3%{?dist}
 Summary:        Library for making and modifying n-gram language models
 

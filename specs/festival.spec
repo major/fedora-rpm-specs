@@ -6,8 +6,7 @@ Release: %autorelease
 URL: http://www.cstr.ed.ac.uk/projects/festival/
 # The Emacs file is GPL+, there is one TCL-licensed source file, and
 # the hts_engine module is covered by the three-clause BSD license.
-# Automatically converted from old format: MIT and GPL+ and TCL and BSD - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND GPL-1.0-or-later AND TCL AND LicenseRef-Callaway-BSD
+License: MIT AND GPL-1.0-or-later AND TCL AND BSD-3-Clause
 
 Obsoletes: festival-lib
 Obsoletes: festival-speechtools-libs

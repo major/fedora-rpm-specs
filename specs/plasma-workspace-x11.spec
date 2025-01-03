@@ -1,7 +1,7 @@
 Name:    plasma-workspace-x11
 Summary: Xorg support for Plasma
-Version: 6.2.4
-Release: 2%{?dist}
+Version: 6.2.5
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/plasma-workspace
@@ -215,6 +215,9 @@ sed -i \
 
 
 %changelog
+* Wed Jan 01 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.5-1
+- 6.2.5
+
 * Mon Dec 02 2024 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.2.4-2
 - Requires: kf6-kidletime-x11 (hard Requires - important features depend on it)
 

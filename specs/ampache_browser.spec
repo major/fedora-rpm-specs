@@ -7,8 +7,8 @@ Name: ampache_browser
 # is likely to break API users due to not finding files any longer.
 %global vername %{name}_1
 
-Version: 1.0.7
-Release: 6%{?dist}
+Version: 1.0.8
+Release: 1%{?dist}
 Summary: C++ and Qt based client library for Ampache access
 
 License: GPL-3.0-only
@@ -74,6 +74,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/cmake/%{vername}
 
 %changelog
+* Wed Jan  1 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.8-1
+- Update to 1.0.8.
+
 * Mon Jul  29 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.7-6
 - convert license to SPDX
 

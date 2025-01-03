@@ -1,7 +1,7 @@
 Name:           getdp
 # TODO: Enablee building with gmsh support as soon as getdp does not require private gmsh api anymore
 Version:        3.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
@@ -92,6 +92,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Wed Jan 01 2025 Sandro Mani <manisandro@gmail.com> - 3.6.0-6
+- Rebuild (petsc)
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 3.6.0-5
 - Rebuild for hdf5 1.14.5
 

@@ -1,19 +1,20 @@
 %global public_key RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s
 
 Name:           ibus-chewing
-Version:        2.1.2
+Version:        2.1.3
 Release:        %autorelease
 Summary:        The Chewing engine for IBus input platform
 Summary(zh_TW): IBus新酷音輸入法
 License:        GPL-2.0-or-later
 URL:            https://github.com/chewing/ibus-chewing
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}-Source.tar.xz
-Source1:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}-Source.tar.xz.minisig
+Source1:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}-Source.tar.xz.asc
+Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
 
 BuildRequires:  cmake >= 3.21.0
 BuildRequires:  gcc
 BuildRequires:  pkgconf
-BuildRequires:  minisign
+BuildRequires:  gnupg2
 BuildRequires:  pkgconfig(ibus-1.0)
 BuildRequires:  pkgconfig(chewing) >= 0.9.0
 BuildRequires:  pkgconfig(glib-2.0)
@@ -41,7 +42,7 @@ IBus-chewing 是新酷音輸入法的IBus前端。
 
 
 %prep
-/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version_no_tilde}-Source
 
 %build

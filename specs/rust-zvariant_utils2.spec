@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate zbus_names
+%global crate zvariant_utils
 
-Name:           rust-zbus_names
-Version:        4.1.0
+Name:           rust-zvariant_utils2
+Version:        2.1.0
 Release:        %autorelease
-Summary:        Collection of D-Bus bus names types
+Summary:        Various utilities used internally by the zvariant crate
 
 License:        MIT
-URL:            https://crates.io/crates/zbus_names
+URL:            https://crates.io/crates/zvariant_utils
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          zbus_names-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A collection of D-Bus bus names types.}
+Various utilities used internally by the zvariant crate.}
 
 %description %{_description}
 

@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -25,9 +25,7 @@ BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6WidgetsAddons)
-# Package requires at least v1.0 of AppStreamQt which isn't out yet. This is optional,
-# and will be enabled once available.
-# BuildRequires:  cmake(AppStreamQt) >= 1.0
+BuildRequires:  cmake(AppStreamQt) >= 1.0
 BuildRequires:  cmake(packagekitqt6)
 BuildRequires:  cmake(KF6ColorScheme)
 Requires:  kf6-filesystem
@@ -73,8 +71,7 @@ The %{name}-devel package contains files to develop for %{name}.
 %files libs
 %{_kf6_libdir}/libKF6Style.so.*
 %{_kf6_plugindir}/FrameworkIntegrationPlugin.so
-# Version in fedora is too old, uncomment when it is updated
-#%%{_kf6_libexecdir}/kpackagehandlers/appstreamhandler
+%{_kf6_libexecdir}/kpackagehandlers/appstreamhandler
 
 %files devel
 %{_kf6_includedir}/FrameworkIntegration/
@@ -83,6 +80,9 @@ The %{name}-devel package contains files to develop for %{name}.
 %{_kf6_libdir}/cmake/KF6FrameworkIntegration/
 
 %changelog
+* Wed Jan 1 2025 Marie Loise Nolden <loise@kde.org> - 6.9.0-2
+- re-enable AppstreamQt BR
+
 * Sat Dec 14 2024 Steve Cossette <farchord@gmail.com> - 6.9.0-1
 - 6.9.0
 

@@ -22,8 +22,7 @@ Release:        %autorelease
 Summary:        Unix-like pipelines for Go
 
 # Upstream license specification: BSD-2-Clause
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 # https://github.com/go-pipe/pipe/pull/7

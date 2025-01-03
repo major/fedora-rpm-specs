@@ -10,7 +10,7 @@
 %bcond_with x11_xlib
 
 Name:           lagrange
-Version:        1.18.3
+Version:        1.18.4
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 

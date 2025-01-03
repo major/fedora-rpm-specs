@@ -4,18 +4,11 @@ Name: liquidctl
 Summary: Tool for controlling liquid coolers, case fans and RGB LED strips
 License: GPL-3.0-or-later
 
-Version: 1.13.0
-Release: 7%{?dist}
+Version: 1.14.0
+Release: 1%{?dist}
 
 URL: https://github.com/jonasmalacofilho/liquidctl
 Source0: %{pypi_source}
-
-# Some tests are flaky and always fail when using python3-pillow >= 10.2.0.
-# See: https://github.com/liquidctl/liquidctl/issues/661
-Patch0: https://github.com/liquidctl/liquidctl/commit/c50afa4e610bd2e268e85c347e2644794c817a78.patch
-# Issues with kernel 6.11
-# https://github.com/liquidctl/liquidctl/issues/731
-Patch1: https://github.com/liquidctl/liquidctl/commit/b3913d01b37d5adaad1d83e3de8a1ba563c5abcf.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -126,6 +119,11 @@ XDG_RUNTIME_DIR=$(pwd)/test-run-dir pytest-3
 
 
 %changelog
+* Wed Jan 01 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.14.0-1
+- Update to v1.14.0
+- Drop Patch0 (test failures - backported from this release)
+- Drop Patch1 (kernel 6.11+ issues - backported from this release)
+
 * Sat Nov 23 2024 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.13.0-7
 - Add patch for issues with kernel +6.11
 

@@ -1,12 +1,11 @@
 %global srcname ROPGadget
 
 Name:           python-%{srcname}
-Version:        7.4
+Version:        7.5
 Release:        %autorelease
 Summary:        A tool to find ROP gadgets in program files
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/R/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/JonathanSalwan/ROPgadget/c29c50773ec7fb3df56396ce27fb71c3898c53ae/LICENSE_BSD.txt

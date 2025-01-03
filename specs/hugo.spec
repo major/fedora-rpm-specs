@@ -36,8 +36,7 @@ Release:        %autorelease
 Summary:        The world’s fastest framework for building websites
 
 # Upstream license specification: Apache-2.0 and MIT
-# Automatically converted from old format: ASL 2.0 and MIT - review is highly recommended.
-License:        Apache-2.0 AND LicenseRef-Callaway-MIT
+License:        Apache-2.0 AND MIT
 URL:            %{gourl}
 Source0:        %{gosource}
 # Skip tests that uses the network.

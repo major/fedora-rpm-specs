@@ -2,8 +2,7 @@ Name:           spim
 Version:        20230804
 Release:        0.9.svn%{?dist}
 Summary:        An assembly language MIPS32 simulator
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://spimsimulator.sourceforge.net/
 
 # These source files are generated from SPIM's Subversion repository.

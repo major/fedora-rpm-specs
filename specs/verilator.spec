@@ -16,7 +16,7 @@
 %bcond mold 0
 
 Name:           verilator
-Version:        5.030
+Version:        5.032
 Release:        %autorelease
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPL-3.0-only OR Artistic-2.0
@@ -126,7 +126,12 @@ find -name Makefile_obj -exec sed -i \
 sed -i 's#/usr/bin/env python3#/usr/bin/python3#g' docs/bin/*
 
 %build
+%if 0%{?rhel}%{?centos}
+export VERILATOR_SRC_VERSION=epel-%{version}
+%else
 export VERILATOR_SRC_VERSION=fedora-%{version}
+%endif
+
 %make_build 
 
 %install

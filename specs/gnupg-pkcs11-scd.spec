@@ -3,8 +3,7 @@ Version:        0.11.0
 Release:        %autorelease
 Summary:        GnuPG-compatible smart-card daemon with PKCS#11 support
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://gnupg-pkcs11.sourceforge.net
 Source0:        https://github.com/alonbl/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
 

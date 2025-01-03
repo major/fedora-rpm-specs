@@ -8,8 +8,7 @@ Release:          %autorelease
 Summary:          LaTeX class for writing resumes and cover letters
 BuildArch:        noarch
 
-# Automatically converted from old format: LPPL - review is highly recommended.
-License:          LicenseRef-Callaway-LPPL
+License:          LPPL-1.3c
 Source0:          http://tug.ctan.org/macros/latex2e/contrib/cjw.zip
 
 BuildRequires:    /usr/bin/kpsewhich

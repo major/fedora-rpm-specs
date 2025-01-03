@@ -1,4 +1,4 @@
-%global		module		Cbc
+%global module Cbc
 
 %if 0%{?fedora}
 %global blaslib flexiblas
@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
 Version:	2.10.12
-Release:	3%{?dist}
+Release:	5%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -26,17 +26,21 @@ BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	asl-devel
 BuildRequires:	MUMPS-devel
-BuildRequires:  %{blaslib}-devel
+BuildRequires:    %{blaslib}-devel
 BuildRequires:	pkgconfig(cgl)
 BuildRequires:	pkgconfig(clp)
 BuildRequires:	pkgconfig(coindatamiplib3)
 BuildRequires:	pkgconfig(coindatanetlib)
 BuildRequires:	pkgconfig(dylp)
 %ifnarch %{ix86}
-BuildRequires:  pkgconfig(highs)
+BuildRequires:    pkgconfig(highs)
 %endif
 BuildRequires:	pkgconfig(libnauty)
 BuildRequires:	pkgconfig(vol)
+
+Requires(post):   %{_sbindir}/alternatives
+Requires(preun):  %{_sbindir}/alternatives
+Obsoletes:	      coin-or-Cbc < 0:2.10.12-5
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
@@ -140,6 +144,20 @@ rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_docdir}/%{name}/{LICENSE,cbc_addlibs.txt}
 cp -a README.md doxydoc/{html,*.tag} %{buildroot}%{_docdir}/%{name}
 
+# Resolve the conflict of file /usr/bin/cbc
+# Set an alternative
+touch -c %{buildroot}%{_bindir}/coin.cbc
+# Rename duplicated file
+mv %{buildroot}%{_bindir}/cbc %{buildroot}%{_bindir}/Cbc
+
+%post
+%{_sbindir}/update-alternatives --verbose --install %{_bindir}/coin.cbc CoinCbc %{_bindir}/Cbc 2
+
+%preun
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --verbose --remove-all CoinCbc
+fi
+
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 
@@ -148,7 +166,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %dir %{_docdir}/%{name}
 %{_docdir}/%{name}/AUTHORS
 %{_docdir}/%{name}/README.md
-%{_bindir}/cbc
+%ghost %{_bindir}/coin.cbc
+%{_bindir}/Cbc
 %{_libdir}/libCbc.so.3
 %{_libdir}/libCbc.so.3.*
 %{_libdir}/libCbcSolver.so.3
@@ -169,6 +188,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Wed Jan 01 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.10.12-5
+- Renaming of /usr/bin/cbc file (rhbz#2335063)
+
+* Wed Jan 01 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.10.12-4
+- Resolve the conflict of /usr/bin/cbc (rhbz#2335063)
+
 * Sat Dec 28 2024 Antonio Trande <sagitter@fedoraproject.org> - 2.10.12-3
 - Rebuild for MUMPS-5.7.3
 

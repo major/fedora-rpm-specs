@@ -5,8 +5,7 @@ Version:        1.04
 Release:        18%{?dist}
 Summary:        Some useful dict-like structures
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/zardus/cooldict
 Source0:        %{pypi_source}
 BuildArch:      noarch

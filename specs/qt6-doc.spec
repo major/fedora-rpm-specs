@@ -1,7 +1,7 @@
 Name:    qt6-doc
 Summary: Qt6 - Complete documentation
-Version: 6.7.0
-Release: 3%{?dist}
+Version: 6.8.1
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -59,6 +59,9 @@ tar xf %{SOURCE0} -C %{buildroot}
 %{_qt6_docdir}/*/*.tags
 
 %changelog
+* Mon Dec 30 2024 Marie Loise Nolden <loise@kde.org> - 6.8.1-1
+- 6.8.1  
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

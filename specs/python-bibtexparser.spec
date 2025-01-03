@@ -1,12 +1,11 @@
 %global srcname bibtexparser
 
 Name:           python-%{srcname}
-Version:        1.4.1
+Version:        1.4.3
 Release:        %autorelease
 Summary:        A BibTeX parsing library
 
-# Automatically converted from old format: BSD or LGPLv3 - review is highly recommended.
-License:        LicenseRef-Callaway-BSD OR LGPL-3.0-only
+License:        BSD-3-Clause OR  	LGPL-3.0-or-later
 URL:            https://github.com/sciunto-org/python-%{srcname}
 Source0:        https://github.com/sciunto-org/python-%{srcname}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
 Name:       onnx
-Version:    1.15.0
-Release:    4%{?dist}
+Version:    1.17.0
+Release:    1%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -8,20 +8,12 @@ URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
 # Build shared libraries and fix install location 
 Patch0:     0000-Build-shared-libraries-and-fix-install-location.patch
-# Add what is missing to run tox, disable tests that require network
-Patch1:     0001-Add-what-is-missing-to-run-tox-disable-tests-that-re.patch
 # Use system protobuf and require parameterized
 Patch2:     0002-Use-system-protobuf-and-require-parameterized.patch
 # Let pyproject_wheel use binaries from cmake_build
 Patch3:     0003-Let-pyproject_wheel-use-binaries-from-cmake_build.patch
 # Add fixes for use with onnxruntime
 Patch4:     0004-Add-fixes-for-use-with-onnxruntime.patch
-# Backport of fix for CVE-2024-27318
-Patch5:     0005-Fix-path-sanitization-bypass-leading-to-arbitrary-re.patch
-# Backport of fix for CVE-2024-27319
-Patch6:     0006-Fix-Out-of-bounds-read-due-to-lack-of-string-termina.patch
-# Backport of fix for CVE-2024-5187
-Patch7:     0007-Mitigate-tarball-directory-traversal-risks-6164.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
@@ -35,6 +27,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-pybind11
+BuildRequires:  python3-pytest
 BuildRequires:  protobuf-devel
 
 %global _description %{expand:
@@ -64,8 +57,17 @@ Requires:   %{name}-libs = %{version}-%{release}
 %prep
 %autosetup -p1 -n onnx-%{version}
 
+# Use system protobuf
+sed -r -i 's/protobuf>=3.20.2/protobuf>=3.14.0/' pyproject.toml
+
+# Drop nbval options from pytest. Plugin is not available in Fedora.
+sed -r \
+    -e 's/--nbval //' \
+    -e 's/--nbval-current-env //' \
+    -i pyproject.toml
+
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -t requirements-reference.txt
 
 %build
 %cmake \
@@ -96,7 +98,7 @@ install -p "./onnx/"*.proto -t "%{buildroot}/%{_includedir}/onnx/"
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
-%tox
+%pytest
 
 %files libs
 %license LICENSE
@@ -116,6 +118,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Fri Oct 25 2024 Sandro <devel@penguinpee.nl> - 1.17.0-1
+- Update to 1.17.0 (RHBZ#2235011)
+- Add support for NumPy 2.x
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
@@ -175,4 +181,3 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 
 * Wed Nov 23 2022 Alejandro Alvarez Ayllon <aalvarez@fedoraproject.org> - 1.12.0-1
 - Release 1.12.0
-

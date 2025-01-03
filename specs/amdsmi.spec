@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -42,6 +42,8 @@ BuildRequires: gcc-c++
 BuildRequires: kernel-devel
 BuildRequires: libdrm-devel
 BuildRequires: python3-devel
+
+Requires:      python3dist(pyyaml)
 
 # University of Illinois/NCSA Open Source License
 Provides: bundled(esmi_ib_library) = %{esmi_ver}
@@ -154,6 +156,9 @@ rm %{buildroot}%{_libdir}/cmake/amd_smi/amd_smi-config.cmake
 %endif
 
 %changelog
+* Tue Dec 31 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
+- Require pyyaml
+
 * Sun Dec 22 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
 - Update to 6.3.1
 

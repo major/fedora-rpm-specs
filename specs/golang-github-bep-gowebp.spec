@@ -23,8 +23,7 @@ Release:        %autorelease
 Summary:        C bindings and an API for encoding Webp images
 
 # Upstream license specification: BSD-3-Clause and MIT
-# Automatically converted from old format: BSD and MIT - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
+License:        BSD-3-Clause AND MIT
 URL:            %{gourl}
 Source0:        %{gosource}
 

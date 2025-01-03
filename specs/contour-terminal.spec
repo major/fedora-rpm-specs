@@ -53,8 +53,7 @@ BuildRequires:  cmake(Qt6Core5Compat)
 
 Requires:       qt6-qt5compat
 Requires:       hicolor-icon-theme
-Requires:       kf6-kservice
-Requires:       kf6-filesystem
+Requires:       kf5-kservice
 Requires:       ncurses-term
 
 %description

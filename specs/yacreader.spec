@@ -1,8 +1,8 @@
 %global appname YACReader
-%global versuf 2402143
+%global versuf %{nil}
 
 Name:           yacreader
-Version:        9.14.2
+Version:        9.15.0
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 
@@ -12,7 +12,7 @@ Summary:        Cross platform comic reader and library manager
 # MIT:          pictureflow
 License:        GPL-3.0-or-later AND BSD-3-Clause AND MIT
 URL:            https://www.yacreader.com
-Source0:        https://github.com/YACReader/%{name}/releases/download/%{version}/%{name}-%{version}.%{versuf}-src.tar.xz
+Source0:        https://github.com/YACReader/%{name}/releases/download/%{version}/%{name}-%{version}%{versuf}-src.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -45,7 +45,7 @@ files.
 
 
 %prep
-%autosetup -n %{name}-%{version}.%{versuf}
+%autosetup -n %{name}-%{version}%{versuf}
 
 # wrong-file-end-of-line-encoding fix
 sed -i 's/\r$//' INSTALL.md

@@ -3,7 +3,7 @@
 
 Summary:    A cross-platform inferencing and training accelerator
 Name:       onnxruntime
-Version:    1.17.3
+Version:    1.20.1
 Release:    %autorelease
 # onnxruntime and SafeInt are MIT
 # onnx is Apache License 2.0
@@ -42,15 +42,22 @@ Patch11:    0011-system-date-and-mp11.patch
 # Use the system cpuinfo
 Patch12:    0012-system-cpuinfo.patch
 # Trigger onnx fix for onnxruntime_providers_shared
-Patch13:    0013-onnx_onnxruntime_fix.patch
+Patch13:    0013-onnx-onnxruntime-fix.patch
 # Use the system python version
 Patch14:    0014-system-python.patch
-# Fix emplate-id not allowed for constructor in C++20 error
-Patch15:    0015-fix-cxx20-template-constructor.patch
-# Fix std::variant error when DISABLE_ABSEIL=ON
-Patch16:    0016-std-variant-fix.patch
+# Fix errors when DISABLE_ABSEIL=ON
+Patch15:    0015-abseil-disabled-fix.patch
 # Fix missing includes
-Patch17:    0017-Fix-missing-cstring-include.patch
+Patch16:    0016-missing-cpp-headers.patch
+# Revert https://github.com/microsoft/onnxruntime/pull/21492 until
+# Fedora's Eigen3 is compatible with the fix.
+Patch17:    0017-revert-nan-propagation-bugfix.patch
+# Update flatbuffers to Fedora's version
+Patch18:    0018-system-flatbuffers-version.patch
+# Backport upstream implementation of onnx
+# from https://github.com/microsoft/onnxruntime/pull/21897
+Patch19:    0019-backport-onnx-1.17.0-support.patch
+Patch20:    0020-disable-locale-tests.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -61,7 +68,7 @@ BuildRequires:  cmake >= 3.13
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:	onnx-devel = 1.15.0
+BuildRequires:	onnx-devel = 1.17.0
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  boost-devel >= 1.66
 BuildRequires:  bzip2
@@ -86,7 +93,7 @@ BuildRequires:  re2-devel >= 20211101
 BuildRequires:  safeint-devel
 BuildRequires:  zlib-devel
 Buildrequires:  eigen3-devel >= 1.34
-BuildRequires:  pybind11-devel 
+BuildRequires:  pybind11-devel
 
 Provides:       bundled(utf8_range)
 
@@ -185,7 +192,7 @@ export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %files devel
 %dir %{_includedir}/onnxruntime/
 %{_includedir}/onnxruntime/*
-%{_libdir}/libonnxruntime.so
+%{_libdir}/libonnxruntime.so*
 %{_libdir}/libonnxruntime_providers_shared.so
 %{_libdir}/pkgconfig/libonnxruntime.pc
 %{_libdir}/cmake/onnxruntime/*

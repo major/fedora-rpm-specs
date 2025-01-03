@@ -1,6 +1,6 @@
 Name:           python-cmdkit
 Version:        2.7.7
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        A library for developing command-line applications in Python
 License:        Apache-2.0
 URL:            https://cmdkit.readthedocs.io/
@@ -15,6 +15,8 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-yaml
 BuildRequires:  python3-tomli-w
+
+Patch:          loosen-tomli-version.patch
 
 %description
 %summary
@@ -52,7 +54,19 @@ Summary:        %{summary}
 %license LICENSE
 
 
+%pyproject_extras_subpkg -n python3-cmdkit toml
+
+
 %changelog
+* Wed Jan 01 2025 Jonathan Wright <jonathan@almalinux.org> - 2.7.7-4
+- loosen tomli-w version requirement
+
+* Wed Jan 01 2025 Jonathan Wright <jonathan@almalinux.org> - 2.7.7-3
+- loosen tomli version requirement
+
+* Wed Jan 01 2025 Jonathan Wright <jonathan@almalinux.org> - 2.7.7-2
+- build toml sub-package
+
 * Tue Dec 31 2024 Jonathan Wright <jonathan@almalinux.org> - 2.7.7-1
 - update to 2.7.7
 

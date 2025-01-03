@@ -1,25 +1,20 @@
-
-%global commit0 29fd38e02920b255f7ef080609e191ce0f1afbfc
-%global shortcommit %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20231010.211051
-%global tag0 VERSION_%{version}
+%global commit0 c8fdd05f1a1ff5886f4649d24f2ba8c5f61cfa3a
 
 Name:           libaccounts-qt
 Summary:        Accounts framework Qt bindings
-Version:        1.16^%{gitdate}.%{shortcommit}
-Release:        6%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 
-# Automatically converted from old format: LGPLv2 - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2
+License:        LGPL-2.1-only
 URL:            https://gitlab.com/accounts-sso/libaccounts-qt
-# We're currently using this, as the main branch of libaccounts-qt does not work with plasma 6
-Source0:        https://gitlab.com/nicolasfella/libaccounts-qt/-/archive/%{commit0}/libaccounts-qt-%{commit0}.tar.gz
+
 # Main Branch
-# Source0:        https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.gz?ref=%{tag0}#/libaccounts-qt-%{commit0}.tar.gz
+Source0:        https://gitlab.com/accounts-sso/libaccounts-qt/-/archive/VERSION_%{version}/libaccounts-qt-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(libaccounts-glib) >= 1.23
 BuildRequires:  doxygen
 BuildRequires:  graphviz
+BuildRequires:  qt-devel
 
 %description
 %{summary}.
@@ -69,7 +64,7 @@ BuildArch:      noarch
 
 
 %prep
-%setup -q -n libaccounts-qt-%{commit0}
+%setup -q -n libaccounts-qt-VERSION_%{version}-%{commit0}
 
 
 %build
@@ -139,6 +134,9 @@ rm -fv %{buildroot}%{_bindir}/accountstest
 
 
 %changelog
+* Wed Jan 01 2025 Steve Cossette <farchord@gmail.com> - 1.17-1
+- 1.17
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 1.16^20231010.211051.29fd38e-6
 - convert license to SPDX
 

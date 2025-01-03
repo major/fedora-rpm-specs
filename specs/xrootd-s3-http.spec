@@ -1,15 +1,13 @@
 Name:		xrootd-s3-http
-Version:	0.1.7
-Release:	3%{?dist}
+Version:	0.1.8
+Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/49
-Patch0:		0001-Fix-some-cmake-glitches.patch
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/53
-Patch1:		0001-Fix-linking-error-on-32-bit-architectures.patch
+#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/74
+Patch0:		0001-Include-algorithm-for-std-transform.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -18,6 +16,11 @@ BuildRequires:	xrootd-server-devel
 BuildRequires:	curl-devel
 BuildRequires:	openssl-devel
 BuildRequires:	tinyxml2-devel
+#		For testing
+BuildRequires:	gtest-devel
+BuildRequires:	hostname
+BuildRequires:	openssl
+BuildRequires:	xrootd-server
 Requires:	xrootd-server
 
 %description
@@ -27,11 +30,20 @@ and HTTP backends through an XRootD server.
 %prep
 %setup -q
 %patch -P0 -p1
-%patch -P1 -p1
 
 %build
-%cmake -DXROOTD_EXTERNAL_TINYXML2=BOOL:ON
+%cmake -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
+       -DXROOTD_PLUGINS_EXTERNAL_GTEST:BOOL=ON \
+       -DXROOTD_PLUGINS_BUILD_UNITTESTS:BOOL=ON
 %cmake_build
+
+%check
+# Run only http tests. S3 tests require network and S3 client binaries.
+%if %{?rhel}%{!?rhel:0} == 9
+%ctest -- -R "HTTP|http"
+%else
+%ctest -R "HTTP|http"
+%endif
 
 %install
 %cmake_install
@@ -43,6 +55,11 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Tue Dec 31 2024 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.1.8-1
+- Update to version 0.1.8
+- Drop patches accepted upstream
+- Run http unit tests
+
 * Mon Nov 11 2024 Dominik Mierzejewski <dominik@greysector.net> - 0.1.7-3
 - rebuild for tinyxml2
 

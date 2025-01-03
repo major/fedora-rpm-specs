@@ -5,8 +5,7 @@ Version:        0.09
 Release:        16%{?dist}
 Summary:        Module that multiplexes interactions with lists of Python objects
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            https://github.com/zardus/mulpyplexer
 Source0:        %{pypi_source}
 BuildArch:      noarch

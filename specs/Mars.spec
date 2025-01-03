@@ -1,11 +1,11 @@
 Name:           Mars
 Version:        4.5
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        An interactive development environment for programming in MIPS assembly language
 
 License:        MIT
 URL:            http://courses.missouristate.edu/KenVollmar/MARS/
-Source0:        http://courses.missouristate.edu/KenVollmar//mars/MARS_4_5_Aug2014/Mars4_5.jar
+Source0:        https://github.com/dpetersanderson/MARS/releases/download/v.4.5.1/Mars4_5.jar
 Source1:        Mars
 Source2:        Mars.desktop
 Source3:        build.xml
@@ -50,6 +50,9 @@ desktop-file-install                                \
 %doc MARSlicense.txt
 
 %changelog
+* Wed Jan 01 2025 W. Michael Petullo <mike@flyn.org> - 4.5-29
+- Adjust to Mars moving to GitHub
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

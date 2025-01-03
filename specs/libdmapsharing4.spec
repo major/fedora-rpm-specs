@@ -1,10 +1,9 @@
 Name: libdmapsharing4
 Version: 3.9.13
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: A DMAP client and server library
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://www.flyn.org/projects/libdmapsharing/
 Source0: https://www.flyn.org/projects/libdmapsharing/libdmapsharing-%{version}.tar.gz
 
@@ -63,6 +62,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdmapsharing-4.0.la
 %{_datadir}/vala/vapi/libdmapsharing-4.0.vapi
 
 %changelog
+* Wed Jan 01 2025 W. Michael Petullo <mike@flyn.org> - 3.9.13-7
+- Fix date in changelog
+
+* Wed Jan 01 2025 W. Michael Petullo <mike@flyn.org> - 3.9.13-6
+- Review and adjust license after SPDX cleanup
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 3.9.13-5
 - convert license to SPDX
 

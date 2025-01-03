@@ -4,7 +4,7 @@
 %global crate sequoia-sq
 
 Name:           rust-sequoia-sq
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Command-line frontends for Sequoia
 

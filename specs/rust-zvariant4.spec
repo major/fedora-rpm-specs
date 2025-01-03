@@ -4,8 +4,8 @@
 
 %global crate zvariant
 
-Name:           rust-zvariant
-Version:        5.1.0
+Name:           rust-zvariant4
+Version:        4.2.0
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 
@@ -59,18 +59,6 @@ This package contains library source intended for building other packages which
 use the "arrayvec" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arrayvec-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+camino-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+camino-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "camino" feature of the "%{crate}" crate.
-
-%files       -n %{name}+camino-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel
