@@ -1,6 +1,6 @@
 %global maj_ver 19
 %global min_ver 1
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -321,6 +321,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_vpath_builddir}/lib
 %{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
 
 %changelog
+* Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
+- Update to 19.1.6
+
 * Fri Dec 06 2024 Timm Bäder <tbaeder@redhat.com> - 19.1.5-1
 - Update to 19.1.5
 

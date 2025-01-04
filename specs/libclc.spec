@@ -2,13 +2,13 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 19.1.5
+%global libclc_version 19.1.6
 #global rc_ver 4
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
@@ -107,6 +107,9 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_includedir}/%{shortname}
 
 %changelog
+* Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
+- Update to 19.1.6
+
 * Mon Dec 09 2024 Asahi Lina <lina@asahilina.net> - 19.1.5-2
 - Split off spirv files into a subpackage
 

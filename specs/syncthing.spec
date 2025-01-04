@@ -1,6 +1,6 @@
 %bcond_with devel
 
-%global basever 1.28.0
+%global basever 1.28.1
 #%%global rcnum   0
 
 Name:           syncthing
@@ -101,7 +101,7 @@ Provides:       bundled(golang(github.com/gogo/protobuf)) = 1.3.2
 # github.com/golang/snappy : BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
 # github.com/google/pprof : Apache-2.0
-Provides:       bundled(golang(github.com/google/pprof)) = f4c0cfd
+Provides:       bundled(golang(github.com/google/pprof)) = a352233
 # github.com/google/uuid : BSD-3-Clause
 Provides:       bundled(golang(github.com/google/uuid)) = 1.6.0
 # github.com/greatroar/blobloom : Apache-2.0
@@ -125,7 +125,7 @@ Provides:       bundled(golang(github.com/kballard/go-shellquote)) = 95032a8
 # github.com/lib/pq : MIT
 Provides:       bundled(golang(github.com/lib/pq)) = 1.10.9
 # github.com/klauspost/compress : BSD-3-Clause AND Apache-2.0
-Provides:       bundled(golang(github.com/klauspost/compress)) = 1.17.10
+Provides:       bundled(golang(github.com/klauspost/compress)) = 1.17.11
 # github.com/lufia/plan9stats : BSD-3-Clause
 Provides:       bundled(golang(github.com/lufia/plan9stats)) = 873cd01
 # github.com/maruel/panicparse : Apache-2.0
@@ -157,7 +157,7 @@ Provides:       bundled(golang(github.com/posener/complete)) = 1.2.3
 # github.com/power-devops/perfstat : MIT
 Provides:       bundled(golang(github.com/power-devops/perfstat)) = 82ca368
 # github.com/prometheus/client_golang : Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.20.4
+Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.20.5
 # github.com/prometheus/client_model : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.6.1
 # github.com/prometheus/common : Apache-2.0
@@ -167,7 +167,7 @@ Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.15.1
 # github.com/puzpuzpuz/xsync : Apache-2.0
 Provides:       bundled(golang(github.com/puzpuzpuz/xsync/v3)) = 3.4.0
 # github.com/quic-go/quic-go : MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.47.0
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.48.0
 # github.com/rabbitmq/amqp091-go : BSD-2-Clause
 Provides:       bundled(golang(github.com/rabbitmq/amqp091-go)) = 1.10.0
 # github.com/rcrowley/go-metrics : BSD-2-Clause-Views
@@ -191,9 +191,9 @@ Provides:       bundled(golang(github.com/thejerf/suture/v4)) = 4.0.5
 # github.com/tklauser/go-sysconf : BSD-3-Clause
 Provides:       bundled(golang(github.com/tklauser/go-sysconf)) = 0.3.14
 # github.com/tklauser/numcpus : Apache-2.0
-Provides:       bundled(golang(github.com/tklauser/numcpus)) = 0.8.0
+Provides:       bundled(golang(github.com/tklauser/numcpus)) = 0.9.0
 # github.com/urfave/cli : MIT
-Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.15
+Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.16
 # github.com/vitrun/qart : Apache-2.0 AND BSD-3-Clause
 Provides:       bundled(golang(github.com/vitrun/qart)) = bf64b92
 # github.com/willabides/kongplete : MIT
@@ -205,25 +205,25 @@ Provides:       bundled(golang(go.uber.org/automaxprocs)) = 1.6.0
 # go.uber.org/mock : Apache-2.0
 Provides:       bundled(golang(go.uber.org/mock)) = 0.4.0
 # golang.org/x/crypto : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.27.0
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.28.0
 # golang.org/x/exp : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/exp)) = 701f63a
+Provides:       bundled(golang(golang.org/x/exp)) = f66d83c
 # golang.org/x/mod : BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/mod)) = 0.21.0
 # golang.org/x/net : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.29.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.30.0
 # golang.org/x/sync : BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/sync)) = 0.8.0
 # golang.org/x/sys : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.25.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.26.0
 # golang.org/x/text : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.18.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.19.0
 # golang.org/x/time : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/time)) = 0.6.0
+Provides:       bundled(golang(golang.org/x/time)) = 0.7.0
 # golang.org/x/tools : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/tools)) = 0.25.0
+Provides:       bundled(golang(golang.org/x/tools)) = 0.26.0
 # google.golang.org/protobuf : BSD-3-Clause
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.34.2
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.35.1
 # gopkg.in/yaml.v3 : MIT AND Apache-2.0
 Provides:       bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 # sigs.k8s.io/yaml : MIT AND BSD-3-Clause AND (MIT OR Apache-2.0)

@@ -1,6 +1,6 @@
 Name:		xxhash
-Version:	0.8.2
-Release:	4%{?dist}
+Version:	0.8.3
+Release:	1%{?dist}
 Summary:	Extremely fast hash algorithm
 
 #		The source for the library (xxhash.c and xxhash.h) is BSD-2-Clause
@@ -67,21 +67,21 @@ Documentation files for the xxhash library
 
 %make_build \
     MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
-    DISPATCH=%{dispatch}
+    DISPATCH=%{dispatch} \
+    LIBXXH_DISPATCH=%{dispatch}
 doxygen
 
 %install
 %make_install \
     PREFIX=%{_prefix} \
     LIBDIR=%{_libdir} \
-    DISPATCH=%{dispatch}
+    DISPATCH=%{dispatch} \
+    LIBXXH_DISPATCH=%{dispatch}
 rm %{buildroot}/%{_libdir}/libxxhash.a
 
 %check
 make check
 make test-xxhsum-c
-
-%ldconfig_scriptlets libs
 
 %files
 %{_bindir}/xxh*sum
@@ -97,7 +97,7 @@ make test-xxhsum-c
 %files devel
 %{_includedir}/xxhash.h
 %{_includedir}/xxh3.h
-%if 0%{?dispatch}
+%if %{?dispatch}
 %{_includedir}/xxh_x86dispatch.h
 %endif
 %{_libdir}/libxxhash.so
@@ -107,6 +107,9 @@ make test-xxhsum-c
 %doc doxygen/html
 
 %changelog
+* Thu Jan 02 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.3-1
+- Update to version 0.8.3
+
 * Wed Sep 25 2024 Andreas Rogge <andreas.rogge@bareos.com> - 0.8.2-4
 - add xxh_x86dispatch.h to devel package when dispatching is enabled (rhbz#2314193)
 

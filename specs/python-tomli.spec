@@ -1,5 +1,5 @@
 Name:           python-tomli
-Version:        2.0.1
+Version:        2.2.1
 Release:        %autorelease
 Summary:        A little TOML parser for Python
 
@@ -32,7 +32,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -45,7 +45,7 @@ Summary:        %{summary}
 
 
 %check
-%py3_check_import tomli
+%pyproject_check_import
 %pytest
 
 

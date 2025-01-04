@@ -10,8 +10,7 @@ Version:	%{relnum}.0.8
 Release:	%autorelease
 Summary:	Fedora %{relnum} default desktop background
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-4.0
 URL:		https://fedoraproject.org/wiki/_Artwork
 Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
@@ -34,8 +33,7 @@ theme.  Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 
 %package	base
 Summary:	Base images for Fedora %{relnum} default background
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-4.0
 
 %description	base
 This package contains base images for Fedora  %{relnum} default background.
@@ -84,8 +82,7 @@ default theme.
 %if %{with_extras}
 %package	extras-base
 Summary:	Base images for  Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description	extras-base
 This package contains base images for  supplemental
@@ -93,7 +90,7 @@ wallpapers.
 
 %package	extras-gnome
 Summary:	Extra  Wallpapers for Gnome and Cinnamon
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-gnome
@@ -102,7 +99,7 @@ and Cinnamon
 
 %package	extras-mate
 Summary:	Extra  Wallpapers for Mate
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description    extras-mate
@@ -110,7 +107,7 @@ This package contains  supplemental wallpapers for Mate
 
 %package	extras-kde
 Summary:	Extra  Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-kde
@@ -118,7 +115,7 @@ This package contains  supplemental wallpapers for Gnome
 
 %package	extras-xfce
 Summary:	Extra  Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-xfce

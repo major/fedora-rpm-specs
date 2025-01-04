@@ -1,81 +1,69 @@
 Name:           hercstudio
-Version:        1.5.0
-Release:        27%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        GUI front-end to the Hercules mainframe Emulator
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            http://www.jacobdekel.com/hercstudio/
-Source0:        http://www.jacobdekel.com/hercstudio/herculesstudio-%{version}-src.tar.gz
-Source1:        %{name}.desktop
+URL:            https://hercstudio.sourceforge.io/
+Source0:        %{url}/herculesstudio-%{version}-src.tar.gz
 # borrowed from Debian
-Source2:        HerculesStudio.1
-# make build verbose
-Patch0:         herculesstudio-1.5.0-verbose-build.patch
-# fix float parsing for correct MIPS display
-# https://groups.yahoo.com/neo/groups/hercstudio/conversations/topics/137
-Patch1:         herculesstudio-1.5.0-float-mips.patch
-Patch2:         herculesstudio-1.5.0-appdata.patch
+Source1:        HerculesStudio.1
 
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
-%if 0%{?fedora}
 BuildRequires:  libappstream-glib
-%endif
-BuildRequires: make
+BuildRequires:  sed
 
-Requires:       hercules
+BuildRequires:  cmake(Qt6)
 
+Requires:       (hercules or sdl-hercules)
 
 %description
 GUI front-end to the Hercules mainframe Emulator.
 
 
 %prep
-%setup -q -c
-%patch -P0 -p1 -b .verbose-build
-%patch -P1 -p2
-%patch -P2 -p2
+%autosetup -n master -p1
 
-chmod -x HercUtilities/*.{cpp,h}
+# Do not clobber the compiler flags
+sed -i '/CMAKE_CXX_FLAGS/d' CMakeLists.txt
 
 
 %build
-%{qmake_qt5}
-make %{?_smp_mflags}
+%cmake
+%cmake_build
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/pixmaps
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+%cmake_install
+rm -r %{buildroot}%{_prefix}/local
+install -Dpm0644 -t %{buildroot}%{_mandir}/man1 %{SOURCE1}
+install -Dpm0644 -t %{buildroot}%{_metainfodir} %{name}.appdata.xml
+install -Dpm0644 HercStudio/icons/tray.xpm \
+  %{buildroot}%{_datadir}/pixmaps/HerculesStudio.xpm
+desktop-file-install --dir %{buildroot}/%{_datadir}/applications \
+  hercules-studio.desktop
 
-install -p -m 755 HerculesStudio $RPM_BUILD_ROOT%{_bindir}
-install -p -m 644 HercStudio/icons/tray.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/hercstudio.xpm
-install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 
-desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
-
-%if 0%{?fedora}
-DESTDIR=$RPM_BUILD_ROOT appstream-util install %{name}.appdata.xml
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/*.appdata.xml
-%endif
-
+%check
+appstream-util validate-relax --nonet \
+  %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %files
 %license COPYING
 %{_bindir}/HerculesStudio
-%{_datadir}/applications/*.desktop
-%if 0%{?fedora}
-%{_datadir}/appdata/%{name}.appdata.xml
-%endif
-%{_datadir}/pixmaps/*
+%{_datadir}/applications/hercules-studio.desktop
+%{_datadir}/pixmaps/HerculesStudio.xpm
 %{_mandir}/man1/HerculesStudio.1*
+%{_metainfodir}/%{name}.appdata.xml
 
 
 %changelog
+* Wed Jan 01 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0
+- Require hercules or sdl-hercules
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5.0-27
 - convert license to SPDX
 

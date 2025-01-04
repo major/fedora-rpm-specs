@@ -30,7 +30,7 @@ Name:           man-pages-l10n
 # Bumping epoch as a consequence of replacing man-pages-ru standalone package that has higher version (Obsoletes/Provides not needed)
 # This is part of the Fedora 39 Change: https://fedoraproject.org/wiki/Changes/ManPagesRuRetirement
 Epoch:          3
-Version:        4.24.0
+Version:        4.25.0
 Release:        %autorelease
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
 

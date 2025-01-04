@@ -2,8 +2,8 @@
 
 
 Name:           quilt
-Version:        0.67
-Release:        8%{?dist}
+Version:        0.68
+Release:        1%{?dist}
 Summary:        Scripts for working with series of patches
 
 License:        GPL-2.0-only
@@ -77,6 +77,10 @@ rm -rf %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Thu Jan 02 2025 Björn Esser <besser82@fedoraproject.org> - 0.68-1
+- Update to 0.68 release
+  Fixes: rhbz#2271880
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

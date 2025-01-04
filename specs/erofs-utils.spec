@@ -5,11 +5,12 @@
 %bcond qpl      %[ 0%{?fedora} >= 41 && "%{_arch}" == "x86_64" ]
 %bcond selinux  1
 %bcond uuid     1
+%bcond xxhash   1
 %bcond zlib     1
 %bcond zstd     1
 
 Name:           erofs-utils
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
@@ -28,6 +29,7 @@ BuildRequires:  make
 %{?with_qpl:BuildRequires:  pkgconfig(qpl) >= 1.5.0}
 %{?with_selinux:BuildRequires:  pkgconfig(libselinux)}
 %{?with_uuid:BuildRequires:  pkgconfig(uuid)}
+%{?with_xxhash:BuildRequires:  pkgconfig(libxxhash)}
 %{?with_zlib:BuildRequires:  pkgconfig(zlib)}
 %{?with_zstd:BuildRequires:  pkgconfig(libzstd) >= 1.4.0}
 
@@ -53,10 +55,10 @@ This package includes erofsfuse to mount EROFS images.
 
 
 %prep
-%autosetup
-autoreconf -fi
+%autosetup -p1
 
 %build
+autoreconf -fi
 %configure \
     --enable-multithreading \
     --%{?with_deflate:with}%{!?with_deflate:without}-libdeflate \
@@ -66,6 +68,7 @@ autoreconf -fi
     --%{?with_qpl:with}%{!?with_qpl:without}-qpl \
     --%{?with_selinux:with}%{!?with_selinux:without}-selinux \
     --%{?with_uuid:with}%{!?with_uuid:without}-uuid \
+    --%{?with_xxhash:with}%{!?with_xxhash:without}-xxhash \
     --%{?with_zlib:with}%{!?with_zlib:without}-zlib \
     --%{?with_zstd:with}%{!?with_zstd:without}-libzstd
 %make_build
@@ -94,6 +97,9 @@ autoreconf -fi
 
 
 %changelog
+* Thu Jan 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.8.4-1
+- Update to the 1.8.4 release.
+
 * Sat Dec 14 2024 David Michael <fedora.dm0@gmail.com> - 1.8.3-1
 - Update to the 1.8.3 release.
 

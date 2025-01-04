@@ -13,7 +13,7 @@
 %endif
 
 Name:           perl-Future-AsyncAwait
-Version:        0.69
+Version:        0.70
 Release:        1%{?dist}
 Summary:        Deferred subroutine syntax for futures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,7 +25,7 @@ BuildRequires:  findutils
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.14
+BuildRequires:  perl(:VERSION) >= 5.18
 BuildRequires:  perl(Config)
 %if %{with perl_Future_AsyncAwait_enables_Devel_MAT}
 BuildRequires:  perl(Devel::MAT::Dumper::Helper) >= 0.44
@@ -36,7 +36,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 %define xs_parse_keyword_min_ver 0.13
 BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_min_ver}
-%define xs_parse_sublike_min_ver 0.24
+%define xs_parse_sublike_min_ver 0.31
 BuildRequires:  perl(XS::Parse::Sublike::Builder) >= %{xs_parse_sublike_min_ver}
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -81,13 +81,17 @@ BuildRequires:  perl(Devel::MAT::Dumper)
 BuildRequires:  perl(IO::Async::Loop)
 %define object_pad_min_ver 0.800
 BuildRequires:  perl(Object::Pad) >= %{object_pad_min_ver}
+%define sublike_extended_min_ver 0.29
+BuildRequires:  perl(Sublike::Extended) >= %{sublike_extended_min_ver}
 BuildRequires:  perl(Syntax::Keyword::Defer) >= 0.02
-BuildRequires:  perl(Syntax::Keyword::Dynamically) >= 0.04
+%define syntax_keyword_dynamically_min_ver 0.02
+BuildRequires:  perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
 BuildRequires:  perl(Syntax::Keyword::Match)
 BuildRequires:  perl(Syntax::Keyword::MultiSub) >= 0.01
 BuildRequires:  perl(Syntax::Keyword::Try) >= 0.22
 BuildRequires:  perl(Test::MemoryGrowth)
 BuildRequires:  perl(Test::Pod) >= 1.00
+BuildRequires:  perl(Test2::Require::Module)
 %endif
 Requires:       perl(Future) >= %{future_min_ver}
 %if %{with perl_Future_AsyncAwait_enables_role}
@@ -121,7 +125,7 @@ Provides:       perl(:Future_AsyncAwait_ABI) = 1
 Provides:       perl(:Future_AsyncAwait_ABI) = 2
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Future|Syntax::Keyword::Try)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Future|Object::Pad|Sublike::Extended|Syntax::Keyword::Dynamically|Syntax::Keyword::Try)\\)$
 
 %description
 This Perl module provides syntax for deferring and resuming subroutines while
@@ -175,8 +179,9 @@ Requires:       perl(Devel::MAT::Dumper)
 %endif
 Requires:       perl(IO::Async::Loop)
 Requires:       perl(Object::Pad) >= %{object_pad_min_ver}
+Requires:       perl(Sublike::Extended) >= %{sublike_extended_min_ver}
 Requires:       perl(Syntax::Keyword::Defer) >= 0.02
-Requires:       perl(Syntax::Keyword::Dynamically) >= 0.04
+Requires:       perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
 Requires:       perl(Syntax::Keyword::Match)
 Requires:       perl(Syntax::Keyword::MultiSub) >= 0.01
 Requires:       perl(Syntax::Keyword::Try) >= 0.22
@@ -195,7 +200,7 @@ for F in \
 %endif
 %if !%{optional_tests}
     t/80await+defer.t t/80await+dynamically.t t/80await+matchcase.t \
-    t/80await+SKT.t t/80async-method.t \
+    t/80await+SKT.t t/80async-method.t t/80extended+async.t \
     t/81async-method+dynamically.t t/81memory-growth.t t/99pod.t \
 %endif
 %if !%{with perl_Future_AsyncAwait_enables_role}
@@ -267,6 +272,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 02 2025 Petr Pisar <ppisar@redhat.com> - 0.70-1
+- 0.70 bump
+
 * Thu Sep 19 2024 Petr Pisar <ppisar@redhat.com> - 0.69-1
 - 0.69 bump
 

@@ -1,23 +1,18 @@
-%bcond_without docs
+%bcond docs 1
+%global major_sover 5
+%global minor_sover 5
 
 Name:           libv3270
-Version:        5.4
+Version:        5.5.0
 Release:        %autorelease
 Summary:        3270 Virtual Terminal for GTK+3
 
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/PerryWerneck/libv3270
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fixing configure.ac
-# Backport of https://github.com/PerryWerneck/libv3270/commit/1ffec2d7c84b92a175d5d193d57654a14b96fa79
-Patch0:         libv3270-fix-autotools.patch
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  libtool
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  gettext-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  lib3270-devel
@@ -54,32 +49,28 @@ The %{name}-doc package contains documentation for %{name}.
 %autosetup -p1
 
 %build
-NOCONFIGURE=1 ./autogen.sh
-autopoint
-%configure
-# override SHELL to make the build more verbose
-%make_build all SHELL='sh -x'
+%meson
+%meson_build
 %if %{with docs}
 doxygen doxygen
 %endif
 
 %install
-%make_install
-%find_lang %{name}
+%meson_install
+%find_lang %{name}-%{major_sover}.%{minor_sover}
 
-%files -f %{name}.lang
+# Removed unused glade catalog
+rm -r %{buildroot}%{_datadir}/glade/
+
+%files -f %{name}-%{major_sover}.%{minor_sover}.lang
 %license LICENSE
 %doc README.md AUTHORS
-%{_libdir}/%{name}.so.5*
-%{_datadir}/pw3270/colors.conf
-%{_datadir}/pw3270/remap
+%{_libdir}/%{name}.so.%{major_sover}*
+%{_datadir}/pw3270/
 
 %files devel
-%{_datadir}/glade/catalogs/v3270.xml
-%{_datadir}/glade/pixmaps/hicolor/*/actions/*.png
-%{_datadir}/pw3270/pot/%{name}.pot
 %{_includedir}/v3270.h
-%{_includedir}/v3270
+%{_includedir}/v3270/
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/*.pc
 

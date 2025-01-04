@@ -9,14 +9,14 @@
 
 %bcond_with              generators
 
-%global gh_commit        dc299c3580bc5300e3cac220ef93f346eb53f5e0
+%global gh_commit        883447d3f2f0de086e2569cbfe6a0e07c50c7560
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 0.3.0
+%global upstream_version 0.4.0
 #global upstream_prever  dev
 #global upstream_lower   DEV
 
@@ -87,27 +87,27 @@ Provides:       bundled(php-composer(composer/semver)) = 3.4.3
 Provides:       bundled(php-composer(composer/spdx-licenses)) = 1.5.8
 Provides:       bundled(php-composer(composer/xdebug-handler)) = 3.0.5
 Provides:       bundled(php-composer(fidry/cpu-core-counter)) = 1.2.0
-Provides:       bundled(php-composer(illuminate/container)) = v10.48.25
-Provides:       bundled(php-composer(illuminate/contracts)) = v10.48.25
+Provides:       bundled(php-composer(illuminate/container)) = 10.48.25
+Provides:       bundled(php-composer(illuminate/contracts)) = 10.48.25
 Provides:       bundled(php-composer(justinrainbow/json-schema)) = 5.3.0
 Provides:       bundled(php-composer(psr/container)) = 2.0.2
 Provides:       bundled(php-composer(psr/log)) = 3.0.2
 Provides:       bundled(php-composer(psr/simple-cache)) = 3.0.0
-Provides:       bundled(php-composer(react/promise)) = v3.2.0
+Provides:       bundled(php-composer(react/promise)) = 3.2.0
 Provides:       bundled(php-composer(seld/jsonlint)) = 1.11.0
 Provides:       bundled(php-composer(seld/phar-utils)) = 1.2.1
 Provides:       bundled(php-composer(seld/signal-handler)) = 2.0.2
-Provides:       bundled(php-composer(symfony/console)) = v6.4.15
-Provides:       bundled(php-composer(symfony/deprecation-contracts)) = v3.5.1
-Provides:       bundled(php-composer(symfony/filesystem)) = v6.4.13
-Provides:       bundled(php-composer(symfony/finder)) = v6.4.13
-Provides:       bundled(php-composer(symfony/polyfill-ctype)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = v1.31.0
-Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = v1.31.0
-Provides:       bundled(php-composer(symfony/process)) = v6.4.15
-Provides:       bundled(php-composer(symfony/service-contracts)) = v3.5.1
-Provides:       bundled(php-composer(symfony/string)) = v6.4.15
+Provides:       bundled(php-composer(symfony/console)) = 6.4.17
+Provides:       bundled(php-composer(symfony/deprecation-contracts)) = 3.5.1
+Provides:       bundled(php-composer(symfony/filesystem)) = 6.4.13
+Provides:       bundled(php-composer(symfony/finder)) = 6.4.17
+Provides:       bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-intl-grapheme)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-intl-normalizer)) = 1.31.0
+Provides:       bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
+Provides:       bundled(php-composer(symfony/process)) = 6.4.15
+Provides:       bundled(php-composer(symfony/service-contracts)) = 3.5.1
+Provides:       bundled(php-composer(symfony/string)) = 6.4.15
 Provides:       bundled(php-composer(webmozart/assert)) = 1.11.0
 
 # Composer library
@@ -151,7 +151,7 @@ php -r '
     foreach($pkgs["packages"] as $pkg) {
 		$lic = implode(" and ", $pkg["license"]);
 		if (!isset($res[$lic])) $res[$lic] = [];
-		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], $pkg["version"]);
+		$res[$lic][] = sprintf("Provides:       bundled(php-composer(%s)) = %s", $pkg["name"], ltrim($pkg["version"], "v"));
 	}
 	foreach($res as $lic => $lib) {
 		sort($lib);
@@ -198,6 +198,9 @@ done
 
 
 %changelog
+* Wed Jan  1 2025 Remi Collet <remi@remirepo.net> - 0.4.0-1
+- update to 0.4.0
+
 * Tue Dec 24 2024 Remi Collet <remi@remirepo.net> - 0.3.0-1
 - update to 0.3.0
 

@@ -1,29 +1,24 @@
+%global app_name br.app.pw3270
+
 Name:           pw3270
-Version:        5.4
-Release:        10%{?dist}
+Version:        5.5.0
+Release:        %autorelease
 Summary:        IBM 3270 Terminal emulator for GTK
 
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/PerryWerneck/pw3270
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fixing fedora builds
-Patch0:         %{url}/commit/5fbb011dac42b03539ca24b68a8d51b04f733773.patch
-# Adaptation of PR#20 to convert from appdata to metainfo
-Patch1:         metainfo.patch
-# Fixing appstream-validate error
-Patch2:         %{url}/commit/a46f3f89834e9f58243d45cc0a15735677a98df3.patch
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
+BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  libtool
-BuildRequires:  make
+BuildRequires:  python3-scour
+
 BuildRequires:  gettext-devel
 BuildRequires:  libv3270-devel
 
+Requires:       hicolor-icon-theme
 Suggests:       font(ibm3270)
 
 %description
@@ -38,70 +33,31 @@ Brasil, and is now used worldwide.
 %autosetup -p1
 
 %build
-NOCONFIGURE=1 ./autogen.sh
-%configure
-# override SHELL to make the build more verbose
-%make_build all SHELL='sh -x'
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
 %find_lang %{name}
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+
+mkdir -p %{buildroot}%{_libdir}/%{name}/5.5/plugins/
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_name}.metainfo.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{app_name}.desktop
 
 %files -f %{name}.lang
 %license LICENSE
 %doc README.md AUTHORS
 %{_bindir}/%{name}
-%{_libdir}/%{name}-plugins
+%dir %{_libdir}/%{name}/5.5/plugins/
 %{_datadir}/%{name}/*
-%{_datadir}/applications/%{name}.desktop
-%{_metainfodir}/%{name}.metainfo.xml
+%{_datadir}/applications/%{app_name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/%{app_name}.svg
+%{_datadir}/icons/hicolor/symbolic/apps/%{app_name}-symbolic.svg
+%{_metainfodir}/%{app_name}.metainfo.xml
 %{_datadir}/glib-2.0/schemas/%{name}*.gschema.xml
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
-* Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 5.4-10
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 23 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.4-1
-- New upstream release
-- Update URL
-- Backport upstream metainfo fix
-- Add suggests for ibm3270 font
-
-* Thu Mar 18 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-3
-- Update build requires
-- Convert from appdata to metainfo
-
-* Sat Mar 13 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-2
-- Do not remove buildroot on install
-- Make build output more verbose
-- Ensure build flags are applied
-
-* Wed Mar  3 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-1
-- Initial package
+%autochangelog

@@ -28,6 +28,10 @@ Source0:        %pypi_source
 # Compatibility with Sphinx 8
 Patch:          https://github.com/ipython/ipython/pull/14596.patch
 
+# Backport patch for pdb issue in Python 3.13.1
+# https://github.com/ipython/ipython/pull/14598
+Patch:          https://github.com/ipython/ipython/pull/14598.patch
+
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel

@@ -1,14 +1,11 @@
-%global pypi_name numpy-stl
-
-Name:           python-%{pypi_name}
-Version:        2.17.1
+Name:           python-numpy-stl
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Library for reading, writing and modifying STL files
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/WoLpH/numpy-stl/
-Source:         %{pypi_source}
+Source:         %{pypi_source numpy_stl}
 
 BuildRequires:  gcc
 
@@ -29,23 +26,23 @@ Simple library to make working with STL files (and 3D objects in general) fast
 and easy. Due to all operations heavily relying on numpy this is one of the
 fastest STL editing libraries for Python available.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-numpy-stl
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name}
+%description -n python3-numpy-stl
 Simple library to make working with STL files (and 3D objects in general) fast
 and easy. Due to all operations heavily relying on NumPy this is one of the
 fastest STL editing libraries for Python available.
 
 %package        doc
 Summary:        %{name} documentation
-Suggests:       python3-%{pypi_name}
+Suggests:       python3-numpy-stl
 BuildArch:      noarch
 %description doc
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n numpy_stl-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -65,7 +62,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pytest -v
 
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-numpy-stl -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/stl
 %{_bindir}/stl2bin

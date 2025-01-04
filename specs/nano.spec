@@ -7,7 +7,7 @@
 
 Summary:         A small text editor
 Name:            nano
-Version:         8.2
+Version:         8.3
 Release:         1%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
@@ -133,6 +133,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Thu Jan 02 2025 Lukáš Zaoral <lzaoral@redhat.com> - 8.3-1
+- rebase to latest upstream version (rhbz#2333643)
+
 * Thu Sep 05 2024 Lukáš Zaoral <lzaoral@redhat.com> - 8.2-1
 - rebase to latest upstream release (rhbz#2310179)
 

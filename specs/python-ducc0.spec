@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 %if "%{?stable}"
-Version:        0.35.0
+Version:        0.36.0
 %else
 Version:        0.28.0^%{date}%{shortcommit}
 %endif

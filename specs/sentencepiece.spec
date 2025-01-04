@@ -1,5 +1,5 @@
 Name:		sentencepiece
-Version:	0.1.99
+Version:	0.2.0
 Release:	%autorelease
 Summary:	An unsupervised text tokenizer for Neural Network-based text generation
 
@@ -15,6 +15,7 @@ BuildRequires:	cmake
 BuildRequires:	ninja-build
 BuildRequires:	gperftools-devel
 BuildRequires:	pkgconfig
+BuildRequires:	protobuf-lite-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
 
@@ -52,6 +53,7 @@ This package contains header files to develop a software using SentencePiece.
 %package        -n python3-%{name}
 Summary:	Python module for SentencePiece
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       python3dist(protobuf)
 %{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
@@ -59,6 +61,9 @@ This package contains Python3 module file for SentencePiece.
 
 %prep
 %autosetup
+
+# Need some help finding the src dir now
+sed -i -e "s@'std=c++17',@'std=c++17','-I../src',@" python/setup.py
 
 %build
 %cmake \
@@ -68,7 +73,8 @@ This package contains Python3 module file for SentencePiece.
 %cmake_build
 
 pushd python
-CFLAGS="-I../src" LDFLAGS="-L../%{_vpath_builddir}/src -lsentencepiece" PKG_CONFIG_PATH="../%{_vpath_builddir}" %py3_build
+%py3_build
+
 popd
 
 %install

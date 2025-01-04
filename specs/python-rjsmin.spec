@@ -1,3 +1,6 @@
+# cloud-sptheme is not included in RHEL
+%bcond docs %[%{undefined rhel} || %{defined epel}]
+
 %global pypi_name rjsmin
 %global desc %{expand: \
 The minifier is based on the semantics of jsmin.c by Douglas Crockford.
@@ -18,8 +21,10 @@ Source0:        https://pypi.python.org/packages/source/r/%{pypi_name}/%{pypi_na
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+%if %{with docs}
 BuildRequires:	python3-sphinx
 BuildRequires:  python3-cloud-sptheme
+%endif
 
 %description %{desc}
 
@@ -47,9 +52,11 @@ sed -i '1d' rjsmin.py
 %build
 %pyproject_wheel
 
+%if %{with docs}
 sphinx-build -b html docs/_userdoc docs/_userdoc/html
 # Remove the sphinx-build leftovers.
 rm -rf docs/_userdoc/html/.{doctrees,buildinfo}
+%endif
 
 %install
 %pyproject_install
@@ -64,7 +71,10 @@ rm -rf docs/_userdoc/html/.{doctrees,buildinfo}
 
 %files docs
 %license LICENSE
-%doc README.md docs/_userdoc/html
+%doc README.md
+%if %{with docs}
+%doc docs/_userdoc/html
+%endif
 
 %changelog
 %autochangelog

@@ -39,7 +39,7 @@ Python utilities for Kerberos Credential Cache Collections
 
 
 %check
-%{__python3} setup.py test
+%{py3_test_envvars} %{python3} -m unittest -v tests/*.py
 
 
 %files -n python3-cccolutils

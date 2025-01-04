@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Perl-Releases
-Version:        5.20241120
+Version:        5.20241220
 Release:        1%{?dist}
 Summary:        Mapping Perl releases on CPAN to the location of the tarballs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,7 +8,6 @@ Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/CPAN-Perl-Relea
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -46,7 +45,7 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n CPAN-Perl-Releases-%{version}
 
 # Help file to recognise the Perl scripts and normalize shebangs
-for F in `find t -name *.t`; do
+for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -86,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 02 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20241220-1
+- 5.20241220 bump (rhbz#2333528)
+
 * Wed Nov 20 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.20241120-1
 - 5.20241120 bump (rhbz#2327606)
 

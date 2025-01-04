@@ -5,7 +5,7 @@
 %undefine _include_frame_pointers
 
 %global maj_ver 19
-%global libcxx_version %{maj_ver}.1.5
+%global libcxx_version %{maj_ver}.1.6
 #global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -247,6 +247,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jan 02 2025 Timm Bäder <tbaeder@redhat.com> - 19.1.6-1
+- Update to 19.1.6
+
 * Thu Dec 05 2024 Timm Bäder <tbaeder@redhat.com> - 19.1.5-1
 - Update to 19.1.5
 

@@ -189,7 +189,7 @@ cp -r%{?with_bootstrap:L} ${maven_home}/boot/* %{buildroot}%{_datadir}/%{name}/b
 cp -r%{?with_bootstrap:L} ${maven_home}/lib/* %{buildroot}%{_datadir}/%{name}/lib/
 
 # possibly recreate symlinks that can be automated with xmvn-subst
-%if %{with bootstrap}
+%if %{without bootstrap}
 %{name}-subst -s -R %{buildroot} %{buildroot}%{_datadir}/%{name}/
 %endif
 

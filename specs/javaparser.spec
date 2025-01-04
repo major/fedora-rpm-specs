@@ -6,7 +6,7 @@
 %endif
 
 Name:           javaparser
-Version:        3.25.8
+Version:        3.26.3
 Release:        %autorelease
 Summary:        Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:        LGPL-2.0-or-later OR Apache-2.0

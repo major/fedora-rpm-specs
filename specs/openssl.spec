@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.2.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Epoch: 1
 Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
@@ -178,6 +178,8 @@ Patch137: 0137-Add-explicit-testing-of-ALN-and-NPN-in-sslapitest.patch
 Patch138: 0138-Add-a-test-for-an-empty-NextProto-message.patch
 # https://github.com/openssl/openssl/commit/05f360d9e849a1b277db628f1f13083a7f8dd04f
 Patch139: 0139-CVE-2024-6119.patch
+# https://github.com/openssl/openssl/pull/26197
+Patch140: 0140-prov_no-cache.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -547,6 +549,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jan 02 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.2.2-10
+- Fix provider no_cache behaviour
+
 * Wed Sep 25 2024 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1:3.2.2-9
 - Add PQ container test via TMT
 

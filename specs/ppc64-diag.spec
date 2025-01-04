@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPL-2.0-only
@@ -33,6 +33,9 @@ Source5:        rtas_errd.8
 
 # fix paths and permissions
 Patch0:         ppc64-diag-2.7.9-fedora.patch
+# Upstream fixes
+# Add Power11 support for diag_nvme
+Patch10:        ppc64-diag-2.7.0-diag_vnme-add-power11-support.patch
 
 %description
 This package contains various diagnostic tools for PowerLinux.
@@ -169,6 +172,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Thu Jan 02 2025 Than Ngo <than@redhat.com> - 2.7.10-2
+- Add Power11 support for diag_nvme
+
 * Sun Oct 27 2024 Than Ngo <than@redhat.com> - 2.7.10-1
 - Update to 2.7.10
   * Aadd support for multiple platform dumps

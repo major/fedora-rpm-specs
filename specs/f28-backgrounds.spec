@@ -13,8 +13,7 @@ Version:	%{relnum}.1.5
 Release:	16%{?dist}
 Summary:	Fedora %{relnum} default desktop background
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-4.0
 URL:		https://fedoraproject.org/wiki/F%{relnum}_Artwork
 Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{version}/%{name}-%{version}.tar.xz
 # Plasma desktoptheme
@@ -36,8 +35,7 @@ theme.  Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 
 %package	base
 Summary:	Base images for Fedora %{relnum} default background
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-4.0
 
 %description	base
 This package contains base images for Fedora %{relnum} default background.
@@ -106,7 +104,7 @@ wallpapers.
 
 %package	extras-gnome
 Summary:	Extra F%{relnum} Wallpapers for Gnome and Cinnamon
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-gnome
@@ -115,7 +113,7 @@ and Cinnamon
 
 %package	extras-mate
 Summary:	Extra F%{relnum} Wallpapers for Mate
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description    extras-mate
@@ -123,7 +121,7 @@ This package contains F%{relnum} supplemental wallpapers for Mate
 
 %package	extras-kde
 Summary:	Extra F%{relnum} Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-kde
@@ -131,7 +129,7 @@ This package contains F%{relnum} supplemental wallpapers for Gnome
 
 %package	extras-xfce
 Summary:	Extra F%{relnum} Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-xfce

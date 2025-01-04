@@ -1,5 +1,5 @@
 Name:           libjpeg-turbo
-Version:        3.0.4
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        A MMX/SSE2/SIMD accelerated library for manipulating JPEG image files
 License:        Zlib AND BSD-3-Clause AND MIT AND IJG
@@ -67,9 +67,9 @@ This package contains header files necessary for developing programs which will
 manipulate JPEG files using the TurboJPEG library.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S gendiff
 
-rm -rf doc
+#rm -rf doc
 
 %build
 # NASM object files are missing GNU Property note for Intel CET,
@@ -148,7 +148,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/libjpeg.so.62*
 
 %files devel
-%doc coderules.txt jconfig.txt libjpeg.txt structure.txt
+%doc doc/coderules.txt src/jconfig.txt doc/libjpeg.txt doc/structure.txt
 %{_includedir}/jconfig*.h
 %{_includedir}/jerror.h
 %{_includedir}/jmorecfg.h
@@ -159,7 +159,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/cmake/%{name}/%{name}*.cmake
 
 %files utils
-%doc usage.txt wizard.txt
+%doc doc/usage.txt doc/wizard.txt
 %{_bindir}/cjpeg
 %{_bindir}/djpeg
 %{_bindir}/jpegtran
@@ -177,12 +177,14 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/libturbojpeg.so.0*
 
 %files -n turbojpeg-devel
-%doc tjexample.c
 %{_includedir}/turbojpeg.h
 %{_libdir}/libturbojpeg.so
 %{_libdir}/pkgconfig/libturbojpeg.pc
 
 %changelog
+* Tue Dec 17 2024 Michal Hlavinka <mhlavink@redhat.com> - 3.1.0-1
+- updated to 3.1.0 (#2332214)
+
 * Wed Sep 18 2024 Michal Hlavinka <mhlavink@redhat.com> - 3.0.4-1
 - updated to 3.0.4 (#2312472)
 

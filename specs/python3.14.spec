@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a2
+%global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -351,13 +351,12 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00445 # d1a32daddefad32ceb93155552858c0a0311b23e
-# CVE-2024-12254: Ensure _SelectorSocketTransport.writelines pauses the protocol if needed
+# 00447 # 79a44c0acfc4c88a1051c133c386da35e10fdee2
+# gh-128089: Bump the PYC magic number for a change in annotate functions
 #
-# Ensure _SelectorSocketTransport.writelines pauses the protocol if it reaches the high water mark as needed.
-#
-# Resolved upstream: https://github.com/python/cpython/issues/127655
-Patch445: 00445-cve-2024-12254-ensure-_selectorsockettransport-writelines-pauses-the-protocol-if-needed.patch
+# The magic number should have been increased in release 3.14a3. Users running
+# 3.14a3 with PYC files generated using earlier alphas may run into problems.
+Patch447: 00447-gh-128089-bump-the-magic-number.patch
 
 # (New patches go here ^^^)
 #
@@ -1247,8 +1246,8 @@ CheckPython() {
   # test.test_concurrent_futures.test_deadlock tends to time out on s390x and ppc64le in
   # freethreading{,-debug} build, skipping it to shorten the build time
   # see: https://github.com/python/cpython/issues/121719
-  # test_ctypes.test_generated_structs.GeneratedTest.test_generated_data is skipped since
-  # 3.14.0a1, see: https://github.com/python/cpython/issues/121938
+  # test_*_repeat_respect_immortality and test_immortals failures were reported:
+  # https://github.com/python/cpython/issues/128058
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1266,7 +1265,9 @@ CheckPython() {
     -i test_deadlock \
     %endif
     %ifarch %{ix86}
-    -i test_generated_data \
+    -i test_tuple_repeat_respect_immortality \
+    -i test_list_repeat_respect_immortality \
+    -i test_immortals \
     %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
@@ -1374,6 +1375,8 @@ CheckPython freethreading
 %endif
 
 %pure_python_modules %{pylibdir}
+
+%{pylibdir}/_sysconfig_vars_%{ABIFLAGS_optimized}_linux_%{platform_triplet}.json
 
 # This will be in the tkinter package
 %exclude %{pylibdir}/turtle.py
@@ -1600,6 +1603,7 @@ CheckPython freethreading
 
 %{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
 %{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
+%{pylibdir}/_sysconfig_vars_%{ABIFLAGS_debug}_linux_%{platform_triplet}.json
 
 %endif # with debug_build
 
@@ -1620,6 +1624,8 @@ CheckPython freethreading
 %{pylibdir_freethreading}/test/
 %{pylibdir_freethreading}/tkinter/
 %{pylibdir_freethreading}/turtledemo/
+
+%{pylibdir_freethreading}/_sysconfig_vars_%{ABIFLAGS_freethreading}_linux_%{platform_triplet}.json
 
 # This will be in the -freethreading-debug package
 %if %{with debug_build}
@@ -1672,6 +1678,7 @@ CheckPython freethreading
 
 %{pylibdir_freethreading}/_sysconfigdata_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}.py
 %{pylibdir_freethreading}/__pycache__/_sysconfigdata_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
+%{pylibdir_freethreading}/_sysconfig_vars_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}.json
 
 %endif # with freethreading_build && debug_build
 
@@ -1696,6 +1703,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Dec 17 2024 Karolina Surma <ksurma@redhat.com> - 3.14.0~a3-1
+- Update to Python 3.14.0a3
+
 * Sun Dec 08 2024 Charalampos Stratakis <cstratak@redhat.com> - 3.14.0~a2-2
 - Security fix for CVE-2024-12254
 - Fixes: rhbz#2330928

@@ -74,9 +74,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python*/site-packages/flufl/i18n/{*.rst,docs,c
 
 
 %check
-%{__python3} setup.py test
+%{py3_test_envvars} %{python3} -m unittest -v flufl/i18n/tests/*.py
 %if 0%{?with_python3_other}
-%{__python3_other} setup.py test
+%{__python3_other} -m unittest -v flufl/i18n/tests/*.py
 %endif
 
 

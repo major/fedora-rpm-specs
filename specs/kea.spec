@@ -199,6 +199,25 @@ autoreconf --verbose --force --install
 
 # Configure & build Keama
 pushd ../keama-%{keama_version}
+
+# We need to unpack the embedded copy of bind and call autoreconf to
+# ensure that config.{sub,guess} is up to date, since the copies
+# included in the archive are extremely old (2013) and unaware of
+# more recent architectures such as riscv64. The Keama build system
+# would normally take care of unpacking the archive, but it also
+# handles gracefully us doing it ourselves
+tar -C bind/ -zxvf bind/bind.tar.gz
+
+pushd bind/bind-%{bind_version}/
+
+autoreconf --verbose --force --install
+
+# Back to Keama. Its build system will take care of configuring and
+# building the embedded copy of bind
+popd
+
+autoreconf --verbose --force --install
+
 %configure \
     --disable-dependency-tracking \
     --disable-silent-rules

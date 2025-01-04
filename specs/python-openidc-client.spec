@@ -44,7 +44,7 @@ Python 3 version.
 %py3_install
 
 %check
-%{__python3} setup.py test
+%{py3_test_envvars} %{python3} -m unittest -v tests/*.py
 
 %files -n python3-openidc-client
 %license COPYING

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.40.9000-481-gdd413a4d2f
+%global glibcsrcdir glibc-2.40.9000-665-gcc74583f23
 %global glibcversion 2.40.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 24
+%global baserelease 25
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2367,6 +2367,90 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Jan 02 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-25
+- Update glibc-nolink-libc.patch following upstream development.
+- Update glibc-python3.patch to resolve copyright year conflict.
+- Auto-sync with upstream branch master,
+  commit cc74583f23657515b1d09d0765032422af71de52:
+- elf: Remove the remaining uses of GET_ADDR_OFFSET
+- elf: Use TLS_DTV_OFFSET in __tls_get_addr
+- s390: Define TLS_DTV_OFFSET instead of GET_ADDR_OFFSET
+- elf: Introduce generic <dl-tls.h>
+- Update copyright dates not handled by scripts/update-copyrights
+- Update copyright in generated files by running "make"
+- Update copyright dates with scripts/update-copyrights
+- mlock, mlock2, munlock: Tell the compiler we don't dereference the pointer
+- elf: Add glibc.rtld.execstack
+- elf: Do not change stack permission on dlopen/dlmopen
+- x86-64: Reorder dynamic linker list in ldd script (bug 32508)
+- libio: asprintf should write NULL upon failure
+- nptl: More useful padding in struct pthread
+- elf: Remove the GET_ADDR_ARGS and related macros from the TLS code
+- build-many-glibcs.py: Add --exclude option
+- NEWS: Mention testing glibc build with a different set of compilers
+- support: Add support_record_failure_barrier
+- io: statx, fstatat: Drop nonnull attribute on the path argument
+- configure: Improve configure output for C++ Compiler
+- getaddrinfo.c: Avoid uninitialized pointer access [BZ #32465]
+- include/sys/cdefs.h: Add __attribute_optimization_barrier__
+- assert: Use __writev in assert.c [BZ #32492]
+- elf: Check PDE load address with non-empty text section
+- Add clang specific warning suppression macros
+- Add include/libc-misc.h
+- Don't redefine INFINITY nor NAN
+- assert: ensure posix compliance, add tests for such
+- posix: fix system when a child cannot be created [BZ #32450]
+- Fix elf: Introduce is_rtld_link_map [BZ #32488]
+- elf: Reorder audit events in dlcose to match _dl_fini (bug 32066)
+- elf: Call la_objclose for proxy link maps in _dl_fini (bug 32065)
+- elf: Signal la_objopen for the proxy link map in dlmopen (bug 31985)
+- elf: Add the endswith function to <endswith.h>
+- elf: Move _dl_rtld_map, _dl_rtld_audit_state out of GL
+- elf: Introduce is_rtld_link_map
+- Add F_CREATED_QUERY from Linux 6.12 to bits/fcntl-linux.h
+- Add HWCAP_LOONGARCH_LSPW from Linux 6.12 to bits/hwcap.h
+- Add MSG_SOCK_DEVMEM from Linux 6.12 to bits/socket.h
+- Linux: Accept null arguments for utimensat pathname
+- x86_64: Remove unused padding from tcbhead_t
+- Add NT_X86_XSAVE_LAYOUT and NT_ARM_POE from Linux 6.12 to elf.h
+- Add SCHED_EXT from Linux 6.12 to bits/sched.h
+- math: Use tanhf from CORE-MATH
+- math: Use sinhf from CORE-MATH
+- math: Use coshf from CORE-MATH
+- math: Use atanhf from CORE-MATH
+- math: Use atan2f from CORE-MATH
+- math: Use atanf from CORE-MATH
+- math: Use asinhf from CORE-MATH
+- math: Use asinf from CORE-MATH
+- math: Use acoshf from CORE-MATH
+- math: Use acosf from CORE-MATH
+- math: Fix the expected carg (inf) results
+- math: Fix the expected atan2f (inf) results
+- math: Fix the expected atanf (inf) results
+- math: Add inf support on gen-auto-libm-tests.c
+- math: Fix spurious-divbyzero flag name
+- benchtests: Add tanhf benchmark
+- benchtests: Add sinhf benchmark
+- benchtests: Add coshf benchmark
+- benchtests: Add atanhf benchmark
+- benchtests: Add atan2f benchmark
+- benchtests: Add atanf benchmark
+- benchtests: Add asinhf benchmark
+- benchtests: Add asinf benchmark
+- benchtests: Add acoshf benchmark
+- benchtests: Add acosf benchmark
+- Update syscall lists for Linux 6.12
+- ungetc: Guarantee single char pushback
+- sys/platform/x86.h: Do not depend on _Bool definition in C++ mode
+- ldbl-96: Set -1 to "int sign_exponent:16"
+- x86: Avoid integer truncation with large cache sizes (bug 32470)
+- AArch64: Improve codegen of AdvSIMD expf family
+- AArch64: Improve codegen of AdvSIMD atan(2)(f)
+- AArch64: Improve codegen of AdvSIMD logf function family
+- manual: Document more sigaction flags
+- Remove duplicated BUILD_CC in Makeconfig
+- iconv: do not report error exit with transliteration [BZ #32448]
+
 * Mon Dec 16 2024 DJ Delorie <dj@redhat.com> - 2.40.9000-24
 - Auto-sync with upstream branch master,
   commit dd413a4d2f320d5c3bc43e0788919724c89b3dab.

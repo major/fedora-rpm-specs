@@ -1,13 +1,17 @@
 %global udevdir %(pkg-config --variable=udevdir udev)
 
 Name:           libratbag
-Version:        0.17
-Release:        7%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        0.18
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Programmable input device library
 License:        MIT
 URL:            https://github.com/libratbag/libratbag
 Source0:        https://github.com/libratbag/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-remove-use-of-imp.patch
+
+# 0.18+ now installs into /usr/sbin, let's revert that
+# for now until sure that's a permanent change
+# https://github.com/libratbag/libratbag/issues/1672
+Patch0001:      0001-Revert-build-install-ratbagd-into-sbindir.patch
 
 BuildRequires:  git gcc gcc-c++
 BuildRequires:  meson pkgconfig
@@ -98,6 +102,10 @@ developing applications that use liblur.
 %{_libdir}/pkgconfig/liblur.pc
 
 %changelog
+* Fri Jan 03 2025 Peter Hutterer <peter.hutterer@redhat.com> - 0.18-1
+- libratbag 0.18
+- Revert upstream change to /sbin
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global origname nginx-module-%{nginx_modname}
 
 Name:           nginx-mod-vts
-Version:        0.2.2
-Release:        11%{?dist}
+Version:        0.2.3
+Release:        1%{?dist}
 Summary:        Nginx virtual host traffic status module
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ popd
 
 
 %changelog
+* Thu Jan 02 2025 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.2.3-1
+- Update to 0.2.3 rhbz#2335121
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.2.2-11
 - convert license to SPDX
 

@@ -1,7 +1,7 @@
 %global srcname Levenshtein
 
 %global forgeurl https://github.com/maxbachmann/%{srcname}
-Version:        0.26.0
+Version:        0.26.1
 %forgemeta
 
 Name:         python-%{srcname}

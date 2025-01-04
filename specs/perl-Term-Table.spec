@@ -4,8 +4,8 @@
 %bcond_without perl_Term_Table_enables_unicode
 
 Name:           perl-Term-Table
-Version:        0.023
-Release:        2%{?dist}
+Version:        0.024
+Release:        1%{?dist}
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Table
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 02 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.024-1
+- 0.024 bump
+
 * Fri Nov 08 2024 Michal Josef Špaček <mspacek@redhat.com> - 0.023-2
 - Revert bundling Term::Table::HashBase, module is in Perl Core
 

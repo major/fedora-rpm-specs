@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.27.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -41,7 +41,9 @@ BuildRequires: chromedriver
 BuildRequires: chromium chromium-headless
 # Chromium is not available for i686 / s390x
 # https://src.fedoraproject.org/rpms/chromium/blob/fcd074b9c31411f795ab402fe88e4513a68c843e/f/chromium.spec#_803
-ExclusiveArch: x86_64 aarch64 ppc64le
+# and on ppc64le
+# https://src.fedoraproject.org/rpms/chromium/blob/fcd074b9c31411f795ab402fe88e4513a68c843e/f/chromium.spec#_43-45
+ExclusiveArch: x86_64 aarch64
 %endif
 BuildArch: noarch
 
@@ -146,6 +148,9 @@ popd
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Thu Jan 02 2025 Vít Ondruch <vondruch@redhat.com> - 4.27.0-2
+- Disable ppc64le support due to missing chromium-headless.
+
 * Fri Dec 20 2024 Vít Ondruch <vondruch@redhat.com> - 4.27.0-1
 - Update to selenium-webdriver 4.27.0.
   Resolves: rhbz#2091127

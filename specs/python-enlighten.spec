@@ -4,19 +4,9 @@
 The main advantage of Enlighten is it allows writing to stdout and stderr\
 without any redirection.
 
-%bcond_without python3
-
-# Drop Python 2 with Fedora 30 and EL8
-%if (0%{?fedora} && 0%{?fedora} < 30) || (0%{?rhel} && 0%{?rhel} < 8)
-  %bcond_without python2
-%else
-  %bcond_with python2
-%endif
-
-
 Name:           python-%{pypi_name}
-Version:        1.12.4
-Release:        3%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MPL-2.0
@@ -24,53 +14,14 @@ URL:            https://github.com/Rockhopper-Technologies/enlighten
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-%if 0%{?el7}
-Patch0:     el7_req_fixes.patch
-Patch1:     el7_italics_tests.patch
-%endif
-
-%if %{with python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-mock
-BuildRequires:  python2-blessed
-BuildRequires:  python2-prefixed
-%endif
-
-%if %{with python3}
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-blessed
 BuildRequires:  python%{python3_pkgversion}-prefixed
-%endif
-
-%if 0%{?with_python3_other}
-BuildRequires:  python%{python3_other_pkgversion}-setuptools
-BuildRequires:  python%{python3_other_pkgversion}-devel
-BuildRequires:  python%{python3_other_pkgversion}-blessed
-BuildRequires:  python%{python3_other_pkgversion}-prefixed
-%endif
 
 %description
 %{desc}
 
-
-# Python 2 package
-%if %{with python2}
-%package -n     python2-%{pypi_name}
-Summary:        %{sum}
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-Requires:  python2-blessed
-Requires:  python2-prefixed
-
-%description -n python2-%{pypi_name}
-%{desc}
-%endif
-
-
-# Python 3 package
-%if %{with python3}
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{sum}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
@@ -79,21 +30,6 @@ Requires:       python%{python3_pkgversion}-prefixed
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 %{desc}
-%endif
-
-
-# Python 3 other package
-%if 0%{?with_python3_other}
-%package -n     python%{python3_other_pkgversion}-%{pypi_name}
-Summary:        %{sum}
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{pypi_name}}
-Requires:       python%{python3_other_pkgversion}-blessed
-Requires:       python%{python3_other_pkgversion}-prefixed
-
-%description -n python%{python3_other_pkgversion}-%{pypi_name}
-%{desc}
-%endif
-
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
@@ -108,73 +44,25 @@ rm -rf benchmarks
 find -name '*.pyc' -delete
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-
-%if %{with python3}
 %py3_build
-%endif
-
-%if 0%{?with_python3_other}
-%py3_other_build
-%endif
-
 
 %install
-%if 0%{?with_python3_other}
-%py3_other_install
-%endif
-
-%if %{with python3}
 %py3_install
-%endif
-
-%if %{with python2}
-%py2_install
-%endif
-
 
 %check
-%if %{with python2}
-%{__python2} setup.py test
-%endif
+%{py3_test_envvars} %{python3} -m unittest
 
-%if %{with python3}
-%{__python3} -m unittest
-%endif
-
-%if 0%{?with_python3_other}
-%{__python3_other} -m unittest
-%endif
-
-
-%if %{with python2}
-%files -n python2-%{pypi_name}
-%doc README*
-%doc examples
-%license LICENSE
-%{python2_sitelib}/enlighten*
-%endif
-
-%if %{with python3}
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %doc README*
 %doc examples
 %license LICENSE
 %{python3_sitelib}/enlighten*
-%endif
-
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-%{pypi_name}
-%doc README*
-%doc examples
-%license LICENSE
-%{python3_other_sitelib}/enlighten*
-%endif
-
 
 %changelog
+* Thu Jan 02 2025 Avram Lubkin <aviso@rockhopper.net> - 1.13.0-1
+- Update to 1.13.0 (#2329787)
+- Remove old logic from kickstart
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

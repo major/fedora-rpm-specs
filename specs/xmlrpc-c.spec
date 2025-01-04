@@ -1,16 +1,16 @@
-# Upstream libxml2 backend is completely broken since 2015 https://sourceforge.net/p/xmlrpc-c/patches/49/
-%bcond_with libxml2
+# build order matters and multiple threads break it
+%global _smp_mflags -j1
 
 Name:           xmlrpc-c
-Version:        1.59.03
-Release:        3%{?dist}
+Version:        1.60.04
+Release:        2%{?dist}
 Summary:        Lightweight RPC library based on XML and HTTP
 # See doc/COPYING for details.
 # The Python 1.5.2 license used by a few files is just BSD.
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
 URL:            http://xmlrpc-c.sourceforge.net/
-Source: http://dl.sourceforge.net/sourceforge/xmlrpc-c/xmlrpc-c-%version.tgz
+Source:         http://dl.sourceforge.net/sourceforge/xmlrpc-c/xmlrpc-c-%version.tgz
 
 # Upstreamable patches
 Patch102:       0002-Use-proper-datatypes-for-long-long.patch
@@ -19,12 +19,7 @@ Patch103:       0003-allow-30x-redirections.patch
 BuildRequires:  git-core
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-%if %{with libxml2}
 BuildRequires:  pkgconfig(libxml-2.0)
-%else
-# upstream has its own fork of expat
-Provides:       bundled(expat)
-%endif
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  readline-devel
@@ -112,8 +107,7 @@ This package contains some handy XML-RPC demo applications.
 %build
 %configure
 %make_build
-# build order matters and multiple threads break it
-%make_build -j1 -C tools
+%make_build -C tools
 
 
 %install
@@ -128,10 +122,9 @@ This package contains some handy XML-RPC demo applications.
 %files
 %license doc/COPYING lib/abyss/license.txt
 %doc doc/CREDITS doc/HISTORY
-%if ! %{with libxml2}
 %{_libdir}/libxmlrpc_xml*.so.*
-%endif
 %{_libdir}/libxmlrpc.so.*
+%{_libdir}/libxmlrpc_openssl.so.*
 %{_libdir}/libxmlrpc_util.so.*
 %{_libdir}/libxmlrpc_abyss.so.*
 %{_libdir}/libxmlrpc_server.so.*
@@ -178,6 +171,16 @@ This package contains some handy XML-RPC demo applications.
 %{_bindir}/xmlrpc_dumpserver
 
 %changelog
+* Thu Jan 02 2025 Jonathan Wright <jonathan@almalinux.org> - 1.60.4-2
+- Use global macro to override make smp_flags
+
+* Thu Jan 02 2025 Jonathan Wright <jonathan@almalinux.org> - 1.60.4-1
+- update to 1.60.4 rhbz#2334236
+- re-enable builds against libxml2, no more bundled libexpat
+- fixes rhbz#2310136
+- fixes rhbz#2310146
+- fixes rhbz#2310152
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.59.03-3
 - convert license to SPDX
 

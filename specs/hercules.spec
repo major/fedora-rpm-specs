@@ -1,12 +1,11 @@
 Summary: Hercules S/370, ESA/390, and z/Architecture emulator
 Name: hercules
 Version: 3.13
-Release: 18%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: QPL - review is highly recommended.
 License: QPL-1.0
 URL: http://www.hercules-390.eu/
 Source0: http://downloads.hercules-390.eu/%{name}-%{version}.tar.gz
-#Source0: https://github.com/rbowler/spinhawk/archive/%{version}.tar.gz
 Source1: hercules.cnf
 Source2: hercules-run
 Source3: README-rpm
@@ -19,7 +18,8 @@ BuildRequires: libcap-devel
 BuildRequires: libtool
 BuildRequires: libtool-ltdl-devel
 BuildRequires: make
-
+Conflicts: sdl-hercules
+Conflicts: sdl-hercules-data
 
 %description
 Hercules is an emulator for the IBM System/370, ESA/390, and z/Architecture
@@ -31,7 +31,6 @@ printer-keyboard, 3270 terminal, and 3287 printer devices.
 
 
 %prep
-#%setup -q -n spinhawk-%{version}
 %setup -q
 
 %patch -P0 -p1 -b .fedora
@@ -100,6 +99,11 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Wed Jan 01 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 3.13-19
+- Conflict with the sdl-hercules packages
+- Drop old comments that trigger a FTBFS due to macro expansion
+  Fixes: RHBZ#2300839
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3.13-18
 - convert license to SPDX
 

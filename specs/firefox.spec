@@ -196,14 +196,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        133.0.3
-Release:        2%{?pre_tag}%{?dist}
+Version:        134.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20241211.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20250102.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -283,10 +283,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mzbz-1934217.patch
-
-# WebRTC/PipeWire camera patches
-# https://phabricator.services.mozilla.com/D228635
-Patch450:        libwebrtc-pipewire-camera-use-better-unique-device-name-for-camera-devices.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -590,10 +586,6 @@ export LIBCLANG_RT=`pwd`/wasi-sdk-20/build/compiler-rt/lib/wasi/libclang_rt.buil
 %patch -P402 -p1 -b .1196777
 %patch -P407 -p1 -b .1667096
 %patch -P408 -p1 -b .1934217
-
-%if 0%{?fedora} > 40
-%patch -P450 -p1 -b .libwebrtc-pipewire-camera-use-better-unique-device-name-for-camera-devices
-%endif
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1224,6 +1216,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Jan 02 2025 Martin Stransky <stransky@redhat.com> - 134.0-1
+- Updated to 134.0
+
 * Mon Dec 16 2024 Martin Stransky <stransky@redhat.com> - 133.0.3-2
 - Remove MOZ_DBUS_APP_NAME from launch script as it breaks Thunderbird (rhbz#2320090)
 

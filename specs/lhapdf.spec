@@ -1,24 +1,17 @@
 Name:		lhapdf
-Version:	6.5.4
-Release:	8%{?dist}
+Version:	6.5.5
+Release:	1%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
 URL:		https://lhapdf.hepforge.org/
 Source0:	https://www.hepforge.org/archive/lhapdf/LHAPDF-%{version}.tar.gz
-#		Add soname to the shared library, cf. SuSE's spec file.
-Patch0:		%{name}-soname.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
+BuildRequires:	yaml-cpp-devel
 BuildRequires:	python%{python3_pkgversion}-Cython
-%if %{?rhel}%{!?rhel:0} == 7
-BuildRequires:	python2-devel
-%endif
 BuildRequires:	python%{python3_pkgversion}-devel
-%if %{?rhel}%{!?rhel:0} == 7
-BuildRequires:	python%{python3_other_pkgversion}-devel
-%endif
 BuildRequires:	doxygen
 
 #		Obsolete LHAPDF5 packages not provided by LHAPDF6
@@ -57,21 +50,6 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %description devel
 This package provides development files of LHAPDF, including C++ bindings.
 
-%if %{?rhel}%{!?rhel:0} == 7
-%package -n python2-%{name}
-Summary:	Les Houches Accord PDF Interface - Python 2 module
-%py_provides	python2-%{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description -n python2-%{name}
-This package provides Python 2 bindings for LHAPDF.
-
-This package also provides a script called "lhapdf" which can be used
-to query the catalog of PDF sets and to install and update them from
-the command line. It accepts commands "list", "update", "install" and
-"upgrade". Please run "lhapdf help" for full usage instructions.
-%endif
-
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	Les Houches Accord PDF Interface - Python 3 module
 %py_provides	python%{python3_pkgversion}-%{name}
@@ -79,22 +57,10 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
 This package provides Python 3 bindings for LHAPDF.
-%if %{?rhel}%{!?rhel:0} != 7
 This package also provides a script called "lhapdf" which can be used
 to query the catalog of PDF sets and to install and update them from
 the command line. It accepts commands "list", "update", "install" and
 "upgrade". Please run "lhapdf help" for full usage instructions.
-%endif
-
-%if %{?rhel}%{!?rhel:0} == 7
-%package -n python%{?python3_other_pkgversion}-%{name}
-Summary:	Les Houches Accord PDF Interface - Python 3 module
-%py_provides	python%{python3_other_pkgversion}-%{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description -n python%{?python3_other_pkgversion}-%{name}
-This package provides Python 3 bindings for LHAPDF.
-%endif
 
 %package doc
 Summary:	Les Houches Accord PDF Interface - documentation
@@ -105,64 +71,43 @@ This package provides API documentation and examples for LHAPDF.
 
 %prep
 %setup -q -n LHAPDF-%{version}
-%patch -P0 -p1
 
 # Remove cython generated file
 rm wrappers/python/lhapdf.cpp
 
-%if %{?rhel}%{!?rhel:0} == 7
-sed 's!cython!cython%{python3_version}!' \
-    -i wrappers/python/Makefile.am wrappers/python/Makefile.in
-%endif
+# Remove bundled yaml-cpp
+rm -rf src/yamlcpp/
 
 # Fix shebangs
-%if %{?rhel}%{!?rhel:0} != 7
 sed 's!/usr/bin/env python!%{__python3}!' -i bin/lhapdf examples/*.py
-%else
-sed 's!/usr/bin/env python!%{__python2}!' -i bin/lhapdf examples/*.py
-%endif
 sed 's!/usr/bin/env bash!/bin/bash!' -i bin/lhapdf-config.in
 
 %build
-%configure --disable-static --disable-silent-rules PYTHON=%{__python3} --docdir=%{_pkgdocdir}
+%configure \
+	--disable-static \
+	--with-yaml-cpp \
+	--enable-librelease \
+	--docdir=%{_pkgdocdir} \
+	PYTHON=%{__python3}
 %make_build
-
-%if %{?rhel}%{!?rhel:0} == 7
-( cd wrappers/python ; %make_build PYTHON=%{__python2} )
-( cd wrappers/python ; %make_build PYTHON=%{__python3_other} )
-%endif
 
 # Build doxygen documentation
 %make_build doxy
 
 %install
-%make_install PYTHON_PATH=%{python3_sitearch}
+%make_install
 
-cat << EOF > %{buildroot}%{python3_sitearch}/%{name}-%{version}.egg-info
+mkdir %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info
+cat << EOF > %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info/METADATA
 Name: %{name}
 Version: %{version}
 EOF
-
-%if %{?rhel}%{!?rhel:0} == 7
-( cd wrappers/python ; %make_install PYTHON=%{__python2} PYTHON_PATH=%{python2_sitearch} )
-cat << EOF > %{buildroot}%{python2_sitearch}/%{name}-%{version}.egg-info
-Name: %{name}
-Version: %{version}
-EOF
-( cd wrappers/python ; %make_install PYTHON=%{__python3_other} PYTHON_PATH=%{python3_other_sitearch} )
-cat << EOF > %{buildroot}%{python3_other_sitearch}/%{name}-%{version}.egg-info
-Name: %{name}
-Version: %{version}
-EOF
-%endif
 
 rm %{buildroot}%{_libdir}/libLHAPDF.la
 find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 
 %check
 %make_build check
-
-%ldconfig_scriptlets
 
 %files
 %{_libdir}/libLHAPDF-%{version}.so
@@ -176,25 +121,10 @@ find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 %{_libdir}/libLHAPDF.so
 %{_libdir}/pkgconfig/%{name}.pc
 
-%if %{?rhel}%{!?rhel:0} == 7
-%files -n python2-%{name}
-%{_bindir}/%{name}
-%{python2_sitearch}/%{name}-%{version}.egg-info
-%{python2_sitearch}/%{name}
-%endif
-
 %files -n python%{python3_pkgversion}-%{name}
-%if %{?rhel}%{!?rhel:0} != 7
 %{_bindir}/%{name}
-%endif
-%{python3_sitearch}/%{name}-%{version}.egg-info
+%{python3_sitearch}/%{name}-%{version}.dist-info
 %{python3_sitearch}/%{name}
-
-%if %{?rhel}%{!?rhel:0} == 7
-%files -n python%{?python3_other_pkgversion}-%{name}
-%{python3_other_sitearch}/%{name}-%{version}.egg-info
-%{python3_other_sitearch}/%{name}
-%endif
 
 %files doc
 %doc %{_pkgdocdir}/doxygen
@@ -202,6 +132,12 @@ find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 %license COPYING
 
 %changelog
+* Wed Jan 01 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.5-1
+- Update to version 6.5.5
+- Drop soname patch, use new configure option --enable-librelease instead
+- Unbundle yaml-cpp, using new configure option --with-yaml-cpp
+- EPEL 7 EOL specfile cleanup
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

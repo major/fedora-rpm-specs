@@ -1,6 +1,6 @@
 Name:           perl-Capture-Tiny
-Version:        0.48
-Release:        21%{?dist}
+Version:        0.50
+Release:        1%{?dist}
 Summary:        Capture STDOUT and STDERR from Perl, XS or external programs
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Capture-Tiny
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 02 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.50-1
+- 0.50 bump (rhbz#2333321)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

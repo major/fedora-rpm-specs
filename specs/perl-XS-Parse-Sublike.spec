@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-XS-Parse-Sublike
-Version:        0.30
+Version:        0.33
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,7 @@ BuildRequires:  perl(Test::Pod) >= 1
 # XS::Parse::Sublike/ABIVERSION_MAX in lib/XS/Parse/Sublike.xs.
 Provides:       perl(:XS_Parse_Sublike_ABI) = 5
 Provides:       perl(:XS_Parse_Sublike_ABI) = 6
+Provides:       perl(:XS_Parse_Sublike_ABI) = 7
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Future::AsyncAwait|Object::Pad)\\)$
@@ -161,6 +162,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 02 2025 Petr Pisar <ppisar@redhat.com> - 0.33-1
+- 0.33 bump
+
 * Mon Oct 21 2024 Petr Pisar <ppisar@redhat.com> - 0.30-1
 - 0.30 bump
 

@@ -13,8 +13,7 @@ Version:	%{relnum}.0.4
 Release:	14%{?dist}
 Summary:	Fedora %{relnum} default desktop background
 
-# Automatically converted from old format: CC-BY-SA - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY-SA
+License:	CC-BY-SA-4.0
 URL:		https://fedoraproject.org/wiki/F%{relnum}_Artwork
 Source0:	https://github.com/fedoradesign/backgrounds/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
@@ -93,8 +92,7 @@ default theme.
 %if %{with_extras}
 %package	extras-base
 Summary:	Base images for F%{relnum} Extras Backrounds
-# Automatically converted from old format: CC-BY and CC-BY-SA and CC0 and Free Art - review is highly recommended.
-License:	LicenseRef-Callaway-CC-BY AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0 AND LAL-1.3
+License:	CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description	extras-base
 This package contains base images for F%{relnum} supplemental
@@ -102,7 +100,7 @@ wallpapers.
 
 %package	extras-gnome
 Summary:	Extra F%{relnum} Wallpapers for Gnome and Cinnamon
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-gnome
@@ -111,7 +109,7 @@ and Cinnamon
 
 %package	extras-mate
 Summary:	Extra F%{relnum} Wallpapers for Mate
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description    extras-mate
@@ -119,7 +117,7 @@ This package contains F%{relnum} supplemental wallpapers for Mate
 
 %package	extras-kde
 Summary:	Extra F%{relnum} Wallpapers for KDE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-kde
@@ -127,7 +125,7 @@ This package contains F%{relnum} supplemental wallpapers for Gnome
 
 %package	extras-xfce
 Summary:	Extra F%{relnum} Wallpapers for XFCE
-
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 Requires:	%{name}-extras-base = %{version}-%{release}
 
 %description	extras-xfce

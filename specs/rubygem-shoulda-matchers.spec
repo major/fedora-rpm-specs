@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Simple one-liner tests for common Rails functionality
 License: MIT
 URL: https://matchers.shoulda.io/
@@ -47,6 +47,11 @@ Patch10: rubygem-shoulda-matchers-pr1506-psych-load.patch
 # https://github.com/thoughtbot/shoulda-matchers/pull/1657
 Patch11: rubygem-shoulda-matchers-6.4.0-Add-Ruby-3.4-support.patch
 Patch12: rubygem-shoulda-matchers-6.4.0-Add-Ruby-3.4-support-spec.patch
+
+# Support rspec-rails 7.1
+# behavior changed on:
+# https://github.com/rspec/rspec-rails/commit/efca5295a196d74c187ebd0349abd10903c68928
+Patch13: rubygem-shoulda-matchers-5.1.0-support-rspec-rails-7_1.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -95,6 +100,7 @@ pushd %{_builddir}
 %patch 9 -p1
 %patch 10 -p1
 %patch 12 -p1
+%patch 13 -p1
 popd
 
 %build
@@ -197,6 +203,9 @@ popd
 %{gem_instdir}/shoulda-matchers.gemspec
 
 %changelog
+* Wed Jan 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-9
+- Support rspec-rails 7.1 on testsuite
+
 * Thu Dec 05 2024 Vít Ondruch <vondruch@redhat.com> - 5.1.0-8
 - Fix Ruby 3.4 compatibility due to backticks and Hash#inspect changes.
 

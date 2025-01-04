@@ -1,7 +1,7 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
 Version:        0.18
-Release:        9%{?dist}
+Release:        10%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:               GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -112,6 +112,12 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%{ve
 Patch0:         re-engine-RE2-0.18-Unbundle-re2.patch
 # Adapt to re2-20240702, bug #2304727, CPAN RT#83467
 Patch1:         re-engine-RE2-0.18-Use-C-17.patch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# (This is a leaf package on i686 because all dependent packages are noarch,
+# and noarch packages no longer build on i686.)
+%if !%{defined fc40} && !%{defined fc41}
+ExcludeArch:    %{ix86}
+%endif
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -198,6 +204,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Dec 15 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 0.18-10
+- Drop i686 support (leaf package)
+
 * Wed Aug 14 2024 Petr Pisar <ppisar@redhat.com> - 0.18-9
 - Adapt to re2-20240702 (bug #2304727)
 - Specify a license of the source package

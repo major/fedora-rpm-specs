@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc6
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -6,8 +6,8 @@
 %endif
 
 Name:     uboot-tools
-Version:  2024.10
-Release:  1%{?candidate:.%{candidate}}%{?dist}
+Version:  2025.01
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -29,14 +29,12 @@ Patch5:   enable-bootmenu-by-default.patch
 # Should be upstream but it's taking time
 #Patch6:   Add-video-damage-tracking.patch
 
-# Rockchips improvements
-Patch10:  rockchip-Enable-preboot-start-for-pci-usb.patch
-Patch11:  FUSB302-USB-C-controller-support.patch
-Patch12:  rockchip-Modernise-Geekbox-config.patch
-# QCom
-Patch15:  Qualcomm-add-support-for-SC7280-and-the-RB3-Gen-2.patch
+# Device improvments
 # RPi
-Patch20:  rpi-Pass-CMA-through-from-firmware-DT.patch
+Patch10:  rpi-Add-identifiers-for-the-new-RPi-5-series.patch
+# Rockchips improvements
+Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
+#Patch12:  rockchip-Modernise-Geekbox-config.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -122,7 +120,7 @@ do
     echo "Board: $board using sun50i_h616"
     cp /usr/share/arm-trusted-firmware/sun50i_h616/bl31.bin builds/$(echo $board)/atf-bl31
   fi
-  rk3328=(evb-rk3328 nanopi-r2c-plus-rk3328 nanopi-r2c-rk3328 nanopi-r2s-rk3328 orangepi-r1-plus-lts-rk3328 orangepi-r1-plus-rk3328 roc-cc-rk3328 rock64-rk3328 rock-pi-e-rk3328 rock-pi-e-v3-rk3328)
+  rk3328=(evb-rk3328 nanopi-r2c-plus-rk3328 nanopi-r2c-rk3328 nanopi-r2s-rk3328 nanopi-r2s-plus-rk3328 orangepi-r1-plus-lts-rk3328 orangepi-r1-plus-rk3328 roc-cc-rk3328 rock64-rk3328 rock-pi-e-rk3328 rock-pi-e-v3-rk3328)
   if [[ " ${rk3328[*]} " == *" $board "* ]]; then
     echo "Board: $board using rk3328"
     cp /usr/share/arm-trusted-firmware/rk3328/bl31.elf builds/$(echo $board)/atf-bl31
@@ -157,13 +155,17 @@ mkdir -p %{buildroot}%{_datadir}/uboot/
 %ifarch aarch64
 for board in $(ls builds)
 do
- for file in u-boot.bin u-boot.img u-boot-dtb.img u-boot.itb u-boot-sunxi-with-spl.bin u-boot-rockchip-spi.bin u-boot-rockchip.bin idbloader.img idbloader-spi.img spl/boot.bin
+ for file in u-boot.bin u-boot.img u-boot-dtb.img u-boot-sunxi-with-spl.bin u-boot-rockchip-spi.bin u-boot-rockchip.bin
  do
   if [ -f builds/$(echo $board)/$(echo $file) ]; then
     install -pD -m 0644 builds/$(echo $board)/$(echo $file) %{buildroot}%{_datadir}/uboot/$(echo $board)/$(echo $file)
   fi
  done
 done
+
+# Just for xilinx_zynqmp_virt
+install -pD -m 0644 builds/xilinx_zynqmp_virt/u-boot.itb %{buildroot}%{_datadir}/uboot/xilinx_zynqmp_virt/u-boot.itb
+install -pD -m 0644 builds/xilinx_zynqmp_virt/spl/boot.bin %{buildroot}%{_datadir}/uboot/xilinx_zynqmp_virt/boot.bin
 
 # For Apple M-series we also need the nodtb variant
 install -pD -m 0644 builds/apple_m1/u-boot-nodtb.bin %{buildroot}%{_datadir}/uboot/apple_m1/u-boot-nodtb.bin
@@ -216,6 +218,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Dec 31 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-0.1.rc6
+- Update to 2025.01 RC6
+
 * Fri Oct 11 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2024.10-1
 - Update to 2024.10 GA
 - Fix passing RPi firmware CMA setting to kernel DT

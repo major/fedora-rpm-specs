@@ -4,7 +4,7 @@
 %global kbd_datadir %{_exec_prefix}/lib/kbd
 
 Name:           kbd
-Version:        2.7
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
@@ -166,7 +166,7 @@ fi
 %find_lang %{name}
 
 %check
-%ifnarch s390x
+%ifnarch s390x ppc64le
 make check
 %endif
 
@@ -185,6 +185,10 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Thu Jan 02 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-1
+- Update to kbd-2.7.1
+  Resolves: #2331264
+
 * Tue Dec 17 2024 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7-1
 - Update to kbd-2.7
   Resolves: #2331264

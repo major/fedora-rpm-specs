@@ -1,4 +1,6 @@
-# JIT is supported on x86 and x86_64 only, bug #1309772
+# JIT is supported on x86 and x86_64 only. 60.09 brought an autodetection, but
+# in case of a misdetection, it could annoy a user by requiring -nojit
+# run-time option. bug #1309772
 %ifarch %{ix86} x86_64
 %bcond_without jit
 %else
@@ -11,8 +13,8 @@
 %bcond_with toolchain_gcc
 
 Name:           zpaqfranz
-Version:        60.8
-Release:        2%{?dist}
+Version:        60.10
+Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -57,10 +59,6 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Replace depracted gethostbyname() with getaddrinfo(), upstream issue #141,
-# proposed to the upstream,
-# <https://github.com/fcorbelli/zpaqfranz/pull/142>
-Patch0:         zpaqfranz-60.8-Replace-gethostbyname-with-getaddrinfo-if-IPV6-is-de.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  perl-podlators
@@ -133,6 +131,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Thu Jan 02 2025 Petr Pisar <ppisar@redhat.com> - 60.10-1
+- 60.10 bump
+
 * Fri Oct 25 2024 Petr Pisar <ppisar@redhat.com> - 60.8-2
 - Replace deprecated gethostbyname() with getaddrinfo() (upstream issue #141)
 

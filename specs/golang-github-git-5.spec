@@ -10,7 +10,7 @@
 
 # https://github.com/go-git/go-git
 %global goipath         github.com/go-git/go-git/v5
-Version:                5.13.0
+Version:                5.13.1
 
 %gometa -f
 

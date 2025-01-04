@@ -11,8 +11,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.12.0
-Release: 3%{?dist}
+Version: 1.13.0
+Release: 1%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -22,11 +22,6 @@ Source1: doxywizard.desktop
 # these icons are part of doxygen and converted from doxywizard.ico
 Source2: doxywizard-icons.tar.xz
 # upstream fixes
-# Markdown links to internal anchors broken
-Patch0: doxygen-1.12.0-regression-anchors.patch
-# Non-reproducible file names in doxygen output
-Patch1: doxygen-1.12.0-non-reproducible-file-names-in-doxygen-output.patch
-
 BuildRequires: %{_bindir}/python3
 BuildRequires: perl-interpreter, perl-open
 BuildRequires: texlive-bibtex
@@ -300,6 +295,9 @@ rm -rf %{buildroot}/%{_docdir}/packages
 %endif
 
 %changelog
+* Thu Jan 02 2025 Than Ngo <than@redhat.com> - 2:1.13.0-1
+- Fix rhbz#2334703, Update to 1.13.0
+
 * Mon Oct 28 2024 Than Ngo <than@redhat.com> - 2:1.12.0-3
 - Fix rhbz#2295788, Non-reproducible file names in doxygen output
 

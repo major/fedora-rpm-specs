@@ -1,24 +1,18 @@
-%bcond_without docs
+%bcond docs 1
+%global major_sover 5
+%global minor_sover 5
 
 Name:           lib3270
-Version:        5.4
+Version:        5.5.0
 Release:        %autorelease
 Summary:        TN3270 Protocol Library
 
-# Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/PerryWerneck/lib3270
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Use environment compiler flags if set
-Patch0:         %{url}/commit/c7e2c43227695b259e98febaa6e7c17358e9d460.patch
-# Backport of https://github.com/PerryWerneck/lib3270/pull/24
-Patch1:         autoconf-fix.patch
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  libtool
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  gettext-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  openldap-devel
@@ -53,29 +47,28 @@ The %{name}-doc package contains documentation for %{name}.
 %autosetup -p1
 
 %build
-NOCONFIGURE=1 ./autogen.sh
-%configure
-# override SHELL to make the build more verbose
-%make_build SHELL='sh -x'
+%meson
+%meson_build
 %if %{with docs}
 doxygen doxygen
 %endif
 
 %install
-%make_install
-%find_lang %{name}
+%meson_install
+%find_lang %{name}-%{major_sover}.%{minor_sover}
 
-%files -f %{name}.lang
+# Remove static libraries
+rm %{buildroot}%{_libdir}/%{name}.a
+rm %{buildroot}%{_libdir}/pkgconfig/%{name}-static.pc
+
+%files -f %{name}-%{major_sover}.%{minor_sover}.lang
 %license LICENSE
-%doc README.md AUTHORS
-%{_libdir}/%{name}.so.5*
-%dir %{_datadir}/pw3270
+%doc README.md AUTHORS CHANGELOG
+%{_libdir}/%{name}.so.%{major_sover}*
 
 %files devel
-%dir %{_datadir}/pw3270/pot
-%{_datadir}/pw3270/pot/%{name}.pot
 %{_includedir}/%{name}.h
-%{_includedir}/%{name}
+%{_includedir}/%{name}/
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 

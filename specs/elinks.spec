@@ -6,7 +6,7 @@
 
 Name:      elinks
 Summary:   A text-mode Web browser
-Version:   0.17.1.1
+Version:   0.18.0
 Release:   1%{?dist}
 License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
@@ -136,6 +136,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jan 02 2025 Lukáš Zaoral <lzaoral@redhat.com> - 0.18.0-1
+- rebase to latest upstream version (rhbz#2334226)
+
 * Mon Oct 07 2024 Lukáš Zaoral <lzaoral@redhat.com> - 0.17.1.1-1
 - rebase to latest upstream version (rhbz#2316746)
 

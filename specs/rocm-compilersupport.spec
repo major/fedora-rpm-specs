@@ -32,10 +32,6 @@
 %global llvm_triple %{_target_platform}
 %global amd_device_libs_prefix lib64/rocm/llvm/lib/clang/%{llvm_maj_ver}
 
-#Exclude provides/requires from bundled llvm
-%global __provides_exclude_from ^(%{bundle_prefix}/lib/.*\\.so.*)$
-%global __requires_exclude ^lib(.*\\.so\\.%{llvm_maj_ver}git|LLVM-18git\\.so).*$
-
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
 %define _source_payload	w7T0.xzdio
@@ -57,7 +53,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        30.rocm%{rocm_version}%{?dist}
+Release:        31.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/ROCm/llvm-project
@@ -416,14 +412,17 @@ grep -v '%%{' prep.sh
 CLANG_VERSION=%llvm_maj_ver
 %if %{without bundled_llvm}
 LLVM_BINDIR=`llvm-config-%{llvm_maj_ver} --bindir`
+LLVM_LIBDIR=`llvm-config-%{llvm_maj_ver} --libdir`
 LLVM_CMAKEDIR=`llvm-config-%{llvm_maj_ver} --cmakedir`
 %else
 LLVM_BINDIR=%{bundle_prefix}/bin
+LLVM_LIBDIR=%{bundle_prefix}/lib
 LLVM_CMAKEDIR=%{bundle_prefix}/lib/cmake/llvm
 %endif
 
 echo "%%rocmllvm_version $CLANG_VERSION"   > macros.rocmcompiler
 echo "%%rocmllvm_bindir $LLVM_BINDIR"     >> macros.rocmcompiler
+echo "%%rocmllvm_libdir $LLVM_LIBDIR"     >> macros.rocmcompiler
 echo "%%rocmllvm_cmakedir $LLVM_CMAKEDIR" >> macros.rocmcompiler
 
 %if %{without bundled_llvm}
@@ -951,10 +950,13 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %{bundle_prefix}/bin/c-index-test
 %{bundle_prefix}/bin/clang*
 %{bundle_prefix}/bin/diagtool
+%{bundle_prefix}/bin/find-all-symbols
 %{bundle_prefix}/bin/flang
 %{bundle_prefix}/bin/git-clang-format
 %{bundle_prefix}/bin/hmaptool
+%{bundle_prefix}/bin/modularize
 %{bundle_prefix}/bin/nvptx-arch
+%{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
 
 %files -n rocm-clang-devel
@@ -970,9 +972,6 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 # ROCM CLANG TOOLS EXTRA
 %files -n rocm-clang-tools-extra
 %license clang-tools-extra/LICENSE.TXT
-%{bundle_prefix}/bin/pp-trace
-%{bundle_prefix}/bin/find-all-symbols
-%{bundle_prefix}/bin/modularize
 %{bundle_prefix}/bin/run-clang-tidy
 
 %files -n rocm-clang-tools-extra-devel
@@ -1019,6 +1018,10 @@ mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
 %endif
 
 %changelog
+* Sun Dec 29 2024 Tom Rix <Tom.Rix@amd.com> - 18-31.rocm6.3.1
+- Remove excludes,provides filter for rocm-omp
+- Fix packaging of clang extra tools
+
 * Sat Dec 28 2024 Tom Rix <Tom.Rix@amd.com> - 18-30.rocm6.3.1
 - Add clang-extra-tools package
 

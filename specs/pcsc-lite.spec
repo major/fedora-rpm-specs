@@ -6,7 +6,7 @@
 %endif
 
 Name:           pcsc-lite
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
@@ -115,6 +115,9 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/pcscd
 
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
+# remove static archives .a
+rm $RPM_BUILD_ROOT%{_libdir}/libpcsclite.a
+
 %post
 %systemd_post pcscd.socket pcscd.service
 # If install, test if pcscd socket is enabled.
@@ -155,6 +158,8 @@ fi
 %{_datadir}/polkit-1/actions/org.debian.pcsc-lite.policy
 %endif
 %{_metainfodir}/fr.apdu.pcsclite.metainfo.xml
+%dir %{_sysconfdir}
+%{_sysconfdir}/default/pcscd
 
 %files libs
 %license COPYING
@@ -176,6 +181,9 @@ fi
 
 
 %changelog
+* Thu Jan 02 2025 Jakub Jelen <jjelen@redhat.com> - 2.3.1-1
+- New upstream release (#2333992)
+
 * Mon Aug 05 2024 Jakub Jelen <jjelen@redhat.com> - 2.3.0-1
 - New upstream release with metainfo (#2302669)
 

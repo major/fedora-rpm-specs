@@ -1,6 +1,6 @@
 Name: timg
-Version: 1.6.0
-Release: 6%{?dist}
+Version: 1.6.1
+Release: %autorelease
 Summary: A terminal image and video viewer
 
 License: GPL-2.0-only AND MIT AND (MIT OR Unlicense)
@@ -59,49 +59,4 @@ rm -rf third_party
 %{_mandir}/man1/timg.1*
 
 %changelog
-* Mon Sep 23 2024 Fabio Valentini <decathorpe@gmail.com> - 1.6.0-6
-- Rebuild for ffmpeg 7
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Mar 18 2024 ErrorNoInternet <errornointernet@envs.net> - 1.6.0-4
-- Set license to `GPL-2.0-only AND MIT AND (MIT OR Unlicense)`.
-
-* Tue Mar 12 2024 ErrorNoInternet <errornointernet@envs.net> - 1.6.0-3
-- Set license to `GPL-2.0-only AND MIT`.
-
-* Sat Mar 09 2024 ErrorNoInternet <errornointernet@envs.net> - 1.6.0-2
-- Fix licenses and add clarification.
-- Clean up descriptions and missing chaneglog entries.
-
-* Fri Jan 26 2024 ErrorNoInternet <errornointernet@envs.net> - 1.6.0-1
-- Update to version 1.6.0.
-
-* Tue Nov 21 2023 ErrorNoInternet <errornointernet@envs.net> - 1.5.2-2
-- Enable libsixel and qoi support as they are now in the Fedora repos.
-
-* Thu Aug 31 2023 ErrorNoInternet <errornointernet@envs.net> - 1.5.2-1
-- Update to version 1.5.2.
-
-* Sat Jul 29 2023 ErrorNoInternet <errornointernet@envs.net> - 1.5.1-1
-- Update to version 1.5.1.
-- Disable libsixel support as it isn't packaged in the Fedora repos yet.
-
-* Fri Jul 14 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-6
-- Fix package review issues.
-
-* Sat Jul 08 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-5
-- Fix package review issues.
-
-* Fri Jun 30 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-4
-- Fix package review issues.
-
-* Fri Jun 30 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-3
-- Add LICENSE and README.md.
-
-* Wed May 24 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-2
-- Install to /usr instead of /usr/local.
-
-* Fri Apr 21 2023 ErrorNoInternet <errornointernet@envs.net> - 1.4.5-1
-- Initial packaging.
+%autochangelog

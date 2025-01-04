@@ -251,8 +251,6 @@ Optional imageio tasks for %{name}.
 %package jakartamail
 Summary:        Optional jakartamail tasks for %{name}
 Requires:       %{name} = %{version}-%{release}
-# TODO Remove in Fedora 42
-Obsoletes:      ant-javamail < 1.13.1
 
 %description jakartamail
 Optional jakartamail tasks for %{name}.
