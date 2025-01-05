@@ -30,6 +30,10 @@ Source1:        get_source
 
 %endif
 
+# Updates for Maturin 1.8: add a version key in the project metadata
+# https://github.com/milesgranger/cramjam/pull/196
+Patch:          %{url}/pull/196.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

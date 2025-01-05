@@ -2,26 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate quinn-udp
+%global crate notify
 
-Name:           rust-quinn-udp
-Version:        0.5.9
+Name:           rust-notify6
+Version:        6.1.1
 Release:        %autorelease
-Summary:        UDP sockets with ECN information for the QUIC transport protocol
+Summary:        Cross-platform filesystem notification library
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/quinn-udp
+License:        CC0-1.0
+URL:            https://crates.io/crates/notify
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
-Patch:          quinn-udp-fix-metadata-auto.diff
+Patch:          notify-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          quinn-udp-fix-metadata.diff
+# * remove macOS-specific features
+Patch:          notify-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-UDP sockets with ECN information for the QUIC transport protocol.}
+Cross-platform filesystem notification library.}
 
 %description %{_description}
 
@@ -35,8 +35,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE-CC0
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -51,40 +51,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+direct-log-devel
+%package     -n %{name}+crossbeam-channel-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+direct-log-devel %{_description}
+%description -n %{name}+crossbeam-channel-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "direct-log" feature of the "%{crate}" crate.
+use the "crossbeam-channel" feature of the "%{crate}" crate.
 
-%files       -n %{name}+direct-log-devel
+%files       -n %{name}+crossbeam-channel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+log-devel
+%package     -n %{name}+manual_tests-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+log-devel %{_description}
+%description -n %{name}+manual_tests-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "log" feature of the "%{crate}" crate.
+use the "manual_tests" feature of the "%{crate}" crate.
 
-%files       -n %{name}+log-devel
+%files       -n %{name}+manual_tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tracing-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tracing-devel
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+timing_tests-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+timing_tests-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "timing_tests" feature of the "%{crate}" crate.
+
+%files       -n %{name}+timing_tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

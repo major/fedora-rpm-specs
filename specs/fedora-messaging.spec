@@ -7,21 +7,14 @@
 %global srcname fedora_messaging
 
 Name:           %{pkgname}
-Version:        3.5.0
-Release:        5%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/fedora-messaging
 Source0:        %{pypi_source}
-
-# https://github.com/fedora-infra/fedora-messaging/commit/27d71f09affa84dde0de9346e5f3533eae274016
-Patch0:		docs-pyproject.patch
-# Relax dependencies:
-# - https://github.com/fedora-infra/fedora-messaging/commit/6f35e05f6c5779519141ba4c72e9c5a7d7a4ac46
-# - https://github.com/fedora-infra/fedora-messaging/commit/ec70cdc1d3fac63ba649bd48f37d90c3f49e956d
-Patch1:		deps-ver.patch
 
 BuildArch:      noarch
 
@@ -133,6 +126,10 @@ install -D -p -m 644 docs/_build/man/fedora-messaging.1 $RPM_BUILD_ROOT%{_mandir
 
 
 %changelog
+* Fri Jan 03 2025 Packit <hello@packit.dev> - 3.7.0-1
+- Update to version 3.7.0
+- Drop patches that were merged upstream
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 3.5.0-5
 - convert license to SPDX
 

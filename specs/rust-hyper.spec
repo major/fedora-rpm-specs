@@ -6,7 +6,7 @@
 %global crate hyper
 
 Name:           rust-hyper
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Protective and efficient HTTP library for all
 
@@ -45,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+capi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+capi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "capi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+capi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+client-devel

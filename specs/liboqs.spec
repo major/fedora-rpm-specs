@@ -1,7 +1,7 @@
-%global oqs_version 0.11.0
+%global oqs_version 0.12.0
 Name:       liboqs
 Version:    %{oqs_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    liboqs is an open source C library for quantum-safe cryptographic algorithms.
 
 #liboqs uses MIT license by itself but includes several files licensed under different terms.
@@ -10,9 +10,9 @@ Summary:    liboqs is an open source C library for quantum-safe cryptographic al
 #see https://github.com/open-quantum-safe/liboqs/blob/main/README.md#license for more details
 License:    MIT AND Apache-2.0 AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND CC0-1.0 AND Unlicense
 URL:        https://github.com/open-quantum-safe/liboqs.git
-Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/%{oqs_version}.tar.gz
-Patch1:	    liboqs-0.11.0-acvp_patch.patch
-Patch2:	    liboqs-0.10.0-std-iana.patch
+Source:     https://github.com/open-quantum-safe/liboqs/archive/refs/tags/liboqs-%{oqs_version}.tar.gz
+Patch1:	    liboqs-0.12.0-acvp_patch.patch
+Patch2:	    liboqs-0.10.0-std-stricter.patch
 
 BuildRequires: ninja-build
 BuildRequires: cmake
@@ -62,7 +62,7 @@ sed -e '/COMMAND.*pytest/s|$| --ignore tests/test_code_conventions.py|' \
     -i tests/CMakeLists.txt
 
 %build
-%cmake -GNinja -DBUILD_SHARED_LIBS=ON -DOQS_USE_AES_OPENSSL=ON -DOQS_USE_AES_INSTRUCTIONS=OFF -DOQS_DIST_BUILD=ON -DOQS_ALGS_ENABLED=STD_IANA -DOQS_USE_SHA3_OPENSSL=ON -DOQS_DLOPEN_OPENSSL=ON -DCMAKE_BUILD_TYPE=Debug -LAH
+%cmake -GNinja -DBUILD_SHARED_LIBS=ON -DOQS_USE_AES_OPENSSL=ON -DOQS_USE_AES_INSTRUCTIONS=OFF -DOQS_DIST_BUILD=ON -DOQS_ALGS_ENABLED=NIST_2024 -DOQS_USE_SHA3_OPENSSL=ON -DOQS_DLOPEN_OPENSSL=ON -DCMAKE_BUILD_TYPE=Debug -LAH ..
 %cmake_build
 #ninja gen_docs
 
@@ -82,7 +82,7 @@ done
 %files
 %license LICENSE.txt
 %{_libdir}/liboqs.so.%{oqs_version}
-%{_libdir}/liboqs.so.6
+%{_libdir}/liboqs.so.7
 
 %files devel
 %{_libdir}/liboqs.so
@@ -99,6 +99,11 @@ done
 #%doc %%{_datadir}/doc/oqs/xml/*
 
 %changelog
+* Fri Jan 03 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.12.0-1
+- Rebasing to liboqs-0.12.0
+  Removing support of Kyber from build. Falcon is also disabled until being
+  standardized.
+
 * Tue Oct 01 2024 Dmitry Belyavskiy <dbelyavs@redhat.com> - 0.11.0-2
 - rebuilt and cleanup
 

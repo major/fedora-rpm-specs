@@ -9,7 +9,7 @@
 
 # https://github.com/elazarl/goproxy
 %global goipath         github.com/elazarl/goproxy
-Version:                1.2.5
+Version:                1.2.6
 
 %gometa -L -f
 

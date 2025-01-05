@@ -5,7 +5,7 @@
 %global crate bytemuck
 
 Name:           rust-bytemuck
-Version:        1.20.0
+Version:        1.21.0
 Release:        %autorelease
 Summary:        Muck around with piles of bytes
 
@@ -83,6 +83,18 @@ This package contains library source intended for building other packages which
 use the "alloc_uninit" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc_uninit-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+avx512_simd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+avx512_simd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "avx512_simd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+avx512_simd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytemuck_derive-devel
@@ -167,6 +179,18 @@ This package contains library source intended for building other packages which
 use the "must_cast" feature of the "%{crate}" crate.
 
 %files       -n %{name}+must_cast-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+must_cast_extra-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+must_cast_extra-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "must_cast_extra" feature of the "%{crate}" crate.
+
+%files       -n %{name}+must_cast_extra-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+nightly_stdsimd-devel

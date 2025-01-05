@@ -1,15 +1,9 @@
 %global         rc_subver     rc5
 
-%if 0%{?el10}
-%bcond_with gpm
-%else
-%bcond_without gpm
-%endif
-
 Summary:        ASCII art library
 Name:           aalib
 Version:        1.4.0
-Release:        0.52.%{rc_subver}%{?dist}
+Release:        0.53.%{rc_subver}%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://aa-project.sourceforge.net/aalib/
 Source0:        http://download.sourceforge.net/aa-project/%{name}-1.4%{rc_subver}.tar.gz
@@ -27,9 +21,7 @@ Patch8:         https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/aalib
 Patch9:		aalib-1.4rc5-opaque-ncurses-fix.patch
 
 BuildRequires:  autoconf
-%if 0%{with gpm}
 BuildRequires:  gpm-devel
-%endif
 BuildRequires:  libtool
 BuildRequires:  libXt-devel
 BuildRequires:  make
@@ -108,6 +100,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/aalib-config $RPM_BUILD_ROOT%{_datadir}/
 %{_datadir}/aclocal/aalib.m4
 
 %changelog
+* Fri Jan 03 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-0.53.rc5
+- Re-enable gpm on EL10
+
 * Fri Oct 04 2024 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-0.52.rc5
 - Do not BuildRequires gpm-devel on EL10
 - Specfile clean up

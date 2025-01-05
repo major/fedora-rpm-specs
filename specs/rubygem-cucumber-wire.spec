@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Wire protocol for Cucumber
 License: MIT
 URL: http://cucumber.io
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/cucumber/cucumber-ruby-wire.git
 # git -C cucumber-ruby-wire archive -v -o rubygem-cucumber-wire-6.2.1-features.txz v6.2.1 features/
 Source1: %{name}-%{version}-features.txz
+# Support quote in backtrace for Ruby 3.4
+# https://github.com/cucumber/cucumber-ruby-wire/pull/72
+Patch0: rubygem-cucumber-wire-7.0.0-Support-quote-in-backtrace-for-Ruby-3-4.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -38,6 +41,11 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+
+(
+cd %{builddir}
+%patch 0 -p1
+)
 
 # Relax the dependency.
 %gemspec_remove_dep -g cucumber-cucumber-expressions "~> 14.0", ">= 14.0.0"
@@ -84,6 +92,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 03 2025 Vít Ondruch <vondruch@redhat.com> - 6.2.1-3
+- Support quote in backtrace for Ruby 3.4
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

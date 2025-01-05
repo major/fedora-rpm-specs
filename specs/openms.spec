@@ -1,11 +1,8 @@
-%bcond_without check
+%bcond_with check
 %bcond_with debug
 
 ExclusiveArch: %{qt5_qtwebengine_arches}
 ExcludeArch:   %{ix86}
-
-# LTO flags break Python binding on i686
-%define _lto_cflags %{nil}
 
 # Python binding
 %global with_pyOpenMS 1
@@ -19,13 +16,13 @@ Obsoletes: python2-openms < 0:2.4.0-1
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   3.1.0
+Version:   3.2.0
 Epoch:     1
-Release:   %autorelease -p -e pre1
+Release:   %autorelease
 # Automatically converted from old format: BSD - review is highly recommended.
 License:   LicenseRef-Callaway-BSD
 URL:       http://www.openms.de/
-Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-Release%{version}.tar.gz
+Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-release-%{version}.tar.gz
 
 ##TOPPView, TOPPAS, INIFileEditor .desktop and icon files
 Source1:   https://raw.githubusercontent.com/OpenMS/OpenMS/develop/src/openms_gui/source/VISUAL/ICONS/TOPPView.png
@@ -62,14 +59,15 @@ BuildRequires: eigen3-devel
 BuildRequires: desktop-file-utils
 BuildRequires: percolator
 BuildRequires: libappstream-glib
+BuildRequires: yaml-cpp-devel >= 0.8.0
 Requires:      qt5-qtdeclarative-devel%{?_isa}
 
-## Build documentation
-## Doxygen useful only on SVN versions  
+# Build documentation
+# Doxygen useful only on SVN versions  
 BuildRequires: doxygen, dos2unix, graphviz
 BuildRequires: texlive, texlive-a4wide, texlive-xtab
 
-##Xvfb is needed to run a virtual X server used by some tests
+# Xvfb is needed to run a virtual X server used by some tests
 BuildRequires: xorg-x11-server-Xvfb, gnuplot, gawk
 
 Requires: percolator%{?_isa}
@@ -78,7 +76,8 @@ Requires: R-core%{?_isa}
 
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
-Patch1: bz2254779.diff
+
+Patch1: %{name}-3.2.0-bz2254779.patch
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -94,8 +93,7 @@ OpenMS offers analyses for various quantitation protocols,
 including label-free quantitation, SILAC, iTRAQ, SRM, SWATH, etc.
 
 It provides built-in algorithms for de-novo identification and database search,
-as well as adapters to other state-of-the art tools like XTandem, Mascot,
-OMSSA, etc.
+as well as adapters to other state-of-the art tools like Mascot, OMSSA, etc.
 It supports easy integration of OpenMS built tools into workflow engines like
 Knime, Galaxy, WS-Pgrade, and TOPPAS via the TOPPtools concept and
 a unified parameter handling via a 'common tool description' (CTD) scheme.
@@ -190,7 +188,7 @@ Summary: OpenMS documentation
 HTML documentation of OpenMS.
 
 %prep
-%autosetup -N -n OpenMS-Release%{version}
+%autosetup -N -n OpenMS-release-%{version}
 
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
@@ -242,6 +240,9 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
  -DPACKAGE_TYPE:STRING=none -DWITH_GUI:BOOL=ON \
  -DXercesC_INCLUDE_DIRS:PATH=%{_includedir}/xercesc \
  -DOPENMS_DISABLE_UPDATE_CHECK:BOOL=OFF -DENABLE_UPDATE_CHECK:BOOL=OFF -DGIT_TRACKING:BOOL=OFF \
+ -DFETCHCONTENT_UPDATES_DISCONNECTED:BOOL=ON -DYAML_CPP_FORMAT_SOURCE:BOOL=OFF -DYAML_CPP_INSTALL:BOOL=ON \
+ -DFETCHCONTENT_UPDATES_DISCONNECTED_YAML-CPP_FETCH_CONTENT:BOOL=ON \
+ -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON -Dyaml-cpp_DIR:PATH=%{_libdir}/cmake/yaml-cpp \
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DOPENMS_64BIT_ARCHITECTURE:BOOL=ON \
 %else
@@ -349,16 +350,16 @@ desktop-file-install \
  --set-key=Exec --set-value="env OPENMS_DATA_PATH=%{_datadir}/OpenMS INIFileEditor" \
  --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
 
-##Install appdata files
+# Install appdata files
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 share/OpenMS/DESKTOP/*.appdata.xml %{buildroot}%{_metainfodir}/
 
-##HTML files copied
-##I want to pack them by using %%doc macro
+# HTML files copied
+# I want to pack them by using %%doc macro
 cp -a %{buildroot}%{_datadir}/doc/openms-doc/html html
 rm -rf %{buildroot}%{_datadir}/doc/openms-doc/html
 
-## Fix R script
+# Fix R script
 sed -i "1 s|^#!/usr/bin/env Rscript\b|#!/usr/bin/Rscript|" %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 
 chmod 0755 %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
@@ -366,26 +367,21 @@ chmod 0755 %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 # Remove unused files
 rm -rf %{buildroot}%{_includedir}/thirdparty
 
-%if %{with check}
-cp -a %{buildroot}%{_datadir}/OpenMS/examples/examples/* %{buildroot}%{_datadir}/OpenMS/examples/
-rm -rf %{buildroot}%{_datadir}/OpenMS/examples/examples
-%endif
-
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %if %{with check}
 ## starting tests
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
-export PATH=%{buildroot}%{_bindir}:%{_bindir}
+export PATH=%{buildroot}%{_bindir}
 export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
-export PYTHONPATH=%{buildroot}%{python3_sitearch}:../src/OpenMS
+export PYTHONPATH=%{buildroot}%{python3_sitearch}
+export EXAMPLE_PATH=%{buildroot}%{_datadir}/OpenMS
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-# FAILED: 'ratio of numbers is too large' for some tests
-ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|SVMWrapper_test|File_test|TOPP_OpenSwathWorkflow|MRMTransitionGroupPicker_test|Deisotoper_test|IsobaricAnalyzer'
+%{_bindir}/ctest -j 4 -V --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
 %endif
 
 %files
@@ -413,42 +409,32 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/NoiseFilterGaussian
 %{_bindir}/NoiseFilterSGolay
 %{_bindir}/PeakPickerHiRes
-%{_bindir}/PeakPickerWavelet
-%{_bindir}/PrecursorMassCorrector
 %{_bindir}/HighResPrecursorMassCorrector
 %{_bindir}/Resampler
-%{_bindir}/SpectraFilterBernNorm
-%{_bindir}/SpectraFilterMarkerMower
 %{_bindir}/SpectraFilterNLargest
 %{_bindir}/SpectraFilterNormalizer
-%{_bindir}/SpectraFilterParentPeakMower
-%{_bindir}/SpectraFilterScaler
-%{_bindir}/SpectraFilterSqrtMower
 %{_bindir}/SpectraFilterThresholdMower
 %{_bindir}/SpectraFilterWindowMower
-%{_bindir}/TOFCalibration
 %{_bindir}/Decharger
 %{_bindir}/EICExtractor
 %{_bindir}/FeatureFinderCentroided
-%{_bindir}/FeatureFinderIsotopeWavelet
 %{_bindir}/FeatureFinderMetabo
-%{_bindir}/FeatureFinderMRM
 %{_bindir}/FeatureLinkerUnlabeledKD
 %{_bindir}/IsobaricAnalyzer
 %{_bindir}/ProteinQuantifier 
-%{_bindir}/ProteinResolver
 %{_bindir}/SeedListGenerator
 %{_bindir}/ConsensusMapNormalizer
 %{_bindir}/MapAlignerIdentification
 %{_bindir}/MapAlignerPoseClustering
-%{_bindir}/MapAlignerSpectrum
 %{_bindir}/MapRTTransformer
 %{_bindir}/FeatureLinkerLabeled
 %{_bindir}/FeatureLinkerUnlabeled
 %{_bindir}/FeatureLinkerUnlabeledQT
 %{_bindir}/MascotAdapter
 %{_bindir}/MascotAdapterOnline
-%{_bindir}/XTandemAdapter
+%{_bindir}/IonMobilityBinning
+%{_bindir}/AssayGeneratorMetaboSirius
+%{_bindir}/SiriusExport
 %{_bindir}/SpecLibSearcher
 %{_bindir}/ConsensusID
 %{_bindir}/FalseDiscoveryRate
@@ -484,7 +470,6 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/LuciphorAdapter
 %{_bindir}/SageAdapter
 %{_bindir}/DatabaseFilter
-%{_bindir}/RNPxlSearch
 %{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/TOPPAS.desktop
 %{_datadir}/applications/TOPPView.desktop
@@ -518,9 +503,7 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/OpenPepXLLF
 %{_bindir}/OpenMSDatabasesInfo
 %{_bindir}/PSMFeatureExtractor
-%{_bindir}/SiriusAdapter
 %{_bindir}/XFDR
-%{_bindir}/RNPxlSearch
 %{_bindir}/SpectraSTSearchAdapter
 %{_bindir}/DatabaseFilter
 %{_bindir}/TargetedFileConverter
@@ -547,7 +530,6 @@ ctest -j 1 -VV --force-new-ctest-process --output-on-failure --test-dir build -E
 %{_bindir}/IDExtractor
 %{_bindir}/IDMassAccuracy 
 %{_bindir}/SpecLibCreator
-%{_bindir}/ERPairFinder
 %{_bindir}/MRMPairFinder
 %{_bindir}/ImageCreator
 %{_bindir}/MassCalculator

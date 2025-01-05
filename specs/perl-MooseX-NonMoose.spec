@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-MooseX-NonMoose
-Version:        0.26
-Release:        30%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        Easy subclassing of non-Moose classes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-NonMoose
@@ -22,30 +22,30 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time
-BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moose::Exporter)
 BuildRequires:  perl(Moose::Role) >= 2.0000
 BuildRequires:  perl(Moose::Util)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Try::Tiny)
 # Test
 BuildRequires:  perl(base)
-BuildRequires:  perl(blib)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(Moose) >= 1.15
+BuildRequires:  perl(Config)
+BuildRequires:  perl(Moose)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Moose)
-BuildRequires:  perl(Test::More) >= 0.88
-# Extra tests
+BuildRequires:  perl(Test::More) >= 0.98
+BuildRequires:  perl(Test2::Require::Module) >= 0.000121
+# Optional tests
 %if %{with perl_MooseX_NonMoose_enables_extra_test}
 BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(MooseX::GlobRef)
 BuildRequires:  perl(MooseX::InsideOut) >= 0.100
 %endif
 # Dependencies
-Requires:       perl(Moose) >= 1.15
+# (none)
 
 %description
 MooseX::NonMoose allows for easily subclassing non-Moose classes with
@@ -64,11 +64,11 @@ modules, or even classes that don't inherit from anything at all.
 %setup -q -n MooseX-NonMoose-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -84,6 +84,10 @@ make test
 %{_mandir}/man3/MooseX::NonMoose::Meta::Role::Constructor.3*
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 0.27-1
+- Update to 0.27 (rhbz#2335385)
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
@@ -172,7 +176,7 @@ make test
 - Perl 5.22 rebuild
 
 * Tue Nov 11 2014 Emmanuel Seyman <emmanuel@seyman.fr> - 0.26-1
-- Update to 0.29
+- Update to 0.26
 - Use the %%license tag
 
 * Mon Sep 01 2014 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-9

@@ -1,23 +1,37 @@
 Name:           perl-Net-OAuth
-Version:        0.28
-Release:        35%{?dist}
+Version:        0.30
+Release:        1%{?dist}
 Summary:        OAuth protocol support library for Perl
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OAuth
-Source0:        https://cpan.metacpan.org/authors/id/K/KG/KGRENNAN/Net-OAuth-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Net-OAuth-%{version}.tar.gz
 BuildArch:      noarch
+
+# Build
 BuildRequires:  perl-generators
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor) >= 0.31
+BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::Data::Inheritable) >= 0.06
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Crypt::URandom) >= 0.37
 BuildRequires:  perl(Digest::HMAC_SHA1) >= 1.01
+BuildRequires:  perl(Digest::SHA) >= 5.47
+BuildRequires:  perl(LWP::UserAgent) >= 1
+BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Module::Build::Compat)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(URI) >= 5.15
+BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(URI::QueryParam)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
-BuildRequires:  perl(UNIVERSAL::require) >= 0.10
-BuildRequires:  perl(URI::Escape) >= 3.28
-Requires:       perl(Class::Accessor) >= 0.31
-Requires:       perl(Class::Data::Inheritable) >= 0.06
+BuildRequires:  perl(utf8)
 
 %{?perl_default_filter}
 
@@ -50,11 +64,15 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Net/
+%{_mandir}/man3/Net::OAuth*3pm*
 
 
 %changelog
+* Fri Jan 03 2025 Xavier Bachelot <xacier@bachelot.org> -  0.30-1
+- Update to 0.30 (RHBZ#2335403)
+- Specify all dependencies
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.28-35
 - convert license to SPDX
 

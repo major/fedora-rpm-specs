@@ -61,12 +61,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 
 
 %check
-# Some tests fail and I haven't found a way to make them work
+# Tests checks if ENV variable overrides INI file setting
+# Not sure why it fails, but it seems to work in practice. Skip!
 k="${k-}${k+ and }not test_qt_api_ini_config"
-k="${k-}${k+ and }not test_basic_logging"
-k="${k-}${k+ and }not test_qtlog_fixture"
-k="${k-}${k+ and }not test_logging_fails_tests"
-
+# https://github.com/pytest-dev/pytest-qt/issues/179
+export QT_LOGGING_RULES="default.debug=true"
 %tox -- -- "${k+-k $k}"
 
 

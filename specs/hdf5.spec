@@ -14,7 +14,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.14.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD-3-Clause
 URL: https://www.hdfgroup.org/solutions/hdf5/
@@ -410,6 +410,8 @@ fi
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/plugin/
 %{_libdir}/libhdf5.so.%{so_version}*
 %{_libdir}/libhdf5_cpp.so.%{so_version}*
 %{_libdir}/libhdf5_fortran.so.%{so_version}*
@@ -452,7 +454,7 @@ fi
 %if %{with java}
 %files -n java-hdf5
 %{_jnidir}/hdf5.jar
-%{_libdir}/%{name}/
+%{_libdir}/%{name}/*
 %endif
 
 %if %{with_mpich}
@@ -481,7 +483,7 @@ fi
 %{_libdir}/mpich/bin/h5unjam
 %{_libdir}/mpich/bin/h5watch
 %{_libdir}/mpich/bin/ph5diff
-%{_libdir}/mpich/hdf5/
+%{_libdir}/mpich/%{name}/
 %{_libdir}/mpich/lib/*.so.%{so_version}*
 
 %files mpich-devel
@@ -524,7 +526,7 @@ fi
 %{_libdir}/openmpi/bin/h5unjam
 %{_libdir}/openmpi/bin/h5watch
 %{_libdir}/openmpi/bin/ph5diff
-%{_libdir}/openmpi/hdf5/
+%{_libdir}/openmpi/%{name}/
 %{_libdir}/openmpi/lib/*.so.%{so_version}*
 
 %files openmpi-devel
@@ -543,6 +545,9 @@ fi
 
 
 %changelog
+* Fri Jan 03 2025 Orion Poplawski <orion@nwra.com> - 1.14.5-2
+- Fix ownership of %%{_libdir}/hdf5
+
 * Wed Oct 02 2024 Orion Poplawski <orion@nwra.com> - 1.14.3-1
 - Update to 1.14.5
 - Use SPDX License tag

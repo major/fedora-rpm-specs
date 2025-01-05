@@ -4,7 +4,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.9.1
+Version:        4.9.2
 Release:        %autorelease
 Summary:        Methods to enumerate orbits in GAP
 

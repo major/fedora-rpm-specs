@@ -7,9 +7,8 @@
 
 Name: rabbitmq-server
 Version: 4.0.5
-Release: 1%{?dist}
-# Automatically converted from old format: MPLv1.1 - review is highly recommended.
-License: LicenseRef-Callaway-MPLv1.1
+Release: 2%{?dist}
+License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
 Source2: https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
@@ -18,7 +17,6 @@ Source3: rabbitmq-server.logrotate
 # curl -O https://raw.githubusercontent.com/rabbitmq/rabbitmq-server-release/rabbitmq_v3_6_16/packaging/RPMS/Fedora/rabbitmq-server.tmpfiles
 Source5: rabbitmq-server.tmpfiles
 Source6: rabbitmq-server-cuttlefish
-Patch1: rabbitmq-server-0001-Allow-guest-login-from-non-loopback-connections.patch
 Patch2: rabbitmq-server-0002-Use-default-EPMD-socket.patch
 Patch3: rabbitmq-server-0003-Use-proto_dist-from-command-line.patch
 Patch4: rabbitmq-server-0004-force-python3.patch
@@ -188,6 +186,10 @@ done
 
 
 %changelog
+* Thu Jan 02 2025 Richard W.M. Jones <rjones@redhat.com> - 4.0.5-2
+- Remove downstream patch which allowed remote connections (RHBZ#2333072)
+- Move license to MPL 2.0 (RHBZ#2333074)
+
 * Wed Dec 18 2024 Robert Scheck <robert@fedoraproject.org> - 4.0.5-1
 - Ver. 4.0.5
 

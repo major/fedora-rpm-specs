@@ -5,7 +5,7 @@
 %global enable_tests 0
 
 Name:          nodejs-%{npm_name}
-Version:       3.1.4
+Version:       3.1.9
 Release:       %autorelease
 Summary:       Simple monitor script for use during development of a node.js app
 License:       ISC AND MIT

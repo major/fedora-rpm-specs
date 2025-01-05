@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.7
-Release: 2%{?dist}
+Version: 7.0.8
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -190,6 +190,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Fri Jan 03 2025 Steve Grubb <sgrubb@redhat.com> 7.0.8-1
+- New security and bugfix release
+
 * Tue Oct 22 2024 Richard W.M. Jones <rjones@redhat.com> - 7.0.7-2
 - Rebuild for Jansson 2.14
   (https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/3PYINSQGKQ4BB25NQUI2A2UCGGLAG5ND/)
@@ -203,7 +206,7 @@ fi
 * Thu Jun 27 2024 Steve Grubb <sgrubb@redhat.com> 7.0.6-1
 - New security and bugfix release
 
-* Fri June 07 2024 Steve Grubb <sgrubb@redhat.com> 7.0.5-3
+* Fri Jun 07 2024 Steve Grubb <sgrubb@redhat.com> 7.0.5-3
 - Don't fail install if log doesn't exist
 
 * Sat May 11 2024 Kevin Fenzi <kevin@scrye.com> - 7.0.5-2

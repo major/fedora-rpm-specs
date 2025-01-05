@@ -32,6 +32,9 @@ encryption.
 
 
 %prep -a
+# Unpin pytest; see https://github.com/jrnl-org/jrnl/issues/1879.
+sed -r -i 's/(pytest\b.*),<=?[[:digit:].]+/\1/' pyproject.toml
+
 dos2unix --keepdate \
     SECURITY.md \
     docs/external-editors.md \

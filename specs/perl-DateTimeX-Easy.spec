@@ -4,18 +4,14 @@
 %bcond_without perl_DateTimeX_Easy_enables_ical
 
 Name:       perl-DateTimeX-Easy
-Version:    0.091
-Release:    7%{?dist}
+Version:    0.092
+Release:    1%{?dist}
 # lib/DateTimeX/Easy.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                          GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:                           GPL-1.0-or-later OR Artistic-1.0-Perl
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Parse a date/time string using the best method available
 Source:     https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/DateTimeX-Easy-%{version}.tar.gz
-# Adapt the tests and a documentation to changes in
-# perl-DateTime-TimeZone-2.63, bug #2314392, posted to upstream
-# <https://github.com/jjn1056/datetimex-easy/pull/3>
-Patch0:     DateTimeX-Easy-0.091-Use-America-Los_Angeles-instead-of-PST8PDT.patch
 Url:        https://metacpan.org/release/DateTimeX-Easy
 BuildArch:  noarch
 BuildRequires:  coreutils
@@ -34,6 +30,7 @@ BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Flexible)
 BuildRequires:  perl(DateTime::Format::Natural)
+# 2.63 minimal version in META is superfluous
 BuildRequires:  perl(DateTime::TimeZone)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Scalar::Util)
@@ -114,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 03 2025 Petr Pisar <ppisar@redhat.com> - 0.092-1
+- 0.092 bump
+
 * Tue Sep 24 2024 Petr Pisar <ppisar@redhat.com> - 0.091-7
 - Adapt the tests and a documentation to changes in
   perl-DateTime-TimeZone-2.63 (bug #2314392)

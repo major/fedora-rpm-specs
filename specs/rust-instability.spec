@@ -5,7 +5,7 @@
 %global crate instability
 
 Name:           rust-instability
-Version:        0.3.3
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Rust API stability attributes for the rest of us
 
@@ -32,9 +32,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.md
-%license %{crate_instdir}/NOTICES.md
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/NOTICES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

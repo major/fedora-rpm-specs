@@ -1,5 +1,5 @@
 Name:           perl-Carp-Assert-More
-Version:        2.5.0
+Version:        2.7.0
 Release:        1%{?dist}
 Summary:        Convenience wrappers around Carp::Assert
 License:        Artistic-2.0
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Carp*.3pm*
 
 %changelog
+* Fri Jan 03 2025 Xavier Bachelot <xavier@bachelot.org> - 2.7.0-1
+- Update to 2.7.0 (RHBZ#2335409)
+
 * Thu Nov 14 2024 Xavier Bachelot <xavier@bachelot.org> - 2.5.0-1
 - Update to 2.5.0 (RHBZ#2325413)
 

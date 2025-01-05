@@ -1,11 +1,11 @@
 # This module usually ships with version numbers having two digits after the decimal point
-%global cpan_version 1.993
-%global rpm_version 1.99.3
+%global cpan_version 1.994
+%global rpm_version 1.99.4
 
 Summary:	Test file attributes through Test::Builder
 Name:		perl-Test-File
 Version:	%{rpm_version}
-Release:	7%{?dist}
+Release:	1%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-File
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-File-%{cpan_version}.tar.gz
@@ -23,7 +23,6 @@ BuildRequires:	perl(Exporter)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Test::Builder)
-BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 BuildRequires:	perl(XSLoader)
 # Test Suite
@@ -61,11 +60,16 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod
+%doc Changes README.pod SECURITY.md
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::File.3*
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 1.99.4-1
+- Update to 1.994
+  - Refresh distro and move to BRIANDFOY
+- Package new file SECURITY.md
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

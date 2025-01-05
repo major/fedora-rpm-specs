@@ -1,19 +1,17 @@
-%global srcname pyRFC3339
+%global srcname pyrfc3339
 
 Name:           python-pyrfc3339
-Version:        1.1
-Release:        20%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Generate and parse RFC 3339 timestamps
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/pyRFC3339
 Source0:        %{pypi_source}
 # release tarballs do not contain unit tests (pyrfc3339/tests/tests.py)
-# https://raw.githubusercontent.com/kurtraschke/pyRFC3339/master/pyrfc3339/tests/tests.py
-# v1.1: git commit e30cc155
-Source1:        https://raw.githubusercontent.com/kurtraschke/pyRFC3339/e30cc1555adce0ecc7bd65509a2249d47e5a41b4/pyrfc3339/tests/tests.py
-# basically the same as https://github.com/kurtraschke/pyRFC3339/pull/16
-Patch1:         pyrfc3339-use-pytest-in-tests.patch
+# https://github.com/kurtraschke/pyRFC3339/blob/master/pyrfc3339/tests/test_all.py
+# v2.0.1: git commit 53c2d1587d3a
+Source1:        https://raw.githubusercontent.com/kurtraschke/pyRFC3339/53c2d1587d3aac1734ddd4d4006a815df2d80f36/pyrfc3339/tests/test_all.py
 
 BuildArch:      noarch
 
@@ -41,7 +39,6 @@ RFC 3339-compliant timestamps using Python datetime.datetime objects.
 %prep
 %autosetup -n %{srcname}-%{version} -N
 cp -a %{SOURCE1} .
-%patch -P1 -p1
 
 %build
 %pyproject_wheel
@@ -51,12 +48,15 @@ cp -a %{SOURCE1} .
 %pyproject_save_files pyrfc3339
 
 %check
-%pytest -v tests.py
+%pytest -v test_all.py
 
 %files -n python3-pyrfc3339 -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Fri Jan 03 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 2.0.1-1
+- update to 2.0.1
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

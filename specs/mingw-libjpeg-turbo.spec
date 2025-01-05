@@ -5,7 +5,7 @@
 %global build_programs 0
 
 Name:           mingw-libjpeg-turbo
-Version:        3.0.4
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Libjpeg-turbo library
 
@@ -198,6 +198,9 @@ chmod -x README.md
 
 
 %changelog
+* Fri Jan 03 2025 Sandro Mani <manisandro@gmail.com> - 3.1.0-1
+- Update to 3.1.0
+
 * Wed Sep 18 2024 Sandro Mani <manisandro@gmail.com> - 3.0.4-1
 - Update to 3.0.4
 

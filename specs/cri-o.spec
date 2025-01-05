@@ -7,7 +7,7 @@
 %global git_tree_state  clean
 %global criocli_path    ""
 
-Version:        1.31.1
+Version:        1.32.0
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
@@ -26,7 +26,7 @@ Version:        1.31.1
 %endif
 
 # Commit for the builds
-%global commit0 51ea93e0b9af5ad2cfa7f8071ec48d99bf39a3ec
+%global commit0 b7f3c240bcbda6fae8d43561694d18317e09e167
 
 Name:           cri-o
 Epoch:          0
@@ -40,7 +40,7 @@ URL:            https://github.com/cri-o/cri-o
 Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
 
 %if 0%{?rhel}
-BuildRequires:  golang >= 1.19
+BuildRequires:  golang >= 1.23
 %endif
 %if 0%{?rhel} && 0%{?rhel} <= 8
 # e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
@@ -104,14 +104,16 @@ sed -i 's/\/local//' contrib/systemd/%{service_name}.service
 sed -i 's/\/local//' contrib/systemd/%{service_name}-wipe.service
 
 %build
+%global __golang_extldflags -Wl,-z,undefs
+
 export GO111MODULE=on
 export GOFLAGS=-mod=vendor
 
-export BUILDTAGS="$(hack/btrfs_installed_tag.sh)
-$(hack/btrfs_tag.sh) $(hack/libdm_installed.sh)
-$(hack/libdm_no_deferred_remove_tag.sh)
-$(hack/seccomp_tag.sh)
-$(hack/selinux_tag.sh)"
+export BUILDTAGS="containers_image_ostree_stub
+$(hack/btrfs_installed_tag.sh)
+$(hack/btrfs_tag.sh) $(hack/openpgp_tag.sh)
+$(hack/seccomp_tag.sh) $(hack/selinux_tag.sh)
+$(hack/libsubid_tag.sh) exclude_graphdriver_devicemapper"
 
 %if 0%{?rhel}  && 0%{?rhel} <= 8
 BUILDTAGS="$BUILDTAGS containers_image_openpgp"
@@ -222,6 +224,11 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
+* Mon Dec 23 2024 Bradley G Smith <bradley.g.smith@gmail.com> - 0:1.32.0-1
+- Bump to v1.32.0
+- Add -Wl,-z,undefs linker flags to resolve https://github.com/cri-o/cri-o/issues/8860
+- Update BUILDTAGS to conform to upstream
+
 * Thu Oct 24 2024 Dennis Gilmore <dennis@ausil.us> - 0:1.31.1-1
 - update to 1.31.1
 

@@ -1,6 +1,17 @@
+# Fix FTBFS due to `zig build` being called with non-existent system package directory:
+#
+#   + /usr/bin/zig build [...] --system /builddir/build/BUILD/ncdu-2.7-build/zig-cache/p [...]
+#   error: unable to open system package directory '/builddir/build/BUILD/ncdu-2.7-build/zig-cache/p': FileNotFound
+#
+# See:
+#
+#   https://src.fedoraproject.org/rpms/zig/c/c8cfc2b53dd82650111a94a5facd984f9251b15c?branch=rawhide
+#
+%undefine _zig_system_integration
+
 Name:           ncdu
 Version:        2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
@@ -43,6 +54,9 @@ and provides a fast way to see what directories are using your disk space.
 %{_bindir}/ncdu
 
 %changelog
+* Fri Jan 03 2025 Richard Fearn <richardfearn@gmail.com> - 2.7-2
+- Fix FTBFS due to `zig build` being called with non-existent system package directory
+
 * Fri Nov 29 2024 Richard Fearn <richardfearn@gmail.com> - 2.7-1
 - Update to 2.7
 

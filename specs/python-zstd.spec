@@ -2,8 +2,8 @@
 %global zstd_version 1.5.5
 
 Name:           python-%{pypi_name}
-Version:        1.5.5.1
-Release:        6%{?dist}
+Version:        1.5.6.1
+Release:        1%{?dist}
 Summary:        Zstd Bindings for Python
 
 # original zstd bits are GPL-2.0-or-later OR BSD-2-Clause
@@ -62,6 +62,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 1.5.6.1-1
+- update to 1.5.6.1 rhbz#2335057
+
 * Thu Nov 07 2024 Michel Lind <salimma@fedoraproject.org> - 1.5.5.1-6
 - Switch test runner to unittest for setuptools 74+ compatibility
 - Resolves: rhbz#2319745

@@ -3,7 +3,7 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        5.2.0
+Version:        5.4.3
 Release:        %autorelease
 Summary:        A language server for Bash
 License:        MIT
@@ -14,7 +14,7 @@ Source1:        %{pkg_name}-%{version}-vendor.tar.zst
 # Create with: nodejs-packaging-bundler bash-language-server 5.1.1
 Source2:        bash-language-server-bundled-licenses.txt
 BuildRequires:  fdupes
-BuildRequires:  nodejs-typescript
+BuildRequires:  npm(typescript)
 BuildRequires:  nodejs-packaging
 BuildRequires:  nodejs-npm
 BuildRequires:  perl-interpreter
@@ -101,55 +101,3 @@ rm %{buildroot}%{nodejs_sitelib}/%{pkg_name}/server/node_modules/@types/urijs
 
 %changelog
 %autochangelog
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 02 2024 Andreas Schneider <asn@redhat.com> - 5.1.1-1
-- Update to version 5.1.1
-  * https://github.com/bash-lsp/bash-language-server/blob/server-5.1.1/server/CHANGELOG.md
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jun 12 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.10-1
-- Update to version 4.10.0 - https://github.com/bash-lsp/bash-language-server/blob/server-4.10.0/server/CHANGELOG.md
-
-* Thu Feb 02 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-2
-- Fix /usr/bin/bash-language-server
-
-* Mon Jan 30 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-1
-- Update to version 4.6.1
-  * https://github.com/bash-lsp/bash-language-server/blob/server-4.6.1/server/CHANGELOG.md
-
-* Sun Jan 29 2023 Jonathan Lebon <jonathan@jlebon.com> - 3.2.0-3
-- Don't own /usr/lib/node_modules
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Aug 19 2022 Pavel Filipenský <pfilipen@redhat.com> - 3.0.5-1
-- Update to version 3.0.5
-  * https://github.com/bash-lsp/bash-language-server/blob/server-3.0.5/server/CHANGELOG.md
-- Linting based on shellcheck
-- Update bashls-fix-CVE-2022-0613.patch with content of https://patch-diff.githubusercontent.com/raw/bash-lsp/bash-language-server/pull/489.patch
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Feb 17 2022 Pavel Filipenský <pfilipen@redhat.com> - 2.0.0-3
-- resolves: #2055544 - Fix CVE-2022-0613
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Aug 26 2021 Pavel Filipenský <pfilipen@redhat.com> - 2.0.0-1
-- Update to version 2.0.0
-  * https://github.com/bash-lsp/bash-language-server/blob/server-2.0.0/server/CHANGELOG.md
-- Fixed indentation for node shebang loop
-
-* Thu Aug 05 2021 Andreas Schneider <asn@redhat.com> - 1.17.0-1
-- Initial package

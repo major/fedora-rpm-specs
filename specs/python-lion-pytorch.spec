@@ -8,6 +8,9 @@ URL:            https://github.com/lucidrains/lion-pytorch
 Source:         %{pypi_source lion_pytorch}
 
 BuildArch:      noarch
+# Pytorch only on X86_64 and aarch64
+ExclusiveArch:  x86_64 aarch64
+
 BuildRequires:  python3-devel
 
 %global _description %{expand:

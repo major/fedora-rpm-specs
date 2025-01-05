@@ -2,7 +2,7 @@
 
 Name:    kf6-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 6.9.0
+Version: 6.10.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -90,6 +90,9 @@ Requires: cmake(KF6CoreAddons)
 %{_kf6_libdir}/cmake/KF6Purpose/
 
 %changelog
+* Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
+- 6.10.0
+
 * Sat Dec 14 2024 Steve Cossette <farchord@gmail.com> - 6.9.0-1
 - 6.9.0
 

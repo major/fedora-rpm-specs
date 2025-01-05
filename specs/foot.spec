@@ -2,7 +2,7 @@
 %global default_terminfo foot
 
 Name:           foot
-Version:        1.20.0
+Version:        1.20.1
 Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
@@ -143,6 +143,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 03 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.20.1-1
+- Update to 1.20.1 (#2335391)
+
 * Wed Jan 01 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.20.0-1
 - Update to 1.20.0 (#2335133)
 

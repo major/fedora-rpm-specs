@@ -9,7 +9,7 @@
 
 # https://github.com/DeedleFake/trayscale
 %global goipath         github.com/DeedleFake/trayscale
-Version:                0.14.0
+Version:                0.14.1
 
 %if 0%{?rhel}
 %gometa
@@ -33,7 +33,7 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND MPL-2.0 AND ISC AND BSD-
 URL:            %{gourl}
 # see create-vendor-tarball.sh in this distgit repo
 Source0:        trayscale-%{version}-vendored.tar.xz
-Source1:        create-vendor-tarball.sh
+Source99:       create-vendor-tarball.sh
 
 BuildRequires:          glib2-devel
 BuildRequires:          gobject-introspection-devel
@@ -189,7 +189,6 @@ rm -rf vendor/
 %endif
 
 %goprep %{?with_vendor:-k}
-%autopatch -p1
 
 
 %build
@@ -230,6 +229,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 0.14.1-1
+- update to 0.14.1 rhbz#2333617
+
 * Fri Nov 22 2024 Jonathan Wright <jonathan@almalinux.org> - 0.14.0-1
 - update to 0.14.0 rhbz#2305263
 

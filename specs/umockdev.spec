@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.0
+Version:          0.19.1
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,12 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Thu Jan 02 2025 Packit <hello@packit.dev> - 0.19.1-1
+- preload: Restore errno in ioctl_emulate_open()
+- preload: Only emulate ioctls on emulated devices
+- Fix ioctl_tree_execute() ret type and initialization (thanks Helge Deller)
+- tests: Disable spidev on big-endian 32-bit platforms (thanks Helge Deller)
+
 * Fri Dec 27 2024 Packit <hello@packit.dev> - 0.19.0-1
 - API: Add UMockdev.Testbed.wait_script() to sync to scripts/evemu replays
 - API: UMockdev.Testbed.load_script_from_string()

@@ -1,5 +1,5 @@
 Name:           libmamba
-Version:        1.5.11
+Version:        1.5.12
 Release:        1%{?dist}
 Summary:        C++ API for mamba depsolving library
 
@@ -165,6 +165,9 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jan 03 2025 Orion Poplawski <orion@nwra.com> - 1.5.12-1
+- Update to 1.5.12
+
 * Sat Nov 30 2024 Orion Poplawski <orion@nwra.com> - 1.5.11-1
 - Update to 1.5.11
 

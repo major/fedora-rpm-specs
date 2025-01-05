@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 25
+%global baserelease 26
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -342,6 +342,7 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-nolink-libc.patch
+Patch25: glibc-clone-reset-tid.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2367,6 +2368,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Jan  3 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-26
+- x86_64: Reset TID during clone if !CLONE_VM (#2335406)
+
 * Thu Jan 02 2025 Florian Weimer <fweimer@redhat.com> - 2.40.9000-25
 - Update glibc-nolink-libc.patch following upstream development.
 - Update glibc-python3.patch to resolve copyright year conflict.

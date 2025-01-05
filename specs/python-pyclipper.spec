@@ -1,14 +1,13 @@
 %global srcname pyclipper
 
 Name:           python-%{srcname}
-Version:        1.3.0~post6
-%global Version %{version_no_tilde .}
+Version:        1.3.0.post6
 Release:        %autorelease
 Summary:        Cython wrapper for the C++ translation of the Angus Johnson's Clipper library
 
 License:        MIT
 URL:            https://pypi.org/project/pyclipper
-Source:         %pypi_source %{srcname} %{Version}
+Source:         %pypi_source %{srcname}
 
 # Unbundle Clipper library from build entirely, so we can use the system copy.
 Patch:          0001-Unbundle-Clipper-library-from-build-entirely.patch
@@ -31,7 +30,7 @@ translation of the Angus Johnson's Clipper library.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{Version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 # Remove bundled polyclipping.
 rm src/clipper.{cpp,hpp}
@@ -42,11 +41,11 @@ rm src/pyclipper/*.cpp
 touch dev
 
 %generate_buildrequires
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{Version}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{Version}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 %install

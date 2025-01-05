@@ -7,8 +7,8 @@
 
 Name:           perl-MooseX-Getopt
 Summary:        Moose role for processing command line options
-Version:        0.76
-Release:        4%{?dist}
+Version:        0.78
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Getopt
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Getopt-%{version}.tar.gz
@@ -49,7 +49,7 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Requires) >= 0.05
 BuildRequires:  perl(Test::Trap)
-BuildRequires:  perl(Test::Warnings) >= 0.009
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(version)
 # Optional Test Requirements
 BuildRequires:  perl(CPAN::Meta)
@@ -60,6 +60,7 @@ BuildRequires:  perl(MooseX::ConfigFromFile) >= 0.08
 BuildRequires:  perl(MooseX::SimpleConfig) >= 0.07
 BuildRequires:  perl(MooseX::StrictConstructor)
 %endif
+BuildRequires:  perl(Test::Warnings) >= 0.034
 BuildRequires:  perl(YAML)
 # Dependencies
 # (none)
@@ -105,6 +106,12 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MooseX::Getopt::Strict.3*
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 0.78-1
+- Update to 0.78 (rhbz#2335439)
+
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 0.77-1
+- Update to 0.77 (rhbz#2335370)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global framework solid
 
 Name:           kf6-%{framework}
-Version:        6.9.1
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 1 integration module that provides hardware information
 License:        LGPL-2.1-or-later AND LGPL-2.1-only AND CCO-1.0 AND BSD-3-Clause AND LGPL-3.0-only
@@ -78,6 +78,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
+- 6.10.0
+
 * Sat Dec 14 2024 Steve Cossette <farchord@gmail.com> - 6.9.1-1
 - 6.9.1
 

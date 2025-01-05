@@ -3,7 +3,7 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 6.1.6
+Version: 7.0.0
 Release: 1%{?dist}
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
@@ -17,8 +17,9 @@ Source: astropy-README.dist
 Patch: python-astropy-313tests.patch
 Patch: python-astropy-system-configobj.patch
 Patch: python-astropy-system-ply.patch
-# Drop build dep on numpy>=2
-Patch: python-astropy-deps.patch
+
+# Backport upstream patch for Numpy >=2.2
+Patch: effccc8.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel
@@ -46,7 +47,9 @@ BuildRequires: %{py3_dist ply}
 Requires: %{py3_dist configobj}
 Requires: %{py3_dist ply}
 # Bundled
+Provides: bundled(cfitsio) = 4.5.0
 Provides: bundled(jquery) = 3.60
+Provides: bundled(wcslib) = 8.3
 
 # Drop doc subpackage, is empty 
 
@@ -69,6 +72,9 @@ Utilities provided by Astropy.
 rm -rf astropy/extern/configobj
 rm -rf astropy/extern/ply
 rm -rf cextern/expat
+
+# Apparently, --current-env doesn't like {list_dependencies_command}
+sed -i 's/{list_dependencies_command}/python -m pip freeze --all/g' tox.ini
 
 export ASTROPY_USE_SYSTEM_ALL=1
 %generate_buildrequires
@@ -94,11 +100,17 @@ export CPATH="/usr/include/wcslib"
 
 %check
 %if %{with check}
-
+# some tests are broken with Numpy 2.x
+# see https://github.com/astropy/astropy/issues/17124
+# upstream commit effccc8 doesn't fix that entirely
 pytest_args=(
- --verbosity=0 
+ --verbosity=0
+ -k "not (test_coverage or test_basic_testing_completeness or test_all_included)"
+# Some doctest are failing because of different output in big/little endian
 %ifarch s390x
- --deselect astropy/samp/tests/test_standard_profile.py::TestStandardProfile::test_main
+ --ignore ../../docs/io/fits/index.rst
+ --ignore ../../docs/io/fits/usage/image.rst
+ --ignore ../../docs/io/fits/usage/unfamiliar.rst
 %endif
 )
 
@@ -116,6 +128,9 @@ pytest_args=(
 %doc README.rst 
 
 %changelog
+* Tue Dec 24 2024 Mattia Verga <mattia.verga@proton.me> - 7.0.0-1
+- Update to 7.0.0 for Numpy 2.x
+
 * Fri Nov 15 2024 Orion Poplawski <orion@nwra.com> - 6.1.6-1
 - Update to 6.1.6
 

@@ -6,16 +6,13 @@ constants with text, numeric, and bit flag values. Originally
 twisted.python.constants from the Twisted project.}
 
 Name:           python-%{srcname}
-Version:        15.1.0
+Version:        23.10.4
 Release:        %autorelease
 Summary:        Symbolic constants in Python
 
 License:        MIT
 URL:            https://github.com/twisted/constantly
 Source0:        %url/archive/%{version}/%{srcname}-%{version}.tar.gz
-# Refresh versioneer.py now generated with versioneer 0.21
-# https://github.com/twisted/constantly/pull/27
-Patch0:         0001-Update-versioneer.py-to-0.21.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -23,10 +20,12 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 
 # the tests are enabled by default but can be disabled
 # to avoid a circular dependency on twisted->constantly
-%bcond tests 1
-%if %{with tests}
+%if %{with bootstrap}
 BuildRequires:  python3dist(twisted)
 %endif
+
+Patch:          disable-pip-in-tox.patch
+
 
 %description %{common_description}
 
@@ -47,12 +46,12 @@ This is the documentation package for %{name}.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-t}
+%pyproject_buildrequires %{!?_with_bootstrap:-t}
 
 %build
 %pyproject_wheel
 
-PYTHONPATH=%{pyproject_build_lib} sphinx-build docs html
+sphinx-build docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
@@ -61,9 +60,11 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{srcname}
 
 %check
+%if %{with bootstrap}
 %pyproject_check_import
-%if %{with tests}
 %tox
+%else
+%py3_check_import %{srcname}
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

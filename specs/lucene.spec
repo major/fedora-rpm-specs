@@ -1,5 +1,5 @@
 Name:           lucene
-Version:        9.12.0
+Version:        10.1.0
 Release:        %autorelease
 Epoch:          0
 Summary:        High-performance, full-featured text search engine

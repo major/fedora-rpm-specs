@@ -1,54 +1,59 @@
-
 Name:           python-cccolutils
 Version:        1.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Python Kerberos Credential Cache Collection Utilities
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://pagure.io/cccolutils
 Source0:        https://pagure.io/releases/cccolutils/CCColUtils-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  krb5-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 
-%description
-Python utilities for Kerberos Credential Cache Collections
+%global _description %{expand:
+Python utilities for Kerberos Credential Cache Collections}
+
+
+%description %{_description}
 
 
 %package     -n python3-cccolutils
-Summary:        Python Kerberos Credential Cache Collection Utilities
+Summary:        %{summary}
 
-%description -n python3-cccolutils
-Python utilities for Kerberos Credential Cache Collections
 
+%description -n python3-cccolutils %{_description}
 
 
 %prep
 %autosetup -n CCColUtils-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -L cccolutils
 
 
 %check
-%{py3_test_envvars} %{python3} -m unittest -v tests/*.py
+%{py3_test_envvars} %{python3} -m unittest -v tests.cccolutils_test
 
 
-%files -n python3-cccolutils
+%files -n python3-cccolutils -f %{pyproject_files}
 %license COPYING
-%{python3_sitearch}/cccolutils*.so
-%{python3_sitearch}/CCColUtils-*.egg-info
 
 
 %changelog
+* Sat Dec 07 2024 Carl George <carlwgeorge@fedoraproject.org> - 1.5-31
+- Convert to pyproject macros
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.5-30
 - convert license to SPDX
 

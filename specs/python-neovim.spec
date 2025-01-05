@@ -5,21 +5,17 @@
 %global desc Implements support for python plugins in Nvim. Also works as a library for\
 connecting to and scripting Nvim processes through its msgpack-rpc API.
 
-%bcond_without check
-%bcond_without sphinx
+%bcond check 1
+%bcond sphinx 1
 
 Name:           python-neovim
-Version:        0.5.0
+Version:        0.5.2
 Release:        %autorelease
-
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 Summary:        Python client to Neovim
 URL:            https://github.com/neovim/pynvim
 Source0:        https://github.com/neovim/pynvim/archive/%{version}/pynvim-%{version}.tar.gz
-Patch0:         pynvim-fix-logger.patch
-Patch1:         pynvim-fix-provider-python3-prog.patch
-Patch2:         pynvim-fix-test-vim.patch
+Patch0:         https://github.com/neovim/pynvim/pull/584.patch#/pynvim-fix-asyncio.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -82,11 +78,12 @@ popd
 %install
 %pyproject_install
 
+%if %{with check}
 %check
-# There is still something wrong with tests, but they also fail
-# upstream. The question is when to deprecate the module as neovim
-# is fully committed to lua now.
-%tox
+# The broadcast test doesn't work, see
+# https://github.com/neovim/pynvim/issues/585
+%tox run -- -- -k 'not test_broadcast'
+%endif
 
 %files -n python%{python3_pkgversion}-neovim
 %license LICENSE

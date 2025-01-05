@@ -5,7 +5,7 @@
 %global crate impl-more
 
 Name:           rust-impl-more
-Version:        0.1.8
+Version:        0.1.9
 Release:        %autorelease
 Summary:        Concise, declarative trait implementation macros
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/impl-more
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 Patch:          impl-more-fix-metadata.diff
-# * fix compilation errors in doctests:
-#   https://github.com/robjtede/impl-more/pull/1
-Patch:          0001-fix-compilation-errors-in-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

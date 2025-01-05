@@ -1,8 +1,8 @@
 %global framework frameworkintegration
 
 Name:    kf6-%{framework}
-Version: 6.9.0
-Release: 2%{?dist}
+Version: 6.10.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -80,6 +80,9 @@ The %{name}-devel package contains files to develop for %{name}.
 %{_kf6_libdir}/cmake/KF6FrameworkIntegration/
 
 %changelog
+* Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
+- 6.10.0
+
 * Wed Jan 1 2025 Marie Loise Nolden <loise@kde.org> - 6.9.0-2
 - re-enable AppstreamQt BR
 

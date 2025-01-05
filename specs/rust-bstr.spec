@@ -5,17 +5,13 @@
 %global crate bstr
 
 Name:           rust-bstr
-Version:        1.11.0
+Version:        1.11.3
 Release:        %autorelease
 Summary:        String type that is not required to be valid UTF-8
 
-License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/bstr
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * add missing Unicode license terms to crate metadata:
-#   https://github.com/BurntSushi/bstr/issues/129
-Patch:          bstr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -37,7 +33,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/src/unicode/data/LICENSE-UNICODE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -116,7 +111,8 @@ use the "unicode" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * test data for unit tests is not included in published crates
+%cargo_test -- --doc
 %endif
 
 %changelog

@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.900
+Version:        1.901
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,6 +107,7 @@ make test
 %{perl_vendorlib}/MCE/Channel/
 %{perl_vendorlib}/MCE/Channel.pm
 %{perl_vendorlib}/MCE/Child.pm
+%{perl_vendorlib}/MCE/Core.pm
 %{perl_vendorlib}/MCE/Core/Input/
 %{perl_vendorlib}/MCE/Core/Manager.pm
 %{perl_vendorlib}/MCE/Core/Validation.pm
@@ -169,6 +170,10 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 1.901-1
+- Update to 1.901 (rhbz#2335354)
+  - Add MCE::Core package for future development
+
 * Tue Sep 10 2024 Paul Howarth <paul@city-fan.org> - 1.900-1
 - Update to 1.900 (rhbz#2310966)
   - Improve MCE::Child exiting when signaled

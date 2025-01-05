@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 39%{?dist}
+Release: 40%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -785,6 +785,19 @@ Patch443: 00443-gh-124651-quote-template-strings-in-venv-activation-scripts.patc
 #
 # Tests are adjusted because Python <3.9 don't support scoped IPv6 addresses.
 Patch444: 00444-security-fix-for-cve-2024-11168.patch
+
+# 00446 # f5cc2c3be4273be70cdcdf9eb95abf425808f752
+# Resolve sinpi name clash with libm
+#
+# bpo-36106: Resolve sinpi name clash with libm (IEEE-754 violation). (GH-12027)
+#
+# The standard math library (libm) may follow IEEE-754 recommendation to
+# include an implementation of sinPi(), i.e. sinPi(x):=sin(pi*x).
+# And this triggers a name clash, found by FreeBSD developer
+# Steve Kargl, who worken on putting sinpi into libm used on FreeBSD
+# (it has to be named "sinpi", not "sinPi", cf. e.g.
+# https://en.cppreference.com/w/c/experimental/fpext4).
+Patch446: 00446-Resolve-sinpi-name-clash-with-libm.patch
 
 # (New patches go here ^^^)
 #
@@ -2055,6 +2068,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Dec 18 2024 Victor Stinner <vstinner@python.org> - 3.6.15-40
+- Fix compatibility with glibc 2.41 (resolve sinpi name clash).
+
 * Thu Nov 14 2024 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-39
 - Security fix for CVE-2024-11168
 

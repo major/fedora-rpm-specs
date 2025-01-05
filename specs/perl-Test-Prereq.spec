@@ -1,6 +1,6 @@
 Name:           perl-Test-Prereq
-Version:        2.003
-Release:        15%{?dist}
+Version:        2.005
+Release:        1%{?dist}
 Summary:        Check if Makefile.PL has the right pre-requisites
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Prereq
@@ -48,7 +48,7 @@ If you use Module::Build, see Test::Prereq::Build instead.
 %setup -q -n Test-Prereq-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -60,12 +60,18 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod
+%doc Changes README.pod SECURITY.md
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::Prereq.3*
 %{_mandir}/man3/Test::Prereq::Build.3*
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 2.005-1
+- Update to 2.005 (rhbz#2335386)
+  - Refresh distro
+  - Move to BRIANDFOY user
+  - Add SECURITY.md policy
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

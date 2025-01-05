@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Tool to execute plain-text documents as functional tests
 License: MIT
 URL: https://cucumber.io/
@@ -19,6 +19,12 @@ Source2: %{name}-%{version}-features.txz
 # keyword option.
 # https://github.com/cucumber/cucumber-ruby/pull/1757/commits/87a375822f0f1d76fa464423f9743e36c5036713
 Patch0: rubygem-cucumber-9.2.0-Pass-hash-through-as-explicit-hash-to-avoid-unknown-keyword.patch
+# Fix Ruby 3.4 backtrace formatting compatibility.
+# https://github.com/cucumber/cucumber-ruby/pull/1771/commits/398eb7080936481b6b8c4921ff59aea7a8951883
+Patch1: rubygem-cucumber-9.2.0-Fix-error-backtrace-formatting-on-Ruby-3-4.patch
+# Fix Ruby 3.4 Hash#inspect compatibility.
+# https://github.com/cucumber/cucumber-ruby/pull/1771/commits/b9065c96098b893c75fcbb41b7558332b3bfd23b
+Patch2: rubygem-cucumber-9.2.0-CI-support-Ruby-3-4-Hash-inspect.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -57,6 +63,12 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1 -b 2
 
 %patch 0 -p1
+%patch 1 -p1
+
+(
+cd %{builddir}
+%patch 2 -p1
+)
 
 # The rubygem-cucumber-html-formatter is currently not packaged in Fedora.
 %gemspec_remove_dep -g cucumber-html-formatter
@@ -138,6 +150,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Fri Jan 03 2025 Vít Ondruch <vondruch@redhat.com> - 7.1.0-12
+- Fix Ruby 3.4 backtrace and Hash#inspect formatting compatibility.
+
 * Thu Nov 28 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.1.0-11
 - Add base64 dependency explicitly for ruby34
 

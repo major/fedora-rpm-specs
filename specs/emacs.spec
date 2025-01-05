@@ -124,12 +124,17 @@ BuildRequires: pkgconfig(systemd)
 BuildRequires: util-linux
 %endif
 
+%if "%{_lib}" == "lib64"
+%global marker ()(64bit)
+%endif
+
 # Emacs doesn't run without a font, rhbz#732422
 Requires:      google-noto-sans-mono-vf-fonts
 
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
+Requires:      libpixbufloader-xpm.so%{?marker}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Supplements:   ((libwayland-server and emacs-common) unless emacs-nw)
 
@@ -159,6 +164,7 @@ Requires:      google-noto-sans-mono-vf-fonts
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      emacs-common = %{epoch}:%{version}-%{release}
+Requires:      libpixbufloader-xpm.so%{?marker}
 Provides:      emacs(bin) = %{epoch}:%{version}-%{release}
 Supplements:   ((xorg-x11-server-Xorg and emacs-common) unless emacs-nw)
 

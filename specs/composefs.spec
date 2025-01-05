@@ -3,7 +3,7 @@
 %endif
 
 Name:           composefs
-Version:        1.0.7
+Version:        1.0.8
 Release:        1%{?dist}
 Summary:        Tools to handle creating and mounting composefs images
 

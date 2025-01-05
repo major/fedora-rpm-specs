@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.32.1
+Version:        2.33.0
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -89,7 +89,7 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %build
-%cmake -DBUILD_TESTS=ON -DENABLE_SYSTEM_YYJSON=ON
+%cmake -DBUILD_TESTS=ON -DENABLE_SYSTEM_YYJSON=ON -DBUILD_FLASHFETCH=OFF
 %cmake_build
 
 
@@ -105,7 +105,6 @@ mechanisms like multithreading and caching to finish as fast as possible.
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
-%{_bindir}/flashfetch
 %{_datadir}/%{name}/
 %{_mandir}/man1/fastfetch.1*
 %{_datadir}/bash-completion/completions/%{name}
@@ -113,6 +112,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 %{_datadir}/zsh/site-functions/_%{name}
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 2.33.0-1
+- update to 2.33.0 rhbz#2334157
+
 * Thu Dec 19 2024 Jonathan Wright <jonathan@almalinux.org> - 2.32.1-1
 - update to 2.32.1 rhbz#2332949
 

@@ -38,18 +38,25 @@ Name:           tinygo
 Release:        %autorelease
 Summary:        Go compiler for small places
 
-# Main files: BSD
-# CMSIS: BSD (subsetted)
-# avr-mcu: ASL 2.0 (packs) and MIT (Rust code, unused by this package)
-# cmsis-svd: ASL 2.0 and BSD and ISC and MIT (subsetted)
-# compiler-rt: NCSA or MIT
-# macos-minimal-sdk: APSL 2.0 and BSD and ISC and Public Domain
+# Main files: BSD-3-Clause
+# builder/cc1as.*: Apache-2.0 WITH LLVM-exception
+# corpus_test.go: MIT
+# src/net: BSD-2-Clause
+# CMSIS: BSD-3-Clause (subsetted)
+# avr-mcu: Apache-2.0 (packs) AND MIT (Rust code, unused by this package)
+# cmsis-svd: Apache-2.0 AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND BSD-Source-Code AND ISC AND MIT (subsetted)
+# compiler-rt: Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
+# macos-minimal-sdk: APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND LicenseRef-Fedora-Public-Domain
 # musl: MIT
-# nrfx: BSD and ASL 2.0
-# picolibc: BSD and ISC and MIT and GPLv2 (testing code only, unused by this package)
-# wasi-libc: BSD and CC0 and ISC and MIT and Public Domain
-# Automatically converted from old format: BSD and APSL 2.0 and ASL 2.0 and CC0 and ISC and MIT and (NCSA or MIT) and Public Domain - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND APSL-2.0 AND Apache-2.0 AND CC0-1.0 AND ISC AND LicenseRef-Callaway-MIT AND (NCSA OR LicenseRef-Callaway-MIT) AND LicenseRef-Callaway-Public-Domain
+# nrfx: BSD-3-Clause AND Apache-2.0
+# picolibc: BSD-2-Clause AND BSD-2-Clause-FreeBSD AND BSD-3-Clause AND ISC AND SMLNJ AND Spencer-94 AND GPLv2 (testing code only, unused by this package)
+# wasi-libc: Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause AND CC0-1.0 (dlmalloc implementation, unused by this package)
+License:        %{shrink: BSD-3-Clause AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND MIT AND
+                Apache-2.0 AND
+                (Apache-2.0 OR MIT) AND BSD-Source-Code AND ISC AND
+                (Apache-2.0 WITH LLVM-exception OR NCSA OR MIT) AND
+                APSL-2.0 AND BSD-2-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain AND
+                BSD-2-Clause-FreeBSD AND SMLNJ AND Spencer-94}
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        clean_tarballs.sh

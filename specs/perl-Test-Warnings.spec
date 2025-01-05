@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Test-Warnings
-Version:	0.033
-Release:	2%{?dist}
+Version:	0.034
+Release:	1%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Warnings
@@ -21,8 +21,10 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module
+BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
+BuildRequires:	perl(Import::Into)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(parent)
 BuildRequires:	perl(strict)
@@ -36,9 +38,7 @@ BuildRequires:	perl(Test::More) >= 0.94
 %if %{with perl_Test_Warnings_enables_optional_test}
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:	perl(CPAN::Meta::Check) >= 0.011
-%endif
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 BuildRequires:	perl(CPAN::Meta::Requirements)
 BuildRequires:	perl(PadWalker)
@@ -88,9 +88,16 @@ make test
 %license LICENCE
 %doc Changes CONTRIBUTING README examples/
 %{perl_vendorlib}/Test/
+%{perl_vendorlib}/Test2/
 %{_mandir}/man3/Test::Warnings.3*
+%{_mandir}/man3/Test2::Warnings.3*
 
 %changelog
+* Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 0.034-1
+- Update to 0.034
+  - Fix Test2 compatibility for done_testing()
+  - Test2::Warnings added as a simple wrapper (for now)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.033-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

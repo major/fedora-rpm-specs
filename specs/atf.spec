@@ -1,11 +1,11 @@
 Summary: Automated Testing Framework
-Name: atf
-Version: 0.21
-Release: 6%{?dist}
+Name:    atf
+Version: 0.22
+Release: 1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
-URL: http://code.google.com/p/kyua/wiki/ATF
-Source0: https://github.com/jmmv/atf/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+URL:     https://github.com/freebsd/atf
+Source0: %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1: README.Fedora
 
 %global _testsdir %{_libexecdir}/atf/tests
@@ -23,7 +23,9 @@ they cannot affect the running system.  The runtime engine is also \
 responsible for gathering the results of all tests and composing reports. \
 The current runtime of choice is Kyua.
 
+BuildRequires:  automake
 BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  make
 
 %description
@@ -117,13 +119,14 @@ This package provides the supporting files and documentation to develop
 applications that use the ATF POSIX shell bindings.
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{name}-%{version}
 
 # Put the README.Fedora file in the top-level directory of the source tree so
 # that the %doc call below can pick it up.
 cp -p %{SOURCE1} README.Fedora
 
 %build
+autoreconf -is
 %configure INSTALL="/usr/bin/install -p" --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -190,6 +193,9 @@ rm %{buildroot}%{_libdir}/libatf*.la
 
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 0.22-1
+- Update to 0.22
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.21-6
 - convert license to SPDX
 

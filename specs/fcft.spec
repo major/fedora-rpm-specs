@@ -1,19 +1,21 @@
 %global abi_ver 4
 
 Name:           fcft
-Version:        3.1.9
+Version:        3.1.10
 Release:        1%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
-# unicode/*:    Unicode-DFS-2016
+# unicode/*:    Unicode-3.0
 # nanosvg:      Zlib
-License:        MIT AND Unicode-DFS-2016 AND Zlib
+License:        MIT AND Unicode-3.0 AND Zlib
 URL:            https://codeberg.org/dnkl/%{name}
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
 # Daniel Eklöf (Git signing) <daniel@ekloef.se>
 Source2:        gpgkey-5BBD4992C116573F.asc
+
+Patch:          %{url}/commit/9922e00843.patch#/fcft-3.1.10-unicode-update-license.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -55,7 +57,7 @@ developing applications that use %{name}.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp 3rd-party/nanosvg/LICENSE.txt LICENSE.nanosvg
-cp unicode/LICENSE LICENSE.Unicode
+cp unicode/license.txt LICENSE.Unicode
 
 
 %build
@@ -91,6 +93,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Thu Jan 02 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.10-1
+- Update to 3.1.10 (#2335230)
+
 * Thu Oct 24 2024 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.9-1
 - Update to 3.1.9 (#2321265)
 - Verify source signature

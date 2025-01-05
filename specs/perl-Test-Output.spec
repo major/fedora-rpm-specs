@@ -1,13 +1,13 @@
-%global cpan_version 1.034
+%global cpan_version 1.035
 
 Name:           perl-Test-Output
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Utilities to test STDOUT and STDERR messages
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Output
-Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-Output-%{cpan_version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Test-Output-%{cpan_version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -77,7 +77,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod
+%doc Changes README.pod SECURITY.md
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::Output.3pm*
 
@@ -85,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.03.5-1
+- 1.035 bump (rhbz#2335389)
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
@@ -97,7 +100,7 @@ make test
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com>
+* Fri Jul 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.03.4-1
 - 1.034 bump (rhbz#2219870)
 - Package tests
 

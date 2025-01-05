@@ -15,7 +15,9 @@ URL:            https://crates.io/crates/libmount
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump env_logger dev-dependency from 0.5 to 0.11
+# * bump nix dependency from 0.14 to 0.29
 Patch:          libmount-fix-metadata.diff
+Patch:          0001-port-to-nix-0.26.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

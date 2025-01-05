@@ -1,7 +1,7 @@
 %global framework kdeclarative
 
 Name:    kf6-%{framework}
-Version: 6.9.0
+Version: 6.10.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for Qt declarative
 
@@ -72,6 +72,8 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_qmldir}/org/kde/kquickcontrols/
 %{_kf6_qmldir}/org/kde/private/kquickcontrols/
 %{_kf6_qmldir}/org/kde/kquickcontrolsaddons/
+%{_kf6_libdir}/libkquickcontrolsprivate.so.0
+%{_kf6_libdir}/libkquickcontrolsprivate.so.%{version}
 
 %files devel
 %{_kf6_includedir}/KDeclarative/
@@ -83,6 +85,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Jan 03 2025 Steve Cossette <farchord@gmail.com> - 6.10.0-1
+- 6.10.0
+
 * Sat Dec 14 2024 Steve Cossette <farchord@gmail.com> - 6.9.0-1
 - 6.9.0
 

@@ -3,8 +3,8 @@
 %global modname parsel
 
 Name:           python-%{modname}
-Version:        1.7.0
-Release:        9%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        Library to extract data from HTML and XML using XPath and CSS selectors
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -14,22 +14,19 @@ Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+# for tests
+BuildRequires:  python3-sybil
+BuildRequires:  python3-cssselect
+
+Patch:          psutil-version.patch
+
+
 %description
 %{summary}.
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-w3lib >= 1.8.0
-BuildRequires:  python3-lxml >= 2.3
-BuildRequires:  python3-six >= 1.5.2
-BuildRequires:  python3-cssselect >= 0.9
-BuildRequires:  python3-sybil
-BuildRequires:  python3-psutil
 
 %description -n python3-%{modname}
 %{summary}.
@@ -37,24 +34,32 @@ BuildRequires:  python3-psutil
 Python 3 version.
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files parsel
 
 %check
-%{__python3} setup.py ptr
+#%%tox
+%pyproject_check_import
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst NEWS
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 1.10.0-1
+- Update to 1.10.0 rhbz#2187883
+- Modernize spec
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 1.7.0-9
 - convert license to SPDX
 

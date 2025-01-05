@@ -2,8 +2,8 @@
 %bcond_with perl_DateTime_Format_Flexible_enables_extra_test
 
 Name:       perl-DateTime-Format-Flexible
-Version:    0.36
-Release:    2%{?dist}
+Version:    0.37
+Release:    1%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Flexibly parse strings and turn them into DateTime objects
 Source:     https://cpan.metacpan.org/authors/id/T/TH/THINC/DateTime-Format-Flexible-%{version}.tar.gz
@@ -21,7 +21,6 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Builder) >= 0.74
 BuildRequires:  perl(DateTime::Infinite)
 BuildRequires:  perl(DateTime::TimeZone)
-BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
@@ -104,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 03 2025 Petr Pisar <ppisar@redhat.com> - 0.37-1
+- 0.37 bump
+
 * Thu Oct 17 2024 Petr Pisar <ppisar@redhat.com> - 0.36-2
 - Remove an unnecesary version restriction from a DateTime::TimeZone dependency
 
