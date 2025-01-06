@@ -17,7 +17,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.1
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -51,6 +51,8 @@ Source102: https://www.apache.org/dist/spamassassin/KEYS
 Patch0: spamassassin-4.0.0-gnupg2.patch
 # add a logfile and homedir for razor
 Patch1: spamassassin-4.0.0-add-logfile-homedir-options.patch
+# Removing of Digest::SHA1 dependency, perl-Razor-Agent hasn't this in Fedora
+Patch2: spamassassin-4.0.1-remove_dep_to_digest_sha1.patch
 # end of patches
 Requires(post): diffutils
 
@@ -69,14 +71,11 @@ BuildRequires: perl(DB_File)
 BuildRequires: perl(Mail::SPF)
 BuildRequires: perl(Net::CIDR::Lite)
 BuildRequires: perl(LWP::UserAgent)
-BuildRequires: perl(Digest::SHA1)
 BuildRequires: perl(Test::More)
 BuildRequires: systemd-units
 
 Requires: perl(HTTP::Date)
 Requires: perl(LWP::UserAgent)
-Requires: perl(Net::DNS)
-Requires: perl(Time::HiRes)
 Requires: perl(DB_File)
 Requires: perl(Mail::SPF)
 Requires: perl(Net::CIDR::Lite)
@@ -114,16 +113,6 @@ Requires(post): systemd-units
 Requires(post): systemd-sysv
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-
-# For completeness, explicitly require perl modules already
-# pulled in by perl-interpreter
-Requires: perl(Digest::SHA)
-Requires: perl(Socket)
-Requires: perl(Data::Dumper)
-Requires: perl(Digest::MD5)
-Requires: perl(Errno)
-Requires: perl(Exporter)
-Requires: perl(List::Util)
 
 %description
 SpamAssassin provides you with a way to reduce if not completely eliminate
@@ -163,6 +152,7 @@ sa-compile uses "re2c" to compile the site-wide parts of the SpamAssassin rulese
 # Patches 0-99 are RH specific
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 # end of patches
 
 echo "RHEL=%{?rhel} FEDORA=%{?fedora}"
@@ -294,6 +284,10 @@ rm -f %{_sharedstatedir}/razor/*
 %systemd_preun sa-update.timer
 
 %changelog
+* Fri Nov 29 2024 Michal Josef Špaček <mspacek@redhat.com> - 4.0.1-5
+- Remove dependency to Digest::SHA1
+- Remove duplicite requires, they are generated
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

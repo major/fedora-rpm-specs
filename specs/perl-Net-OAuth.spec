@@ -71,6 +71,7 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %changelog
 * Fri Jan 03 2025 Xavier Bachelot <xacier@bachelot.org> -  0.30-1
 - Update to 0.30 (RHBZ#2335403)
+  - fix CVE-2025-22376 (RHBZ#2335499,2335500,2335501)
 - Specify all dependencies
 
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 0.28-35

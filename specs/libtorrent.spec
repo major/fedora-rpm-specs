@@ -1,13 +1,11 @@
 Name:          libtorrent
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
-Version:       0.13.8
-Release:       17%{?dist}
+Version:       0.15.1
+Release:       1%{?dist}
 Summary:       BitTorrent library with a focus on high performance & good code
 URL:           https://github.com/rakshasa/libtorrent/
-Source0:       http://rtorrent.net/downloads/libtorrent-%{version}.tar.gz
-Patch0:        libtorrent-configure-c99.patch
-Patch1: libtorrent-configure-c99-2.patch
+Source0:       https://github.com/rakshasa/rtorrent/releases/download/v%{version}/libtorrent-%{version}.tar.gz
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -39,9 +37,6 @@ with the libtorrent libraries.
 %autosetup -p1
 
 %build
-# Shipped generated versions of autocrap scripts have a hard dependency on an
-# obsolete version of automake that Fedora does not ship anymore; regenerate:
-sh autogen.sh
 %configure --with-posix-fallocate
 %make_build
 
@@ -62,6 +57,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 04 2025 Conrad Meyer <cse.cem@gmail.com> - 0.15.1-1
+- Update to 0.15.1
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.13.8-17
 - convert license to SPDX
 

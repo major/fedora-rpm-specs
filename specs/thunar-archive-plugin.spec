@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           thunar-archive-plugin
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Archive plugin for the Thunar file manager
 
@@ -15,13 +15,12 @@ URL:            http://goodies.xfce.org/projects/thunar-plugins/%{name}
 Source0:        http://archive.xfce.org/src/thunar-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.bz2
 #VCS:           git:git://git.xfce.org/thunar-plugins/thunar-archive-plugin
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  exo >= 0.12.0
 BuildRequires:  libxfce4util-devel >= %{xfceversion}
 BuildRequires:  Thunar-devel >= %{thunar_version}
 BuildRequires:  libxml2-devel
-BuildRequires:  intltool
 BuildRequires:  gettext
 Requires:       Thunar >= %{thunar_version}
 

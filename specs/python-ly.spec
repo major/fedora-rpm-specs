@@ -1,15 +1,14 @@
 Name:           python-ly
-Version:        0.9.7
-Release:        15%{?dist}
+Version:        0.9.9
+Release:        1%{?dist}
 Summary:        Tool and library for manipulating LilyPond files
 
 License:        GPL-2.0-or-later
 URL:            https://pypi.python.org/pypi/python-ly
-Source0:        https://pypi.python.org/packages/source/p/python-ly/python-ly-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/p/python-ly/python_ly-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 %global _description\
 This package provides a Python library ly containing various Python modules\
@@ -33,21 +32,27 @@ with LilyPond files.
 This package allows for use of python-ly with Python 3.
 
 %prep
-%setup -q
+%setup -qn python_ly-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files '*'
 
-%files -n python3-ly
-%doc ChangeLog README.rst
+%files -n python3-ly -f %{pyproject_files}
+%doc CHANGELOG.md README.rst
 %{_bindir}/ly
 %{_bindir}/ly-server
-%{python3_sitelib}/*
 
 %changelog
+* Sat Jan 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.9.9-1
+- 0.9.9
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

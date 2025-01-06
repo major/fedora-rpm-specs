@@ -4,7 +4,7 @@
 
 # https://github.com/linuxdeepin/go-dbus-factory
 %global goipath         github.com/linuxdeepin/go-dbus-factory
-Version:                2.0.8
+Version:                2.0.11
 %global tag             %{version}
 
 %gometa -L

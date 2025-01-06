@@ -1,7 +1,7 @@
 Name:    skrooge
 Summary: Personal finances manager
-Version: 2.32.0
-Release: 3%{?dist}
+Version: 2.33.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -146,6 +146,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.skrooge.d
 
 
 %changelog
+* Tue Dec 31 2024 Marie Loise Nolden <loise@kde.org> - 2.33.0-1
+- 2.33.0
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.32.0-3
 - convert license to SPDX
 

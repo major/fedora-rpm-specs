@@ -5,19 +5,20 @@
 %bcond qpl      %[ 0%{?fedora} >= 41 && "%{_arch}" == "x86_64" ]
 %bcond selinux  1
 %bcond uuid     1
-%bcond xxhash   1
+%bcond xxhash   %[ 0%{?fedora} || (0%{?rhel} >= 9 && 0%{?rhel} < 10) ]
 %bcond zlib     1
 %bcond zstd     1
 
 Name:           erofs-utils
 Version:        1.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-2-Clause) AND Unlicense
 URL:            https://erofs.docs.kernel.org/
 
 Source:         https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/%{name}-%{version}.tar.gz
+Patch:          https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/patch/?id=06875b3f2182eab24b81083dfde542f778b201cc#/%{name}-1.8.4-fragdedupe-inode-support.patch
 
 BuildRequires:  %[ "%{toolchain}" == "clang" ? "clang compiler-rt" : "gcc" ]
 BuildRequires:  libtool
@@ -97,6 +98,9 @@ autoreconf -fi
 
 
 %changelog
+* Fri Jan 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.8.4-2
+- Backport support for -Efragdedupe=inode mkfs option
+
 * Thu Jan 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.8.4-1
 - Update to the 1.8.4 release.
 

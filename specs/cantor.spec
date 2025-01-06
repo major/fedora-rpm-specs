@@ -67,14 +67,15 @@ BuildRequires: cmake(KF6XmlGui)
 BuildRequires: cmake(Qt6Help)
 BuildRequires: cmake(Qt6WebEngineCore)
 BuildRequires: cmake(Qt6WebEngineWidgets)
-BuildRequires: pkgconfig(Qt6PrintSupport)
-BuildRequires: pkgconfig(Qt6Svg)
-BuildRequires: pkgconfig(Qt6Widgets)
-BuildRequires: pkgconfig(Qt6Xml)
-BuildRequires: pkgconfig(Qt6Test)
-BuildRequires: pkgconfig(libxslt)
-BuildRequires: poppler-qt6-devel
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Test)
 BuildRequires: cmake(Qt6Core5Compat)
+
+BuildRequires: pkgconfig(libxslt)
+BuildRequires: pkgconfig(poppler-qt6)
 
 # optional deps/plugins
 

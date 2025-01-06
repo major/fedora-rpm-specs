@@ -1,7 +1,7 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.4.1
+Version:      2.4.2
 Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
@@ -130,6 +130,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Sat Jan  4 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.2-1
+- Update to 2.4.2
+
 * Wed Dec 25 2024 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.1-1
 - Update to 2.4.1
 

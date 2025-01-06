@@ -5,6 +5,8 @@
 %bcond storj 0
 # protondrive backend introduces many new deps
 %bcond protondrive 0
+# files.com backend introduces many new deps
+%bcond filescom 0
 
 
 %if %{with bootstrap}
@@ -17,7 +19,7 @@
 
 # https://github.com/rclone/rclone
 %global goipath         github.com/rclone/rclone
-Version:                1.67.0
+Version:                1.68.2
 
 %gometa -L -f
 
@@ -51,6 +53,11 @@ rm -rf backend/storj
 %if %{without protondrive}
 sed  '/protondrive/d' -i backend/all/all.go
 rm -rf backend/protondrive
+%endif
+
+%if %{without filescom}
+sed  '/filescom/d' -i backend/all/all.go
+rm -rf backend/filescom
 %endif
 
 %if %{without bootstrap}

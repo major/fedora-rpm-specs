@@ -5,7 +5,7 @@
 %global xfceversion 4.16
 
 Name:           xfce4-xkb-plugin
-Version:        0.8.3
+Version:        0.8.5
 Release:        %autorelease
 Summary:        XKB layout switcher for the Xfce panel
 

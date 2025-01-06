@@ -13,7 +13,7 @@
 
 Name:           krita
 Version:        5.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -107,6 +107,11 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-qt5-devel
 BuildRequires:  python3-sip-devel
 BuildRequires:  sip
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2328811
+%if v"0%{?python3_version}" >= v"3.13"
+Requires: python3-legacy-cgi
+%endif
 
 Requires: python3-qt5-base
 %{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
@@ -219,6 +224,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sat Jan 04 2025 Alessandro Astone <ales.astone@gmail.com> - 5.2.6-2
+- Add dependency on python3-legacy-cgi to unbreak Python scripting (#2328811)
+
 * Wed Dec 11 2024 Than Ngo <than@redhat.com> - 5.2.6-1
 - Update to 5.2.6
 

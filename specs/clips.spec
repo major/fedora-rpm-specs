@@ -54,7 +54,7 @@ widely used throughout the government, industry, and academia.
 
 %package	devel
 Summary:	C headers for developing programs that will embed CLIPS
-Requires:	clips-libs = %{version}-%{release}
+Requires:	clips-libs = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:	ncurses-devel pkgconfig
 
 %description	devel

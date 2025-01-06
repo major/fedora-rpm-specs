@@ -2,7 +2,7 @@
 %global modname astropy_healpix
 
 Name:           python-%{srcname}
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        HEALPix for Astropy
 
@@ -19,14 +19,6 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
-#
-BuildRequires:  %{py3_dist pytest-astropy}
-# BuildRequires for tests, healpy only available on 64 bit architectures,
-# thus these tests are skipped on 32 bit
-%ifnarch %{ix86} %{arm}
-BuildRequires:  %{py3_dist healpy}
-%endif
 
 %description
 This is a BSD-licensed Python package for HEALPix, which is based on the C
@@ -46,8 +38,12 @@ Summary: %{summary}
 # Remove egg files from source
 rm -r %{modname}.egg-info
 
+# Drop version constraint from numpy. Allow building with NumPy 1.x.
+# Current stable branches still require that.
+sed -r -i 's/(numpy).*"/\1"/' pyproject.toml
+
 %generate_buildrequires
-%pyproject_buildrequires 
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

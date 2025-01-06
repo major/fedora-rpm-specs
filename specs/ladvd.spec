@@ -3,8 +3,8 @@
 %define modulename ladvd
 
 Name:           ladvd
-Version:        1.1.2
-Release:        21%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        CDP/LLDP sender for UNIX
 
 License:        ISC
@@ -15,9 +15,6 @@ Source1:        %{name}.conf.sysusers
 Source3:        %{modulename}.te
 Source4:        %{modulename}.fc
 Source5:        %{modulename}.if
-# merged upstram https://github.com/sspans/ladvd/pull/42
-Patch0:         0001-fix-_BSD_SOURCE-and-_SVID_SOURCE-are-deprecated-use-.patch
-Patch1:         %{name}-0002-util.c-fix-for-undeclared-MAXPATHLEN.patch
 
 Recommends:	%{name}-selinux
 
@@ -60,7 +57,6 @@ SELinux policy module supporting %{name}
 
 %prep
 %setup -q
-%autopatch -p1
 mkdir SELinux
 cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} SELinux
 
@@ -145,6 +141,9 @@ fi
 
 
 %changelog
+* Sat Jan 04 2025 Tomasz Torcz <ttorcz@fedoraproject.org> - 1.1.4-1
+- New version 1.1.4 (rhbz#2335498)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

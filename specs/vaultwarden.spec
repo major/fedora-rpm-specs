@@ -6,7 +6,7 @@
 %global cargo_install_lib 0
 
 Name:           vaultwarden
-Version:        1.32.2
+Version:        1.32.7
 Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
@@ -52,6 +52,8 @@ BuildRequires:  libpq-devel
 BuildRequires:  systemd-rpm-macros
 
 Requires:       %{name}-web
+
+Patch:          remove-remote-git-patch.patch
 
 %{?sysusers_requires_compat}
 
@@ -153,6 +155,10 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Fri Jan 03 2025 Jonathan Wright <jonathan@almalinux.org> - 1.32.7-1
+- update to 1.32.7 rhbz#2322181
+- Fix CVE-2024-56335
+
 * Tue Oct 22 2024 Jonathan Wright <jonathan@almalinux.org> - 1.32.2-1
 - update to 1.32.2 rhbz#2316657
 

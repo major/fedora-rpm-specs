@@ -4,7 +4,7 @@
 
 # https://github.com/linuxdeepin/go-lib
 %global goipath         github.com/linuxdeepin/go-lib
-Version:                6.0.7
+Version:                6.0.9
 %global tag             %{version}
 
 %gometa -L

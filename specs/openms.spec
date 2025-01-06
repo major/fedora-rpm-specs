@@ -19,8 +19,9 @@ Summary:   LC/MS data management and analyses
 Version:   3.2.0
 Epoch:     1
 Release:   %autorelease
-# Automatically converted from old format: BSD - review is highly recommended.
-License:   LicenseRef-Callaway-BSD
+# BSD-3-Clause is the main license
+# Apache-2.0, CC-BY-4.0 and CC0-1.0 are coming from TDL directory
+License:   BSD-3-Clause AND Apache-2.0 AND CC-BY-4.0 AND CC0-1.0
 URL:       http://www.openms.de/
 Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-release-%{version}.tar.gz
 
@@ -359,6 +360,10 @@ install -pm 644 share/OpenMS/DESKTOP/*.appdata.xml %{buildroot}%{_metainfodir}/
 cp -a %{buildroot}%{_datadir}/doc/openms-doc/html html
 rm -rf %{buildroot}%{_datadir}/doc/openms-doc/html
 
+# Tool Description Library (TDL)
+mv src/openms/extern/tool_description_lib/README.md src/openms/extern/tool_description_lib/README-tdl.md
+rm -rf %{buildroot}%{_datadir}/doc/tdl
+
 # Fix R script
 sed -i "1 s|^#!/usr/bin/env Rscript\b|#!/usr/bin/Rscript|" %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 
@@ -470,15 +475,13 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/LuciphorAdapter
 %{_bindir}/SageAdapter
 %{_bindir}/DatabaseFilter
+%{_bindir}/XTandemAdapter
 %{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/TOPPAS.desktop
 %{_datadir}/applications/TOPPView.desktop
 %{_datadir}/applications/inifileeditor.desktop
 %{_datadir}/icons/TOPP/
 %{_libdir}/OpenMS/
-%dir %{_libdir}/cmake/OpenMS
-%{_libdir}/cmake/OpenMS/OpenMSConfig.cmake
-%{_libdir}/cmake/OpenMS/OpenMSConfigVersion.cmake
 
 %files utilities
 %{_bindir}/AssayGeneratorMetabo
@@ -560,12 +563,16 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %doc html
 
 %files devel
-%license LICENSE*
+%license LICENSE* src/openms/extern/tool_description_lib/LICENSES/*.txt
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
+%doc src/openms/extern/tool_description_lib/README-tdl.md
 %if %{with check}
 %{_bindir}/*_test
 %endif
 %{_includedir}/OpenMS/
+%{_includedir}/tdl/
+%{_libdir}/cmake/OpenMS/
+%{_libdir}/cmake/tdl/
 
 %if 0%{?with_pyOpenMS}
 %files -n python3-openms

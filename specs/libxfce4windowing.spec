@@ -1,5 +1,5 @@
-%global prerel pre1
-%global xfceversion 4.20%{?prerel}
+#global prerel pre1
+%global xfceversion 4.20
 
 # Disable X11 for RHEL 10+
 %bcond x11 %[%{undefined rhel} || 0%{?rhel} < 10]
@@ -12,13 +12,13 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.19.9
+Version:        4.20.0
 Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
 URL:            https://docs.xfce.org/xfce/libxfce4windowing/start
-#VCS:            git:https://gitlab.xfce.org/xfce/%{name}.git
+#VCS:            git:https://gitlab.xfce.org/xfce/{name}.git
 Source0:        http://archive.xfce.org/xfce/%{xfceversion}/src/%{name}-%{version}.tar.bz2
 
 BuildRequires:  bzip2
@@ -104,6 +104,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Dec 21 2024 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.20.0-1
+- Update to v4.20.0
+
 * Sun Nov 10 2024 Neal Gompa <ngompa@fedoraproject.org> - 4.19.9-1
 - Update to 4.19.9
 

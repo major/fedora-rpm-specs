@@ -45,6 +45,7 @@ BuildRequires:  cmake(KUnifiedPush)
 BuildRequires:  cmake(KF6Crash)
 
 BuildRequires:  cmake(MpvQt)
+BuildRequires:  pkgconfig(openssl)
 
 Requires:       hicolor-icon-theme
 # QML module dependencies

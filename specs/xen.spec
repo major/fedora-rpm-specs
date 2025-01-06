@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.19.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -610,7 +610,7 @@ do_it() {
       if [ ! -d $TARGET ]; then
         mkdir $TARGET
       fi
-      for m in relocator.mod multiboot2.mod; do
+      for m in relocator.mod multiboot2.mod elf.mod; do
         if [ -f $DIR/$m ]; then
           if [ ! -f $TARGET/$m ] || ! cmp -s $DIR/$m $TARGET/$m; then
             cp -p $DIR/$m $TARGET/$m
@@ -926,6 +926,10 @@ fi
 %endif
 
 %changelog
+* Sat Jan 04 2025 Andrea Perotti <aperotti@redhat.com> - 4.19.1-2
+- xen-hypervisor %post doesn't load all needed grub2 modules
+	(#2335558)
+
 * Thu Dec 05 2024 Michael Young <m.a.young@durham.ac.uk> - 4.19.1-1
 - update to xen-4.19.1
   remove patches now included or superceded upstream

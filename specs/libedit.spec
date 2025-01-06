@@ -1,10 +1,9 @@
-%global snap 20240808
-%global dir_snap 20240808
+%global snap 20250104
 
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	53.%{snap}cvs%{?dist}
+Release:	54.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -49,7 +48,7 @@ Requires:	ncurses-devel%{?_isa}
 This package contains development files for %{name}.
 
 %prep
-%autosetup -n %{name}-%{dir_snap}-%{version}
+%autosetup -n %{name}-%{snap}-%{version}
 
 # Fix unused direct shared library dependencies.
 sed -i "s/lncurses/ltinfo/" configure
@@ -82,6 +81,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/editline/readline.h
 
 %changelog
+* Sat Jan  4 2025 Jerry James <loganjerry@gmail.com> - 3.1-54.20250104cvs
+- New version (20250104-3.1)
+
 * Thu Aug  8 2024 Jerry James <loganjerry@gmail.com> - 3.1-53.20240808cvs
 - New version (20240808-3.1)
 - Man pages have been renamed to avoid collisions

@@ -1,7 +1,7 @@
 %global repo util-dfm
 
 Name:           deepin-util-dfm
-Version:        1.3.3
+Version:        1.3.9
 Release:        %autorelease
 Summary:        Utilities of deepin file manager
 # the library is mainly under GPL-3.0-or-later, except:
@@ -89,19 +89,19 @@ sed -i 's/-O0//; s/-O3//' \
 %files -n dfm-burn
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-burn.so.0
+%{_libdir}/libdfm-burn.so.1
 %{_libdir}/libdfm-burn.so.1.0.0
 
 %files -n dfm-io
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-io.so.0
+%{_libdir}/libdfm-io.so.1
 %{_libdir}/libdfm-io.so.1.0.0
 
 %files -n dfm-mount
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libdfm-mount.so.0
+%{_libdir}/libdfm-mount.so.1
 %{_libdir}/libdfm-mount.so.1.0.0
 
 %files -n dfm-burn-devel

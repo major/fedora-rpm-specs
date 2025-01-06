@@ -8,7 +8,7 @@ Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
 License:        GPL-2.0-or-later
-URL:            https://github.com/KDE/kdiff3
+URL:            https://invent.kde.org/sdk/kdiff3
 Source0:        https://invent.kde.org/sdk/kdiff3/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  cmake3

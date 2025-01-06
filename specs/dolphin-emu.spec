@@ -7,7 +7,7 @@
 #See provides(bundled) below for more info:
 %global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround glslang imgui implot rangeset soundtouch tinygltf
 %global implot_version 0.16
-%global tinygltf_version 2.9.3
+%global tinygltf_version 2.9.4
 
 #JIT is only supported on x86_64 and aarch64:
 %ifarch x86_64 aarch64
@@ -15,7 +15,7 @@
 %endif
 
 Name:           dolphin-emu
-Version:        2407
+Version:        2409
 Release:        %autorelease
 Summary:        GameCube / Wii / Triforce Emulator
 
@@ -41,10 +41,6 @@ Source5:        https://github.com/syoyo/tinygltf/archive/refs/tags/v%{tinygltf_
 
 #https://github.com/dolphin-emu/dolphin/pull/12923
 Patch0:         https://github.com/dolphin-emu/dolphin/pull/12923/commits/aea92651c739890eb895c58e7f57891edb396b64.patch
-# FMT 11 support:
-Patch1:         https://github.com/dolphin-emu/dolphin/commit/d7c93d87befcc1ee29e0355338d960b7f8d31e78.patch
-# Icons must be square, enforced by 'flatpak build-finish'
-Patch2:         https://github.com/dolphin-emu/dolphin/commit/51fd9b22f2d9fe5483ecf0ec4e747e2c832f1d07.patch
 
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:

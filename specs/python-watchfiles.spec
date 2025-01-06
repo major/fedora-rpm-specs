@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        0.20.0
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the
@@ -9,8 +9,14 @@ License:        MIT
 URL:            https://github.com/samuelcolvin/watchfiles
 Source:         %{pypi_source watchfiles}
 
+# Use notify 7.0.0 instead of a fork of 6.1.1
+# https://github.com/samuelcolvin/watchfiles/pull/322
+# (We take only the commit changing Cargo.toml, not the one updating
+# Cargo.lock.)
+Patch:          %{url}/pull/322/commits/318442aa2bfb38cf2fa81165ee1e3fe5aa70494b.patch
+
 BuildRequires:  python3-devel
-BuildRequires:  rust-packaging
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Simple, modern and high performance file watching and code reload in python.
@@ -22,16 +28,34 @@ Underlying file system notifications are handled by the Notify rust library.}
 
 %package -n python3-watchfiles
 Summary:        %{summary}
-# The main source code is under the MIT license.  This license field includes
-# the licenses of statically linked rust dependencies.
-License:        MIT AND Apache-2.0 AND CC0-1.0 AND ISC AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
+# The main source code is under the MIT license. This license field includes
+# the licenses of statically linked rust dependencies, based on the output of
+# %%{cargo_license_summary}:
+#
+# (MIT OR Apache-2.0) AND CC0-1.0
+# Apache-2.0 OR MIT
+# BSD-3-Clause
+# CC0-1.0
+# ISC
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        %{shrink:
+                MIT AND
+                Apache-2.0 AND
+                BSD-3-Clause AND
+                CC0-1.0 AND
+                ISC AND
+                (MIT OR Apache-2.0) AND
+                (Unlicense OR MIT)
+                }
 
 
 %description -n python3-watchfiles %_description
 
 
 %prep
-%autosetup -n watchfiles-%{version}
+%autosetup -n watchfiles-%{version} -p1
 
 # Remove unnecessary Python test requirements
 sed -e '/^coverage\b/d' \
@@ -41,6 +65,10 @@ sed -e '/^coverage\b/d' \
 
 # Remove pytest timeout config
 sed -e '/timeout =/d' -i pyproject.toml
+
+# Remove "generate-import-lib" feature for pyo3; applicable only on Windows,
+# and not packaged.
+sed -e 's/\(pyo3.*\), "generate-import-lib"/\1/' -i Cargo.toml
 
 # Remove unused Cargo config that contains buildflags for Darwin
 rm .cargo/config.toml

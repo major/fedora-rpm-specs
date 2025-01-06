@@ -1,6 +1,6 @@
 Name:           hyperhdr
 Version:        20.0.0.0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Ambient lighting
 
 License:        MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 20.0.0.0-0.11
+- Rebuilt for flatbuffers 24.12.24
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 20.0.0.0-0.10
 - Rebuilt for mbedTLS 3.6.1
 

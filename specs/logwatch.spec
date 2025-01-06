@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Sat Jan 04 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.11-3
+- Correct update to confs to fix BZ2326879
+
 * Sat Dec 28 2024 Frank Crawford <frank@crawford.emu.id.au> - 7.11-2
 - Update confs to fix BZ2326879
 

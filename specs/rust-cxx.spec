@@ -6,7 +6,7 @@
 %global crate cxx
 
 Name:           rust-cxx
-Version:        1.0.134
+Version:        1.0.136
 Release:        %autorelease
 Summary:        Safe interop between Rust and C++
 

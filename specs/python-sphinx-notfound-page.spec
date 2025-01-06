@@ -6,8 +6,8 @@
 %global desc Create a custom 404 page with absolute URLs hardcoded
 
 Name:           python-%{pypi_name}
-Version:        1.0.2 
-Release:        3%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        Create a custom 404 page with absolute URLs hardcoded
 
 License:        MIT
@@ -15,7 +15,11 @@ URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://github.com/%{project_owner}/%{github_name}/archive/%{version}.tar.gz
 # Patch to remove . and no longer needed pdbpp from tox deps
 # From https://github.com/readthedocs/sphinx-notfound-page/pull/225
-Patch0:         tox-no-dot-no-pdbpp.patch
+Patch:         tox-no-dot-no-pdbpp.patch
+# Already upstream patch to fix tests with sphinx 7.3.x
+Patch:         https://patch-diff.githubusercontent.com/raw/readthedocs/sphinx-notfound-page/pull/245.patch
+# Already upstream patch to fix tests with sphinx 8.x
+Patch:         https://patch-diff.githubusercontent.com/raw/readthedocs/sphinx-notfound-page/pull/250.patch
 
 BuildArch:      noarch
 
@@ -53,6 +57,9 @@ BuildArch:      noarch
 %doc README.rst CHANGELOG.rst docs
 
 %changelog
+* Sat Jan 04 2025 Kevin Fenzi <kevin@scrye.com> - 1.0.4-1
+- Update to 1.0.4. Fixes rhbz#2330153
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

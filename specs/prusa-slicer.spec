@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.8.0
+Version:        2.8.1
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -24,7 +24,7 @@ License:        AGPL-3.0-only
 URL:            https://github.com/prusa3d/PrusaSlicer/
 Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.tar.gz
 Source2:        %name.appdata.xml
-%global libbgcode_commit 8ae75bd0eea622f0e34cae311b3bd065b55eae9b
+%global libbgcode_commit b5c57c423c958a78dacae468aeee63ab3d2de947
 Source3:        https://github.com/prusa3d/libbgcode/archive/%{libbgcode_commit}.tar.gz#/libbgcode-%{libbgcode_commit}.tar.gz
 Source4:        https://github.com/atomicobject/heatshrink/archive/refs/tags/v0.4.1.tar.gz#/heatshrink-0.4.1.tar.gz
 Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb8b13d7555183ab10aa5.tar.gz#/openvdb-8.2.tar.gz
@@ -35,6 +35,9 @@ Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 # Workaround https://github.com/prusa3d/PrusaSlicer/issues/12573
 # with https://github.com/prusa3d/PrusaSlicer/pull/12574
 Patch6:         prusa-slicer-pr-12574.patch
+
+# https://github.com/prusa3d/PrusaSlicer/pull/13609/commits/f7a25cae1820444f4e999b429598ca477a35ccb8
+Patch7:       prusa-slicer-pr-13609-boost.patch
 
 # Beware!
 # Patches >= 340 are only applied on Fedora 34+
@@ -50,8 +53,6 @@ Patch394:       prusa-slicer-pr-11769.patch
 Patch395:       prusa-slicer-opencascade.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13761
 Patch396:	prusa-slicer-pr-13761.patch
-# https://github.com/prusa3d/PrusaSlicer/pull/13242
-Patch401:       prusa-slicer-pr-13242.patch
 # https://github.com/prusa3d/PrusaSlicer/pull/13081
 Patch421:       prusa-slicer-pr-13081.patch
 
@@ -93,6 +94,7 @@ BuildRequires:  opencascade-devel
 BuildRequires:  qhull-devel
 BuildRequires:  systemd-devel
 BuildRequires:  tbb-devel
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  wxGTK-devel
 
 # Things we wish we could unbundle
@@ -167,7 +169,7 @@ Provides: bundled(imgui) = 1.66
 
 # Some old code extracted from mesa libGLU that was last changed upstream in
 # 2010 and last substantially changed before things were imported to git.
-# The files are in src/glu-libtess.
+# The files are in bundled_deps/glu-libtess.
 # License: MIT
 Provides: bundled(mesa-libGLU)
 
@@ -272,23 +274,23 @@ commit () { git commit -q -a -m "$1" --author "%{__scm_author}"; }
 sed -i 's/UNKNOWN/Fedora/' version.inc
 commit "Fix version string"
 
-( cd src && tar xvzf %SOURCE3 && mv libbgcode-* libbgcode )
-sed -i 's#set(LibBGCode_SOURCE_DIR ""#set(LibBGCode_SOURCE_DIR "../../src/libbgcode"#' deps/+LibBGCode/LibBGCode.cmake
+( cd bundled_deps && tar xvzf %SOURCE3 && mv libbgcode-* libbgcode )
+sed -i 's#set(LibBGCode_SOURCE_DIR ""#set(LibBGCode_SOURCE_DIR "../../bundled_deps/libbgcode"#' deps/+LibBGCode/LibBGCode.cmake
 
-( cd src && tar xvzf %SOURCE4 && mv heatshrink-* heatshrink )
-sed -i 's#URL https.*#SOURCE_DIR ../../src/heatshrink#' deps/+heatshrink/heatshrink.cmake
+( cd bundled_deps && tar xvzf %SOURCE4 && mv heatshrink-* heatshrink )
+sed -i 's#URL https.*#SOURCE_DIR ../../bundled_deps/heatshrink#' deps/+heatshrink/heatshrink.cmake
 
-( cd src && tar xvzf %SOURCE5 && mv openvdb-* openvdb )
-sed -i 's#URL https.*#SOURCE_DIR ../../src/openvdb#; s/-DUSE_BLOSC=ON/-DUSE_BLOSC=OFF/' deps/+OpenVDB/OpenVDB.cmake
+( cd bundled_deps && tar xvzf %SOURCE5 && mv openvdb-* openvdb )
+sed -i 's#URL https.*#SOURCE_DIR ../../bundled_deps/openvdb#; s/-DUSE_BLOSC=ON/-DUSE_BLOSC=OFF/' deps/+OpenVDB/OpenVDB.cmake
 
 mkdir deps/ignored
 mv deps/+* deps/ignored
 mv deps/ignored/+LibBGCode deps/ignored/+heatshrink deps/ignored/+OpenVDB deps
 
 # Copy out specific license files so we can reference them later.
-license () { mv src/$1/$2 $2-$1; git add $2-$1; echo %%license $2-$1 >> license-files; }
-license agg copying
-license avrdude COPYING
+license () { basename=$( basename $1 ) ; mv bundled_deps/$1/$2 $2-$basename; git add $2-$basename; echo %%license $2-$basename >> license-files; }
+license agg/agg copying
+license avrdude/avrdude COPYING
 license imgui LICENSE.txt
 license libnest2d LICENSE.txt
 license libbgcode LICENSE
@@ -297,14 +299,7 @@ license openvdb LICENSE
 git add license-files
 commit "Move license files"
 
-# Unbundle libraries
-unbundle () {
-    rm -rf src/$1
-    sed -i "/add_subdirectory($1)/d" src/CMakeLists.txt
-    commit "Unbundle $1"
-}
-
-unbundle eigen
+rm ./cmake/modules/FindEigen3.cmake
 
 %build
 # -DSLIC3R_PCH=0 - Disable precompiled headers, which break cmake for some reason

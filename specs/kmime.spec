@@ -14,7 +14,6 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-kcodecs-devel
-BuildRequires:  qt-devel
 
 # translations moved here
 Conflicts: kde-l10n < 17.03

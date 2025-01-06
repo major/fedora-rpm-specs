@@ -5,21 +5,13 @@
 
 %bcond mingw 1
 
-# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
-# bundle inserted by Doxygen itself. See discussion at
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
-#
-# We could potentially enable the Doxygen PDF documentation as a substitute,
-# but currently Doxygen generates invalid LaTeX.
-%bcond doc_pdf 0
-
 Name:           flatbuffers
-Version:        24.3.25
+Version:        24.12.23
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 24.3.25
+%global so_version 24.12.23
 Release:        %autorelease
 Summary:        Memory efficient serialization library
 
@@ -36,11 +28,15 @@ Source1:        flatc.1
 
 # Adjust library installation under mingw
 # https://github.com/google/flatbuffers/pull/8365
-Patch0:         flatbuffers_mingw-lib.patch
+Patch:          flatbuffers_mingw-lib.patch
 
 # NumPy 2.x fix
 # https://github.com/google/flatbuffers/issues/8332
-Patch1:         https://github.com/google/flatbuffers/pull/8346.patch
+Patch:          %{forgeurl}/pull/8346.patch
+
+# Fix a minor typo in flatc --help output
+# https://github.com/google/flatbuffers/pull/8468
+Patch:          %{forgeurl}/pull/8468.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -124,13 +120,6 @@ Summary:        Documentation and examples for FlatBuffers
 
 BuildArch:      noarch
 
-%if %{with doc_pdf}
-BuildRequires:  doxygen
-BuildRequires:  doxygen-latex
-# Required to format Python comments appropriately. Not yet packaged.
-# BuildRequires: python3dist(doxypypy)
-%endif
-
 %description    doc %{common_description}
 
 This package contains documentation and examples for FlatBuffers.
@@ -191,19 +180,6 @@ Summary:        MinGW Windows %{name}  Python 3 bindings.
 %autosetup -p1
 # Remove unused directories that contain pre-compiled .jar files:
 rm -rvf android/ kotlin/
-
-%if %{with doc_pdf}
-# We enable the Doxygen PDF documentation as a substitute for HTML. We must
-# enable GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and
-# should already be set as we like them. We also disable GENERATE_HTML, since
-# we will not use it.
-sed -r -i \
-    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
-PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
-    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
-[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
-    ./docs/source/doxyfile
-%endif
 
 %py3_shebang_fix samples
 # Fix paths in the Python test script to match how our build is organized:
@@ -268,13 +244,6 @@ pushd python
 %pyproject_wheel
 popd
 
-%if %{with doc_pdf}
-pushd docs/source
-doxygen
-popd
-%make_build -C docs/latex
-%endif
-
 %if %{with mingw}
 (
 %mingw_make_build
@@ -293,8 +262,7 @@ pushd python
 %pyproject_install
 %pyproject_save_files flatbuffers
 popd
-mkdir -p %{buildroot}%{_mandir}/man1
-cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %if %{with mingw}
 (
@@ -326,7 +294,6 @@ popd
 
 %files
 %license LICENSE
-
 %{_libdir}/libflatbuffers.so.%{so_version}
 
 
@@ -350,16 +317,13 @@ popd
 %doc SECURITY.md
 %doc README.md
 
-%if %{with doc_pdf}
-%doc docs/latex/refman.pdf
-%endif
-
 %doc examples/
 %doc samples/
 
 
 %files -n python3-flatbuffers -f %{pyproject_files}
 %license LICENSE
+
 
 %if %{with mingw}
 %files -n mingw32-%{name}

@@ -133,35 +133,37 @@ cd python
 # is not yet a leaf package on that architecture. Instead, we skip the Python
 # tests on i686.
 #
-# The following directly-dependent packages are already ExcludeArch: %%{ix86}
+# The following directly-dependent packages are ExcludeArch: %%{ix86}
 # - bloaty
 # - ceph
 # - credentials-fetcher
+# - CuraEngine_grpc_definitions:
 # - dnsdist
 # - libarrow
 # - mtxclient
 # - nheko
 # - onnxruntime
 # - parlaylib
+# - perl-re-engine-RE2
 # - python-torchtext (orphaned)
 #
 # The following are not (yet):
-# - CuraEngine_grpc_definitions:
-#   https://src.fedoraproject.org/rpms/CuraEngine_grpc_definitions/pull-request/1
 # - grpc:
-#     Blocked by:
-#       (TBD)
+#   Not blocked by: CuraEngine_grpc_definitions, buildbox, credentials-fetcher
+#   Blocked by:
+#   - buildstream: https://src.fedoraproject.org/rpms/buildstream/pull-request/9
+#   - fastnetmon: https://src.fedoraproject.org/rpms/fastnetmon/pull-request/2
+#   - frr: https://src.fedoraproject.org/rpms/frr/pull-request/64
+#   TBD: Other reverse dependencies not yet evaluated
 # - libphonenumber:
-#   Not blocked by: chatty, plasma-dialer, spacebar
+#   Not blocked by: chatty, mmsd-tng, ncid, plasma-dialer, spacebar
 #   Blocked by:
-#   - kf5-kitinerary
-#   - kitinerary
-#   - mmsd-tng: https://src.fedoraproject.org/rpms/mmsd-tng/pull-request/1
-#   - ncid: https://src.fedoraproject.org/rpms/ncid/pull-request/2
-# - perl-re-engine-RE2:
-#   https://src.fedoraproject.org/rpms/perl-re-engine-RE2/pull-request/2
-#   Blocked by:
-#   - https://src.fedoraproject.org/rpms/copr-rpmbuild/pull-request/1
+#   - kf5-kitinerary: https://src.fedoraproject.org/rpms/kf5-kitinerary/pull-request/3
+#   - kitinerary, blocked by:
+#     - itinerary: https://src.fedoraproject.org/rpms/itinerary/pull-request/2
+#     - kdepim-addons: https://src.fedoraproject.org/rpms/kdepim-addons/pull-request/5
+# - onnx: https://src.fedoraproject.org/rpms/onnx/pull-request/7
+#   Not blocked by: onnxruntime, python-torch
 %ifnarch %{ix86}
 # Run the tests from the top-level directory to make sure we don’t accidentally
 # import the “un-built” package instead of the one in the buildroot.

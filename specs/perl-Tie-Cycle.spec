@@ -1,5 +1,5 @@
 Name:           perl-Tie-Cycle
-Version:        1.228
+Version:        1.229
 Release:        %autorelease
 Summary:        Cycle through a list of values via a scalar
 License:        Artistic-2.0

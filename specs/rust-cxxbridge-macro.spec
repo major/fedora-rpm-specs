@@ -6,7 +6,7 @@
 %global crate cxxbridge-macro
 
 Name:           rust-cxxbridge-macro
-Version:        1.0.134
+Version:        1.0.136
 Release:        %autorelease
 Summary:        Implementation detail of the cxx crate
 

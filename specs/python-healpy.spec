@@ -2,17 +2,18 @@
 %global sum Python healpix maps tools
 
 Name:           python-%{srcname}
-Version:        1.16.6
+Version:        1.18.0
 Release:        %autorelease
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
 URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        https://files.pythonhosted.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
-# Fedora doesn't have 'oldest-supported-numpy' and doesn't need Python-based pykg-config
-Patch:          0001-Remove-unnecessary-build-requirements.patch
-# https://github.com/healpy/healpy/pull/944
-Patch:          0002-Fix-build-with-Matplotlib-3.9.patch
+Source:         https://files.pythonhosted.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
+# Fedora doesn't have pykg-config (we use pkg-config)
+Patch:          pykg-config_requirements.patch
+# pytest-cython has been retired in Fedora
+# skip cython doctests for now
+Patch:          no_pytest-cython_doctests.patch
 
 
 # Upstream only supports 64 bit architectures, 32 Bit builds, but tests fail
@@ -29,13 +30,6 @@ BuildRequires:  pkg-config
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  zlib-devel
-
-# tests requirements
-BuildRequires:  python3dist(astropy)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-astropy)
-BuildRequires:  python3dist(pytest-runner)
-BuildRequires:  python3dist(requests)
 
 
 %description
@@ -66,8 +60,13 @@ This package contains the Python 3 modules.
 # not strictly necessary as these files are not used from bundled cfitsio
 find -type f -name '*.c' -print -delete
 
+# Remove conftest.py from lib/healpy
+# we don't want pytest to inject source directory in sys path for tests
+rm -f lib/healpy/conftest.py
+
+
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
@@ -83,12 +82,8 @@ rm -f %{buildroot}%{_bindir}/healpy_get_wmap_maps.sh
 %check
 %pyproject_check_import
 
-pushd %{buildroot}/%{python3_sitearch}
 # For skipped tests: They require internet access and therefore have to be disabled
-%pytest -q -k "not (test_astropy_download_file or test_rotate_map_polarization or test_pixelweights_local_datapath)" healpy
-# Remove relict from tests
-rm -rf .pytest_cache
-popd
+%pytest -q -k "not (test_astropy_download_file or test_rotate_map_polarization or test_pixelweights_local_datapath)"
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

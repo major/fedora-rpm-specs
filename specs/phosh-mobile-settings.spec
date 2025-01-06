@@ -1,5 +1,5 @@
 Name:		phosh-mobile-settings
-Version:	0.43.0
+Version:	0.44.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -37,7 +37,7 @@ BuildRequires:	feedbackd >= 0.4.1
 
 Requires:	feedbackd >= 0.4.1
 Requires:	phoc >= 0.34.0
-Requires:	phosh >= 0.40.0
+Requires:	phosh >= 0.44.0
 
 %description
 Mobile Settings App for phosh and related components

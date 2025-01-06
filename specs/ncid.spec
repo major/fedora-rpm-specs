@@ -1,12 +1,17 @@
 Name:       ncid
 Version:    1.17
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:    GPL-3.0-or-later
 Url:        http://ncid.sourceforge.net
 Source0:    https://sourceforge.net/projects/ncid/files/%{name}/%{version}/%{name}-%{version}-src.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if !%{defined fc40} && !%{defined fc41}
+ExcludeArch:   %{ix86}
+%endif
 
 BuildRequires: make, gcc, gcc-c++
 BuildRequires: libpcap-devel, pcre2-devel, libappstream-glib
@@ -477,6 +482,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Mon Dec 16 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.17-5
+- Drop i686 support beginning with Fedora 42 (leaf package)
+
 * Sat Dec 14 2024 Adam Williamson <awilliam@redhat.com> - 1.17-4
 - Rebuild for new libphonenumber
 

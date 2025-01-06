@@ -1,4 +1,4 @@
-%global release_date 2022Jul28
+%global release_date 2024Nov13
 
 %global majornum 0
 
@@ -9,8 +9,8 @@
 %endif
 
 Name:           healpix
-Version:        3.82
-Release:        8%{?dist}
+Version:        3.83
+Release:        1%{?dist}
 Summary:        Hierarchical Equal Area isoLatitude Pixelization of a sphere
 
 License:        GPL-2.0-or-later
@@ -350,6 +350,9 @@ popd
 
 
 %changelog
+* Tue Dec 03 2024 Mattia Verga <mattia.verga@protonmail.com> - 3.83-1
+- Update to 3.83
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.82-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

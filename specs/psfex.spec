@@ -1,6 +1,6 @@
 Name: psfex
 Version: 3.24.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Model the Point Spread Function from FITS images
 
 License: GPL-3.0-only
@@ -14,7 +14,7 @@ BuildRequires: automake
 BuildRequires: libtool
 
 BuildRequires: fftw-devel
-BuildRequires: atlas-devel
+BuildRequires: openblas-devel
 BuildRequires: plplot-devel
 
 %description
@@ -24,11 +24,11 @@ The generated PSF models can be used for model-fitting photometry or
 morphological analyses.
 
 %prep
-%autosetup 
+%autosetup -p1
 
 %build
 ./autogen.sh
-%configure --enable-plplot=yes
+%configure --enable-plplot=yes --enable-openblas=yes
 %make_build
 
 %install
@@ -43,6 +43,9 @@ morphological analyses.
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Dec 23 2024 Orion Poplawski <orion@nwra.com> - 3.24.1-4
+- Use openblas
+
 * Sun Oct 06 2024 Sergio Pascual <sergiopr@fedoraproject.org> - 3.24.1-3
 - Rebuild to fix FTBFS 2301104
 

@@ -2,16 +2,16 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.43.0
+Version:	0.44.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
 Source:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version}/%{name}-v%{version}.tar.gz
-# This library doesn't compile into a DSO or ever has had any releases.
-# Other projects, such as gnome-shell use it this way.
+# This library doesn't compile into a DSO nor has any tagged releases.
+# Other projects such as gnome-shell use it this way.
 Source:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
-# Similar sutiation as gvc
+# Similar situation as gvc
 Source:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/v%{libcall_ui_version}/libcall-ui-v%{libcall_ui_version}.tar.gz
 Source:	phosh
 # Needed when not using the OSK package
@@ -41,14 +41,14 @@ BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.4.0
 BuildRequires:	pkgconfig(libhandy-1) >= 1.1.90
 BuildRequires:	pkgconfig(libnm) >= 1.14
 BuildRequires:	pkgconfig(polkit-agent-1) >= 0.122
-BuildRequires:	pkgconfig(libsoup-3.0) >= 3.0
+BuildRequires:	pkgconfig(libsoup-3.0) >= 3.6
 BuildRequires:	pkgconfig(libsystemd) >= 241
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(upower-glib) >= 0.99.1
 BuildRequires:	pkgconfig(wayland-client) >= 1.14
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(gtk4) >= 4.12
-BuildRequires:	pkgconfig(libadwaita-1) >= 1.5
+BuildRequires:	pkgconfig(libadwaita-1) >= 1.6
 BuildRequires:	pkgconfig(evince-document-3.0)
 BuildRequires:	pkgconfig(evince-view-3.0)
 BuildRequires:	pkgconfig(alsa)
@@ -62,7 +62,7 @@ BuildRequires:	dbus-daemon
 BuildRequires:	desktop-file-utils
 BuildRequires:	systemd-rpm-macros
 
-Requires:	phoc >= 0.25.0
+Requires:	phoc >= 0.44.0
 Requires:	iio-sensor-proxy
 Requires:	gnome-session
 Requires:	gnome-shell
@@ -127,11 +127,11 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
 %find_lang %{name}
 
 %{__install} -Dpm 0644 data/phosh.service %{buildroot}%{_unitdir}/phosh.service
-rm %{buildroot}%{_libdir}/libphosh-0.43.a
+rm %{buildroot}%{_libdir}/libphosh-0.44.a
 
 %check
 desktop-file-validate \
-%{buildroot}%{_datadir}/applications/sm.puri.Phosh.desktop
+%{buildroot}%{_datadir}/applications/mobi.phosh.Shell.desktop
 LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
 %meson_test
 SH
@@ -140,9 +140,9 @@ SH
 %{_bindir}/phosh-session
 %{_libexecdir}/phosh
 %{_libexecdir}/phosh-calendar-server
-%{_datadir}/applications/sm.puri.Phosh.desktop
-%{_datadir}/glib-2.0/schemas/sm.puri.phosh.gschema.xml
-%{_datadir}/glib-2.0/schemas/sm.puri.phosh.enums.xml
+%{_datadir}/applications/mobi.phosh.Shell.desktop
+%{_datadir}/glib-2.0/schemas/mobi.phosh.shell.gschema.xml
+%{_datadir}/glib-2.0/schemas/mobi.phosh.shell.enums.xml
 %{_datadir}/glib-2.0/schemas/00_mobi.Phosh.gschema.override
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.plugins.ticket-box.gschema.xml
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.plugins.launcher-box.gschema.xml
@@ -154,13 +154,13 @@ SH
 %{_sysconfdir}/pam.d/phosh
 %{_unitdir}/phosh.service
 %{_userunitdir}/gnome-session@phosh.target.d/session.conf
-%{_userunitdir}/sm.puri.Phosh.service
-%{_userunitdir}/sm.puri.Phosh.target
+%{_userunitdir}/mobi.phosh.Shell.service
+%{_userunitdir}/mobi.phosh.Shell.target
 %{_datadir}/applications/sm.puri.OSK0.desktop
-%{_datadir}/xdg-desktop-portal/portals/phosh.portal
+%{_datadir}/xdg-desktop-portal/portals/phosh-shell.portal
 %{_datadir}/xdg-desktop-portal/phosh-portals.conf
-%{_datadir}/icons/hicolor/symbolic/apps/sm.puri.Phosh-symbolic.svg
-%{_datadir}/dbus-1/services/sm.puri.Phosh.CalendarServer.service
+%{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg
+%{_datadir}/dbus-1/services/mobi.phosh.Shell.CalendarServer.service
 %{_libdir}/phosh/plugins/caffeine-quick-setting.plugin
 %{_libdir}/phosh/plugins/calendar.plugin
 %{_libdir}/phosh/plugins/dark-mode-quick-setting.plugin
@@ -201,12 +201,12 @@ SH
 
 %files -n libphosh
 %{_libdir}/girepository-1.0/Phosh-0.typelib
-%{_libdir}/libphosh-0.43.so.0
+%{_libdir}/libphosh-0.44.so.0
 
 %files -n libphosh-devel
-%{_includedir}/libphosh-0.43
-%{_libdir}/libphosh-0.43.so
-%{_libdir}/pkgconfig/libphosh-0.43.pc
+%{_includedir}/libphosh-0.44
+%{_libdir}/libphosh-0.44.so
+%{_libdir}/pkgconfig/libphosh-0.44.pc
 
 %changelog
 %autochangelog

@@ -46,7 +46,7 @@ BuildRequires: cmake(KF6TextTemplate)
 
 BuildRequires: cmake(KPim6AkonadiContactWidgets)
 
-BuildRequires: gpgme-devel
+BuildRequires: pkgconfig(gpgme)
 
 # when split occured
 Conflicts: kdeutils-common < 6:4.7.80

@@ -1,7 +1,7 @@
 %global srcname virtme_ng
 
 Name:           virtme-ng
-Version:        1.31
+Version:        1.32
 Release:        %autorelease
 Summary:        Quickly build and run kernels inside a virtualized snapshot of your live system
 
@@ -61,9 +61,12 @@ rm -f virtme/guest/bin/virtme-ng-init
 %install
 %pyproject_install
 
-# Work around Python's inability to install global files
-mv %{buildroot}%{python3_sitelib}/etc       %{buildroot}%{_sysconfdir}
-mv %{buildroot}%{python3_sitelib}/usr/share %{buildroot}%{_datadir}
+# Man page already installs in the right place, remove the sitelib copy
+rm -rf %{buildroot}%{python3_sitelib}%{_mandir}
+# These need to be moved into the right place
+mv %{buildroot}%{python3_sitelib}/etc %{buildroot}%{_sysconfdir}
+mv %{buildroot}%{python3_sitelib}/usr/share/* %{buildroot}%{_datadir}
+rm -rf %{buildroot}%{python3_sitelib}/usr
 
 %pyproject_save_files virtme virtme_ng
 
