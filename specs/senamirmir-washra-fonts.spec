@@ -6,7 +6,7 @@ Release: 37%{?dist}
 URL:     http://www.senamirmir.org/projects/typography/typeface.html
 
 %global foundry           Senamirmir
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *.txt
 %global fontdocsex        %{fontlicenses}

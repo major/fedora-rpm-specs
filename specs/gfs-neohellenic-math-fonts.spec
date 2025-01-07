@@ -4,7 +4,7 @@ Release: 16%{?dist}
 URL:     https://www.greekfontsociety-gfs.gr/typefaces/Math
 
 %global foundry           GFS
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 # GFS already forgot about providing clean licensing texts
 %global fontlicenses      README
 %global fontdocs          README

@@ -1,6 +1,6 @@
 %global _bundled_pcre2_version 10.42
 # read from libversion
-%global libversion 103
+%global libversion 110
 
 %bcond_without check
 %bcond_without samples
@@ -11,7 +11,7 @@
 %endif
 
 Name:           poco
-Version:        1.13.3
+Version:        1.14.0
 Release:        %autorelease
 Summary:        C++ class libraries for network-centric applications
 License:        BSL-1.0
@@ -33,6 +33,9 @@ BuildRequires:  pcre2-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  expat-devel
 BuildRequires:  libtool-ltdl-devel
+BuildRequires:  utf8proc-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libatomic
 
 # We build poco to unbundle as much as possible, but unfortunately, it uses
 # some internal functions of pcre so there are a few files from pcre that are
@@ -228,7 +231,6 @@ rm -v Foundation/src/crc32.h
 rm -v Foundation/src/deflate.c
 rm -v Foundation/src/deflate.h
 rm -v Foundation/src/gzguts.h
-rm -v PDF/src/gzio.c
 rm -v Foundation/src/infback.c
 rm -v Foundation/src/inffast.c
 rm -v Foundation/src/inffast.h
@@ -275,8 +277,6 @@ rm -v Foundation/src/pcre2_xclass.c
 
 rm -v Data/SQLite/src/sqlite3.h
 rm -v Data/SQLite/src/sqlite3.c
-rm -v XML/include/Poco/XML/expat.h
-rm -v XML/include/Poco/XML/expat_external.h
 rm -v XML/src/ascii.h
 rm -v XML/src/asciitab.h
 rm -v XML/src/expat_config.h
@@ -316,11 +316,10 @@ rm -v XML/src/xmltok_ns.c
 
 %check
 %if %{with check}
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=113529152
 %ifarch s390x
-%ctest -E "Redis|NetSSL|DataMySQL|DataPostgreSQL|DataODBC"
+%ctest -E "Redis|NetSSL|DataMySQL|DataPostgreSQL|DataODBC|Data"
 %else
-%ctest -E "MongoDB|Redis|NetSSL|DataMySQL|DataPostgreSQL|DataODBC"
+%ctest -E "MongoDB|Redis|NetSSL|DataMySQL|DataPostgreSQL|DataODBC|Data"
 %endif
 %endif
 

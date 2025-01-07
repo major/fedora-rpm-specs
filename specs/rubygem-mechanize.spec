@@ -1,11 +1,11 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.12.2
+%global	majorver		2.13.0
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		2
+%global	baserelease		1
 
 %global	gem_name		mechanize
 
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Fri Jan 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.13.0-1
+- 2.13.0
+
 * Sun Nov 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.12.2-2
 - Add BR: rubygem(nkf) explicitly for ruby34
 

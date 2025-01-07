@@ -8,7 +8,7 @@ Release: 12%{?dist}
 URL:     https://www.behance.net/gallery/28579883/Cormorant-an-open-source-display-font-family
 
 %global foundry           Catharsis Fonts
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}

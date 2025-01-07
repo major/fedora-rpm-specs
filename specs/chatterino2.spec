@@ -17,7 +17,7 @@ ExcludeArch: %{ix86}
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 #   * settings
-%global commit3         70fbc7236aa8bcf5db4748e7f56dad132d6fd402
+%global commit3         9e9c2f65f4ae195a96329a90fd6ae24c24fb8f2f
 %global shortcommit3    %(c=%{commit3}; echo ${c:0:7})
 
 #   * signals
@@ -33,16 +33,19 @@ ExcludeArch: %{ix86}
 %global shortcommit9    %(c=%{commit9}; echo ${c:0:7})
 
 #   * sanitizers-cmake
-%global commit10        3f0542e4e034aab417c51b2b22c94f83355dee15
+%global commit10        0573e2ea8651b9bb3083f193c41eb086497cc80a
 %global shortcommit10   %(c=%{commit10}; echo ${c:0:7})
 
 #   * miniaudio
 %global commit11        4a5b74bef029b3592c54b6048650ee5f972c1a48
 %global shortcommit11   %(c=%{commit11}; echo ${c:0:7})
 
+#   * expected-lite
+%global commit12        5b5caad7cd57d5ba3ca796bf1521b131d73ca405
+%global shortcommit12   %(c=%{commit12}; echo ${c:0:7})
 
 Name:           chatterino2
-Version:        2.5.1
+Version:        2.5.2
 %forgemeta
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
@@ -80,9 +83,8 @@ Source5:        https://github.com/pajlada/serialize/archive/%{commit5}/serializ
 Source9:        https://github.com/Neargye/magic_enum/archive/%{commit9}/magic_enum-%{shortcommit9}.tar.gz
 Source10:       https://github.com/arsenm/sanitizers-cmake/archive/%{commit10}/sanitizers-cmake-%{shortcommit10}.tar.gz
 Source11:       https://github.com/mackron/miniaudio/archive/%{commit11}/miniaudio-%{shortcommit11}.tar.gz
+Source12:       https://github.com/martinmoene/expected-lite/archive/%{commit12}/expected-lite-%{shortcommit12}.tar.gz
 
-# https://github.com/Chatterino/chatterino2/pull/5556
-Patch:          https://github.com/Chatterino/chatterino2/pull/5556.patch#/5556-rebased.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  clang
@@ -114,6 +116,7 @@ Requires:       qt6-qtimageformats
 
 # Current submodules patched so not possible to build with system packages
 #   * https://github.com/Chatterino/chatterino2/issues/1444
+Provides:       bundled(expected-lite) = 0.8.0~git%{shortcommit12}
 Provides:       bundled(libcommuni) = 3.7.0~git%{shortcommit2}
 Provides:       bundled(magic_enum) = 0.9.3~git%{shortcommit9}
 Provides:       bundled(miniaudio) = 0.11.18~git%{shortcommit11}
@@ -129,7 +132,6 @@ found https://wiki.chatterino.com/.
 
 %prep
 %forgesetup
-%autopatch -p1
 %setup -n %{name}-%{tarball_version} -q -D -T -a2
 %setup -n %{name}-%{tarball_version} -q -D -T -a3
 %setup -n %{name}-%{tarball_version} -q -D -T -a4
@@ -137,6 +139,7 @@ found https://wiki.chatterino.com/.
 %setup -n %{name}-%{tarball_version} -q -D -T -a9
 %setup -n %{name}-%{tarball_version} -q -D -T -a10
 %setup -n %{name}-%{tarball_version} -q -D -T -a11
+%setup -n %{name}-%{tarball_version} -q -D -T -a12
 
 mv libcommuni-%{commit2}/*  lib/libcommuni
 mv settings-%{commit3}/*    lib/settings
@@ -144,6 +147,7 @@ mv signals-%{commit4}/*     lib/signals
 mv serialize-%{commit5}/*   lib/serialize
 mv magic_enum-%{commit9}/*  lib/magic_enum
 mv miniaudio-%{commit11}/*  lib/miniaudio
+mv expected-lite-%{commit12}/* lib/expected-lite
 mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
 
 

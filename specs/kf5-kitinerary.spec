@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -28,6 +28,10 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 
 Patch0:         kf5-kitinerary-23.08.5-unicode-mark.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if !%{defined fc40} && !%{defined fc41}
+ExcludeArch:   %{ix86}
+%endif
 # libical (and thus kcalendarcore) not on all arches for RHEL8.
 %if 0%{?rhel} == 8
 ExclusiveArch: x86_64 ppc64le aarch64 %{arm}
@@ -137,6 +141,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Mon Dec 23 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 23.08.5-4
+- Drop i686 support beginning with Fedora 42 (leaf package)
+
 * Thu Aug 22 2024 Marek Kasik <mkasik@redhat.com> - 23.08.5-3
 - Rebuild for poppler 24.08.0
 

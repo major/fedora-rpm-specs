@@ -8,7 +8,7 @@ Release: 20%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           Impallari
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *.txt *.md *.html
 %global fontdocsex        %{fontlicenses}

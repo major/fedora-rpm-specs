@@ -5,7 +5,7 @@
 # https://github.com/golang/time
 %global goipath         golang.org/x/time
 %global forgeurl        https://github.com/golang/time
-Version:                0.8.0
+Version:                0.9.0
 
 %gometa -L
 

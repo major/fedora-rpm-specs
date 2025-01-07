@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Test-Warnings
-Version:	0.034
+Version:	0.036
 Release:	1%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -93,6 +93,13 @@ make test
 %{_mandir}/man3/Test2::Warnings.3*
 
 %changelog
+* Sun Jan  5 2025 Paul Howarth <paul@city-fan.org> - 0.036-1
+- Update to 0.036
+  - Allow tests to pass even when Import::Into is not installed (CPAN RT#158296)
+  - Add backcompat shim for cases where Test::More is loaded in tests after
+    Test::Warnings
+  - Avoid redefinition warnings when $^W is enabled in tests (CPAN RT#158297)
+
 * Fri Jan  3 2025 Paul Howarth <paul@city-fan.org> - 0.034-1
 - Update to 0.034
   - Fix Test2 compatibility for done_testing()

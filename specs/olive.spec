@@ -18,12 +18,11 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
-# ext/core/include/olive/core/util/sse2neon.h: MIT
-License:        GPL-3.0-or-later AND BSD-3-Clause AND ( GPL-2.0-only OR GPL-3.0-only ) AND MIT
+License:        GPL-3.0-or-later AND BSD-3-Clause AND ( GPL-2.0-only OR GPL-3.0-only )
 Url:            https://www.olivevideoeditor.org
 %if 0%{?usesnapshot}
 Source0:        https://github.com/olive-editor/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -64,14 +63,14 @@ BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  portaudio-devel
 BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qttranslations
+%ifarch aarch64
+BuildRequires:  sse2neon-static
+%endif
 Requires:       hicolor-icon-theme
 # ext/KDDockWidgets
 Provides:       bundled(KDDockWidgets) = 1.6.95
 # ext/core
 Provides:       bundled(libolivecore) = 1.0.0
-# ext/core/include/olive/core/util/sse2neon.h
-# older than 2022-10-28
-Provides:       bundled(sse2neon)
 # OpenImageIO and OpenColorIO are missing on i686
 ExcludeArch:    i686
 
@@ -103,6 +102,10 @@ popd
 %autopatch -p1
 %else
 %autosetup -p1 -n %{name}-%{version}
+%endif
+%ifarch aarch64
+# use system sse2neon
+rm -v ext/core/include/olive/core/util/sse2neon.h
 %endif
 
 %build
@@ -136,6 +139,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Sun Jan 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20240825git617ff87-4
+- unbundle sse2neon
+
 * Thu Dec 26 2024 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20240825git617ff87-3
 - Add missing BuildRequires: gcc-c++
 

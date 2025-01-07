@@ -1,5 +1,5 @@
 Name:           deepin-draw
-Version:        6.0.11
+Version:        6.5.8
 Release:        %autorelease
 Summary:        A lightweight drawing tool for Linux Deepin
 License:        GPL-3.0-or-later
@@ -18,12 +18,12 @@ BuildRequires:  cmake(Qt5PrintSupport)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Concurrent)
 BuildRequires:  cmake(Qt5LinguistTools)
+
 BuildRequires:  pkgconfig(dtkwidget)
 BuildRequires:  pkgconfig(dtkgui)
 
 BuildRequires:  desktop-file-utils
 
-Requires:       deepin-notifications
 Requires:       deepin-qt5integration
 Recommends:     deepin-manual
 

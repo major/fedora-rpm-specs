@@ -1,12 +1,12 @@
 Name:           VirtualGL
-Version:        3.1
-Release:        5%{?dist}
+Version:        3.1.2
+Release:        1%{?dist}
 Summary:        A toolkit for displaying OpenGL applications to thin clients
 
 # Automatically converted from old format: wxWindows - review is highly recommended.
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
-URL:            http://www.virtualgl.org
-Source0:        https://downloads.sourceforge.net/project/virtualgl/%{version}/VirtualGL-%{version}.tar.gz
+URL:            https://www.virtualgl.org
+Source0:        https://github.com/VirtualGL/virtualgl/archive/%{version}/VirtualGL-%{version}.tar.gz
 # fix for bz923961
 Patch1:         %{name}-redhatpathsfix.patch
 # fix for bz1088475
@@ -174,6 +174,9 @@ mv %{buildroot}%{_bindir}/.vglrun.vars32 %{buildroot}%{_libexecdir}/vglrun.vars3
 
 
 %changelog
+* Mon Jan 06 2025 Packit <hello@packit.dev> - 3.1.2-1
+- Update to version 3.1.2
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 3.1-5
 - convert license to SPDX
 

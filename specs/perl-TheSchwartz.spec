@@ -1,8 +1,7 @@
 Name:           perl-TheSchwartz
-Version:        1.17
-Release:        10%{?dist}
+Version:        1.18
+Release:        1%{?dist}
 Summary:        Reliable job queue
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TheSchwartz
 Source0:        https://cpan.metacpan.org/authors/id/A/AK/AKIYM/TheSchwartz-%{version}.tar.gz
@@ -69,6 +68,9 @@ atomically to perform. Failed jobs can be left in the queue to retry later.
 %{_bindir}/schwartzmon
 
 %changelog
+* Sun Jan 05 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.18-1
+- Update to 1.18
+
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.17-10
 - convert license to SPDX
 

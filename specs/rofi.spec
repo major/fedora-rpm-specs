@@ -1,6 +1,6 @@
 Name:    rofi
-Version: 1.7.5
-Release: 6%{?dist}
+Version: 1.7.7
+Release: 1%{?dist}
 Summary: A window switcher, application launcher and dmenu replacement
 
 # lexer/theme-parser.[ch]:
@@ -12,16 +12,17 @@ Summary: A window switcher, application launcher and dmenu replacement
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/C4VVT54Z4WFGJPPD5X54ILKRF6X2IFLZ/
 License: MIT
 URL:     https://github.com/davatorium/%{name}
-Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source:  %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: pkgconfig
-BuildRequires: gcc-c++
+BuildRequires: gcc
 BuildRequires: bison
 BuildRequires: desktop-file-utils
 BuildRequires: doxygen
 BuildRequires: flex
 BuildRequires: graphviz
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: pandoc
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(cairo-xcb)
 BuildRequires: pkgconfig(check) >= 0.11.0
@@ -35,6 +36,8 @@ BuildRequires: pkgconfig(xcb-aux)
 BuildRequires: pkgconfig(xcb-cursor)
 BuildRequires: pkgconfig(xcb-ewmh)
 BuildRequires: pkgconfig(xcb-icccm)
+BuildRequires: pkgconfig(xcb-imdkit)
+BuildRequires: pkgconfig(xcb-keysyms)
 BuildRequires: pkgconfig(xcb-randr)
 BuildRequires: pkgconfig(xcb-xinerama)
 BuildRequires: pkgconfig(xcb-xkb)
@@ -85,20 +88,20 @@ The %{name}-themes package contains themes for %{name}.
 
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
-make doxy
-find doc/html/html -name "*.map" -delete
-find doc/html/html -name "*.md5" -delete
+%meson_build doxy
+find %{_vpath_builddir}/doc/html/html -name "*.map" -delete
+find %{_vpath_builddir}/doc/html/html -name "*.md5" -delete
 
 
 %install
-%make_install
+%meson_install
 
 
 %check
-make check || (cat ./test-suite.log; false)
+%meson_test
 desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 
@@ -110,7 +113,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 %{_bindir}/rofi-theme-selector
 %{_datadir}/applications/rofi.desktop
 %{_datadir}/applications/rofi-theme-selector.desktop
-%{_datadir}/icons/hicolor/apps/rofi.svg
+%{_datadir}/icons/hicolor/scalable/apps/rofi.svg
 %{_mandir}/man1/rofi*
 %{_mandir}/man5/rofi*
 
@@ -124,11 +127,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 %files devel-doc
 %license COPYING
-%doc doc/html/html/*
+%doc %{_vpath_builddir}/doc/html/html/*
 
 
 
 %changelog
+* Sun Jan 05 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.7-1
+- Update to 1.7.7 (#2334339)
+- Build with meson
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

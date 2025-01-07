@@ -23,7 +23,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.10.2
-Release:   5%{?dist}
+Release:   7%{?dist}
 # Automatically converted from old format: ASL 2.0 and GPLv2+ and MIT - review is highly recommended.
 License:   Apache-2.0 AND GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:       http://www.xrdp.org/
@@ -77,9 +77,6 @@ BuildRequires: systemd-rpm-macros
 Requires: tigervnc-server-minimal
 Requires: xorg-x11-xinit
 Requires: util-linux
-%if 0%{?fedora} || 0%{?rhel} > 8
-Requires: (openh264 or noopenh264)
-%endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends: %{name}-selinux = %{epoch}:%{version}-%{release}
@@ -245,7 +242,7 @@ if [ ! -s %{_sysconfdir}/xrdp/cert.pem ]; then
 fi
 
 chgrp xrdp %{_sysconfdir}/xrdp/{rsakeys.ini,{key,cert}.pem}
-chmod g+r %{_sysconfdir}/xrdp/{rsakeys.ini,{key,cert}.pem}
+chmod 0640 %{_sysconfdir}/xrdp/{rsakeys.ini,{key,cert}.pem}
 
 %post selinux
 for selinuxvariant in %{selinux_variants}
@@ -348,6 +345,13 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~7
+- Comment out generic RDP proxy in xrdp.ini
+
+* Sun Jan  5 2025 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~6
+- Set permissions of cert, key and rsakeys.ini to 0640
+- Revert optional dependency on noopenh264, library dependency exists
+
 * Fri Dec 27 2024 Bojan Smojver <bojan@rexursive.com> - 1:0.10.2~5
 - Move README.Fedora to README.md
 - Adjust ownership/permissions of certs/keys for unprivileged user

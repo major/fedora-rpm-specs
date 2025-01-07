@@ -7,7 +7,7 @@ Release: %autorelease -b 6
 URL:     http://terminus-font.sourceforge.net/
 
 %global foundry           %{nil}
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 #
 # The following directives are lists of space-separated shell globs
 #   – matching files associated with the font family,
@@ -136,8 +136,7 @@ Requires:   kbd
 # For /usr/lib/kbd
 Requires:   kbd-misc
 Summary:    Clean fixed width font (console version)
-# Automatically converted from old format: OFL - review is highly recommended.
-License:    LicenseRef-Callaway-OFL
+License:    OFL-1.1
 
 %description console
 %fontdescription
@@ -148,8 +147,7 @@ This package contains the fonts to use with the Linux console.
 %package grub2
 Requires:   grub2-common
 Summary:    Clean fixed width font (grub2 version)
-# Automatically converted from old format: OFL - review is highly recommended.
-License:    LicenseRef-Callaway-OFL
+License:    OFL-1.1
 
 %description grub2
 %fontdescription
@@ -159,8 +157,7 @@ This package contains the fonts to use with the grub2 boot loader.
 
 %package legacy-x11
 Summary:    Clean fixed width font (legacy PCF version)
-# Automatically converted from old format: OFL - review is highly recommended.
-License:    LicenseRef-Callaway-OFL
+License:    OFL-1.1
 # Require the fontconfig file
 Requires:   %{name} = %{evr}
 

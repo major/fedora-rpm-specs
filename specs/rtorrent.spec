@@ -2,26 +2,19 @@ Name:          rtorrent
 # OpenSSL exception, see README
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:       LicenseRef-Callaway-GPLv2+-with-exceptions
-Version:       0.9.8
-Release:       17%{?dist}
+Version:       0.15.1
+Release:       1%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
-Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/rakshasa/rtorrent/releases/download/v%{version}/rtorrent-%{version}.tar.gz
 Source1:       rtorrent.1
-
-# http://libtorrent.rakshasa.no/ticket/2326
-# http://libtorrent.rakshasa.no/ticket/2327
-Patch0:        rtorrent-0.9.3-makefile-am.patch
-Patch1:        rtorrent-0.9.3-makefile-in.patch
-Patch2:        rtorrent-0.9.8-src-utils-lockfile.cc.patch
-Patch3:        rtorrent-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: curl-devel
 BuildRequires: gcc-c++
 BuildRequires: libstdc++-devel
 BuildRequires: libsigc++20-devel
-BuildRequires: libtorrent-devel >= 0.13.8
+BuildRequires: libtorrent-devel >= 0.15.1
 BuildRequires: ncurses-devel
 BuildRequires: pkgconfig
 BuildRequires: xmlrpc-c-devel
@@ -58,6 +51,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_mandir}/man1/rtorrent.1.gz
 
 %changelog
+* Sat Jan 04 2025 Conrad Meyer <cse.cem@gmail.com> - 0.15.1-1
+- Update to 0.15.1
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.9.8-17
 - convert license to SPDX
 
@@ -76,7 +72,7 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
-* Wed Apr 19 2023 Cornad Meyer <cse.cem@gmail.com> - 0.9.8-11
+* Wed Apr 19 2023 Conrad Meyer <cse.cem@gmail.com> - 0.9.8-11
 - Patch for rhbz# 2188136 snprintf misuse
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-10

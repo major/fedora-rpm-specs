@@ -1,5 +1,8 @@
-%global tag 24.05.05-LiXia.ecd1138c	
-Version:        %(echo %{tag} | awk -F'-' '{print $1}')
+%global forgeurl https://github.com/xiaoyifang/goldendict-ng
+%global commit ce7f0e69d8f7a6e0df8ccc8a6b65605e85ad38bb
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+Version:        2025.01.05
+%forgemeta
 
 Name:           goldendict-ng
 Release:        %autorelease
@@ -14,9 +17,8 @@ Summary:        The Next Generation GoldenDict
 # src/scripts/{iframeResizer.contentWindow.min.js,iframeResizer.min.js} - MIT
 # src/scripts/jquery-3.6.0.slim.min.js - MIT
 License:        GPL-3.0-or-later AND GPL-1.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only AND MIT
-URL:            https://github.com/xiaoyifang/goldendict-ng
-Source0:        %{url}/archive/v%{tag}/goldendict-ng-%{tag}.tar.gz
-Patch0:         https://github.com/xiaoyifang/goldendict-ng/commit/e2e1ca2d49b939e89a12104a2e9c90875a7d50ea.patch#/%{name}-ffmpeg7.patch
+URL:            https://xiaoyifang.github.io/goldendict-ng/
+Source0:        %{forgesource}
 
 # https://src.fedoraproject.org/rpms/qt6-qtwebengine/blob/rawhide/f/qt6-qtwebengine.spec#_90
 ExclusiveArch:  aarch64 x86_64
@@ -71,11 +73,10 @@ The Next Generation GoldenDict. A feature-rich open-source dictionary lookup
 program, supporting multiple dictionary formats and online dictionaries.
 
 %prep
-%autosetup -p1 -n %{name}-%{tag}
+%forgeautosetup -p1
 
 # remove unneeded third-party libraries
 rm -r thirdparty/{fmt,qwebengine_ts,tomlplusplus}
-rm -r winlibs
 
 %build
 %cmake \

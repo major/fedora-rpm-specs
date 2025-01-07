@@ -1,7 +1,7 @@
 Summary:        Test case module for Perl
 Name:           perl-Test-Manifest
-Version:        2.024
-Release:        5%{?dist}
+Version:        2.025
+Release:        1%{?dist}
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Manifest
 Source0:        https://www.cpan.org/modules/by-module/Test/Test-Manifest-%{version}.tar.gz
@@ -63,11 +63,16 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod
+%doc Changes README.pod SECURITY.md
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::Manifest.3*
 
 %changelog
+* Sun Jan  5 2025 Paul Howarth <paul@city-fan.org> - 2.025-1
+- Update to 2.025
+  - Refresh distro and move to BRIANDFOY
+- Package new file SECURITY.md
+
 * Wed Dec  4 2024 Paul Howarth <paul@city-fan.org> - 2.024-5
 - Switch source URL from cpan.metacpan.org to www.cpan.org
 - Use %%{make_build} and %%{make_install}

@@ -10,7 +10,7 @@ Name: qtwebkit
 Summary: Qt WebKit bindings
 
 Version: 2.3.4
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 # Automatically converted from old format: LGPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
 License: LGPL-2.0-or-later WITH FLTK-exception OR LicenseRef-Callaway-GPLv3-with-exceptions
@@ -37,6 +37,13 @@ Patch11: qtwebkit-23-LLInt-C-Loop-backend-ppc.patch
 
 # truly madly deeply no rpath please, kthxbye
 Patch14: webkit-qtwebkit-23-no_rpath.patch
+
+# Port to python3
+Patch15: webkit-qtwebkit-23-port-python3.patch
+# Fix compilation with gcc14 -Werror=incompatble-pointer-types
+# wrt constness for libxml2 xmlError
+# ref: https://gitlab.gnome.org/GNOME/libxml2/-/commit/61034116d0a3c8b295c6137956adc3ae55720711
+Patch16: webkit-qtwebkit-23-xmlerror-constness.patch
 
 ## upstream patches
 # backport from qt5-qtwebkit
@@ -81,7 +88,7 @@ BuildRequires: pkgconfig(xrender)
 BuildRequires: perl(version)
 BuildRequires: perl(Digest::MD5)
 BuildRequires: perl(Getopt::Long)
-BuildRequires: python2
+BuildRequires: python3-devel
 BuildRequires: ruby ruby(rubygems)
 %if 0%{?fedora} || 0%{?rhel} > 7
 # qt-mobility bits
@@ -134,6 +141,8 @@ Provides:  qt4-webkit-devel%{?_isa} = 2:%{version}-%{release}
 %patch -P11 -p1 -b .Double2Ints
 %endif
 %patch -P14 -p1 -b .no_rpath
+%patch -P15 -p1 -b .python3
+%patch -P16 -p1 -b .xmlerror
 
 %patch -P100 -p1 -b .gcc5
 %patch -P101 -p1 -b .private_browsing
@@ -151,14 +160,14 @@ find -name \*.png | xargs -n3 pngcrush -ow -fix
 
 
 %build 
-# add an unversioned python symlink to python2 to the PATH (FTBFS #1736570)
-mkdir python2-unversioned-command
-ln -s %{__python2} python2-unversioned-command/python
+# add an unversioned python symlink to python3 to the PATH (FTBFS #1736570)
+mkdir python3-unversioned-command
+ln -s %{__python3} python3-unversioned-command/python
 
 CFLAGS="%{optflags}"; export CFLAGS
 CXXFLAGS="%{optflags}"; export CXXFLAGS
 LDFLAGS="%{?__global_ldflags}"; export LDFLAGS
-PATH=`pwd`/python2-unversioned-command:`pwd`/bin:%{_qt4_bindir}:$PATH; export PATH
+PATH=`pwd`/python3-unversioned-command:`pwd`/bin:%{_qt4_bindir}:$PATH; export PATH
 QMAKEPATH=`pwd`/Tools/qmake; export QMAKEPATH
 QTDIR=%{_qt4_prefix}; export QTDIR
 
@@ -208,6 +217,10 @@ popd
 
 
 %changelog
+* Tue Dec 31 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.4-44
+- Port to python3
+- Fix for gcc14 -Werror=incompatible-pointer-types with libxml2 constness change
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.3.4-43
 - convert license to SPDX
 

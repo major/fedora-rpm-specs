@@ -124,11 +124,12 @@ bin/mkosi completion zsh >mkosi.zsh
 %pyproject_install
 %pyproject_save_files mkosi
 
+# Install man pages
 mkdir -p %{buildroot}%{_mandir}/man1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/mkosi.1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/mkosi-initrd.1
+         ../../../..%{python3_sitelib}/mkosi/initrd/resources/mkosi-initrd.1
 
 # Install the kernel-install plugin
 install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
@@ -136,7 +137,7 @@ install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
 mkdir -p %{buildroot}%{_prefix}/lib/mkosi-initrd
 mkdir -p %{buildroot}%{_sysconfdir}/mkosi-initrd
 
-# Install man pages
+# Install shell completions
 install -m0644 -D mkosi.bash %{buildroot}%{bash_completions_dir}/mkosi
 install -m0644 -D mkosi.fish %{buildroot}%{fish_completions_dir}/mkosi.fish
 install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi

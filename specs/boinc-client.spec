@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       11%{?dist}
+Release:       12%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://boinc.berkeley.edu/
@@ -48,6 +48,9 @@ Patch2:        disable_idle_time_detection.patch
 # on upstream development process
 #Patch2:        systemd_hardening.patch
 # prevents manager close action from stopping client service
+# 2025-01-05 news: this patch can be removed in future boinc-client updates because of:
+# https://github.com/BOINC/boinc/issues/3639#event-12049525792
+# https://github.com/BOINC/boinc/pull/5530
 Patch3:        manager_close_no_service_stop.patch
 # On Linux distributions, BOINC runs as a service. Users must not be able to
 # try stopping the service from exit menu entry.
@@ -98,6 +101,18 @@ BuildRequires: libtool
 BuildRequires: libXScrnSaver-devel
 BuildRequires: mesa-libGLU-devel
 BuildRequires: pkgconfig(openssl)
+%if 0%{?fedora} > 40
+# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
+#
+# We have raised the possibility of removing OpenSSL engine support upstream:
+#   Remove OpenSSL engine support
+#   https://github.com/BOINC/boinc/pull/5991
+# However, it’s difficult to test this thoroughly, so it makes sense to wait
+# for upstream feedback and/or for the next major-version update before
+# patching this downstream. For now, we just add the necessary BuildRequires to
+# keep supporting engines.
+BuildRequires: openssl-devel-engine
+%endif
 %if 0%{?fedora}
 BuildRequires: pkgconfig(sqlite)
 %else
@@ -353,6 +368,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Sun Jan 05 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.20.2-12
+- Fix FTBFS in F41+ due to OpenSSL ENGINE API deprecation; fixes RHBZ#2300580.
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 7.20.2-11
 - convert license to SPDX
 

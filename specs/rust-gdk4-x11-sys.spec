@@ -6,7 +6,7 @@
 %global crate gdk4-x11-sys
 
 Name:           rust-gdk4-x11-sys
-Version:        0.9.4
+Version:        0.9.5
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 X11
 

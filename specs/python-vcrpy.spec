@@ -4,17 +4,13 @@
 %global modname vcrpy
 
 Name:               python-%{modname}
-Version:            5.0.0
-Release:            6%{?dist}
+Version:            7.0.0
+Release:            1%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
 URL:                https://pypi.io/project/%{modname}
 Source0:            %pypi_source %{modname}
-
-# Needed for compatibility with Python 3.12
-# Upstream issue: https://github.com/kevin1024/vcrpy/issues/707
-Patch:              backport-patch-to-fix-AttributeError-type-object-VCR.patch
 
 BuildArch:          noarch
 
@@ -26,7 +22,6 @@ BuildRequires:      python3dist(pytest)
 # For checking imports.
 # https://vcrpy.readthedocs.io/en/latest/installation.html
 BuildRequires:      python3dist(aiohttp)
-BuildRequires:      python3dist(boto)
 BuildRequires:      python3dist(boto3)
 BuildRequires:      python3dist(httplib2)
 BuildRequires:      python3dist(httpx)
@@ -89,6 +84,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Sat Jan 04 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 7.0.0-1
+- update to 7.0.0. Fixes rhbz#2227609
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

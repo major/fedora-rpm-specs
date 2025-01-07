@@ -6,7 +6,7 @@
 
 Name:		byobu
 Version:	6.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -18,9 +18,10 @@ Source1:	fedoracommon
 
 # prefer dnf when installed
 # sent upstream: https://code.launchpad.net/~sanjay-ankur/byobu/byobu/+merge/415959
-Patch:		byobu-use-dnf.patch
+Patch:		0002-byobu-use-dnf.patch
 # for F41+ where we have dnf5
-Patch:		byobu-use-dnf5.patch
+Patch:		0002-byobu-use-dnf5.patch
+Patch:  0001-byobu-autostart-with-fish-shell.patch 
 
 BuildArch:	noarch
 BuildRequires:  automake
@@ -135,6 +136,10 @@ cp -p usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscaldir}
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+
+* Sun Jan 05 2025 Priscila Gutierres <prgutier AT REDHAT DOT com> - 6.12-5
+- Fix BZ 2277627
+
 * Tue Nov 26 2024 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 6.12-4
 - Update patch for dnf5
 

@@ -51,7 +51,6 @@ BuildRequires:  libfl-devel
 BuildRequires:  libpoly-devel
 BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(libedit)
-BuildRequires:  pkgconfig(m4ri)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  procps-ng
 BuildRequires:  pyproject-rpm-macros

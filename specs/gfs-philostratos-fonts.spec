@@ -4,7 +4,7 @@ Release: 34%{?dist}
 URL:     http://www.greekfontsociety-gfs.gr/typefaces/19th_century
 
 %global foundry           GFS
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *.txt
 %global fontdocsex        %{fontlicenses}

@@ -3,7 +3,7 @@
 
 Name:    kdepim-addons
 Version: 24.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
 # MIT
@@ -16,6 +16,11 @@ License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-
 URL:     https://invent.kde.org/pim/%{name}
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if %{undefined fc40} && %{undefined fc41}
+ExcludeArch:   %{ix86}
+%endif
 
 ## upstream patches
 
@@ -191,6 +196,9 @@ popd
 
 
 %changelog
+* Tue Dec 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 24.12.0-2
+- Drop i686 support beginning with Fedora 42 (leaf package)
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

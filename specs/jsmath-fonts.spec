@@ -1,12 +1,10 @@
-
 Summary: A collection of Math symbol fonts 
 Name:	 jsmath-fonts 
 Version: 20090708 
 Release: 28%{?dist}
 
 # derived from computer modern metafont tex sources
-# Automatically converted from old format: Public domain - review is highly recommended.
-License: Warning: we do not have SPDX identifier for Public domain 
+License: LicenseRef-Fedora-Public-Domain
 Url: 	 http://www.math.union.edu/~dpvc/jsmath/welcome.html 
 Source0: http://www.math.union.edu/~dpvc/jsmath/download/TeX-fonts-linux.tgz 
 BuildArch: noarch

@@ -8,7 +8,7 @@ library for analyzing traces using SQL and a web-based UI to visualize and
 explore multi-GB traces.}
 
 Name:           perfetto
-Version:        48.0
+Version:        48.1
 Release:        %autorelease
 Summary:        System profiling, app tracing and trace analysis
 

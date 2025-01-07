@@ -1,11 +1,12 @@
 # Use themes from the main rofi package by default
 # Leave bcond for the case when things go wrong and we'll need rofi-wayland-themes
-%bcond_with themes
+%bcond themes 0
+%bcond devel  0
 
 Name:    rofi-wayland
-%global  base_ver 1.7.5
-Version: %{base_ver}+wayland3
-Release: 2%{?dist}
+%global  base_ver 1.7.7
+Version: %{base_ver}+wayland1
+Release: 1%{?dist}
 Summary: Fork of rofi with Wayland support
 
 # lexer/theme-parser.[ch]:
@@ -24,12 +25,13 @@ License: MIT
 URL:     https://github.com/lbonn/rofi
 Source:  %{URL}/releases/download/%{version}/rofi-%{version}.tar.xz
 
+BuildRequires: pkgconfig
 BuildRequires: gcc
 BuildRequires: bison
 BuildRequires: desktop-file-utils
 BuildRequires: flex
 BuildRequires: meson
-BuildRequires: pkgconfig
+BuildRequires: pandoc
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(cairo-xcb)
 BuildRequires: pkgconfig(check) >= 0.11.0
@@ -46,6 +48,8 @@ BuildRequires: pkgconfig(xcb-aux)
 BuildRequires: pkgconfig(xcb-cursor)
 BuildRequires: pkgconfig(xcb-ewmh)
 BuildRequires: pkgconfig(xcb-icccm)
+BuildRequires: pkgconfig(xcb-imdkit)
+BuildRequires: pkgconfig(xcb-keysyms)
 BuildRequires: pkgconfig(xcb-randr)
 BuildRequires: pkgconfig(xcb-xinerama)
 BuildRequires: pkgconfig(xcb-xkb)
@@ -66,8 +70,6 @@ Requires:      %{name}-themes = %{version}-%{release}
 %else
 # Allow slight mismatch of the theme package version
 Requires:      (rofi-themes >= %{base_ver} with rofi-themes < 1.8)
-# Upgrade path for copr users
-Obsoletes:     %{name}-themes < 1.7.5+wayland1-0.2
 %endif
 Requires:      hicolor-icon-theme
 
@@ -80,6 +82,17 @@ script.
 
 This is a fork of Rofi with added support for Wayland via the layer shell
 protocol, expected to work with wlroots-based compositors (Sway).
+
+%if %{with devel}
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       pkgconfig
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+%endif
 
 %if %{with themes}
 %package        themes
@@ -105,12 +118,13 @@ The %{name}-themes package contains themes for %{name}.
 
 %install
 %meson_install
+%if %{without devel}
 # Drop -devel files: rofi-devel should be used to build the plugins.
 # The plugin api is quite stable and the headache from having two providers
 # of pkgconfig(rofi) is not worth it.
 rm -rf %{buildroot}%{_includedir}
 rm -rf %{buildroot}%{_libdir}/pkgconfig
-
+%endif
 %if %{without themes}
 rm -rf %{buildroot}%{_datadir}/rofi
 %endif
@@ -139,8 +153,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 %{_datarootdir}/rofi
 %endif
 
+%if %{with devel}
+%files devel
+%{_includedir}/rofi
+%{_libdir}/pkgconfig/rofi.pc
+%endif
+
 
 %changelog
+* Sun Jan 05 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.7+wayland1-1
+- Update to 1.7.7+wayland1
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5+wayland3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,24 +1,22 @@
 Summary:         Utility to access BitLocker encrypted volumes
 Name:            dislocker
 Version:         0.7.3
-Release:         16%{?dist}
+Release:         17%{?dist}
 License:         GPL-2.0-or-later
 URL:             https://github.com/Aorimn/dislocker
 Source0:         https://github.com/Aorimn/dislocker/archive/v%{version}/%{name}-%{version}.tar.gz
-# ruby header redefines "true"
-# https://github.com/Aorimn/dislocker/pull/236
-Patch0:          dislocker-0.7.3-duplicate-variable-name.patch
+# Upstream changes since last release
+Patch0:          https://github.com/Aorimn/dislocker/compare/v0.7.3...3e7aea196eaa176c38296a9bc75c0201df0a3679.patch#/dislocker-0.7.3-upstream-changes.patch
+# Multibyte character support in passwords, see https://github.com/Aorimn/dislocker/pull/118
+Patch1:          https://github.com/Aorimn/dislocker/pull/333.patch#/dislocker-0.7.3-multibyte-support.patch
 Requires:        %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:        ruby(release)
 Requires:        ruby(runtime_executable)
-Requires(post):  %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(post):  %{?el8:/usr/sbin/}alternatives
+Requires(preun): %{?el8:/usr/sbin/}alternatives
 Provides:        %{_bindir}/%{name}
-BuildRequires:   gcc
 BuildRequires:   cmake
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:   cmake3
-%endif
+BuildRequires:   gcc
 BuildRequires:   mbedtls-devel
 BuildRequires:   ruby-devel
 BuildRequires:   %{_bindir}/ruby
@@ -51,8 +49,8 @@ Provides:        %{_bindir}/%{name}
 Provides:        dislocker-fuse = %{version}-%{release}
 Provides:        dislocker-fuse%{?_isa} = %{version}-%{release}
 Requires:        %{name}-libs%{?_isa} = %{version}-%{release}
-Requires(post):  %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(post):  %{?el8:/usr/sbin/}alternatives
+Requires(preun): %{?el8:/usr/sbin/}alternatives
 BuildRequires:   fuse-devel
 
 %description -n fuse-dislocker
@@ -68,16 +66,9 @@ is a virtual NTFS partition, it can be mounted as any NTFS partition and then
 reading from it or writing to it is possible.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .duplicate
+%autosetup -p1
 
 %build
-%if 0%{?rhel} && 0%{?rhel} < 8
-%global cmake %cmake3
-%global cmake_build %cmake3_build
-%global cmake_install %cmake3_install
-%endif
-
 %cmake -D WARN_FLAGS="-Wall -Wno-error -Wextra"
 %cmake_build
 
@@ -92,21 +83,21 @@ for file in *.md; do mv -f $file ${file%.md}; done
 for file in *.txt; do mv -f $file ${file%.txt}; done
 
 %post
-%{_sbindir}/alternatives --install %{_bindir}/%{name} %{name} %{_bindir}/%{name}-file 60
+alternatives --install %{_bindir}/%{name} %{name} %{_bindir}/%{name}-file 60
 
 %preun
 if [ $1 -eq 0 ]; then
-  %{_sbindir}/alternatives --remove %{name} %{_bindir}/%{name}-file
+  alternatives --remove %{name} %{_bindir}/%{name}-file
 fi
 
 %ldconfig_scriptlets libs
 
 %post -n fuse-dislocker
-%{_sbindir}/alternatives --install %{_bindir}/%{name} %{name} %{_bindir}/%{name}-fuse 80
+alternatives --install %{_bindir}/%{name} %{name} %{_bindir}/%{name}-fuse 80
 
 %preun -n fuse-dislocker
 if [ $1 -eq 0 ]; then
-  %{_sbindir}/alternatives --remove %{name} %{_bindir}/%{name}-fuse
+  alternatives --remove %{name} %{_bindir}/%{name}-fuse
 fi
 
 %files
@@ -129,6 +120,10 @@ fi
 %{_mandir}/man1/%{name}-fuse.1*
 
 %changelog
+* Sun Jan 05 2025 Robert Scheck <robert@fedoraproject.org> 0.7.3-17
+- Add patch with upstream changes, fixes and mbedTLS 3.x support
+- Add updated patch for multibyte character support in passwords
+
 * Tue Sep 03 2024 Morten Stevens <mstevens@fedoraproject.org> - 0.7.3-16
 - Rebuilt for mbedTLS 3.6.1
 

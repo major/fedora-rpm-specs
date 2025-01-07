@@ -7,7 +7,7 @@ Release: 19%{?dist}
 URL:     https://www.huertatipografica.com/en/fonts/alegreya-sans-ht
 
 %global foundry           HT
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}

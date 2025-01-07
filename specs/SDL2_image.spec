@@ -1,6 +1,6 @@
 Name:           SDL2_image
-Version:        2.8.2
-Release:        7%{?dist}
+Version:        2.8.4
+Release:        1%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -12,6 +12,7 @@ URL:            https://github.com/libsdl-org/SDL_image
 Source0:        https://github.com/libsdl-org/SDL_image/releases/download/release-%{version}/SDL2_image-%{version}.tar.gz
 
 BuildRequires:  gcc
+BuildRequires:  automake
 BuildRequires:  SDL2-devel
 BuildRequires:  libavif-devel
 BuildRequires:  libjpeg-devel
@@ -44,6 +45,7 @@ developing applications that use %{name}.
 sed -i -e 's/\r//g' README.txt CHANGES.txt
 
 %build
+./autogen.sh
 %configure --disable-dependency-tracking \
            --disable-jpg-shared \
            --disable-png-shared \
@@ -80,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Wed Jan 01 2025 Sérgio Basto <sergio@serjux.com> - 2.8.4-1
+- Update SDL2_image to 2.8.4
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.8.2-7
 - convert license to SPDX
 

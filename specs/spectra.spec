@@ -1,25 +1,17 @@
 # header-only library
 %global debug_package %{nil}
-
-%bcond_without check
+%bcond check 1
 
 %global forgeurl https://github.com/yixuan/spectra
-%global date 20230801
-%global commit 1f53e26d2242cbd848cd5741f2019a91d893a9aa
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+Version:        1.1.0
 %forgemeta
 
 Name:           spectra
-Version:        1.0.1
 Release:        %autorelease
 Summary:        A header-only C++ library for large scale eigenvalue problems
 License:        MPL-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Use GNUInstallDirs; Fix install location of CMake config files
-# include CMakeFindDependencyMacro module
-# https://github.com/yixuan/spectra/pull/169
-Patch0:         spectra-fix-cmake.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -40,7 +32,7 @@ Summary:        Development files for %{name}
 Provides:       %{name}-static%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains development files for %{name}.
+%{description}
 
 %prep
 %forgeautosetup -p1
@@ -57,8 +49,11 @@ The %{name}-devel package contains development files for %{name}.
 %install
 %cmake_install
 
-%if %{with check}
 %check
+# https://github.com/yixuan/spectra/issues/177
+%ifarch s390x
+%ctest -E Example1
+%else
 %ctest
 %endif
 

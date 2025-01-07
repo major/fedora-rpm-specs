@@ -4,9 +4,12 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global selinuxtype targeted
 
+# Tests require an installed system with root access
+%bcond check 0
+
 Name:           cobbler
 Version:        3.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Boot server configurator
 URL:            https://cobbler.github.io/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -19,6 +22,9 @@ Source4:        %{name}.fc
 
 # Do not run coverage tests
 Patch0:         cobbler-nocov.patch
+# Python 3.13 support (backport of https://github.com/cobbler/cobbler/pull/3842)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2335620
+Patch1:         cobbler-python3.13.patch
 BuildArch:      noarch
 
 BuildRequires: make
@@ -38,6 +44,13 @@ BuildRequires: %{py3_dist schema}
 BuildRequires: %{py3_dist setuptools}
 # For docs
 BuildRequires: %{py3_dist sphinx}
+%if %{with check}
+# For tests
+BuildRequires: %{py3_dist crypt-r}
+BuildRequires: %{py3_dist dnspython}
+BuildRequires: %{py3_dist file-magic}
+BuildRequires: %{py3_dist pytest-benchmark}
+%endif
 
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
 # into containers and other systems that do not use SELinux
@@ -160,9 +173,10 @@ install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{sel
 install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
 
 
+%if %{with check}
 %check
-# These require an installed system with root access
-#pytest -v
+%pytest -v
+%endif
 
 
 %pre
@@ -325,6 +339,9 @@ fi
 
 
 %changelog
+* Sun Jan 05 2025 Orion Poplawski <orion@nwra.com> - 3.3.7-2
+- Backport upstream patch for Python 3.13 support (rhbz#2335620)
+
 * Sun Nov 17 2024 Orion Poplawski <orion@nwra.com> - 3.3.7-1
 - Update to 3.3.7 (CVE-2024-47533)
 

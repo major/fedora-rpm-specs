@@ -36,6 +36,7 @@ BuildRequires:  python3-typing-extensions
 
 Requires:       hicolor-icon-theme
 Requires:       solaar-udev
+Requires:       python3-typing-extensions
 Recommends:     (gnome-shell-extension-appindicator if gnome-shell)
 Recommends:     gtk3
 Recommends:     libappindicator-gtk3

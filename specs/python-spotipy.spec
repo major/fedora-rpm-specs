@@ -1,8 +1,8 @@
 %global pypi_name spotipy
 
 Name:           python-%{pypi_name}
-Version:        2.24.0
-Release:        3%{?dist}
+Version:        2.25.0
+Release:        %autorelease
 Summary:        A light weight Python library for the Spotify Web API
 License:        MIT
 URL:            https://github.com/plamere/spotipy
@@ -68,16 +68,4 @@ rm -rf html/{.buildinfo,.doctrees}
 %doc html
 
 %changelog
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.24.0-2
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
 %autochangelog

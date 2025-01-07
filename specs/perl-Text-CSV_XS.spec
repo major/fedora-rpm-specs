@@ -1,5 +1,5 @@
 Name:           perl-Text-CSV_XS
-Version:        1.58
+Version:        1.59
 Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,11 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Sun Jan  5 2025 Paul Howarth <paul@city-fan.org> - 1.59-1
+- Update to 1.59 (rhbz#2335660)
+  - Fixed EOL test for Windows with crnl layer
+  - It is 2025
+
 * Mon Dec 30 2024 Paul Howarth <paul@city-fan.org> - 1.58-1
 - Update to 1.58 (rhbz#2334923)
   - Add strict_eol (warnings default in csv())

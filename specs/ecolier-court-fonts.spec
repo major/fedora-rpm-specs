@@ -4,7 +4,7 @@ Release: 47%{?dist}
 # This used to be published here, copies are all over the web now
 #URL:     http://perso.orange.fr/jm.douteau/page_ecolier.htm
 
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      lisez_moi.txt
 %global fontdocs          README-Fedora.txt
 

@@ -7,7 +7,7 @@ Release: 15%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           kemie
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *txt *TXT *md
 %global fontdocsex        %{fontlicenses}

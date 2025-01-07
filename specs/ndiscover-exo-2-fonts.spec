@@ -8,7 +8,7 @@ Release: 12%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           NDISCOVER
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}

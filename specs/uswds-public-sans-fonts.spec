@@ -7,7 +7,7 @@ Release: 16%{?dist}
 URL:     https://public-sans.digital.gov/
 
 %global foundry           USWDS
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      LICENSE.md
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}

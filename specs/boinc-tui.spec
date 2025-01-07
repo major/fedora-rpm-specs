@@ -1,14 +1,14 @@
 Name:           boinc-tui
-Version:        2.7.0
-Release:        5%{?dist}
+Version:        2.7.1
+Release:        1%{?dist}
 Summary:        Fullscreen Text Mode Manager For BOINC Client
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/suleman1971/boinctui
 
-%global commit       bb72f385ace769313bce409a869d5c5e896bb6d0
+%global commit       6338b8e718dd429aca35f7d0f9b62328740dde18
 %global shortcommit  %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate 20200126
+%global snapshotdate 20231214
 Source0:        https://github.com/suleman1971/boinctui/archive/%{commit}/boinctui-%{shortcommit}.tar.gz
 
 BuildRequires:  automake
@@ -60,6 +60,9 @@ install -p -m 0644 boinctui.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Dec 31 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.1-1
+- Update to 2.7.1 (fix RHBZ#2254604; fix RHBZ#2300581; fix RHBZ#2261015)
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

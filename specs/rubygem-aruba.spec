@@ -3,8 +3,8 @@
 
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
-Version:    2.2.0
-Release:    10%{?dist}
+Version:    2.3.0
+Release:    1%{?dist}
 
 # SPDX confirmed
 # templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
@@ -16,9 +16,6 @@ Source1:        %{name}-%{version}-testsuite.tar.gz
 Source2:        %{gem_name}-create-test-suite-tarball.sh
 # Make bundler runtime dependency optional
 Patch1:         rubygem-aruba-2.0.0-make-bundler-optional.patch
-# https://github.com/cucumber/aruba/pull/914
-# Patch for ruby3.3
-Patch2:         aruba-pr914-ruby33.patch
 
 
 BuildRequires:  ruby(release)
@@ -62,7 +59,6 @@ done
 ln -sf ../lib
 popd
 %patch -P1 -p1
-%patch -P2 -p1
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -129,18 +125,6 @@ fi
 # Disable bundler tests.
 mv features/03_testing_frameworks/cucumber/disable_bundler.feature{,.skip}
 
-# Output changed with minitest 5.22.2, adjusting
-# https://github.com/cucumber/aruba/issues/920
-status=$(ruby -e "require 'minitest'; p Minitest::VERSION >= '5.22.0'")
-if [ $status == "true" ] ; then
-	sed -i features/06_use_aruba_cli/initialize_project_with_aruba.feature \
-		-e 's|0 runs, 0 assertions, 0 failures, 0 errors, 0 skips|create  test/use_aruba_with_minitest.rb|' \
-		%{nil}
-	sed -i features/01_getting_started_with_aruba/supported_testing_frameworks.feature \
-		-e '\@-Ilib:test test/use_aruba_with_minitest.rb@,$s|the tests should all pass|the exit status should be 0|' \
-		%{nil}
-fi
-
 # Adjust test cases referring to $HOME.
 sed -i features/04_aruba_api/core/expand_path.feature -e "s|/home/\[\^/\]+|$(echo $HOME)|" 
 sed -i features/02_configure_aruba/home_directory.feature \
@@ -176,6 +160,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Fri Jan 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.0-1
+- 2.3.0
+
 * Thu Nov 28 2024 Vít Ondruch <vondruch@redhat.com> - 2.2.0-10
 - Drop BR: rubygem(pry)
 

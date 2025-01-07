@@ -12,20 +12,14 @@ Release:    1%{?dist}
 
 License:    (LGPL-2.1-only OR MPL-1.1) AND BSD-2-Clause AND LGPL-2.1-only
 URL:        https://taglib.github.io/
-%if 0%{?snap:1}
-Source0:    taglib-%{version}-%{snap}.tar.gz
-%else
 Source0:    https://taglib.github.io/releases/taglib-%{version}%{?beta}.tar.gz
-%endif
-# The snapshot tarballs generated with the following script:
-Source1:    taglib-snapshot.sh
 
 # http://bugzilla.redhat.com/343241
 # fix multilib, and drop -lz flag to consumers (probably only needed for static linking)
 Patch0:     taglib-1.13.1-multilib.patch
 
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: pkgconfig
 BuildRequires: zlib-devel
