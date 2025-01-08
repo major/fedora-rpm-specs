@@ -1,7 +1,8 @@
 %global modname tqdm
 %global srcname %{modname}
 
-%bcond tests 1
+# The test dependencies are not currently available on RHEL/EPEL
+%bcond tests %[%{undefined rhel}]
 
 Name:           python-%{modname}
 Version:        4.67.1

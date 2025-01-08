@@ -2,17 +2,25 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/tldextract
-Source0:        %{pypi_source}
+Source0:        %{pypi_source %{pypi_name}}
+# upstream uses setuptools_scm which picks up "tldextract/.tld_set_snapshot"
+# as package data but the source tarball does not contain ".git" so "pip wheel"
+# ignores the file by default.
+# This patch declares the file as "package_data" explicitly.
+# The code assumes this file is always present and uses it as a fallback.
+Patch1:         python-tldextract-include-.tld_set_snapshot.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-# required for testing, not declared via setup.{py,cfg}
+# required for testing, pyproject.toml only contains a "testing" extra which
+# contains many developer tools we do not need if we just want to run the test
+# suite (e.g. mypy, ruff).
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-responses
@@ -68,6 +76,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Mon Jan 06 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 5.1.3-2
+- fix missing ".tld_set_snapshot" in RPM
+
 * Sat Nov 23 2024 Ben Maconi <turboben@fedoraproject.org> - 5.1.3-1
 - Update to 5.1.3
 

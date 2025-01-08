@@ -1,7 +1,7 @@
 %global srcname uswid
 
 Name:           python-%{srcname}
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Python module for working with Firmware SBoMs
 
@@ -21,6 +21,7 @@ and storage constraints.}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest

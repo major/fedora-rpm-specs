@@ -20,7 +20,7 @@ Detailed documentation is available at http://nilearn.github.io/.}
 %global forgeurl https://github.com/nilearn/nilearn
 
 Name:           python-nilearn
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Python module for fast and easy statistical learning on NeuroImaging data
 
@@ -32,15 +32,6 @@ License:        BSD-3-Clause
 URL:            %forgeurl
 # Use GitHub tar: pypi does not include all test data
 Source:         %forgesource
-
-# [FIX] Save gifti with datatype None
-# https://github.com/nilearn/nilearn/pull/4857
-#
-# Fixes:
-#
-# [BUG] Some new test failures on s390x (big-endian) in 0.11.0
-# https://github.com/nilearn/nilearn/issues/4855
-Patch:          %{forgeurl}/pull/4857.patch
 
 # python-scikit-learn is ExcludeArch: %%{ix86}
 ExcludeArch:    %{ix86}
@@ -107,7 +98,7 @@ k="${k-}${k+ and }not test_canica_square_img"
 
 # Requires kaleido (not available in Fedora)
 k="${k-}${k+ and }not test_plot_surf[plotly]"
-%{pytest} -v -k "${k:-}" nilearn
+%{pytest} -v "${k:+-k $k}" nilearn
 
 %files -n python3-nilearn -f %{pyproject_files}
 %doc README.rst

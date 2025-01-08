@@ -84,9 +84,8 @@ Requires:   libXv-devel%{?_isa}
 Development headers and libraries for VirtualGL.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n virtualgl-%{version}
 
-#sed -i -e 's,"glx.h",<GL/glx.h>,' server/*.[hc]*
 # Remove bundled libraries
 rm -r server/fltk
 

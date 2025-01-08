@@ -6,7 +6,7 @@
 %global mysqlname mysql
 
 Name:           perl-DBD-MySQL
-Version:        5.010
+Version:        5.011
 Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -188,6 +188,9 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.011-1
+- 5.011 bump (rhbz#2335778)
+
 * Tue Nov 12 2024 Jitka Plesnikova <jplesnik@redhat.com> - 5.010-1
 - 5.010 bump (rhbz#2325333)
 

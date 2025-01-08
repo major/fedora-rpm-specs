@@ -14,6 +14,9 @@ Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9
 Source3: %{name}.service
 Source4: %{name}@.service
 Source5: systemd-sysusers.conf
+# Backport to work with the latest glibc getrandom() vDSO
+# https://github.com/NetworkConfiguration/dhcpcd/commit/e9e40400003db2e4f12dba85acabbaf2212a520f
+Patch: e9e40400003d-allow-the-__NR_rt_sigprocmask-syscall.patch
 
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros

@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.02.00
-Release:         8%{?dist}
+Release:         9%{?dist}
 # See copyright_summary for details
 # Automatically converted from old format: BSD and GPLv2 and IJG and MIT and Public Domain - review is highly recommended.
 License:         LicenseRef-Callaway-BSD AND GPL-2.0-only AND IJG AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -30,7 +30,8 @@ Patch15:         netpbm-manfix.patch
 Patch16:         netpbm-jasper.patch
 Patch17:         netpbm-libdir-so.patch
 Patch18:         netpbm-c99.patch
-Patch19: netpbm-c99-2.patch
+Patch19:         netpbm-c99-2.patch
+Patch20:         netpbm-shlib-ldflags.patch
 
 BuildRequires: make
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
@@ -121,7 +122,7 @@ TOP=`pwd`
 
 make \
 	CC="%{__cc}" \
-	LDFLAGS="$LD_FLAGS -L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
+	LDFLAGS="$LDFLAGS -L$TOP/pbm -L$TOP/pgm -L$TOP/pnm -L$TOP/ppm" \
 	CFLAGS="$CFLAGS -fPIC -flax-vector-conversions -fno-strict-aliasing" \
 	CFLAGS_CONFIG="$CFLAGS" \
 	LADD="-lm" \
@@ -231,6 +232,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Fri Dec 13 2024 Lukáš Zaoral <lzaoral@redhat.com> - 11.02.00-9
+- build netpbm with correct LDFLAGS (RHEL-70899)
+
 * Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 11.02.00-8
 - convert license to SPDX
 

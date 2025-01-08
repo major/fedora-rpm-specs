@@ -1,6 +1,12 @@
 %bcond_without check
 %bcond_without ostree_ext
 
+%if 0%{?rhel}
+    %bcond_without rhsm
+%else
+    %bcond_with rhsm
+%endif
+
 Name:           bootc
 Version:        1.1.3
 Release:        %{autorelease}
@@ -57,7 +63,7 @@ Provides: ostree-cli(ostree-container)
 %cargo_prep -v vendor
 
 %build
-%cargo_build
+%cargo_build %{?with_rhsm:-f rhsm}
 %cargo_vendor_manifest
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies

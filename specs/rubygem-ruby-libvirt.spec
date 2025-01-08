@@ -3,10 +3,9 @@
 
 Summary: Ruby bindings for LIBVIRT
 Name: rubygem-%{gem_name}
-Version: 0.7.1
-Release: 23%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+Version: 0.8.4
+Release: 1%{?dist}
+License: LGPL-2.1-or-later
 URL: http://libvirt.org/ruby/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Requires: libvirt-daemon-kvm
@@ -32,11 +31,6 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-# Fix incorrect include
-# https://gitlab.com/libvirt/libvirt-ruby/-/merge_requests/4
-sed -i '/^#include </ s|\(st\.h\)|ruby/\1|' ext/libvirt/common.c
-sed -i '/^#include </ s|\(st\.h\)|ruby/\1|' ext/libvirt/domain.c
-
 %build
 export CONFIGURE_ARGS="--with-cflags='%{build_cflags} -fPIC'"
 gem build ../%{gem_name}-%{version}.gemspec
@@ -60,9 +54,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext
 
 %check
 pushd .%{gem_instdir}
-# I disabled the tests because they modify system in possibly
-# dangerous way and need to be run with root privileges
-# testrb tests
+
+ruby -Ilib:%{buildroot}%{gem_extdir_mri}:test  -e "Dir.glob('./tests/**/test_*.rb').sort.each {|t| require t}"
+
 popd
 
 %files
@@ -75,13 +69,18 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/NEWS
-%doc %{gem_instdir}/README
-%doc %{gem_instdir}/README.rdoc
+%doc %{gem_instdir}/NEWS.rst
+%doc %{gem_instdir}/README.rst
+%doc %{gem_instdir}/doc/main.rdoc
 %{gem_instdir}/Rakefile
 %{gem_instdir}/tests
 
 %changelog
+* Thu Jan 02 2025 Jarek Prokop <jprokop@redhat.com> - 0.8.4-1
+- Upgrade rubygem-ruby-libvirt to 0.8.4.
+  Resolves: rhbz#2023528
+  Resolves: rhbz#2292229
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.7.1-23
 - convert license to SPDX
 

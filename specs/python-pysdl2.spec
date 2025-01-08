@@ -1,7 +1,7 @@
 %global pypi_name PySDL2
 
 Name:           python-pysdl2
-Version:        0.9.16
+Version:        0.9.17
 Release:        %{autorelease}
 Summary:        Python SDL2 bindings
 

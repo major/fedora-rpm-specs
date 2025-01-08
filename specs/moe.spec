@@ -1,6 +1,6 @@
 Name:		moe
-Version:	1.14
-Release:	3%{?dist}
+Version:	1.15
+Release:	1%{?dist}
 Summary:	A powerful clean text editor
 
 License:	GPL-3.0-or-later
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Mon Jan 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.15-1
+- 1.15
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

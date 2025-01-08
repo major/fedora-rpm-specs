@@ -33,7 +33,7 @@
 
 
 Name:           perl-Prima
-Version:        1.74
+Version:        1.75
 Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
@@ -55,12 +55,6 @@ Summary:        Perl graphic toolkit
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
-# Fix compiler warning about a dangling pointer, in upstream after 1.74
-Patch0:         Prima-1.74-hush-a-Wdangling-pointer-warning.patch
-# Fix handling multiple entries for the same JPEG marker, in upstream after 1.74
-Patch1:         Prima-1.74-print-xmp-if-found.patch
-# Fix handling multiple entries for the same JPEG marker, in upstream after 1.74
-Patch2:         Prima-1.74-support-multiple-entries-for-same-jpeg-marker.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if %{with perl_Prima_enables_gtk3}
@@ -135,6 +129,7 @@ BuildRequires:  pkgconfig(xrender)
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
@@ -331,6 +326,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Petr Pisar <ppisar@redhat.com> - 1.75-1
+- 1.75 bump
+
 * Thu Aug 29 2024 Petr Pisar <ppisar@redhat.com> - 1.74-1
 - 1.74 bump
 

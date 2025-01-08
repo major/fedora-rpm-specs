@@ -1,5 +1,5 @@
 Name:           fonts-compare
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        Tool to compare fonts for a language
 
@@ -77,6 +77,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Mon Jan 06 2025 Sudip Shil <sshil@redhat.com> - 1.5.4-1
+- Started porting fonts-compare to use libadwaita on top of GTK for a modern and responsive UI.
+- Refactored CustomDialog to enhance usability.
+- Fontname of fontbutton has normal fontweight and removed bold weight from name of button.
+- Enhanced language detected language to appear at the top of the language list after text detection in the Edit Label button.
+
 * Tue Oct 22 2024 Sudip Shil <sshil@redhat.com> - 1.5.3-1
 - Fixed: First font button selects a font even when no fonts are installed.
 - Returns the language name if no Pango sample text is available for the language.

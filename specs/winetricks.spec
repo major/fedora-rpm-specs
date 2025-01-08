@@ -3,7 +3,7 @@
 %global commit0  43314ed7895396bfd625824d88b5e19c25f46cac
 
 Name:           winetricks
-Version:        20240105
+Version:        20250102
 Release:        1%{?dist}
 
 Summary:        Work around common problems in Wine
@@ -56,7 +56,7 @@ sed -i -e s:steam:: -e s:flash:: tests/*
 %install
 %make_install
 # some tarballs do not install appdata
-install -m0644 -D -t %{buildroot}%{_datadir}/metainfo src/%{name}.appdata.xml
+install -m0644 -D -t %{buildroot}%{_datadir}/metainfo src/io.github.winetricks.Winetricks.metainfo.xml
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
@@ -70,10 +70,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/io.github.winetricks.Winetricks.metainfo.xml
 
 
 %changelog
+* Mon Jan 06 2025 Vojtech Trefny <vtrefny@redhat.com> - 20250102-1
+- Update to 20250102 (#2335280)
+
 * Fri Dec 06 2024 Vojtech Trefny <vtrefny@redhat.com> - 20240105-1
 - Update to 20240105 (#2257082)
 

@@ -1,5 +1,5 @@
 Name:           python-charset-normalizer
-Version:        3.4.0
+Version:        3.4.1
 Release:        %autorelease
 Summary:        The Real First Universal Charset Detector
 # SPDX
@@ -30,8 +30,8 @@ library provides codecs are supported.
 
 %prep
 %autosetup -n charset_normalizer-%{version}
-# Remove pytest-cov settings from setup.cfg
-sed -i "/addopts = --cov/d" setup.cfg
+# Drop mypy from build dependencies
+sed -i 's/"mypy.*"//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r

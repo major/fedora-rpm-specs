@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.27.0
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.27.1
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -156,6 +156,9 @@ intended to be run by users.
 
 
 %changelog
+* Mon Jan 06 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.27.1-1
+- libinput 1.27.1 
+
 * Fri Nov 22 2024 Peter Hutterer <peter.hutterer@redhat.com> - 1.27.0-2
 - libinput 1.27.0, with sources
 

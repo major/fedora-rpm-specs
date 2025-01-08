@@ -1,3 +1,5 @@
+%bcond doc %{undefined el10}
+
 Name:           python-pygraphviz
 Version:        1.14
 Release:        %autorelease
@@ -27,6 +29,7 @@ Summary:        %{summary}
 
 %description -n python3-pygraphviz %_description
 
+%if %{with doc}
 %package doc
 # The content is BSD-3-Clause.  Other licenses are due to Sphinx files.
 # _static/basic.css: BSD-2-Clause
@@ -62,6 +65,7 @@ BuildArch:      noarch
 
 %description doc
 Documentation for PyGraphViz.
+%endif
 
 %prep
 %autosetup -p1 -n pygraphviz-pygraphviz-%{version}
@@ -79,22 +83,26 @@ sed -i -e '/codecov/d' -e '/pytest-cov/d' requirements/test.txt
 sed -i 's/sphinx>=8\.0/sphinx/' requirements/doc.txt
 
 %generate_buildrequires
-%pyproject_buildrequires requirements/{doc,test}.txt
+%pyproject_buildrequires requirements/test.txt %{?with_doc:requirements/doc.txt}
 
 %build
 %pyproject_wheel
 
+%if %{with doc}
 # Point to the local switcher instead of the inaccessible one on the web
 sed -i "s,https://pygraphviz\.github\.io/documentation/latest,$PWD/doc/source," doc/source/conf.py
 
 # docs
 %make_build -C doc html PYTHONPATH=$(echo $PWD/build/lib.%{python3_platform}-*)
 # or $PWD/build/lib.%%{python3_platform}-%%(%%python3 -c 'import sys; print(sys.implementation.cache_tag)'
+%endif
 
 %install
 %pyproject_install
 %pyproject_save_files pygraphviz
+%if %{with doc}
 rm doc/build/html/.buildinfo
+%endif
 chmod g-w %{buildroot}%{python3_sitearch}/pygraphviz/_graphviz.*.so
 
 %global _docdir_fmt %{name}
@@ -106,10 +114,12 @@ chmod g-w %{buildroot}%{python3_sitearch}/pygraphviz/_graphviz.*.so
 %exclude %{python3_sitearch}/pygraphviz/graphviz_wrap.c
 %doc README.rst
 
+%if %{with doc}
 %files doc
 %doc doc/build/html
 %doc examples
 %license LICENSE
+%endif
 
 %changelog
 %autochangelog

@@ -1,7 +1,7 @@
 %global pypi_name crick
 
 Name:           python-%{pypi_name}
-Version:        0.0.7
+Version:        0.0.8
 Release:        %{autorelease}
 Summary:        High performance approximate and streaming algorithms
 
@@ -43,6 +43,11 @@ Summary:        %{summary}
 sed -r \
     -e 's/(include-package-data = )true/\1false/' \
     -e '/namespaces/a exclude = ["crick.tests*"]' \
+    -i pyproject.toml
+
+# Allow building with NumPy 1.x. Required for Fedora < 42.
+sed -r \
+    -e 's/(numpy)[>=]*2.*"/\1"/' \
     -i pyproject.toml
 
 

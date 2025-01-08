@@ -1,5 +1,5 @@
 Name:           python-nbsphinx
-Version:        0.9.5
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Jupyter Notebook Tools for Sphinx
 

@@ -2,7 +2,7 @@
 %bcond_without tests
 
 Name:           python-six
-Version:        1.16.0
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Python 2 and 3 compatibility utilities
 
@@ -10,13 +10,6 @@ Summary:        Python 2 and 3 compatibility utilities
 License:        MIT
 URL:            https://github.com/benjaminp/six
 Source0:        %{pypi_source six}
-
-# tkinter.tix was removed from Python 3.13, skip the test
-# https://github.com/benjaminp/six/pull/377
-Patch:          tkinter.tix-was-removed-from-Python-3.13.patch
-
-# Python 3.14 removed the URLopener and FancyURLopener classes from urllib.request
-Patch:          https://github.com/benjaminp/six/pull/388.patch
 
 BuildArch:      noarch
 
@@ -47,7 +40,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -56,17 +49,17 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files six
+%pyproject_save_files -l six
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
 %endif
 
 
 %files -n python%{python3_pkgversion}-six -f %{pyproject_files}
-%license LICENSE
 %doc README.rst documentation/index.rst
 
 

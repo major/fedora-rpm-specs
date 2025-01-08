@@ -20,14 +20,17 @@ Source:         yt-dlp.spec.license
 # https://github.com/yt-dlp/yt-dlp/commit/6f9e6537434562d513d0c9b68ced8a61ade94a64
 # [rh:websockets] Upgrade websockets to 13.0 (#10815)
 # Revert this patch for compatibility with older Fedora versions
-Patch1000:      websockets-13.patch
+# This patch is applied conditionally to Fedora <= 41
+Patch1000:      0001-Revert-rh-websockets-Upgrade-websockets-to-13.0-1081.patch
+
+# Revert "[rh:requests] Bump minimum `requests` version to 2.32.2 (#10079)"
+# Revert this patch for compatibility with older Fedora versions
+# This patch is applied conditionally to Fedora <= 40
+Patch1001:      0002-Revert-rh-requests-Bump-minimum-requests-version-to-.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-# Needed for %%prep
-BuildRequires:  tomcli
 
 %if %{with tests}
 # Needed for %%check
@@ -37,6 +40,8 @@ BuildRequires:  %{py3_dist pytest}
 # Needed for docs
 BuildRequires:  pandoc
 BuildRequires:  make
+
+Requires:       yt-dlp+default = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # ffmpeg-free is now available in Fedora.
 Recommends:     /usr/bin/ffmpeg
@@ -80,19 +85,21 @@ Fish command line completion support for %{name}.
 
 %prep
 %autosetup -N
+%autopatch -M 999 -p1
 %if %{defined fedora} && 0%{?fedora} <= 41
 # Revert patch for compatibility with older websockets
-%patch -P1000 -p1 -R
+%autopatch 1000 -p1
+%endif
+%if %{defined fedora} && 0%{?fedora} <= 40
+# Revert patch for compatibility with older requests
+%autopatch 1001 -p1
 %endif
 
 # Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
-# Relax version constraints
-tomcli-set pyproject.toml lists replace project.dependencies \
-    '(requests|urllib3|websockets)>=.*' '\1'
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x default,secretstorage
 
 %build
 # Docs and shell completions
@@ -125,6 +132,8 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 
 %files fish-completion
 %{fish_completions_dir}/%{name}.fish
+
+%pyproject_extras_subpkg -n yt-dlp default secretstorage
 
 %changelog
 %autochangelog

@@ -1,12 +1,12 @@
 Name:           python-flexmock
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        Testing library that makes it easy to create mocks, stubs and fakes
 
 License:        BSD-2-Clause-Views
 
 URL:            https://flexmock.readthedocs.org
-Source0:        https://github.com/flexmock/flexmock/archive/%{version}/flexmock-%{version}.tar.gz
+Source0:        https://github.com/flexmock/flexmock/archive/v%{version}/flexmock-v%{version}.tar.gz
 
 BuildArch:      noarch
 

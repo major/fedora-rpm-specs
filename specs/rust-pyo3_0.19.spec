@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/pyo3
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop send_wrapper and widestring dev-dependencies (not packaged yet)
+# * bump proptest dev-dependency from 0.10 to 1
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-fix-metadata.diff
 # * skip the single doctest that depends on send_wrapper

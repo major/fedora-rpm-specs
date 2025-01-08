@@ -27,8 +27,8 @@
 %global rcstr -%{rcver}
 %endif
 
-# htps://github.com/kata-containers/kata-containers
-Version: 3.11.0
+# https://github.com/kata-containers/kata-containers
+Version: 3.12.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -68,9 +68,8 @@ Source5:    50-kata
 Patch0999:  0999-osbuilder-Adjust-agent_version-for-our-builds.patch
 Patch1000:  1000-Remove-shebang-in-non-executable-completion-script.patch
 Patch1001:  1001-Remove-warnings-as-compilation-errors.patch
-Patch1002:  1002-Remove-warnings-as-errors-from-genpolicy.patch
-Patch1003:  1003-Bumping-time-dependency-for-Kata.patch
-Patch1004:  1004-Fix-arch-name-compilation-failure.patch
+Patch1002:  1002-Bump-time-dependency-for-Kata.patch
+Patch1003:  1003-Fix-arch-name-compilation-failure.patch
 
 %if 0%{?have_go_rpm_macros}
 BuildRequires: go-rpm-macros
@@ -385,13 +384,15 @@ fi
 %exclude %{katadefaults}/configuration-*.toml
 %exclude %{kataosbuilderdir}/rootfs-builder/alpine
 %exclude %{kataosbuilderdir}/rootfs-builder/centos
-%exclude %{kataosbuilderdir}/rootfs-builder/clearlinux
 %exclude %{kataosbuilderdir}/rootfs-builder/debian
 %exclude %{kataosbuilderdir}/rootfs-builder/template
 %exclude %{kataosbuilderdir}/rootfs-builder/ubuntu
 
 
 %changelog
+* Mon Jan 06 2025 Emanuel Lima <emlima@redhat.com> - 3.12.0-1
+- kata-containers 3.12.0
+
 * Tue Nov 26 2024 Emanuel Lima <emlima@redhat.com> - 3.11.0-1
 - kata-containers 3.11.0
 

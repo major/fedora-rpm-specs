@@ -8,13 +8,15 @@
 %global crate open
 
 Name:           rust-open
-Version:        5.3.1
+Version:        5.3.2
 Release:        %autorelease
 Summary:        Open a path or URL using the program configured on the system
 
 License:        MIT
 URL:            https://crates.io/crates/open
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          open-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop Windows-only feature
 Patch:          open-fix-metadata.diff

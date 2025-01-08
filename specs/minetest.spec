@@ -2,7 +2,7 @@
 %global minetest_game_version 5.8.0
 Name:     minetest
 Version:  5.10.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Multiplayer infinite-world block sandbox with survival mode
 
 # Automatically converted from old format: LGPLv2+ and CC-BY-SA - review is highly recommended.
@@ -223,6 +223,9 @@ exit 0
 
 
 %changelog
+* Mon Jan 6 2025 Diego Herrera <dherrera@redhat.com> - 5.10.0-2
+- Added parameter to minetest@.service to be able to set the GameID
+
 * Tue Nov 12 2024 Gwyn Ciesla <gwync@protonmail.com> - 5.10.0-1
 - 5.10.0
 

@@ -67,8 +67,8 @@ BuildRequires: pkgconfig(Qt6Svg)
 BuildRequires: pkgconfig(Qt6Multimedia)
 BuildRequires: pkgconfig(Qt6StateMachine)
 BuildRequires: pkgconfig(Qt6WebEngineWidgets)
-BuildRequires: libksane-qt6-devel
-BuildRequires: ksanecore-qt6-devel
+BuildRequires: libksane-devel
+BuildRequires: ksanecore-devel
 BuildRequires: kf6-kcalendarcore-devel
 BuildRequires: kf6-kconfig-devel
 BuildRequires: kf6-kdoctools-devel

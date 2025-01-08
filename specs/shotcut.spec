@@ -3,7 +3,7 @@
 %global __requires_exclude ^libCuteLogger\\.so
 
 Name:           shotcut
-Version:        25.01.03
+Version:        25.01.05
 Release:        1%{dist}
 Summary:        A free, open source, cross-platform video editor
 # Main code is GPLv3+
@@ -234,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{org_name_sh
 %doc doc
 
 %changelog
+* Mon Jan 06 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.01.05-1
+- Update to 25.01.05
+
 * Sat Jan 04 2025 Martin Gansser <martinkg@fedoraproject.org> - 25.01.03-1
 - Update to 25.01.03
 

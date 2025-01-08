@@ -8,7 +8,7 @@ Summary:        Lightweight multi-platform, multi-architecture CPU emulator fram
 # LGPLv2:       Portions of code from QEMU
 # MIT:          Portions of code from QEMU
 # BSD:          Portions of code from QEMU
-License:        GPL-2.0-only AND LGPL-2.1+ AND MIT AND BSD-2-Clause AND BSD-3-Clause
+License:        GPL-2.0-only AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://www.unicorn-engine.org/
 Source0:        https://github.com/unicorn-engine/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

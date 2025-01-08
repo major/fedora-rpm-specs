@@ -2,7 +2,7 @@
 %bcond_without	system_nss
 %bcond_without	system_libvpx
 %bcond_without	system_webp
-%bcond_without	system_icu
+%bcond_with	system_icu
 %bcond_without	system_ffi
 %bcond_without	system_av1
 
@@ -23,7 +23,7 @@
 %global icu_version	63.1
 %global ffi_version	3.0.9
 %global libaom_version	1.0.0
-%global dav1d_version	0.1.1
+%global dav1d_version	0.5.2
 
 %define homepage http://start.fedoraproject.org/
 
@@ -34,7 +34,7 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.19
+Version:        2.53.20
 Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
@@ -45,12 +45,12 @@ Source0:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/sea
 Source1:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/seamonkey-%{version}.source-l10n.tar.xz
 %endif
 
-Source3:	seamonkey-2.53.19-GNUmakefile
+Source3:	seamonkey-2.53.20-GNUmakefile
 Source4:	seamonkey.desktop
 Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
 
-Patch2:		seamonkey-2.53.18-binutils_2_36.patch
+Patch2:		seamonkey-2.53.20-mozilla-1894423.patch
 Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
 Patch4:		seamonkey-2.53.18-mozilla-1862601.patch
 Patch5:		firefox-35-rhbz-1173156.patch
@@ -64,35 +64,33 @@ Patch15:	seamonkey-2.53.17-mozilla-1442861.patch
 Patch16:	seamonkey-2.53.14-fix-1485179.patch
 Patch17:	seamonkey-2.53.8-mozilla-1661070-1.patch
 Patch18:	seamonkey-2.53.8-mozilla-1661070-2.patch
-Patch19:	seamonkey-2.53.17-system-av1.patch
+Patch19:	seamonkey-2.53.20-system-av1.patch
 Patch21:	seamonkey-2.53.18-media-document.patch
-Patch22:	seamonkey-2.53.6-client_mk.patch
 Patch23:	seamonkey-2.53.9-revert-1593550.patch
-Patch24:	seamonkey-2.53.19-install_man.patch
+Patch24:	seamonkey-2.53.20-install_man.patch
 Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
 Patch26:	seamonkey-2.53.13-userDisabled.patch
 Patch27:	seamonkey-2.53.8-ext-if-needed.patch
-Patch28:	seamonkey-2.53.17-mozilla-1619108.patch
+Patch28:	seamonkey-2.53.20-mozilla-1619108.patch
 Patch29:	seamonkey-2.53.15-prtypes.patch
 Patch30:	seamonkey-2.53.5-nss_pkcs11_v3.patch
 Patch31:	seamonkey-2.53.1-mozilla-526293.patch
 Patch34:	seamonkey-2.53.3-startupcache.patch
 Patch35:	seamonkey-2.53.8-server-folder.patch
 Patch36:	seamonkey-2.53.15-locale-matchos-UI.patch
-Patch37:	seamonkey-2.53.16-mozilla-1720968.patch
+Patch37:	seamonkey-2.53.20-mozilla-1720968.patch
 Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
-Patch41:	seamonkey-2.53.15-revert-1737436.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
-Patch43:	seamonkey-2.53.19-mozilla-1502802.patch
+Patch43:	seamonkey-2.53.20-mozilla-1502802.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
-Patch62:	seamonkey-2.53.11-compat-version.patch
+Patch62:	seamonkey-2.53.20-compat-version.patch
 Patch65:	seamonkey-2.53.17-fix-1406821.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
-Patch69:	seamonkey-2.53.19-stylo_config.patch
+Patch69:	seamonkey-2.53.20-stylo_config.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
 %{?with_system_nss:BuildRequires:       nss-devel >= %{nss_version}}
@@ -125,16 +123,14 @@ BuildRequires:  yasm >= 1.1
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  startup-notification-devel
-%if %{without system_av1}
 BuildRequires:  nasm >= 2.14
-%endif
 
 BuildRequires:  make
-BuildRequires:  autoconf213
+BuildRequires:  m4
 BuildRequires:  perl-interpreter
 
 %if %{with clang} || %{with stylo}
-BuildRequires:	clang, llvm-devel
+BuildRequires:	clang17, llvm-devel
 %endif
 %if %{without clang}
 BuildRequires:	gcc-c++ >= 7.1
@@ -184,7 +180,7 @@ cd mozilla
 
 cp %{SOURCE3} GNUmakefile
 
-%patch 2 -p1 -b .binutils_2_36
+%patch 2 -p1 -b .1894423
 %patch 3 -p1 -b .1516803
 %patch 4 -p1 -b .1862601
 %patch 5 -p2 -b .1173156
@@ -200,7 +196,6 @@ cp %{SOURCE3} GNUmakefile
 %patch 18 -p0 -b .1661070-2
 %patch 19 -p1 -b .system_av1
 %patch 21 -p1 -b .media-document
-#%%patch 22 -p1 -b .client_mk
 %patch 23 -p1 -b .1593550
 %patch 24 -p0 -b .install_man
 %patch 25 -p0 -b .mailnews-useragent
@@ -218,7 +213,6 @@ cp %{SOURCE3} GNUmakefile
 %patch 38 -p0 -b .521861
 %patch 39 -p1 -b .dateformat
 %patch 40 -p0 -b .slowscript
-%patch 41 -p0 -b .revert-1737436
 %patch 42 -p1 -b .postmessage-event
 %patch 43 -p1 -b .1502802
 
@@ -260,16 +254,13 @@ ac_add_options --includedir=%{_includedir}
 
 ac_add_options --with-system-jpeg
 ac_add_options --with-system-zlib
-ac_add_options --with-system-bz2
 ac_add_options --disable-tests
 ac_add_options --disable-install-strip
 ac_add_options --enable-default-toolkit=cairo-gtk3
-ac_add_options --disable-gconf
 ac_add_options --disable-crashreporter
 ac_add_options --disable-updater
 ac_add_options --enable-chrome-format=omni
 ac_add_options --disable-necko-wifi
-ac_add_options --enable-startup-notification
 ac_add_options --enable-optimize=-O2
 
 ac_add_options --enable-startupcache
@@ -370,10 +361,12 @@ EOF
 cd mozilla
 
 # temporary to avoid python-3.12 issues
-sed -i -e 's/python3/python3.11/' mach configure
+sed -i -e 's/python3/python3.11/' mach
 
 %if %{with clang}
 %define toolchain  clang
+export CC=clang-17
+export CXX=clang++-17
 %endif
 
 # Mozilla builds with -Wall with exception of a few warnings which show up
@@ -506,6 +499,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Mon Jan  6 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.20-1
+- update to 2.53.20
+
 * Sat Aug 31 2024 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.19-1
 - update to 2.53.19
 

@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
 Version: 6.8.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -41,6 +41,7 @@ BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel%{?_isa}
+Requires: spirv-tools
 %description devel
 %{summary}.
 
@@ -110,6 +111,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Sun Jan 05 2025 Pavel Solovev <daron439@gmail.com> - 6.8.1-3
+- Add spirv-tools as a dep to -devel
+
 * Thu Dec 05 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Move Software Bill of Materials from -devel
 

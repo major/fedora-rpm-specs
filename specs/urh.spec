@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 # Automatically converted from old format: ASL 2.0 and GPLv2 - review is highly recommended.
 License:	Apache-2.0 AND GPL-2.0-only
@@ -24,6 +24,10 @@ BuildRequires:	python3-qt5
 BuildRequires:	python3-cython
 Requires:	python3-numpy
 Requires:	python3-qt5
+# Temporal workaround, it may cause problems with the GUI may crash, it should
+# be ported to numpy-2, upstream report:
+# https://github.com/jopohl/urh/issues/1149
+Patch0:		urh-2.9.8-relax-numpy-dep.patch
 
 %description
 The Universal Radio Hacker is a software for investigating unknown wireless
@@ -90,6 +94,10 @@ install -Dpm 0644 %{SOURCE1} \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Mon Jan  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.8-2
+- Relaxed numpy dependency, this may cause problems with the GUI
+  Resolves: rhbz#2332202
+
 * Sat Nov 16 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.8-1
 - New version
   Resolves: rhbz#2325899

@@ -678,6 +678,8 @@ Summary: LibreOffice GTK+ 3 integration plug-in
 Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-ure%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: gstreamer1(element-gtksink)%{?mark64}
+Provides: %{name}-plugin = %{epoch}:%{version}-%{release}
+Provides: %{name}-plugin%{?_isa} = %{epoch}:%{version}-%{release}
 Obsoletes: libreoffice-gtk2 < 1:6.2.0.0
 Obsoletes: libreoffice-gtk2-debuginfo < 1:6.2.0.0
 Supplements: (%{name}-core%{?_isa} and gtk3%{?_isa})
@@ -689,6 +691,8 @@ A plug-in for LibreOffice that enables integration into GTK+ 3 environment.
 Summary: LibreOffice GTK+ 4 experimental integration plug-in
 Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-ure%{?_isa} = %{epoch}:%{version}-%{release}
+Provides: %{name}-plugin = %{epoch}:%{version}-%{release}
+Provides: %{name}-plugin%{?_isa} = %{epoch}:%{version}-%{release}
 Supplements: (%{name}-core%{?_isa} and gtk4%{?_isa})
 
 %description gtk4

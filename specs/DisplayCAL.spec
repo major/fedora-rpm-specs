@@ -2,17 +2,16 @@
 %define lc_name %(echo "%{name}" | tr '[:upper:]' '[:lower:]')
 
 Name:		DisplayCAL
-Version:	3.9.12
-Release:	5%{?dist}
+Version:	3.9.14
+Release:	2%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
 Source0:	%{pypi_source}
 Patch0:		displaycal-3.9.3-udev-dir.patch
 Patch1:		displaycal-skip-update-check.patch
-Patch2:		displaycal-3.9.8-fix-autostart-location.patch
+Patch2:		displaycal-3.9.14-fix-autostart-location.patch
 Patch3:		displaycal-3.9.12-delete-pyvercheck.patch
-Patch4:		displaycal-3.9.12-py312-py313.patch
 
 BuildRequires:	gcc
 BuildRequires:	git-core
@@ -41,7 +40,7 @@ optional CIECAM02 gamut mapping to take into account varying viewing
 conditions.
 
 %prep
-%autosetup -S git -n %{name}-%{version}
+%autosetup -S git -n %{lc_name}-%{version}
 
 # Delete git data to prevent broken versioning
 rm -rf .git
@@ -90,6 +89,12 @@ mv %{buildroot}%{_datadir}/DisplayCAL/z-displaycal-apply-profiles.desktop %{buil
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Mon Jan 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.9.14-2
+- Rebuild for fixed package metadata
+
+* Thu Oct 31 2024 Josh Stone <jistone@redhat.com> - 3.9.14-1
+- Update to DisplayCAL 3.9.14
+
 * Mon Aug 19 2024 Neal Gompa <ngompa@fedoraproject.org> - 3.9.12-5
 - Add patch to support Python 3.12 and Python 3.13
 

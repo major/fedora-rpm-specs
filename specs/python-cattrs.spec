@@ -76,7 +76,8 @@ BuildRequires:  %{py3_dist pytest-xdist} >= 3.4
 #     "sphinx>=5.3.0",
 BuildRequires:  %{py3_dist sphinx} >= 5.3
 #     "furo>=2024.1.29",
-BuildRequires:  %{py3_dist furo} >= 2023.3.27
+# furo is useful to build HTML docs, but not needed to build the PDF
+# BuildRequires:  %%{py3_dist furo} >= 2024.1.29
 #     "sphinx-copybutton>=0.5.2",
 # Loosened until https://bugzilla.redhat.com/show_bug.cgi?id=2186733 is fixed.
 BuildRequires:  %{py3_dist sphinx-copybutton} >= 0.5.1

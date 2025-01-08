@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.8
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Time expression parser
 
 License:        MIT
@@ -11,7 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(nose)
 BuildRequires:  python3dist(setuptools)
 
 %description
@@ -47,6 +46,9 @@ find . -name '*.py' -exec sed -i '1 { /^#!/ d }' {} \+
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 06 2025 Vojtech Trefny <vtrefny@redhat.com> - 1.1.8-22
+- Remove build dependency on python3-nose
+
 * Tue Oct 29 2024 Vojtech Trefny <vtrefny@redhat.com> - 1.1.8-21
 - Run tests manually using unittest and general spec cleanup (#2319710)
 

@@ -7,8 +7,8 @@
 
 Name:           xorg-x11-drv-synaptics
 Summary:        Xorg X11 Synaptics touchpad input driver
-Version:        1.9.2
-Release:        6%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.10.0
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:            http://www.x.org
 License:        MIT
 
@@ -17,7 +17,7 @@ Source0:        %{tarball}-%{gitdate}.tar.bz2
 Source1:        make-git-snapshot.sh
 Source2:        commitid
 %else
-Source0:        ftp://ftp.x.org/pub/individual/driver/%{tarball}-%{version}.tar.gz
+Source0:        https://xorg.freedesktop.org/archive/individual/driver/%{tarball}-%{version}.tar.gz
 %endif
 Source3:        70-synaptics.conf
 Source4:        70-touchpad-quirks.rules
@@ -163,6 +163,9 @@ Development files for the Synaptics TouchPad for X.Org.
 %{_includedir}/xorg/synaptics-properties.h
 
 %changelog
+* Mon Jan 06 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.10.0-1
+- xf86-input-synaptics 1.10.0
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

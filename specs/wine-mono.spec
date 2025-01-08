@@ -4,7 +4,7 @@
 
 Name:           wine-mono
 Version:        9.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
@@ -12,7 +12,8 @@ URL:            http://wiki.winehq.org/Mono
 # https://github.com/madewokherd/wine-mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
 Patch0:         wine-mono-7.3.0-iconv.patch
-Patch1: wine-mono-configure-c99.patch
+Patch1:         wine-mono-configure-c99.patch
+Patch2:         wine-mono-builtins.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -67,9 +68,7 @@ Windows Mono library required for Wine.
 %{?mingw_debug_package}
 
 %prep
-%setup -q
-%patch -P 0 -p1 -b.iconv
-%patch -P 1 -p1 -b.c99
+%autosetup -q
 
 # Fix all Python shebangs
 %py3_shebang_fix .
@@ -120,6 +119,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Jan 06 2025 Michael Cronenworth <mike@cchtml.com> - 9.4.0-2
+- Fix using system DLLs (RHBZ#2183853)
+
 * Wed Dec 04 2024 Zephyr Lykos <fedora@mochaa.ws> - 9.4.0-1
 - new version
 

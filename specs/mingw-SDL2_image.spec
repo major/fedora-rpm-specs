@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2_image
-Version:        2.8.2
-Release:        4%{?dist}
+Version:        2.8.4
+Release:        1%{?dist}
 Summary:        MinGW Windows port of the Image loading library for SDL2
 
 License:        LGPL-2.0-or-later
@@ -106,6 +106,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Mon Jan 06 2025 Sandro Mani <manisandro@gmail.com> - 2.8.4-1
+- Update to 2.8.4
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,25 +1,19 @@
-%global _description %{expand:
-This is a PEP 561 type stub package for the docutils package. It can be used by
-type-checking tools like mypy, PyCharm, pytype etc.  to check code that uses
-docutils. The source for this package can be found at
-https://github.com/python/typeshed/tree/master/stubs/docutils. All fixes for
-types and metadata should be contributed there.
-
-See https://github.com/python/typeshed/blob/master/README.md for more details.}
-
 Name:           python-types-docutils
-Version:        0.21.0.20240423
+Version:        0.21.0.20241128
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 
 
 License:        Apache-2.0
 URL:            https://pypi.org/pypi/types-docutils
-Source0:        %{pypi_source types-docutils}
-# not included in pypi tar
-Source1:        https://github.com/python/typeshed/raw/main/LICENSE
+Source:         %{pypi_source types_docutils}
 
 BuildArch:      noarch
+
+%global _description %{expand:
+This is a PEP 561 type stub package for the docutils package. It can be
+used by type-checking tools like mypy, PyCharm, pytype etc. to check
+code that uses docutils.}
 
 %description %_description
 
@@ -30,8 +24,7 @@ BuildRequires:  python3-devel
 %description -n python3-types-docutils %_description
 
 %prep
-%autosetup -n types-docutils-%{version}
-cp %SOURCE1 .
+%autosetup -n types_docutils-%{version}
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also

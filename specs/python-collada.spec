@@ -2,13 +2,17 @@
 
 Name:           python-collada
 Version:        0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A python module for creating, editing and loading COLLADA
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/pycollada/pycollada
 Source0:        https://github.com/pycollada/pycollada/archive/v%{version}/%{srcname}-%{version}.tar.gz
+
+# Patch for NumPy 2.x compatibility
+# https://github.com/pycollada/pycollada/pull/147
+Patch:          https://github.com/pycollada/pycollada/pull/147.patch
 
 BuildArch:      noarch
 
@@ -73,6 +77,9 @@ as well as in-place editing.
 
 
 %changelog
+* Sat Dec 21 2024 Sandro <devel@penguinpee.nl> - 0.8-2
+- Apply patch for NumPy 2.x
+
 * Tue Oct 29 2024 Richard Shaw <hobbes1069@gmail.com> - 0.8-1
 - Update to 0.8.
 

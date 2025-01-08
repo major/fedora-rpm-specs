@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.90
-Release:        3%{?extraversion:.%{extraversion}}%{?dist}
+Release:        4%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -55,6 +55,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  libidn2-devel
 BuildRequires:  pkgconfig(libnetfilter_conntrack)
 BuildRequires:  nettle-devel
+BuildRequires:  nftables-devel
 Buildrequires:  gcc
 BuildRequires:  gnupg2
 
@@ -132,7 +133,7 @@ sed -i 's|#define CHGRP "dip"|#define CHGRP "dnsmasq"|' src/config.h
 sed -i "s|\(#\s*define RUNFILE\) \"/var/run/dnsmasq.pid\"|\1 \"%{_rundir}/dnsmasq.pid\"|" src/config.h
 
 # optional parts
-sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE_CONNTRACK|' Makefile
+sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE_CONNTRACK -DHAVE_NFTSET|' Makefile
 
 %build
 %make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" \
@@ -216,6 +217,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Dec 27 2024 Dmitry Konishchev <konishchev@gmail.com> - 2.90-4
+- Enable nftables sets support
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

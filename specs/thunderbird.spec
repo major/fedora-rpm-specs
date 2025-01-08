@@ -93,7 +93,7 @@ ExcludeArch: s390x
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        128.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -112,7 +112,7 @@ Source25:       thunderbird-symbolic.svg
 Source28:       thunderbird-wayland.sh.in
 Source29:       thunderbird-wayland.desktop
 Source32:       node-stdout-nonblocking-wrapper
-Source33:       org.mozilla.thunderbird.desktop
+Source33:       net.thunderbird.Thunderbird.desktop
 
 #Patch416:       firefox-SIOCGSTAMP.patch
 Patch418:       mozilla-1512162.patch
@@ -421,7 +421,7 @@ echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`"
 echo 'export NODEJS="%{nodewrapperdir}/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
 %if 0%{?fedora} >= %{only_wayland}
-echo 'export MOZ_APP_REMOTINGNAME=org.mozilla.thunderbird' >> .mozconfig
+echo 'export MOZ_APP_REMOTINGNAME=net.thunderbird.Thunderbird' >> .mozconfig
 %else
 echo 'export MOZ_APP_REMOTINGNAME=thunderbird' >> .mozconfig
 %endif
@@ -594,7 +594,7 @@ desktop-file-install --vendor mozilla \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE29}
 %else
-#org.mozilla.thunderbird for F40+
+#net.thunderbird.Thunderbird for F40+
 desktop-file-install \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   %{SOURCE33}
@@ -686,8 +686,8 @@ touch $RPM_BUILD_ROOT%{mozappdir}/components/xpti.dat
 
 # Register as an application to be visible in the software center
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
-%{__cp} -p comm/mail/branding/%{name}/net.thunderbird.Thunderbird.appdata.xml $RPM_BUILD_ROOT%{_datadir}/metainfo/thunderbird.appdata.xml
-sed -i -e 's|<icon .*|<icon type="stock">thunderbird</icon>|' "$RPM_BUILD_ROOT%{_datadir}/metainfo/thunderbird.appdata.xml"
+%{__cp} -p comm/mail/branding/%{name}/net.thunderbird.Thunderbird.appdata.xml $RPM_BUILD_ROOT%{_datadir}/metainfo/net.thunderbird.Thunderbird.appdata.xml
+sed -i -e 's|<icon .*|<icon type="stock">thunderbird</icon>|' "$RPM_BUILD_ROOT%{_datadir}/metainfo/net.thunderbird.Thunderbird.appdata.xml"
 
 #===============================================================================
 
@@ -713,7 +713,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %if 0%{?fedora} < %{only_wayland}
 %attr(644,root,root) %{_datadir}/applications/mozilla-thunderbird.desktop
 %else
-%attr(644,root,root) %{_datadir}/applications/org.mozilla.thunderbird.desktop
+%attr(644,root,root) %{_datadir}/applications/net.thunderbird.Thunderbird.desktop
 %endif
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/*
@@ -766,6 +766,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Thu Dec 19 2024 Daniel Rusek <mail@asciiwolf.com> - 128.5.2-2
+- Use upstream rDNS naming scheme for desktop and appdata files
+  Resolves: rhbz#2210038
+
 * Wed Dec 11 2024 Eike Rathke <erack@redhat.com> - 128.5.2-1
 - Update to 128.5.2
 

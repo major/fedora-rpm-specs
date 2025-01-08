@@ -8,16 +8,13 @@
 
 Summary: Object oriented programming environment for real-time audio and video processing
 Name: supercollider
-Version: 3.12.2
-Release: 15%{?dist}
+Version: 3.13.0
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://supercollider.github.io/
 
 Source0: https://github.com/supercollider/supercollider/releases/download/Version-%{version}/SuperCollider-%{version}-Source.tar.bz2
-# https://github.com/supercollider/supercollider/pull/5761
-# Fix FTBFS for libsndfile 1.1.0
-Patch0:  %{name}-3.12.2-libsndfile-110-compat.patch
 
 ExclusiveArch: %{qt5_qtwebengine_arches}
 
@@ -99,7 +96,6 @@ SuperCollider support for the Vim text editor.
 
 %prep
 %setup -q -n SuperCollider-%{version}-Source
-%patch -P0 -p1 -b .sndfile110
 
 # Ensure external libraries bundle are not used
 rm -Rf external_libraries/boost external_libraries/boost*.patch external_libraries/yaml-cpp
@@ -183,6 +179,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/SuperColliderIDE.des
 %{_datadir}/gtksourceview*/language-specs/supercollider.lang
 
 %changelog
+* Mon Jan  6 2025 Tristan Cacqueray <tdecacqu@redhat.com> - 3.13.0-1
+- Bump to 3.13.0
+
 * Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 3.12.2-15
 - Rebuild for yaml-cpp 0.8
 

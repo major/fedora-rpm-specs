@@ -1,11 +1,11 @@
 Name:           auditwheel
-Version:        6.1.0
+Version:        6.2.0
 Release:        %autorelease
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
 License:        MIT
 URL:            https://github.com/pypa/auditwheel
-Source0:        %{pypi_source}
+Source:         %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -60,7 +60,7 @@ sed -E -i 's/(, )?"docker"//' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files auditwheel
+%pyproject_save_files -l auditwheel
 
 
 %check
@@ -68,12 +68,13 @@ sed -E -i 's/(, )?"docker"//' setup.py
 # Integration tests need docker manylinux images, so we only run unit
 %pytest -v tests/unit
 
+export %{py3_test_envvars}
+
 # Sanity check for the command line tool
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{buildroot}%{_bindir}/auditwheel --help
 %{buildroot}%{_bindir}/auditwheel lddtree %{python3}
 
-# Assert the bundled wheel version, assumes $PYTHONPATH already exported
+# Assert the bundled wheel version
 test "$(%{python3} -c 'from auditwheel._vendor import wheel; print(wheel.__version__)')" == "%{wheel_version}"
 
 # Assert the policy files are installed

@@ -5,7 +5,7 @@ URL:           https://buildstream.build/
 
 ExcludeArch:   %{ix86}
 
-Version:       2.3.0
+Version:       2.4.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 

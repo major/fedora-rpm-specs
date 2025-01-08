@@ -27,6 +27,8 @@ Patch7: nmap_resolve_config.patch
 Patch8: nmap-pcre2.patch
 # https://github.com/nmap/nmap/pull/2724
 Patch9: nmap-ems-ssl-enum-ciphers.patch
+# Fix build with libpcap 1.10.5
+Patch10: nmap-libpcap.patch
 
 BuildRequires: automake make
 BuildRequires: autoconf

@@ -14,36 +14,38 @@
 
 Summary: A GTK widget for VNC clients
 Name: gtk-vnc
-Version: 1.3.1
-Release: 6%{?dist}
+Version: 1.4.0
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source: https://download.gnome.org/sources/%{name}/%{verdir}/%{name}-%{version}.tar.xz
 URL: https://gitlab.gnome.org/GNOME/gtk-vnc
 Requires: gvnc = %{version}-%{release}
+BuildRequires: gcc
 BuildRequires: python3-devel
-BuildRequires: gnutls-devel libgcrypt-devel cyrus-sasl-devel zlib-devel
+BuildRequires: gnutls-devel gmp-devel cyrus-sasl-devel zlib-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk3-devel
 BuildRequires: vala
 BuildRequires: pulseaudio-libs-devel
 BuildRequires: perl-podlators
 BuildRequires: meson
+BuildRequires: gi-docgen
 
 %if %{with_mingw}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-cairo
 BuildRequires: mingw32-gettext
-BuildRequires: mingw32-libgcrypt
+BuildRequires: mingw32-gmp
 BuildRequires: mingw32-gnutls
 BuildRequires: mingw32-gtk3
 
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-cairo
 BuildRequires: mingw64-gettext
-BuildRequires: mingw64-libgcrypt
+BuildRequires: mingw64-gmp
 BuildRequires: mingw64-gnutls
 BuildRequires: mingw64-gtk3
 %endif
@@ -195,7 +197,7 @@ allowing it to be completely asynchronous while remaining single threaded.
 chmod -x examples/*.pl examples/*.js examples/*.py
 
 %if %{with_mingw}
-%mingw_meson -Dintrospection=disabled
+%mingw_meson -Dintrospection=disabled -Dgi-docs=disabled
 %mingw_ninja
 %endif
 
@@ -232,6 +234,8 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %{_includedir}/gvnc-1.0/*.h
 %{_libdir}/pkgconfig/gvnc-1.0.pc
 %{_datadir}/gir-1.0/GVnc-1.0.gir
+%{_datadir}/doc/gvnc/
+%{_datadir}/doc/gvnc.toml
 
 %files -n gvncpulse -f %{name}.lang
 %{_libdir}/libgvncpulse-1.0.so.*
@@ -272,6 +276,8 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %{_includedir}/%{name}-2.0/*.h
 %{_libdir}/pkgconfig/%{name}-2.0.pc
 %{_datadir}/gir-1.0/GtkVnc-2.0.gir
+%{_datadir}/doc/gtk-vnc/
+%{_datadir}/doc/gtk-vnc.toml
 
 %if %{with_mingw}
 # Mingw32
@@ -320,6 +326,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %endif
 
 %changelog
+* Mon Jan  6 2025 Daniel P. Berrangé <berrange@redhat.com> - 1.4.0-1
+- Update to 1.4.0 release
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

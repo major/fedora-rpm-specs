@@ -11,13 +11,16 @@ Summary:        Vifm is a file manager with curses interface
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://vifm.info/
+URL:            https://vifm.info
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{tarball_version}/%{name}-%{tarball_version}.tar.bz2
+# AppData manifest (rhbz#2335613)
+Source1:        https://raw.githubusercontent.com/%{name}/%{name}/refs/heads/master/data/%{name}.appdata.xml
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
+BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  perl-generators
@@ -73,6 +76,7 @@ should be enough for most of use cases.
 
 %install
 %make_install
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 # Handle license file via regular RPM macros
 rm %{buildroot}%{_pkgdocdir}/COPYING
@@ -80,6 +84,7 @@ rm %{buildroot}%{_pkgdocdir}/COPYING
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %files
@@ -97,6 +102,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/zsh/site-functions/_%{name}
 %{_mandir}/man1/*
+%{_metainfodir}/%{name}.appdata.xml
 %{_pkgdocdir}/
 %{_sysconfdir}/%{name}/
 

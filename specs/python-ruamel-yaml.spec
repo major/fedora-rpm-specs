@@ -1,10 +1,10 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
 %bcond_with bootstrap
 
-%global commit 6f41eb6001661917fceb0e88ed0693ae1a7c50f4
+%global commit 04ba5ead9be050430fac2ca1d4e88b8e91f7be02
 
 Name:           python-ruamel-yaml
-Version:        0.18.6
+Version:        0.18.10
 Release:        %autorelease
 Summary:        YAML 1.2 loader/dumper package for Python
 
@@ -13,16 +13,6 @@ License:        MIT
 URL:            https://sourceforge.net/projects/ruamel-yaml
 # The PyPI sdist does not contain tests, so we use a snapshot from SourceForge
 Source:         https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml/code/ruamel-yaml-code-%{commit}.zip
-
-# Adjust setup.py for the removal of deprecated ast classes
-# Fixes build with Python 3.14
-# https://sourceforge.net/p/ruamel-yaml/code/merge-requests/9/
-Patch:          9.patch
-
-# Do not specificity build-system.requires on wheel
-# Fixes the bootstrap build (see commit message for details)
-# https://sourceforge.net/p/ruamel-yaml/code/merge-requests/10/
-Patch:          10.patch
 
 BuildArch:      noarch
 

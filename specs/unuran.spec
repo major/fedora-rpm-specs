@@ -1,24 +1,17 @@
 Name:		unuran
-Version:	1.9.0
-Release: 	8%{?dist}
+Version:	1.11.0
+Release:	1%{?dist}
 Summary:	Universal Non-Uniform Random number generator
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://statistik.wu-wien.ac.at/unuran
 Source0:	http://statistik.wu-wien.ac.at/unuran/%{name}-%{version}.tar.gz
-Patch0:		unuran-configure-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
 
-%if %{?fedora}%{!?fedora:0} <= 27 && %{?rhel}%{!?rhel:0} <= 7
-Requires(post): /sbin/ldconfig, /sbin/install-info
-Requires(preun): /sbin/install-info
-%endif
-
 %description
-UNU.RAN  is an ANSI C library licensed under GPL. 
+UNU.RAN is an ANSI C library licensed under GPL.
 It contains universal (also called automatic or black-box) algorithms
 that can generate random numbers from large classes of continuous or
 discrete distributions, and also from practically all standard
@@ -26,9 +19,9 @@ distributions.
 
 The library and an extensive online documentation are available at:
 
-          -------------------------------------------
-             http://statistik.wu-wien.ac.at/unuran/ 
-          -------------------------------------------
+	  -------------------------------------------
+	     http://statistik.wu-wien.ac.at/unuran/
+	  -------------------------------------------
 
 %package devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -42,10 +35,10 @@ Header and object files for unuran, and pdf docs.
 
 %build
 %configure --enable-shared --disable-static
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%make_install
 rm $RPM_BUILD_ROOT/%{_libdir}/libunuran.la
 rm $RPM_BUILD_ROOT/%{_includedir}/unuran_tests.h
 rm $RPM_BUILD_ROOT/%{_infodir}/unuran_win32*
@@ -58,19 +51,6 @@ make -C __clean_examples distclean
 rm __clean_examples/Makefile*
 mkdir __dist_examples
 mv __clean_examples __dist_examples/examples
-
-%if %{?fedora}%{!?fedora:0} <= 27 && %{?rhel}%{!?rhel:0} <= 7
-%post
-/sbin/ldconfig
-/sbin/install-info %{_infodir}/unuran.info %{_infodir}/dir || :
-
-%preun
-if [ $1 = 0 ]; then
-  /sbin/install-info --delete %{_infodir}/unuran.info %{_infodir}/dir || :
-fi
-
-%postun -p /sbin/ldconfig
-%endif
 
 %files
 %doc AUTHORS README NEWS KNOWN-PROBLEMS THANKS UPGRADE
@@ -87,7 +67,10 @@ fi
 SEED=2742664 make check
 
 %changelog
-* Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.0-8
+* Mon Jan 06 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.11.0-1
+- Update to 1.11.0
+
+* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.9.0-8
 - convert license to SPDX
 
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7

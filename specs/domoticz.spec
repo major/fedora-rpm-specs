@@ -3,7 +3,7 @@
 
 Name:		domoticz
 Version:	2024.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open source Home Automation System
 
 # Automatically converted from old format: GPLv3+ and ASL 2.0 and Boost and BSD and MIT - review is highly recommended.
@@ -99,6 +99,8 @@ any mobile device
 %patch -P 3 -p1 -b.python-link
 # Add support for future versions of Python by replacing hardcoded version with macro
 sed -i 's/-lpythonVER/-lpython%{python3_version}/' CMakeLists.txt
+# Renaming of old define used wrong case in ZWave file
+sed -i 's/sTypeSetPoint/sTypeSetpoint/g' hardware/ZWaveBase.cpp
 rm -rf sqlite/
 rm -rf tinyxpath/
 cp -p %{SOURCE3} ./appversion.h
@@ -239,6 +241,12 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Sun Jan 05 2025 Michael Cronenworth <mike@cchtml.com> - 2024.7-2
+- Fix ZWave SetPoint devices
+
+* Fri Dec 27 2024 Michael Cronenworth <mike@cchtml.com> - 2024.7-1
+- New stable release
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2023.2-7
 - convert license to SPDX
 

@@ -5,7 +5,7 @@
 %global crate glycin
 
 Name:           rust-glycin
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

@@ -5,7 +5,7 @@
 
 Summary: KDE Photo Album 
 Name:	 kphotoalbum
-Version: 6.0.0
+Version: 6.0.1
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kphotoalb
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 6.0.1-1
+- 6.0.1 hotfix
+
 * Tue Dec 17 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 6.0.0-1
 - 6.0.0
 

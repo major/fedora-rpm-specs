@@ -15,7 +15,7 @@ integrates with the Poetry CLI to trigger the versioning in commands like
 poetry build.}
 
 Name:           python-poetry-dynamic-versioning
-Version:        1.4.1
+Version:        1.5.0
 Release:        %{autorelease}
 Summary:        Plugin for Poetry to enable dynamic versioning based on VCS tags
 

@@ -1,6 +1,6 @@
 Name:		krusader
-Version:	2.8.1
-Release:	2%{?dist}
+Version:	2.9.0
+Release:	1%{?dist}
 Summary:	An advanced twin-panel (commander-style) file-manager for KDE
 
 License:	GPL-2.0-or-later
@@ -11,31 +11,35 @@ BuildRequires:	bzip2-devel
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	extra-cmake-modules
-BuildRequires:	kf5-karchive-devel
-BuildRequires:	kf5-kbookmarks-devel
-BuildRequires:	kf5-kcodecs-devel
-BuildRequires:	kf5-kcompletion-devel
-BuildRequires:	kf5-kconfig-devel
-BuildRequires:	kf5-kcoreaddons-devel
-BuildRequires:	kf5-kdoctools-devel
-BuildRequires:	kf5-kguiaddons-devel
-BuildRequires:	kf5-ki18n-devel
-BuildRequires:	kf5-kiconthemes-devel
-BuildRequires:	kf5-kio-devel >= 5.23.0
-BuildRequires:	kf5-kitemviews-devel
-BuildRequires:	kf5-knotifications-devel
-BuildRequires:	kf5-kparts-devel
-BuildRequires:	kf5-ktextwidgets-devel
-BuildRequires:	kf5-kwallet-devel
-BuildRequires:	kf5-kwidgetsaddons-devel
-BuildRequires:	kf5-kwindowsystem-devel
-BuildRequires:	kf5-kxmlgui-devel
-BuildRequires:	kf5-solid-devel
+BuildRequires:  cmake(KF6Archive)
+BuildRequires:  cmake(KF6Bookmarks)
+BuildRequires:  cmake(KF6Codecs)
+BuildRequires:  cmake(KF6Completion)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6GlobalAccel)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6ItemViews)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Parts)
+BuildRequires:  cmake(KF6Solid)
+BuildRequires:  cmake(KF6TextWidgets)
+BuildRequires:  cmake(KF6Wallet)
+BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  cmake(KF6WindowSystem)
+BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  cmake(KF6GuiAddons)
+BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:	libacl-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	libattr-devel
 BuildRequires:	ninja-build
-BuildRequires:	qt5-qtbase-devel
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:	zlib-devel
 
 %description
@@ -53,7 +57,7 @@ friendly, fast and looks great on your desktop! You should give it a try.
 %autosetup -p1
 
 %build
-%cmake_kf5 -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+%cmake_kf6 -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
 
 %install
@@ -73,13 +77,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/doc/HTML/*/%{name}/
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/kxmlgui5/%{name}/
-%{_libdir}/qt5/plugins/kf5/kio/kio*.so
+%{_libdir}/qt6/plugins/kf6/kio/kio*.so
 %{_mandir}/*/man1/%{name}.1*
 %{_mandir}/man1/%{name}.1*
 %{_metainfodir}/*.appdata.xml
 %{_sysconfdir}/xdg/kio_isorc
 
 %changelog
+* Mon Jan 06 2025 Marie Loise Nolden <loise@kde.org> - 2.9.0-1
+- 2.9.0 port to kf6/qt6
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

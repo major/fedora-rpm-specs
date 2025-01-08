@@ -1,71 +1,54 @@
 Name: puzzles
-Version: 9023
-Release: 32%{?dist}
+Version: 20241230.79be403
+Release: 1%{?dist}
 Summary: A collection of one-player puzzle games
 
 License: MIT
-URL: http://www.chiark.greenend.org.uk/~sgtatham/puzzles/
-Source0: http://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-r%{version}.tar.gz
-Source1: template.desktop
-Patch0:  puzzles-math.patch
+URL: https://www.chiark.greenend.org.uk/~sgtatham/puzzles/
+Source0: https://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-%{version}.tar.gz
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: gtk2-devel, perl-interpreter, desktop-file-utils
+BuildRequires: cmake
+BuildRequires: desktop-file-utils
+BuildRequires: gcc
+BuildRequires: gtk3-devel
+BuildRequires: ImageMagick
+BuildRequires: perl-interpreter
 
 %description
-This is a collection of small desktop toys, little games that you can 
-pop up in a window and play for two or three minutes while you take a 
+This is a collection of small desktop toys, little games that you can
+pop up in a window and play for two or three minutes while you take a
 break from whatever else you were doing.
 
 %prep
-%setup -q -n puzzles-r%{version}
-%patch -P0
-# uses the fedora command line instead of the one hardcoded in the makefile
-# -g is the last option that is not application specific. 
-# TODO: THIS IS UGLY, NEW VERSIONS COULD MAKE THIS STOP WORKING
-sed -i -e "s|CFLAGS := .*-g|CFLAGS := %{optflags}|" Makefile
+%autosetup
 
-iconv -f ISO88591 -t UTF8< LICENCE > LICENSE
-
+iconv -f ISO88591 -t UTF8 < LICENCE > LICENSE
 
 %build
-
-make %{?_smp_mflags}
-
+# The RPM %%cmake macro doesn't work correctly here:
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/22FW4APH22LP3CMQGULOY4FMAMAVJ5JK/
+mkdir redhat-linux-build
+pushd redhat-linux-build
+cmake .. -DCMAKE_INSTALL_PREFIX=%{_prefix} -DNAME_PREFIX=puzzles-
+popd
+%cmake_build
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/puzzles
-cp -a icons/*-32d24.png $RPM_BUILD_ROOT/%{_datadir}/puzzles
-
-make install prefix=%{_prefix} gamesdir=%{_bindir} bindir=%{_bindir} DESTDIR=$RPM_BUILD_ROOT
-
-# create all the desktop files needed.
-path=$RPM_BUILD_ROOT/%{_bindir}
-for i in $path/*; do 
-	base=`basename $i`
-	name=`perl -e 'print ucfirst($ARGV[0])' "$base"`
-	command=puzzle-$base
-
-	mv $i $path/$command
-
-	sed -e "s/<NAME>/$name/g;s!<EXEC>!%{_bindir}/$command!g;s!<ICON>!%{_datadir}/puzzles/$base-32d24.png!g" %{SOURCE1} > puzzle-$base.desktop
-	desktop-file-install \
-		--dir=${RPM_BUILD_ROOT}%{_datadir}/applications/ \
-		$command.desktop
-done
-
+%cmake_install
+desktop-file-validate %{buildroot}%{_datadir}/applications/puzzles-*.desktop
 
 %files
 %doc README HACKING puzzles.txt
 %license LICENSE
 %{_bindir}/*
-%{_datadir}/puzzles
 %{_datadir}/applications/*
-
+%{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Sun Jan  5 2025 Greg Bailey <gbailey@lxpro.com> - 20241230.79be403-1
+- Update version
+- Adapt to use new cmake build process
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 9023-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		xtrlock
 URL:		https://salsa.debian.org/debian/xtrlock
-Version:	2.15
-Release:	4%{?dist}
+Version:	2.16
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Minimal X display lock program
 Source0:	%{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -10,10 +10,6 @@ BuildRequires:	gcc
 BuildRequires:	libX11-devel
 BuildRequires:	libxcrypt-devel
 BuildRequires:	libcap-devel
-# https://salsa.debian.org/debian/xtrlock/-/merge_requests/3
-Patch0:		xtrlock-2.15-distro-fix.patch
-# https://salsa.debian.org/debian/xtrlock/-/merge_requests/2
-Patch1:		xtrlock-2.15-capabilities-drop.patch
 
 %description
 Xtrlock is a very minimal X display lock program. It doesn't
@@ -39,6 +35,10 @@ access control lists.
 %{_mandir}/man1/%{name}.1x*
 
 %changelog
+* Mon Jan  6 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 2.16-1
+- New version
+  Resolves: rhbz#2335525
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

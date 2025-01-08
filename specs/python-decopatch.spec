@@ -7,6 +7,9 @@ License:        BSD-3-Clause
 URL:            https://pypi.org/project/decopatch
 Source:	        %{pypi_source decopatch}
 Patch:          0001-Adjust-for-whitespace-changes-with-python-3.12.patch
+# Drop the pytest-runner dependency
+# https://github.com/smarie/python-decopatch/pull/38
+Patch:          decopatch-1.4.10-no-pytest-runner.patch
 
 BuildArch:	noarch
 BuildRequires:	pyproject-rpm-macros
@@ -33,7 +36,7 @@ Summary: %{summary}
 %autosetup -p 1 -n decopatch-%{version}
 cat >pyproject.toml <<EOF
 [build-system]
-requires = ["setuptools_scm"%{?with_tests:, "pypandoc", "pytest-cases"}]
+requires = ["setuptools_scm"%{?with_tests:, "pypandoc", "pytest", "pytest-cases"}]
 build-backend = "setuptools.build_meta"
 EOF
 

@@ -4,8 +4,8 @@
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
-Version:        2024.0.0
-Release:        5%{?dist}
+Version:        2025.0.2
+Release:        1%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -14,11 +14,10 @@ Source:         %{url}/archive/%{version}/python-xrst-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-enchant
 BuildRequires:  python3-docutils
 
 %global _description %{expand:
-This is a sphinx wrapper that extracts RST file from source code
+This is a sphinx wrapper that extracts RST files from source code
 and then runs sphinx to obtain html, tex, or pdf output files.
 It includes automatic processing and commands that make sphinx easier to use.}
 
@@ -35,14 +34,10 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n xrst-%{version}
 #
-# not yet available on fedora
-sed -i pyproject.toml -e "s|'sphinx-book-theme',||"
-sed -i setup.py       -e "s|'sphinx-book-theme',||"
-#
-# Suppress spelling warnings during pytest because this system
-# uses a different dictionary.
+# Suppress spelling warnings during tox because this system
+# may use a different dictionary than is used for xrst development.
 sed -i pytest/test_rst.py \
-   -e "s|'sphinx_rtd_theme',|&\n      '--suppress_spell_warnings',|"
+   -e "s|'sphinx_rtd_theme'|&, '--suppress_spell_warnings'|"
 #
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -84,6 +79,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Mon Jan 06 2025 Brad Bell <bradbell at seanet dot com> - 2025.0.2-1
+- New upstream source.
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2024.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

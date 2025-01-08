@@ -12,7 +12,7 @@ Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
 Release: 1%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
-License: NCSA
+License: Apache-2.0 WITH LLVM-exception OR NCSA
 URL: http://polly.llvm.org
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{polly_version}%{?rc_ver:-rc%{rc_ver}}/%{polly_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{polly_version}%{?rc_ver:-rc%{rc_ver}}/%{polly_srcdir}.tar.xz.sig

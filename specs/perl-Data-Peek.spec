@@ -2,8 +2,8 @@
 %{bcond_without perl_Data_Peek_enables_option_test}
 
 Name:           perl-Data-Peek
-Version:        0.52
-Release:        8%{?dist}
+Version:        0.53
+Release:        1%{?dist}
 Summary:        Collection of low-level debug facilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Peek
@@ -83,16 +83,19 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%doc ChangeLog README CONTRIBUTING.md
-%{perl_vendorarch}/auto/*
+%doc ChangeLog README CONTRIBUTING.md SECURITY.md
+%{perl_vendorarch}/auto/Data*
 %{perl_vendorarch}/Data*
 %{perl_vendorarch}/DP.pm
-%{_mandir}/man3/*
+%{_mandir}/man3/Data::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.53-1
+- 0.53 bump (rhbz#2335786)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

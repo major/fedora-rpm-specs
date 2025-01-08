@@ -3,7 +3,7 @@
 Name:           linbox
 Version:        1.7.0
 %global so_version 0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 
 License:        LGPL-2.1-or-later
@@ -47,8 +47,6 @@ BuildRequires:  flint-devel
 BuildRequires:  givaro-devel
 BuildRequires:  iml-devel
 BuildRequires:  libfplll-devel
-BuildRequires:  m4ri-devel
-BuildRequires:  m4rie-devel
 BuildRequires:  mpfr-devel
 BuildRequires:  ntl-devel
 BuildRequires:  ocl-icd-devel
@@ -102,7 +100,7 @@ find -O3 . \( -name \*.h -o -name \*.inl \) -perm /0111 -exec chmod a-x {} +
 # Regenerate configure after monkeying with m4 macros
 autoreconf -fi
 
-export CPPFLAGS="-I%{_includedir}/m4rie -I%{_includedir}/saclib"
+export CPPFLAGS='-I%{_includedir}/saclib'
 %configure --disable-silent-rules \
   --disable-static \
   --with-ocl=yes \
@@ -154,6 +152,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs %make_build check -j1
 
 
 %changelog
+* Sun Jan  5 2025 Jerry James <loganjerry@gmail.com> - 1.7.0-9
+- Remove unused m4ri and m4rie deps
+
 * Fri Nov 22 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.0-8
 - Rebuild for libfplll 5.5.0
 

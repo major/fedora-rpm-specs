@@ -16,7 +16,7 @@ Patch:          silver-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * relax clap and clap_derive dependencies from "=3.0.0-beta.2" to "3"
 # * bump git2 dependency from 0.13 to 0.19
-# * bump rust-ini dependency from 0.15 to 0.17
+# * bump rust-ini dependency from 0.15 to 0.18
 # * bump sysinfo dependency from 0.15 to 0.23
 # * port from users 0.10 to uzers 0.11
 Patch:          silver-fix-metadata.diff

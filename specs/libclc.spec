@@ -11,7 +11,7 @@ Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
 Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
-License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
+License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 URL:            https://libclc.llvm.org
 Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz
 Source1:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig

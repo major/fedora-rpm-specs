@@ -1,6 +1,6 @@
 Name:           rpmrebuild
-Version:        2.17
-Release:        7%{?dist}
+Version:        2.20
+Release:        1%{?dist}
 Summary:        A tool to build rpm file from rpm database
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,8 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_files.sh
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/compat_digest.sh
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/exclude_file.sh
+%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/empty_section.sh
+%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/replacefile.sh
 %{_prefix}/lib/rpmrebuild/plugins/set_tag.plug
 %{_prefix}/lib/rpmrebuild/plugins/compat_digest.plug
 %{_prefix}/lib/rpmrebuild/plugins/nodoc.plug
@@ -68,6 +70,8 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %{_prefix}/lib/rpmrebuild/plugins/un_prelink.plug
 %{_prefix}/lib/rpmrebuild/plugins/unset_tag.plug
 %{_prefix}/lib/rpmrebuild/plugins/exclude_file.plug
+%{_prefix}/lib/rpmrebuild/plugins/empty_section.plug
+%{_prefix}/lib/rpmrebuild/plugins/replacefile.plug
 %{_prefix}/lib/rpmrebuild/locale/en/rpmrebuild.lang
 %{_prefix}/lib/rpmrebuild/locale/fr_FR.UTF-8/rpmrebuild.lang
 %{_prefix}/lib/rpmrebuild/locale/fr_FR/rpmrebuild.lang
@@ -108,9 +112,18 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %doc %{_mandir}/man1/exclude_file.plug.1rrp*
 %doc %{_mandir}/fr_FR/man1/exclude_file.plug.1rrp*
 %doc %{_mandir}/fr_FR.UTF-8/man1/exclude_file.plug.1rrp*
+%doc %{_mandir}/fr_FR.UTF-8/man1/empty_section.plug.1rrp.gz
+%doc %{_mandir}/fr_FR.UTF-8/man1/replacefile.plug.1rrp.gz
+%doc %{_mandir}/fr_FR/man1/empty_section.plug.1rrp.gz
+%doc %{_mandir}/fr_FR/man1/replacefile.plug.1rrp.gz
+%doc %{_mandir}/man1/empty_section.plug.1rrp.gz
+%doc %{_mandir}/man1/replacefile.plug.1rrp.gz
 
 
 %changelog
+* Mon Dec 30 2024 Edgar Hoch <edgar.hoch@ims.uni-stuttgart.de> - 2.20-1
+- Latest package from upstream.
+
 * Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 2.17-7
 - convert license to SPDX
 

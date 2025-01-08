@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.18
-Release:        4%{?dist}
+Version:        1.19
+Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -26,7 +26,7 @@ BuildRequires:  perl(DateTime::TimeZone)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Module::Util)
 BuildRequires:  perl(Params::Validate) >= 1.15
 BuildRequires:  perl(Scalar::Util)
@@ -115,6 +115,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.19-1
+- 1.19 bump (rhbz#2335649)
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

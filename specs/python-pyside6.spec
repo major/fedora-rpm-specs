@@ -6,23 +6,20 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.8
+%global qt6ver 6.8.1
 
 Name:           python-%{pypi_name}
-Version:        6.8.0
-Release:        2%{?dist}
+Version:        6.8.1.1
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://wiki.qt.io/Qt_for_Python
 
-Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name}/%{camel_name}-%{version}-src/pyside-setup-everywhere-src-%{qt6ver}.tar.xz
+Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name}/%{camel_name}-%{qt6ver}-src/pyside-setup-everywhere-src-%{version}.tar.xz
 
 #https://bugreports.qt.io/browse/PYSIDE-2491
 Patch0:         147389_fix-build.patch
-# https://bugreports.qt.io/browse/PYSIDE-2888
-Patch1:         0001-Lazy-Init-Support-Lazy-Subtypes-amended.patch
-Patch2:         0001-signature-Fix-pointers-to-signature-bytes-with-the-h.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -106,6 +103,7 @@ BuildRequires:  cmake(Qt6WebChannel) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineCore) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineWidgets) >= %{qt6ver}
 BuildRequires:  cmake(Qt6WebEngineQuick) >= %{qt6ver}
+BuildRequires:  cmake(Qt6WebView) >= %{qt6ver}
 %endif
 BuildRequires:  cmake(Qt6WebSockets) >= %{qt6ver}
 BuildRequires:  cmake(Qt6HttpServer) >= %{qt6ver}
@@ -317,6 +315,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 
 
 %changelog
+* Sun Jan 05 2025 Marie Loise Nolden <loise@kde.org> - 6.8.1-1
+- 6.8.1.1
+
 * Sun Dec 08 2024 Jan Grulich <jgrulich@redhat.com> - 6.8.0-2
 - Rebuild (qt6.8.1)
 

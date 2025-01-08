@@ -1,12 +1,17 @@
 Name:    kitinerary
 Version: 24.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
 URL:     https://invent.kde.org/frameworks/%{name}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if !%{defined fc40} && !%{defined fc41}
+ExcludeArch:   %{ix86}
+%endif
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
@@ -94,6 +99,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Mon Jan 06 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 24.12.0-3
+- Drop i686 support (leaf package)
+
 * Sat Dec 14 2024 Adam Williamson <awilliam@redhat.com> - 24.12.0-2
 - Rebuild for new libphonenumber
 

@@ -2,12 +2,15 @@
 
 Name:           pungi
 Version:        4.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+# https://pagure.io/pungi/pull-request/1810
+# Use container and bootable-container productmd types
+Patch:          1810.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -55,7 +58,7 @@ Requires:       python3-libmodulemd >= 2.8.0
 Requires:       python3-gobject
 Requires:       python3-createrepo_c
 Requires:       python3-PyYAML
-Requires:       python3-productmd >= 1.38
+Requires:       python3-productmd >= 1.43
 Requires:       python3-flufl-lock
 Requires:       xorriso
 
@@ -139,6 +142,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Mon Jan 06 2025 Adam Williamson <awilliam@redhat.com> - 4.8.0-2
+- Backport PR #1810 to use new container types
+
 * Fri Nov 29 2024 Lubomír Sedlář <lsedlar@redhat.com> - 4.8.0-1
 - Drop spec file (lsedlar)
 - Remove python 2.7 from tox configuration (lsedlar)

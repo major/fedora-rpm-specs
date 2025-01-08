@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Test-Warnings
-Version:	0.036
+Version:	0.037
 Release:	1%{?dist}
 Summary:	Test for warnings and the lack of them
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,10 +21,8 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module
-BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
-BuildRequires:	perl(Import::Into)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(parent)
 BuildRequires:	perl(strict)
@@ -93,6 +91,11 @@ make test
 %{_mandir}/man3/Test2::Warnings.3*
 
 %changelog
+* Mon Jan  6 2025 Paul Howarth <paul@city-fan.org> - 0.037-1
+- Update to 0.037
+  - Remove unneeded use of Import::Into
+  - Fix tests that invoke Test::Warnings->import directly
+
 * Sun Jan  5 2025 Paul Howarth <paul@city-fan.org> - 0.036-1
 - Update to 0.036
   - Allow tests to pass even when Import::Into is not installed (CPAN RT#158296)

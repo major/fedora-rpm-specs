@@ -2,22 +2,25 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.40
-Release:        2%{?dist}
+Version:        0.46
+Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-URandom
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDICK/Crypt-URandom-%{version}.tar.gz
-BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(Carp)
+BuildRequires:  perl(Carp) >= 1.26
 BuildRequires:  perl(constant)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
@@ -25,8 +28,10 @@ BuildRequires:  perl(FileHandle)
 # Win32 not used
 # Win32::API not used
 # Win32::API::Type not used
+BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(overload)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 %if %{with perl_Crypt_URandom_enables_optional_test}
@@ -34,7 +39,11 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
+Requires:       perl(Carp) >= 1.26
 Requires:       perl(FileHandle)
+
+# Remove underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Carp\\)$
 
 %description
 This Module is intended to provide an interface to the strongest available
@@ -42,8 +51,12 @@ source of non-blocking randomness on the current platform.
 
 %package tests
 Summary:        Tests for %{name}
+BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       gcc
 Requires:       perl-Test-Harness
+Requires:       perl(Carp) >= 1.26
 %if %{with perl_Crypt_URandom_enables_optional_test}
 Requires:       perl(Encode)
 %endif
@@ -54,7 +67,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Crypt-URandom-%{version}
+%autosetup -p1 -n Crypt-URandom-%{version}
 %if !%{with perl_Crypt_URandom_enables_optional_test}
 rm t/pod.t
 perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
@@ -71,18 +84,28 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
-cp -a t %{buildroot}%{_libexecdir}/%{name}
+cp -a check_random.inc t %{buildroot}%{_libexecdir}/%{name}
 # t/boilerplate.t expects files in source archive localtions.
 rm %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
 %if %{with perl_Crypt_URandom_enables_optional_test}
 rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
 %endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+#!/bin/bash
+# check_random.inc and t/getrandom.t write into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+# t/core_read.t etc. needs URandom.pm in ./blib without URandom.so
+mkdir -p "$DIR/blib/lib/Crypt"
+cp %{perl_vendorarch}/Crypt/URandom.pm "$DIR/blib/lib/Crypt"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -92,15 +115,20 @@ make test
 
 %files
 # README.md is identical to README.
-%doc Changes README
-%dir %{perl_vendorlib}/Crypt
-%{perl_vendorlib}/Crypt/URandom.pm
+%doc Changes README SECURITY.md
+%dir %{perl_vendorarch}/auto/Crypt
+%{perl_vendorarch}/auto/Crypt/URandom
+%dir %{perl_vendorarch}/Crypt
+%{perl_vendorarch}/Crypt/URandom.pm
 %{_mandir}/man3/Crypt::URandom.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 06 2025 Petr Pisar <ppisar@redhat.com> - 0.46-1
+- 0.46 bump
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           blosc2
-Version:        2.15.1
+Version:        2.15.2
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
@@ -67,6 +67,9 @@ OPTIONS=(
 %install
 %cmake_install
 
+# Record the actual library SONAME in the build log
+objdump -p %{buildroot}%{_libdir}/libblosc2.so.4 | grep SONAME
+
 %check
 # Tests fail on s390x: https://github.com/Blosc/c-blosc2/issues/467
 %ifarch s390x
@@ -78,10 +81,8 @@ OPTIONS=(
 
 %files
 # API versioning hard. With CMake even harder.
-# SONAME is "libblosc2.so.3". Let's use a literal pattern
-# here to see what upstream does in the next version.
 %{_libdir}/libblosc2.so.4
-%{_libdir}/libblosc2.so.2.15.1
+%{_libdir}/libblosc2.so.%{version}
 %license LICENSE.txt
 %doc ROADMAP.rst
 %doc ANNOUNCE.*

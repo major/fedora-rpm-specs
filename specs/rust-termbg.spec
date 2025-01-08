@@ -4,7 +4,7 @@
 %global crate termbg
 
 Name:           rust-termbg
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Terminal background color detection
 

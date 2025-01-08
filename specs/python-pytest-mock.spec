@@ -10,6 +10,9 @@ License:        MIT
 URL:            https://github.com/pytest-dev/pytest-mock/
 Source0:        %{pypi_source}
 
+# Compatibility with Python 3.14
+Patch:          https://github.com/pytest-dev/pytest-mock/pull/469.patch
+
 BuildArch:      noarch
 
 %description

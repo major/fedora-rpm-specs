@@ -16,7 +16,7 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.2.0
+Version:        7.2.2
 Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
@@ -838,6 +838,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Mon Jan 06 2025 Orion Poplawski <orion@nwra.com> - 1:7.2.2-1
+- Update to 7.2.2
+
 * Thu Dec 12 2024 Orion Poplawski <orion@nwra.com> - 1:7.2.0-1
 - Update to 7.2.0
 

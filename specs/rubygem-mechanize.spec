@@ -1,6 +1,6 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.13.0
+%global	majorver		2.14.0
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Mon Jan 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.0-1
+- 2.14.0
+
 * Fri Jan 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.13.0-1
 - 2.13.0
 

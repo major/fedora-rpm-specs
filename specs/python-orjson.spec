@@ -142,6 +142,11 @@ done
 export RUSTFLAGS='%{build_rustflags}'
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
+# Fedora's pyo3 is patched to not check Python version when building RPM packages.
+# However, this uses a bundled version without the patch.
+# Rather than patching it, we set the environment variable,
+# which allows us to test this package with development Python versions.
+export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
 %pyproject_wheel
 
 

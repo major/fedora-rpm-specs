@@ -1,6 +1,6 @@
 Name:           usbview
 Version:        3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        USB topology and device viewer
 License:        GPL-2.0-only
 URL:            http://www.kroah.com/linux-usb/
@@ -12,8 +12,10 @@ BuildRequires:  gtk3-devel
 BuildRequires:  ImageMagick
 BuildRequires:  make
 BuildRequires:  libappstream-glib
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+Requires:       gdk-pixbuf2-modules-extra
+%endif
 Requires:       hicolor-icon-theme
-Requires:       polkit
 
 %description
 Display information about the topology of the devices connected to the USB bus
@@ -43,6 +45,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/com.kroah.usb
 
 
 %changelog
+* Tue Dec 24 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1-4
+- Update dependencies
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

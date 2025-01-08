@@ -5,7 +5,7 @@
 %global crate os_info
 
 Name:           rust-os_info
-Version:        3.9.0
+Version:        3.9.2
 Release:        %autorelease
 Summary:        Detect the operating system type and version
 
@@ -75,7 +75,8 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that require fixtures that are not included in published crates
+%cargo_test -- -- --skip imp::file_release::tests
 %endif
 
 %changelog

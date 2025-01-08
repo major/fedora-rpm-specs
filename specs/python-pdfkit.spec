@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Wkhtmltopdf python wrapper
 
 License:        MIT
@@ -21,7 +21,6 @@ BuildArch:      noarch
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  python3
-BuildRequires:  python3-pytest
 BuildRequires:  wkhtmltopdf
 
 Requires:       wkhtmltopdf
@@ -59,7 +58,8 @@ find tests -type f |\
  while read a; do b=$(echo $a |\
  sed -r 's/%{commit0}_//'); \
  mv -v $a $b; done
-%{__python3} setup.py test
+cd tests
+%{__python3} pdfkit-tests.py
 
 %files -n python3-%{pypi_name}
 %license LICENSE
@@ -68,6 +68,10 @@ find tests -type f |\
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 06 2025 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-17
+- Fix build with setuptools 74+
+- Fixes: rhzb#2319690
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

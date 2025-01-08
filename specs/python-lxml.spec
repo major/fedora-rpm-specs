@@ -16,6 +16,11 @@ URL:            https://github.com/lxml/lxml
 Source0:        lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:        get-lxml-source.sh
 
+# Fix missing "//" in file URLs under Python 3.14
+# https://bugs.launchpad.net/bugs/2085619
+# https://bugzilla.redhat.com/2335830
+Patch:          https://github.com/lxml/lxml/commit/9e95960cd6.patch
+
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel

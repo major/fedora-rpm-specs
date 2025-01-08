@@ -2,14 +2,14 @@
 #global snapshot 0
 %global OWNER Drive-Trust-Alliance
 %global PROJECT sedutil
-%global commit 0d08321346164487464bd2910b323314d5607219
-%global commitdate 20210818
+%global commit 5bbe4ff75b9416926d157a755d9760f7ff4e3904
+%global commitdate 20241211
 %global gittag %{version}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		sedutil
-Version:	1.20.0
-Release:	8%{?dist}
+Version:	1.49.6
+Release:	2%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -18,21 +18,15 @@ License:	GPL-3.0-or-later AND CC0-1.0 AND BSD-4-Clause-UC AND Unlicense
 URL:		https://github.com/%{OWNER}/%{PROJECT}/wiki
 Source0:	https://github.com/%{OWNER}/%{PROJECT}/archive/%{gittag}/%{name}-%{gittag}.tar.gz
 
-# Modified version of https://github.com/Drive-Trust-Alliance/sedutil/pull/56.patch
-# to use linux/nvme_ioctl.h regardless of kernel version number so we can compile on EL7.
-Patch0:		sedutil-1.15.1-nvme_ioctl.patch
-# PR#408: Add securemode, verifySIDPassword
-Patch1:		https://github.com/Drive-Trust-Alliance/sedutil/pull/408.patch
-# PR#428: fix build with GCC 13
-Patch2:		https://github.com/Drive-Trust-Alliance/sedutil/pull/428.patch
-
 # sedutil does not work on big-endian architectures
-ExcludeArch:	ppc ppc64 s390 s390x
+ExcludeArch:	ppc ppc64 ppc64le s390 s390x
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	ncurses-devel
 BuildRequires:	autoconf automake
+BuildRequires:	systemd-devel
+BuildRequires:	libnvme-devel
 
 # This package uses a bundled copy of Cifra:
 # https://github.com/ctz/cifra/commit/319fdb764cd12e12b8296358cfcd640346c4d0dd
@@ -56,18 +50,11 @@ This package provides the sedutil-cli and linuxpba binaries, but not
 the PBA image itself.
 
 %prep
-%setup -q -n sedutil-%{gittag}
-%{?el7:%patch0 -p1 -b .nvme_ioctl}
-%patch -P1 -p1 -b .securemode
-%patch -P2 -p1 -b .gcc13
-
+%autosetup
 # Adjust the GitVersion.sh script to just use the git tag from the
 # checkout so we don't need a full git tree or the git tool itself.
-cd linux
-sed -i -e's/tarball/%{gittag}/' GitVersion.sh
-# Remove stray execute permissions from source code
-find . -type f -name '*.h' -exec chmod -x {} \;
-find . -type f -name '*.cpp' -exec chmod -x {} \;
+sed -i -e's/tarball/%{gittag}/' Customizations.OpenSource/linux/CLI/GitVersion.sh
+sed -i -e's/tarball/%{gittag}/' linux/GitVersionPBA.sh
 
 
 %build
@@ -75,10 +62,12 @@ autoreconf -iv
 %configure
 %make_build
 
+
 %install
 %make_install
 mkdir -p %{buildroot}%{_libexecdir}/linuxpba
 ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
+
 
 %files
 %doc README.md Common/Copyright.txt Common/ReadMe.txt linux/PSIDRevert_LINUX.txt
@@ -90,6 +79,12 @@ ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
+* Mon Jan 06 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.49.6-2
+- ExcludeArch: ppc64le
+
+* Sun Jan 05 2025 Charles R. Anderson <cra@alum.wpi.edu> - 1.49.6-1
+- Update to 1.49.6
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Version: 1.0.0
 Release: 27%{?dist}
 URL: https://fedoraproject.org/wiki/Legal/Secondary_trademark_usage_guidelines
 Source0: https://fedorahosted.org/releases/f/e/fedora-logos/fedora-remix-logos-%{version}.tar.bz2
-License: Licensed only for approved usage, see COPYING for details.
+License: LicenseRef-Fedora-Logos
 BuildArch: noarch
 
 %description

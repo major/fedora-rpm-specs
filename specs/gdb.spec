@@ -928,6 +928,16 @@ fi
 # endif scl
 
 %changelog
+* Thu Jan 02 2025 Guinevere Larsen <glarsen@redhat.com>
+- Remove gdb-rhbz1156192-recursive-dlopen-test.patch.
+
+* Thu Jan 02 2025 Andrew Burgess <aburgess@redhat.com>
+- Update generate-patches-from-git-repo.sh script, and regenerate
+  patches.  This changed gdb-add-rpm-suggestion-script.patch,
+  gdb-backport-buildid-related-changes.patch, and
+  gdb-remove-qnx-neutrino-support.patch.  In each case, there is no
+  significant change, only the diff header itself changed.
+
 * Wed Dec 11 2024 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-6.6-buildid-locate-tests.patch patch, merge the tests
   from this patch into gdb-add-rpm-suggestion-script.patch.  The tests
