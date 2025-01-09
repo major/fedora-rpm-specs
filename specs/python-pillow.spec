@@ -220,6 +220,7 @@ install -m 644 src/libImaging/*.h %{buildroot}/%{py3_incdir}/Imaging
 
 # MinGW build
 %if %{with mingw}
+(
 install -d %{buildroot}/%{mingw32_py3_incdir}/Imaging
 install -m 644 src/libImaging/*.h %{buildroot}/%{mingw32_py3_incdir}/Imaging
 
@@ -232,6 +233,7 @@ install -m 644 src/libImaging/*.h %{buildroot}/%{mingw64_py3_incdir}/Imaging
 # Remove sample scripts
 rm -rf %{buildroot}%{mingw32_bindir}
 rm -rf %{buildroot}%{mingw64_bindir}
+)
 %endif
 
 

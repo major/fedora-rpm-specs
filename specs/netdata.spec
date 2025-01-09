@@ -46,7 +46,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        2.1.0
+%global upver        2.1.1
 #global rcver        rc0
 
 # el8 only
@@ -56,7 +56,7 @@ ExcludeArch: s390x
 
 Name:           netdata
 Version:        %{upver}%{?rcver:~%{rcver}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Real-time performance monitoring
 # For a breakdown of the licensing, see license REDISTRIBUTED.md
 License:        GPL-3.0-or-later
@@ -478,6 +478,9 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 
 
 %changelog
+* Tue Jan 07 2025 Didier Fabert <didier.fabert@gmail.com> 2.1.1-1
+- Update from upstream
+
 * Sat Dec 21 2024 Didier Fabert <didier.fabert@gmail.com> 2.1.0-3
 - go-module cannot be built in fc40
 

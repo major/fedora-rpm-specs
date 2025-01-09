@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.45
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -41,6 +41,12 @@ Patch24:        0024-Get-macros-from-epel-candidate-build-target.patch
 Patch25:        0025-Improvements-on-string-parsing.patch
 Patch26:        0026-Add-tests-cases-for-runtime_disttag-removal-when-wor.patch
 Patch27:        0027-Handle-rhel-runtimes-when-minor-version-exists-in-di.patch
+Patch28:        0028-gitignore-the-name-version-build-directory-created-b.patch
+Patch29:        0029-Fixing-unittests-for-py36.patch
+Patch30:        0030-Fix-tests-on-EPEL-9-10.patch
+Patch31:        0031-Add-setuptools-to-dependencies-for-Python-3.12.patch
+Patch32:        0032-Update-expired-token-exception-instructions.patch
+Patch33:        0033-Clone-epel10-branches-with-clone-B.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -123,6 +129,14 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Tue Jan 07 2025 Ondřej Nosek <onosek@redhat.com> - 1.45-6
+- gitignore the name-version-build/ directory created by fedpkg prep/local
+- Fixing unittests for py36
+- Fix tests on EPEL 9/10.
+- Add setuptools to dependencies for Python 3.12+
+- Update expired token exception instructions
+- Clone epel10 branches with clone -B
+
 * Wed Sep 18 2024 Ondřej Nosek <onosek@redhat.com> - 1.45-5
 - Add py313 environment as that's current
 - Drop support for bodhi-client <= 5

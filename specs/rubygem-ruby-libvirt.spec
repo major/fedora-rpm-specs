@@ -4,7 +4,7 @@
 Summary: Ruby bindings for LIBVIRT
 Name: rubygem-%{gem_name}
 Version: 0.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL: http://libvirt.org/ruby/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -76,6 +76,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 0.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Thu Jan 02 2025 Jarek Prokop <jprokop@redhat.com> - 0.8.4-1
 - Upgrade rubygem-ruby-libvirt to 0.8.4.
   Resolves: rhbz#2023528

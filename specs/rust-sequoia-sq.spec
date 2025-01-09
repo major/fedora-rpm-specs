@@ -94,27 +94,7 @@ install -Dpm 0644 target/release/build/%{crate}-*/out/shell-completions/_sq \
 
 %if %{with check}
 %check
-# * skip tests that require files which are not included in published crates
-# * skip tests that fail because the Fedora crypto policy is too strict
-%{cargo_test -- -- --exact %{shrink:
-    --skip cli::cert::export::sq_cert_export
-    --skip cli::cert::import::sq_cert_import
-    --skip cli::inspect::sq_inspect
-    --skip cli::key::expire::sq_key_expire
-    --skip cli::key::sq_key_import
-    --skip cli::key::sq_key_list
-    --skip cli::pki::sq_pki_authenticate
-    --skip cli::pki::sq_pki_identify
-    --skip cli::pki::sq_pki_list
-    --skip cli::pki::sq_pki_lookup
-    --skip cli::pki::sq_pki_path
-    --skip integration::sq_sign::sq_sign
-    --skip integration::sq_sign::sq_sign_append
-    --skip integration::sq_sign::sq_sign_append_on_compress_then_sign
-    --skip integration::sq_sign::sq_sign_detached
-    --skip integration::sq_sign::sq_sign_detached_append
-    --skip integration::sq_sign::sq_sign_with_notations
-}}
+%cargo_test
 %endif
 
 %changelog

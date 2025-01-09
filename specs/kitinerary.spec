@@ -1,6 +1,6 @@
 Name:    kitinerary
-Version: 24.12.0
-Release: 3%{?dist}
+Version: 24.12.1
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND ODbL-1.0
@@ -99,6 +99,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Mon Jan 06 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 24.12.0-3
 - Drop i686 support (leaf package)
 

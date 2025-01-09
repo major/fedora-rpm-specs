@@ -1,4 +1,4 @@
-%global candidate rc6
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2025.01
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -218,6 +218,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Jan 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-1
+- Update to 2025.01 GA
+
 * Mon Jan 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.01-0.2.rc6
 - Rebuild for TF-A 2.12
 

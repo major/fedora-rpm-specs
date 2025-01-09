@@ -1,5 +1,5 @@
 Name:           perl-System-Info
-Version:        0.065
+Version:        0.066
 Release:        1%{?dist}
 Summary:        Factory for system specific information objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -72,14 +72,18 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 make test
 
 %files
-%doc ChangeLog CONTRIBUTING.md README examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc ChangeLog CONTRIBUTING.md examples README SECURITY.md
+%dir %{perl_vendorlib}/System
+%{perl_vendorlib}/System/Info*
+%{_mandir}/man3/System::Info*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.066-1
+- 0.066 bump (rhbz#2335834)
+
 * Tue Aug 27 2024 Jitka Plesnikova <jplesnik@redhat.com> - 0.065-1
 - 0.065 bump (rhbz#2307711)
 

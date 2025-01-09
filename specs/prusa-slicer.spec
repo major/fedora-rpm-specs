@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.8.1
+Version:        2.9.0
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -24,7 +24,7 @@ License:        AGPL-3.0-only
 URL:            https://github.com/prusa3d/PrusaSlicer/
 Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.tar.gz
 Source2:        %name.appdata.xml
-%global libbgcode_commit b5c57c423c958a78dacae468aeee63ab3d2de947
+%global libbgcode_commit d33a277a3ce2c0a7f9ba325caac6d730e0f7a412
 Source3:        https://github.com/prusa3d/libbgcode/archive/%{libbgcode_commit}.tar.gz#/libbgcode-%{libbgcode_commit}.tar.gz
 Source4:        https://github.com/atomicobject/heatshrink/archive/refs/tags/v0.4.1.tar.gz#/heatshrink-0.4.1.tar.gz
 Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb8b13d7555183ab10aa5.tar.gz#/openvdb-8.2.tar.gz
@@ -32,12 +32,8 @@ Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb
 # Fix a couple of segfaults that happen with wxWidgets 3.2 (from Debian)
 Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 
-# Workaround https://github.com/prusa3d/PrusaSlicer/issues/12573
-# with https://github.com/prusa3d/PrusaSlicer/pull/12574
-Patch6:         prusa-slicer-pr-12574.patch
-
-# https://github.com/prusa3d/PrusaSlicer/pull/13609/commits/f7a25cae1820444f4e999b429598ca477a35ccb8
-Patch7:       prusa-slicer-pr-13609-boost.patch
+# https://github.com/prusa3d/PrusaSlicer/pull/13896
+Patch6:		prusa-slicer-pr-13896.patch
 
 # Beware!
 # Patches >= 340 are only applied on Fedora 34+
@@ -298,8 +294,6 @@ license heatshrink LICENSE
 license openvdb LICENSE
 git add license-files
 commit "Move license files"
-
-rm ./cmake/modules/FindEigen3.cmake
 
 %build
 # -DSLIC3R_PCH=0 - Disable precompiled headers, which break cmake for some reason

@@ -148,7 +148,7 @@
 %bcond lmdb 0
 %endif
 
-%global samba_version 4.21.2
+%global samba_version 4.21.3
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -251,6 +251,7 @@ Source201:      README.downgrade
 Source202:      samba.abignore
 
 Patch0:         samba-4.21.0-s3-notifyd.patch
+Patch1:         samba-4-21-pycrypt.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -441,9 +442,6 @@ BuildRequires: perl-Parse-Yapp
 BuildRequires: perl-Test-Base
 BuildRequires: psmisc
 BuildRequires: python3-libpamtest
-# The `crypt` module has been removed in Python 3.13, this is a copy
-# See also https://bugzilla.samba.org/show_bug.cgi?id=15756
-BuildRequires: python3-crypt-r
 BuildRequires: resolv_wrapper
 BuildRequires: rsync
 BuildRequires: socket_wrapper
@@ -596,9 +594,6 @@ Requires: lmdb
 %endif
 Requires: tdb-tools
 Requires: python3-gpg
-# The `crypt` module has been removed in Python 3.13, this is a copy
-# See also https://bugzilla.samba.org/show_bug.cgi?id=15756
-Requires: python3-crypt-r
 %endif
 
 %description tools
@@ -2062,6 +2057,7 @@ fi
 %{_libdir}/samba/libtdb-wrap-private-samba.so
 %{_libdir}/samba/libtime-basic-private-samba.so
 %{_libdir}/samba/libtorture-private-samba.so
+%{_libdir}/samba/libutil-crypt-private-samba.so
 %{_libdir}/samba/libutil-reg-private-samba.so
 %{_libdir}/samba/libutil-setid-private-samba.so
 %{_libdir}/samba/libutil-tdb-private-samba.so

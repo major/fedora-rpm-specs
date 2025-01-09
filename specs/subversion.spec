@@ -60,7 +60,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -585,6 +585,9 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.5-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Wed Dec 18 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.5-3
 - Explicitly add dependency for rubygem(csv) for ruby3.4
 

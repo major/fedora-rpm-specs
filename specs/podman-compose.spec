@@ -1,6 +1,6 @@
 Name:           podman-compose
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -40,6 +40,9 @@ sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 %{python3_sitelib}/podman_compose*
 
 %changelog
+* Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-1
+- 1.3.0
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

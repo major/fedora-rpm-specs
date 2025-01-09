@@ -1,6 +1,6 @@
 Name:    kgoldrunner
 Summary: A game of action and puzzle solving
-Version: 24.12.0
+Version: 24.12.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

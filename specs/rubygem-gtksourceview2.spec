@@ -11,7 +11,7 @@
 Summary:	Ruby binding of gtksourceview-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 # gtksourceview2-3.4.3.gemspec	LGPL-2.1-or-later
 # Other source	LGPL-2.1-or-later
 # SPDX confirmed
@@ -158,6 +158,9 @@ xvfb-run \
 %{gem_instdir}/sample/
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-17
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

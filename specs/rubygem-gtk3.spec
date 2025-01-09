@@ -8,7 +8,7 @@
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
 Version:	4.2.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -190,6 +190,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sun Dec 15 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.5-1
 - 4.2.5
 

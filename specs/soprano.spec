@@ -12,7 +12,7 @@
 Summary: Qt wrapper API to different RDF storage solutions
 Name:    soprano
 Version: 2.9.4
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -34,7 +34,7 @@ Patch1: soprano-2.9.4-gcc6.patch
 
 BuildRequires: clucene-core-devel >= 0.9.20-2
 BuildRequires: cmake
-BuildRequires: kde-filesystem
+BuildRequires: kde4-macros(api)
 BuildRequires: pkgconfig
 BuildRequires: pkgconfig(raptor2)
 BuildRequires: pkgconfig(rasqal) >= 0.9.22
@@ -191,6 +191,9 @@ time make -C %{_vpath_builddir} test ARGS="--timeout 300 --output-on-failure -R 
 
 
 %changelog
+* Tue Jan 07 2025 Alessandro Astone <ales.astone@gmail.com> - 2.9.4-35
+- Fix build dependency on kde4 macros
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 2.9.4-34
 - convert license to SPDX
 

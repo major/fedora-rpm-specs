@@ -2,7 +2,7 @@
 %global swipl_arch %{_target_cpu}-linux
 
 Name:           pl
-Version:        9.2.8
+Version:        9.2.9
 Release:        %autorelease
 Summary:        ISO/Edinburgh-style Prolog interpreter
 
@@ -22,6 +22,8 @@ Patch1:         swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 Patch2:         swipl-8.2.0-unbundle-libstemmer.patch
 # Expose inclpr plugin dependency on the math library to RPM
 Patch3:         swipl-9.2.7-inclpr-math.patch
+# Use zlib-ng directly rather than via the zlib compatibility interface
+Patch4:         swipl-9.2.9-zlib-ng.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -82,7 +84,7 @@ BuildRequires:  pkgconfig(Qt6)
 # yaml
 BuildRequires:  pkgconfig(yaml-0.1)
 # zlib
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(zlib-ng)
 # Doc building
 # Gated to Fedora as EL is currently missing tex(a4wide.sty)
 %if 0%{?fedora}
@@ -157,11 +159,11 @@ Requires:       swi-prolog-nox = %{version}-%{release}
 Requires:       swi-prolog-x = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
-Obsoletes:      pl < 9.2.8-2
+Obsoletes:      pl < 9.2.9-2
 Provides:       pl = %{version}-%{release}
-Obsoletes:      pl-devel < 9.2.8-2
+Obsoletes:      pl-devel < 9.2.9-2
 Provides:       pl-devel = %{version}-%{release}
-Obsoletes:      pl-compat-yap-devel < 9.2.8-2
+Obsoletes:      pl-compat-yap-devel < 9.2.9-2
 Provides:       pl-compat-yap-devel = %{version}-%{release}
 
 %description -n swi-prolog %_desc
@@ -287,7 +289,7 @@ Summary:        ISO/Edinburgh-style Prolog interpreter - with X support
 Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
-Obsoletes:      pl-xpce < 9.2.8-2
+Obsoletes:      pl-xpce < 9.2.9-2
 Provides:       pl-xpce = %{version}-%{release}
 
 %description -n swi-prolog-x %_desc
@@ -309,7 +311,7 @@ Requires:       java-headless
 Requires:       javapackages-tools
 
 # This can be removed when F45 reaches EOL
-Obsoletes:      pl-jpl < 9.2.8-2
+Obsoletes:      pl-jpl < 9.2.9-2
 Provides:       pl-jpl = %{version}-%{release}
 
 %description -n swi-prolog-java %_desc
@@ -324,7 +326,7 @@ Summary:        SWI-Prolog ODBC interface
 Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
-Obsoletes:      pl-odbc < 9.2.8-2
+Obsoletes:      pl-odbc < 9.2.9-2
 Provides:       pl-odbc = %{version}-%{release}
 
 %description -n swi-prolog-odbc %_desc
@@ -366,7 +368,7 @@ BuildArch:      noarch
 Requires:       swi-prolog-core = %{version}-%{release}
 
 # This can be removed when F45 reaches EOL
-Obsoletes:      pl-doc < 9.2.8-2
+Obsoletes:      pl-doc < 9.2.9-2
 Provides:       pl-doc = %{version}-%{release}
 
 %description -n swi-prolog-doc %_desc

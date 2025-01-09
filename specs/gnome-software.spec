@@ -18,22 +18,20 @@
 %bcond dkms %[!0%{?rhel}]
 
 # this is not a library version
-%define gs_plugin_version 21
+%define gs_plugin_version 22
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   47.2
-Release:   3%{?dist}
+Version:   48~alpha2
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
-Source0:   https://download.gnome.org/sources/gnome-software/47/%{name}-%{tarball_version}.tar.xz
-
-Patch01:   0001-crash-under-gs_appstream_gather_merge_data.patch
+Source0:   https://download.gnome.org/sources/gnome-software/48/%{name}-%{tarball_version}.tar.xz
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -290,6 +288,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 48~alpha2-1
+- Update to 48.alpha2
+
 * Mon Dec 09 2024 Milan Crha <mcrha@redhat.com> - 47.2-3
 - Resolves: #2272232 (Crash under gs_appstream_gather_merge_data())
 

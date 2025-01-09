@@ -1,6 +1,6 @@
 Name:           libktorrent
 Summary:        Torrent downloading library for KDE 6 applications
-Version:        24.12.0
+Version:        24.12.1
 Release:        1%{?dist}
 # CC0 is only for CI tooling, BSD3 for cmake macros, MIT for win32 support code
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ Requires:       cmake(Qt6Network)
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

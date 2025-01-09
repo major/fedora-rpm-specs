@@ -1,21 +1,16 @@
 %{?mingw_package_header}
 
 %global mod_name pyyaml
-%global pypi_name PyYAML
 
 Name:          mingw-python-%{mod_name}
-Version:       6.0.1
-Release:       4%{?dist}
-Summary:       MinGW Windows Python %{pypi_name} library
+Version:       6.0.2
+Release:       1%{?dist}
+Summary:       MinGW Windows Python %{mod_name} library
 BuildArch:     noarch
 
 License:       MIT
 URL:           https://github.com/yaml/pyyaml
-Source0:       %{pypi_source PyYAML}
-
-# Fix build with Cython 3
-# Proposed upstream but refused (upstream does not want Cython 3)
-Patch:          https://github.com/yaml/pyyaml/pull/731.patch
+Source0:       %{pypi_source pyyaml}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
@@ -31,25 +26,25 @@ BuildRequires: mingw64-python3-Cython
 
 
 %description
-MinGW Windows Python %{pypi_name} library.
+MinGW Windows Python %{mod_name} library.
 
 
 %package -n mingw32-python3-%{mod_name}
-Summary:       MinGW Windows Python2 %{pypi_name} library
+Summary:       MinGW Windows Python2 %{mod_name} library
 
 %description -n mingw32-python3-%{mod_name}
-MinGW Windows Python2 %{pypi_name} library.
+MinGW Windows Python2 %{mod_name} library.
 
 
 %package -n mingw64-python3-%{mod_name}
-Summary:       MinGW Windows Python2 %{pypi_name}
+Summary:       MinGW Windows Python2 %{mod_name}
 
 %description -n mingw64-python3-%{mod_name}
-MinGW Windows Python2 %{pypi_name} library.
+MinGW Windows Python2 %{mod_name} library.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{mod_name}-%{version}
 chmod a-x examples/yaml-highlight/yaml_hl.py
 # remove pre-generated file
 rm -rf ext/_yaml.c
@@ -71,16 +66,19 @@ sed -i 's/Cython<3.0/Cython/' pyproject.toml
 %license LICENSE
 %{mingw32_python3_sitearch}/yaml/
 %{mingw32_python3_sitearch}/_yaml/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/PyYAML-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/yaml/
 %{mingw64_python3_sitearch}/_yaml/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/PyYAML-%{version}.dist-info/
 
 
 %changelog
+* Tue Jan 07 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-1
+- Update to 6.0.2
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

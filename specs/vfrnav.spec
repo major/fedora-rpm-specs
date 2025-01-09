@@ -1,11 +1,13 @@
 Name:           vfrnav
 Version:        20230429
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/tsailer/vfrnav/
-Source0:        https://gitlab.com/tsailer/vfrnav/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Source:         https://gitlab.com/tsailer/vfrnav/-/archive/%{version}/%{name}-%{version}.tar.bz2
+Patch:          vfrnav-octave-colors.patch
+Patch:          vfrnav-compile.patch
 
 %bcond_without webservice
 %bcond_with wetterdl
@@ -473,6 +475,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 07 2025 Thomas Sailer <fedora@tsailer.ch> - 20230429-16
+- fixes for octave 9
+
 * Mon Dec 23 2024 Björn Esser <besser82@fedoraproject.org> - 20230429-15
 - Rebuild (libpqxx)
 

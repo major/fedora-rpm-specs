@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.7.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: WebSocket protocol handler with pluggable I/O
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -88,6 +88,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 0.7.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sun Nov 03 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.5-13
 - Add BR: rubygem(base64) explicitly for ruby34
 

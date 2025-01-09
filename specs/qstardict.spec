@@ -1,6 +1,6 @@
 Name:       qstardict
-Version:    1.4.1
-Release:    3%{?dist}
+Version:    3.0.0
+Release:    1%{?dist}
 Summary:    StarDict clone written using Qt
 License:    GPL-3.0-or-later
 URL:        https://qstardict.ylsoftware.com/
@@ -12,14 +12,15 @@ BuildRequires:  glib2-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libzim-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt5-linguist
+BuildRequires:  qt6-linguist
+
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-kglobalaccel-devel
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  kf5-knotifications-devel
 
 # This project is using private headers
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-qtbase-private-devel
 
 # exclude provate provides
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*\.so$
@@ -41,7 +42,7 @@ selected words
 %setup -q -n %{name}-%{version}
 
 %build
-%qmake_qt5 PLUGINS_DIR=%{_libdir}/%{name}/plugins QMAKE_LRELEASE=lrelease-qt5
+%qmake_qt6 PLUGINS_DIR=%{_libdir}/%{name}/plugins QMAKE_LRELEASE=lrelease-qt6
 make %{?_smp_mflags}
 
 %install
@@ -54,15 +55,18 @@ desktop-file-install --vendor="" \
 rm -fr %{buildroot}%{_docdir}
 
 %files
-%doc AUTHORS ChangeLog README THANKS
+%doc AUTHORS ChangeLog README.md THANKS
 %license COPYING
 %{_bindir}/%{name}
 %{_libdir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/*
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Tue Jan 07 2025 Vojtech Trefny <vtrefny@redhat.com> - 3.0.0-1
+- Update to the latest upstream release 3.0.0
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

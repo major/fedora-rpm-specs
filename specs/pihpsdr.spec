@@ -19,7 +19,7 @@
 
 Name:		pihpsdr
 Version:	2.0.8~rc1^%{git_suffix}
-Release:	4%{?dist}
+Release:	6%{?dist}
 Summary:	Raspberry Pi standalone code for HPSDR
 License:	GPL-2.0-or-later
 URL:		https://github.com/g0orx/%{name}
@@ -27,6 +27,7 @@ URL:		https://github.com/g0orx/%{name}
 Source0:	%{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
 # upstream desktop file needs a lot of patching, use own
 Source1:	pihpsdr.desktop
+Source2:	io.github.g0orx.pihpsdr.metainfo.xml
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	gtk3-devel
@@ -79,11 +80,15 @@ rm -rf release
 %make_install BINDIR="%{buildroot}%{_bindir}" DATADIR="%{buildroot}%{_datadir}" %{features}
 
 install -Dpm 0644 hpsdr.png %{buildroot}%{_datadir}/%{name}/hpsdr.png
-install -Dpm 0644 hpsdr_icon.png %{buildroot}%{_datadir}/icons/hicolor/512x512/hpsdr_icon.png
+install -Dpm 0644 hpsdr_icon.png %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/hpsdr_icon.png
 
 # desktop file
 mkdir -p  %{buildroot}%{_datadir}/applications
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
+
+# AppStream metadata file
+install -Dm 0644 %{SOURCE2} \
+    %{buildroot}%{_metainfodir}/io.github.g0orx.pihpsdr.metainfo.xml
 
 %files
 %doc README.md README.MIDI
@@ -91,12 +96,19 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/*
+%{_datadir}/icons/hicolor/*/*/*
+%{_metainfodir}/*
 
 %files doc
 %doc documentation/{MIDI-manual,piHPSDR-Controller-Users-Guide}.pdf
 
 %changelog
+* Tue Jan  7 2025 Daniel Rusek <mail@asciiwolf.com> - 2.0.8~rc1^20241105git7ad62180-6
+- Fixed desktop icon installation path
+
+* Tue Jan  7 2025 Daniel Rusek <mail@asciiwolf.com> - 2.0.8~rc1^20241105git7ad62180-5
+- Added AppStream metadata
+
 * Fri Nov  8 2024 Jaroslav Škarvada <jskarvad@redhat.com> - 2.0.8~rc1^20241105git7ad62180-4
 - Updated wdsp-in-home-dir patch
 

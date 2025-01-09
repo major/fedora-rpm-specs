@@ -9,7 +9,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		qdbm
 Version:	1.8.78
-Release:	67%{?dist}
+Release:	68%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 
@@ -388,6 +388,9 @@ popd
 
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-68
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Oct 25 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-67
 - Reable mvn dependency generation again
 

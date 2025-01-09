@@ -1,6 +1,6 @@
 Name:           gerbera
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -122,6 +122,12 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.1-1
+- 2.4.1
+
+* Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.0-1
+- 2.4.0
+
 * Tue Nov 26 2024 František Zatloukal <fzatlouk@redhat.com> - 2.3.0-2
 - Rebuilt for spdlog 1.15.0
 

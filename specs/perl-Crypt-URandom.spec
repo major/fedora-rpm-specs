@@ -2,7 +2,7 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.46
+Version:        0.48
 Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -79,6 +79,7 @@ perl -i -ne 'print $_ unless m{^t/manifest.t}' MANIFEST
 chmod a+x t/core_read.t t/core_fork.t t/core_partial_read.t t/core_sysopen.t
 
 %build
+unset CRYPT_URANDOM_BUILD_DEBUG
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
@@ -103,6 +104,7 @@ cp -a %{_libexecdir}/%{name}/* "$DIR"
 mkdir -p "$DIR/blib/lib/Crypt"
 cp %{perl_vendorarch}/Crypt/URandom.pm "$DIR/blib/lib/Crypt"
 pushd "$DIR"
+unset CRYPT_URANDOM_BUILD_DEBUG
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 popd
 rm -r "$DIR"
@@ -110,10 +112,12 @@ EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset CRYPT_URANDOM_BUILD_DEBUG
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
+%license LICENSE
 # README.md is identical to README.
 %doc Changes README SECURITY.md
 %dir %{perl_vendorarch}/auto/Crypt
@@ -126,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 07 2025 Petr Pisar <ppisar@redhat.com> - 0.48-1
+- 0.48 bump
+
 * Mon Jan 06 2025 Petr Pisar <ppisar@redhat.com> - 0.46-1
 - 0.46 bump
 

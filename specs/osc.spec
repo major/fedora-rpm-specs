@@ -2,7 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_41/src/
 # update the obsrel to match the upstream release number
-%global obsrel 424.1
+%global obsrel 425.1
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -16,7 +16,7 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.10.1
+Version:        1.11.0
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -36,6 +36,8 @@ BuildRequires:  python3-cryptography
 BuildRequires:  python3-urllib3
 BuildRequires:  python3-ruamel-yaml
 BuildRequires:  argparse-manpage
+# needed for git scm tests
+BuildRequires:  git-core
 Requires:       python3-distro
 Requires:       python3-rpm
 Requires:       python3-cryptography
@@ -134,6 +136,9 @@ python3 -m unittest
 %dir %{osc_plugin_dir}
 
 %changelog
+* Tue Jan 07 2025 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.11.0-425.1.1
+- New upstream release 1.11.0, fixes rhbz#2336112
+
 * Fri Nov  8 2024 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.10.1-424.1.1
 - New upstream release 1.10.1, fixes rhbz#2324701
 

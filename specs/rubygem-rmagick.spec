@@ -9,7 +9,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 
 Name:		rubygem-%{gem_name}
 Version:	6.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 # SPDX confirmed
@@ -156,6 +156,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.1-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sat Nov 02 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.1-3
 - Add BR: rubygem(observer) explicitly
 

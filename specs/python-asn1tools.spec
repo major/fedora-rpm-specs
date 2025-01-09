@@ -9,7 +9,6 @@ License:       MIT
 URL:           https://github.com/eerimoq/%{pypi_name}
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name}}
-Patch1:        python-asn1tools-0001-Revert-Fixes-for-pyparsing-3.1.2.patch
 BuildRequires: python3-devel
 BuildRequires: python3-diskcache
 BuildRequires: python3-prompt-toolkit
@@ -27,11 +26,7 @@ Summary: %{summary}
 %{summary}.
 
 %prep
-%if (0%{?fedora} && 0%{?fedora} < 40)
 %autosetup -p1 -n %{pypi_name}-%{version}
-%else
-%autosetup -p1 -n %{pypi_name}-%{version} -N
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t

@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Perl-Releases
-Version:        5.20241220
+Version:        5.20250106
 Release:        1%{?dist}
 Summary:        Mapping Perl releases on CPAN to the location of the tarballs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,8 +61,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
-rm -f %{buildroot}/%{_libexecdir}/%{name}/t/author-pod-coverage.t
-rm -f %{buildroot}/%{_libexecdir}/%{name}/t/author-pod-syntax.t
+rm -f %{buildroot}/%{_libexecdir}/%{name}/t/author-pod-*
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 unset AUTHOR_TESTING
@@ -85,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20250106-1
+- 5.20250106 bump (rhbz#2335886)
+
 * Thu Jan 02 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.20241220-1
 - 5.20241220 bump (rhbz#2333528)
 

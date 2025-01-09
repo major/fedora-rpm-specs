@@ -120,12 +120,10 @@ Source11:       %{external_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zi
 # with system provided hsqldb without major hacking.
 Source12:       %{external_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source13:       %{external_url}/../extern/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
-Source14:       %{external_url}/Java-WebSocket-1.6.0.tar.gz
 %global bundling_options %{?bundling_options} --without-system-hsqldb
 
 Provides: bundled(hsqldb) = 1.8.0
 Provides: bundled(xsltml) = 2.1.2
-Provides: bundled(Java-WebSocket) = 1.6.0
 
 # symbolic icons
 Source42:       https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/libreoffice-base-symbolic.svg
@@ -288,6 +286,7 @@ BuildRequires: ant
 BuildRequires: java-devel
 BuildRequires: junit
 BuildRequires: pentaho-reporting-flow-engine
+BuildRequires: Java-WebSocket
 %endif
 
 # fonts needed for tests
@@ -1182,7 +1181,7 @@ export CXXFLAGS="$ARCH_FLAGS -I%{_includedir}/zxcvbn -I%{_includedir}/KF6/KConfi
 %define distrooptions --enable-eot %{!?with_firebird:--disable-firebird-sdbc} %{?with_kf5:--enable-kf5} %{?with_kf6:--enable-kf6}
 
 %ifarch %{java_arches}
-%define javaoptions --with-java --without-system-java-websocket --enable-ext-nlpsolver --enable-ext-wiki-publisher
+%define javaoptions --with-java --enable-ext-nlpsolver --enable-ext-wiki-publisher
 %else
 %define javaoptions --without-java
 %endif
@@ -1878,7 +1877,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/share/config/soffice.cfg/vcl
 %{baseinstdir}/share/config/soffice.cfg/writerperfect
 %{baseinstdir}/share/config/soffice.cfg/xmlsec
-%{baseinstdir}/share/config/soffice.cfg/*/ui
 %{baseinstdir}/share/config/wizard
 %dir %{baseinstdir}/share/dtd
 %{baseinstdir}/share/dtd/officedocument
@@ -2186,7 +2184,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/classes/libreoffice.jar
 %{baseinstdir}/program/classes/ridl.jar
 %{baseinstdir}/program/classes/unoloader.jar
-%{baseinstdir}/program/classes/java_websocket.jar
 %{baseinstdir}/program/javaldx
 %{baseinstdir}/program/javavendors.xml
 %{baseinstdir}/program/jvmfwk3rc

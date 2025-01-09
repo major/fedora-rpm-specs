@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	9
+%global	baserelease	10
 
 %undefine        _changelog_trimtime
 
@@ -356,6 +356,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-10
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.16-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

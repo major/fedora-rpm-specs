@@ -928,6 +928,11 @@ fi
 # endif scl
 
 %changelog
+* Tue Jan 07 2025 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-rhbz1261564-aarch64-hw-watchpoint-test.patch.  This test
+  should be covered by gdb.base/watchpoint-unaligned.exp which was
+  added upstream in commit a3b60e4588606354b93508a0008a5.
+
 * Thu Jan 02 2025 Guinevere Larsen <glarsen@redhat.com>
 - Remove gdb-rhbz1156192-recursive-dlopen-test.patch.
 

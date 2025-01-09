@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.0
-%global specversion 3.rc2
+%global specversion 4.rc3
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 4ae3a303e589ed47634890aab5dd955186b5ec02
+%global commit 2587987be9f440c1f292233a8adea785f16641c5
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -255,7 +255,6 @@ BuildRequires: %{pkgname_glue_libs}-devel
 
 %if %{with doc}
 BuildRequires: asciidoc
-BuildRequires: inkscape
 BuildRequires: %{python_name}-sphinx
 %endif
 
@@ -770,6 +769,12 @@ exit 0
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Tue Jan 7 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.0-0.4.rc3
+- Update for new upstream release tarball: Pacemaker-3.0.0-rc3,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.0-rc3
+- synced dropping inkscape build-requirement with upstream
+
 * Tue Dec 17 2024 Klaus Wenninger <kwenning@redhat.com> - 3.0.0-0.3.rc2
 - re-enable docs as inkscape dependencies seem to be fixed in rawhide
 

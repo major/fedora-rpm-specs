@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Ruby/EventMachine library
 # Automatically converted from old format: GPLv2 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR Ruby
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 1.2.7-28
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 1.2.7-27
 - convert license to SPDX
 

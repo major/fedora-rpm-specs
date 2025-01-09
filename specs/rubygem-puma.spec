@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -240,6 +240,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 6.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Nov 01 2024 Vít Ondruch <vondruch@redhat.com> - 6.4.2-4
 - Fix Ruby 3.4 test compatibility.
 

@@ -1,11 +1,14 @@
 Name: libcdio-paranoia
 Version: 10.2+2.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: CD paranoia on top of libcdio
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/libcdio/
 Source0: https://github.com/libcdio/libcdio-paranoia/releases/download/release-%{version}/libcdio-paranoia-%{version}.tar.bz2
+# Fix for https://bugzilla.redhat.com/show_bug.cgi?id=2334834
+# Based on https://github.com/libcdio/libcdio-paranoia/pull/52.patch
+Patch0: 2334834.patch
 BuildRequires: gcc
 BuildRequires: pkgconfig
 BuildRequires: gettext-devel
@@ -31,6 +34,7 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
+%patch -P 0 -p 1
 
 # fix pkgconfig files
 sed -i -e 's,-I${includedir},-I${includedir}/cdio,g' libcdio_paranoia.pc.in
@@ -80,6 +84,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 
 %changelog
+* Tue Jan 07 2025 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-3
+- applied upstream patch to fix segfault (#2334834)
+
 * Wed Sep 25 2024 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-2
 - updated to 10.2+2.0.1
 

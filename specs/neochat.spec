@@ -1,14 +1,11 @@
 Name: neochat
-Version: 24.12.0
-Release: 2%{?dist}
+Version: 24.12.1
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
 Summary: Client for matrix, the decentralized communication protocol
 Source: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://invent.kde.org/network/neochat/-/merge_requests/2047
-Patch0: fix-crash-when-sending-messages.patch
 
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Quick)
@@ -125,6 +122,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Mon Dec 16 2024 Alessandro Astone <ales.astone@gmail.com> - 24.12.0-2
 - Backport patch to fix crash when sending messages
 

@@ -7,7 +7,7 @@
 
 Name:           automoc
 Version:        1.0
-Release:        0.47.%{?beta_tag}%{?dist}
+Release:        0.48.%{?beta_tag}%{?dist}
 Summary:        Automatic moc for Qt 4
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -55,7 +55,7 @@ Requires:       cmake >= 2.8.9
 BuildRequires:  cmake >= 2.8.9
 Buildrequires:  gcc-c++
 BuildRequires:  qt4-devel
-BuildRequires:  kde-filesystem
+BuildRequires:  kde4-macros(api)
 BuildRequires: make
 
 %description
@@ -89,6 +89,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Tue Jan 07 2025 Alessandro Astone <ales.astone@gmail.com> - 1.0-0.48.rc3
+- Fix build dependency on %cmake_kde4 macro
+
 * Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0-0.47.rc3
 - convert license to SPDX
 

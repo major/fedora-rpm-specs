@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.7.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Fast Implementation of Gruber's Markdown in C
 License: BSD-3-Clause
 URL: http://dafoster.net/projects/rdiscount/
@@ -98,6 +98,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 2.2.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

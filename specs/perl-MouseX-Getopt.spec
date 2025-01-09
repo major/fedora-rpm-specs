@@ -1,11 +1,12 @@
 Name:		perl-MouseX-Getopt
 Summary:	Mouse role for processing command line options
 Version:	0.38
-Release:	26%{?dist}
+Release:	27%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Getopt
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Getopt-%{version}.tar.gz
 Patch0:		MouseX-Getopt-0.38-GLD-0.113.patch
+Patch1:		MouseX-Getopt-0.38-GLD-0.116.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -30,6 +31,7 @@ BuildRequires:	perl(Test::Exception) >= 0.21
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Mouse)
 BuildRequires:	perl(Test::Warn) >= 0.21
+BuildRequires:	perl(Test2::V0)
 # Optional Tests (have circular dependencies)
 %if 0%{!?perl_bootstrap:1}
 BuildRequires:	perl(MouseX::ConfigFromFile)
@@ -52,6 +54,10 @@ objects using parameters passed in from the command line.
 # Fix compatibility with GLD 0.107 .. 0.113
 # https://github.com/gfx/mousex-getopt/pull/15
 %patch -P 0
+
+# Fix compatibility with GLD 0.116
+# https://github.com/gfx/mousex-getopt/pull/16
+%patch -P 1 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -81,6 +87,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MouseX::Getopt::Strict.3*
 
 %changelog
+* Tue Dec 31 2024 Paul Howarth <paul@city-fan.org> - 0.38-27
+- Fix compatibility with GLD 0.116
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

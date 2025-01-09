@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	20%{?dist}
+Release:	21%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -212,6 +212,9 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/sample/
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-21
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

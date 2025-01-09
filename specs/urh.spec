@@ -20,6 +20,8 @@ BuildRequires:	hackrf-devel
 BuildRequires:	rtl-sdr-devel
 BuildRequires:	uhd-devel
 BuildRequires:	python3-qt5
+BuildRequires:	python3-pytest
+BuildRequires:	xorg-x11-server-Xvfb
 # Unpinning Cython raised upstream: https://github.com/jopohl/urh/issues/1087
 BuildRequires:	python3-cython
 Requires:	python3-numpy
@@ -81,6 +83,10 @@ desktop-file-install --add-category="Utility" \
 # metainfo file
 install -Dpm 0644 %{SOURCE1} \
   %{buildroot}%{_metainfodir}/io.github.jopohl.urh.metainfo.xml
+
+%check
+# https://github.com/jopohl/urh/issues/1149
+#xvfb-run pytest -s -v tests
 
 %files
 %license LICENSE

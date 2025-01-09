@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-xdebug3
 #
-# Copyright (c) 2010-2024 Remi Collet
+# Copyright (c) 2010-2025 Remi Collet
 # Copyright (c) 2006-2009 Christopher Stone
 #
 # License: MIT
@@ -12,11 +12,11 @@
 %bcond_without     tests
 
 %global pecl_name  xdebug
-%global gh_commit  4284879cc0e3d749f872c2b7eec49521ca4b9ad0
+%global gh_commit  5107d2d978302323f9e65002fad2aee9f4c24628
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.0
+%global upstream_version 3.4.1
 #global upstream_prever  beta1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -51,6 +51,7 @@ Provides:       php-%{pecl_name}              = %{version}
 Provides:       php-%{pecl_name}%{?_isa}      = %{version}
 Provides:       php-pecl(Xdebug)              = %{version}
 Provides:       php-pecl(Xdebug)%{?_isa}      = %{version}
+Provides:       php-pie(xdebug/xdebug)        = %{version}
 
 # package was renamed on new major version
 Obsoletes:      php-pecl-%{pecl_name}         < 3
@@ -200,6 +201,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Tue Jan  7 2025 Remi Collet <remi@remirepo.net> - 3.4.1-1
+- update to 3.4.1
+
 * Thu Nov 28 2024 Remi Collet <remi@remirepo.net> - 3.4.0-1
 - update to 3.4.0
 

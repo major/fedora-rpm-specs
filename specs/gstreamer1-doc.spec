@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-doc
-Version:        1.24.10
+Version:        1.24.11
 Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        GStreamer documentation
@@ -41,6 +41,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/GStreamer.dev
 %{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/
 
 %changelog
+* Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.24.11-1
+- 1.24.11
+
 * Wed Dec 04 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24.10-1
 - 1.24.10
 

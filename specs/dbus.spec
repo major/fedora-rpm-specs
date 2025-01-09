@@ -19,7 +19,7 @@
 Name:    dbus
 Epoch:   1
 Version: 1.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: D-BUS message bus
 
 # The effective license of the majority of the package, including the shared
@@ -76,7 +76,7 @@ BuildRequires: /usr/bin/Xvfb
 %endif
 
 # Since F30 the default implementation is dbus-broker over dbus-daemon
-Requires: dbus-broker >= 16-4
+Requires: (dbus-broker >= 16-4 if systemd)
 
 %description
 D-BUS is a system for sending messages between applications. It is
@@ -433,6 +433,9 @@ fi
 
 
 %changelog
+* Fri Jan 03 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:1.16.0-2
+- Conditionalize dbus-broker dependency
+
 * Tue Dec 17 2024 David King <amigadave@amigadave.com> - 1:1.16.0-1
 - Update to 1.16.0 and use meson
 

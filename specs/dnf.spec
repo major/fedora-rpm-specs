@@ -66,12 +66,13 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
 URL:            https://github.com/rpm-software-management/dnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         0001-Tests-Avoid-the-multiprocessing-forkserver-method.patch
 BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -420,6 +421,9 @@ popd
 %endif
 
 %changelog
+* Tue Jan 07 2025 Petr Pisar <ppisar@redhat.com> - 4.22.0-3
+- Adapt tests to Python 3.14 (bug #2323186)
+
 * Thu Nov 21 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 4.22.0-2
 - Toggle dnf5_obsoletes_dnf for ELN
 

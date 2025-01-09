@@ -1,5 +1,5 @@
 Name:           goodvibes
-Version:        0.7.6
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Lightweight Radio Player
 
@@ -12,12 +12,15 @@ BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(amtk-5)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(keybinder-3.0)
-BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(libsoup-3.0)
 Requires:       dconf
 Requires:       gstreamer1-plugins-ugly-free
 Requires:       hicolor-icon-theme

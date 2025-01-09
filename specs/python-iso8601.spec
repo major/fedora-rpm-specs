@@ -3,12 +3,13 @@
 This module parses the most common forms of ISO 8601 date strings \
 (e.g. 2007-01-14T20:34:22+00:00) into datetime objects.
 
-# avoid unavailable test dependencies in RHEL builds
-%bcond tests %{undefined rhel}
+# Disable tests when building for RHEL to avoid test dependencies, unless
+# building for EPEL.
+%bcond tests %[%{undefined rhel} || %{defined epel}]
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple module to parse ISO 8601 dates
 
 License:        MIT
@@ -51,6 +52,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Fri Dec 20 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.1.0-2
+- Enable tests on EPEL
+
 * Thu Dec 19 2024 Carl George <carlwgeorge@fedoraproject.org> - 2.1.0-1
 - Update to version 2.1.0
 

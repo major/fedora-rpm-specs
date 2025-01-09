@@ -1,6 +1,6 @@
 Name:           itinerary
-Version:        24.12.0
-Release:        2%{?dist}
+Version:        24.12.1
+Release:        1%{?dist}
 Summary:        Itinerary and boarding pass management application
 
 License:        Apache-2.0 and BSD-3-Clause and LGPL-2.0-or-later AND CC0-1.0
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/qlogging-categories6/org_kde_itinerary.categories
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Tue Dec 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 24.12.0-2
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

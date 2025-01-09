@@ -1,7 +1,7 @@
 Summary: Strong GPG verification of git tags
 Name: git-evtag
-Version: 2016.1
-Release: 34%{?dist}
+Version: 2022.1
+Release: %autorelease
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -11,12 +11,11 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
 
-# We always run autogen.sh
-BuildRequires: autoconf automake libtool
-
+BuildRequires: meson
+BuildRequires: /usr/bin/xsltproc
+BuildRequires: docbook-style-xsl
 BuildRequires: pkgconfig(libgit2)
 BuildRequires: pkgconfig(gio-2.0)
-BuildRequires: make
 
 Requires: git
 Requires: gnupg2
@@ -29,118 +28,17 @@ that cover the complete content.
 %autosetup
 
 %build
-env NOCONFIGURE=1 ./autogen.sh
-%configure --disable-silent-rules
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install INSTALL="install -p"
+%meson_install
 
 %files
 %license COPYING
 %doc README.md
 %{_bindir}/%{name}
+%{_mandir}/man1/git-evtag.1*
 
 %changelog
-* Fri Oct 04 2024 Pete Walter <pwalter@fedoraproject.org> - 2016.1-34
-- Rebuild for libgit2 1.8.x
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 2016.1-33
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-32
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-31
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-30
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 16 2023 Pete Walter <pwalter@fedoraproject.org> - 2016.1-29
-- Rebuild for libgit2 1.7.x
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-28
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 2016.1-27
-- Rebuild for libgit2 1.6.x
-
-* Fri Jan 27 2023 Pete Walter <pwalter@fedoraproject.org> - 2016.1-26
-- Rebuild for libgit2 1.5.x
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 2016.1-24
-- Rebuild for libgit2 1.4.x
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Feb 20 2022 Igor Raits <igor.raits@gmail.com> - 2016.1-22
-- Rebuild for libgit2 1.4.x
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Nov 28 2021 Igor Raits <ignatenkobrain@fedoraproject.org> - 2016.1-20
-- Rebuild against libgit2 1.3.x
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Jan  2 20:30:33 CET 2021 Igor Raits <ignatenkobrain@fedoraproject.org> - 2016.1-17
-- Rebuild against libgit2 1.1.x
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-16
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Apr 15 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 2016.1-14
-- Rebuild for libgit2 1.0.0
-
-* Tue Mar 03 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 2016.1-13
-- Rebuild for libgit2 0.99
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jun 06 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2016.1-10
-- Rebuild for libgit2 0.28.x
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Aug 10 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2016.1-8
-- Rebuild for libgit2 0.27.x
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2016.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Jul 08 2017 Igor Gnatenko <ignatenko@redhat.com> - 2016.1-3
-- Rebuild for libgit2 0.26.x
-
-* Tue Jan 10 2017 Igor Gnatenko <ignatenko@redhat.com> - 2016.1-2
-- Rebuild for libgit2-0.25.x
-
-* Sun Nov 20 2016 Colin Walters <walters@verbum.org> - 2016.1-1
-- Initial package
+%autochangelog

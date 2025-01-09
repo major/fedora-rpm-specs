@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 24.12.0
+Version: 24.12.1
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -132,6 +132,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

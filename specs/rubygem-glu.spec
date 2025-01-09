@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 # SPDX confirmed
@@ -105,6 +105,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-33
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Sep 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-32
 - Enable testsuite for s390x again
 - Rebuild with fixed rubygem-opengl adjusted for Mesa 24.2.2

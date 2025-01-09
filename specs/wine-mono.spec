@@ -13,6 +13,7 @@ URL:            http://wiki.winehq.org/Mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
 Patch0:         wine-mono-7.3.0-iconv.patch
 Patch1:         wine-mono-configure-c99.patch
+# https://gitlab.winehq.org/mono/wine-mono/-/merge_requests/22
 Patch2:         wine-mono-builtins.patch
 
 # see git://github.com/madewokherd/wine-mono
@@ -68,7 +69,7 @@ Windows Mono library required for Wine.
 %{?mingw_debug_package}
 
 %prep
-%autosetup -q
+%autosetup -p1
 
 # Fix all Python shebangs
 %py3_shebang_fix .

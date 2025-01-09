@@ -1,6 +1,13 @@
+%if 0%{?rhel} >= 10
+    %bcond_with gnome
+%else
+    %bcond_without gnome
+%endif
+
+
 Name:           debconf
 Version:        1.5.87
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Debian configuration management system
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -11,20 +18,16 @@ BuildArch:      noarch
 
 #Build-Depends: debhelper-compat (= 12), dh-exec, dh-python, po-debconf, po4a (>= 0.23)
 #Build-Depends-Indep: perl (>= 5.10.0-16), python3 (>= 3.1.2-8), gettext (>= 0.13), libintl-perl
+BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  po4a >= 0.23
 BuildRequires:  gettext >= 0.13
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires: make
 
 # Required in Debconf/Encoding.pm
 # to test frontends : dpkg-reconfigure --frontend=kde tzdata
-%if  0%{?rhel} > 7
-Recommends:     perl(Text::Iconv)
-%else
 Requires:       perl(Text::Iconv)
-%endif
 Requires:       perl(Text::WrapI18N)
 Requires:       perl(Text::CharWidth)
 # Required in Debconf/Gettext.pm
@@ -222,9 +225,11 @@ done
 %{perl_vendorlib}/Debconf/DbDriver/LDAP.pm
 
 
+%if %{with gnome}
 %files gnome
 %{perl_vendorlib}/Debconf/Element/Gnome*
 %{perl_vendorlib}/Debconf/FrontEnd/Gnome*
+%endif
 
 
 %files doc -f man-doc.lang
@@ -260,6 +265,10 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Tue Jan 07 2025 Sérgio Basto <sergio@serjux.com> - 1.5.87-2
+- Drop debconf-gnome on epel 10 because we don't have perl-GTK3 package
+  and I don't know if we'll ever have or want have it (perl-GTK3 on epel 10)
+
 * Sat Sep 07 2024 Packit <hello@packit.dev> - 1.5.87-1
 - Update to version 1.5.87
 - Resolves: rhbz#2296312

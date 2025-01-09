@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -175,6 +175,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-36
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Sep 06 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-35
 - Adjust to mesa 24.2.2 change that swrast with dril does not expose
   accum buffers anymore

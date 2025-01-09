@@ -78,7 +78,7 @@ Source9:        systemd-journal-gatewayd.xml
 Source10:       20-yama-ptrace.conf
 Source11:       systemd-udev-trigger-no-reload.conf
 # https://fedoraproject.org/wiki/How_to_filter_libabigail_reports
-Source13:       .abignore
+Source13:       libabigail.abignore
 
 Source14:       10-oomd-defaults.conf
 Source15:       10-oomd-per-slice-defaults.conf
@@ -101,12 +101,6 @@ i=1; for j in 00*patch; do printf "Patch%04d:      %s\n" $i $j; i=$((i+1));done|
 GIT_DIR=../../src/systemd/.git git diffab -M v233..master@{2017-06-15} -- hwdb/[67]* hwdb/parse_hwdb.py >hwdb.patch
 %endif
 
-# Backports of patches from upstream (0000–0499)
-#
-# Any patches which are "in preparation" upstream should be listed here, rather
-# than in the next section. Packit CI will drop any patches in this range before
-# applying upstream pull requests.
-
 %if 0%{?fedora} < 40 && 0%{?rhel} < 10
 # Work-around for dracut issue: run generators directly when we are in initrd
 # https://bugzilla.redhat.com/show_bug.cgi?id=2164404
@@ -114,9 +108,13 @@ GIT_DIR=../../src/systemd/.git git diffab -M v233..master@{2017-06-15} -- hwdb/[
 Patch0010:      https://github.com/systemd/systemd/pull/26494.patch
 %endif
 
+%if %{without upstream}
+
 # Those are downstream-only patches, but we don't want them in packit builds:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2251843
-Patch0491:      https://github.com/systemd/systemd/pull/30846.patch
+Patch0011:      https://github.com/systemd/systemd/pull/30846.patch
+
+%endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64
 %global want_bootloader 1
@@ -199,7 +197,6 @@ BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(pefile)
 %if 0%{?fedora}
 BuildRequires:  python3dist(pillow)
-BuildRequires:  python3dist(pytest-flakes)
 %endif
 BuildRequires:  python3dist(pytest)
 %if 0%{?want_bootloader}
@@ -723,7 +720,7 @@ VMLINUX_H_PATH=$(%python3 -c '%find_vmlinux_h')
 %endif
 
 CONFIGURE_OPTS=(
-        -Dmode=%[%{with upstream}?"developer":"release"]
+        -Dmode=release
         -Dslow-tests=true
         -Dsysvinit-path=/etc/rc.d/init.d
         -Drc-local=/etc/rc.d/rc.local
@@ -966,7 +963,7 @@ install -Dm0644 -t %{buildroot}%{_pkgdocdir}/ %{SOURCE10}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1378974
 install -Dm0644 -t %{buildroot}%{system_unit_dir}/systemd-udev-trigger.service.d/ %{SOURCE11}
 
-install -Dm0644 -t %{buildroot}%{_prefix}/lib/systemd/ %{SOURCE13}
+install -Dm0644 %{SOURCE13} %{buildroot}%{_prefix}/lib/systemd/.abignore
 
 # systemd-oomd default configuration
 install -Dm0644 -t %{buildroot}%{_prefix}/lib/systemd/oomd.conf.d/ %{SOURCE14}

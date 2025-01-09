@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.16.3
+Version:        1.16.4
 Release:        1%{?dist}
 
 # Macro files
@@ -167,6 +167,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Tue Dec 03 2024 Miro Hrončok <mhroncok@redhat.com> - 1.16.4-1
+- Deprecate the provisional -w flag for %%pyproject_buildrequires
+
 * Tue Dec 03 2024 Miro Hrončok <mhroncok@redhat.com> - 1.16.3-1
 - Accept arbitrary options from %%pyproject_buildrequires in pyproject-srpm-macros
 - This will make future additions smoother

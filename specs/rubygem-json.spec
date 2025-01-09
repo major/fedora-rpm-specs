@@ -1,23 +1,22 @@
 %global	gem_name	json
 
+%global	pkg_version_num		2.9.1
+%dnl		%global	pkg_version_alpha
+%global	gem_version		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
+
 Name:           rubygem-%{gem_name}
-Version:        2.7.5
-Release:        201%{?dist}
+Version:        %{pkg_version_num}%{?pkg_version_alpha:~%pkg_version_alpha}
+Release:        2%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
 # SPDX confirmed
 License:        Ruby OR BSD-2-Clause
 URL:            https://github.com/flori/json
-Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
-Source1:        rubygem-%{gem_name}-%{version}-missing-files.tar.gz
+Source0:        https://rubygems.org/gems/%{gem_name}-%{gem_version}.gem
+Source1:        rubygem-%{gem_name}-%{gem_version}-missing-files.tar.gz
 # Source1 is created by $ %%SOURCE2 v%%version
 Source2:        json-create-tarball-missing-files.sh
-# https://github.com/ruby/json/pull/668
-# For 2.7.x branch: https://github.com/ruby/json/commit/045e58d8310890c43bf48a3b9ed6062b781b52c2
-# Fix activereport test failure with json handling
-Patch0:         json-pr668-json-generate-to_json.patch
-
 
 BuildRequires:  gcc
 BuildRequires:  ruby(release)
@@ -48,10 +47,11 @@ Requires:	%{name} = %{version}-%{release}
 This package contains documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -a 1
+%global	version	%gem_version
+
+%setup -q -n %{gem_name}-%{gem_version} -a 1
 mv ./%{gem_name}-%{version}/test .
 mv ../%{gem_name}-%{version}.gemspec .
-%patch -P0 -p1
 
 # Change cflags to honor Fedora compiler flags correctly
 find . -name extconf.rb | xargs sed -i -e 's|-O3|-O2|' -e 's|-O0|-O2|'
@@ -88,6 +88,7 @@ rm -rf \
 	Gemfile \
 	ext \
 	java \
+	lib/json/truffle_ruby/ \
 	test \
 	%{nil}
 popd
@@ -135,6 +136,21 @@ popd
 
 
 %changelog
+* Tue Jan 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.1-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
+* Thu Dec 19 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.1-1
+- 2.9.1
+
+* Thu Dec 05 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.0-1
+- 2.9.0
+
+* Thu Nov 07 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-1
+- 2.8.1
+
+* Sat Nov 02 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.0~alpha1-14
+- 2.8.0 alpha1 (e660b61)
+
 * Fri Nov 01 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.5-201
 - Apply upstream patch for JSON.generate behavior, restoring activesupport json
   usage

@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -231,6 +231,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-60
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sun Dec 22 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-59
 - Explicltiy disable python bindings (ref: #2161923)
 

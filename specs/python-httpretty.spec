@@ -56,7 +56,9 @@ BuildRequires:  python3-requests
 BuildRequires:  python3-sure
 BuildRequires:  python3-urllib3
 BuildRequires:  python3-tornado
+%if %{defined fc40} || %{defined el9}
 BuildRequires:  python3-eventlet
+%endif
 BuildRequires:  python3-freezegun
 BuildRequires:  python3-redis
 %endif
@@ -86,7 +88,12 @@ sed -i 's/^rednose = 1$//' setup.cfg
 
 %check
 %if %{run_tests}
-%{__python3} -m nose -v
+# test_httpretty_should_handle_paths_starting_with_two_slashes
+# is broken with requests 2.32.3 but the change might be reverted.
+# See:
+# - https://github.com/gabrielfalcao/HTTPretty/issues/457
+# - https://github.com/psf/requests/issues/6711
+%{__python3} -m nose -v --exclude=test_httpretty_should_handle_paths_starting_with_two_slashes
 %endif
 
 %files -n python3-httpretty

@@ -1,11 +1,11 @@
 Name:           perl-Data-Constraint
-Version:        1.204
-Release:        2%{?dist}
+Version:        1.205
+Release:        1%{?dist}
 Summary:        Prototypical value checking
 License:        Artistic-2.0
 
 URL:            https://metacpan.org/dist/Data-Constraint
-Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Data-Constraint-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANDFOY/Data-Constraint-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -60,6 +60,10 @@ chmod -x lib/Data/Constraint.pm
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jan 07 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.205-1
+- Update to 1.205.
+- Reflect upstream URL having changed.
+
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.204-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

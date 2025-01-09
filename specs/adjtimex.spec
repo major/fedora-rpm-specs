@@ -1,10 +1,11 @@
 Summary: A utility for adjusting kernel time variables
 Name: adjtimex
 Version: 1.29
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: GPL-2.0-or-later
 Source: http://ftp.debian.org/debian/pool/main/a/adjtimex/%{name}_%{version}.orig.tar.gz
 Patch1: adjtimex-manopts.patch
+Patch2: adjtimex-decl.patch
 BuildRequires: gcc
 BuildRequires: make
 
@@ -19,6 +20,7 @@ adjtimex to view kernel time variables.
 %prep
 %setup -q
 %patch -P1 -p1 -b .manopts
+%patch -P2 -p1 -b .decl
 
 %build
 %configure
@@ -36,6 +38,9 @@ install -m644 adjtimex.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/adjtimex.8
 %{_mandir}/man8/adjtimex.8*
 
 %changelog
+* Tue Jan 07 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.29-32
+- fix build with new gcc (#2336031)
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

@@ -1,13 +1,14 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.0.2
+Version: 4.0.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
-URL: http://people.redhat.com/sgrubb/audit/
-Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
+URL: https://github.com/linux-audit/audit-userspace/
+Source0: https://github.com/linux-audit/audit-userspace/releases/tag/v%{version}.tar.gz
 Source1: https://www.gnu.org/licenses/lgpl-2.1.txt
 BuildRequires: make gcc
+BuildRequires: autoconf automake libtool
 BuildRequires: kernel-headers >= 5.0
 BuildRequires: systemd
 
@@ -94,17 +95,17 @@ Recommends: %{name} = %{version}-%{release}
 The audit rules package contains the rules and utilities to load audit rules.
 
 %prep
-%setup -q
+%setup -q -n %{name}-userspace-%{version}
 cp %{SOURCE1} .
 
+%build
+autoreconf -fv --install
 # Remove the ids code, its not ready
 sed -i 's/ ids / /' audisp/plugins/Makefile.am
 sed -i 's/ ids / /' audisp/plugins/Makefile.in
-
-%build
 %configure --with-python=no \
            --with-python3=yes \
-           --enable-gssapi-krb5=yes --with-arm --with-aarch64 \
+           --enable-gssapi-krb5=yes --with-arm --with-aarch64 --with-riscv \
            --with-libcap-ng=yes --without-golang --enable-zos-remote \
            --enable-experimental --with-io_uring
 
@@ -235,6 +236,7 @@ fi
 %attr(755,root,root) %{_bindir}/aulastlog
 %attr(755,root,root) %{_bindir}/ausyscall
 %attr(644,root,root) %{_unitdir}/auditd.service
+%attr(640,root,root) %{_tmpfilesdir}/audit.conf
 %attr(750,root,root) %dir %{_libexecdir}/initscripts/legacy-actions/auditd
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/condrestart
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/reload
@@ -293,6 +295,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Tue Jan 07 2025 Steve Grubb <sgrubb@redhat.com> 4.0.3-1
+- New upstream release
+
 * Thu Aug 08 2024 Steve Grubb <sgrubb@redhat.com> 4.0.2-1
 - New upstream release
 

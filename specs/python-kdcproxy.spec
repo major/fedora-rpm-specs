@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -10,6 +10,8 @@ URL:            https://github.com/latchset/%{realname}
 Source0:        https://github.com/latchset/%{realname}/archive/%{realname}-%{version}.tar.gz
 
 Patch0: Drop-coverage-from-tests.patch
+Patch1: Use-exponential-backoff-for-connection-retries.patch
+Patch2: Use-dedicated-kdcproxy-logger.patch
 
 BuildArch:      noarch
 BuildRequires:  git
@@ -56,6 +58,10 @@ minimal configuration.
 %{python3_sitelib}/%{realname}-%{version}-*.egg-info
 
 %changelog
+* Mon Dec 23 2024 Julien Rische <jrische@redhat.com> - 1.0.0-18
+- Log KDC timeout only once per request
+  Resolves: rhbz#2333853
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

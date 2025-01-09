@@ -43,12 +43,12 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.54.2
+Version: 3.55.1
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
-Source: http://download.gnome.org/sources/%{name}/3.54/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.55/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
 
@@ -593,6 +593,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 3.55.1-1
+- Update to 3.55.1
+
 * Fri Nov 22 2024 Milan Crha <mcrha@redhat.com> - 3.54.2-1
 - Update to 3.54.2
 

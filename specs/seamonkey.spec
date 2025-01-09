@@ -130,7 +130,7 @@ BuildRequires:  m4
 BuildRequires:  perl-interpreter
 
 %if %{with clang} || %{with stylo}
-BuildRequires:	clang17, llvm-devel
+BuildRequires:	clang, llvm-devel
 %endif
 %if %{without clang}
 BuildRequires:	gcc-c++ >= 7.1
@@ -182,7 +182,7 @@ cp %{SOURCE3} GNUmakefile
 
 %patch 2 -p1 -b .1894423
 %patch 3 -p1 -b .1516803
-%patch 4 -p1 -b .1862601
+%{?with_system_icu:%patch 4 -p1 -b .1862601}
 %patch 5 -p2 -b .1173156
 %patch 7 -p1 -b .1005640
 %patch 8 -p1 -b .1882209
@@ -365,8 +365,6 @@ sed -i -e 's/python3/python3.11/' mach
 
 %if %{with clang}
 %define toolchain  clang
-export CC=clang-17
-export CXX=clang++-17
 %endif
 
 # Mozilla builds with -Wall with exception of a few warnings which show up

@@ -9,11 +9,11 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	24.9.1
+%global srcver	2025.01.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
-%global rpmver	%{lua: print(string.format("%04d%02d%02d", tonumber(rpm.expand("%{majorver}")) + 2000, tonumber(rpm.expand("%{minorver}")), tonumber(rpm.expand("%{patchver}"))))}
+%global rpmver	%{lua: print(string.format("%04d%02d%02d", tonumber(rpm.expand("%{majorver}")), tonumber(rpm.expand("%{minorver}")), tonumber(rpm.expand("%{patchver}"))))}
 # for default font
 %global hprio	56
 # for default font but static
@@ -1202,6 +1202,9 @@ done
 
 
 %changelog
+* Tue Jan  7 2025 Akira TAGOH <tagoh@redhat.com> - 20250101-1
+- Updates to monthly release of 2025.01.01.
+
 * Tue Sep  3 2024 Akira TAGOH <tagoh@redhat.com> - 20240901-1
 - Updates to monthly release of 24.9.1.
 

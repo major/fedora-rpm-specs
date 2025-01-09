@@ -3,8 +3,8 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        24.12.0
-Release:        2%{?dist}
+Version:        24.12.1
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://www.kdevelop.org/
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -234,6 +234,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.kdevel
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 9:24.12.1-1
+- 24.12.1
+
 * Fri Dec 20 2024 Dan Horák <dan@danny.cz> - 9:24.12.0-2
 - rebuilt for astyle 3.6.6 (rhbz#2323142)
 

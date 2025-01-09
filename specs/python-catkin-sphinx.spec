@@ -1,12 +1,11 @@
 %global srcname catkin-sphinx
 
 Name:           python-%{srcname}
-Version:        0.3.1
-Release:        17%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Sphinx extension for Catkin projects
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ros-infrastructure/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -24,13 +23,8 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-sphinx
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%if !0%{?rhel} || 0%{?rhel} >= 8
 Recommends:     python%{python3_pkgversion}-docutils
 Recommends:     python%{python3_pkgversion}-pygments
-%else
-Requires:       python%{python3_pkgversion}-docutils
-Requires:       python%{python3_pkgversion}-pygments
-%endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Sphinx extension for Catkin projects that provides a custom ROS theme and a
@@ -56,6 +50,11 @@ Sphinx domain for CMake.
 
 
 %changelog
+* Tue Jan 07 2025 Scott K Logan <logans@cottsay.net> - 0.3.2-1
+- Update to 0.3.2
+- Review SPDX license
+- Drop spec file support for EPEL 7
+
 * Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.1-17
 - convert license to SPDX
 

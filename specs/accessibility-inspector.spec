@@ -2,7 +2,7 @@
 %global sname   accessibilityinspector
 
 Name:           accessibility-inspector
-Version:        24.12.0
+Version:        24.12.1
 Release:        1%{?dist}
 Summary:        KDE Accessbility Inspector
 # LGPL: code
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

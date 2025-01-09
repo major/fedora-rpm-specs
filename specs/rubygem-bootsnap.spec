@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -120,6 +120,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 1.15.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

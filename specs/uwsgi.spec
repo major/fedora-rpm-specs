@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1964,6 +1964,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.28-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sun Oct 27 2024 Ralf Ertzinger <ralf@skytale.net> - 2.0.28-1
 - Update to 2.0.28, drop merged patches
 

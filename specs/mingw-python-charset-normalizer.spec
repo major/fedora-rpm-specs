@@ -5,13 +5,14 @@
 
 Name:          mingw-python-%{pkg_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       3.4.0
+Version:       3.4.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
 URL:           https://github.com/ousret/charset_normalizer
 Source0:       %{pypi_source}
+Patch0:        charset_normalizer-deps.patch
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
@@ -69,6 +70,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Tue Jan 07 2025 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
+- Update to 3.4.1
+
 * Wed Oct 23 2024 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
 - Update to 3.4.0
 

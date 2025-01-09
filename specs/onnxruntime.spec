@@ -16,48 +16,46 @@ Source0:    https://github.com/microsoft/onnxruntime/archive/v%{version}/%{name}
 Source1:    https://github.com/protocolbuffers/utf8_range/archive/%{utf8_range_commit}/%{utf8_range_name}.zip
 
 # Add an option to not install the tests
-Patch0:     0000-dont-install-tests.patch
+Patch:      0000-dont-install-tests.patch
 # Use the system flatbuffers
-Patch1:     0001-system-flatbuffers.patch
+Patch:      0001-system-flatbuffers.patch
 # Use the system protobuf
-Patch2:     0002-system-protobuf.patch
+Patch:      0002-system-protobuf.patch
 # Use the system onnx
-Patch3:     0003-system-onnx.patch
+Patch:      0003-system-onnx.patch
 # Fedora targets power8 or higher
-Patch4:     0004-disable-power10.patch
+Patch:      0004-disable-power10.patch
 # Do not use nsync
-Patch5:     0005-no-nsync.patch
+Patch:      0005-no-nsync.patch
 # Do not link against WIL
-Patch6:     0006-remove-wil.patch
+Patch:      0006-remove-wil.patch
 # Use the system safeint
-Patch7:     0007-system-safeint.patch
+Patch:      0007-system-safeint.patch
 # Versioned libonnxruntime_providers_shared.so
-Patch8:     0008-versioned-onnxruntime_providers_shared.patch
+Patch:      0008-versioned-onnxruntime_providers_shared.patch
 # Disable gcc -Werrors with false positives
-Patch9:     0009-gcc-false-positive.patch
+Patch:      0009-gcc-false-positive.patch
 # Test data not available 
-Patch10:    0010-disable-pytorch-tests.patch
+Patch:      0010-disable-pytorch-tests.patch
 # Use the system date and boost
-Patch11:    0011-system-date-and-mp11.patch
+Patch:      0011-system-date-and-mp11.patch
 # Use the system cpuinfo
-Patch12:    0012-system-cpuinfo.patch
+Patch:      0012-system-cpuinfo.patch
 # Trigger onnx fix for onnxruntime_providers_shared
-Patch13:    0013-onnx-onnxruntime-fix.patch
+Patch:      0013-onnx-onnxruntime-fix.patch
 # Use the system python version
-Patch14:    0014-system-python.patch
+Patch:      0014-system-python.patch
 # Fix errors when DISABLE_ABSEIL=ON
-Patch15:    0015-abseil-disabled-fix.patch
+Patch:      0015-abseil-disabled-fix.patch
 # Fix missing includes
-Patch16:    0016-missing-cpp-headers.patch
+Patch:      0016-missing-cpp-headers.patch
 # Revert https://github.com/microsoft/onnxruntime/pull/21492 until
 # Fedora's Eigen3 is compatible with the fix.
-Patch17:    0017-revert-nan-propagation-bugfix.patch
-# Update flatbuffers to Fedora's version
-Patch18:    0018-system-flatbuffers-version.patch
+Patch:      0017-revert-nan-propagation-bugfix.patch
 # Backport upstream implementation of onnx
 # from https://github.com/microsoft/onnxruntime/pull/21897
-Patch19:    0019-backport-onnx-1.17.0-support.patch
-Patch20:    0020-disable-locale-tests.patch
+Patch:      0019-backport-onnx-1.17.0-support.patch
+Patch:      0020-disable-locale-tests.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -127,6 +125,9 @@ Documentation files for the %{name} package
 
 mkdir -p ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/
 mv %{SOURCE1} ./redhat-linux-build/_deps/utf8_range-subbuild/utf8_range-populate-prefix/src/%{utf8_range_commit}.zip
+
+python3 onnxruntime/core/flatbuffers/schema/compile_schema.py --flatc /usr/bin/flatc
+python3 onnxruntime/lora/adapter_format/compile_schema.py --flatc /usr/bin/flatc
 
 %build
 # Broken test in aarch64

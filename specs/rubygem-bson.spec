@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.15.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Ruby implementation of the BSON specification
 License: Apache-2.0
 # Keep the URL, while different URL is used in the upstream gemspec file.
@@ -93,6 +93,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Tue Jan 07 2025 Vít Ondruch <vondruch@redhat.com> - 4.15.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Sun Nov 10 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.15.0-9
 - Add BR: rubygem(base64) explicitly for ruby34
 - Add StringIO requirement explicitly for testsuite

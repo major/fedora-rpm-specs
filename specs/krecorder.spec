@@ -1,5 +1,5 @@
 Name:           krecorder
-Version:        24.12.0
+Version:        24.12.1
 Release:        1%{?dist}
 License:        BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND GPL-3.0-or-later
 Summary:        Convergent KDE audio recording application
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

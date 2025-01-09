@@ -1,7 +1,7 @@
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 24.12.0
-Release: 2%{?dist}
+Version: 24.12.1
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only
@@ -10,8 +10,6 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 
 
 # upstream patches
-# https://invent.kde.org/network/kdenetwork-filesharing/-/commit/46c92d96edab7730f6dc27ddbc81cbe1e3a08790
-Patch0: 0001-use-placeholdermessage.patch
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
@@ -74,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sun Dec 08 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-2
 - Backport upstream patch
 

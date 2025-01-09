@@ -6,7 +6,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 24.12.0
+Version: 24.12.1
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -177,6 +177,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Sat Dec 07 2024 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 24.12.0-1
 - 24.12.0
 

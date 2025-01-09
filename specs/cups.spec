@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.11
-Release: 8%{?dist}
+Release: 9%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -97,6 +97,9 @@ Patch1003: 0001-scheduler-Clean-up-failed-IPP-Everywhere-permanent-q.patch
 # inability to disable cipher via crypto policies
 # https://github.com/OpenPrinting/cups/commit/331a202a87
 Patch1004: 0001-tls-gnutls.c-Use-system-crypto-policy-if-available.patch
+# give a way how to opt-out from crypto policy
+# https://github.com/OpenPrinting/cups/commit/40e62848ab3
+Patch1005: 0001-Add-NoSystem-SSLOptions-value.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -343,6 +346,8 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch -P 1003 -p1 -b .ipp-eve-fail
 # inability to disable cipher via crypto policies
 %patch -P 1004 -p1 -b .tls-system-policy
+# give a way how to opt-out from crypto policy
+%patch -P 1005 -p1 -b .nosystem-ssloption
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -832,6 +837,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Tue Jan 07 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-9
+- give a way how to opt-out from crypto policy
+
 * Fri Dec 06 2024 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.11-8
 - fix inability to disable a cipher via crypto-policies
 

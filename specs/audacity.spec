@@ -12,8 +12,8 @@
 
 Name: audacity
 
-Version: 3.5.1
-Release: 4%{?dist}
+Version: 3.7.1
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -25,12 +25,6 @@ Source1: https://github.com/audacity/audacity/releases/download/Audacity-%{versi
 Patch0: gdk_x11_backend.patch
 
 Patch2: fix_data_path.patch
-
-# FFMPEG 7.0 compatibility
-Patch3: https://github.com/audacity/audacity/commit/686f528886870cd94d25405b873b1146c896580f.patch
-Patch4: https://github.com/audacity/audacity/commit/7954ea8801e544642f99f13742c9158e0665e203.patch
-Patch5: https://github.com/audacity/audacity/commit/22a36a1725c38125502cd76afccc34fcb25ed428.patch
-Patch6: https://github.com/audacity/audacity/commit/ae256843690c5024771d22f0640f1e584d18b00b.patch
 
 BuildRequires: cmake
 BuildRequires: gettext-devel
@@ -139,10 +133,6 @@ For the most up to date manual content, use the on-line manual.
 
 #%%patch -P 0 -p0
 %patch -P 2 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
-%patch -P 5 -p1
-%patch -P 6 -p1
 
 # fix building translations with gettext-0.22 (#2225711), fixed in 3.4
 sed -i -e 's|%hs|%s|g' locale/*.po
@@ -302,6 +292,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Tue Jan 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.1-1
+- 3.7.1
+
 * Wed Sep 25 2024 Dominik Mierzejewski <dominik@greysector.net> - 3.5.1-4
 - Rebuilt for FFmpeg 7
 

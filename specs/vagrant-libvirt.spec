@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.11.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -23,6 +23,13 @@ Patch0: vagrant-libvirt-pr1709-ruby32-File_exists-URL-parse.patch
 # We do not care about synced folder check when testing MAC configuration.
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1721
 Patch1: vagrant-libvirt-0.11.2-Allow-a-mock-object-to-receive-synced_folders.patch
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1837
+# related to https://github.com/ruby/rexml/pull/167
+Patch2: vagrant-libvirt-pr1837-testsuite-support-rexml-332.patch
+# Get rid of a warning generated due to usage of option
+# no longer supported by fog-libvirt
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1835
+Patch3: vagrant-libvirt-0.12.2-Remove-config-unsupported-by-fog-libvirt.patch
 
 # Enable QEMU Session by default
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/969
@@ -71,6 +78,8 @@ Documentation for %{name}.
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 %patch 100 -p1
 
 %build
@@ -100,6 +109,9 @@ pushd .%{vagrant_plugin_instdir}
 # Create dummy Gemfile and load dependencies via gemspec file
 cat > Gemfile <<EOG
 gem 'vagrant'
+gem 'base64'
+gem 'logger'
+gem 'ostruct'
 gem 'rdoc'
 gem 'rexml'
 gem 'vagrant-spec', :path => '%{_builddir}/vagrant-spec-%{vagrant_spec_commit}'
@@ -137,6 +149,13 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Tue Jan 07 2025 Jarek Prokop <jprokop@redhat.com> - 0.11.2-5
+- Stop warning being emitted due to setting unsupported option in fog-libvirt.
+
+* Sun Dec 29 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.2-5
+- Add some gem dependency on testsuite for ruby3.4
+- Support REXML 3.3.2 output behavior change
+
 * Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

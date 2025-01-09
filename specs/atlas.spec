@@ -1,11 +1,12 @@
 %define enable_native_atlas 0
+%global build_type_safety_c 0
 
 Name:           atlas
 Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -375,6 +376,7 @@ cp %{SOURCE11} CONFIG/ARCHS/
 sed -i -e 's,-mfloat-abi=softfp,-mfloat-abi=hard,' CONFIG/src/atlcomp.txt
 %endif
 
+sed -i -e 's,MYFLAGS =,MYFLAGS = -fpermissive,' CONFIG/src/Makefile
 # Generate lapack library
 mkdir lapacklib
 cd lapacklib
@@ -482,7 +484,7 @@ for type in %{types}; do
 	fi
 	mkdir -p %{_arch}_${type}
 	pushd %{_arch}_${type}
-	../configure  %{mode} $thread_options $arg_options -v 2 -D c -DWALL -F xc ' '  -Fa alg '%{flags} -D_FORTIFY_SOURCE=2 -g -Wa,--noexecstack,--generate-missing-build-notes=yes -fstack-protector-strong -fstack-clash-protection -fPIC -fplugin=annobin -Wl,-z,now' \
+	../configure  %{mode} $thread_options $arg_options -v 2 -D c -DWALL -F xc ' '  -Fa alg '%{flags} -D_FORTIFY_SOURCE=2 -g -Wa,--noexecstack,--generate-missing-build-notes=yes -fpermissive -fstack-protector-strong -fstack-clash-protection -fPIC -fplugin=annobin -Wl,-z,now' \
 	--prefix=%{buildroot}%{_prefix}			\
 	--incdir=%{buildroot}%{_includedir}		\
 	--libdir=%{buildroot}%{_libdir}/${libname}
@@ -770,6 +772,11 @@ fi
 %endif
 
 %changelog
+* Tue Jan 07 2025 Jakub Martisko <jamartis@redhat.com> - 3.10.3-28
+- Fix ftbs caused by the "modern c toolchain" effort
+- The sources are not prepared for the porting to ^^, so the checks were disabled for now
+Related: rhbz#2257735
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

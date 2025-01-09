@@ -1,6 +1,6 @@
 Name:           simspark
 Version:        0.3.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Spark physical simulation system
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -80,6 +80,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Wed Jan 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.5-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.4
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.5-8
 - convert license to SPDX
 

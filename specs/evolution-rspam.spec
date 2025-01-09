@@ -1,7 +1,7 @@
 Name: evolution-rspam
 Summary: Evolution Plugin for reporting spam
 Version: 0.6.0
-Release: 44%{?dist}
+Release: 45%{?dist}
 License: GPL-2.0-or-later
 Source: http://gnome.eu.org/%{name}-%{version}.tar.xz
 URL: http://gnome.eu.org/evo/index.php/Report_as_Spam
@@ -16,12 +16,14 @@ Patch6: evolution-rspam-0.6.0-source-double-unref.patch
 Patch7: evolution-rspam-0.6.0-activity-leak.patch
 Patch8: evolution-rspam-0.6.0-evo3_23_2.patch
 Patch9: evolution-rspam-0.6.0-fix-po-charset.patch
+Patch10: evolution-rspam-0.6.0-no-gtkuimanager.patch
+Patch11: evolution-rspam-0.6.0-spamcop-flush-outbox-on-send.patch
 
 Requires: perl-Razor-Agent
 Requires: pyzor
-Requires: evolution
+Requires: evolution >= 3.55.1
 
-BuildRequires: gettext, evolution-devel >= 3.45.1, perl(XML::Parser), intltool, GConf2-devel
+BuildRequires: gettext, evolution-devel >= 3.55.1, perl(XML::Parser), intltool, GConf2-devel
 BuildRequires: autoconf, automake, gnome-common, libtool
 BuildRequires: make
 
@@ -63,6 +65,10 @@ find %{buildroot} -name \*\.la -print | xargs rm -f
 %doc TODO
 
 %changelog
+* Tue Jan 07 2025 Milan Crha <mcrha@redhat.com> - 0.6.0-45
+- Add patch to adapt to GtkUIManager removal in Evolution 3.55.1
+- Resolves: #2333515 (Flush Outbox when sending mail to spamcop)
+
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

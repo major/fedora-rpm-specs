@@ -2,8 +2,8 @@
 %bcond adblock 1
 
 Name:    kdepim-addons
-Version: 24.12.0
-Release: 2%{?dist}
+Version: 24.12.1
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 # Cargo license summary:
 # MIT
@@ -196,6 +196,9 @@ popd
 
 
 %changelog
+* Tue Jan 07 2025 Steve Cossette <farchord@gmail.com> - 24.12.1-1
+- 24.12.1
+
 * Tue Dec 24 2024 Benjamin A. Beasley <code@musicinmybrain.net> - 24.12.0-2
 - Drop i686 support beginning with Fedora 42 (leaf package)
 

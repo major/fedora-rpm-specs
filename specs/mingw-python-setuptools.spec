@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       74.1.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -16,6 +16,9 @@ Source0:       %{pypi_source %{pypi_name} %{version}}
 Patch0:        mingw-python-setuptools_is_mingw.patch
 # Don't append -s to linker commandline
 Patch1:        mingw-python-setuptools_nostrip.patch
+# Don't override shared_lib_extension with SHLIB_SUFFIX config value
+# The value set by Mingw32CCompiler class is already correct, no need to override
+Patch2:        mingw-python-setuptools-shlib-suffix.patch
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
@@ -97,6 +100,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Tue Jan 07 2025 Sandro Mani <manisandro@gmail.com> - 74.1.3-4
+- Add mingw-python-setuptools-shlib-suffix.patch
+
 * Sun Dec 08 2024 Sandro Mani <manisandro@gmail.com> - 74.1.3-3
 - Add mingw-python-setuptools_nostrip.patch
 

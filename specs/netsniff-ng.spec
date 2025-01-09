@@ -1,6 +1,6 @@
 Name:		netsniff-ng
-Version:	0.6.8
-Release:	19%{?dist}
+Version:	0.6.9
+Release:	1%{?dist}
 Summary:	Packet sniffing beast
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -65,6 +65,10 @@ make install PREFIX=%{_prefix} ETCDIR=%{_sysconfdir} DESTDIR="%{buildroot}"
 %{_mandir}/man8/*
 
 %changelog
+* Tue Jan  7 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.9-1
+- New version
+  Resolves: rhbz#2336119
+
 * Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.8-19
 - convert license to SPDX
 

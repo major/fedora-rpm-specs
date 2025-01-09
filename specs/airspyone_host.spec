@@ -6,14 +6,16 @@
 
 Name:           airspyone_host
 Version:        1.0.10
-Release:        8%{?git_suffix}%{?dist}
+Release:        9%{?git_suffix}%{?dist}
 Summary:        AirSpy host tools and library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://airspy.com/
-#Source0:        https://github.com/airspy/%%{name}/archive/%%{git_commit}/%%{name}-%%{git_suffix}.tar.gz
-Source0:        https://github.com/airspy/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+#Source:        https://github.com/airspy/%%{name}/archive/%%{git_commit}/%%{name}-%%{git_suffix}.tar.gz
+Source:         https://github.com/airspy/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/airspy/airspyone_host/pull/98
+Patch:          airspyone_host-1.0.10-c23-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -78,6 +80,10 @@ mv %{buildroot}%{_sysconfdir}/udev/rules.d/52-airspy.rules %{buildroot}%{_udevru
 %{_libdir}/libairspy.so
 
 %changelog
+* Tue Jan  7 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.10-9
+- Fixed bool conflict in C23
+  Resolves: rhbz#2336033
+
 * Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.0.10-8
 - convert license to SPDX
 
